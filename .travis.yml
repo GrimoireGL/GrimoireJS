@@ -1,0 +1,14 @@
+before_install:
+ - npm install -g npm
+install:
+ - npm install grunt-cli -save-dev
+ - npm install grunt-contrib-qunit -save-dev
+ - npm install
+
+script:
+        - grunt travis -verbose
+
+language: node_js
+
+node_js:
+ - 0.12
