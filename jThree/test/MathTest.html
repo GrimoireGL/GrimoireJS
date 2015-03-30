@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <!--Test library references-->
+    <link href="../ref-test/qunit.css" rel="stylesheet" />
+    <script src="../ref-test/qunit.js"></script>
+    <script src="../ref-test/blanket.js"></script>
+    <script>
+        if (location.href.match(/(\?|&)gruntReport($|&|=)/)) {
+            blanket.options("reporter", "../ref-test/grunt-reporter.js");
+        }
+    </script>
+    <!--Test content references-->
+    <script src="../jThree.js" data-cover></script>
+    <script src="math/CollectionTest.js"></script>
+    <script src="math/MatrixTest.js"></script>
+    <script src="math/VectorTest.js"></script>
+</head>
+<body>
+
+</body>
+</html>
