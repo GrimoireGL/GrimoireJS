@@ -5,3 +5,4 @@
 ///<reference path="src/Vector.ts"/>
 ///<reference path="src/Exceptions.ts"/>
 ///<reference path="src/Matrix.ts"/>
+///<reference path="Scripts/typings/jquery/jquery.d.ts"/>

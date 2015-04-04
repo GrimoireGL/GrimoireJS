@@ -50,6 +50,22 @@ var jThree;
             return SingularMatrixException;
         })(jThreeException);
         Exceptions.SingularMatrixException = SingularMatrixException;
+        var AbstractClassMethodCalledException = (function (_super) {
+            __extends(AbstractClassMethodCalledException, _super);
+            function AbstractClassMethodCalledException() {
+                _super.call(this, "Invalid method was called.", "This method is abstract method, cant call by this instance");
+            }
+            return AbstractClassMethodCalledException;
+        })(jThreeException);
+        Exceptions.AbstractClassMethodCalledException = AbstractClassMethodCalledException;
+        var WebGLErrorException = (function (_super) {
+            __extends(WebGLErrorException, _super);
+            function WebGLErrorException(text) {
+                _super.call(this, "WebGL reported error.", text);
+            }
+            return WebGLErrorException;
+        })(jThreeException);
+        Exceptions.WebGLErrorException = WebGLErrorException;
     })(Exceptions = jThree.Exceptions || (jThree.Exceptions = {}));
 })(jThree || (jThree = {}));
 //# sourceMappingURL=Exceptions.js.map

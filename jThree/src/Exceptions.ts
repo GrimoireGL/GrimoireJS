@@ -36,4 +36,16 @@ module jThree.Exceptions {
             super("Passed matrix is singular matrix", "passed matrix:{0}".format(m.toString()));
         }
     }
+
+    export class AbstractClassMethodCalledException extends jThreeException {
+        constructor() {
+            super("Invalid method was called.","This method is abstract method, cant call by this instance");
+        }
+    }
+
+    export class WebGLErrorException extends jThreeException {
+        constructor(text:string) {
+            super("WebGL reported error.", text);
+        }
+    }
  }

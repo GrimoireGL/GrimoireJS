@@ -3,7 +3,8 @@
 module jThree.Collections {
     import Action1 = jThree.Delegates.Action1;
     import Action2 = jThree.Delegates.Action2;
-    import Action3 = jThree.Delegates.Action3; /**
+    import Action3 = jThree.Delegates.Action3;
+    import Func1= jThree.Delegates.Func1; /**
      * The interface to support simple iteration for generic types.
      */
     export interface IEnumrator<T> {
@@ -23,7 +24,7 @@ module jThree.Collections {
     export class ArrayEnumratorFactory<T> implements IEnumerable<T> {
         constructor(targetArray: T[]) { this.targetArray = targetArray; }
 
-        targetArray:T[];
+        protected targetArray:T[];
         getEnumrator(): IEnumrator<T> { return new ArrayEnumerable(this.targetArray); }
     }
 
@@ -73,6 +74,27 @@ module jThree.Collections {
                 act(en1.getCurrent(), en2.getCurrent(), index);
                 index++;
             }
+        }
+
+        public static CopyArray<T>(source: T[]): T[] {
+            var dest: T[] = new Array(source.length);
+            for (var i = 0; i < source.length; i++) {
+                dest[i] = source[i];
+            }
+            return dest;
+        }
+        /**
+         * 関数による評価値が等しいものを除外します
+         */
+        public static DistinctArray<T,H>(source: T[], ident: Func1<T,H>):T[] {
+            var hashSet: Set<H> = new Set();
+            var resultArray: T[] = [];
+            source.forEach((v, n, a) => {
+                if (!hashSet.has(ident(v))) {
+                    resultArray.push(v);
+                }
+            });
+            return resultArray;
         }
     } 
 } 
