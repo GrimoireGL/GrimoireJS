@@ -184,6 +184,9 @@ var jThree;
                 enumerable: true,
                 configurable: true
             });
+            Buffer.prototype.getForRenderer = function (renderer) {
+                return this.bufWrappers.get(renderer.ID);
+            };
             return Buffer;
         })(BufferProxy);
         Buffers.Buffer = Buffer;

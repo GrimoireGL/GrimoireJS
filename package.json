@@ -38,6 +38,7 @@
     "grunt-contrib-watch": "~0.4.0",
     "grunt-typescript": "^0.6.1",
     "qunitjs": "^1.17.1",
+    "tsdoc": "0.0.4",
     "typescript": "^1.4.1"
   },
   "keywords": []

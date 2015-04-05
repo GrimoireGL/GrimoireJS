@@ -104,6 +104,10 @@
         {
             throw new Exceptions.AbstractClassMethodCalledException();
         }
+
+        DeleteProgram(target: WebGLProgram): void {
+            throw new Exceptions.AbstractClassMethodCalledException();
+        }
     }
 
     export class WebGLWrapper extends GLContextWrapperBase
@@ -245,6 +249,11 @@
             this
                 .CheckErrorAsFatal();
             this.gl.finish();
+        }
+
+        DeleteProgram(target: WebGLProgram): void {
+            this.CheckErrorAsFatal();
+            this.gl.deleteProgram(target);
         }
     }
 

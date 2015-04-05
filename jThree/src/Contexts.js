@@ -78,6 +78,9 @@ var jThree;
         GLContextWrapperBase.prototype.DeleteBuffer = function (target) {
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };
+        GLContextWrapperBase.prototype.DeleteProgram = function (target) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
         return GLContextWrapperBase;
     })(JThreeObject);
     jThree.GLContextWrapperBase = GLContextWrapperBase;
@@ -189,6 +192,10 @@ var jThree;
         WebGLWrapper.prototype.Finish = function () {
             this.CheckErrorAsFatal();
             this.gl.finish();
+        };
+        WebGLWrapper.prototype.DeleteProgram = function (target) {
+            this.CheckErrorAsFatal();
+            this.gl.deleteProgram(target);
         };
         return WebGLWrapper;
     })(GLContextWrapperBase);

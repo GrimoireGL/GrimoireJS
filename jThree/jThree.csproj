@@ -92,6 +92,7 @@
     <TypeScriptCompile Include="src\Collections.ts" />
     <TypeScriptCompile Include="src\Contexts.ts" />
     <TypeScriptCompile Include="src\Delegates.ts" />
+    <TypeScriptCompile Include="src\Effects.ts" />
     <TypeScriptCompile Include="src\Exceptions.ts" />
     <TypeScriptCompile Include="src\jThree.ts" />
     <TypeScriptCompile Include="src\Math.ts" />

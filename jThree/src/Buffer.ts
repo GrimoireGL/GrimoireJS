@@ -195,5 +195,9 @@
         get BufferWrappers(): Map<string, BufferWrapper> {
             return this.bufWrappers;
         }
+
+        getForRenderer(renderer: RendererBase): BufferWrapper {
+            return this.bufWrappers.get(renderer.ID);
+        }
     }
 } 

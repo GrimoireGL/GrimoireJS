@@ -37,6 +37,9 @@ var jThree;
             jThreeObject.prototype.toString = function () {
                 return JsHack.getObjectName(this);
             };
+            jThreeObject.prototype.getTypeName = function () {
+                return JsHack.getObjectName(this);
+            };
             return jThreeObject;
         })();
         Base.jThreeObject = jThreeObject;

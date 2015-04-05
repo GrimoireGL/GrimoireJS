@@ -43,6 +43,10 @@ module jThree.Base {
         toString(): string {
             return JsHack.getObjectName(this);
         }
+
+        getTypeName(): string {
+            return JsHack.getObjectName(this);
+        }
     }
 
     export class jThreeID

@@ -9,11 +9,16 @@ var jThree;
 (function (jThree) {
     var jThreeObject = jThree.Base.jThreeObject;
     var Buffer = jThree.Buffers.Buffer;
+    var Shader = jThree.Effects.Shader;
+    /**
+     * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
+     */
     var ResourceManager = (function (_super) {
         __extends(ResourceManager, _super);
         function ResourceManager(jThreeContext) {
             _super.call(this);
             this.buffers = new Map();
+            this.shaders = new Map();
             this.context = jThreeContext;
         }
         ResourceManager.prototype.createBuffer = function (id, target, usage) {
@@ -21,7 +26,13 @@ var jThree;
                 throw new Error("Buffer id cant be dupelicated");
             }
             var buf = Buffer.CreateBuffer(this.context.CanvasRenderers, target, usage);
+            this.buffers.set(id, buf);
             return buf;
+        };
+        ResourceManager.prototype.createShader = function (id, source, shaderType) {
+            var shader = Shader.CreateShader(this.context.CanvasRenderers, source, shaderType);
+            this.shaders.set(id, shader);
+            return shader;
         };
         return ResourceManager;
     })(jThreeObject);
@@ -52,6 +63,9 @@ var jThree;
             configurable: true
         });
         Object.defineProperty(JThreeContext.prototype, "ResourceManager", {
+            /**
+             * The class managing resources over multiple canvas(Buffer,Shader,Program,Texture)
+             */
             get: function () {
                 return this.resourceManager;
             },
@@ -66,6 +80,28 @@ var jThree;
         return JThreeContext;
     })(jThreeObject);
     jThree.JThreeContext = JThreeContext;
+    var RendererBase = (function (_super) {
+        __extends(RendererBase, _super);
+        function RendererBase() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(RendererBase.prototype, "Context", {
+            get: function () {
+                return this.context;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(RendererBase.prototype, "ID", {
+            get: function () {
+                return this.id;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return RendererBase;
+    })(jThreeObject);
+    jThree.RendererBase = RendererBase;
     var CanvasRenderer = (function (_super) {
         __extends(CanvasRenderer, _super);
         function CanvasRenderer(glContext) {
@@ -85,22 +121,8 @@ var jThree;
                 }
             }
         };
-        Object.defineProperty(CanvasRenderer.prototype, "Context", {
-            get: function () {
-                return this.context;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(CanvasRenderer.prototype, "ID", {
-            get: function () {
-                return this.id;
-            },
-            enumerable: true,
-            configurable: true
-        });
         return CanvasRenderer;
-    })(jThreeObject);
+    })(RendererBase);
     jThree.CanvasRenderer = CanvasRenderer;
     var Material = (function (_super) {
         __extends(Material, _super);
@@ -121,28 +143,39 @@ var jThree;
 })(jThree || (jThree = {}));
 var buf;
 var renderer;
+var renderer2;
 var attribNumber;
+var attribNumber2;
 var time = 0;
 $(function () {
     var jThreeContext = jThree.JThreeContext.Instance;
     renderer = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas"));
+    renderer2 = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas2"));
     jThreeContext.addRenderer(renderer);
+    jThreeContext.addRenderer(renderer2);
     var vs = document.getElementById("vs");
-    var vsShader = renderer.Context.CreateShader(jThree.ShaderType.VertexShader);
-    renderer.Context.ShaderSource(vsShader, vs.textContent);
-    renderer.Context.CompileShader(vsShader);
+    var vsShader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, jThree.ShaderType.VertexShader);
     var fs = document.getElementById("fs");
-    var fsShader = renderer.Context.CreateShader(jThree.ShaderType.FragmentShader);
-    renderer.Context.ShaderSource(fsShader, fs.textContent);
-    renderer.Context.CompileShader(fsShader);
+    var fsShader = jThreeContext.ResourceManager.createShader("test-fs", fs.textContent, jThree.ShaderType.FragmentShader);
+    vsShader.loadAll();
+    fsShader.loadAll();
+    console.log(vsShader.getTypeName());
     var prog = renderer.Context.CreateProgram();
-    renderer.Context.AttachShader(prog, vsShader);
-    renderer.Context.AttachShader(prog, fsShader);
+    console.log(vsShader);
+    renderer.Context.AttachShader(prog, vsShader.getForRenderer(renderer).TargetShader);
+    renderer.Context.AttachShader(prog, fsShader.getForRenderer(renderer).TargetShader);
     renderer.Context.LinkProgram(prog);
     renderer.Context.UseProgram(prog);
-    buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw);
     attribNumber = renderer.Context.GetAttribLocation(prog, "position");
-    renderer.Context.ClearColor(0, 0, 0, 1);
+    prog = renderer2.Context.CreateProgram();
+    renderer2.Context.AttachShader(prog, vsShader.getForRenderer(renderer2).TargetShader);
+    renderer2.Context.AttachShader(prog, fsShader.getForRenderer(renderer2).TargetShader);
+    renderer2.Context.LinkProgram(prog);
+    renderer2.Context.UseProgram(prog);
+    buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw);
+    attribNumber2 = renderer2.Context.GetAttribLocation(prog, "position");
+    renderer.Context.ClearColor(0, 0, 1, 1);
+    renderer2.Context.ClearColor(1, 0, 0, 1);
     Render();
 });
 function Render() {
@@ -158,14 +191,22 @@ function Render() {
         0.0,
         0.0
     ]), 9);
+    var wrappedBuffer = buf.getForRenderer(renderer);
     renderer.Context.Clear(jThree.ClearTargetType.ColorBits);
-    var wrappedBuffer = buf.BufferWrappers.get(renderer.ID);
     wrappedBuffer.bindBuffer();
     renderer.Context.EnableVertexAttribArray(attribNumber);
     renderer.Context.VertexAttribPointer(attribNumber, 3, jThree.ElementType.Float, false, 0, 0);
     renderer.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
     renderer.Context.Flush();
     renderer.Context.Finish();
+    wrappedBuffer = buf.getForRenderer(renderer2);
+    renderer2.Context.Clear(jThree.ClearTargetType.ColorBits);
+    wrappedBuffer.bindBuffer();
+    renderer2.Context.EnableVertexAttribArray(attribNumber2);
+    renderer2.Context.VertexAttribPointer(attribNumber2, 3, jThree.ElementType.Float, false, 0, 0);
+    renderer2.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
+    renderer2.Context.Flush();
+    renderer2.Context.Finish();
     window.setTimeout(Render, 1000 / 30);
 }
 //# sourceMappingURL=jThree.js.map
