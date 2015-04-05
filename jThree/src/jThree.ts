@@ -5,10 +5,32 @@ module jThree {
     import VectorBase = jThree.Mathematics.Vector.VectorBase;
     import Enumerable = jThree.Collections.IEnumerable;
     import Action1 = jThree.Delegates.Action1;
+    import Buffer=jThree.Buffers.Buffer;
+    import BufferWrapper = jThree.Buffers.BufferWrapper;
 
     export interface IVectorFactory<T extends VectorBase> {
         fromEnumerable(en: Enumerable<number>): T;
         fromArray(arr: number[]): T;
+    }
+
+    export class ResourceManager extends jThreeObject
+    {
+        private context:JThreeContext;
+
+        constructor(jThreeContext: JThreeContext) {
+            super();
+            this.context = jThreeContext;
+        }
+
+        private buffers: Map<string, Buffer> = new Map<string, Buffer>();
+
+        createBuffer(id:string,target:BufferTargetType,usage:BufferUsageType): Buffer {
+            if (this.buffers.has(id)) {
+                throw new Error("Buffer id cant be dupelicated");
+            }
+            var buf: Buffer = Buffer.CreateBuffer(this.context.CanvasRenderers,target,usage);
+            return buf;
+        }
     }
 
 
@@ -22,15 +44,28 @@ module jThree {
 
         constructor() {
             super();
+            this.resourceManager = new ResourceManager(this);
         }
 
-        private canvasRenderers: CanvasRenderer[]=[];
+        private canvasRenderers: CanvasRenderer[] = [];
+
+        private resourceManager:ResourceManager;
 
         /**
          * Getter of canvas renderer.
          */
         get CanvasRenderers(): CanvasRenderer[] {
             return this.canvasRenderers;
+        }
+
+        get ResourceManager(): ResourceManager {
+            return this.resourceManager;
+        }
+
+        addRenderer(renderer: CanvasRenderer):void {
+            if (this.canvasRenderers.indexOf(renderer) == -1) {
+                this.canvasRenderers.push(renderer);
+            }
         }
     }
 
@@ -45,13 +80,28 @@ module jThree {
                     //Processing for this error
                 }
             }
+
         }
 
         private glContext: WebGLRenderingContext;
 
+        private context: GLContextWrapperBase;
+
+        private id:string;
+
+        get Context(): GLContextWrapperBase {
+            return this.context;
+        }
+
+        get ID(): string {
+            return this.id;
+        }
+
         constructor(glContext?: WebGLRenderingContext) {
             super();
+            this.id = jThree.Base.jThreeID.getUniqueRandom(10);
             this.glContext = glContext;
+            this.context = new WebGLWrapper(this.glContext);
         }
     }
 
@@ -63,7 +113,7 @@ module jThree {
 
     }
 
-    //export class Buffer extends jThreeObject {
+    //export class Buffers extends jThreeObject {
     //    get BufferIndex(): number {
     //        throw new jThree.Exceptions.jThreeException("Not implemented", "Not implemented");
     //    }
@@ -73,217 +123,49 @@ module jThree {
     //    }
     //}
 
-    export class GLContextWrapperBase extends jThreeObject {
-        CheckErrorAsFatal(): void {
-            throw new Exceptions.AbstractClassMethodCalledException();
-        }
-
-        CreateBuffer(): WebGLBuffer {
-            throw new Exceptions.AbstractClassMethodCalledException();
-        }
-
-        BindBuffer(target:BufferTargetType, buffer: WebGLBuffer): void {
-            throw new Exceptions.AbstractClassMethodCalledException();
-        }
-
-        BufferData(target: BufferTargetType, array: ArrayBuffer, usage: number): void {
-            throw new Exceptions.AbstractClassMethodCalledException();
-        }
-
-        UnbindBuffer(target: BufferTargetType): void {
-            throw new Exceptions.AbstractClassMethodCalledException();
-        }
-
-    }
-
-    export class WebGLWrapper extends GLContextWrapperBase {
-        private gl: WebGLRenderingContext;
-
-
-        constructor(gl: WebGLRenderingContext) {
-            super();
-            this.gl = gl;
-        }
-
-        CheckErrorAsFatal(): void {
-            var ec = this.gl.getError();
-            if (ec!==WebGLRenderingContext.NO_ERROR) {
-                alert("WebGL error was occured:{0}".format(ec));
-            }
-        }
-
-        CreateBuffer(): WebGLBuffer {
-            this.CheckErrorAsFatal();
-            return this.gl.createBuffer();
-        }
-
-        BindBuffer(target:BufferTargetType,buffer:WebGLBuffer): void {
-            this.CheckErrorAsFatal();
-            this.gl.bindBuffer(target, buffer);
-        }
-
-        UnbindBuffer(target: BufferTargetType): void {
-            this.CheckErrorAsFatal();
-            this.gl.bindBuffer(target, null);
-        }
-
-        BufferData(target:BufferTargetType,array:ArrayBuffer,usage:number): void {
-            this.CheckErrorAsFatal();
-            this.gl.bufferData(target,array,usage);
-        }
-    }
-
-    export class BufferProxy extends Collections.ArrayEnumratorFactory<BufferProxy> {
-        constructor(parentBuffer:Buffer,targetProxies: BufferProxy[]) {
-            super(targetProxies);
-            //Remove dupelicated proxy
-            targetProxies = this.targetArray = Collections.Collection.DistinctArray(targetProxies, (t) => this.proxyHash);
-            this.managedProxies = targetProxies;
-            //TODO generate ideal hash
-            targetProxies.forEach((v, n, a) => {
-                this.proxyHash += v.proxyHash;
-            });
-            this.parentBuffer = parentBuffer;
-        }
-
-        protected parentBuffer:Buffer;
-
-        private managedProxies: BufferProxy[];
-
-        private proxyHash: number=0;
-
-        get ManagedProxies():BufferProxy[] {
-            return Collections.Collection.CopyArray(this.managedProxies);
-        }
-
-        update(array: Float32Array, length: number): void {
-            this.each((a) => a.update(array,length));
-        }
-
-        loadAll(): void {
-            this.each((a)=>a.loadAll());
-        }
-
-        get isAllInitialized(): boolean {
-            var isIniatilized = true;
-            this.each((a) => {
-                if (!a.isAllInitialized)isIniatilized = false;
-            });
-            return isIniatilized;
-        }
-
-        private each(act: Action1<BufferProxy>) {
-            Collections.Collection.foreach(this,(a, i) => { act(a); });
-        }
-
-
-        addProxy(proxy:BufferProxy): BufferProxy {
-            var proxies: BufferProxy[] = this.ManagedProxies;
-            var hasTarget: boolean = false;
-            proxies.forEach((v, n, a) => {
-                if (v.proxyHash == proxy.proxyHash)hasTarget = true;
-            });
-            if (!hasTarget) proxies.push(proxy);
-            return new BufferProxy(this.parentBuffer,proxies);
-        }
-
-        deleteProxy(proxy: BufferProxy): BufferProxy {
-            var proxies: BufferProxy[] = this.ManagedProxies;
-            var resultProxies: BufferProxy[] = [];
-            proxies.forEach((v, i, a) => {
-                if (proxy.proxyHash != v.proxyHash) {
-                    resultProxies.push(v);
-                }
-            });
-            return new BufferProxy(this.parentBuffer,resultProxies);
-        }
-
-        
-
-        getEnumrator(): jThree.Collections.IEnumrator<BufferProxy> {
-            return super.getEnumrator();
-        }
-    }
-
-    /**
-     * Most based wrapper of buffer.
-     */
-    export class BufferWrapper extends BufferProxy{
-        private glContext: GLContextWrapperBase;
-
-        private targetBuffer:WebGLBuffer=null;
-
-        constructor(parentBuffer:Buffer,glContext:GLContextWrapperBase) {
-            super(parentBuffer,[]);
-            this.glContext = glContext;
-            this.targetArray = [this];
-        }
-
-        private isInitialized: boolean = false;
-
-        /**
-         * Get the flag wheather this buffer is initialized or not.
-         */
-        get IsInitialized() {
-            return this.isInitialized;
-        }
-
-        get isAllInitialized(): boolean { return this.IsInitialized; }
-
-        update(array: Float32Array, length: number): void {
-            if (!this.isInitialized) {
-                this.loadAll();
-            }
-            this.bindBuffer();
-            this.glContext.BufferData(this.parentBuffer.Target, array.buffer, WebGLRenderingContext.STATIC_DRAW);
-            this.unbindBuffer();
-        }
-
-        loadAll(): void
-        {
-            if (this.targetBuffer == null) {
-                this.targetBuffer = this.glContext.CreateBuffer();
-                this.isInitialized = true;
-            }
-        }
-
-        bindBuffer(): void {
-            if (this.isInitialized) {
-                this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
-            } else {
-                //TODO 初期化されていなかった場合の対処
-            }
-        }
-
-        unbindBuffer(): void {
-            if (this.isInitialized) {
-                this.glContext.UnbindBuffer(this.parentBuffer.Target);
-            }
-        }
-
-        get ManagedProxies() { return [this]; }
-    }
-
-    export class Buffer extends BufferProxy {
-        constructor(targetProxies: BufferProxy[]) {
-            super(null, targetProxies);
-            this.parentBuffer = this;
-        }
-
-        private target:BufferTargetType;
-
-        get Target(): BufferTargetType{
-            return this.target;
-        }
-    }
-
-    export enum BufferTargetType {
-        ArrayBuffer=WebGLRenderingContext.ARRAY_BUFFER,
-        ElementArrayBuffer=WebGLRenderingContext.ELEMENT_ARRAY_BUFFER
-    }
-
 }
 
+var buf: jThree.Buffers.Buffer;
+var renderer: jThree.CanvasRenderer;
+var attribNumber: number;
+var time: number = 0;
 $(() => {
-    var renderer: jThree.CanvasRenderer = jThree.CanvasRenderer.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
+    var jThreeContext: jThree.JThreeContext = jThree.JThreeContext.Instance;
+    renderer = jThree.CanvasRenderer.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
+    jThreeContext.addRenderer(renderer);
+    var vs = document.getElementById("vs");
+    var vsShader: WebGLShader = renderer.Context.CreateShader(jThree.ShaderType.VertexShader);
+    renderer.Context.ShaderSource(vsShader, vs.textContent);
+    renderer.Context.CompileShader(vsShader);
+    var fs = document.getElementById("fs");
+    var fsShader: WebGLShader = renderer.Context.CreateShader(jThree.ShaderType.FragmentShader);
+    renderer.Context.ShaderSource(fsShader, fs.textContent);
+    renderer.Context.CompileShader(fsShader);
+    var prog: WebGLProgram = renderer.Context.CreateProgram();
+    renderer.Context.AttachShader(prog, vsShader);
+    renderer.Context.AttachShader(prog, fsShader);
+    renderer.Context.LinkProgram(prog);
+    renderer.Context.UseProgram(prog);
+    buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw);
+    attribNumber = renderer.Context.GetAttribLocation(prog, "position");
+    renderer.Context.ClearColor(0, 0, 0, 1);
+    Render();
 });
+
+function Render() {
+    time++;
+    buf.update(new Float32Array([
+        0.0, Math.sin(time/100), 0.0,
+        1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0
+    ]), 9);
+    renderer.Context.Clear(jThree.ClearTargetType.ColorBits);
+    var wrappedBuffer: jThree.Buffers.BufferWrapper = buf.BufferWrappers.get(renderer.ID);
+    wrappedBuffer.bindBuffer();
+    renderer.Context.EnableVertexAttribArray(attribNumber);
+    renderer.Context.VertexAttribPointer(attribNumber, 3, jThree.ElementType.Float, false, 0, 0);
+    renderer.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
+    renderer.Context.Flush();
+    renderer.Context.Finish();
+    window.setTimeout(Render, 1000 / 30);
+}

@@ -44,4 +44,17 @@ module jThree.Base {
             return JsHack.getObjectName(this);
         }
     }
+
+    export class jThreeID
+    {
+        private static randomChars:string="abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ1234567890-";
+
+        public static getUniqueRandom(length: number): string {
+            var random: string = "";
+            for (var i = 0; i < length; i++) {
+                random += jThreeID.randomChars.charAt(Math.random() * jThreeID.randomChars.length);
+            }
+            return random;
+        }
+    }
 }

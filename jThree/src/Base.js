@@ -40,5 +40,20 @@ var jThree;
             return jThreeObject;
         })();
         Base.jThreeObject = jThreeObject;
+        var jThreeID = (function () {
+            function jThreeID() {
+            }
+            jThreeID.getUniqueRandom = function (length) {
+                var random = "";
+                for (var i = 0; i < length; i++) {
+                    random += jThreeID.randomChars.charAt(Math.random() * jThreeID.randomChars.length);
+                }
+                return random;
+            };
+            jThreeID.randomChars = "abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ1234567890-";
+            return jThreeID;
+        })();
+        Base.jThreeID = jThreeID;
     })(Base = jThree.Base || (jThree.Base = {}));
 })(jThree || (jThree = {}));
+//# sourceMappingURL=Base.js.map
