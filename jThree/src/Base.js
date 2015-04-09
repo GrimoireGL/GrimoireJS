@@ -1,3 +1,9 @@
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 if (!String.prototype.format) {
     String.prototype.format = function () {
         var args = arguments;
@@ -15,9 +21,6 @@ var jThree;
 (function (jThree) {
     var Base;
     (function (Base) {
-        /**
-         *
-         */
         var JsHack = (function () {
             function JsHack() {
             }
@@ -57,6 +60,52 @@ var jThree;
             return jThreeID;
         })();
         Base.jThreeID = jThreeID;
+        var ContextSafeResourceContainer = (function (_super) {
+            __extends(ContextSafeResourceContainer, _super);
+            function ContextSafeResourceContainer(context) {
+                var _this = this;
+                _super.call(this);
+                this.context = null;
+                this.cachedObject = new Map();
+                this.context = context;
+                //Initialize resources for the renderers already subscribed.
+                this.context.CanvasRenderers.forEach(function (v) {
+                    _this.cachedObject.set(v.ID, _this.getInstanceForRenderer(v));
+                });
+                this.context.onRendererChanged(this.rendererChanged);
+            }
+            ContextSafeResourceContainer.prototype.getForRenderer = function (renderer) {
+                return this.getForRendererID(renderer.ID);
+            };
+            ContextSafeResourceContainer.prototype.getForRendererID = function (id) {
+                return this.cachedObject.get(id);
+            };
+            ContextSafeResourceContainer.prototype.each = function (act) {
+                this.cachedObject.forEach((function (v, i, a) {
+                    act(v);
+                }));
+            };
+            ContextSafeResourceContainer.prototype.rendererChanged = function (arg) {
+                switch (arg.ChangeType) {
+                    case jThree.Events.RendererStateChangedType.Add:
+                        this.cachedObject.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
+                        break;
+                    case jThree.Events.RendererStateChangedType.Delete:
+                        var delTarget = this.cachedObject.get(arg.AffectedRenderer.ID);
+                        this.cachedObject.delete(arg.AffectedRenderer.ID);
+                        this.disposeResource(delTarget);
+                        break;
+                }
+            };
+            ContextSafeResourceContainer.prototype.getInstanceForRenderer = function (renderer) {
+                throw new jThree.Exceptions.AbstractClassMethodCalledException();
+            };
+            ContextSafeResourceContainer.prototype.disposeResource = function (resource) {
+                throw new jThree.Exceptions.AbstractClassMethodCalledException();
+            };
+            return ContextSafeResourceContainer;
+        })(jThreeObject);
+        Base.ContextSafeResourceContainer = ContextSafeResourceContainer;
     })(Base = jThree.Base || (jThree.Base = {}));
 })(jThree || (jThree = {}));
 //# sourceMappingURL=Base.js.map

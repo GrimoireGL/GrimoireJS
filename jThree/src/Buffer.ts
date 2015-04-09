@@ -96,6 +96,8 @@
 
         private targetBuffer: WebGLBuffer = null;
 
+        private length:number=0;
+
         constructor(parentBuffer: Buffer, glContext: GLContextWrapperBase)
         {
             super(parentBuffer, []);
@@ -113,6 +115,14 @@
             return this.isInitialized;
         }
 
+        get Length(): number {
+            return this.length;
+        }
+
+        get UnitCount(): number {
+            return this.parentBuffer.UnitCount;
+        }
+
         get isAllInitialized(): boolean { return this.IsInitialized; }
 
         update(array: Float32Array, length: number): void
@@ -124,6 +134,7 @@
             this.bindBuffer();
             this.glContext.BufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
             this.unbindBuffer();
+            this.length = length;
         }
 
         loadAll(): void
@@ -159,10 +170,12 @@
 
     export class Buffer extends BufferProxy
     {
-        static CreateBuffer(glContexts:CanvasRenderer[],target:BufferTargetType,usage:BufferUsageType) {
+        static CreateBuffer(glContexts:CanvasRenderer[],target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
             var buf: Buffer = new Buffer();
             buf.target = target;
             buf.usage = usage;
+            buf.unitCount = unitCount;
+            buf.elementType = elementType;
             glContexts.forEach((v, i, a) => {
                 var wrap: BufferWrapper = new BufferWrapper(buf, v.Context);
                 buf.managedProxies.push(wrap);
@@ -188,6 +201,52 @@
 
         get Usage():BufferUsageType {
             return this.usage;
+        }
+
+        private elementType: ElementType;
+
+        get ElementType(): ElementType {
+            return this.elementType;
+        }
+
+        private normalized: boolean=false;
+
+        get Normalized():boolean {
+            return this.normalized;
+        }
+
+        set Normalized(normalized: boolean) {
+            this.normalized = normalized;
+        }
+
+        private stride: number=0;
+
+        private offset: number=0;
+
+
+        get Stride(): number {
+            return this.stride;
+        }
+
+        set Stride(stride: number) {
+            this.stride = stride;
+        }
+
+        get Offse(): number {
+            return this.offset;
+        }
+
+        set Offset(offset: number) {
+            this.offset = offset;
+        }
+
+        /**
+         * 1頂点あたりの要素数
+         */
+        private unitCount: number;
+
+        get UnitCount(): number {
+            return this.unitCount;
         }
 
         private bufWrappers: Map<string, BufferWrapper> = new Map<string, BufferWrapper>();

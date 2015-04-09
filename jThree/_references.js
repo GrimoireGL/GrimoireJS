@@ -8,5 +8,6 @@
 ///<reference path="Scripts/typings/jquery/jquery.d.ts"/>
 ///<reference path="src/Contexts.ts"/>
 ///<reference path="src/Buffer.ts"/>
-///<reference path="src/Effects.ts"/> 
+///<reference path="src/Effects.ts"/>
+///<reference path="src/Event.RendererState.ts"/> 
 //# sourceMappingURL=_references.js.map

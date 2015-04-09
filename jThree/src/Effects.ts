@@ -1,46 +1,62 @@
 ﻿module jThree.Effects
 {
-    /**
+    import Buffer = jThree.Buffers.Buffer;
+    import BufferWrapper = jThree.Buffers.BufferWrapper;
+    import ContextSafeContainer = jThree.Base.ContextSafeResourceContainer;
+     /**
      * コンテキストを跨いでシェーダーを管理しているクラス
      */
-    export class Shader extends jThree.Base.jThreeObject
+    export class Shader extends ContextSafeContainer<ShaderWrapper>
     {
-        public static CreateShader(renderers:RendererBase[],source:string,shaderType:ShaderType) :Shader {
-            var shader: Shader = new Shader();
+        /**
+         * シェーダークラスを作成する。
+         */
+        public static CreateShader(context:JThreeContext,source:string,shaderType:ShaderType) :Shader {
+            var shader: Shader = new Shader(context);
             shader.shaderSource = source;
             shader.shaderType = shaderType;
-            renderers.forEach((v, i, a) => {
-                shader.shaderWrappers.set(v.ID, new ShaderWrapper(shader,v));
-            });
             return shader;
+        }
+        /**
+         * コンストラクタ
+         * (Should not be called by new,You should use CreateShader static method instead.)
+         */
+        constructor(context:JThreeContext) {
+            super(context);
         }
 
         private shaderType: jThree.ShaderType;
-
+        /**
+         * Shader Type
+         * (VertexShader or FragmentShader)
+         */
         get ShaderType(): jThree.ShaderType {
             return this.shaderType;
         }
 
         private shaderSource: string;
-
+        /**
+         * Shader Source in text
+         */
         get ShaderSource(): string {
             return this.shaderSource;
         }
 
-        private shaderWrappers: Map<string, ShaderWrapper> = new Map<string, ShaderWrapper>();
-
+        /**
+         * Load all shaderWrappers
+         */
         loadAll() {
-            this.shaderWrappers.forEach((v, i, a) => {
+            this.each((v)=> {
                 v.init();
             });
         }
 
-        get ShaderWrappers():Map<string, ShaderWrapper> {
-            return this.shaderWrappers;
+        protected getInstanceForRenderer(renderer: RendererBase): ShaderWrapper {
+            return new ShaderWrapper(this, renderer);
         }
 
-        getForRenderer(renderer: CanvasRenderer): ShaderWrapper {
-            return this.shaderWrappers.get(renderer.ID);
+        protected disposeResource(resource: ShaderWrapper): void {
+            resource.dispose();
         }
     }
 
@@ -65,6 +81,7 @@
         private parentShader: Shader;
 
         get TargetShader(): WebGLShader {
+            if (!this.initialized) this.init();
             return this.targetShader;
         }
 
@@ -86,21 +103,39 @@
         }
     }
 
-    export class Program extends jThree.Base.jThreeObject {
-        constructor() {
-            super();
+    export class Program extends ContextSafeContainer<ProgramWrapper>{
+        constructor(context:JThreeContext) {
+            super(context);
         }
 
         private programWrappers: Map<string, ProgramWrapper> = new Map<string, ProgramWrapper>();
+
+        private attachedShaders: Shader[] = [];
+
+        get AttachedShaders():Shader[] {
+            return this.attachedShaders;
+        }
 
         getForRenderer(renderer:RendererBase): ProgramWrapper {
             return this.programWrappers.get(renderer.ID);
         }
 
         attachShader(shader: Shader) {
-            this.programWrappers.forEach((v, i, a) => {
-                v.attachShader(shader.ShaderWrappers.get(v.ID));
-            });
+            this.attachedShaders.push(shader);
+        }
+
+        static CreateProgram(context:JThreeContext,attachShaders:Shader[]): Program {
+            var program: Program = new Program(context);
+            program.attachedShaders = attachShaders;
+            return program;
+        }
+
+        protected disposeResource(resource: ProgramWrapper): void {
+            resource.dispose();
+        }
+
+        protected getInstanceForRenderer(renderer: RendererBase): ProgramWrapper {
+            return new ProgramWrapper(this, renderer);
         }
     }
 
@@ -117,15 +152,26 @@
 
         private initialized: boolean = false;
 
+        private isLinked:boolean=false;
+
         private targetProgram: WebGLProgram = null;
 
         private glContext: GLContextWrapperBase = null;
 
-        private parentProgram:Program=null;
+        private parentProgram: Program = null;
+
+        private attribLocations:Map<string,number>=new Map<string,number>();
+
+        get TargetProgram(): WebGLProgram {
+            return this.targetProgram;
+        }
 
         init(): void {
             if (!this.initialized) {
                 this.targetProgram = this.glContext.CreateProgram();
+                this.parentProgram.AttachedShaders.forEach((v, i, a) => {
+                    this.glContext.AttachShader(this.targetProgram, v.getForRendererID(this.id).TargetShader);
+                });
             }
         }
 
@@ -134,28 +180,35 @@
                 this.glContext.DeleteProgram(this.targetProgram);
                 this.initialized = false;
                 this.targetProgram = null;
+                this.isLinked = false;
             }
         }
 
-        attachShader(shaderWrapper: ShaderWrapper): void;
-        attachShader(shader: Shader): void;
-        attachShader(): void {
-            if (arguments.length !== 1) throw new Error("invalid call");
-            var casted: jThree.Base.jThreeObject = (<jThree.Base.jThreeObject>arguments[0]);
-            var targetShader: WebGLShader = null;
-            if (casted.getTypeName() === "Shader") {
-                var shader: Shader = <Shader>casted;
-                targetShader = shader.ShaderWrappers.get(this.ID).TargetShader;
-            } else if (casted.getTypeName() === "ShaderWrapper") {
-                var shaderWrapped: ShaderWrapper = <ShaderWrapper>casted;
-                targetShader = shaderWrapped.TargetShader;
+        linkProgram(): void {
+            if (!this.isLinked) {
+                this.glContext.LinkProgram(this.targetProgram);
             }
-            this.glContext.AttachShader(this.targetProgram, targetShader);
         }
-        //attachShader(shaderWrapper:ShaderWrapper): void {
-        //    if (!this.initialized) this.init();
-        //    this.glContext.AttachShader(this.targetProgram, shaderWrapper.TargetShader);
-        //}
+        
+        useProgram(): void {
+            if (!this.initialized) {
+                this.init();
+            }
+            if (!this.isLinked) {
+                this.linkProgram();
+            }
+            this.glContext.UseProgram(this.targetProgram);
+        }
+
+        setAttributeVerticies(valName: string, buffer: BufferWrapper): void {
+            buffer.bindBuffer();
+            if (!this.attribLocations.has(valName)) {
+                this.attribLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
+            }
+            var attribIndex: number = this.attribLocations.get(valName);
+            this.glContext.EnableVertexAttribArray(attribNumber);
+            this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buf.ElementType,buf.Normalized,buf.Stride,buf.Offset);
+        }
 
         get ID(): string {
             return this.id;

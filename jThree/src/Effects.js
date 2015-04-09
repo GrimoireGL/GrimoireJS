@@ -8,25 +8,33 @@ var jThree;
 (function (jThree) {
     var Effects;
     (function (Effects) {
+        var ContextSafeContainer = jThree.Base.ContextSafeResourceContainer;
         /**
-         * コンテキストを跨いでシェーダーを管理しているクラス
-         */
+        * コンテキストを跨いでシェーダーを管理しているクラス
+        */
         var Shader = (function (_super) {
             __extends(Shader, _super);
-            function Shader() {
-                _super.apply(this, arguments);
-                this.shaderWrappers = new Map();
+            /**
+             * コンストラクタ
+             * (Should not be called by new,You should use CreateShader static method instead.)
+             */
+            function Shader(context) {
+                _super.call(this, context);
             }
-            Shader.CreateShader = function (renderers, source, shaderType) {
-                var shader = new Shader();
+            /**
+             * シェーダークラスを作成する。
+             */
+            Shader.CreateShader = function (context, source, shaderType) {
+                var shader = new Shader(context);
                 shader.shaderSource = source;
                 shader.shaderType = shaderType;
-                renderers.forEach(function (v, i, a) {
-                    shader.shaderWrappers.set(v.ID, new ShaderWrapper(shader, v));
-                });
                 return shader;
             };
             Object.defineProperty(Shader.prototype, "ShaderType", {
+                /**
+                 * Shader Type
+                 * (VertexShader or FragmentShader)
+                 */
                 get: function () {
                     return this.shaderType;
                 },
@@ -34,29 +42,31 @@ var jThree;
                 configurable: true
             });
             Object.defineProperty(Shader.prototype, "ShaderSource", {
+                /**
+                 * Shader Source in text
+                 */
                 get: function () {
                     return this.shaderSource;
                 },
                 enumerable: true,
                 configurable: true
             });
+            /**
+             * Load all shaderWrappers
+             */
             Shader.prototype.loadAll = function () {
-                this.shaderWrappers.forEach(function (v, i, a) {
+                this.each(function (v) {
                     v.init();
                 });
             };
-            Object.defineProperty(Shader.prototype, "ShaderWrappers", {
-                get: function () {
-                    return this.shaderWrappers;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Shader.prototype.getForRenderer = function (renderer) {
-                return this.shaderWrappers.get(renderer.ID);
+            Shader.prototype.getInstanceForRenderer = function (renderer) {
+                return new ShaderWrapper(this, renderer);
+            };
+            Shader.prototype.disposeResource = function (resource) {
+                resource.dispose();
             };
             return Shader;
-        })(jThree.Base.jThreeObject);
+        })(ContextSafeContainer);
         Effects.Shader = Shader;
         var ShaderWrapper = (function (_super) {
             __extends(ShaderWrapper, _super);
@@ -72,6 +82,8 @@ var jThree;
             }
             Object.defineProperty(ShaderWrapper.prototype, "TargetShader", {
                 get: function () {
+                    if (!this.initialized)
+                        this.init();
                     return this.targetShader;
                 },
                 enumerable: true,
@@ -96,20 +108,37 @@ var jThree;
         Effects.ShaderWrapper = ShaderWrapper;
         var Program = (function (_super) {
             __extends(Program, _super);
-            function Program() {
-                _super.call(this);
+            function Program(context) {
+                _super.call(this, context);
                 this.programWrappers = new Map();
+                this.attachedShaders = [];
             }
+            Object.defineProperty(Program.prototype, "AttachedShaders", {
+                get: function () {
+                    return this.attachedShaders;
+                },
+                enumerable: true,
+                configurable: true
+            });
             Program.prototype.getForRenderer = function (renderer) {
                 return this.programWrappers.get(renderer.ID);
             };
             Program.prototype.attachShader = function (shader) {
-                this.programWrappers.forEach(function (v, i, a) {
-                    v.attachShader(shader.ShaderWrappers.get(v.ID));
-                });
+                this.attachedShaders.push(shader);
+            };
+            Program.CreateProgram = function (context, attachShaders) {
+                var program = new Program(context);
+                program.attachedShaders = attachShaders;
+                return program;
+            };
+            Program.prototype.disposeResource = function (resource) {
+                resource.dispose();
+            };
+            Program.prototype.getInstanceForRenderer = function (renderer) {
+                return new ProgramWrapper(this, renderer);
             };
             return Program;
-        })(jThree.Base.jThreeObject);
+        })(ContextSafeContainer);
         Effects.Program = Program;
         var ProgramWrapper = (function (_super) {
             __extends(ProgramWrapper, _super);
@@ -117,16 +146,29 @@ var jThree;
                 _super.call(this);
                 this.id = "";
                 this.initialized = false;
+                this.isLinked = false;
                 this.targetProgram = null;
                 this.glContext = null;
                 this.parentProgram = null;
+                this.attribLocations = new Map();
                 this.id = renderer.ID;
                 this.glContext = renderer.Context;
                 this.parentProgram = parent;
             }
+            Object.defineProperty(ProgramWrapper.prototype, "TargetProgram", {
+                get: function () {
+                    return this.targetProgram;
+                },
+                enumerable: true,
+                configurable: true
+            });
             ProgramWrapper.prototype.init = function () {
+                var _this = this;
                 if (!this.initialized) {
                     this.targetProgram = this.glContext.CreateProgram();
+                    this.parentProgram.AttachedShaders.forEach(function (v, i, a) {
+                        _this.glContext.AttachShader(_this.targetProgram, v.getForRendererID(_this.id).TargetShader);
+                    });
                 }
             };
             ProgramWrapper.prototype.dispose = function () {
@@ -134,28 +176,33 @@ var jThree;
                     this.glContext.DeleteProgram(this.targetProgram);
                     this.initialized = false;
                     this.targetProgram = null;
+                    this.isLinked = false;
                 }
             };
-            ProgramWrapper.prototype.attachShader = function () {
-                if (arguments.length !== 1)
-                    throw new Error("invalid call");
-                var casted = arguments[0];
-                var targetShader = null;
-                if (casted.getTypeName() === "Shader") {
-                    var shader = casted;
-                    targetShader = shader.ShaderWrappers.get(this.ID).TargetShader;
+            ProgramWrapper.prototype.linkProgram = function () {
+                if (!this.isLinked) {
+                    this.glContext.LinkProgram(this.targetProgram);
                 }
-                else if (casted.getTypeName() === "ShaderWrapper") {
-                    var shaderWrapped = casted;
-                    targetShader = shaderWrapped.TargetShader;
+            };
+            ProgramWrapper.prototype.useProgram = function () {
+                if (!this.initialized) {
+                    this.init();
                 }
-                this.glContext.AttachShader(this.targetProgram, targetShader);
+                if (!this.isLinked) {
+                    this.linkProgram();
+                }
+                this.glContext.UseProgram(this.targetProgram);
+            };
+            ProgramWrapper.prototype.setAttributeVerticies = function (valName, buffer) {
+                buffer.bindBuffer();
+                if (!this.attribLocations.has(valName)) {
+                    this.attribLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
+                }
+                var attribIndex = this.attribLocations.get(valName);
+                this.glContext.EnableVertexAttribArray(attribNumber);
+                this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buf.ElementType, buf.Normalized, buf.Stride, buf.Offset);
             };
             Object.defineProperty(ProgramWrapper.prototype, "ID", {
-                //attachShader(shaderWrapper:ShaderWrapper): void {
-                //    if (!this.initialized) this.init();
-                //    this.glContext.AttachShader(this.targetProgram, shaderWrapper.TargetShader);
-                //}
                 get: function () {
                     return this.id;
                 },

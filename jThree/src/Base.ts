@@ -17,7 +17,7 @@ if (!String.prototype.format) {
 
 
 module jThree.Base {
-    /**
+    import Action1 = jThree.Delegates.Action1; /**
      * 
      */
     class JsHack {
@@ -59,6 +59,58 @@ module jThree.Base {
                 random += jThreeID.randomChars.charAt(Math.random() * jThreeID.randomChars.length);
             }
             return random;
+        }
+    }
+
+    export class ContextSafeResourceContainer<T> extends jThreeObject
+    {
+        private context: JThreeContext = null;
+
+        constructor(context:JThreeContext) {
+            super();
+            this.context = context;
+            //Initialize resources for the renderers already subscribed.
+            this.context.CanvasRenderers.forEach((v) => {
+                this.cachedObject.set(v.ID, this.getInstanceForRenderer(v));
+            });
+            this.context.onRendererChanged(this.rendererChanged);
+        }
+
+        private cachedObject: Map<string, T> = new Map<string, T>();
+
+        public getForRenderer(renderer: RendererBase): T {
+            return this.getForRendererID(renderer.ID);
+        }
+
+        public getForRendererID(id: string): T {
+            return this.cachedObject.get(id);
+        }
+
+        protected each(act: Action1<T>): void {
+            this.cachedObject.forEach(((v, i, a) => {
+                act(v);
+            }));
+        }
+
+        private rendererChanged(arg:Events.RendererListChangedEventArgs): void {
+            switch (arg.ChangeType) {
+                case Events.RendererStateChangedType.Add:
+                    this.cachedObject.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
+                    break;
+                case Events.RendererStateChangedType.Delete:
+                    var delTarget: T = this.cachedObject.get(arg.AffectedRenderer.ID);
+                    this.cachedObject.delete(arg.AffectedRenderer.ID);
+                    this.disposeResource(delTarget);
+                    break;
+            }
+        }
+
+        protected getInstanceForRenderer(renderer:RendererBase): T {
+            throw new Exceptions.AbstractClassMethodCalledException();
+        }
+
+        protected disposeResource(resource: T): void {
+            throw new Exceptions.AbstractClassMethodCalledException();
         }
     }
 }

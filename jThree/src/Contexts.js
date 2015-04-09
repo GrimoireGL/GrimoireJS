@@ -224,6 +224,11 @@ var jThree;
     var BufferUsageType = jThree.BufferUsageType;
     (function (ElementType) {
         ElementType[ElementType["Float"] = WebGLRenderingContext.FLOAT] = "Float";
+        ElementType[ElementType["UnsignedByte"] = WebGLRenderingContext.UNSIGNED_BYTE] = "UnsignedByte";
+        ElementType[ElementType["Short"] = WebGLRenderingContext.SHORT] = "Short";
+        ElementType[ElementType["UnsignedShort"] = WebGLRenderingContext.UNSIGNED_SHORT] = "UnsignedShort";
+        ElementType[ElementType["UnsignedInt"] = WebGLRenderingContext.UNSIGNED_INT] = "UnsignedInt";
+        ElementType[ElementType["Int"] = WebGLRenderingContext.INT] = "Int";
     })(jThree.ElementType || (jThree.ElementType = {}));
     var ElementType = jThree.ElementType;
     (function (DrawType) {

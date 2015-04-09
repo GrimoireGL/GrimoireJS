@@ -25,13 +25,13 @@
 		"hardwrap" : true
 	},
 	"tsdoc":{
-		"source"		:"/jThree/jThree/src/",
+		"source"		:"/jThree/jThree/jThree/src/",
 		"destination"	:"/jThree/jThree/docs",
 		"tutorials"		:"",
 		"systemName"	: "jThree",
 		"footer"		: "",
 		"copyright"		: "jThree Copyright © 2015 LimeStreem.",
-		"outputSourceFiles" : true,
+		"outputSourceFiles" : false,
 		"commentsOnly": true
 	}
 }

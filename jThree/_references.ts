@@ -9,3 +9,4 @@
 ///<reference path="src/Contexts.ts"/>
 ///<reference path="src/Buffer.ts"/>
 ///<reference path="src/Effects.ts"/>
+///<reference path="src/Event.RendererState.ts"/>

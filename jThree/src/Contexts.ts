@@ -256,7 +256,7 @@
             this.gl.deleteProgram(target);
         }
     }
-
+    
 
     export enum BufferTargetType
     {
@@ -282,7 +282,12 @@
     }
 
     export enum ElementType {
-        Float=WebGLRenderingContext.FLOAT
+        Float = WebGLRenderingContext.FLOAT,
+        UnsignedByte = WebGLRenderingContext.UNSIGNED_BYTE,
+        Short = WebGLRenderingContext.SHORT,
+        UnsignedShort = WebGLRenderingContext.UNSIGNED_SHORT,
+        UnsignedInt = WebGLRenderingContext.UNSIGNED_INT,
+        Int=WebGLRenderingContext.INT
     }
 
     export enum DrawType {

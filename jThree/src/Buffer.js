@@ -88,6 +88,7 @@ var jThree;
             function BufferWrapper(parentBuffer, glContext) {
                 _super.call(this, parentBuffer, []);
                 this.targetBuffer = null;
+                this.length = 0;
                 this.isInitialized = false;
                 this.glContext = glContext;
                 this.targetArray = [this];
@@ -98,6 +99,20 @@ var jThree;
                  */
                 get: function () {
                     return this.isInitialized;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BufferWrapper.prototype, "Length", {
+                get: function () {
+                    return this.length;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BufferWrapper.prototype, "UnitCount", {
+                get: function () {
+                    return this.parentBuffer.UnitCount;
                 },
                 enumerable: true,
                 configurable: true
@@ -116,6 +131,7 @@ var jThree;
                 this.bindBuffer();
                 this.glContext.BufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
                 this.unbindBuffer();
+                this.length = length;
             };
             BufferWrapper.prototype.loadAll = function () {
                 if (this.targetBuffer == null) {
@@ -149,13 +165,18 @@ var jThree;
             __extends(Buffer, _super);
             function Buffer() {
                 _super.call(this, null, []);
+                this.normalized = false;
+                this.stride = 0;
+                this.offset = 0;
                 this.bufWrappers = new Map();
                 this.parentBuffer = this;
             }
-            Buffer.CreateBuffer = function (glContexts, target, usage) {
+            Buffer.CreateBuffer = function (glContexts, target, usage, unitCount, elementType) {
                 var buf = new Buffer();
                 buf.target = target;
                 buf.usage = usage;
+                buf.unitCount = unitCount;
+                buf.elementType = elementType;
                 glContexts.forEach(function (v, i, a) {
                     var wrap = new BufferWrapper(buf, v.Context);
                     buf.managedProxies.push(wrap);
@@ -173,6 +194,54 @@ var jThree;
             Object.defineProperty(Buffer.prototype, "Usage", {
                 get: function () {
                     return this.usage;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Buffer.prototype, "ElementType", {
+                get: function () {
+                    return this.elementType;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Buffer.prototype, "Normalized", {
+                get: function () {
+                    return this.normalized;
+                },
+                set: function (normalized) {
+                    this.normalized = normalized;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Buffer.prototype, "Stride", {
+                get: function () {
+                    return this.stride;
+                },
+                set: function (stride) {
+                    this.stride = stride;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Buffer.prototype, "Offse", {
+                get: function () {
+                    return this.offset;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Buffer.prototype, "Offset", {
+                set: function (offset) {
+                    this.offset = offset;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Buffer.prototype, "UnitCount", {
+                get: function () {
+                    return this.unitCount;
                 },
                 enumerable: true,
                 configurable: true
