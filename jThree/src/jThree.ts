@@ -84,9 +84,7 @@ module jThree {
             this.programs.set(id, program);
             return program;
         }
-    }
-
-    /**
+    } /**
      * jThree context managing all over the pages canvas
      */
     export class JThreeContext extends jThreeObject {
@@ -110,7 +108,14 @@ module jThree {
         }
 
         init() {
-            
+            this.loop();
+        }
+
+        loop(): void {
+            this.canvasRenderers.forEach((v) => {
+                v.render();
+            });
+            window.setTimeout(this.loop, 1000 / 30);
         }
 
         /**
@@ -189,8 +194,6 @@ module jThree {
         }
 
         public enabled: boolean;
-
-
     }
 
     export class CanvasRenderer extends RendererBase {
@@ -216,7 +219,7 @@ module jThree {
         }
 
         render(): void {
-            if (!this.enabled) return;
+            if (!this.enabled) return;//enabledじゃないなら描画をスキップ
             this.draw();
             this.context.Finish();
         }
@@ -226,8 +229,48 @@ module jThree {
         }
     }
 
-    export class Scene extends jThreeObject {
+    export class SceneManager extends jThreeObject {
+        constructor() {
+            super();
+        }
+
+        private scenes: Map<string, Scene> = new Map<string, Scene>();
         
+        addScene(scene: Scene): void {
+            if (!this.scenes.has(scene.ID)) {
+                this.scenes.set(scene.ID, scene);
+            }
+        }
+
+        removeScene(scene: Scene): void {
+            if (this.scenes.has(scene.ID)) {
+                this.scenes.delete(scene.ID);
+            }
+        }
+
+        updateScene(): void {
+            this.scenes.forEach((v) => { v.update(); });
+        }
+        
+    }
+
+    export class Scene extends jThreeObject {
+        constructor() {
+            super();
+            this.id = jThree.Base.jThreeID.getUniqueRandom(10);
+        }
+
+        private id: string;
+        get ID(): string {
+            return this.id;
+        }
+
+        enabled:boolean;
+
+        update(): void {
+            if (!this.enabled)return;//enabled==falseならいらない。
+        }
+
     }
 
     export class SceneObject extends jThreeObject
@@ -240,16 +283,6 @@ module jThree {
             
         }
     }
-
-    //export class Buffers extends jThreeObject {
-    //    get BufferIndex(): number {
-    //        throw new jThree.Exceptions.jThreeException("Not implemented", "Not implemented");
-    //    }
-
-    //    constructor(bufType:BufferType) {
-    //        super();
-    //    }
-    //}
 
 }
 

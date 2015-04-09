@@ -88,8 +88,7 @@ var jThree;
         };
         return ResourceManager;
     })(jThreeObject);
-    jThree.ResourceManager = ResourceManager;
-    /**
+    jThree.ResourceManager = ResourceManager; /**
      * jThree context managing all over the pages canvas
      */
     var JThreeContext = (function (_super) {
@@ -113,6 +112,13 @@ var jThree;
             configurable: true
         });
         JThreeContext.prototype.init = function () {
+            this.loop();
+        };
+        JThreeContext.prototype.loop = function () {
+            this.canvasRenderers.forEach(function (v) {
+                v.render();
+            });
+            window.setTimeout(this.loop, 1000 / 30);
         };
         Object.defineProperty(JThreeContext.prototype, "CanvasRenderers", {
             /**
@@ -224,7 +230,7 @@ var jThree;
         };
         CanvasRenderer.prototype.render = function () {
             if (!this.enabled)
-                return;
+                return; //enabledじゃないなら描画をスキップ
             this.draw();
             this.context.Finish();
         };
@@ -233,11 +239,47 @@ var jThree;
         return CanvasRenderer;
     })(RendererBase);
     jThree.CanvasRenderer = CanvasRenderer;
+    var SceneManager = (function (_super) {
+        __extends(SceneManager, _super);
+        function SceneManager() {
+            _super.call(this);
+            this.scenes = new Map();
+        }
+        SceneManager.prototype.addScene = function (scene) {
+            if (!this.scenes.has(scene.ID)) {
+                this.scenes.set(scene.ID, scene);
+            }
+        };
+        SceneManager.prototype.removeScene = function (scene) {
+            if (this.scenes.has(scene.ID)) {
+                this.scenes.delete(scene.ID);
+            }
+        };
+        SceneManager.prototype.updateScene = function () {
+            this.scenes.forEach(function (v) {
+                v.update();
+            });
+        };
+        return SceneManager;
+    })(jThreeObject);
+    jThree.SceneManager = SceneManager;
     var Scene = (function (_super) {
         __extends(Scene, _super);
         function Scene() {
-            _super.apply(this, arguments);
+            _super.call(this);
+            this.id = jThree.Base.jThreeID.getUniqueRandom(10);
         }
+        Object.defineProperty(Scene.prototype, "ID", {
+            get: function () {
+                return this.id;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Scene.prototype.update = function () {
+            if (!this.enabled)
+                return; //enabled==falseならいらない。
+        };
         return Scene;
     })(jThreeObject);
     jThree.Scene = Scene;
