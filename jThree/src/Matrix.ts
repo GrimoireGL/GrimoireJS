@@ -316,13 +316,20 @@ module jThree.Matrix {
             return new Matrix(new Float32Array([m00,0,m02,0,0,m11,m12,0,0,0,m22,m23,0,0,-1,0]));
         }
 
-        static perspective(fovy: number, aspect: number, near: number, far: number) {
+        static perspective(fovy: number, aspect: number, near: number, far: number):Matrix {
             var ymax: number = near * Math.tan(fovy * Math.PI / 360);
             var ymin: number = -ymax;
             var xmin: number = ymin * aspect;
             var xmax: number = ymax * aspect;
             return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
         }
+
+        static lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix
+        {
+            var zAxis:Vector3=
+        }
+
+
 
         
 

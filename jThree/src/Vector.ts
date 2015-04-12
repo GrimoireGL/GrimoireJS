@@ -110,6 +110,14 @@
             return this.magnitudeCache;
         }
 
+        protected static normalizeElements<T extends VectorBase>(a: T, factory: ILinearObjectFactory<T>): T {
+            var magnitude: number=a.magnitude;
+            var result: Float32Array = new Float32Array(a.ElementCount);
+            Collection.foreach<number>(a,(a, i) => {
+                result[i] = a / magnitude;
+            });
+            return factory.fromArray(result);
+        }
 
     }
 
@@ -282,6 +290,10 @@
             return VectorBase.elementEqual(v1, v2);
         }
 
+        static normalize(v1: Vector2): Vector2 {
+            return VectorBase.normalizeElements(v1, v1.getFactory());
+        }
+
         dotWith(v: Vector2): number {
             return Vector2.dot(this, v);
         }
@@ -304,6 +316,10 @@
 
         equalWith(v: Vector2): boolean {
             return Vector2.equal(this, v);
+        }
+
+        normalizeThis(): Vector2 {
+            return Vector2.normalize(this);
         }
 
         toString(): string {
@@ -377,6 +393,14 @@
 
         static equal(v1: Vector3, v2: Vector3): boolean {
             return VectorBase.elementEqual(v1, v2);
+        }
+
+        static normalize(v1: Vector3): Vector3 {
+            return VectorBase.normalizeElements(v1, v1.getFactory());
+        }
+
+        normalizeThis(): Vector3 {
+            return Vector3.normalize(this);
         }
 
         dotWith(v: Vector3): number {
@@ -487,6 +511,13 @@
             return VectorBase.elementEqual(v1, v2);
         }
 
+        static normalize(v1: Vector4): Vector4 {
+            return VectorBase.normalizeElements(v1, v1.getFactory());
+        }
+
+        normalizeThis(): Vector4 {
+            return Vector4.normalize(this);
+        }
 
         dotWith(v: Vector4): number {
             return Vector4.dot(this, v);

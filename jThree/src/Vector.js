@@ -110,6 +110,14 @@ var jThree;
                     enumerable: true,
                     configurable: true
                 });
+                VectorBase.normalizeElements = function (a, factory) {
+                    var magnitude = a.magnitude;
+                    var result = new Float32Array(a.ElementCount);
+                    Collection.foreach(a, function (a, i) {
+                        result[i] = a / magnitude;
+                    });
+                    return factory.fromArray(result);
+                };
                 return VectorBase;
             })(LinearBase);
             Vector.VectorBase = VectorBase;
@@ -275,6 +283,9 @@ var jThree;
                 Vector2.equal = function (v1, v2) {
                     return VectorBase.elementEqual(v1, v2);
                 };
+                Vector2.normalize = function (v1) {
+                    return VectorBase.normalizeElements(v1, v1.getFactory());
+                };
                 Vector2.prototype.dotWith = function (v) {
                     return Vector2.dot(this, v);
                 };
@@ -292,6 +303,9 @@ var jThree;
                 };
                 Vector2.prototype.equalWith = function (v) {
                     return Vector2.equal(this, v);
+                };
+                Vector2.prototype.normalizeThis = function () {
+                    return Vector2.normalize(this);
                 };
                 Vector2.prototype.toString = function () {
                     return "Vector2(x={0},y={1})".format(this.x, this.y);
@@ -379,6 +393,12 @@ var jThree;
                 };
                 Vector3.equal = function (v1, v2) {
                     return VectorBase.elementEqual(v1, v2);
+                };
+                Vector3.normalize = function (v1) {
+                    return VectorBase.normalizeElements(v1, v1.getFactory());
+                };
+                Vector3.prototype.normalizeThis = function () {
+                    return Vector3.normalize(this);
                 };
                 Vector3.prototype.dotWith = function (v) {
                     return Vector3.dot(this, v);
@@ -499,6 +519,12 @@ var jThree;
                 };
                 Vector4.equal = function (v1, v2) {
                     return VectorBase.elementEqual(v1, v2);
+                };
+                Vector4.normalize = function (v1) {
+                    return VectorBase.normalizeElements(v1, v1.getFactory());
+                };
+                Vector4.prototype.normalizeThis = function () {
+                    return Vector4.normalize(this);
                 };
                 Vector4.prototype.dotWith = function (v) {
                     return Vector4.dot(this, v);
