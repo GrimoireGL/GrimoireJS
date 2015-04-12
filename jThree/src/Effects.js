@@ -110,7 +110,6 @@ var jThree;
             __extends(Program, _super);
             function Program(context) {
                 _super.call(this, context);
-                this.programWrappers = new Map();
                 this.attachedShaders = [];
             }
             Object.defineProperty(Program.prototype, "AttachedShaders", {
@@ -120,9 +119,6 @@ var jThree;
                 enumerable: true,
                 configurable: true
             });
-            Program.prototype.getForRenderer = function (renderer) {
-                return this.programWrappers.get(renderer.ID);
-            };
             Program.prototype.attachShader = function (shader) {
                 this.attachedShaders.push(shader);
             };
@@ -169,6 +165,7 @@ var jThree;
                     this.parentProgram.AttachedShaders.forEach(function (v, i, a) {
                         _this.glContext.AttachShader(_this.targetProgram, v.getForRendererID(_this.id).TargetShader);
                     });
+                    this.initialized = true;
                 }
             };
             ProgramWrapper.prototype.dispose = function () {
@@ -182,6 +179,7 @@ var jThree;
             ProgramWrapper.prototype.linkProgram = function () {
                 if (!this.isLinked) {
                     this.glContext.LinkProgram(this.targetProgram);
+                    this.isLinked = true;
                 }
             };
             ProgramWrapper.prototype.useProgram = function () {
@@ -194,12 +192,13 @@ var jThree;
                 this.glContext.UseProgram(this.targetProgram);
             };
             ProgramWrapper.prototype.setAttributeVerticies = function (valName, buffer) {
+                this.useProgram();
                 buffer.bindBuffer();
                 if (!this.attribLocations.has(valName)) {
                     this.attribLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
                 }
                 var attribIndex = this.attribLocations.get(valName);
-                this.glContext.EnableVertexAttribArray(attribNumber);
+                this.glContext.EnableVertexAttribArray(attribIndex);
                 this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buf.ElementType, buf.Normalized, buf.Stride, buf.Offset);
             };
             Object.defineProperty(ProgramWrapper.prototype, "ID", {

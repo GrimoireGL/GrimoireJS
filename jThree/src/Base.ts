@@ -113,4 +113,16 @@ module jThree.Base {
             throw new Exceptions.AbstractClassMethodCalledException();
         }
     }
+
+    export class jThreeObjectWithID extends jThreeObject
+    {
+        private id: string;
+        /**
+         * このオブジェクトを識別するID
+         */
+        public get ID(): string
+        {
+            return this.id;
+        }
+    }
 }

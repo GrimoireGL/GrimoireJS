@@ -144,6 +144,8 @@ var jThree;
                     this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
                 }
                 else {
+                    this.loadAll();
+                    this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
                 }
             };
             BufferWrapper.prototype.unbindBuffer = function () {

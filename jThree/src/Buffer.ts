@@ -151,8 +151,9 @@
             if (this.isInitialized)
             {
                 this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
-            } else
-            {
+            } else {
+                this.loadAll();
+                this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
                 //TODO 初期化されていなかった場合の対処
             }
         }

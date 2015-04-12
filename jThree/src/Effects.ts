@@ -108,16 +108,11 @@
             super(context);
         }
 
-        private programWrappers: Map<string, ProgramWrapper> = new Map<string, ProgramWrapper>();
 
         private attachedShaders: Shader[] = [];
 
         get AttachedShaders():Shader[] {
             return this.attachedShaders;
-        }
-
-        getForRenderer(renderer:RendererBase): ProgramWrapper {
-            return this.programWrappers.get(renderer.ID);
         }
 
         attachShader(shader: Shader) {
@@ -172,6 +167,7 @@
                 this.parentProgram.AttachedShaders.forEach((v, i, a) => {
                     this.glContext.AttachShader(this.targetProgram, v.getForRendererID(this.id).TargetShader);
                 });
+                this.initialized = true;
             }
         }
 
@@ -187,6 +183,7 @@
         linkProgram(): void {
             if (!this.isLinked) {
                 this.glContext.LinkProgram(this.targetProgram);
+                this.isLinked = true;
             }
         }
         
@@ -201,12 +198,13 @@
         }
 
         setAttributeVerticies(valName: string, buffer: BufferWrapper): void {
+            this.useProgram();
             buffer.bindBuffer();
             if (!this.attribLocations.has(valName)) {
                 this.attribLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
             }
             var attribIndex: number = this.attribLocations.get(valName);
-            this.glContext.EnableVertexAttribArray(attribNumber);
+            this.glContext.EnableVertexAttribArray(attribIndex);
             this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buf.ElementType,buf.Normalized,buf.Stride,buf.Offset);
         }
 

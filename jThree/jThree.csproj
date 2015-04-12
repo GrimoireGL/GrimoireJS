@@ -90,6 +90,7 @@
     <TypeScriptCompile Include="src\Base.ts" />
     <TypeScriptCompile Include="src\Buffer.ts" />
     <TypeScriptCompile Include="src\Collections.ts" />
+    <TypeScriptCompile Include="src\Color.ts" />
     <TypeScriptCompile Include="src\Contexts.ts" />
     <TypeScriptCompile Include="src\Delegates.ts" />
     <TypeScriptCompile Include="src\Effects.ts" />

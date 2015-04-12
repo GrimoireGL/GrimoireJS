@@ -11,6 +11,8 @@ var jThree;
     var Buffer = jThree.Buffers.Buffer;
     var Shader = jThree.Effects.Shader;
     var Program = jThree.Effects.Program;
+    var Color4 = jThree.Color.Color4;
+    var JThreeObjectWithId = jThree.Base.jThreeObjectWithID;
     var Timer = (function (_super) {
         __extends(Timer, _super);
         function Timer() {
@@ -88,7 +90,8 @@ var jThree;
         };
         return ResourceManager;
     })(jThreeObject);
-    jThree.ResourceManager = ResourceManager; /**
+    jThree.ResourceManager = ResourceManager;
+    /**
      * jThree context managing all over the pages canvas
      */
     var JThreeContext = (function (_super) {
@@ -99,7 +102,15 @@ var jThree;
             this.onRendererChangedFuncs = [];
             this.resourceManager = new ResourceManager(this);
             this.timer = new ContextTimer();
+            this.sceneManager = new SceneManager();
         }
+        Object.defineProperty(JThreeContext.prototype, "SceneManager", {
+            get: function () {
+                return this.sceneManager;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(JThreeContext, "Instance", {
             /**
              * Singleton
@@ -115,10 +126,9 @@ var jThree;
             this.loop();
         };
         JThreeContext.prototype.loop = function () {
-            this.canvasRenderers.forEach(function (v) {
-                v.render();
-            });
-            window.setTimeout(this.loop, 1000 / 30);
+            JThreeContext.Instance.timer.updateTimer();
+            JThreeContext.Instance.sceneManager.renderAll();
+            window.setTimeout(JThreeContext.instance.loop, 1000 / 30);
         };
         Object.defineProperty(JThreeContext.prototype, "CanvasRenderers", {
             /**
@@ -206,6 +216,9 @@ var jThree;
             enumerable: true,
             configurable: true
         });
+        RendererBase.prototype.render = function (drawAct) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
         return RendererBase;
     })(jThreeObject);
     jThree.RendererBase = RendererBase;
@@ -213,28 +226,42 @@ var jThree;
         __extends(CanvasRenderer, _super);
         function CanvasRenderer(glContext) {
             _super.call(this);
+            this.enabled = true;
             this.id = jThree.Base.jThreeID.getUniqueRandom(10);
             this.glContext = glContext;
             this.context = new jThree.WebGLWrapper(this.glContext);
+            this.ClearColor = new Color4(0, 0, 255, 255);
         }
         CanvasRenderer.fromCanvas = function (canvas) {
             var gl;
             try {
                 gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-                return new CanvasRenderer(gl);
+                var renderer = new CanvasRenderer(gl);
+                JThreeContext.Instance.addRenderer(renderer);
+                return renderer;
             }
             catch (e) {
                 if (!gl) {
                 }
             }
         };
-        CanvasRenderer.prototype.render = function () {
+        Object.defineProperty(CanvasRenderer.prototype, "ClearColor", {
+            get: function () {
+                return this.clearColor;
+            },
+            set: function (col) {
+                this.context.ClearColor(col.R, col.G, col.B, col.A);
+                this.clearColor = col;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        CanvasRenderer.prototype.render = function (drawAct) {
             if (!this.enabled)
                 return; //enabledじゃないなら描画をスキップ
-            this.draw();
+            this.context.Clear(jThree.ClearTargetType.ColorBits);
+            drawAct();
             this.context.Finish();
-        };
-        CanvasRenderer.prototype.draw = function () {
         };
         return CanvasRenderer;
     })(RendererBase);
@@ -255,9 +282,10 @@ var jThree;
                 this.scenes.delete(scene.ID);
             }
         };
-        SceneManager.prototype.updateScene = function () {
+        SceneManager.prototype.renderAll = function () {
             this.scenes.forEach(function (v) {
                 v.update();
+                v.render();
             });
         };
         return SceneManager;
@@ -267,7 +295,10 @@ var jThree;
         __extends(Scene, _super);
         function Scene() {
             _super.call(this);
+            this.renderers = [];
+            this.renderObjects = [];
             this.id = jThree.Base.jThreeID.getUniqueRandom(10);
+            this.enabled = true;
         }
         Object.defineProperty(Scene.prototype, "ID", {
             get: function () {
@@ -279,83 +310,206 @@ var jThree;
         Scene.prototype.update = function () {
             if (!this.enabled)
                 return; //enabled==falseならいらない。
+            buf.update(new Float32Array([
+                0.0,
+                Math.sin(time / 100),
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                -1.0,
+                0.0,
+                0.0
+            ]), 9);
+            time++;
+        };
+        Scene.prototype.render = function () {
+            var _this = this;
+            this.renderers.forEach(function (r) {
+                r.render(function () {
+                    _this.renderObjects.forEach(function (v) { return v.TargetObject.render(r, v.Material); });
+                });
+            });
+        };
+        Scene.prototype.addRenderer = function (renderer) {
+            this.renderers.push(renderer);
+        };
+        Scene.prototype.addObject = function (targetObject) {
+            var _this = this;
+            //TargetObjectに所属するマテリアルを分割して配列に登録します。
+            targetObject.eachMaterial(function (m) {
+                _this.renderObjects.push(new MaterialObjectPair(m, targetObject));
+            });
+            this.sortObjects();
+        };
+        Scene.prototype.sortObjects = function () {
+            this.renderObjects.sort(function (v1, v2) {
+                return v1.Material.Priorty - v2.Material.Priorty;
+            });
         };
         return Scene;
     })(jThreeObject);
     jThree.Scene = Scene;
+    var MaterialObjectPair = (function () {
+        function MaterialObjectPair(material, targetObject) {
+            this.material = material;
+            this.targetObject = targetObject;
+        }
+        Object.defineProperty(MaterialObjectPair.prototype, "Material", {
+            get: function () {
+                return this.material;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MaterialObjectPair.prototype, "TargetObject", {
+            get: function () {
+                return this.targetObject;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MaterialObjectPair.prototype, "ID", {
+            get: function () {
+                return this.material.ID + "-" + this.targetObject.ID;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return MaterialObjectPair;
+    })();
+    var Material = (function (_super) {
+        __extends(Material, _super);
+        function Material() {
+            _super.call(this);
+        }
+        Object.defineProperty(Material.prototype, "Priorty", {
+            get: function () {
+                return this.priorty;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Material.prototype.configureMaterial = function (renderer, geometry) {
+            return;
+        };
+        return Material;
+    })(JThreeObjectWithId);
+    jThree.Material = Material;
+    var BasicMaterial = (function (_super) {
+        __extends(BasicMaterial, _super);
+        function BasicMaterial() {
+            _super.call(this);
+            var jThreeContext = JThreeContext.Instance;
+            var vs = document.getElementById("vs");
+            var fs = document.getElementById("fs");
+            var vsShader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, jThree.ShaderType.VertexShader);
+            var fsShader = jThreeContext.ResourceManager.createShader("test-fs", fs.textContent, jThree.ShaderType.FragmentShader);
+            vsShader.loadAll();
+            fsShader.loadAll();
+            this.program = jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
+        }
+        BasicMaterial.prototype.configureMaterial = function (renderer, geometry) {
+            this.program.getForRenderer(renderer).setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer));
+            renderer.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
+        };
+        return BasicMaterial;
+    })(Material);
+    jThree.BasicMaterial = BasicMaterial;
+    var Geometry = (function (_super) {
+        __extends(Geometry, _super);
+        function Geometry() {
+            _super.apply(this, arguments);
+        }
+        Object.defineProperty(Geometry.prototype, "PositionBuffer", {
+            get: function () {
+                return this.positionBuffer;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Geometry.prototype, "NormalBuffer", {
+            get: function () {
+                return this.normalBuffer;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Geometry.prototype, "UVBuffer", {
+            get: function () {
+                return this.uvBuffer;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Geometry;
+    })(jThreeObject);
+    jThree.Geometry = Geometry;
+    var TriangleGeometry = (function (_super) {
+        __extends(TriangleGeometry, _super);
+        function TriangleGeometry() {
+            _super.call(this);
+            this.positionBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-geometry", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.StaticDraw, 3, jThree.ElementType.Float);
+            this.positionBuffer.update(new Float32Array([0.0, 1, 0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 0.0]), 9);
+        }
+        return TriangleGeometry;
+    })(Geometry);
+    jThree.TriangleGeometry = TriangleGeometry;
     var SceneObject = (function (_super) {
         __extends(SceneObject, _super);
         function SceneObject() {
             _super.apply(this, arguments);
+            this.materialChanagedHandler = [];
+            this.materials = new Map();
         }
+        SceneObject.prototype.onMaterialChanged = function (func) {
+            this.materialChanagedHandler.push(func);
+        };
+        /**
+         * すべてのマテリアルに対して処理を実行します。
+         */
+        SceneObject.prototype.eachMaterial = function (func) {
+            this.materials.forEach(function (v) { return func(v); });
+        };
+        SceneObject.prototype.addMaterial = function (mat) {
+            this.materials.set(mat.ID, mat);
+        };
+        SceneObject.prototype.deleteMaterial = function (mat) {
+            if (this.materials.has(mat.ID)) {
+                this.materials.delete(mat.ID);
+            }
+        };
         SceneObject.prototype.update = function () {
         };
-        SceneObject.prototype.render = function () {
+        SceneObject.prototype.render = function (rendererBase, currentMaterial) {
+            currentMaterial.configureMaterial(rendererBase, this.geometry);
         };
         return SceneObject;
-    })(jThreeObject);
+    })(JThreeObjectWithId);
     jThree.SceneObject = SceneObject;
+    var Triangle = (function (_super) {
+        __extends(Triangle, _super);
+        function Triangle() {
+            _super.call(this);
+            this.addMaterial(new BasicMaterial());
+            this.geometry = new TriangleGeometry();
+        }
+        return Triangle;
+    })(SceneObject);
+    jThree.Triangle = Triangle;
 })(jThree || (jThree = {}));
 var buf;
-var renderer;
-var renderer2;
-var attribNumber;
-var attribNumber2;
 var time = 0;
-var p1Wrapper;
-var p2Wrapper;
 $(function () {
     var jThreeContext = jThree.JThreeContext.Instance;
-    renderer = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas"));
-    renderer2 = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas2"));
-    jThreeContext.addRenderer(renderer);
-    jThreeContext.addRenderer(renderer2);
-    var vs = document.getElementById("vs");
-    var vsShader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, jThree.ShaderType.VertexShader);
-    var fs = document.getElementById("fs");
-    var fsShader = jThreeContext.ResourceManager.createShader("test-fs", fs.textContent, jThree.ShaderType.FragmentShader);
-    vsShader.loadAll();
-    fsShader.loadAll();
-    console.log(vsShader.getTypeName());
-    var prog = jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
-    console.log(vsShader);
-    p1Wrapper = prog.getForRenderer(renderer);
-    p1Wrapper.useProgram();
-    attribNumber = renderer.Context.GetAttribLocation(p1Wrapper.TargetProgram, "position");
-    p2Wrapper = prog.getForRenderer(renderer2);
-    p2Wrapper.useProgram();
+    var renderer = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas"));
+    var renderer2 = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas2"));
+    var scene = new jThree.Scene();
+    scene.addObject(new jThree.Triangle());
+    scene.addRenderer(renderer);
+    scene.addRenderer(renderer2);
+    jThreeContext.SceneManager.addScene(scene);
     buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw, 3, jThree.ElementType.Float);
-    attribNumber2 = renderer2.Context.GetAttribLocation(p2Wrapper.TargetProgram, "position");
-    renderer.Context.ClearColor(0, 0, 1, 1);
-    renderer2.Context.ClearColor(1, 0, 0, 1);
-    Render();
+    jThreeContext.init();
 });
-function Render() {
-    time++;
-    buf.update(new Float32Array([
-        0.0,
-        Math.sin(time / 100),
-        0.0,
-        1.0,
-        0.0,
-        0.0,
-        -1.0,
-        0.0,
-        0.0
-    ]), 9);
-    var wrappedBuffer = buf.getForRenderer(renderer);
-    renderer.Context.Clear(jThree.ClearTargetType.ColorBits);
-    p1Wrapper.setAttributeVerticies("position", wrappedBuffer);
-    renderer.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
-    renderer.Context.Flush();
-    renderer.Context.Finish();
-    wrappedBuffer = buf.getForRenderer(renderer2);
-    renderer2.Context.Clear(jThree.ClearTargetType.ColorBits);
-    wrappedBuffer.bindBuffer();
-    p2Wrapper.setAttributeVerticies("position", wrappedBuffer);
-    renderer2.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
-    renderer2.Context.Flush();
-    renderer2.Context.Finish();
-    window.setTimeout(Render, 1000 / 30);
-}
 //# sourceMappingURL=jThree.js.map

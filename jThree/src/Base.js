@@ -87,10 +87,10 @@ var jThree;
             };
             ContextSafeResourceContainer.prototype.rendererChanged = function (arg) {
                 switch (arg.ChangeType) {
-                    case jThree.Events.RendererStateChangedType.Add:
+                    case 0 /* Add */:
                         this.cachedObject.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
                         break;
-                    case jThree.Events.RendererStateChangedType.Delete:
+                    case 1 /* Delete */:
                         var delTarget = this.cachedObject.get(arg.AffectedRenderer.ID);
                         this.cachedObject.delete(arg.AffectedRenderer.ID);
                         this.disposeResource(delTarget);
@@ -106,6 +106,24 @@ var jThree;
             return ContextSafeResourceContainer;
         })(jThreeObject);
         Base.ContextSafeResourceContainer = ContextSafeResourceContainer;
+        var jThreeObjectWithID = (function (_super) {
+            __extends(jThreeObjectWithID, _super);
+            function jThreeObjectWithID() {
+                _super.apply(this, arguments);
+            }
+            Object.defineProperty(jThreeObjectWithID.prototype, "ID", {
+                /**
+                 * このオブジェクトを識別するID
+                 */
+                get: function () {
+                    return this.id;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return jThreeObjectWithID;
+        })(jThreeObject);
+        Base.jThreeObjectWithID = jThreeObjectWithID;
     })(Base = jThree.Base || (jThree.Base = {}));
 })(jThree || (jThree = {}));
 //# sourceMappingURL=Base.js.map
