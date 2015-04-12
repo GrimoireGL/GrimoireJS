@@ -324,9 +324,15 @@ module jThree.Matrix {
             return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
         }
 
-        static lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix
-        {
-            var zAxis:Vector3=
+        static lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix {
+            var zAxis: Vector3 = eye.subtractWith(target).normalizeThis();
+            var xAxis: Vector3 = up.crossWith(zAxis).normalizeThis();
+            var yAxis: Vector3 = zAxis.crossWith(xAxis);
+
+            return new Matrix(new Float32Array([xAxis.X, yAxis.X, zAxis.X, 0,
+                xAxis.Y, yAxis.Y, zAxis.Y, 0,
+                xAxis.Z, yAxis.Z, zAxis.Z, 0,
+            -xAxis.dotWith(eye),-yAxis.dotWith(eye),-zAxis.dotWith(eye),1]));
         }
 
 

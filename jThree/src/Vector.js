@@ -397,6 +397,9 @@ var jThree;
                 Vector3.normalize = function (v1) {
                     return VectorBase.normalizeElements(v1, v1.getFactory());
                 };
+                Vector3.cross = function (v1, v2) {
+                    return new Vector3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
+                };
                 Vector3.prototype.normalizeThis = function () {
                     return Vector3.normalize(this);
                 };
@@ -417,6 +420,9 @@ var jThree;
                 };
                 Vector3.prototype.equalWith = function (v) {
                     return Vector3.equal(this, v);
+                };
+                Vector3.prototype.crossWith = function (v) {
+                    return Vector3.cross(this, v);
                 };
                 Vector3.prototype.toString = function () {
                     return "Vector3(x={0},y={1},z={2})".format(this.x, this.y, this.z);
