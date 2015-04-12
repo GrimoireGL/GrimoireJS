@@ -5,6 +5,13 @@
     import Collection = jThree.Collections.Collection;
     import Enumrator = jThree.Collections.IEnumrator;
 
+
+    export interface IVectorFactory<T extends VectorBase>
+    {
+        fromEnumerable(en: Enumerable<number>): T;
+        fromArray(arr: number[]): T;
+    }
+
     export interface ILinearObjectFactory<T extends LinearBase> {
         fromArray(array:Float32Array):T;
     }

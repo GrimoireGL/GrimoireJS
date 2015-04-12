@@ -303,6 +303,27 @@ module jThree.Matrix {
             ]));
         }
 
+        static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {
+            var width = right - left;
+            var height = top - bottom;
+            var depth = far - near;
+            var m00 = 2 * near / width;
+            var m02 = (right + left) / width;
+            var m11 = 2 * near / height;
+            var m12 = (top + bottom) / height;
+            var m22 = -(far + near) / depth;
+            var m23 = -2 * far * near / depth;
+            return new Matrix(new Float32Array([m00,0,m02,0,0,m11,m12,0,0,0,m22,m23,0,0,-1,0]));
+        }
+
+        static perspective(fovy: number, aspect: number, near: number, far: number) {
+            var ymax: number = near * Math.tan(fovy * Math.PI / 360);
+            var ymin: number = -ymax;
+            var xmin: number = ymin * aspect;
+            var xmax: number = ymax * aspect;
+            return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
+        }
+
         
 
     toString(): string {

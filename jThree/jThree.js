@@ -2139,13 +2139,19 @@ var jThree;
      */
     var ResourceManager = (function (_super) {
         __extends(ResourceManager, _super);
-        function ResourceManager(jThreeContext) {
+        function ResourceManager() {
             _super.call(this);
             this.buffers = new Map();
             this.shaders = new Map();
             this.programs = new Map();
-            this.context = jThreeContext;
         }
+        Object.defineProperty(ResourceManager.prototype, "context", {
+            get: function () {
+                return JThreeContext.Instance;
+            },
+            enumerable: true,
+            configurable: true
+        });
         ResourceManager.prototype.createBuffer = function (id, target, usage, unitCount, elementType) {
             if (this.buffers.has(id)) {
                 throw new Error("Buffer id cant be dupelicated");
@@ -2166,7 +2172,8 @@ var jThree;
         };
         return ResourceManager;
     })(jThreeObject);
-    jThree.ResourceManager = ResourceManager; /**
+    jThree.ResourceManager = ResourceManager;
+    /**
      * jThree context managing all over the pages canvas
      */
     var JThreeContext = (function (_super) {
@@ -2175,7 +2182,7 @@ var jThree;
             _super.call(this);
             this.canvasRenderers = [];
             this.onRendererChangedFuncs = [];
-            this.resourceManager = new ResourceManager(this);
+            this.resourceManager = new ResourceManager();
             this.timer = new ContextTimer();
             this.sceneManager = new SceneManager();
         }

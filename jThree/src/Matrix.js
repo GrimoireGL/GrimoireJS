@@ -322,6 +322,25 @@ var jThree;
                     1
                 ]));
             };
+            Matrix.frustum = function (left, right, bottom, top, near, far) {
+                var width = right - left;
+                var height = top - bottom;
+                var depth = far - near;
+                var m00 = 2 * near / width;
+                var m02 = (right + left) / width;
+                var m11 = 2 * near / height;
+                var m12 = (top + bottom) / height;
+                var m22 = -(far + near) / depth;
+                var m23 = -2 * far * near / depth;
+                return new Matrix(new Float32Array([m00, 0, m02, 0, 0, m11, m12, 0, 0, 0, m22, m23, 0, 0, -1, 0]));
+            };
+            Matrix.perspective = function (fovy, aspect, near, far) {
+                var ymax = near * Math.tan(fovy * Math.PI / 360);
+                var ymin = -ymax;
+                var xmin = ymin * aspect;
+                var xmax = ymax * aspect;
+                return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
+            };
             Matrix.prototype.toString = function () {
                 return "|{0} {1} {2} {3}|\n|{4} {5} {6} {7}|\n|{8} {9} {10} {11}|\n|{12} {13} {14} {15}|".format(this.getBySingleIndex(0), this.getBySingleIndex(1), this.getBySingleIndex(2), this.getBySingleIndex(3), this.getBySingleIndex(4), this.getBySingleIndex(5), this.getBySingleIndex(6), this.getBySingleIndex(7), this.getBySingleIndex(8), this.getBySingleIndex(9), this.getBySingleIndex(10), this.getBySingleIndex(11), this.getBySingleIndex(12), this.getBySingleIndex(13), this.getBySingleIndex(14), this.getBySingleIndex(15));
             };

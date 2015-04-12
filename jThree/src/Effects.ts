@@ -50,7 +50,7 @@
                 v.init();
             });
         }
-
+         
         protected getInstanceForRenderer(renderer: RendererBase): ShaderWrapper {
             return new ShaderWrapper(this, renderer);
         }

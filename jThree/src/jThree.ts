@@ -14,9 +14,8 @@ module jThree {
     import Action2 = jThree.Delegates.Action2;
     import Action0 = jThree.Delegates.Action0;
 
-    export interface IVectorFactory<T extends VectorBase> {
-        fromEnumerable(en: Enumerable<number>): T;
-        fromArray(arr: number[]): T;
+    export class RendererMatriciesManager extends jThreeObject {
+        
     }
 
     export class Timer extends jThreeObject {
@@ -91,6 +90,7 @@ module jThree {
             return program;
         }
     } 
+
     /**
      * jThree context managing all over the pages canvas
      */
@@ -115,7 +115,7 @@ module jThree {
 
         constructor() {
             super();
-            this.resourceManager = new ResourceManager(this);
+            this.resourceManager = new ResourceManager();
             this.timer = new ContextTimer();
             this.sceneManager = new SceneManager();
         }
