@@ -146,7 +146,8 @@ var jThree;
                 this.targetProgram = null;
                 this.glContext = null;
                 this.parentProgram = null;
-                this.attribLocations = new Map();
+                this.attributeLocations = new Map();
+                this.uniformLocations = new Map();
                 this.id = renderer.ID;
                 this.glContext = renderer.Context;
                 this.parentProgram = parent;
@@ -191,13 +192,21 @@ var jThree;
                 }
                 this.glContext.UseProgram(this.targetProgram);
             };
+            ProgramWrapper.prototype.setUniformMatrix = function (valName, matrix) {
+                this.useProgram();
+                if (!this.uniformLocations.has(valName)) {
+                    this.uniformLocations.set(valName, this.glContext.GetUniformLocation(this.TargetProgram, valName));
+                }
+                var uniformIndex = this.uniformLocations.get(valName);
+                this.glContext.UniformMatrix(uniformIndex, matrix);
+            };
             ProgramWrapper.prototype.setAttributeVerticies = function (valName, buffer) {
                 this.useProgram();
                 buffer.bindBuffer();
-                if (!this.attribLocations.has(valName)) {
-                    this.attribLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
+                if (!this.attributeLocations.has(valName)) {
+                    this.attributeLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
                 }
-                var attribIndex = this.attribLocations.get(valName);
+                var attribIndex = this.attributeLocations.get(valName);
                 this.glContext.EnableVertexAttribArray(attribIndex);
                 this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buf.ElementType, buf.Normalized, buf.Stride, buf.Offset);
             };

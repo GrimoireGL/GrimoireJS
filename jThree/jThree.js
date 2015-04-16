@@ -309,6 +309,60 @@ var jThree;
             return jThreeMath;
         })(jThreeObject);
         Mathematics.jThreeMath = jThreeMath;
+        var Rectangle = (function (_super) {
+            __extends(Rectangle, _super);
+            function Rectangle(left, top, width, height) {
+                _super.call(this);
+                this.left = left;
+                this.top = top;
+                this.width = width;
+                this.height = height;
+            }
+            Object.defineProperty(Rectangle.prototype, "Left", {
+                get: function () {
+                    return this.left;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Right", {
+                get: function () {
+                    return this.left + this.width;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Top", {
+                get: function () {
+                    return this.top;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Bottom", {
+                get: function () {
+                    return this.top + this.height;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Width", {
+                get: function () {
+                    return this.width;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Height", {
+                get: function () {
+                    return this.height;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return Rectangle;
+        })(jThreeObject);
+        Mathematics.Rectangle = Rectangle;
     })(Mathematics = jThree.Mathematics || (jThree.Mathematics = {}));
 })(jThree || (jThree = {}));
 var jThree;
@@ -417,6 +471,14 @@ var jThree;
                     enumerable: true,
                     configurable: true
                 });
+                VectorBase.normalizeElements = function (a, factory) {
+                    var magnitude = a.magnitude;
+                    var result = new Float32Array(a.ElementCount);
+                    Collection.foreach(a, function (a, i) {
+                        result[i] = a / magnitude;
+                    });
+                    return factory.fromArray(result);
+                };
                 return VectorBase;
             })(LinearBase);
             Vector.VectorBase = VectorBase;
@@ -582,6 +644,9 @@ var jThree;
                 Vector2.equal = function (v1, v2) {
                     return VectorBase.elementEqual(v1, v2);
                 };
+                Vector2.normalize = function (v1) {
+                    return VectorBase.normalizeElements(v1, v1.getFactory());
+                };
                 Vector2.prototype.dotWith = function (v) {
                     return Vector2.dot(this, v);
                 };
@@ -599,6 +664,9 @@ var jThree;
                 };
                 Vector2.prototype.equalWith = function (v) {
                     return Vector2.equal(this, v);
+                };
+                Vector2.prototype.normalizeThis = function () {
+                    return Vector2.normalize(this);
                 };
                 Vector2.prototype.toString = function () {
                     return "Vector2(x={0},y={1})".format(this.x, this.y);
@@ -687,6 +755,15 @@ var jThree;
                 Vector3.equal = function (v1, v2) {
                     return VectorBase.elementEqual(v1, v2);
                 };
+                Vector3.normalize = function (v1) {
+                    return VectorBase.normalizeElements(v1, v1.getFactory());
+                };
+                Vector3.cross = function (v1, v2) {
+                    return new Vector3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
+                };
+                Vector3.prototype.normalizeThis = function () {
+                    return Vector3.normalize(this);
+                };
                 Vector3.prototype.dotWith = function (v) {
                     return Vector3.dot(this, v);
                 };
@@ -704,6 +781,9 @@ var jThree;
                 };
                 Vector3.prototype.equalWith = function (v) {
                     return Vector3.equal(this, v);
+                };
+                Vector3.prototype.crossWith = function (v) {
+                    return Vector3.cross(this, v);
                 };
                 Vector3.prototype.toString = function () {
                     return "Vector3(x={0},y={1},z={2})".format(this.x, this.y, this.z);
@@ -806,6 +886,12 @@ var jThree;
                 };
                 Vector4.equal = function (v1, v2) {
                     return VectorBase.elementEqual(v1, v2);
+                };
+                Vector4.normalize = function (v1) {
+                    return VectorBase.normalizeElements(v1, v1.getFactory());
+                };
+                Vector4.prototype.normalizeThis = function () {
+                    return Vector4.normalize(this);
                 };
                 Vector4.prototype.dotWith = function (v) {
                     return Vector4.dot(this, v);
@@ -925,7 +1011,7 @@ var jThree;
                 return new Matrix(array);
             };
             MatrixFactory.prototype.fromFunc = function (f) {
-                return new Matrix(new Float32Array([f(0, 0), f(0, 1), f(0, 2), f(0, 3), f(1, 0), f(1, 1), f(1, 2), f(1, 3), f(2, 0), f(2, 1), f(2, 2), f(2, 3), f(3, 0), f(3, 1), f(3, 2), f(3, 3)]));
+                return new Matrix(new Float32Array([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]));
             };
             return MatrixFactory;
         })();
@@ -988,76 +1074,46 @@ var jThree;
             __extends(Matrix, _super);
             function Matrix(arr) {
                 _super.call(this);
-                this.elements = Matrix.zeroElements();
+                this.elements = new Float32Array(16);
                 if (!this.isValidArray(arr))
                     throw new jThree.Exceptions.InvalidArgumentException("Invalid matrix source was passed.");
                 this.elements = arr;
             }
             Matrix.zero = function () {
-                return new Matrix(this.zeroElements());
+                return Matrix.fromElements(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             };
             Matrix.identity = function () {
-                return new Matrix(this.identityElements());
+                return Matrix.fromElements(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
             };
-            Matrix.zeroElements = function () {
-                return new Float32Array([
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0
-                ]);
+            Matrix.fromElements = function (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+                return new Matrix(new Float32Array([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]));
             };
-            Matrix.identityElements = function () {
-                return new Float32Array([
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1
-                ]);
-            };
+            Object.defineProperty(Matrix.prototype, "rawElements", {
+                get: function () {
+                    return this.elements;
+                },
+                enumerable: true,
+                configurable: true
+            });
             Matrix.prototype.isValidArray = function (arr) {
                 if (arr.length !== 16)
                     return false;
                 return true;
             };
             Matrix.prototype.getAt = function (row, colmun) {
-                return this.elements[colmun + row * 4];
+                return this.elements[colmun * 4 + row];
             };
             Matrix.prototype.setAt = function (colmun, row, val) {
-                this.elements.set[colmun + row * 4] = val;
+                this.elements.set[colmun * 4 + row] = val;
             };
             Matrix.prototype.getBySingleIndex = function (index) {
                 return this.elements[index];
             };
             Matrix.prototype.getColmun = function (col) {
-                return new jThree.Mathematics.Vector.Vector4(this.elements[col], this.elements[col + 4], this.elements[col + 8], this.elements[col + 12]);
+                return new jThree.Mathematics.Vector.Vector4(this.elements[col * 4], this.elements[col * 4 + 1], this.elements[col * 4 + 2], this.elements[col * 4 + 3]);
             };
             Matrix.prototype.getRow = function (row) {
-                return new jThree.Mathematics.Vector.Vector4(this.elements[row * 4], this.elements[row * 4 + 1], this.elements[row * 4 + 2], this.elements[row * 4 + 3]);
+                return new jThree.Mathematics.Vector.Vector4(this.elements[row], this.elements[row + 4], this.elements[row + 8], this.elements[row + 12]);
             };
             Matrix.prototype.isNaN = function () {
                 var result = false;
@@ -1068,7 +1124,7 @@ var jThree;
                 return result;
             };
             Matrix.equal = function (m1, m2) {
-                return this.elementEqual(m1, m2);
+                return Matrix.elementEqual(m1, m2);
             };
             Matrix.add = function (m1, m2) {
                 return this.elementAdd(m1, m2, m1.getFactory());
@@ -1180,54 +1236,62 @@ var jThree;
                 m31 /= det;
                 m32 /= det;
                 m33 /= det;
-                return new Matrix(new Float32Array([m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]));
+                return Matrix.fromElements(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
             };
             /**
              * Generate linear translation transform matrix.
              */
             Matrix.translate = function (v) {
-                var m = new Matrix(new Float32Array([
-                    1,
-                    0,
-                    0,
-                    v.X,
-                    0,
-                    1,
-                    0,
-                    v.Y,
-                    0,
-                    0,
-                    1,
-                    v.Z,
-                    0,
-                    0,
-                    0,
-                    1
-                ]));
+                var m = Matrix.fromElements(1, 0, 0, v.X, 0, 1, 0, v.Y, 0, 0, 1, v.Z, 0, 0, 0, 1);
                 return m;
             };
             /**
              * Generate linear scaling transform matrix.
              */
             Matrix.scale = function (v) {
-                return new Matrix(new Float32Array([
-                    v.X,
-                    0,
-                    0,
-                    0,
-                    0,
-                    v.Y,
-                    0,
-                    0,
-                    0,
-                    0,
-                    v.Z,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1
-                ]));
+                return Matrix.fromElements(v.X, 0, 0, 0, 0, v.Y, 0, 0, 0, 0, v.Z, 0, 0, 0, 0, 1);
+            };
+            Matrix.frustum = function (left, right, bottom, top, near, far) {
+                var te = new Float32Array(16);
+                var x = 2 * near / (right - left);
+                var y = 2 * near / (top - bottom);
+                var a = (right + left) / (right - left);
+                var b = (top + bottom) / (top - bottom);
+                var c = -(far + near) / (far - near);
+                var d = -2 * far * near / (far - near);
+                te[0] = x;
+                te[4] = 0;
+                te[8] = a;
+                te[12] = 0;
+                te[1] = 0;
+                te[5] = y;
+                te[9] = b;
+                te[13] = 0;
+                te[2] = 0;
+                te[6] = 0;
+                te[10] = c;
+                te[14] = d;
+                te[3] = 0;
+                te[7] = 0;
+                te[11] = -1;
+                te[15] = 0;
+                return new Matrix(te);
+            };
+            Matrix.perspective = function (fovy, aspect, near, far) {
+                var ymax = near * Math.tan(fovy * 0.5);
+                var ymin = -ymax;
+                var xmin = ymin * aspect;
+                var xmax = ymax * aspect;
+                return this.frustum(xmin, xmax, ymin, ymax, near, far);
+            };
+            Matrix.lookAt = function (eye, target, up) {
+                var zAxis = eye.subtractWith(target).normalizeThis();
+                var xAxis = up.crossWith(zAxis).normalizeThis();
+                var yAxis = zAxis.crossWith(xAxis);
+                return new Matrix(new Float32Array([xAxis.X, yAxis.X, zAxis.X, 0, xAxis.Y, yAxis.Y, zAxis.Y, 0, xAxis.Z, yAxis.Z, zAxis.Z, 0, -xAxis.dotWith(eye), -yAxis.dotWith(eye), -zAxis.dotWith(eye), 1]));
+            };
+            Matrix.prototype.multiplyWith = function (m) {
+                return Matrix.multiply(this, m);
             };
             Matrix.prototype.toString = function () {
                 return "|{0} {1} {2} {3}|\n|{4} {5} {6} {7}|\n|{8} {9} {10} {11}|\n|{12} {13} {14} {15}|".format(this.getBySingleIndex(0), this.getBySingleIndex(1), this.getBySingleIndex(2), this.getBySingleIndex(3), this.getBySingleIndex(4), this.getBySingleIndex(5), this.getBySingleIndex(6), this.getBySingleIndex(7), this.getBySingleIndex(8), this.getBySingleIndex(9), this.getBySingleIndex(10), this.getBySingleIndex(11), this.getBySingleIndex(12), this.getBySingleIndex(13), this.getBySingleIndex(14), this.getBySingleIndex(15));
@@ -1340,6 +1404,12 @@ var jThree;
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };
         GLContextWrapperBase.prototype.DeleteProgram = function (target) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
+        GLContextWrapperBase.prototype.GetUniformLocation = function (target, name) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
+        GLContextWrapperBase.prototype.UniformMatrix = function (webGlUniformLocation, matrix) {
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };
         return GLContextWrapperBase;
@@ -1457,6 +1527,14 @@ var jThree;
         WebGLWrapper.prototype.DeleteProgram = function (target) {
             this.CheckErrorAsFatal();
             this.gl.deleteProgram(target);
+        };
+        WebGLWrapper.prototype.GetUniformLocation = function (target, name) {
+            this.CheckErrorAsFatal();
+            return this.gl.getUniformLocation(target, name);
+        };
+        WebGLWrapper.prototype.UniformMatrix = function (webGlUniformLocation, matrix) {
+            this.CheckErrorAsFatal();
+            this.gl.uniformMatrix4fv(webGlUniformLocation, false, matrix.rawElements);
         };
         return WebGLWrapper;
     })(GLContextWrapperBase);
@@ -1898,7 +1976,8 @@ var jThree;
                 this.targetProgram = null;
                 this.glContext = null;
                 this.parentProgram = null;
-                this.attribLocations = new Map();
+                this.attributeLocations = new Map();
+                this.uniformLocations = new Map();
                 this.id = renderer.ID;
                 this.glContext = renderer.Context;
                 this.parentProgram = parent;
@@ -1943,13 +2022,21 @@ var jThree;
                 }
                 this.glContext.UseProgram(this.targetProgram);
             };
+            ProgramWrapper.prototype.setUniformMatrix = function (valName, matrix) {
+                this.useProgram();
+                if (!this.uniformLocations.has(valName)) {
+                    this.uniformLocations.set(valName, this.glContext.GetUniformLocation(this.TargetProgram, valName));
+                }
+                var uniformIndex = this.uniformLocations.get(valName);
+                this.glContext.UniformMatrix(uniformIndex, matrix);
+            };
             ProgramWrapper.prototype.setAttributeVerticies = function (valName, buffer) {
                 this.useProgram();
                 buffer.bindBuffer();
-                if (!this.attribLocations.has(valName)) {
-                    this.attribLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
+                if (!this.attributeLocations.has(valName)) {
+                    this.attributeLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
                 }
-                var attribIndex = this.attribLocations.get(valName);
+                var attribIndex = this.attributeLocations.get(valName);
                 this.glContext.EnableVertexAttribArray(attribIndex);
                 this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buf.ElementType, buf.Normalized, buf.Stride, buf.Offset);
             };
@@ -2089,6 +2176,14 @@ var jThree;
     var Program = jThree.Effects.Program;
     var Color4 = jThree.Color.Color4;
     var JThreeObjectWithId = jThree.Base.jThreeObjectWithID;
+    var RendererMatriciesManager = (function (_super) {
+        __extends(RendererMatriciesManager, _super);
+        function RendererMatriciesManager() {
+            _super.apply(this, arguments);
+        }
+        return RendererMatriciesManager;
+    })(jThreeObject);
+    jThree.RendererMatriciesManager = RendererMatriciesManager;
     var Timer = (function (_super) {
         __extends(Timer, _super);
         function Timer() {
@@ -2304,6 +2399,14 @@ var jThree;
         return RendererBase;
     })(jThreeObject);
     jThree.RendererBase = RendererBase;
+    var ViewPort = (function (_super) {
+        __extends(ViewPort, _super);
+        function ViewPort() {
+            _super.apply(this, arguments);
+        }
+        return ViewPort;
+    })(jThreeObject);
+    jThree.ViewPort = ViewPort;
     var CanvasRenderer = (function (_super) {
         __extends(CanvasRenderer, _super);
         function CanvasRenderer(glContext) {
@@ -2392,17 +2495,6 @@ var jThree;
         Scene.prototype.update = function () {
             if (!this.enabled)
                 return; //enabled==falseならいらない。
-            buf.update(new Float32Array([
-                0.0,
-                Math.sin(time / 100),
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                -1.0,
-                0.0,
-                0.0
-            ]), 9);
             time++;
         };
         Scene.prototype.render = function () {
@@ -2482,6 +2574,7 @@ var jThree;
         __extends(BasicMaterial, _super);
         function BasicMaterial() {
             _super.call(this);
+            this.initial = false;
             var jThreeContext = JThreeContext.Instance;
             var vs = document.getElementById("vs");
             var fs = document.getElementById("fs");
@@ -2492,7 +2585,16 @@ var jThree;
             this.program = jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
         }
         BasicMaterial.prototype.configureMaterial = function (renderer, geometry) {
+            var vpMat; //=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            vpMat = jThree.Matrix.Matrix.identity(); //Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
+            // vpMat = Matrix.Matrix.identity();
+            if (!this.initial) {
+                console.log(vpMat.toString());
+                this.initial = true;
+            }
             this.program.getForRenderer(renderer).setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer));
+            this.program.getForRenderer(renderer).setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer));
+            this.program.getForRenderer(renderer).setUniformMatrix("matMVP", vpMat);
             renderer.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
         };
         return BasicMaterial;
@@ -2532,7 +2634,9 @@ var jThree;
         function TriangleGeometry() {
             _super.call(this);
             this.positionBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-geometry", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.StaticDraw, 3, jThree.ElementType.Float);
-            this.positionBuffer.update(new Float32Array([0.0, 1, 0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 0.0]), 9);
+            this.positionBuffer.update(new Float32Array([0.0, 1, 0.2, 1.0, 0.0, 0.2, -1.0, 0.0, 0.2]), 9);
+            this.normalBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-normals", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.StaticDraw, 3, jThree.ElementType.Float);
+            this.normalBuffer.update(new Float32Array([0, 1, -1, 1, 0, -1, -1, 0, -1]), 9);
         }
         return TriangleGeometry;
     })(Geometry);
@@ -2582,7 +2686,10 @@ var jThree;
 })(jThree || (jThree = {}));
 var buf;
 var time = 0;
+var noInit;
 $(function () {
+    if (noInit)
+        return;
     var jThreeContext = jThree.JThreeContext.Instance;
     var renderer = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas"));
     var renderer2 = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas2"));

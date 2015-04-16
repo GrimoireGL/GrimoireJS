@@ -96,6 +96,60 @@ var jThree;
             return jThreeMath;
         })(jThreeObject);
         Mathematics.jThreeMath = jThreeMath;
+        var Rectangle = (function (_super) {
+            __extends(Rectangle, _super);
+            function Rectangle(left, top, width, height) {
+                _super.call(this);
+                this.left = left;
+                this.top = top;
+                this.width = width;
+                this.height = height;
+            }
+            Object.defineProperty(Rectangle.prototype, "Left", {
+                get: function () {
+                    return this.left;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Right", {
+                get: function () {
+                    return this.left + this.width;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Top", {
+                get: function () {
+                    return this.top;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Bottom", {
+                get: function () {
+                    return this.top + this.height;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Width", {
+                get: function () {
+                    return this.width;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Rectangle.prototype, "Height", {
+                get: function () {
+                    return this.height;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return Rectangle;
+        })(jThreeObject);
+        Mathematics.Rectangle = Rectangle;
     })(Mathematics = jThree.Mathematics || (jThree.Mathematics = {}));
 })(jThree || (jThree = {}));
 //# sourceMappingURL=Math.js.map

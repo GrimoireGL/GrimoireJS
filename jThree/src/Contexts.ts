@@ -108,6 +108,14 @@
         DeleteProgram(target: WebGLProgram): void {
             throw new Exceptions.AbstractClassMethodCalledException();
         }
+
+        GetUniformLocation(target: WebGLProgram,name:string): WebGLUniformLocation {
+            throw new Exceptions.AbstractClassMethodCalledException();
+        }
+
+        UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix.Matrix) {
+            throw new Exceptions.AbstractClassMethodCalledException();
+        }
     }
 
     export class WebGLWrapper extends GLContextWrapperBase
@@ -254,6 +262,16 @@
         DeleteProgram(target: WebGLProgram): void {
             this.CheckErrorAsFatal();
             this.gl.deleteProgram(target);
+        }
+
+        GetUniformLocation(target: WebGLProgram,name:string): WebGLUniformLocation {
+            this.CheckErrorAsFatal();
+            return this.gl.getUniformLocation(target, name);
+        }
+
+        UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix.Matrix) {
+            this.CheckErrorAsFatal();
+            this.gl.uniformMatrix4fv(webGlUniformLocation, false,matrix.rawElements);
         }
     }
     

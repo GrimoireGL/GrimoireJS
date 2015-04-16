@@ -21,7 +21,7 @@
     }
 
     export class LinearBase implements Enumerable<number> {
-        protected static elementDot(a: LinearBase, b: LinearBase): number {
+        static elementDot(a: LinearBase, b: LinearBase): number {
             var dot: number = 0;
             Collection.foreachPair(a, b,(a, b) => {
                 dot += a * b;
@@ -29,7 +29,7 @@
             return dot;
         }
 
-        protected static elementAdd<T extends LinearBase>(a: T, b: T, factory: ILinearObjectFactory<T>): T {
+        static elementAdd<T extends LinearBase>(a: T, b: T, factory: ILinearObjectFactory<T>): T {
             var result: Float32Array = new Float32Array(a.ElementCount);
             Collection.foreachPair<number>(a, b,(a, b, i) => {
                 result[i] = a + b;
@@ -37,7 +37,7 @@
             return factory.fromArray(result);
         }
 
-        protected static elementSubtract<T extends LinearBase>(a: T, b: T, factory: ILinearObjectFactory<T>): T {
+        static elementSubtract<T extends LinearBase>(a: T, b: T, factory: ILinearObjectFactory<T>): T {
             var result: Float32Array = new Float32Array(a.ElementCount);
             Collection.foreachPair<number>(a, b,(a, b, i) => {
                 result[i] = a - b;
@@ -45,7 +45,7 @@
             return factory.fromArray(result);
         }
 
-        protected static elementScalarMultiply<T extends LinearBase>(a: T, s: number, factory: ILinearObjectFactory<T>): T {
+        static elementScalarMultiply<T extends LinearBase>(a: T, s: number, factory: ILinearObjectFactory<T>): T {
             var result: Float32Array = new Float32Array(a.ElementCount);
             Collection.foreach<number>(a,(a, i) => {
                 result[i] = a * s;
@@ -53,7 +53,7 @@
             return factory.fromArray(result);
         }
 
-        protected static elementEqual<T extends LinearBase>(a: T, b: T) {
+        static elementEqual<T extends LinearBase>(a: T, b: T) {
             var result: boolean = true;
             Collection.foreachPair<number>(a, b,(a, b, i) => {
                 if (a != b) result = false;
@@ -61,7 +61,7 @@
             return result;
         }
 
-        protected static elementNegate<T extends LinearBase>(a: T, factory: ILinearObjectFactory<T>) {
+        static elementNegate<T extends LinearBase>(a: T, factory: ILinearObjectFactory<T>) {
             var result: Float32Array = new Float32Array(a.ElementCount);
             Collection.foreach<Number>(a,(a, i) => {
                 result[i] = -a;
@@ -69,7 +69,7 @@
             return factory.fromArray(result);
         }
 
-        protected static elementNaN<T extends LinearBase>(a: T): boolean {
+        static elementNaN<T extends LinearBase>(a: T): boolean {
             var result: boolean = false;
             Collection.foreach<number>(a,(a, i) => {
                 if (isNaN(a)) result = true;

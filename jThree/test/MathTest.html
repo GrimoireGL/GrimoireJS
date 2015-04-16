@@ -11,6 +11,7 @@
         if (location.href.match(/(\?|&)gruntReport($|&|=)/)) {
             blanket.options("reporter", "../ref-test/grunt-reporter.js");
         }
+        noInit = true;
     </script>
     <!--Test content references-->
     <script src="../jThree.js" data-cover></script>

@@ -18,7 +18,7 @@ var jThree;
                 return new Matrix(array);
             };
             MatrixFactory.prototype.fromFunc = function (f) {
-                return new Matrix(new Float32Array([f(0, 0), f(0, 1), f(0, 2), f(0, 3), f(1, 0), f(1, 1), f(1, 2), f(1, 3), f(2, 0), f(2, 1), f(2, 2), f(2, 3), f(3, 0), f(3, 1), f(3, 2), f(3, 3)]));
+                return new Matrix(new Float32Array([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]));
             };
             return MatrixFactory;
         })();
@@ -81,76 +81,46 @@ var jThree;
             __extends(Matrix, _super);
             function Matrix(arr) {
                 _super.call(this);
-                this.elements = Matrix.zeroElements();
+                this.elements = new Float32Array(16);
                 if (!this.isValidArray(arr))
                     throw new jThree.Exceptions.InvalidArgumentException("Invalid matrix source was passed.");
                 this.elements = arr;
             }
             Matrix.zero = function () {
-                return new Matrix(this.zeroElements());
+                return Matrix.fromElements(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             };
             Matrix.identity = function () {
-                return new Matrix(this.identityElements());
+                return Matrix.fromElements(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
             };
-            Matrix.zeroElements = function () {
-                return new Float32Array([
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0
-                ]);
+            Matrix.fromElements = function (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+                return new Matrix(new Float32Array([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]));
             };
-            Matrix.identityElements = function () {
-                return new Float32Array([
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1
-                ]);
-            };
+            Object.defineProperty(Matrix.prototype, "rawElements", {
+                get: function () {
+                    return this.elements;
+                },
+                enumerable: true,
+                configurable: true
+            });
             Matrix.prototype.isValidArray = function (arr) {
                 if (arr.length !== 16)
                     return false;
                 return true;
             };
             Matrix.prototype.getAt = function (row, colmun) {
-                return this.elements[colmun + row * 4];
+                return this.elements[colmun * 4 + row];
             };
             Matrix.prototype.setAt = function (colmun, row, val) {
-                this.elements.set[colmun + row * 4] = val;
+                this.elements.set[colmun * 4 + row] = val;
             };
             Matrix.prototype.getBySingleIndex = function (index) {
                 return this.elements[index];
             };
             Matrix.prototype.getColmun = function (col) {
-                return new jThree.Mathematics.Vector.Vector4(this.elements[col], this.elements[col + 4], this.elements[col + 8], this.elements[col + 12]);
+                return new jThree.Mathematics.Vector.Vector4(this.elements[col * 4], this.elements[col * 4 + 1], this.elements[col * 4 + 2], this.elements[col * 4 + 3]);
             };
             Matrix.prototype.getRow = function (row) {
-                return new jThree.Mathematics.Vector.Vector4(this.elements[row * 4], this.elements[row * 4 + 1], this.elements[row * 4 + 2], this.elements[row * 4 + 3]);
+                return new jThree.Mathematics.Vector.Vector4(this.elements[row], this.elements[row + 4], this.elements[row + 8], this.elements[row + 12]);
             };
             Matrix.prototype.isNaN = function () {
                 var result = false;
@@ -161,7 +131,7 @@ var jThree;
                 return result;
             };
             Matrix.equal = function (m1, m2) {
-                return this.elementEqual(m1, m2);
+                return Matrix.elementEqual(m1, m2);
             };
             Matrix.add = function (m1, m2) {
                 return this.elementAdd(m1, m2, m1.getFactory());
@@ -273,79 +243,62 @@ var jThree;
                 m31 /= det;
                 m32 /= det;
                 m33 /= det;
-                return new Matrix(new Float32Array([m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]));
+                return Matrix.fromElements(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
             };
             /**
              * Generate linear translation transform matrix.
              */
             Matrix.translate = function (v) {
-                var m = new Matrix(new Float32Array([
-                    1,
-                    0,
-                    0,
-                    v.X,
-                    0,
-                    1,
-                    0,
-                    v.Y,
-                    0,
-                    0,
-                    1,
-                    v.Z,
-                    0,
-                    0,
-                    0,
-                    1
-                ]));
+                var m = Matrix.fromElements(1, 0, 0, v.X, 0, 1, 0, v.Y, 0, 0, 1, v.Z, 0, 0, 0, 1);
                 return m;
             };
             /**
              * Generate linear scaling transform matrix.
              */
             Matrix.scale = function (v) {
-                return new Matrix(new Float32Array([
-                    v.X,
-                    0,
-                    0,
-                    0,
-                    0,
-                    v.Y,
-                    0,
-                    0,
-                    0,
-                    0,
-                    v.Z,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1
-                ]));
+                return Matrix.fromElements(v.X, 0, 0, 0, 0, v.Y, 0, 0, 0, 0, v.Z, 0, 0, 0, 0, 1);
             };
             Matrix.frustum = function (left, right, bottom, top, near, far) {
-                var width = right - left;
-                var height = top - bottom;
-                var depth = far - near;
-                var m00 = 2 * near / width;
-                var m02 = (right + left) / width;
-                var m11 = 2 * near / height;
-                var m12 = (top + bottom) / height;
-                var m22 = -(far + near) / depth;
-                var m23 = -2 * far * near / depth;
-                return new Matrix(new Float32Array([m00, 0, m02, 0, 0, m11, m12, 0, 0, 0, m22, m23, 0, 0, -1, 0]));
+                var te = new Float32Array(16);
+                var x = 2 * near / (right - left);
+                var y = 2 * near / (top - bottom);
+                var a = (right + left) / (right - left);
+                var b = (top + bottom) / (top - bottom);
+                var c = -(far + near) / (far - near);
+                var d = -2 * far * near / (far - near);
+                te[0] = x;
+                te[4] = 0;
+                te[8] = a;
+                te[12] = 0;
+                te[1] = 0;
+                te[5] = y;
+                te[9] = b;
+                te[13] = 0;
+                te[2] = 0;
+                te[6] = 0;
+                te[10] = c;
+                te[14] = d;
+                te[3] = 0;
+                te[7] = 0;
+                te[11] = -1;
+                te[15] = 0;
+                return new Matrix(te);
             };
             Matrix.perspective = function (fovy, aspect, near, far) {
-                var ymax = near * Math.tan(fovy * Math.PI / 360);
+                var ymax = near * Math.tan(fovy * 0.5);
                 var ymin = -ymax;
                 var xmin = ymin * aspect;
                 var xmax = ymax * aspect;
-                return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
+                return this.frustum(xmin, xmax, ymin, ymax, near, far);
             };
             Matrix.lookAt = function (eye, target, up) {
                 var zAxis = eye.subtractWith(target).normalizeThis();
                 var xAxis = up.crossWith(zAxis).normalizeThis();
                 var yAxis = zAxis.crossWith(xAxis);
                 return new Matrix(new Float32Array([xAxis.X, yAxis.X, zAxis.X, 0, xAxis.Y, yAxis.Y, zAxis.Y, 0, xAxis.Z, yAxis.Z, zAxis.Z, 0, -xAxis.dotWith(eye), -yAxis.dotWith(eye), -zAxis.dotWith(eye), 1]));
+            };
+            Matrix.prototype.multiplyWith = function (m) {
+                return Matrix.multiply(this, m);
             };
             Matrix.prototype.toString = function () {
                 return "|{0} {1} {2} {3}|\n|{4} {5} {6} {7}|\n|{8} {9} {10} {11}|\n|{12} {13} {14} {15}|".format(this.getBySingleIndex(0), this.getBySingleIndex(1), this.getBySingleIndex(2), this.getBySingleIndex(3), this.getBySingleIndex(4), this.getBySingleIndex(5), this.getBySingleIndex(6), this.getBySingleIndex(7), this.getBySingleIndex(8), this.getBySingleIndex(9), this.getBySingleIndex(10), this.getBySingleIndex(11), this.getBySingleIndex(12), this.getBySingleIndex(13), this.getBySingleIndex(14), this.getBySingleIndex(15));

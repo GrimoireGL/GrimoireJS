@@ -236,6 +236,14 @@ var jThree;
         return RendererBase;
     })(jThreeObject);
     jThree.RendererBase = RendererBase;
+    var ViewPort = (function (_super) {
+        __extends(ViewPort, _super);
+        function ViewPort() {
+            _super.apply(this, arguments);
+        }
+        return ViewPort;
+    })(jThreeObject);
+    jThree.ViewPort = ViewPort;
     var CanvasRenderer = (function (_super) {
         __extends(CanvasRenderer, _super);
         function CanvasRenderer(glContext) {
@@ -324,17 +332,6 @@ var jThree;
         Scene.prototype.update = function () {
             if (!this.enabled)
                 return; //enabled==falseならいらない。
-            buf.update(new Float32Array([
-                0.0,
-                Math.sin(time / 100),
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                -1.0,
-                0.0,
-                0.0
-            ]), 9);
             time++;
         };
         Scene.prototype.render = function () {
@@ -414,6 +411,7 @@ var jThree;
         __extends(BasicMaterial, _super);
         function BasicMaterial() {
             _super.call(this);
+            this.initial = false;
             var jThreeContext = JThreeContext.Instance;
             var vs = document.getElementById("vs");
             var fs = document.getElementById("fs");
@@ -424,7 +422,16 @@ var jThree;
             this.program = jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
         }
         BasicMaterial.prototype.configureMaterial = function (renderer, geometry) {
+            var vpMat; //=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            vpMat = jThree.Matrix.Matrix.identity(); //Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
+            // vpMat = Matrix.Matrix.identity();
+            if (!this.initial) {
+                console.log(vpMat.toString());
+                this.initial = true;
+            }
             this.program.getForRenderer(renderer).setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer));
+            this.program.getForRenderer(renderer).setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer));
+            this.program.getForRenderer(renderer).setUniformMatrix("matMVP", vpMat);
             renderer.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
         };
         return BasicMaterial;
@@ -464,7 +471,9 @@ var jThree;
         function TriangleGeometry() {
             _super.call(this);
             this.positionBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-geometry", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.StaticDraw, 3, jThree.ElementType.Float);
-            this.positionBuffer.update(new Float32Array([0.0, 1, 0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 0.0]), 9);
+            this.positionBuffer.update(new Float32Array([0.0, 1, 0.2, 1.0, 0.0, 0.2, -1.0, 0.0, 0.2]), 9);
+            this.normalBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-normals", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.StaticDraw, 3, jThree.ElementType.Float);
+            this.normalBuffer.update(new Float32Array([0, 1, -1, 1, 0, -1, -1, 0, -1]), 9);
         }
         return TriangleGeometry;
     })(Geometry);
@@ -514,7 +523,10 @@ var jThree;
 })(jThree || (jThree = {}));
 var buf;
 var time = 0;
+var noInit;
 $(function () {
+    if (noInit)
+        return;
     var jThreeContext = jThree.JThreeContext.Instance;
     var renderer = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas"));
     var renderer2 = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas2"));

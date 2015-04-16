@@ -155,7 +155,9 @@
 
         private parentProgram: Program = null;
 
-        private attribLocations:Map<string,number>=new Map<string,number>();
+        private attributeLocations: Map<string, number> = new Map<string, number>();
+
+        private uniformLocations:Map<string,WebGLUniformLocation>=new Map<string,WebGLUniformLocation>();
 
         get TargetProgram(): WebGLProgram {
             return this.targetProgram;
@@ -197,13 +199,23 @@
             this.glContext.UseProgram(this.targetProgram);
         }
 
+        setUniformMatrix(valName: string, matrix: Matrix.Matrix): void {
+            this.useProgram();
+            if (!this.uniformLocations.has(valName))
+            {
+                this.uniformLocations.set(valName, this.glContext.GetUniformLocation(this.TargetProgram, valName));
+            }
+            var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+            this.glContext.UniformMatrix(uniformIndex,matrix);
+        }
+
         setAttributeVerticies(valName: string, buffer: BufferWrapper): void {
             this.useProgram();
             buffer.bindBuffer();
-            if (!this.attribLocations.has(valName)) {
-                this.attribLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
+            if (!this.attributeLocations.has(valName)) {
+                this.attributeLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
             }
-            var attribIndex: number = this.attribLocations.get(valName);
+            var attribIndex: number = this.attributeLocations.get(valName);
             this.glContext.EnableVertexAttribArray(attribIndex);
             this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buf.ElementType,buf.Normalized,buf.Stride,buf.Offset);
         }

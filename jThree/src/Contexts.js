@@ -81,6 +81,12 @@ var jThree;
         GLContextWrapperBase.prototype.DeleteProgram = function (target) {
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };
+        GLContextWrapperBase.prototype.GetUniformLocation = function (target, name) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
+        GLContextWrapperBase.prototype.UniformMatrix = function (webGlUniformLocation, matrix) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
         return GLContextWrapperBase;
     })(JThreeObject);
     jThree.GLContextWrapperBase = GLContextWrapperBase;
@@ -196,6 +202,14 @@ var jThree;
         WebGLWrapper.prototype.DeleteProgram = function (target) {
             this.CheckErrorAsFatal();
             this.gl.deleteProgram(target);
+        };
+        WebGLWrapper.prototype.GetUniformLocation = function (target, name) {
+            this.CheckErrorAsFatal();
+            return this.gl.getUniformLocation(target, name);
+        };
+        WebGLWrapper.prototype.UniformMatrix = function (webGlUniformLocation, matrix) {
+            this.CheckErrorAsFatal();
+            this.gl.uniformMatrix4fv(webGlUniformLocation, false, matrix.rawElements);
         };
         return WebGLWrapper;
     })(GLContextWrapperBase);

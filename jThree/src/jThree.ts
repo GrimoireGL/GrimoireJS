@@ -13,6 +13,8 @@ module jThree {
     import JThreeObjectWithId = jThree.Base.jThreeObjectWithID;
     import Action2 = jThree.Delegates.Action2;
     import Action0 = jThree.Delegates.Action0;
+    import Vector3=jThree.Mathematics.Vector.Vector3;
+    import Rectangle = jThree.Mathematics.Rectangle;
 
     export class RendererMatriciesManager extends jThreeObject {
         
@@ -212,6 +214,12 @@ module jThree {
         }
     }
 
+    export class ViewPort extends jThreeObject {
+        private viewportArea: Rectangle;
+
+
+    }
+
     export class CanvasRenderer extends RendererBase {
         public static fromCanvas(canvas: HTMLCanvasElement): CanvasRenderer {
             var gl: WebGLRenderingContext;
@@ -301,11 +309,6 @@ module jThree {
 
         update(): void {
             if (!this.enabled) return;//enabled==falseならいらない。
-            buf.update(new Float32Array([
-                0.0, Math.sin(time / 100), 0.0,
-                1.0, 0.0, 0.0,
-                -1.0, 0.0, 0.0
-            ]), 9);
             time++;
         }
 
@@ -392,9 +395,18 @@ module jThree {
             fsShader.loadAll();
             this.program= jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
         }
-
-        configureMaterial(renderer:RendererBase,geometry: Geometry): void {
+       initial:boolean=false;
+        configureMaterial(renderer: RendererBase, geometry: Geometry): void {
+            var vpMat: Matrix.Matrix;//=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            vpMat = Matrix.Matrix.identity();//Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
+           // vpMat = Matrix.Matrix.identity();
+            if (!this.initial) {
+                console.log(vpMat.toString());
+                this.initial = true;
+            }
             this.program.getForRenderer(renderer).setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer));
+            this.program.getForRenderer(renderer).setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer));
+            this.program.getForRenderer(renderer).setUniformMatrix("matMVP", vpMat);
             renderer.Context.DrawArrays(DrawType.Triangles, 0, 3);
         }
     }
@@ -422,9 +434,11 @@ module jThree {
         constructor() {
             super();
             this.positionBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-geometry", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
-            this.positionBuffer.update(new Float32Array([0.0, 1, 0.0,
-                1.0, 0.0, 0.0,
-                -1.0, 0.0, 0.0]), 9);
+            this.positionBuffer.update(new Float32Array([0.0, 1, 0.2,
+                1.0, 0.0, 0.2,
+                -1.0, 0.0, 0.2]), 9);
+            this.normalBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-normals", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
+            this.normalBuffer.update(new Float32Array([0,1,-1,1,0,-1,-1,0,-1]),9);
         }
     }
 
@@ -477,13 +491,13 @@ module jThree {
             this.geometry = new TriangleGeometry();
         }
     }
-
-
 }
 
 var buf: jThree.Buffers.Buffer;
 var time: number = 0;
+var noInit: boolean;
 $(() => {
+    if (noInit)return;
     var jThreeContext: jThree.JThreeContext = jThree.JThreeContext.Instance;
     var renderer = jThree.CanvasRenderer.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
     var renderer2 = jThree.CanvasRenderer.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas2"));

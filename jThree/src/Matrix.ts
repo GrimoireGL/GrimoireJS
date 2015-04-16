@@ -18,12 +18,7 @@ module jThree.Matrix {
         }
 
         fromFunc(f: Func2<number, number, number>): Matrix {
-            return new Matrix(new Float32Array(
-                [f(0, 0), f(0, 1), f(0, 2), f(0, 3),
-                    f(1, 0), f(1, 1), f(1, 2), f(1, 3),
-                    f(2, 0), f(2, 1), f(2, 2), f(2, 3),
-                    f(3,0),f(3,1),f(3,2),f(3,3)
-            ]));
+            return new Matrix(new Float32Array([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]));
         }
     }
 
@@ -77,35 +72,28 @@ module jThree.Matrix {
 
     export class Matrix extends MatrixBase implements Mathematics.Vector.ILinearObjectGenerator<Matrix> {
         public static zero(): Matrix {
-            return new Matrix(this.zeroElements());
+            return Matrix.fromElements(0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
         }
 
         public static identity(): Matrix {
-            return new Matrix(this.identityElements());
+            return Matrix.fromElements(1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
         }
 
-        private static zeroElements(): Float32Array {
-            return new Float32Array(
-            [
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0
-            ]);
+        public static fromElements(m00,m01,m02,m03,m10,m11,m12,m13,m20,m21,m22,m23,m30,m31,m32,m33): Matrix {
+            return new Matrix(new Float32Array([m00,m10,m20,m30,m01,m11,m21,m31,m02,m12,m22,m32,m03,m13,m23,m33]));
         }
 
-        private static identityElements(): Float32Array {
-            return new Float32Array(
-                [
-                    1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, 0, 1
-                ]
-            );
+        get rawElements(): Float32Array {
+            return this.elements;
         }
 
-        private elements: Float32Array = Matrix.zeroElements();
+        private elements: Float32Array =new Float32Array(16);
 
         private isValidArray(arr: Float32Array): boolean {
             if (arr.length !== 16) return false;
@@ -119,11 +107,11 @@ module jThree.Matrix {
         }
 
         getAt(row: number, colmun: number): number {
-            return this.elements[colmun + row * 4];
+            return this.elements[colmun*4+row];
         }
 
         private setAt(colmun: number, row: number, val: number) {
-            this.elements.set[colmun + row * 4]= val;
+            this.elements.set[colmun*4+row]= val;
         }
 
         getBySingleIndex(index: number): number {
@@ -131,11 +119,11 @@ module jThree.Matrix {
         }
 
         getColmun(col: number): jThree.Mathematics.Vector.Vector4 {
-            return new jThree.Mathematics.Vector.Vector4(this.elements[col], this.elements[col + 4], this.elements[col + 8], this.elements[col + 12]);
+            return new jThree.Mathematics.Vector.Vector4(this.elements[col*4], this.elements[col*4 + 1], this.elements[col*4 + 2], this.elements[col*4 + 3]);
         }
 
         getRow(row: number): jThree.Mathematics.Vector.Vector4 {
-            return new jThree.Mathematics.Vector.Vector4(this.elements[row * 4], this.elements[row * 4 + 1], this.elements[row * 4 + 2], this.elements[row * 4 + 3]);
+            return new jThree.Mathematics.Vector.Vector4(this.elements[row], this.elements[row +4], this.elements[row +8], this.elements[row +12]);
         }
 
         isNaN(): boolean {
@@ -147,7 +135,7 @@ module jThree.Matrix {
         }
 
         static equal(m1: Matrix, m2: Matrix): boolean {
-            return this.elementEqual(m1, m2);
+            return Matrix.elementEqual(m1, m2);
         }
 
         static add(m1: Matrix, m2: Matrix): Matrix {
@@ -275,19 +263,19 @@ module jThree.Matrix {
             m31 /= det;
             m32 /= det;
             m33 /= det;
-            return new Matrix(new Float32Array([m00,m01,m02,m03,m10,m11,m12,m13,m20,m21,m22,m23,m30,m31,m32,m33]));
+            return Matrix.fromElements(m00,m01,m02,m03,m10,m11,m12,m13,m20,m21,m22,m23,m30,m31,m32,m33);
         }
         
         /**
          * Generate linear translation transform matrix.
          */
         static translate(v: Vector3): Matrix {
-            var m: Matrix = new Matrix(new Float32Array([
+            var m: Matrix =Matrix.fromElements(
                 1, 0, 0, v.X,
                 0, 1, 0, v.Y,
                 0, 0, 1, v.Z,
                 0, 0, 0, 1
-            ]));
+            );
             return m;
         }
 
@@ -295,33 +283,38 @@ module jThree.Matrix {
          * Generate linear scaling transform matrix.
          */
         static scale(v: Vector3): Matrix {
-            return new Matrix(new Float32Array([
+            return Matrix.fromElements(
                 v.X, 0, 0, 0,
                 0, v.Y, 0, 0,
                 0, 0, v.Z, 0,
                 0, 0, 0, 1
-            ]));
+            );
         }
 
         static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {
-            var width = right - left;
-            var height = top - bottom;
-            var depth = far - near;
-            var m00 = 2 * near / width;
-            var m02 = (right + left) / width;
-            var m11 = 2 * near / height;
-            var m12 = (top + bottom) / height;
-            var m22 = -(far + near) / depth;
-            var m23 = -2 * far * near / depth;
-            return new Matrix(new Float32Array([m00,0,m02,0,0,m11,m12,0,0,0,m22,m23,0,0,-1,0]));
+            var te = new Float32Array(16);
+            var x = 2 * near / (right - left);
+            var y = 2 * near / (top - bottom);
+
+            var a = (right + left) / (right - left);
+            var b = (top + bottom) / (top - bottom);
+            var c = - (far + near) / (far - near);
+            var d = - 2 * far * near / (far - near);
+
+            te[0] = x; te[4] = 0; te[8] = a; te[12] = 0;
+            te[1] = 0; te[5] = y; te[9] = b; te[13] = 0;
+            te[2] = 0; te[6] = 0; te[10] = c; te[14] = d;
+            te[3] = 0; te[7] = 0; te[11] = - 1; te[15] = 0;
+            return new Matrix(te);
         }
 
-        static perspective(fovy: number, aspect: number, near: number, far: number):Matrix {
-            var ymax: number = near * Math.tan(fovy * Math.PI / 360);
-            var ymin: number = -ymax;
-            var xmin: number = ymin * aspect;
-            var xmax: number = ymax * aspect;
-            return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
+        static perspective(fovy: number, aspect: number, near: number, far: number): Matrix {
+            var ymax = near * Math.tan(fovy*0.5);
+            var ymin = - ymax;
+            var xmin = ymin * aspect;
+            var xmax = ymax * aspect;
+
+            return this.frustum(xmin, xmax, ymin, ymax, near, far);
         }
 
         static lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix {
@@ -335,7 +328,9 @@ module jThree.Matrix {
             -xAxis.dotWith(eye),-yAxis.dotWith(eye),-zAxis.dotWith(eye),1]));
         }
 
-
+        multiplyWith(m: Matrix): Matrix {
+            return Matrix.multiply(this, m);
+        }
 
         
 
