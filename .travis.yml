@@ -3,6 +3,8 @@ env:
     secure: I8KOl3uI1vVQTG/azUcv0RRNmaefDjWYrJJezt1RxvjLIOiYSqABer6BOAshz7dW0fctx8mA4b9Wtewxi64tqmvTCsvqcndPJVTeJTGX+63TlqYZaCxV/iPdvgOhQ0a+c8QhqA/gVEAszTkoxTQN1KySe0QeCdxbMNf4BHe9m3Y=
 before_install:
 - npm install -g npm
+- rm ci -r
+- mkdir ci
 - cd ci
 - git init
 - git remote add github https://github.com/jThreeJS/jThree
