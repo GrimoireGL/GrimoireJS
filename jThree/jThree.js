@@ -1540,38 +1540,38 @@ var jThree;
     })(GLContextWrapperBase);
     jThree.WebGLWrapper = WebGLWrapper;
     (function (BufferTargetType) {
-        BufferTargetType[BufferTargetType["ArrayBuffer"] = WebGLRenderingContext.ARRAY_BUFFER] = "ArrayBuffer";
-        BufferTargetType[BufferTargetType["ElementArrayBuffer"] = WebGLRenderingContext.ELEMENT_ARRAY_BUFFER] = "ElementArrayBuffer";
+        BufferTargetType[BufferTargetType["ArrayBuffer"] = 34962] = "ArrayBuffer";
+        BufferTargetType[BufferTargetType["ElementArrayBuffer"] = 34963] = "ElementArrayBuffer"; //ELEMENT_ARRAY_BUFFER
     })(jThree.BufferTargetType || (jThree.BufferTargetType = {}));
     var BufferTargetType = jThree.BufferTargetType;
     (function (ClearTargetType) {
-        ClearTargetType[ClearTargetType["ColorBits"] = WebGLRenderingContext.COLOR_BUFFER_BIT] = "ColorBits";
-        ClearTargetType[ClearTargetType["DepthBits"] = WebGLRenderingContext.DEPTH_BUFFER_BIT] = "DepthBits";
-        ClearTargetType[ClearTargetType["StencilBits"] = WebGLRenderingContext.STENCIL_BUFFER_BIT] = "StencilBits";
+        ClearTargetType[ClearTargetType["ColorBits"] = 16384] = "ColorBits";
+        ClearTargetType[ClearTargetType["DepthBits"] = 256] = "DepthBits";
+        ClearTargetType[ClearTargetType["StencilBits"] = 1024] = "StencilBits"; //STENCIL_BUFFER_BIT
     })(jThree.ClearTargetType || (jThree.ClearTargetType = {}));
     var ClearTargetType = jThree.ClearTargetType;
     (function (ShaderType) {
-        ShaderType[ShaderType["VertexShader"] = WebGLRenderingContext.VERTEX_SHADER] = "VertexShader";
-        ShaderType[ShaderType["FragmentShader"] = WebGLRenderingContext.FRAGMENT_SHADER] = "FragmentShader";
+        ShaderType[ShaderType["VertexShader"] = 35633] = "VertexShader";
+        ShaderType[ShaderType["FragmentShader"] = 35632] = "FragmentShader"; //FRAGMENT_SHADER
     })(jThree.ShaderType || (jThree.ShaderType = {}));
     var ShaderType = jThree.ShaderType;
     (function (BufferUsageType) {
-        BufferUsageType[BufferUsageType["StaticDraw"] = WebGLRenderingContext.STATIC_DRAW] = "StaticDraw";
-        BufferUsageType[BufferUsageType["StreamDraw"] = WebGLRenderingContext.STREAM_DRAW] = "StreamDraw";
-        BufferUsageType[BufferUsageType["DynamicDraw"] = WebGLRenderingContext.DYNAMIC_DRAW] = "DynamicDraw";
+        BufferUsageType[BufferUsageType["StaticDraw"] = 35044] = "StaticDraw";
+        BufferUsageType[BufferUsageType["StreamDraw"] = 35040] = "StreamDraw";
+        BufferUsageType[BufferUsageType["DynamicDraw"] = 35048] = "DynamicDraw"; //WebGLRenderingContext.DYNAMIC_DRAW
     })(jThree.BufferUsageType || (jThree.BufferUsageType = {}));
     var BufferUsageType = jThree.BufferUsageType;
     (function (ElementType) {
-        ElementType[ElementType["Float"] = WebGLRenderingContext.FLOAT] = "Float";
-        ElementType[ElementType["UnsignedByte"] = WebGLRenderingContext.UNSIGNED_BYTE] = "UnsignedByte";
-        ElementType[ElementType["Short"] = WebGLRenderingContext.SHORT] = "Short";
-        ElementType[ElementType["UnsignedShort"] = WebGLRenderingContext.UNSIGNED_SHORT] = "UnsignedShort";
-        ElementType[ElementType["UnsignedInt"] = WebGLRenderingContext.UNSIGNED_INT] = "UnsignedInt";
-        ElementType[ElementType["Int"] = WebGLRenderingContext.INT] = "Int";
+        ElementType[ElementType["Float"] = 5126] = "Float";
+        ElementType[ElementType["UnsignedByte"] = 5121] = "UnsignedByte";
+        ElementType[ElementType["Short"] = 5122] = "Short";
+        ElementType[ElementType["UnsignedShort"] = 5123] = "UnsignedShort";
+        ElementType[ElementType["UnsignedInt"] = 5125] = "UnsignedInt";
+        ElementType[ElementType["Int"] = 5124] = "Int"; //WebGLRenderingContext.INT
     })(jThree.ElementType || (jThree.ElementType = {}));
     var ElementType = jThree.ElementType;
     (function (DrawType) {
-        DrawType[DrawType["Triangles"] = WebGLRenderingContext.TRIANGLES] = "Triangles";
+        DrawType[DrawType["Triangles"] = 4] = "Triangles";
     })(jThree.DrawType || (jThree.DrawType = {}));
     var DrawType = jThree.DrawType;
 })(jThree || (jThree = {}));
@@ -2444,7 +2444,7 @@ var jThree;
         CanvasRenderer.prototype.render = function (drawAct) {
             if (!this.enabled)
                 return; //enabledじゃないなら描画をスキップ
-            this.context.Clear(jThree.ClearTargetType.ColorBits);
+            this.context.Clear(16384 /* ColorBits */);
             drawAct();
             this.context.Finish();
         };
@@ -2578,8 +2578,8 @@ var jThree;
             var jThreeContext = JThreeContext.Instance;
             var vs = document.getElementById("vs");
             var fs = document.getElementById("fs");
-            var vsShader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, jThree.ShaderType.VertexShader);
-            var fsShader = jThreeContext.ResourceManager.createShader("test-fs", fs.textContent, jThree.ShaderType.FragmentShader);
+            var vsShader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, 35633 /* VertexShader */);
+            var fsShader = jThreeContext.ResourceManager.createShader("test-fs", fs.textContent, 35632 /* FragmentShader */);
             vsShader.loadAll();
             fsShader.loadAll();
             this.program = jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
@@ -2595,7 +2595,7 @@ var jThree;
             this.program.getForRenderer(renderer).setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer));
             this.program.getForRenderer(renderer).setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer));
             this.program.getForRenderer(renderer).setUniformMatrix("matMVP", vpMat);
-            renderer.Context.DrawArrays(jThree.DrawType.Triangles, 0, 3);
+            renderer.Context.DrawArrays(4 /* Triangles */, 0, 3);
         };
         return BasicMaterial;
     })(Material);
@@ -2633,9 +2633,9 @@ var jThree;
         __extends(TriangleGeometry, _super);
         function TriangleGeometry() {
             _super.call(this);
-            this.positionBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-geometry", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.StaticDraw, 3, jThree.ElementType.Float);
+            this.positionBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-geometry", 34962 /* ArrayBuffer */, 35044 /* StaticDraw */, 3, 5126 /* Float */);
             this.positionBuffer.update(new Float32Array([0.0, 1, 0.2, 1.0, 0.0, 0.2, -1.0, 0.0, 0.2]), 9);
-            this.normalBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-normals", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.StaticDraw, 3, jThree.ElementType.Float);
+            this.normalBuffer = JThreeContext.Instance.ResourceManager.createBuffer("triangle-normals", 34962 /* ArrayBuffer */, 35044 /* StaticDraw */, 3, 5126 /* Float */);
             this.normalBuffer.update(new Float32Array([0, 1, -1, 1, 0, -1, -1, 0, -1]), 9);
         }
         return TriangleGeometry;
@@ -2698,6 +2698,6 @@ $(function () {
     scene.addRenderer(renderer);
     scene.addRenderer(renderer2);
     jThreeContext.SceneManager.addScene(scene);
-    buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw, 3, jThree.ElementType.Float);
+    buf = jThreeContext.ResourceManager.createBuffer("test-buffer", 34962 /* ArrayBuffer */, 35048 /* DynamicDraw */, 3, 5126 /* Float */);
     jThreeContext.init();
 });

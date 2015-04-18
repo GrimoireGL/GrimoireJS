@@ -236,17 +236,29 @@ var jThree;
         return RendererBase;
     })(jThreeObject);
     jThree.RendererBase = RendererBase;
-    var ViewPort = (function (_super) {
-        __extends(ViewPort, _super);
-        function ViewPort() {
+    var ContextManagerBase = (function (_super) {
+        __extends(ContextManagerBase, _super);
+        function ContextManagerBase() {
             _super.apply(this, arguments);
         }
-        return ViewPort;
-    })(jThreeObject);
-    jThree.ViewPort = ViewPort;
-    var CanvasRenderer = (function (_super) {
-        __extends(CanvasRenderer, _super);
-        function CanvasRenderer(glContext) {
+        return ContextManagerBase;
+    })(JThreeObjectWithId);
+    jThree.ContextManagerBase = ContextManagerBase;
+    var ViewPortRenderer = (function (_super) {
+        __extends(ViewPortRenderer, _super);
+        function ViewPortRenderer() {
+            _super.apply(this, arguments);
+        }
+        ViewPortRenderer.prototype.setViewPortSetting = function () {
+        };
+        ViewPortRenderer.prototype.render = function (drawAct) {
+        };
+        return ViewPortRenderer;
+    })(RendererBase);
+    jThree.ViewPortRenderer = ViewPortRenderer;
+    var CanvasManager = (function (_super) {
+        __extends(CanvasManager, _super);
+        function CanvasManager(glContext) {
             _super.call(this);
             this.enabled = true;
             this.id = jThree.Base.jThreeID.getUniqueRandom(10);
@@ -254,11 +266,11 @@ var jThree;
             this.context = new jThree.WebGLWrapper(this.glContext);
             this.ClearColor = new Color4(0, 0, 255, 255);
         }
-        CanvasRenderer.fromCanvas = function (canvas) {
+        CanvasManager.fromCanvas = function (canvas) {
             var gl;
             try {
                 gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-                var renderer = new CanvasRenderer(gl);
+                var renderer = new CanvasManager(gl);
                 JThreeContext.Instance.addRenderer(renderer);
                 return renderer;
             }
@@ -267,7 +279,7 @@ var jThree;
                 }
             }
         };
-        Object.defineProperty(CanvasRenderer.prototype, "ClearColor", {
+        Object.defineProperty(CanvasManager.prototype, "ClearColor", {
             get: function () {
                 return this.clearColor;
             },
@@ -278,16 +290,16 @@ var jThree;
             enumerable: true,
             configurable: true
         });
-        CanvasRenderer.prototype.render = function (drawAct) {
+        CanvasManager.prototype.render = function (drawAct) {
             if (!this.enabled)
                 return; //enabledじゃないなら描画をスキップ
             this.context.Clear(jThree.ClearTargetType.ColorBits);
             drawAct();
             this.context.Finish();
         };
-        return CanvasRenderer;
+        return CanvasManager;
     })(RendererBase);
-    jThree.CanvasRenderer = CanvasRenderer;
+    jThree.CanvasManager = CanvasManager;
     var SceneManager = (function (_super) {
         __extends(SceneManager, _super);
         function SceneManager() {
@@ -528,8 +540,8 @@ $(function () {
     if (noInit)
         return;
     var jThreeContext = jThree.JThreeContext.Instance;
-    var renderer = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas"));
-    var renderer2 = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas2"));
+    var renderer = jThree.CanvasManager.fromCanvas(document.getElementById("test-canvas"));
+    var renderer2 = jThree.CanvasManager.fromCanvas(document.getElementById("test-canvas2"));
     var scene = new jThree.Scene();
     scene.addObject(new jThree.Triangle());
     scene.addRenderer(renderer);

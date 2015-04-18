@@ -87,6 +87,9 @@ var jThree;
         GLContextWrapperBase.prototype.UniformMatrix = function (webGlUniformLocation, matrix) {
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };
+        GLContextWrapperBase.prototype.ViewPort = function (x, y, width, height) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
         return GLContextWrapperBase;
     })(JThreeObject);
     jThree.GLContextWrapperBase = GLContextWrapperBase;
@@ -211,42 +214,46 @@ var jThree;
             this.CheckErrorAsFatal();
             this.gl.uniformMatrix4fv(webGlUniformLocation, false, matrix.rawElements);
         };
+        WebGLWrapper.prototype.ViewPort = function (x, y, width, height) {
+            this.CheckErrorAsFatal();
+            this.gl.viewport(x, y, width, height);
+        };
         return WebGLWrapper;
     })(GLContextWrapperBase);
     jThree.WebGLWrapper = WebGLWrapper;
     (function (BufferTargetType) {
-        BufferTargetType[BufferTargetType["ArrayBuffer"] = WebGLRenderingContext.ARRAY_BUFFER] = "ArrayBuffer";
-        BufferTargetType[BufferTargetType["ElementArrayBuffer"] = WebGLRenderingContext.ELEMENT_ARRAY_BUFFER] = "ElementArrayBuffer";
+        BufferTargetType[BufferTargetType["ArrayBuffer"] = 34962] = "ArrayBuffer";
+        BufferTargetType[BufferTargetType["ElementArrayBuffer"] = 34963] = "ElementArrayBuffer"; //ELEMENT_ARRAY_BUFFER
     })(jThree.BufferTargetType || (jThree.BufferTargetType = {}));
     var BufferTargetType = jThree.BufferTargetType;
     (function (ClearTargetType) {
-        ClearTargetType[ClearTargetType["ColorBits"] = WebGLRenderingContext.COLOR_BUFFER_BIT] = "ColorBits";
-        ClearTargetType[ClearTargetType["DepthBits"] = WebGLRenderingContext.DEPTH_BUFFER_BIT] = "DepthBits";
-        ClearTargetType[ClearTargetType["StencilBits"] = WebGLRenderingContext.STENCIL_BUFFER_BIT] = "StencilBits";
+        ClearTargetType[ClearTargetType["ColorBits"] = 16384] = "ColorBits";
+        ClearTargetType[ClearTargetType["DepthBits"] = 256] = "DepthBits";
+        ClearTargetType[ClearTargetType["StencilBits"] = 1024] = "StencilBits"; //STENCIL_BUFFER_BIT
     })(jThree.ClearTargetType || (jThree.ClearTargetType = {}));
     var ClearTargetType = jThree.ClearTargetType;
     (function (ShaderType) {
-        ShaderType[ShaderType["VertexShader"] = WebGLRenderingContext.VERTEX_SHADER] = "VertexShader";
-        ShaderType[ShaderType["FragmentShader"] = WebGLRenderingContext.FRAGMENT_SHADER] = "FragmentShader";
+        ShaderType[ShaderType["VertexShader"] = 35633] = "VertexShader";
+        ShaderType[ShaderType["FragmentShader"] = 35632] = "FragmentShader"; //FRAGMENT_SHADER
     })(jThree.ShaderType || (jThree.ShaderType = {}));
     var ShaderType = jThree.ShaderType;
     (function (BufferUsageType) {
-        BufferUsageType[BufferUsageType["StaticDraw"] = WebGLRenderingContext.STATIC_DRAW] = "StaticDraw";
-        BufferUsageType[BufferUsageType["StreamDraw"] = WebGLRenderingContext.STREAM_DRAW] = "StreamDraw";
-        BufferUsageType[BufferUsageType["DynamicDraw"] = WebGLRenderingContext.DYNAMIC_DRAW] = "DynamicDraw";
+        BufferUsageType[BufferUsageType["StaticDraw"] = 35044] = "StaticDraw";
+        BufferUsageType[BufferUsageType["StreamDraw"] = 35040] = "StreamDraw";
+        BufferUsageType[BufferUsageType["DynamicDraw"] = 35048] = "DynamicDraw"; //WebGLRenderingContext.DYNAMIC_DRAW
     })(jThree.BufferUsageType || (jThree.BufferUsageType = {}));
     var BufferUsageType = jThree.BufferUsageType;
     (function (ElementType) {
-        ElementType[ElementType["Float"] = WebGLRenderingContext.FLOAT] = "Float";
-        ElementType[ElementType["UnsignedByte"] = WebGLRenderingContext.UNSIGNED_BYTE] = "UnsignedByte";
-        ElementType[ElementType["Short"] = WebGLRenderingContext.SHORT] = "Short";
-        ElementType[ElementType["UnsignedShort"] = WebGLRenderingContext.UNSIGNED_SHORT] = "UnsignedShort";
-        ElementType[ElementType["UnsignedInt"] = WebGLRenderingContext.UNSIGNED_INT] = "UnsignedInt";
-        ElementType[ElementType["Int"] = WebGLRenderingContext.INT] = "Int";
+        ElementType[ElementType["Float"] = 5126] = "Float";
+        ElementType[ElementType["UnsignedByte"] = 5121] = "UnsignedByte";
+        ElementType[ElementType["Short"] = 5122] = "Short";
+        ElementType[ElementType["UnsignedShort"] = 5123] = "UnsignedShort";
+        ElementType[ElementType["UnsignedInt"] = 5125] = "UnsignedInt";
+        ElementType[ElementType["Int"] = 5124] = "Int"; //WebGLRenderingContext.INT
     })(jThree.ElementType || (jThree.ElementType = {}));
     var ElementType = jThree.ElementType;
     (function (DrawType) {
-        DrawType[DrawType["Triangles"] = WebGLRenderingContext.TRIANGLES] = "Triangles";
+        DrawType[DrawType["Triangles"] = 4] = "Triangles";
     })(jThree.DrawType || (jThree.DrawType = {}));
     var DrawType = jThree.DrawType;
 })(jThree || (jThree = {}));

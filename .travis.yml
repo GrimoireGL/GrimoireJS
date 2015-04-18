@@ -6,7 +6,7 @@ install:
  - npm install
 
 script:
-        - grunt travis --verbose --force --branch=$TRAVIS_BRANCH
+ - grunt travis --verbose --force --branch=$TRAVIS_BRANCH
 
 language: node_js
 

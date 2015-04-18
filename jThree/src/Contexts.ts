@@ -116,6 +116,10 @@
         UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix.Matrix) {
             throw new Exceptions.AbstractClassMethodCalledException();
         }
+
+        ViewPort(x: number, y: number, width: number, height: number): void {
+            throw new Exceptions.AbstractClassMethodCalledException();
+        }
     }
 
     export class WebGLWrapper extends GLContextWrapperBase
@@ -273,42 +277,45 @@
             this.CheckErrorAsFatal();
             this.gl.uniformMatrix4fv(webGlUniformLocation, false,matrix.rawElements);
         }
-    }
-    
 
+        ViewPort(x:number,y:number,width:number,height:number): void {
+            this.CheckErrorAsFatal();
+            this.gl.viewport(x,y,width,height);
+        }
+    }
     export enum BufferTargetType
     {
-        ArrayBuffer = WebGLRenderingContext.ARRAY_BUFFER,
-        ElementArrayBuffer = WebGLRenderingContext.ELEMENT_ARRAY_BUFFER
+        ArrayBuffer = 34962,//ARRAY_BUFFER
+        ElementArrayBuffer = 34963//ELEMENT_ARRAY_BUFFER
     }
 
     export enum ClearTargetType {
-        ColorBits = WebGLRenderingContext.COLOR_BUFFER_BIT,
-        DepthBits = WebGLRenderingContext.DEPTH_BUFFER_BIT,
-        StencilBits=WebGLRenderingContext.STENCIL_BUFFER_BIT
+        ColorBits = 16384,//COLOR_BUFFER_BIT,
+        DepthBits = 256,//DEPTH_BUFFER_BIT,
+        StencilBits=1024//STENCIL_BUFFER_BIT
     }
 
     export enum ShaderType {
-        VertexShader = WebGLRenderingContext.VERTEX_SHADER,
-        FragmentShader=WebGLRenderingContext.FRAGMENT_SHADER
+        VertexShader = 35633,//VERTEX_SHADER,
+        FragmentShader=35632//FRAGMENT_SHADER
     }
 
     export enum BufferUsageType {
-        StaticDraw = WebGLRenderingContext.STATIC_DRAW,
-        StreamDraw = WebGLRenderingContext.STREAM_DRAW,
-        DynamicDraw=WebGLRenderingContext.DYNAMIC_DRAW
+        StaticDraw = 35044,//STATIC_DRAW,
+        StreamDraw = 35040,//STREAM_DRAW,
+        DynamicDraw=35048//WebGLRenderingContext.DYNAMIC_DRAW
     }
 
     export enum ElementType {
-        Float = WebGLRenderingContext.FLOAT,
-        UnsignedByte = WebGLRenderingContext.UNSIGNED_BYTE,
-        Short = WebGLRenderingContext.SHORT,
-        UnsignedShort = WebGLRenderingContext.UNSIGNED_SHORT,
-        UnsignedInt = WebGLRenderingContext.UNSIGNED_INT,
-        Int=WebGLRenderingContext.INT
+        Float = 5126,//FLOAT,
+        UnsignedByte = 5121,//WebGLRenderingContext.UNSIGNED_BYTE,
+        Short = 5122,//WebGLRenderingContext.SHORT,
+        UnsignedShort =5123,// WebGLRenderingContext.UNSIGNED_SHORT,
+        UnsignedInt = 5125,//WebGLRenderingContext.UNSIGNED_INT,
+        Int=5124//WebGLRenderingContext.INT
     }
 
     export enum DrawType {
-        Triangles=WebGLRenderingContext.TRIANGLES
+        Triangles=4,//TRIANGLES
     }
 } 

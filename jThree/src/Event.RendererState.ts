@@ -14,7 +14,7 @@ module jThree.Events {
      */
     export class RendererListChangedEventArgs extends jThreeObject
     {
-        constructor(private changeType: RendererStateChangedType, private affectedRenderer: RendererBase) {
+        constructor(private changeType: RendererStateChangedType, private affectedRenderer: ContextManagerBase) {
             super();
         }
         
@@ -28,7 +28,7 @@ module jThree.Events {
         /**
          * 影響を受けたレンダラ
          */
-        get AffectedRenderer(): RendererBase {
+        get AffectedRenderer(): ContextManagerBase {
             return this.affectedRenderer;
         }
     }

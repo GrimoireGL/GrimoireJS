@@ -98,7 +98,7 @@ module jThree {
      */
     export class JThreeContext extends jThreeObject {
         private static instance: JThreeContext;
-        private canvasRenderers: CanvasRenderer[] = [];
+        private canvasRenderers: CanvasManager[] = [];
         private onRendererChangedFuncs:Action1<Events.RendererListChangedEventArgs>[]=[];
         private resourceManager: ResourceManager;
         private timer: ContextTimer;
@@ -107,6 +107,7 @@ module jThree {
         get SceneManager(): SceneManager {
             return this.sceneManager;
         }
+        
         /**
          * Singleton
          */
@@ -135,7 +136,7 @@ module jThree {
         /**
          * Getter of canvas renderer.
          */
-        get CanvasRenderers(): CanvasRenderer[] {
+        get CanvasRenderers(): CanvasManager[] {
             return this.canvasRenderers;
         }
 
@@ -151,9 +152,9 @@ module jThree {
         }
 
         /**
-         * Add renderers to be managed by jThree
+         * Add contextManagers to be managed by jThree
          */
-        addRenderer(renderer: CanvasRenderer):void {
+        addRenderer(renderer: CanvasManager):void {
             if (this.canvasRenderers.indexOf(renderer) === -1) {
                 this.canvasRenderers.push(renderer);
                 this.notifyRendererChanged(new Events.RendererListChangedEventArgs(Events.RendererStateChangedType.Add, renderer));
@@ -163,7 +164,7 @@ module jThree {
         /**
          * Remove renderer
          */
-        removeRenderer(renderer: CanvasRenderer): void {
+        removeRenderer(renderer: CanvasManager): void {
             if (this.canvasRenderers.indexOf(renderer) !== -1) {
                 for (var i = 0; i < this.canvasRenderers.length; i++) {
                     if (this.canvasRenderers[i] === renderer)
@@ -192,14 +193,13 @@ module jThree {
         }
     }
 
-    export class RendererBase extends jThreeObject {
-        protected context: GLContextWrapperBase;
+    export class RendererBase extends jThreeObject
+    {
 
-        get Context(): GLContextWrapperBase
-        {
-            return this.context;
+        constructor(contextManager:ContextManagerBase) {
+            super();
+            this.contextManager = contextManager;
         }
-
         protected id: string;
 
         get ID(): string
@@ -212,20 +212,50 @@ module jThree {
         render(drawAct: Action0): void {
             throw new Exceptions.AbstractClassMethodCalledException();
         }
+
+        private contextManager: ContextManagerBase;
+
+        get ContextManager(): ContextManagerBase {
+            return this.contextManager;
+        }
+
+        get Context(): GLContextWrapperBase {
+            return this.contextManager.Context;
+        }
     }
 
-    export class ViewPort extends jThreeObject {
+    export class ContextManagerBase extends JThreeObjectWithId
+    {
+        protected context: GLContextWrapperBase;
+
+        get Context(): GLContextWrapperBase
+        {
+            return this.context;
+        }
+    }
+
+    export class ViewPortRenderer extends RendererBase
+    {
+        private parentCanvasHolder:ContextManagerBase;
         private viewportArea: Rectangle;
+        private backgroundColor:Color4;
 
+        applyConfigure(): void {
+            this.parentCanvasHolder.Context.ClearColor(this.backgroundColor.R, this.backgroundColor.G, this.backgroundColor.B, this.backgroundColor.A);
+            this.parentCanvasHolder.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Right, this.viewportArea.Width, this.viewportArea.Height);
+        }
 
+        render(drawAct: Action0): void {
+            
+        }
     }
 
-    export class CanvasRenderer extends RendererBase {
-        public static fromCanvas(canvas: HTMLCanvasElement): CanvasRenderer {
+    export class CanvasManager extends ContextManagerBase {
+        public static fromCanvas(canvas: HTMLCanvasElement): CanvasManager {
             var gl: WebGLRenderingContext;
             try {
                 gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-                var renderer: CanvasRenderer = new CanvasRenderer(gl);
+                var renderer: CanvasManager = new CanvasManager(gl);
                 JThreeContext.Instance.addRenderer(renderer);
                 return renderer;
             } catch (e) {
@@ -250,18 +280,21 @@ module jThree {
 
         constructor(glContext?: WebGLRenderingContext) {
             super();
-            this.enabled = true;
-            this.id = jThree.Base.jThreeID.getUniqueRandom(10);
+           // this.enabled = true;
             this.glContext = glContext;
             this.context = new WebGLWrapper(this.glContext);
             this.ClearColor = new Color4(0,0,255,255);
         }
 
         render(drawAct:Action0): void {
-            if (!this.enabled) return;//enabledじゃないなら描画をスキップ
+            //if (!this.enabled) return;//enabledじゃないなら描画をスキップ
             this.context.Clear(ClearTargetType.ColorBits);
             drawAct();
             this.context.Finish();
+        }
+
+        getDefaultViewport(): ViewPortRenderer {
+            return new ViewPortRenderer(this);
         }
     }
 
@@ -313,17 +346,17 @@ module jThree {
         }
 
         render(): void {
-            this.renderers.forEach((r) => {
+            this.contextManagers.forEach((r) => {
                 r.render(() => {
                     this.renderObjects.forEach((v) => v.TargetObject.render(r, v.Material));
                 });
             });
         }
 
-        private renderers: RendererBase[] = [];
+        private contextManagers: RendererBase[] = [];
 
         public addRenderer(renderer: RendererBase): void {
-            this.renderers.push(renderer);
+            this.contextManagers.push(renderer);
         }
 
         private renderObjects: MaterialObjectPair[] = [];
@@ -499,8 +532,8 @@ var noInit: boolean;
 $(() => {
     if (noInit)return;
     var jThreeContext: jThree.JThreeContext = jThree.JThreeContext.Instance;
-    var renderer = jThree.CanvasRenderer.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
-    var renderer2 = jThree.CanvasRenderer.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas2"));
+    var renderer = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
+    var renderer2 = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas2"));
     var scene = new jThree.Scene();
     scene.addObject(new jThree.Triangle());
     scene.addRenderer(renderer);

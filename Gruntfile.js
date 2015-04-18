@@ -1,6 +1,19 @@
 "use strict";
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+    
+    var branch_name = grunt.option('branch') || 'unknown';
+    var ci_docoutput = "ci/docs"+branch_name;
+
+    /**************************
+     *    LOAD NPM TASKS      *
+     **************************/
+    grunt.loadNpmTasks("grunt-typescript");
+    grunt.loadNpmTasks("grunt-contrib-qunit");
+    grunt.loadNpmTasks("grunt-contrib-connect");
+    grunt.loadNpmTasks("grunt-blanket-qunit");
+    grunt.loadNpmTasks("grunt-typedoc");
+
     grunt.initConfig({
         typescript: {
             base: {
@@ -26,6 +39,7 @@ module.exports = function(grunt) {
             local: {
                 options: {
                     port: 8081
+
                 }
             }
         },
@@ -41,20 +55,16 @@ module.exports = function(grunt) {
             build: {
                 options: {
                     target: "es5",
-                    out: "jThree/docs/",
+                    out: ci_docoutput,
                     name: "jThree API Reference",
                 },
                 src: "jThree/src/**/*.ts"
             }
         }
     });
-    var branch_name = grunt.option('branch') || 'unknown';
-    console.log(branch_name);
-    grunt.loadNpmTasks("grunt-typescript");
-    grunt.loadNpmTasks("grunt-contrib-qunit");
-    grunt.loadNpmTasks("grunt-contrib-connect");
-    grunt.loadNpmTasks("grunt-blanket-qunit");
-    grunt.loadNpmTasks("grunt-typedoc");
+    /***********************
+     *    REGISTER TASKS   *
+     ***********************/
     grunt.registerTask("travis", ["typescript", "connect", "blanket_qunit", "typedoc"]);
     grunt.registerTask("compile", ["typescript"]);
     grunt.registerTask("server", ["connect"]);
