@@ -7,11 +7,17 @@ var __extends = this.__extends || function (d, b) {
 var jThree;
 (function (jThree) {
     var JThreeObject = jThree.Base.jThreeObject;
+    /**
+     * Base class for wrapping WebGLRenderingContext
+     */
     var GLContextWrapperBase = (function (_super) {
         __extends(GLContextWrapperBase, _super);
         function GLContextWrapperBase() {
             _super.apply(this, arguments);
         }
+        /**
+         * Check gl error, and abort if error has been occured.
+         */
         GLContextWrapperBase.prototype.CheckErrorAsFatal = function () {
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };

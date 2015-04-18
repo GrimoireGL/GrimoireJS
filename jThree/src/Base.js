@@ -74,10 +74,12 @@ var jThree;
                 });
                 this.context.onRendererChanged(this.rendererChanged);
             }
-            ContextSafeResourceContainer.prototype.getForRenderer = function (renderer) {
-                return this.getForRendererID(renderer.ID);
+            ContextSafeResourceContainer.prototype.getForRenderer = function (contextManager) {
+                return this.getForRendererID(contextManager.ID);
             };
             ContextSafeResourceContainer.prototype.getForRendererID = function (id) {
+                if (!this.cachedObject.has(id))
+                    console.log("There is no matching object with the ID:" + id);
                 return this.cachedObject.get(id);
             };
             ContextSafeResourceContainer.prototype.each = function (act) {
@@ -109,7 +111,8 @@ var jThree;
         var jThreeObjectWithID = (function (_super) {
             __extends(jThreeObjectWithID, _super);
             function jThreeObjectWithID() {
-                _super.apply(this, arguments);
+                _super.call(this);
+                this.id = jThreeID.getUniqueRandom(10);
             }
             Object.defineProperty(jThreeObjectWithID.prototype, "ID", {
                 /**

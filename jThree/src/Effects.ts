@@ -51,7 +51,7 @@
             });
         }
          
-        protected getInstanceForRenderer(renderer: RendererBase): ShaderWrapper {
+        protected getInstanceForRenderer(renderer:ContextManagerBase): ShaderWrapper {
             return new ShaderWrapper(this, renderer);
         }
 
@@ -63,7 +63,7 @@
     export class ShaderWrapper extends jThree.Base.jThreeObject
     {
 
-        constructor(parent: Shader,renderer:RendererBase) {
+        constructor(parent: Shader,renderer:ContextManagerBase) {
             super();
             this.parentShader = parent;
             this.glContext = renderer.Context;
@@ -129,17 +129,17 @@
             resource.dispose();
         }
 
-        protected getInstanceForRenderer(renderer: RendererBase): ProgramWrapper {
+        protected getInstanceForRenderer(renderer: ContextManagerBase): ProgramWrapper {
             return new ProgramWrapper(this, renderer);
         }
     }
 
     export class ProgramWrapper extends jThree.Base.jThreeObject
     {
-        constructor(parent:Program,renderer:RendererBase) {
+        constructor(parent:Program,contextManager:ContextManagerBase) {
             super();
-            this.id = renderer.ID;
-            this.glContext = renderer.Context;
+            this.id = contextManager.ID;
+            this.glContext = contextManager.Context;
             this.parentProgram = parent;
         }
 
@@ -189,11 +189,15 @@
             }
         }
         
-        useProgram(): void {
+        useProgram(): void
+        {
             if (!this.initialized) {
+                console.log("useProgram was called, but program was not initialized.");
                 this.init();
             }
-            if (!this.isLinked) {
+            if (!this.isLinked)
+            {
+                console.log("useProgram was called, but program was not linked.");
                 this.linkProgram();
             }
             this.glContext.UseProgram(this.targetProgram);

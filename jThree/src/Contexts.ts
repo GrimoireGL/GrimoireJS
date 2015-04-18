@@ -1,8 +1,13 @@
 ﻿module jThree {
     import JThreeObject = jThree.Base.jThreeObject;
-
+    /**
+     * Base class for wrapping WebGLRenderingContext
+     */
     export class GLContextWrapperBase extends JThreeObject
     {
+        /**
+         * Check gl error, and abort if error has been occured.
+         */
         CheckErrorAsFatal(): void
         {
             throw new Exceptions.AbstractClassMethodCalledException();
@@ -280,7 +285,7 @@
 
         ViewPort(x:number,y:number,width:number,height:number): void {
             this.CheckErrorAsFatal();
-            this.gl.viewport(x,y,width,height);
+            this.gl.viewport(x, y, width, height);
         }
     }
     export enum BufferTargetType

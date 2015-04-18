@@ -138,7 +138,7 @@ var jThree;
         Effects.Program = Program;
         var ProgramWrapper = (function (_super) {
             __extends(ProgramWrapper, _super);
-            function ProgramWrapper(parent, renderer) {
+            function ProgramWrapper(parent, contextManager) {
                 _super.call(this);
                 this.id = "";
                 this.initialized = false;
@@ -148,8 +148,8 @@ var jThree;
                 this.parentProgram = null;
                 this.attributeLocations = new Map();
                 this.uniformLocations = new Map();
-                this.id = renderer.ID;
-                this.glContext = renderer.Context;
+                this.id = contextManager.ID;
+                this.glContext = contextManager.Context;
                 this.parentProgram = parent;
             }
             Object.defineProperty(ProgramWrapper.prototype, "TargetProgram", {
@@ -185,9 +185,11 @@ var jThree;
             };
             ProgramWrapper.prototype.useProgram = function () {
                 if (!this.initialized) {
+                    console.log("useProgram was called, but program was not initialized.");
                     this.init();
                 }
                 if (!this.isLinked) {
+                    console.log("useProgram was called, but program was not linked.");
                     this.linkProgram();
                 }
                 this.glContext.UseProgram(this.targetProgram);

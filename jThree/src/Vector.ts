@@ -53,7 +53,7 @@
             return factory.fromArray(result);
         }
 
-        static elementEqual<T extends LinearBase>(a: T, b: T) {
+        public static elementEqual<T extends LinearBase>(a: T, b: T) {
             var result: boolean = true;
             Collection.foreachPair<number>(a, b,(a, b, i) => {
                 if (a != b) result = false;

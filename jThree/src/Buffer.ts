@@ -171,7 +171,7 @@
 
     export class Buffer extends BufferProxy
     {
-        static CreateBuffer(glContexts:CanvasRenderer[],target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
+        static CreateBuffer(glContexts:CanvasManager[],target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
             var buf: Buffer = new Buffer();
             buf.target = target;
             buf.usage = usage;
@@ -256,7 +256,7 @@
             return this.bufWrappers;
         }
 
-        getForRenderer(renderer: RendererBase): BufferWrapper {
+        getForRenderer(renderer: ContextManagerBase): BufferWrapper {
             return this.bufWrappers.get(renderer.ID);
         }
     }

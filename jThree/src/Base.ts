@@ -78,11 +78,12 @@ module jThree.Base {
 
         private cachedObject: Map<string, T> = new Map<string, T>();
 
-        public getForRenderer(renderer: RendererBase): T {
-            return this.getForRendererID(renderer.ID);
+        public getForRenderer(contextManager: ContextManagerBase): T {
+            return this.getForRendererID(contextManager.ID);
         }
 
         public getForRendererID(id: string): T {
+            if (!this.cachedObject.has(id))console.log("There is no matching object with the ID:"+id);
             return this.cachedObject.get(id);
         }
 
@@ -105,7 +106,7 @@ module jThree.Base {
             }
         }
 
-        protected getInstanceForRenderer(renderer:RendererBase): T {
+        protected getInstanceForRenderer(renderer:ContextManagerBase): T {
             throw new Exceptions.AbstractClassMethodCalledException();
         }
 
@@ -116,6 +117,10 @@ module jThree.Base {
 
     export class jThreeObjectWithID extends jThreeObject
     {
+        constructor() {
+            super();
+            this.id = jThreeID.getUniqueRandom(10);
+        }
         private id: string;
         /**
          * このオブジェクトを識別するID

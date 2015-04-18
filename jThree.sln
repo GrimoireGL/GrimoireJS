@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jThree", "jThree\jThree.csproj", "{CD384048-109B-444D-9F48-1668D7D76E07}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grunts", "Grunts", "{70DB266E-46A9-46F2-B073-4B8307D62DA2}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		Gruntfile.js = Gruntfile.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

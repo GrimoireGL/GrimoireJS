@@ -152,7 +152,7 @@ module jThree {
         }
 
         /**
-         * Add contextManagers to be managed by jThree
+         * Add renderers to be managed by jThree
          */
         addRenderer(renderer: CanvasManager):void {
             if (this.canvasRenderers.indexOf(renderer) === -1) {
@@ -213,7 +213,7 @@ module jThree {
             throw new Exceptions.AbstractClassMethodCalledException();
         }
 
-        private contextManager: ContextManagerBase;
+        protected contextManager: ContextManagerBase;
 
         get ContextManager(): ContextManagerBase {
             return this.contextManager;
@@ -226,6 +226,9 @@ module jThree {
 
     export class ContextManagerBase extends JThreeObjectWithId
     {
+        constructor() {
+            super();
+        }
         protected context: GLContextWrapperBase;
 
         get Context(): GLContextWrapperBase
@@ -236,17 +239,25 @@ module jThree {
 
     export class ViewPortRenderer extends RendererBase
     {
-        private parentCanvasHolder:ContextManagerBase;
+        constructor(contextManager: ContextManagerBase,viewportArea:Rectangle) {
+            super(contextManager);
+            this.viewportArea = viewportArea;
+            this.backgroundColor = new Color4(127, 255,0.5, 255);
+        }
+
         private viewportArea: Rectangle;
         private backgroundColor:Color4;
 
         applyConfigure(): void {
-            this.parentCanvasHolder.Context.ClearColor(this.backgroundColor.R, this.backgroundColor.G, this.backgroundColor.B, this.backgroundColor.A);
-            this.parentCanvasHolder.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Right, this.viewportArea.Width, this.viewportArea.Height);
+            this.contextManager.Context.ClearColor(this.backgroundColor.R, this.backgroundColor.G, this.backgroundColor.B, this.backgroundColor.A);
+            this.contextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top,this.viewportArea.Width, this.viewportArea.Height);
         }
 
         render(drawAct: Action0): void {
-            
+            this.applyConfigure();
+            this.contextManager.Context.Clear(ClearTargetType.ColorBits);
+            drawAct();
+            this.contextManager.Context.Finish();
         }
     }
 
@@ -265,36 +276,17 @@ module jThree {
             }
         }
 
-        private clearColor: Color4;
-
-        get ClearColor(): Color4 {
-            return this.clearColor;
-        }
-
-        set ClearColor(col: Color4) {
-            this.context.ClearColor(col.R, col.G, col.B, col.A);
-            this.clearColor = col;
-        }
-
         private glContext: WebGLRenderingContext;
 
-        constructor(glContext?: WebGLRenderingContext) {
+        constructor(glContext: WebGLRenderingContext) {
             super();
            // this.enabled = true;
             this.glContext = glContext;
             this.context = new WebGLWrapper(this.glContext);
-            this.ClearColor = new Color4(0,0,255,255);
-        }
-
-        render(drawAct:Action0): void {
-            //if (!this.enabled) return;//enabledじゃないなら描画をスキップ
-            this.context.Clear(ClearTargetType.ColorBits);
-            drawAct();
-            this.context.Finish();
         }
 
         getDefaultViewport(): ViewPortRenderer {
-            return new ViewPortRenderer(this);
+            return new ViewPortRenderer(this,new Rectangle(0,0,300,300));
         }
     }
 
@@ -346,17 +338,17 @@ module jThree {
         }
 
         render(): void {
-            this.contextManagers.forEach((r) => {
+            this.renderers.forEach((r) => {
                 r.render(() => {
                     this.renderObjects.forEach((v) => v.TargetObject.render(r, v.Material));
                 });
             });
         }
 
-        private contextManagers: RendererBase[] = [];
+        private renderers: RendererBase[] = [];
 
         public addRenderer(renderer: RendererBase): void {
-            this.contextManagers.push(renderer);
+            this.renderers.push(renderer);
         }
 
         private renderObjects: MaterialObjectPair[] = [];
@@ -429,7 +421,9 @@ module jThree {
             this.program= jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
         }
        initial:boolean=false;
-        configureMaterial(renderer: RendererBase, geometry: Geometry): void {
+       configureMaterial(renderer: RendererBase, geometry: Geometry): void {
+           var programWrapper = this.program.getForRenderer(renderer.ContextManager);
+           programWrapper.useProgram();
             var vpMat: Matrix.Matrix;//=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             vpMat = Matrix.Matrix.identity();//Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
            // vpMat = Matrix.Matrix.identity();
@@ -437,11 +431,11 @@ module jThree {
                 console.log(vpMat.toString());
                 this.initial = true;
             }
-            this.program.getForRenderer(renderer).setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer));
-            this.program.getForRenderer(renderer).setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer));
-            this.program.getForRenderer(renderer).setUniformMatrix("matMVP", vpMat);
+            programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
+            programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+            programWrapper.setUniformMatrix("matMVP", vpMat);
             renderer.Context.DrawArrays(DrawType.Triangles, 0, 3);
-        }
+       }
     }
 
 
@@ -535,9 +529,9 @@ $(() => {
     var renderer = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
     var renderer2 = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas2"));
     var scene = new jThree.Scene();
+    scene.addRenderer(renderer.getDefaultViewport());
+    scene.addRenderer(renderer2.getDefaultViewport());
     scene.addObject(new jThree.Triangle());
-    scene.addRenderer(renderer);
-    scene.addRenderer(renderer2);
     jThreeContext.SceneManager.addScene(scene);
     buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw,3,jThree.ElementType.Float);
     jThreeContext.init();

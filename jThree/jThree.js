@@ -165,10 +165,12 @@ var jThree;
                 });
                 this.context.onRendererChanged(this.rendererChanged);
             }
-            ContextSafeResourceContainer.prototype.getForRenderer = function (renderer) {
-                return this.getForRendererID(renderer.ID);
+            ContextSafeResourceContainer.prototype.getForRenderer = function (contextManager) {
+                return this.getForRendererID(contextManager.ID);
             };
             ContextSafeResourceContainer.prototype.getForRendererID = function (id) {
+                if (!this.cachedObject.has(id))
+                    console.log("There is no matching object with the ID:" + id);
                 return this.cachedObject.get(id);
             };
             ContextSafeResourceContainer.prototype.each = function (act) {
@@ -200,7 +202,8 @@ var jThree;
         var jThreeObjectWithID = (function (_super) {
             __extends(jThreeObjectWithID, _super);
             function jThreeObjectWithID() {
-                _super.apply(this, arguments);
+                _super.call(this);
+                this.id = jThreeID.getUniqueRandom(10);
             }
             Object.defineProperty(jThreeObjectWithID.prototype, "ID", {
                 /**
@@ -1412,6 +1415,9 @@ var jThree;
         GLContextWrapperBase.prototype.UniformMatrix = function (webGlUniformLocation, matrix) {
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };
+        GLContextWrapperBase.prototype.ViewPort = function (x, y, width, height) {
+            throw new jThree.Exceptions.AbstractClassMethodCalledException();
+        };
         return GLContextWrapperBase;
     })(JThreeObject);
     jThree.GLContextWrapperBase = GLContextWrapperBase;
@@ -1535,6 +1541,10 @@ var jThree;
         WebGLWrapper.prototype.UniformMatrix = function (webGlUniformLocation, matrix) {
             this.CheckErrorAsFatal();
             this.gl.uniformMatrix4fv(webGlUniformLocation, false, matrix.rawElements);
+        };
+        WebGLWrapper.prototype.ViewPort = function (x, y, width, height) {
+            this.CheckErrorAsFatal();
+            this.gl.viewport(x, y, width, height);
         };
         return WebGLWrapper;
     })(GLContextWrapperBase);
@@ -1968,7 +1978,7 @@ var jThree;
         Effects.Program = Program;
         var ProgramWrapper = (function (_super) {
             __extends(ProgramWrapper, _super);
-            function ProgramWrapper(parent, renderer) {
+            function ProgramWrapper(parent, contextManager) {
                 _super.call(this);
                 this.id = "";
                 this.initialized = false;
@@ -1978,8 +1988,8 @@ var jThree;
                 this.parentProgram = null;
                 this.attributeLocations = new Map();
                 this.uniformLocations = new Map();
-                this.id = renderer.ID;
-                this.glContext = renderer.Context;
+                this.id = contextManager.ID;
+                this.glContext = contextManager.Context;
                 this.parentProgram = parent;
             }
             Object.defineProperty(ProgramWrapper.prototype, "TargetProgram", {
@@ -2015,9 +2025,11 @@ var jThree;
             };
             ProgramWrapper.prototype.useProgram = function () {
                 if (!this.initialized) {
+                    console.log("useProgram was called, but program was not initialized.");
                     this.init();
                 }
                 if (!this.isLinked) {
+                    console.log("useProgram was called, but program was not linked.");
                     this.linkProgram();
                 }
                 this.glContext.UseProgram(this.targetProgram);
@@ -2176,6 +2188,7 @@ var jThree;
     var Program = jThree.Effects.Program;
     var Color4 = jThree.Color.Color4;
     var JThreeObjectWithId = jThree.Base.jThreeObjectWithID;
+    var Rectangle = jThree.Mathematics.Rectangle;
     var RendererMatriciesManager = (function (_super) {
         __extends(RendererMatriciesManager, _super);
         function RendererMatriciesManager() {
@@ -2376,16 +2389,10 @@ var jThree;
     jThree.JThreeContext = JThreeContext;
     var RendererBase = (function (_super) {
         __extends(RendererBase, _super);
-        function RendererBase() {
-            _super.apply(this, arguments);
+        function RendererBase(contextManager) {
+            _super.call(this);
+            this.contextManager = contextManager;
         }
-        Object.defineProperty(RendererBase.prototype, "Context", {
-            get: function () {
-                return this.context;
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(RendererBase.prototype, "ID", {
             get: function () {
                 return this.id;
@@ -2396,32 +2403,71 @@ var jThree;
         RendererBase.prototype.render = function (drawAct) {
             throw new jThree.Exceptions.AbstractClassMethodCalledException();
         };
+        Object.defineProperty(RendererBase.prototype, "ContextManager", {
+            get: function () {
+                return this.contextManager;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(RendererBase.prototype, "Context", {
+            get: function () {
+                return this.contextManager.Context;
+            },
+            enumerable: true,
+            configurable: true
+        });
         return RendererBase;
     })(jThreeObject);
     jThree.RendererBase = RendererBase;
-    var ViewPort = (function (_super) {
-        __extends(ViewPort, _super);
-        function ViewPort() {
-            _super.apply(this, arguments);
-        }
-        return ViewPort;
-    })(jThreeObject);
-    jThree.ViewPort = ViewPort;
-    var CanvasRenderer = (function (_super) {
-        __extends(CanvasRenderer, _super);
-        function CanvasRenderer(glContext) {
+    var ContextManagerBase = (function (_super) {
+        __extends(ContextManagerBase, _super);
+        function ContextManagerBase() {
             _super.call(this);
-            this.enabled = true;
-            this.id = jThree.Base.jThreeID.getUniqueRandom(10);
+        }
+        Object.defineProperty(ContextManagerBase.prototype, "Context", {
+            get: function () {
+                return this.context;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return ContextManagerBase;
+    })(JThreeObjectWithId);
+    jThree.ContextManagerBase = ContextManagerBase;
+    var ViewPortRenderer = (function (_super) {
+        __extends(ViewPortRenderer, _super);
+        function ViewPortRenderer(contextManager, viewportArea) {
+            _super.call(this, contextManager);
+            this.viewportArea = viewportArea;
+            this.backgroundColor = new Color4(127, 255, 0.5, 255);
+        }
+        ViewPortRenderer.prototype.applyConfigure = function () {
+            this.contextManager.Context.ClearColor(this.backgroundColor.R, this.backgroundColor.G, this.backgroundColor.B, this.backgroundColor.A);
+            this.contextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
+        };
+        ViewPortRenderer.prototype.render = function (drawAct) {
+            this.applyConfigure();
+            this.contextManager.Context.Clear(16384 /* ColorBits */);
+            drawAct();
+            this.contextManager.Context.Finish();
+        };
+        return ViewPortRenderer;
+    })(RendererBase);
+    jThree.ViewPortRenderer = ViewPortRenderer;
+    var CanvasManager = (function (_super) {
+        __extends(CanvasManager, _super);
+        function CanvasManager(glContext) {
+            _super.call(this);
+            // this.enabled = true;
             this.glContext = glContext;
             this.context = new jThree.WebGLWrapper(this.glContext);
-            this.ClearColor = new Color4(0, 0, 255, 255);
         }
-        CanvasRenderer.fromCanvas = function (canvas) {
+        CanvasManager.fromCanvas = function (canvas) {
             var gl;
             try {
                 gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-                var renderer = new CanvasRenderer(gl);
+                var renderer = new CanvasManager(gl);
                 JThreeContext.Instance.addRenderer(renderer);
                 return renderer;
             }
@@ -2430,27 +2476,12 @@ var jThree;
                 }
             }
         };
-        Object.defineProperty(CanvasRenderer.prototype, "ClearColor", {
-            get: function () {
-                return this.clearColor;
-            },
-            set: function (col) {
-                this.context.ClearColor(col.R, col.G, col.B, col.A);
-                this.clearColor = col;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        CanvasRenderer.prototype.render = function (drawAct) {
-            if (!this.enabled)
-                return; //enabledじゃないなら描画をスキップ
-            this.context.Clear(16384 /* ColorBits */);
-            drawAct();
-            this.context.Finish();
+        CanvasManager.prototype.getDefaultViewport = function () {
+            return new ViewPortRenderer(this, new Rectangle(0, 0, 300, 300));
         };
-        return CanvasRenderer;
-    })(RendererBase);
-    jThree.CanvasRenderer = CanvasRenderer;
+        return CanvasManager;
+    })(ContextManagerBase);
+    jThree.CanvasManager = CanvasManager;
     var SceneManager = (function (_super) {
         __extends(SceneManager, _super);
         function SceneManager() {
@@ -2585,6 +2616,8 @@ var jThree;
             this.program = jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
         }
         BasicMaterial.prototype.configureMaterial = function (renderer, geometry) {
+            var programWrapper = this.program.getForRenderer(renderer.ContextManager);
+            programWrapper.useProgram();
             var vpMat; //=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
             vpMat = jThree.Matrix.Matrix.identity(); //Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
             // vpMat = Matrix.Matrix.identity();
@@ -2592,9 +2625,9 @@ var jThree;
                 console.log(vpMat.toString());
                 this.initial = true;
             }
-            this.program.getForRenderer(renderer).setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer));
-            this.program.getForRenderer(renderer).setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer));
-            this.program.getForRenderer(renderer).setUniformMatrix("matMVP", vpMat);
+            programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
+            programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+            programWrapper.setUniformMatrix("matMVP", vpMat);
             renderer.Context.DrawArrays(4 /* Triangles */, 0, 3);
         };
         return BasicMaterial;
@@ -2691,12 +2724,12 @@ $(function () {
     if (noInit)
         return;
     var jThreeContext = jThree.JThreeContext.Instance;
-    var renderer = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas"));
-    var renderer2 = jThree.CanvasRenderer.fromCanvas(document.getElementById("test-canvas2"));
+    var renderer = jThree.CanvasManager.fromCanvas(document.getElementById("test-canvas"));
+    var renderer2 = jThree.CanvasManager.fromCanvas(document.getElementById("test-canvas2"));
     var scene = new jThree.Scene();
+    scene.addRenderer(renderer.getDefaultViewport());
+    scene.addRenderer(renderer2.getDefaultViewport());
     scene.addObject(new jThree.Triangle());
-    scene.addRenderer(renderer);
-    scene.addRenderer(renderer2);
     jThreeContext.SceneManager.addScene(scene);
     buf = jThreeContext.ResourceManager.createBuffer("test-buffer", 34962 /* ArrayBuffer */, 35048 /* DynamicDraw */, 3, 5126 /* Float */);
     jThreeContext.init();
