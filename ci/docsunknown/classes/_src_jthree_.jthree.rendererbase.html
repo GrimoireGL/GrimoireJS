@@ -83,7 +83,7 @@
 								<span class="target">RendererBase</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="_src_jthree_.jthree.canvasrenderer.html" class="tsd-signature-type">CanvasRenderer</a>
+										<a href="_src_jthree_.jthree.viewportrenderer.html" class="tsd-signature-type">ViewPortRenderer</a>
 									</li>
 								</ul>
 							</li>
@@ -102,9 +102,15 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_src_jthree_.jthree.rendererbase.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_src_jthree_.jthree.rendererbase.html#context" class="tsd-kind-icon">context</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_src_jthree_.jthree.rendererbase.html#contextmanager" class="tsd-kind-icon">context<wbr>Manager</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_jthree_.jthree.rendererbase.html#enabled" class="tsd-kind-icon">enabled</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_src_jthree_.jthree.rendererbase.html#id" class="tsd-kind-icon">id</a></li>
 							</ul>
@@ -112,7 +118,8 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_jthree_.jthree.rendererbase.html#context-1" class="tsd-kind-icon">Context</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_jthree_.jthree.rendererbase.html#context" class="tsd-kind-icon">Context</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_jthree_.jthree.rendererbase.html#contextmanager-1" class="tsd-kind-icon">Context<wbr>Manager</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_jthree_.jthree.rendererbase.html#id-1" class="tsd-kind-icon">ID</a></li>
 							</ul>
 						</section>
@@ -128,14 +135,40 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Renderer<wbr>Base<span class="tsd-signature-symbol">(</span>contextManager<span class="tsd-signature-symbol">: </span><a href="_src_jthree_.jthree.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_jthree_.jthree.rendererbase.html" class="tsd-signature-type">RendererBase</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/jThree.ts#L197">src/jThree.ts:197</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>contextManager: <a href="_src_jthree_.jthree.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_src_jthree_.jthree.rendererbase.html" class="tsd-signature-type">RendererBase</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a name="context" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="_src_contexts_.jthree.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></div>
+					<a name="contextmanager" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> context<wbr>Manager</h3>
+					<div class="tsd-signature tsd-kind-icon">context<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_src_jthree_.jthree.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/jThree.ts#L196">src/jThree.ts:196</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/jThree.ts#L216">src/jThree.ts:216</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -163,7 +196,7 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="context-1" class="tsd-anchor"></a>
+					<a name="context" class="tsd-anchor"></a>
 					<h3>Context</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Context<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_contexts_.jthree.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></li>
@@ -172,10 +205,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/jThree.ts#L198">src/jThree.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/jThree.ts#L222">src/jThree.ts:222</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_contexts_.jthree.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="contextmanager-1" class="tsd-anchor"></a>
+					<h3>Context<wbr>Manager</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ContextManager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_jthree_.jthree.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/jThree.ts#L218">src/jThree.ts:218</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_src_jthree_.jthree.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -327,7 +377,10 @@
 						<a href="_src_jthree_.jthree.basicmaterial.html" class="tsd-kind-icon">Basic<wbr>Material</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="_src_jthree_.jthree.canvasrenderer.html" class="tsd-kind-icon">Canvas<wbr>Renderer</a>
+						<a href="_src_jthree_.jthree.canvasmanager.html" class="tsd-kind-icon">Canvas<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_src_jthree_.jthree.contextmanagerbase.html" class="tsd-kind-icon">Context<wbr>Manager<wbr>Base</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_src_jthree_.jthree.contexttimer.html" class="tsd-kind-icon">Context<wbr>Timer</a>
@@ -349,8 +402,11 @@
 					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="_src_jthree_.jthree.rendererbase.html" class="tsd-kind-icon">Renderer<wbr>Base</a>
 						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_src_jthree_.jthree.rendererbase.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-								<a href="_src_jthree_.jthree.rendererbase.html#context" class="tsd-kind-icon">context</a>
+								<a href="_src_jthree_.jthree.rendererbase.html#contextmanager" class="tsd-kind-icon">context<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_src_jthree_.jthree.rendererbase.html#enabled" class="tsd-kind-icon">enabled</a>
@@ -359,7 +415,10 @@
 								<a href="_src_jthree_.jthree.rendererbase.html#id" class="tsd-kind-icon">id</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_jthree_.jthree.rendererbase.html#context-1" class="tsd-kind-icon">Context</a>
+								<a href="_src_jthree_.jthree.rendererbase.html#context" class="tsd-kind-icon">Context</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_src_jthree_.jthree.rendererbase.html#contextmanager-1" class="tsd-kind-icon">Context<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_jthree_.jthree.rendererbase.html#id-1" class="tsd-kind-icon">ID</a>
@@ -402,7 +461,7 @@
 						<a href="_src_jthree_.jthree.trianglegeometry.html" class="tsd-kind-icon">Triangle<wbr>Geometry</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="_src_jthree_.jthree.viewport.html" class="tsd-kind-icon">View<wbr>Port</a>
+						<a href="_src_jthree_.jthree.viewportrenderer.html" class="tsd-kind-icon">View<wbr>Port<wbr>Renderer</a>
 					</li>
 				</ul>
 			</nav>

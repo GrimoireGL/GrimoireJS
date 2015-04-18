@@ -14,6 +14,7 @@ var jThree;
     var Color4 = jThree.Color.Color4;
     var JThreeObjectWithId = jThree.Base.jThreeObjectWithID;
     var Rectangle = jThree.Mathematics.Rectangle;
+    var Matrix = jThree.Mathematics.Matricies.Matrix;
     var RendererMatriciesManager = (function (_super) {
         __extends(RendererMatriciesManager, _super);
         function RendererMatriciesManager() {
@@ -265,7 +266,7 @@ var jThree;
         function ViewPortRenderer(contextManager, viewportArea) {
             _super.call(this, contextManager);
             this.viewportArea = viewportArea;
-            this.backgroundColor = new Color4(127, 255, 0.5, 255);
+            this.backgroundColor = new Color4(0, 0.5, 1, 1);
         }
         ViewPortRenderer.prototype.applyConfigure = function () {
             this.contextManager.Context.ClearColor(this.backgroundColor.R, this.backgroundColor.G, this.backgroundColor.B, this.backgroundColor.A);
@@ -443,9 +444,9 @@ var jThree;
         BasicMaterial.prototype.configureMaterial = function (renderer, geometry) {
             var programWrapper = this.program.getForRenderer(renderer.ContextManager);
             programWrapper.useProgram();
-            var vpMat; //=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-            vpMat = jThree.Matrix.Matrix.identity(); //Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
-            // vpMat = Matrix.Matrix.identity();
+            var vpMat; //=Matricies.Matricies.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            vpMat = Matrix.identity(); //Matricies.Matricies.perspective(Math.PI / 2, 1, 0.1, 10);
+            // vpMat = Matricies.Matricies.identity();
             if (!this.initial) {
                 console.log(vpMat.toString());
                 this.initial = true;

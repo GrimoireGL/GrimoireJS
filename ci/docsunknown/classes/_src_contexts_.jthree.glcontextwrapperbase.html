@@ -73,6 +73,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Base class for wrapping WebGLRenderingContext</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -129,6 +136,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_contexts_.jthree.glcontextwrapperbase.html#uniformmatrix" class="tsd-kind-icon">Uniform<wbr>Matrix</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_contexts_.jthree.glcontextwrapperbase.html#useprogram" class="tsd-kind-icon">Use<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_contexts_.jthree.glcontextwrapperbase.html#vertexattribpointer" class="tsd-kind-icon">Vertex<wbr>Attrib<wbr>Pointer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_contexts_.jthree.glcontextwrapperbase.html#viewport" class="tsd-kind-icon">View<wbr>Port</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_contexts_.jthree.glcontextwrapperbase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_contexts_.jthree.glcontextwrapperbase.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
@@ -148,16 +156,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L61">src/Contexts.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L116">src/Contexts.ts:116</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Attach shader to program</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>program: <span class="tsd-signature-type">WebGLProgram</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the program you want to be attached</p>
+									</div>
 								</li>
 								<li>
 									<h5>shader: <span class="tsd-signature-type">WebGLShader</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the shader you want to attach</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -174,16 +193,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L16">src/Contexts.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L32">src/Contexts.ts:32</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Bind the WebGLBuffer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>target: <a href="../enums/_src_contexts_.jthree.buffertargettype.html" class="tsd-signature-type">BufferTargetType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>target buffer you want to bind</p>
+									</div>
 								</li>
 								<li>
 									<h5>buffer: <span class="tsd-signature-type">WebGLBuffer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the buffer you want to bind</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -200,19 +230,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L21">src/Contexts.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L42">src/Contexts.ts:42</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Store data to buffer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>target: <a href="../enums/_src_contexts_.jthree.buffertargettype.html" class="tsd-signature-type">BufferTargetType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>target type you want to store data</p>
+									</div>
 								</li>
 								<li>
 									<h5>array: <span class="tsd-signature-type">ArrayBuffer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data source array</p>
+									</div>
 								</li>
 								<li>
 									<h5>usage: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>type how to use data source</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -229,9 +273,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L6">src/Contexts.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L15">src/Contexts.ts:15</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check gl error, and abort if error has been occured.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -246,13 +295,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L36">src/Contexts.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L70">src/Contexts.ts:70</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clear buffers</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>mask: <a href="../enums/_src_contexts_.jthree.cleartargettype.html" class="tsd-signature-type">ClearTargetType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>type of buffer you want to clear</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -269,22 +326,39 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L31">src/Contexts.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L62">src/Contexts.ts:62</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the clear color it will be used when you call Clear()</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>red: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>red color value [0,1]</p>
+									</div>
 								</li>
 								<li>
 									<h5>green: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>green color value [0,1]</p>
+									</div>
 								</li>
 								<li>
 									<h5>blue: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>blue color value [0,1]</p>
+									</div>
 								</li>
 								<li>
 									<h5>alpha: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>alpha color value [0,1]</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -301,13 +375,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L53">src/Contexts.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L101">src/Contexts.ts:101</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Compile shader source</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>shader: <span class="tsd-signature-type">WebGLShader</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>shader reference you want to be compiled</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -324,9 +406,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L11">src/Contexts.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L23">src/Contexts.ts:23</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create WebGLBuffer</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLBuffer</span></h4>
 						</li>
 					</ul>
@@ -341,9 +428,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L57">src/Contexts.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L108">src/Contexts.ts:108</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create new program</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLProgram</span></h4>
 						</li>
 					</ul>
@@ -358,13 +450,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L41">src/Contexts.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L79">src/Contexts.ts:79</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create new Shader</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>flag: <a href="../enums/_src_contexts_.jthree.shadertype.html" class="tsd-signature-type">ShaderType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the shader type you want to create</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLShader</span></h4>
@@ -381,13 +481,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L103">src/Contexts.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L192">src/Contexts.ts:192</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete buffer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>target: <span class="tsd-signature-type">WebGLBuffer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the buffer you want to delete</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -404,13 +512,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L108">src/Contexts.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L200">src/Contexts.ts:200</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete program</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>target: <span class="tsd-signature-type">WebGLProgram</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the program you want to delete.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -427,13 +543,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L45">src/Contexts.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L86">src/Contexts.ts:86</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete passed shader</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>shader: <span class="tsd-signature-type">WebGLShader</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the shader you want to delete</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -450,19 +574,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L89">src/Contexts.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L171">src/Contexts.ts:171</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Draw without index</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>drawType: <a href="../enums/_src_contexts_.jthree.drawtype.html" class="tsd-signature-type">DrawType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>primitive topology type</p>
+									</div>
 								</li>
 								<li>
 									<h5>offset: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>vertex array offset</p>
+									</div>
 								</li>
 								<li>
 									<h5>length: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>count of the vertex you want to draw.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -479,13 +617,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L80">src/Contexts.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L149">src/Contexts.ts:149</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Enable vartex attribute array</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>attribNumber: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the attribute variable location you want to enable vertex attribute array</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -502,9 +648,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L99">src/Contexts.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L185">src/Contexts.ts:185</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Finish drawing</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -519,9 +670,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L94">src/Contexts.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L178">src/Contexts.ts:178</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Flush drawing</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -536,16 +692,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L76">src/Contexts.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L142">src/Contexts.ts:142</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get attribute variable location from program</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>program: <span class="tsd-signature-type">WebGLProgram</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the program you want to locate attribute variable</p>
+									</div>
 								</li>
 								<li>
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>attribute variable name</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -562,16 +729,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L112">src/Contexts.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L208">src/Contexts.ts:208</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get uniform variable location</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>target: <span class="tsd-signature-type">WebGLProgram</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the program you want to locate uniform variable</p>
+									</div>
 								</li>
 								<li>
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the name of uniform variable</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLUniformLocation</span></h4>
@@ -588,13 +766,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L66">src/Contexts.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L124">src/Contexts.ts:124</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Link program</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>program: <span class="tsd-signature-type">WebGLProgram</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the program you want to link</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -611,16 +797,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L49">src/Contexts.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L94">src/Contexts.ts:94</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Store shader source</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>shader: <span class="tsd-signature-type">WebGLShader</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>reference you want to be stored</p>
+									</div>
 								</li>
 								<li>
 									<h5>src: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>shader source code</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -637,13 +834,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L26">src/Contexts.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L50">src/Contexts.ts:50</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Unbind buffer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>target: <a href="../enums/_src_contexts_.jthree.buffertargettype.html" class="tsd-signature-type">BufferTargetType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the buffer type you want to unbind</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -660,16 +865,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L116">src/Contexts.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L216">src/Contexts.ts:216</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Pass matrix as uniform variable</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>webGlUniformLocation: <span class="tsd-signature-type">WebGLUniformLocation</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>uniform variable location</p>
+									</div>
 								</li>
 								<li>
 									<h5>matrix: <a href="_src_matrix_.jthree.matrix.matrix.html" class="tsd-signature-type">Matrix</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>matrix you want to pass</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -686,13 +902,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L71">src/Contexts.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L132">src/Contexts.ts:132</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Use program</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>program: <span class="tsd-signature-type">WebGLProgram</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the program you want to use</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -709,28 +933,100 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L84">src/Contexts.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L161">src/Contexts.ts:161</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Pass buffer to attribute variable.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>attribLocation: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>attribute variable location</p>
+									</div>
 								</li>
 								<li>
 									<h5>sizePerVertex: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>element count per vertex</p>
+									</div>
 								</li>
 								<li>
 									<h5>elemType: <a href="../enums/_src_contexts_.jthree.elementtype.html" class="tsd-signature-type">ElementType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the variable type you will pass</p>
+									</div>
 								</li>
 								<li>
 									<h5>normalized: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>is this normalized or not(ALWAYS should be false)</p>
+									</div>
 								</li>
 								<li>
 									<h5>stride: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>stride in buffer array</p>
+									</div>
 								</li>
 								<li>
 									<h5>offset: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>offset of buffer array</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="viewport" class="tsd-anchor"></a>
+					<h3>View<wbr>Port</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">View<wbr>Port<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/develop/jThree/src/Contexts.ts#L226">src/Contexts.ts:226</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set viewport configure</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>X of left-bottom screen coordinate</p>
+									</div>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Y of left-bottom screen coordinate</p>
+									</div>
+								</li>
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>width of viewport</p>
+									</div>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>height of viewport</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -935,6 +1231,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_contexts_.jthree.glcontextwrapperbase.html#vertexattribpointer" class="tsd-kind-icon">Vertex<wbr>Attrib<wbr>Pointer</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_contexts_.jthree.glcontextwrapperbase.html#viewport" class="tsd-kind-icon">View<wbr>Port</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_contexts_.jthree.glcontextwrapperbase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>

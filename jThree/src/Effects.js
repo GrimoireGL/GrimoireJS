@@ -10,8 +10,8 @@ var jThree;
     (function (Effects) {
         var ContextSafeContainer = jThree.Base.ContextSafeResourceContainer;
         /**
-        * コンテキストを跨いでシェーダーを管理しているクラス
-        */
+         * コンテキストを跨いでシェーダーを管理しているクラス
+         */
         var Shader = (function (_super) {
             __extends(Shader, _super);
             /**

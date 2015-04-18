@@ -15,6 +15,7 @@ module jThree {
     import Action0 = jThree.Delegates.Action0;
     import Vector3=jThree.Mathematics.Vector.Vector3;
     import Rectangle = jThree.Mathematics.Rectangle;
+    import Matrix = jThree.Mathematics.Matricies.Matrix;
 
     export class RendererMatriciesManager extends jThreeObject {
         
@@ -242,7 +243,7 @@ module jThree {
         constructor(contextManager: ContextManagerBase,viewportArea:Rectangle) {
             super(contextManager);
             this.viewportArea = viewportArea;
-            this.backgroundColor = new Color4(127, 255,0.5, 255);
+            this.backgroundColor = new Color4(0,0.5,1,1);
         }
 
         private viewportArea: Rectangle;
@@ -424,9 +425,9 @@ module jThree {
        configureMaterial(renderer: RendererBase, geometry: Geometry): void {
            var programWrapper = this.program.getForRenderer(renderer.ContextManager);
            programWrapper.useProgram();
-            var vpMat: Matrix.Matrix;//=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-            vpMat = Matrix.Matrix.identity();//Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
-           // vpMat = Matrix.Matrix.identity();
+            var vpMat: Matrix;//=Matricies.Matricies.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            vpMat = Matrix.identity();//Matricies.Matricies.perspective(Math.PI / 2, 1, 0.1, 10);
+           // vpMat = Matricies.Matricies.identity();
             if (!this.initial) {
                 console.log(vpMat.toString());
                 this.initial = true;

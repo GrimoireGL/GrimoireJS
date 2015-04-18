@@ -1,7 +1,7 @@
 ﻿///<reference path="../_references.ts"/>
 module jThree.Exceptions {
     import jThreeObject = Base.jThreeObject;
-    /**
+    import Matrix = jThree.Mathematics.Matricies.Matrix; /**
      * This class is root class perform as exception arguments in jThree.
      */
     export class jThreeException extends jThreeObject implements Error {
@@ -32,7 +32,7 @@ module jThree.Exceptions {
     }
 
     export class SingularMatrixException extends jThreeException {
-        constructor(m: jThree.Matrix.Matrix) {
+        constructor(m: Matrix) {
             super("Passed matrix is singular matrix", "passed matrix:{0}".format(m.toString()));
         }
     }

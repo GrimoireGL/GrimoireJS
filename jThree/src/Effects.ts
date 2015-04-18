@@ -3,7 +3,8 @@
     import Buffer = jThree.Buffers.Buffer;
     import BufferWrapper = jThree.Buffers.BufferWrapper;
     import ContextSafeContainer = jThree.Base.ContextSafeResourceContainer;
-     /**
+    import Matrix = jThree.Mathematics.Matricies.Matrix; 
+    /**
      * コンテキストを跨いでシェーダーを管理しているクラス
      */
     export class Shader extends ContextSafeContainer<ShaderWrapper>
@@ -203,7 +204,7 @@
             this.glContext.UseProgram(this.targetProgram);
         }
 
-        setUniformMatrix(valName: string, matrix: Matrix.Matrix): void {
+        setUniformMatrix(valName: string, matrix: Matrix): void {
             this.useProgram();
             if (!this.uniformLocations.has(valName))
             {

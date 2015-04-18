@@ -10,9 +10,6 @@ var jThree;
     var Exceptions;
     (function (Exceptions) {
         var jThreeObject = jThree.Base.jThreeObject;
-        /**
-         * This class is root class perform as exception arguments in jThree.
-         */
         var jThreeException = (function (_super) {
             __extends(jThreeException, _super);
             function jThreeException(name, message) {
