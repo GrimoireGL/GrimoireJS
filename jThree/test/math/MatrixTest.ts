@@ -1,8 +1,8 @@
 ﻿///<reference path="../../_references.ts"/>
 ///<reference path="../../def-test/qunit.d.ts"/>
-QUnit.module("Matrix Test");
+QUnit.module("Matricies Test");
 module jThreeTest {
-    import Matrix = jThree.Matrix.Matrix;
+    import Matrix = jThree.Mathematics.Matricies.Matrix;
     import Vector3 = jThree.Mathematics.Vector.Vector3;
     import Vector4 = jThree.Mathematics.Vector.Vector4;
     import VectorBase = jThree.Mathematics.Vector.VectorBase;
@@ -135,17 +135,17 @@ module jThreeTest {
 
    /* QUnit.test("perspective test",() => {
         console.log("\n");
-        var vpMat: Matrix = Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-        var projMat:Matrix= Matrix.perspective(45, 1, 0.1, 10);//.multiplyWith(vpMat);
+        var vpMat: Matricies = Matricies.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+        var projMat:Matricies= Matricies.perspective(45, 1, 0.1, 10);//.multiplyWith(vpMat);
         //console.log("viewMatix:\n" + vpMat + "\n");
         //console.log("perspective:\n" + projMat + "\n");
-        //console.log("multiplied:\n" + Matrix.multiply(projMat, vpMat) + "\n");
-        var multiplied: Matrix = Matrix.multiply(projMat, vpMat);
+        //console.log("multiplied:\n" + Matricies.multiply(projMat, vpMat) + "\n");
+        var multiplied: Matricies = Matricies.multiply(projMat, vpMat);
         var points: Vector3[] = [new Vector3(1, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 1, 0)];
         console.log("points...\n");
         for (var i = 0; i < 3; i++) {
             var v: Vector3 = points[i];
-            var transformed: Vector3 = Matrix.transformPoint(multiplied, v);
+            var transformed: Vector3 = Matricies.transformPoint(multiplied, v);
             var logData: string = "source:" + v.toString();
             console.log(logData);
                 console.log("⇒transformed:" + transformed.toString() + "\n");

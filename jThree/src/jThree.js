@@ -23,51 +23,6 @@ var jThree;
         return RendererMatriciesManager;
     })(jThreeObject);
     jThree.RendererMatriciesManager = RendererMatriciesManager;
-    var Timer = (function (_super) {
-        __extends(Timer, _super);
-        function Timer() {
-            _super.call(this);
-            this.currentFrame = 0;
-            this.time = 0;
-            this.timeFromLast = 0;
-        }
-        Object.defineProperty(Timer.prototype, "CurrentFrame", {
-            get: function () {
-                return this.currentFrame;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Timer.prototype, "Time", {
-            get: function () {
-                return this.time;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Timer.prototype, "TimeFromLast", {
-            get: function () {
-                return this.timeFromLast;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return Timer;
-    })(jThreeObject);
-    jThree.Timer = Timer;
-    var ContextTimer = (function (_super) {
-        __extends(ContextTimer, _super);
-        function ContextTimer() {
-            _super.apply(this, arguments);
-        }
-        ContextTimer.prototype.updateTimer = function () {
-            this.currentFrame++;
-            var date = Date.now();
-            this.TimeFromLast = date - this.Time;
-            this.time = date;
-        };
-        return ContextTimer;
-    })(Timer);
     /**
      * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
      */
@@ -94,15 +49,24 @@ var jThree;
             this.buffers.set(id, buf);
             return buf;
         };
+        ResourceManager.prototype.getBuffer = function (id) {
+            return this.buffers.get(id);
+        };
         ResourceManager.prototype.createShader = function (id, source, shaderType) {
             var shader = Shader.CreateShader(this.context, source, shaderType);
             this.shaders.set(id, shader);
             return shader;
         };
+        ResourceManager.prototype.getShader = function (id) {
+            return this.shaders.get(id);
+        };
         ResourceManager.prototype.createProgram = function (id, shaders) {
             var program = Program.CreateProgram(this.context, shaders);
             this.programs.set(id, program);
             return program;
+        };
+        ResourceManager.prototype.getProgram = function (id) {
+            return this.programs.get(id);
         };
         return ResourceManager;
     })(jThreeObject);
@@ -117,7 +81,7 @@ var jThree;
             this.canvasRenderers = [];
             this.onRendererChangedFuncs = [];
             this.resourceManager = new ResourceManager();
-            this.timer = new ContextTimer();
+            this.timer = new jThree.ContextTimer();
             this.sceneManager = new SceneManager();
         }
         Object.defineProperty(JThreeContext.prototype, "SceneManager", {
@@ -138,6 +102,10 @@ var jThree;
             enumerable: true,
             configurable: true
         });
+        /**
+         * Begin render loop
+         * @returns {}
+         */
         JThreeContext.prototype.init = function () {
             this.loop();
         };
@@ -303,7 +271,7 @@ var jThree;
             }
         };
         CanvasManager.prototype.getDefaultViewport = function () {
-            return new ViewPortRenderer(this, new Rectangle(0, 0, 300, 300));
+            return new ViewPortRenderer(this, new Rectangle(20, 20, 280, 280));
         };
         return CanvasManager;
     })(ContextManagerBase);

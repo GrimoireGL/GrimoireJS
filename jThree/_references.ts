@@ -11,3 +11,4 @@
 ///<reference path="src/Effects.ts"/>
 ///<reference path="src/Event.RendererState.ts"/>
 ///<reference path="src/Color.ts"/>
+///<reference path="src/Timer.ts"/>

@@ -942,9 +942,6 @@ var jThree;
     var Exceptions;
     (function (Exceptions) {
         var jThreeObject = jThree.Base.jThreeObject;
-        /**
-         * This class is root class perform as exception arguments in jThree.
-         */
         var jThreeException = (function (_super) {
             __extends(jThreeException, _super);
             function jThreeException(name, message) {
@@ -1000,337 +997,340 @@ var jThree;
         Exceptions.WebGLErrorException = WebGLErrorException;
     })(Exceptions = jThree.Exceptions || (jThree.Exceptions = {}));
 })(jThree || (jThree = {}));
-///<reference path="../_references.ts"/>
+///<reference path="../../_references.ts"/>
 var jThree;
 (function (jThree) {
-    var Matrix;
-    (function (_Matrix) {
-        var JThreeObject = jThree.Base.jThreeObject;
-        var Collection = jThree.Collections.Collection;
-        var MatrixFactory = (function () {
-            function MatrixFactory() {
-            }
-            MatrixFactory.prototype.fromArray = function (array) {
-                return new Matrix(array);
-            };
-            MatrixFactory.prototype.fromFunc = function (f) {
-                return new Matrix(new Float32Array([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]));
-            };
-            return MatrixFactory;
-        })();
-        _Matrix.MatrixFactory = MatrixFactory;
-        var MatrixEnumerator = (function (_super) {
-            __extends(MatrixEnumerator, _super);
-            function MatrixEnumerator(targetMat) {
-                _super.call(this);
-                this.currentIndex = -1;
-                this.targetMat = targetMat;
-            }
-            MatrixEnumerator.prototype.getCurrent = function () {
-                return this.targetMat.getBySingleIndex(this.currentIndex);
-            };
-            MatrixEnumerator.prototype.next = function () {
-                this.currentIndex++;
-                if (this.currentIndex >= 0 && this.currentIndex < 16)
-                    return true;
-                return false;
-            };
-            return MatrixEnumerator;
-        })(JThreeObject);
-        var MatrixBase = (function (_super) {
-            __extends(MatrixBase, _super);
-            function MatrixBase() {
-                _super.apply(this, arguments);
-            }
-            MatrixBase.prototype.getEnumrator = function () {
-                throw new Error("Not implemented");
-            };
-            MatrixBase.elementTranspose = function (a, factory) {
-                return factory.fromFunc(function (i, j) {
-                    return a.getAt(j, i);
-                });
-            };
-            Object.defineProperty(MatrixBase.prototype, "RowCount", {
-                get: function () {
-                    return 0;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(MatrixBase.prototype, "ColmunCount", {
-                get: function () {
-                    return 0;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            MatrixBase.prototype.getAt = function (row, colmun) {
-                throw new Error("Not implemented");
-            };
-            MatrixBase.prototype.getBySingleIndex = function (index) {
-                throw new Error("Not implemented");
-            };
-            return MatrixBase;
-        })(jThree.Mathematics.Vector.LinearBase);
-        _Matrix.MatrixBase = MatrixBase;
-        var Matrix = (function (_super) {
-            __extends(Matrix, _super);
-            function Matrix(arr) {
-                _super.call(this);
-                this.elements = new Float32Array(16);
-                if (!this.isValidArray(arr))
-                    throw new jThree.Exceptions.InvalidArgumentException("Invalid matrix source was passed.");
-                this.elements = arr;
-            }
-            Matrix.zero = function () {
-                return Matrix.fromElements(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            };
-            Matrix.identity = function () {
-                return Matrix.fromElements(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-            };
-            Matrix.fromElements = function (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
-                return new Matrix(new Float32Array([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]));
-            };
-            Object.defineProperty(Matrix.prototype, "rawElements", {
-                get: function () {
-                    return this.elements;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Matrix.prototype.isValidArray = function (arr) {
-                if (arr.length !== 16)
+    var Mathematics;
+    (function (Mathematics) {
+        var Matricies;
+        (function (Matricies) {
+            var JThreeObject = jThree.Base.jThreeObject;
+            var Collection = jThree.Collections.Collection;
+            var MatrixFactory = (function () {
+                function MatrixFactory() {
+                }
+                MatrixFactory.prototype.fromArray = function (array) {
+                    return new Matrix(array);
+                };
+                MatrixFactory.prototype.fromFunc = function (f) {
+                    return new Matrix(new Float32Array([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]));
+                };
+                return MatrixFactory;
+            })();
+            Matricies.MatrixFactory = MatrixFactory;
+            var MatrixEnumerator = (function (_super) {
+                __extends(MatrixEnumerator, _super);
+                function MatrixEnumerator(targetMat) {
+                    _super.call(this);
+                    this.currentIndex = -1;
+                    this.targetMat = targetMat;
+                }
+                MatrixEnumerator.prototype.getCurrent = function () {
+                    return this.targetMat.getBySingleIndex(this.currentIndex);
+                };
+                MatrixEnumerator.prototype.next = function () {
+                    this.currentIndex++;
+                    if (this.currentIndex >= 0 && this.currentIndex < 16)
+                        return true;
                     return false;
-                return true;
-            };
-            Matrix.prototype.getAt = function (row, colmun) {
-                return this.elements[colmun * 4 + row];
-            };
-            Matrix.prototype.setAt = function (colmun, row, val) {
-                this.elements.set[colmun * 4 + row] = val;
-            };
-            Matrix.prototype.getBySingleIndex = function (index) {
-                return this.elements[index];
-            };
-            Matrix.prototype.getColmun = function (col) {
-                return new jThree.Mathematics.Vector.Vector4(this.elements[col * 4], this.elements[col * 4 + 1], this.elements[col * 4 + 2], this.elements[col * 4 + 3]);
-            };
-            Matrix.prototype.getRow = function (row) {
-                return new jThree.Mathematics.Vector.Vector4(this.elements[row], this.elements[row + 4], this.elements[row + 8], this.elements[row + 12]);
-            };
-            Matrix.prototype.isNaN = function () {
-                var result = false;
-                jThree.Collections.Collection.foreach(this, function (a) {
-                    if (isNaN(a))
-                        result = true;
+                };
+                return MatrixEnumerator;
+            })(JThreeObject);
+            var MatrixBase = (function (_super) {
+                __extends(MatrixBase, _super);
+                function MatrixBase() {
+                    _super.apply(this, arguments);
+                }
+                MatrixBase.prototype.getEnumrator = function () {
+                    throw new Error("Not implemented");
+                };
+                MatrixBase.elementTranspose = function (a, factory) {
+                    return factory.fromFunc(function (i, j) {
+                        return a.getAt(j, i);
+                    });
+                };
+                Object.defineProperty(MatrixBase.prototype, "RowCount", {
+                    get: function () {
+                        return 0;
+                    },
+                    enumerable: true,
+                    configurable: true
                 });
-                return result;
-            };
-            Matrix.equal = function (m1, m2) {
-                return Matrix.elementEqual(m1, m2);
-            };
-            Matrix.add = function (m1, m2) {
-                return this.elementAdd(m1, m2, m1.getFactory());
-            };
-            Matrix.subtract = function (m1, m2) {
-                return this.elementSubtract(m1, m2, m1.getFactory());
-            };
-            Matrix.scalarMultiply = function (s, m) {
-                return this.elementScalarMultiply(m, s, m.getFactory());
-            };
-            Matrix.multiply = function (m1, m2) {
-                return m1.getFactory().fromFunc(function (i, j) {
-                    var sum = 0;
-                    Collection.foreachPair(m1.getRow(i), m2.getColmun(j), function (i, j, k) {
-                        sum += i * j;
-                    });
-                    return sum;
+                Object.defineProperty(MatrixBase.prototype, "ColmunCount", {
+                    get: function () {
+                        return 0;
+                    },
+                    enumerable: true,
+                    configurable: true
                 });
-            };
-            Matrix.negate = function (m) {
-                return this.elementNegate(m, m.getFactory());
-            };
-            Matrix.transpose = function (m) {
-                return this.elementTranspose(m, m.getFactory());
-            };
-            Matrix.transformPoint = function (m, v) {
-                var result = new Float32Array(3);
-                for (var i = 0; i < 3; i++) {
-                    result[i] = 0;
-                    Collection.foreachPair(m.getRow(i), v, function (r, v, index) {
-                        result[i] += r * v;
+                MatrixBase.prototype.getAt = function (row, colmun) {
+                    throw new Error("Not implemented");
+                };
+                MatrixBase.prototype.getBySingleIndex = function (index) {
+                    throw new Error("Not implemented");
+                };
+                return MatrixBase;
+            })(jThree.Mathematics.Vector.LinearBase);
+            Matricies.MatrixBase = MatrixBase;
+            var Matrix = (function (_super) {
+                __extends(Matrix, _super);
+                function Matrix(arr) {
+                    _super.call(this);
+                    this.elements = new Float32Array(16);
+                    if (!this.isValidArray(arr))
+                        throw new jThree.Exceptions.InvalidArgumentException("Invalid matrix source was passed.");
+                    this.elements = arr;
+                }
+                Matrix.zero = function () {
+                    return Matrix.fromElements(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                };
+                Matrix.identity = function () {
+                    return Matrix.fromElements(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+                };
+                Matrix.fromElements = function (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+                    return new Matrix(new Float32Array([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]));
+                };
+                Object.defineProperty(Matrix.prototype, "rawElements", {
+                    get: function () {
+                        return this.elements;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Matrix.prototype.isValidArray = function (arr) {
+                    if (arr.length !== 16)
+                        return false;
+                    return true;
+                };
+                Matrix.prototype.getAt = function (row, colmun) {
+                    return this.elements[colmun * 4 + row];
+                };
+                Matrix.prototype.setAt = function (colmun, row, val) {
+                    this.elements.set[colmun * 4 + row] = val;
+                };
+                Matrix.prototype.getBySingleIndex = function (index) {
+                    return this.elements[index];
+                };
+                Matrix.prototype.getColmun = function (col) {
+                    return new jThree.Mathematics.Vector.Vector4(this.elements[col * 4], this.elements[col * 4 + 1], this.elements[col * 4 + 2], this.elements[col * 4 + 3]);
+                };
+                Matrix.prototype.getRow = function (row) {
+                    return new jThree.Mathematics.Vector.Vector4(this.elements[row], this.elements[row + 4], this.elements[row + 8], this.elements[row + 12]);
+                };
+                Matrix.prototype.isNaN = function () {
+                    var result = false;
+                    jThree.Collections.Collection.foreach(this, function (a) {
+                        if (isNaN(a))
+                            result = true;
                     });
-                }
-                for (var i = 0; i < 3; i++) {
-                    result[i] += m.getAt(i, 3);
-                }
-                return v.getFactory().fromArray(result);
-            };
-            Matrix.transformNormal = function (m, v) {
-                var result = new Float32Array(3);
-                for (var i = 0; i < 3; i++) {
-                    result[i] = 0;
-                    Collection.foreachPair(m.getRow(i), v, function (r, v, index) {
-                        result[i] += r * v;
+                    return result;
+                };
+                Matrix.equal = function (m1, m2) {
+                    return Matrix.elementEqual(m1, m2);
+                };
+                Matrix.add = function (m1, m2) {
+                    return this.elementAdd(m1, m2, m1.getFactory());
+                };
+                Matrix.subtract = function (m1, m2) {
+                    return this.elementSubtract(m1, m2, m1.getFactory());
+                };
+                Matrix.scalarMultiply = function (s, m) {
+                    return this.elementScalarMultiply(m, s, m.getFactory());
+                };
+                Matrix.multiply = function (m1, m2) {
+                    return m1.getFactory().fromFunc(function (i, j) {
+                        var sum = 0;
+                        Collection.foreachPair(m1.getRow(i), m2.getColmun(j), function (i, j, k) {
+                            sum += i * j;
+                        });
+                        return sum;
                     });
-                }
-                return v.getFactory().fromArray(result);
-            };
-            Matrix.transform = function (m, v) {
-                var result = new Float32Array(4);
-                for (var i = 0; i < 4; i++) {
-                    result[i] = 0;
-                    Collection.foreachPair(m.getRow(i), v, function (r, v, index) {
-                        result[i] += r * v;
-                    });
-                }
-                return v.getFactory().fromArray(result);
-            };
-            /**
-             * Retrieve determinant of passed matrix
-             */
-            Matrix.determinant = function (m) {
-                var m00 = m.getAt(0, 0), m01 = m.getAt(0, 1), m02 = m.getAt(0, 2), m03 = m.getAt(0, 3);
-                var m10 = m.getAt(1, 0), m11 = m.getAt(1, 1), m12 = m.getAt(1, 2), m13 = m.getAt(1, 3);
-                var m20 = m.getAt(2, 0), m21 = m.getAt(2, 1), m22 = m.getAt(2, 2), m23 = m.getAt(2, 3);
-                var m30 = m.getAt(3, 0), m31 = m.getAt(3, 1), m32 = m.getAt(3, 2), m33 = m.getAt(3, 3);
-                return m03 * m12 * m21 * m30 - m02 * m13 * m21 * m30 - m03 * m11 * m22 * m30 + m01 * m13 * m22 * m30 + m02 * m11 * m23 * m30 - m01 * m12 * m23 * m30 - m03 * m12 * m20 * m31 + m02 * m13 * m20 * m31 + m03 * m10 * m22 * m31 - m00 * m13 * m22 * m31 - m02 * m10 * m23 * m31 + m00 * m12 * m23 * m31 + m03 * m11 * m20 * m32 - m01 * m13 * m20 * m32 - m03 * m10 * m21 * m32 + m00 * m13 * m21 * m32 + m01 * m10 * m23 * m32 - m00 * m11 * m23 * m32 - m02 * m11 * m20 * m33 + m01 * m12 * m20 * m33 + m02 * m10 * m21 * m33 - m00 * m12 * m21 * m33 - m01 * m10 * m22 * m33 + m00 * m11 * m22 * m33;
-            };
-            /**
-             * Compute inverted passed matrix.
-             */
-            Matrix.inverse = function (m) {
-                var det = Matrix.determinant(m);
-                if (det == 0)
-                    throw new jThree.Exceptions.SingularMatrixException(m);
-                var m00 = m.getAt(0, 0), m01 = m.getAt(0, 1), m02 = m.getAt(0, 2), m03 = m.getAt(0, 3);
-                var m10 = m.getAt(1, 0), m11 = m.getAt(1, 1), m12 = m.getAt(1, 2), m13 = m.getAt(1, 3);
-                var m20 = m.getAt(2, 0), m21 = m.getAt(2, 1), m22 = m.getAt(2, 2), m23 = m.getAt(2, 3);
-                var m30 = m.getAt(3, 0), m31 = m.getAt(3, 1), m32 = m.getAt(3, 2), m33 = m.getAt(3, 3);
-                m00 = m12 * m23 * m31 - m13 * m22 * m31 + m13 * m21 * m32 - m11 * m23 * m32 - m12 * m21 * m33 + m11 * m22 * m33;
-                m01 = m03 * m22 * m31 - m02 * m23 * m31 - m03 * m21 * m32 + m01 * m23 * m32 + m02 * m21 * m33 - m01 * m22 * m33;
-                m02 = m02 * m13 * m31 - m03 * m12 * m31 + m03 * m11 * m32 - m01 * m13 * m32 - m02 * m11 * m33 + m01 * m12 * m33;
-                m03 = m03 * m12 * m21 - m02 * m13 * m21 - m03 * m11 * m22 + m01 * m13 * m22 + m02 * m11 * m23 - m01 * m12 * m23;
-                m10 = m13 * m22 * m30 - m12 * m23 * m30 - m13 * m20 * m32 + m10 * m23 * m32 + m12 * m20 * m33 - m10 * m22 * m33;
-                m11 = m02 * m23 * m30 - m03 * m22 * m30 + m03 * m20 * m32 - m00 * m23 * m32 - m02 * m20 * m33 + m00 * m22 * m33;
-                m12 = m03 * m12 * m30 - m02 * m13 * m30 - m03 * m10 * m32 + m00 * m13 * m32 + m02 * m10 * m33 - m00 * m12 * m33;
-                m13 = m02 * m13 * m20 - m03 * m12 * m20 + m03 * m10 * m22 - m00 * m13 * m22 - m02 * m10 * m23 + m00 * m12 * m23;
-                m20 = m11 * m23 * m30 - m13 * m21 * m30 + m13 * m20 * m31 - m10 * m23 * m31 - m11 * m20 * m33 + m10 * m21 * m33;
-                m21 = m03 * m21 * m30 - m01 * m23 * m30 - m03 * m20 * m31 + m00 * m23 * m31 + m01 * m20 * m33 - m00 * m21 * m33;
-                m22 = m01 * m13 * m30 - m03 * m11 * m30 + m03 * m10 * m31 - m00 * m13 * m31 - m01 * m10 * m33 + m00 * m11 * m33;
-                m23 = m03 * m11 * m20 - m01 * m13 * m20 - m03 * m10 * m21 + m00 * m13 * m21 + m01 * m10 * m23 - m00 * m11 * m23;
-                m30 = m12 * m21 * m30 - m11 * m22 * m30 - m12 * m20 * m31 + m10 * m22 * m31 + m11 * m20 * m32 - m10 * m21 * m32;
-                m31 = m01 * m22 * m30 - m02 * m21 * m30 + m02 * m20 * m31 - m00 * m22 * m31 - m01 * m20 * m32 + m00 * m21 * m32;
-                m32 = m02 * m11 * m30 - m01 * m12 * m30 - m02 * m10 * m31 + m00 * m12 * m31 + m01 * m10 * m32 - m00 * m11 * m32;
-                m33 = m01 * m12 * m20 - m02 * m11 * m20 + m02 * m10 * m21 - m00 * m12 * m21 - m01 * m10 * m22 + m00 * m11 * m22;
-                m00 /= det;
-                m01 /= det;
-                m02 /= det;
-                m03 /= det;
-                m10 /= det;
-                m11 /= det;
-                m12 /= det;
-                m13 /= det;
-                m20 /= det;
-                m21 /= det;
-                m22 /= det;
-                m23 /= det;
-                m30 /= det;
-                m31 /= det;
-                m32 /= det;
-                m33 /= det;
-                return Matrix.fromElements(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
-            };
-            /**
-             * Generate linear translation transform matrix.
-             */
-            Matrix.translate = function (v) {
-                var m = Matrix.fromElements(1, 0, 0, v.X, 0, 1, 0, v.Y, 0, 0, 1, v.Z, 0, 0, 0, 1);
-                return m;
-            };
-            /**
-             * Generate linear scaling transform matrix.
-             */
-            Matrix.scale = function (v) {
-                return Matrix.fromElements(v.X, 0, 0, 0, 0, v.Y, 0, 0, 0, 0, v.Z, 0, 0, 0, 0, 1);
-            };
-            Matrix.frustum = function (left, right, bottom, top, near, far) {
-                var te = new Float32Array(16);
-                var x = 2 * near / (right - left);
-                var y = 2 * near / (top - bottom);
-                var a = (right + left) / (right - left);
-                var b = (top + bottom) / (top - bottom);
-                var c = -(far + near) / (far - near);
-                var d = -2 * far * near / (far - near);
-                te[0] = x;
-                te[4] = 0;
-                te[8] = a;
-                te[12] = 0;
-                te[1] = 0;
-                te[5] = y;
-                te[9] = b;
-                te[13] = 0;
-                te[2] = 0;
-                te[6] = 0;
-                te[10] = c;
-                te[14] = d;
-                te[3] = 0;
-                te[7] = 0;
-                te[11] = -1;
-                te[15] = 0;
-                return new Matrix(te);
-            };
-            Matrix.perspective = function (fovy, aspect, near, far) {
-                var ymax = near * Math.tan(fovy * 0.5);
-                var ymin = -ymax;
-                var xmin = ymin * aspect;
-                var xmax = ymax * aspect;
-                return this.frustum(xmin, xmax, ymin, ymax, near, far);
-            };
-            Matrix.lookAt = function (eye, target, up) {
-                var zAxis = eye.subtractWith(target).normalizeThis();
-                var xAxis = up.crossWith(zAxis).normalizeThis();
-                var yAxis = zAxis.crossWith(xAxis);
-                return new Matrix(new Float32Array([xAxis.X, yAxis.X, zAxis.X, 0, xAxis.Y, yAxis.Y, zAxis.Y, 0, xAxis.Z, yAxis.Z, zAxis.Z, 0, -xAxis.dotWith(eye), -yAxis.dotWith(eye), -zAxis.dotWith(eye), 1]));
-            };
-            Matrix.prototype.multiplyWith = function (m) {
-                return Matrix.multiply(this, m);
-            };
-            Matrix.prototype.toString = function () {
-                return "|{0} {1} {2} {3}|\n|{4} {5} {6} {7}|\n|{8} {9} {10} {11}|\n|{12} {13} {14} {15}|".format(this.getBySingleIndex(0), this.getBySingleIndex(1), this.getBySingleIndex(2), this.getBySingleIndex(3), this.getBySingleIndex(4), this.getBySingleIndex(5), this.getBySingleIndex(6), this.getBySingleIndex(7), this.getBySingleIndex(8), this.getBySingleIndex(9), this.getBySingleIndex(10), this.getBySingleIndex(11), this.getBySingleIndex(12), this.getBySingleIndex(13), this.getBySingleIndex(14), this.getBySingleIndex(15));
-            };
-            Matrix.prototype.getEnumrator = function () {
-                return new MatrixEnumerator(this);
-            };
-            Object.defineProperty(Matrix.prototype, "ElementCount", {
-                get: function () {
-                    return 16;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Matrix.prototype.getFactory = function () {
-                Matrix.factoryCache = Matrix.factoryCache || new MatrixFactory();
-                return Matrix.factoryCache;
-            };
-            Object.defineProperty(Matrix.prototype, "RowCount", {
-                get: function () {
-                    return 4;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(Matrix.prototype, "ColmunCount", {
-                get: function () {
-                    return 4;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            return Matrix;
-        })(MatrixBase);
-        _Matrix.Matrix = Matrix;
-    })(Matrix = jThree.Matrix || (jThree.Matrix = {}));
+                };
+                Matrix.negate = function (m) {
+                    return this.elementNegate(m, m.getFactory());
+                };
+                Matrix.transpose = function (m) {
+                    return this.elementTranspose(m, m.getFactory());
+                };
+                Matrix.transformPoint = function (m, v) {
+                    var result = new Float32Array(3);
+                    for (var i = 0; i < 3; i++) {
+                        result[i] = 0;
+                        Collection.foreachPair(m.getRow(i), v, function (r, v, index) {
+                            result[i] += r * v;
+                        });
+                    }
+                    for (var i = 0; i < 3; i++) {
+                        result[i] += m.getAt(i, 3);
+                    }
+                    return v.getFactory().fromArray(result);
+                };
+                Matrix.transformNormal = function (m, v) {
+                    var result = new Float32Array(3);
+                    for (var i = 0; i < 3; i++) {
+                        result[i] = 0;
+                        Collection.foreachPair(m.getRow(i), v, function (r, v, index) {
+                            result[i] += r * v;
+                        });
+                    }
+                    return v.getFactory().fromArray(result);
+                };
+                Matrix.transform = function (m, v) {
+                    var result = new Float32Array(4);
+                    for (var i = 0; i < 4; i++) {
+                        result[i] = 0;
+                        Collection.foreachPair(m.getRow(i), v, function (r, v, index) {
+                            result[i] += r * v;
+                        });
+                    }
+                    return v.getFactory().fromArray(result);
+                };
+                /**
+                 * Retrieve determinant of passed matrix
+                 */
+                Matrix.determinant = function (m) {
+                    var m00 = m.getAt(0, 0), m01 = m.getAt(0, 1), m02 = m.getAt(0, 2), m03 = m.getAt(0, 3);
+                    var m10 = m.getAt(1, 0), m11 = m.getAt(1, 1), m12 = m.getAt(1, 2), m13 = m.getAt(1, 3);
+                    var m20 = m.getAt(2, 0), m21 = m.getAt(2, 1), m22 = m.getAt(2, 2), m23 = m.getAt(2, 3);
+                    var m30 = m.getAt(3, 0), m31 = m.getAt(3, 1), m32 = m.getAt(3, 2), m33 = m.getAt(3, 3);
+                    return m03 * m12 * m21 * m30 - m02 * m13 * m21 * m30 - m03 * m11 * m22 * m30 + m01 * m13 * m22 * m30 + m02 * m11 * m23 * m30 - m01 * m12 * m23 * m30 - m03 * m12 * m20 * m31 + m02 * m13 * m20 * m31 + m03 * m10 * m22 * m31 - m00 * m13 * m22 * m31 - m02 * m10 * m23 * m31 + m00 * m12 * m23 * m31 + m03 * m11 * m20 * m32 - m01 * m13 * m20 * m32 - m03 * m10 * m21 * m32 + m00 * m13 * m21 * m32 + m01 * m10 * m23 * m32 - m00 * m11 * m23 * m32 - m02 * m11 * m20 * m33 + m01 * m12 * m20 * m33 + m02 * m10 * m21 * m33 - m00 * m12 * m21 * m33 - m01 * m10 * m22 * m33 + m00 * m11 * m22 * m33;
+                };
+                /**
+                 * Compute inverted passed matrix.
+                 */
+                Matrix.inverse = function (m) {
+                    var det = Matrix.determinant(m);
+                    if (det == 0)
+                        throw new jThree.Exceptions.SingularMatrixException(m);
+                    var m00 = m.getAt(0, 0), m01 = m.getAt(0, 1), m02 = m.getAt(0, 2), m03 = m.getAt(0, 3);
+                    var m10 = m.getAt(1, 0), m11 = m.getAt(1, 1), m12 = m.getAt(1, 2), m13 = m.getAt(1, 3);
+                    var m20 = m.getAt(2, 0), m21 = m.getAt(2, 1), m22 = m.getAt(2, 2), m23 = m.getAt(2, 3);
+                    var m30 = m.getAt(3, 0), m31 = m.getAt(3, 1), m32 = m.getAt(3, 2), m33 = m.getAt(3, 3);
+                    m00 = m12 * m23 * m31 - m13 * m22 * m31 + m13 * m21 * m32 - m11 * m23 * m32 - m12 * m21 * m33 + m11 * m22 * m33;
+                    m01 = m03 * m22 * m31 - m02 * m23 * m31 - m03 * m21 * m32 + m01 * m23 * m32 + m02 * m21 * m33 - m01 * m22 * m33;
+                    m02 = m02 * m13 * m31 - m03 * m12 * m31 + m03 * m11 * m32 - m01 * m13 * m32 - m02 * m11 * m33 + m01 * m12 * m33;
+                    m03 = m03 * m12 * m21 - m02 * m13 * m21 - m03 * m11 * m22 + m01 * m13 * m22 + m02 * m11 * m23 - m01 * m12 * m23;
+                    m10 = m13 * m22 * m30 - m12 * m23 * m30 - m13 * m20 * m32 + m10 * m23 * m32 + m12 * m20 * m33 - m10 * m22 * m33;
+                    m11 = m02 * m23 * m30 - m03 * m22 * m30 + m03 * m20 * m32 - m00 * m23 * m32 - m02 * m20 * m33 + m00 * m22 * m33;
+                    m12 = m03 * m12 * m30 - m02 * m13 * m30 - m03 * m10 * m32 + m00 * m13 * m32 + m02 * m10 * m33 - m00 * m12 * m33;
+                    m13 = m02 * m13 * m20 - m03 * m12 * m20 + m03 * m10 * m22 - m00 * m13 * m22 - m02 * m10 * m23 + m00 * m12 * m23;
+                    m20 = m11 * m23 * m30 - m13 * m21 * m30 + m13 * m20 * m31 - m10 * m23 * m31 - m11 * m20 * m33 + m10 * m21 * m33;
+                    m21 = m03 * m21 * m30 - m01 * m23 * m30 - m03 * m20 * m31 + m00 * m23 * m31 + m01 * m20 * m33 - m00 * m21 * m33;
+                    m22 = m01 * m13 * m30 - m03 * m11 * m30 + m03 * m10 * m31 - m00 * m13 * m31 - m01 * m10 * m33 + m00 * m11 * m33;
+                    m23 = m03 * m11 * m20 - m01 * m13 * m20 - m03 * m10 * m21 + m00 * m13 * m21 + m01 * m10 * m23 - m00 * m11 * m23;
+                    m30 = m12 * m21 * m30 - m11 * m22 * m30 - m12 * m20 * m31 + m10 * m22 * m31 + m11 * m20 * m32 - m10 * m21 * m32;
+                    m31 = m01 * m22 * m30 - m02 * m21 * m30 + m02 * m20 * m31 - m00 * m22 * m31 - m01 * m20 * m32 + m00 * m21 * m32;
+                    m32 = m02 * m11 * m30 - m01 * m12 * m30 - m02 * m10 * m31 + m00 * m12 * m31 + m01 * m10 * m32 - m00 * m11 * m32;
+                    m33 = m01 * m12 * m20 - m02 * m11 * m20 + m02 * m10 * m21 - m00 * m12 * m21 - m01 * m10 * m22 + m00 * m11 * m22;
+                    m00 /= det;
+                    m01 /= det;
+                    m02 /= det;
+                    m03 /= det;
+                    m10 /= det;
+                    m11 /= det;
+                    m12 /= det;
+                    m13 /= det;
+                    m20 /= det;
+                    m21 /= det;
+                    m22 /= det;
+                    m23 /= det;
+                    m30 /= det;
+                    m31 /= det;
+                    m32 /= det;
+                    m33 /= det;
+                    return Matrix.fromElements(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
+                };
+                /**
+                 * Generate linear translation transform matrix.
+                 */
+                Matrix.translate = function (v) {
+                    var m = Matrix.fromElements(1, 0, 0, v.X, 0, 1, 0, v.Y, 0, 0, 1, v.Z, 0, 0, 0, 1);
+                    return m;
+                };
+                /**
+                 * Generate linear scaling transform matrix.
+                 */
+                Matrix.scale = function (v) {
+                    return Matrix.fromElements(v.X, 0, 0, 0, 0, v.Y, 0, 0, 0, 0, v.Z, 0, 0, 0, 0, 1);
+                };
+                Matrix.frustum = function (left, right, bottom, top, near, far) {
+                    var te = new Float32Array(16);
+                    var x = 2 * near / (right - left);
+                    var y = 2 * near / (top - bottom);
+                    var a = (right + left) / (right - left);
+                    var b = (top + bottom) / (top - bottom);
+                    var c = -(far + near) / (far - near);
+                    var d = -2 * far * near / (far - near);
+                    te[0] = x;
+                    te[4] = 0;
+                    te[8] = a;
+                    te[12] = 0;
+                    te[1] = 0;
+                    te[5] = y;
+                    te[9] = b;
+                    te[13] = 0;
+                    te[2] = 0;
+                    te[6] = 0;
+                    te[10] = c;
+                    te[14] = d;
+                    te[3] = 0;
+                    te[7] = 0;
+                    te[11] = -1;
+                    te[15] = 0;
+                    return new Matrix(te);
+                };
+                Matrix.perspective = function (fovy, aspect, near, far) {
+                    var ymax = near * Math.tan(fovy * 0.5);
+                    var ymin = -ymax;
+                    var xmin = ymin * aspect;
+                    var xmax = ymax * aspect;
+                    return this.frustum(xmin, xmax, ymin, ymax, near, far);
+                };
+                Matrix.lookAt = function (eye, target, up) {
+                    var zAxis = eye.subtractWith(target).normalizeThis();
+                    var xAxis = up.crossWith(zAxis).normalizeThis();
+                    var yAxis = zAxis.crossWith(xAxis);
+                    return new Matrix(new Float32Array([xAxis.X, yAxis.X, zAxis.X, 0, xAxis.Y, yAxis.Y, zAxis.Y, 0, xAxis.Z, yAxis.Z, zAxis.Z, 0, -xAxis.dotWith(eye), -yAxis.dotWith(eye), -zAxis.dotWith(eye), 1]));
+                };
+                Matrix.prototype.multiplyWith = function (m) {
+                    return Matrix.multiply(this, m);
+                };
+                Matrix.prototype.toString = function () {
+                    return "|{0} {1} {2} {3}|\n|{4} {5} {6} {7}|\n|{8} {9} {10} {11}|\n|{12} {13} {14} {15}|".format(this.getBySingleIndex(0), this.getBySingleIndex(1), this.getBySingleIndex(2), this.getBySingleIndex(3), this.getBySingleIndex(4), this.getBySingleIndex(5), this.getBySingleIndex(6), this.getBySingleIndex(7), this.getBySingleIndex(8), this.getBySingleIndex(9), this.getBySingleIndex(10), this.getBySingleIndex(11), this.getBySingleIndex(12), this.getBySingleIndex(13), this.getBySingleIndex(14), this.getBySingleIndex(15));
+                };
+                Matrix.prototype.getEnumrator = function () {
+                    return new MatrixEnumerator(this);
+                };
+                Object.defineProperty(Matrix.prototype, "ElementCount", {
+                    get: function () {
+                        return 16;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Matrix.prototype.getFactory = function () {
+                    Matrix.factoryCache = Matrix.factoryCache || new MatrixFactory();
+                    return Matrix.factoryCache;
+                };
+                Object.defineProperty(Matrix.prototype, "RowCount", {
+                    get: function () {
+                        return 4;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Matrix.prototype, "ColmunCount", {
+                    get: function () {
+                        return 4;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return Matrix;
+            })(MatrixBase);
+            Matricies.Matrix = Matrix;
+        })(Matricies = Mathematics.Matricies || (Mathematics.Matricies = {}));
+    })(Mathematics = jThree.Mathematics || (jThree.Mathematics = {}));
 })(jThree || (jThree = {}));
 /**
  * jThree most basic module
@@ -1980,8 +1980,8 @@ var jThree;
     (function (Effects) {
         var ContextSafeContainer = jThree.Base.ContextSafeResourceContainer;
         /**
-        * コンテキストを跨いでシェーダーを管理しているクラス
-        */
+         * コンテキストを跨いでシェーダーを管理しているクラス
+         */
         var Shader = (function (_super) {
             __extends(Shader, _super);
             /**
@@ -2296,37 +2296,9 @@ var jThree;
         Color.Color4 = Color4;
     })(Color = jThree.Color || (jThree.Color = {}));
 })(jThree || (jThree = {}));
-///<reference path="src/Delegates.ts"/> 
-///<reference path="src/Collections.ts"/>
-///<reference path="src/Base.ts"/>
-///<reference path="src/Math.ts"/>
-///<reference path="src/Vector.ts"/>
-///<reference path="src/Exceptions.ts"/>
-///<reference path="src/Matrix.ts"/>
-///<reference path="Scripts/typings/jquery/jquery.d.ts"/>
-///<reference path="src/Contexts.ts"/>
-///<reference path="src/Buffer.ts"/>
-///<reference path="src/Effects.ts"/>
-///<reference path="src/Event.RendererState.ts"/>
-///<reference path="src/Color.ts"/> 
-///<reference path="../_references.ts"/>
 var jThree;
 (function (jThree) {
-    var jThreeObject = jThree.Base.jThreeObject;
-    var Buffer = jThree.Buffers.Buffer;
-    var Shader = jThree.Effects.Shader;
-    var Program = jThree.Effects.Program;
-    var Color4 = jThree.Color.Color4;
-    var JThreeObjectWithId = jThree.Base.jThreeObjectWithID;
-    var Rectangle = jThree.Mathematics.Rectangle;
-    var RendererMatriciesManager = (function (_super) {
-        __extends(RendererMatriciesManager, _super);
-        function RendererMatriciesManager() {
-            _super.apply(this, arguments);
-        }
-        return RendererMatriciesManager;
-    })(jThreeObject);
-    jThree.RendererMatriciesManager = RendererMatriciesManager;
+    var JThreeObject = jThree.Base.jThreeObject;
     var Timer = (function (_super) {
         __extends(Timer, _super);
         function Timer() {
@@ -2357,7 +2329,7 @@ var jThree;
             configurable: true
         });
         return Timer;
-    })(jThreeObject);
+    })(JThreeObject);
     jThree.Timer = Timer;
     var ContextTimer = (function (_super) {
         __extends(ContextTimer, _super);
@@ -2372,6 +2344,41 @@ var jThree;
         };
         return ContextTimer;
     })(Timer);
+    jThree.ContextTimer = ContextTimer;
+})(jThree || (jThree = {}));
+///<reference path="src/Delegates.ts"/> 
+///<reference path="src/Collections.ts"/>
+///<reference path="src/Base.ts"/>
+///<reference path="src/mathmatics/Math.ts"/>
+///<reference path="src/mathmatics/Vector.ts"/>
+///<reference path="src/Exceptions.ts"/>
+///<reference path="src/mathmatics/Matrix.ts"/>
+///<reference path="Scripts/typings/jquery/jquery.d.ts"/>
+///<reference path="src/Contexts.ts"/>
+///<reference path="src/Buffer.ts"/>
+///<reference path="src/Effects.ts"/>
+///<reference path="src/Event.RendererState.ts"/>
+///<reference path="src/Color.ts"/>
+///<reference path="src/Timer.ts"/> 
+///<reference path="../_references.ts"/>
+var jThree;
+(function (jThree) {
+    var jThreeObject = jThree.Base.jThreeObject;
+    var Buffer = jThree.Buffers.Buffer;
+    var Shader = jThree.Effects.Shader;
+    var Program = jThree.Effects.Program;
+    var Color4 = jThree.Color.Color4;
+    var JThreeObjectWithId = jThree.Base.jThreeObjectWithID;
+    var Rectangle = jThree.Mathematics.Rectangle;
+    var Matrix = jThree.Mathematics.Matricies.Matrix;
+    var RendererMatriciesManager = (function (_super) {
+        __extends(RendererMatriciesManager, _super);
+        function RendererMatriciesManager() {
+            _super.apply(this, arguments);
+        }
+        return RendererMatriciesManager;
+    })(jThreeObject);
+    jThree.RendererMatriciesManager = RendererMatriciesManager;
     /**
      * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
      */
@@ -2421,7 +2428,7 @@ var jThree;
             this.canvasRenderers = [];
             this.onRendererChangedFuncs = [];
             this.resourceManager = new ResourceManager();
-            this.timer = new ContextTimer();
+            this.timer = new jThree.ContextTimer();
             this.sceneManager = new SceneManager();
         }
         Object.defineProperty(JThreeContext.prototype, "SceneManager", {
@@ -2607,7 +2614,7 @@ var jThree;
             }
         };
         CanvasManager.prototype.getDefaultViewport = function () {
-            return new ViewPortRenderer(this, new Rectangle(0, 0, 300, 300));
+            return new ViewPortRenderer(this, new Rectangle(20, 20, 280, 280));
         };
         return CanvasManager;
     })(ContextManagerBase);
@@ -2748,9 +2755,9 @@ var jThree;
         BasicMaterial.prototype.configureMaterial = function (renderer, geometry) {
             var programWrapper = this.program.getForRenderer(renderer.ContextManager);
             programWrapper.useProgram();
-            var vpMat; //=Matrix.Matrix.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-            vpMat = jThree.Matrix.Matrix.identity(); //Matrix.Matrix.perspective(Math.PI / 2, 1, 0.1, 10);
-            // vpMat = Matrix.Matrix.identity();
+            var vpMat; //=Matricies.Matricies.lookAt(new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            vpMat = Matrix.identity(); //Matricies.Matricies.perspective(Math.PI / 2, 1, 0.1, 10);
+            // vpMat = Matricies.Matricies.identity();
             if (!this.initial) {
                 console.log(vpMat.toString());
                 this.initial = true;

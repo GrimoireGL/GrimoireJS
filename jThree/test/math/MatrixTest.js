@@ -1,9 +1,9 @@
 ///<reference path="../../_references.ts"/>
 ///<reference path="../../def-test/qunit.d.ts"/>
-QUnit.module("Matrix Test");
+QUnit.module("Matricies Test");
 var jThreeTest;
 (function (jThreeTest) {
-    var Matrix = jThree.Matrix.Matrix;
+    var Matrix = jThree.Mathematics.Matricies.Matrix;
     var Vector3 = jThree.Mathematics.Vector.Vector3;
     var Vector4 = jThree.Mathematics.Vector.Vector4;
     function matEqual(actual, expect) {

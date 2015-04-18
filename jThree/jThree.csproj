@@ -97,9 +97,10 @@
     <TypeScriptCompile Include="src\Event.RendererState.ts" />
     <TypeScriptCompile Include="src\Exceptions.ts" />
     <TypeScriptCompile Include="src\jThree.ts" />
-    <TypeScriptCompile Include="src\Math.ts" />
-    <TypeScriptCompile Include="src\Matrix.ts" />
-    <TypeScriptCompile Include="src\Vector.ts" />
+    <TypeScriptCompile Include="src\mathmatics\Math.ts" />
+    <TypeScriptCompile Include="src\mathmatics\Matrix.ts" />
+    <TypeScriptCompile Include="src\mathmatics\Vector.ts" />
+    <TypeScriptCompile Include="src\Timer.ts" />
     <TypeScriptCompile Include="test\math\CollectionTest.ts" />
     <TypeScriptCompile Include="test\math\MatrixTest.ts" />
     <TypeScriptCompile Include="test\math\VectorTest.ts" />

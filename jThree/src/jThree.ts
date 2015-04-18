@@ -21,37 +21,7 @@ module jThree {
         
     }
 
-    export class Timer extends jThreeObject {
-        constructor() {
-            super();
-        }
 
-        protected currentFrame: number=0;
-        protected time: number = 0;
-        protected timeFromLast: number = 0;
-
-        get CurrentFrame(): number {
-            return this.currentFrame;
-        }
-
-        get Time(): number {
-            return this.time;
-        }
-
-        get TimeFromLast(): number {
-            return this.timeFromLast;
-        }
-    }
-
-    class ContextTimer extends Timer {
-
-        updateTimer(): void {
-            this.currentFrame++;
-            var date:number=Date.now();
-            this.TimeFromLast = date - this.Time;
-            this.time = date;
-        }
-    }
     /**
      * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
      */
@@ -77,6 +47,10 @@ module jThree {
             return buf;
         }
 
+        getBuffer(id:string): Buffer {
+            return this.buffers.get(id);
+        }
+
         private shaders: Map<string, Shader> = new Map<string, Shader>();
 
         createShader(id: string,source:string,shaderType:ShaderType): Shader {
@@ -85,12 +59,20 @@ module jThree {
             return shader;
         }
 
+        getShader(id: string):Shader {
+            return this.shaders.get(id);
+        }
+
         private programs: Map<string, Program> = new Map<string, Program>();
 
         createProgram(id: string,shaders:Shader[]): Program {
             var program: Program = Program.CreateProgram(this.context, shaders);
             this.programs.set(id, program);
             return program;
+        }
+
+        getProgram(id: string): Program {
+            return this.programs.get(id);
         }
     } 
 
@@ -124,6 +106,10 @@ module jThree {
             this.sceneManager = new SceneManager();
         }
 
+        /**
+         * Begin render loop
+         * @returns {} 
+         */
         init() {
             this.loop();
         }
@@ -287,7 +273,7 @@ module jThree {
         }
 
         getDefaultViewport(): ViewPortRenderer {
-            return new ViewPortRenderer(this,new Rectangle(0,0,300,300));
+            return new ViewPortRenderer(this,new Rectangle(20,20,280,280));
         }
     }
 

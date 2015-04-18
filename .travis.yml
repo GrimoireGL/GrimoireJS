@@ -1,14 +1,20 @@
+env:
+  global:
+    secure: I8KOl3uI1vVQTG/azUcv0RRNmaefDjWYrJJezt1RxvjLIOiYSqABer6BOAshz7dW0fctx8mA4b9Wtewxi64tqmvTCsvqcndPJVTeJTGX+63TlqYZaCxV/iPdvgOhQ0a+c8QhqA/gVEAszTkoxTQN1KySe0QeCdxbMNf4BHe9m3Y=
 before_install:
- - npm install -g npm
+- npm install -g npm
+- cd ci
+- git init
+- git remote add github https://github.com/jThreeJS/jThree
+- git pull github gh-pages
+- ls
+- cd ..
 install:
- - npm install grunt-cli -save-dev
- - npm install grunt-contrib-qunit -save-dev
- - npm install
-
+- npm install grunt-cli -save-dev
+- npm install grunt-contrib-qunit -save-dev
+- npm install
 script:
- - grunt travis --verbose --force --branch=$TRAVIS_BRANCH
-
+- grunt travis --verbose --force --branch=$TRAVIS_BRANCH
 language: node_js
-
 node_js:
- - 0.12
+- 0.12

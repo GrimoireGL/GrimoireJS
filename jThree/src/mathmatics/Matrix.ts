@@ -1,4 +1,4 @@
-﻿///<reference path="../_references.ts"/>
+﻿///<reference path="../../_references.ts"/>
 module jThree.Mathematics.Matricies {
     import JThreeObject = jThree.Base.jThreeObject;
     import Enumerable = jThree.Collections.IEnumerable;
