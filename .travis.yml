@@ -1,5 +1,5 @@
 env:
-  global: 
+  global:
     secure: C3UQt4RiLQWzugbiTzw00lg8+/lCUPK3FjSxck4BnU7+uB3wdh7qaZp88mG/hUrrB5tASW316UowzRCYTItPtsNuEOLK3x+KxKZBW5fpyvaSOZrSlPV7qv1kJjGQirskgZxH1aH/g/fHknBXsifawPT6it63INk/SVE/szfEHfg=
 before_install:
 - npm install -g npm
@@ -34,3 +34,6 @@ after_script:
 language: node_js
 node_js:
 - 0.12
+notifications:
+  slack:
+    secure: JQPxyKx9YYx0AgG2ZwFJdd3P/wEQ3HLksKgBF7IWUVwFkHifhJNRG608EiJf6JK/pJoebMt9gSJGEcTIrko3f5qlrNBdRXKvqUR57G0He84wL1QyZl4AZ5PPeesf352dr2zYKvX/TeWM5EDYuzjv4io5mgRR914hBON4GdpCOA4=
