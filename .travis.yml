@@ -21,10 +21,13 @@ install:
 script:
 - grunt travis --verbose --force --branch=$TRAVIS_BRANCH
 after_script:
+- if $TRAVIS_BRANCH -ne "gh-pages"; then
 - cd ci
 - git add -A
 - git commit -m "document update by travis"
-- git push --force --quiet https://${GHTOKEN}@github.com/jThreeJS/jThree gh-pages
+- git push --force --quiet https://$GHTOKEN@github.com/jThreeJS/jThree gh-pages
+- cd ..
+- fi
 language: node_js
 node_js:
 - 0.12
