@@ -26,7 +26,7 @@ after_script:
 - git branch gh-pages
 - git add -A
 - git commit -m "document update by travis"
-- git push --force https://$GHTOKEN@github.com/jThreeJS/jThree gh-pages:gh-pages
+- git push --force https://$GHTOKEN@github.com/jThreeJS/jThree
 - cd ..
 - else
 - echo "gh-pages publish was skipped."
