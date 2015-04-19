@@ -11,7 +11,7 @@ before_install:
 - git config user.email "travis"
 - git remote add github https://github.com/jThreeJS/jThree
 - git pull github gh-pages
-- git branch gh-pages
+- git checkout gh-pages
 - ls
 - cd ..
 install:
@@ -23,10 +23,10 @@ script:
 after_script:
 - if $TRAVIS_BRANCH -ne "gh-pages"; then
 - cd ci
-- git branch gh-pages
+- git checkout gh-pages
 - git add -A
 - git commit -m "document update by travis"
-- git push --force https://$GHTOKEN@github.com/jThreeJS/jThree
+- git push --force https://$GHTOKEN@github.com/jThreeJS/jThree gh-pages:gh-pages
 - cd ..
 - else
 - echo "gh-pages publish was skipped."
