@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
     
     var branch_name = grunt.option('branch') || 'unknown';
-    var ci_docoutput = "ci/docs"+branch_name;
+    var ci_docoutput = "ci/docs/"+branch_name;
 
     /**************************
      *    LOAD NPM TASKS      *
@@ -58,8 +58,10 @@ module.exports = function (grunt) {
                     out: ci_docoutput,
                     name: "jThree API Reference",
                 },
-                src: "jThree/src/**/*.ts"
+                src: "jThree/src/**/*.ts",
+                json:"doc-output.json"
             }
+
         }
     });
     /***********************

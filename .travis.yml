@@ -1,14 +1,17 @@
 env:
-  global:
-    secure: I8KOl3uI1vVQTG/azUcv0RRNmaefDjWYrJJezt1RxvjLIOiYSqABer6BOAshz7dW0fctx8mA4b9Wtewxi64tqmvTCsvqcndPJVTeJTGX+63TlqYZaCxV/iPdvgOhQ0a+c8QhqA/gVEAszTkoxTQN1KySe0QeCdxbMNf4BHe9m3Y=
+  global: 
+    secure: C3UQt4RiLQWzugbiTzw00lg8+/lCUPK3FjSxck4BnU7+uB3wdh7qaZp88mG/hUrrB5tASW316UowzRCYTItPtsNuEOLK3x+KxKZBW5fpyvaSOZrSlPV7qv1kJjGQirskgZxH1aH/g/fHknBXsifawPT6it63INk/SVE/szfEHfg=
 before_install:
 - npm install -g npm
 - rm ci -r
 - mkdir ci
 - cd ci
 - git init
+- git config user.name "autodeploy-travis"
+- git config user.email "travis"
 - git remote add github https://github.com/jThreeJS/jThree
 - git pull github gh-pages
+- git branch gh-pages
 - ls
 - cd ..
 install:
@@ -17,6 +20,11 @@ install:
 - npm install
 script:
 - grunt travis --verbose --force --branch=$TRAVIS_BRANCH
+after_script:
+- cd ci
+- git add -A
+- git commit -m "document update by travis"
+- git push --force --quiet https://${GHTOKEN}@github.com/jThreeJS/jThree gh-pages
 language: node_js
 node_js:
 - 0.12
