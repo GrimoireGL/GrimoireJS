@@ -86,9 +86,14 @@ module jThree {
         private resourceManager: ResourceManager;
         private timer: ContextTimer;
         private sceneManager: SceneManager;
+        private gomlLoader:GomlLoader;
 
         get SceneManager(): SceneManager {
             return this.sceneManager;
+        }
+
+        get GomlLoader(): GomlLoader {
+            return this.gomlLoader;
         }
         
         /**
@@ -104,6 +109,7 @@ module jThree {
             this.resourceManager = new ResourceManager();
             this.timer = new ContextTimer();
             this.sceneManager = new SceneManager();
+            this.gomlLoader = new GomlLoader();
         }
 
         /**
@@ -505,6 +511,206 @@ module jThree {
             this.geometry = new TriangleGeometry();
         }
     }
+
+    export class GomlLoader extends jThreeObject
+    {
+        gomlTags: Map<string, GomlTagBase> = new Map<string, GomlTagBase>();
+
+        headTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
+
+        bodyTagsById:Map<string,GomlTreeNodeBase>=new Map<string,GomlTreeNodeBase>();
+
+        rootObj: JQuery;
+
+        headTags: GomlTreeNodeBase[] = [];
+
+        bodyTags:GomlTreeNodeBase[]=[];
+
+        initForPage(): void {
+            this.constructTagDictionary();
+            this.rootObj = $("<iframe style='display:none;'/>").appendTo("body").contents();
+            var gomls: JQuery = $("script[type='text/goml']");
+            gomls.each((index:number, elem:Element) => {
+                this.loadScriptTag($(elem));
+            });
+        }
+
+        private constructTagDictionary(): void {
+            this.addGomlTag(new GomlRootTag());
+            this.addGomlTag(new GomlHeadTag());
+            this.addGomlTag(new GomlBodyTag());
+            this.addGomlTag(new GomlRdrTag());
+            this.addGomlTag(new GomlVpTag());
+        }
+
+        private addGomlTag(tag:GomlTagBase): void {
+            this.gomlTags.set(tag.TagName, tag);
+        }
+
+        private loadScriptTag(scriptTag: JQuery):void{
+            var srcSource: string = scriptTag.attr("src");
+            if (srcSource) {//when src is specified
+                $.get(srcSource, [], (d) => {
+                    this.scriptLoaded(scriptTag[0], d);
+                });
+            } else {
+                this.scriptLoaded(scriptTag[0], scriptTag.text());
+            }
+        }
+
+        private scriptLoaded(elem: Element, source: string): void {
+            source = source.replace(/(head|body)>/g, "j$1>");//TODO Can be bug
+            console.log("Replaced:" + source);
+            var catched = $(source);
+            if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
+            //console.dir(catched.find("jhead").children());
+            //this.rootObj.find("head").append(catched.find("jhead").children());
+            //this.rootObj.find("body").append(catched.find("jbody").children());
+            var headChild = catched.find("jhead").children();
+            var bodyChild = catched.find("jbody").children();
+            this.parseHead(headChild,(e) => {
+                this.headTags.push(e);
+            });
+            this.parseBody(bodyChild, (e) => {
+                this.bodyTags.push(e);
+            });
+        }
+
+        private parseHead(child: JQuery, act: Action1<GomlTreeNodeBase>): void {
+            if (!child)return;
+           console.log(child);
+            for (var i = 0; i < child.length; i++) {
+                var elem: HTMLElement = child[i];
+                if (this.gomlTags.has(elem.tagName)) {
+                    var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem);
+                    this.headTagsById.set(newNode.ID, newNode);
+                    elem.classList.add("x-j3-"+newNode.ID);
+                    act(newNode);
+                    this.parseHead($(elem).children(), (e) => { newNode.addChild(e); });
+                }
+            }
+        }
+
+        private parseBody(child: JQuery, act: Action1<GomlTreeNodeBase>):void {
+            if (!child) return;
+            console.log(child);
+            for (var i = 0; i < child.length; i++)
+            {
+                var elem: HTMLElement = child[i];
+                if (this.gomlTags.has(elem.tagName))
+                {
+                    var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem);
+                    this.bodyTagsById.set(newNode.ID, newNode);
+                    elem.classList.add("x-j3-" + newNode.ID);
+                    act(newNode);
+                    this.parseHead($(elem).children(),(e) => { newNode.addChild(e); });
+                }
+            }
+        }
+
+
+    }
+
+    export class GomlTagBase extends jThreeObject {
+        get TagName(): string {
+            return "";
+        }
+
+        CreateNodeForThis(elem: Element): GomlTreeNodeBase {
+            return null;
+        }
+
+        protected getTag(name:string): GomlTagBase {
+            return JThreeContext.Instance.GomlLoader.gomlTags.get(name);
+        }
+    }
+
+    export class GomlRootTag extends GomlTagBase {
+        CreateNodeForThis(elem: Element): GomlTreeNodeBase { throw new Error("Not implemented"); }
+
+        get TagName(): string { return "GOML"; }
+    }
+
+    export class GomlHeadTag extends GomlTagBase {
+        CreateNodeForThis(elem: Element): GomlTreeNodeBase { throw new Error("Not implemented"); }
+
+        get TagName(): string { return "HEAD"; }
+ 
+    }
+
+    export class GomlBodyTag extends GomlTagBase
+    {
+        CreateNodeForThis(elem: Element): GomlTreeNodeBase { throw new Error("Not implemented"); }
+
+        get TagName(): string { return "BODY"; }
+
+    }
+
+    export class GomlRdrTag extends GomlTagBase {
+        CreateNodeForThis(elem: Element): GomlTreeNodeBase {
+            return new GomlTreeRdrNode(elem);
+        }
+
+        get TagName(): string { return "RDR"; }
+    }
+
+    export class GomlVpTag extends GomlTagBase {
+        CreateNodeForThis(elem: Element): GomlTreeNodeBase
+        {
+            return new GomlTreeVpNode(elem);
+        }
+
+        get TagName(): string { return "VP"; }
+    }
+
+    export class GomlTreeNodeBase extends JThreeObjectWithId
+    {
+        constructor(elem:Element) {
+            super();
+            this.element = elem;
+        }
+        protected element: Element;
+
+        private children: GomlTreeNodeBase[]=[];
+
+        protected parent:GomlTreeNodeBase;
+
+        addChild(child: GomlTreeNodeBase) {
+            child.parent = this;
+            this.children.push(child);
+        }
+    }
+
+    export class GomlTreeRdrNode extends GomlTreeNodeBase
+    {
+        canvasManager:CanvasManager;
+
+        constructor(elem:Element) {
+            super(elem);
+            var test = $(elem);
+            console.log("css test:"+$(test).css("clearcolor"));
+            var targetCanvas = $("<canvas></canvas>");
+            targetCanvas.addClass("x-j3-c-" + this.ID);
+            $(this.Frame).append(targetCanvas);
+            this.canvasManager = CanvasManager.fromCanvas(<HTMLCanvasElement>targetCanvas[0]);
+            var scene = new jThree.Scene();
+            scene.addRenderer(this.canvasManager.getDefaultViewport());
+            JThreeContext.Instance.SceneManager.addScene(scene);
+        }
+
+        get Frame(): string {
+            return this.element.getAttribute("frame")||"body";
+        }
+
+    }
+
+    export class GomlTreeVpNode extends GomlTreeNodeBase {
+        constructor(elem: Element)
+        {
+            super(elem);
+        }
+    }
+
 }
 
 var buf: jThree.Buffers.Buffer;
@@ -513,13 +719,15 @@ var noInit: boolean;
 $(() => {
     if (noInit)return;
     var jThreeContext: jThree.JThreeContext = jThree.JThreeContext.Instance;
-    var renderer = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
-    var renderer2 = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas2"));
-    var scene = new jThree.Scene();
-    scene.addRenderer(renderer.getDefaultViewport());
-    scene.addRenderer(renderer2.getDefaultViewport());
-    scene.addObject(new jThree.Triangle());
-    jThreeContext.SceneManager.addScene(scene);
-    buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw,3,jThree.ElementType.Float);
+    //var renderer = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
+    //var renderer2 = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas2"));
+    //var scene = new jThree.Scene();
+    //scene.addRenderer(renderer.getDefaultViewport());
+    //scene.addRenderer(renderer2.getDefaultViewport());
+    //scene.addObject(new jThree.Triangle());
+    //jThreeContext.SceneManager.addScene(scene);
+    //buf = jThreeContext.ResourceManager.createBuffer("test-buffer", jThree.BufferTargetType.ArrayBuffer, jThree.BufferUsageType.DynamicDraw,3,jThree.ElementType.Float);
     jThreeContext.init();
+    //GOML テスト
+    jThreeContext.GomlLoader.initForPage();
 });

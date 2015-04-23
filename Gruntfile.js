@@ -13,12 +13,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-connect");
     grunt.loadNpmTasks("grunt-blanket-qunit");
     grunt.loadNpmTasks("grunt-typedoc");
-
+    grunt.loadNpmTasks("grunt-webpack");
     grunt.initConfig({
         typescript: {
             base: {
                 src: ["jThree/src/jThree.ts"],
-                dest: "jThree/jThree.js",
+                dest: "jThree/packed.jThree.js",
                 options: {
                     comments: true,
                     target: "es5"
@@ -26,6 +26,16 @@ module.exports = function (grunt) {
 
             }
         },
+        webpack: {
+            aftercompile: {
+                entry: "./jThree/src/jThree.js",
+                output: {
+                    path:"./jThree/src",
+                    filename:"jThree.js"
+                }
+            }
+        }
+            ,
         qunit: {
             all: {
                 options: {
@@ -61,13 +71,12 @@ module.exports = function (grunt) {
                 src: "jThree/src/**/*.ts",
                 json:"doc-output.json"
             }
-
         }
     });
     /***********************
      *    REGISTER TASKS   *
      ***********************/
-    grunt.registerTask("travis", ["typescript", "connect", "blanket_qunit", "typedoc"]);
+    grunt.registerTask("travis", ["typescript","webpack", "connect", "blanket_qunit", "typedoc"]);
     grunt.registerTask("compile", ["typescript"]);
     grunt.registerTask("server", ["connect"]);
     grunt.registerTask("default", ["typescript", "connect", "blanket_qunit"]);

@@ -30,5 +30,6 @@
         get B(): number {
             return this.b;
         }
+
     }
 }

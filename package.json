@@ -38,7 +38,11 @@
     "grunt-contrib-watch": "~0.4.0",
     "grunt-typedoc": "^0.2.2",
     "grunt-typescript": "^0.6.1",
+    "gulp": "^3.8.11",
+    "gulp-typescript": "^2.6.0",
     "jsdoc": "^3.3.0-beta3",
+    "json-loader": "^0.5.1",
+    "merge2": "^0.3.5",
     "qunitjs": "^1.17.1",
     "tsdoc": "0.0.4",
     "typescript": "^1.4.1"
