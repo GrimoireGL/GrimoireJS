@@ -1,0 +1,21 @@
+{
+  "name": "jThree",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jThreeJS/jThree",
+  "authors": [
+    "LimeStreem <LimeStreem@gmail.com>"
+  ],
+  "description": "The awesome library for WebGL.",
+  "main": "jThree\\bin\\js\\jThree.js",
+  "keywords": [
+    "webgl"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

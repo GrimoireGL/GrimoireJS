@@ -1,10 +1,10 @@
-﻿///<reference path="../_references.ts"/>
-module jThree.Exceptions {
-    import jThreeObject = Base.jThreeObject;
-    import Matrix = jThree.Mathematics.Matricies.Matrix; /**
+import JThreeObject = require("./Base/JThreeObject");
+import Matrix = require("./Math/Matrix");
+
+     /**
      * This class is root class perform as exception arguments in jThree.
      */
-    export class jThreeException extends jThreeObject implements Error {
+    export class jThreeException extends JThreeObject implements Error {
         constructor(name: string, message: string) {
             super();
             this.name = name;
@@ -48,4 +48,3 @@ module jThree.Exceptions {
             super("WebGL reported error.", text);
         }
     }
- }

@@ -1,0 +1,12 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "jThree/src/Refs",
+  "bundle": "jThree/src/Refs/bundle.ts",
+  "installed": {
+    "jquery/jquery.d.ts": {
+      "commit": "de18109f44d99864a19441509a3fc876adba68e9"
+    }
+  }
+}

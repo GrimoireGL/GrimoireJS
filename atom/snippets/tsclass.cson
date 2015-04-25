@@ -1,0 +1,23 @@
+'.source.ts':
+  'Typescript class for jThree':
+    'prefix':'tsclass',
+    'body':"""
+    import JThreeObject=require('Base/JThreeObject');
+
+    class $1 extends JThreeObject
+    {
+
+    }
+
+    export=$1;
+    """
+  'Typescript enum for jThree':
+    'prefix':'tsenum',
+    'body':"""
+    enum $1
+    {
+
+    }
+
+    export=$1;
+    """
