@@ -1,9 +1,9 @@
 ﻿<goml>
 	<head>
-		<rdr frame=".canvasContainer" style="clearcolor:#FFF;">
-		<vp></vp>
-		</rdr>
 	</head>
 	<body>
+		<rdr frame=".canvasContainer" style="clearcolor:#FFF;">
+			<vp></vp>
+		</rdr>
 	</body>
 </goml>

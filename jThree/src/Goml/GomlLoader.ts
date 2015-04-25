@@ -10,27 +10,26 @@ import GomlRdrTag = require("./Tags/GomlRdrTag");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
 import JQuery = require("jquery");
-import $=require('jquery');
+import $ = require('jquery');
 
-class GomlLoader extends jThreeObject
-{
+class GomlLoader extends jThreeObject {
     gomlTags: Map<string, GomlTagBase> = new Map<string, GomlTagBase>();
 
     headTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
 
-    bodyTagsById:Map<string,GomlTreeNodeBase>=new Map<string,GomlTreeNodeBase>();
+    bodyTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
 
     rootObj: JQuery;
 
     headTags: GomlTreeNodeBase[] = [];
 
-    bodyTags:GomlTreeNodeBase[]=[];
+    bodyTags: GomlTreeNodeBase[] = [];
 
     initForPage(): void {
         this.constructTagDictionary();
         this.rootObj = $("<iframe style='display:none;'/>").appendTo("body").contents();
         var gomls: JQuery = $("script[type='text/goml']");
-        gomls.each((index:number, elem:Element) => {
+        gomls.each((index: number, elem: Element) => {
             this.loadScriptTag($(elem));
         });
     }
@@ -43,11 +42,11 @@ class GomlLoader extends jThreeObject
         this.addGomlTag(new GomlVpTag());
     }
 
-    private addGomlTag(tag:GomlTagBase): void {
+    private addGomlTag(tag: GomlTagBase): void {
         this.gomlTags.set(tag.TagName, tag);
     }
 
-    private loadScriptTag(scriptTag: JQuery):void{
+    private loadScriptTag(scriptTag: JQuery): void {
         var srcSource: string = scriptTag.attr("src");
         if (srcSource) {//when src is specified
             $.get(srcSource, [], (d) => {
@@ -68,7 +67,7 @@ class GomlLoader extends jThreeObject
         //this.rootObj.find("body").append(catched.find("jbody").children());
         var headChild = catched.find("jhead").children();
         var bodyChild = catched.find("jbody").children();
-        this.parseHead(headChild,(e) => {
+        this.parseHead(headChild, (e) => {
             this.headTags.push(e);
         });
         this.parseBody(bodyChild, (e) => {
@@ -77,33 +76,31 @@ class GomlLoader extends jThreeObject
     }
 
     private parseHead(child: JQuery, act: Delegates.Action1<GomlTreeNodeBase>): void {
-        if (!child)return;
-       console.log(child);
+        if (!child) return;
+        console.log(child);
         for (var i = 0; i < child.length; i++) {
             var elem: HTMLElement = child[i];
             if (this.gomlTags.has(elem.tagName)) {
                 var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem);
                 this.headTagsById.set(newNode.ID, newNode);
-                elem.classList.add("x-j3-"+newNode.ID);
+                elem.classList.add("x-j3-" + newNode.ID);
                 act(newNode);
                 this.parseHead($(elem).children(), (e) => { newNode.addChild(e); });
             }
         }
     }
 
-    private parseBody(child: JQuery, act: Delegates.Action1<GomlTreeNodeBase>):void {
+    private parseBody(child: JQuery, act: Delegates.Action1<GomlTreeNodeBase>): void {
         if (!child) return;
         console.log(child);
-        for (var i = 0; i < child.length; i++)
-        {
+        for (var i = 0; i < child.length; i++) {
             var elem: HTMLElement = child[i];
-            if (this.gomlTags.has(elem.tagName))
-            {
+            if (this.gomlTags.has(elem.tagName)) {
                 var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem);
                 this.bodyTagsById.set(newNode.ID, newNode);
                 elem.classList.add("x-j3-" + newNode.ID);
                 act(newNode);
-                this.parseHead($(elem).children(),(e) => { newNode.addChild(e); });
+                this.parseHead($(elem).children(), (e) => { newNode.addChild(e); });
             }
         }
     }

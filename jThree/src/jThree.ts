@@ -1,10 +1,25 @@
 import JThreeContext = require('./Core/JThreeContext');
 import $=require('jquery');
+import col4 = require("./Base/Color/Color4");
 var noInit: boolean;
-
+if (!String.prototype["format"]) {
+    String.prototype["format"] = function () {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function (match, num) {
+            if (typeof args[num] != 'undefined') {
+                return args[num];
+            } else {
+                return match;
+            }
+        });
+    };
+}
   $(() => {
     if (noInit)return;
-    alert('Hello World');
+    console.log(col4.parseColor('rgb(255,255,128)').toString());
+    //var j3:JThreeContext=JThreeContext.Instance;
+    //j3.GomlLoader.initForPage();
+
     //
     // var jThreeContext: JThreeContext = JThreeContext.Instance;
     // //var renderer = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));

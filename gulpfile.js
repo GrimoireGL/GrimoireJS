@@ -40,11 +40,12 @@ gulp.task('move-refs',function(){
     bower_files[i]=bower_prefix+bower_files[i];
   };
   gulp.src(bower_files).pipe(gulp.dest('jThree/bin/js'));
+  gulp.src('jThree/src/static/**/*.*').pipe(gulp.dest('jThree/bin/js/static'))
 });
 
 gulp.task('webpack',['compile','move-refs'],function(){
   console.log('Webpack Task');
-  return gulp.src('jThree/bin/js/**/*.js')
+  return gulp.src(['jThree/bin/js/**/*.js','jThree/bin/js/**/*.json'])
     .pipe(using({}))
     .pipe(webpack({
       entry:{
@@ -58,9 +59,14 @@ gulp.task('webpack',['compile','move-refs'],function(){
         'j3':'Core/JThreeContext.js',
       },
       root:'./jThree/bin/js'
-      }
+    },
+    module:{
+      loaders:[
+        {test:/\.json$/,loader:'json'}
+      ]
+    }
     }))
-    .pipe(gulp.dest("bin/product")).pipe(connect.reload());
+    .pipe(gulp.dest("jThree/bin/product")).pipe(connect.reload());
 });
 
 gulp.task('clean',function(){
@@ -85,13 +91,13 @@ gulp.task('reload',function()
 });
 
 gulp.task('build',['webpack'],function(){
-  gulp.src('bin/product/j3.js').pipe(gulp.dest('jThree/'));
+  gulp.src('jThree/bin/product/j3.js').pipe(gulp.dest('jThree/'));
 });
 
 gulp.task('minify',['build'],function(){
   return gulp.src('bin/product/j3.js').
     pipe(minify())
-    .pipe(gulp.dest('bin/product/min'));
+    .pipe(gulp.dest('jThree/bin/product/min'));
 });
 
 gulp.task('server',['build'],function(){

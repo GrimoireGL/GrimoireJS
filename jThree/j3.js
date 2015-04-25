@@ -44,12 +44,28 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(1);
+	var $ = __webpack_require__(2);
+	var col4 = __webpack_require__(1);
 	var noInit;
+	if (!String.prototype["format"]) {
+	    String.prototype["format"] = function () {
+	        var args = arguments;
+	        return this.replace(/{(\d+)}/g, function (match, num) {
+	            if (typeof args[num] != 'undefined') {
+	                return args[num];
+	            }
+	            else {
+	                return match;
+	            }
+	        });
+	    };
+	}
 	$(function () {
 	    if (noInit)
 	        return;
-	    alert('Hello World');
+	    console.log(col4.parseColor('rgb(255,255,128)').toString());
+	    //var j3:JThreeContext=JThreeContext.Instance;
+	    //j3.GomlLoader.initForPage();
 	    //
 	    // var jThreeContext: JThreeContext = JThreeContext.Instance;
 	    // //var renderer = jThree.CanvasManager.fromCanvas(<HTMLCanvasElement>document.getElementById("test-canvas"));
@@ -69,6 +85,119 @@
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var JThreeObject = __webpack_require__(3);
+	var Color4 = (function (_super) {
+	    __extends(Color4, _super);
+	    function Color4(r, g, b, a) {
+	        _super.call(this);
+	        this.a = a;
+	        this.r = r;
+	        this.g = g;
+	        this.b = b;
+	    }
+	    Object.defineProperty(Color4.prototype, "A", {
+	        get: function () {
+	            return this.a;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Color4.prototype, "R", {
+	        get: function () {
+	            return this.r;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Color4.prototype, "G", {
+	        get: function () {
+	            return this.g;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Color4.prototype, "B", {
+	        get: function () {
+	            return this.b;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ///Color parser for css like syntax
+	    Color4.internalParse = function (color, isFirst) {
+	        console.log("passed:" + color);
+	        if (isFirst && Color4.colorTable[color]) {
+	            return Color4.internalParse(Color4.colorTable[color], false);
+	        }
+	        if (isFirst) {
+	            var m = color.match(/^#([0-9a-f]{3})$/i);
+	            //#fff
+	            if (m) {
+	                var s = m[1];
+	                return new Color4(parseInt(s.charAt(0), 16) / 0xf, parseInt(s.charAt(1), 16) / 0xf, parseInt(s.charAt(2), 16) / 0xf, 1);
+	            }
+	        }
+	        if (isFirst) {
+	            m = color.match(/^#([0-9a-f]{3})$/i);
+	            //#ffff
+	            if (m) {
+	                var s = m[1];
+	                return new Color4(parseInt(s.charAt(0), 16) / 0xf, parseInt(s.charAt(1), 16) / 0xf, parseInt(s.charAt(2), 16) / 0xf, parseInt(s.charAt(3), 16) / 0xf);
+	            }
+	        }
+	        //#ffffff
+	        m = color.match(/^#([0-9a-f]{6})$/i);
+	        if (m) {
+	            var s = m[1];
+	            return new Color4(parseInt(s.substr(0, 2), 16) / 0xff, parseInt(s.substr(2, 2), 16) / 0xff, parseInt(s.substr(4, 2), 16) / 0xff, 1);
+	        }
+	        //#ffffffff
+	        if (isFirst) {
+	            m = color.match(/^#([0-9a-f]{8})$/i);
+	            if (m) {
+	                var s = m[1];
+	                return new Color4(parseInt(s.substr(0, 2), 16) / 0xff, parseInt(s.substr(2, 2), 16) / 0xff, parseInt(s.substr(4, 2), 16) / 0xff, parseInt(s.substr(6, 2), 16) / 0xff);
+	            }
+	        }
+	        var n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+	        if (n && isFirst) {
+	            return new Color4(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff, 1);
+	        }
+	        var n = color.match(/^rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\,\s*(\d+)\s*\)$/i);
+	        if (n && isFirst) {
+	            var d = parseInt(n[4]);
+	            d = d <= 1 ? d : d / 0xff;
+	            return new Color4(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff, parseInt(n[4]));
+	        }
+	        throw new Error("color parse failed.");
+	    };
+	    Color4.parseColor = function (color) {
+	        return Color4.internalParse(color, true);
+	    };
+	    Color4.prototype.toString = function () {
+	        var st = "#";
+	        st += Math.round(this.R * 0xff).toString(16).toUpperCase();
+	        st += Math.round(this.G * 0xff).toString(16).toUpperCase();
+	        st += Math.round(this.B * 0xff).toString(16).toUpperCase();
+	        st += Math.round(this.A * 0xff).toString(16).toUpperCase();
+	        return "Color4({0},{1},{2},{3}):{4}".format(this.R, this.G, this.B, this.A, st);
+	    };
+	    Color4.colorTable = __webpack_require__(5);
+	    return Color4;
+	})(JThreeObject);
+	module.exports = Color4;
+
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9277,6 +9406,196 @@
 
 	}));
 
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var JsHack = __webpack_require__(4);
+	var JThreeObject = (function () {
+	    function JThreeObject() {
+	    }
+	    JThreeObject.prototype.toString = function () {
+	        return JsHack.getObjectName(this);
+	    };
+	    JThreeObject.prototype.getTypeName = function () {
+	        return JsHack.getObjectName(this);
+	    };
+	    return JThreeObject;
+	})();
+	module.exports = JThreeObject;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var JsHack = (function () {
+	    function JsHack() {
+	    }
+	    JsHack.getObjectName = function (obj) {
+	        var funcNameRegex = /function (.{1,})\(/;
+	        var result = (funcNameRegex).exec((obj).constructor.toString());
+	        return (result && result.length > 1) ? result[1] : "";
+	    };
+	    return JsHack;
+	})();
+	module.exports = JsHack;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+		"aliceblue": "#F0F8FF",
+		"antiquewhite": "#FAEBD7",
+		"aqua": "#00FFFF",
+		"aquamarine": "#7FFFD4",
+		"azure": "#F0FFFF",
+		"beige": "#F5F5DC",
+		"bisque": "#FFE4C4",
+		"black": "#000000",
+		"blanchedalmond": "#FFEBCD",
+		"blue": "#0000FF",
+		"blueviolet": "#8A2BE2",
+		"brown": "#A52A2A",
+		"burlywood": "#DEB887",
+		"cadetblue": "#5F9EA0",
+		"chartreuse": "#7FFF00",
+		"chocolate": "#D2691E",
+		"coral": "#FF7F50",
+		"cornflowerblue": "#6495ED",
+		"cornsilk": "#FFF8DC",
+		"crimson": "#DC143C",
+		"cyan": "#00FFFF",
+		"darkblue": "#00008B",
+		"darkcyan": "#008B8B",
+		"darkgoldenrod": "#B8860B",
+		"darkgray": "#A9A9A9",
+		"darkgreen": "#006400",
+		"darkgrey": "#A9A9A9",
+		"darkkhaki": "#BDB76B",
+		"darkmagenta": "#8B008B",
+		"darkolivegreen": "#556B2F",
+		"darkorange": "#FF8C00",
+		"darkorchid": "#9932CC",
+		"darkred": "#8B0000",
+		"darksalmon": "#E9967A",
+		"darkseagreen": "#8FBC8F",
+		"darkslateblue": "#483D8B",
+		"darkslategray": "#2F4F4F",
+		"darkslategrey": "#2F4F4F",
+		"darkturquoise": "#00CED1",
+		"darkviolet": "#9400D3",
+		"deeppink": "#FF1493",
+		"deepskyblue": "#00BFFF",
+		"dimgray": "#696969",
+		"dimgrey": "#696969",
+		"dodgerblue": "#1E90FF",
+		"firebrick": "#B22222",
+		"floralwhite": "#FFFAF0",
+		"forestgreen": "#228B22",
+		"fuchsia": "#FF00FF",
+		"gainsboro": "#DCDCDC",
+		"ghostwhite": "#F8F8FF",
+		"gold": "#FFD700",
+		"goldenrod": "#DAA520",
+		"gray": "#808080",
+		"green": "#008000",
+		"greenyellow": "#ADFF2F",
+		"grey": "#808080",
+		"honeydew": "#F0FFF0",
+		"hotpink": "#FF69B4",
+		"indianred": "#CD5C5C",
+		"indigo": "#4B0082",
+		"ivory": "#FFFFF0",
+		"khaki": "#F0E68C",
+		"lavender": "#E6E6FA",
+		"lavenderblush": "#FFF0F5",
+		"lawngreen": "#7CFC00",
+		"lemonchiffon": "#FFFACD",
+		"lightblue": "#ADD8E6",
+		"lightcoral": "#F08080",
+		"lightcyan": "#E0FFFF",
+		"lightgoldenrodyellow": "#FAFAD2",
+		"lightgray": "#D3D3D3",
+		"lightgreen": "#90EE90",
+		"lightgrey": "#D3D3D3",
+		"lightpink": "#FFB6C1",
+		"lightsalmon": "#FFA07A",
+		"lightseagreen": "#20B2AA",
+		"lightskyblue": "#87CEFA",
+		"lightslategray": "#778899",
+		"lightslategrey": "#778899",
+		"lightsteelblue": "#B0C4DE",
+		"lightyellow": "#FFFFE0",
+		"lime": "#00FF00",
+		"limegreen": "#32CD32",
+		"linen": "#FAF0E6",
+		"magenta": "#FF00FF",
+		"maroon": "#800000",
+		"mediumaquamarine": "#66CDAA",
+		"mediumblue": "#0000CD",
+		"mediumorchid": "#BA55D3",
+		"mediumpurple": "#9370DB",
+		"mediumseagreen": "#3CB371",
+		"mediumslateblue": "#7B68EE",
+		"mediumspringgreen": "#00FA9A",
+		"mediumturquoise": "#48D1CC",
+		"mediumvioletred": "#C71585",
+		"midnightblue": "#191970",
+		"mintcream": "#F5FFFA",
+		"mistyrose": "#FFE4E1",
+		"moccasin": "#FFE4B5",
+		"navajowhite": "#FFDEAD",
+		"navy": "#000080",
+		"oldlace": "#FDF5E6",
+		"olive": "#808000",
+		"olivedrab": "#6B8E23",
+		"orange": "#FFA500",
+		"orangered": "#FF4500",
+		"orchid": "#DA70D6",
+		"palegoldenrod": "#EEE8AA",
+		"palegreen": "#98FB98",
+		"paleturquoise": "#AFEEEE",
+		"palevioletred": "#DB7093",
+		"papayawhip": "#FFEFD5",
+		"peachpuff": "#FFDAB9",
+		"peru": "#CD853F",
+		"pink": "#FFC0CB",
+		"plum": "#DDA0DD",
+		"powderblue": "#B0E0E6",
+		"purple": "#800080",
+		"red": "#FF0000",
+		"rosybrown": "#BC8F8F",
+		"royalblue": "#4169E1",
+		"saddlebrown": "#8B4513",
+		"salmon": "#FA8072",
+		"sandybrown": "#F4A460",
+		"seagreen": "#2E8B57",
+		"seashell": "#FFF5EE",
+		"sienna": "#A0522D",
+		"silver": "#C0C0C0",
+		"skyblue": "#87CEEB",
+		"slateblue": "#6A5ACD",
+		"slategray": "#708090",
+		"slategrey": "#708090",
+		"snow": "#FFFAFA",
+		"springgreen": "#00FF7F",
+		"steelblue": "#4682B4",
+		"tan": "#D2B48C",
+		"teal": "#008080",
+		"thistle": "#D8BFD8",
+		"tomato": "#FF6347",
+		"turquoise": "#40E0D0",
+		"violet": "#EE82EE",
+		"wheat": "#F5DEB3",
+		"white": "#FFFFFF",
+		"whitesmoke": "#F5F5F5",
+		"yellow": "#FFFF00",
+		"yellowgreen": "#9ACD32"
+	}
 
 /***/ }
 /******/ ]);
