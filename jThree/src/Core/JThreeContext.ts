@@ -9,7 +9,7 @@ import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
 import SceneManager = require("./SceneManager");
 import RendererStateChangedType = require("./RendererStateChangedType");
 class JThreeContext extends JThreeObject {
-    private static instance: JThreeContext;
+    private static instance: JThreeContext=new JThreeContext();
     private canvasRenderers: CanvasManager[] = [];
     private onRendererChangedFuncs:Delegates.Action1<RendererListChangedEventArgs>[]=[];
     private resourceManager: ResourceManager;
@@ -28,13 +28,14 @@ class JThreeContext extends JThreeObject {
     /**
      * Singleton
      */
-    public static get Instance(): JThreeContext {
-        JThreeContext.instance = JThreeContext.instance || new JThreeContext();
+    public static getInstance(): JThreeContext {
+      if(!JThreeContext.instance)console.warn("instance is null");
         return JThreeContext.instance;
     }
 
     constructor() {
         super();
+        console.log("j3 context was instanced");
         this.resourceManager = new ResourceManager();
         this.timer = new ContextTimer();
         this.sceneManager = new SceneManager();
@@ -50,8 +51,8 @@ class JThreeContext extends JThreeObject {
     }
 
     loop(): void {
-        JThreeContext.Instance.timer.updateTimer();
-        JThreeContext.Instance.sceneManager.renderAll();
+        JThreeContext.getInstance().timer.updateTimer();
+        JThreeContext.getInstance().sceneManager.renderAll();
         window.setTimeout(JThreeContext.instance.loop, 1000 / 30);
     }
 
@@ -77,6 +78,7 @@ class JThreeContext extends JThreeObject {
      * Add renderers to be managed by jThree
      */
     addRenderer(renderer: CanvasManager):void {
+      console.log("adding renderer");
         if (this.canvasRenderers.indexOf(renderer) === -1) {
             this.canvasRenderers.push(renderer);
             this.notifyRendererChanged(new RendererListChangedEventArgs(RendererStateChangedType.Add, renderer));

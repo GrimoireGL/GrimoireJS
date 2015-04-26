@@ -4,6 +4,7 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
     constructor(elem: Element)
     {
         super(elem);
+        console.log(elem.parentNode);
     }
 }
 

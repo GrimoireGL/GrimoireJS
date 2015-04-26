@@ -20,7 +20,7 @@ class ResourceManager extends jThreeObject
     }
 
     private get context(): JThreeContext {
-        return JThreeContext.Instance;
+        return JThreeContext.getInstance();
     }
 
     private buffers: Map<string, Buffer> = new Map<string, Buffer>();

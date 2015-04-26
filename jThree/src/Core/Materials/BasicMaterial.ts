@@ -13,7 +13,7 @@ class BasicMaterial extends Material
       protected program:Program;
       constructor() {
           super();
-          var jThreeContext: JThreeContext = JThreeContext.Instance;
+          var jThreeContext: JThreeContext = JThreeContext.getInstance();
           var vs = document.getElementById("vs");
           var fs = document.getElementById("fs");
           var vsShader: Shader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, ShaderType.VertexShader);

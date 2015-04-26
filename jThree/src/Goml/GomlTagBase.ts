@@ -14,7 +14,7 @@ class GomlTagBase extends jThreeObject {
     }
 
     protected getTag(name:string): GomlTagBase {
-        return JThreeContext.Instance.GomlLoader.gomlTags.get(name);
+        return JThreeContext.getInstance().GomlLoader.gomlTags.get(name);
     }
 }
 

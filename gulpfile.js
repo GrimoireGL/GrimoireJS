@@ -45,7 +45,7 @@ gulp.task('move-refs',function(){
 
 gulp.task('webpack',['compile','move-refs'],function(){
   console.log('Webpack Task');
-  return gulp.src(['jThree/bin/js/**/*.js','jThree/bin/js/**/*.json'])
+  return gulp.src(['jThree/bin/js/**/*.js','jThree/bin/js/**/*.json','!jThree/bin/js/jThree.js'])
     .pipe(using({}))
     .pipe(webpack({
       entry:{

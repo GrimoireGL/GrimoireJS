@@ -61,6 +61,7 @@
         "./Goml/Tags/GomlRdrTag.ts",
         "./Goml/Tags/GomlRootTag.ts",
         "./Goml/Tags/GomlVpTag.ts",
+        "./Init.ts",
         "./Math/ILinearObjectFactory.ts",
         "./Math/ILinearObjectGenerator.ts",
         "./Math/IMatrixFactory.ts",

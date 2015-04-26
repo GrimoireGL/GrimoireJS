@@ -11,10 +11,18 @@ class CanvasManager extends ContextManagerBase {
         try {
             gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
             var renderer: CanvasManager = new CanvasManager(gl);
-            JThreeContext.Instance.addRenderer(renderer);
+            console.warn("pass 0");
+            var instance=JThreeContext.getInstance();
+            console.warn("pass 1");
+            if(typeof instance === "undefined")console.warn("instance is null");
+            console.warn("pass 2");
+            instance.addRenderer(renderer);
             return renderer;
         } catch (e) {
+          debugger;
+          console.error("Web GL context Generation failed");
             if (!gl) {
+              console.error("WebGL Context Generation failed."+e);
                 //Processing for this error
             }
         }
