@@ -13,10 +13,11 @@ class ViewPortRenderer extends RendererBase
         super(contextManager);
         this.viewportArea = viewportArea;
         this.backgroundColor = new Color4(0,0.5,1,1);
+        console.log('viewport was created:'+viewportArea.toString());
     }
 
     private viewportArea: Rectangle;
-    private backgroundColor:Color4;
+    backgroundColor:Color4;
 
     applyConfigure(): void {
         this.contextManager.Context.ClearColor(this.backgroundColor.R, this.backgroundColor.G, this.backgroundColor.B, this.backgroundColor.A);

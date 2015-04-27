@@ -10,8 +10,11 @@ var ignore=require('gulp-ignore');
 var watch=require('gulp-watch');
 var connect=require('gulp-connect');
 var minify=require('gulp-uglify');
+var browserify=require('gulp-browserify');
+
 var bower_files=['jQuery/dist/jquery.js'];
 var bower_prefix='bower_components/';
+var deduper = require("webpack/lib/optimize/DedupePlugin");
 /***********************************
 * Typescript compile configuration**
 ************************************/
@@ -45,6 +48,16 @@ gulp.task('move-refs',function(){
 
 gulp.task('webpack',['compile','move-refs'],function(){
   console.log('Webpack Task');
+  // return gulp.src('jThree/bin/js/jThree.js').pipe(browserify({
+  //         insertGlobals : true,
+  //         shim:{
+  //           jquery: {
+  //               path: './jThree/bin/js/jquery.js',
+  //               exports: 'jquery'
+  //           }
+  //         },
+  //         basedir:'jThree/bin/js'
+  //       })).pipe(gulp.dest('bin/product'));
   return gulp.src(['jThree/bin/js/**/*.js','jThree/bin/js/**/*.json','!jThree/bin/js/jThree.js'])
     .pipe(using({}))
     .pipe(webpack({
@@ -64,7 +77,10 @@ gulp.task('webpack',['compile','move-refs'],function(){
       loaders:[
         {test:/\.json$/,loader:'json'}
       ]
-    }
+    },
+    plugins:[
+      new deduper()
+    ]
     }))
     .pipe(gulp.dest("jThree/bin/product")).pipe(connect.reload());
 });

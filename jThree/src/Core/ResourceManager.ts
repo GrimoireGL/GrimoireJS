@@ -1,4 +1,5 @@
 import JThreeContext = require("./JThreeContext");
+import JThreeContextProxy = require("./JThreeContextProxy");
 import BufferTargetType = require("../Wrapper/BufferTargetType");
 import BufferUsageType = require("../Wrapper/BufferUsageType");
 import ElementType = require("../Wrapper/ElementType");
@@ -20,7 +21,7 @@ class ResourceManager extends jThreeObject
     }
 
     private get context(): JThreeContext {
-        return JThreeContext.getInstance();
+        return JThreeContextProxy.getJThreeContext();
     }
 
     private buffers: Map<string, Buffer> = new Map<string, Buffer>();

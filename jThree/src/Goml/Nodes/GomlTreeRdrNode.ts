@@ -1,26 +1,21 @@
 import CanvasManager = require("../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import JThreeContext = require("../../Core/JThreeContext");
+import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import Scene = require("../../Core/Scene");
 import $ = require("jquery");
-
+import GomlLoader = require("../GomlLoader");
 class GomlTreeRdrNode extends GomlTreeNodeBase
 {
     canvasManager:CanvasManager;
 
-    constructor(elem:Element) {
-        super(elem);
+    constructor(elem:Element,loader:GomlLoader,parent:GomlTreeNodeBase) {
+        super(elem,loader,parent);
         var test = $(elem);
         var targetCanvas = $("<canvas></canvas>");
         targetCanvas.addClass("x-j3-c-" + this.ID);
         $(this.Frame).append(targetCanvas);
         this.canvasManager = CanvasManager.fromCanvas(<HTMLCanvasElement>targetCanvas[0]);
-        console.log(targetCanvas);
-        console.log(this.canvasManager);
-        var scene = new Scene();
-        scene.addRenderer(this.canvasManager.getDefaultViewport());
-        JThreeContext.getInstance().SceneManager.addScene(scene);
-        console.log("Complete Rdr node");
     }
 
     get Frame(): string {

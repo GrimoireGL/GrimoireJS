@@ -35,5 +35,9 @@ class Rectangle extends jThreeObject {
     get Height(): number {
         return this.height;
     }
+
+    toString():string{
+      return "{0}:{1}-{2}:{3}".format(this.left,this.top,this.Right,this.Bottom);
+    }
 }
 export=Rectangle;

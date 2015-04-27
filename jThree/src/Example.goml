@@ -3,7 +3,9 @@
 	</head>
 	<body>
 		<rdr frame=".canvasContainer" style="clearcolor:#FFF;">
-			<vp></vp>
+			<vp clearColor="blue" left="10" right="200" width="300" height="400"></vp>
+			<vp clearColor="red" left="50" right="200" width="300" height="400"></vp>
+
 		</rdr>
 	</body>
 </goml>

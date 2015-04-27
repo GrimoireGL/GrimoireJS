@@ -1,5 +1,6 @@
 import Material = require("Material");
 import Program = require("../Resources/Program/Program");
+import JThreeContextProxy = require("../JThreeContextProxy");
 import JThreeContext = require("../JThreeContext");
 import Shader = require("../Resources/Shader/Shader");
 import ShaderType = require("../../Wrapper/ShaderType");
@@ -13,7 +14,7 @@ class BasicMaterial extends Material
       protected program:Program;
       constructor() {
           super();
-          var jThreeContext: JThreeContext = JThreeContext.getInstance();
+          var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
           var vs = document.getElementById("vs");
           var fs = document.getElementById("fs");
           var vsShader: Shader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, ShaderType.VertexShader);

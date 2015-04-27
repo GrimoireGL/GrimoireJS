@@ -1,4 +1,3 @@
-import Timer=require('./Timer');
 import ContextTimer = require("./ContextTimer");
 import GomlLoader = require("../Goml/GomlLoader");
 import Delegates = require("Delegates");
@@ -9,13 +8,19 @@ import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
 import SceneManager = require("./SceneManager");
 import RendererStateChangedType = require("./RendererStateChangedType");
 class JThreeContext extends JThreeObject {
-    private static instance: JThreeContext=new JThreeContext();
     private canvasRenderers: CanvasManager[] = [];
     private onRendererChangedFuncs:Delegates.Action1<RendererListChangedEventArgs>[]=[];
     private resourceManager: ResourceManager;
     private timer: ContextTimer;
     private sceneManager: SceneManager;
     private gomlLoader:GomlLoader;
+
+    static instance:JThreeContext;
+    static getInstanceForProxy()
+    {
+      JThreeContext.instance=JThreeContext.instance||new JThreeContext();
+      return JThreeContext.instance;
+    }
 
     get SceneManager(): SceneManager {
         return this.sceneManager;
@@ -25,21 +30,8 @@ class JThreeContext extends JThreeObject {
         return this.gomlLoader;
     }
 
-    /**
-     * Singleton
-     */
-    public static getInstance(): JThreeContext {
-      if(!JThreeContext.instance)console.warn("instance is null");
-        return JThreeContext.instance;
-    }
-
     constructor() {
         super();
-        console.log("j3 context was instanced");
-        this.resourceManager = new ResourceManager();
-        this.timer = new ContextTimer();
-        this.sceneManager = new SceneManager();
-        this.gomlLoader = new GomlLoader();
     }
 
     /**
@@ -47,12 +39,17 @@ class JThreeContext extends JThreeObject {
      * @returns {}
      */
     init() {
-        this.loop();
+      console.log("j3 context was instanced");
+      this.resourceManager = new ResourceManager();
+      this.timer = new ContextTimer();
+      this.sceneManager = new SceneManager();
+      this.gomlLoader = new GomlLoader();
+      this.loop();
     }
 
     loop(): void {
-        JThreeContext.getInstance().timer.updateTimer();
-        JThreeContext.getInstance().sceneManager.renderAll();
+      var context=JThreeContext.instance;
+      context.sceneManager.renderAll();
         window.setTimeout(JThreeContext.instance.loop, 1000 / 30);
     }
 
@@ -63,7 +60,7 @@ class JThreeContext extends JThreeObject {
         return this.canvasRenderers;
     }
 
-    get Timer(): Timer {
+    get Timer(): ContextTimer {
         return this.timer;
     }
 

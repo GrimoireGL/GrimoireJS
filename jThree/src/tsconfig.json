@@ -30,6 +30,7 @@
         "./Core/Geometries/TriangleGeometry.ts",
         "./Core/Geometry.ts",
         "./Core/JThreeContext.ts",
+        "./Core/JThreeContextProxy.ts",
         "./Core/Material.ts",
         "./Core/Materials/BasicMaterial.ts",
         "./Core/RendererBase.ts",

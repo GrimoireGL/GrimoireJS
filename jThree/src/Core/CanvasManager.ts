@@ -4,19 +4,16 @@ import WebGLContextWrapper = require("Wrapper/WebGLContextWrapper");
 import ViewPortRenderer = require("./ViewportRenderer");
 import Rectangle = require("../Math/Rectangle");
 import jThreeObject = require("../Base/JThreeObject");
-
+import JThreeContextProxy = require("./JThreeContextProxy");
 class CanvasManager extends ContextManagerBase {
     public static fromCanvas(canvas: HTMLCanvasElement): CanvasManager {
         var gl: WebGLRenderingContext;
         try {
             gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
             var renderer: CanvasManager = new CanvasManager(gl);
-            console.warn("pass 0");
-            var instance=JThreeContext.getInstance();
-            console.warn("pass 1");
-            if(typeof instance === "undefined")console.warn("instance is null");
-            console.warn("pass 2");
+            var instance=JThreeContextProxy.getJThreeContext();
             instance.addRenderer(renderer);
+            console.log("canvas manager Generation");
             return renderer;
         } catch (e) {
           debugger;
