@@ -3,7 +3,7 @@ env:
     secure: C3UQt4RiLQWzugbiTzw00lg8+/lCUPK3FjSxck4BnU7+uB3wdh7qaZp88mG/hUrrB5tASW316UowzRCYTItPtsNuEOLK3x+KxKZBW5fpyvaSOZrSlPV7qv1kJjGQirskgZxH1aH/g/fHknBXsifawPT6it63INk/SVE/szfEHfg=
 before_install:
 - npm install -g npm
-- if [ -e ci ]
+- if [ -e "ci" ]
 - then
 - rm ci -r
 - fi
