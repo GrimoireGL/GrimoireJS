@@ -6,6 +6,7 @@ import GomlTreeRdrNode = require("./GomlTreeRdrNode");
 import Rectangle = require("../../Math/Rectangle");
 import GomlLoader = require("../GomlLoader");
 import JThreeContextProxy = require("../../Core/JThreeContextProxy");
+import Triangle = require("../../Shapes/Triangle");
 import JThreeContext = require("../../Core/JThreeContext");
 import Scene = require("../../Core/Scene");
 
@@ -13,23 +14,14 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
     constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
     {
         super(elem,loader,parent);
-        console.log(this.ClearColor);
         var rdr:GomlTreeRdrNode=<GomlTreeRdrNode>this.parent;
         var vp:ViewportRenderer=new ViewportRenderer(rdr.canvasManager,new Rectangle(this.Left,this.Top,50,50));
         var context:JThreeContext=JThreeContextProxy.getJThreeContext();
         var scene:Scene=new Scene();
+        scene.addObject(new Triangle());
         scene.addRenderer(vp);
         context.SceneManager.addScene(scene);
-        vp.backgroundColor=this.ClearColor;
     }
-
-    private clearColor:Color4;
-    get ClearColor():Color4
-    {
-      this.clearColor=this.clearColor||Color4.parseColor(this.element.getAttribute('clearColor')||'#0FF');
-      return this.clearColor;
-    }
-
     private left:number;
     private top:number;
     private width:number;

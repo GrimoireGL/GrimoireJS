@@ -5,6 +5,9 @@ import ViewPortRenderer = require("./ViewportRenderer");
 import Rectangle = require("../Math/Rectangle");
 import jThreeObject = require("../Base/JThreeObject");
 import JThreeContextProxy = require("./JThreeContextProxy");
+import Color4 = require("../Base/Color/Color4");
+import RendererBase = require("./RendererBase");
+import ClearTargetType = require("../Wrapper/ClearTargetType");
 class CanvasManager extends ContextManagerBase {
     public static fromCanvas(canvas: HTMLCanvasElement): CanvasManager {
         var gl: WebGLRenderingContext;
@@ -23,6 +26,42 @@ class CanvasManager extends ContextManagerBase {
                 //Processing for this error
             }
         }
+    }
+    private clearColor:Color4;
+    get ClearColor():Color4
+    {
+      this.clearColor=this.clearColor||new Color4(1,1,1,1);
+      return this.clearColor;
+    }
+    set ClearColor(col:Color4)
+    {
+      console.warn("color was set"+col.toString());
+      this.clearColor=col||new Color4(1,1,1,1);
+    }
+
+    private isDirty:boolean=true;
+    get IsDirty():boolean
+    {
+      return this.isDirty;
+    }
+
+    afterRenderAll():void
+    {
+      this.isDirty=true;
+    }
+
+    beforeRender(renderer:RendererBase):void
+    {
+      if(this.isDirty){
+        this.ClearCanvas();
+        this.isDirty=false;
+      }
+    }
+
+    ClearCanvas():void
+    {
+      this.context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
+      this.context.Clear(ClearTargetType.ColorBits);
     }
 
     private glContext: WebGLRenderingContext;

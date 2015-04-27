@@ -1,4 +1,6 @@
 import jThreeObject = require("../Base/JThreeObject");
+import JThreeContext = require("./JThreeContext");
+import JThreeContextProxy = require("./JThreeContextProxy");
 import Scene = require("./Scene");
 class SceneManager extends jThreeObject {
     constructor() {
@@ -20,10 +22,13 @@ class SceneManager extends jThreeObject {
     }
 
     renderAll(): void {
+      console.log("called render all");
+      JThreeContextProxy.getJThreeContext().CanvasRenderers.forEach((c)=>{c.beforeRenderAll()});
         this.scenes.forEach((v) => {
             v.update();
             v.render();
         });
+        JThreeContextProxy.getJThreeContext().CanvasRenderers.forEach((c)=>{c.afterRenderAll()});
     }
 
 }

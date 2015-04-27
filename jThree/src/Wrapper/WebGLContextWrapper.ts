@@ -56,12 +56,14 @@ class WebGLContextWrapper extends GLContextWrapperBase
 
     ClearColor(red:number,green:number,blue:number,alpha:number): void {
         this.CheckErrorAsFatal();
+        console.log("clear color was calledARGB=({0},{1},{2},{3})".format(alpha,red,green,blue));
         this.gl.clearColor(red,green,blue,alpha);
     }
 
     Clear(mask:ClearTargetType): void {
         this.CheckErrorAsFatal();
         this.gl.clear(mask);
+        console.info("cleared buffer");
     }
 
     CreateShader(flag: ShaderType): WebGLShader {

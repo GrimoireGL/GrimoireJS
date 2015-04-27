@@ -12,23 +12,21 @@ class ViewPortRenderer extends RendererBase
     constructor(contextManager: ContextManagerBase,viewportArea:Rectangle) {
         super(contextManager);
         this.viewportArea = viewportArea;
-        this.backgroundColor = new Color4(0,0.5,1,1);
         console.log('viewport was created:'+viewportArea.toString());
     }
 
     private viewportArea: Rectangle;
-    backgroundColor:Color4;
 
     applyConfigure(): void {
-        this.contextManager.Context.ClearColor(this.backgroundColor.R, this.backgroundColor.G, this.backgroundColor.B, this.backgroundColor.A);
         this.contextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top,this.viewportArea.Width, this.viewportArea.Height);
     }
 
     render(drawAct: Delegates.Action0): void {
+      this.ContextManager.beforeRender(this);
         this.applyConfigure();
-        this.contextManager.Context.Clear(ClearTargetType.ColorBits);
         drawAct();
-        this.contextManager.Context.Finish();
+        this.contextManager.Context.Flush();
+        this.contextManager.afterRender(this);
     }
 }
 

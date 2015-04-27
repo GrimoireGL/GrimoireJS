@@ -109,7 +109,6 @@ class GomlLoader extends jThreeObject {
                 elem.classList.add("x-j3-" + newNode.ID);
                 act(newNode);
                 this.parseBody(newNode,$(elem).children(), (e) => {  });
-                console.dir(newNode);
             }
         }
       }catch(e)
