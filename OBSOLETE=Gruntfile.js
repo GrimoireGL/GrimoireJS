@@ -1,7 +1,7 @@
-"use strict";
+	"use strict";
 
 module.exports = function (grunt) {
-    
+
     var branch_name = grunt.option('branch') || 'unknown';
     var ci_docoutput = "ci/docs/"+branch_name;
 

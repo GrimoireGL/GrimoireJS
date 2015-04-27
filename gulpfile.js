@@ -122,3 +122,7 @@ gulp.task('server',['build'],function(){
     livereload:true
   });
 });
+
+gulp.task('travis',['build'],function(){
+  
+});
