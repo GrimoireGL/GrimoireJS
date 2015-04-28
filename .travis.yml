@@ -6,6 +6,7 @@ before_install:
 - if [ -e "ci" ]
 - then
 - rm ci -r
+- else
 - fi
 - mkdir ci
 - cd ci
