@@ -10,11 +10,8 @@ var ignore=require('gulp-ignore');
 var watch=require('gulp-watch');
 var connect=require('gulp-connect');
 var minify=require('gulp-uglify');
-var browserify=require('gulp-browserify');
-
 var bower_files=['jQuery/dist/jquery.js'];
 var bower_prefix='bower_components/';
-var deduper = require("webpack/lib/optimize/DedupePlugin");
 /***********************************
 * Typescript compile configuration**
 ************************************/
@@ -77,10 +74,7 @@ gulp.task('webpack',['compile','move-refs'],function(){
       loaders:[
         {test:/\.json$/,loader:'json'}
       ]
-    },
-    plugins:[
-      new deduper()
-    ]
+    }
     }))
     .pipe(gulp.dest("jThree/bin/product")).pipe(connect.reload());
 });
@@ -124,5 +118,5 @@ gulp.task('server',['build'],function(){
 });
 
 gulp.task('travis',['build'],function(){
-  
+
 });
