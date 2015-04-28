@@ -19,10 +19,10 @@ before_install:
 - cd ..
 install:
 - npm install
-- tsd install
+- tsd reinstall
 - bower install
 script:
-- glup travis
+- gulp travis
 after_script:
 - if $TRAVIS_BRANCH -ne "gh-pages"; then
 - cd ci
