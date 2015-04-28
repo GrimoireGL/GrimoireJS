@@ -67,6 +67,8 @@ gulp.task('webpack',['compile','move-refs'],function(){
       resolve:{
         alias:{
         'j3':'Core/JThreeContext.js',
+        'jquery':'jquery.js'
+        }
       },
       root:'./jThree/bin/js'
     },
