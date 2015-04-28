@@ -10,7 +10,8 @@ var ignore=require('gulp-ignore');
 var watch=require('gulp-watch');
 var connect=require('gulp-connect');
 var minify=require('gulp-uglify');
-var bower_files=['jQuery/dist/jquery.js','jquery/dist/jquery.js'];
+var copy=require('gulp-copy');
+var bower_files=['jquery/dist/jquery.js','jQuery/dist/jquery.js'];
 var bower_prefix='bower_components/';
 /***********************************
 * Typescript compile configuration**
@@ -36,15 +37,22 @@ gulp.task('compile',function(){
 
 
 //Move bower files into build directory
-gulp.task('move-refs',function(){
+gulp.task('move-bower',function(){
   for (var i = 0; i < bower_files.length; i++) {
     bower_files[i]=bower_prefix+bower_files[i];
   };
-  gulp.src(bower_files).pipe(using({})).pipe(gulp.dest('jThree/bin/js'));
-  gulp.src('jThree/src/static/**/*.*').pipe(gulp.dest('jThree/bin/js/static'))
+  return gulp.src(bower_files).pipe(using({})).pipe(gulp.dest("jThree/bin/js"));
 });
 
-gulp.task('webpack',['compile','move-refs'],function(){
+gulp.task('move-static',function(){
+  return gulp.src('jThree/src/static/**/*.*').pipe(gulp.dest("jThree/bin/js/static"));
+});
+
+gulp.task('make-modules',['compile','move-bower','move-static'],function(){
+
+});
+
+gulp.task('webpack',['make-modules'],function(){
   console.log('Webpack Task');
   // return gulp.src('jThree/bin/js/jThree.js').pipe(browserify({
   //         insertGlobals : true,
@@ -85,10 +93,10 @@ gulp.task('webpack',['compile','move-refs'],function(){
 gulp.task('clean',function(){
   gulp.src("jThree/src/*.js").pipe(clean());
   gulp.src("jThree/src/*.js.map").pipe(clean());
-  gulp.src("jThree/src/*/*.js").pipe(clean());
-  gulp.src("jThree/src/*/*.js").pipe(clean());
-  gulp.src("jThree/bin/js/*.*").pipe(clean());
-  gulp.src("jThree/bin/def/*.*").pipe(clean());
+  gulp.src("jThree/src/**/*.js").pipe(clean());
+  gulp.src("jThree/src/**/*.js").pipe(clean());
+  gulp.src("jThree/bin/js/**/*.*").pipe(clean());
+  gulp.src("jThree/bin/def/**/*.*").pipe(clean());
 });
 
 gulp.task('watch',['server'],function()
@@ -122,4 +130,8 @@ gulp.task('server',['build'],function(){
 
 gulp.task('travis',['build'],function(){
 
+});
+
+gulp.task('rebuild',['clean'],function(){
+  gulp.start('build');
 });
