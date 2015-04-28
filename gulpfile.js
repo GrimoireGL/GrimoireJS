@@ -68,10 +68,10 @@ gulp.task('webpack',['compile','move-refs'],function(){
         alias:{
         'j3':'Core/JThreeContext.js',
         'jquery':'jquery.js'
-        }
       },
       root:'./jThree/bin/js'
-    },
+    }
+    ,
     module:{
       loaders:[
         {test:/\.json$/,loader:'json'}
