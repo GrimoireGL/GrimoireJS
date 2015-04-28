@@ -10,7 +10,7 @@ var ignore=require('gulp-ignore');
 var watch=require('gulp-watch');
 var connect=require('gulp-connect');
 var minify=require('gulp-uglify');
-var bower_files=['jQuery/dist/jquery.js'];
+var bower_files=['jQuery/dist/jquery.js','jquery/dist/jquery.js'];
 var bower_prefix='bower_components/';
 /***********************************
 * Typescript compile configuration**
@@ -39,7 +39,7 @@ gulp.task('move-refs',function(){
   for (var i = 0; i < bower_files.length; i++) {
     bower_files[i]=bower_prefix+bower_files[i];
   };
-  gulp.src(bower_files).pipe(gulp.dest('jThree/bin/js'));
+  gulp.src(bower_files).pipe(using({})).pipe(gulp.dest('jThree/bin/js'));
   gulp.src('jThree/src/static/**/*.*').pipe(gulp.dest('jThree/bin/js/static'))
 });
 
