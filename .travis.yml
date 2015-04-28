@@ -17,7 +17,7 @@ before_install:
 - ls
 - cd ..
 install:
-- npm install
+- npm install -verbose
 - tsd install
 - bower install
 script:
