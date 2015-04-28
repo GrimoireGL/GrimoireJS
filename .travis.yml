@@ -24,6 +24,9 @@ install:
 script:
 - gulp travis
 after_script:
+- cd jThree/bin/js
+- ls
+- cd ../../..
 - if $TRAVIS_BRANCH -ne "gh-pages"; then
 - cd ci
 - git checkout gh-pages
