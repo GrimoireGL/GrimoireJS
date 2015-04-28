@@ -37,6 +37,7 @@ after_script:
 - else
 - echo "gh-pages publish was skipped."
 - fi
+- tree -a
 language: node_js
 node_js:
 - 0.12
