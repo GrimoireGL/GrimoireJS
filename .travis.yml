@@ -5,7 +5,7 @@ before_install:
 - npm install -g npm
 - npm install bower -global
 - npm install tsd -global
-- rm ci -r -free
+- rm ci -r -f
 - mkdir ci
 - cd ci
 - git init
