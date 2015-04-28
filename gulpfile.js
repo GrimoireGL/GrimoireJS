@@ -11,8 +11,13 @@ var watch=require('gulp-watch');
 var connect=require('gulp-connect');
 var minify=require('gulp-uglify');
 var copy=require('gulp-copy');
+var typedoc=require('gulp-typedoc');
+var args=require('yargs').argv;
 var bower_files=['jquery/dist/jquery.js','jQuery/dist/jquery.js'];
 var bower_prefix='bower_components/';
+var tsSourceTarget=['jThree/src/**/*.ts'];
+var branch-name=args.branch||'unknown';
+console.log('branch-name='+args.branch);
 /***********************************
 * Typescript compile configuration**
 ************************************/
@@ -28,7 +33,7 @@ var tsProj=tsc.createProject({
 
 gulp.task('compile',function(){
   console.log('Typescript Compile Task');
-  var tsResult=gulp.src(["jThree/src/**/*.ts"]).pipe(using({})).pipe(tsc(tsProj));
+  var tsResult=gulp.src(tsSourceTarget).pipe(using({})).pipe(tsc(tsProj));
   return merge([
     tsResult.dts.pipe(gulp.dest('jThree/bin/def')),
     tsResult.js.pipe(gulp.dest('jThree/bin/js'))
@@ -52,18 +57,30 @@ gulp.task('make-modules',['compile','move-bower','move-static'],function(){
 
 });
 
+gulp.task('gen-doc',function(){
+  gulp.src(tsSourceTarget).pipe(typedoc({
+    module:'commonjs',
+    out:'./jThree/docs',
+    name:'jThree',
+    target:'es5',
+    includeDeclarations:true,
+    json:'./jThree/docs/doc.json'
+  }));
+});
+
+gulp.task('gen-doc-travis',function(){
+  gulp.src(tsSourceTarget).pipe(typedoc({
+    module:'commonjs',
+    out:'./ci/docs/'+branch,
+    name:'jThree',
+    target:'es5',
+    includeDeclarations:true,
+    json:'./ci/docs/'+branch+'/doc.json'
+  }));
+});
+
 gulp.task('webpack',['make-modules'],function(){
   console.log('Webpack Task');
-  // return gulp.src('jThree/bin/js/jThree.js').pipe(browserify({
-  //         insertGlobals : true,
-  //         shim:{
-  //           jquery: {
-  //               path: './jThree/bin/js/jquery.js',
-  //               exports: 'jquery'
-  //           }
-  //         },
-  //         basedir:'jThree/bin/js'
-  //       })).pipe(gulp.dest('bin/product'));
   return gulp.src(['jThree/bin/js/**/*.js','jThree/bin/js/**/*.json','!jThree/bin/js/jThree.js'])
     .pipe(using({}))
     .pipe(webpack({
