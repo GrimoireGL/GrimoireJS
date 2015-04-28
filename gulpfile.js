@@ -16,7 +16,7 @@ var args=require('yargs').argv;
 var bower_files=['jquery/dist/jquery.js','jQuery/dist/jquery.js'];
 var bower_prefix='bower_components/';
 var tsSourceTarget=['jThree/src/**/*.ts'];
-var branchargs.branch||'unknown';
+var branch=args.branch||'unknown';
 console.log('branch-name='+args.branch);
 /***********************************
 * Typescript compile configuration**

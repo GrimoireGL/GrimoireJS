@@ -8,6 +8,8 @@ jThree/src/*.js.map
 jThree/src/**/*.js
 jThree/src/**/*.js.map
 jThree/src/Refs/
+jThree/bin/**/*.*
+jThree/docs/**.*
 bower_components/
 # User-specific files
 *.suo

@@ -1,11 +1,11 @@
 ﻿<goml>
 	<head>
+		
 	</head>
 	<body>
-		<rdr frame=".canvasContainer" clearColor="green">
-			<vp clearColor="blue" left="10" right="200" width="300" height="400"></vp>
-			<vp clearColor="red" left="50" right="200" width="300" height="400"></vp>
-
+		<rdr frame=".canvasContainer" width="200" height="200" clearColor="green">
+			<vp left="0" top="20" width="200" height="200"></vp>
+			<vp left="0" top="0" width="200" height="200"></vp>
 		</rdr>
 	</body>
 </goml>

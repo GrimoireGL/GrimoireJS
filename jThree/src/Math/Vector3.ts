@@ -149,6 +149,32 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
     get ElementCount(): number { return 3; }
 
     getFactory(): ILinearObjectFactory<Vector3> { return Vector3Factory.getInstance(); }
+
+    // static parse(str:string):Vector3
+    // {
+    //   //1,0,2.0,3.0
+    //   //-(1.0,2.0,3.0)
+    //   //n(1.0,2.0,3.0) normalized
+    //   //1.0
+    //   //check attributes
+    //   var negativeMatch=str.match(/^-n?(\(.+\))$/);
+    //   var needNegate=false;
+    //   if(negativeMatch[1])
+    //   {
+    //     needNegate=true;
+    //     str=negativeMatch[1];
+    //   }
+    //   var normalizeMatch=str.match(/^n(\(.+\))$/);
+    //   var needNormalize=false;
+    //   if(needNormalize[1])
+    //   {
+    //     needNormalize=true;
+    //     str=needNormalize[1];
+    //   }
+    //   //check body
+    //   str=str.match(/^\(?(.+)\)?$/)[1];
+    //
+    // }
 }
 
 export=Vector3;
