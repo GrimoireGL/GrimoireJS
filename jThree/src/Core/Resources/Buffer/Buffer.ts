@@ -6,7 +6,9 @@ import ContextManagerBase = require("../../ContextManagerBase");
 import BufferProxy = require("./BufferProxy");
 import ElementType = require("../../../Wrapper/ElementType");
 import BufferWrapper = require("./BufferWrapper");
-
+import JThreeContextProxy = require("../../JThreeContextProxy");
+import RendererListChangedEventArgs=require('RendererListChangedEventArgs');
+import RendererListChangedType = require("../../RendererStateChangedType");
 class Buffer extends BufferProxy
 {
     static CreateBuffer(glContexts:CanvasManager[],target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
@@ -20,7 +22,17 @@ class Buffer extends BufferProxy
             buf.managedProxies.push(wrap);
             buf.bufWrappers.set(v.ID, wrap);
         });
+        JThreeContextProxy.getJThreeContext().onRendererChanged(buf.changedRenderer);
         return buf;
+    }
+
+    changedRenderer(arg:RendererListChangedEventArgs):void{
+      if(arg.ChangeType==RendererListChangedType.Add)
+      {
+        var wrapper=new BufferWrapper(this,arg.AffectedRenderer.Context);
+        wrapper.loadAll();
+      //  this.bufWrappers.set(arg.AffectedRenderer.ID,wrapper);
+      }
     }
 
     constructor()
@@ -93,8 +105,25 @@ class Buffer extends BufferProxy
     get BufferWrappers(): Map<string, BufferWrapper> {
         return this.bufWrappers;
     }
+    private elementCache:Float32Array;
+    private length:number;
+
+    update(array: Float32Array, length: number): void
+    {
+      this.elementCache=array;
+      this.length=length;
+        this.each((a) => a.update(array, length));
+    }
 
     getForRenderer(renderer: ContextManagerBase): BufferWrapper {
+        if(!this.bufWrappers.has(renderer.ID))
+        {
+          var wrap=new BufferWrapper(this,renderer.Context);
+          wrap.loadAll();
+          if(this.elementCache)wrap.update(this.elementCache,this.length);
+          this.addProxy(wrap);
+          this.bufWrappers.set(renderer.ID, wrap);
+        }
         return this.bufWrappers.get(renderer.ID);
     }
 }

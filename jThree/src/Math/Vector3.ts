@@ -150,31 +150,46 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
 
     getFactory(): ILinearObjectFactory<Vector3> { return Vector3Factory.getInstance(); }
 
-    // static parse(str:string):Vector3
-    // {
-    //   //1,0,2.0,3.0
-    //   //-(1.0,2.0,3.0)
-    //   //n(1.0,2.0,3.0) normalized
-    //   //1.0
-    //   //check attributes
-    //   var negativeMatch=str.match(/^-n?(\(.+\))$/);
-    //   var needNegate=false;
-    //   if(negativeMatch[1])
-    //   {
-    //     needNegate=true;
-    //     str=negativeMatch[1];
-    //   }
-    //   var normalizeMatch=str.match(/^n(\(.+\))$/);
-    //   var needNormalize=false;
-    //   if(needNormalize[1])
-    //   {
-    //     needNormalize=true;
-    //     str=needNormalize[1];
-    //   }
-    //   //check body
-    //   str=str.match(/^\(?(.+)\)?$/)[1];
-    //
-    // }
+    static parse(str:string):Vector3
+    {
+      var resultVec:Vector3;
+      //1,0,2.0,3.0
+      //-(1.0,2.0,3.0)
+      //n(1.0,2.0,3.0) normalized
+      //1.0
+      //check attributes
+      var negativeMatch=str.match(/^-n?(\(.+\))$/);
+      var needNegate=false;
+      if(negativeMatch)
+      {
+        needNegate=true;
+        str=negativeMatch[1];
+      }
+      var normalizeMatch=str.match(/^n(\(.+\))$/);
+      var needNormalize=false;
+      if(normalizeMatch)
+      {
+        needNormalize=true;
+        str=normalizeMatch[1];
+      }
+      //check body
+      str=str.match(/^n?\(?([^\)]+)\)?$/)[1];
+      var strNums=str.split(/,/g);
+      if(strNums.length==1)
+      {
+        var elemNum:number=parseFloat(strNums[0]);
+        resultVec=new Vector3(elemNum,elemNum,elemNum);
+      }else if(strNums.length==3)
+      {
+        resultVec=new Vector3(parseFloat(strNums[0]),parseFloat(strNums[1]),parseFloat(strNums[2]));
+      }else{
+        throw Error("passed argument was invalid");
+      }
+      if(needNormalize)resultVec=resultVec.normalizeThis();
+      if(needNegate)resultVec=resultVec.negateThis();
+      console.log('length:'+resultVec.magnitude);
+      return resultVec;
+     }
 }
 
 export=Vector3;

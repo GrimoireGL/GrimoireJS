@@ -50,7 +50,7 @@ class BufferProxy extends ArrayEnumratorFactory<BufferProxy> {
         return isIniatilized;
     }
 
-    private each(act: Delegate.Action1<BufferProxy>)
+    protected each(act: Delegate.Action1<BufferProxy>)
     {
         Collection.foreach(this,(a, i) => { act(a); });
     }

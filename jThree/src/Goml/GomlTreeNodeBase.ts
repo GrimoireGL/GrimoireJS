@@ -24,5 +24,20 @@ class GomlTreeNodeBase extends jThreeObjectWithID
         this.children.push(child);
         console.log("append {0} to {1} as child".format(child.toString(),parent.toString()));
     }
+
+    beforeLoad()
+    {
+
+    }
+
+    Load()
+    {
+      
+    }
+
+    afterLoad()
+    {
+
+    }
 }
 export=GomlTreeNodeBase;

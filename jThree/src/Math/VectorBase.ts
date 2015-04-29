@@ -30,6 +30,7 @@ class VectorBase extends LinearBase {
 
     protected static normalizeElements<T extends VectorBase>(a: T, factory: ILinearObjectFactory<T>): T {
         var magnitude: number = a.magnitude;
+        console.log(a.magnitude);
         var result: Float32Array = new Float32Array(a.ElementCount);
         Collection.foreach<number>(a, (a, i) => {
             result[i] = a / magnitude;

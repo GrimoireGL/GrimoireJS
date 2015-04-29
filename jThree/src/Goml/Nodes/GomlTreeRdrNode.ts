@@ -23,6 +23,8 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
         this.canvasManager.ClearColor=this.ClearColor;
         this.targetCanvas.width=this.Width;
         this.targetCanvas.height=this.Height;
+        var context=JThreeContextProxy.getJThreeContext();
+        context.addRenderer(this.canvasManager);
     }
 
         private clearColor:Color4;

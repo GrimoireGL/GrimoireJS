@@ -14,16 +14,22 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
 
   private parentRendererNode:GomlTreeRdrNode;
 
+  private targetRenderer:ViewportRenderer;
+
     constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
     {
         super(elem,loader,parent);
-        var rdr:GomlTreeRdrNode=this.parentRendererNode=<GomlTreeRdrNode>this.parent;
-        var vp:ViewportRenderer=new ViewportRenderer(rdr.canvasManager,new Rectangle(this.Left,this.Top,this.Width,this.Height));
-        var context:JThreeContext=JThreeContextProxy.getJThreeContext();
-        var scene:Scene=new Scene();
-        scene.addObject(new Triangle());
-        scene.addRenderer(vp);
-        context.SceneManager.addScene(scene);
+    }
+
+    afterLoad(){
+      console.log("vp was loaded");
+      var rdr:GomlTreeRdrNode=this.parentRendererNode=<GomlTreeRdrNode>this.parent;
+      this.targetRenderer=new ViewportRenderer(rdr.canvasManager,new Rectangle(this.Left,this.Top,this.Width,this.Height));
+      var context:JThreeContext=JThreeContextProxy.getJThreeContext();
+      var scene:Scene=new Scene();
+      scene.addObject(new Triangle());
+      scene.addRenderer(this.targetRenderer);
+      context.SceneManager.addScene(scene);
     }
     private left:number;
     private top:number;

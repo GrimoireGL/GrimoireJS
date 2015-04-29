@@ -36,6 +36,7 @@ class ResourceManager extends jThreeObject
     }
 
     getBuffer(id:string): Buffer {
+      if(!this.buffers.has(id))console.error('there were no such buffer');
         return this.buffers.get(id);
     }
 

@@ -7,9 +7,11 @@ import GomlHeadTag = require("./Tags/GomlHeadTag");
 import GomlBodyTag = require("./Tags/GomlBodyTag");
 import GomlVpTag = require("./Tags/GomlVpTag");
 import GomlRdrTag = require("./Tags/GomlRdrTag");
+import GomlTriTag = require("./Tags/GomlTriTag");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
 import JQuery = require("jquery");
+import GomlSceneTag = require("./Tags/GomlSceneTag");
 import JThreeContext = require("../Core/JThreeContext");
 
 class GomlLoader extends jThreeObject {
@@ -45,7 +47,9 @@ class GomlLoader extends jThreeObject {
         this.addGomlTag(new GomlHeadTag());
         this.addGomlTag(new GomlBodyTag());
         this.addGomlTag(new GomlRdrTag());
+        this.addGomlTag(new GomlTriTag());
         this.addGomlTag(new GomlVpTag());
+        this.addGomlTag(new GomlSceneTag())
     }
 
     private addGomlTag(tag: GomlTagBase): void {
@@ -80,6 +84,15 @@ class GomlLoader extends jThreeObject {
         this.parseBody(null,bodyChild, (e) => {
             this.bodyTags.push(e);
         });
+        this.eachNode(v=>v.beforeLoad());
+        this.eachNode(v=>v.Load());
+        this.eachNode(v=>v.afterLoad());
+    }
+
+    private eachNode(act:Delegates.Action1<GomlTreeNodeBase>)
+    {
+      this.headTagsById.forEach((v)=>act(v));
+      this.bodyTagsById.forEach((v)=>act(v));
     }
 
     private parseHead(parent:GomlTreeNodeBase,child: JQuery, act: Delegates.Action1<GomlTreeNodeBase>): void {
