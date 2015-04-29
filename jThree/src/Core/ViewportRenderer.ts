@@ -12,7 +12,6 @@ class ViewPortRenderer extends RendererBase
     constructor(contextManager: ContextManagerBase,viewportArea:Rectangle) {
         super(contextManager);
         this.viewportArea = viewportArea;
-        console.log('viewport was created:'+viewportArea.toString());
     }
 
     private viewportArea: Rectangle;
@@ -22,7 +21,7 @@ class ViewPortRenderer extends RendererBase
     }
 
     render(drawAct: Delegates.Action0): void {
-      this.ContextManager.beforeRender(this);
+       this.ContextManager.beforeRender(this);
         this.applyConfigure();
         drawAct();
         this.contextManager.Context.Flush();

@@ -2,31 +2,28 @@ env:
   global:
     secure: C3UQt4RiLQWzugbiTzw00lg8+/lCUPK3FjSxck4BnU7+uB3wdh7qaZp88mG/hUrrB5tASW316UowzRCYTItPtsNuEOLK3x+KxKZBW5fpyvaSOZrSlPV7qv1kJjGQirskgZxH1aH/g/fHknBXsifawPT6it63INk/SVE/szfEHfg=
 before_install:
-- echo "                                                                                                                                                                          " >> .travis.sh
-- echo "                                                                                                                                                                          ">> .travis.sh
-- echo "             jjjj TTTTTTTTTTTTTTTTTTTTTTThhhhhhh                                                                                                        333333333333333   ">> .travis.sh
-- echo "            j::::jT:::::::::::::::::::::Th:::::h                                                                                                       3:::::::::::::::33 ">> .travis.sh
-- echo "             jjjj T:::::::::::::::::::::Th:::::h                                                                                                       3::::::33333::::::3">> .travis.sh
-- echo "                  T:::::TT:::::::TT:::::Th:::::h                                                                                                       3333333     3:::::3">> .travis.sh
-- echo "           jjjjjjjTTTTTT  T:::::T  TTTTTT h::::h hhhhh       rrrrr   rrrrrrrrr       eeeeeeeeeeee        eeeeeeeeeeee         vvvvvvv           vvvvvvv            3:::::3">> .travis.sh
-- echo "           j:::::j        T:::::T         h::::hh:::::hhh    r::::rrr:::::::::r    ee::::::::::::ee    ee::::::::::::ee        v:::::v         v:::::v             3:::::3">> .travis.sh
-- echo "            j::::j        T:::::T         h::::::::::::::hh  r:::::::::::::::::r  e::::::eeeee:::::ee e::::::eeeee:::::ee       v:::::v       v:::::v      33333333:::::3 ">> .travis.sh
-- echo "            j::::j        T:::::T         h:::::::hhh::::::h rr::::::rrrrr::::::re::::::e     e:::::ee::::::e     e:::::e        v:::::v     v:::::v       3:::::::::::3  ">> .travis.sh
-- echo "            j::::j        T:::::T         h::::::h   h::::::h r:::::r     r:::::re:::::::eeeee::::::ee:::::::eeeee::::::e         v:::::v   v:::::v        33333333:::::3 ">> .travis.sh
-- echo "            j::::j        T:::::T         h:::::h     h:::::h r:::::r     rrrrrrre:::::::::::::::::e e:::::::::::::::::e           v:::::v v:::::v                 3:::::3">> .travis.sh
-- echo "            j::::j        T:::::T         h:::::h     h:::::h r:::::r            e::::::eeeeeeeeeee  e::::::eeeeeeeeeee             v:::::v:::::v                  3:::::3">> .travis.sh
-- echo "            j::::j        T:::::T         h:::::h     h:::::h r:::::r            e:::::::e           e:::::::e                       v:::::::::v                   3:::::3">> .travis.sh
-- echo "            j::::j      TT:::::::TT       h:::::h     h:::::h r:::::r            e::::::::e          e::::::::e                       v:::::::v        3333333     3:::::3">> .travis.sh
-- echo "            j::::j      T:::::::::T       h:::::h     h:::::h r:::::r             e::::::::eeeeeeee   e::::::::eeeeeeee                v:::::v         3::::::33333::::::3">> .travis.sh
-- echo "            j::::j      T:::::::::T       h:::::h     h:::::h r:::::r              ee:::::::::::::e    ee:::::::::::::e                 v:::v          3:::::::::::::::33 ">> .travis.sh
-- echo "            j::::j      TTTTTTTTTTT       hhhhhhh     hhhhhhh rrrrrrr                eeeeeeeeeeeeee      eeeeeeeeeeeeee                  vvv            333333333333333   ">> .travis.sh
-- echo "            j::::j                                                                                                                                                        ">> .travis.sh
-- echo "  jjjj      j::::j                                                                                                                                                        ">> .travis.sh
-- echo " j::::jj   j:::::j                                                                                                                                                        ">> .travis.sh
-- echo " j::::::jjj::::::j                                                                                                                                                        ">> .travis.sh
-- echo "  jj::::::::::::j                                                                                                                                                         ">> .travis.sh
-- echo "    jjj::::::jjj                                                                                                                                                          ">> .travis.sh
-- echo "       jjjjjj                                                                                                                                                             ">> .travis.sh
+- echo "        /$$$$$$$$ /$$                                                       /$$$$$$      /$$$$$$   /$$$$$$                           " >> .travis.sh
+- echo "       |__  $$__/| $$                                                      /$$__  $$    /$$$_  $$ /$$$_  $$                          " >> .travis.sh
+- echo "       /$$| $$   | $$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$        /$$    /$$|__/  \ $$   | $$$$\ $$| $$$$\ $$                          " >> .travis.sh
+- echo "      |__/| $$   | $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$      |  $$  /$$/   /$$$$$/   | $$ $$ $$| $$ $$ $$                          " >> .travis.sh
+- echo "       /$$| $$   | $$  \ $$| $$  \__/| $$$$$$$$| $$$$$$$$       \  $$/$$/   |___  $$   | $$\ $$$$| $$\ $$$$                          " >> .travis.sh
+- echo "      | $$| $$   | $$  | $$| $$      | $$_____/| $$_____/        \  $$$/   /$$  \ $$   | $$ \ $$$| $$ \ $$$                          " >> .travis.sh
+- echo "      | $$| $$   | $$  | $$| $$      |  $$$$$$$|  $$$$$$$         \  $/   |  $$$$$$//$$|  $$$$$$/|  $$$$$$/                          " >> .travis.sh
+- echo "      | $$|__/   |__/  |__/|__/       \_______/ \_______/          \_/     \______/|__/ \______/  \______/                           " >> .travis.sh
+- echo " /$$  | $$                                                                                                                           " >> .travis.sh
+- echo "|  $$$$$$/                                                                                                                           " >> .travis.sh
+- echo " \______/                                                                                                                            " >> .travis.sh
+- echo " /$$   /$$                                /$$$$$$                                                     /$$     /$$                    " >> .travis.sh
+- echo "| $$$ | $$                               /$$__  $$                                                   | $$    |__/                    " >> .travis.sh
+- echo "| $$$$| $$  /$$$$$$  /$$  /$$  /$$      | $$  \__/  /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$  /$$$$$$   /$$  /$$$$$$  /$$$$$$$ " >> .travis.sh
+- echo "| $$ $$ $$ /$$__  $$| $$ | $$ | $$      | $$ /$$$$ /$$__  $$| $$__  $$ /$$__  $$ /$$__  $$|____  $$|_  $$_/  | $$ /$$__  $$| $$__  $$" >> .travis.sh
+- echo "| $$  $$$$| $$$$$$$$| $$ | $$ | $$      | $$|_  $$| $$$$$$$$| $$  \ $$| $$$$$$$$| $$  \__/ /$$$$$$$  | $$    | $$| $$  \ $$| $$  \ $$" >> .travis.sh
+- echo "| $$\  $$$| $$_____/| $$ | $$ | $$      | $$  \ $$| $$_____/| $$  | $$| $$_____/| $$      /$$__  $$  | $$ /$$| $$| $$  | $$| $$  | $$" >> .travis.sh
+- echo "| $$ \  $$|  $$$$$$$|  $$$$$/$$$$/      |  $$$$$$/|  $$$$$$$| $$  | $$|  $$$$$$$| $$     |  $$$$$$$  |  $$$$/| $$|  $$$$$$/| $$  | $$" >> .travis.sh
+- echo "|__/  \__/ \_______/ \_____/\___/        \______/  \_______/|__/  |__/ \_______/|__/      \_______/   \___/  |__/ \______/ |__/  |__/" >> .travis.sh
+- echo "                                                                                                                                     " >> .travis.sh
+- echo "                                                                                                                                     " >> .travis.sh
+- echo "                                                                                                                                     " >> .travis.sh
 - cat .travis.sh
 - npm install -g npm
 - npm install bower -global

@@ -52,6 +52,7 @@ class CanvasManager extends ContextManagerBase {
 
     beforeRender(renderer:RendererBase):void
     {
+      
       if(this.isDirty){
         this.ClearCanvas();
         this.isDirty=false;

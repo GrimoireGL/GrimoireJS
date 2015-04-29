@@ -3,6 +3,9 @@ import jThreeId = require("../Base/JThreeID");
 import RendererBase = require("./RendererBase");
 import Material = require("./Material");
 import SceneObject = require("./SceneObject");
+/**
+* NON PUBLIC CLASS
+*/
 class MaterialObjectPair {
     constructor(material: Material, targetObject: SceneObject) {
         this.material = material;
@@ -34,7 +37,7 @@ class Scene extends jThreeObjectWithID {
 
     update(): void {
         if (!this.enabled) return;//enabled==falseならいらない。
-
+        this.targetObjects.forEach(v=>v.update());
     }
 
     render(): void {
@@ -53,8 +56,11 @@ class Scene extends jThreeObjectWithID {
 
     private renderObjects: MaterialObjectPair[] = [];
 
+    private targetObjects:SceneObject[]=[];
+
     public addObject(targetObject: SceneObject): void {
         //TargetObjectに所属するマテリアルを分割して配列に登録します。
+        this.targetObjects.push(targetObject);
         targetObject.eachMaterial((m) => { this.renderObjects.push(new MaterialObjectPair(m, targetObject)) });
         this.sortObjects();
     }

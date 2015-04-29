@@ -12,6 +12,7 @@ var connect=require('gulp-connect');
 var minify=require('gulp-uglify');
 var copy=require('gulp-copy');
 var typedoc=require('gulp-typedoc');
+var eol=require('gulp-eol');
 var args=require('yargs').argv;
 var bower_files=['jquery/dist/jquery.js','jQuery/dist/jquery.js'];
 var bower_prefix='bower_components/';
@@ -136,6 +137,10 @@ gulp.task('minify',['build'],function(){
   return gulp.src('bin/product/j3.js').
     pipe(minify())
     .pipe(gulp.dest('jThree/bin/product/min'));
+});
+
+gulp.task('fix-eol',function(){
+  return gulp.src('.travis.yml').pipe(eol('\n',true)).pipe(gulp.dest('./'));
 });
 
 gulp.task('server',['build'],function(){
