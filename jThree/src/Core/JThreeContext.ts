@@ -32,6 +32,10 @@ class JThreeContext extends JThreeObject {
 
     constructor() {
         super();
+        this.resourceManager = new ResourceManager();
+        this.timer = new ContextTimer();
+        this.sceneManager = new SceneManager();
+        this.gomlLoader = new GomlLoader();
     }
 
     /**
@@ -39,11 +43,7 @@ class JThreeContext extends JThreeObject {
      * @returns {}
      */
     init() {
-      console.log("j3 context was instanced");
-      this.resourceManager = new ResourceManager();
-      this.timer = new ContextTimer();
-      this.sceneManager = new SceneManager();
-      this.gomlLoader = new GomlLoader();
+      this.gomlLoader.initForPage();
       this.loop();
     }
 
@@ -106,6 +106,7 @@ class JThreeContext extends JThreeObject {
             this.onRendererChangedFuncs.push(func);
         }
     }
+
     /**
      * notify all event handlers
      */

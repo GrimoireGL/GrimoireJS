@@ -1,31 +1,14 @@
 ﻿<goml>
 	<head>
-		<tri first="(-0.8,-0.5,0.5)" secound="(0,0.5,0)" third="(1,0,0)"></tri>
+		<tri first="(-1,0,4)" secound="(0,1,4)" third="(1,0,1)"></tri>
 	</head>
 	<body>
-		<rdr frame=".canvasContainer" width="200" height="200" clearColor="rgb(255,0,0)">
+		<rdr frame=".canvasContainer" width="300" height="200" clearColor="rgb(100,0,0)">
 			<vp left="0" top="0" width="100" height="200"></vp>
-			<vp left="100" top="0" width="100" height="200"></vp>
-		</rdr>
-		<rdr frame=".canvasContainer2" width="200" height="200" clearColor="rgb(255,255,0)">
-			<vp left="0" top="0" width="50" height="50"></vp>
-			<vp left="50" top="0" width="50" height="50"></vp>
-			<vp left="100" top="0" width="50" height="50"></vp>
-			<vp left="150" top="0" width="50" height="50"></vp>
-			<vp left="0" top="50" width="50" height="50"></vp>
-			<vp left="50" top="50" width="50" height="50"></vp>
-			<vp left="100" top="50" width="50" height="50"></vp>
-			<vp left="150" top="50" width="50" height="50"></vp>
-				<vp left="0" top="100" width="50" height="50"></vp>
-				<vp left="50" top="100" width="50" height="50"></vp>
-				<vp left="100" top="100" width="50" height="50"></vp>
-				<vp left="150" top="100" width="50" height="50"></vp>
-				<vp left="0" top="150" width="50" height="50"></vp>
-				<vp left="50" top="150" width="50" height="50"></vp>
-				<vp left="100" top="150" width="50" height="50"></vp>
-				<vp left="150" top="150" width="50" height="50"></vp>
+			<vp left="130" top="0" width="100" height="200"></vp>
 		</rdr>
 		<scene class="hello">
+		   <camera name="CAM1"/>
 		</scene>
 	</body>
 </goml>

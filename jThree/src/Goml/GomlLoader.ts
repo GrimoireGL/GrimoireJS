@@ -12,6 +12,7 @@ import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
 import JQuery = require("jquery");
 import GomlSceneTag = require("./Tags/GomlSceneTag");
+import GomlCameraTag = require("./Tags/GomlCameraTag");
 import JThreeContext = require("../Core/JThreeContext");
 
 class GomlLoader extends jThreeObject {
@@ -19,7 +20,22 @@ class GomlLoader extends jThreeObject {
   {
     super();
   }
-    j3:JThreeContext;
+    private j3:JThreeContext;
+
+    private onloadHandler:Delegates.Action1<string>[]=[];
+    /*
+    * Call passed function if loaded GOML Document.
+    */
+
+    public onload(act:Delegates.Action1<string>):void
+    {
+      this.onloadHandler.push(act);
+    }
+
+    private notifyOnLoad(source:string):void
+    {
+      this.onloadHandler.forEach((v)=>{v(source)});
+    }
 
     gomlTags: Map<string, GomlTagBase> = new Map<string, GomlTagBase>();
 
@@ -50,6 +66,7 @@ class GomlLoader extends jThreeObject {
         this.addGomlTag(new GomlTriTag());
         this.addGomlTag(new GomlVpTag());
         this.addGomlTag(new GomlSceneTag())
+        this.addGomlTag(new GomlCameraTag());
     }
 
     private addGomlTag(tag: GomlTagBase): void {
@@ -58,7 +75,6 @@ class GomlLoader extends jThreeObject {
 
     private loadScriptTag(scriptTag: JQuery): void {
         var srcSource: string = scriptTag.attr("src");
-        console.warn('start to load script');
         if (srcSource) {//when src is specified
             $.get(srcSource, [], (d) => {
                 this.scriptLoaded(scriptTag[0], d);
@@ -70,7 +86,7 @@ class GomlLoader extends jThreeObject {
 
     private scriptLoaded(elem: Element, source: string): void {
         source = source.replace(/(head|body)>/g, "j$1>");//TODO Can be bug
-        console.log("Replaced:" + source);
+        console.log("Script Recieved:\n" + source);
         var catched = $(source);
         if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
         //console.dir(catched.find("jhead").children());
@@ -87,6 +103,7 @@ class GomlLoader extends jThreeObject {
         this.eachNode(v=>v.beforeLoad());
         this.eachNode(v=>v.Load());
         this.eachNode(v=>v.afterLoad());
+        this.notifyOnLoad(source);
     }
 
     private eachNode(act:Delegates.Action1<GomlTreeNodeBase>)
@@ -102,30 +119,41 @@ class GomlLoader extends jThreeObject {
             var elem: HTMLElement = child[i];
             if (this.gomlTags.has(elem.tagName)) {
                 var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem,this,parent);
-                this.headTagsById.set(newNode.ID, newNode);
+                if(newNode==null)
+                {
+                  console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(elem.tagName));
+                  continue;
+                }
                 elem.classList.add("x-j3-" + newNode.ID);
+                this.headTagsById.set(newNode.ID, newNode);
                 act(newNode);
                 this.parseHead(newNode,$(elem).children(), (e) => {  });
+            }else{
+              console.warn("{0} was not parsed.".format(elem.tagName));
             }
         }
     }
 
     private parseBody(parent:GomlTreeNodeBase,child: JQuery, act: Delegates.Action1<GomlTreeNodeBase>): void {
         if (!child) return;
-        try{
-        console.log(child);
         for (var i = 0; i < child.length; i++) {
             var elem: HTMLElement = child[i];
             if (this.gomlTags.has(elem.tagName)) {
                 var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem,this,parent);
+                if(newNode==null)
+                {
+                  console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(elem.tagName));
+                  continue;
+                }
                 this.bodyTagsById.set(newNode.ID, newNode);
                 elem.classList.add("x-j3-" + newNode.ID);
                 act(newNode);
                 this.parseBody(newNode,$(elem).children(), (e) => {  });
+            }else
+            {
+              console.warn("{0} was not parsed.".format(elem.tagName));
             }
         }
-      }catch(e)
-      {console.error(e);}
-    }
+      }
 }
 export = GomlLoader;

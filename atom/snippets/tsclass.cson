@@ -21,3 +21,24 @@
 
     export=$1;
     """
+  'Goml Tag class':
+   'prefix':'gomltag',
+   'body':"""
+import JThreeObject=require('Base/JThreeObject');
+import GomlLoader = require("../GomlLoader");
+import GomlTagBase = require("../GomlTagBase");
+import GomlTreeNodeBase = require("../GomlTreeNodeBase");
+import $3=require('../Nodes/$3');
+
+class Goml$1Tag extends GomlTagBase
+{
+  CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
+      return new $3(elem,loader,parent);
+  }
+
+  get TagName(): string { return "$2"; }
+}
+
+export=Goml$1Tag;
+
+   """

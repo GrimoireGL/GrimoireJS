@@ -8,6 +8,7 @@ import Collection = require("../Base/Collections/Collection");
 import MatrixFactory = require("./MatrixFactory");
 import IEnumrator = require("../Base/Collections/IEnumrator");
 import MatrixEnumerator = require("./MatrixEnumerator");
+import Delegates=require('../Delegates');
 class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     public static zero(): Matrix {
         return Matrix.fromElements(0, 0, 0, 0,
@@ -25,6 +26,11 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
 
     public static fromElements(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33): Matrix {
         return new Matrix(new Float32Array([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]));
+    }
+    
+    public static fromFunc(f:Delegates.Func2<number,number,number>)
+    {
+               return new Matrix(new Float32Array([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]));
     }
 
     get rawElements(): Float32Array {
@@ -85,12 +91,11 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     }
 
     static scalarMultiply(s: number, m: Matrix): Matrix {
-
         return this.elementScalarMultiply(m, s, m.getFactory());
     }
 
     static multiply(m1: Matrix, m2: Matrix): Matrix {
-        return m1.getFactory().fromFunc((i, j) => {
+        return Matrix.fromFunc((i, j) => {
             var sum = 0;
             Collection.foreachPair(m1.getRow(i), m2.getColmun(j), (i, j, k) => {
                 sum += i * j;
@@ -104,7 +109,7 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     }
 
     static transpose(m: Matrix): Matrix {
-        return this.elementTranspose(m, m.getFactory());
+        return Matrix.fromFunc((i,j)=>m.getAt(j,i));
     }
 
     static transformPoint(m: Matrix, v: Vector3): Vector3 {
@@ -229,30 +234,68 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
             );
     }
 
+    static rotateX(angle:number):Matrix{
+      return Matrix.fromElements(
+        1,0,0,0,
+        0,Math.cos(angle),-Math.sin(angle),0,
+        0,Math.sin(angle),Math.cos(angle),0,
+        0,0,0,1
+      );
+    }
+
+    static rotateY(angle:number):Matrix{
+      return Matrix.fromElements(
+        Math.cos(angle),0,Math.sin(angle),0,
+        0,1,0,0,
+        -Math.sin(angle),0,Math.cos(angle),0,
+        0,0,0,1
+      );
+    }
+
+    static rotateZ(angle:number):Matrix{
+      return Matrix.fromElements(
+        Math.cos(angle),-Math.sin(angle),0,0,
+        Math.sin(angle),Math.cos(angle),0,0,
+        0,0,1,0,
+        0,0,0,1
+      );
+    }
+
     static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {
-        var te = new Float32Array(16);
-        var x = 2 * near / (right - left);
-        var y = 2 * near / (top - bottom);
+		var x = 2 * near / ( right - left );
+		var y = 2 * near / ( top - bottom );
 
-        var a = (right + left) / (right - left);
-        var b = (top + bottom) / (top - bottom);
-        var c = - (far + near) / (far - near);
-        var d = - 2 * far * near / (far - near);
+		var a = ( right + left ) / ( right - left );
+		var b = ( top + bottom ) / ( top - bottom );
+		var c = - ( far + near ) / ( far - near );
+		var d = - 2 * far * near / ( far - near );
 
-        te[0] = x; te[4] = 0; te[8] = a; te[12] = 0;
-        te[1] = 0; te[5] = y; te[9] = b; te[13] = 0;
-        te[2] = 0; te[6] = 0; te[10] = c; te[14] = d;
-        te[3] = 0; te[7] = 0; te[11] = - 1; te[15] = 0;
-        return new Matrix(te);
+		return new Matrix(new Float32Array([
+            x,0,a,0,
+            0,y,b,0,
+            0,0,c,d,
+            0,0,-1,0]));
+    }
+    
+    static ortho(left:number,right:number,bottom:number,top:number,near:number,far:number):Matrix
+    {
+        var tx=-(right+left)/(right-left);
+        var ty=-(top+bottom)/(top-bottom);
+        var tz=-(far+near)/(far-near);
+        return Matrix.fromElements(
+            2/(right-left),0,0,tx,
+            0,2/(top-bottom),0,ty,
+            0,0,-2/(far-near),tz,
+            0,0,0,1
+        );
     }
 
     static perspective(fovy: number, aspect: number, near: number, far: number): Matrix {
-        var ymax = near * Math.tan(fovy * 0.5);
-        var ymin = - ymax;
-        var xmin = ymin * aspect;
-        var xmax = ymax * aspect;
-
-        return this.frustum(xmin, xmax, ymin, ymax, near, far);
+        var ymax = near * Math.tan(fovy*0.5);
+		var ymin = - ymax;
+		var xmin = ymin * aspect;
+		var xmax = ymax * aspect;
+      return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
     }
 
     static lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix {

@@ -187,7 +187,6 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
       }
       if(needNormalize)resultVec=resultVec.normalizeThis();
       if(needNegate)resultVec=resultVec.negateThis();
-      console.log('length:'+resultVec.magnitude);
       return resultVec;
      }
 }

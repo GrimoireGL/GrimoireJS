@@ -14,7 +14,7 @@
         varying vec3 v_normal;
 
         void main(void){
-        gl_Position = matMVP*vec4(position,1.0);
+        gl_Position = vec4((matMVP*vec4(position,1.0)).xyz,1);
         v_normal=(matMVP*vec4(normal,0)).xyz;
         }
 

@@ -12,11 +12,10 @@ class CanvasManager extends ContextManagerBase {
     public static fromCanvas(canvas: HTMLCanvasElement): CanvasManager {
         var gl: WebGLRenderingContext;
         try {
-            gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+            gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
             var renderer: CanvasManager = new CanvasManager(gl);
             var instance=JThreeContextProxy.getJThreeContext();
             instance.addRenderer(renderer);
-            console.log("canvas manager Generation");
             return renderer;
         } catch (e) {
           debugger;
@@ -35,7 +34,6 @@ class CanvasManager extends ContextManagerBase {
     }
     set ClearColor(col:Color4)
     {
-      console.warn("color was set"+col.toString());
       this.clearColor=col||new Color4(1,1,1,1);
     }
 
@@ -52,7 +50,7 @@ class CanvasManager extends ContextManagerBase {
 
     beforeRender(renderer:RendererBase):void
     {
-      
+
       if(this.isDirty){
         this.ClearCanvas();
         this.isDirty=false;

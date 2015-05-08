@@ -3,6 +3,7 @@ import jThreeId = require("../Base/JThreeID");
 import RendererBase = require("./RendererBase");
 import Material = require("./Material");
 import SceneObject = require("./SceneObject");
+import Camera = require("./Camera/Camera");
 /**
 * NON PUBLIC CLASS
 */
@@ -27,6 +28,8 @@ class MaterialObjectPair {
         return this.material.ID + "-" + this.targetObject.ID;
     }
 }
+
+//シーン
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
@@ -37,13 +40,13 @@ class Scene extends jThreeObjectWithID {
 
     update(): void {
         if (!this.enabled) return;//enabled==falseならいらない。
-        this.targetObjects.forEach(v=>v.update());
+        this.sceneObjects.forEach(v=>v.update());
     }
 
     render(): void {
         this.renderers.forEach((r) => {
             r.render(() => {
-                this.renderObjects.forEach((v) => v.TargetObject.render(r, v.Material));
+                this.renderPairs.forEach((v) => v.TargetObject.render(r, v.Material));
             });
         });
     }
@@ -54,19 +57,38 @@ class Scene extends jThreeObjectWithID {
         this.renderers.push(renderer);
     }
 
-    private renderObjects: MaterialObjectPair[] = [];
+    private renderPairs: MaterialObjectPair[] = [];
 
-    private targetObjects:SceneObject[]=[];
+    private sceneObjects:SceneObject[]=[];
 
     public addObject(targetObject: SceneObject): void {
         //TargetObjectに所属するマテリアルを分割して配列に登録します。
-        this.targetObjects.push(targetObject);
-        targetObject.eachMaterial((m) => { this.renderObjects.push(new MaterialObjectPair(m, targetObject)) });
+        this.sceneObjects.push(targetObject);
+        targetObject.eachMaterial((m) => { this.renderPairs.push(new MaterialObjectPair(m, targetObject)) });
         this.sortObjects();
     }
 
     private sortObjects(): void {
-        this.renderObjects.sort((v1, v2) => { return v1.Material.Priorty - v2.Material.Priorty });
+      //sort renderPairs by order of rendering
+        this.renderPairs.sort((v1, v2) => { return v1.Material.Priorty - v2.Material.Priorty });
+    }
+
+    private cameras:Map<string,Camera>=new Map<string,Camera>();
+
+    public addCamera(camera:Camera)
+    {
+      this.cameras.set(camera.ID,camera);
+    }
+
+    public getCamera(id:string):Camera
+    {
+      return this.cameras.get(id);
+    }
+
+    public toString():string
+    {
+      return "Scene\nRenderers:\nRendererCount:{0}\nSceneObjects:\nSceneObjectCount:{1}\nSceneObjectCount by Material:{2}\n"
+      .format(this.renderers.length,this.sceneObjects.length,this.renderPairs.length);
     }
 }
 

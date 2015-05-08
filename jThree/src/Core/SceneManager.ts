@@ -7,7 +7,7 @@ class SceneManager extends jThreeObject {
         super();
     }
 
-    private scenes: Map<string, Scene> = new Map<string, Scene>();
+    private scenes:Map<string, Scene> = new Map<string, Scene>();
 
     addScene(scene: Scene): void {
         if (!this.scenes.has(scene.ID)) {
@@ -28,6 +28,18 @@ class SceneManager extends jThreeObject {
             v.render();
         });
         JThreeContextProxy.getJThreeContext().CanvasRenderers.forEach((c)=>{c.afterRenderAll()});
+    }
+
+    public toString():string
+    {
+        var sceneInfo:string="";
+        this.scenes.forEach((scene:Scene,id:string)=>
+        {
+          sceneInfo+="ID:{0}\nScene:\n{1}\n".format(id,scene.toString());
+        });
+        return "Scene Informations:\n"
+              +"Scene Count:{0}\n"
+              +"Scenes:\n{1}".format(this.scenes.size,sceneInfo);
     }
 
 }
