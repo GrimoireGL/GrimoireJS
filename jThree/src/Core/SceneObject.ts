@@ -5,31 +5,37 @@ import Delegates = require("../Delegates");
 import Geometry = require("./Geometry");
 import Scene=require('./Scene');
 import RendererBase = require("./RendererBase");
+import JThreeCollection = require("../Base/JThreeCollection");
 /**
  * This is most base class for SceneObject.
- * SceneObject is same as GameObject in Unity. 
+ * SceneObject is same as GameObject in Unity.
  */
 class SceneObject extends JThreeObjectWithId
 {
     private materialChanagedHandler:Delegates.Action2<Material,SceneObject>[]=[];
 
-    private materials: Map<string, Material> = new Map<string, Material>();
-    
+    private materials:JThreeCollection<Material>=new JThreeCollection<Material>();
+
     /**
      * Contains the children.
      */
-    private children:SceneObject[]=[];
-    
+    private children:JThreeCollection<SceneObject>=new JThreeCollection<SceneObject>();
+
+    public addChild(obj:SceneObject):void
+    {
+      this.children.insert(obj);
+    }
+
     /**
      * Parent of this SceneObject.
      */
     private parent:SceneObject;
-    
+
     /**
      * Contains the parent scene containing this SceneObject.
      */
     private parentScene:Scene;
-    
+
      /**
      * The Getter for the parent scene containing this SceneObject.
      */
@@ -50,7 +56,7 @@ class SceneObject extends JThreeObjectWithId
             return this.parentScene;
         }
     }
-    
+
      /**
      * The Getter for the parent scene containing this SceneObject.
      */
@@ -60,9 +66,9 @@ class SceneObject extends JThreeObjectWithId
         if(this.parent.ParentScene.ID!=scene.ID)
             console.error("The is something wrong in Scene structure.");
         //insert recursively to the children this SceneObject contains.
-        this.children.forEach((v)=>{
+        this.children.each((v)=>{
             v.ParentScene=scene;
-        });    
+        });
     }
 
     onMaterialChanged(func:Delegates.Action2<Material,SceneObject>): void {
@@ -72,19 +78,17 @@ class SceneObject extends JThreeObjectWithId
      * すべてのマテリアルに対して処理を実行します。
      */
     eachMaterial(func:Delegates.Action1<Material>): void {
-        this.materials.forEach((v) => func(v));
+        this.materials.each((v) => func(v));
     }
 
     addMaterial(mat: Material): void
     {
-        this.materials.set(mat.ID, mat);
+        this.materials.insert(mat);
     }
 
     deleteMaterial(mat: Material): void
     {
-        if (this.materials.has(mat.ID)) {
-            this.materials.delete(mat.ID);
-        }
+      this.materials.delete(mat);
     }
 
     protected geometry:Geometry;

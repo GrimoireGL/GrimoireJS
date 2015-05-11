@@ -1,6 +1,6 @@
 ﻿<goml>
 	<head>
-		<tri first="(-1,0,4)" secound="(0,1,4)" third="(1,0,1)"></tri>
+		<tri first="(-1,0,4)" second="(0,1,4)" third="(1,0,1)"></tri>
 	</head>
 	<body>
 		<rdr frame=".canvasContainer" width="300" height="200" clearColor="rgb(100,0,0)">
@@ -9,6 +9,9 @@
 		</rdr>
 		<scene class="hello">
 		   <camera name="CAM1"/>
+			<camera name="CAM2">
+				<camera name="CAM3"/>
+			</camera>
 		</scene>
 	</body>
 </goml>

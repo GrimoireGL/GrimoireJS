@@ -18,7 +18,7 @@ class GomlSceneObjectTagBase extends GomlTagBase
       sceneNode=<GomlTreeSceneNode>parent;
       sceneObjectNode=null;
     }else{
-      if(typeof parent["ContainedSceneName"]==="undefined")
+      if(typeof parent["ContainedSceneNode"]==="undefined")
       {//check parent extends GomlTreeSceneObjectNodeBase or not.
         console.error("{0} is not extends GomlTreeSceneObjectNodeBase. Is this really ok to be contained in Scene tag?".format(parent.toString()));
         return null;

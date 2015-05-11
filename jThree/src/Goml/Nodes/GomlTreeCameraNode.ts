@@ -4,9 +4,12 @@ import GomlLoader = require("../GomlLoader");
 import JThreeID = require("../../Base/JThreeID");
 import GomlTreeSceneObjectNodeBase = require("./GomlTreeSceneObjectNodeBase");
 import GomlTreeSceneNode = require("./GomlTreeSceneNode");
-
+import Camera = require("../../Core/Camera/Camera");
+import ViewCamera = require("../../Core/Camera/ViewCamera");
 class GomlTreeCameraNode extends GomlTreeSceneObjectNodeBase
 {
+  private targetCamera:Camera;
+
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:GomlTreeSceneObjectNodeBase)
   {
       super(elem,loader,parent,parentSceneNode,parentObject);
@@ -14,7 +17,13 @@ class GomlTreeCameraNode extends GomlTreeSceneObjectNodeBase
 
   beforeLoad()
   {
-    console.log(this.Name);
+
+  }
+
+  Load()
+  {
+    this.targetCamera=new ViewCamera();
+    this.ContainedSceneNode.targetScene.addCamera(this.targetCamera);
   }
 
   private name:string;

@@ -20,7 +20,7 @@ class GomlTreeTriNode extends GomlTreeGeometryNodeBase
     var context=JThreeContextProxy.getJThreeContext();
     var buffer=context.ResourceManager.createBuffer("goml-test",BufferTargetType.ArrayBuffer,BufferUsage.StaticDraw,3,ElementType.Float);
     var f:Vector3,s:Vector3,t:Vector3;
-    f=this.First;s=this.Secound;t=this.Third;
+    f=this.First;s=this.Second;t=this.Third;
     buffer.update(new Float32Array([f.X,f.Y,f.Z,s.X,s.Y,s.Z,t.X,t.Y,t.Z]),9);
   }
 
@@ -30,11 +30,11 @@ class GomlTreeTriNode extends GomlTreeGeometryNodeBase
     return this.first;
   }
 
-  private secound:Vector3;
-  get Secound():Vector3
+  private second:Vector3;
+  get Second():Vector3
   {
-    this.secound=this.secound||Vector3.parse(this.element.getAttribute('secound')||"(0)");
-    return this.secound;
+    this.second=this.second||Vector3.parse(this.element.getAttribute('second')||"(0)");
+    return this.second;
   }
 
   private third:Vector3;
