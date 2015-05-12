@@ -25,7 +25,7 @@ before_install:
 - echo "                                                                                                                                     " >> .travis.sh
 - echo "                                                                                                                                     " >> .travis.sh
 - cat .travis.sh
-- npm install -g npm
+- npm install -global npm
 - npm install bower -global
 - npm install tsd -global
 - npm install gulp -global
