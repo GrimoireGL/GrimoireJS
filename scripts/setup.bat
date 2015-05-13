@@ -48,9 +48,6 @@ CD ..
 ECHO ###Npm Version Update###
 call npm install -g npm
 
-ECHO ###Python Update/Install###
-call npm install python -global
-
 ECHO ###Bower Update/Install###
 call npm install bower -global
 
