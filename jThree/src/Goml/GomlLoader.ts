@@ -8,6 +8,7 @@ import GomlBodyTag = require("./Tags/GomlBodyTag");
 import GomlVpTag = require("./Tags/GomlVpTag");
 import GomlRdrTag = require("./Tags/GomlRdrTag");
 import GomlTriTag = require("./Tags/GomlTriTag");
+import GomlMeshTag = require("./Tags/GomlMeshTag");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
 import JQuery = require("jquery");
@@ -86,6 +87,7 @@ class GomlLoader extends jThreeObject {
         this.addGomlTag(new GomlVpTag());
         this.addGomlTag(new GomlSceneTag())
         this.addGomlTag(new GomlCameraTag());
+        this.addGomlTag(new GomlMeshTag());
     }
 
     private addGomlTag(tag: GomlTagBase): void {
