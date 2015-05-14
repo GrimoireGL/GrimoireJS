@@ -22,19 +22,45 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
     }
 
     afterLoad(){
-      console.log("vp was loaded");
       var rdr:GomlTreeRdrNode=this.parentRendererNode=<GomlTreeRdrNode>this.parent;
       this.targetRenderer=new ViewportRenderer(rdr.canvasManager,new Rectangle(this.Left,this.Top,this.Width,this.Height));
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
-      var scene:Scene=new Scene();
-      scene.addObject(new Triangle());
+      var scene:Scene=this.resolveScene();
       scene.addRenderer(this.targetRenderer);
-      context.SceneManager.addScene(scene);
     }
+
+    private resolveScene():Scene
+    {
+      if(!this.loader.cameraTags.has(this.Cam))//if there was no specified camera
+      {
+        if(this.loader.cameraTags.size==0)
+        {
+          console.error("There is no scene.");
+        }else
+        {
+          return this.loader.cameraTags[0];
+        }
+      }
+      var targetCam=this.loader.cameraTags.get(this.Cam);
+      if(targetCam.ContainedSceneNode!=null)//if there was specified camera and there is Scene
+      {
+        return targetCam.ContainedSceneNode.targetScene;
+      }else
+      {
+        console.error("cant retrieve scene!");
+      }
+    }
+    private cam:string;
     private left:number;
     private top:number;
     private width:number;
     private height:number;
+
+    get Cam():string
+    {
+      this.cam=this.cam||this.element.getAttribute('cam');
+      return this.cam;
+    }
 
     get Left():number{
       this.left=this.left||parseInt(this.element.getAttribute('left'))||0;

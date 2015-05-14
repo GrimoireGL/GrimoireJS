@@ -69,3 +69,5 @@ call tsd reinstall
 ECHO Done.
 
 CD scripts
+
+ECHO Installed all of the packages needs for building jThree.

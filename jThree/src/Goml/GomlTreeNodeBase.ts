@@ -32,7 +32,7 @@ class GomlTreeNodeBase extends jThreeObjectWithID
 
     Load()
     {
-      
+
     }
 
     afterLoad()

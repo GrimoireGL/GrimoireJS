@@ -13,14 +13,18 @@ import Delegates = require("../Delegates");
 import JQuery = require("jquery");
 import GomlSceneTag = require("./Tags/GomlSceneTag");
 import GomlCameraTag = require("./Tags/GomlCameraTag");
+import GomlTreeCameraNode = require("./Nodes/GomlTreeCameraNode");
 import JThreeContext = require("../Core/JThreeContext");
 
 class GomlLoader extends jThreeObject {
   constructor()
   {
     super();
+    var scriptTags=document.getElementsByTagName('script');
+    this.selfTag=scriptTags[scriptTags.length-1];
   }
-    private j3:JThreeContext;
+
+    private selfTag:HTMLScriptElement;
 
     private onloadHandler:Delegates.Action1<string>[]=[];
     /*
@@ -43,6 +47,8 @@ class GomlLoader extends jThreeObject {
 
     bodyTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
 
+    cameraTags:Map<string,GomlTreeCameraNode>=new Map<string,GomlTreeCameraNode>();
+
     rootObj: JQuery;
 
     headTags: GomlTreeNodeBase[] = [];
@@ -51,6 +57,7 @@ class GomlLoader extends jThreeObject {
 
     initForPage(): void {
         this.constructTagDictionary();
+        this.attemptToLoadGomlInScriptAttr();
         this.rootObj = $("<iframe style='display:none;'/>").appendTo("body").contents();
         var gomls: JQuery = $("script[type='text/goml']");
         gomls.each((index: number, elem: Element) => {
@@ -58,7 +65,19 @@ class GomlLoader extends jThreeObject {
         });
     }
 
-    private constructTagDictionary(): void {
+    private attemptToLoadGomlInScriptAttr():void
+    {
+      var url=this.selfTag.getAttribute('x-goml');
+      $.get(url, [], (d) => {
+          this.scriptLoaded(d);
+      });
+    }
+
+/**
+* Generate Tag dictionary here.
+*/
+    private constructTagDictionary(): void
+     {
         this.addGomlTag(new GomlRootTag());
         this.addGomlTag(new GomlHeadTag());
         this.addGomlTag(new GomlBodyTag());
@@ -73,25 +92,25 @@ class GomlLoader extends jThreeObject {
         this.gomlTags.set(tag.TagName, tag);
     }
 
+/**
+* For <script type='text/goml'>
+*/
     private loadScriptTag(scriptTag: JQuery): void {
-        var srcSource: string = scriptTag.attr("src");
+        var srcSource: string = scriptTag[0].getAttribute("src");
         if (srcSource) {//when src is specified
             $.get(srcSource, [], (d) => {
-                this.scriptLoaded(scriptTag[0], d);
+                this.scriptLoaded(d);
             });
         } else {
-            this.scriptLoaded(scriptTag[0], scriptTag.text());
+            this.scriptLoaded( scriptTag.text());
         }
     }
 
-    private scriptLoaded(elem: Element, source: string): void {
+    private scriptLoaded(source: string): void {
         source = source.replace(/(head|body)>/g, "j$1>");//TODO Can be bug
         console.log("Script Recieved:\n" + source);
         var catched = $(source);
         if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
-        //console.dir(catched.find("jhead").children());
-        //this.rootObj.find("head").append(catched.find("jhead").children());
-        //this.rootObj.find("body").append(catched.find("jbody").children());
         var headChild = catched.find("jhead").children();
         var bodyChild = catched.find("jbody").children();
         this.parseHead(null,headChild, (e) => {
@@ -126,6 +145,10 @@ class GomlLoader extends jThreeObject {
                 }
                 elem.classList.add("x-j3-" + newNode.ID);
                 this.headTagsById.set(newNode.ID, newNode);
+                if(parent!=null)
+                {
+                  parent.addChild(newNode);
+                }
                 act(newNode);
                 this.parseHead(newNode,$(elem).children(), (e) => {  });
             }else{
@@ -148,7 +171,12 @@ class GomlLoader extends jThreeObject {
                 this.bodyTagsById.set(newNode.ID, newNode);
                 elem.classList.add("x-j3-" + newNode.ID);
                 act(newNode);
+                if(parent!=null)
+                {
+                  parent.addChild(newNode);
+                }
                 this.parseBody(newNode,$(elem).children(), (e) => {  });
+
             }else
             {
               console.warn("{0} was not parsed.".format(elem.tagName));

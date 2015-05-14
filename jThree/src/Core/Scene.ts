@@ -87,6 +87,7 @@ class Scene extends jThreeObjectWithID {
 
     public toString():string
     {
+      console.log(this);
       return "Scene\nRenderers:\nRendererCount:{0}\nCamera Count:{1}\nSceneObjects:\nSceneObjectCount:{2}\nSceneObjectCount by Material:{3}\n"
       .format(this.renderers.length,this.cameras.size,this.sceneObjects.length,this.renderPairs.length);
     }

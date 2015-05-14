@@ -38,11 +38,11 @@ class BasicMaterial extends Material
          // vpMat=Matrix.multiply(vpMat,rotMat);
            vpMat=Matrix.multiply(projMat,vpMat);
           var vecs:Vector3[]=[new Vector3(-1,0,1),new Vector3(0,1,1),new Vector3(1,0,1)];
-          if(this.test%10==0)
-          for (var i = 0; i < vecs.length; i++) {
-            var element = vecs[i];
-            console.log("source:{0} -> dest:{1}".format(element,Matrix.transformPoint(vpMat,element)));
-          }        //  vpMat=Matrix.multiply(rotMat,vpMat);
+          // if(this.test%10==0)
+          // for (var i = 0; i < vecs.length; i++) {
+          //   var element = vecs[i];
+          //   console.log("source:{0} -> dest:{1}".format(element,Matrix.transformPoint(vpMat,element)));
+          // }        //  vpMat=Matrix.multiply(rotMat,vpMat);
           //vpMat=vpMat.multiplyWith(Matrix.rotateX(this.time));
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));

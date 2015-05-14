@@ -13,6 +13,7 @@ class CanvasManager extends ContextManagerBase {
         var gl: WebGLRenderingContext;
         try {
             gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
+            var ext=gl.getExtension("WEBGL_shared_resources");
             var renderer: CanvasManager = new CanvasManager(gl);
             var instance=JThreeContextProxy.getJThreeContext();
             instance.addRenderer(renderer);

@@ -14,8 +14,9 @@ class JThreeContext extends JThreeObject {
     private timer: ContextTimer;
     private sceneManager: SceneManager;
     private gomlLoader:GomlLoader;
+    private registerNextLoop:Delegates.Action0;
 
-    static instance:JThreeContext;
+    static instance:JThreeContext=new JThreeContext();
     static getInstanceForProxy()
     {
       JThreeContext.instance=JThreeContext.instance||new JThreeContext();
@@ -44,13 +45,20 @@ class JThreeContext extends JThreeObject {
      */
     init() {
       this.gomlLoader.initForPage();
+      this.registerNextLoop=window.requestAnimationFrame?()=>{
+        var context=JThreeContext.instance;
+        window.requestAnimationFrame(context.loop);
+        }:()=>{
+          var context=JThreeContext.instance;
+          window.setTimeout(context.loop,1000/60);
+          };
       this.loop();
     }
 
     loop(): void {
       var context=JThreeContext.instance;
       context.sceneManager.renderAll();
-        window.setTimeout(JThreeContext.instance.loop, 1000 / 30);
+      context.registerNextLoop();
     }
 
     /**

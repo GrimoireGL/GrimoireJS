@@ -32,6 +32,7 @@ class SceneManager extends jThreeObject {
 
     public toString():string
     {
+      console.log(this.scenes);
         var sceneInfo:string="";
         this.scenes.forEach((scene:Scene,id:string)=>
         {
