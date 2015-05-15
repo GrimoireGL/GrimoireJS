@@ -46,7 +46,7 @@ install:
 - tsd reinstall
 - bower install
 script:
-- gulp travis
+- gulp travis --branch=$TRAVIS_BRANCH
 after_script:
 - cd jThree/bin/js
 - ls

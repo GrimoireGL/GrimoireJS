@@ -68,7 +68,7 @@ gulp.task('gen-doc',function(){
     json:'./jThree/docs/doc.json'
   }));
 });
-
+//Document generation executed by travis
 gulp.task('gen-doc-travis',function(){
   gulp.src(tsSourceTarget).pipe(typedoc({
     module:'commonjs',
@@ -151,7 +151,7 @@ gulp.task('server',['build'],function(){
 });
 
 gulp.task('travis',['build'],function(){
-
+  gulp.start('gen-doc-travis');
 });
 
 gulp.task('rebuild',['clean'],function(){

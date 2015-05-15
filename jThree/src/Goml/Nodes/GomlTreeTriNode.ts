@@ -13,6 +13,7 @@ import TriangleGeometry = require("../../Core/Geometries/TriangleGeometry");
 class GomlTreeTriNode extends GomlTreeGeometryNodeBase
 {
   private TriGeometry:TriangleGeometry;
+  
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
