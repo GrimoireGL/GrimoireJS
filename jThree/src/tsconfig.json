@@ -57,6 +57,7 @@
         "./Delegates.ts",
         "./Exceptions.ts",
         "./Goml/GomlLoader.ts",
+        "./Goml/GomlNodeDictionary.ts",
         "./Goml/GomlTagBase.ts",
         "./Goml/GomlTreeNodeBase.ts",
         "./Goml/Nodes/GomlTreeCameraNode.ts",

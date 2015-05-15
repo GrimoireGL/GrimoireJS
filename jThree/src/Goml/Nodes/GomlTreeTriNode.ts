@@ -8,20 +8,27 @@ import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import BufferUsage = require("../../Wrapper/BufferUsageType");
 import ElementType = require("../../Wrapper/ElementType");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
+import Geometry = require("../../Core/Geometry");
+import TriangleGeometry = require("../../Core/Geometries/TriangleGeometry");
 class GomlTreeTriNode extends GomlTreeGeometryNodeBase
 {
+  private TriGeometry:TriangleGeometry;
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
   }
 
+  protected ConstructGeometry():Geometry
+  {
+    return this.TriGeometry=new TriangleGeometry(this.Name);
+  }
+
   beforeLoad()
   {
-    var context=JThreeContextProxy.getJThreeContext();
-    var buffer=context.ResourceManager.createBuffer("goml-test",BufferTargetType.ArrayBuffer,BufferUsage.StaticDraw,3,ElementType.Float);
-    var f:Vector3,s:Vector3,t:Vector3;
-    f=this.First;s=this.Second;t=this.Third;
-    buffer.update(new Float32Array([f.X,f.Y,f.Z,s.X,s.Y,s.Z,t.X,t.Y,t.Z]),9);
+    super.beforeLoad();
+    this.TriGeometry.First=this.First;
+    this.TriGeometry.Second=this.Second;
+    this.TriGeometry.Third=this.Third;
   }
 
   private first:Vector3;

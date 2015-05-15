@@ -9,6 +9,7 @@ import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import Triangle = require("../../Shapes/Triangle");
 import JThreeContext = require("../../Core/JThreeContext");
 import Scene = require("../../Core/Scene");
+import GomlTreeSceneObjectNodeBase = require("./GomlTreeSceneObjectNodeBase");
 
 class GomlTreeVpNode extends GomlTreeNodeBase {
 
@@ -31,17 +32,18 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
 
     private resolveScene():Scene
     {
-      if(!this.loader.cameraTags.has(this.Cam))//if there was no specified camera
+      var camTags=this.loader.nodeDictionary.getAliasMap<GomlTreeSceneObjectNodeBase>("jthree.camera");
+      if(!camTags.has(this.Cam))//if there was no specified camera
       {
-        if(this.loader.cameraTags.size==0)
+        if(camTags.size==0)
         {
           console.error("There is no scene.");
         }else
         {
-          return this.loader.cameraTags[0];
+          return camTags[0];
         }
       }
-      var targetCam=this.loader.cameraTags.get(this.Cam);
+      var targetCam=camTags.get(this.Cam);
       if(targetCam.ContainedSceneNode!=null)//if there was specified camera and there is Scene
       {
         return targetCam.ContainedSceneNode.targetScene;

@@ -2,7 +2,7 @@ import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import GomlLoader = require("../GomlLoader");
 import JThreeID = require("../../Base/JThreeID");
-
+import Geometry = require("../../Core/Geometry");
 class GomlTreeGeometryNode extends GomlTreeNodeBase
 {
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
@@ -30,6 +30,24 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
     this.lazy=typeof this.lazy === 'undefined'?this.element.getAttribute('lazy').toLowerCase()=='true':this.lazy;
     return this.lazy;
   }
-}
 
+  private targetGeometry:Geometry;
+
+  get TargetGeometry():Geometry
+  {
+    return this.targetGeometry;
+  }
+
+  protected ConstructGeometry():Geometry
+  {
+    return null;
+  }
+
+  beforeLoad():void
+  {
+    super.beforeLoad();
+    this.targetGeometry=this.ConstructGeometry();
+    this.loader.nodeDictionary.addObject("jthree.geometries",this.Name,this);
+  }
+}
 export=GomlTreeGeometryNode;

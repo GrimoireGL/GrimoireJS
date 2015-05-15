@@ -1,6 +1,5 @@
 import GomlTagBase = require("./GomlTagBase");
 import GomlTreeNodeBase = require("./GomlTreeNodeBase");
-
 import jThreeObject = require("../Base/JThreeObject");
 import GomlRootTag = require("./Tags/GomlRootTag");
 import GomlHeadTag = require("./Tags/GomlHeadTag");
@@ -15,6 +14,7 @@ import JQuery = require("jquery");
 import GomlSceneTag = require("./Tags/GomlSceneTag");
 import GomlCameraTag = require("./Tags/GomlCameraTag");
 import GomlTreeCameraNode = require("./Nodes/GomlTreeCameraNode");
+import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeContext = require("../Core/JThreeContext");
 
 class GomlLoader extends jThreeObject {
@@ -48,13 +48,13 @@ class GomlLoader extends jThreeObject {
 
     bodyTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
 
-    cameraTags:Map<string,GomlTreeCameraNode>=new Map<string,GomlTreeCameraNode>();
+    nodeDictionary:GomlNodeDictionary=new GomlNodeDictionary();
 
     rootObj: JQuery;
 
-    headTags: GomlTreeNodeBase[] = [];
+    headRootNodes: GomlTreeNodeBase[] = [];
 
-    bodyTags: GomlTreeNodeBase[] = [];
+    bodyRootNodes: GomlTreeNodeBase[] = [];
 
     initForPage(): void {
         this.constructTagDictionary();
@@ -116,10 +116,10 @@ class GomlLoader extends jThreeObject {
         var headChild = catched.find("jhead").children();
         var bodyChild = catched.find("jbody").children();
         this.parseHead(null,headChild, (e) => {
-            this.headTags.push(e);
+            this.headRootNodes.push(e);
         });
         this.parseBody(null,bodyChild, (e) => {
-            this.bodyTags.push(e);
+            this.bodyRootNodes.push(e);
         });
         this.eachNode(v=>v.beforeLoad());
         this.eachNode(v=>v.Load());
