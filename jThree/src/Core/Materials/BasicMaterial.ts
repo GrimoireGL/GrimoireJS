@@ -31,19 +31,10 @@ class BasicMaterial extends Material
          var programWrapper = this.program.getForRenderer(renderer.ContextManager);
          this.time+=0.01;
          programWrapper.useProgram();
-          var vpMat: Matrix=Matrix.lookAt(new Vector3(0, 0, 1), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-         // var rotMat:Matrix=Matrix.rotateY(this.time);
+          var vpMat: Matrix=Matrix.lookAt(new Vector3(Math.sin(this.time)*5, 0,Math.cos(this.time)*5), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
           var projMat:Matrix=Matrix.perspective(Math.PI/4,1,0.1,10);
-         //projMat=Matrix.transpose(projMat);
-         // vpMat=Matrix.multiply(vpMat,rotMat);
-           vpMat=Matrix.multiply(projMat,vpMat);
-          var vecs:Vector3[]=[new Vector3(-1,0,1),new Vector3(0,1,1),new Vector3(1,0,1)];
-          // if(this.test%10==0)
-          // for (var i = 0; i < vecs.length; i++) {
-          //   var element = vecs[i];
-          //   console.log("source:{0} -> dest:{1}".format(element,Matrix.transformPoint(vpMat,element)));
-          // }        //  vpMat=Matrix.multiply(rotMat,vpMat);
-          //vpMat=vpMat.multiplyWith(Matrix.rotateX(this.time));
+          vpMat=Matrix.multiply(projMat,vpMat);
+         // var rotMat:Matrix=Matrix.rotateY(this.time);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP", vpMat);

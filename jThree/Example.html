@@ -14,7 +14,7 @@
         varying vec3 v_normal;
 
         void main(void){
-        gl_Position = vec4((matMVP*vec4(position,1.0)).xyz,1);
+        gl_Position = matMVP*vec4(position,1.0);
         v_normal=(matMVP*vec4(normal,0)).xyz;
         }
 
@@ -24,7 +24,7 @@
         varying vec3 v_normal;
         void main(void){
         float brightness=max(0.0,dot(v_normal,normalize(vec3(-0.5,-0.5,-0.5))));
-        gl_FragColor = vec4(1.0, 0, 0, 1.0)*brightness;
+        gl_FragColor = vec4(1.0, 0, 0, 1.0);
         }
     </script>
 </head>

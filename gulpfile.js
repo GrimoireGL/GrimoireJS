@@ -76,7 +76,8 @@ gulp.task('gen-doc-travis',function(){
     name:'jThree',
     target:'es5',
     includeDeclarations:true,
-    json:'./ci/docs/'+branch+'/doc.json'
+    json:'./ci/docs/'+branch+'/doc.json',
+    mode:''
   }));
 });
 

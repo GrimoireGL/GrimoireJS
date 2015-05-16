@@ -5,11 +5,16 @@ import JThreeID = require("../../Base/JThreeID");
 import GomlTreeSceneObjectNodeBase = require("./GomlTreeSceneObjectNodeBase");
 import GomlTreeSceneNode = require("./GomlTreeSceneNode");
 import Camera = require("../../Core/Camera/Camera");
-import ViewCamera = require("../../Core/Camera/ViewCamera");
+import ViewCamera = require("../../Core/Camera/ViewCameraBase");
 import SceneObject = require("../../Core/SceneObject");
 class GomlTreeCameraNode extends GomlTreeSceneObjectNodeBase
 {
   private targetCamera:Camera;
+
+  public get TargetCamera():Camera
+  {
+    return this.targetCamera;
+  }
 
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:GomlTreeSceneObjectNodeBase)
   {

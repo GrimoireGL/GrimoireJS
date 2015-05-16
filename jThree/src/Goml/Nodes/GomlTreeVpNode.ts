@@ -10,7 +10,7 @@ import Triangle = require("../../Shapes/Triangle");
 import JThreeContext = require("../../Core/JThreeContext");
 import Scene = require("../../Core/Scene");
 import GomlTreeSceneObjectNodeBase = require("./GomlTreeSceneObjectNodeBase");
-
+import GomlTreeCameraNode = require("./GomlTreeCameraNode");
 class GomlTreeVpNode extends GomlTreeNodeBase {
 
   private parentRendererNode:GomlTreeRdrNode;
@@ -26,27 +26,31 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
       var rdr:GomlTreeRdrNode=this.parentRendererNode=<GomlTreeRdrNode>this.parent;
       this.targetRenderer=new ViewportRenderer(rdr.canvasManager,new Rectangle(this.Left,this.Top,this.Width,this.Height));
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
-      var scene:Scene=this.resolveScene();
+      var cameraNode=this.resolveCamera();
+      this.targetRenderer.Camera=cameraNode.TargetCamera;
+      var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
       scene.addRenderer(this.targetRenderer);
     }
 
-    private resolveScene():Scene
+    private resolveCamera():GomlTreeCameraNode
     {
       var camTags=this.loader.nodeDictionary.getAliasMap<GomlTreeSceneObjectNodeBase>("jthree.camera");
       if(!camTags.has(this.Cam))//if there was no specified camera
       {
+        console.error("can not find camera");
         if(camTags.size==0)
         {
           console.error("There is no scene.");
         }else
         {
-          return camTags[0];
+
         }
+        return null;
       }
-      var targetCam=camTags.get(this.Cam);
+      var targetCam=<GomlTreeCameraNode>camTags.get(this.Cam);
       if(targetCam.ContainedSceneNode!=null)//if there was specified camera and there is Scene
       {
-        return targetCam.ContainedSceneNode.targetScene;
+        return targetCam;
       }else
       {
         console.error("cant retrieve scene!");

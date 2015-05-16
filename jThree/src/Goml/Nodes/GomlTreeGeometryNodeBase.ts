@@ -3,6 +3,9 @@ import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import GomlLoader = require("../GomlLoader");
 import JThreeID = require("../../Base/JThreeID");
 import Geometry = require("../../Core/Geometry");
+/**
+* Base class for managing geometry node.
+*/
 class GomlTreeGeometryNode extends GomlTreeNodeBase
 {
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
@@ -33,11 +36,17 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
 
   private targetGeometry:Geometry;
 
+/**
+* The geometry this node managing.
+*/
   get TargetGeometry():Geometry
   {
     return this.targetGeometry;
   }
-
+  /**
+  * Generate geometry instance for the geometry.
+  * You need to override this function to extend this class.
+  */
   protected ConstructGeometry():Geometry
   {
     return null;

@@ -27,7 +27,7 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     public static fromElements(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33): Matrix {
         return new Matrix(new Float32Array([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]));
     }
-    
+
     public static fromFunc(f:Delegates.Func2<number,number,number>)
     {
                return new Matrix(new Float32Array([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]));
@@ -66,6 +66,10 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
         return new Vector4(this.elements[col * 4], this.elements[col * 4 + 1], this.elements[col * 4 + 2], this.elements[col * 4 + 3]);
     }
 
+/**
+* Get row
+* @params row [0-3]
+*/
     getRow(row: number):Vector4 {
         return new Vector4(this.elements[row], this.elements[row + 4], this.elements[row + 8], this.elements[row + 12]);
     }
@@ -113,17 +117,9 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     }
 
     static transformPoint(m: Matrix, v: Vector3): Vector3 {
-        var result: Float32Array = new Float32Array(3);
-        for (var i = 0; i < 3; i++) {
-            result[i] = 0;
-            Collection.foreachPair(m.getRow(i), v, (r, v, index) => {
-                result[i] += r * v;
-            });
-        }
-        for (var i = 0; i < 3; i++) {
-            result[i] += m.getAt(i, 3);
-        }
-        return v.getFactory().fromArray(result);
+        var vt=Matrix.transform(m,new Vector4(v.X,v.Y,v.Z,1));
+        console.log(vt.toString());
+        return (new Vector3(vt.X,vt.Y,vt.Z)).multiplyWith(1/vt.W);
     }
 
     static transformNormal(m: Matrix, v: Vector3): Vector3 {
@@ -270,13 +266,13 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
 		var c = - ( far + near ) / ( far - near );
 		var d = - 2 * far * near / ( far - near );
 
-		return new Matrix(new Float32Array([
+		return Matrix.fromElements(
             x,0,a,0,
             0,y,b,0,
             0,0,c,d,
-            0,0,-1,0]));
+            0,0,-1,0);
     }
-    
+
     static ortho(left:number,right:number,bottom:number,top:number,near:number,far:number):Matrix
     {
         var tx=-(right+left)/(right-left);
@@ -298,15 +294,14 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
       return Matrix.frustum(xmin, xmax, ymin, ymax, near, far);
     }
 
-    static lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix {
-        var zAxis: Vector3 = eye.subtractWith(target).normalizeThis();
-        var xAxis: Vector3 = up.crossWith(zAxis).normalizeThis();
-        var yAxis: Vector3 = zAxis.crossWith(xAxis);
-
-        return new Matrix(new Float32Array([xAxis.X, yAxis.X, zAxis.X, 0,
-            xAxis.Y, yAxis.Y, zAxis.Y, 0,
-            xAxis.Z, yAxis.Z, zAxis.Z, 0,
-            -xAxis.dotWith(eye), -yAxis.dotWith(eye), -zAxis.dotWith(eye), 1]));
+    static lookAt(eye: Vector3, lookAt: Vector3, up: Vector3): Matrix {
+        var zAxis: Vector3 = Vector3.normalize(Vector3.subtract(eye,lookAt));
+        var xAxis: Vector3 = Vector3.normalize(Vector3.cross(up,zAxis));
+        var yAxis: Vector3 = Vector3.cross(zAxis,xAxis);
+        return Matrix.fromElements(xAxis.X,xAxis.Y,xAxis.Z,-Vector3.dot(eye,xAxis),
+                                    yAxis.X,yAxis.Y,yAxis.Z,-Vector3.dot(eye,yAxis),
+                                    zAxis.X,zAxis.Y,zAxis.Z,-Vector3.dot(eye,zAxis),
+                                  0,0,0,1);
     }
 
     multiplyWith(m: Matrix): Matrix {
@@ -316,7 +311,10 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
 
 
     toString(): string {
-        return "|{0} {1} {2} {3}|\n|{4} {5} {6} {7}|\n|{8} {9} {10} {11}|\n|{12} {13} {14} {15}|".format(this.getBySingleIndex(0), this.getBySingleIndex(1), this.getBySingleIndex(2), this.getBySingleIndex(3), this.getBySingleIndex(4), this.getBySingleIndex(5), this.getBySingleIndex(6), this.getBySingleIndex(7), this.getBySingleIndex(8), this.getBySingleIndex(9), this.getBySingleIndex(10), this.getBySingleIndex(11), this.getBySingleIndex(12), this.getBySingleIndex(13), this.getBySingleIndex(14), this.getBySingleIndex(15));
+        return ("|{0} {4} {8} {12}|\n"+
+                "|{1} {5} {9} {13}|\n"+
+                "|{2} {6} {10} {14}|\n"+
+                "|{3} {7} {11} {15}|").format(this.getBySingleIndex(0), this.getBySingleIndex(1), this.getBySingleIndex(2), this.getBySingleIndex(3), this.getBySingleIndex(4), this.getBySingleIndex(5), this.getBySingleIndex(6), this.getBySingleIndex(7), this.getBySingleIndex(8), this.getBySingleIndex(9), this.getBySingleIndex(10), this.getBySingleIndex(11), this.getBySingleIndex(12), this.getBySingleIndex(13), this.getBySingleIndex(14), this.getBySingleIndex(15));
     }
 
     getEnumrator(): IEnumrator<number> {

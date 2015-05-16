@@ -4,7 +4,7 @@ import Exceptions = require("../Exceptions");
 import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 
 import jThreeObject = require("../Base/JThreeObject");
-
+import Camera = require("./Camera/Camera");
 class RendererBase extends jThreeObject
 {
 
@@ -33,6 +33,11 @@ class RendererBase extends jThreeObject
 
     get Context(): GLContextWrapperBase {
         return this.contextManager.Context;
+    }
+
+    public get Camera():Camera
+    {
+      return null;
     }
 }
 
