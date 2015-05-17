@@ -1,16 +1,15 @@
 import GomlNodeListElement = require("./GomlNodeListElement");
-import GomlTagLoader = require("./GomlTagBase");
 
 declare function require(string):any ;
 
 var gomlList=[
-  new GomlNodeListElement('default',GomlTagLoader,{
+  new GomlNodeListElement('default',require("./Factories/TagFactory"),{
     "TRI":require('./Nodes/GomlTreeTriNode'),
     "RDR":require('./Nodes/GomlTreeRdrNode'),
     "VP":require('./Nodes/GomlTreeVpNode'),
     "SCENE":require('./Nodes/GomlTreeSceneNode')
   }),
-  new GomlNodeListElement('scene',require('./Tags/GomlSceneObjectTagBase'),
+  new GomlNodeListElement('scene',require('./Factories/SceneObjectTagFactory'),
   {
     "CAMERA":require('./Nodes/GomlTreeCameraNode'),
     "MESH":require('./Nodes/GomlTreeMeshNode')

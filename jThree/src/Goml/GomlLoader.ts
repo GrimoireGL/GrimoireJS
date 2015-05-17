@@ -1,18 +1,9 @@
-import GomlTagBase = require("./GomlTagBase");
+import TagFactory = require("./Factories/TagFactory");
 import GomlTreeNodeBase = require("./GomlTreeNodeBase");
 import jThreeObject = require("../Base/JThreeObject");
-import GomlRootTag = require("./Tags/GomlRootTag");
-import GomlHeadTag = require("./Tags/GomlHeadTag");
-import GomlBodyTag = require("./Tags/GomlBodyTag");
-import GomlVpTag = require("./Tags/GomlVpTag");
-import GomlRdrTag = require("./Tags/GomlRdrTag");
-import GomlTriTag = require("./Tags/GomlTriTag");
-import GomlMeshTag = require("./Tags/GomlMeshTag");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
 import JQuery = require("jquery");
-import GomlSceneTag = require("./Tags/GomlSceneTag");
-import GomlCameraTag = require("./Tags/GomlCameraTag");
 import GomlTreeCameraNode = require("./Nodes/GomlTreeCameraNode");
 import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeContext = require("../Core/JThreeContext");
@@ -21,7 +12,6 @@ import GomlNodeListElement = require("./GomlNodeListElement");
 declare function require(string):any;
 
 class GomlLoader extends jThreeObject {
-  test:GomlNodeListElement[]=require('./GomlNodeList');
   constructor()
   {
     super();
@@ -46,7 +36,7 @@ class GomlLoader extends jThreeObject {
       this.onloadHandler.forEach((v)=>{v(source)});
     }
 
-    gomlTags: Map<string, GomlTagBase> = new Map<string, GomlTagBase>();
+    gomlTags: Map<string, TagFactory> = new Map<string, TagFactory>();
 
     headTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
 
@@ -88,13 +78,15 @@ class GomlLoader extends jThreeObject {
        newList.forEach((v)=>{
          for(var key in v.NodeTypes)
          {
-           var nodeType=v.NodeTypes[key];
-           this.addGomlTag(new v.Factory(key,nodeType));
+           var keyInString:string=key;
+           keyInString=keyInString.toUpperCase();//transform into upper case
+           var nodeType=v.NodeTypes[keyInString];
+           this.addGomlTag(new v.Factory(keyInString,nodeType));
          }
        });
     }
 
-    private addGomlTag(tag: GomlTagBase): void {
+    private addGomlTag(tag: TagFactory): void {
         this.gomlTags.set(tag.TagName, tag);
     }
 

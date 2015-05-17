@@ -1,7 +1,16 @@
 import JThreeObject = require("../Base/JThreeObject");
 import Vector3 = require("./Vector3");
+/**
+* The class to maniplate quaternion.
+* Each element will be represented as (x;y,z,w)
+* (1,i,j,k) is base axis for quaternion. (i,j,k is pure imaginary number)
+* (x;y,z,w) means x*1+y*i+z*j+w*k
+*/
 class Quaternion extends JThreeObject
 {
+  /**
+  * Constructor by specifing each elements.
+  */
   constructor(x:number,y:number,z:number,w:number){
     super();
     this.x=x;
@@ -15,52 +24,83 @@ class Quaternion extends JThreeObject
   private z:number;
   private w:number;
 
+/**
+* Getter for X.
+*/
   get X():number
   {
     return this.x;
   }
 
+  /**
+  * Getter for Y.
+  */
   get Y():number
   {
     return this.y;
   }
 
+  /**
+  * Getter for Z.
+  */
   get Z():number
   {
     return this.z;
   }
 
+  /**
+  * Getter for W.
+  */
   get W():number
   {
     return this.w;
   }
 
+/**
+* Getter for imaginary part vector.
+* It returns the vector (y,z,w)
+*/
   get ImaginaryPart():Vector3
   {
     return new Vector3(this.y,this.z,this.w);
   }
 
+/**
+* Get the conjugate of this quaternion
+*/
   get Conjugate():Quaternion
   {
     return new Quaternion(this.x,-this.y,-this.z,-this.w);
   }
 
+/**
+* Get the length
+*/
   get Length():number
   {
     return Math.sqrt(this.x*this.x+this.y*this.y+this.z*this.z+this.w*this.w);
   }
 
+/**
+* Get normalized quaternion
+*/
   Normalize():Quaternion
   {
     var length=this.Length;
     return new Quaternion(this.x/length,this.y/length,this.z/length,this.w/length);
   }
 
+/**
+* Calculate add result of two quaternion
+*/
   public static Add(q1:Quaternion,q2:Quaternion):Quaternion
   {
     return new Quaternion(q1.X+q2.X,q1.Y+q2.Y,q1.Z+q2.Z,q1.W+q2.W);
   }
 
+/**
+* Calculate Multiply result of two quaternion
+*/
   public static Multiply(q1:Quaternion,q2:Quaternion):Quaternion
   {
     var r1=q1.X,v1=q1.ImaginaryPart;
@@ -69,6 +109,9 @@ class Quaternion extends JThreeObject
     return new Quaternion(r1*r2-v1.dotWith(v2),im.X,im.Y,im.Z);
   }
 
+/**
+* Calculate the rotation quaternion represented as pair of angle and axis.
+*/
   public static AngleAxis(angle:number,axis:Vector3):Quaternion
   {
     axis=axis.normalizeThis();
