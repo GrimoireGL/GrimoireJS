@@ -2,7 +2,7 @@ import GLContextWrapperBase = require("./GLContextWrapperBase");
 import BufferTargetType = require("./BufferTargetType");
 import ShaderType = require("./ShaderType");
 import ClearTargetType = require("./ClearTargetType");
-import DrawType = require("./DrawType");
+import PrimitiveTopology = require("./PrimitiveTopology");
 import ElementType = require("./ElementType");
 import Matrix = require("../Math/Matrix");
 class WebGLContextWrapper extends GLContextWrapperBase
@@ -130,7 +130,7 @@ class WebGLContextWrapper extends GLContextWrapperBase
         this.gl.vertexAttribPointer(attribLocation, sizePerVertex, elemType, normalized, stride, offset);
     }
 
-    DrawArrays(drawType:DrawType,offset:number,length:number): void {
+    DrawArrays(drawType:PrimitiveTopology,offset:number,length:number): void {
         this.CheckErrorAsFatal();
         this.gl.drawArrays(drawType, offset, length);
     }
@@ -164,6 +164,11 @@ class WebGLContextWrapper extends GLContextWrapperBase
     ViewPort(x:number,y:number,width:number,height:number): void {
         this.CheckErrorAsFatal();
         this.gl.viewport(x, y, width, height);
+    }
+
+    DrawElements(topology:PrimitiveTopology,length:number,dataType:ElementType,offset:number):void{
+      this.CheckErrorAsFatal();
+      this.gl.drawElements(topology,length,dataType,offset);
     }
 }
 export=WebGLContextWrapper;

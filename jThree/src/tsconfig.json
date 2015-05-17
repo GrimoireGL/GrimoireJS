@@ -106,9 +106,9 @@
         "./Wrapper/BufferTargetType.ts",
         "./Wrapper/BufferUsageType.ts",
         "./Wrapper/ClearTargetType.ts",
-        "./Wrapper/DrawType.ts",
         "./Wrapper/ElementType.ts",
         "./Wrapper/GLContextWrapperBase.ts",
+        "./Wrapper/PrimitiveTopology.ts",
         "./Wrapper/ShaderType.ts",
         "./Wrapper/WebGLContextWrapper.ts",
         "./jThree.ts"

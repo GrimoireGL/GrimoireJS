@@ -2,7 +2,7 @@ import Exceptions = require("Exceptions");
 import BufferTargetType = require("./BufferTargetType");
 import ShaderType = require("./ShaderType");
 import ClearTargetType = require("./ClearTargetType");
-import DrawType = require("./DrawType");
+import PrimitiveTopology = require("./PrimitiveTopology");
 import ElementType = require("./ElementType");
 import Matrix = require("../Math/Matrix");
 import JThreeObject = require("../Base/JThreeObject");
@@ -168,7 +168,7 @@ class GLContextWrapperBase extends JThreeObject
        * @param offset vertex array offset
        * @param length count of the vertex you want to draw.
        */
-      DrawArrays(drawType: DrawType, offset: number, length: number): void
+      DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void
       {
           throw new Exceptions.AbstractClassMethodCalledException();
       }
@@ -225,6 +225,10 @@ class GLContextWrapperBase extends JThreeObject
        */
       ViewPort(x: number, y: number, width: number, height: number): void {
           throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      DrawElements(topology:PrimitiveTopology,length:number,dataType:ElementType,offset:number):void{
+        throw new Exceptions.AbstractClassMethodCalledException();
       }
   }
 

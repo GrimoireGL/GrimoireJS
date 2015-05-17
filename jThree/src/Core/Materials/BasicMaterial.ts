@@ -8,7 +8,7 @@ import RendererBase = require("../RendererBase");
 import Geometry = require("../Geometry");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
-import DrawType = require("../../Wrapper/DrawType");
+import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 class BasicMaterial extends Material
   {
 
@@ -35,7 +35,7 @@ class BasicMaterial extends Material
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP", Matrix.multiply(renderer.Camera.ProjectionMatrix,renderer.Camera.ViewMatrix));
-          renderer.Context.DrawArrays(DrawType.Triangles, 0, 3);
+          renderer.Context.DrawArrays(PrimitiveTopology.Triangles, 0, geometry.PositionBuffer.UnitCount);
      }
   }
 
