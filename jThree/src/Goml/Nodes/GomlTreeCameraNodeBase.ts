@@ -9,56 +9,54 @@ import ViewCamera = require("../../Core/Camera/ViewCameraBase");
 import PerspectiveCamera = require("../../Core/Camera/PerspectiveCamera");
 import SceneObject = require("../../Core/SceneObject");
 import AttributeParser = require("../AttributeParser");
-import GomlTreeCameraNodeBase = require("./GomlTreeCameraNodeBase");
-class GomlTreeCameraNode extends GomlTreeCameraNodeBase
+import Vector3 = require("../../Math/Vector3");
+class GomlTreeCameraNodeBase extends GomlTreeSceneObjectNodeBase
 {
+  private targetCamera:Camera;
+
+  public get TargetCamera():Camera
+  {
+    return this.targetCamera;
+  }
 
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:GomlTreeSceneObjectNodeBase)
   {
       super(elem,loader,parent,parentSceneNode,parentObject);
+      loader.nodeDictionary.addObject("jthree.camera",this.Name,this);
   }
 
   protected ConstructCamera():Camera
   {
-    var camera=new PerspectiveCamera();
-    camera.Fovy=this.Fovy;
-    camera.Aspect=this.Aspect;
-    camera.Near=this.Near;
-    camera.Far=this.Far;
-    return camera;
+    return null;
   }
 
-  private fovy:number;
-
-  get Fovy():number
+  protected ConstructTarget():SceneObject
   {
-    this.fovy=this.fovy||AttributeParser.ParseAngle(this.element.getAttribute('fovy')||'60d');
-    return this.fovy;
+    this.targetCamera=this.ConstructCamera();
+    return this.targetCamera;
   }
 
-  private aspect:number;
-
-  get Aspect():number
+  beforeLoad()
   {
-    this.aspect=this.aspect||parseFloat(this.element.getAttribute('aspect'));
-    return this.aspect;
+    super.beforeLoad();
   }
 
-  private near:number;
-
-  get Near():number
+  Load()
   {
-    this.near=this.near||parseFloat(this.element.getAttribute('near'));
-    return this.near;
+    super.Load();
+    this.ContainedSceneNode.targetScene.addCamera(this.targetCamera);
+
   }
 
-  private far:number;
-
-  get Far():number
-  {
-    this.far=this.far||parseFloat(this.element.getAttribute('far'));
-    return this.far;
+  private name:string;
+  /**
+  * GOML Attribute
+  * Identical Name for camera
+  */
+  get Name():string{
+    this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
+    return this.name;
   }
 }
 
-export=GomlTreeCameraNode;
+export=GomlTreeCameraNodeBase;

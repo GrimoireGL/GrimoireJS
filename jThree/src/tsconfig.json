@@ -64,6 +64,7 @@
         "./Goml/GomlTagBase.ts",
         "./Goml/GomlTreeNodeBase.ts",
         "./Goml/Nodes/GomlTreeCameraNode.ts",
+        "./Goml/Nodes/GomlTreeCameraNodeBase.ts",
         "./Goml/Nodes/GomlTreeGeometryNodeBase.ts",
         "./Goml/Nodes/GomlTreeMeshNode.ts",
         "./Goml/Nodes/GomlTreeRdrNode.ts",
