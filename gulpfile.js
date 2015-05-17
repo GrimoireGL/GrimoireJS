@@ -65,7 +65,8 @@ gulp.task('gen-doc',function(){
     name:'jThree',
     target:'es5',
     includeDeclarations:true,
-    json:'./jThree/docs/doc.json'
+    json:'./jThree/docs/doc.json',
+    mode:'modules'
   }));
 });
 //Document generation executed by travis
@@ -77,7 +78,7 @@ gulp.task('gen-doc-travis',function(){
     target:'es5',
     includeDeclarations:true,
     json:'./ci/docs/'+branch+'/doc.json',
-    mode:'module'
+    mode:'modules'
   }));
 });
 
