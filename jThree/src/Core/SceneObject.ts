@@ -93,12 +93,17 @@ class SceneObject extends JThreeObjectWithId
 
     protected geometry:Geometry;
 
+    public get Geometry():Geometry
+    {
+      return this.geometry;
+    }
+
     update() {
 
     }
 
     render(rendererBase:RendererBase,currentMaterial:Material) {
-        currentMaterial.configureMaterial(rendererBase, this.geometry);
+        currentMaterial.configureMaterial(rendererBase, this);
     }
 }
 

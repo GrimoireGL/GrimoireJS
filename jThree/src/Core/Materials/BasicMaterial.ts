@@ -6,9 +6,11 @@ import Shader = require("../Resources/Shader/Shader");
 import ShaderType = require("../../Wrapper/ShaderType");
 import RendererBase = require("../RendererBase");
 import Geometry = require("../Geometry");
+import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
+import Quaternion = require("../../Math/Quaternion");
 class BasicMaterial extends Material
   {
 
@@ -26,8 +28,9 @@ class BasicMaterial extends Material
       }
       time=0;
      test=0;
-     configureMaterial(renderer: RendererBase, geometry: Geometry): void {
+     configureMaterial(renderer: RendererBase, object:SceneObject): void {
           this.test++;
+          var geometry=object.Geometry;
          var programWrapper = this.program.getForRenderer(renderer.ContextManager);
          this.time+=0.01;
          programWrapper.useProgram();
@@ -35,7 +38,8 @@ class BasicMaterial extends Material
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP", Matrix.multiply(renderer.Camera.ProjectionMatrix,renderer.Camera.ViewMatrix));
-          renderer.Context.DrawArrays(PrimitiveTopology.Triangles, 0, geometry.PositionBuffer.UnitCount);
+          geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+          renderer.Context.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
      }
   }
 

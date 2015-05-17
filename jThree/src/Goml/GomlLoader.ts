@@ -16,8 +16,12 @@ import GomlCameraTag = require("./Tags/GomlCameraTag");
 import GomlTreeCameraNode = require("./Nodes/GomlTreeCameraNode");
 import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeContext = require("../Core/JThreeContext");
+import GomlNodeListElement = require("./GomlNodeListElement");
+
+declare function require(string):any;
 
 class GomlLoader extends jThreeObject {
+  test:GomlNodeListElement[]=require('./GomlNodeList');
   constructor()
   {
     super();
@@ -64,6 +68,7 @@ class GomlLoader extends jThreeObject {
         gomls.each((index: number, elem: Element) => {
             this.loadScriptTag($(elem));
         });
+        console.log(this.rootObj);
     }
 
     private attemptToLoadGomlInScriptAttr():void
@@ -79,15 +84,14 @@ class GomlLoader extends jThreeObject {
 */
     private constructTagDictionary(): void
      {
-        this.addGomlTag(new GomlRootTag());
-        this.addGomlTag(new GomlHeadTag());
-        this.addGomlTag(new GomlBodyTag());
-        this.addGomlTag(new GomlRdrTag());
-        this.addGomlTag(new GomlTriTag());
-        this.addGomlTag(new GomlVpTag());
-        this.addGomlTag(new GomlSceneTag())
-        this.addGomlTag(new GomlCameraTag());
-        this.addGomlTag(new GomlMeshTag());
+       var newList:GomlNodeListElement[]=require('./GomlNodeList');
+       newList.forEach((v)=>{
+         for(var key in v.NodeTypes)
+         {
+           var nodeType=v.NodeTypes[key];
+           this.addGomlTag(new v.Factory(key,nodeType));
+         }
+       });
     }
 
     private addGomlTag(tag: GomlTagBase): void {
@@ -112,6 +116,7 @@ class GomlLoader extends jThreeObject {
         source = source.replace(/(head|body)>/g, "j$1>");//TODO Can be bug
         console.log("Script Recieved:\n" + source);
         var catched = $(source);
+        console.log(catched);
         if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
         var headChild = catched.find("jhead").children();
         var bodyChild = catched.find("jbody").children();

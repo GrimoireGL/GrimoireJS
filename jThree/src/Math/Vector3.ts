@@ -119,7 +119,7 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
     }
 
     subtractWith(v: Vector3): Vector3 {
-        return Vector3.subtract(v, this);
+        return Vector3.subtract(this,v);
     }
 
     multiplyWith(s: number): Vector3 {

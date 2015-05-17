@@ -9,6 +9,7 @@ import MatrixFactory = require("./MatrixFactory");
 import IEnumrator = require("../Base/Collections/IEnumrator");
 import MatrixEnumerator = require("./MatrixEnumerator");
 import Delegates=require('../Delegates');
+import Quaternion = require("./Quaternion");
 class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     public static zero(): Matrix {
         return Matrix.fromElements(0, 0, 0, 0,
@@ -253,6 +254,18 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
         Math.cos(angle),-Math.sin(angle),0,0,
         Math.sin(angle),Math.cos(angle),0,0,
         0,0,1,0,
+        0,0,0,1
+      );
+    }
+
+    static RotationQuaternion(quat:Quaternion):Matrix
+    {
+      var q=quat.Normalize();
+      var x=q.X,y=q.Y,z=q.Z,w=q.W;
+      return Matrix.fromElements(
+        1-2*y*y-2*z*z,2*x*y-2*w*z,2*x*z+2*w*y,0,
+        2*x*y+2*w*z,1-2*x*x-2*z*z,2*y*z+2*w*x,0,
+        2*x*z-2*w*y,2*y*z-2*w*x,1-2*x*x-2*y*y,0,
         0,0,0,1
       );
     }

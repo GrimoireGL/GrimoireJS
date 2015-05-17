@@ -98,6 +98,7 @@ gulp.task('webpack',['make-modules'],function(){
         'j3':'Core/JThreeContext.js',
         'jquery':'jquery.js'
       },
+      extensions:["",".js"],
       root:'./jThree/bin/js'
     }
     ,

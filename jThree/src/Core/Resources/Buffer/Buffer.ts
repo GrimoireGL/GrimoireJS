@@ -108,6 +108,10 @@ class Buffer extends BufferProxy
     private elementCache:Float32Array;
     private length:number;
 
+    get Length():number{
+      return this.length;
+    }
+
     update(array: Float32Array, length: number): void
     {
       this.elementCache=array;

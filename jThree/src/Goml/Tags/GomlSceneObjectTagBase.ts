@@ -33,10 +33,9 @@ class GomlSceneObjectTagBase extends GomlTagBase
 
   CreateSceneObjectNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,containedSceneNode:GomlTreeSceneNode,parentSceneObjectNode:GomlTreeSceneObjectNodeBase):GomlTreeSceneObjectNodeBase
   {
-    throw new Exceptions.AbstractClassMethodCalledException();
+    return new this.nodeType(elem,loader,parent,containedSceneNode,parentSceneObjectNode);
   }
 
-  get TagName(): string { return ""; }
 }
 
 export=GomlSceneObjectTagBase;

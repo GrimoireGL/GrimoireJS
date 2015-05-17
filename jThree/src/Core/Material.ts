@@ -1,6 +1,6 @@
 import JThreeObjectWithId = require("../Base/JThreeObjectWithID");
 import RendererBase = require("./RendererBase");
-import Geometry = require("./Geometry");
+import SceneObject = require("./SceneObject");
 class Material extends JThreeObjectWithId
 {
 
@@ -15,7 +15,7 @@ class Material extends JThreeObjectWithId
         return this.priorty;
     }
 
-    configureMaterial(renderer:RendererBase,geometry:Geometry): void {
+    configureMaterial(renderer:RendererBase,geometry:SceneObject): void {
         return;
     }
 }

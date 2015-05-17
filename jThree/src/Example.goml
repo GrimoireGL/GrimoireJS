@@ -1,19 +1,24 @@
 ﻿<goml>
 	<head>
-		<tri name="Tri1" first="(-1,0,0)" second="(0,1,0)" third="(1,0,0)"></tri>
+		<tri name="Tri2"  first="(-1,0,0)" second="(0,1,0)" third="(1,0,0)"/>
+		<tri name="Tri1" first="(-1,0,10)" second="(0,-1,10)" third="(1,0,10)"></tri>
 	</head>
 	<body>
 		<rdr frame=".canvasContainer" width="300" height="200" clearColor="rgb(100,100,0)">
 			<vp left="0" top="0" width="300" height="200" cam="CAM1"/>
 		</rdr>
+		<rdr frame=".canvasContainer2" width="200" height="100" clearColor="#FFCCFF">
+			<vp left="0" top="0" width="100" height="100" cam="CAM1"/>
+			<vp left="100" top="0" width="100" height="100" cam="CAM2"/>
+		</rdr>
 		<scene class="hello">
-		   <camera name="CAM1" fovy="89.9999d" aspect="1" near="0.1" far="10">
+		   <camera name="CAM1" fovy="45d" aspect="1" near="0.1" far="20">
 				</camera>
 				<mesh geo="Tri1"/>
 		</scene>
-		<scene class="hello">
-			<camera name="cam"/>
-			<mesh geo="Tri1"/>
+		<scene>
+			<camera name="CAM2" fovy="1/4p" aspect="1" near="0.1" far="20"/>
+			<mesh geo="Tri2"/>
 		</scene>
 	</body>
 </goml>

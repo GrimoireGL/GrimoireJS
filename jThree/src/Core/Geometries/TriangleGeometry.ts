@@ -13,7 +13,7 @@ class TriangleGeometry extends Geometry {
         super();
         var j3=JThreeContextProxy.getJThreeContext();
         this.primitiveTopology=PrimitiveTopology.Triangles;
-        this.indexBuffer=j3.ResourceManager.createBuffer(name+"index",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
+        this.indexBuffer=j3.ResourceManager.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
         this.positionBuffer=j3.ResourceManager.createBuffer(name+"-pos",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer=j3.ResourceManager.createBuffer(name+"-nor",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer=j3.ResourceManager.createBuffer(name+"-uv",BufferTargetType.ArrayBuffer,BufferUsageType.StaticDraw,2,ElementType.Float);
