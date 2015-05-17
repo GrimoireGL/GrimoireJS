@@ -31,13 +31,10 @@ class BasicMaterial extends Material
          var programWrapper = this.program.getForRenderer(renderer.ContextManager);
          this.time+=0.01;
          programWrapper.useProgram();
-          var vpMat: Matrix=Matrix.lookAt(new Vector3(Math.sin(this.time)*5, 0,Math.cos(this.time)*5), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-          var projMat:Matrix=Matrix.perspective(Math.PI/4,1,0.1,10);
-          vpMat=Matrix.multiply(projMat,vpMat);
          // var rotMat:Matrix=Matrix.rotateY(this.time);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-          programWrapper.setUniformMatrix("matMVP", vpMat);
+          programWrapper.setUniformMatrix("matMVP", Matrix.multiply(renderer.Camera.ProjectionMatrix,renderer.Camera.ViewMatrix));
           renderer.Context.DrawArrays(DrawType.Triangles, 0, 3);
      }
   }

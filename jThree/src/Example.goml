@@ -7,8 +7,7 @@
 			<vp left="0" top="0" width="300" height="200" cam="CAM1"/>
 		</rdr>
 		<scene class="hello">
-		   <camera name="CAM1">
-
+		   <camera name="CAM1" fovy="89.9999d" aspect="1" near="0.1" far="10">
 				</camera>
 				<mesh geo="Tri1"/>
 		</scene>

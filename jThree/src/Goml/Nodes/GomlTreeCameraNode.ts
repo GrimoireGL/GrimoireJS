@@ -6,10 +6,12 @@ import GomlTreeSceneObjectNodeBase = require("./GomlTreeSceneObjectNodeBase");
 import GomlTreeSceneNode = require("./GomlTreeSceneNode");
 import Camera = require("../../Core/Camera/Camera");
 import ViewCamera = require("../../Core/Camera/ViewCameraBase");
+import PerspectiveCamera = require("../../Core/Camera/PerspectiveCamera");
 import SceneObject = require("../../Core/SceneObject");
+import AttributeParser = require("../AttributeParser");
 class GomlTreeCameraNode extends GomlTreeSceneObjectNodeBase
 {
-  private targetCamera:Camera;
+  private targetCamera:PerspectiveCamera;
 
   public get TargetCamera():Camera
   {
@@ -24,7 +26,11 @@ class GomlTreeCameraNode extends GomlTreeSceneObjectNodeBase
 
   protected ConstructTarget():SceneObject
   {
-    this.targetCamera=new ViewCamera();
+    this.targetCamera=new PerspectiveCamera();
+    this.targetCamera.Fovy=this.Fovy;
+    this.targetCamera.Aspect=this.Aspect;
+    this.targetCamera.Near=this.Near;
+    this.targetCamera.Far=this.Far;
     return this.targetCamera;
   }
 
@@ -50,6 +56,37 @@ class GomlTreeCameraNode extends GomlTreeSceneObjectNodeBase
     return this.name;
   }
 
+  private fovy:number;
+
+  get Fovy():number
+  {
+    this.fovy=this.fovy||AttributeParser.ParseAngle(this.element.getAttribute('fovy')||'60d');
+    return this.fovy;
+  }
+
+  private aspect:number;
+
+  get Aspect():number
+  {
+    this.aspect=this.aspect||parseFloat(this.element.getAttribute('aspect'));
+    return this.aspect;
+  }
+
+  private near:number;
+
+  get Near():number
+  {
+    this.near=this.near||parseFloat(this.element.getAttribute('near'));
+    return this.near;
+  }
+
+  private far:number;
+
+  get Far():number
+  {
+    this.far=this.far||parseFloat(this.element.getAttribute('far'));
+    return this.far;
+  }
 }
 
 export=GomlTreeCameraNode;
