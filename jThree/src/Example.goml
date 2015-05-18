@@ -8,8 +8,9 @@
 			<vp left="300" top="0" width="200" height="200" cam="CAM1"/>
 		</rdr>
 		<scene>
-			<camera name="CAM1" fovy="1/4p" aspect="1" near="0.1" far="20"/>
-			<mesh class="tri" geo="Tri2"/>
+			<camera name="CAM1" fovy="1/4p" aspect="1" near="0.1" far="20">
+				<mesh class="tri" geo="Tri2"/>
+			</camera>
 		</scene>
 	</body>
 </goml>

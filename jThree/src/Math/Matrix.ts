@@ -109,6 +109,11 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
         });
     }
 
+    static TRS(t:Vector3,rot:Quaternion,s:Vector3):Matrix
+    {
+      return Matrix.multiply(Matrix.multiply(Matrix.scale(s),Matrix.RotationQuaternion(rot)),Matrix.translate(t));
+    }
+
     static negate(m: Matrix): Matrix {
         return this.elementNegate(m, m.getFactory());
     }

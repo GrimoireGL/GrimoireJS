@@ -6,12 +6,19 @@ import Geometry = require("./Geometry");
 import Scene=require('./Scene');
 import RendererBase = require("./RendererBase");
 import JThreeCollection = require("../Base/JThreeCollection");
+import Transformer = require("./Transform/Transformer");
 /**
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
  */
 class SceneObject extends JThreeObjectWithId
 {
+
+  constructor()
+  {
+    super();
+    this.transformer=new Transformer(this);
+  }
     private materialChanagedHandler:Delegates.Action2<Material,SceneObject>[]=[];
 
     private materials:JThreeCollection<Material>=new JThreeCollection<Material>();
@@ -21,15 +28,29 @@ class SceneObject extends JThreeObjectWithId
      */
     private children:JThreeCollection<SceneObject>=new JThreeCollection<SceneObject>();
 
+/**
+* Getter for children
+*/
+    public get Children():JThreeCollection<SceneObject>{
+      return this.children;
+    }
+
     public addChild(obj:SceneObject):void
     {
       this.children.insert(obj);
+      obj.parent=this;
+      obj.Transformer.updateTransform();
     }
 
     /**
      * Parent of this SceneObject.
      */
     private parent:SceneObject;
+
+    public get Parent():SceneObject
+    {
+      return this.parent;
+    }
 
     /**
      * Contains the parent scene containing this SceneObject.
@@ -96,6 +117,13 @@ class SceneObject extends JThreeObjectWithId
     public get Geometry():Geometry
     {
       return this.geometry;
+    }
+
+    protected transformer:Transformer;
+
+    public get Transformer():Transformer
+    {
+      return this.transformer;
     }
 
     update() {

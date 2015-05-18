@@ -6,7 +6,9 @@ import PrimitiveTopology = require("./PrimitiveTopology");
 import ElementType = require("./ElementType");
 import Matrix = require("../Math/Matrix");
 import JThreeObject = require("../Base/JThreeObject");
-
+import Vector2 = require("../Math/Vector2");
+import Vector3 = require("../Math/Vector3");
+import Vector4 = require("../Math/Vector4");
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -215,6 +217,36 @@ class GLContextWrapperBase extends JThreeObject
        */
       UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix:Matrix) {
           throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      /**
+      * Pass vector as uniform variable
+      * @param webGlUniformLocation uniform variable location
+      * @param vector vector you want to pass
+      */
+      UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector:Vector2)
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      /**
+      * Pass vector as uniform variable
+      * @param webGlUniformLocation uniform variable location
+      * @param vector vector you want to pass
+      */
+      UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector:Vector3)
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      /**
+      * Pass vector as uniform variable
+      * @param webGlUniformLocation uniform variable location
+      * @param vector vector you want to pass
+      */
+      UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector:Vector4)
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
       }
       /**
        * Set viewport configure

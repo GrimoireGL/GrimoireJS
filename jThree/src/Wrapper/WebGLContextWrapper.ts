@@ -5,6 +5,9 @@ import ClearTargetType = require("./ClearTargetType");
 import PrimitiveTopology = require("./PrimitiveTopology");
 import ElementType = require("./ElementType");
 import Matrix = require("../Math/Matrix");
+import Vector2 = require("../Math/Vector2");
+import Vector3 = require("../Math/Vector3");
+import Vector4 = require("../Math/Vector4");
 class WebGLContextWrapper extends GLContextWrapperBase
 {
     private gl: WebGLRenderingContext;
@@ -161,6 +164,39 @@ class WebGLContextWrapper extends GLContextWrapperBase
         this.gl.uniformMatrix4fv(webGlUniformLocation, false,matrix.rawElements);
     }
 
+    /**
+    * Pass vector as uniform variable
+    * @param webGlUniformLocation uniform variable location
+    * @param vector vector you want to pass
+    */
+    UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector:Vector2)
+    {
+      this.CheckErrorAsFatal();
+      this.gl.uniform2f(webGlUniformLocation,vector.X,vector.Y);
+    }
+
+    /**
+    * Pass vector as uniform variable
+    * @param webGlUniformLocation uniform variable location
+    * @param vector vector you want to pass
+    */
+    UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector:Vector3)
+    {
+      this.CheckErrorAsFatal();
+      this.gl.uniform3f(webGlUniformLocation,vector.X,vector.Y,vector.Z);
+    }
+
+    /**
+    * Pass vector as uniform variable
+    * @param webGlUniformLocation uniform variable location
+    * @param vector vector you want to pass
+    */
+    UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector:Vector4)
+    {
+      this.CheckErrorAsFatal();
+      this.gl.uniform4f(webGlUniformLocation,vector.X,vector.Y,vector.Z,vector.W);
+    }
+    
     ViewPort(x:number,y:number,width:number,height:number): void {
         this.CheckErrorAsFatal();
         this.gl.viewport(x, y, width, height);

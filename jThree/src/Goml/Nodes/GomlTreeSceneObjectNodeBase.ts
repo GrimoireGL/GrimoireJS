@@ -32,7 +32,10 @@ class GomlTreeSceneObjectNodeBase extends GomlTreeNodeBase
       if(this.parentSceneObjectNode==null)//this is root object of scene
         this.containedSceneNode.targetScene.addObject(this.targetSceneObject);
       else
+      {
         this.parentSceneObjectNode.targetSceneObject.addChild(this.targetSceneObject);
+        this.ContainedSceneNode.targetScene.addRenderQueue(this.targetSceneObject);
+      }
     }
   }
 

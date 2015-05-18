@@ -51,6 +51,11 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
         return new Vector3(0, 0, 1);
     }
 
+    public static get Zero():Vector3
+    {
+      return new Vector3(0,0,0);
+    }
+
     constructor(x: number, y: number, z: number) {
         super();
         this.x = x;

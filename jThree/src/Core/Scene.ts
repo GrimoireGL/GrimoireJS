@@ -68,6 +68,12 @@ class Scene extends jThreeObjectWithID {
         this.sortObjects();
     }
 
+    public addRenderQueue(targetObject:SceneObject):void
+    {
+      targetObject.eachMaterial((m) => { this.renderPairs.push(new MaterialObjectPair(m, targetObject)) });
+      this.sortObjects();
+    }
+
     private sortObjects(): void {
       //sort renderPairs by order of rendering
         this.renderPairs.sort((v1, v2) => { return v1.Material.Priorty - v2.Material.Priorty });

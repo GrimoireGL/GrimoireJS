@@ -8,6 +8,12 @@ import Vector3 = require("./Vector3");
 */
 class Quaternion extends JThreeObject
 {
+  public static get Identity():Quaternion
+  {
+    return new Quaternion(1,0,0,0);
+  }
+
+
   /**
   * Constructor by specifing each elements.
   */

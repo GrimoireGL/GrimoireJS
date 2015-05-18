@@ -48,8 +48,24 @@ class ResourceManager extends jThreeObject
         return shader;
     }
 
+    createOrGetShader(id:string,source:string,shaderType:ShaderType):Shader
+    {
+      if(this.hasShader(id))
+      {
+        return this.getShader(id);
+      }else
+      {
+        return this.createShader(id,source,shaderType);
+      }
+    }
+
     getShader(id: string):Shader {
         return this.shaders.get(id);
+    }
+
+    hasShader(id:string):boolean
+    {
+      return this.shaders.has(id);
     }
 
     private programs: Map<string, Program> = new Map<string, Program>();

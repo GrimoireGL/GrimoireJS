@@ -54,8 +54,13 @@ gulp.task('move-static',function(){
   return gulp.src('jThree/src/static/**/*.*').pipe(gulp.dest("jThree/bin/js/static"));
 });
 
-gulp.task('make-modules',['compile','move-bower','move-static'],function(){
+gulp.task('make-modules',['compile','move-bower','move-static','move-shader'],function(){
 
+});
+
+gulp.task('move-shader',function()
+{
+  return gulp.src('jThree/src/Core/Shaders/**/*.*').pipe(gulp.dest("jThree/bin/js/Core/Shaders"));
 });
 
 gulp.task('gen-doc',function(){
@@ -104,8 +109,12 @@ gulp.task('webpack',['make-modules'],function(){
     ,
     module:{
       loaders:[
-        {test:/\.json$/,loader:'json'}
+        {test:/\.json$/,loader:'json'},
+        {test:/\.glsl$/,loader:'shader'}
       ]
+    },
+    glsl:{
+
     }
     }))
     .pipe(gulp.dest("jThree/bin/product")).pipe(connect.reload());

@@ -1,4 +1,5 @@
 import JThreeObject = require("../JThreeObject");
+import Vector4 = require("../../Math/Vector4");
 declare function require(string): { [key: string]: string };
 
 class Color4 extends JThreeObject {
@@ -29,6 +30,10 @@ class Color4 extends JThreeObject {
 
     get B(): number {
         return this.b;
+    }
+    public toVector():Vector4
+    {
+      return new Vector4(this.R,this.G,this.B,this.A);
     }
 
     static colorTable: { [key: string]: string } = require('static/color.json');

@@ -4,7 +4,10 @@ import ContextManagerBase = require("../../ContextManagerBase");
 import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import Matrix = require("../../../Math/Matrix");
 import BufferWrapper = require("../Buffer/BufferWrapper");
-
+import VectorBase = require("../../../Math/VectorBase");
+import Vector2 = require("../../../Math/Vector2");
+import Vector3 = require("../../../Math/Vector3");
+import Vector4 = require("../../../Math/Vector4");
 class ProgramWrapper extends JThreeObject
 {
    constructor(parent:Program,contextManager:ContextManagerBase) {
@@ -82,6 +85,28 @@ class ProgramWrapper extends JThreeObject
        }
        var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
        this.glContext.UniformMatrix(uniformIndex,matrix);
+   }
+
+   setUniformVector(valName:string,vec:VectorBase):void
+   {
+     this.useProgram();
+     if (!this.uniformLocations.has(valName))
+     {
+         this.uniformLocations.set(valName, this.glContext.GetUniformLocation(this.TargetProgram, valName));
+     }
+     var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+     switch(vec.ElementCount)
+     {
+       case 2:
+         this.glContext.UniformVector2(uniformIndex,<Vector2>vec);
+         break;
+         case 3:
+           this.glContext.UniformVector3(uniformIndex,<Vector3>vec);
+        break;
+        case 4:
+          this.glContext.UniformVector4(uniformIndex,<Vector4>vec);
+          break;
+     }
    }
 
    setAttributeVerticies(valName: string, buffer: BufferWrapper): void {

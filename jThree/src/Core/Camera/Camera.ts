@@ -2,6 +2,7 @@ import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import Exceptions = require("../../Exceptions");
+import Quaternion = require("../../Math/Quaternion");
 //カメラ関係のクラスの基底クラス
 class Camera extends SceneObject
 {
@@ -46,6 +47,11 @@ class Camera extends SceneObject
 	get ProjectionMatrix():Matrix
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
+	}
+	update():void
+	{
+		super.update();
+		this.Transformer.Rotation=Quaternion.Multiply(this.Transformer.Rotation,Quaternion.AngleAxis(0.01,Vector3.YUnit));
 	}　　　
 }
 

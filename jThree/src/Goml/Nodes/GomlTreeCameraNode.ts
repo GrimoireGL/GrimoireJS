@@ -10,6 +10,8 @@ import PerspectiveCamera = require("../../Core/Camera/PerspectiveCamera");
 import SceneObject = require("../../Core/SceneObject");
 import AttributeParser = require("../AttributeParser");
 import GomlTreeCameraNodeBase = require("./GomlTreeCameraNodeBase");
+import Quaternion = require("../../Math/Quaternion");
+import Vector3 = require("../../Math/Vector3");
 class GomlTreeCameraNode extends GomlTreeCameraNodeBase
 {
 

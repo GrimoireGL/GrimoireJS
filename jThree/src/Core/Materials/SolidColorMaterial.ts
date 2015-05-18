@@ -11,39 +11,54 @@ import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import Quaternion = require("../../Math/Quaternion");
-import SolidColorMaterial = require("./SolidColorMaterial");
-declare function require(string):any;
-class BasicMaterial extends Material
+import Color4 = require("../../Base/Color/Color4");
+declare function require(string):string;
+
+class SolidColorMaterial extends Material
   {
- r=require("./SolidColorMaterial");
+    private color:Color4;
+
+    get Color():Color4
+    {
+      return this.color;
+    }
+
+set Color(col:Color4)
+{
+  this.color=col;
+}
       protected program:Program;
       constructor() {
           super();
           var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
           var vs = document.getElementById("vs");
-          var fs = document.getElementById("fs");
-          var vsShader: Shader = jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, ShaderType.VertexShader);
-          var fsShader: Shader = jThreeContext.ResourceManager.createShader("test-fs", fs.textContent, ShaderType.FragmentShader);
+          var fs = require('../Shaders/SolidColor.glsl');
+          var rm=jThreeContext.ResourceManager;
+          var vsShader: Shader;
+          if(!rm.hasShader("test-vs"))
+          {
+            vsShader=jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, ShaderType.VertexShader);
+          }else{
+            vsShader=rm.getShader("test-vs");
+          }
+          var fsShader: Shader = rm.createOrGetShader("jthree.shaders.solidcolor", fs, ShaderType.FragmentShader);
           vsShader.loadAll();
           fsShader.loadAll();
-          this.program= jThreeContext.ResourceManager.createProgram("test-progran", [vsShader, fsShader]);
+          this.program= jThreeContext.ResourceManager.createProgram("jthree.programs.solidcolor", [vsShader, fsShader]);
       }
-      time=0;
-     test=0;
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
-          this.test++;
           var geometry=object.Geometry;
          var programWrapper = this.program.getForRenderer(renderer.ContextManager);
          programWrapper.useProgram();
-         // var rotMat:Matrix=Matrix.rotateY(this.time);
          var v=this.CalculateMVPMatrix(renderer,object);
          console.log(object.Transformer.LocalToGlobal.toString());
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP",v);
+          programWrapper.setUniformVector("u_color",this.Color.toVector());
           geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
           renderer.Context.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
      }
   }
 
-  export=BasicMaterial;
+  export=SolidColorMaterial;
