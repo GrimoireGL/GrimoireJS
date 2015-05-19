@@ -75,6 +75,16 @@ class ResourceManager extends jThreeObject
         this.programs.set(id, program);
         return program;
     }
+    public createorGetProgram(id:string,shaders:Shader[]):Program
+    {
+      if(!this.programs.has(id))
+      {
+        return this.createProgram(id,shaders);
+      }else
+      {
+        return this.getProgram(id);
+      }
+    }
 
     getProgram(id: string): Program {
         return this.programs.get(id);

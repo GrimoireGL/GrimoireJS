@@ -1,4 +1,5 @@
 import JThreeObject=require('Base/JThreeObject');
+import AttributeParser = require("../AttributeParser");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import GomlLoader = require("../GomlLoader");
 import JThreeID = require("../../Base/JThreeID");
@@ -8,7 +9,6 @@ import Camera = require("../../Core/Camera/Camera");
 import ViewCamera = require("../../Core/Camera/ViewCameraBase");
 import PerspectiveCamera = require("../../Core/Camera/PerspectiveCamera");
 import SceneObject = require("../../Core/SceneObject");
-import AttributeParser = require("../AttributeParser");
 import GomlTreeCameraNodeBase = require("./GomlTreeCameraNodeBase");
 import Quaternion = require("../../Math/Quaternion");
 import Vector3 = require("../../Math/Vector3");

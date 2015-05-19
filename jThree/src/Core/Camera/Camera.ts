@@ -6,6 +6,10 @@ import Quaternion = require("../../Math/Quaternion");
 //カメラ関係のクラスの基底クラス
 class Camera extends SceneObject
 {
+	constructor()
+	{
+		super();
+	}
 	//カメラ位置
 	get Position():Vector3
 	{

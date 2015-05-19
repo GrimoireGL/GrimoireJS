@@ -267,12 +267,12 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     {
       var q=quat.Normalize();
       var x=q.X,y=q.Y,z=q.Z,w=q.W;
-      return Matrix.fromElements(
-        1-2*y*y-2*z*z,2*x*y-2*w*z,2*x*z+2*w*y,0,
-        2*x*y+2*w*z,1-2*x*x-2*z*z,2*y*z+2*w*x,0,
-        2*x*z-2*w*y,2*y*z-2*w*x,1-2*x*x-2*y*y,0,
+      return Matrix.transpose(Matrix.fromElements(
+        1-2*z*z-2*w*w,2*y*z-2*w*x,2*y*w+2*x*z,0,
+        2*z*y+2*w*x,1-2*y*y-2*w*w,2*y*w-2*y*x,0,
+        2*y*w-2*x*z,2*w*z+2*y*x,1-2*y*y-2*z*z,0,
         0,0,0,1
-      );
+      ));
     }
 
     static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {

@@ -4,7 +4,9 @@ import GomlLoader = require("../GomlLoader");
 import JThreeID = require("../../Base/JThreeID");
 import GomlTreeSceneNode = require("./GomlTreeSceneNode");
 import SceneObject = require("../../Core/SceneObject");
-
+import Vector3 = require("../../Math/Vector3");
+import Quaternion = require("../../Math/Quaternion");
+import AttributeParser = require("../AttributeParser");
 class GomlTreeSceneObjectNodeBase extends GomlTreeNodeBase
 {
   constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:GomlTreeSceneObjectNodeBase)
@@ -37,6 +39,9 @@ class GomlTreeSceneObjectNodeBase extends GomlTreeNodeBase
         this.ContainedSceneNode.targetScene.addRenderQueue(this.targetSceneObject);
       }
     }
+    this.targetSceneObject.Transformer.Position=this.Position;
+    this.targetSceneObject.Transformer.Rotation=this.Rotation;
+    this.targetSceneObject.Transformer.Scale=this.Scale;
   }
 
   protected targetSceneObject:SceneObject;
@@ -59,6 +64,27 @@ class GomlTreeSceneObjectNodeBase extends GomlTreeNodeBase
   public get ParentSceneObjectNode():GomlTreeSceneObjectNodeBase
   {
     return this.parentSceneObjectNode;
+  }
+
+  private position:Vector3;
+
+  public get Position():Vector3
+  {
+    return  this.position||Vector3.parse(this.element.getAttribute('position')||"0");
+  }
+
+  private rotation:Quaternion;
+
+  public get Rotation():Quaternion
+  {
+    return  this.rotation||AttributeParser.ParseRotation3D(this.element.getAttribute('rotation')||"x(0)");
+  }
+
+  private scale:Vector3;
+
+  public get Scale():Vector3
+  {
+    return  this.scale||Vector3.parse(this.element.getAttribute('scale')||"1");
   }
 
 }

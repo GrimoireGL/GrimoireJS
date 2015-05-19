@@ -31,27 +31,21 @@ set Color(col:Color4)
       constructor() {
           super();
           var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
-          var vs = document.getElementById("vs");
+          var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
           var fs = require('../Shaders/SolidColor.glsl');
           var rm=jThreeContext.ResourceManager;
           var vsShader: Shader;
-          if(!rm.hasShader("test-vs"))
-          {
-            vsShader=jThreeContext.ResourceManager.createShader("test-vs", vs.textContent, ShaderType.VertexShader);
-          }else{
-            vsShader=rm.getShader("test-vs");
-          }
-          var fsShader: Shader = rm.createOrGetShader("jthree.shaders.solidcolor", fs, ShaderType.FragmentShader);
+          vsShader=rm.createOrGetShader("jthree.shaders.vertex.basic",vs,ShaderType.VertexShader);
+          var fsShader: Shader = rm.createOrGetShader("jthree.shaders.fragment.solidcolor", fs, ShaderType.FragmentShader);
           vsShader.loadAll();
           fsShader.loadAll();
-          this.program= jThreeContext.ResourceManager.createProgram("jthree.programs.solidcolor", [vsShader, fsShader]);
+          this.program= jThreeContext.ResourceManager.createorGetProgram("jthree.programs.solidcolor", [vsShader, fsShader]);
       }
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
           var geometry=object.Geometry;
          var programWrapper = this.program.getForRenderer(renderer.ContextManager);
          programWrapper.useProgram();
          var v=this.CalculateMVPMatrix(renderer,object);
-         console.log(object.Transformer.LocalToGlobal.toString());
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP",v);

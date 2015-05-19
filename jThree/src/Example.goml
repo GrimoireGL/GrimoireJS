@@ -3,7 +3,7 @@
 	<solid name="mat1" color="rgba(0,130,200,128)"/>
 	<solid name="mat2" color="#FFF"/>
 	<grid name="grid" hdiv="20" vdiv="20"/>
-		<tri name="Tri2"  first="(-0.5,-0.1,-0.3)" second="(0,0.3,-0.3)" third="(0.5,-0.1,-0.3)"/>
+		<tri name="Tri2"/>
 	</head>
 	<body>
 		<rdr frame=".canvasContainer" width="600" height="600" clearColor="rgb(128,70,0)">
@@ -11,8 +11,8 @@
 		</rdr>
 		<scene>
 			<camera name="CAM1" fovy="1/4p" aspect="1" near="0.1" far="20">
-			<mesh geo="Tri2" mat="mat1"/>
 				<mesh class="tri" geo="grid" mat="mat2"/>
+				<mesh geo="Tri2" mat="mat1" position="(0.3,0,0)" rotation="axis(0,1,0,0)" scale="(1,1.5,1)""/>
 			</camera>
 		</scene>
 	</body>

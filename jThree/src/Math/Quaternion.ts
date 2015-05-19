@@ -124,6 +124,11 @@ class Quaternion extends JThreeObject
     var im=Math.sin(angle/2);
     return new Quaternion(Math.cos(angle/2),im*axis.X,im*axis.Y,im*axis.Z);
   }
+
+  public static Eular(x:number,y:number,z:number):Quaternion
+  {
+    return Quaternion.Multiply(Quaternion.AngleAxis(z,Vector3.ZUnit),Quaternion.Multiply(Quaternion.AngleAxis(x,Vector3.XUnit),Quaternion.AngleAxis(y,Vector3.YUnit)));
+  }
 }
 
 export=Quaternion;

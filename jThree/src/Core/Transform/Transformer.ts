@@ -3,6 +3,7 @@ import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
+import Delegates = require("../../Delegates");
 class Transformer extends JThreeObject
 {
   constructor(sceneObj:SceneObject)
@@ -13,6 +14,7 @@ class Transformer extends JThreeObject
     this.rotation=Quaternion.Identity;
     this.scale=new Vector3(1,1,1);
     this.updateTransform();
+    console.log(this.localToGlobal.toString());
   }
   private relatedTo:SceneObject;
 
@@ -25,6 +27,18 @@ class Transformer extends JThreeObject
   private localTransofrm:Matrix;
 
   private localToGlobal:Matrix;
+
+  private onUpdateTransformHandler:Delegates.Action1<SceneObject>[]=[];
+
+  public onUpdateTransform(action:Delegates.Action1<SceneObject>):void
+  {
+    this.onUpdateTransformHandler.push(action);
+  }
+
+  private notifyOnUpdateTransform():void
+  {
+    this.onUpdateTransformHandler.forEach((v:Delegates.Action1<SceneObject>)=>{v(this.relatedTo);});
+  }
 
   public updateTransform():void
   {

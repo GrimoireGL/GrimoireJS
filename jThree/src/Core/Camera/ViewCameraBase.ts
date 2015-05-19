@@ -10,6 +10,7 @@ class ViewCameraBase extends Camera
     this.lookAt=new Vector3(0,0,0);
     this.updir=new Vector3(0,1,0);
     this.UpdateViewMatrix();
+    this.transformer.onUpdateTransform(this.UpdateViewMatrix);
   }
   //ViewMatix paramaters
   position:Vector3;
@@ -57,7 +58,10 @@ class ViewCameraBase extends Camera
 
   private UpdateViewMatrix():void
   {
-    this.viewMatrix=Matrix.lookAt(this.position,this.lookAt,this.updir);
+    var fp=Matrix.transformPoint;
+    var fn=Matrix.transformNormal;
+    var mat=this.Transformer.LocalToGlobal;
+    this.viewMatrix=Matrix.lookAt(fp(mat,this.position),fp(mat,this.lookAt),fn(mat,this.updir));
   }
 }
 

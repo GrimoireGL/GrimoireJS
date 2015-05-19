@@ -6,7 +6,6 @@ import GomlTreeRdrNode = require("./GomlTreeRdrNode");
 import Rectangle = require("../../Math/Rectangle");
 import GomlLoader = require("../GomlLoader");
 import JThreeContextProxy = require("../../Core/JThreeContextProxy");
-import Triangle = require("../../Shapes/Triangle");
 import JThreeContext = require("../../Core/JThreeContext");
 import Scene = require("../../Core/Scene");
 import GomlTreeSceneObjectNodeBase = require("./GomlTreeSceneObjectNodeBase");
