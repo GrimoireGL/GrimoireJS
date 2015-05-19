@@ -6,7 +6,7 @@
 		<tri name="Tri2"/>
 	</head>
 	<body>
-		<rdr frame=".canvasContainer" width="600" height="600" clearColor="rgb(128,70,0)">
+		<rdr frame=".canvasContainer" width="600" height="600" clearColor="#324D7C">
 			<vp left="0" top="0" width="600" height="600" cam="CAM1"/>
 		</rdr>
 		<scene>

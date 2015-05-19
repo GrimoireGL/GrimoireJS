@@ -1,9 +1,9 @@
-import GomlTreeGeometryNodeBase = require("../GomlTreeGeometryNodeBase");
+import GeometryNodeBase = require("./GeometryNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import Geometry = require("../../../Core/Geometry")
 import GridGeometry = require("../../../Core/Geometries/GridGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-class GridGeometryNode extends GomlTreeGeometryNodeBase
+class GridGeometryNode extends GeometryNodeBase
 {
   private gridGeometry:GridGeometry;
 

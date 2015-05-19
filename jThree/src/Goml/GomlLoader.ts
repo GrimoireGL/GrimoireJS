@@ -4,7 +4,6 @@ import jThreeObject = require("../Base/JThreeObject");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
 import JQuery = require("jquery");
-import GomlTreeCameraNode = require("./Nodes/GomlTreeCameraNode");
 import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeContext = require("../Core/JThreeContext");
 import GomlNodeListElement = require("./GomlNodeListElement");
