@@ -3,18 +3,24 @@ import GomlNodeListElement = require("./GomlNodeListElement");
 declare function require(string):any ;
 
 var gomlList=[
-  new GomlNodeListElement('default',require("./Factories/TagFactory"),{
-    "TRI":require('./Nodes/GomlTreeTriNode'),
-    "RDR":require('./Nodes/GomlTreeRdrNode'),
-    "VP":require('./Nodes/GomlTreeVpNode'),
-    "SCENE":require('./Nodes/GomlTreeSceneNode'),
-    "SOLID":require('./Nodes/Materials/SolidColorNode'),
+  new GomlNodeListElement('jthree.geometries',require("./Factories/TagFactory"),
+  {
+    "TRI":require('./Nodes/Geometries/TriangleGeometryNode'),
     "GRID":require('./Nodes/Geometries/GridGeometryNode')
   }),
-  new GomlNodeListElement('scene',require('./Factories/SceneObjectTagFactory'),
+  new GomlNodeListElement('jthree.basic',require("./Factories/TagFactory"),{
+    "RDR":require('./Nodes/Renderers/RendererNode'),
+    "VP":require('./Nodes/Renderers/ViewPortNode'),
+    "SCENE":require('./Nodes/GomlTreeSceneNode'),
+  }),
+  new GomlNodeListElement('jthree.materials',require('./Factories/TagFactory'),
   {
-    "CAMERA":require('./Nodes/GomlTreeCameraNode'),
-    "MESH":require('./Nodes/GomlTreeMeshNode')
+    "SOLID":require('./Nodes/Materials/SolidColorNode'),
+  }),
+  new GomlNodeListElement('jthree.sceneobject',require('./Factories/SceneObjectTagFactory'),
+  {
+    "CAMERA":require('./Nodes/SceneObjects/Cameras/CameraNode'),
+    "MESH":require('./Nodes/SceneObjects/MeshNode')
   })
 ];
 export=gomlList;
