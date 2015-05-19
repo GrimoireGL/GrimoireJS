@@ -124,12 +124,15 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#createbuffer" class="tsd-kind-icon">create<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#createorgetshader" class="tsd-kind-icon">create<wbr>OrGet<wbr>Shader</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#createprogram" class="tsd-kind-icon">create<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#createshader" class="tsd-kind-icon">create<wbr>Shader</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#createorgetprogram" class="tsd-kind-icon">createor<wbr>Get<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#getbuffer" class="tsd-kind-icon">get<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#getprogram" class="tsd-kind-icon">get<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#getshader" class="tsd-kind-icon">get<wbr>Shader</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resourcemanager_.resourcemanager.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourcemanager_.resourcemanager.html#hasshader" class="tsd-kind-icon">has<wbr>Shader</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resourcemanager_.resourcemanager.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
@@ -174,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">programs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L55">Core/ResourceManager.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L71">Core/ResourceManager.ts:71</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -247,6 +250,35 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="createorgetshader" class="tsd-anchor"></a>
+					<h3>create<wbr>OrGet<wbr>Shader</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>OrGet<wbr>Shader<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, shaderType<span class="tsd-signature-symbol">: </span><a href="../enums/_wrapper_shadertype_.shadertype.html" class="tsd-signature-type">ShaderType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_shader_shader_.shader.html" class="tsd-signature-type">Shader</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L51">Core/ResourceManager.ts:51</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>source: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>shaderType: <a href="../enums/_wrapper_shadertype_.shadertype.html" class="tsd-signature-type">ShaderType</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_resources_shader_shader_.shader.html" class="tsd-signature-type">Shader</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="createprogram" class="tsd-anchor"></a>
 					<h3>create<wbr>Program</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -256,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L57">Core/ResourceManager.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L73">Core/ResourceManager.ts:73</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -302,6 +334,32 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="createorgetprogram" class="tsd-anchor"></a>
+					<h3>createor<wbr>Get<wbr>Program</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">createor<wbr>Get<wbr>Program<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, shaders<span class="tsd-signature-symbol">: </span><a href="_core_resources_shader_shader_.shader.html" class="tsd-signature-type">Shader</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L78">Core/ResourceManager.ts:78</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>shaders: <a href="_core_resources_shader_shader_.shader.html" class="tsd-signature-type">Shader</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getbuffer" class="tsd-anchor"></a>
 					<h3>get<wbr>Buffer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -334,7 +392,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L63">Core/ResourceManager.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L89">Core/ResourceManager.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -357,7 +415,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L51">Core/ResourceManager.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L62">Core/ResourceManager.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -385,6 +443,29 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="hasshader" class="tsd-anchor"></a>
+					<h3>has<wbr>Shader</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">has<wbr>Shader<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceManager.ts#L66">Core/ResourceManager.ts:66</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -445,10 +526,16 @@
 								<a href="_core_resourcemanager_.resourcemanager.html#createbuffer" class="tsd-kind-icon">create<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_resourcemanager_.resourcemanager.html#createorgetshader" class="tsd-kind-icon">create<wbr>OrGet<wbr>Shader</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resourcemanager_.resourcemanager.html#createprogram" class="tsd-kind-icon">create<wbr>Program</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resourcemanager_.resourcemanager.html#createshader" class="tsd-kind-icon">create<wbr>Shader</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_resourcemanager_.resourcemanager.html#createorgetprogram" class="tsd-kind-icon">createor<wbr>Get<wbr>Program</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resourcemanager_.resourcemanager.html#getbuffer" class="tsd-kind-icon">get<wbr>Buffer</a>
@@ -461,6 +548,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_resourcemanager_.resourcemanager.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_resourcemanager_.resourcemanager.html#hasshader" class="tsd-kind-icon">has<wbr>Shader</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_resourcemanager_.resourcemanager.html#tostring" class="tsd-kind-icon">to<wbr>String</a>

@@ -120,6 +120,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_scene_.scene.html#addcamera" class="tsd-kind-icon">add<wbr>Camera</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_scene_.scene.html#addobject" class="tsd-kind-icon">add<wbr>Object</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_scene_.scene.html#addrenderqueue" class="tsd-kind-icon">add<wbr>Render<wbr>Queue</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_scene_.scene.html#addrenderer" class="tsd-kind-icon">add<wbr>Renderer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_scene_.scene.html#getcamera" class="tsd-kind-icon">get<wbr>Camera</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_scene_.scene.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
@@ -161,7 +162,7 @@
 					<div class="tsd-signature tsd-kind-icon">cameras<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L76">Core/Scene.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L82">Core/Scene.ts:82</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -244,7 +245,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L78">Core/Scene.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L84">Core/Scene.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -268,6 +269,29 @@
 							<aside class="tsd-sources">
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L64">Core/Scene.ts:64</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>targetObject: <a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addrenderqueue" class="tsd-anchor"></a>
+					<h3>add<wbr>Render<wbr>Queue</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Render<wbr>Queue<span class="tsd-signature-symbol">(</span>targetObject<span class="tsd-signature-symbol">: </span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L71">Core/Scene.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -313,7 +337,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L83">Core/Scene.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L89">Core/Scene.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -371,7 +395,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L71">Core/Scene.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L77">Core/Scene.ts:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -389,7 +413,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L88">Core/Scene.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L94">Core/Scene.ts:94</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -462,6 +486,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_scene_.scene.html#addobject" class="tsd-kind-icon">add<wbr>Object</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_scene_.scene.html#addrenderqueue" class="tsd-kind-icon">add<wbr>Render<wbr>Queue</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_scene_.scene.html#addrenderer" class="tsd-kind-icon">add<wbr>Renderer</a>
