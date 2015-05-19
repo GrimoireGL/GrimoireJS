@@ -16,7 +16,7 @@ declare function require(string):string;
 
 class SolidColorMaterial extends Material
   {
-    private color:Color4;
+    private color:Color4=Color4.parseColor('#F0F');
 
     get Color():Color4
     {

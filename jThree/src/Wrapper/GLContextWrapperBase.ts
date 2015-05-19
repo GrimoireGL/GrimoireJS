@@ -9,6 +9,7 @@ import JThreeObject = require("../Base/JThreeObject");
 import Vector2 = require("../Math/Vector2");
 import Vector3 = require("../Math/Vector3");
 import Vector4 = require("../Math/Vector4");
+import GLFeatureType = require("./GLFeatureType");
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -163,6 +164,12 @@ class GLContextWrapperBase extends JThreeObject
       VertexAttribPointer(attribLocation: number, sizePerVertex: number, elemType: ElementType, normalized: boolean, stride: number, offset: number): void {
           throw new Exceptions.AbstractClassMethodCalledException();
       }
+      Enable(feature:GLFeatureType):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      /**
 
       /**
        * Draw without index

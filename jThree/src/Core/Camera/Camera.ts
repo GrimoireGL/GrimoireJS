@@ -51,7 +51,6 @@ class Camera extends SceneObject
 	update():void
 	{
 		super.update();
-		this.Transformer.Rotation=Quaternion.Multiply(this.Transformer.Rotation,Quaternion.AngleAxis(0.01,Vector3.YUnit));
 	}　　　
 }
 

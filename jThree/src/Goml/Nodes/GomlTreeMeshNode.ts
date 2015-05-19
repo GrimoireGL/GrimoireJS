@@ -7,6 +7,8 @@ import GomlTreeSceneNode = require("./GomlTreeSceneNode");
 import SceneObject = require("../../Core/SceneObject");
 import Triangle = require("../../Shapes/Triangle");
 import GomlTreeGeometryNodeBase = require("./GomlTreeGeometryNodeBase");
+import MaterialNode = require("./Materials/SolidColorNode");
+import SolidColor = require("../../Core/Materials/SolidColorMaterial");
 class GomlTreeMeshNode extends GomlTreeSceneObjectNodeBase
 {
   private targetTri:Triangle;
@@ -18,7 +20,8 @@ class GomlTreeMeshNode extends GomlTreeSceneObjectNodeBase
   protected ConstructTarget():SceneObject
   {
     var geo=<GomlTreeGeometryNodeBase>this.loader.nodeDictionary.getObject("jthree.geometries",this.Geo);
-    this.targetTri=new Triangle(geo.TargetGeometry);
+    var mat=<MaterialNode>this.loader.nodeDictionary.getObject("jthree.materials",this.Mat);
+    this.targetTri=new Triangle(geo.TargetGeometry,mat?mat.targetMaterial:new SolidColor());
     return this.targetTri;
   }
 
@@ -37,6 +40,13 @@ class GomlTreeMeshNode extends GomlTreeSceneObjectNodeBase
   {
     this.geo=this.geo||this.element.getAttribute("geo");
     return this.geo;
+  }
+
+  private mat:string;JThreeObject
+  public get Mat():string
+  {
+    this.mat=this.mat||this.element.getAttribute("mat");
+    return this.mat;
   }
 
 }

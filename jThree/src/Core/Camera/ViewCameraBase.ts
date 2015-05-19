@@ -6,7 +6,7 @@ class ViewCameraBase extends Camera
   constructor()
   {
     super();
-    this.position=new Vector3(0,0,1);
+    this.position=new Vector3(0,0.4,1);
     this.lookAt=new Vector3(0,0,0);
     this.updir=new Vector3(0,1,0);
     this.UpdateViewMatrix();

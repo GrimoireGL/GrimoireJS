@@ -4,6 +4,7 @@ import ShaderType = require("./ShaderType");
 import ClearTargetType = require("./ClearTargetType");
 import PrimitiveTopology = require("./PrimitiveTopology");
 import ElementType = require("./ElementType");
+import GLFeatureType = require("./GLFeatureType");
 import Matrix = require("../Math/Matrix");
 import Vector2 = require("../Math/Vector2");
 import Vector3 = require("../Math/Vector3");
@@ -186,6 +187,12 @@ class WebGLContextWrapper extends GLContextWrapperBase
       this.gl.uniform3f(webGlUniformLocation,vector.X,vector.Y,vector.Z);
     }
 
+    Enable(feature:GLFeatureType):void
+    {
+      this.CheckErrorAsFatal();
+      this.gl.enable(feature);
+    }
+
     /**
     * Pass vector as uniform variable
     * @param webGlUniformLocation uniform variable location
@@ -196,7 +203,7 @@ class WebGLContextWrapper extends GLContextWrapperBase
       this.CheckErrorAsFatal();
       this.gl.uniform4f(webGlUniformLocation,vector.X,vector.Y,vector.Z,vector.W);
     }
-    
+
     ViewPort(x:number,y:number,width:number,height:number): void {
         this.CheckErrorAsFatal();
         this.gl.viewport(x, y, width, height);

@@ -7,7 +7,9 @@ var gomlList=[
     "TRI":require('./Nodes/GomlTreeTriNode'),
     "RDR":require('./Nodes/GomlTreeRdrNode'),
     "VP":require('./Nodes/GomlTreeVpNode'),
-    "SCENE":require('./Nodes/GomlTreeSceneNode')
+    "SCENE":require('./Nodes/GomlTreeSceneNode'),
+    "SOLID":require('./Nodes/Materials/SolidColorNode'),
+    "GRID":require('./Nodes/Geometries/GridGeometryNode')
   }),
   new GomlNodeListElement('scene',require('./Factories/SceneObjectTagFactory'),
   {

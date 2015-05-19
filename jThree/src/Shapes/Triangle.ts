@@ -3,16 +3,16 @@ import SceneObject = require("../Core/SceneObject");
 import BasicMaterial = require("../Core/Materials/BasicMaterial");
 import TriangleGeometry = require("../Core/Geometries/TriangleGeometry");
 import Geometry = require("../Core/Geometry");
-import SolidColor = require("../Core/Materials/SolidColorMaterial");
+import Material = require("../Core/Material");
 import Color4 = require("../Base/Color/Color4");
+import SolidColor = require("../Core/Materials/SolidColorMaterial");
+import GridGeometry = require("../Core/Geometries/GridGeometry");
 class Triangle extends SceneObject
     {
-        constructor(geometry:Geometry)
+        constructor(geometry:Geometry,mat:Material)
         {
             super();
-            var c=new SolidColor();
-            c.Color=Color4.parseColor('blue');
-            this.addMaterial(c);
+            this.addMaterial(mat);
             this.geometry = geometry;
         }
     }
