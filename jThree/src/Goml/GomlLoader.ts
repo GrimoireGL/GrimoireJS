@@ -53,7 +53,7 @@ class GomlLoader extends jThreeObject {
     initForPage(): void {
         this.constructTagDictionary();
         this.attemptToLoadGomlInScriptAttr();
-        this.rootObj = $("<iframe style='display:none;'/>").appendTo("body").contents();
+        this.rootObj = $("<iframe style='display:none;'/>");
         var gomls: JQuery = $("script[type='text/goml']");
         gomls.each((index: number, elem: Element) => {
             this.loadScriptTag($(elem));
@@ -107,7 +107,7 @@ class GomlLoader extends jThreeObject {
     private scriptLoaded(source: string): void {
         source = source.replace(/(head|body)>/g, "j$1>");//TODO Can be bug
         console.log("Script Recieved:\n" + source);
-        var catched = $(source);
+        var catched=this.rootObj = $(source);
         console.log(catched);
         if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
         var headChild = catched.find("jhead").children();

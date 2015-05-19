@@ -111,7 +111,7 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
 
     static TRS(t:Vector3,rot:Quaternion,s:Vector3):Matrix
     {
-      return Matrix.multiply(Matrix.multiply(Matrix.scale(s),Matrix.RotationQuaternion(rot)),Matrix.translate(t));
+      return Matrix.multiply(Matrix.multiply(Matrix.translate(t),Matrix.RotationQuaternion(rot)),Matrix.scale(s));
     }
 
     static negate(m: Matrix): Matrix {
@@ -305,7 +305,7 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     }
 
     static perspective(fovy: number, aspect: number, near: number, far: number): Matrix {
-        var ymax = near * Math.tan(fovy*0.5);
+  var ymax = near * Math.tan(fovy*0.5);
 		var ymin = - ymax;
 		var xmin = ymin * aspect;
 		var xmax = ymax * aspect;
@@ -313,6 +313,9 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     }
 
     static lookAt(eye: Vector3, lookAt: Vector3, up: Vector3): Matrix {
+      console.log('eye'+eye.toString());
+      console.log('look'+lookAt.toString());
+      console.log('up'+eye.toString());
         var zAxis: Vector3 = Vector3.normalize(Vector3.subtract(eye,lookAt));
         var xAxis: Vector3 = Vector3.normalize(Vector3.cross(up,zAxis));
         var yAxis: Vector3 = Vector3.cross(zAxis,xAxis);

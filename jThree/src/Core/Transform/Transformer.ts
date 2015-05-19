@@ -14,7 +14,6 @@ class Transformer extends JThreeObject
     this.rotation=Quaternion.Identity;
     this.scale=new Vector3(1,1,1);
     this.updateTransform();
-    console.log(this.localToGlobal.toString());
   }
   private relatedTo:SceneObject;
 
@@ -43,10 +42,12 @@ class Transformer extends JThreeObject
   public updateTransform():void
   {
     this.localTransofrm=Matrix.TRS(this.position,this.rotation,this.scale);
-    this.localToGlobal=Matrix.multiply(this.localTransofrm,this.relatedTo!=null&&this.relatedTo.Parent!=null?this.relatedTo.Parent.Transformer.localToGlobal:Matrix.identity());
+    this.localToGlobal=Matrix.multiply(this.relatedTo!=null&&this.relatedTo.Parent!=null?this.relatedTo.Parent.Transformer.localToGlobal:Matrix.identity(),this.localTransofrm);
     this.relatedTo.Children.each((v)=>{
       v.Transformer.updateTransform();
     });
+    this.notifyOnUpdateTransform();
+    console.log(this.localToGlobal.toString());
   }
 
   get LocalToGlobal():Matrix

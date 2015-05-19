@@ -5,28 +5,6 @@
     <title></title>
     <script src="bin/js/jquery.js"></script>
     <script src="j3.js" x-goml="src/Example.goml"></script>
-    <script id="vs" type="text/GLSL">
-        precision mediump float;
-        attribute vec3 position;
-        attribute vec3 normal;
-        uniform mat4 matMVP;
-
-        varying vec3 v_normal;
-
-        void main(void){
-        gl_Position = matMVP*vec4(position,1.0);
-        v_normal=(matMVP*vec4(normal,0)).xyz;
-        }
-
-    </script>
-    <script id="fs" type="text/GLSL">
-        precision mediump float;
-        varying vec3 v_normal;
-        void main(void){
-        float brightness=max(0.0,dot(v_normal,normalize(vec3(-0.5,-0.5,-0.5))));
-        gl_FragColor = vec4(1.0, 0, 0, 1.0);
-        }
-    </script>
 </head>
 <body>
     <div></div>

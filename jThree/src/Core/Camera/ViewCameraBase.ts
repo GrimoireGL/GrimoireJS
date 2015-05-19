@@ -1,16 +1,17 @@
 import Camera = require("./Camera");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
+import SceneObject = require("../SceneObject");
 class ViewCameraBase extends Camera
 {
   constructor()
   {
     super();
-    this.position=new Vector3(0,0.4,1);
-    this.lookAt=new Vector3(0,0,0);
+    this.position=new Vector3(0,0.3,0);
+    this.lookAt=new Vector3(0,0,-1);
     this.updir=new Vector3(0,1,0);
     this.UpdateViewMatrix();
-    this.transformer.onUpdateTransform(this.UpdateViewMatrix);
+    this.transformer.onUpdateTransform((o)=>this.UpdateViewMatrix(o));
   }
   //ViewMatix paramaters
   position:Vector3;
@@ -56,12 +57,15 @@ class ViewCameraBase extends Camera
     return this.viewMatrix;
   }
 
-  private UpdateViewMatrix():void
+  private UpdateViewMatrix(obj?:SceneObject):void
   {
+    console.log(obj);
+    var cam:Camera=<Camera>obj||this;//To avoid to get this
     var fp=Matrix.transformPoint;
     var fn=Matrix.transformNormal;
-    var mat=this.Transformer.LocalToGlobal;
-    this.viewMatrix=Matrix.lookAt(fp(mat,this.position),fp(mat,this.lookAt),fn(mat,this.updir));
+    var t=cam.Transformer.LocalToGlobal;
+    var mat=cam.Transformer.LocalToGlobal;
+    this.viewMatrix=Matrix.lookAt(fp(mat,cam.Position),fp(mat,cam.LookAt),fn(mat,cam.UpDirection));
   }
 }
 
