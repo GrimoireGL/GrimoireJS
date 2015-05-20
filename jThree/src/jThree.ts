@@ -43,5 +43,5 @@ function jqPrint(jq:JQuery) {
   }
 }
 j3(()=>{
-  j3("camera").attr("fovy",Math.PI/3);
+
 });

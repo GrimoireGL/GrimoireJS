@@ -21,9 +21,26 @@ class GomlTreeCameraNode extends GomlTreeCameraNodeBase
       this.attributes.defineAttribute(
         {
           "fovy":{
-            value:Math.PI/3,
+            value:Math.PI/4,
             converter:"angle",
             handler:(v)=>{this.targetPerspective.Fovy=v.Value;}
+          },
+          "aspect":{
+            value:1,
+            converter:"number",
+            handler:(v)=>{this.targetPerspective.Aspect=v.Value;}
+          },
+          "near":
+          {
+            value:0.1,
+            converter:"number",
+            handler:(v)=>{this.targetPerspective.Near=v.Value}
+          },
+          "far":
+          {
+            value:10,
+            converter:"number",
+            handler:(v)=>{this.targetPerspective.Far=v.Value}
           }
         }
       );
@@ -41,36 +58,24 @@ class GomlTreeCameraNode extends GomlTreeCameraNodeBase
     return camera;
   }
 
-  private fovy:number;
-
   get Fovy():number
   {
-    this.fovy=this.fovy||AttributeParser.ParseAngle(this.element.getAttribute('fovy')||'60d');
-    return this.fovy;
+    return this.attributes.getValue("fovy");
   }
-
-  private aspect:number;
 
   get Aspect():number
   {
-    this.aspect=this.aspect||parseFloat(this.element.getAttribute('aspect'));
-    return this.aspect;
+    return this.attributes.getValue("aspect");
   }
-
-  private near:number;
 
   get Near():number
   {
-    this.near=this.near||parseFloat(this.element.getAttribute('near'));
-    return this.near;
+    return this.attributes.getValue("near");
   }
-
-  private far:number;
 
   get Far():number
   {
-    this.far=this.far||parseFloat(this.element.getAttribute('far'));
-    return this.far;
+    return this.attributes.getValue("far");
   }
 }
 
