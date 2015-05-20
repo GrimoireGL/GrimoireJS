@@ -24,7 +24,7 @@ class AngleAttributeConverter extends JThreeObject
     if(typeof val === 'string')
     {
       return this.FromAttribute(val);
-    }else if(typeof val === 'object')
+    }else if(typeof val === 'number')
     {
       return val;
     }

@@ -3,6 +3,9 @@ import $=require('jquery');
 import Init = require("./Init");
 import JThreeObject=require('./Base/JThreeObject');
 import JThreeContextProxy = require("./Core/JThreeContextProxy");
+import JThreeInterface = require("./JThreeInterface");
+import Delegates = require("./Delegates");
+declare function require(key:string):any;
 var noInit: boolean;
 if (!String.prototype["format"]) {
     String.prototype["format"] = function () {
@@ -17,20 +20,18 @@ if (!String.prototype["format"]) {
     };
 }
 Init.Init();
-function j3(query:string)
+function j3(query:string|Delegates.Action0):JThreeInterface
 {
   var context=JThreeContextProxy.getJThreeContext();
-  context.GomlLoader.onload(()=>{
-    var targetObject=context.GomlLoader.rootObj.find(query);
+  if(typeof query ==='function')
+  {
+    context.GomlLoader.onload(query);
+    return null;
+  }
+    var targetObject=context.GomlLoader.rootObj.find(<string>query);
     jqPrint(context.GomlLoader.rootObj);
-    for (var i = 0; i < targetObject.length; i++) {
-        var target=targetObject[i];
-        console.log(target);
-    }
-  });
-
+    return new JThreeInterface(targetObject);
 }
-
 function jqPrint(jq:JQuery) {
   for (var i = 0; i <jq.length; i++) {
       var target=jq[i];
@@ -41,4 +42,6 @@ function jqPrint(jq:JQuery) {
       console.groupEnd();
   }
 }
-j3("scene");
+j3(()=>{
+  j3("camera").attr("fovy",Math.PI/3);
+});

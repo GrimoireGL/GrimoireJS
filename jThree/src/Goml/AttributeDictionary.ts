@@ -28,6 +28,19 @@ class AttributeDictionary extends JThreeObject
       return attr.Value;
   }
 
+  public setValue(attrName:string,value:any):void
+  {
+    var attr=this.attributes.getById(attrName);
+    if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
+    else
+      attr.Value=value;;
+  }
+
+  public isDefined(attrName:string):boolean
+  {
+    return this.attributes.getById(attrName)!=null;
+  }
+
   public defineAttribute(attributes:{[key:string]:{value?:any;converter:string;handler?:Delegates.Action1<GomlAttribute>}})
   {
     for(var key in attributes)

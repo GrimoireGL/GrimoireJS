@@ -196,5 +196,12 @@ class GomlLoader extends jThreeObject {
             }
         }
       }
+
+      public getNode(id:string):GomlTreeNodeBase
+      {
+        if(this.headTagsById.has(id))return this.headTagsById.get(id);
+        if(this.bodyTagsById.has(id))return this.bodyTagsById.get(id);
+        return null;
+      }
 }
 export = GomlLoader;

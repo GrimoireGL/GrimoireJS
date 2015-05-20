@@ -18,11 +18,22 @@ class GomlTreeCameraNode extends GomlTreeCameraNodeBase
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
   {
       super(elem,loader,parent,parentSceneNode,parentObject);
+      this.attributes.defineAttribute(
+        {
+          "fovy":{
+            value:Math.PI/3,
+            converter:"angle",
+            handler:(v)=>{this.targetPerspective.Fovy=v.Value;}
+          }
+        }
+      );
   }
+  private targetPerspective:PerspectiveCamera;
 
   protected ConstructCamera():Camera
   {
     var camera=new PerspectiveCamera();
+    this.targetPerspective=camera;
     camera.Fovy=this.Fovy;
     camera.Aspect=this.Aspect;
     camera.Near=this.Near;

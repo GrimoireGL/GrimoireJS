@@ -44,7 +44,7 @@ class GomlAttribute extends JThreeObjectWithID
   set Value(val:any)
   {
     this.value=this.Converter.FromInterface(val);
-    this.element.setAttribute(this.Name,this.Converter.FromAttribute(val));
+    this.element.setAttribute(this.Name,this.Converter.ToAttribute(val));
     this.cached=true;
     this.notifyValueChanged();
   }
