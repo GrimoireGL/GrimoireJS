@@ -129,6 +129,22 @@ class Quaternion extends JThreeObject
   {
     return Quaternion.Multiply(Quaternion.AngleAxis(z,Vector3.ZUnit),Quaternion.Multiply(Quaternion.AngleAxis(x,Vector3.XUnit),Quaternion.AngleAxis(y,Vector3.YUnit)));
   }
+
+  public toAngleAxisString()
+  {
+    var angle=2*Math.acos(this.x);
+    var imm=Math.sqrt(1-this.x*this.x);
+    if(angle!=180&&angle!=0)
+    {//avoid singularities
+      return "axis({0},{1},{2},{3})".format(angle,this.y/imm,this.z/imm,this.w/imm);
+    }else if(angle==0)
+    {
+      return "axis({0},0,1,0)".format(angle);
+    }else
+    {
+      return "axis(180d,{0},{1},{2})".format(this.y,this.z,this.w);
+    }
+  }
 }
 
 export=Quaternion;

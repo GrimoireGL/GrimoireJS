@@ -16,7 +16,7 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
 
   private targetRenderer:ViewportRenderer;
 
-    constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
+    constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
     {
         super(elem,loader,parent);
     }

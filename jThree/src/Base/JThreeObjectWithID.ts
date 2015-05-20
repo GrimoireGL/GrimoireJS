@@ -3,9 +3,9 @@ import JThreeID = require("./JThreeID");
 
 class JThreeObjectWithID extends JThreeObject
 {
-  constructor() {
+  constructor(id?:string) {
       super();
-      this.id = JThreeID.getUniqueRandom(10);
+      this.id =id|| JThreeID.getUniqueRandom(10);
   }
   private id: string;
   /**

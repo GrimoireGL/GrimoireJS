@@ -1,8 +1,10 @@
 import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import GomlLoader = require("./GomlLoader");
+import GomlAttribute = require("./GomlAttribute");
+import AttributeDictionary = require("./AttributeDictionary");
 class GomlTreeNodeBase extends jThreeObjectWithID
 {
-    constructor(elem:Element,loader:GomlLoader,parent:GomlTreeNodeBase) {
+    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super();
         this.loader=loader;
         this.element = elem;
@@ -10,6 +12,7 @@ class GomlTreeNodeBase extends jThreeObjectWithID
         {
           parent.addChild(this);
         }
+        this.attributes=new AttributeDictionary(loader,elem);
     }
     protected element: Element;
 
@@ -18,6 +21,8 @@ class GomlTreeNodeBase extends jThreeObjectWithID
     private children: GomlTreeNodeBase[]=[];
 
     protected parent:GomlTreeNodeBase;
+
+    public attributes:AttributeDictionary;
 
     addChild(child: GomlTreeNodeBase) {
         child.parent = this;

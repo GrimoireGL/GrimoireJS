@@ -15,7 +15,7 @@ import Vector3 = require("../../../../Math/Vector3");
 class GomlTreeCameraNode extends GomlTreeCameraNodeBase
 {
 
-  constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
+  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
   {
       super(elem,loader,parent,parentSceneNode,parentObject);
   }

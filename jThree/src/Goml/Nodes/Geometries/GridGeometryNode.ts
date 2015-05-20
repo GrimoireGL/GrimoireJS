@@ -7,7 +7,7 @@ class GridGeometryNode extends GeometryNodeBase
 {
   private gridGeometry:GridGeometry;
 
-  constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
   }

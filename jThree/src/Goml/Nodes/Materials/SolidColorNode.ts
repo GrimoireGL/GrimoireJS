@@ -8,7 +8,7 @@ class SolidColorNode extends GomlTreeNodeBase
 {
     targetMaterial:SolidColor;
 
-    constructor(elem:Element,loader:GomlLoader,parent:GomlTreeNodeBase) {
+    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
     }
 

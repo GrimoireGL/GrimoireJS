@@ -8,7 +8,7 @@ class GomlTreeSceneNode extends GomlTreeNodeBase
 {
   targetScene:Scene;
 
-  constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
   }

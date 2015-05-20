@@ -12,7 +12,7 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
 
     targetCanvas:HTMLCanvasElement;
 
-    constructor(elem:Element,loader:GomlLoader,parent:GomlTreeNodeBase) {
+    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
         var test = $(elem);
         var jqueryTargetCanvas = $("<canvas></canvas>");

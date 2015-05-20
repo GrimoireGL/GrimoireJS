@@ -7,13 +7,15 @@ import JQuery = require("jquery");
 import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeContext = require("../Core/JThreeContext");
 import GomlNodeListElement = require("./GomlNodeListElement");
-
+import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 declare function require(string):any;
 
 class GomlLoader extends jThreeObject {
   constructor()
   {
     super();
+    this.constructTagDictionary();
+    this.constructConverters();
     var scriptTags=document.getElementsByTagName('script');
     this.selfTag=scriptTags[scriptTags.length-1];
   }
@@ -35,6 +37,8 @@ class GomlLoader extends jThreeObject {
       this.onloadHandler.forEach((v)=>{v(source)});
     }
 
+    converters:Map<string,AttributeConverterBase>=new Map<string,AttributeConverterBase>();
+
     gomlTags: Map<string, TagFactory> = new Map<string, TagFactory>();
 
     headTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
@@ -50,7 +54,6 @@ class GomlLoader extends jThreeObject {
     bodyRootNodes: GomlTreeNodeBase[] = [];
 
     initForPage(): void {
-        this.constructTagDictionary();
         this.attemptToLoadGomlInScriptAttr();
         this.rootObj = $("<iframe style='display:none;'/>");
         var gomls: JQuery = $("script[type='text/goml']");
@@ -83,6 +86,16 @@ class GomlLoader extends jThreeObject {
            this.addGomlTag(new v.Factory(keyInString,nodeType));
          }
        });
+    }
+
+    private constructConverters():any
+    {
+      var converterList:{[key:string]:any}=require('./GomlConverterList');
+      for(var key in converterList)
+      {
+        var converterType=converterList[key];
+        this.converters.set(key,new converterType());
+      }
     }
 
     private addGomlTag(tag: TagFactory): void {
@@ -142,6 +155,7 @@ class GomlLoader extends jThreeObject {
                   continue;
                 }
                 elem.classList.add("x-j3-" + newNode.ID);
+                elem.setAttribute('x-j3-id',newNode.ID);
                 this.headTagsById.set(newNode.ID, newNode);
                 if(parent!=null)
                 {
@@ -167,7 +181,8 @@ class GomlLoader extends jThreeObject {
                   continue;
                 }
                 this.bodyTagsById.set(newNode.ID, newNode);
-                elem.classList.add("x-j3-" + newNode.ID);
+                elem.classList.add("x-j3-" + newNode.ID)
+                elem.setAttribute('x-j3-id',newNode.ID);
                 act(newNode);
                 if(parent!=null)
                 {

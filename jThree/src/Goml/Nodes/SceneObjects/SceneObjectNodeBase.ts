@@ -9,7 +9,7 @@ import Quaternion = require("../../../Math/Quaternion");
 import AttributeParser = require("../../AttributeParser");
 class SceneObjectNodeBase extends GomlTreeNodeBase
 {
-  constructor(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
+  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
       super(elem,loader,parent);
       this.containedSceneNode=parentSceneNode;
