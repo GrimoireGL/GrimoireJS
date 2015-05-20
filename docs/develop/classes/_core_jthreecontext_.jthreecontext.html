@@ -102,6 +102,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_jthreecontext_.jthreecontext.html#animaters" class="tsd-kind-icon">animaters</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_jthreecontext_.jthreecontext.html#canvasrenderers" class="tsd-kind-icon">canvas<wbr>Renderers</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_jthreecontext_.jthreecontext.html#gomlloader" class="tsd-kind-icon">goml<wbr>Loader</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_jthreecontext_.jthreecontext.html#onrendererchangedfuncs" class="tsd-kind-icon">on<wbr>Renderer<wbr>Changed<wbr>Funcs</a></li>
@@ -125,6 +126,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_jthreecontext_.jthreecontext.html#addanimater" class="tsd-kind-icon">add<wbr>Animater</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_jthreecontext_.jthreecontext.html#addrenderer" class="tsd-kind-icon">add<wbr>Renderer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_jthreecontext_.jthreecontext.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_jthreecontext_.jthreecontext.html#init" class="tsd-kind-icon">init</a></li>
@@ -133,6 +135,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_jthreecontext_.jthreecontext.html#onrendererchanged" class="tsd-kind-icon">on<wbr>Renderer<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_jthreecontext_.jthreecontext.html#removerenderer" class="tsd-kind-icon">remove<wbr>Renderer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_jthreecontext_.jthreecontext.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_jthreecontext_.jthreecontext.html#updateanimation" class="tsd-kind-icon">update<wbr>Animation</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_core_jthreecontext_.jthreecontext.html#getinstanceforproxy" class="tsd-kind-icon">get<wbr>Instance<wbr>For<wbr>Proxy</a></li>
 							</ul>
 						</section>
@@ -151,7 +154,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L32">Core/JThreeContext.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L48">Core/JThreeContext.ts:48</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></h4>
@@ -162,12 +165,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="animaters" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> animaters</h3>
+					<div class="tsd-signature tsd-kind-icon">animaters<span class="tsd-signature-symbol">:</span> <a href="_base_jthreecollection_.jthreecollection.html" class="tsd-signature-type">JThreeCollection</a><span class="tsd-signature-symbol">&lt;</span><a href="_goml_animater_animaterbase_.animaterbase.html" class="tsd-signature-type">AnimaterBase</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L20">Core/JThreeContext.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="canvasrenderers" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> canvas<wbr>Renderers</h3>
 					<div class="tsd-signature tsd-kind-icon">canvas<wbr>Renderers<span class="tsd-signature-symbol">:</span> <a href="_core_canvasmanager_.canvasmanager.html" class="tsd-signature-type">CanvasManager</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L11">Core/JThreeContext.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L13">Core/JThreeContext.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,7 +190,7 @@
 					<div class="tsd-signature tsd-kind-icon">goml<wbr>Loader<span class="tsd-signature-symbol">:</span> <a href="_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L16">Core/JThreeContext.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L18">Core/JThreeContext.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,7 +200,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Renderer<wbr>Changed<wbr>Funcs<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_rendererlistchangedeventargs_.rendererlistchangedeventargs.html" class="tsd-signature-type">RendererListChangedEventArgs</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L12">Core/JThreeContext.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L14">Core/JThreeContext.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -197,7 +210,7 @@
 					<div class="tsd-signature tsd-kind-icon">register<wbr>Next<wbr>Loop<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_delegates_.action0.html" class="tsd-signature-type">Action0</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L17">Core/JThreeContext.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L19">Core/JThreeContext.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -207,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">resource<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_core_resourcemanager_.resourcemanager.html" class="tsd-signature-type">ResourceManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L13">Core/JThreeContext.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L15">Core/JThreeContext.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">scene<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_core_scenemanager_.scenemanager.html" class="tsd-signature-type">SceneManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L15">Core/JThreeContext.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L17">Core/JThreeContext.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -227,7 +240,7 @@
 					<div class="tsd-signature tsd-kind-icon">timer<span class="tsd-signature-symbol">:</span> <a href="_core_contexttimer_.contexttimer.html" class="tsd-signature-type">ContextTimer</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L14">Core/JThreeContext.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L16">Core/JThreeContext.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -237,7 +250,7 @@
 					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L19">Core/JThreeContext.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L35">Core/JThreeContext.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -254,7 +267,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L67">Core/JThreeContext.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L85">Core/JThreeContext.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -276,7 +289,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L30">Core/JThreeContext.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L46">Core/JThreeContext.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></h4>
@@ -293,7 +306,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L78">Core/JThreeContext.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L96">Core/JThreeContext.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -315,7 +328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L26">Core/JThreeContext.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L42">Core/JThreeContext.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_scenemanager_.scenemanager.html" class="tsd-signature-type">SceneManager</a></h4>
@@ -332,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L71">Core/JThreeContext.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L89">Core/JThreeContext.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_contexttimer_.contexttimer.html" class="tsd-signature-type">ContextTimer</a></h4>
@@ -343,6 +356,29 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addanimater" class="tsd-anchor"></a>
+					<h3>add<wbr>Animater</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Animater<span class="tsd-signature-symbol">(</span>animater<span class="tsd-signature-symbol">: </span><a href="_goml_animater_animaterbase_.animaterbase.html" class="tsd-signature-type">AnimaterBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L22">Core/JThreeContext.ts:22</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>animater: <a href="_goml_animater_animaterbase_.animaterbase.html" class="tsd-signature-type">AnimaterBase</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="addrenderer" class="tsd-anchor"></a>
 					<h3>add<wbr>Renderer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -352,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L85">Core/JThreeContext.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L103">Core/JThreeContext.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -398,7 +434,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L46">Core/JThreeContext.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L62">Core/JThreeContext.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -420,7 +456,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L58">Core/JThreeContext.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L74">Core/JThreeContext.ts:74</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -437,7 +473,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L121">Core/JThreeContext.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L139">Core/JThreeContext.ts:139</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -465,7 +501,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L112">Core/JThreeContext.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L130">Core/JThreeContext.ts:130</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -493,7 +529,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L96">Core/JThreeContext.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L114">Core/JThreeContext.ts:114</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -529,6 +565,23 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="updateanimation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> update<wbr>Animation</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Animation<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L27">Core/JThreeContext.ts:27</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="getinstanceforproxy" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Instance<wbr>For<wbr>Proxy</h3>
@@ -539,7 +592,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L20">Core/JThreeContext.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/JThreeContext.ts#L36">Core/JThreeContext.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></h4>
@@ -568,6 +621,9 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_core_jthreecontext_.jthreecontext.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_jthreecontext_.jthreecontext.html#animaters" class="tsd-kind-icon">animaters</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_jthreecontext_.jthreecontext.html#canvasrenderers" class="tsd-kind-icon">canvas<wbr>Renderers</a>
@@ -609,6 +665,9 @@
 								<a href="_core_jthreecontext_.jthreecontext.html#timer-1" class="tsd-kind-icon">Timer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_jthreecontext_.jthreecontext.html#addanimater" class="tsd-kind-icon">add<wbr>Animater</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_jthreecontext_.jthreecontext.html#addrenderer" class="tsd-kind-icon">add<wbr>Renderer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -631,6 +690,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_jthreecontext_.jthreecontext.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_core_jthreecontext_.jthreecontext.html#updateanimation" class="tsd-kind-icon">update<wbr>Animation</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_core_jthreecontext_.jthreecontext.html#getinstanceforproxy" class="tsd-kind-icon">get<wbr>Instance<wbr>For<wbr>Proxy</a>
