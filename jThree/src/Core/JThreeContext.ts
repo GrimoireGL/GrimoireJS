@@ -7,6 +7,8 @@ import JThreeObject = require("../Base/JThreeObject");
 import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
 import SceneManager = require("./SceneManager");
 import RendererStateChangedType = require("./RendererStateChangedType");
+import AnimaterBase = require("../Goml/Animater/AnimaterBase");
+import JThreeCollection = require("../Base/JThreeCollection");
 class JThreeContext extends JThreeObject {
     private canvasRenderers: CanvasManager[] = [];
     private onRendererChangedFuncs:Delegates.Action1<RendererListChangedEventArgs>[]=[];
@@ -15,6 +17,20 @@ class JThreeContext extends JThreeObject {
     private sceneManager: SceneManager;
     private gomlLoader:GomlLoader;
     private registerNextLoop:Delegates.Action0;
+    private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
+
+    public addAnimater(animater:AnimaterBase):void
+    {
+      this.animaters.insert(animater);
+    }
+
+    private updateAnimation():void
+    {
+      var time=this.timer.Time;
+      this.animaters.each(v=>{
+        if(v.update(time))this.animaters.delete(v);
+      });
+    }
 
     static instance:JThreeContext=new JThreeContext();
     static getInstanceForProxy()
@@ -57,6 +73,8 @@ class JThreeContext extends JThreeObject {
 
     loop(): void {
       var context=JThreeContext.instance;
+      context.timer.updateTimer();
+      context.updateAnimation();
       context.sceneManager.renderAll();
       context.registerNextLoop();
     }

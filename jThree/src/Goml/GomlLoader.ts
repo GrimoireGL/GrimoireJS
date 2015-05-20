@@ -8,6 +8,7 @@ import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeContext = require("../Core/JThreeContext");
 import GomlNodeListElement = require("./GomlNodeListElement");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
+import EasingFunctionBase = require("./Easing/EasingFunctionBase");
 declare function require(string):any;
 
 class GomlLoader extends jThreeObject {
@@ -16,6 +17,7 @@ class GomlLoader extends jThreeObject {
     super();
     this.constructTagDictionary();
     this.constructConverters();
+    this.constructEasingFunctions();
     var scriptTags=document.getElementsByTagName('script');
     this.selfTag=scriptTags[scriptTags.length-1];
   }
@@ -39,6 +41,8 @@ class GomlLoader extends jThreeObject {
 
     converters:Map<string,AttributeConverterBase>=new Map<string,AttributeConverterBase>();
 
+    easingFunctions:Map<string,EasingFunctionBase>=new Map<string,EasingFunctionBase>();
+
     gomlTags: Map<string, TagFactory> = new Map<string, TagFactory>();
 
     headTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
@@ -46,6 +50,7 @@ class GomlLoader extends jThreeObject {
     bodyTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
 
     nodeDictionary:GomlNodeDictionary=new GomlNodeDictionary();
+
 
     rootObj: JQuery;
 
@@ -96,6 +101,17 @@ class GomlLoader extends jThreeObject {
         var converterType=converterList[key];
         this.converters.set(key,new converterType());
       }
+    }
+
+    private constructEasingFunctions():void
+    {
+      var easingList:{[key:string]:any}=require('./EasingFunctionList');
+      for(var key in easingList)
+      {
+        var easingType=easingList[key];
+        this.easingFunctions.set(key,new easingType());
+      }
+
     }
 
     private addGomlTag(tag: TagFactory): void {

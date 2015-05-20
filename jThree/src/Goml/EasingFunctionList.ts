@@ -1,6 +1,6 @@
 declare function require(string):any ;
 
 var easingFunction={
-  "linear":require('./Converter/AngleAttributeConverter')
+  "linear":require('./Easing/LinearEasingFunction')
 };
 export=easingFunction;

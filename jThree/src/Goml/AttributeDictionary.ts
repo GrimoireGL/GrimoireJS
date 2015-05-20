@@ -3,8 +3,8 @@ import JThreeCollection = require("../Base/JThreeCollection");
 import GomlAttribute = require("./GomlAttribute");
 import Delegates = require("../Delegates");
 import GomlLoader = require("./GomlLoader");
-
-
+import AnimaterBase = require("./Animater/AnimaterBase");
+import EasingFunctionBase = require("./Easing/EasingFunctionBase");
 class AttributeDictionary extends JThreeObject
 {
   constructor(loader:GomlLoader,element:HTMLElement)
@@ -34,6 +34,22 @@ class AttributeDictionary extends JThreeObject
     if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
     else
       attr.Value=value;;
+  }
+
+  public getConverter(attrName:string)
+  {
+    var attr=this.attributes.getById(attrName);
+    if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
+    else
+      return attr.Converter;
+  }
+
+  public getAnimater(attrName:string,beginTime:number,duration:number,beginVal:any,endVal:any,easing:EasingFunctionBase,onComplete?:Delegates.Action0)
+  {
+    var attr=this.attributes.getById(attrName);
+    if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
+    else
+      return attr.Converter.GetAnimater(attr,beginVal,endVal,beginTime,duration,easing,onComplete);
   }
 
   public isDefined(attrName:string):boolean

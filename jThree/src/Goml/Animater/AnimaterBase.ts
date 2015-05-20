@@ -1,8 +1,8 @@
-import JThreeObject = require("../../Base/JThreeObject");
+import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import GomlAttribute = require("../GomlAttribute");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import Delegates = require("../../Delegates");
-class AnimaterBase extends JThreeObject
+class AnimaterBase extends JThreeObjectWithID
 {
   protected targetAttribute:GomlAttribute;
 
@@ -14,7 +14,11 @@ class AnimaterBase extends JThreeObject
 
   protected easingFunction:EasingFunctionBase;
 
-  constructor(targetAttribute:GomlAttribute,begintime:number,duration:number,easing:EasingFunctionBase,onComplete?:Delegates.Action0)
+  protected beginValue:any;
+
+  protected endValue:any;
+
+  constructor(targetAttribute:GomlAttribute,begintime:number,duration:number,beginValue:any,endValue:any,easing:EasingFunctionBase,onComplete?:Delegates.Action0)
   {
       super();
       this.targetAttribute=targetAttribute;
@@ -22,14 +26,20 @@ class AnimaterBase extends JThreeObject
       this.duration=duration;
       this.onComplete=onComplete;
       this.easingFunction=easing;
+      this.beginValue=beginValue;
+      this.endValue=endValue;
   }
 
+  /**
+  * Upate
+  */
   public update(time:number):boolean
   {
     var progress=(time-this.beginTime)/this.duration;
     var isFinish=progress>=1;
     progress=Math.min(Math.max(progress,0),1);//clamp [0,1]
     this.updateAnimation(progress);
+    if(isFinish&&this.onComplete)this.onComplete();
     return isFinish;
   }
 
