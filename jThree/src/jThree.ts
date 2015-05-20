@@ -42,6 +42,9 @@ function jqPrint(jq:JQuery) {
       console.groupEnd();
   }
 }
+
+
+
 j3(()=>{
-  j3("camera").animate('aspect',7,8000);
+  j3("camera").animate('position',"(2,0.3,3)",8000);
 });

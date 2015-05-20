@@ -4,6 +4,7 @@ declare function require(string):any ;
 
 var converterList={
   "angle":require('./Converter/AngleAttributeConverter'),
-  "number":require('./Converter/NumberAttributeConverter')
+  "number":require('./Converter/NumberAttributeConverter'),
+  "vector3":require('./Converter/Vector3AttributeConverter')
 };
 export=converterList;

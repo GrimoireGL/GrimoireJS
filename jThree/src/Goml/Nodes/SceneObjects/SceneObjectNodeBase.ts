@@ -14,6 +14,12 @@ class SceneObjectNodeBase extends GomlTreeNodeBase
       super(elem,loader,parent);
       this.containedSceneNode=parentSceneNode;
       this.parentSceneObjectNode=parentObject;
+      this.attributes.defineAttribute({
+        "position":{
+          value:new Vector3(0,0,0),
+          converter:"vector3",handler:(v)=>{this.targetSceneObject.Transformer.Position=<Vector3>v.Value;}
+        }
+      });
   }
 
   protected ConstructTarget():SceneObject

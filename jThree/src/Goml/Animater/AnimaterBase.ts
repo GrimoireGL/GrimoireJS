@@ -26,8 +26,8 @@ class AnimaterBase extends JThreeObjectWithID
       this.duration=duration;
       this.onComplete=onComplete;
       this.easingFunction=easing;
-      this.beginValue=beginValue;
-      this.endValue=endValue;
+      this.beginValue=this.targetAttribute.Converter.FromInterface(beginValue);
+      this.endValue=this.targetAttribute.Converter.FromInterface(endValue);
   }
 
   /**
