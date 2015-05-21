@@ -47,7 +47,7 @@ class ViewPortRenderer extends RendererBase
         this.applyConfigure();
         drawAct();
         this.contextManager.Context.Flush();
-        this.contextManager.afterRender(this);
+        this.contextManager.afterRender(this);RendererBase
     }
 }
 

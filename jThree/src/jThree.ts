@@ -46,5 +46,5 @@ function jqPrint(jq:JQuery) {
 
 
 j3(()=>{
-  j3("vp").animate({width:300,height:300,top:600},8000,"swing");
+  j3("solid").animate({color:'#F0F'},8000,"swing");
 });

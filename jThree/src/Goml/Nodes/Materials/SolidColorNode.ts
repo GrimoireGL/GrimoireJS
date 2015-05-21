@@ -17,6 +17,11 @@ class SolidColorNode extends GomlTreeNodeBase
       this.targetMaterial=new SolidColor();
       this.targetMaterial.Color=this.Color;
       this.loader.nodeDictionary.addObject("jthree.materials",this.Name,this);
+      this.attributes.defineAttribute({
+        "color":{
+          value:"#0FC",converter:"color4",handler:(v)=>{this.targetMaterial.Color=v.Value}
+        }
+      });
     }
 
     private name:string;

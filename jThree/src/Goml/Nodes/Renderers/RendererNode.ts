@@ -31,7 +31,9 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
           },
           "height":{
             value:300,converter:"number",handler:(v)=>{this.targetCanvas.height=v.Value;}
-          }
+          },
+          "clearColor":{
+            value:'#0FF',converter:"color4",handler:(v)=>{this.canvasManager.ClearColor=v.Value;}         }
         });
     }
 
