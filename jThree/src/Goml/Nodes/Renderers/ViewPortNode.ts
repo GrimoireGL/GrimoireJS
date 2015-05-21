@@ -29,6 +29,41 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
       scene.addRenderer(this.targetRenderer);
+      this.attributes.defineAttribute({
+        "width":{
+          value:300,
+          converter:"number",handler:v=>{
+            this.width=v.Value;
+            this.updateViewportArea();
+          }
+        },
+        "height":{
+          value:300,
+          converter:"number",handler:v=>{
+            this.height=v.Value;
+            this.updateViewportArea();
+          }
+        },
+        "left":{
+          value:0,
+          converter:"number",handler:v=>{
+            this.left=v.Value;
+            this.updateViewportArea();
+          }
+        },
+        "top":{
+          value:0,
+          converter:"number",handler:v=>{
+            this.top=v.Value;
+            this.updateViewportArea();
+          }
+        }
+      });
+    }
+
+    private updateViewportArea()
+    {
+      this.targetRenderer.ViewPortArea=new Rectangle(this.left,this.top,this.width, this.height);
     }
 
     private resolveCamera():CameraNodeBase

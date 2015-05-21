@@ -25,6 +25,14 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
         this.targetCanvas.height=this.Height;
         var context=JThreeContextProxy.getJThreeContext();
         context.addRenderer(this.canvasManager);
+        this.attributes.defineAttribute({
+          "width":{
+            value:300,converter:"number",handler:(v)=>{this.targetCanvas.width=v.Value;}
+          },
+          "height":{
+            value:300,converter:"number",handler:(v)=>{this.targetCanvas.height=v.Value;}
+          }
+        });
     }
 
         private clearColor:Color4;

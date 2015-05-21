@@ -46,5 +46,5 @@ function jqPrint(jq:JQuery) {
 
 
 j3(()=>{
-  j3("camera").animate('rotation',"y(180d)",8000,"swing");
+  j3("vp").animate({width:300,height:300,top:600},8000,"swing");
 });

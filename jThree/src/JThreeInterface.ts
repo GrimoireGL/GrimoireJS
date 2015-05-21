@@ -28,17 +28,22 @@ class JThreeInterface extends JThreeObject
     });
   }
 
-  public animate(attrTarget:string,valueTarget:any,duration:number,easing?:string,onComplete?:Delegate.Action0)
+  public animate(attrTarget:{[key:string]:any},duration:number,easing?:string,onComplete?:Delegate.Action0)
   {
     easing=easing||"linear";
     var t=this;
     this.target.each((n,e)=>{
-      var gomlNode=t.getNode(<HTMLElement>e);
-      if(gomlNode.attributes.isDefined(attrTarget))
+      for(var attrName in attrTarget)
       {
-        var easingFunc=this.Context.GomlLoader.easingFunctions.get(easing);
-        this.Context.addAnimater(gomlNode.attributes.getAnimater(attrTarget,this.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrTarget),valueTarget,easingFunc,onComplete));
+        var value=attrTarget[attrName];
+        var gomlNode=t.getNode(<HTMLElement>e);
+        if(gomlNode.attributes.isDefined(attrName))
+        {
+          var easingFunc=this.Context.GomlLoader.easingFunctions.get(easing);
+          this.Context.addAnimater(gomlNode.attributes.getAnimater(attrName,this.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrName),value,easingFunc,onComplete));
+        }
       }
+
     });
   }
 

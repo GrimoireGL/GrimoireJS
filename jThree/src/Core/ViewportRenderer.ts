@@ -18,6 +18,7 @@ class ViewPortRenderer extends RendererBase
     private viewportArea: Rectangle;
 
     private camera:Camera;
+
     public get Camera():Camera
     {
       return this.camera;
@@ -25,6 +26,16 @@ class ViewPortRenderer extends RendererBase
     public set Camera(camera:Camera)
     {
       this.camera=camera;
+    }
+
+    public get ViewPortArea():Rectangle
+    {
+      return this.viewportArea;
+    }
+
+    public set ViewPortArea(area:Rectangle)
+    {
+      this.viewportArea=area;
     }
 
     applyConfigure(): void {
