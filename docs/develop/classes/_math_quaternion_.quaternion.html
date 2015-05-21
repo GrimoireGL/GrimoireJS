@@ -134,7 +134,9 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#inverse" class="tsd-kind-icon">Inverse</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#normalize" class="tsd-kind-icon">Normalize</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#power" class="tsd-kind-icon">Power</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_math_quaternion_.quaternion.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#toangleaxisstring" class="tsd-kind-icon">to<wbr>Angle<wbr>Axis<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_math_quaternion_.quaternion.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
@@ -142,6 +144,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#angleaxis" class="tsd-kind-icon">Angle<wbr>Axis</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#eular" class="tsd-kind-icon">Eular</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#multiply" class="tsd-kind-icon">Multiply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#slerp" class="tsd-kind-icon">Slerp</a></li>
 							</ul>
 						</section>
 					</div>
@@ -408,6 +411,23 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="inverse" class="tsd-anchor"></a>
+					<h3>Inverse</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Inverse<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L99">Math/Quaternion.ts:99</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="normalize" class="tsd-anchor"></a>
 					<h3>Normalize</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -425,6 +445,29 @@
 									<p>Get normalized quaternion</p>
 								</div>
 							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="power" class="tsd-anchor"></a>
+					<h3>Power</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Power<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L139">Math/Quaternion.ts:139</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
 						</li>
 					</ul>
@@ -457,7 +500,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L133">Math/Quaternion.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L157">Math/Quaternion.ts:157</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -492,7 +535,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L102">Math/Quaternion.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L108">Math/Quaternion.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -523,7 +566,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L121">Math/Quaternion.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L127">Math/Quaternion.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -554,7 +597,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L128">Math/Quaternion.ts:128</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L134">Math/Quaternion.ts:134</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -583,7 +626,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L110">Math/Quaternion.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L116">Math/Quaternion.ts:116</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -598,6 +641,35 @@
 								</li>
 								<li>
 									<h5>q2: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="slerp" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Slerp</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Slerp<span class="tsd-signature-symbol">(</span>q1<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, q2<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, t<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L152">Math/Quaternion.ts:152</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>q1: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+								<li>
+									<h5>q2: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+								<li>
+									<h5>t: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
@@ -664,7 +736,13 @@
 								<a href="_math_quaternion_.quaternion.html#identity" class="tsd-kind-icon">Identity</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#inverse" class="tsd-kind-icon">Inverse</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_math_quaternion_.quaternion.html#normalize" class="tsd-kind-icon">Normalize</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#power" class="tsd-kind-icon">Power</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_math_quaternion_.quaternion.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
@@ -686,6 +764,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_math_quaternion_.quaternion.html#multiply" class="tsd-kind-icon">Multiply</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#slerp" class="tsd-kind-icon">Slerp</a>
 							</li>
 						</ul>
 					</li>
