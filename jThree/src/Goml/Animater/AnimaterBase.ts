@@ -39,7 +39,7 @@ class AnimaterBase extends JThreeObjectWithID
     var isFinish=progress>=1;
     progress=Math.min(Math.max(progress,0),1);//clamp [0,1]
     this.updateAnimation(progress);
-    if(isFinish&&this.onComplete)this.onComplete();
+    if(isFinish&&typeof this.onComplete==='function')this.onComplete();
     return isFinish;
   }
 

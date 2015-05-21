@@ -47,7 +47,6 @@ class Transformer extends JThreeObject
       v.Transformer.updateTransform();
     });
     this.notifyOnUpdateTransform();
-    console.log(this.localToGlobal.toString());
   }
 
   get LocalToGlobal():Matrix

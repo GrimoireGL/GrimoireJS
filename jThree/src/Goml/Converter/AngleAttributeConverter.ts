@@ -1,8 +1,8 @@
 import JThreeObject = require("../../Base/JThreeObject");
 import Exceptions = require("../../Exceptions");
 import AttributeParser = require("../AttributeParser");
-
-class AngleAttributeConverter extends JThreeObject
+import AttributeConverterBase = require("./AttributeConverterBase");
+class AngleAttributeConverter extends AttributeConverterBase
 {
   constructor()
   {

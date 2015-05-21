@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(4);
 	var Init = __webpack_require__(1);
 	var JThreeContextProxy = __webpack_require__(2);
 	var JThreeInterface = __webpack_require__(3);
@@ -84,7 +84,7 @@
 	    }
 	}
 	j3(function () {
-	    j3("camera").animate('position', "(2,0.3,3)", 8000);
+	    j3("camera").animate('rotation', "y(180d)", 8000, "swing");
 	});
 
 
@@ -92,10 +92,10 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var JThreeContext = __webpack_require__(4);
-	var $ = __webpack_require__(7);
-	var Quaternion = __webpack_require__(5);
-	var Vector3 = __webpack_require__(6);
+	var JThreeContext = __webpack_require__(5);
+	var $ = __webpack_require__(4);
+	var Quaternion = __webpack_require__(6);
+	var Vector3 = __webpack_require__(7);
 	var JThreeInit = (function () {
 	    function JThreeInit() {
 	    }
@@ -137,7 +137,7 @@
 	        _super.apply(this, arguments);
 	    }
 	    JThreeContextProxy.getJThreeContext = function () {
-	        JThreeContextProxy.instance = JThreeContextProxy.instance || __webpack_require__(4).getInstanceForProxy();
+	        JThreeContextProxy.instance = JThreeContextProxy.instance || __webpack_require__(5).getInstanceForProxy();
 	        return JThreeContextProxy.instance;
 	    };
 	    return JThreeContextProxy;
@@ -165,6 +165,7 @@
 	    }
 	    JThreeInterface.prototype.attr = function (attrTarget, value) {
 	        var t = this;
+	        debugger;
 	        this.target.each(function (n, e) {
 	            var gomlNode = t.getNode(e);
 	            if (gomlNode.attributes.isDefined(attrTarget)) {
@@ -205,525 +206,6 @@
 
 /***/ },
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var ContextTimer = __webpack_require__(10);
-	var GomlLoader = __webpack_require__(11);
-	var ResourceManager = __webpack_require__(12);
-	var JThreeObject = __webpack_require__(8);
-	var RendererListChangedEventArgs = __webpack_require__(13);
-	var SceneManager = __webpack_require__(14);
-	var RendererStateChangedType = __webpack_require__(15);
-	var JThreeCollection = __webpack_require__(16);
-	var JThreeContext = (function (_super) {
-	    __extends(JThreeContext, _super);
-	    function JThreeContext() {
-	        _super.call(this);
-	        this.canvasRenderers = [];
-	        this.onRendererChangedFuncs = [];
-	        this.animaters = new JThreeCollection();
-	        this.resourceManager = new ResourceManager();
-	        this.timer = new ContextTimer();
-	        this.sceneManager = new SceneManager();
-	        this.gomlLoader = new GomlLoader();
-	    }
-	    JThreeContext.prototype.addAnimater = function (animater) {
-	        this.animaters.insert(animater);
-	    };
-	    JThreeContext.prototype.updateAnimation = function () {
-	        var _this = this;
-	        var time = this.timer.Time;
-	        this.animaters.each(function (v) {
-	            if (v.update(time))
-	                _this.animaters.delete(v);
-	        });
-	    };
-	    JThreeContext.getInstanceForProxy = function () {
-	        JThreeContext.instance = JThreeContext.instance || new JThreeContext();
-	        return JThreeContext.instance;
-	    };
-	    Object.defineProperty(JThreeContext.prototype, "SceneManager", {
-	        get: function () {
-	            return this.sceneManager;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(JThreeContext.prototype, "GomlLoader", {
-	        get: function () {
-	            return this.gomlLoader;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    /**
-	     * Begin render loop
-	     * @returns {}
-	     */
-	    JThreeContext.prototype.init = function () {
-	        this.gomlLoader.initForPage();
-	        this.registerNextLoop = window.requestAnimationFrame ? function () {
-	            var context = JThreeContext.instance;
-	            window.requestAnimationFrame(context.loop);
-	        } : function () {
-	            var context = JThreeContext.instance;
-	            window.setTimeout(context.loop, 1000 / 60);
-	        };
-	        this.loop();
-	    };
-	    JThreeContext.prototype.loop = function () {
-	        var context = JThreeContext.instance;
-	        context.timer.updateTimer();
-	        context.updateAnimation();
-	        context.sceneManager.renderAll();
-	        context.registerNextLoop();
-	    };
-	    Object.defineProperty(JThreeContext.prototype, "CanvasRenderers", {
-	        /**
-	         * Getter of canvas renderer.
-	         */
-	        get: function () {
-	            return this.canvasRenderers;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(JThreeContext.prototype, "Timer", {
-	        get: function () {
-	            return this.timer;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(JThreeContext.prototype, "ResourceManager", {
-	        /**
-	         * The class managing resources over multiple canvas(Buffer,Shader,Program,Texture)
-	         */
-	        get: function () {
-	            return this.resourceManager;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    /**
-	     * Add renderers to be managed by jThree
-	     */
-	    JThreeContext.prototype.addRenderer = function (renderer) {
-	        console.log("adding renderer");
-	        if (this.canvasRenderers.indexOf(renderer) === -1) {
-	            this.canvasRenderers.push(renderer);
-	            this.notifyRendererChanged(new RendererListChangedEventArgs(0 /* Add */, renderer));
-	        }
-	    };
-	    /**
-	     * Remove renderer
-	     */
-	    JThreeContext.prototype.removeRenderer = function (renderer) {
-	        if (this.canvasRenderers.indexOf(renderer) !== -1) {
-	            for (var i = 0; i < this.canvasRenderers.length; i++) {
-	                if (this.canvasRenderers[i] === renderer) {
-	                    this.canvasRenderers.splice(i, 1);
-	                    break;
-	                }
-	            }
-	            this.notifyRendererChanged(new RendererListChangedEventArgs(1 /* Delete */, renderer));
-	        }
-	    };
-	    /**
-	     * add function as renderer changed event handler.
-	     */
-	    JThreeContext.prototype.onRendererChanged = function (func) {
-	        if (this.onRendererChangedFuncs.indexOf(func) === -1) {
-	            this.onRendererChangedFuncs.push(func);
-	        }
-	    };
-	    /**
-	     * notify all event handlers
-	     */
-	    JThreeContext.prototype.notifyRendererChanged = function (arg) {
-	        this.onRendererChangedFuncs.forEach(function (v, i, a) { return v(arg); });
-	    };
-	    JThreeContext.instance = new JThreeContext();
-	    return JThreeContext;
-	})(JThreeObject);
-	module.exports = JThreeContext;
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var JThreeObject = __webpack_require__(8);
-	var Vector3 = __webpack_require__(6);
-	/**
-	* The class to maniplate quaternion.
-	* Each element will be represented as (x;y,z,w)
-	* (1,i,j,k) is base axis for quaternion. (i,j,k is pure imaginary number)
-	* (x;y,z,w) means x*1+y*i+z*j+w*k
-	*/
-	var Quaternion = (function (_super) {
-	    __extends(Quaternion, _super);
-	    /**
-	    * Constructor by specifing each elements.
-	    */
-	    function Quaternion(x, y, z, w) {
-	        _super.call(this);
-	        this.x = x;
-	        this.y = y;
-	        this.z = z;
-	        this.w = w;
-	    }
-	    Object.defineProperty(Quaternion, "Identity", {
-	        get: function () {
-	            return new Quaternion(1, 0, 0, 0);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Quaternion.prototype, "X", {
-	        /**
-	        * Getter for X.
-	        */
-	        get: function () {
-	            return this.x;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Quaternion.prototype, "Y", {
-	        /**
-	        * Getter for Y.
-	        */
-	        get: function () {
-	            return this.y;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Quaternion.prototype, "Z", {
-	        /**
-	        * Getter for Z.
-	        */
-	        get: function () {
-	            return this.z;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Quaternion.prototype, "W", {
-	        /**
-	        * Getter for W.
-	        */
-	        get: function () {
-	            return this.w;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Quaternion.prototype, "ImaginaryPart", {
-	        /**
-	        * Getter for imaginary part vector.
-	        * It returns the vector (y,z,w)
-	        */
-	        get: function () {
-	            return new Vector3(this.y, this.z, this.w);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Quaternion.prototype, "Conjugate", {
-	        /**
-	        * Get the conjugate of this quaternion
-	        */
-	        get: function () {
-	            return new Quaternion(this.x, -this.y, -this.z, -this.w);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Quaternion.prototype, "Length", {
-	        /**
-	        * Get the length
-	        */
-	        get: function () {
-	            return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    /**
-	    * Get normalized quaternion
-	    */
-	    Quaternion.prototype.Normalize = function () {
-	        var length = this.Length;
-	        return new Quaternion(this.x / length, this.y / length, this.z / length, this.w / length);
-	    };
-	    /**
-	    * Calculate add result of two quaternion
-	    */
-	    Quaternion.Add = function (q1, q2) {
-	        return new Quaternion(q1.X + q2.X, q1.Y + q2.Y, q1.Z + q2.Z, q1.W + q2.W);
-	    };
-	    /**
-	    * Calculate Multiply result of two quaternion
-	    */
-	    Quaternion.Multiply = function (q1, q2) {
-	        var r1 = q1.X, v1 = q1.ImaginaryPart;
-	        var r2 = q2.X, v2 = q2.ImaginaryPart;
-	        var im = v1.multiplyWith(r2).addWith(v2.multiplyWith(r1)).addWith(Vector3.cross(v1, v2));
-	        return new Quaternion(r1 * r2 - v1.dotWith(v2), im.X, im.Y, im.Z);
-	    };
-	    /**
-	    * Calculate the rotation quaternion represented as pair of angle and axis.
-	    */
-	    Quaternion.AngleAxis = function (angle, axis) {
-	        axis = axis.normalizeThis();
-	        var im = Math.sin(angle / 2);
-	        return new Quaternion(Math.cos(angle / 2), im * axis.X, im * axis.Y, im * axis.Z);
-	    };
-	    Quaternion.Eular = function (x, y, z) {
-	        return Quaternion.Multiply(Quaternion.AngleAxis(z, Vector3.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(x, Vector3.XUnit), Quaternion.AngleAxis(y, Vector3.YUnit)));
-	    };
-	    Quaternion.prototype.toAngleAxisString = function () {
-	        var angle = 2 * Math.acos(this.x);
-	        var imm = Math.sqrt(1 - this.x * this.x);
-	        if (angle != 180 && angle != 0) {
-	            return "axis({0},{1},{2},{3})".format(angle, this.y / imm, this.z / imm, this.w / imm);
-	        }
-	        else if (angle == 0) {
-	            return "axis({0},0,1,0)".format(angle);
-	        }
-	        else {
-	            return "axis(180d,{0},{1},{2})".format(this.y, this.z, this.w);
-	        }
-	    };
-	    return Quaternion;
-	})(JThreeObject);
-	module.exports = Quaternion;
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var VectorEnumeratorBase = __webpack_require__(17);
-	var Exceptions = __webpack_require__(18);
-	var VectorBase = __webpack_require__(19);
-	var Vector3Factory = (function () {
-	    function Vector3Factory() {
-	    }
-	    Vector3Factory.getInstance = function () {
-	        this.instance = this.instance || new Vector3Factory();
-	        return this.instance;
-	    };
-	    Vector3Factory.prototype.fromArray = function (array) {
-	        return new Vector3(array[0], array[1], array[2]);
-	    };
-	    return Vector3Factory;
-	})();
-	var Vector3Enumerator = (function (_super) {
-	    __extends(Vector3Enumerator, _super);
-	    function Vector3Enumerator(vec) {
-	        _super.call(this, vec);
-	    }
-	    Vector3Enumerator.prototype.getCurrent = function () {
-	        switch (this.currentIndex) {
-	            case 0:
-	                return this.vector.X;
-	            case 1:
-	                return this.vector.Y;
-	            case 2:
-	                return this.vector.Z;
-	            default:
-	                throw new Exceptions.IrregularElementAccessException(this.currentIndex);
-	        }
-	    };
-	    return Vector3Enumerator;
-	})(VectorEnumeratorBase);
-	var Vector3 = (function (_super) {
-	    __extends(Vector3, _super);
-	    function Vector3(x, y, z) {
-	        _super.call(this);
-	        this.x = x;
-	        this.y = y;
-	        this.z = z;
-	    }
-	    Object.defineProperty(Vector3, "XUnit", {
-	        get: function () {
-	            return new Vector3(1, 0, 0);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Vector3, "YUnit", {
-	        get: function () {
-	            return new Vector3(0, 1, 0);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Vector3, "ZUnit", {
-	        get: function () {
-	            return new Vector3(0, 0, 1);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Vector3, "Zero", {
-	        get: function () {
-	            return new Vector3(0, 0, 0);
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Vector3.prototype, "X", {
-	        get: function () {
-	            return this.x;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Vector3.prototype, "Y", {
-	        get: function () {
-	            return this.y;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Vector3.prototype, "Z", {
-	        get: function () {
-	            return this.z;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Vector3.dot = function (v1, v2) {
-	        return VectorBase.elementDot(v1, v2);
-	    };
-	    Vector3.add = function (v1, v2) {
-	        return VectorBase.elementAdd(v1, v2, v1.getFactory());
-	    };
-	    Vector3.subtract = function (v1, v2) {
-	        return VectorBase.elementSubtract(v1, v2, v1.getFactory());
-	    };
-	    Vector3.multiply = function (s, v) {
-	        return VectorBase.elementScalarMultiply(v, s, v.getFactory());
-	    };
-	    Vector3.negate = function (v1) {
-	        return VectorBase.elementNegate(v1, v1.getFactory());
-	    };
-	    Vector3.equal = function (v1, v2) {
-	        return VectorBase.elementEqual(v1, v2);
-	    };
-	    Vector3.normalize = function (v1) {
-	        return VectorBase.normalizeElements(v1, v1.getFactory());
-	    };
-	    Vector3.cross = function (v1, v2) {
-	        return new Vector3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
-	    };
-	    Vector3.prototype.normalizeThis = function () {
-	        return Vector3.normalize(this);
-	    };
-	    Vector3.prototype.dotWith = function (v) {
-	        return Vector3.dot(this, v);
-	    };
-	    Vector3.prototype.addWith = function (v) {
-	        return Vector3.add(this, v);
-	    };
-	    Vector3.prototype.subtractWith = function (v) {
-	        return Vector3.subtract(this, v);
-	    };
-	    Vector3.prototype.multiplyWith = function (s) {
-	        return Vector3.multiply(s, this);
-	    };
-	    Vector3.prototype.negateThis = function () {
-	        return Vector3.negate(this);
-	    };
-	    Vector3.prototype.equalWith = function (v) {
-	        return Vector3.equal(this, v);
-	    };
-	    Vector3.prototype.crossWith = function (v) {
-	        return Vector3.cross(this, v);
-	    };
-	    Vector3.prototype.toString = function () {
-	        return "Vector3(x={0},y={1},z={2})".format(this.x, this.y, this.z);
-	    };
-	    Vector3.prototype.getEnumrator = function () {
-	        return new Vector3Enumerator(this);
-	    };
-	    Object.defineProperty(Vector3.prototype, "ElementCount", {
-	        get: function () {
-	            return 3;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Vector3.prototype.getFactory = function () {
-	        return Vector3Factory.getInstance();
-	    };
-	    Vector3.parse = function (str) {
-	        var resultVec;
-	        //1,0,2.0,3.0
-	        //-(1.0,2.0,3.0)
-	        //n(1.0,2.0,3.0) normalized
-	        //1.0
-	        //check attributes
-	        var negativeMatch = str.match(/^-n?(\(.+\))$/);
-	        var needNegate = false;
-	        if (negativeMatch) {
-	            needNegate = true;
-	            str = negativeMatch[1];
-	        }
-	        var normalizeMatch = str.match(/^n(\(.+\))$/);
-	        var needNormalize = false;
-	        if (normalizeMatch) {
-	            needNormalize = true;
-	            str = normalizeMatch[1];
-	        }
-	        //check body
-	        str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
-	        var strNums = str.split(/,/g);
-	        if (strNums.length == 1) {
-	            var elemNum = parseFloat(strNums[0]);
-	            resultVec = new Vector3(elemNum, elemNum, elemNum);
-	        }
-	        else if (strNums.length == 3) {
-	            resultVec = new Vector3(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]));
-	        }
-	        else {
-	            throw Error("passed argument was invalid");
-	        }
-	        if (needNormalize)
-	            resultVec = resultVec.normalizeThis();
-	        if (needNegate)
-	            resultVec = resultVec.negateThis();
-	        return resultVec;
-	    };
-	    return Vector3;
-	})(VectorBase);
-	module.exports = Vector3;
-
-
-/***/ },
-/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9934,6 +9416,543 @@
 
 
 /***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var ContextTimer = __webpack_require__(10);
+	var GomlLoader = __webpack_require__(11);
+	var ResourceManager = __webpack_require__(12);
+	var JThreeObject = __webpack_require__(8);
+	var RendererListChangedEventArgs = __webpack_require__(13);
+	var SceneManager = __webpack_require__(14);
+	var RendererStateChangedType = __webpack_require__(15);
+	var JThreeCollection = __webpack_require__(16);
+	var JThreeContext = (function (_super) {
+	    __extends(JThreeContext, _super);
+	    function JThreeContext() {
+	        _super.call(this);
+	        this.canvasRenderers = [];
+	        this.onRendererChangedFuncs = [];
+	        this.animaters = new JThreeCollection();
+	        this.resourceManager = new ResourceManager();
+	        this.timer = new ContextTimer();
+	        this.sceneManager = new SceneManager();
+	        this.gomlLoader = new GomlLoader();
+	    }
+	    JThreeContext.prototype.addAnimater = function (animater) {
+	        this.animaters.insert(animater);
+	    };
+	    JThreeContext.prototype.updateAnimation = function () {
+	        var _this = this;
+	        var time = this.timer.Time;
+	        this.animaters.each(function (v) {
+	            if (v.update(time))
+	                _this.animaters.delete(v);
+	        });
+	    };
+	    JThreeContext.getInstanceForProxy = function () {
+	        JThreeContext.instance = JThreeContext.instance || new JThreeContext();
+	        return JThreeContext.instance;
+	    };
+	    Object.defineProperty(JThreeContext.prototype, "SceneManager", {
+	        get: function () {
+	            return this.sceneManager;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JThreeContext.prototype, "GomlLoader", {
+	        get: function () {
+	            return this.gomlLoader;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    /**
+	     * Begin render loop
+	     * @returns {}
+	     */
+	    JThreeContext.prototype.init = function () {
+	        this.gomlLoader.initForPage();
+	        this.registerNextLoop = window.requestAnimationFrame ? function () {
+	            var context = JThreeContext.instance;
+	            window.requestAnimationFrame(context.loop);
+	        } : function () {
+	            var context = JThreeContext.instance;
+	            window.setTimeout(context.loop, 1000 / 60);
+	        };
+	        this.loop();
+	    };
+	    JThreeContext.prototype.loop = function () {
+	        var context = JThreeContext.instance;
+	        context.timer.updateTimer();
+	        context.updateAnimation();
+	        context.sceneManager.renderAll();
+	        context.registerNextLoop();
+	    };
+	    Object.defineProperty(JThreeContext.prototype, "CanvasRenderers", {
+	        /**
+	         * Getter of canvas renderer.
+	         */
+	        get: function () {
+	            return this.canvasRenderers;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JThreeContext.prototype, "Timer", {
+	        get: function () {
+	            return this.timer;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JThreeContext.prototype, "ResourceManager", {
+	        /**
+	         * The class managing resources over multiple canvas(Buffer,Shader,Program,Texture)
+	         */
+	        get: function () {
+	            return this.resourceManager;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    /**
+	     * Add renderers to be managed by jThree
+	     */
+	    JThreeContext.prototype.addRenderer = function (renderer) {
+	        console.log("adding renderer");
+	        if (this.canvasRenderers.indexOf(renderer) === -1) {
+	            this.canvasRenderers.push(renderer);
+	            this.notifyRendererChanged(new RendererListChangedEventArgs(0 /* Add */, renderer));
+	        }
+	    };
+	    /**
+	     * Remove renderer
+	     */
+	    JThreeContext.prototype.removeRenderer = function (renderer) {
+	        if (this.canvasRenderers.indexOf(renderer) !== -1) {
+	            for (var i = 0; i < this.canvasRenderers.length; i++) {
+	                if (this.canvasRenderers[i] === renderer) {
+	                    this.canvasRenderers.splice(i, 1);
+	                    break;
+	                }
+	            }
+	            this.notifyRendererChanged(new RendererListChangedEventArgs(1 /* Delete */, renderer));
+	        }
+	    };
+	    /**
+	     * add function as renderer changed event handler.
+	     */
+	    JThreeContext.prototype.onRendererChanged = function (func) {
+	        if (this.onRendererChangedFuncs.indexOf(func) === -1) {
+	            this.onRendererChangedFuncs.push(func);
+	        }
+	    };
+	    /**
+	     * notify all event handlers
+	     */
+	    JThreeContext.prototype.notifyRendererChanged = function (arg) {
+	        this.onRendererChangedFuncs.forEach(function (v, i, a) { return v(arg); });
+	    };
+	    JThreeContext.instance = new JThreeContext();
+	    return JThreeContext;
+	})(JThreeObject);
+	module.exports = JThreeContext;
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var JThreeObject = __webpack_require__(8);
+	var Vector3 = __webpack_require__(7);
+	/**
+	* The class to maniplate quaternion.
+	* Each element will be represented as (x;y,z,w)
+	* (1,i,j,k) is base axis for quaternion. (i,j,k is pure imaginary number)
+	* (x;y,z,w) means x*1+y*i+z*j+w*k
+	*/
+	var Quaternion = (function (_super) {
+	    __extends(Quaternion, _super);
+	    /**
+	    * Constructor by specifing each elements.
+	    */
+	    function Quaternion(x, y, z, w) {
+	        _super.call(this);
+	        this.x = x;
+	        this.y = y;
+	        this.z = z;
+	        this.w = w;
+	    }
+	    Object.defineProperty(Quaternion, "Identity", {
+	        get: function () {
+	            return new Quaternion(1, 0, 0, 0);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Quaternion.prototype, "X", {
+	        /**
+	        * Getter for X.
+	        */
+	        get: function () {
+	            return this.x;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Quaternion.prototype, "Y", {
+	        /**
+	        * Getter for Y.
+	        */
+	        get: function () {
+	            return this.y;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Quaternion.prototype, "Z", {
+	        /**
+	        * Getter for Z.
+	        */
+	        get: function () {
+	            return this.z;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Quaternion.prototype, "W", {
+	        /**
+	        * Getter for W.
+	        */
+	        get: function () {
+	            return this.w;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Quaternion.prototype, "ImaginaryPart", {
+	        /**
+	        * Getter for imaginary part vector.
+	        * It returns the vector (y,z,w)
+	        */
+	        get: function () {
+	            return new Vector3(this.y, this.z, this.w);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Quaternion.prototype, "Conjugate", {
+	        /**
+	        * Get the conjugate of this quaternion
+	        */
+	        get: function () {
+	            return new Quaternion(this.x, -this.y, -this.z, -this.w);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Quaternion.prototype, "Length", {
+	        /**
+	        * Get the length
+	        */
+	        get: function () {
+	            return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    /**
+	    * Get normalized quaternion
+	    */
+	    Quaternion.prototype.Normalize = function () {
+	        var length = this.Length;
+	        return new Quaternion(this.x / length, this.y / length, this.z / length, this.w / length);
+	    };
+	    Quaternion.prototype.Inverse = function () {
+	        var normalized = this.Normalize();
+	        return normalized.Conjugate;
+	    };
+	    /**
+	    * Calculate add result of two quaternion
+	    */
+	    Quaternion.Add = function (q1, q2) {
+	        return new Quaternion(q1.X + q2.X, q1.Y + q2.Y, q1.Z + q2.Z, q1.W + q2.W);
+	    };
+	    /**
+	    * Calculate Multiply result of two quaternion
+	    */
+	    Quaternion.Multiply = function (q1, q2) {
+	        var r1 = q1.X, v1 = q1.ImaginaryPart;
+	        var r2 = q2.X, v2 = q2.ImaginaryPart;
+	        var im = v1.multiplyWith(r2).addWith(v2.multiplyWith(r1)).addWith(Vector3.cross(v1, v2));
+	        return new Quaternion(r1 * r2 - v1.dotWith(v2), im.X, im.Y, im.Z);
+	    };
+	    /**
+	    * Calculate the rotation quaternion represented as pair of angle and axis.
+	    */
+	    Quaternion.AngleAxis = function (angle, axis) {
+	        axis = axis.normalizeThis();
+	        var im = Math.sin(angle / 2);
+	        return new Quaternion(Math.cos(angle / 2), im * axis.X, im * axis.Y, im * axis.Z);
+	    };
+	    Quaternion.Eular = function (x, y, z) {
+	        return Quaternion.Multiply(Quaternion.AngleAxis(z, Vector3.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(x, Vector3.XUnit), Quaternion.AngleAxis(y, Vector3.YUnit)));
+	    };
+	    Quaternion.prototype.Power = function (p) {
+	        var angle = 2 * Math.acos(this.x);
+	        var imm = Math.sqrt(1 - this.x * this.x);
+	        var sinP = Math.sin(angle / 2 * p) / imm;
+	        if (angle == 0) {
+	            return Quaternion.Identity;
+	        }
+	        else {
+	            return new Quaternion(Math.cos(angle / 2 * p), sinP * this.y, sinP * this.z, sinP * this.w);
+	        }
+	    };
+	    Quaternion.Slerp = function (q1, q2, t) {
+	        return Quaternion.Multiply(q1, Quaternion.Multiply(q1.Inverse(), q2).Power(t));
+	    };
+	    Quaternion.prototype.toAngleAxisString = function () {
+	        var angle = 2 * Math.acos(this.x);
+	        var imm = Math.sqrt(1 - this.x * this.x);
+	        if (angle != 180 && angle != 0) {
+	            return "axis({0},{1},{2},{3})".format(angle, this.y / imm, this.z / imm, this.w / imm);
+	        }
+	        else if (angle == 0) {
+	            return "axis({0},0,1,0)".format(angle);
+	        }
+	        else {
+	            return "axis(180d,{0},{1},{2})".format(this.y, this.z, this.w);
+	        }
+	    };
+	    return Quaternion;
+	})(JThreeObject);
+	module.exports = Quaternion;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var VectorEnumeratorBase = __webpack_require__(17);
+	var Exceptions = __webpack_require__(18);
+	var VectorBase = __webpack_require__(19);
+	var Vector3Factory = (function () {
+	    function Vector3Factory() {
+	    }
+	    Vector3Factory.getInstance = function () {
+	        this.instance = this.instance || new Vector3Factory();
+	        return this.instance;
+	    };
+	    Vector3Factory.prototype.fromArray = function (array) {
+	        return new Vector3(array[0], array[1], array[2]);
+	    };
+	    return Vector3Factory;
+	})();
+	var Vector3Enumerator = (function (_super) {
+	    __extends(Vector3Enumerator, _super);
+	    function Vector3Enumerator(vec) {
+	        _super.call(this, vec);
+	    }
+	    Vector3Enumerator.prototype.getCurrent = function () {
+	        switch (this.currentIndex) {
+	            case 0:
+	                return this.vector.X;
+	            case 1:
+	                return this.vector.Y;
+	            case 2:
+	                return this.vector.Z;
+	            default:
+	                throw new Exceptions.IrregularElementAccessException(this.currentIndex);
+	        }
+	    };
+	    return Vector3Enumerator;
+	})(VectorEnumeratorBase);
+	var Vector3 = (function (_super) {
+	    __extends(Vector3, _super);
+	    function Vector3(x, y, z) {
+	        _super.call(this);
+	        this.x = x;
+	        this.y = y;
+	        this.z = z;
+	    }
+	    Object.defineProperty(Vector3, "XUnit", {
+	        get: function () {
+	            return new Vector3(1, 0, 0);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Vector3, "YUnit", {
+	        get: function () {
+	            return new Vector3(0, 1, 0);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Vector3, "ZUnit", {
+	        get: function () {
+	            return new Vector3(0, 0, 1);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Vector3, "Zero", {
+	        get: function () {
+	            return new Vector3(0, 0, 0);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Vector3.prototype, "X", {
+	        get: function () {
+	            return this.x;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Vector3.prototype, "Y", {
+	        get: function () {
+	            return this.y;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Vector3.prototype, "Z", {
+	        get: function () {
+	            return this.z;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Vector3.dot = function (v1, v2) {
+	        return VectorBase.elementDot(v1, v2);
+	    };
+	    Vector3.add = function (v1, v2) {
+	        return VectorBase.elementAdd(v1, v2, v1.getFactory());
+	    };
+	    Vector3.subtract = function (v1, v2) {
+	        return VectorBase.elementSubtract(v1, v2, v1.getFactory());
+	    };
+	    Vector3.multiply = function (s, v) {
+	        return VectorBase.elementScalarMultiply(v, s, v.getFactory());
+	    };
+	    Vector3.negate = function (v1) {
+	        return VectorBase.elementNegate(v1, v1.getFactory());
+	    };
+	    Vector3.equal = function (v1, v2) {
+	        return VectorBase.elementEqual(v1, v2);
+	    };
+	    Vector3.normalize = function (v1) {
+	        return VectorBase.normalizeElements(v1, v1.getFactory());
+	    };
+	    Vector3.cross = function (v1, v2) {
+	        return new Vector3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
+	    };
+	    Vector3.prototype.normalizeThis = function () {
+	        return Vector3.normalize(this);
+	    };
+	    Vector3.prototype.dotWith = function (v) {
+	        return Vector3.dot(this, v);
+	    };
+	    Vector3.prototype.addWith = function (v) {
+	        return Vector3.add(this, v);
+	    };
+	    Vector3.prototype.subtractWith = function (v) {
+	        return Vector3.subtract(this, v);
+	    };
+	    Vector3.prototype.multiplyWith = function (s) {
+	        return Vector3.multiply(s, this);
+	    };
+	    Vector3.prototype.negateThis = function () {
+	        return Vector3.negate(this);
+	    };
+	    Vector3.prototype.equalWith = function (v) {
+	        return Vector3.equal(this, v);
+	    };
+	    Vector3.prototype.crossWith = function (v) {
+	        return Vector3.cross(this, v);
+	    };
+	    Vector3.prototype.toString = function () {
+	        return "Vector3(x={0},y={1},z={2})".format(this.x, this.y, this.z);
+	    };
+	    Vector3.prototype.getEnumrator = function () {
+	        return new Vector3Enumerator(this);
+	    };
+	    Object.defineProperty(Vector3.prototype, "ElementCount", {
+	        get: function () {
+	            return 3;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Vector3.prototype.getFactory = function () {
+	        return Vector3Factory.getInstance();
+	    };
+	    Vector3.parse = function (str) {
+	        var resultVec;
+	        //1,0,2.0,3.0
+	        //-(1.0,2.0,3.0)
+	        //n(1.0,2.0,3.0) normalized
+	        //1.0
+	        //check attributes
+	        var negativeMatch = str.match(/^-n?(\(.+\))$/);
+	        var needNegate = false;
+	        if (negativeMatch) {
+	            needNegate = true;
+	            str = negativeMatch[1];
+	        }
+	        var normalizeMatch = str.match(/^n(\(.+\))$/);
+	        var needNormalize = false;
+	        if (normalizeMatch) {
+	            needNormalize = true;
+	            str = normalizeMatch[1];
+	        }
+	        //check body
+	        str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
+	        var strNums = str.split(/,/g);
+	        if (strNums.length == 1) {
+	            var elemNum = parseFloat(strNums[0]);
+	            resultVec = new Vector3(elemNum, elemNum, elemNum);
+	        }
+	        else if (strNums.length == 3) {
+	            resultVec = new Vector3(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]));
+	        }
+	        else {
+	            throw Error("passed argument was invalid");
+	        }
+	        if (needNormalize)
+	            resultVec = resultVec.normalizeThis();
+	        if (needNegate)
+	            resultVec = resultVec.negateThis();
+	        return resultVec;
+	    };
+	    return Vector3;
+	})(VectorBase);
+	module.exports = Vector3;
+
+
+/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -10730,7 +10749,8 @@
 	var converterList = {
 	    "angle": __webpack_require__(44),
 	    "number": __webpack_require__(45),
-	    "vector3": __webpack_require__(46)
+	    "vector3": __webpack_require__(46),
+	    "rotation": __webpack_require__(47)
 	};
 	module.exports = converterList;
 
@@ -10740,7 +10760,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var easingFunction = {
-	    "linear": __webpack_require__(47)
+	    "linear": __webpack_require__(48),
+	    "swing": __webpack_require__(49)
 	};
 	module.exports = easingFunction;
 
@@ -10987,8 +11008,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var BufferProxy = __webpack_require__(48);
-	var BufferWrapper = __webpack_require__(49);
+	var BufferProxy = __webpack_require__(50);
+	var BufferWrapper = __webpack_require__(51);
 	var JThreeContextProxy = __webpack_require__(2);
 	var RendererListChangedType = __webpack_require__(15);
 	var Buffer = (function (_super) {
@@ -11128,8 +11149,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextSafeContainer = __webpack_require__(50);
-	var ShaderWrapper = __webpack_require__(51);
+	var ContextSafeContainer = __webpack_require__(52);
+	var ShaderWrapper = __webpack_require__(53);
 	var Shader = (function (_super) {
 	    __extends(Shader, _super);
 	    /**
@@ -11198,8 +11219,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextSafeContainer = __webpack_require__(50);
-	var ProgramWrapper = __webpack_require__(52);
+	var ContextSafeContainer = __webpack_require__(52);
+	var ProgramWrapper = __webpack_require__(54);
 	var Program = (function (_super) {
 	    __extends(Program, _super);
 	    function Program(context) {
@@ -11324,9 +11345,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GeometryNodeBase = __webpack_require__(53);
-	var Vector3 = __webpack_require__(6);
-	var TriangleGeometry = __webpack_require__(54);
+	var GeometryNodeBase = __webpack_require__(55);
+	var Vector3 = __webpack_require__(7);
+	var TriangleGeometry = __webpack_require__(56);
 	var GomlTreeTriNode = (function (_super) {
 	    __extends(GomlTreeTriNode, _super);
 	    function GomlTreeTriNode(elem, loader, parent) {
@@ -11380,8 +11401,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GeometryNodeBase = __webpack_require__(53);
-	var GridGeometry = __webpack_require__(55);
+	var GeometryNodeBase = __webpack_require__(55);
+	var GridGeometry = __webpack_require__(57);
 	var GridGeometryNode = (function (_super) {
 	    __extends(GridGeometryNode, _super);
 	    function GridGeometryNode(elem, loader, parent) {
@@ -11430,11 +11451,11 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var CanvasManager = __webpack_require__(56);
-	var GomlTreeNodeBase = __webpack_require__(57);
+	var CanvasManager = __webpack_require__(58);
+	var GomlTreeNodeBase = __webpack_require__(59);
 	var JThreeContextProxy = __webpack_require__(2);
-	var $ = __webpack_require__(7);
-	var Color4 = __webpack_require__(58);
+	var $ = __webpack_require__(4);
+	var Color4 = __webpack_require__(60);
 	var GomlTreeRdrNode = (function (_super) {
 	    __extends(GomlTreeRdrNode, _super);
 	    function GomlTreeRdrNode(elem, loader, parent) {
@@ -11497,9 +11518,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GomlTreeNodeBase = __webpack_require__(57);
-	var ViewportRenderer = __webpack_require__(59);
-	var Rectangle = __webpack_require__(60);
+	var GomlTreeNodeBase = __webpack_require__(59);
+	var ViewportRenderer = __webpack_require__(61);
+	var Rectangle = __webpack_require__(62);
 	var JThreeContextProxy = __webpack_require__(2);
 	var GomlTreeVpNode = (function (_super) {
 	    __extends(GomlTreeVpNode, _super);
@@ -11589,8 +11610,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GomlTreeNodeBase = __webpack_require__(57);
-	var Scene = __webpack_require__(61);
+	var GomlTreeNodeBase = __webpack_require__(59);
+	var Scene = __webpack_require__(63);
 	var JThreeContextProxy = __webpack_require__(2);
 	var GomlTreeSceneNode = (function (_super) {
 	    __extends(GomlTreeSceneNode, _super);
@@ -11617,10 +11638,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SolidColor = __webpack_require__(62);
-	var GomlTreeNodeBase = __webpack_require__(57);
-	var Color4 = __webpack_require__(58);
-	var JThreeID = __webpack_require__(63);
+	var SolidColor = __webpack_require__(64);
+	var GomlTreeNodeBase = __webpack_require__(59);
+	var Color4 = __webpack_require__(60);
+	var JThreeID = __webpack_require__(65);
 	var SolidColorNode = (function (_super) {
 	    __extends(SolidColorNode, _super);
 	    function SolidColorNode(elem, loader, parent) {
@@ -11712,8 +11733,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var PerspectiveCamera = __webpack_require__(64);
-	var GomlTreeCameraNodeBase = __webpack_require__(65);
+	var PerspectiveCamera = __webpack_require__(66);
+	var GomlTreeCameraNodeBase = __webpack_require__(67);
 	var GomlTreeCameraNode = (function (_super) {
 	    __extends(GomlTreeCameraNode, _super);
 	    function GomlTreeCameraNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -11802,9 +11823,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObjectNodeBase = __webpack_require__(66);
-	var Mesh = __webpack_require__(67);
-	var SolidColor = __webpack_require__(62);
+	var SceneObjectNodeBase = __webpack_require__(68);
+	var Mesh = __webpack_require__(69);
+	var SolidColor = __webpack_require__(64);
 	var GomlTreeMeshNode = (function (_super) {
 	    __extends(GomlTreeMeshNode, _super);
 	    function GomlTreeMeshNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -11853,9 +11874,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(8);
 	var Exceptions = __webpack_require__(18);
-	var AttributeParser = __webpack_require__(68);
+	var AttributeParser = __webpack_require__(70);
+	var AttributeConverterBase = __webpack_require__(71);
 	var AngleAttributeConverter = (function (_super) {
 	    __extends(AngleAttributeConverter, _super);
 	    function AngleAttributeConverter() {
@@ -11877,7 +11898,7 @@
 	        throw new Exceptions.InvalidArgumentException("val can't parse");
 	    };
 	    return AngleAttributeConverter;
-	})(JThreeObject);
+	})(AttributeConverterBase);
 	module.exports = AngleAttributeConverter;
 
 
@@ -11891,9 +11912,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(69);
+	var AttributeConverterBase = __webpack_require__(71);
 	var Exceptions = __webpack_require__(18);
-	var NumberAnimater = __webpack_require__(70);
+	var NumberAnimater = __webpack_require__(72);
 	var NumberAttributeConverter = (function (_super) {
 	    __extends(NumberAttributeConverter, _super);
 	    function NumberAttributeConverter() {
@@ -11932,10 +11953,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(69);
+	var AttributeConverterBase = __webpack_require__(71);
 	var Exceptions = __webpack_require__(18);
-	var Vector3 = __webpack_require__(6);
-	var Vector3Animater = __webpack_require__(71);
+	var Vector3 = __webpack_require__(7);
+	var Vector3Animater = __webpack_require__(73);
 	var Vector3AttributeConverter = (function (_super) {
 	    __extends(Vector3AttributeConverter, _super);
 	    function Vector3AttributeConverter() {
@@ -11974,7 +11995,49 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var EasingFunctionBase = __webpack_require__(72);
+	var JThreeObject = __webpack_require__(8);
+	var Exceptions = __webpack_require__(18);
+	var AttributeParser = __webpack_require__(70);
+	var RotationAnimater = __webpack_require__(75);
+	var RotationAttributeConverter = (function (_super) {
+	    __extends(RotationAttributeConverter, _super);
+	    function RotationAttributeConverter() {
+	        _super.call(this);
+	    }
+	    RotationAttributeConverter.prototype.ToAttribute = function (val) {
+	        return val;
+	    };
+	    RotationAttributeConverter.prototype.FromAttribute = function (attr) {
+	        return AttributeParser.ParseRotation3D(attr);
+	    };
+	    RotationAttributeConverter.prototype.FromInterface = function (val) {
+	        if (typeof val === 'string') {
+	            return this.FromAttribute(val);
+	        }
+	        else if (typeof val === 'object') {
+	            return val;
+	        }
+	        throw new Exceptions.InvalidArgumentException("val can't parse");
+	    };
+	    RotationAttributeConverter.prototype.GetAnimater = function (attr, beginVal, endVal, beginTime, duration, easing, onComplete) {
+	        return new RotationAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
+	    };
+	    return RotationAttributeConverter;
+	})(JThreeObject);
+	module.exports = RotationAttributeConverter;
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var EasingFunctionBase = __webpack_require__(74);
 	var LinearEasingFunction = (function (_super) {
 	    __extends(LinearEasingFunction, _super);
 	    function LinearEasingFunction() {
@@ -11989,7 +12052,7 @@
 
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11998,7 +12061,32 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ArrayEnumratorFactory = __webpack_require__(73);
+	var EasingFunctionBase = __webpack_require__(74);
+	var SwingEasingFunction = (function (_super) {
+	    __extends(SwingEasingFunction, _super);
+	    function SwingEasingFunction() {
+	        _super.apply(this, arguments);
+	    }
+	    SwingEasingFunction.prototype.Ease = function (begin, end, progress) {
+	        var p = 0.5 - Math.cos(progress * Math.PI) / 2;
+	        return begin + (end - begin) * p;
+	    };
+	    return SwingEasingFunction;
+	})(EasingFunctionBase);
+	module.exports = SwingEasingFunction;
+
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var ArrayEnumratorFactory = __webpack_require__(76);
 	var Collection = __webpack_require__(29);
 	var BufferProxy = (function (_super) {
 	    __extends(BufferProxy, _super);
@@ -12075,7 +12163,7 @@
 
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12084,7 +12172,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var BufferProxy = __webpack_require__(48);
+	var BufferProxy = __webpack_require__(50);
 	/**
 	 * Most based wrapper of buffer.
 	 */
@@ -12199,7 +12287,7 @@
 
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12262,7 +12350,7 @@
 
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12313,7 +12401,7 @@
 
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12430,7 +12518,7 @@
 
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12439,8 +12527,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GomlTreeNodeBase = __webpack_require__(57);
-	var JThreeID = __webpack_require__(63);
+	var GomlTreeNodeBase = __webpack_require__(59);
+	var JThreeID = __webpack_require__(65);
 	/**
 	* Base class for managing geometry node.
 	*/
@@ -12502,7 +12590,7 @@
 
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12511,13 +12599,13 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Geometry = __webpack_require__(74);
+	var Geometry = __webpack_require__(77);
 	var JThreeContextProxy = __webpack_require__(2);
-	var BufferTargetType = __webpack_require__(75);
-	var BufferUsageType = __webpack_require__(76);
-	var ElementType = __webpack_require__(77);
-	var Vector3 = __webpack_require__(6);
-	var PrimitiveTopology = __webpack_require__(78);
+	var BufferTargetType = __webpack_require__(78);
+	var BufferUsageType = __webpack_require__(79);
+	var ElementType = __webpack_require__(80);
+	var Vector3 = __webpack_require__(7);
+	var PrimitiveTopology = __webpack_require__(81);
 	var TriangleGeometry = (function (_super) {
 	    __extends(TriangleGeometry, _super);
 	    function TriangleGeometry(name) {
@@ -12581,7 +12669,7 @@
 
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12590,12 +12678,12 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Geometry = __webpack_require__(74);
+	var Geometry = __webpack_require__(77);
 	var JThreeContextProxy = __webpack_require__(2);
-	var BufferTargetType = __webpack_require__(75);
-	var BufferUsageType = __webpack_require__(76);
-	var ElementType = __webpack_require__(77);
-	var PrimitiveTopology = __webpack_require__(78);
+	var BufferTargetType = __webpack_require__(78);
+	var BufferUsageType = __webpack_require__(79);
+	var ElementType = __webpack_require__(80);
+	var PrimitiveTopology = __webpack_require__(81);
 	var GridGeometry = (function (_super) {
 	    __extends(GridGeometry, _super);
 	    function GridGeometry(name) {
@@ -12675,7 +12763,7 @@
 
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12684,13 +12772,13 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextManagerBase = __webpack_require__(79);
-	var WebGLContextWrapper = __webpack_require__(91);
-	var ViewPortRenderer = __webpack_require__(59);
-	var Rectangle = __webpack_require__(60);
+	var ContextManagerBase = __webpack_require__(82);
+	var WebGLContextWrapper = __webpack_require__(94);
+	var ViewPortRenderer = __webpack_require__(61);
+	var Rectangle = __webpack_require__(62);
 	var JThreeContextProxy = __webpack_require__(2);
-	var Color4 = __webpack_require__(58);
-	var ClearTargetType = __webpack_require__(80);
+	var Color4 = __webpack_require__(60);
+	var ClearTargetType = __webpack_require__(83);
 	var CanvasManager = (function (_super) {
 	    __extends(CanvasManager, _super);
 	    function CanvasManager(glContext) {
@@ -12759,7 +12847,7 @@
 
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12768,8 +12856,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObjectWithID = __webpack_require__(81);
-	var AttributeDictionary = __webpack_require__(82);
+	var jThreeObjectWithID = __webpack_require__(84);
+	var AttributeDictionary = __webpack_require__(85);
 	var GomlTreeNodeBase = (function (_super) {
 	    __extends(GomlTreeNodeBase, _super);
 	    function GomlTreeNodeBase(elem, loader, parent) {
@@ -12799,7 +12887,7 @@
 
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12809,7 +12897,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(8);
-	var Vector4 = __webpack_require__(83);
+	var Vector4 = __webpack_require__(86);
 	var Color4 = (function (_super) {
 	    __extends(Color4, _super);
 	    function Color4(r, g, b, a) {
@@ -12909,14 +12997,14 @@
 	        st += Math.round(this.A * 0xff).toString(16).toUpperCase();
 	        return "Color4({0},{1},{2},{3}):{4}".format(this.R, this.G, this.B, this.A, st);
 	    };
-	    Color4.colorTable = __webpack_require__(95);
+	    Color4.colorTable = __webpack_require__(98);
 	    return Color4;
 	})(JThreeObject);
 	module.exports = Color4;
 
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12925,7 +13013,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var RendererBase = __webpack_require__(84);
+	var RendererBase = __webpack_require__(87);
 	var ViewPortRenderer = (function (_super) {
 	    __extends(ViewPortRenderer, _super);
 	    function ViewPortRenderer(contextManager, viewportArea) {
@@ -12958,7 +13046,7 @@
 
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13028,7 +13116,7 @@
 
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13037,7 +13125,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObjectWithID = __webpack_require__(81);
+	var jThreeObjectWithID = __webpack_require__(84);
 	/**
 	* NON PUBLIC CLASS
 	*/
@@ -13134,7 +13222,7 @@
 
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13143,18 +13231,18 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Material = __webpack_require__(85);
+	var Material = __webpack_require__(88);
 	var JThreeContextProxy = __webpack_require__(2);
-	var ShaderType = __webpack_require__(86);
-	var Color4 = __webpack_require__(58);
+	var ShaderType = __webpack_require__(89);
+	var Color4 = __webpack_require__(60);
 	var SolidColorMaterial = (function (_super) {
 	    __extends(SolidColorMaterial, _super);
 	    function SolidColorMaterial() {
 	        _super.call(this);
 	        this.color = Color4.parseColor('#F0F');
 	        var jThreeContext = JThreeContextProxy.getJThreeContext();
-	        var vs = __webpack_require__(92);
-	        var fs = __webpack_require__(93);
+	        var vs = __webpack_require__(95);
+	        var fs = __webpack_require__(96);
 	        var rm = jThreeContext.ResourceManager;
 	        var vsShader;
 	        vsShader = rm.createOrGetShader("jthree.shaders.vertex.basic", vs, 35633 /* VertexShader */);
@@ -13191,7 +13279,7 @@
 
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13220,7 +13308,7 @@
 
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13229,8 +13317,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ViewCamera = __webpack_require__(87);
-	var Matrix = __webpack_require__(88);
+	var ViewCamera = __webpack_require__(90);
+	var Matrix = __webpack_require__(91);
 	var PerspectiveCamera = (function (_super) {
 	    __extends(PerspectiveCamera, _super);
 	    function PerspectiveCamera() {
@@ -13300,7 +13388,7 @@
 
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13309,8 +13397,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeID = __webpack_require__(63);
-	var SceneObjectNodeBase = __webpack_require__(66);
+	var JThreeID = __webpack_require__(65);
+	var SceneObjectNodeBase = __webpack_require__(68);
 	var GomlTreeCameraNodeBase = (function (_super) {
 	    __extends(GomlTreeCameraNodeBase, _super);
 	    function GomlTreeCameraNodeBase(elem, loader, parent, parentSceneNode, parentObject) {
@@ -13356,7 +13444,7 @@
 
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13365,9 +13453,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GomlTreeNodeBase = __webpack_require__(57);
-	var Vector3 = __webpack_require__(6);
-	var AttributeParser = __webpack_require__(68);
+	var GomlTreeNodeBase = __webpack_require__(59);
+	var Vector3 = __webpack_require__(7);
+	var Quaternion = __webpack_require__(6);
+	var AttributeParser = __webpack_require__(70);
 	var SceneObjectNodeBase = (function (_super) {
 	    __extends(SceneObjectNodeBase, _super);
 	    function SceneObjectNodeBase(elem, loader, parent, parentSceneNode, parentObject) {
@@ -13389,6 +13478,20 @@
 	                converter: "vector3",
 	                handler: function (v) {
 	                    _this.targetSceneObject.Transformer.Position = v.Value;
+	                }
+	            },
+	            "scale": {
+	                value: new Vector3(1, 1, 1),
+	                converter: "vector3",
+	                handler: function (v) {
+	                    _this.targetSceneObject.Transformer.Scale = v.Value;
+	                }
+	            },
+	            "rotation": {
+	                value: Quaternion.Identity,
+	                converter: "rotation",
+	                handler: function (v) {
+	                    _this.targetSceneObject.Transformer.Rotation = v.Value;
 	                }
 	            }
 	        });
@@ -13456,7 +13559,7 @@
 
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13465,7 +13568,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObject = __webpack_require__(89);
+	var SceneObject = __webpack_require__(92);
 	var Mesh = (function (_super) {
 	    __extends(Mesh, _super);
 	    function Mesh(geometry, mat) {
@@ -13479,7 +13582,7 @@
 
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13489,8 +13592,8 @@
 	    d.prototype = new __();
 	};
 	var jThreeObject = __webpack_require__(8);
-	var Quaternion = __webpack_require__(5);
-	var Vector3 = __webpack_require__(6);
+	var Quaternion = __webpack_require__(6);
+	var Vector3 = __webpack_require__(7);
 	var AttributeParser = (function (_super) {
 	    __extends(AttributeParser, _super);
 	    function AttributeParser() {
@@ -13545,7 +13648,7 @@
 
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13579,7 +13682,7 @@
 
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13588,7 +13691,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AnimagterBase = __webpack_require__(90);
+	var AnimagterBase = __webpack_require__(93);
 	var NumberAnimater = (function (_super) {
 	    __extends(NumberAnimater, _super);
 	    function NumberAnimater() {
@@ -13603,7 +13706,7 @@
 
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13612,8 +13715,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AnimagterBase = __webpack_require__(90);
-	var Vector3 = __webpack_require__(6);
+	var AnimagterBase = __webpack_require__(93);
+	var Vector3 = __webpack_require__(7);
 	var Vector3Animater = (function (_super) {
 	    __extends(Vector3Animater, _super);
 	    function Vector3Animater() {
@@ -13631,7 +13734,7 @@
 
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13655,7 +13758,38 @@
 
 
 /***/ },
-/* 73 */
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var AnimagterBase = __webpack_require__(93);
+	var Quaternion = __webpack_require__(6);
+	var RotationAnimater = (function (_super) {
+	    __extends(RotationAnimater, _super);
+	    function RotationAnimater() {
+	        _super.apply(this, arguments);
+	    }
+	    RotationAnimater.prototype.updateAnimation = function (progress) {
+	        debugger;
+	        var b = this.beginValue;
+	        var e = this.endValue;
+	        var ef = this.easingFunction.Ease;
+	        console.log(b.toAngleAxisString());
+	        console.log(e.toAngleAxisString());
+	        this.targetAttribute.Value = Quaternion.Slerp(b, e, ef(0, 1, progress));
+	    };
+	    return RotationAnimater;
+	})(AnimagterBase);
+	module.exports = RotationAnimater;
+
+
+/***/ },
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13693,7 +13827,7 @@
 
 
 /***/ },
-/* 74 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13749,7 +13883,7 @@
 
 
 /***/ },
-/* 75 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13765,7 +13899,7 @@
 
 
 /***/ },
-/* 76 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13784,7 +13918,7 @@
 
 
 /***/ },
-/* 77 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ElementType;
@@ -13800,7 +13934,7 @@
 
 
 /***/ },
-/* 78 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var PrimitiveTopology;
@@ -13817,7 +13951,7 @@
 
 
 /***/ },
-/* 79 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13826,7 +13960,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObjectId = __webpack_require__(81);
+	var jThreeObjectId = __webpack_require__(84);
 	var ContextManagerBase = (function (_super) {
 	    __extends(ContextManagerBase, _super);
 	    function ContextManagerBase() {
@@ -13853,7 +13987,7 @@
 
 
 /***/ },
-/* 80 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13872,7 +14006,7 @@
 
 
 /***/ },
-/* 81 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13882,7 +14016,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(9);
-	var JThreeID = __webpack_require__(63);
+	var JThreeID = __webpack_require__(65);
 	var JThreeObjectWithID = (function (_super) {
 	    __extends(JThreeObjectWithID, _super);
 	    function JThreeObjectWithID(id) {
@@ -13905,7 +14039,7 @@
 
 
 /***/ },
-/* 82 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13916,7 +14050,7 @@
 	};
 	var JThreeObject = __webpack_require__(8);
 	var JThreeCollection = __webpack_require__(16);
-	var GomlAttribute = __webpack_require__(94);
+	var GomlAttribute = __webpack_require__(97);
 	var AttributeDictionary = (function (_super) {
 	    __extends(AttributeDictionary, _super);
 	    function AttributeDictionary(loader, element) {
@@ -13940,13 +14074,6 @@
 	            attr.Value = value;
 	        ;
 	    };
-	    AttributeDictionary.prototype.getConverter = function (attrName) {
-	        var attr = this.attributes.getById(attrName);
-	        if (attr == null)
-	            console.warn("attribute \"{0}\" is not found.".format(attrName));
-	        else
-	            return attr.Converter;
-	    };
 	    AttributeDictionary.prototype.getAnimater = function (attrName, beginTime, duration, beginVal, endVal, easing, onComplete) {
 	        var attr = this.attributes.getById(attrName);
 	        if (attr == null)
@@ -13969,7 +14096,7 @@
 
 
 /***/ },
-/* 83 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14143,7 +14270,7 @@
 
 
 /***/ },
-/* 84 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14197,7 +14324,7 @@
 
 
 /***/ },
-/* 85 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14206,8 +14333,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithId = __webpack_require__(81);
-	var Matrix = __webpack_require__(88);
+	var JThreeObjectWithId = __webpack_require__(84);
+	var Matrix = __webpack_require__(91);
 	var Material = (function (_super) {
 	    __extends(Material, _super);
 	    function Material() {
@@ -14235,7 +14362,7 @@
 
 
 /***/ },
-/* 86 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ShaderType;
@@ -14247,7 +14374,7 @@
 
 
 /***/ },
-/* 87 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14256,9 +14383,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Camera = __webpack_require__(96);
-	var Vector3 = __webpack_require__(6);
-	var Matrix = __webpack_require__(88);
+	var Camera = __webpack_require__(99);
+	var Vector3 = __webpack_require__(7);
+	var Matrix = __webpack_require__(91);
 	var ViewCameraBase = (function (_super) {
 	    __extends(ViewCameraBase, _super);
 	    function ViewCameraBase() {
@@ -14325,7 +14452,7 @@
 
 
 /***/ },
-/* 88 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14334,13 +14461,13 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var MatrixBase = __webpack_require__(97);
-	var Vector3 = __webpack_require__(6);
-	var Vector4 = __webpack_require__(83);
+	var MatrixBase = __webpack_require__(100);
+	var Vector3 = __webpack_require__(7);
+	var Vector4 = __webpack_require__(86);
 	var Exceptions = __webpack_require__(18);
 	var Collection = __webpack_require__(29);
-	var MatrixFactory = __webpack_require__(98);
-	var MatrixEnumerator = __webpack_require__(99);
+	var MatrixFactory = __webpack_require__(101);
+	var MatrixEnumerator = __webpack_require__(102);
 	var Matrix = (function (_super) {
 	    __extends(Matrix, _super);
 	    function Matrix(arr) {
@@ -14609,7 +14736,7 @@
 
 
 /***/ },
-/* 89 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14618,9 +14745,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithId = __webpack_require__(81);
+	var JThreeObjectWithId = __webpack_require__(84);
 	var JThreeCollection = __webpack_require__(16);
-	var Transformer = __webpack_require__(100);
+	var Transformer = __webpack_require__(103);
 	/**
 	 * This is most base class for SceneObject.
 	 * SceneObject is same as GameObject in Unity.
@@ -14734,7 +14861,7 @@
 
 
 /***/ },
-/* 90 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14743,7 +14870,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithID = __webpack_require__(81);
+	var JThreeObjectWithID = __webpack_require__(84);
 	var AnimaterBase = (function (_super) {
 	    __extends(AnimaterBase, _super);
 	    function AnimaterBase(targetAttribute, begintime, duration, beginValue, endValue, easing, onComplete) {
@@ -14764,7 +14891,7 @@
 	        var isFinish = progress >= 1;
 	        progress = Math.min(Math.max(progress, 0), 1); //clamp [0,1]
 	        this.updateAnimation(progress);
-	        if (isFinish && this.onComplete)
+	        if (isFinish && typeof this.onComplete === 'function')
 	            this.onComplete();
 	        return isFinish;
 	    };
@@ -14776,7 +14903,7 @@
 
 
 /***/ },
-/* 91 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14785,7 +14912,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GLContextWrapperBase = __webpack_require__(101);
+	var GLContextWrapperBase = __webpack_require__(104);
 	var WebGLContextWrapper = (function (_super) {
 	    __extends(WebGLContextWrapper, _super);
 	    function WebGLContextWrapper(gl) {
@@ -14952,19 +15079,19 @@
 
 
 /***/ },
-/* 92 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nuniform mat4 matMVP;\r\n\r\nvarying vec3 v_normal;\r\n\r\nvoid main(void){\r\ngl_Position = matMVP*vec4(position,1.0);\r\nv_normal=(matMVP*vec4(normal,0)).xyz;\r\n}\r\n"
 
 /***/ },
-/* 93 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nuniform vec4 u_color;\r\nvoid main(void){\r\n  gl_FragColor = u_color;\r\n}\r\n"
 
 /***/ },
-/* 94 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -14973,7 +15100,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithID = __webpack_require__(81);
+	var JThreeObjectWithID = __webpack_require__(84);
 	var GomlAttribute = (function (_super) {
 	    __extends(GomlAttribute, _super);
 	    function GomlAttribute(element, name, value, conveter, handler) {
@@ -15032,7 +15159,7 @@
 
 
 /***/ },
-/* 95 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -15186,7 +15313,7 @@
 	}
 
 /***/ },
-/* 96 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15195,7 +15322,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObject = __webpack_require__(89);
+	var SceneObject = __webpack_require__(92);
 	var Exceptions = __webpack_require__(18);
 	//カメラ関係のクラスの基底クラス
 	var Camera = (function (_super) {
@@ -15259,7 +15386,7 @@
 
 
 /***/ },
-/* 97 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15308,10 +15435,10 @@
 
 
 /***/ },
-/* 98 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Matrix = __webpack_require__(88);
+	var Matrix = __webpack_require__(91);
 	var MatrixFactory = (function () {
 	    function MatrixFactory() {
 	    }
@@ -15327,7 +15454,7 @@
 
 
 /***/ },
-/* 99 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15359,7 +15486,7 @@
 
 
 /***/ },
-/* 100 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15368,9 +15495,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Quaternion = __webpack_require__(5);
-	var Vector3 = __webpack_require__(6);
-	var Matrix = __webpack_require__(88);
+	var Quaternion = __webpack_require__(6);
+	var Vector3 = __webpack_require__(7);
+	var Matrix = __webpack_require__(91);
 	var JThreeObject = __webpack_require__(8);
 	var Transformer = (function (_super) {
 	    __extends(Transformer, _super);
@@ -15399,7 +15526,6 @@
 	            v.Transformer.updateTransform();
 	        });
 	        this.notifyOnUpdateTransform();
-	        console.log(this.localToGlobal.toString());
 	    };
 	    Object.defineProperty(Transformer.prototype, "LocalToGlobal", {
 	        get: function () {
@@ -15447,7 +15573,7 @@
 
 
 /***/ },
-/* 101 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15456,7 +15582,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(102);
+	var Exceptions = __webpack_require__(105);
 	var JThreeObject = __webpack_require__(9);
 	var GLContextWrapperBase = (function (_super) {
 	    __extends(GLContextWrapperBase, _super);
@@ -15703,7 +15829,7 @@
 
 
 /***/ },
-/* 102 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {

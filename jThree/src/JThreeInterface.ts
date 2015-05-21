@@ -16,6 +16,7 @@ class JThreeInterface extends JThreeObject
   public attr(attrTarget:string,value:any):void
   {
     var t=this;
+    debugger;
     this.target.each((n,e)=>{
       var gomlNode=t.getNode(<HTMLElement>e);
       if(gomlNode.attributes.isDefined(attrTarget))

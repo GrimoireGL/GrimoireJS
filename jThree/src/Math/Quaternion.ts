@@ -96,6 +96,12 @@ class Quaternion extends JThreeObject
     return new Quaternion(this.x/length,this.y/length,this.z/length,this.w/length);
   }
 
+  public Inverse():Quaternion
+  {
+    var normalized=this.Normalize();
+    return normalized.Conjugate;
+  }
+
 /**
 * Calculate add result of two quaternion
 */
@@ -128,6 +134,24 @@ class Quaternion extends JThreeObject
   public static Eular(x:number,y:number,z:number):Quaternion
   {
     return Quaternion.Multiply(Quaternion.AngleAxis(z,Vector3.ZUnit),Quaternion.Multiply(Quaternion.AngleAxis(x,Vector3.XUnit),Quaternion.AngleAxis(y,Vector3.YUnit)));
+  }
+
+  public Power(p:number):Quaternion
+  {
+    var angle=2*Math.acos(this.x);
+    var imm=Math.sqrt(1-this.x*this.x);
+    var sinP=Math.sin(angle/2*p)/imm;
+    if(angle==0)
+    {
+      return Quaternion.Identity;
+    }else{
+      return new Quaternion(Math.cos(angle/2*p),sinP*this.y,sinP*this.z,sinP*this.w);
+    }
+  }
+
+  public static Slerp(q1:Quaternion,q2:Quaternion,t:number):Quaternion
+  {
+    return Quaternion.Multiply(q1,Quaternion.Multiply(q1.Inverse(),q2).Power(t));
   }
 
   public toAngleAxisString()

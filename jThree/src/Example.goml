@@ -12,12 +12,13 @@
 			<vp left="0" top="0" width="900" height="900" cam="CAM1"/>
 		</rdr>
 		<scene>
-			<camera name="CAM1" fovy="1/4p" aspect="1" near="0.1" far="20" position="(0,0.3,3)">
-				<mesh geo="Tri2" mat="mat1" position="(0.5,-0.1,-1)" scale="0.3"/>
-				<mesh geo="Tri2" mat="mat3" position="(-0.3,0,-1)" scale="0.5"/>
-				<mesh geo="Tri2" mat="mat4" position="(0.3,-0.3,-2)" scale="0.3"/>
+			<camera name="CAM1" fovy="1/4p" aspect="1" near="0.1" far="20" position="(0,0.3,2)">
+				<!-- <mesh geo="Tri2" mat="mat1" position="(0.5,-0.1,-1)" scale="0.3"/>
+				<mesh geo="Tri2" mat="mat3" position="(-0.3,0,-1)" scale="0.5"/> -->
 				</camera>
-				<mesh class="tri" geo="grid" mat="mat2" position="(0.3,0,0)"/>
+				<mesh id="gmesh" class="tri" geo="grid" mat="mat2" position="(0,0,0)" rotation="y(30d)">
+					<mesh class="test" geo="Tri2" mat="mat4" position="(0.3,0,-2)" scale="0.3"/>
+				</mesh>
 		</scene>
 	</body>
 </goml>

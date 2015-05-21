@@ -36,13 +36,6 @@ class AttributeDictionary extends JThreeObject
       attr.Value=value;;
   }
 
-  public getConverter(attrName:string)
-  {
-    var attr=this.attributes.getById(attrName);
-    if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
-    else
-      return attr.Converter;
-  }
 
   public getAnimater(attrName:string,beginTime:number,duration:number,beginVal:any,endVal:any,easing:EasingFunctionBase,onComplete?:Delegates.Action0)
   {

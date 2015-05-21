@@ -18,6 +18,17 @@ class SceneObjectNodeBase extends GomlTreeNodeBase
         "position":{
           value:new Vector3(0,0,0),
           converter:"vector3",handler:(v)=>{this.targetSceneObject.Transformer.Position=<Vector3>v.Value;}
+        },
+        "scale":{
+          value:new Vector3(1,1,1),
+          converter:"vector3",handler:(v)=>{this.targetSceneObject.Transformer.Scale=<Vector3>v.Value;}
+        },
+        "rotation":
+        {
+          value:Quaternion.Identity,
+          converter:"rotation",
+          handler:(v)=>{
+            this.targetSceneObject.Transformer.Rotation=v.Value;}
         }
       });
   }
