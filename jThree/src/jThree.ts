@@ -39,12 +39,24 @@ function jqPrint(jq:JQuery) {
       console.log(target);
       jqPrint($(target).children());
       console.log("</"+target.tagName.toLowerCase()+">");
-      console.groupEnd();
   }
 }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 j3(()=>{
-  j3("solid").animate({color:'#F0F'},8000,"swing");
+  j3("mesh.test").animate({position:"0,0,0",rotation:"axis(30d,1,1,1)"},8000,"swing");
 });

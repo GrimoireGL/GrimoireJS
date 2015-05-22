@@ -27,7 +27,7 @@ var tsProj=tsc.createProject({
   module:"commonjs",
   declarationFiles:true,
   sourceRoot:"jThree/src/",
-  noExternalResolve:true,
+  noExternalResolve:false,
   noEmitOnError:true,
   typescript:require('typescript')
 });

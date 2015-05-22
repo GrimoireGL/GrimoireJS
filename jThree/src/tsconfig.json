@@ -32,6 +32,7 @@
         "./Core/CanvasManager.ts",
         "./Core/ContextManagerBase.ts",
         "./Core/ContextTimer.ts",
+        "./Core/Geometries/CubeGeometry.ts",
         "./Core/Geometries/GridGeometry.ts",
         "./Core/Geometries/QuadGeometry.ts",
         "./Core/Geometries/TriangleGeometry.ts",

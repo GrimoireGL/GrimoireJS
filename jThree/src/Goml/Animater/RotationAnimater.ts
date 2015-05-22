@@ -10,7 +10,6 @@ class RotationAnimater extends AnimagterBase
 
   protected updateAnimation(progress:number):void
   {
-    debugger;
     var b=<Quaternion>this.beginValue;
     var e=<Quaternion>this.endValue;
     var ef=this.easingFunction.Ease;
