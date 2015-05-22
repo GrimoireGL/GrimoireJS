@@ -17,6 +17,7 @@ class ContextManagerBase extends jThreeObjectId
 
     beforeRender(renderer:RendererBase):void
     {
+        
     }
 
     afterRender(renderer:RendererBase):void

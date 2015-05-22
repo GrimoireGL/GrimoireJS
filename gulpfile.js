@@ -27,9 +27,9 @@ var tsProj=tsc.createProject({
   module:"commonjs",
   declarationFiles:true,
   sourceRoot:"jThree/src/",
-  noExternalResolve:true,
+  noExternalResolve:false,
   noEmitOnError:true,
-  typescript:require('typescript')
+  noLib:false
 });
 
 gulp.task('compile',function(){
@@ -156,7 +156,7 @@ gulp.task('fix-eol',function(){
 });
 
 gulp.task('server',['build'],function(){
-  connect.server({
+  return connect.server({
     root:'./jThree',
     livereload:true
   });

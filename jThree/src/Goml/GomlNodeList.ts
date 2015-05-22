@@ -14,7 +14,7 @@ var gomlList=[
   {
     "RDR":require('./Nodes/Renderers/RendererNode'),
     "VP":require('./Nodes/Renderers/ViewPortNode'),
-    "SCENE":require('./Nodes/GomlTreeSceneNode'),
+    "SCENE":require('./Nodes/SceneNode'),
   }),
   new GomlNodeListElement(
     'jthree.materials',
