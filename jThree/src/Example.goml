@@ -1,4 +1,4 @@
-﻿<goml>
+<goml>
 	<head>
 		<solid name="mat1" color="rgba(0,130,200,128)"/>
 		<solid name="mat2" color="#FFF"/>
