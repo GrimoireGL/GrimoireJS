@@ -57,7 +57,6 @@ set Color(col:Color4)
           programWrapper.setUniformVector("u_color",this.Color.toVector());
           programWrapper.setUniformVector("u_DirectionalLight",new Vector3(-1,-1,-1));
           geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
-          renderer.Context.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
      }
   }
 

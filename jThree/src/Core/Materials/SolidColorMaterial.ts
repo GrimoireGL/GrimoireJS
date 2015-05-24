@@ -41,7 +41,9 @@ set Color(col:Color4)
           fsShader.loadAll();
           this.program= jThreeContext.ResourceManager.createorGetProgram("jthree.programs.solidcolor", [vsShader, fsShader]);
       }
+
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
+       super.configureMaterial(renderer,object);
           var geometry=object.Geometry;
          var programWrapper = this.program.getForRenderer(renderer.ContextManager);
          programWrapper.useProgram();
