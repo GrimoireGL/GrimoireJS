@@ -9,6 +9,7 @@ import Matrix = require("../Math/Matrix");
 import Vector2 = require("../Math/Vector2");
 import Vector3 = require("../Math/Vector3");
 import Vector4 = require("../Math/Vector4");
+import GLCullMode = require("./GLCullMode");
 class WebGLContextWrapper extends GLContextWrapperBase
 {
     private gl: WebGLRenderingContext;
@@ -193,6 +194,17 @@ class WebGLContextWrapper extends GLContextWrapperBase
       this.gl.enable(feature);
     }
 
+    Disable(feature:GLFeatureType):void
+    {
+      this.CheckErrorAsFatal();
+      this.gl.disable(feature);
+    }
+
+    CullFace(cullMode:GLCullMode):void
+    {
+      this.CheckErrorAsFatal();
+      this.gl.cullFace(cullMode);
+    }
     /**
     * Pass vector as uniform variable
     * @param webGlUniformLocation uniform variable location

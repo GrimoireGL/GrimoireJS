@@ -10,6 +10,7 @@ import Vector2 = require("../Math/Vector2");
 import Vector3 = require("../Math/Vector3");
 import Vector4 = require("../Math/Vector4");
 import GLFeatureType = require("./GLFeatureType");
+import GLCullMode = require("./GLCullMode");
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -169,7 +170,10 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
       }
 
-      /**
+      Disable(feature:GLFeatureType):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();        
+      }
 
       /**
        * Draw without index
@@ -252,6 +256,11 @@ class GLContextWrapperBase extends JThreeObject
       * @param vector vector you want to pass
       */
       UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector:Vector4)
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      CullFace(cullMode:GLCullMode):void
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }

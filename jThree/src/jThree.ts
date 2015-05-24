@@ -58,5 +58,5 @@ function jqPrint(jq:JQuery) {
 
 
 j3(()=>{
-  j3("mesh.test").animate({position:"0,0,0",rotation:"axis(30d,1,1,1)"},8000,"swing");
+  j3(".test").animate({rotation:"y(270)"},8000);
 });

@@ -47,20 +47,20 @@ gulp.task('move-bower',function(){
   for (var i = 0; i < bower_files.length; i++) {
     bower_files[i]=bower_prefix+bower_files[i];
   };
-  return gulp.src(bower_files).pipe(using({})).pipe(gulp.dest("jThree/bin/js"));
+   gulp.src(bower_files).pipe(using({})).pipe(gulp.dest("jThree/bin/js"));
 });
 
 gulp.task('move-static',function(){
-  return gulp.src('jThree/src/static/**/*.*').pipe(gulp.dest("jThree/bin/js/static"));
+   gulp.src('jThree/src/static/**/*.*').pipe(gulp.dest("jThree/bin/js/static"));
 });
 
-gulp.task('make-modules',['compile','move-bower','move-static','move-shader'],function(){
-
+gulp.task('make-modules',function(){
+  gulp.start(['compile','move-bower','move-static','move-shader']);
 });
 
 gulp.task('move-shader',function()
 {
-  return gulp.src('jThree/src/Core/Shaders/**/*.*').pipe(gulp.dest("jThree/bin/js/Core/Shaders"));
+   gulp.src('jThree/src/Core/Shaders/**/*.*').pipe(gulp.dest("jThree/bin/js/Core/Shaders"));
 });
 
 gulp.task('gen-doc',function(){
@@ -132,6 +132,7 @@ gulp.task('clean',function(){
 gulp.task('watch',['server'],function()
 {
   gulp.watch('jThree/src/**/*.ts',['build']);
+  gulp.watch('jThree/src/**/*.glsl',['build']);
   gulp.watch(['jThree/*.html','jThree/*.css','jThree/**/*.goml'],['reload']);
 
 });

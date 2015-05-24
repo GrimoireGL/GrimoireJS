@@ -7,7 +7,8 @@ var gomlList=[
   require("./Factories/TagFactory"),
   {
     "TRI":require('./Nodes/Geometries/TriangleGeometryNode'),
-    "GRID":require('./Nodes/Geometries/GridGeometryNode')
+    "GRID":require('./Nodes/Geometries/GridGeometryNode'),
+    "CUBE":require('./Nodes/Geometries/CubeGeometryNode')
   }),
   new GomlNodeListElement('jthree.basic',
   require("./Factories/TagFactory"),
@@ -21,6 +22,7 @@ var gomlList=[
     require('./Factories/TagFactory'),
   {
     "SOLID":require('./Nodes/Materials/SolidColorNode'),
+    "LAMBERT":require('./Nodes/Materials/LambertNode'),
   }),
   new GomlNodeListElement(
     'jthree.sceneobject',
