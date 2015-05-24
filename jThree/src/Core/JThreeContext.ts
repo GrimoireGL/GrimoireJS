@@ -10,7 +10,7 @@ import RendererStateChangedType = require("./RendererStateChangedType");
 import AnimaterBase = require("../Goml/Animater/AnimaterBase");
 import JThreeCollection = require("../Base/JThreeCollection");
 class JThreeContext extends JThreeObject {
-    private canvasRenderers: CanvasManager[] = [];
+    private canvasManagers: CanvasManager[] = [];
     private onRendererChangedFuncs:Delegates.Action1<RendererListChangedEventArgs>[]=[];
     private resourceManager: ResourceManager;
     private timer: ContextTimer;
@@ -82,8 +82,8 @@ class JThreeContext extends JThreeObject {
     /**
      * Getter of canvas renderer.
      */
-    get CanvasRenderers(): CanvasManager[] {
-        return this.canvasRenderers;
+    get CanvasManagers(): CanvasManager[] {
+        return this.canvasManagers;
     }
 
     get Timer(): ContextTimer {
@@ -100,10 +100,9 @@ class JThreeContext extends JThreeObject {
     /**
      * Add renderers to be managed by jThree
      */
-    addRenderer(renderer: CanvasManager):void {
-      console.log("adding renderer");
-        if (this.canvasRenderers.indexOf(renderer) === -1) {
-            this.canvasRenderers.push(renderer);
+    addCanvasManager(renderer: CanvasManager):void {
+        if (this.canvasManagers.indexOf(renderer) === -1) {
+            this.canvasManagers.push(renderer);
             this.notifyRendererChanged(new RendererListChangedEventArgs(RendererStateChangedType.Add, renderer));
         }
     }
@@ -111,12 +110,12 @@ class JThreeContext extends JThreeObject {
     /**
      * Remove renderer
      */
-    removeRenderer(renderer: CanvasManager): void {
-        if (this.canvasRenderers.indexOf(renderer) !== -1) {
-            for (var i = 0; i < this.canvasRenderers.length; i++) {
-                if (this.canvasRenderers[i] === renderer)
+    removeCanvasManager(renderer: CanvasManager): void {
+        if (this.canvasManagers.indexOf(renderer) !== -1) {
+            for (var i = 0; i < this.canvasManagers.length; i++) {
+                if (this.canvasManagers[i] === renderer)
                 {
-                    this.canvasRenderers.splice(i, 1);
+                    this.canvasManagers.splice(i, 1);
                     break;
                 }
             }

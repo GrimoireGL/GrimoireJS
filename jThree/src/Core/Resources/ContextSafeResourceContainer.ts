@@ -13,7 +13,7 @@ class ContextSafeResourceContainer<T> extends JThreeObject
         super();
         this.context = context;
         //Initialize resources for the renderers already subscribed.
-        this.context.CanvasRenderers.forEach((v) => {
+        this.context.CanvasManagers.forEach((v) => {
             this.cachedObject.set(v.ID, this.getInstanceForRenderer(v));
         });
         this.context.onRendererChanged(this.rendererChanged);

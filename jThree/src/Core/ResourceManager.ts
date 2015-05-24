@@ -30,7 +30,7 @@ class ResourceManager extends jThreeObject
         if (this.buffers.has(id)) {
             throw new Error("Buffer id cant be dupelicated");
         }
-        var buf: Buffer = Buffer.CreateBuffer(this.context.CanvasRenderers, target, usage,unitCount,elementType);
+        var buf: Buffer = Buffer.CreateBuffer(this.context.CanvasManagers, target, usage,unitCount,elementType);
         this.buffers.set(id, buf);
         return buf;
     }

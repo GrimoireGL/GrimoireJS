@@ -22,12 +22,12 @@ class SceneManager extends jThreeObject {
     }
 
     renderAll(): void {
-      JThreeContextProxy.getJThreeContext().CanvasRenderers.forEach((c)=>{c.beforeRenderAll()});
+      JThreeContextProxy.getJThreeContext().CanvasManagers.forEach((c)=>{c.beforeRenderAll()});
         this.scenes.forEach((v) => {
             v.update();
             v.render();
         });
-        JThreeContextProxy.getJThreeContext().CanvasRenderers.forEach((c)=>{c.afterRenderAll()});
+        JThreeContextProxy.getJThreeContext().CanvasManagers.forEach((c)=>{c.afterRenderAll()});
     }
 
     public toString():string

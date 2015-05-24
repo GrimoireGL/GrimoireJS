@@ -16,7 +16,7 @@ class CanvasManager extends ContextManagerBase {
             var ext=gl.getExtension("WEBGL_shared_resources");
             var renderer: CanvasManager = new CanvasManager(gl);
             var instance=JThreeContextProxy.getJThreeContext();
-            instance.addRenderer(renderer);
+            instance.addCanvasManager(renderer);
             return renderer;
         } catch (e) {
           debugger;
