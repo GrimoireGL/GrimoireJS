@@ -1,4 +1,4 @@
-import Material = require("../Material");
+import Material = require("./Material");
 import Program = require("../Resources/Program/Program");
 import JThreeContextProxy = require("../JThreeContextProxy");
 import JThreeContext = require("../JThreeContext");

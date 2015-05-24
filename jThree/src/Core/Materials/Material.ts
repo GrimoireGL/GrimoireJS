@@ -1,9 +1,9 @@
-import JThreeObjectWithId = require("../Base/JThreeObjectWithID");
-import RendererBase = require("./RendererBase");
-import SceneObject = require("./SceneObject");
-import Matrix = require("../Math/Matrix");
-import GLCullMode = require("../Wrapper/GLCullMode");
-import GLFeatureType = require("../Wrapper/GLFeatureType");
+import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
+import RendererBase = require("../RendererBase");
+import SceneObject = require("../SceneObject");
+import Matrix = require("../../Math/Matrix");
+import GLCullMode = require("../../Wrapper/GLCullMode");
+import GLFeatureType = require("../../Wrapper/GLFeatureType");
 class Material extends JThreeObjectWithId
 {
 
@@ -43,7 +43,7 @@ class Material extends JThreeObjectWithId
         return;
     }
 
-    
+
 
 
 
