@@ -13405,7 +13405,7 @@
 						},
 						{
 							"id": 2896,
-							"name": "canvasRenderers",
+							"name": "canvasManagers",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
@@ -13537,7 +13537,7 @@
 						},
 						{
 							"id": 2922,
-							"name": "CanvasRenderers",
+							"name": "CanvasManagers",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -13702,7 +13702,7 @@
 						},
 						{
 							"id": 2928,
-							"name": "addRenderer",
+							"name": "addCanvasManager",
 							"kind": 2048,
 							"kindString": "Method",
 							"flags": {
@@ -13711,7 +13711,7 @@
 							"signatures": [
 								{
 									"id": 2929,
-									"name": "addRenderer",
+									"name": "addCanvasManager",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
@@ -13907,7 +13907,7 @@
 						},
 						{
 							"id": 2931,
-							"name": "removeRenderer",
+							"name": "removeCanvasManager",
 							"kind": 2048,
 							"kindString": "Method",
 							"flags": {
@@ -13916,7 +13916,7 @@
 							"signatures": [
 								{
 									"id": 2932,
-									"name": "removeRenderer",
+									"name": "removeCanvasManager",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
