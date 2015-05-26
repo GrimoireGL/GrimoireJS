@@ -2,19 +2,27 @@ import jThreeObject = require("../Base/JThreeObject");
 import JThreeContext = require("./JThreeContext");
 import JThreeContextProxy = require("./JThreeContextProxy");
 import Scene = require("./Scene");
+/**
+* The class for managing entire scenes.
+*/
 class SceneManager extends jThreeObject {
     constructor() {
         super();
     }
 
     private scenes:Map<string, Scene> = new Map<string, Scene>();
-
+    /**
+    * Add new scene to be managed.
+    */
     addScene(scene: Scene): void {
         if (!this.scenes.has(scene.ID)) {
             this.scenes.set(scene.ID, scene);
         }
     }
 
+    /**
+    *
+    */
     removeScene(scene: Scene): void {
         if (this.scenes.has(scene.ID)) {
             this.scenes.delete(scene.ID);

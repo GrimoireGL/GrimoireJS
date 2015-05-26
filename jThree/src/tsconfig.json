@@ -39,7 +39,6 @@
         "./Core/Geometry.ts",
         "./Core/JThreeContext.ts",
         "./Core/JThreeContextProxy.ts",
-        "./Core/Materials/BasicMaterial.ts",
         "./Core/Materials/LambertMaterial.ts",
         "./Core/Materials/Material.ts",
         "./Core/Materials/SolidColorMaterial.ts",

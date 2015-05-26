@@ -3,11 +3,12 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import JThreeContext = require("../../../Core/JThreeContext");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import Scene = require("../../../Core/Scene");
-import $ = require("jquery");
+import $ = require("jquery"); 
 import GomlLoader = require("../../GomlLoader");
 import Color4 = require("../../../Base/Color/Color4");
 class GomlTreeRdrNode extends GomlTreeNodeBase
 {
+
     canvasManager:CanvasManager;
 
     targetCanvas:HTMLCanvasElement;
@@ -19,7 +20,7 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
         $(this.Frame).append(jqueryTargetCanvas);
         this.targetCanvas=<HTMLCanvasElement>jqueryTargetCanvas[0];
         this.targetCanvas.classList.add("x-j3-c-" + this.ID);
-        this.canvasManager = CanvasManager.fromCanvas(this.targetCanvas);
+        this.canvasManager = CanvasManager.fromCanvasElement(this.targetCanvas);
         this.canvasManager.ClearColor=this.ClearColor;
         this.targetCanvas.width=this.Width;
         this.targetCanvas.height=this.Height;
@@ -33,7 +34,8 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
             value:300,converter:"number",handler:(v)=>{this.targetCanvas.height=v.Value;}
           },
           "clearColor":{
-            value:'#0FF',converter:"color4",handler:(v)=>{this.canvasManager.ClearColor=v.Value;}         }
+            value:'#0FF',converter:"color4",handler:(v)=>{this.canvasManager.ClearColor=v.Value;}
+                     }
         });
     }
 

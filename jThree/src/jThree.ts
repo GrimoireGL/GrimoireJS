@@ -20,18 +20,6 @@ if (!String.prototype["format"]) {
     };
 }
 Init.Init();
-function j3(query:string|Delegates.Action0):JThreeInterface
-{
-  var context=JThreeContextProxy.getJThreeContext();
-  if(typeof query ==='function')
-  {
-    context.GomlLoader.onload(query);
-    return null;
-  }
-    var targetObject=context.GomlLoader.rootObj.find(<string>query);
-    jqPrint(context.GomlLoader.rootObj);
-    return new JThreeInterface(targetObject);
-}
 function jqPrint(jq:JQuery) {
   for (var i = 0; i <jq.length; i++) {
       var target=jq[i];
@@ -41,22 +29,3 @@ function jqPrint(jq:JQuery) {
       console.log("</"+target.tagName.toLowerCase()+">");
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-j3(()=>{
-  j3(".test").animate({rotation:"y(270)"},8000);
-});

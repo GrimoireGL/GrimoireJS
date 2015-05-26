@@ -133,7 +133,7 @@ gulp.task('watch',['server'],function()
 {
   gulp.watch('jThree/src/**/*.ts',['build']);
   gulp.watch('jThree/src/**/*.glsl',['build']);
-  gulp.watch(['jThree/*.html','jThree/*.css','jThree/**/*.goml'],['reload']);
+  gulp.watch(['jThree/*.html','jThree/*.css','jThree/**/*.goml','jThree/Example.js'],['reload']);
 
 });
 

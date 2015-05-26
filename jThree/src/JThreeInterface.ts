@@ -13,10 +13,9 @@ class JThreeInterface extends JThreeObject
 
   private target:JQuery;
 
-  public attr(attrTarget:string,value:any):void
+  public attr(attrTarget:string,value:any):JThreeInterface
   {
     var t=this;
-    debugger;
     this.target.each((n,e)=>{
       var gomlNode=t.getNode(<HTMLElement>e);
       if(gomlNode.attributes.isDefined(attrTarget))
@@ -26,9 +25,10 @@ class JThreeInterface extends JThreeObject
         e.setAttribute(attrTarget,value);
       }
     });
+    return this;
   }
 
-  public animate(attrTarget:{[key:string]:any},duration:number,easing?:string,onComplete?:Delegate.Action0)
+  public animate(attrTarget:{[key:string]:any},duration:number,easing?:string,onComplete?:Delegate.Action0):JThreeInterface
   {
     easing=easing||"linear";
     var t=this;
@@ -43,8 +43,8 @@ class JThreeInterface extends JThreeObject
           this.Context.addAnimater(gomlNode.attributes.getAnimater(attrName,this.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrName),value,easingFunc,onComplete));
         }
       }
-
     });
+    return this;
   }
 
   private getNode(elem:HTMLElement):GomlTreeNodeBase

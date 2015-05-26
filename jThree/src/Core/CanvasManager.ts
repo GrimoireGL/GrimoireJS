@@ -9,7 +9,7 @@ import Color4 = require("../Base/Color/Color4");
 import RendererBase = require("./RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 class CanvasManager extends ContextManagerBase {
-    public static fromCanvas(canvas: HTMLCanvasElement): CanvasManager {
+    public static fromCanvasElement(canvas: HTMLCanvasElement): CanvasManager {
         var gl: WebGLRenderingContext;
         try {
             gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
