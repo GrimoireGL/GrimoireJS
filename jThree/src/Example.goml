@@ -1,28 +1,19 @@
 <goml>
-	<head>
-		<solid name="mat1" color="rgba(0,130,200,128)"/>
-		<lambert name="mat2" color="#FFF"/>
-		<solid name="mat3" color="orange"/>
-		<solid name="mat4" color="yellowgreen"/>
-		<grid name="grid" hdiv="20" vdiv="20"/>
-		<tri name="Tri2"/>
-	</head>
-	<body>
-		<rdr frame=".canvasContainer" width="900" height="900" clearColor="#324D7C">
-			<vp left="0" top="0" width="900" height="900" cam="CAM1"/>
-		</rdr>
-		<scene>
-			<camera name="CAM1" fovy="1/4p" aspect="1" neay="0.1" far="20" position="(0,0.3,2)">
-				<!-- <mesh geo="Tri2" mat="mat1" position="(0.5,-0.1,-1)" scale="0.3"/>
-				<mesh geo="Tri2" mat="mat2" position="(-0.3,0,-1)" scale="0.5"/> -->
-				</camera>
-				<mesh id="gmesh" class="tri" geo="grid" mat="mat1">
-					<mesh class="test" geo="Tri2" mat="mat2" position="(0.3,0,-2)" scale="0.3"/>
-				</mesh>
-		</scene>
-		<scene>
-			<camera name="CAM2"  fovy="1/4p" aspect="1" neay="0.1" far="20" position="(0,0.3,2)" rotation="x(30d)">
-			</camera>
-		</scene>
-					</body>
+  <head>
+    <solid color="rgba(0,130,200,128)" name="mat1"/>
+    <grid hdiv="20" name="grid" vdiv="20"/>
+    <tri name="triangle"/>
+  </head>
+  <body>
+    <rdr clearColor="#324D7C" frame=".canvasContainer" height="900" width="900">
+      <vp cam="CAM1" height="900" left="0" top="0" width="900"/>
+    </rdr>
+    <scene>
+      <object>
+        <camera aspect="1" far="20" fovy="1/4p" name="CAM1" neay="0.1" position="(0,0.5,2)"/>
+    </object>
+      <mesh id="tri" class="triangle" geo="triangle" mat="mat1" scale="0.3"/>
+			<mesh geo="grid" mat="mat1"/>
+    </scene>
+  </body>
 </goml>

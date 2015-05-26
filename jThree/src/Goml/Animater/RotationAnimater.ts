@@ -13,8 +13,6 @@ class RotationAnimater extends AnimagterBase
     var b=<Quaternion>this.beginValue;
     var e=<Quaternion>this.endValue;
     var ef=this.easingFunction.Ease;
-    console.log(b.toAngleAxisString());
-    console.log(e.toAngleAxisString());
     this.targetAttribute.Value=Quaternion.Slerp(b,e,ef(0,1,progress));
   }
 }

@@ -11,8 +11,8 @@ class Mesh extends SceneObject
         constructor(geometry:Geometry,mat:Material)
         {
             super();
-            this.addMaterial(mat);
-            this.geometry = geometry;
+            if(mat)this.addMaterial(mat);
+            if(geometry)this.geometry = geometry;
         }
     }
 

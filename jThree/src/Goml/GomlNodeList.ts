@@ -29,7 +29,8 @@ var gomlList=[
     require('./Factories/SceneObjectTagFactory'),
   {
     "CAMERA":require('./Nodes/SceneObjects/Cameras/CameraNode'),
-    "MESH":require('./Nodes/SceneObjects/MeshNode')
+    "MESH":require('./Nodes/SceneObjects/MeshNode'),
+    "OBJECT":require('./Nodes/SceneObjects/ObjectNode')
   })
 ];
 export=gomlList;

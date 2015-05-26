@@ -213,6 +213,57 @@ class GomlLoader extends jThreeObject {
         }
       }
 
+      public appendChildren(jq:JQuery,parent:HTMLElement,parentInGoml?:GomlTreeNodeBase,loadedGoml?:GomlTreeNodeBase[]):void
+      {
+        var needLastProcess=false;
+        if(!jq)return;
+        if(!parentInGoml)
+        {
+          var id=parent.getAttribute("x-j3-id");
+          parentInGoml=this.bodyTagsById.get(id);
+          needLastProcess=true;
+          loadedGoml=[];
+        }
+        for (var i = 0; i < jq.length; i++) {
+            var e=jq[i];
+
+          if (this.gomlTags.has(e.tagName)) {
+              var newNode = this.gomlTags.get(e.tagName).CreateNodeForThis(e,this,parentInGoml);
+              if(newNode==null)
+              {
+                console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(e.tagName));
+              }else{
+              this.bodyTagsById.set(newNode.ID, newNode);
+              e.classList.add("x-j3-" + newNode.ID)
+              e.setAttribute('x-j3-id',newNode.ID);
+              if(parent!=null)
+              {
+                parentInGoml.addChild(newNode);
+              }
+              loadedGoml.push((newNode));
+              this.appendChildren($(e).children(),null,newNode,loadedGoml);
+            }
+
+          }else
+          {
+            console.warn("{0} was not parsed.".format(e.tagName));
+          }
+
+        }
+        if(needLastProcess)
+        {
+          loadedGoml.forEach((e)=>{
+            e.beforeLoad();
+          });
+          loadedGoml.forEach((e)=>{
+            e.Load();
+          });
+          loadedGoml.forEach((e)=>{
+            e.afterLoad();
+          });
+        }
+      }
+
       public getNode(id:string):GomlTreeNodeBase
       {
         if(this.headTagsById.has(id))return this.headTagsById.get(id);

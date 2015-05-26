@@ -100,6 +100,7 @@
         "./Goml/Nodes/SceneObjects/Cameras/CameraNode.ts",
         "./Goml/Nodes/SceneObjects/Cameras/CameraNodeBase.ts",
         "./Goml/Nodes/SceneObjects/MeshNode.ts",
+        "./Goml/Nodes/SceneObjects/ObjectNode.ts",
         "./Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts",
         "./Goml/Nodes/ViewPortNode.ts",
         "./Init.ts",

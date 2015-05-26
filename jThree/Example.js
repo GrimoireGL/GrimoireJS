@@ -1,7 +1,7 @@
 j3(function(){
-  j3("camera").animate({position:"0,0.2,-1",rotation:"x(30d)"},2000,"swing",function()
+  j3("#tri").append("<mesh geo='grid' mat='mat1' rotation='y(30d)'/>");
+  j3("object").animate({rotation:"y(45d)"},5000,"swing",function()
   {
-    j3("camera").animate({position:"0,0.5,1"},3000)
-    .animate({rotation:"y(30d)"},5000);
+    j3("#tri").animate({rotation:"y(90d)"},3000);
   });
 });

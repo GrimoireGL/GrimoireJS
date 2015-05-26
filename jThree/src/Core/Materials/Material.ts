@@ -49,6 +49,7 @@ class Material extends JThreeObjectWithId
 
     public draw(renderer:RendererBase,object:SceneObject):void
     {
+      if(!object.Geometry)return;
       var geometry=object.Geometry;
       this.configureMaterial(renderer,object);
       renderer.Context.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);

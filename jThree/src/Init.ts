@@ -10,7 +10,7 @@ import JThreeInterface = require('./JThreeInterface');
 class JThreeInit{
   /**
 *
-*@param query
+*@param query 
 *@returns
 */
 static j3(query:string|Delegates.Action0):JThreeInterface

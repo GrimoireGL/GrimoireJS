@@ -47,6 +47,25 @@ class JThreeInterface extends JThreeObject
     return this;
   }
 
+  /**
+*
+*@param [object Object]
+*@returns
+*/
+public find(attrTarget:string):JThreeInterface
+  {
+    return new JThreeInterface(this.target.find(attrTarget));
+  }
+
+  public append(target:string):JThreeInterface
+  {
+    var newTarget:JQuery=$(target);
+    this.target.each((n,e)=>{
+      this.Context.GomlLoader.appendChildren(newTarget,<HTMLElement>e);
+    });
+    return this;
+  }
+
   private getNode(elem:HTMLElement):GomlTreeNodeBase
   {
     var id=elem.getAttribute('x-j3-id');
