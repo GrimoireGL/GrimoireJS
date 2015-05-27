@@ -37,13 +37,18 @@ class Geometry extends jThreeObject {
      var v02v1=v1.subtractWith(v0);
      var v02v2=v2.subtractWith(v0);
      var v3=v0.addWith(v02v1).addWith(v02v2);
-     var nV=v2.crossWith(v1);
+     var nV=v02v2.crossWith(v02v1).normalizeThis();
      var startIndex=pos.length/3;
      console.log(nV.toString());
      normal.push(nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z);
      uv.push(0,1,1,0,1,0,0,0);
      pos.push(v0.X,v0.Y,v0.Z,v1.X,v1.Y,v1.Z,v3.X,v3.Y,v3.Z,v2.X,v2.Y,v2.Z);
      index.push(startIndex,startIndex+1,startIndex+2,startIndex,startIndex+2,startIndex+3);
+   }
+
+   protected addCircle(pos:number[],normal:number[],uv:number[],index:number[],center:Vector3,normalVector:Vector3)
+   {
+
    }
 }
 export=Geometry;

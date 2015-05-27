@@ -124,7 +124,6 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
 
     static transformPoint(m: Matrix, v: Vector3): Vector3 {
         var vt=Matrix.transform(m,new Vector4(v.X,v.Y,v.Z,1));
-        console.log(vt.toString());
         return (new Vector3(vt.X,vt.Y,vt.Z)).multiplyWith(1/vt.W);
     }
 
@@ -313,9 +312,6 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     }
 
     static lookAt(eye: Vector3, lookAt: Vector3, up: Vector3): Matrix {
-      console.log('eye'+eye.toString());
-      console.log('look'+lookAt.toString());
-      console.log('up'+eye.toString());
         var zAxis: Vector3 = Vector3.normalize(Vector3.subtract(eye,lookAt));
         var xAxis: Vector3 = Vector3.normalize(Vector3.cross(up,zAxis));
         var yAxis: Vector3 = Vector3.cross(zAxis,xAxis);

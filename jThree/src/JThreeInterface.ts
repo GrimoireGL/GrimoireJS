@@ -10,11 +10,46 @@ class JThreeInterface extends JThreeObject
     super();
     this.target=jq;
   }
+  private queuedActions:Delegate.Action0[]=[];
+
+  public dequeue()
+  {
+    this.queuedActions.shift();
+    this.isExecuting=false;
+    this.tryStartQueue();
+    return this;
+  }
+
+  private tryStartQueue()
+  {
+    if(!this.isExecuting&&this.queuedActions.length>0){
+      this.isExecuting=true;
+      this.queuedActions[0].call(this);
+    }
+  }
+
+  public queue(act:Delegate.Action0):JThreeInterface
+  {
+    this.queuedActions.push(act);
+    this.tryStartQueue();
+    return this;
+  }
+
+  public delay(time:number):JThreeInterface
+  {
+    this.queue(()=>{
+      window.setTimeout((t)=>{t.dequeue();},time,this);
+    });
+    return this;
+  }
+
+  private isExecuting=false;
 
   private target:JQuery;
 
   public attr(attrTarget:string,value:any):JThreeInterface
   {
+    var f=(attrTarget,value)=>{
     var t=this;
     this.target.each((n,e)=>{
       var gomlNode=t.getNode(<HTMLElement>e);
@@ -25,27 +60,39 @@ class JThreeInterface extends JThreeObject
         e.setAttribute(attrTarget,value);
       }
     });
+    this.dequeue();
+  }
+    this.queue(()=>{f(attrTarget,value);});
     return this;
   }
 
   public animate(attrTarget:{[key:string]:any},duration:number,easing?:string,onComplete?:Delegate.Action0):JThreeInterface
   {
-    easing=easing||"linear";
     var t=this;
-    this.target.each((n,e)=>{
+    var f=(attrTarget:{[key:string]:any},duration:number,easing?:string,onComplete?:Delegate.Action0)=>{
+    easing=easing||"linear";
+    for(var i=0;i<t.target.length;i++)
+    {
+      var e=this.target[i];
       for(var attrName in attrTarget)
       {
         var value=attrTarget[attrName];
         var gomlNode=t.getNode(<HTMLElement>e);
         if(gomlNode.attributes.isDefined(attrName))
         {
-          var easingFunc=this.Context.GomlLoader.easingFunctions.get(easing);
-          this.Context.addAnimater(gomlNode.attributes.getAnimater(attrName,this.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrName),value,easingFunc,onComplete));
+          var easingFunc=t.Context.GomlLoader.easingFunctions.get(easing);
+          t.Context.addAnimater(gomlNode.attributes.getAnimater(attrName,this.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrName),value,easingFunc,()=>{
+            if(onComplete)onComplete();
+            t.dequeue();
+          }));
         }
       }
-    });
+    }
+  }
+  this.queue(()=>f(attrTarget,duration,easing,onComplete));
     return this;
   }
+
 
   /**
 *

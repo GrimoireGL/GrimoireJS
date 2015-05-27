@@ -1,7 +1,5 @@
 j3(function(){
-  j3("#tri").append("<mesh geo='grid' mat='mat1' rotation='y(30d)'/>");
-  j3("object").animate({rotation:"y(45d)"},5000,"swing",function()
-  {
-    j3("#tri").animate({rotation:"x(270d)"},3000);
-  });
+  j3('#tri').animate({
+    rotation:"y(90d)"
+  },3000).delay(1000).animate({rotation:"y(0d)"},3000);
 });

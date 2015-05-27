@@ -55,7 +55,7 @@ gulp.task('move-static',function(){
 });
 
 gulp.task('make-modules',function(){
-  gulp.start(['compile','move-bower','move-static','move-shader']);
+  return gulp.start(['compile','move-bower','move-static','move-shader']);
 });
 
 gulp.task('move-shader',function()
@@ -143,7 +143,7 @@ gulp.task('reload',function()
 });
 
 gulp.task('build',['webpack'],function(){
-  gulp.src('jThree/bin/product/j3.js').pipe(gulp.dest('jThree/'));
+  return gulp.src('jThree/bin/product/j3.js').pipe(gulp.dest('jThree/'));
 });
 
 gulp.task('minify',['build'],function(){
