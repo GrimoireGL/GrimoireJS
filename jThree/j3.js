@@ -11648,8 +11648,8 @@
 	    d.prototype = new __();
 	};
 	var GomlTreeNodeBase = __webpack_require__(64);
-	var ViewportRenderer = __webpack_require__(66);
-	var Rectangle = __webpack_require__(67);
+	var ViewportRenderer = __webpack_require__(67);
+	var Rectangle = __webpack_require__(68);
 	var JThreeContextProxy = __webpack_require__(4);
 	var GomlTreeVpNode = (function (_super) {
 	    __extends(GomlTreeVpNode, _super);
@@ -11778,7 +11778,7 @@
 	    d.prototype = new __();
 	};
 	var GomlTreeNodeBase = __webpack_require__(64);
-	var Scene = __webpack_require__(68);
+	var Scene = __webpack_require__(66);
 	var JThreeContextProxy = __webpack_require__(4);
 	var GomlTreeSceneNode = (function (_super) {
 	    __extends(GomlTreeSceneNode, _super);
@@ -11969,8 +11969,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var PerspectiveCamera = __webpack_require__(74);
-	var GomlTreeCameraNodeBase = __webpack_require__(75);
+	var PerspectiveCamera = __webpack_require__(72);
+	var GomlTreeCameraNodeBase = __webpack_require__(73);
 	var GomlTreeCameraNode = (function (_super) {
 	    __extends(GomlTreeCameraNode, _super);
 	    function GomlTreeCameraNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -12059,8 +12059,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObjectNodeBase = __webpack_require__(72);
-	var Mesh = __webpack_require__(73);
+	var SceneObjectNodeBase = __webpack_require__(74);
+	var Mesh = __webpack_require__(75);
 	var SolidColor = __webpack_require__(69);
 	var GomlTreeMeshNode = (function (_super) {
 	    __extends(GomlTreeMeshNode, _super);
@@ -12110,8 +12110,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObjectNodeBase = __webpack_require__(72);
-	var Mesh = __webpack_require__(73);
+	var SceneObjectNodeBase = __webpack_require__(74);
+	var Mesh = __webpack_require__(75);
 	var ObjectNode = (function (_super) {
 	    __extends(ObjectNode, _super);
 	    function ObjectNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -13106,9 +13106,12 @@
 	        var normal = [];
 	        var uv = [];
 	        var index = [];
-	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1), new Vector3(-1, -1, -1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1), new Vector3(-1, -1, 1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, 1), new Vector3(1, 1, -1), new Vector3(1, -1, 1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, -1), new Vector3(-1, 1, -1), new Vector3(1, -1, -1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, -1), new Vector3(-1, 1, 1), new Vector3(-1, -1, -1)]);
 	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, 1, -1), new Vector3(1, 1, 1)]);
-	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, 1, -1), new Vector3(-1, -1, -1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(1, -1, 1), new Vector3(1, -1, -1), new Vector3(-1, -1, 1)]);
 	        this.indexBuffer.update(new Uint8Array(index), index.length);
 	        this.normalBuffer.update(new Float32Array(normal), normal.length);
 	        this.uvBuffer.update(new Float32Array(uv), uv.length);
@@ -13131,8 +13134,8 @@
 	};
 	var ContextManagerBase = __webpack_require__(89);
 	var WebGLContextWrapper = __webpack_require__(101);
-	var ViewPortRenderer = __webpack_require__(66);
-	var Rectangle = __webpack_require__(67);
+	var ViewPortRenderer = __webpack_require__(67);
+	var Rectangle = __webpack_require__(68);
 	var JThreeContextProxy = __webpack_require__(4);
 	var Color4 = __webpack_require__(65);
 	var ClearTargetType = __webpack_require__(90);
@@ -13254,7 +13257,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(11);
-	var Vector4 = __webpack_require__(94);
+	var Vector4 = __webpack_require__(93);
 	var Color4 = (function (_super) {
 	    __extends(Color4, _super);
 	    function Color4(r, g, b, a) {
@@ -13370,129 +13373,6 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var RendererBase = __webpack_require__(93);
-	var ViewPortRenderer = (function (_super) {
-	    __extends(ViewPortRenderer, _super);
-	    function ViewPortRenderer(contextManager, viewportArea) {
-	        _super.call(this, contextManager);
-	        this.viewportArea = viewportArea;
-	    }
-	    Object.defineProperty(ViewPortRenderer.prototype, "Camera", {
-	        get: function () {
-	            return this.camera;
-	        },
-	        set: function (camera) {
-	            this.camera = camera;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ViewPortRenderer.prototype, "ViewPortArea", {
-	        get: function () {
-	            return this.viewportArea;
-	        },
-	        set: function (area) {
-	            this.viewportArea = area;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    ViewPortRenderer.prototype.applyConfigure = function () {
-	        this.contextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
-	    };
-	    ViewPortRenderer.prototype.render = function (drawAct) {
-	        this.ContextManager.beforeRender(this);
-	        this.applyConfigure();
-	        drawAct();
-	        this.contextManager.Context.Flush();
-	        this.contextManager.afterRender(this);
-	        RendererBase;
-	    };
-	    return ViewPortRenderer;
-	})(RendererBase);
-	module.exports = ViewPortRenderer;
-
-
-/***/ },
-/* 67 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var jThreeObject = __webpack_require__(11);
-	var Rectangle = (function (_super) {
-	    __extends(Rectangle, _super);
-	    function Rectangle(left, top, width, height) {
-	        _super.call(this);
-	        this.left = left;
-	        this.top = top;
-	        this.width = width;
-	        this.height = height;
-	    }
-	    Object.defineProperty(Rectangle.prototype, "Left", {
-	        get: function () {
-	            return this.left;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Rectangle.prototype, "Right", {
-	        get: function () {
-	            return this.left + this.width;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Rectangle.prototype, "Top", {
-	        get: function () {
-	            return this.top;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Rectangle.prototype, "Bottom", {
-	        get: function () {
-	            return this.top + this.height;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Rectangle.prototype, "Width", {
-	        get: function () {
-	            return this.width;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Rectangle.prototype, "Height", {
-	        get: function () {
-	            return this.height;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Rectangle.prototype.toString = function () {
-	        return "{0}:{1}-{2}:{3}".format(this.left, this.top, this.Right, this.Bottom);
-	    };
-	    return Rectangle;
-	})(jThreeObject);
-	module.exports = Rectangle;
-
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
 	var jThreeObjectWithID = __webpack_require__(91);
 	/**
 	* NON PUBLIC CLASS
@@ -13587,6 +13467,129 @@
 	    return Scene;
 	})(jThreeObjectWithID);
 	module.exports = Scene;
+
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var RendererBase = __webpack_require__(94);
+	var ViewPortRenderer = (function (_super) {
+	    __extends(ViewPortRenderer, _super);
+	    function ViewPortRenderer(contextManager, viewportArea) {
+	        _super.call(this, contextManager);
+	        this.viewportArea = viewportArea;
+	    }
+	    Object.defineProperty(ViewPortRenderer.prototype, "Camera", {
+	        get: function () {
+	            return this.camera;
+	        },
+	        set: function (camera) {
+	            this.camera = camera;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(ViewPortRenderer.prototype, "ViewPortArea", {
+	        get: function () {
+	            return this.viewportArea;
+	        },
+	        set: function (area) {
+	            this.viewportArea = area;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ViewPortRenderer.prototype.applyConfigure = function () {
+	        this.contextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
+	    };
+	    ViewPortRenderer.prototype.render = function (drawAct) {
+	        this.ContextManager.beforeRender(this);
+	        this.applyConfigure();
+	        drawAct();
+	        this.contextManager.Context.Flush();
+	        this.contextManager.afterRender(this);
+	        RendererBase;
+	    };
+	    return ViewPortRenderer;
+	})(RendererBase);
+	module.exports = ViewPortRenderer;
+
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var jThreeObject = __webpack_require__(11);
+	var Rectangle = (function (_super) {
+	    __extends(Rectangle, _super);
+	    function Rectangle(left, top, width, height) {
+	        _super.call(this);
+	        this.left = left;
+	        this.top = top;
+	        this.width = width;
+	        this.height = height;
+	    }
+	    Object.defineProperty(Rectangle.prototype, "Left", {
+	        get: function () {
+	            return this.left;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Rectangle.prototype, "Right", {
+	        get: function () {
+	            return this.left + this.width;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Rectangle.prototype, "Top", {
+	        get: function () {
+	            return this.top;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Rectangle.prototype, "Bottom", {
+	        get: function () {
+	            return this.top + this.height;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Rectangle.prototype, "Width", {
+	        get: function () {
+	            return this.width;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Rectangle.prototype, "Height", {
+	        get: function () {
+	            return this.height;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Rectangle.prototype.toString = function () {
+	        return "{0}:{1}-{2}:{3}".format(this.left, this.top, this.Right, this.Bottom);
+	    };
+	    return Rectangle;
+	})(jThreeObject);
+	module.exports = Rectangle;
 
 
 /***/ },
@@ -13732,7 +13735,7 @@
 	        programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
 	        programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
 	        programWrapper.setUniformVector("u_color", this.Color.toVector());
-	        programWrapper.setUniformVector("u_DirectionalLight", new Vector3(-1, -1, -1));
+	        programWrapper.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
 	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 	    };
 	    return LambertMaterial;
@@ -13742,6 +13745,142 @@
 
 /***/ },
 /* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var ViewCamera = __webpack_require__(98);
+	var Matrix = __webpack_require__(97);
+	var PerspectiveCamera = (function (_super) {
+	    __extends(PerspectiveCamera, _super);
+	    function PerspectiveCamera() {
+	        _super.apply(this, arguments);
+	        this.fovy = Math.PI / 4;
+	        this.aspect = 1;
+	        this.near = 0.1;
+	        this.far = 10;
+	    }
+	    PerspectiveCamera.prototype.updateProjection = function () {
+	        this.projection = Matrix.perspective(this.fovy, this.aspect, this.near, this.far);
+	    };
+	    Object.defineProperty(PerspectiveCamera.prototype, "Fovy", {
+	        get: function () {
+	            return this.fovy;
+	        },
+	        set: function (fovy) {
+	            this.fovy = fovy;
+	            this.updateProjection();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PerspectiveCamera.prototype, "Aspect", {
+	        get: function () {
+	            return this.aspect;
+	        },
+	        set: function (aspect) {
+	            this.aspect = aspect;
+	            this.updateProjection();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PerspectiveCamera.prototype, "Near", {
+	        get: function () {
+	            return this.near;
+	        },
+	        set: function (near) {
+	            this.near = near;
+	            this.updateProjection();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PerspectiveCamera.prototype, "Far", {
+	        get: function () {
+	            return this.far;
+	        },
+	        set: function (far) {
+	            this.far = far;
+	            this.updateProjection();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PerspectiveCamera.prototype, "ProjectionMatrix", {
+	        get: function () {
+	            return this.projection;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return PerspectiveCamera;
+	})(ViewCamera);
+	module.exports = PerspectiveCamera;
+
+
+/***/ },
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var JThreeID = __webpack_require__(70);
+	var SceneObjectNodeBase = __webpack_require__(74);
+	var GomlTreeCameraNodeBase = (function (_super) {
+	    __extends(GomlTreeCameraNodeBase, _super);
+	    function GomlTreeCameraNodeBase(elem, loader, parent, parentSceneNode, parentObject) {
+	        _super.call(this, elem, loader, parent, parentSceneNode, parentObject);
+	        loader.nodeDictionary.addObject("jthree.camera", this.Name, this);
+	    }
+	    Object.defineProperty(GomlTreeCameraNodeBase.prototype, "TargetCamera", {
+	        get: function () {
+	            return this.targetCamera;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    GomlTreeCameraNodeBase.prototype.ConstructCamera = function () {
+	        return null;
+	    };
+	    GomlTreeCameraNodeBase.prototype.ConstructTarget = function () {
+	        this.targetCamera = this.ConstructCamera();
+	        return this.targetCamera;
+	    };
+	    GomlTreeCameraNodeBase.prototype.beforeLoad = function () {
+	        _super.prototype.beforeLoad.call(this);
+	    };
+	    GomlTreeCameraNodeBase.prototype.Load = function () {
+	        _super.prototype.Load.call(this);
+	        this.ContainedSceneNode.targetScene.addCamera(this.targetCamera);
+	    };
+	    Object.defineProperty(GomlTreeCameraNodeBase.prototype, "Name", {
+	        /**
+	        * GOML Attribute
+	        * Identical Name for camera
+	        */
+	        get: function () {
+	            this.name = this.name || this.element.getAttribute('name') || JThreeID.getUniqueRandom(10);
+	            return this.name;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return GomlTreeCameraNodeBase;
+	})(SceneObjectNodeBase);
+	module.exports = GomlTreeCameraNodeBase;
+
+
+/***/ },
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13856,7 +13995,7 @@
 
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13865,7 +14004,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObject = __webpack_require__(98);
+	var SceneObject = __webpack_require__(99);
 	var Mesh = (function (_super) {
 	    __extends(Mesh, _super);
 	    function Mesh(geometry, mat) {
@@ -13878,142 +14017,6 @@
 	    return Mesh;
 	})(SceneObject);
 	module.exports = Mesh;
-
-
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var ViewCamera = __webpack_require__(99);
-	var Matrix = __webpack_require__(97);
-	var PerspectiveCamera = (function (_super) {
-	    __extends(PerspectiveCamera, _super);
-	    function PerspectiveCamera() {
-	        _super.apply(this, arguments);
-	        this.fovy = Math.PI / 4;
-	        this.aspect = 1;
-	        this.near = 0.1;
-	        this.far = 10;
-	    }
-	    PerspectiveCamera.prototype.updateProjection = function () {
-	        this.projection = Matrix.perspective(this.fovy, this.aspect, this.near, this.far);
-	    };
-	    Object.defineProperty(PerspectiveCamera.prototype, "Fovy", {
-	        get: function () {
-	            return this.fovy;
-	        },
-	        set: function (fovy) {
-	            this.fovy = fovy;
-	            this.updateProjection();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(PerspectiveCamera.prototype, "Aspect", {
-	        get: function () {
-	            return this.aspect;
-	        },
-	        set: function (aspect) {
-	            this.aspect = aspect;
-	            this.updateProjection();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(PerspectiveCamera.prototype, "Near", {
-	        get: function () {
-	            return this.near;
-	        },
-	        set: function (near) {
-	            this.near = near;
-	            this.updateProjection();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(PerspectiveCamera.prototype, "Far", {
-	        get: function () {
-	            return this.far;
-	        },
-	        set: function (far) {
-	            this.far = far;
-	            this.updateProjection();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(PerspectiveCamera.prototype, "ProjectionMatrix", {
-	        get: function () {
-	            return this.projection;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return PerspectiveCamera;
-	})(ViewCamera);
-	module.exports = PerspectiveCamera;
-
-
-/***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var JThreeID = __webpack_require__(70);
-	var SceneObjectNodeBase = __webpack_require__(72);
-	var GomlTreeCameraNodeBase = (function (_super) {
-	    __extends(GomlTreeCameraNodeBase, _super);
-	    function GomlTreeCameraNodeBase(elem, loader, parent, parentSceneNode, parentObject) {
-	        _super.call(this, elem, loader, parent, parentSceneNode, parentObject);
-	        loader.nodeDictionary.addObject("jthree.camera", this.Name, this);
-	    }
-	    Object.defineProperty(GomlTreeCameraNodeBase.prototype, "TargetCamera", {
-	        get: function () {
-	            return this.targetCamera;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    GomlTreeCameraNodeBase.prototype.ConstructCamera = function () {
-	        return null;
-	    };
-	    GomlTreeCameraNodeBase.prototype.ConstructTarget = function () {
-	        this.targetCamera = this.ConstructCamera();
-	        return this.targetCamera;
-	    };
-	    GomlTreeCameraNodeBase.prototype.beforeLoad = function () {
-	        _super.prototype.beforeLoad.call(this);
-	    };
-	    GomlTreeCameraNodeBase.prototype.Load = function () {
-	        _super.prototype.Load.call(this);
-	        this.ContainedSceneNode.targetScene.addCamera(this.targetCamera);
-	    };
-	    Object.defineProperty(GomlTreeCameraNodeBase.prototype, "Name", {
-	        /**
-	        * GOML Attribute
-	        * Identical Name for camera
-	        */
-	        get: function () {
-	            this.name = this.name || this.element.getAttribute('name') || JThreeID.getUniqueRandom(10);
-	            return this.name;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return GomlTreeCameraNodeBase;
-	})(SceneObjectNodeBase);
-	module.exports = GomlTreeCameraNodeBase;
 
 
 /***/ },
@@ -14189,8 +14192,6 @@
 	        var b = this.beginValue;
 	        var e = this.endValue;
 	        var ef = this.easingFunction.Ease;
-	        console.log(b.toAngleAxisString());
-	        console.log(e.toAngleAxisString());
 	        this.targetAttribute.Value = Quaternion.Slerp(b, e, ef(0, 1, progress));
 	    };
 	    return RotationAnimater;
@@ -14341,15 +14342,16 @@
 	    });
 	    Geometry.prototype.addQuad = function (pos, normal, uv, index, points) {
 	        var v0 = points[0], v1 = points[1], v2 = points[2];
-	        var v02v1 = v1.subtractWith(v1);
-	        var v02v2 = v2.subtractWith(v2);
+	        var v02v1 = v1.subtractWith(v0);
+	        var v02v2 = v2.subtractWith(v0);
 	        var v3 = v0.addWith(v02v1).addWith(v02v2);
 	        var nV = v2.crossWith(v1);
 	        var startIndex = pos.length / 3;
+	        console.log(nV.toString());
 	        normal.push(nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z);
 	        uv.push(0, 1, 1, 0, 1, 0, 0, 0);
 	        pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v3.X, v3.Y, v3.Z, v2.X, v2.Y, v2.Z);
-	        index.push(startIndex, startIndex + 1, startIndex + 3, startIndex, startIndex + 3, startIndex + 2);
+	        index.push(startIndex, startIndex + 1, startIndex + 2, startIndex, startIndex + 2, startIndex + 3);
 	    };
 	    return Geometry;
 	})(jThreeObject);
@@ -14579,60 +14581,6 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(17);
-	var jThreeObject = __webpack_require__(11);
-	var RendererBase = (function (_super) {
-	    __extends(RendererBase, _super);
-	    function RendererBase(contextManager) {
-	        _super.call(this);
-	        this.contextManager = contextManager;
-	    }
-	    Object.defineProperty(RendererBase.prototype, "ID", {
-	        get: function () {
-	            return this.id;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    RendererBase.prototype.render = function (drawAct) {
-	        throw new Exceptions.AbstractClassMethodCalledException();
-	    };
-	    Object.defineProperty(RendererBase.prototype, "ContextManager", {
-	        get: function () {
-	            return this.contextManager;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(RendererBase.prototype, "Context", {
-	        get: function () {
-	            return this.contextManager.Context;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(RendererBase.prototype, "Camera", {
-	        get: function () {
-	            return null;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return RendererBase;
-	})(jThreeObject);
-	module.exports = RendererBase;
-
-
-/***/ },
-/* 94 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
 	var VectorEnumeratorBase = __webpack_require__(16);
 	var Exceptions = __webpack_require__(17);
 	var VectorBase = __webpack_require__(18);
@@ -14798,6 +14746,60 @@
 
 
 /***/ },
+/* 94 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var Exceptions = __webpack_require__(17);
+	var jThreeObject = __webpack_require__(11);
+	var RendererBase = (function (_super) {
+	    __extends(RendererBase, _super);
+	    function RendererBase(contextManager) {
+	        _super.call(this);
+	        this.contextManager = contextManager;
+	    }
+	    Object.defineProperty(RendererBase.prototype, "ID", {
+	        get: function () {
+	            return this.id;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RendererBase.prototype.render = function (drawAct) {
+	        throw new Exceptions.AbstractClassMethodCalledException();
+	    };
+	    Object.defineProperty(RendererBase.prototype, "ContextManager", {
+	        get: function () {
+	            return this.contextManager;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(RendererBase.prototype, "Context", {
+	        get: function () {
+	            return this.contextManager.Context;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(RendererBase.prototype, "Camera", {
+	        get: function () {
+	            return null;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return RendererBase;
+	})(jThreeObject);
+	module.exports = RendererBase;
+
+
+/***/ },
 /* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14890,7 +14892,7 @@
 	};
 	var MatrixBase = __webpack_require__(109);
 	var Vector3 = __webpack_require__(6);
-	var Vector4 = __webpack_require__(94);
+	var Vector4 = __webpack_require__(93);
 	var Exceptions = __webpack_require__(17);
 	var Collection = __webpack_require__(28);
 	var MatrixFactory = __webpack_require__(110);
@@ -15172,9 +15174,87 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
+	var Camera = __webpack_require__(112);
+	var Vector3 = __webpack_require__(6);
+	var Matrix = __webpack_require__(97);
+	var ViewCameraBase = (function (_super) {
+	    __extends(ViewCameraBase, _super);
+	    function ViewCameraBase() {
+	        var _this = this;
+	        _super.call(this);
+	        this.position = new Vector3(0, 0, 0);
+	        this.lookAt = new Vector3(0, 0, -1);
+	        this.updir = new Vector3(0, 1, 0);
+	        this.UpdateViewMatrix();
+	        this.transformer.onUpdateTransform(function (o) { return _this.UpdateViewMatrix(o); });
+	    }
+	    Object.defineProperty(ViewCameraBase.prototype, "Position", {
+	        get: function () {
+	            return this.position;
+	        },
+	        set: function (vec) {
+	            this.position = vec;
+	            this.UpdateViewMatrix();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(ViewCameraBase.prototype, "LookAt", {
+	        get: function () {
+	            return this.lookAt;
+	        },
+	        set: function (vec) {
+	            this.lookAt = vec;
+	            this.UpdateViewMatrix();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(ViewCameraBase.prototype, "UpDirection", {
+	        get: function () {
+	            return this.updir;
+	        },
+	        set: function (vec) {
+	            this.updir = vec;
+	            this.UpdateViewMatrix();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(ViewCameraBase.prototype, "ViewMatrix", {
+	        get: function () {
+	            return this.viewMatrix;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ViewCameraBase.prototype.UpdateViewMatrix = function (obj) {
+	        console.log(obj);
+	        var cam = obj || this; //To avoid to get this
+	        var fp = Matrix.transformPoint;
+	        var fn = Matrix.transformNormal;
+	        var t = cam.Transformer.LocalToGlobal;
+	        var mat = cam.Transformer.LocalToGlobal;
+	        this.viewMatrix = Matrix.lookAt(fp(mat, cam.Position), fp(mat, cam.LookAt), fn(mat, cam.UpDirection));
+	    };
+	    return ViewCameraBase;
+	})(Camera);
+	module.exports = ViewCameraBase;
+
+
+/***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
 	var JThreeObjectWithId = __webpack_require__(91);
 	var JThreeCollection = __webpack_require__(15);
-	var Transformer = __webpack_require__(112);
+	var Transformer = __webpack_require__(113);
 	/**
 	 * This is most base class for SceneObject.
 	 * SceneObject is same as GameObject in Unity.
@@ -15285,84 +15365,6 @@
 	    return SceneObject;
 	})(JThreeObjectWithId);
 	module.exports = SceneObject;
-
-
-/***/ },
-/* 99 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var Camera = __webpack_require__(113);
-	var Vector3 = __webpack_require__(6);
-	var Matrix = __webpack_require__(97);
-	var ViewCameraBase = (function (_super) {
-	    __extends(ViewCameraBase, _super);
-	    function ViewCameraBase() {
-	        var _this = this;
-	        _super.call(this);
-	        this.position = new Vector3(0, 0, 0);
-	        this.lookAt = new Vector3(0, 0, -1);
-	        this.updir = new Vector3(0, 1, 0);
-	        this.UpdateViewMatrix();
-	        this.transformer.onUpdateTransform(function (o) { return _this.UpdateViewMatrix(o); });
-	    }
-	    Object.defineProperty(ViewCameraBase.prototype, "Position", {
-	        get: function () {
-	            return this.position;
-	        },
-	        set: function (vec) {
-	            this.position = vec;
-	            this.UpdateViewMatrix();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ViewCameraBase.prototype, "LookAt", {
-	        get: function () {
-	            return this.lookAt;
-	        },
-	        set: function (vec) {
-	            this.lookAt = vec;
-	            this.UpdateViewMatrix();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ViewCameraBase.prototype, "UpDirection", {
-	        get: function () {
-	            return this.updir;
-	        },
-	        set: function (vec) {
-	            this.updir = vec;
-	            this.UpdateViewMatrix();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ViewCameraBase.prototype, "ViewMatrix", {
-	        get: function () {
-	            return this.viewMatrix;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    ViewCameraBase.prototype.UpdateViewMatrix = function (obj) {
-	        console.log(obj);
-	        var cam = obj || this; //To avoid to get this
-	        var fp = Matrix.transformPoint;
-	        var fn = Matrix.transformNormal;
-	        var t = cam.Transformer.LocalToGlobal;
-	        var mat = cam.Transformer.LocalToGlobal;
-	        this.viewMatrix = Matrix.lookAt(fp(mat, cam.Position), fp(mat, cam.LookAt), fn(mat, cam.UpDirection));
-	    };
-	    return ViewCameraBase;
-	})(Camera);
-	module.exports = ViewCameraBase;
 
 
 /***/ },
@@ -15966,6 +15968,79 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
+	var SceneObject = __webpack_require__(99);
+	var Exceptions = __webpack_require__(17);
+	//カメラ関係のクラスの基底クラス
+	var Camera = (function (_super) {
+	    __extends(Camera, _super);
+	    function Camera() {
+	        _super.call(this);
+	    }
+	    Object.defineProperty(Camera.prototype, "Position", {
+	        //カメラ位置
+	        get: function () {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        set: function (pos) {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Camera.prototype, "LookAt", {
+	        //カメラ視線方向
+	        get: function () {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        set: function (vec) {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Camera.prototype, "UpDirection", {
+	        //カメラ上方向
+	        get: function () {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        set: function (vec) {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Camera.prototype, "ViewMatrix", {
+	        get: function () {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Camera.prototype, "ProjectionMatrix", {
+	        get: function () {
+	            throw new Exceptions.AbstractClassMethodCalledException();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Camera.prototype.update = function () {
+	        _super.prototype.update.call(this);
+	    };
+	    return Camera;
+	})(SceneObject);
+	module.exports = Camera;
+
+
+/***/ },
+/* 113 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
 	var Quaternion = __webpack_require__(5);
 	var Vector3 = __webpack_require__(6);
 	var Matrix = __webpack_require__(97);
@@ -16041,79 +16116,6 @@
 	    return Transformer;
 	})(JThreeObject);
 	module.exports = Transformer;
-
-
-/***/ },
-/* 113 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var SceneObject = __webpack_require__(98);
-	var Exceptions = __webpack_require__(17);
-	//カメラ関係のクラスの基底クラス
-	var Camera = (function (_super) {
-	    __extends(Camera, _super);
-	    function Camera() {
-	        _super.call(this);
-	    }
-	    Object.defineProperty(Camera.prototype, "Position", {
-	        //カメラ位置
-	        get: function () {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        set: function (pos) {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Camera.prototype, "LookAt", {
-	        //カメラ視線方向
-	        get: function () {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        set: function (vec) {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Camera.prototype, "UpDirection", {
-	        //カメラ上方向
-	        get: function () {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        set: function (vec) {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Camera.prototype, "ViewMatrix", {
-	        get: function () {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Camera.prototype, "ProjectionMatrix", {
-	        get: function () {
-	            throw new Exceptions.AbstractClassMethodCalledException();
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Camera.prototype.update = function () {
-	        _super.prototype.update.call(this);
-	    };
-	    return Camera;
-	})(SceneObject);
-	module.exports = Camera;
 
 
 /***/ },

@@ -59,7 +59,6 @@ class ViewCameraBase extends Camera
 
   private UpdateViewMatrix(obj?:SceneObject):void
   {
-    console.log(obj);
     var cam:Camera=<Camera>obj||this;//To avoid to get this
     var fp=Matrix.transformPoint;
     var fn=Matrix.transformNormal;

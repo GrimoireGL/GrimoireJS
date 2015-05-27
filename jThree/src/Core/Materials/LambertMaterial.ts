@@ -43,6 +43,7 @@ set Color(col:Color4)
           fsShader.loadAll();
           this.program= jThreeContext.ResourceManager.createorGetProgram("jthree.programs.lambert", [vsShader, fsShader]);
       }
+      
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
        super.configureMaterial(renderer,object);
           var geometry=object.Geometry;
@@ -55,7 +56,7 @@ set Color(col:Color4)
           programWrapper.setUniformMatrix("matV",renderer.Camera.ViewMatrix);
           programWrapper.setUniformMatrix("matMV",Matrix.multiply(renderer.Camera.ViewMatrix,object.Transformer.LocalToGlobal));
           programWrapper.setUniformVector("u_color",this.Color.toVector());
-          programWrapper.setUniformVector("u_DirectionalLight",new Vector3(-1,-1,-1));
+          programWrapper.setUniformVector("u_DirectionalLight",new Vector3(0,0,-1));
           geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
      }
   }
