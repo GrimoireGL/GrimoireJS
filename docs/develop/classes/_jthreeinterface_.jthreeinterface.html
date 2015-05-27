@@ -102,6 +102,8 @@
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_jthreeinterface_.jthreeinterface.html#isexecuting" class="tsd-kind-icon">is<wbr>Executing</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_jthreeinterface_.jthreeinterface.html#queuedactions" class="tsd-kind-icon">queued<wbr>Actions</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_jthreeinterface_.jthreeinterface.html#target" class="tsd-kind-icon">target</a></li>
 							</ul>
 						</section>
@@ -115,10 +117,16 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_jthreeinterface_.jthreeinterface.html#animate" class="tsd-kind-icon">animate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_jthreeinterface_.jthreeinterface.html#append" class="tsd-kind-icon">append</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_jthreeinterface_.jthreeinterface.html#attr" class="tsd-kind-icon">attr</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_jthreeinterface_.jthreeinterface.html#delay" class="tsd-kind-icon">delay</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_jthreeinterface_.jthreeinterface.html#dequeue" class="tsd-kind-icon">dequeue</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_jthreeinterface_.jthreeinterface.html#find" class="tsd-kind-icon">find</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_jthreeinterface_.jthreeinterface.html#getnode" class="tsd-kind-icon">get<wbr>Node</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_jthreeinterface_.jthreeinterface.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_jthreeinterface_.jthreeinterface.html#queue" class="tsd-kind-icon">queue</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_jthreeinterface_.jthreeinterface.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_jthreeinterface_.jthreeinterface.html#trystartqueue" class="tsd-kind-icon">try<wbr>Start<wbr>Queue</a></li>
 							</ul>
 						</section>
 					</div>
@@ -153,12 +161,32 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="isexecuting" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> is<wbr>Executing</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Executing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L46">JThreeInterface.ts:46</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="queuedactions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> queued<wbr>Actions</h3>
+					<div class="tsd-signature tsd-kind-icon">queued<wbr>Actions<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L13">JThreeInterface.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="target" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> target</h3>
 					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_refs_jquery_jquery_d_.jquery.html" class="tsd-signature-type">JQuery</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L14">JThreeInterface.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L48">JThreeInterface.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -175,7 +203,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L56">JThreeInterface.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L122">JThreeInterface.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></h4>
@@ -189,13 +217,13 @@
 					<a name="animate" class="tsd-anchor"></a>
 					<h3>animate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">animate<span class="tsd-signature-symbol">(</span>attrTarget<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, easing<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, onComplete<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">animate<span class="tsd-signature-symbol">(</span>attrTarget<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, easing<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, onComplete<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L31">JThreeInterface.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L69">JThreeInterface.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -218,7 +246,30 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> onComplete: <a href="../interfaces/_delegates_.action0.html" class="tsd-signature-type">Action0</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="append" class="tsd-anchor"></a>
+					<h3>append</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">append<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L107">JThreeInterface.ts:107</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -226,13 +277,13 @@
 					<a name="attr" class="tsd-anchor"></a>
 					<h3>attr</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">attr<span class="tsd-signature-symbol">(</span>attrTarget<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">attr<span class="tsd-signature-symbol">(</span>attrTarget<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L16">JThreeInterface.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L50">JThreeInterface.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -244,7 +295,72 @@
 									<h5>value: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="delay" class="tsd-anchor"></a>
+					<h3>delay</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delay<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L38">JThreeInterface.ts:38</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>time: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="dequeue" class="tsd-anchor"></a>
+					<h3>dequeue</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">dequeue<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L15">JThreeInterface.ts:15</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="find" class="tsd-anchor"></a>
+					<h3>find</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">find<span class="tsd-signature-symbol">(</span>attrTarget<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L102">JThreeInterface.ts:102</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>attrTarget: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -258,7 +374,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L50">JThreeInterface.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L116">JThreeInterface.ts:116</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -289,6 +405,29 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="queue" class="tsd-anchor"></a>
+					<h3>queue</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">queue<span class="tsd-signature-symbol">(</span>act<span class="tsd-signature-symbol">: </span><a href="../interfaces/_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L31">JThreeInterface.ts:31</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>act: <a href="../interfaces/_delegates_.action0.html" class="tsd-signature-type">Action0</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_jthreeinterface_.jthreeinterface.html" class="tsd-signature-type">JThreeInterface</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="tostring" class="tsd-anchor"></a>
 					<h3>to<wbr>String</h3>
@@ -304,6 +443,23 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="trystartqueue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> try<wbr>Start<wbr>Queue</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">try<wbr>Start<wbr>Queue<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/JThreeInterface.ts#L23">JThreeInterface.ts:23</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -331,6 +487,12 @@
 								<a href="_jthreeinterface_.jthreeinterface.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_jthreeinterface_.jthreeinterface.html#isexecuting" class="tsd-kind-icon">is<wbr>Executing</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_jthreeinterface_.jthreeinterface.html#queuedactions" class="tsd-kind-icon">queued<wbr>Actions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_jthreeinterface_.jthreeinterface.html#target" class="tsd-kind-icon">target</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-private">
@@ -340,7 +502,19 @@
 								<a href="_jthreeinterface_.jthreeinterface.html#animate" class="tsd-kind-icon">animate</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_jthreeinterface_.jthreeinterface.html#append" class="tsd-kind-icon">append</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_jthreeinterface_.jthreeinterface.html#attr" class="tsd-kind-icon">attr</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_jthreeinterface_.jthreeinterface.html#delay" class="tsd-kind-icon">delay</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_jthreeinterface_.jthreeinterface.html#dequeue" class="tsd-kind-icon">dequeue</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_jthreeinterface_.jthreeinterface.html#find" class="tsd-kind-icon">find</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_jthreeinterface_.jthreeinterface.html#getnode" class="tsd-kind-icon">get<wbr>Node</a>
@@ -348,8 +522,14 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_jthreeinterface_.jthreeinterface.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_jthreeinterface_.jthreeinterface.html#queue" class="tsd-kind-icon">queue</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_jthreeinterface_.jthreeinterface.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_jthreeinterface_.jthreeinterface.html#trystartqueue" class="tsd-kind-icon">try<wbr>Start<wbr>Queue</a>
 							</li>
 						</ul>
 					</li>
