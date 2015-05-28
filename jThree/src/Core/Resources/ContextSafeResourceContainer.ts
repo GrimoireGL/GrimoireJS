@@ -1,4 +1,4 @@
-import JThreeObject = require("Base/JThreeObject");
+import JThreeObject = require("../../Base/JThreeObject");
 import ContextManagerBase = require("../ContextManagerBase");
 import Delegates = require("../../Delegates");
 import Exceptions = require("../../Exceptions");

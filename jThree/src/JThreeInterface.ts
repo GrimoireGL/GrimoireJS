@@ -14,6 +14,7 @@ class JThreeInterface extends JThreeObject
 
   public dequeue()
   {
+    console.log("dequeue");
     this.queuedActions.shift();
     this.isExecuting=false;
     this.tryStartQueue();

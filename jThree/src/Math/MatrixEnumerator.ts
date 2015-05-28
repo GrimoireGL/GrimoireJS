@@ -1,4 +1,4 @@
-import JThreeObject=require('Base/JThreeObject');
+import JThreeObject = require('../Base/JThreeObject');
 import IEnumrator = require("../Base/Collections/IEnumrator");
 import Matrix = require("./Matrix");
 class MatrixEnumerator extends JThreeObject implements IEnumrator<number> {

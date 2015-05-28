@@ -1,6 +1,6 @@
 import JThreeContext = require("./JThreeContext");
 import ContextManagerBase = require("./ContextManagerBase");
-import WebGLContextWrapper = require("Wrapper/WebGLContextWrapper");
+import WebGLContextWrapper = require("../Wrapper/WebGLContextWrapper");
 import ViewPortRenderer = require("./ViewportRenderer");
 import Rectangle = require("../Math/Rectangle");
 import jThreeObject = require("../Base/JThreeObject");

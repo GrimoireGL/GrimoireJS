@@ -1,6 +1,6 @@
 import ContextTimer = require("./ContextTimer");
 import GomlLoader = require("../Goml/GomlLoader");
-import Delegates = require("Delegates");
+import Delegates = require("../Delegates");
 import ResourceManager = require("./ResourceManager");
 import CanvasManager = require("./CanvasManager");
 import JThreeObject = require("../Base/JThreeObject");

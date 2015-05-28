@@ -1,4 +1,4 @@
-import JThreeObject=require('Base/JThreeObject');
+import JThreeObject = require('./JThreeObject');
 
 class JThreeID extends JThreeObject
 {

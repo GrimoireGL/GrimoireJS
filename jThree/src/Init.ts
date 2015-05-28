@@ -10,7 +10,7 @@ import JThreeInterface = require('./JThreeInterface');
 class JThreeInit{
   /**
 *
-*@param query 
+*@param query
 *@returns
 */
 static j3(query:string|Delegates.Action0):JThreeInterface
@@ -31,6 +31,7 @@ static j3(query:string|Delegates.Action0):JThreeInterface
   */
   static Init():void
   {
+    console.log("initialize");
     window["j3"]=JThreeInit.j3;
     $(()=>{
       if (JThreeInit.noInit)return;

@@ -1,4 +1,4 @@
-import JThreeObject=require('Base/JThreeObject');
+import JThreeObject=require('../Base/JThreeObject');
 import JThreeContext = require("./JThreeContext");
 declare function require(string):{getInstanceForProxy():JThreeContext;}
 class JThreeContextProxy extends JThreeObject

@@ -1,4 +1,4 @@
-import JThreeObject=require('Base/JThreeObject');
+import JThreeObject = require('./JThreeObject');
 import JThreeObjectWithID = require("./JThreeObjectWithID");
 import Delegates = require("../Delegates");
 class JThreeCollection<T extends JThreeObjectWithID>

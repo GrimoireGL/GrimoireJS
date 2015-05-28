@@ -1,4 +1,4 @@
-import Exceptions = require("Exceptions");
+import Exceptions = require("../Exceptions");
 import BufferTargetType = require("./BufferTargetType");
 import ShaderType = require("./ShaderType");
 import ClearTargetType = require("./ClearTargetType");
@@ -172,7 +172,7 @@ class GLContextWrapperBase extends JThreeObject
 
       Disable(feature:GLFeatureType):void
       {
-        throw new Exceptions.AbstractClassMethodCalledException();        
+        throw new Exceptions.AbstractClassMethodCalledException();
       }
 
       /**
