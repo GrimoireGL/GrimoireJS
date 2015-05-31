@@ -9,6 +9,7 @@ import JThreeContext = require("../Core/JThreeContext");
 import GomlNodeListElement = require("./GomlNodeListElement");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
+import JThreeEvent = require('../Base/JThreeEvent');
 declare function require(string):any;
 
 class GomlLoader extends jThreeObject {
@@ -24,19 +25,14 @@ class GomlLoader extends jThreeObject {
 
     private selfTag:HTMLScriptElement;
 
-    private onloadHandler:Delegates.Action1<string>[]=[];
+    private onLoadEvent:JThreeEvent<string>=new JThreeEvent<string>();
+
     /*
     * Call passed function if loaded GOML Document.
     */
-
-    public onload(act:Delegates.Action1<string>):void
+    public onload(act:Delegates.Action2<any,string>):void
     {
-      this.onloadHandler.push(act);
-    }
-
-    private notifyOnLoad(source:string):void
-    {
-      this.onloadHandler.forEach((v)=>{v(source)});
+      this.onLoadEvent.addListerner(act);
     }
 
     converters:Map<string,AttributeConverterBase>=new Map<string,AttributeConverterBase>();
@@ -60,12 +56,10 @@ class GomlLoader extends jThreeObject {
 
     initForPage(): void {
         this.attemptToLoadGomlInScriptAttr();
-        this.rootObj = $("<iframe style='display:none;'/>");
         var gomls: JQuery = $("script[type='text/goml']");
         gomls.each((index: number, elem: Element) => {
             this.loadScriptTag($(elem));
         });
-        console.log(this.rootObj);
     }
 
     private attemptToLoadGomlInScriptAttr():void
@@ -149,7 +143,7 @@ class GomlLoader extends jThreeObject {
         this.eachNode(v=>v.beforeLoad());
         this.eachNode(v=>v.Load());
         this.eachNode(v=>v.afterLoad());
-        this.notifyOnLoad(source);
+        this.onLoadEvent.fire(this,source);
     }
 
     private eachNode(act:Delegates.Action1<GomlTreeNodeBase>)

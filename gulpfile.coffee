@@ -140,6 +140,14 @@ gulp.task 'server',['webpack'],->
   connect.server
     root:'./jThree/wwwroot'
     livereload:true
+
+###
+travis task
+###
+
+gulp.task 'travis',['webpack'],->
+
+
 ###
 MISC
 ###

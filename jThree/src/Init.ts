@@ -29,8 +29,6 @@ static j3(query:string|Delegates.Action0):JThreeInterface
     window["j3"]=JThreeInit.j3;//subscribe the function as member of window
     $(()=>{//TODO I wonder we should remove jQuery dependencies.
       var j3=JThreeContext.getInstanceForProxy();
-      j3.GomlLoader.onload(()=>{
-      });
       j3.init();
     });
   }

@@ -187,6 +187,13 @@ gulp.task('server', ['webpack'], function() {
 
 
 /*
+travis task
+ */
+
+gulp.task('travis', ['webpack'], function() {});
+
+
+/*
 MISC
  */
 
