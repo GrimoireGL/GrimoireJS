@@ -60,7 +60,7 @@ gulp.task 'webpack',->
   gulp.src webpack_src
     .pipe webpack
       entry:
-        jThree:path.join __dirname,'jThree/src/JThree.ts'
+        jThree:path.join __dirname,'jThree/src/jThree.ts'
       output:
         filename:'j3.js'
       resolve:
