@@ -1,4 +1,3 @@
-
 import $=require('jquery');
 import Init = require("./Init");
 import JThreeObject=require('./Base/JThreeObject');

@@ -98,7 +98,7 @@ gulp.task('webpack', function() {
   }
   return gulp.src(webpack_src).pipe(webpack({
     entry: {
-      jThree: './jThree/src/JThree.ts'
+      jThree: path.join(__dirname, 'jThree/src/JThree.ts')
     },
     output: {
       filename: 'j3.js'
