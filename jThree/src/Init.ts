@@ -8,11 +8,7 @@ import Delegates = require('./Delegates');
 import JThreeInterface = require('./JThreeInterface');
 
 class JThreeInit{
-  /**
-*
-*@param query
-*@returns
-*/
+
 static j3(query:string|Delegates.Action0):JThreeInterface
   {
     var context=JThreeContextProxy.getJThreeContext();
@@ -25,22 +21,17 @@ static j3(query:string|Delegates.Action0):JThreeInterface
       return new JThreeInterface(targetObject);
   }
 
-  static noInit=false;
   /**
   * This method should be called when Jthree loaded.
   */
   static Init():void
   {
-    console.log("initialize");
-    window["j3"]=JThreeInit.j3;
-    $(()=>{
-      if (JThreeInit.noInit)return;
+    window["j3"]=JThreeInit.j3;//subscribe the function as member of window
+    $(()=>{//TODO I wonder we should remove jQuery dependencies.
       var j3=JThreeContext.getInstanceForProxy();
       j3.GomlLoader.onload(()=>{
-        console.log(j3.SceneManager.toString());
       });
       j3.init();
-      console.log(Quaternion.AngleAxis(Math.PI/4,new Vector3(1,1,0)).toAngleAxisString());
     });
   }
 }

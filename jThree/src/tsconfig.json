@@ -21,6 +21,7 @@
         "./Base/Color/Color4.ts",
         "./Base/IStringConvertable.ts",
         "./Base/JThreeCollection.ts",
+        "./Base/JThreeEvent.ts",
         "./Base/JThreeID.ts",
         "./Base/JThreeObject.ts",
         "./Base/JThreeObjectWithID.ts",

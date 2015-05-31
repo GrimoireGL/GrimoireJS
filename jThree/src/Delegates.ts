@@ -1,4 +1,7 @@
-
+// The interfaces to represent the types similar to "delegate" in C#.
+// You can use these class like these reference below.
+// Action Delegate: https://msdn.microsoft.com/en-us/library/system.action%28v=vs.110%29.aspx
+// Func Delegate:https://msdn.microsoft.com/en-us/library/bb534960%28v=vs.110%29.aspx
 // ReSharper disable InconsistentNaming
 export interface Action0 {
     (): void;
