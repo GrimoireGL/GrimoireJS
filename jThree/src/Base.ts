@@ -1,3 +1,7 @@
+//
+// This file is intended for adding interfaces.
+// Browser is already supported but lib.d.ts not containing.
+//
 interface String {
     format(...replacements: any[]):string;
 }

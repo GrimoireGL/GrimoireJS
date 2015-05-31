@@ -19,12 +19,3 @@ if (!String.prototype["format"]) {
     };
 }
 Init.Init();
-function jqPrint(jq:JQuery) {
-  for (var i = 0; i <jq.length; i++) {
-      var target=jq[i];
-      console.group();
-      console.log(target);
-      jqPrint($(target).children());
-      console.log("</"+target.tagName.toLowerCase()+">");
-  }
-}

@@ -10,6 +10,7 @@ import GomlNodeListElement = require("./GomlNodeListElement");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
 import JThreeEvent = require('../Base/JThreeEvent');
+import AssociativeArray = require('../Base/Collections/AssociativeArray');
 declare function require(string):any;
 
 class GomlLoader extends jThreeObject {
@@ -35,15 +36,15 @@ class GomlLoader extends jThreeObject {
       this.onLoadEvent.addListerner(act);
     }
 
-    converters:Map<string,AttributeConverterBase>=new Map<string,AttributeConverterBase>();
+    converters:AssociativeArray<AttributeConverterBase>=new AssociativeArray<AttributeConverterBase>();
 
-    easingFunctions:Map<string,EasingFunctionBase>=new Map<string,EasingFunctionBase>();
+    easingFunctions:AssociativeArray<EasingFunctionBase>=new AssociativeArray<EasingFunctionBase>();
 
-    gomlTags: Map<string, TagFactory> = new Map<string, TagFactory>();
+    gomlTags: AssociativeArray< TagFactory> = new AssociativeArray< TagFactory>();
 
-    headTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
+    headTagsById: AssociativeArray< GomlTreeNodeBase> = new AssociativeArray< GomlTreeNodeBase>();
 
-    bodyTagsById: Map<string, GomlTreeNodeBase> = new Map<string, GomlTreeNodeBase>();
+    bodyTagsById: AssociativeArray< GomlTreeNodeBase> = new AssociativeArray< GomlTreeNodeBase>();
 
     nodeDictionary:GomlNodeDictionary=new GomlNodeDictionary();
 

@@ -15,6 +15,7 @@
     "files": [
         "./Base.ts",
         "./Base/Collections/ArrayEnumratorFactory.ts",
+        "./Base/Collections/AssociativeArray.ts",
         "./Base/Collections/Collection.ts",
         "./Base/Collections/IEnumerable.ts",
         "./Base/Collections/IEnumrator.ts",
