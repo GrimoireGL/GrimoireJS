@@ -135,6 +135,7 @@
         "./Wrapper/PrimitiveTopology.ts",
         "./Wrapper/ShaderType.ts",
         "./Wrapper/WebGLContextWrapper.ts",
-        "./jThree.ts"
+        "./jThree.ts",
+        "../def/jquery.d.ts"
     ]
 }
