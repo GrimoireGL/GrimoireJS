@@ -5,11 +5,12 @@ import Delegates = require("../Delegates");
 import ResourceManager = require("./ResourceManager");
 import CanvasManager = require("./CanvasManager");
 import JThreeObject = require("../Base/JThreeObject");
-import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
+import CanvasListChangedEventArgs = require('./CanvasListChangedEventArgs');
 import SceneManager = require("./SceneManager");
-import RendererStateChangedType = require("./RendererStateChangedType");
+import ListStateChangedType = require("./ListStateChangedType");
 import AnimaterBase = require("../Goml/Animater/AnimaterBase");
 import JThreeCollection = require("../Base/JThreeCollection");
+import JThreeEvent = require('../Base/JThreeEvent');
 class JThreeContext extends JThreeObject
 {
     private static instance:JThreeContext=new JThreeContext();
@@ -26,13 +27,13 @@ class JThreeContext extends JThreeObject
     }
 
     private canvasManagers: CanvasManager[] = [];
-    private onRendererChangedFuncs:Delegates.Action1<RendererListChangedEventArgs>[]=[];
     private resourceManager: ResourceManager;
     private timer: ContextTimer;
     private sceneManager: SceneManager;
     private gomlLoader:GomlLoader;
     private registerNextLoop:Delegates.Action0;
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
+    private canvasChangedEvent:JThreeEvent<CanvasListChangedEventArgs>=new JThreeEvent<CanvasListChangedEventArgs>();
 
     public addAnimater(animater:AnimaterBase):void
     {
@@ -132,7 +133,7 @@ class JThreeContext extends JThreeObject
     addCanvasManager(renderer: CanvasManager):void {
         if (this.canvasManagers.indexOf(renderer) === -1) {
             this.canvasManagers.push(renderer);
-            this.notifyRendererChanged(new RendererListChangedEventArgs(RendererStateChangedType.Add, renderer));
+            this.canvasChangedEvent.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Add,renderer));
         }
     }
 
@@ -148,24 +149,15 @@ class JThreeContext extends JThreeObject
                     break;
                 }
             }
-            this.notifyRendererChanged(new RendererListChangedEventArgs(RendererStateChangedType.Delete, renderer));
+            this.canvasChangedEvent.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Delete,renderer));
         }
     }
 
     /**
      * add function as renderer changed event handler.
      */
-    onRendererChanged(func:Delegates.Action1<RendererListChangedEventArgs>): void {
-        if (this.onRendererChangedFuncs.indexOf(func) === -1) {
-            this.onRendererChangedFuncs.push(func);
-        }
-    }
-
-    /**
-     * notify all event handlers
-     */
-    protected notifyRendererChanged(arg:RendererListChangedEventArgs): void {
-        this.onRendererChangedFuncs.forEach((v, i, a) => v(arg));
+    onRendererChanged(func:Delegates.Action2<any,CanvasListChangedEventArgs>): void {
+        this.canvasChangedEvent.addListerner(func);
     }
 }
 

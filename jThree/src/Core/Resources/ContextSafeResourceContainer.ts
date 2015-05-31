@@ -3,8 +3,8 @@ import ContextManagerBase = require("../ContextManagerBase");
 import Delegates = require("../../Delegates");
 import Exceptions = require("../../Exceptions");
 import JThreeContext = require("../JThreeContext");
-import RendererListChangedEventArgs = require("../RendererListChangedEventArgs");
-import RendererStateChangedType = require("../RendererStateChangedType");
+import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
+import ListStateChangedType = require("../ListStateChangedType");
 class ContextSafeResourceContainer<T> extends JThreeObject
 {
     private context: JThreeContext = null;
@@ -32,16 +32,17 @@ class ContextSafeResourceContainer<T> extends JThreeObject
 
     protected each(act: Delegates.Action1<T>): void {
         this.cachedObject.forEach(((v, i, a) => {
+
             act(v);
         }));
     }
 
-    private rendererChanged(arg:RendererListChangedEventArgs): void {
+    private rendererChanged(object:any,arg:CanvasListChangedEventArgs): void {
         switch (arg.ChangeType) {
-            case RendererStateChangedType.Add:
+            case ListStateChangedType.Add:
                 this.cachedObject.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
                 break;
-            case RendererStateChangedType.Delete:
+            case ListStateChangedType.Delete:
                 var delTarget: T = this.cachedObject.get(arg.AffectedRenderer.ID);
                 this.cachedObject.delete(arg.AffectedRenderer.ID);
                 this.disposeResource(delTarget);

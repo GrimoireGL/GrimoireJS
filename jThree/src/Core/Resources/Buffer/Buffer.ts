@@ -7,8 +7,8 @@ import BufferProxy = require("./BufferProxy");
 import ElementType = require("../../../Wrapper/ElementType");
 import BufferWrapper = require("./BufferWrapper");
 import JThreeContextProxy = require("../../JThreeContextProxy");
-import RendererListChangedEventArgs=require('RendererListChangedEventArgs');
-import RendererListChangedType = require("../../RendererStateChangedType");
+import CanvasListChangedEventArgs = require('../../CanvasListChangedEventArgs');
+import ListStateChangedType = require("../../ListStateChangedType");
 class Buffer extends BufferProxy
 {
     static CreateBuffer(glContexts:CanvasManager[],target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
@@ -26,8 +26,8 @@ class Buffer extends BufferProxy
         return buf;
     }
 
-    changedRenderer(arg:RendererListChangedEventArgs):void{
-      if(arg.ChangeType==RendererListChangedType.Add)
+    changedRenderer(arg:CanvasListChangedEventArgs):void{
+      if(arg.ChangeType==ListStateChangedType.Add)
       {
         var wrapper=new BufferWrapper(this,arg.AffectedRenderer.Context);
         wrapper.loadAll();

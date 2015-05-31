@@ -1,10 +1,10 @@
-import JThreeContext = require('../Core/JThreeContext');
+import JThreeObject = require('./JThreeObject');
 import Delegates = require('../Delegates');
 import Exceptions = require('../Exceptions');
 /**
 * The class for implementing in Event-Driven architecture.
 */
-class JThreeEvent<T> extends JThreeContext
+class JThreeEvent<T> extends JThreeObject
 {
   /**
   * The variable to contain handlers references.
@@ -51,4 +51,4 @@ class JThreeEvent<T> extends JThreeContext
   }
 }
 
-export default JThreeEvent;
+export = JThreeEvent;

@@ -1,13 +1,13 @@
 import JThreeObject = require('../Base/JThreeObject');
-import RendererStateChangedType = require("./RendererStateChangedType");
+import RendererStateChangedType = require("./ListStateChangedType");
 import ContextManagerBase = require("./ContextManagerBase");
 
-class RendererListChangedEventArgs extends JThreeObject
+class CanvasListChangedEventArgs extends JThreeObject
 {
   constructor(private changeType: RendererStateChangedType, private affectedRenderer: ContextManagerBase) {
       super();
   }
-  
+
 
   /**
    * レンダラへの変更の種類
@@ -24,4 +24,4 @@ class RendererListChangedEventArgs extends JThreeObject
   }
 }
 
-export=RendererListChangedEventArgs;
+export=CanvasListChangedEventArgs;
