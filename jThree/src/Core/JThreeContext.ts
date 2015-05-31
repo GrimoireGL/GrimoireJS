@@ -1,4 +1,5 @@
 import ContextTimer = require("./ContextTimer");
+import Timer = require('./Timer');
 import GomlLoader = require("../Goml/GomlLoader");
 import Delegates = require("../Delegates");
 import ResourceManager = require("./ResourceManager");
@@ -9,7 +10,21 @@ import SceneManager = require("./SceneManager");
 import RendererStateChangedType = require("./RendererStateChangedType");
 import AnimaterBase = require("../Goml/Animater/AnimaterBase");
 import JThreeCollection = require("../Base/JThreeCollection");
-class JThreeContext extends JThreeObject {
+class JThreeContext extends JThreeObject
+{
+    private static instance:JThreeContext=new JThreeContext();
+    /**
+    * Every user of this library should not call this method.
+    * You should use JThreeContextProxy.getInstance() instead of this function.
+    *
+    * If you want to know more, please see the doc comment of JThreeContextProxy
+    */
+    static getInstanceForProxy()
+    {
+      JThreeContext.instance=JThreeContext.instance||new JThreeContext();
+      return JThreeContext.instance;
+    }
+
     private canvasManagers: CanvasManager[] = [];
     private onRendererChangedFuncs:Delegates.Action1<RendererListChangedEventArgs>[]=[];
     private resourceManager: ResourceManager;
@@ -32,12 +47,7 @@ class JThreeContext extends JThreeObject {
       });
     }
 
-    static instance:JThreeContext=new JThreeContext();
-    static getInstanceForProxy()
-    {
-      JThreeContext.instance=JThreeContext.instance||new JThreeContext();
-      return JThreeContext.instance;
-    }
+
 
     get SceneManager(): SceneManager {
         return this.sceneManager;
@@ -56,27 +66,44 @@ class JThreeContext extends JThreeObject {
     }
 
     /**
-     * Begin render loop
-     * @returns {}
+     * Begin render loop.
+     * In most of case, you no need to call this function by your self.
      */
     init() {
+      //By calling this method,Gomlloader will start to load the content related to GOML.
       this.gomlLoader.initForPage();
-      this.registerNextLoop=window.requestAnimationFrame?()=>{
-        var context=JThreeContext.instance;
-        window.requestAnimationFrame(context.loop);
-        }:()=>{
-          var context=JThreeContext.instance;
-          window.setTimeout(context.loop,1000/60);
-          };
+      //register the render loop.
+      //In this step, it decide how to call next frame.
+      //If the device is supporting requestAnimationFrame,
+      // render loop should be managed by requestAnimationFrame.
+      //It is rare case but, if the device is not supporting requestAnimationFrame,
+      // render loop should be managed by setTimeout.
+      //This is link to the table that shows us which browser and device can use this feature or not.
+      //http://caniuse.com/#feat=requestanimationframe
+      this.registerNextLoop=
+        window.requestAnimationFrame //if window.requestAnimationFrame is defined or undefined
+          ?
+        　()=>{//When window.requestAnimationFrame is supported
+        　window.requestAnimationFrame(this.loop.bind(this));
+        　}
+        　:
+        　()=>{//When window.requestAnimationFrame is not supported.
+        　  window.setTimeout(this.loop.bind(this),1000/60);
+        　  };
+      //starts the first loop.
       this.loop();
     }
 
+    /**
+    * The main loop for rendering and updating scenes managed by jThree.
+    * In most of case you no need to call this function by yourself.
+    */
     loop(): void {
-      var context=JThreeContext.instance;
-      context.timer.updateTimer();
-      context.updateAnimation();
-      context.sceneManager.renderAll();
-      context.registerNextLoop();
+      //update timer it will be referenced by scenes.
+      this.timer.updateTimer();
+      this.updateAnimation();
+      this.sceneManager.renderAll();
+      this.registerNextLoop();
     }
 
     /**
@@ -85,8 +112,10 @@ class JThreeContext extends JThreeObject {
     get CanvasManagers(): CanvasManager[] {
         return this.canvasManagers;
     }
-
-    get Timer(): ContextTimer {
+    /**
+    * Getter of Timer
+    */
+    get Timer(): Timer {
         return this.timer;
     }
 
