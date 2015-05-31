@@ -124,6 +124,8 @@
         "./Math/Vector4.ts",
         "./Math/VectorBase.ts",
         "./Math/VectorEnumeratorBase.ts",
+        "./Refs/bundle.ts",
+        "./Refs/jquery/jquery.d.ts",
         "./Shapes/Mesh.ts",
         "./Wrapper/BufferTargetType.ts",
         "./Wrapper/BufferUsageType.ts",
