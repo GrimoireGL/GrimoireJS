@@ -28,6 +28,7 @@
     "test": "grunt type-compile"
   },
   "devDependencies": {
+    "ts-loader":"^0.4.3",
     "rimraf":"^2.3.4",
     "bower": "^1.4.1",
     "bower-webpack-plugin": "^0.1.8",
