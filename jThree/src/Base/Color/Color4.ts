@@ -38,8 +38,7 @@ class Color4 extends JThreeObject {
 
     static colorTable: { [key: string]: string } = require('static/color.json');
     ///Color parser for css like syntax
-    private static internalParse(color: string, isFirst: boolean): Color4 {
-      console.log("passed:"+color);
+    static internalParse(color: string, isFirst: boolean): Color4 {
         if (isFirst && Color4.colorTable[color]) {
             return Color4.internalParse(Color4.colorTable[color], false);
         }

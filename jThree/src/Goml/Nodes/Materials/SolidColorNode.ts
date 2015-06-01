@@ -1,47 +1,35 @@
 
 import SolidColor = require("../../../Core/Materials/SolidColorMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import MaterialNodeBase = require('./MaterialNodeBase');
 import GomlLoader = require("../../GomlLoader");
 import Color4 = require("../../../Base/Color/Color4");
 import JThreeID = require("../../../Base/JThreeID");
-class SolidColorNode extends GomlTreeNodeBase
+import Material = require('../../../Core/Materials/Material');
+class SolidColorNode extends MaterialNodeBase
 {
-    targetMaterial:SolidColor;
+    material:SolidColor;
 
     constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
+        this.attributes.defineAttribute({
+          "color":{
+            value:"#0FC",converter:"color4",handler:(v)=>{this.material.Color=v.Value}
+          }
+        });
+
+    }
+
+    protected ConstructMaterial():Material
+    {
+      this.material=new SolidColor();
+      return this.material;
     }
 
     beforeLoad()
     {
-      this.targetMaterial=new SolidColor();
-      this.targetMaterial.Color=this.Color;
-      this.loader.nodeDictionary.addObject("jthree.materials",this.Name,this);
-      this.attributes.defineAttribute({
-        "color":{
-          value:"#0FC",converter:"color4",handler:(v)=>{this.targetMaterial.Color=v.Value}
-        }
-      });
+      super.beforeLoad();
     }
-
-    private name:string;
-    /**
-    * GOML Attribute
-    * Identical Name for camera
-    */
-    get Name():string{
-      this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
-      return this.name;
-    }
-
-        private color:Color4;
-        get Color():Color4
-        {
-          this.color=this.color||Color4.parseColor(this.element.getAttribute('color')||'#0FF');
-          return this.color;
-        }
-
-
 }
 
 export=SolidColorNode;

@@ -32,6 +32,11 @@ class Material extends JThreeObjectWithId
       return this.cullEnabled;
     }
 
+    set CullEnabled(val:boolean)
+    {
+      this.cullEnabled=val;
+    }
+
     protected configureMaterial(renderer:RendererBase,object:SceneObject): void {
       if(this.CullEnabled){
         renderer.Context.Enable(
@@ -39,7 +44,9 @@ class Material extends JThreeObjectWithId
           renderer.Context.CullFace(this.cullMode);
         }
         else
+        {
           renderer.Context.Disable(GLFeatureType.CullFace);
+        }
         return;
     }
 

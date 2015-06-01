@@ -1,5 +1,8 @@
 import JThreeObject = require('../JThreeObject');
 
+/**
+* AssociativeArray string with an object.
+*/
 class AssociativeArray<T> implements Map<string,T>
 {
   private target:Map<string,T>=new Map<string,T>();

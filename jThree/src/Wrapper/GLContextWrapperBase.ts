@@ -278,6 +278,11 @@ class GLContextWrapperBase extends JThreeObject
       DrawElements(topology:PrimitiveTopology,length:number,dataType:ElementType,offset:number):void{
         throw new Exceptions.AbstractClassMethodCalledException();
       }
+
+      CreateFrameBuffer():WebGLFramebuffer
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
   }
 
 export=GLContextWrapperBase;

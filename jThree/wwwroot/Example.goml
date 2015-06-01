@@ -1,16 +1,16 @@
 <goml>
   <head>
-    <lambert color="rgba(0,130,200,128)" name="mat1"/>
+    <phong diffuse="blue" ambient="#333" specular="#CCC" specularpower="15" name="mat1" />
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
-    <cube name="cube"/>
+    <cylinder name="cube" divide="30"/>
   </head>
   <body>
     <rdr clearColor="#324D7C" frame=".canvasContainer" height="900" width="900">
       <vp cam="CAM1" height="900" left="0" top="0" width="900"/>
     </rdr>
     <scene>
-      <object>
+    <object>
         <camera aspect="1" far="20" fovy="1/4p" name="CAM1" neay="0.1" position="(0,0.5,2)"/>
     </object>
       <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3"/>

@@ -225,5 +225,11 @@ class WebGLContextWrapper extends GLContextWrapperBase
       this.CheckErrorAsFatal();
       this.gl.drawElements(topology,length,dataType,offset);
     }
+
+    CreateFrameBuffer():WebGLFramebuffer
+    {
+      this.CheckErrorAsFatal();
+      return this.gl.createFramebuffer();
+    }
 }
 export=WebGLContextWrapper;
