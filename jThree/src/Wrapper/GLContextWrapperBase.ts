@@ -11,6 +11,9 @@ import Vector3 = require("../Math/Vector3");
 import Vector4 = require("../Math/Vector4");
 import GLFeatureType = require("./GLFeatureType");
 import GLCullMode = require("./GLCullMode");
+import TargetTextureType = require('./TargetTextureType');
+import FrameBufferAttachmentType = require('./FrameBufferAttachmentType');
+
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -283,6 +286,17 @@ class GLContextWrapperBase extends JThreeObject
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }
+
+      BindFrameBuffer(fbo:WebGLFramebuffer):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      FrameBufferTexture2D(fboTarget:FrameBufferAttachmentType,attachment:FrameBufferAttachmentType,tex:WebGLTexture):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
   }
 
 export=GLContextWrapperBase;

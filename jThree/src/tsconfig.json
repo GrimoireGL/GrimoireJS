@@ -146,11 +146,13 @@
         "./Wrapper/BufferUsageType.ts",
         "./Wrapper/ClearTargetType.ts",
         "./Wrapper/ElementType.ts",
+        "./Wrapper/FrameBufferAttachmentType.ts",
         "./Wrapper/GLContextWrapperBase.ts",
         "./Wrapper/GLCullMode.ts",
         "./Wrapper/GLFeatureType.ts",
         "./Wrapper/PrimitiveTopology.ts",
         "./Wrapper/ShaderType.ts",
+        "./Wrapper/TargetTextureType.ts",
         "./Wrapper/WebGLContextWrapper.ts",
         "./jThree.ts"
     ]

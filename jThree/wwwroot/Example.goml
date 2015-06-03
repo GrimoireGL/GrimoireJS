@@ -11,10 +11,27 @@
     </rdr>
     <scene>
     <object>
-        <camera aspect="1" far="20" fovy="1/4p" name="CAM1" neay="0.1" position="(0,0.5,2)"/>
+        <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)">
+          <modules>
+            <module name="cameraMotion" rotateValue="100"/>
+          </modules>
+        </camera>
     </object>
       <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3"/>
-			<mesh geo="grid" mat="mat1"/>
+			<mesh geo="grid" mat="mat1">
+      <modules>
+        <module name="cameraMotion" rotateValue="20"/>
+      </modules>
+      </mesh>
     </scene>
+    <prefab name="test">
+    <object>
+        <camera aspect="1" far="20" fovy="1/4p" name="CAM1" neay="0.1" position="(0,0.5,2)">
+          <modules>
+            <module name="cameraMotion" rotateValue="100"/>
+          </modules>
+        </camera>
+    </object>
+    </prefab>
   </body>
 </goml>

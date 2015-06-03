@@ -10,6 +10,8 @@ import Vector2 = require("../Math/Vector2");
 import Vector3 = require("../Math/Vector3");
 import Vector4 = require("../Math/Vector4");
 import GLCullMode = require("./GLCullMode");
+import TargetTextureType = require('./TargetTextureType');
+import FrameBufferAttachmentType = require('./FrameBufferAttachmentType');
 class WebGLContextWrapper extends GLContextWrapperBase
 {
     private gl: WebGLRenderingContext;
@@ -230,6 +232,18 @@ class WebGLContextWrapper extends GLContextWrapperBase
     {
       this.CheckErrorAsFatal();
       return this.gl.createFramebuffer();
+    }
+
+    BindFrameBuffer(fbo:WebGLFramebuffer):void
+    {
+      this.CheckErrorAsFatal();
+      this.gl.bindFramebuffer(this.gl.FRAMEBUFFER,fbo);
+    }
+
+    FrameBufferTexture2D(fboTarget:FrameBufferAttachmentType,attachment:FrameBufferAttachmentType,tex:WebGLTexture):void
+    {
+      this.CheckErrorAsFatal();
+      this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER,fboTarget,attachment,tex,0);
     }
 }
 export=WebGLContextWrapper;
