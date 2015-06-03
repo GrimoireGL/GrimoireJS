@@ -60,8 +60,11 @@
         "./Core/Resources/FBO/FBOWrappter.ts",
         "./Core/Resources/Program/Program.ts",
         "./Core/Resources/Program/ProgramWrapper.ts",
+        "./Core/Resources/ResourceWrapper.ts",
         "./Core/Resources/Shader/Shader.ts",
         "./Core/Resources/Shader/ShaderWrapper.ts",
+        "./Core/Resources/Texture/Texture.ts",
+        "./Core/Resources/Texture/TextureWrapper.ts",
         "./Core/Scene.ts",
         "./Core/SceneManager.ts",
         "./Core/SceneObject.ts",
@@ -153,6 +156,8 @@
         "./Wrapper/PrimitiveTopology.ts",
         "./Wrapper/ShaderType.ts",
         "./Wrapper/TargetTextureType.ts",
+        "./Wrapper/TextureInternalFormatType.ts",
+        "./Wrapper/TextureType.ts",
         "./Wrapper/WebGLContextWrapper.ts",
         "./jThree.ts"
     ]

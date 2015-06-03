@@ -12,6 +12,8 @@ import Vector4 = require("../Math/Vector4");
 import GLCullMode = require("./GLCullMode");
 import TargetTextureType = require('./TargetTextureType');
 import FrameBufferAttachmentType = require('./FrameBufferAttachmentType');
+import TextureInternalFormatType = require('./TextureInternalFormatType');
+import TextureType = require('./TextureType');
 class WebGLContextWrapper extends GLContextWrapperBase
 {
     private gl: WebGLRenderingContext;
@@ -244,6 +246,17 @@ class WebGLContextWrapper extends GLContextWrapperBase
     {
       this.CheckErrorAsFatal();
       this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER,fboTarget,attachment,tex,0);
+    }
+    CreateTexture():WebGLTexture
+    {
+      this.CheckErrorAsFatal();
+      return this.gl.createTexture();
+    }
+
+    TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormat:TextureInternalFormatType,type:TextureType,pixels:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView):void
+    {
+      this.CheckErrorAsFatal();
+      this.gl.texImage2D(targetTexture,level,internalFormat,targetFormat,type,<ImageData>pixels);
     }
 }
 export=WebGLContextWrapper;

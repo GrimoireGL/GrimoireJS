@@ -2,24 +2,18 @@ import JThreeObject = require('../../../Base/JThreeObject');
 import Shader = require("./Shader");
 import ContextManagerBase = require("../../ContextManagerBase");
 import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
-
-class ShaderWrapper extends JThreeObject
+import ResourceWrapper = require('../ResourceWrapper');
+class ShaderWrapper extends ResourceWrapper
 {
 
-    constructor(parent: Shader,renderer:ContextManagerBase) {
-        super();
+    constructor(parent: Shader,contextManager:ContextManagerBase) {
+        super(contextManager);
         this.parentShader = parent;
-        this.glContext = renderer.Context;
-        this.ID = renderer.ID;
     }
-
-    private ID:string="";
 
     private initialized: boolean = false;
 
     private targetShader: WebGLShader = null;
-
-    private glContext: GLContextWrapperBase = null;
 
     private parentShader: Shader;
 
@@ -30,16 +24,16 @@ class ShaderWrapper extends JThreeObject
 
     init(): void {
         if (!this.initialized) {
-            this.targetShader = this.glContext.CreateShader(this.parentShader.ShaderType);
-            this.glContext.ShaderSource(this.targetShader, this.parentShader.ShaderSource);
-            this.glContext.CompileShader(this.targetShader);
+            this.targetShader = this.WebGLContext.CreateShader(this.parentShader.ShaderType);
+            this.WebGLContext.ShaderSource(this.targetShader, this.parentShader.ShaderSource);
+            this.WebGLContext.CompileShader(this.targetShader);
         }
     }
 
     dispose() {
         if (this
             .initialized) {
-            this.glContext.DeleteShader(this.targetShader);
+            this.WebGLContext.DeleteShader(this.targetShader);
             this.targetShader = null;
             this.initialized = false;
         }

@@ -5,7 +5,10 @@ import Exceptions = require("../../Exceptions");
 import JThreeContext = require("../JThreeContext");
 import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
 import ListStateChangedType = require("../ListStateChangedType");
-class ContextSafeResourceContainer<T> extends JThreeObject
+import JThreeCollection = require('../../Base/JThreeCollection');
+import AssociativeArray = require('../../Base/Collections/AssociativeArray');
+import ResourceWrapper = require('./ResourceWrapper');
+class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject
 {
     private context: JThreeContext = null;
 
@@ -19,7 +22,7 @@ class ContextSafeResourceContainer<T> extends JThreeObject
         this.context.onRendererChanged(this.rendererChanged);
     }
 
-    private cachedObject: Map<string, T> = new Map<string, T>();
+    private cachedObject: AssociativeArray<T> = new AssociativeArray<T>();
 
     public getForRenderer(contextManager: ContextManagerBase): T {
         return this.getForRendererID(contextManager.ID);
@@ -32,7 +35,6 @@ class ContextSafeResourceContainer<T> extends JThreeObject
 
     protected each(act: Delegates.Action1<T>): void {
         this.cachedObject.forEach(((v, i, a) => {
-
             act(v);
         }));
     }

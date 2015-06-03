@@ -8,16 +8,14 @@ import VectorBase = require("../../../Math/VectorBase");
 import Vector2 = require("../../../Math/Vector2");
 import Vector3 = require("../../../Math/Vector3");
 import Vector4 = require("../../../Math/Vector4");
-class ProgramWrapper extends JThreeObject
+import ResourceWrapper = require('../ResourceWrapper');
+import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
+class ProgramWrapper extends ResourceWrapper
 {
    constructor(parent:Program,contextManager:ContextManagerBase) {
-       super();
-       this.id = contextManager.ID;
-       this.glContext = contextManager.Context;
+       super(contextManager);
        this.parentProgram = parent;
    }
-
-   private id:string="";
 
    private initialized: boolean = false;
 
@@ -25,13 +23,11 @@ class ProgramWrapper extends JThreeObject
 
    private targetProgram: WebGLProgram = null;
 
-   private glContext: GLContextWrapperBase = null;
-
    private parentProgram: Program = null;
 
-   private attributeLocations: Map<string, number> = new Map<string, number>();
+   private attributeLocations: AssociativeArray<number> = new AssociativeArray<number>();
 
-   private uniformLocations:Map<string,WebGLUniformLocation>=new Map<string,WebGLUniformLocation>();
+   private uniformLocations:AssociativeArray<WebGLUniformLocation>=new AssociativeArray<WebGLUniformLocation>();
 
    get TargetProgram(): WebGLProgram {
        return this.targetProgram;
@@ -39,9 +35,9 @@ class ProgramWrapper extends JThreeObject
 
    init(): void {
        if (!this.initialized) {
-           this.targetProgram = this.glContext.CreateProgram();
+           this.targetProgram = this.WebGLContext.CreateProgram();
            this.parentProgram.AttachedShaders.forEach((v, i, a) => {
-               this.glContext.AttachShader(this.targetProgram, v.getForRendererID(this.id).TargetShader);
+               this.WebGLContext.AttachShader(this.targetProgram, v.getForRendererID(this.OwnerID).TargetShader);
            });
            this.initialized = true;
        }
@@ -49,7 +45,7 @@ class ProgramWrapper extends JThreeObject
 
    dispose() {
        if (this.initialized) {
-           this.glContext.DeleteProgram(this.targetProgram);
+           this.WebGLContext.DeleteProgram(this.targetProgram);
            this.initialized = false;
            this.targetProgram = null;
            this.isLinked = false;
@@ -58,7 +54,7 @@ class ProgramWrapper extends JThreeObject
 
    linkProgram(): void {
        if (!this.isLinked) {
-           this.glContext.LinkProgram(this.targetProgram);
+           this.WebGLContext.LinkProgram(this.targetProgram);
            this.isLinked = true;
        }
    }
@@ -74,17 +70,17 @@ class ProgramWrapper extends JThreeObject
            console.log("useProgram was called, but program was not linked.");
            this.linkProgram();
        }
-       this.glContext.UseProgram(this.targetProgram);
+       this.WebGLContext.UseProgram(this.targetProgram);
    }
 
    setUniformMatrix(valName: string, matrix: Matrix): void {
        this.useProgram();
        if (!this.uniformLocations.has(valName))
        {
-           this.uniformLocations.set(valName, this.glContext.GetUniformLocation(this.TargetProgram, valName));
+           this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
        }
        var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
-       this.glContext.UniformMatrix(uniformIndex,matrix);
+       this.WebGLContext.UniformMatrix(uniformIndex,matrix);
    }
 
    setUniformVector(valName:string,vec:VectorBase):void
@@ -92,19 +88,19 @@ class ProgramWrapper extends JThreeObject
      this.useProgram();
      if (!this.uniformLocations.has(valName))
      {
-         this.uniformLocations.set(valName, this.glContext.GetUniformLocation(this.TargetProgram, valName));
+         this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
      }
      var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
      switch(vec.ElementCount)
      {
        case 2:
-         this.glContext.UniformVector2(uniformIndex,<Vector2>vec);
+         this.WebGLContext.UniformVector2(uniformIndex,<Vector2>vec);
          break;
          case 3:
-           this.glContext.UniformVector3(uniformIndex,<Vector3>vec);
+           this.WebGLContext.UniformVector3(uniformIndex,<Vector3>vec);
         break;
         case 4:
-          this.glContext.UniformVector4(uniformIndex,<Vector4>vec);
+          this.WebGLContext.UniformVector4(uniformIndex,<Vector4>vec);
           break;
      }
    }
@@ -113,15 +109,11 @@ class ProgramWrapper extends JThreeObject
        this.useProgram();
        buffer.bindBuffer();
        if (!this.attributeLocations.has(valName)) {
-           this.attributeLocations.set(valName, this.glContext.GetAttribLocation(this.TargetProgram, valName));
+           this.attributeLocations.set(valName, this.WebGLContext.GetAttribLocation(this.TargetProgram, valName));
        }
        var attribIndex: number = this.attributeLocations.get(valName);
-       this.glContext.EnableVertexAttribArray(attribIndex);
-       this.glContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType,buffer.Normalized,buffer.Stride,buffer.Offset);
-   }
-
-   get ID(): string {
-       return this.id;
+       this.WebGLContext.EnableVertexAttribArray(attribIndex);
+       this.WebGLContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType,buffer.Normalized,buffer.Stride,buffer.Offset);
    }
 
 }

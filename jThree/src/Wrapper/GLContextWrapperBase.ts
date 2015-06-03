@@ -13,7 +13,8 @@ import GLFeatureType = require("./GLFeatureType");
 import GLCullMode = require("./GLCullMode");
 import TargetTextureType = require('./TargetTextureType');
 import FrameBufferAttachmentType = require('./FrameBufferAttachmentType');
-
+import TextureInternalFormatType = require('./TextureInternalFormatType');
+import TextureType = require('./TextureType');
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -293,6 +294,15 @@ class GLContextWrapperBase extends JThreeObject
       }
 
       FrameBufferTexture2D(fboTarget:FrameBufferAttachmentType,attachment:FrameBufferAttachmentType,tex:WebGLTexture):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+      CreateTexture():WebGLTexture
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormat:TextureInternalFormatType,type:TextureType,pixels:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView):void
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }
