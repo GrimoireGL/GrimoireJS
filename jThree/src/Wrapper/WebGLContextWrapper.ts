@@ -247,17 +247,17 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
   BindTexture(targetTexture: TargetTextureType, texture: WebGLTexture): void {
     this.CheckErrorAsFatal();
-    this.gl.bindTexture(targetTexture,texture);
+    this.gl.bindTexture(targetTexture, texture);
   }
 
   GenerateMipmap(targetTexture: TargetTextureType): void {
-  this.CheckErrorAsFatal();
-  this.gl.generateMipmap(targetTexture);
+    this.CheckErrorAsFatal();
+    this.gl.generateMipmap(targetTexture);
   }
 
   TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
-  this.CheckErrorAsFatal();
-  this.gl.texParameteri(targetTexture,param,value);
+    this.CheckErrorAsFatal();
+    this.gl.texParameteri(targetTexture, param, value);
   }
 }
 export =WebGLContextWrapper;

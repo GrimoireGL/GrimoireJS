@@ -1,52 +1,63 @@
 import ContextSafeResourceContainer = require('../ContextSafeResourceContainer');
 import TextureWrapper = require('./TextureWrapper');
+import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
+import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
+import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
+import ContextManagerBase = require('../../ContextManagerBase');
+import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
+import JThreeContext = require('../../JThreeContext');
+type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 class Texture extends ContextSafeResourceContainer<TextureWrapper>
 {
-  private static powerOf2:number[]=[1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192];
-  private height:number;
-  private heightInPowerOf2:number;
-  public get Height():number
+  constructor(context:JThreeContext,source:ImageSource)
   {
-    return this.height;
+    super(context);
+    this.imageSource=source;
   }
 
-  public set Height(val:number)
+  private minFilter: TextureMinFilterType=TextureMinFilterType.Nearest;
+  private magFilter: TextureMagFilterType=TextureMagFilterType.Nearest;
+  private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
+  private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
+  private imageSource:ImageSource;
+
+  public get ImageSource():ImageSource
   {
-    this.height = val;
-    this.heightInPowerOf2=this.getPower2Size(val);
+    return this.imageSource;
+  }
+  public get MinFilter(): TextureMinFilterType {
+    return this.minFilter;
+  }
+  public set MinFilter(value: TextureMinFilterType) {
+    this.minFilter = value;
   }
 
-  public get HeightInPowerOf2()
-  {
-    return this.heightInPowerOf2;
+  public get MagFiltrer(): TextureMagFilterType {
+    return this.magFilter;
+  }
+  public set MagFilter(value: TextureMagFilterType) {
+    this.magFilter = value;
   }
 
-  private width:number;
-  private widthInPowerOf2:number;
-
-  public get Width():number
-  {
-    return this.width;
+  public get SWrap(): TextureWrapType {
+    return this.sWrap;
   }
 
-  public set Width(val:number)
-  {
-    this.width=val;
-    this.widthInPowerOf2=this.getPower2Size(val);
+  public set SWrap(value: TextureWrapType) {
+    this.sWrap = value;
   }
 
-  public get WidthInPowerOf2():number
-  {
-    return this.widthInPowerOf2;
+  public get TWrap(): TextureWrapType {
+    return this.tWrap;
   }
 
-  private getPower2Size(val:number):number
-  {
-    for (var i = 0; i < Texture.powerOf2.length; i++) {
-      var num = Texture.powerOf2[i];
-        if(val <= num)
-          return num;
-    }
-    return Texture.powerOf2[Texture.powerOf2.length-1];
+  public set TWrap(value: TextureWrapType) {
+    this.tWrap = value;
+  }
+
+  protected getInstanceForRenderer(contextManager: ContextManagerBase): TextureWrapper {
+      return new TextureWrapper(contextManager,this);
   }
 }
+
+export = Texture;

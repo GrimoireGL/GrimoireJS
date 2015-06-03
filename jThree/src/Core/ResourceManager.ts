@@ -9,6 +9,9 @@ import jThreeObject = require("../Base/JThreeObject");
 import Buffer = require("./Resources/Buffer/Buffer");
 import Shader = require("./Resources/Shader/Shader");
 import Program = require("./Resources/Program/Program");
+import Texture = require('./Resources/Texture/Texture');
+import AssociativeArray = require('../Base/Collections/AssociativeArray');
+type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
  * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
@@ -88,6 +91,15 @@ class ResourceManager extends jThreeObject
 
     getProgram(id: string): Program {
         return this.programs.get(id);
+    }
+
+    private textures:AssociativeArray<Texture>=new AssociativeArray<Texture>();
+
+    createTexture(id:string,source:ImageSource):Texture
+    {
+      var texture= new Texture(this.context,source);
+      this.textures.set(id,texture);
+      return texture;
     }
 }
 export=ResourceManager;
