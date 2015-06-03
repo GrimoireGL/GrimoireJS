@@ -15,6 +15,10 @@ import TargetTextureType = require('./TargetTextureType');
 import FrameBufferAttachmentType = require('./FrameBufferAttachmentType');
 import TextureInternalFormatType = require('./TextureInternalFormatType');
 import TextureType = require('./TextureType');
+import TextureParameterType = require('./Texture/TextureParameterType');
+import TextureMinType = require('./Texture/TextureMinFilterType');
+import TextureMagType = require('./Texture/TextureMagFilterType');
+import TextureWrapType = require('./Texture/TextureWrapType');
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -313,6 +317,11 @@ class GLContextWrapperBase extends JThreeObject
       }
 
       GenerateMipmap(targetTexture:TargetTextureType):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      TexParameteri(targetTexture:TargetTextureType,param:TextureParameterType,value:TextureMagType|TextureMinType|TextureWrapType):void
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }
