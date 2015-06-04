@@ -1,4 +1,4 @@
-﻿///<reference path="src/Delegates.ts"/> 
+﻿///<reference path="src/Delegates.ts"/>
 ///<reference path="src/Collections.ts"/>
 ///<reference path="src/Base.ts"/>
 ///<reference path="src/mathmatics/Math.ts"/>

@@ -9,6 +9,13 @@ class ModuleNode extends GomlTreeNodeBase
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
+      if(elem.getAttribute("name"))
+      {
+        var module=loader.moduleRegistry.getModule(elem.getAttribute("name"));
+        
+      }else{
+        console.warn("module name was not specified");
+      }
   }
 }
 

@@ -34,6 +34,12 @@ var gomlList=[
     "CAMERA":require('./Nodes/SceneObjects/Cameras/CameraNode'),
     "MESH":require('./Nodes/SceneObjects/MeshNode'),
     "OBJECT":require('./Nodes/SceneObjects/ObjectNode')
-  })
+  }),
+  new GomlNodeListElement("jthree.modules",require('./Factories/TagFactory'),
+  {
+      "MODULES":require('./Nodes/Modules/ModulesNode'),
+      "MODULE":require('./Nodes/Modules/ModuleNode')
+  }
+  )
 ];
 export=gomlList;

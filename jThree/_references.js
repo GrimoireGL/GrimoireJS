@@ -1,4 +1,4 @@
-///<reference path="src/Delegates.ts"/> 
+///<reference path="src/Delegates.ts"/>
 ///<reference path="src/Collections.ts"/>
 ///<reference path="src/Base.ts"/>
 ///<reference path="src/mathmatics/Math.ts"/>
@@ -11,5 +11,4 @@
 ///<reference path="src/Effects.ts"/>
 ///<reference path="src/Event.RendererState.ts"/>
 ///<reference path="src/Color.ts"/>
-///<reference path="src/Timer.ts"/> 
-//# sourceMappingURL=_references.js.map
+///<reference path="src/Timer.ts"/>

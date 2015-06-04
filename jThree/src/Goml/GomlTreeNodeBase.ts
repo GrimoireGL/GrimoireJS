@@ -14,6 +14,7 @@ class GomlTreeNodeBase extends jThreeObjectWithID
         }
         this.attributes=new AttributeDictionary(loader,elem);
     }
+
     protected element: Element;
 
     protected loader:GomlLoader;

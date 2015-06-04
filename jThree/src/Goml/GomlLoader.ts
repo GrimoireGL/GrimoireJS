@@ -11,6 +11,7 @@ import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
 import JThreeEvent = require('../Base/JThreeEvent');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
+import ModuleRegistry = require('./Module/ModuleRegistry');
 declare function require(string):any;
 
 class GomlLoader extends jThreeObject {
@@ -48,6 +49,7 @@ class GomlLoader extends jThreeObject {
 
     nodeDictionary:GomlNodeDictionary=new GomlNodeDictionary();
 
+    moduleRegistry:ModuleRegistry = new ModuleRegistry();
 
     rootObj: JQuery;
 

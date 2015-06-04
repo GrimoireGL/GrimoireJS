@@ -27,13 +27,22 @@ static j3(query:string|Delegates.Action0):JThreeInterface
   static Init():void
   {
     window["j3"]=JThreeInit.j3;//subscribe the function as member of window
+    window["j3"]["addModule"]=JThreeContextProxy.getJThreeContext().GomlLoader.moduleRegistry.addModule
+    .bind(JThreeContextProxy.getJThreeContext().GomlLoader.moduleRegistry);
+
     $(()=>{//TODO I wonder we should remove jQuery dependencies.
       var j3=JThreeContext.getInstanceForProxy();
       j3.init();
-      
+
       JThreeInit.img= new Image();
       JThreeInit.img.onload = ()=>{j3.ResourceManager.createTexture("test",JThreeInit.img)};
       JThreeInit.img.src="/miku.png";
+    });
+    window["j3"].addModule({
+      name:"test",
+      update:()=>{
+        console.log("module test");
+      }
     });
   }
 }

@@ -12,8 +12,12 @@ type Module={
   order?:number
   attributes?:AttributeDeclation[]
   update?:Delegates.Action0,
+  awake?:Delegates.Action0
 };
 
+/**
+* The class for managing classes registered.
+*/
 class ModuleRegistry extends JThreeObject
 {
   private modules:AssociativeArray<Module>=new AssociativeArray<Module>();

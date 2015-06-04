@@ -94,6 +94,7 @@
         "./Goml/Easing/LinearEasingFunction.ts",
         "./Goml/Easing/SwingEasingFunction.ts",
         "./Goml/EasingFunctionList.ts",
+        "./Goml/Factories/ModuleTagFactory.ts",
         "./Goml/Factories/SceneObjectTagFactory.ts",
         "./Goml/Factories/TagFactory.ts",
         "./Goml/GomlAttribute.ts",
