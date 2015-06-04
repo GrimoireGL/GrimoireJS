@@ -1,3 +1,5 @@
+import TagFactory = require("./Factories/TagFactory");
+import GomlNodeListElement = require("./GomlNodeListElement");
 import JThreeObject = require("../Base/JThreeObject");
 import EasingFunction = require('./Easing/EasingFunctionBase');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
@@ -9,6 +11,7 @@ class GomlLoaderConigurator extends JThreeObject
   private rootObjectNames:string[]=[];
   private easingFunctions:AssociativeArray<EasingFunction>=new AssociativeArray<EasingFunction>();
   private converters:AssociativeArray<AttributeConvrterBase>=new AssociativeArray<AttributeConvrterBase>();
+  private gomlTagFactories: AssociativeArray<TagFactory> = new AssociativeArray<TagFactory>();
 
   public getConverter(name:string):AttributeConvrterBase
   {
@@ -20,12 +23,18 @@ class GomlLoaderConigurator extends JThreeObject
     return this.easingFunctions.get(name);
   }
 
+  public getGomlTagFactory(tagName:string):TagFactory
+  {
+    return this.gomlTagFactories.get(tagName);
+  }
+
   constructor()
   {
     super();
     this.initializeRootObjectNames();
     this.initializeEasingFunctions();
     this.initializeConverters();
+    this.initializeGomlTags();
   }
 
   /**
@@ -47,6 +56,20 @@ class GomlLoaderConigurator extends JThreeObject
   private initializeConverters()
   {
     this.loadIntoAssociativeArray(this.converters,require('./GomlConverterList'));
+  }
+
+  private initializeGomlTags()
+  {
+    var newList: GomlNodeListElement[] = require('./GomlNodeList');
+    newList.forEach((v) => {
+      for (var key in v.NodeTypes) {
+        var keyInString: string = key;
+        keyInString = keyInString.toUpperCase();//transform into upper case
+        var nodeType = v.NodeTypes[keyInString];
+        var tag=new v.Factory(keyInString, nodeType);
+        this.gomlTagFactories.set(tag.TagName,tag);
+      }
+    });
   }
 
   /**

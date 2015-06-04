@@ -23,8 +23,6 @@ class GomlLoader extends jThreeObject {
   */
   constructor() {
     super();
-    //initializing extendable objects.
-    this.constructTagDictionary();
     //obtain the script tag that is refering this source code.
     var scriptTags = document.getElementsByTagName('script');
     this.selfTag = scriptTags[scriptTags.length - 1];
@@ -53,8 +51,6 @@ class GomlLoader extends jThreeObject {
   {
     return this.configurator;
   }
-
-  gomlTags: AssociativeArray<TagFactory> = new AssociativeArray<TagFactory>();
 
   headTagsById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
 
@@ -91,25 +87,6 @@ class GomlLoader extends jThreeObject {
     $.get(url, [], (d) => {
       this.scriptLoaded(d);
     });
-  }
-
-  /**
-  * Generate Tag dictionary here.
-  */
-  private constructTagDictionary(): void {
-    var newList: GomlNodeListElement[] = require('./GomlNodeList');
-    newList.forEach((v) => {
-      for (var key in v.NodeTypes) {
-        var keyInString: string = key;
-        keyInString = keyInString.toUpperCase();//transform into upper case
-        var nodeType = v.NodeTypes[keyInString];
-        this.addGomlTag(new v.Factory(keyInString, nodeType));
-      }
-    });
-  }
-
-  private addGomlTag(tag: TagFactory): void {
-    this.gomlTags.set(tag.TagName, tag);
   }
 
   /**
@@ -154,8 +131,9 @@ class GomlLoader extends jThreeObject {
     console.log(child);
     for (var i = 0; i < child.length; i++) {
       var elem: HTMLElement = child[i];
-      if (this.gomlTags.has(elem.tagName)) {
-        var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem, this, parent);
+      var tagFactory=this.configurator.getGomlTagFactory(elem.tagName)
+      if (tagFactory) {
+        var newNode = tagFactory.CreateNodeForThis(elem, this, parent);
         if (newNode == null) {
           console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(elem.tagName));
           continue;
@@ -178,8 +156,9 @@ class GomlLoader extends jThreeObject {
     if (!child) return;
     for (var i = 0; i < child.length; i++) {
       var elem: HTMLElement = child[i];
-      if (this.gomlTags.has(elem.tagName)) {
-        var newNode = this.gomlTags.get(elem.tagName).CreateNodeForThis(elem, this, parent);
+      var tagFactory=this.configurator.getGomlTagFactory(elem.tagName)
+      if (tagFactory) {
+        var newNode = tagFactory.CreateNodeForThis(elem, this, parent);
         if (newNode == null) {
           console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(elem.tagName));
           continue;
@@ -210,9 +189,9 @@ class GomlLoader extends jThreeObject {
     }
     for (var i = 0; i < jq.length; i++) {
       var e = jq[i];
-
-      if (this.gomlTags.has(e.tagName)) {
-        var newNode = this.gomlTags.get(e.tagName).CreateNodeForThis(e, this, parentInGoml);
+      var tagFactory=this.configurator.getGomlTagFactory(e.tagName)
+      if (tagFactory) {
+        var newNode = tagFactory.CreateNodeForThis(e, this, parentInGoml);
         if (newNode == null) {
           console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(e.tagName));
         } else {

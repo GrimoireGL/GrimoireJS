@@ -26,7 +26,7 @@ class TagFactory extends jThreeObject {
     }
 
     protected getTag(name:string): TagFactory {
-        return JThreeContextProxy.getJThreeContext().GomlLoader.gomlTags.get(name);
+        return JThreeContextProxy.getJThreeContext().GomlLoader.Configurator.getGomlTagFactory(name);
     }
 }
 
