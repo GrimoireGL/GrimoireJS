@@ -12,6 +12,7 @@ import SolidColor = require("../../../Core/Materials/SolidColorMaterial");
 class GomlTreeMeshNode extends SceneObjectNodeBase
 {
   private targetMesh:Mesh;
+
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
       super(elem,loader,parent,parentSceneNode,parentObject);

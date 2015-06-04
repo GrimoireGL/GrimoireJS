@@ -83,6 +83,17 @@ class ProgramWrapper extends ResourceWrapper
        this.WebGLContext.UniformMatrix(uniformIndex,matrix);
    }
 
+   setUniform1i(valName:string,num:number):void
+   {
+     this.useProgram();
+     if (!this.uniformLocations.has(valName))
+     {
+         this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
+     }
+     var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+     this.WebGLContext.Uniform1i(uniformIndex,num);
+   }
+
    setUniformVector(valName:string,vec:VectorBase):void
    {
      this.useProgram();

@@ -20,7 +20,7 @@ static j3(query:string|Delegates.Action0):JThreeInterface
       var targetObject=context.GomlLoader.rootObj.find(<string>query);
       return new JThreeInterface(targetObject);
   }
-
+  static img:HTMLImageElement;
   /**
   * This method should be called when Jthree loaded.
   */
@@ -30,6 +30,10 @@ static j3(query:string|Delegates.Action0):JThreeInterface
     $(()=>{//TODO I wonder we should remove jQuery dependencies.
       var j3=JThreeContext.getInstanceForProxy();
       j3.init();
+      
+      JThreeInit.img= new Image();
+      JThreeInit.img.onload = ()=>{j3.ResourceManager.createTexture("test",JThreeInit.img)};
+      JThreeInit.img.src="/miku.png";
     });
   }
 }

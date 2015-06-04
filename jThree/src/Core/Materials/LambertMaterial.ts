@@ -43,7 +43,7 @@ set Color(col:Color4)
           fsShader.loadAll();
           this.program= jThreeContext.ResourceManager.createorGetProgram("jthree.programs.lambert", [vsShader, fsShader]);
       }
-      
+
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
        super.configureMaterial(renderer,object);
           var geometry=object.Geometry;
@@ -52,6 +52,7 @@ set Color(col:Color4)
          var v=this.CalculateMVPMatrix(renderer,object);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+          programWrapper.setAttributeVerticies("uv",geometry.UVBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP",v);
           programWrapper.setUniformMatrix("matV",renderer.Camera.ViewMatrix);
           programWrapper.setUniformMatrix("matMV",Matrix.multiply(renderer.Camera.ViewMatrix,object.Transformer.LocalToGlobal));

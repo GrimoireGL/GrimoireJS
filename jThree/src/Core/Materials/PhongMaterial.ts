@@ -16,6 +16,7 @@ import Color4 = require("../../Base/Color/Color4");
 import Color3 = require('../../Base/Color/Color3');
 import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
+import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 declare function require(string):string;
 
 class PhongMaterial extends Material
@@ -88,13 +89,18 @@ class PhongMaterial extends Material
          var programWrapper = this.program.getForRenderer(renderer.ContextManager);
          programWrapper.useProgram();
          var v=this.CalculateMVPMatrix(renderer,object);
+         var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
+         var tex=jThreeContext.ResourceManager.getTexture("test");
+         tex.getForRenderer(renderer.ContextManager).bind(TextureRegister.Texture0);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+          programWrapper.setAttributeVerticies("uv",geometry.UVBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP",v);
           programWrapper.setUniformMatrix("matV",renderer.Camera.ViewMatrix);
           programWrapper.setUniformMatrix("matMV",Matrix.multiply(renderer.Camera.ViewMatrix,object.Transformer.LocalToGlobal));
           programWrapper.setUniformVector("u_ambient",this.Ambient.toVector());
           programWrapper.setUniformVector("u_diffuse",this.Diffuse.toVector());
+          programWrapper.setUniform1i("u_sampler",0);
           var s=this.Specular.toVector();
           programWrapper.setUniformVector("u_specular",new Vector4(s.X,s.Y,s.Z,this.specularCoefficient));
           programWrapper.setUniformVector("u_DirectionalLight",new Vector3(0,0,-1));

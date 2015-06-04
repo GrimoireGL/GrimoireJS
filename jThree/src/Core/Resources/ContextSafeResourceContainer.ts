@@ -33,7 +33,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
         return this.cachedObject.get(id);
     }
 
-    protected each(act: Delegates.Action1<T>): void {
+    public each(act: Delegates.Action1<T>): void {
         this.cachedObject.forEach(((v, i, a) => {
             act(v);
         }));

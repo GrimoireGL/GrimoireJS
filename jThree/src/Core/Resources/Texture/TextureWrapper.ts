@@ -8,6 +8,7 @@ import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import TextureInternalFormat = require('../../../Wrapper/TextureInternalFormatType');
 import Texture = require('./Texture');
 import TextureType = require('../../../Wrapper/TextureType');
+import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
 class TextureWrapper extends ResourceWrapper
 {
   constructor(contextManager:ContextManagerBase,parent:Texture)
@@ -36,10 +37,16 @@ class TextureWrapper extends ResourceWrapper
 
   private applyTextureParameters():void
   {
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parentTexture.MinFilter);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MagFilter,this.parentTexture.MagFilter);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parentTexture.SWrap);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parentTexture.TWrap);
+    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parentTexture.MinFilter);
+    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,this.WebGLContext.,this.parentTexture.MagFilter);
+    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parentTexture.SWrap);
+    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parentTexture.TWrap);
+  }
+
+  public bind(register:TextureRegister):void
+  {
+    this.WebGLContext.ActiveTexture(register);
+    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
   }
 }
 

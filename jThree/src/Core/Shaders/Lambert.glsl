@@ -1,5 +1,6 @@
 precision mediump float;
 varying vec3 v_normal;
+varying  vec2 v_uv;
 uniform vec4 u_color;
 uniform vec3 u_DirectionalLight;
 uniform mat4 matMVP;

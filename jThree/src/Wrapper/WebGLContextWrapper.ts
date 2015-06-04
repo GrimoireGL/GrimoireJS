@@ -18,6 +18,7 @@ import TextureParameterType = require('./Texture/TextureParameterType');
 import TextureMinType = require('./Texture/TextureMinFilterType');
 import TextureMagType = require('./Texture/TextureMagFilterType');
 import TextureWrapType = require('./Texture/TextureWrapType');
+import TextureRegister = require('./Texture/TextureRegister');
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
 
@@ -186,6 +187,12 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.uniform3f(webGlUniformLocation, vector.X, vector.Y, vector.Z);
   }
 
+  Uniform1i(webGlUniformLocation:WebGLUniformLocation,num:number):void
+  {
+    this.CheckErrorAsFatal();
+    this.gl.uniform1i(webGlUniformLocation,num);
+  }
+
   Enable(feature: GLFeatureType): void {
     this.CheckErrorAsFatal();
     this.gl.enable(feature);
@@ -258,6 +265,12 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
     this.CheckErrorAsFatal();
     this.gl.texParameteri(targetTexture, param, value);
+  }
+
+  ActiveTexture(textureRegister:TextureRegister)
+  {
+    this.CheckErrorAsFatal();
+    this.gl.activeTexture(textureRegister);
   }
 }
 export =WebGLContextWrapper;

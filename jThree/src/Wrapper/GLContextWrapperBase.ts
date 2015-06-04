@@ -19,6 +19,7 @@ import TextureParameterType = require('./Texture/TextureParameterType');
 import TextureMinType = require('./Texture/TextureMinFilterType');
 import TextureMagType = require('./Texture/TextureMagFilterType');
 import TextureWrapType = require('./Texture/TextureWrapType');
+import TextureRegister = require('./Texture/TextureRegister');
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -322,6 +323,16 @@ class GLContextWrapperBase extends JThreeObject
       }
 
       TexParameteri(targetTexture:TargetTextureType,param:TextureParameterType,value:TextureMagType|TextureMinType|TextureWrapType):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      ActiveTexture(textureRegister:TextureRegister)
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+
+      Uniform1i(webGlUniformLocation:WebGLUniformLocation,num:number):void
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }

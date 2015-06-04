@@ -98,8 +98,14 @@ class ResourceManager extends jThreeObject
     createTexture(id:string,source:ImageSource):Texture
     {
       var texture= new Texture(this.context,source);
+      texture.each((v)=>v.init());
       this.textures.set(id,texture);
       return texture;
+    }
+
+    getTexture(id:string):Texture
+    {
+      return this.textures.get(id);
     }
 }
 export=ResourceManager;

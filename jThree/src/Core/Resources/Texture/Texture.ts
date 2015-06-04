@@ -7,6 +7,7 @@ import ContextManagerBase = require('../../ContextManagerBase');
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import JThreeContext = require('../../JThreeContext');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
+
 class Texture extends ContextSafeResourceContainer<TextureWrapper>
 {
   constructor(context:JThreeContext,source:ImageSource)
@@ -16,7 +17,7 @@ class Texture extends ContextSafeResourceContainer<TextureWrapper>
   }
 
   private minFilter: TextureMinFilterType=TextureMinFilterType.Nearest;
-  private magFilter: TextureMagFilterType=TextureMagFilterType.Nearest;
+  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;
   private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private imageSource:ImageSource;
@@ -56,7 +57,8 @@ class Texture extends ContextSafeResourceContainer<TextureWrapper>
   }
 
   protected getInstanceForRenderer(contextManager: ContextManagerBase): TextureWrapper {
-      return new TextureWrapper(contextManager,this);
+      var textureWrapper=new TextureWrapper(contextManager,this);
+      return textureWrapper;
   }
 }
 
