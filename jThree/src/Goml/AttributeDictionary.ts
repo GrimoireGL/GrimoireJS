@@ -55,7 +55,7 @@ class AttributeDictionary extends JThreeObject
     for(var key in attributes)
     {
       var attribute=attributes[key];
-      this.attributes.insert(new GomlAttribute(this.element,key,attribute.value,this.loader.converters.get(attribute.converter),attribute.handler));
+      this.attributes.insert(new GomlAttribute(this.element,key,attribute.value,this.loader.Configurator.getConverter(attribute.converter),attribute.handler));
     }
   }
 }

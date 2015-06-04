@@ -81,7 +81,7 @@ class JThreeInterface extends JThreeObject
         var gomlNode=t.getNode(<HTMLElement>e);
         if(gomlNode.attributes.isDefined(attrName))
         {
-          var easingFunc=t.Context.GomlLoader.easingFunctions.get(easing);
+          var easingFunc=t.Context.GomlLoader.Configurator.getEasingFunction(easing);
           t.Context.addAnimater(gomlNode.attributes.getAnimater(attrName,this.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrName),value,easingFunc,()=>{
             if(onComplete)onComplete();
             t.dequeue();
