@@ -66,6 +66,11 @@ class GomlLoader extends jThreeObject {
 
   bodyRootNodes: GomlTreeNodeBase[] = [];
 
+  rootNodes:AssociativeArray<GomlTreeNodeBase[]>=new AssociativeArray<GomlTreeNodeBase[]>();
+
+  rootNodesById:AssociativeArray<GomlTreeNodeBase>=new AssociativeArray<GomlTreeNodeBase>();
+
+
   /**
   * Attempt to load GOMLs that placed in HTML file.
   */
@@ -104,11 +109,11 @@ class GomlLoader extends jThreeObject {
   }
 
   private scriptLoaded(source: string): void {
-    source = source.replace(/(head|body)>/g, "j$1>");//TODO Can be bug
     var catched = this.rootObj = $(source);
     if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
-    var headChild = catched.find("jhead").children();
-    var bodyChild = catched.find("jbody").children();
+    var headChild = catched.find("head").children();
+    var bodyChild = catched.find("body").children();
+
     this.parseHead(null, headChild, (e) => {
       this.headRootNodes.push(e);
     });
