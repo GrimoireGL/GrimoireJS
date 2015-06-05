@@ -8,7 +8,7 @@ declare function require(string): any;
 
 class GomlLoaderConigurator extends JThreeObject
 {
-  private rootObjectNames:string[]=[];
+  private rootNodes:string[]=[];
   private easingFunctions:AssociativeArray<EasingFunction>=new AssociativeArray<EasingFunction>();
   private converters:AssociativeArray<AttributeConvrterBase>=new AssociativeArray<AttributeConvrterBase>();
   private gomlTagFactories: AssociativeArray<TagFactory> = new AssociativeArray<TagFactory>();
@@ -28,6 +28,11 @@ class GomlLoaderConigurator extends JThreeObject
     return this.gomlTagFactories.get(tagName);
   }
 
+  public get GomlRootNodes():string[]
+  {
+    return this.rootNodes;
+  }
+
   constructor()
   {
     super();
@@ -42,7 +47,7 @@ class GomlLoaderConigurator extends JThreeObject
   */
   private initializeRootObjectNames()
   {
-    this.rootObjectNames=require('./TopNodeList');
+    this.rootNodes=require('./TopNodeList');
   }
 
   /**

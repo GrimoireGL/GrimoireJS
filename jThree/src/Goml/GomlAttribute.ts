@@ -2,6 +2,7 @@ import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
+import GomlTreeNodeBase = require('./GomlTreeNodeBase');
 class GomlAttribute extends JThreeObjectWithID
 {
   protected element:HTMLElement;
@@ -14,12 +15,15 @@ class GomlAttribute extends JThreeObjectWithID
 
   protected onchangedHandlers:Delegates.Action1<GomlAttribute>[]=[];
 
-  constructor(element:HTMLElement,name:string,value:any,conveter:AttributeConverterBase,handler?:Delegates.Action1<GomlAttribute>)
+  protected managedClass:GomlTreeNodeBase;
+
+  constructor(node:GomlTreeNodeBase,element:HTMLElement,name:string,value:any,conveter:AttributeConverterBase,handler?:Delegates.Action1<GomlAttribute>)
   {
     super(name);
     this.element=element;
     this.value=value;
     this.converter=conveter;
+    this.managedClass=node;
     if(handler)this.onchangedHandlers.push(handler);
   }
 
@@ -57,7 +61,7 @@ class GomlAttribute extends JThreeObjectWithID
   private notifyValueChanged()
   {
     var t=this;
-    this.onchangedHandlers.forEach(v=>v(t));
+    this.onchangedHandlers.forEach(v=>v.call(this.managedClass,t));
   }
 }
 

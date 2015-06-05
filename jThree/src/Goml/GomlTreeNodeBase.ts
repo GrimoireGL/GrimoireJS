@@ -12,7 +12,7 @@ class GomlTreeNodeBase extends jThreeObjectWithID
         {
           parent.addChild(this);
         }
-        this.attributes=new AttributeDictionary(loader,elem);
+        this.attributes=new AttributeDictionary(this,loader,elem);
     }
 
     protected element: Element;

@@ -52,23 +52,15 @@ class GomlLoader extends jThreeObject {
     return this.configurator;
   }
 
-  headTagsById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
-
-  bodyTagsById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
-
   nodeDictionary: GomlNodeDictionary = new GomlNodeDictionary();
 
   moduleRegistry: ModuleRegistry = new ModuleRegistry();
 
   rootObj: JQuery;
 
-  headRootNodes: GomlTreeNodeBase[] = [];
-
-  bodyRootNodes: GomlTreeNodeBase[] = [];
-
   rootNodes:AssociativeArray<GomlTreeNodeBase[]>=new AssociativeArray<GomlTreeNodeBase[]>();
 
-  rootNodesById:AssociativeArray<GomlTreeNodeBase>=new AssociativeArray<GomlTreeNodeBase>();
+  NodesById:AssociativeArray<GomlTreeNodeBase>=new AssociativeArray<GomlTreeNodeBase>();
 
 
   /**
@@ -111,14 +103,12 @@ class GomlLoader extends jThreeObject {
   private scriptLoaded(source: string): void {
     var catched = this.rootObj = $(source);
     if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
-    var headChild = catched.find("head").children();
-    var bodyChild = catched.find("body").children();
-
-    this.parseHead(null, headChild, (e) => {
-      this.headRootNodes.push(e);
-    });
-    this.parseBody(null, bodyChild, (e) => {
-      this.bodyRootNodes.push(e);
+    this.configurator.GomlRootNodes.forEach(v=>{
+      var children = catched.find(v).children();
+      this.rootNodes.set(v,[]);
+      this.parseChildren(null,children,(e)=>{
+        this.rootNodes.get(v).push(e);
+      })
     });
     this.eachNode(v=> v.beforeLoad());
     this.eachNode(v=> v.Load());
@@ -127,16 +117,16 @@ class GomlLoader extends jThreeObject {
   }
 
   private eachNode(act: Delegates.Action1<GomlTreeNodeBase>) {
-    this.headTagsById.forEach((v) => act(v));
-    this.bodyTagsById.forEach((v) => act(v));
+    this.configurator.GomlRootNodes.forEach(v=>{
+      this.rootNodes.get(v).forEach(e=>act(e));
+    });
   }
 
-  private parseHead(parent: GomlTreeNodeBase, child: JQuery, act: Delegates.Action1<GomlTreeNodeBase>): void {
+  private parseChildren(parent: GomlTreeNodeBase, child: JQuery, actionForChildren: Delegates.Action1<GomlTreeNodeBase>): void {
     if (!child) return;
-    console.log(child);
     for (var i = 0; i < child.length; i++) {
       var elem: HTMLElement = child[i];
-      var tagFactory=this.configurator.getGomlTagFactory(elem.tagName)
+      var tagFactory=this.configurator.getGomlTagFactory(elem.tagName);
       if (tagFactory) {
         var newNode = tagFactory.CreateNodeForThis(elem, this, parent);
         if (newNode == null) {
@@ -145,38 +135,12 @@ class GomlLoader extends jThreeObject {
         }
         elem.classList.add("x-j3-" + newNode.ID);
         elem.setAttribute('x-j3-id', newNode.ID);
-        this.headTagsById.set(newNode.ID, newNode);
+        this.NodesById.set(newNode.ID, newNode);
         if (parent != null) {
           parent.addChild(newNode);
         }
-        act(newNode);
-        this.parseHead(newNode, $(elem).children(), (e) => { });
-      } else {
-        console.warn("{0} was not parsed.".format(elem.tagName));
-      }
-    }
-  }
-
-  private parseBody(parent: GomlTreeNodeBase, child: JQuery, act: Delegates.Action1<GomlTreeNodeBase>): void {
-    if (!child) return;
-    for (var i = 0; i < child.length; i++) {
-      var elem: HTMLElement = child[i];
-      var tagFactory=this.configurator.getGomlTagFactory(elem.tagName)
-      if (tagFactory) {
-        var newNode = tagFactory.CreateNodeForThis(elem, this, parent);
-        if (newNode == null) {
-          console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(elem.tagName));
-          continue;
-        }
-        this.bodyTagsById.set(newNode.ID, newNode);
-        elem.classList.add("x-j3-" + newNode.ID)
-        elem.setAttribute('x-j3-id', newNode.ID);
-        act(newNode);
-        if (parent != null) {
-          parent.addChild(newNode);
-        }
-        this.parseBody(newNode, $(elem).children(), (e) => { });
-
+        actionForChildren(newNode);
+        this.parseChildren(newNode, $(elem).children(), (e) => { });
       } else {
         console.warn("{0} was not parsed.".format(elem.tagName));
       }
@@ -188,7 +152,7 @@ class GomlLoader extends jThreeObject {
     if (!jq) return;
     if (!parentInGoml) {
       var id = parent.getAttribute("x-j3-id");
-      parentInGoml = this.bodyTagsById.get(id);
+      parentInGoml = this.NodesById.get(id);
       needLastProcess = true;
       loadedGoml = [];
     }
@@ -200,7 +164,7 @@ class GomlLoader extends jThreeObject {
         if (newNode == null) {
           console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(e.tagName));
         } else {
-          this.bodyTagsById.set(newNode.ID, newNode);
+          this.NodesById.set(newNode.ID, newNode);
           e.classList.add("x-j3-" + newNode.ID)
           e.setAttribute('x-j3-id', newNode.ID);
           if (parent != null) {
@@ -229,9 +193,8 @@ class GomlLoader extends jThreeObject {
   }
 
   public getNode(id: string): GomlTreeNodeBase {
-    if (this.headTagsById.has(id)) return this.headTagsById.get(id);
-    if (this.bodyTagsById.has(id)) return this.bodyTagsById.get(id);
-    return null;
+    debugger;
+    return this.NodesById.get(id);
   }
 }
 export = GomlLoader;

@@ -19,7 +19,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
         this.context.CanvasManagers.forEach((v) => {
             this.cachedObject.set(v.ID, this.getInstanceForRenderer(v));
         });
-        this.context.onRendererChanged(this.rendererChanged);
+        this.context.onRendererChanged(this.rendererChanged.bind(this));
     }
 
     private cachedObject: AssociativeArray<T> = new AssociativeArray<T>();

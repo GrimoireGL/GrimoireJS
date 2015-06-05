@@ -1,6 +1,6 @@
-export =[
-  "scenes",
-  "renderers",
-  "templates",
-  "resources"
+export =[,
+"resources",
+"renderers",
+"templates",
+  "scenes"
 ];

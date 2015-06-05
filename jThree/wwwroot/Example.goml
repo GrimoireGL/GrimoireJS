@@ -1,14 +1,16 @@
 <goml>
-  <head>
+  <resources>
     <phong diffuse="blue" ambient="#333" specular="#CCC" specularpower="15" name="mat1" />
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cube name="cube" divide="30"/>
-  </head>
-  <body>
+  </resources>
+  <renderers>
     <rdr clearColor="#324D7C" frame=".canvasContainer" height="900" width="900">
       <vp cam="CAM1" height="900" left="0" top="0" width="900"/>
     </rdr>
+  </renderers>
+  <scenes>
     <scene>
     <object rotation="y(40d)">
       <modules>
@@ -21,5 +23,5 @@
 			<mesh geo="grid" mat="mat1">
       </mesh>
     </scene>
-  </body>
+  </scenes>
 </goml>

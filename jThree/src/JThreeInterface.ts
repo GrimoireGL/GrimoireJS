@@ -53,7 +53,7 @@ class JThreeInterface extends JThreeObject
     var f=(attrTarget,value)=>{
     var t=this;
     this.target.each((n,e)=>{
-      var gomlNode=t.getNode(<HTMLElement>e);
+      var gomlNode=JThreeInterface.getNode(<HTMLElement>e);
       if(gomlNode.attributes.isDefined(attrTarget))
       {
         gomlNode.attributes.setValue(attrTarget,value);
@@ -78,11 +78,11 @@ class JThreeInterface extends JThreeObject
       for(var attrName in attrTarget)
       {
         var value=attrTarget[attrName];
-        var gomlNode=t.getNode(<HTMLElement>e);
+        var gomlNode=JThreeInterface.getNode(<HTMLElement>e);
         if(gomlNode.attributes.isDefined(attrName))
         {
-          var easingFunc=t.Context.GomlLoader.Configurator.getEasingFunction(easing);
-          t.Context.addAnimater(gomlNode.attributes.getAnimater(attrName,this.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrName),value,easingFunc,()=>{
+          var easingFunc=JThreeInterface.Context.GomlLoader.Configurator.getEasingFunction(easing);
+          JThreeInterface.Context.addAnimater(gomlNode.attributes.getAnimater(attrName,JThreeInterface.Context.Timer.Time,duration,gomlNode.attributes.getValue(attrName),value,easingFunc,()=>{
             if(onComplete)onComplete();
             t.dequeue();
           }));
@@ -109,18 +109,18 @@ public find(attrTarget:string):JThreeInterface
   {
     var newTarget:JQuery=$(target);
     this.target.each((n,e)=>{
-      this.Context.GomlLoader.appendChildren(newTarget,<HTMLElement>e);
+      JThreeInterface.Context.GomlLoader.appendChildren(newTarget,<HTMLElement>e);
     });
     return this;
   }
 
-  private getNode(elem:HTMLElement):GomlTreeNodeBase
+  private static getNode(elem:HTMLElement):GomlTreeNodeBase
   {
     var id=elem.getAttribute('x-j3-id');
-    return this.Context.GomlLoader.getNode(id);
+    return JThreeInterface.Context.GomlLoader.getNode(id);
   }
 
-  private get Context():JThreeContext
+  private static get Context():JThreeContext
   {
     return JThreeContextProxy.getJThreeContext();
   }

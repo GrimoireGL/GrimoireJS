@@ -5,14 +5,18 @@ import Delegates = require("../Delegates");
 import GomlLoader = require("./GomlLoader");
 import AnimaterBase = require("./Animater/AnimaterBase");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
+import GomlTreeNodeBase = require('./GomlTreeNodeBase');
 class AttributeDictionary extends JThreeObject
 {
-  constructor(loader:GomlLoader,element:HTMLElement)
+  constructor(node:GomlTreeNodeBase,loader:GomlLoader,element:HTMLElement)
   {
     super();
     this.loader=loader;
     this.element=element;
+    this.node=node;
   }
+
+  private node:GomlTreeNodeBase;
 
   private loader:GomlLoader;
 
@@ -55,7 +59,7 @@ class AttributeDictionary extends JThreeObject
     for(var key in attributes)
     {
       var attribute=attributes[key];
-      this.attributes.insert(new GomlAttribute(this.element,key,attribute.value,this.loader.Configurator.getConverter(attribute.converter),attribute.handler));
+      this.attributes.insert(new GomlAttribute(this.node,this.element,key,attribute.value,this.loader.Configurator.getConverter(attribute.converter),attribute.handler));
     }
   }
 }
