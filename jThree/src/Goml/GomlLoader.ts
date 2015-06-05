@@ -118,7 +118,7 @@ class GomlLoader extends jThreeObject {
 
   private eachNode(act: Delegates.Action1<GomlTreeNodeBase>) {
     this.configurator.GomlRootNodes.forEach(v=>{
-      this.rootNodes.get(v).forEach(e=>act(e));
+      this.rootNodes.get(v).forEach(e=>e.callRecursive(act));
     });
   }
 
@@ -193,7 +193,6 @@ class GomlLoader extends jThreeObject {
   }
 
   public getNode(id: string): GomlTreeNodeBase {
-    debugger;
     return this.NodesById.get(id);
   }
 }
