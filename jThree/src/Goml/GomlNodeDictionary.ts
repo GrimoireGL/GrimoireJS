@@ -1,14 +1,15 @@
 import jThreeObject = require("../Base/JThreeObject");
 import GomlTreeNodeBase = require("./GomlTreeNodeBase");
+import AssociativeArray = require('../Base/Collections/AssociativeArray')
 class GomlNodeDictionary extends jThreeObject
 {
-  private dictionary:Map<string,Map<string,GomlTreeNodeBase>>=new Map<string,Map<string,GomlTreeNodeBase>>();
+  private dictionary:AssociativeArray<AssociativeArray<GomlTreeNodeBase>>=new AssociativeArray<AssociativeArray<GomlTreeNodeBase>>();
 
   public addObject(alias:string,name:string,obj:GomlTreeNodeBase):void
   {
     if(!this.dictionary.has(alias))
     {
-      this.dictionary.set(alias,new Map<string,GomlTreeNodeBase>());
+      this.dictionary.set(alias,new AssociativeArray<GomlTreeNodeBase>());
     }
     this.dictionary.get(alias).set(name,obj);
   }
@@ -25,9 +26,9 @@ class GomlNodeDictionary extends jThreeObject
     }
   }
 
-  public getAliasMap<T extends GomlTreeNodeBase>(alias:string):Map<string,T>
+  public getAliasMap<T extends GomlTreeNodeBase>(alias:string):AssociativeArray<T>
   {
-    return <Map<string,T>>this.dictionary.get(alias);
+    return <AssociativeArray<T>>this.dictionary.get(alias);
   }
 }
 

@@ -9,6 +9,7 @@ import BufferWrapper = require("./BufferWrapper");
 import JThreeContextProxy = require("../../JThreeContextProxy");
 import CanvasListChangedEventArgs = require('../../CanvasListChangedEventArgs');
 import ListStateChangedType = require("../../ListStateChangedType");
+import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 class Buffer extends BufferProxy
 {
     static CreateBuffer(glContexts:CanvasManager[],target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
@@ -100,9 +101,9 @@ class Buffer extends BufferProxy
         return this.unitCount;
     }
 
-    private bufWrappers: Map<string, BufferWrapper> = new Map<string, BufferWrapper>();
+    private bufWrappers: AssociativeArray<BufferWrapper> = new AssociativeArray<BufferWrapper>();
 
-    get BufferWrappers(): Map<string, BufferWrapper> {
+    get BufferWrappers(): AssociativeArray<BufferWrapper> {
         return this.bufWrappers;
     }
     private elementCache:Float32Array;

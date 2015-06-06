@@ -27,7 +27,7 @@ class ResourceManager extends jThreeObject
         return JThreeContextProxy.getJThreeContext();
     }
 
-    private buffers: Map<string, Buffer> = new Map<string, Buffer>();
+    private buffers: AssociativeArray<Buffer> = new AssociativeArray<Buffer>();
 
     createBuffer(id:string,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType):Buffer {
         if (this.buffers.has(id)) {
@@ -43,7 +43,7 @@ class ResourceManager extends jThreeObject
         return this.buffers.get(id);
     }
 
-    private shaders: Map<string, Shader> = new Map<string, Shader>();
+    private shaders: AssociativeArray<Shader> = new AssociativeArray<Shader>();
 
     createShader(id: string,source:string,shaderType:ShaderType): Shader {
         var shader: Shader = Shader.CreateShader(this.context, source, shaderType);
@@ -71,7 +71,7 @@ class ResourceManager extends jThreeObject
       return this.shaders.has(id);
     }
 
-    private programs: Map<string, Program> = new Map<string, Program>();
+    private programs: AssociativeArray<Program> = new AssociativeArray<Program>();
 
     createProgram(id: string,shaders:Shader[]): Program {
         var program: Program = Program.CreateProgram(this.context, shaders);

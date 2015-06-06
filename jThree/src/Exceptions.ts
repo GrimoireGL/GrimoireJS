@@ -15,14 +15,14 @@ import Matrix = require("./Math/Matrix");
         message: string;
 
         toString(): string {
-            return "Exception:{0}\nName:{1}\nMessage:{2}".format(super.toString(),this.name,this.message);
+            return `Exception:${super.toString()}\nName:${this.name}\nMessage:${this.message}`;
         }
     }
 
     export class IrregularElementAccessException extends jThreeException {
         constructor(accessIndex:number) {
-            super("Irregular vector element was accessed.", "You attempted to access {0} element. But,this vector have enough dimension.".format(accessIndex));
-        }
+            super("Irregular vector element was accessed.", `You attempted to access ${accessIndex} element. But,this vector have enough dimension.`);
+         }
     }
 
     export class InvalidArgumentException extends jThreeException {
@@ -33,7 +33,7 @@ import Matrix = require("./Math/Matrix");
 
     export class SingularMatrixException extends jThreeException {
         constructor(m: Matrix) {
-            super("Passed matrix is singular matrix", "passed matrix:{0}".format(m.toString()));
+            super("Passed matrix is singular matrix", `passed matrix:${m.toString()}`);
         }
     }
 

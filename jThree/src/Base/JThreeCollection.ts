@@ -1,9 +1,10 @@
 import JThreeObject = require('./JThreeObject');
 import JThreeObjectWithID = require("./JThreeObjectWithID");
 import Delegates = require("../Delegates");
+import AssociativeArray = require('./Collections/AssociativeArray');
 class JThreeCollection<T extends JThreeObjectWithID>
 {
-  private collection:Map<string,T>=new Map<string,T>();
+  private collection:AssociativeArray<T>=new AssociativeArray<T>();
 
   public getById(id:string):T
   {

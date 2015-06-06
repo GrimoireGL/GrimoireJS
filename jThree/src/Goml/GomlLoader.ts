@@ -149,7 +149,7 @@ class GomlLoader extends jThreeObject {
           //the factory was obtained, but newNnode is null.
           //It is seem to have something wrong to create instance.
           //It can be occured, the node is written as the form being not desired for the factory.
-          console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(elem.tagName));
+          console.warn(`${elem.tagName} tag was parsed,but failed to create instance. Skipped.`);
           continue;
         }
         //configure class name and attribute to HTMLElement to make it easy to find this node in next time.
@@ -164,7 +164,7 @@ class GomlLoader extends jThreeObject {
         this.parseChildren(newNode, $(elem).children(), (e) => { });
       } else {
         //when specified node could not be found
-        console.warn("{0} was not parsed.".format(elem.tagName));
+        console.warn(`${elem.tagName} was not parsed.'`);
       }
     }
   }
@@ -184,7 +184,7 @@ class GomlLoader extends jThreeObject {
       if (tagFactory) {
         var newNode = tagFactory.CreateNodeForThis(e, this, parentInGoml);
         if (newNode == null) {
-          console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(e.tagName));
+          console.warn(`${e.tagName} tag was parsed,but failed to create instance. Skipped.`);
         } else {
           this.NodesById.set(newNode.ID, newNode);
           e.classList.add("x-j3-" + newNode.ID)
@@ -194,7 +194,7 @@ class GomlLoader extends jThreeObject {
         }
 
       } else {
-        console.warn("{0} was not parsed.".format(e.tagName));
+        console.warn(`${e.tagName} was not parsed.`);
       }
 
     }

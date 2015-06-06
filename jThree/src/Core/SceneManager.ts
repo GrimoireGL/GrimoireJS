@@ -2,6 +2,7 @@ import jThreeObject = require("../Base/JThreeObject");
 import JThreeContext = require("./JThreeContext");
 import JThreeContextProxy = require("./JThreeContextProxy");
 import Scene = require("./Scene");
+import AssociativeArray = require('../Base/Collections/AssociativeArray')
 /**
 * The class for managing entire scenes.
 */
@@ -10,7 +11,7 @@ class SceneManager extends jThreeObject {
         super();
     }
 
-    private scenes:Map<string, Scene> = new Map<string, Scene>();
+    private scenes:AssociativeArray<Scene> = new AssociativeArray<Scene>();
     /**
     * Add new scene to be managed.
     */
@@ -44,11 +45,11 @@ class SceneManager extends jThreeObject {
         var sceneInfo:string="";
         this.scenes.forEach((scene:Scene,id:string)=>
         {
-          sceneInfo+="ID:{0}\nScene:\n{1}\n".format(id,scene.toString());
+          sceneInfo+=`ID:${id}\nScene:\n${scene.toString()}\n`;
         });
-        return "Scene Informations:\n"
-              +"Scene Count:{0}\n"
-              +"Scenes:\n{1}".format(this.scenes.size,sceneInfo);
+        return `Scene Informations:\n
+        Scene Count:${this.scenes.size}\n
+        Scenes:${sceneInfo}`;
     }
 
 }

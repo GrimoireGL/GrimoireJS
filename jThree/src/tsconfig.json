@@ -106,7 +106,6 @@
         "./Goml/GomlNodeListElement.ts",
         "./Goml/GomlTreeNodeBase.ts",
         "./Goml/Module/ModuleRegistry.ts",
-        "./Goml/Moduke/Module.d.ts",
         "./Goml/Nodes/Geometries/CircleGeometryNode.ts",
         "./Goml/Nodes/Geometries/CubeGeometryNode.ts",
         "./Goml/Nodes/Geometries/CylinderGeometryNode.ts",

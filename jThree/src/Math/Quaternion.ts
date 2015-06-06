@@ -160,13 +160,13 @@ class Quaternion extends JThreeObject
     var imm=Math.sqrt(1-this.x*this.x);
     if(angle!=180&&angle!=0)
     {//avoid singularities
-      return "axis({0},{1},{2},{3})".format(angle,this.y/imm,this.z/imm,this.w/imm);
+      return `axis(${angle},${this.y/imm},${this.z/imm},${this.w/imm})`;
     }else if(angle==0)
     {
-      return "axis({0},0,1,0)".format(angle);
+      return `axis(${angle},0,1,0)`;
     }else
     {
-      return "axis(180d,{0},{1},{2})".format(this.y,this.z,this.w);
+      return `axis(180d,${this.y},${this.z},${this.w})`;
     }
   }
 }
