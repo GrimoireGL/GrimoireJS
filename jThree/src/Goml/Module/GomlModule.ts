@@ -13,6 +13,8 @@ interface GomlModule
 	 * Default:1000
 	 */
 	order?:number;	
+	
+	
 }
 
 export = GomlModule;
