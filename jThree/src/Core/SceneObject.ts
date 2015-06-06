@@ -1,5 +1,5 @@
 import JThreeObject=require('Base/JThreeObject');
-import JThreeObjectWithId = require("../Base/JThreeObjectWithID");
+import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Material = require("./Materials/Material");
 import Delegates = require("../Delegates");
 import Geometry = require("./Geometry");
@@ -11,7 +11,7 @@ import Transformer = require("./Transform/Transformer");
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
  */
-class SceneObject extends JThreeObjectWithId
+class SceneObject extends JThreeObjectWithID
 {
 
   constructor()

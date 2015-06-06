@@ -37,7 +37,7 @@ class Rectangle extends jThreeObject {
     }
 
     toString():string{
-      return "{0}:{1}-{2}:{3}".format(this.left,this.top,this.Right,this.Bottom);
+      return `Rectangle(${this.left},${this.top}-${this.Right},${this.Bottom})`;
     }
 }
 export=Rectangle;

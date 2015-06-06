@@ -144,7 +144,7 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
     }
 
     toString(): string {
-        return "Vector3(x={0},y={1},z={2})".format(this.x, this.y, this.z);
+        return `Vector3(${this.x}, ${this.y}, ${this.z})`;
     }
 
     getEnumrator(): IEnumrator<number> {

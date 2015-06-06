@@ -126,7 +126,6 @@
         "./Goml/Nodes/SceneObjects/MeshNode.ts",
         "./Goml/Nodes/SceneObjects/ObjectNode.ts",
         "./Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts",
-        "./Goml/Nodes/ViewPortNode.ts",
         "./Goml/TopNodeList.ts",
         "./Init.ts",
         "./JThreeInterface.ts",

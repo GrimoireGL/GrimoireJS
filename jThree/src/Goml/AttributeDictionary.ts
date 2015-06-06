@@ -27,7 +27,7 @@ class AttributeDictionary extends JThreeObject
   public getValue(attrName:string):any
   {
     var attr=this.attributes.getById(attrName);
-    if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
+    if(attr==null)console.warn(`attribute \"${attrName}\" is not found.`);
     else
       return attr.Value;
   }
@@ -35,7 +35,7 @@ class AttributeDictionary extends JThreeObject
   public setValue(attrName:string,value:any):void
   {
     var attr=this.attributes.getById(attrName);
-    if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
+    if(attr==null)console.warn(`attribute \"${attrName}\" is not found.`);
     else
       attr.Value=value;;
   }
@@ -44,7 +44,7 @@ class AttributeDictionary extends JThreeObject
   public getAnimater(attrName:string,beginTime:number,duration:number,beginVal:any,endVal:any,easing:EasingFunctionBase,onComplete?:Delegates.Action0)
   {
     var attr=this.attributes.getById(attrName);
-    if(attr==null)console.warn("attribute \"{0}\" is not found.".format(attrName));
+    if(attr==null)console.warn(`attribute \"${attrName}\" is not found.`);
     else
       return attr.Converter.GetAnimater(attr,beginVal,endVal,beginTime,duration,easing,onComplete);
   }

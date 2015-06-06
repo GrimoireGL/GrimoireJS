@@ -83,7 +83,7 @@ class Color3 extends JThreeObject {
         st += Math.round(this.R * 0xff).toString(16).toUpperCase();
         st += Math.round(this.G * 0xff).toString(16).toUpperCase();
         st += Math.round(this.B * 0xff).toString(16).toUpperCase();
-        return "Color3({0},{1},{2}):{4}".format(this.R, this.G, this.B, st);
+        return `Color3(${this.R},${this.G},${this.B},${st})`;
     }
 }
 

@@ -31,7 +31,7 @@ class GomlTreeNodeBase extends ModuleContainerNode
     {
       debugger;
       this.modules.forEach(v=>{
-        if(v.update)v.update();
+      //  if(v.update)v.update(); //TODO fix this
       });
     }
 

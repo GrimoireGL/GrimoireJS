@@ -31,7 +31,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   CheckErrorAsFatal(): void {
     var ec = this.gl.getError();
     if (ec !== WebGLRenderingContext.NO_ERROR) {
-      alert("WebGL error was occured:{0}".format(ec));
+      console.error(`WebGL error was occured:${ec}`);
     }
   }
 

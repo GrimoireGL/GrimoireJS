@@ -152,7 +152,7 @@ class Vector4 extends VectorBase implements ILinearObjectGenerator<Vector4>{
     get ElementCount(): number { return 4; }
 
     toString(): string {
-        return "Vector4(x={0},y={1},z={2},w={3}".format(this.x, this.y, this.z, this.w);
+        return `Vector4(${this.x}, ${this.y}, ${this.z},${this.w})`;
     }
 
     getFactory(): ILinearObjectFactory<Vector4> { return Vector4Factory.getInstance(); }

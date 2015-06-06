@@ -20,7 +20,7 @@ class SceneObjectTagFactory extends TagFactory
     }else{
       if(typeof parent["ContainedSceneNode"]==="undefined")
       {//check parent extends SceneObjectNodeBase or not.
-        console.error("{0} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?".format(parent.toString()));
+        console.error(`${parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
         return null;
       }else
       {

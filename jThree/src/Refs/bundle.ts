@@ -24,4 +24,3 @@ declare var Set: {
     new <T>(): Set<T>;
     prototype: Set<any>;
 }
-
