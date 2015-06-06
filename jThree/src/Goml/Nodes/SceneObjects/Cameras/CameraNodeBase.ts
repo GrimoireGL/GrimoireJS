@@ -22,7 +22,7 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
   {
       super(elem,loader,parent,parentSceneNode,parentObject);
-      loader.nodeDictionary.addObject("jthree.camera",this.Name,this);
+      loader.nodeRegister.addObject("jthree.camera",this.Name,this);
   }
 
   protected ConstructCamera():Camera

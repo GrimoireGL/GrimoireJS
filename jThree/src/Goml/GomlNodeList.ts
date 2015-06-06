@@ -38,6 +38,9 @@ var gomlList=[
   new GomlNodeListElement("jthree.modules",require('./Factories/TagFactory'),
   {
       "MODULES":require('./Nodes/Modules/ModulesNode'),
+  }),
+  new GomlNodeListElement("jthree.modules",require('./Factories/ModuleTagFactory'),
+  {
       "MODULE":require('./Nodes/Modules/ModuleNode')
   }
   )

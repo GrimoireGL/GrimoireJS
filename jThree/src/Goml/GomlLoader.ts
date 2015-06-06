@@ -18,6 +18,12 @@ declare function require(string): any;
 * The class for loading goml.
 */
 class GomlLoader extends jThreeObject {
+  update()
+  {
+    // this.eachNode(e=>{
+    //   e.update.bind(this);
+    // });
+  }
   /**
   * Constructor. User no need to call this constructor by yourself.
   */
@@ -45,14 +51,20 @@ class GomlLoader extends jThreeObject {
     this.onLoadEvent.addListerner(act);
   }
 
+  /**
+  * this configurator will load any tag information by require
+  */
   private configurator:GomlLoaderConfigurator=new GomlLoaderConfigurator();
 
+  /**
+  * The configurator for new tag,converter,easingfunctions
+  */
   public get Configurator():GomlLoaderConfigurator
   {
     return this.configurator;
   }
 
-  nodeDictionary: GomlNodeDictionary = new GomlNodeDictionary();
+  nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
 
   moduleRegistry: ModuleRegistry = new ModuleRegistry();
 
@@ -103,6 +115,7 @@ class GomlLoader extends jThreeObject {
   private scriptLoaded(source: string): void {
     var catched = this.rootObj = $(source);
     if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
+    //generate node tree
     this.configurator.GomlRootNodes.forEach(v=>{
       var children = catched.find(v).children();
       this.rootNodes.set(v,[]);
@@ -123,32 +136,41 @@ class GomlLoader extends jThreeObject {
   }
 
   private parseChildren(parent: GomlTreeNodeBase, child: JQuery, actionForChildren: Delegates.Action1<GomlTreeNodeBase>): void {
-    if (!child) return;
+    if (!child) return;//if there child is null,parent is end of branch
     for (var i = 0; i < child.length; i++) {
+      //generate instances for every children nodes
+      //obtain factory class for the node
       var elem: HTMLElement = child[i];
       var tagFactory=this.configurator.getGomlTagFactory(elem.tagName);
+      //if factory was not defined, there is nothing to do.
       if (tagFactory) {
         var newNode = tagFactory.CreateNodeForThis(elem, this, parent);
         if (newNode == null) {
+          //the factory was obtained, but newNnode is null.
+          //It is seem to have something wrong to create instance.
+          //It can be occured, the node is written as the form being not desired for the factory.
           console.warn("{0} tag was parsed,but failed to create instance. Skipped.".format(elem.tagName));
           continue;
         }
+        //configure class name and attribute to HTMLElement to make it easy to find this node in next time.
         elem.classList.add("x-j3-" + newNode.ID);
         elem.setAttribute('x-j3-id', newNode.ID);
+        //after configuration, this node is going to add to NodesById
         this.NodesById.set(newNode.ID, newNode);
-        if (parent != null) {
-          parent.addChild(newNode);
-        }
+        //in first call, it is use for adding into the array for containing root nodes.
+        //after first call, it is no used, so this code have no effect after first call.
         actionForChildren(newNode);
+        //call this function recursive
         this.parseChildren(newNode, $(elem).children(), (e) => { });
       } else {
+        //when specified node could not be found
         console.warn("{0} was not parsed.".format(elem.tagName));
       }
     }
   }
 
   public appendChildren(jq: JQuery, parent: HTMLElement, parentInGoml?: GomlTreeNodeBase, loadedGoml?: GomlTreeNodeBase[]): void {
-    var needLastProcess = false;
+    var needLastProcess = false;//TODO refactor this method
     if (!jq) return;
     if (!parentInGoml) {
       var id = parent.getAttribute("x-j3-id");
@@ -167,9 +189,6 @@ class GomlLoader extends jThreeObject {
           this.NodesById.set(newNode.ID, newNode);
           e.classList.add("x-j3-" + newNode.ID)
           e.setAttribute('x-j3-id', newNode.ID);
-          if (parent != null) {
-            parentInGoml.addChild(newNode);
-          }
           loadedGoml.push((newNode));
           this.appendChildren($(e).children(), null, newNode, loadedGoml);
         }

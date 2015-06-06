@@ -68,7 +68,7 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
 
     private resolveCamera():CameraNodeBase
     {
-      var camTags=this.loader.nodeDictionary.getAliasMap<SceneObjectNodeBase>("jthree.camera");
+      var camTags=this.loader.nodeRegister.getAliasMap<SceneObjectNodeBase>("jthree.camera");
       if(!camTags.has(this.Cam))//if there was no specified camera
       {
         console.error("can not find camera");

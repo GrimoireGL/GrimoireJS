@@ -103,6 +103,7 @@ class JThreeContext extends JThreeObject
       //update timer it will be referenced by scenes.
       this.timer.updateTimer();
       this.updateAnimation();
+      this.gomlLoader.update();
       this.sceneManager.renderAll();
       this.registerNextLoop();
     }

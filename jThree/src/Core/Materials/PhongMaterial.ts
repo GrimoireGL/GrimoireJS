@@ -91,7 +91,7 @@ class PhongMaterial extends Material
          var v=this.CalculateMVPMatrix(renderer,object);
          var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
          var tex=jThreeContext.ResourceManager.getTexture("test");
-         tex.getForRenderer(renderer.ContextManager).bind(TextureRegister.Texture0);
+         if(tex)tex.getForRenderer(renderer.ContextManager).bind(TextureRegister.Texture0);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("uv",geometry.UVBuffer.getForRenderer(renderer.ContextManager));

@@ -20,8 +20,8 @@ class GomlTreeMeshNode extends SceneObjectNodeBase
 
   protected ConstructTarget():SceneObject
   {
-    var geo=<GeometryNodeBase>this.loader.nodeDictionary.getObject("jthree.geometries",this.Geo);
-    var mat=<MaterialNode>this.loader.nodeDictionary.getObject("jthree.materials",this.Mat);
+    var geo=<GeometryNodeBase>this.loader.nodeRegister.getObject("jthree.geometries",this.Geo);
+    var mat=<MaterialNode>this.loader.nodeRegister.getObject("jthree.materials",this.Mat);
     this.targetMesh=new Mesh(geo.TargetGeometry,mat?mat.targetMaterial:new SolidColor());
     return this.targetMesh;
   }

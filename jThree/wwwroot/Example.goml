@@ -12,7 +12,7 @@
   </renderers>
   <scenes>
     <scene>
-    <object rotation="y(40d)">
+    <object>
       <modules>
         <module name="test"/>
       </modules>

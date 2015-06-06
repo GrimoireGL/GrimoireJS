@@ -29,7 +29,7 @@ class MaterialNodeBase extends GomlTreeNodeBase
     beforeLoad()
     {
       this.targetMaterial=this.ConstructMaterial();
-      this.loader.nodeDictionary.addObject("jthree.materials",this.Name,this);
+      this.loader.nodeRegister.addObject("jthree.materials",this.Name,this);
       this.targetMaterial.CullEnabled=this.attributes.getValue("cull");
     }
 

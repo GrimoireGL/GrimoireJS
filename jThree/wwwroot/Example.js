@@ -1,3 +1,3 @@
 j3(function(){
-  j3("object").animate({rotation:"y(270d)"},10000);
+  j3("mesh").animate({rotation:"y(270d)"},10000);
 });

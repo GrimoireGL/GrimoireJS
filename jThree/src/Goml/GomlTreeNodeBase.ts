@@ -3,54 +3,53 @@ import GomlLoader = require("./GomlLoader");
 import GomlAttribute = require("./GomlAttribute");
 import AttributeDictionary = require("./AttributeDictionary");
 import Delegates = require('../Delegates');
-class GomlTreeNodeBase extends jThreeObjectWithID
+import ModuleContainerNode = require('./ModuleContainerNodeBase');
+import TreeNodeBase = require('./TreeNodeBase');
+
+/**
+ * This is the most base class in all GomlNode
+ */
+class GomlTreeNodeBase extends ModuleContainerNode
 {
-    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
-        super();
+    constructor(elem:HTMLElement,loader:GomlLoader,parent?:TreeNodeBase) {
+        super(elem,parent);
         this.loader=loader;
-        this.element = elem;
-        if(parent!=null)
-        {
-          parent.addChild(this);
-        }
         this.attributes=new AttributeDictionary(this,loader,elem);
     }
-
-    protected element: Element;
-
+    /**
+     * The GomlLoader instanciate this class
+     */
     protected loader:GomlLoader;
 
-    private children: GomlTreeNodeBase[]=[];
-
-    protected parent:GomlTreeNodeBase;
-
+    /**
+     * Attributes this node have.
+     */
     public attributes:AttributeDictionary;
 
-    addChild(child: GomlTreeNodeBase) {
-        child.parent = this;
-        this.children.push(child);
-        console.log("append {0} to {1} as child".format(child.toString(),parent.toString()));
-    }
 
-    callRecursive(act:Delegates.Action1<GomlTreeNodeBase>):void
+    update()
     {
-      act(this);
-      this.children.forEach(v=>v.callRecursive(act));
+      debugger;
+      this.modules.forEach(v=>{
+        if(v.update)v.update();
+      });
     }
 
     beforeLoad()
     {
-
+      //this method should be overriden by the class extends this class.
     }
 
     Load()
     {
-
+      //this method should be overriden by the class extends this class.
     }
 
     afterLoad()
     {
-
+      //this method should be overriden by the class extends this class.
     }
+
+
 }
 export=GomlTreeNodeBase;

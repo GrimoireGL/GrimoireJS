@@ -1,3 +1,5 @@
+import Delegates = require('./Delegates');
+import GomlAttribute = require('./Goml/GomlAttribute');
 //
 // This file is intended for adding interfaces.
 // Browser is already supported but lib.d.ts not containing.
@@ -31,3 +33,4 @@ declare var Set: {
     new <T>(): Set<T>;
     prototype: Set<any>;
 }
+
