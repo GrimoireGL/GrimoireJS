@@ -3,16 +3,16 @@ import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import Delegates = require('../../Delegates');
 import GomlAttribute = require('../GomlAttribute');
 type AttributeDeclation={
-  handler?:Delegates.Action1<GomlAttribute>,
-  converter:string,
-  name:string
+  handler?:Delegates.Action1<GomlAttribute>;
+  converter:string;
+  name:string;
 };
 type Module={
-  name:string,
-  order?:number
-  attributes?:AttributeDeclation[]
-  update?:Delegates.Action0,
-  awake?:Delegates.Action0
+  name:string;
+  order?:number;
+  attributes?:AttributeDeclation[];
+  update?:Delegates.Action0;
+  awake?:Delegates.Action0;
 };
 
 /**

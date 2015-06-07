@@ -48,6 +48,7 @@ install:
 script:
 - gulp travis --branch=$TRAVIS_BRANCH
 after_script:
+- typedoc --out ./ci/docs/$TRAVIS_BRANCH --module commonjs --target es5 --name jThree ./jThree/src/
 - cd jThree/bin/js
 - ls
 - cd ../../..

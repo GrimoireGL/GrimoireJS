@@ -8,6 +8,13 @@ connect = require 'gulp-connect'
 path = require 'path'
 util = require 'util'
 rimraf = require 'rimraf'
+typedoc = require 'gulp-typedoc'
+child_process = require 'child_process'
+args = require 'yargs'
+  .argv
+
+
+branch = args.branch||'unknown';
 ### compilation configuration for typescript ###
 tscConfig = tsc.createProject
   target:"ES6"
@@ -148,6 +155,34 @@ travis task
 gulp.task 'travis',['webpack'],->
 
 
+###
+document generation task
+gulp.task('gen-doc-travis',function(){
+  gulp.src(tsSourceTarget).pipe(typedoc({
+    module:'commonjs',
+    out:'./ci/docs/'+branch,
+    name:'jThree',
+    target:'es5',
+    includeDeclarations:true,
+    json:'./ci/docs/'+branch+'/doc.json',
+    mode:'modules'
+  }));
+});
+###
+gulp.task 'doc',(cb)->
+    child_process.exec("typedoc --out ./ci/docs"+branch+" --module commonjs --target es5 --name jThree ./jThree/src/",cb);
+    undefined
+  
+
+  # gulp.src tsSource
+  #   .pipe typedoc
+  #     module:'commonjs'
+  #     out:'./ci/docs'+branch,
+  #     name:'jThree',
+  #     target:'es5',
+  #     includeDeclarations:true,
+  #     json:'./ci/docs/'+branch+'doc.json',
+  #     mode:'modules'
 ###
 MISC
 ###

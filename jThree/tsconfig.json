@@ -15,6 +15,7 @@
         "!./node_modules/**/*.ts"
     ],
     "files": [
+        "./bundle-notdoc.ts",
         "./_references.ts",
         "./def-test/qunit.d.ts",
         "./def/jquery.d.ts",

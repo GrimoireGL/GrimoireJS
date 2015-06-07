@@ -13,6 +13,7 @@
         "!./node_modules/**/*.ts"
     ],
     "files": [
+        "../bundle-notdoc.ts",
         "./Base.ts",
         "./Base/Collections/ArrayEnumratorFactory.ts",
         "./Base/Collections/AssociativeArray.ts",

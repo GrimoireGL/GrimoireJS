@@ -119,7 +119,7 @@ class Vector2 extends VectorBase implements ILinearObjectGenerator<Vector2>{
     }
 
     toString(): string {
-        return "Vector2(x={0},y={1})".format(this.x, this.y);
+        return `Vector2(x=${this.x}},y=${this.y})`;
     }
 
     getEnumrator(): IEnumrator<number> {

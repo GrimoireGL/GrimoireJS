@@ -1,4 +1,4 @@
-var bower_files, bower_prefix, coffee, combinePrefix, connect, destJs, gulp, merge, moveFromSrc, path, rimraf, srcFolder, tsSource, tsc, tscConfig, util, watch_build_file, watch_reload_file, webpack, webpack_exculde, webpack_files, webpack_src_root, wpcore;
+var args, bower_files, bower_prefix, branch, child_process, coffee, combinePrefix, connect, destJs, gulp, merge, moveFromSrc, path, rimraf, srcFolder, tsSource, tsc, tscConfig, typedoc, util, watch_build_file, watch_reload_file, webpack, webpack_exculde, webpack_files, webpack_src_root, wpcore;
 
 gulp = require('gulp');
 
@@ -19,6 +19,14 @@ path = require('path');
 util = require('util');
 
 rimraf = require('rimraf');
+
+typedoc = require('gulp-typedoc');
+
+child_process = require('child_process');
+
+args = require('yargs').argv;
+
+branch = args.branch || 'unknown';
 
 
 /* compilation configuration for typescript */
@@ -191,6 +199,27 @@ travis task
  */
 
 gulp.task('travis', ['webpack'], function() {});
+
+
+/*
+document generation task
+gulp.task('gen-doc-travis',function(){
+  gulp.src(tsSourceTarget).pipe(typedoc({
+    module:'commonjs',
+    out:'./ci/docs/'+branch,
+    name:'jThree',
+    target:'es5',
+    includeDeclarations:true,
+    json:'./ci/docs/'+branch+'/doc.json',
+    mode:'modules'
+  }));
+});
+ */
+
+gulp.task('doc', function(cb) {
+  child_process.exec("typedoc --out ./ci/docs" + branch + " --module commonjs --target es5 --name jThree ./jThree/src/", cb);
+  return void 0;
+});
 
 
 /*
