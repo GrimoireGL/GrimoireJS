@@ -9,7 +9,7 @@ class GomlAttribute extends JThreeObjectWithID
 
   protected cached:boolean=false;
 
-  protected value:any;
+  protected value:any=undefined;
 
   protected converter:AttributeConverterBase;
 
@@ -17,12 +17,12 @@ class GomlAttribute extends JThreeObjectWithID
 
   protected managedClass:GomlTreeNodeBase;
 
-  constructor(node:GomlTreeNodeBase,element:HTMLElement,name:string,value:any,conveter:AttributeConverterBase,handler?:Delegates.Action1<GomlAttribute>)
+  constructor(node:GomlTreeNodeBase,element:HTMLElement,name:string,value:any,converter:AttributeConverterBase,handler?:Delegates.Action1<GomlAttribute>)
   {
     super(name);
     this.element=element;
-    this.value=value;
-    this.converter=conveter;
+    this.converter=converter;
+    this.value=converter.FromInterface(value);
     this.managedClass=node;
     if(handler)this.onchangedHandlers.push(handler);
   }
@@ -39,8 +39,11 @@ class GomlAttribute extends JThreeObjectWithID
       return this.value;
     }else{
       var attr=this.element.getAttribute(this.Name);
-      if(attr)this.value=this.Converter.FromAttribute(this.element.getAttribute(this.Name));
-      this.cached=true;
+      if(attr)
+      {
+        this.value=this.Converter.FromAttribute(this.element.getAttribute(this.Name));
+        this.cached=true;
+      }
       return this.value;
     }
   }
@@ -58,7 +61,7 @@ class GomlAttribute extends JThreeObjectWithID
     return this.converter;
   }
 
-  private notifyValueChanged()
+  public notifyValueChanged()
   {
     var t=this;
     this.onchangedHandlers.forEach(v=>v.call(this.managedClass,t));

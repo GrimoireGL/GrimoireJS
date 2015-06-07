@@ -6,6 +6,10 @@ import GomlLoader = require("./GomlLoader");
 import AnimaterBase = require("./Animater/AnimaterBase");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
+import AttributeDeclaration = require('./AttributeDeclaration');
+/**
+ * The class managing attributes of a node.
+ */
 class AttributeDictionary extends JThreeObject
 {
   constructor(node:GomlTreeNodeBase,loader:GomlLoader,element:HTMLElement)
@@ -29,7 +33,7 @@ class AttributeDictionary extends JThreeObject
     var attr=this.attributes.getById(attrName);
     if(attr==null)console.warn(`attribute \"${attrName}\" is not found.`);
     else
-      return attr.Value;
+      return attr.Converter.FromInterface(attr.Value);
   }
 
   public setValue(attrName:string,value:any):void
@@ -37,7 +41,7 @@ class AttributeDictionary extends JThreeObject
     var attr=this.attributes.getById(attrName);
     if(attr==null)console.warn(`attribute \"${attrName}\" is not found.`);
     else
-      attr.Value=value;;
+      attr.Value=attr.Converter.FromInterface(value);
   }
 
 
@@ -48,19 +52,35 @@ class AttributeDictionary extends JThreeObject
     else
       return attr.Converter.GetAnimater(attr,beginVal,endVal,beginTime,duration,easing,onComplete);
   }
-
+  
+  /**
+   * Check the attribute passed is defined or not.
+   */
   public isDefined(attrName:string):boolean
   {
     return this.attributes.getById(attrName)!=null;
   }
-
-  public defineAttribute(attributes:{[key:string]:{value?:any;converter:string;handler?:Delegates.Action1<GomlAttribute>}})
+  
+  /**
+   * Define attributes to the node.
+   */
+  public defineAttribute(attributes:AttributeDeclaration)
   {
     for(var key in attributes)
     {
       var attribute=attributes[key];
       this.attributes.insert(new GomlAttribute(this.node,this.element,key,attribute.value,this.loader.Configurator.getConverter(attribute.converter),attribute.handler));
     }
+  }
+  
+  /**
+   * Apply default values to all attributes.
+   */
+  public applyDefaultValue()
+  {
+    this.attributes.each(v=>{
+     if(typeof v.Value !== 'undefined')v.notifyValueChanged();
+    });
   }
 }
 

@@ -9,12 +9,24 @@ class TreeNodeBase extends JThreeObjectWithID
 		if(parent!=null)parent.addChild(this);
 	}
 	
+	/**
+	 * The HTMLElement related to this element.
+	 */
 	protected element:HTMLElement;
 	
+	/**
+	 * the parent node of this node
+	 */
 	protected parent:TreeNodeBase;
 	
+	/**
+	 * the node array of this node
+	 */
 	protected children:TreeNodeBase[]=[];
 	
+	/**
+	 * Add child to this node
+	 */
 	public addChild(child:TreeNodeBase):void
 	{
 	    child.parent = this;

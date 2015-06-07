@@ -17,7 +17,7 @@ class PhongNode extends MaterialNodeBase
             value:"#f0C",converter:"color4",handler:(v)=>{this.material.Diffuse=v.Value}
           },
           "ambient":{
-            value:"#f0C",converter:"color4",handler:(v)=>{this.material.Ambient=v.Value}
+            value:"#FFF",converter:"color4",handler:(v)=>{this.material.Ambient=v.Value}
           },
           "specular":
           {

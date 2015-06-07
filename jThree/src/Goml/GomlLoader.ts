@@ -126,6 +126,7 @@ class GomlLoader extends jThreeObject {
     this.eachNode(v=> v.beforeLoad());
     this.eachNode(v=> v.Load());
     this.eachNode(v=> v.afterLoad());
+    this.eachNode(v=>v.attributes.applyDefaultValue());
     this.onLoadEvent.fire(this, source);
   }
 
