@@ -20,9 +20,10 @@ declare function require(string): any;
 class GomlLoader extends jThreeObject {
   update()
   {
-    // this.eachNode(e=>{
-    //   e.update.bind(this);
-    // });
+    if(!this.ready)return;
+    this.eachNode(e=>{
+      e.update();
+    });
   }
   /**
   * Constructor. User no need to call this constructor by yourself.
@@ -74,7 +75,7 @@ class GomlLoader extends jThreeObject {
 
   NodesById:AssociativeArray<GomlTreeNodeBase>=new AssociativeArray<GomlTreeNodeBase>();
 
-
+  ready:boolean=false;
   /**
   * Attempt to load GOMLs that placed in HTML file.
   */
@@ -128,6 +129,7 @@ class GomlLoader extends jThreeObject {
     this.eachNode(v=> v.afterLoad());
     this.eachNode(v=>v.attributes.applyDefaultValue());
     this.onLoadEvent.fire(this, source);
+    this.ready=true;
   }
 
   private eachNode(act: Delegates.Action1<GomlTreeNodeBase>) {

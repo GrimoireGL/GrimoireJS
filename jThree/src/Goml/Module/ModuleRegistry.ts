@@ -9,6 +9,16 @@ import GomlModuleDeclarationBody = require('./GomlModuleDeclarationBody');
 */
 class ModuleRegistry extends JThreeObject
 {
+  constructor()
+  {
+    super();
+    this.addModule({
+      "test":{
+        
+      }
+    });
+  }
+  
   private modules:AssociativeArray<GomlModuleDeclarationBody>=new AssociativeArray<GomlModuleDeclarationBody>();
 
   public addModule(modules:GomlModuleDeclaration)
@@ -20,7 +30,7 @@ class ModuleRegistry extends JThreeObject
     }
   }
 
-  public getModule(moduleName:string)
+  public getModule(moduleName:string):GomlModuleDeclarationBody
   {
     return this.modules.get(moduleName);
   }

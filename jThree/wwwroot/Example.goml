@@ -13,7 +13,9 @@
   <scenes>
     <scene>
     <object>
-
+        <modules>
+          <module name="test"/>
+        </modules>
         <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)">
         </camera>
     </object>

@@ -14,7 +14,20 @@ class ModuleNode extends GomlTreeNodeBase
         var module=loader.moduleRegistry.getModule(elem.getAttribute("name"));
         if(module)
         {
-          moduleTarget.addModule(module);
+          debugger;
+          //load default value
+          if(typeof module.order !== 'undefined')this.cachedOrder=module.order;
+          if(typeof module.enabled !== 'undefined')this.cachedEnabled=module.enabled;
+          this.attributes.defineAttribute(
+            {
+              "enabled":{
+                converter:"boolean",
+                value:true,
+                handler:(v)=>{this.enabled=v.Value;}
+              }
+            }
+          );
+          moduleTarget.addModule(this);
         }else{
           console.warn(`module"${elem.getAttribute("name")}" is not found.`);
         }
@@ -29,7 +42,7 @@ class ModuleNode extends GomlTreeNodeBase
 		return this.cachedOrder;
 	}
 	
-	private cachedEnabled:boolean =false;
+	private cachedEnabled:boolean=true;
 	public get enabled():boolean
 	{
 		return this.cachedEnabled;
@@ -39,6 +52,11 @@ class ModuleNode extends GomlTreeNodeBase
 	{
 		this.cachedEnabled=en;
 	}
+  
+  public update()
+  {
+    console.log("update");
+  }
 	
 }
 

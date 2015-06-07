@@ -39,7 +39,7 @@ var gomlList=[
   {
       "MODULES":require('./Nodes/Modules/ModulesNode'),
   }),
-  new GomlNodeListElement("jthree.modules",require('./Factories/ModuleTagFactory'),
+  new GomlNodeListElement("jthree.module",require('./Factories/ModuleTagFactory'),
   {
       "MODULE":require('./Nodes/Modules/ModuleNode')
   }

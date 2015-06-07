@@ -26,15 +26,6 @@ class GomlTreeNodeBase extends ModuleContainerNode
      */
     public attributes:AttributeDictionary;
 
-
-    update()
-    {
-      debugger;
-      this.modules.forEach(v=>{
-      //  if(v.update)v.update(); //TODO fix this
-      });
-    }
-
     beforeLoad()
     {
       //this method should be overriden by the class extends this class.
