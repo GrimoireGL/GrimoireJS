@@ -3,6 +3,7 @@ import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Delegates");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
+import JThreeEvent = require('../Base/JThreeEvent')
 class GomlAttribute extends JThreeObjectWithID
 {
   protected element:HTMLElement;
@@ -13,7 +14,7 @@ class GomlAttribute extends JThreeObjectWithID
 
   protected converter:AttributeConverterBase;
 
-  protected onchangedHandlers:Delegates.Action1<GomlAttribute>[]=[];
+  protected onchangedHandlers:JThreeEvent<GomlAttribute>=new JThreeEvent<GomlAttribute>();
 
   protected managedClass:GomlTreeNodeBase;
 
@@ -24,7 +25,7 @@ class GomlAttribute extends JThreeObjectWithID
     this.converter=converter;
     this.value=converter.FromInterface(value);
     this.managedClass=node;
-    if(handler)this.onchangedHandlers.push(handler);
+    if(handler)this.onchangedHandlers.addListerner(handler);
   }
 
   get Name():string
@@ -40,10 +41,10 @@ class GomlAttribute extends JThreeObjectWithID
     }else{
       var attr=this.element.getAttribute(this.Name);
       if(attr)
-      {
+      {//if attribute was specified, cache this attribute.
         this.value=this.Converter.FromAttribute(this.element.getAttribute(this.Name));
         this.cached=true;
-      }
+      }//if attribute was not specified, it will return default value of this attribute.
       return this.value;
     }
   }
@@ -64,7 +65,7 @@ class GomlAttribute extends JThreeObjectWithID
   public notifyValueChanged()
   {
     var t=this;
-    this.onchangedHandlers.forEach(v=>v.call(this.managedClass,t));
+    this.onchangedHandlers.fire(this,this);
   }
 }
 

@@ -22,6 +22,24 @@ class ModuleNode extends GomlTreeNodeBase
         console.warn("module name was not specified");
       }
   }
+	
+	private cachedOrder:number=1000;
+	public get order():number
+	{
+		return this.cachedOrder;
+	}
+	
+	private cachedEnabled:boolean =false;
+	public get enabled():boolean
+	{
+		return this.cachedEnabled;
+	}
+	
+	public set enabled(en:boolean)
+	{
+		this.cachedEnabled=en;
+	}
+	
 }
 
 export =ModuleNode;

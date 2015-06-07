@@ -17,7 +17,7 @@ class PhongNode extends MaterialNodeBase
             value:"#f0C",converter:"color4",handler:(v)=>{this.material.Diffuse=v.Value}
           },
           "ambient":{
-            value:"#FFF",converter:"color4",handler:(v)=>{this.material.Ambient=v.Value}
+            value:"#222",converter:"color4",handler:(v)=>{this.material.Ambient=v.Value}
           },
           "specular":
           {
@@ -34,10 +34,6 @@ class PhongNode extends MaterialNodeBase
     protected ConstructMaterial():Material
     {
       this.material=new Phong();
-      this.material.Diffuse=this.attributes.getValue("diffuse");
-      this.material.Ambient=this.attributes.getValue("ambient");
-      this.material.Specular=this.attributes.getValue("specular");
-      this.material.SpecularCoefficient=this.attributes.getValue("specularpower");
       return this.material;
     }
 

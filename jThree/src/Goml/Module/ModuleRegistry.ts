@@ -2,18 +2,22 @@ import JThreeObject = require('../../Base/JThreeObject');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import Delegates = require('../../Delegates');
 import GomlAttribute = require('../GomlAttribute');
-import GomlModule =require('./GomlModule')
-
+import GomlModuleDeclaration = require('./GomlModuleDeclaration');
+import GomlModuleDeclarationBody = require('./GomlModuleDeclarationBody');
 /**
 * The class for managing classes registered.
 */
 class ModuleRegistry extends JThreeObject
 {
-  private modules:AssociativeArray<GomlModule>=new AssociativeArray<GomlModule>();
+  private modules:AssociativeArray<GomlModuleDeclarationBody>=new AssociativeArray<GomlModuleDeclarationBody>();
 
-  public addModule(module:GomlModule)
+  public addModule(modules:GomlModuleDeclaration)
   {
-    this.modules.set(module.name,module);
+    for(var moduleKey in modules)
+    {
+      var module = modules[moduleKey];
+      this.modules.set(moduleKey,module);
+    }
   }
 
   public getModule(moduleName:string)

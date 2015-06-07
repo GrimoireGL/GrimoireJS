@@ -1,38 +1,35 @@
-import Delegates = require('../../Delegates');
-import GomlAttribute = require('../GomlAttribute');
-
-interface GomlModule
+import GomlModuleDeclrartion = require('./GomlModuleDeclaration');
+import GomlModuleDeclarationBody = require('./GomlModuleDeclarationBody');
+import JThreeObject = require('../../Base/JThreeObject');
+class GomlModule extends JThreeObject
 {
-	/**
-	 * The name of this module.
-	 * REQUIRED
-	 */
-	name:string;
+	constructor(moduleBody:GomlModuleDeclarationBody)
+	{
+		super();
+		if(typeof moduleBody.order !== 'undefined')this.cachedOrder=moduleBody.order;
+		if(moduleBody.attributes)
+		{
+			
+		}
+	}
 	
-	/**
-	 * The number of order for execution.
-	 * If this number is low, it will be executed faster.
-	 * Default:1000
-	 */
-	order?:number;
 	
-	/**
-	 * Is this module enabled or not.
-	 * Default:True
-	 */
-	enabled?:boolean;	
+	private cachedOrder:number=1000;
+	public get order():number
+	{
+		return this.cachedOrder;
+	}
 	
-	/**
-	 * The handler to process when this module is loaded.
-	 */
-	awake?:Delegates.Action1<GomlAttribute>;
+	private cachedEnabled:boolean =false;
+	public get enabled():boolean
+	{
+		return this.cachedEnabled;
+	}
 	
-	/**
-	 * The handler to process when frame will be update.
-	 */
-	update?:Delegates.Action1<GomlAttribute>;
-	
+	public set enabled(en:boolean)
+	{
+		this.cachedEnabled=en;
+	}
 	
 }
-
 export = GomlModule;
