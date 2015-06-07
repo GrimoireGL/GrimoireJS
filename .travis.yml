@@ -29,6 +29,7 @@ before_install:
 - npm install bower -global
 - npm install tsd -global
 - npm install gulp -global
+- npm install typedoc -global
 - rm ci -r -f
 - mkdir ci
 - cd ci
