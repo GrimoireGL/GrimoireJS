@@ -1,5 +1,5 @@
 import Delegates = require('../../Delegates');
-import GomlAttribute = require('../GomlAttribute');
+import GomlTreeNodeBase = require('../GomlTreeNodeBase');
 import GomlAttributeDeclaration = require('../AttributeDeclaration');
 interface GomlModuleDeclarationBody
 {
@@ -18,21 +18,21 @@ interface GomlModuleDeclarationBody
 	 */
 	enabled?:boolean;	
 	
-	onEnabled?:Delegates.Action1<GomlAttribute>;
+	onEnabled?:Delegates.Action1<GomlTreeNodeBase>;
 	
-	onDisabled?:Delegates.Action1<GomlAttribute>;
+	onDisabled?:Delegates.Action1<GomlTreeNodeBase>;
 	
 	/**
 	 * The handler to process when this module is loaded.
 	 */
-	awake?:Delegates.Action1<GomlAttribute>;
+	awake?:Delegates.Action1<GomlTreeNodeBase>;
 	
 	
-	start?:Delegates.Action1<GomlAttribute>;
+	start?:Delegates.Action1<GomlTreeNodeBase>;
 	
 	/**
 	 * The handler to process when frame will be update.
 	 */
-	update?:Delegates.Action1<GomlAttribute>;
+	update?:Delegates.Action1<GomlTreeNodeBase>;
 }
 export = GomlModuleDeclarationBody;

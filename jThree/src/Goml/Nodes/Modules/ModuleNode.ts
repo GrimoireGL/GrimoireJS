@@ -83,11 +83,26 @@ class ModuleNode extends GomlTreeNodeBase
 	{
 		this.cachedEnabled=en;
 	}
+  
   private updateDelegate:Delegates.Action1<GomlTreeNodeBase>;
   public update(target:GomlTreeNodeBase)
   {
     this.updateDelegate(target);
   }
+  
+  private startDelegate:Delegates.Action1<GomlTreeNodeBase>;
+  public start(target:GomlTreeNodeBase)
+  {
+    this.startDelegate(target);
+  }
+  
+  private awakeDelegate:Delegates.Action1<GomlTreeNodeBase>;
+  public awake(target:GomlTreeNodeBase)
+  {
+    this.awakeDelegate(target);
+  }
+  
+  
 	
 }
 
