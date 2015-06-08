@@ -14,7 +14,15 @@ class ModuleRegistry extends JThreeObject
     super();
     this.addModule({
       "test":{
-        
+        attributes:{
+          "testAttr":{
+            converter:"number",
+            value:100,
+            handler:v=>{
+              console.log(v.Value);
+            }
+          }
+        }
       }
     });
   }

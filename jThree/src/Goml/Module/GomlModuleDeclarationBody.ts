@@ -10,7 +10,7 @@ interface GomlModuleDeclarationBody
 	 */
 	order?:number;
 	
-	attributes?:GomlAttributeDeclaration[];
+	attributes?:GomlAttributeDeclaration;
 	
 	/**
 	 * Is this module enabled or not.

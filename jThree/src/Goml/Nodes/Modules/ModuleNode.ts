@@ -1,10 +1,11 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-
-
+import Delegates = require('../../../Delegates');
+import GomlAttribute = require('../../GomlAttribute');
+import AttributeDeclaration = require('../../AttributeDeclaration');
 class ModuleNode extends GomlTreeNodeBase
 {
-  private static ignoreNode:string[]=["name"];
+  private static ignoreNode:string[]=["name","cachedOrder","cachedEnabled","children","parent","loader","element"];
 
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,moduleTarget:GomlTreeNodeBase)
   {
@@ -14,7 +15,6 @@ class ModuleNode extends GomlTreeNodeBase
         var module=loader.moduleRegistry.getModule(elem.getAttribute("name"));
         if(module)
         {
-          debugger;
           //load default value
           if(typeof module.order !== 'undefined')this.cachedOrder=module.order;
           if(typeof module.enabled !== 'undefined')this.cachedEnabled=module.enabled;
@@ -27,6 +27,37 @@ class ModuleNode extends GomlTreeNodeBase
               }
             }
           );
+          for(var attrKey in module.attributes)
+          {
+            var attr = module.attributes[attrKey];
+            if(ModuleNode.ignoreNode.indexOf(attrKey)!==-1||this.attributes.isDefined(attrKey))
+            {//duplicated or protected attribute
+              console.error(`attribute name '${attrKey}' is protected attribute name. please change name`);
+              continue;
+            }
+            //create handler
+            var newHandler:Delegates.Action1<GomlAttribute>
+            =attr.handler?
+            (v)=>{
+              this[attrKey]=v.Value;
+              attr.handler(v);
+            }
+            :
+            (v)=>
+            {
+              this[attrKey]=v.Value;
+            };
+            //recreate attribute body
+            var attributeBody={
+               converter:attr.converter,
+               value:attr.value,
+               handler:newHandler
+              };
+             var attributeContainer:AttributeDeclaration={};
+             attributeContainer[attrKey]=attributeBody;
+            this.attributes.defineAttribute(attributeContainer);
+          }
+          this.attributes.applyDefaultValue();
           moduleTarget.addModule(this);
         }else{
           console.warn(`module"${elem.getAttribute("name")}" is not found.`);
@@ -55,7 +86,7 @@ class ModuleNode extends GomlTreeNodeBase
   
   public update()
   {
-    console.log("update");
+
   }
 	
 }
