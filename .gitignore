@@ -3,6 +3,7 @@
 
 # For jThree envirnoment
 ci/
+docs/
 jThree/src/*.js
 jThree/src/*.js.map
 jThree/src/**/*.js
