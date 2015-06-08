@@ -18,12 +18,19 @@ class ModuleNode extends GomlTreeNodeBase
           //load default value
           if(typeof module.order !== 'undefined')this.cachedOrder=module.order;
           if(typeof module.enabled !== 'undefined')this.cachedEnabled=module.enabled;
+          if(typeof module.awake === 'function')this.awakeDelegate=module.awake;
+          if(typeof module.update === 'function')this.updateDelegate=module.update;
+          if(typeof module.start === 'function')this.startDelegate=module.start;
+          
           this.attributes.defineAttribute(
             {
               "enabled":{
                 converter:"boolean",
                 value:true,
-                handler:(v)=>{this.enabled=v.Value;}
+                handler:(v)=>{
+                  debugger;
+                  this.enabled=v.Value;
+                  }
               }
             }
           );
@@ -67,6 +74,13 @@ class ModuleNode extends GomlTreeNodeBase
       }
   }
 	
+  private awakenCache:boolean=false;
+  
+  public get awaken():boolean
+  {
+    return this.awakenCache;
+  }
+  
 	private cachedOrder:number=1000;
 	public get order():number
 	{
@@ -84,19 +98,19 @@ class ModuleNode extends GomlTreeNodeBase
 		this.cachedEnabled=en;
 	}
   
-  private updateDelegate:Delegates.Action1<GomlTreeNodeBase>;
+  private updateDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
   public update(target:GomlTreeNodeBase)
   {
     this.updateDelegate(target);
   }
   
-  private startDelegate:Delegates.Action1<GomlTreeNodeBase>;
+  private startDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
   public start(target:GomlTreeNodeBase)
   {
     this.startDelegate(target);
   }
   
-  private awakeDelegate:Delegates.Action1<GomlTreeNodeBase>;
+  private awakeDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
   public awake(target:GomlTreeNodeBase)
   {
     this.awakeDelegate(target);

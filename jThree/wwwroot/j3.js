@@ -101,10 +101,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextTimer = __webpack_require__(7);
-	var GomlLoader = __webpack_require__(8);
-	var ResourceManager = __webpack_require__(9);
-	var JThreeObject = __webpack_require__(6);
+	var ContextTimer = __webpack_require__(6);
+	var GomlLoader = __webpack_require__(7);
+	var ResourceManager = __webpack_require__(8);
+	var JThreeObject = __webpack_require__(9);
 	var CanvasListChangedEventArgs = __webpack_require__(10);
 	var SceneManager = __webpack_require__(11);
 	var ListStateChangedType = __webpack_require__(12);
@@ -230,7 +230,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var JThreeContextProxy = (function (_super) {
 	    __extends(JThreeContextProxy, _super);
 	    function JThreeContextProxy() {
@@ -9466,7 +9466,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var JThreeContextProxy = __webpack_require__(3);
 	var JThreeInterface = (function (_super) {
 	    __extends(JThreeInterface, _super);
@@ -9573,32 +9573,13 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var JsHack = __webpack_require__(15);
-	var JThreeObject = (function () {
-	    function JThreeObject() {
-	    }
-	    JThreeObject.prototype.toString = function () {
-	        return JsHack.getObjectName(this);
-	    };
-	    JThreeObject.prototype.getTypeName = function () {
-	        return JsHack.getObjectName(this);
-	    };
-	    return JThreeObject;
-	})();
-	module.exports = JThreeObject;
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Timer = __webpack_require__(16);
+	var Timer = __webpack_require__(15);
 	var ContextTimer = (function (_super) {
 	    __extends(ContextTimer, _super);
 	    function ContextTimer() {
@@ -9616,7 +9597,7 @@
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -9625,15 +9606,15 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObject = __webpack_require__(6);
-	var Exceptions = __webpack_require__(17);
+	var jThreeObject = __webpack_require__(9);
+	var Exceptions = __webpack_require__(16);
 	var $ = __webpack_require__(4);
-	var GomlNodeDictionary = __webpack_require__(18);
+	var GomlNodeDictionary = __webpack_require__(17);
 	var JThreeEvent = __webpack_require__(14);
-	var AssociativeArray = __webpack_require__(19);
-	var ModuleRegistry = __webpack_require__(20);
-	var GomlLoaderConfigurator = __webpack_require__(21);
-	var ModuleRunner = __webpack_require__(22);
+	var AssociativeArray = __webpack_require__(18);
+	var ModuleRegistry = __webpack_require__(19);
+	var GomlLoaderConfigurator = __webpack_require__(20);
+	var ModuleRunner = __webpack_require__(21);
 	var GomlLoader = (function (_super) {
 	    __extends(GomlLoader, _super);
 	    function GomlLoader() {
@@ -9790,7 +9771,7 @@
 
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -9800,12 +9781,12 @@
 	    d.prototype = new __();
 	};
 	var JThreeContextProxy = __webpack_require__(3);
-	var jThreeObject = __webpack_require__(6);
+	var jThreeObject = __webpack_require__(9);
 	var Buffer = __webpack_require__(23);
 	var Shader = __webpack_require__(24);
 	var Program = __webpack_require__(25);
 	var Texture = __webpack_require__(26);
-	var AssociativeArray = __webpack_require__(19);
+	var AssociativeArray = __webpack_require__(18);
 	var ResourceManager = (function (_super) {
 	    __extends(ResourceManager, _super);
 	    function ResourceManager() {
@@ -9885,6 +9866,25 @@
 
 
 /***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var JsHack = __webpack_require__(22);
+	var JThreeObject = (function () {
+	    function JThreeObject() {
+	    }
+	    JThreeObject.prototype.toString = function () {
+	        return JsHack.getObjectName(this);
+	    };
+	    JThreeObject.prototype.getTypeName = function () {
+	        return JsHack.getObjectName(this);
+	    };
+	    return JThreeObject;
+	})();
+	module.exports = JThreeObject;
+
+
+/***/ },
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9894,7 +9894,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var CanvasListChangedEventArgs = (function (_super) {
 	    __extends(CanvasListChangedEventArgs, _super);
 	    function CanvasListChangedEventArgs(changeType, affectedRenderer) {
@@ -9931,9 +9931,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObject = __webpack_require__(6);
+	var jThreeObject = __webpack_require__(9);
 	var JThreeContextProxy = __webpack_require__(3);
-	var AssociativeArray = __webpack_require__(19);
+	var AssociativeArray = __webpack_require__(18);
 	var SceneManager = (function (_super) {
 	    __extends(SceneManager, _super);
 	    function SceneManager() {
@@ -9987,7 +9987,7 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AssociativeArray = __webpack_require__(19);
+	var AssociativeArray = __webpack_require__(18);
 	var JThreeCollection = (function () {
 	    function JThreeCollection() {
 	        this.collection = new AssociativeArray();
@@ -10034,8 +10034,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var Exceptions = __webpack_require__(17);
+	var JThreeObject = __webpack_require__(9);
+	var Exceptions = __webpack_require__(16);
 	var JThreeEvent = (function (_super) {
 	    __extends(JThreeEvent, _super);
 	    function JThreeEvent() {
@@ -10068,30 +10068,13 @@
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var JsHack = (function () {
-	    function JsHack() {
-	    }
-	    JsHack.getObjectName = function (obj) {
-	        var funcNameRegex = /function (.{1,})\(/;
-	        var result = (funcNameRegex).exec((obj).constructor.toString());
-	        return (result && result.length > 1) ? result[1] : "";
-	    };
-	    return JsHack;
-	})();
-	module.exports = JsHack;
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var Timer = (function (_super) {
 	    __extends(Timer, _super);
 	    function Timer() {
@@ -10127,7 +10110,7 @@
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10136,7 +10119,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var jThreeException = (function (_super) {
 	    __extends(jThreeException, _super);
 	    function jThreeException(name, message) {
@@ -10193,7 +10176,7 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10202,8 +10185,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObject = __webpack_require__(6);
-	var AssociativeArray = __webpack_require__(19);
+	var jThreeObject = __webpack_require__(9);
+	var AssociativeArray = __webpack_require__(18);
 	var JThreeEvent = __webpack_require__(14);
 	var GomlNodeDictionary = (function (_super) {
 	    __extends(GomlNodeDictionary, _super);
@@ -10249,7 +10232,7 @@
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AssociativeArray = (function () {
@@ -10288,7 +10271,7 @@
 
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10297,8 +10280,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var AssociativeArray = __webpack_require__(19);
+	var JThreeObject = __webpack_require__(9);
+	var AssociativeArray = __webpack_require__(18);
 	var ModuleRegistry = (function (_super) {
 	    __extends(ModuleRegistry, _super);
 	    function ModuleRegistry() {
@@ -10314,6 +10297,9 @@
 	                            console.log(v.Value);
 	                        }
 	                    }
+	                },
+	                update: function (v) {
+	                    console.log("this is update");
 	                }
 	            }
 	        });
@@ -10333,7 +10319,7 @@
 
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10342,8 +10328,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var AssociativeArray = __webpack_require__(19);
+	var JThreeObject = __webpack_require__(9);
+	var AssociativeArray = __webpack_require__(18);
 	var GomlLoaderConigurator = (function (_super) {
 	    __extends(GomlLoaderConigurator, _super);
 	    function GomlLoaderConigurator() {
@@ -10374,17 +10360,17 @@
 	        configurable: true
 	    });
 	    GomlLoaderConigurator.prototype.initializeRootObjectNames = function () {
-	        this.rootNodes = __webpack_require__(28);
+	        this.rootNodes = __webpack_require__(27);
 	    };
 	    GomlLoaderConigurator.prototype.initializeEasingFunctions = function () {
-	        this.loadIntoAssociativeArray(this.easingFunctions, __webpack_require__(29));
+	        this.loadIntoAssociativeArray(this.easingFunctions, __webpack_require__(28));
 	    };
 	    GomlLoaderConigurator.prototype.initializeConverters = function () {
-	        this.loadIntoAssociativeArray(this.converters, __webpack_require__(30));
+	        this.loadIntoAssociativeArray(this.converters, __webpack_require__(29));
 	    };
 	    GomlLoaderConigurator.prototype.initializeGomlTags = function () {
 	        var _this = this;
-	        var newList = __webpack_require__(31);
+	        var newList = __webpack_require__(30);
 	        newList.forEach(function (v) {
 	            for (var key in v.NodeTypes) {
 	                var keyInString = key;
@@ -10407,7 +10393,7 @@
 
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10416,9 +10402,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var JThreeCollection = __webpack_require__(13);
-	var JThreeObjectWithID = __webpack_require__(27);
+	var JThreeObjectWithID = __webpack_require__(31);
 	var ModuleNodePair = (function (_super) {
 	    __extends(ModuleNodePair, _super);
 	    function ModuleNodePair(module, target) {
@@ -10457,6 +10443,8 @@
 	        this.dictionary.insert(modulePair);
 	        this.sortedModules.push(modulePair);
 	        this.sortModules();
+	        if (!node.awaken)
+	            node.awake.call(node, target);
 	    };
 	    ModuleRunner.prototype.executeForAllModules = function (methodName) {
 	        this.sortedModules.forEach(function (v) {
@@ -10468,6 +10456,23 @@
 	    return ModuleRunner;
 	})(JThreeObject);
 	module.exports = ModuleRunner;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var JsHack = (function () {
+	    function JsHack() {
+	    }
+	    JsHack.getObjectName = function (obj) {
+	        var funcNameRegex = /function (.{1,})\(/;
+	        var result = (funcNameRegex).exec((obj).constructor.toString());
+	        return (result && result.length > 1) ? result[1] : "";
+	    };
+	    return JsHack;
+	})();
+	module.exports = JsHack;
 
 
 /***/ },
@@ -10484,7 +10489,7 @@
 	var BufferWrapper = __webpack_require__(33);
 	var JThreeContextProxy = __webpack_require__(3);
 	var ListStateChangedType = __webpack_require__(12);
-	var AssociativeArray = __webpack_require__(19);
+	var AssociativeArray = __webpack_require__(18);
 	var Buffer = (function (_super) {
 	    __extends(Buffer, _super);
 	    function Buffer() {
@@ -10798,14 +10803,93 @@
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var topNodes = [
+	    "renderers",
+	    "resources",
+	    "templates",
+	    "scenes"
+	];
+	module.exports = topNodes;
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var easingFunction = {
+	    "linear": __webpack_require__(41),
+	    "swing": __webpack_require__(42)
+	};
+	module.exports = easingFunction;
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var converterList = {
+	    "angle": __webpack_require__(43),
+	    "number": __webpack_require__(44),
+	    "vector3": __webpack_require__(45),
+	    "rotation": __webpack_require__(46),
+	    "color4": __webpack_require__(47),
+	    "color3": __webpack_require__(48),
+	    "boolean": __webpack_require__(49),
+	    "integer": __webpack_require__(50)
+	};
+	module.exports = converterList;
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var GomlNodeListElement = __webpack_require__(51);
+	var gomlList = [
+	    new GomlNodeListElement('jthree.geometries', __webpack_require__(52), {
+	        "TRI": __webpack_require__(53),
+	        "GRID": __webpack_require__(54),
+	        "CUBE": __webpack_require__(55),
+	        "CIRCLE": __webpack_require__(56),
+	        "CYLINDER": __webpack_require__(57)
+	    }),
+	    new GomlNodeListElement('jthree.basic', __webpack_require__(52), {
+	        "RDR": __webpack_require__(58),
+	        "VP": __webpack_require__(59),
+	        "SCENE": __webpack_require__(60),
+	    }),
+	    new GomlNodeListElement('jthree.materials', __webpack_require__(52), {
+	        "SOLID": __webpack_require__(61),
+	        "LAMBERT": __webpack_require__(62),
+	        "PHONG": __webpack_require__(63)
+	    }),
+	    new GomlNodeListElement('jthree.sceneobject', __webpack_require__(64), {
+	        "CAMERA": __webpack_require__(65),
+	        "MESH": __webpack_require__(66),
+	        "OBJECT": __webpack_require__(67)
+	    }),
+	    new GomlNodeListElement("jthree.modules", __webpack_require__(52), {
+	        "MODULES": __webpack_require__(68),
+	    }),
+	    new GomlNodeListElement("jthree.module", __webpack_require__(69), {
+	        "MODULE": __webpack_require__(70)
+	    })
+	];
+	module.exports = gomlList;
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var JThreeID = __webpack_require__(41);
+	var JThreeObject = __webpack_require__(9);
+	var JThreeID = __webpack_require__(71);
 	var JThreeObjectWithID = (function (_super) {
 	    __extends(JThreeObjectWithID, _super);
 	    function JThreeObjectWithID(id) {
@@ -10822,85 +10906,6 @@
 	    return JThreeObjectWithID;
 	})(JThreeObject);
 	module.exports = JThreeObjectWithID;
-
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var topNodes = [
-	    "renderers",
-	    "resources",
-	    "templates",
-	    "scenes"
-	];
-	module.exports = topNodes;
-
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var easingFunction = {
-	    "linear": __webpack_require__(42),
-	    "swing": __webpack_require__(43)
-	};
-	module.exports = easingFunction;
-
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var converterList = {
-	    "angle": __webpack_require__(44),
-	    "number": __webpack_require__(45),
-	    "vector3": __webpack_require__(46),
-	    "rotation": __webpack_require__(47),
-	    "color4": __webpack_require__(48),
-	    "color3": __webpack_require__(49),
-	    "boolean": __webpack_require__(50),
-	    "integer": __webpack_require__(51)
-	};
-	module.exports = converterList;
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var GomlNodeListElement = __webpack_require__(52);
-	var gomlList = [
-	    new GomlNodeListElement('jthree.geometries', __webpack_require__(53), {
-	        "TRI": __webpack_require__(54),
-	        "GRID": __webpack_require__(55),
-	        "CUBE": __webpack_require__(56),
-	        "CIRCLE": __webpack_require__(57),
-	        "CYLINDER": __webpack_require__(58)
-	    }),
-	    new GomlNodeListElement('jthree.basic', __webpack_require__(53), {
-	        "RDR": __webpack_require__(59),
-	        "VP": __webpack_require__(60),
-	        "SCENE": __webpack_require__(61),
-	    }),
-	    new GomlNodeListElement('jthree.materials', __webpack_require__(53), {
-	        "SOLID": __webpack_require__(62),
-	        "LAMBERT": __webpack_require__(63),
-	        "PHONG": __webpack_require__(64)
-	    }),
-	    new GomlNodeListElement('jthree.sceneobject', __webpack_require__(65), {
-	        "CAMERA": __webpack_require__(66),
-	        "MESH": __webpack_require__(67),
-	        "OBJECT": __webpack_require__(68)
-	    }),
-	    new GomlNodeListElement("jthree.modules", __webpack_require__(53), {
-	        "MODULES": __webpack_require__(69),
-	    }),
-	    new GomlNodeListElement("jthree.module", __webpack_require__(70), {
-	        "MODULE": __webpack_require__(71)
-	    })
-	];
-	module.exports = gomlList;
 
 
 /***/ },
@@ -11109,10 +11114,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var Exceptions = __webpack_require__(17);
+	var JThreeObject = __webpack_require__(9);
+	var Exceptions = __webpack_require__(16);
 	var ListStateChangedType = __webpack_require__(12);
-	var AssociativeArray = __webpack_require__(19);
+	var AssociativeArray = __webpack_require__(18);
 	var ContextSafeResourceContainer = (function (_super) {
 	    __extends(ContextSafeResourceContainer, _super);
 	    function ContextSafeResourceContainer(context) {
@@ -11221,7 +11226,7 @@
 	    d.prototype = new __();
 	};
 	var ResourceWrapper = __webpack_require__(74);
-	var AssociativeArray = __webpack_require__(19);
+	var AssociativeArray = __webpack_require__(18);
 	var ProgramWrapper = (function (_super) {
 	    __extends(ProgramWrapper, _super);
 	    function ProgramWrapper(parent, contextManager) {
@@ -11418,35 +11423,6 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var JThreeID = (function (_super) {
-	    __extends(JThreeID, _super);
-	    function JThreeID() {
-	        _super.apply(this, arguments);
-	    }
-	    JThreeID.getUniqueRandom = function (length) {
-	        var random = "";
-	        for (var i = 0; i < length; i++) {
-	            random += JThreeID.randomChars.charAt(Math.random() * JThreeID.randomChars.length);
-	        }
-	        return random;
-	    };
-	    JThreeID.randomChars = "abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ1234567890-";
-	    return JThreeID;
-	})(JThreeObject);
-	module.exports = JThreeID;
-
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
 	var EasingFunctionBase = __webpack_require__(93);
 	var LinearEasingFunction = (function (_super) {
 	    __extends(LinearEasingFunction, _super);
@@ -11462,7 +11438,7 @@
 
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11487,7 +11463,7 @@
 
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11496,9 +11472,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(17);
-	var AttributeParser = __webpack_require__(80);
-	var AttributeConverterBase = __webpack_require__(78);
+	var Exceptions = __webpack_require__(16);
+	var AttributeParser = __webpack_require__(78);
+	var AttributeConverterBase = __webpack_require__(79);
 	var AngleAttributeConverter = (function (_super) {
 	    __extends(AngleAttributeConverter, _super);
 	    function AngleAttributeConverter() {
@@ -11525,7 +11501,7 @@
 
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11534,9 +11510,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(78);
-	var Exceptions = __webpack_require__(17);
-	var NumberAnimater = __webpack_require__(79);
+	var AttributeConverterBase = __webpack_require__(79);
+	var Exceptions = __webpack_require__(16);
+	var NumberAnimater = __webpack_require__(80);
 	var NumberAttributeConverter = (function (_super) {
 	    __extends(NumberAttributeConverter, _super);
 	    function NumberAttributeConverter() {
@@ -11566,7 +11542,7 @@
 
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11575,8 +11551,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(78);
-	var Exceptions = __webpack_require__(17);
+	var AttributeConverterBase = __webpack_require__(79);
+	var Exceptions = __webpack_require__(16);
 	var Vector3 = __webpack_require__(81);
 	var Vector3Animater = __webpack_require__(82);
 	var Vector3AttributeConverter = (function (_super) {
@@ -11608,7 +11584,7 @@
 
 
 /***/ },
-/* 47 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11617,9 +11593,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var Exceptions = __webpack_require__(17);
-	var AttributeParser = __webpack_require__(80);
+	var JThreeObject = __webpack_require__(9);
+	var Exceptions = __webpack_require__(16);
+	var AttributeParser = __webpack_require__(78);
 	var RotationAnimater = __webpack_require__(85);
 	var RotationAttributeConverter = (function (_super) {
 	    __extends(RotationAttributeConverter, _super);
@@ -11650,7 +11626,7 @@
 
 
 /***/ },
-/* 48 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11659,8 +11635,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(78);
-	var Exceptions = __webpack_require__(17);
+	var AttributeConverterBase = __webpack_require__(79);
+	var Exceptions = __webpack_require__(16);
 	var Color4 = __webpack_require__(83);
 	var Color4Animater = __webpack_require__(84);
 	var Color4AttributeConverter = (function (_super) {
@@ -11692,7 +11668,7 @@
 
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11701,8 +11677,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(78);
-	var Exceptions = __webpack_require__(17);
+	var AttributeConverterBase = __webpack_require__(79);
+	var Exceptions = __webpack_require__(16);
 	var Color3 = __webpack_require__(86);
 	var Color3AttributeConverter = (function (_super) {
 	    __extends(Color3AttributeConverter, _super);
@@ -11733,7 +11709,7 @@
 
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11742,7 +11718,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(78);
+	var AttributeConverterBase = __webpack_require__(79);
 	var BooleanAttributeConverter = (function (_super) {
 	    __extends(BooleanAttributeConverter, _super);
 	    function BooleanAttributeConverter() {
@@ -11755,6 +11731,8 @@
 	        return attr === 'true';
 	    };
 	    BooleanAttributeConverter.prototype.FromInterface = function (val) {
+	        if (typeof val === 'boolean')
+	            return val;
 	        return this.FromAttribute(val);
 	    };
 	    return BooleanAttributeConverter;
@@ -11763,7 +11741,7 @@
 
 
 /***/ },
-/* 51 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11772,7 +11750,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AttributeConverterBase = __webpack_require__(78);
+	var AttributeConverterBase = __webpack_require__(79);
 	var IntegerAnimater = __webpack_require__(87);
 	var IntegerAttributeConverter = (function (_super) {
 	    __extends(IntegerAttributeConverter, _super);
@@ -11802,7 +11780,7 @@
 
 
 /***/ },
-/* 52 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11811,7 +11789,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var GomlNodeListElement = (function (_super) {
 	    __extends(GomlNodeListElement, _super);
 	    function GomlNodeListElement(group, factory, nodeTypes) {
@@ -11847,7 +11825,7 @@
 
 
 /***/ },
-/* 53 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11856,7 +11834,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObject = __webpack_require__(6);
+	var jThreeObject = __webpack_require__(9);
 	var JThreeContextProxy = __webpack_require__(3);
 	var TagFactory = (function (_super) {
 	    __extends(TagFactory, _super);
@@ -11884,7 +11862,7 @@
 
 
 /***/ },
-/* 54 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11940,7 +11918,7 @@
 
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -11990,7 +11968,7 @@
 
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12000,7 +11978,7 @@
 	    d.prototype = new __();
 	};
 	var GeometryNodeBase = __webpack_require__(94);
-	var CubeGeometry = __webpack_require__(98);
+	var CubeGeometry = __webpack_require__(97);
 	var CubeGeometryNode = (function (_super) {
 	    __extends(CubeGeometryNode, _super);
 	    function CubeGeometryNode(elem, loader, parent) {
@@ -12018,7 +11996,7 @@
 
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12028,7 +12006,7 @@
 	    d.prototype = new __();
 	};
 	var GeometryNodeBase = __webpack_require__(94);
-	var CircleGeometry = __webpack_require__(97);
+	var CircleGeometry = __webpack_require__(98);
 	var CircleGeometryNode = (function (_super) {
 	    __extends(CircleGeometryNode, _super);
 	    function CircleGeometryNode(elem, loader, parent) {
@@ -12055,7 +12033,7 @@
 
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12092,7 +12070,7 @@
 
 
 /***/ },
-/* 59 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12171,7 +12149,7 @@
 
 
 /***/ },
-/* 60 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12297,7 +12275,7 @@
 
 
 /***/ },
-/* 61 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12325,7 +12303,7 @@
 
 
 /***/ },
-/* 62 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12334,7 +12312,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SolidColor = __webpack_require__(100);
+	var SolidColor = __webpack_require__(102);
 	var MaterialNodeBase = __webpack_require__(101);
 	var SolidColorNode = (function (_super) {
 	    __extends(SolidColorNode, _super);
@@ -12360,7 +12338,7 @@
 
 
 /***/ },
-/* 63 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12369,7 +12347,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Lambert = __webpack_require__(102);
+	var Lambert = __webpack_require__(100);
 	var MaterialNodeBase = __webpack_require__(101);
 	var LambertNode = (function (_super) {
 	    __extends(LambertNode, _super);
@@ -12396,7 +12374,7 @@
 
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12440,7 +12418,7 @@
 
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12449,7 +12427,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var TagFactory = __webpack_require__(53);
+	var TagFactory = __webpack_require__(52);
 	var SceneObjectTagFactory = (function (_super) {
 	    __extends(SceneObjectTagFactory, _super);
 	    function SceneObjectTagFactory() {
@@ -12483,7 +12461,7 @@
 
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12565,7 +12543,7 @@
 
 
 /***/ },
-/* 67 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12576,7 +12554,7 @@
 	};
 	var SceneObjectNodeBase = __webpack_require__(104);
 	var Mesh = __webpack_require__(105);
-	var SolidColor = __webpack_require__(100);
+	var SolidColor = __webpack_require__(102);
 	var GomlTreeMeshNode = (function (_super) {
 	    __extends(GomlTreeMeshNode, _super);
 	    function GomlTreeMeshNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -12616,7 +12594,7 @@
 
 
 /***/ },
-/* 68 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12648,7 +12626,7 @@
 
 
 /***/ },
-/* 69 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12677,7 +12655,7 @@
 
 
 /***/ },
-/* 70 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12686,7 +12664,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var TagFactory = __webpack_require__(53);
+	var TagFactory = __webpack_require__(52);
 	var ModuleTagFactory = (function (_super) {
 	    __extends(ModuleTagFactory, _super);
 	    function ModuleTagFactory() {
@@ -12704,7 +12682,7 @@
 
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -12719,8 +12697,12 @@
 	    function ModuleNode(elem, loader, parent, moduleTarget) {
 	        var _this = this;
 	        _super.call(this, elem, loader, parent);
+	        this.awakenCache = false;
 	        this.cachedOrder = 1000;
 	        this.cachedEnabled = true;
+	        this.updateDelegate = function () { };
+	        this.startDelegate = function () { };
+	        this.awakeDelegate = function () { };
 	        if (elem.getAttribute("name")) {
 	            var module = loader.moduleRegistry.getModule(elem.getAttribute("name"));
 	            if (module) {
@@ -12728,11 +12710,20 @@
 	                    this.cachedOrder = module.order;
 	                if (typeof module.enabled !== 'undefined')
 	                    this.cachedEnabled = module.enabled;
+	                if (typeof module.awake === 'function')
+	                    this.awakeDelegate = module.awake;
+	                if (typeof module.update === 'function')
+	                    this.updateDelegate = module.update;
+	                if (typeof module.start === 'function')
+	                    this.startDelegate = module.start;
 	                this.attributes.defineAttribute({
 	                    "enabled": {
 	                        converter: "boolean",
 	                        value: true,
-	                        handler: function (v) { _this.enabled = v.Value; }
+	                        handler: function (v) {
+	                            debugger;
+	                            _this.enabled = v.Value;
+	                        }
 	                    }
 	                });
 	                for (var attrKey in module.attributes) {
@@ -12770,6 +12761,13 @@
 	            console.warn("module name was not specified");
 	        }
 	    }
+	    Object.defineProperty(ModuleNode.prototype, "awaken", {
+	        get: function () {
+	            return this.awakenCache;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Object.defineProperty(ModuleNode.prototype, "order", {
 	        get: function () {
 	            return this.cachedOrder;
@@ -12790,10 +12788,45 @@
 	    ModuleNode.prototype.update = function (target) {
 	        this.updateDelegate(target);
 	    };
+	    ModuleNode.prototype.start = function (target) {
+	        this.startDelegate(target);
+	    };
+	    ModuleNode.prototype.awake = function (target) {
+	        this.awakeDelegate(target);
+	    };
 	    ModuleNode.ignoreNode = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "loader", "element"];
 	    return ModuleNode;
 	})(GomlTreeNodeBase);
 	module.exports = ModuleNode;
+
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var JThreeObject = __webpack_require__(9);
+	var JThreeID = (function (_super) {
+	    __extends(JThreeID, _super);
+	    function JThreeID() {
+	        _super.apply(this, arguments);
+	    }
+	    JThreeID.getUniqueRandom = function (length) {
+	        var random = "";
+	        for (var i = 0; i < length; i++) {
+	            random += JThreeID.randomChars.charAt(Math.random() * JThreeID.randomChars.length);
+	        }
+	        return random;
+	    };
+	    JThreeID.randomChars = "abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ1234567890-";
+	    return JThreeID;
+	})(JThreeObject);
+	module.exports = JThreeID;
 
 
 /***/ },
@@ -12884,7 +12917,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var ResourceWrapper = (function (_super) {
 	    __extends(ResourceWrapper, _super);
 	    function ResourceWrapper(ownerCanvas) {
@@ -12974,65 +13007,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
-	var Exceptions = __webpack_require__(17);
-	var AttributeConverterBase = (function (_super) {
-	    __extends(AttributeConverterBase, _super);
-	    function AttributeConverterBase() {
-	        _super.call(this);
-	    }
-	    AttributeConverterBase.prototype.ToAttribute = function (val) {
-	        throw new Exceptions.AbstractClassMethodCalledException();
-	    };
-	    AttributeConverterBase.prototype.FromAttribute = function (attr) {
-	        throw new Exceptions.AbstractClassMethodCalledException();
-	    };
-	    AttributeConverterBase.prototype.FromInterface = function (val) {
-	        throw new Exceptions.AbstractClassMethodCalledException();
-	    };
-	    AttributeConverterBase.prototype.GetAnimater = function (attr, beginVal, endVal, beginTime, duration, easing, onComplete) {
-	        throw new Exceptions.AbstractClassMethodCalledException();
-	    };
-	    return AttributeConverterBase;
-	})(JThreeObject);
-	module.exports = AttributeConverterBase;
-
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var AnimagterBase = __webpack_require__(109);
-	var NumberAnimater = (function (_super) {
-	    __extends(NumberAnimater, _super);
-	    function NumberAnimater() {
-	        _super.apply(this, arguments);
-	    }
-	    NumberAnimater.prototype.updateAnimation = function (progress) {
-	        this.targetAttribute.Value = this.easingFunction.Ease(this.beginValue, this.endValue, progress);
-	    };
-	    return NumberAnimater;
-	})(AnimagterBase);
-	module.exports = NumberAnimater;
-
-
-/***/ },
-/* 80 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var jThreeObject = __webpack_require__(6);
+	var jThreeObject = __webpack_require__(9);
 	var Quaternion = __webpack_require__(108);
 	var Vector3 = __webpack_require__(81);
 	var AttributeParser = (function (_super) {
@@ -13088,6 +13063,64 @@
 
 
 /***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var JThreeObject = __webpack_require__(9);
+	var Exceptions = __webpack_require__(16);
+	var AttributeConverterBase = (function (_super) {
+	    __extends(AttributeConverterBase, _super);
+	    function AttributeConverterBase() {
+	        _super.call(this);
+	    }
+	    AttributeConverterBase.prototype.ToAttribute = function (val) {
+	        throw new Exceptions.AbstractClassMethodCalledException();
+	    };
+	    AttributeConverterBase.prototype.FromAttribute = function (attr) {
+	        throw new Exceptions.AbstractClassMethodCalledException();
+	    };
+	    AttributeConverterBase.prototype.FromInterface = function (val) {
+	        throw new Exceptions.AbstractClassMethodCalledException();
+	    };
+	    AttributeConverterBase.prototype.GetAnimater = function (attr, beginVal, endVal, beginTime, duration, easing, onComplete) {
+	        throw new Exceptions.AbstractClassMethodCalledException();
+	    };
+	    return AttributeConverterBase;
+	})(JThreeObject);
+	module.exports = AttributeConverterBase;
+
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var AnimagterBase = __webpack_require__(109);
+	var NumberAnimater = (function (_super) {
+	    __extends(NumberAnimater, _super);
+	    function NumberAnimater() {
+	        _super.apply(this, arguments);
+	    }
+	    NumberAnimater.prototype.updateAnimation = function (progress) {
+	        this.targetAttribute.Value = this.easingFunction.Ease(this.beginValue, this.endValue, progress);
+	    };
+	    return NumberAnimater;
+	})(AnimagterBase);
+	module.exports = NumberAnimater;
+
+
+/***/ },
 /* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -13098,7 +13131,7 @@
 	    d.prototype = new __();
 	};
 	var VectorEnumeratorBase = __webpack_require__(110);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var VectorBase = __webpack_require__(111);
 	var Vector3Factory = (function () {
 	    function Vector3Factory() {
@@ -13323,7 +13356,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var Vector4 = __webpack_require__(112);
 	var Color4 = (function (_super) {
 	    __extends(Color4, _super);
@@ -13490,7 +13523,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var Vector3 = __webpack_require__(81);
 	var Color4 = __webpack_require__(83);
 	var Color3 = (function (_super) {
@@ -13771,7 +13804,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObject = __webpack_require__(6);
+	var jThreeObject = __webpack_require__(9);
 	var Rectangle = (function (_super) {
 	    __extends(Rectangle, _super);
 	    function Rectangle(left, top, width, height) {
@@ -13841,7 +13874,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObjectWithID = __webpack_require__(27);
+	var jThreeObjectWithID = __webpack_require__(31);
 	var MaterialObjectPair = (function () {
 	    function MaterialObjectPair(material, targetObject) {
 	        this.material = material;
@@ -13935,7 +13968,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var EasingFunctionBase = (function (_super) {
 	    __extends(EasingFunctionBase, _super);
 	    function EasingFunctionBase() {
@@ -13960,7 +13993,7 @@
 	    d.prototype = new __();
 	};
 	var GomlTreeNodeBase = __webpack_require__(89);
-	var JThreeID = __webpack_require__(41);
+	var JThreeID = __webpack_require__(71);
 	var GomlTreeGeometryNode = (function (_super) {
 	    __extends(GomlTreeGeometryNode, _super);
 	    function GomlTreeGeometryNode(elem, loader, parent) {
@@ -14193,6 +14226,56 @@
 	var ElementType = __webpack_require__(122);
 	var Vector3 = __webpack_require__(81);
 	var PrimitiveTopology = __webpack_require__(123);
+	var CubeGeometry = (function (_super) {
+	    __extends(CubeGeometry, _super);
+	    function CubeGeometry(name) {
+	        _super.call(this);
+	        var j3 = JThreeContextProxy.getJThreeContext();
+	        this.primitiveTopology = PrimitiveTopology.Triangles;
+	        this.indexBuffer = j3.ResourceManager.createBuffer(name + "index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
+	        this.positionBuffer = j3.ResourceManager.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
+	        this.normalBuffer = j3.ResourceManager.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
+	        this.uvBuffer = j3.ResourceManager.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
+	        this.updateBuffers();
+	    }
+	    CubeGeometry.prototype.updateBuffers = function () {
+	        var pos = [];
+	        var normal = [];
+	        var uv = [];
+	        var index = [];
+	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1), new Vector3(-1, -1, 1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, 1), new Vector3(1, 1, -1), new Vector3(1, -1, 1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, -1), new Vector3(-1, 1, -1), new Vector3(1, -1, -1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, -1), new Vector3(-1, 1, 1), new Vector3(-1, -1, -1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, 1, -1), new Vector3(1, 1, 1)]);
+	        this.addQuad(pos, normal, uv, index, [new Vector3(1, -1, 1), new Vector3(1, -1, -1), new Vector3(-1, -1, 1)]);
+	        this.indexBuffer.update(new Uint8Array(index), index.length);
+	        this.normalBuffer.update(new Float32Array(normal), normal.length);
+	        this.uvBuffer.update(new Float32Array(uv), uv.length);
+	        this.positionBuffer.update(new Float32Array(pos), pos.length);
+	    };
+	    return CubeGeometry;
+	})(Geometry);
+	module.exports = CubeGeometry;
+
+
+/***/ },
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var Geometry = __webpack_require__(119);
+	var JThreeContextProxy = __webpack_require__(3);
+	var BufferTargetType = __webpack_require__(120);
+	var BufferUsageType = __webpack_require__(121);
+	var ElementType = __webpack_require__(122);
+	var Vector3 = __webpack_require__(81);
+	var PrimitiveTopology = __webpack_require__(123);
 	var CircleGeometry = (function (_super) {
 	    __extends(CircleGeometry, _super);
 	    function CircleGeometry(name) {
@@ -14231,56 +14314,6 @@
 	    return CircleGeometry;
 	})(Geometry);
 	module.exports = CircleGeometry;
-
-
-/***/ },
-/* 98 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var Geometry = __webpack_require__(119);
-	var JThreeContextProxy = __webpack_require__(3);
-	var BufferTargetType = __webpack_require__(120);
-	var BufferUsageType = __webpack_require__(121);
-	var ElementType = __webpack_require__(122);
-	var Vector3 = __webpack_require__(81);
-	var PrimitiveTopology = __webpack_require__(123);
-	var CubeGeometry = (function (_super) {
-	    __extends(CubeGeometry, _super);
-	    function CubeGeometry(name) {
-	        _super.call(this);
-	        var j3 = JThreeContextProxy.getJThreeContext();
-	        this.primitiveTopology = PrimitiveTopology.Triangles;
-	        this.indexBuffer = j3.ResourceManager.createBuffer(name + "index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
-	        this.positionBuffer = j3.ResourceManager.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
-	        this.normalBuffer = j3.ResourceManager.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
-	        this.uvBuffer = j3.ResourceManager.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
-	        this.updateBuffers();
-	    }
-	    CubeGeometry.prototype.updateBuffers = function () {
-	        var pos = [];
-	        var normal = [];
-	        var uv = [];
-	        var index = [];
-	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1), new Vector3(-1, -1, 1)]);
-	        this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, 1), new Vector3(1, 1, -1), new Vector3(1, -1, 1)]);
-	        this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, -1), new Vector3(-1, 1, -1), new Vector3(1, -1, -1)]);
-	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, -1), new Vector3(-1, 1, 1), new Vector3(-1, -1, -1)]);
-	        this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, 1, -1), new Vector3(1, 1, 1)]);
-	        this.addQuad(pos, normal, uv, index, [new Vector3(1, -1, 1), new Vector3(1, -1, -1), new Vector3(-1, -1, 1)]);
-	        this.indexBuffer.update(new Uint8Array(index), index.length);
-	        this.normalBuffer.update(new Float32Array(normal), normal.length);
-	        this.uvBuffer.update(new Float32Array(uv), uv.length);
-	        this.positionBuffer.update(new Float32Array(pos), pos.length);
-	    };
-	    return CubeGeometry;
-	})(Geometry);
-	module.exports = CubeGeometry;
 
 
 /***/ },
@@ -14353,6 +14386,115 @@
 	var Material = __webpack_require__(124);
 	var JThreeContextProxy = __webpack_require__(3);
 	var ShaderType = __webpack_require__(125);
+	var Vector3 = __webpack_require__(81);
+	var Matrix = __webpack_require__(126);
+	var Color4 = __webpack_require__(83);
+	var LambertMaterial = (function (_super) {
+	    __extends(LambertMaterial, _super);
+	    function LambertMaterial() {
+	        _super.call(this);
+	        this.color = Color4.parseColor('#F0F');
+	        var jThreeContext = JThreeContextProxy.getJThreeContext();
+	        var vs = __webpack_require__(134);
+	        var fs = __webpack_require__(136);
+	        var rm = jThreeContext.ResourceManager;
+	        var vsShader;
+	        vsShader = rm.createOrGetShader("jthree.shaders.vertex.basic", vs, ShaderType.VertexShader);
+	        var fsShader = rm.createOrGetShader("jthree.shaders.fragment.lambert", fs, ShaderType.FragmentShader);
+	        vsShader.loadAll();
+	        fsShader.loadAll();
+	        this.program = jThreeContext.ResourceManager.createorGetProgram("jthree.programs.lambert", [vsShader, fsShader]);
+	    }
+	    Object.defineProperty(LambertMaterial.prototype, "Color", {
+	        get: function () {
+	            return this.color;
+	        },
+	        set: function (col) {
+	            this.color = col;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    LambertMaterial.prototype.configureMaterial = function (renderer, object) {
+	        _super.prototype.configureMaterial.call(this, renderer, object);
+	        var geometry = object.Geometry;
+	        var programWrapper = this.program.getForRenderer(renderer.ContextManager);
+	        programWrapper.useProgram();
+	        var v = this.CalculateMVPMatrix(renderer, object);
+	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setUniformMatrix("matMVP", v);
+	        programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
+	        programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
+	        programWrapper.setUniformVector("u_color", this.Color.toVector());
+	        programWrapper.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
+	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+	    };
+	    return LambertMaterial;
+	})(Material);
+	module.exports = LambertMaterial;
+
+
+/***/ },
+/* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var GomlTreeNodeBase = __webpack_require__(89);
+	var JThreeID = __webpack_require__(71);
+	var MaterialNodeBase = (function (_super) {
+	    __extends(MaterialNodeBase, _super);
+	    function MaterialNodeBase(elem, loader, parent) {
+	        var _this = this;
+	        _super.call(this, elem, loader, parent);
+	        this.attributes.defineAttribute({
+	            "cull": {
+	                value: true,
+	                converter: "boolean",
+	                handler: function (v) { _this.targetMaterial.CullEnabled = v.Value; }
+	            }
+	        });
+	    }
+	    MaterialNodeBase.prototype.ConstructMaterial = function () {
+	        return null;
+	    };
+	    MaterialNodeBase.prototype.beforeLoad = function () {
+	        this.targetMaterial = this.ConstructMaterial();
+	        this.loader.nodeRegister.addObject("jthree.materials", this.Name, this);
+	        this.targetMaterial.CullEnabled = this.attributes.getValue("cull");
+	    };
+	    Object.defineProperty(MaterialNodeBase.prototype, "Name", {
+	        get: function () {
+	            this.name = this.name || this.element.getAttribute('name') || JThreeID.getUniqueRandom(10);
+	            return this.name;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return MaterialNodeBase;
+	})(GomlTreeNodeBase);
+	module.exports = MaterialNodeBase;
+
+
+/***/ },
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var Material = __webpack_require__(124);
+	var JThreeContextProxy = __webpack_require__(3);
+	var ShaderType = __webpack_require__(125);
 	var Matrix = __webpack_require__(126);
 	var Color4 = __webpack_require__(83);
 	var SolidColorMaterial = (function (_super) {
@@ -14401,115 +14543,6 @@
 
 
 /***/ },
-/* 101 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var GomlTreeNodeBase = __webpack_require__(89);
-	var JThreeID = __webpack_require__(41);
-	var MaterialNodeBase = (function (_super) {
-	    __extends(MaterialNodeBase, _super);
-	    function MaterialNodeBase(elem, loader, parent) {
-	        var _this = this;
-	        _super.call(this, elem, loader, parent);
-	        this.attributes.defineAttribute({
-	            "cull": {
-	                value: true,
-	                converter: "boolean",
-	                handler: function (v) { _this.targetMaterial.CullEnabled = v.Value; }
-	            }
-	        });
-	    }
-	    MaterialNodeBase.prototype.ConstructMaterial = function () {
-	        return null;
-	    };
-	    MaterialNodeBase.prototype.beforeLoad = function () {
-	        this.targetMaterial = this.ConstructMaterial();
-	        this.loader.nodeRegister.addObject("jthree.materials", this.Name, this);
-	        this.targetMaterial.CullEnabled = this.attributes.getValue("cull");
-	    };
-	    Object.defineProperty(MaterialNodeBase.prototype, "Name", {
-	        get: function () {
-	            this.name = this.name || this.element.getAttribute('name') || JThreeID.getUniqueRandom(10);
-	            return this.name;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return MaterialNodeBase;
-	})(GomlTreeNodeBase);
-	module.exports = MaterialNodeBase;
-
-
-/***/ },
-/* 102 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var Material = __webpack_require__(124);
-	var JThreeContextProxy = __webpack_require__(3);
-	var ShaderType = __webpack_require__(125);
-	var Vector3 = __webpack_require__(81);
-	var Matrix = __webpack_require__(126);
-	var Color4 = __webpack_require__(83);
-	var LambertMaterial = (function (_super) {
-	    __extends(LambertMaterial, _super);
-	    function LambertMaterial() {
-	        _super.call(this);
-	        this.color = Color4.parseColor('#F0F');
-	        var jThreeContext = JThreeContextProxy.getJThreeContext();
-	        var vs = __webpack_require__(134);
-	        var fs = __webpack_require__(137);
-	        var rm = jThreeContext.ResourceManager;
-	        var vsShader;
-	        vsShader = rm.createOrGetShader("jthree.shaders.vertex.basic", vs, ShaderType.VertexShader);
-	        var fsShader = rm.createOrGetShader("jthree.shaders.fragment.lambert", fs, ShaderType.FragmentShader);
-	        vsShader.loadAll();
-	        fsShader.loadAll();
-	        this.program = jThreeContext.ResourceManager.createorGetProgram("jthree.programs.lambert", [vsShader, fsShader]);
-	    }
-	    Object.defineProperty(LambertMaterial.prototype, "Color", {
-	        get: function () {
-	            return this.color;
-	        },
-	        set: function (col) {
-	            this.color = col;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    LambertMaterial.prototype.configureMaterial = function (renderer, object) {
-	        _super.prototype.configureMaterial.call(this, renderer, object);
-	        var geometry = object.Geometry;
-	        var programWrapper = this.program.getForRenderer(renderer.ContextManager);
-	        programWrapper.useProgram();
-	        var v = this.CalculateMVPMatrix(renderer, object);
-	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setUniformMatrix("matMVP", v);
-	        programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
-	        programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-	        programWrapper.setUniformVector("u_color", this.Color.toVector());
-	        programWrapper.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
-	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
-	    };
-	    return LambertMaterial;
-	})(Material);
-	module.exports = LambertMaterial;
-
-
-/***/ },
 /* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14538,7 +14571,7 @@
 	        this.specularCoefficient = 10;
 	        var jThreeContext = JThreeContextProxy.getJThreeContext();
 	        var vs = __webpack_require__(134);
-	        var fs = __webpack_require__(136);
+	        var fs = __webpack_require__(137);
 	        var rm = jThreeContext.ResourceManager;
 	        var vsShader;
 	        vsShader = rm.createOrGetShader("jthree.shaders.vertex.basic", vs, ShaderType.VertexShader);
@@ -14629,7 +14662,7 @@
 	var GomlTreeNodeBase = __webpack_require__(89);
 	var Vector3 = __webpack_require__(81);
 	var Quaternion = __webpack_require__(108);
-	var AttributeParser = __webpack_require__(80);
+	var AttributeParser = __webpack_require__(78);
 	var SceneObjectNodeBase = (function (_super) {
 	    __extends(SceneObjectNodeBase, _super);
 	    function SceneObjectNodeBase(elem, loader, parent, parentSceneNode, parentObject) {
@@ -14833,7 +14866,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeID = __webpack_require__(41);
+	var JThreeID = __webpack_require__(71);
 	var SceneObjectNodeBase = __webpack_require__(104);
 	var GomlTreeCameraNodeBase = (function (_super) {
 	    __extends(GomlTreeCameraNodeBase, _super);
@@ -14885,7 +14918,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var Vector3 = __webpack_require__(81);
 	var Quaternion = (function (_super) {
 	    __extends(Quaternion, _super);
@@ -15019,7 +15052,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithID = __webpack_require__(27);
+	var JThreeObjectWithID = __webpack_require__(31);
 	var AnimaterBase = (function (_super) {
 	    __extends(AnimaterBase, _super);
 	    function AnimaterBase(targetAttribute, begintime, duration, beginValue, endValue, easing, onComplete) {
@@ -15052,7 +15085,7 @@
 /* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Math = __webpack_require__(131);
+	var Math = __webpack_require__(130);
 	var VectorEnumeratorBase = (function () {
 	    function VectorEnumeratorBase(vec) {
 	        this.elementCount = 0;
@@ -15080,7 +15113,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var LinearBase = __webpack_require__(130);
+	var LinearBase = __webpack_require__(131);
 	var Collection = __webpack_require__(73);
 	var VectorBase = (function (_super) {
 	    __extends(VectorBase, _super);
@@ -15137,7 +15170,7 @@
 	    d.prototype = new __();
 	};
 	var VectorEnumeratorBase = __webpack_require__(110);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var VectorBase = __webpack_require__(111);
 	var Vector4Enumerator = (function (_super) {
 	    __extends(Vector4Enumerator, _super);
@@ -15304,7 +15337,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObjectId = __webpack_require__(27);
+	var jThreeObjectId = __webpack_require__(31);
 	var ContextManagerBase = (function (_super) {
 	    __extends(ContextManagerBase, _super);
 	    function ContextManagerBase() {
@@ -15562,7 +15595,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var JThreeCollection = __webpack_require__(13);
 	var GomlAttribute = __webpack_require__(132);
 	var AttributeDictionary = (function (_super) {
@@ -15651,8 +15684,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(17);
-	var jThreeObject = __webpack_require__(6);
+	var Exceptions = __webpack_require__(16);
+	var jThreeObject = __webpack_require__(9);
 	var RendererBase = (function (_super) {
 	    __extends(RendererBase, _super);
 	    function RendererBase(contextManager) {
@@ -15705,7 +15738,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObject = __webpack_require__(6);
+	var jThreeObject = __webpack_require__(9);
 	var Vector3 = __webpack_require__(81);
 	var Geometry = (function (_super) {
 	    __extends(Geometry, _super);
@@ -15882,10 +15915,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithID = __webpack_require__(27);
+	var JThreeObjectWithID = __webpack_require__(31);
 	var Matrix = __webpack_require__(126);
-	var GLCullMode = __webpack_require__(142);
-	var GLFeatureType = __webpack_require__(143);
+	var GLCullMode = __webpack_require__(139);
+	var GLFeatureType = __webpack_require__(140);
 	var Material = (function (_super) {
 	    __extends(Material, _super);
 	    function Material() {
@@ -15964,13 +15997,13 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var MatrixBase = __webpack_require__(139);
+	var MatrixBase = __webpack_require__(141);
 	var Vector3 = __webpack_require__(81);
 	var Vector4 = __webpack_require__(112);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var Collection = __webpack_require__(73);
-	var MatrixFactory = __webpack_require__(140);
-	var MatrixEnumerator = __webpack_require__(141);
+	var MatrixFactory = __webpack_require__(142);
+	var MatrixEnumerator = __webpack_require__(143);
 	var Matrix = (function (_super) {
 	    __extends(Matrix, _super);
 	    function Matrix(arr) {
@@ -16328,7 +16361,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithID = __webpack_require__(27);
+	var JThreeObjectWithID = __webpack_require__(31);
 	var JThreeCollection = __webpack_require__(13);
 	var Transformer = __webpack_require__(146);
 	var SceneObject = (function (_super) {
@@ -16426,85 +16459,13 @@
 /* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Collection = __webpack_require__(73);
-	var LinearBase = (function () {
-	    function LinearBase() {
-	    }
-	    LinearBase.elementDot = function (a, b) {
-	        var dot = 0;
-	        Collection.foreachPair(a, b, function (a, b) {
-	            dot += a * b;
-	        });
-	        return dot;
-	    };
-	    LinearBase.elementAdd = function (a, b, factory) {
-	        var result = new Float32Array(a.ElementCount);
-	        Collection.foreachPair(a, b, function (a, b, i) {
-	            result[i] = a + b;
-	        });
-	        return factory.fromArray(result);
-	    };
-	    LinearBase.elementSubtract = function (a, b, factory) {
-	        var result = new Float32Array(a.ElementCount);
-	        Collection.foreachPair(a, b, function (a, b, i) {
-	            result[i] = a - b;
-	        });
-	        return factory.fromArray(result);
-	    };
-	    LinearBase.elementScalarMultiply = function (a, s, factory) {
-	        var result = new Float32Array(a.ElementCount);
-	        Collection.foreach(a, function (a, i) {
-	            result[i] = a * s;
-	        });
-	        return factory.fromArray(result);
-	    };
-	    LinearBase.elementEqual = function (a, b) {
-	        var result = true;
-	        Collection.foreachPair(a, b, function (a, b, i) {
-	            if (a != b)
-	                result = false;
-	        });
-	        return result;
-	    };
-	    LinearBase.elementNegate = function (a, factory) {
-	        var result = new Float32Array(a.ElementCount);
-	        Collection.foreach(a, function (a, i) {
-	            result[i] = -a;
-	        });
-	        return factory.fromArray(result);
-	    };
-	    LinearBase.elementNaN = function (a) {
-	        var result = false;
-	        Collection.foreach(a, function (a, i) {
-	            if (isNaN(a))
-	                result = true;
-	        });
-	        return result;
-	    };
-	    Object.defineProperty(LinearBase.prototype, "ElementCount", {
-	        get: function () {
-	            return 0;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    LinearBase.prototype.getEnumrator = function () { throw new Error("Not implemented"); };
-	    return LinearBase;
-	})();
-	module.exports = LinearBase;
-
-
-/***/ },
-/* 131 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var jThreeObject = __webpack_require__(6);
+	var jThreeObject = __webpack_require__(9);
 	var DegreeMilliSecoundUnitConverter = (function (_super) {
 	    __extends(DegreeMilliSecoundUnitConverter, _super);
 	    function DegreeMilliSecoundUnitConverter() {
@@ -16585,6 +16546,78 @@
 
 
 /***/ },
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Collection = __webpack_require__(73);
+	var LinearBase = (function () {
+	    function LinearBase() {
+	    }
+	    LinearBase.elementDot = function (a, b) {
+	        var dot = 0;
+	        Collection.foreachPair(a, b, function (a, b) {
+	            dot += a * b;
+	        });
+	        return dot;
+	    };
+	    LinearBase.elementAdd = function (a, b, factory) {
+	        var result = new Float32Array(a.ElementCount);
+	        Collection.foreachPair(a, b, function (a, b, i) {
+	            result[i] = a + b;
+	        });
+	        return factory.fromArray(result);
+	    };
+	    LinearBase.elementSubtract = function (a, b, factory) {
+	        var result = new Float32Array(a.ElementCount);
+	        Collection.foreachPair(a, b, function (a, b, i) {
+	            result[i] = a - b;
+	        });
+	        return factory.fromArray(result);
+	    };
+	    LinearBase.elementScalarMultiply = function (a, s, factory) {
+	        var result = new Float32Array(a.ElementCount);
+	        Collection.foreach(a, function (a, i) {
+	            result[i] = a * s;
+	        });
+	        return factory.fromArray(result);
+	    };
+	    LinearBase.elementEqual = function (a, b) {
+	        var result = true;
+	        Collection.foreachPair(a, b, function (a, b, i) {
+	            if (a != b)
+	                result = false;
+	        });
+	        return result;
+	    };
+	    LinearBase.elementNegate = function (a, factory) {
+	        var result = new Float32Array(a.ElementCount);
+	        Collection.foreach(a, function (a, i) {
+	            result[i] = -a;
+	        });
+	        return factory.fromArray(result);
+	    };
+	    LinearBase.elementNaN = function (a) {
+	        var result = false;
+	        Collection.foreach(a, function (a, i) {
+	            if (isNaN(a))
+	                result = true;
+	        });
+	        return result;
+	    };
+	    Object.defineProperty(LinearBase.prototype, "ElementCount", {
+	        get: function () {
+	            return 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    LinearBase.prototype.getEnumrator = function () { throw new Error("Not implemented"); };
+	    return LinearBase;
+	})();
+	module.exports = LinearBase;
+
+
+/***/ },
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16594,7 +16627,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithID = __webpack_require__(27);
+	var JThreeObjectWithID = __webpack_require__(31);
 	var JThreeEvent = __webpack_require__(14);
 	var GomlAttribute = (function (_super) {
 	    __extends(GomlAttribute, _super);
@@ -16666,7 +16699,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObjectWithID = __webpack_require__(27);
+	var JThreeObjectWithID = __webpack_require__(31);
 	var TreeNodeBase = (function (_super) {
 	    __extends(TreeNodeBase, _super);
 	    function TreeNodeBase(elem, parent) {
@@ -16706,13 +16739,13 @@
 /* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\n\r\nuniform vec4 u_diffuse;\r\nuniform vec4 u_specular;\r\nuniform vec4 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  //calculate light vector in view space\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = texture2D(u_sampler,adjuv);\r\n  gl_FragColor.rgb*=brightness;\r\n  //half vector in view space\r\n  vec3 hv=normalize(dlDir+vec3(0,0,1));\r\n  float spBrightness=pow(dot(hv,v_normal),u_specular.a);\r\n  gl_FragColor.rgb+=u_ambient.rgb;\r\n  gl_FragColor.rgb+=u_specular.rgb*spBrightness;\r\n}\r\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nuniform vec4 u_color;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\n\r\nvoid main(void){\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = u_color;\r\n  gl_FragColor.rgb*=brightness;\r\n}\r\n"
 
 /***/ },
 /* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nuniform vec4 u_color;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\n\r\nvoid main(void){\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = u_color;\r\n  gl_FragColor.rgb*=brightness;\r\n}\r\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\n\r\nuniform vec4 u_diffuse;\r\nuniform vec4 u_specular;\r\nuniform vec4 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  //calculate light vector in view space\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = texture2D(u_sampler,adjuv);\r\n  gl_FragColor.rgb*=brightness;\r\n  //half vector in view space\r\n  vec3 hv=normalize(dlDir+vec3(0,0,1));\r\n  float spBrightness=pow(dot(hv,v_normal),u_specular.a);\r\n  gl_FragColor.rgb+=u_ambient.rgb;\r\n  gl_FragColor.rgb+=u_specular.rgb*spBrightness;\r\n}\r\n"
 
 /***/ },
 /* 138 */
@@ -16724,8 +16757,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(17);
-	var JThreeObject = __webpack_require__(6);
+	var Exceptions = __webpack_require__(16);
+	var JThreeObject = __webpack_require__(9);
 	var GLContextWrapperBase = (function (_super) {
 	    __extends(GLContextWrapperBase, _super);
 	    function GLContextWrapperBase() {
@@ -16869,13 +16902,38 @@
 /* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var GLCullMode;
+	(function (GLCullMode) {
+	    GLCullMode[GLCullMode["Front"] = 1028] = "Front";
+	    GLCullMode[GLCullMode["Back"] = 1029] = "Back";
+	    GLCullMode[GLCullMode["FrontBack"] = 1032] = "FrontBack";
+	})(GLCullMode || (GLCullMode = {}));
+	module.exports = GLCullMode;
+
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var GLFeatureType;
+	(function (GLFeatureType) {
+	    GLFeatureType[GLFeatureType["DepthTest"] = 2929] = "DepthTest";
+	    GLFeatureType[GLFeatureType["CullFace"] = 2884] = "CullFace";
+	})(GLFeatureType || (GLFeatureType = {}));
+	module.exports = GLFeatureType;
+
+
+/***/ },
+/* 141 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var LinearBase = __webpack_require__(130);
+	var LinearBase = __webpack_require__(131);
 	var MatrixBase = (function (_super) {
 	    __extends(MatrixBase, _super);
 	    function MatrixBase() {
@@ -16913,7 +16971,7 @@
 
 
 /***/ },
-/* 140 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Matrix = __webpack_require__(126);
@@ -16932,7 +16990,7 @@
 
 
 /***/ },
-/* 141 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -16941,7 +16999,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var MatrixEnumerator = (function (_super) {
 	    __extends(MatrixEnumerator, _super);
 	    function MatrixEnumerator(targetMat) {
@@ -16961,31 +17019,6 @@
 	    return MatrixEnumerator;
 	})(JThreeObject);
 	module.exports = MatrixEnumerator;
-
-
-/***/ },
-/* 142 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var GLCullMode;
-	(function (GLCullMode) {
-	    GLCullMode[GLCullMode["Front"] = 1028] = "Front";
-	    GLCullMode[GLCullMode["Back"] = 1029] = "Back";
-	    GLCullMode[GLCullMode["FrontBack"] = 1032] = "FrontBack";
-	})(GLCullMode || (GLCullMode = {}));
-	module.exports = GLCullMode;
-
-
-/***/ },
-/* 143 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var GLFeatureType;
-	(function (GLFeatureType) {
-	    GLFeatureType[GLFeatureType["DepthTest"] = 2929] = "DepthTest";
-	    GLFeatureType[GLFeatureType["CullFace"] = 2884] = "CullFace";
-	})(GLFeatureType || (GLFeatureType = {}));
-	module.exports = GLFeatureType;
 
 
 /***/ },
@@ -17153,7 +17186,7 @@
 	    d.prototype = new __();
 	};
 	var SceneObject = __webpack_require__(129);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var Camera = (function (_super) {
 	    __extends(Camera, _super);
 	    function Camera() {
@@ -17224,7 +17257,7 @@
 	var Quaternion = __webpack_require__(108);
 	var Vector3 = __webpack_require__(81);
 	var Matrix = __webpack_require__(126);
-	var JThreeObject = __webpack_require__(6);
+	var JThreeObject = __webpack_require__(9);
 	var Transformer = (function (_super) {
 	    __extends(Transformer, _super);
 	    function Transformer(sceneObj) {

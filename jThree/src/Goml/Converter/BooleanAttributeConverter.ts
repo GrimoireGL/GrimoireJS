@@ -21,6 +21,7 @@ class BooleanAttributeConverter extends AttributeConverterBase
 
   public FromInterface(val:any):any
   {
+    if(typeof val === 'boolean')return val;
     return this.FromAttribute(val);
   }
 }

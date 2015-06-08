@@ -27,7 +27,9 @@ interface GomlModuleDeclarationBody
 	 */
 	awake?:Delegates.Action1<GomlTreeNodeBase>;
 	
-	
+	/**
+	 * This handler will be 
+	 */
 	start?:Delegates.Action1<GomlTreeNodeBase>;
 	
 	/**

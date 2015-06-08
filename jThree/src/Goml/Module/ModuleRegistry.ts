@@ -22,7 +22,9 @@ class ModuleRegistry extends JThreeObject
               console.log(v.Value);
             }
           }
-        }
+        },
+        update:(v)=>{console.log("this is update");
+       }
       }
     });
   }

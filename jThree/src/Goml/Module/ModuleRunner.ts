@@ -45,6 +45,7 @@ class ModuleRunner extends JThreeObject
 		this.dictionary.insert(modulePair);
 		this.sortedModules.push(modulePair);
 		this.sortModules();
+		if(!node.awaken)node.awake.call(node,target);
 	}
 	
 	public executeForAllModules(methodName:string)
