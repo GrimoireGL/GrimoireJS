@@ -4,10 +4,19 @@ import ModuleNode = require('../Nodes/Modules/ModuleNode');
 import Delegates = require('../../Delegates');
 import ModuleContainerNodeBase = require('../ModuleContainerNodeBase');
 import JThreeObjectWithID = require('../../Base/JThreeObjectWithID');
+/**
+ * container class for storeing ModuleNode and TargetNode
+ */
 class ModuleNodePair extends JThreeObjectWithID
 {
+	/**
+	 * ModuleNode contain the arguments of module
+	 */
 	private module:ModuleNode;
 	
+	/**
+	 * TargetNode contain the ModuleNode
+	 */
 	private targetNode:ModuleContainerNodeBase;
 	
 	constructor(module:ModuleNode,target:ModuleContainerNodeBase)
@@ -16,12 +25,16 @@ class ModuleNodePair extends JThreeObjectWithID
 		this.module=module;
 		this.targetNode=target;
 	}
-	
+	/**
+	 * getter for module node
+	 */
 	public get Module():ModuleNode
 	{
 		return this.module;
 	}
-	
+	/**
+	 * getter for target node
+	 */
 	public get Target():ModuleContainerNodeBase
 	{
 		return this.targetNode;
@@ -46,6 +59,7 @@ class ModuleRunner extends JThreeObject
 		this.sortedModules.push(modulePair);
 		this.sortModules();
 		if(!node.awaken)node.awake.call(node,target);
+		
 	}
 	
 	public executeForAllModules(methodName:string)

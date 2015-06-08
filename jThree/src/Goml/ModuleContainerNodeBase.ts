@@ -28,6 +28,7 @@ class ModuleContainerNodeBase extends TreeNodeBase
     public addModule(module:ModuleNode):void
     {
         this.loader.moduleRunner.addModule(module,this);
+
     }
 }
 

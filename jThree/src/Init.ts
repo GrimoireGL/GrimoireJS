@@ -8,19 +8,7 @@ import Delegates = require('./Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import GomlModuleDeclaration = require('./Goml/Module/GomlModuleDeclaration')
 class JThreeStatic
-{
-  public (query:string|Delegates.Action0):JThreeInterface
-  {
-    var context=JThreeContextProxy.getJThreeContext();
-    if(typeof query ==='function')
-    {
-      context.GomlLoader.onload(query);
-      return null;
-    }
-      var targetObject=context.GomlLoader.rootObj.find(<string>query);
-      return new JThreeInterface(targetObject);
-  }
-  
+{ 
   public addModule(declaration:GomlModuleDeclaration)
   {
         var context=JThreeContextProxy.getJThreeContext();
@@ -47,7 +35,9 @@ static j3(query:string|Delegates.Action0):JThreeInterface
   */
   static Init():void
   {
-    window["j3"]=new JThreeStatic();
+    //register interfaces
+    window["j3"]=JThreeInit.j3;
+    window["j3"].__proto__ = JThreeStatic.prototype;
 
     $(()=>{//TODO I wonder we should remove jQuery dependencies.
       var j3=JThreeContext.getInstanceForProxy();
