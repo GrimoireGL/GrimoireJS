@@ -25,7 +25,7 @@ class GomlNodeDictionary extends jThreeObject
       this.onAliasMemberChanged.set(alias,new JThreeEvent<GomlTreeNodeBase>());
     }
     this.dictionary.get(alias).set(name,obj);
-    this.onAliasMemberChanged.get(name).fire(this,obj);
+    this.onAliasMemberChanged.get(alias).fire(this,obj);
   }
   
   public hasAlias(alias:string):boolean

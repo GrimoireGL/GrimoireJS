@@ -14,7 +14,6 @@
     ],
     "files": [
         "../bundle-notdoc.ts",
-        "./Base.ts",
         "./Base/Collections/ArrayEnumratorFactory.ts",
         "./Base/Collections/AssociativeArray.ts",
         "./Base/Collections/Collection.ts",

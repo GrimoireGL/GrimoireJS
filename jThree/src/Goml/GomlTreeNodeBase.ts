@@ -12,14 +12,10 @@ import TreeNodeBase = require('./TreeNodeBase');
 class GomlTreeNodeBase extends ModuleContainerNode
 {
     constructor(elem:HTMLElement,loader:GomlLoader,parent?:TreeNodeBase) {
-        super(elem,parent);
-        this.loader=loader;
+        super(elem,parent,loader);
         this.attributes=new AttributeDictionary(this,loader,elem);
     }
-    /**
-     * The GomlLoader instanciate this class
-     */
-    protected loader:GomlLoader;
+
 
     /**
      * Attributes this node have.
