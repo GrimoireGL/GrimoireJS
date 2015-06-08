@@ -12,21 +12,6 @@ class ModuleRegistry extends JThreeObject
   constructor()
   {
     super();
-    this.addModule({
-      "test":{
-        attributes:{
-          "testAttr":{
-            converter:"number",
-            value:100,
-            handler:v=>{
-              console.log(v.Value);
-            }
-          }
-        },
-        update:(v)=>{console.log("this is update");
-       }
-      }
-    });
   }
   
   private modules:AssociativeArray<GomlModuleDeclarationBody>=new AssociativeArray<GomlModuleDeclarationBody>();
