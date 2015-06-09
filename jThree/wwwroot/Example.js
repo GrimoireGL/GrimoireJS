@@ -23,3 +23,7 @@ j3.addComponent({
        }
       }
     );
+function clicked()
+{
+  j3("rdr").attr("fullscreen",true);
+}

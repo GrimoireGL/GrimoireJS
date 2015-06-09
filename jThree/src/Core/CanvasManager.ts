@@ -8,18 +8,24 @@ import JThreeContextProxy = require("./JThreeContextProxy");
 import Color4 = require("../Base/Color/Color4");
 import RendererBase = require("./RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
+/**
+ * Provides some of feature managing canvas.
+ */
 class CanvasManager extends ContextManagerBase {
+    /**
+     * Generate instance from HtmlCanvasElement
+     */
     public static fromCanvasElement(canvas: HTMLCanvasElement): CanvasManager {
         var gl: WebGLRenderingContext;
         try {
             gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
-            var ext=gl.getExtension("WEBGL_shared_resources");
             var renderer: CanvasManager = new CanvasManager(gl);
             var instance=JThreeContextProxy.getJThreeContext();
+            renderer.targetCanvas=canvas;
             instance.addCanvasManager(renderer);
             return renderer;
         } catch (e) {
-          debugger;
+            
           console.error("Web GL context Generation failed");
             if (!gl) {
               console.error("WebGL Context Generation failed."+e);
@@ -27,6 +33,9 @@ class CanvasManager extends ContextManagerBase {
             }
         }
     }
+    
+    private targetCanvas:HTMLCanvasElement;
+    
     private clearColor:Color4;
     get ClearColor():Color4
     {
@@ -74,8 +83,21 @@ class CanvasManager extends ContextManagerBase {
         this.context = new WebGLContextWrapper(this.glContext);
     }
 
-    getDefaultViewport(): ViewPortRenderer {
-        return new ViewPortRenderer(this,new Rectangle(20,20,280,280));
+    public getDefaultRectangle():Rectangle
+    {
+        return new Rectangle(0,0,this.targetCanvas.width,this.targetCanvas.height);
+    }
+    
+    private fullscreen:boolean =false;
+    public get FullScreen():boolean
+    {
+        return this.fullscreen;
+    }
+    public set FullScreen(val:boolean)
+    {
+        if(val===this.fullscreen)return;
+        this.fullscreen=val;
+        if(val)this.targetCanvas.webkitRequestFullScreen();
     }
 }
 

@@ -6,7 +6,7 @@ import Scene = require("../../../Core/Scene");
 import $ = require("jquery"); 
 import GomlLoader = require("../../GomlLoader");
 import Color4 = require("../../../Base/Color/Color4");
-class GomlTreeRdrNode extends GomlTreeNodeBase
+class RendererNode extends GomlTreeNodeBase
 {
 
     canvasManager:CanvasManager;
@@ -35,7 +35,13 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
           },
           "clearColor":{
             value:'#0FF',converter:"color4",handler:(v)=>{this.canvasManager.ClearColor=v.Value;}
-                     }
+                     },
+          "fullscreen":
+          {
+              value:false,converter:"boolean",handler:(v)=>{
+                  this.canvasManager.FullScreen=v.Value;
+              }
+          }
         });
     }
 
@@ -64,4 +70,4 @@ class GomlTreeRdrNode extends GomlTreeNodeBase
 
 }
 
-export=GomlTreeRdrNode;
+export=RendererNode;

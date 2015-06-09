@@ -6,9 +6,9 @@
     <cube name="cube" divide="30" />
   </resources>
   <renderers>
-    <rdr clearColor="#324D7C" frame=".canvasContainer" height="900" width="900">
-      <vp cam="CAM1" height="900" left="0" top="0" width="900" />
-    </rdr>
+    <renderer clearColor="#324D7C" frame=".canvasContainer" height="900" width="900">
+      <viewport cam="CAM1" />
+    </renderer>
   </renderers>
   <scenes>
     <scene>
@@ -22,5 +22,6 @@
       <mesh geo="grid" mat="mat1"></mesh>
     </scene>
   </scenes>
-  <templates></templates>
+  <templates>
+  </templates>
 </goml>

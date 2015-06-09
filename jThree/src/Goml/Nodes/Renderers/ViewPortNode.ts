@@ -10,7 +10,7 @@ import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
-class GomlTreeVpNode extends GomlTreeNodeBase {
+class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNode;
 
@@ -29,30 +29,31 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
       scene.addRenderer(this.targetRenderer);
+      var defaultRect = rdr.canvasManager.getDefaultRectangle();
       this.attributes.defineAttribute({
         "width":{
-          value:300,
+          value:defaultRect.Width,
           converter:"number",handler:v=>{
             this.width=v.Value;
             this.updateViewportArea();
           }
         },
         "height":{
-          value:300,
+          value:defaultRect.Height,
           converter:"number",handler:v=>{
             this.height=v.Value;
             this.updateViewportArea();
           }
         },
         "left":{
-          value:0,
+          value:defaultRect.Left,
           converter:"number",handler:v=>{
             this.left=v.Value;
             this.updateViewportArea();
           }
         },
         "top":{
-          value:0,
+          value:defaultRect.Top,
           converter:"number",handler:v=>{
             this.top=v.Value;
             this.updateViewportArea();
@@ -126,4 +127,4 @@ class GomlTreeVpNode extends GomlTreeNodeBase {
 
 }
 
-export=GomlTreeVpNode;
+export=ViewPortNode;
