@@ -26,12 +26,14 @@ class RendererNode extends GomlTreeNodeBase
         this.targetCanvas.height=this.Height;
         var context=JThreeContextProxy.getJThreeContext();
         context.addCanvasManager(this.canvasManager);
+        var defaultWidth=this.targetCanvas.parentElement.clientWidth;
+        var defaultHeight=this.targetCanvas.parentElement.clientWidth;
         this.attributes.defineAttribute({
           "width":{
-            value:300,converter:"number",handler:(v)=>{this.targetCanvas.width=v.Value;}
+            value:defaultWidth,converter:"number",handler:(v)=>{this.targetCanvas.width=v.Value;}
           },
           "height":{
-            value:300,converter:"number",handler:(v)=>{this.targetCanvas.height=v.Value;}
+            value:defaultHeight,converter:"number",handler:(v)=>{this.targetCanvas.height=v.Value;}
           },
           "clearColor":{
             value:'#0FF',converter:"color4",handler:(v)=>{this.canvasManager.ClearColor=v.Value;}
@@ -43,6 +45,7 @@ class RendererNode extends GomlTreeNodeBase
               }
           }
         });
+        this.attributes.applyDefaultValue();
     }
 
         private clearColor:Color4;

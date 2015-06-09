@@ -6,7 +6,7 @@
     <cube name="cube" divide="30" />
   </resources>
   <renderers>
-    <renderer clearColor="#324D7C" frame=".canvasContainer" height="900" width="900">
+    <renderer clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" />
     </renderer>
   </renderers>
