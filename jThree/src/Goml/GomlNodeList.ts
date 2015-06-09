@@ -35,13 +35,13 @@ var gomlList=[
     "MESH":require('./Nodes/SceneObjects/MeshNode'),
     "OBJECT":require('./Nodes/SceneObjects/ObjectNode')
   }),
-  new GomlNodeListElement("jthree.modules",require('./Factories/TagFactory'),
+  new GomlNodeListElement("jthree.components",require('./Factories/TagFactory'),
   {
-      "MODULES":require('./Nodes/Modules/ModulesNode'),
+      "COMPONENTS":require('./Nodes/Components/ComponentsNode'),
   }),
-  new GomlNodeListElement("jthree.module",require('./Factories/ModuleTagFactory'),
+  new GomlNodeListElement("jthree.component",require('./Factories/ComponentTagFactory'),
   {
-      "MODULE":require('./Nodes/Modules/ModuleNode')
+      "COMPONENT":require('./Nodes/Components/ComponentNode')
   }
   )
 ];

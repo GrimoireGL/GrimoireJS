@@ -2,21 +2,21 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 
 
-class ModulesNode extends GomlTreeNodeBase
+class ComponentsNode extends GomlTreeNodeBase
 {
 
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
-      this.moduleTarget=parent;
+      this.componentTarget=parent;
   }
 
-  private moduleTarget:GomlTreeNodeBase;
+  private componentTarget:GomlTreeNodeBase;
 
-  public get ModuleTarget():GomlTreeNodeBase
+  public get ComponentTarget():GomlTreeNodeBase
   {
-    return this.moduleTarget;
+    return this.componentTarget;
   }
 }
 
-export =ModulesNode;
+export =ComponentsNode;

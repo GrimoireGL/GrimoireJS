@@ -1,9 +1,9 @@
 import TreeNodeBase = require('./TreeNodeBase');
 import Delegates = require('../Delegates');
 import GomlAttribute = require('./GomlAttribute');
-import ModuleNode = require('./Nodes/Modules/ModuleNode');
+import ComponentNode = require('./Nodes/Components/ComponentNode');
 import GomlLoader = require('./GomlLoader');
-class ModuleContainerNodeBase extends TreeNodeBase
+class ComponentContainerNodeBase extends TreeNodeBase
 {
 	constructor(elem:HTMLElement,parent?:TreeNodeBase,loader?:GomlLoader)
 	{
@@ -17,19 +17,19 @@ class ModuleContainerNodeBase extends TreeNodeBase
     protected loader:GomlLoader;
 	
 	 /**
-     * Modules that is attached to this node.
+     * components that is attached to this node.
      */
-    protected modules:ModuleNode[]=[];
+    protected components:ComponentNode[]=[];
     
         
     /**
-     * Add module to this node.
+     * Add component to this node.
      */
-    public addModule(module:ModuleNode):void
+    public addComponent(component:ComponentNode):void
     {
-        this.loader.moduleRunner.addModule(module,this);
+        this.loader.componentRunner.addComponent(component,this);
 
     }
 }
 
-export = ModuleContainerNodeBase;
+export = ComponentContainerNodeBase;

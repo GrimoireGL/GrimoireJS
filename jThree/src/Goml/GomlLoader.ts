@@ -12,9 +12,9 @@ import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
 import JThreeEvent = require('../Base/JThreeEvent');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
-import ModuleRegistry = require('./Module/ModuleRegistry');
+import ComponentRegistry = require('./Components/ComponentRegistry');
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
-import ModuleRunner =require('./Module/ModuleRunner');
+import ComponentRunner =require('./Components/ComponentRunner');
 declare function require(string): any;
 /**
 * The class for loading goml.
@@ -23,7 +23,7 @@ class GomlLoader extends jThreeObject {
   update()
   {
     if(!this.ready)return;
-    this.moduleRunner.executeForAllModules("update");
+    this.componentRunner.executeForAllComponents("update");
   }
   /**
   * Constructor. User no need to call this constructor by yourself.
@@ -67,9 +67,9 @@ class GomlLoader extends jThreeObject {
 
   nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
 
-  moduleRegistry: ModuleRegistry = new ModuleRegistry();
+  componentRegistry: ComponentRegistry = new ComponentRegistry();
   
-  moduleRunner:ModuleRunner = new ModuleRunner();
+  componentRunner:ComponentRunner = new ComponentRunner();
 
   rootObj: JQuery;
 

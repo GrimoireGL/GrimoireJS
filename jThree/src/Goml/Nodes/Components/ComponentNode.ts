@@ -3,54 +3,54 @@ import GomlLoader = require("../../GomlLoader");
 import Delegates = require('../../../Delegates');
 import GomlAttribute = require('../../GomlAttribute');
 import AttributeDeclaration = require('../../AttributeDeclaration');
-class ModuleNode extends GomlTreeNodeBase
+class ComponentNode extends GomlTreeNodeBase
 {
   private static ignoreNode:string[]=["name","cachedOrder","cachedEnabled","children","parent","loader","element"];
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,moduleTarget:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,componentTarget:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
-      this.moduleTarget=moduleTarget;
+      this.componentTarget=componentTarget;
       if(elem.getAttribute("name"))
       {
-        var module=loader.moduleRegistry.getModule(elem.getAttribute("name"));
-        if(module)
+        var component=loader.componentRegistry.getComponent(elem.getAttribute("name"));
+        if(component)
         {
-          //load default value of module
-          if(typeof module.order !== 'undefined')this.cachedOrder=module.order;
-          if(typeof module.enabled !== 'undefined')var moduleEnabled=module.enabled;
+          //load d`efault value of component
+          if(typeof component.order !== 'undefined')this.cachedOrder=component.order;
+          if(typeof component.enabled !== 'undefined')var componentEnabled=component.enabled;
             else
-            moduleEnabled=true;
-          if(typeof module.awake === 'function')this.awakeDelegate=module.awake;
-          if(typeof module.update === 'function')this.updateDelegate=module.update;
-          if(typeof module.start === 'function')this.startDelegate=module.start;
-          if(typeof module.onEnabled === 'function')this.onEnabledDelegate=module.onEnabled;
-          if(typeof module.onDisabled === 'function')this.onDisabledDelegate = module.onDisabled;
-          //define module
+            componentEnabled=true;
+          if(typeof component.awake === 'function')this.awakeDelegate=component.awake;
+          if(typeof component.update === 'function')this.updateDelegate=component.update;
+          if(typeof component.start === 'function')this.startDelegate=component.start;
+          if(typeof component.onEnabled === 'function')this.onEnabledDelegate=component.onEnabled;
+          if(typeof component.onDisabled === 'function')this.onDisabledDelegate = component.onDisabled;
+          //define component
           this.attributes.defineAttribute(
             {
               "enabled":{
                 converter:"boolean",
-                value:moduleEnabled,
+                value:componentEnabled,
                 handler:(v)=>{//when enabled attribute changed
                   if(v.Value===this.enabled&&typeof v.Value === 'undefined'){
                     this.cachedEnabled=true;
-                    this.onEnabled(this.moduleTarget);
+                    this.onEnabled(this.componentTarget);
                   }
                   if(v.Value===this.enabled)return;
-                  if(v.Value)this.onEnabled(this.moduleTarget);
+                  if(v.Value)this.onEnabled(this.componentTarget);
                     else
-                    this.onDisabled(this.moduleTarget);
+                    this.onDisabled(this.componentTarget);
                   this.enabled=v.Value;
                   }
               }
             }
           );
-          //initialize module attributes
-          for(var attrKey in module.attributes)
+          //initialize component attributes
+          for(var attrKey in component.attributes)
           {
-            var attr = module.attributes[attrKey];
-            if(ModuleNode.ignoreNode.indexOf(attrKey)!==-1||this.attributes.isDefined(attrKey))
+            var attr = component.attributes[attrKey];
+            if(ComponentNode.ignoreNode.indexOf(attrKey)!==-1||this.attributes.isDefined(attrKey))
             {//duplicated or protected attribute
               console.error(`attribute name '${attrKey}' is protected attribute name. please change name`);
               continue;
@@ -77,16 +77,16 @@ class ModuleNode extends GomlTreeNodeBase
              attributeContainer[attrKey]=attributeBody;
             this.attributes.defineAttribute(attributeContainer);
           } 
-          moduleTarget.addModule(this);
+          componentTarget.addComponent(this);
           this.attributes.applyDefaultValue();
         }else{
-          console.warn(`module"${elem.getAttribute("name")}" is not found.`);
+          console.warn(`component"${elem.getAttribute("name")}" is not found.`);
         }
       }else{
-        console.warn("module name was not specified");
+        console.warn("component name was not specified");
       }
   }
-	private moduleTarget:GomlTreeNodeBase;
+	private componentTarget:GomlTreeNodeBase;
   private awakenCache:boolean=false;
   
   public get awaken():boolean
@@ -147,4 +147,4 @@ class ModuleNode extends GomlTreeNodeBase
   }
 }
 
-export =ModuleNode;
+export =ComponentNode;

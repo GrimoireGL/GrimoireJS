@@ -5,19 +5,19 @@ import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import GomlTreeSceneNode = require("../Nodes/SceneNode");
 import SceneObjectNodeBase = require("../Nodes/SceneObjects/SceneObjectNodeBase");
 import Exceptions = require("../../Exceptions");
-import ModulesNode = require('../Nodes/Modules/ModulesNode');
+import ComponentNode = require('../Nodes/Components/ComponentsNode');
 /**
 * Goml tree node factory for the node extending SceneObjectNodeBase
 */
-class ModuleTagFactory extends TagFactory
+class ComponentTagFactory extends TagFactory
 {
   CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
-    if(parent.getTypeName()==="ModulesNode")
+    if(parent.getTypeName()==="ComponentsNode")
     {
-      var castedParent=<ModulesNode>parent;
-      return new this.nodeType(elem,loader,parent,castedParent.ModuleTarget);
+      var castedParent=<ComponentNode>parent;
+      return new this.nodeType(elem,loader,parent,castedParent.ComponentTarget);
     }
   }
 }
 
-export=ModuleTagFactory;
+export=ComponentTagFactory;

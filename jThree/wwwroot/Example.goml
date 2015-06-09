@@ -13,9 +13,9 @@
   <scenes>
     <scene>
       <object>
-        <modules>
-          <module id="modTest" name="test" testAttr="300"/>
-        </modules>
+        <components>
+          <component id="modTest" name="test"/>
+        </components>
         <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)"></camera>
       </object>
       <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3" />

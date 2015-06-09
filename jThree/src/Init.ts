@@ -6,13 +6,13 @@ import Quaternion = require("./Math/Quaternion");
 import Vector3 = require("./Math/Vector3");
 import Delegates = require('./Delegates');
 import JThreeInterface = require('./JThreeInterface');
-import GomlModuleDeclaration = require('./Goml/Module/GomlModuleDeclaration')
+import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration')
 class JThreeStatic
 { 
-  public addModule(declaration:GomlModuleDeclaration)
+  public addComponent(declaration:GomlComponentDeclaration)
   {
         var context=JThreeContextProxy.getJThreeContext();
-        context.GomlLoader.moduleRegistry.addModule(declaration);
+        context.GomlLoader.componentRegistry.addComponent(declaration);
   }
 }
 
@@ -36,13 +36,16 @@ static j3(query:string|Delegates.Action0):JThreeInterface
   static Init():void
   {
     //register interfaces
-    window["j3"]=JThreeInit.j3;
-    window["j3"].__proto__ = JThreeStatic.prototype;
+    window["j3"]=JThreeInit.j3;//$(~~~)
+    var pro=Object.getPrototypeOf(window["j3"]);
+    for(var key in JThreeStatic.prototype)
+    {
+      pro[key]=JThreeStatic.prototype[key];
+    }
 
     $(()=>{//TODO I wonder we should remove jQuery dependencies.
       var j3=JThreeContext.getInstanceForProxy();
       j3.init();
-
       JThreeInit.img= new Image();
       JThreeInit.img.onload = ()=>{j3.ResourceManager.createTexture("test",JThreeInit.img)};
       JThreeInit.img.src="/miku.png";

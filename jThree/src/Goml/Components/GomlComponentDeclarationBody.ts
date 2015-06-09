@@ -1,7 +1,7 @@
 import Delegates = require('../../Delegates');
 import GomlTreeNodeBase = require('../GomlTreeNodeBase');
 import GomlAttributeDeclaration = require('../AttributeDeclaration');
-interface GomlModuleDeclarationBody
+interface GomlComponentDeclarationBody
 {
 	/**
 	 * The number of order for execution.
@@ -13,7 +13,7 @@ interface GomlModuleDeclarationBody
 	attributes?:GomlAttributeDeclaration;
 	
 	/**
-	 * Is this module enabled or not.
+	 * Is this component enabled or not.
 	 * Default:True
 	 */
 	enabled?:boolean;	
@@ -23,7 +23,7 @@ interface GomlModuleDeclarationBody
 	onDisabled?:Delegates.Action1<GomlTreeNodeBase>;
 	
 	/**
-	 * The handler to process when this module is loaded.
+	 * The handler to process when this component is loaded.
 	 */
 	awake?:Delegates.Action1<GomlTreeNodeBase>;
 	
@@ -37,4 +37,4 @@ interface GomlModuleDeclarationBody
 	 */
 	update?:Delegates.Action1<GomlTreeNodeBase>;
 }
-export = GomlModuleDeclarationBody;
+export = GomlComponentDeclarationBody;
