@@ -1,6 +1,6 @@
 import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import jThreeId = require("../Base/JThreeID");
-import RendererBase = require("./RendererBase");
+import RendererBase = require("./Renderers/RendererBase");
 import Material = require("./Materials/Material");
 import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");

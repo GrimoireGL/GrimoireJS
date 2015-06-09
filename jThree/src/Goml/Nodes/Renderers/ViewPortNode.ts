@@ -1,7 +1,7 @@
 import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Color4 = require("../../../Base/Color/Color4");
-import ViewportRenderer = require("../../../Core/ViewportRenderer");
+import ViewportRenderer = require("../../../Core/Renderers/ViewportRenderer");
 import RendererNode = require("./RendererNode");
 import Rectangle = require("../../../Math/Rectangle");
 import GomlLoader = require("../../GomlLoader");

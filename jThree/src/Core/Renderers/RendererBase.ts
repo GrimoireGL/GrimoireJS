@@ -1,10 +1,10 @@
-import ContextManagerBase = require("./ContextManagerBase");
-import Delegates = require("../Delegates");
-import Exceptions = require("../Exceptions");
-import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
+import ContextManagerBase = require("./../ContextManagerBase");
+import Delegates = require("../../Delegates");
+import Exceptions = require("../../Exceptions");
+import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 
-import jThreeObject = require("../Base/JThreeObject");
-import Camera = require("./Camera/Camera");
+import jThreeObject = require("../../Base/JThreeObject");
+import Camera = require("./../Camera/Camera");
 class RendererBase extends jThreeObject
 {
 

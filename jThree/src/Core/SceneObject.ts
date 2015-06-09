@@ -4,7 +4,7 @@ import Material = require("./Materials/Material");
 import Delegates = require("../Delegates");
 import Geometry = require("./Geometry");
 import Scene=require('./Scene');
-import RendererBase = require("./RendererBase");
+import RendererBase = require("./Renderers/RendererBase");
 import JThreeCollection = require("../Base/JThreeCollection");
 import Transformer = require("./Transform/Transformer");
 /**

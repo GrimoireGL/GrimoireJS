@@ -1,12 +1,12 @@
 import JThreeContext = require("./JThreeContext");
 import ContextManagerBase = require("./ContextManagerBase");
 import WebGLContextWrapper = require("../Wrapper/WebGLContextWrapper");
-import ViewPortRenderer = require("./ViewportRenderer");
+import ViewPortRenderer = require("./Renderers/ViewportRenderer");
 import Rectangle = require("../Math/Rectangle");
 import jThreeObject = require("../Base/JThreeObject");
 import JThreeContextProxy = require("./JThreeContextProxy");
 import Color4 = require("../Base/Color/Color4");
-import RendererBase = require("./RendererBase");
+import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 /**
  * Provides some of feature managing canvas.

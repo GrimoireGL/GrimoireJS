@@ -2,7 +2,7 @@
 import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 
 import jThreeObjectId = require("../Base/JThreeObjectWithID");
-import RendererBase = require("./RendererBase");
+import RendererBase = require("./Renderers/RendererBase");
 class ContextManagerBase extends jThreeObjectId
 {
     constructor() {

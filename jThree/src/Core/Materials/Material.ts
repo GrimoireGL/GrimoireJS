@@ -1,5 +1,5 @@
 import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
-import RendererBase = require("../RendererBase");
+import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import Matrix = require("../../Math/Matrix");
 import GLCullMode = require("../../Wrapper/GLCullMode");
