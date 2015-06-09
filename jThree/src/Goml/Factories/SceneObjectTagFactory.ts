@@ -2,7 +2,7 @@ import JThreeObject=require('../../Base/JThreeObject');
 import GomlLoader = require("../GomlLoader");
 import TagFactory = require("./TagFactory");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
-import GomlTreeSceneNode = require("../Nodes/SceneNode");
+import SceneNode = require("../Nodes/SceneNode");
 import SceneObjectNodeBase = require("../Nodes/SceneObjects/SceneObjectNodeBase");
 import Exceptions = require("../../Exceptions");
 /**
@@ -11,11 +11,11 @@ import Exceptions = require("../../Exceptions");
 class SceneObjectTagFactory extends TagFactory
 {
   CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
-    var sceneNode:GomlTreeSceneNode=null;
+    var sceneNode:SceneNode=null;
     var sceneObjectNode:SceneObjectNodeBase=null;
-    if(parent.getTypeName()=="GomlTreeSceneNode")//This parent node is scene node.
+    if(parent.getTypeName()=="SceneNode")//This parent node is scene node. TODO: I wonder there is better way
     {
-      sceneNode=<GomlTreeSceneNode>parent;
+      sceneNode=<SceneNode>parent;
       sceneObjectNode=null;
     }else{
       if(typeof parent["ContainedSceneNode"]==="undefined")
@@ -31,7 +31,7 @@ class SceneObjectTagFactory extends TagFactory
     return this.CreateSceneObjectNodeForThis(elem,loader,parent,sceneNode,sceneObjectNode);
   }
 
-  CreateSceneObjectNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,containedSceneNode:GomlTreeSceneNode,parentSceneObjectNode:SceneObjectNodeBase):SceneObjectNodeBase
+  CreateSceneObjectNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,containedSceneNode:SceneNode,parentSceneObjectNode:SceneObjectNodeBase):SceneObjectNodeBase
   {
     return new this.nodeType(elem,loader,parent,containedSceneNode,parentSceneObjectNode);
   }

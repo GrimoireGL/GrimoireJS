@@ -42,7 +42,10 @@ var gomlList=[
   new GomlNodeListElement("jthree.component",require('./Factories/ComponentTagFactory'),
   {
       "COMPONENT":require('./Nodes/Components/ComponentNode')
-  }
-  )
+  }),
+  new GomlNodeListElement("jthree.template",require('./Factories/TemplateTagFactory'),
+    {
+      "TEMPLATE":require('./Nodes/Templates/TemplateNode')
+    })
 ];
 export=gomlList;

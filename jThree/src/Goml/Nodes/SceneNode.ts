@@ -4,7 +4,7 @@ import GomlLoader = require("../GomlLoader");
 import Scene = require("../../Core/Scene");
 import JThreeContextProxy=require('../../Core/JThreeContextProxy');
 import JThreeContext=require('../../Core/JThreeContext');
-class GomlTreeSceneNode extends GomlTreeNodeBase
+class SceneNode extends GomlTreeNodeBase
 {
   targetScene:Scene;
 
@@ -22,4 +22,4 @@ class GomlTreeSceneNode extends GomlTreeNodeBase
 
 }
 
-export=GomlTreeSceneNode;
+export=SceneNode;

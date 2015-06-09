@@ -19,6 +19,11 @@ class TagFactory extends jThreeObject {
     get TagName(): string {
         return this.tagName;
     }
+    
+    get NoNeedParseChildren():boolean
+    {
+        return false;
+    }
 
 
     CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {

@@ -166,7 +166,7 @@ class GomlLoader extends jThreeObject {
         //after first call, it is no used, so this code have no effect after first call.
         actionForChildren(newNode);
         //call this function recursive
-        this.parseChildren(newNode, $(elem).children(), (e) => { });
+        if(!tagFactory.NoNeedParseChildren)this.parseChildren(newNode, $(elem).children(), (e) => { });
       } else {
         //when specified node could not be found
         console.warn(`${elem.tagName} was not parsed.'`);
@@ -195,7 +195,7 @@ class GomlLoader extends jThreeObject {
           e.classList.add("x-j3-" + newNode.ID)
           e.setAttribute('x-j3-id', newNode.ID);
           loadedGoml.push((newNode));
-          this.appendChildren($(e).children(), null, newNode, loadedGoml);
+          if(!tagFactory.NoNeedParseChildren)this.appendChildren($(e).children(), null, newNode, loadedGoml);
         }
 
       } else {
