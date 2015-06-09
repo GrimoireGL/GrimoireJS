@@ -11,9 +11,10 @@ class ComponentNode extends GomlTreeNodeBase
   {
       super(elem,loader,parent);
       this.componentTarget=componentTarget;
-      if(elem.getAttribute("name"))
+     this.componentName=elem.getAttribute("name");
+      if(this.componentName)
       {
-        var component=loader.componentRegistry.getComponent(elem.getAttribute("name"));
+        var component=loader.componentRegistry.getComponent(this.componentName);
         if(component)
         {
           //load d`efault value of component
@@ -86,7 +87,17 @@ class ComponentNode extends GomlTreeNodeBase
         console.warn("component name was not specified");
       }
   }
+  /**
+   * The node contains this module.
+   */
 	private componentTarget:GomlTreeNodeBase;
+  
+  private componentName:string;
+  
+  public get  ComponentName():string
+  {
+    return this.componentName;
+  }
   private awakenCache:boolean=false;
   
   public get awaken():boolean

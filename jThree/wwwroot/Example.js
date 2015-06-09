@@ -15,7 +15,17 @@ j3.addComponent({
             handler:function(v){}
           }
       },
-        update:function(v){console.log(this.testValue);},
+        update:function(v){},
+        awake:function(v){console.warn("this is awake");},
+        onEnabled:function(v){console.warn("onenabled")},
+        start:function(v){console.warn("start")},
+        onDisabled:function(v){console.warn("onDisabled")} 
+       },
+     "test2":{
+        update:function(v){
+          var components=v.getComponents("test");
+          console.warn(components[0].testValue);
+        },
         awake:function(v){console.warn("this is awake");},
         onEnabled:function(v){console.warn("onenabled")},
         start:function(v){console.warn("start")},
