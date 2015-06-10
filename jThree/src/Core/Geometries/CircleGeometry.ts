@@ -1,5 +1,5 @@
 import JThreeObject=require('Base/JThreeObject');
-import Geometry = require("../Geometry");
+import Geometry = require("./Geometry");
 import JThreeContextProxy = require("../JThreeContextProxy");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");

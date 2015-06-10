@@ -2,7 +2,7 @@ import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import JThreeID = require("../../../Base/JThreeID");
-import Geometry = require("../../../Core/Geometry");
+import Geometry = require("../../../Core/Geometries/Geometry");
 /**
 * Base class for managing geometry node.
 */

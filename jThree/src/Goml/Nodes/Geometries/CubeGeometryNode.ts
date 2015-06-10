@@ -1,7 +1,7 @@
 
 import GeometryNodeBase = require("./GeometryNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import Geometry = require("../../../Core/Geometry")
+import Geometry = require("../../../Core/Geometries/Geometry")
 import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import CylinderGeometry = require("../../../Core/Geometries/CylinderGeometry");

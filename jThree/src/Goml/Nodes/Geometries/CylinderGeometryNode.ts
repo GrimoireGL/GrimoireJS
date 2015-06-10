@@ -1,6 +1,6 @@
 import GeometryNodeBase = require("./GeometryNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import Geometry = require("../../../Core/Geometry")
+import Geometry = require("../../../Core/Geometries/Geometry")
 import CylinderGeometry = require("../../../Core/Geometries/CylinderGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 class CylinderGeometryNode extends GeometryNodeBase

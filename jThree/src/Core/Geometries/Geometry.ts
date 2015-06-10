@@ -1,7 +1,7 @@
-import jThreeObject = require("../Base/JThreeObject");
-import Buffer = require("./Resources/Buffer/Buffer");
-import PrimitiveTopology = require("../Wrapper/PrimitiveTopology");
-import Vector3 = require("../Math/Vector3");
+import jThreeObject = require("../../Base/JThreeObject");
+import Buffer = require("./../Resources/Buffer/Buffer");
+import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
+import Vector3 = require("../../Math/Vector3");
 class Geometry extends jThreeObject {
    protected positionBuffer: Buffer;
    protected normalBuffer: Buffer;
