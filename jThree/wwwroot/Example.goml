@@ -19,10 +19,15 @@
         </components>
         <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)"></camera>
       </object>
-      <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3" />
+      <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3">
+
+      </mesh>
       <mesh geo="grid" mat="mat1"></mesh>
     </scene>
   </scenes>
   <templates>
+    <template name="tempTest">
+      <mesh class="triangle" geo="cube" mat = "mat1" scale="0.5"/>
+    </template>
   </templates>
 </goml>

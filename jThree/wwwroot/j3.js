@@ -9555,10 +9555,11 @@
 	    };
 	    JThreeInterface.prototype.append = function (target) {
 	        var newTarget = $(target);
-	        this.target.each(function (n, e) {
-	            JThreeInterface.Context.GomlLoader.appendChildren(newTarget, e);
+	        this.target.each(function (i, e) {
+	            JThreeInterface.Context.GomlLoader.append(newTarget, e);
 	        });
-	        return this;
+	        return new JThreeInterface(newTarget);
+	        ;
 	    };
 	    JThreeInterface.getNode = function (elem) {
 	        var id = elem.getAttribute('x-j3-id');
@@ -9614,11 +9615,11 @@
 	    d.prototype = new __();
 	};
 	var jThreeObject = __webpack_require__(9);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var $ = __webpack_require__(4);
-	var GomlNodeDictionary = __webpack_require__(18);
+	var GomlNodeDictionary = __webpack_require__(17);
 	var JThreeEvent = __webpack_require__(14);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var ComponentRegistry = __webpack_require__(19);
 	var GomlLoaderConfigurator = __webpack_require__(20);
 	var ComponentRunner = __webpack_require__(21);
@@ -9698,8 +9699,14 @@
 	        this.onLoadEvent.fire(this, source);
 	        this.ready = true;
 	    };
-	    GomlLoader.prototype.eachNode = function (act) {
+	    GomlLoader.prototype.eachNode = function (act, targets) {
 	        var _this = this;
+	        if (targets) {
+	            targets.forEach(function (v) {
+	                v.callRecursive(act);
+	            });
+	            return;
+	        }
 	        this.configurator.GomlRootNodes.forEach(function (v) {
 	            _this.rootNodes.get(v).forEach(function (e) { return e.callRecursive(act); });
 	        });
@@ -9727,6 +9734,19 @@
 	                console.warn(elem.tagName + " was not parsed.'");
 	            }
 	        }
+	    };
+	    GomlLoader.prototype.append = function (source, parent) {
+	        var id = parent.getAttribute("x-j3-id");
+	        var parentOfGoml = this.NodesById.get(id);
+	        var loadedGomls = [];
+	        for (var i = 0; i < source.length; i++) {
+	            var s = source[i];
+	            this.parseChildren(parentOfGoml, $(s), function (v) { loadedGomls.push(v); });
+	        }
+	        this.eachNode(function (v) { return v.beforeLoad(); }, loadedGomls);
+	        this.eachNode(function (v) { return v.Load(); }, loadedGomls);
+	        this.eachNode(function (v) { return v.afterLoad(); }, loadedGomls);
+	        this.eachNode(function (v) { return v.attributes.applyDefaultValue(); }, loadedGomls);
 	    };
 	    GomlLoader.prototype.appendChildren = function (jq, parent, parentInGoml, loadedGoml) {
 	        var needLastProcess = false;
@@ -9795,7 +9815,7 @@
 	var Shader = __webpack_require__(24);
 	var Program = __webpack_require__(25);
 	var Texture = __webpack_require__(26);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var ResourceManager = (function (_super) {
 	    __extends(ResourceManager, _super);
 	    function ResourceManager() {
@@ -9942,7 +9962,7 @@
 	};
 	var jThreeObject = __webpack_require__(9);
 	var JThreeContextProxy = __webpack_require__(3);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var SceneManager = (function (_super) {
 	    __extends(SceneManager, _super);
 	    function SceneManager() {
@@ -9996,7 +10016,7 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var JThreeCollection = (function () {
 	    function JThreeCollection() {
 	        this.collection = new AssociativeArray();
@@ -10044,7 +10064,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(9);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var JThreeEvent = (function (_super) {
 	    __extends(JThreeEvent, _super);
 	    function JThreeEvent() {
@@ -10122,45 +10142,6 @@
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AssociativeArray = (function () {
-	    function AssociativeArray() {
-	        this.target = new Map();
-	    }
-	    AssociativeArray.prototype.clear = function () {
-	        this.target.clear();
-	    };
-	    AssociativeArray.prototype.delete = function (key) {
-	        return this.target.delete(key);
-	    };
-	    AssociativeArray.prototype.forEach = function (callbackfn, thisArg) {
-	        this.target.forEach(callbackfn, thisArg);
-	    };
-	    AssociativeArray.prototype.get = function (key) {
-	        return this.target.get(key);
-	    };
-	    AssociativeArray.prototype.has = function (key) {
-	        return this.target.has(key);
-	    };
-	    AssociativeArray.prototype.set = function (key, value) {
-	        this.target.set(key, value);
-	        return this;
-	    };
-	    Object.defineProperty(AssociativeArray.prototype, "size", {
-	        get: function () {
-	            return this.target.size;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return AssociativeArray;
-	})();
-	module.exports = AssociativeArray;
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -10224,7 +10205,7 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10234,7 +10215,7 @@
 	    d.prototype = new __();
 	};
 	var jThreeObject = __webpack_require__(9);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var JThreeEvent = __webpack_require__(14);
 	var GomlNodeDictionary = (function (_super) {
 	    __extends(GomlNodeDictionary, _super);
@@ -10280,6 +10261,45 @@
 
 
 /***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AssociativeArray = (function () {
+	    function AssociativeArray() {
+	        this.target = new Map();
+	    }
+	    AssociativeArray.prototype.clear = function () {
+	        this.target.clear();
+	    };
+	    AssociativeArray.prototype.delete = function (key) {
+	        return this.target.delete(key);
+	    };
+	    AssociativeArray.prototype.forEach = function (callbackfn, thisArg) {
+	        this.target.forEach(callbackfn, thisArg);
+	    };
+	    AssociativeArray.prototype.get = function (key) {
+	        return this.target.get(key);
+	    };
+	    AssociativeArray.prototype.has = function (key) {
+	        return this.target.has(key);
+	    };
+	    AssociativeArray.prototype.set = function (key, value) {
+	        this.target.set(key, value);
+	        return this;
+	    };
+	    Object.defineProperty(AssociativeArray.prototype, "size", {
+	        get: function () {
+	            return this.target.size;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return AssociativeArray;
+	})();
+	module.exports = AssociativeArray;
+
+
+/***/ },
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -10290,7 +10310,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(9);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var ComponentRegistry = (function (_super) {
 	    __extends(ComponentRegistry, _super);
 	    function ComponentRegistry() {
@@ -10322,7 +10342,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(9);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var GomlLoaderConigurator = (function (_super) {
 	    __extends(GomlLoaderConigurator, _super);
 	    function GomlLoaderConigurator() {
@@ -10482,7 +10502,7 @@
 	var BufferWrapper = __webpack_require__(33);
 	var JThreeContextProxy = __webpack_require__(3);
 	var ListStateChangedType = __webpack_require__(12);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var Buffer = (function (_super) {
 	    __extends(Buffer, _super);
 	    function Buffer() {
@@ -11111,9 +11131,9 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(9);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var ListStateChangedType = __webpack_require__(12);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var ContextSafeResourceContainer = (function (_super) {
 	    __extends(ContextSafeResourceContainer, _super);
 	    function ContextSafeResourceContainer(context) {
@@ -11222,7 +11242,7 @@
 	    d.prototype = new __();
 	};
 	var ResourceWrapper = __webpack_require__(76);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var ProgramWrapper = (function (_super) {
 	    __extends(ProgramWrapper, _super);
 	    function ProgramWrapper(parent, contextManager) {
@@ -11468,7 +11488,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var AttributeParser = __webpack_require__(80);
 	var AttributeConverterBase = __webpack_require__(81);
 	var AngleAttributeConverter = (function (_super) {
@@ -11507,7 +11527,7 @@
 	    d.prototype = new __();
 	};
 	var AttributeConverterBase = __webpack_require__(81);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var NumberAnimater = __webpack_require__(82);
 	var NumberAttributeConverter = (function (_super) {
 	    __extends(NumberAttributeConverter, _super);
@@ -11548,7 +11568,7 @@
 	    d.prototype = new __();
 	};
 	var AttributeConverterBase = __webpack_require__(81);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var Vector3 = __webpack_require__(83);
 	var Vector3Animater = __webpack_require__(84);
 	var Vector3AttributeConverter = (function (_super) {
@@ -11590,7 +11610,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(9);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var AttributeParser = __webpack_require__(80);
 	var RotationAnimater = __webpack_require__(85);
 	var RotationAttributeConverter = (function (_super) {
@@ -11632,7 +11652,7 @@
 	    d.prototype = new __();
 	};
 	var AttributeConverterBase = __webpack_require__(81);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var Color4 = __webpack_require__(86);
 	var Color4Animater = __webpack_require__(87);
 	var Color4AttributeConverter = (function (_super) {
@@ -11674,7 +11694,7 @@
 	    d.prototype = new __();
 	};
 	var AttributeConverterBase = __webpack_require__(81);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var Color3 = __webpack_require__(88);
 	var Color3AttributeConverter = (function (_super) {
 	    __extends(Color3AttributeConverter, _super);
@@ -12892,6 +12912,16 @@
 	    __extends(TemplateNode, _super);
 	    function TemplateNode(elem, loader, parent) {
 	        _super.call(this, elem, loader, parent);
+	        this.templateGoml = "";
+	        var name = elem.getAttribute("name");
+	        if (name) {
+	            loader.nodeRegister.addObject("jthree.template", name, this);
+	            this.templateGoml = elem.innerHTML;
+	            console.log(this.templateGoml);
+	        }
+	        else {
+	            console.error("template tag should be specified name.");
+	        }
 	    }
 	    return TemplateNode;
 	})(GomlTreeNodeBase);
@@ -13171,7 +13201,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeObject = __webpack_require__(9);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var AttributeConverterBase = (function (_super) {
 	    __extends(AttributeConverterBase, _super);
 	    function AttributeConverterBase() {
@@ -13229,7 +13259,7 @@
 	    d.prototype = new __();
 	};
 	var VectorEnumeratorBase = __webpack_require__(112);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var VectorBase = __webpack_require__(113);
 	var Vector3Factory = (function () {
 	    function Vector3Factory() {
@@ -15281,7 +15311,7 @@
 	    d.prototype = new __();
 	};
 	var VectorEnumeratorBase = __webpack_require__(112);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var VectorBase = __webpack_require__(113);
 	var Vector4Enumerator = (function (_super) {
 	    __extends(Vector4Enumerator, _super);
@@ -15770,7 +15800,7 @@
 	    d.prototype = new __();
 	};
 	var TreeNodeBase = __webpack_require__(135);
-	var AssociativeArray = __webpack_require__(16);
+	var AssociativeArray = __webpack_require__(18);
 	var ComponentContainerNodeBase = (function (_super) {
 	    __extends(ComponentContainerNodeBase, _super);
 	    function ComponentContainerNodeBase(elem, parent, loader) {
@@ -15979,7 +16009,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var jThreeObject = __webpack_require__(9);
 	var RendererBase = (function (_super) {
 	    __extends(RendererBase, _super);
@@ -16118,7 +16148,7 @@
 	var MatrixBase = __webpack_require__(143);
 	var Vector3 = __webpack_require__(83);
 	var Vector4 = __webpack_require__(114);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var Collection = __webpack_require__(75);
 	var MatrixFactory = __webpack_require__(144);
 	var MatrixEnumerator = __webpack_require__(145);
@@ -16875,7 +16905,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var JThreeObject = __webpack_require__(9);
 	var GLContextWrapperBase = (function (_super) {
 	    __extends(GLContextWrapperBase, _super);
@@ -17304,7 +17334,7 @@
 	    d.prototype = new __();
 	};
 	var SceneObject = __webpack_require__(131);
-	var Exceptions = __webpack_require__(17);
+	var Exceptions = __webpack_require__(16);
 	var Camera = (function (_super) {
 	    __extends(Camera, _super);
 	    function Camera() {

@@ -134,7 +134,14 @@ class GomlLoader extends jThreeObject {
     this.ready=true;
   }
 
-  private eachNode(act: Delegates.Action1<GomlTreeNodeBase>) {
+  private eachNode(act: Delegates.Action1<GomlTreeNodeBase>,targets?:GomlTreeNodeBase[]) {
+    if(targets)
+    {
+      targets.forEach(v=>{
+        v.callRecursive(act);
+      });
+      return;
+    }
     this.configurator.GomlRootNodes.forEach(v=>{
       this.rootNodes.get(v).forEach(e=>e.callRecursive(act));
     });
@@ -173,47 +180,20 @@ class GomlLoader extends jThreeObject {
       }
     }
   }
-
-  public appendChildren(jq: JQuery, parent: HTMLElement, parentInGoml?: GomlTreeNodeBase, loadedGoml?: GomlTreeNodeBase[]): void {
-    var needLastProcess = false;//TODO refactor this method
-    if (!jq) return;
-    if (!parentInGoml) {
-      var id = parent.getAttribute("x-j3-id");
-      parentInGoml = this.NodesById.get(id);
-      needLastProcess = true;
-      loadedGoml = [];
+  
+  public append(source:JQuery,parent:HTMLElement)
+  {
+    var id = parent.getAttribute("x-j3-id");
+    var parentOfGoml = this.NodesById.get(id);
+    var loadedGomls=[];
+    for (var i = 0; i < source.length; i++) {
+      var s = source[i];
+      this.parseChildren(parentOfGoml,$(s),(v)=>{loadedGomls.push(v)});
     }
-    for (var i = 0; i < jq.length; i++) {
-      var e = jq[i];
-      var tagFactory=this.configurator.getGomlTagFactory(e.tagName)
-      if (tagFactory) {
-        var newNode = tagFactory.CreateNodeForThis(e, this, parentInGoml);
-        if (newNode == null) {
-          console.warn(`${e.tagName} tag was parsed,but failed to create instance. Skipped.`);
-        } else {
-          this.NodesById.set(newNode.ID, newNode);
-          e.classList.add("x-j3-" + newNode.ID)
-          e.setAttribute('x-j3-id', newNode.ID);
-          loadedGoml.push((newNode));
-          if(!tagFactory.NoNeedParseChildren)this.appendChildren($(e).children(), null, newNode, loadedGoml);
-        }
-
-      } else {
-        console.warn(`${e.tagName} was not parsed.`);
-      }
-
-    }
-    if (needLastProcess) {
-      loadedGoml.forEach((e) => {
-        e.beforeLoad();
-      });
-      loadedGoml.forEach((e) => {
-        e.Load();
-      });
-      loadedGoml.forEach((e) => {
-        e.afterLoad();
-      });
-    }
+    this.eachNode(v=> v.beforeLoad(),loadedGomls);
+    this.eachNode(v=> v.Load(),loadedGomls);
+    this.eachNode(v=> v.afterLoad(),loadedGomls);
+    this.eachNode(v=>v.attributes.applyDefaultValue(),loadedGomls);
   }
 
   public getNode(id: string): GomlTreeNodeBase {

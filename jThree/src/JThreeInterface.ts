@@ -96,10 +96,10 @@ class JThreeInterface extends JThreeObject {
 
   public append(target: string): JThreeInterface {
     var newTarget: JQuery = $(target);
-    this.target.each((n, e) => {
-      JThreeInterface.Context.GomlLoader.appendChildren(newTarget, <HTMLElement>e);
+    this.target.each((i,e)=>{
+          JThreeInterface.Context.GomlLoader.append(newTarget,<HTMLElement>e);
     });
-    return this;
+    return new JThreeInterface(newTarget);;
   }
 
   private static getNode(elem: HTMLElement): GomlTreeNodeBase {

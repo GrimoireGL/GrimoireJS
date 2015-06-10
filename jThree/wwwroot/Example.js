@@ -1,5 +1,6 @@
 j3(function(){
   j3("mesh").animate({rotation:"y(270d)"},10000);
+  j3("object").append("<mesh geo='cube' mat='mat1' scale='0.2' position='0.3,0,0'/>");
   j3("#modTest").animate({testValue:500},2000);
   j3("#modTest").delay(2000).queue(function(){
     j3("#modTest").attr({enabled:false});
@@ -15,21 +16,12 @@ j3.addComponent({
             handler:function(v){}
           }
       },
-        update:function(v){},
-        awake:function(v){console.warn("this is awake");},
-        onEnabled:function(v){console.warn("onenabled")},
-        start:function(v){console.warn("start")},
-        onDisabled:function(v){console.warn("onDisabled")} 
+
        },
      "test2":{
         update:function(v){
-          var components=v.getComponents("test");
-          console.warn(components[0].testValue);
         },
-        awake:function(v){console.warn("this is awake");},
-        onEnabled:function(v){console.warn("onenabled")},
-        start:function(v){console.warn("start")},
-        onDisabled:function(v){console.warn("onDisabled")} 
+
        }
       }
     );
