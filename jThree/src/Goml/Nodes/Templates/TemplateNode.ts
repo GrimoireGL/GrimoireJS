@@ -7,6 +7,11 @@ import JThreeContext=require('../../../Core/JThreeContext');
 class TemplateNode extends GomlTreeNodeBase
 {
   private templateGoml:string="";
+  
+  public get TemplateGoml():string
+  {
+    return this.templateGoml;
+  }
 
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
@@ -14,6 +19,7 @@ class TemplateNode extends GomlTreeNodeBase
       var name=elem.getAttribute("name");
       if(name)
       {
+        debugger;
         loader.nodeRegister.addObject("jthree.template",name,this);
         this.templateGoml=elem.innerHTML;
         console.log(this.templateGoml);

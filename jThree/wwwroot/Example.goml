@@ -20,7 +20,8 @@
         <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)"></camera>
       </object>
       <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3">
-
+            <object position="0.5,1,-1" template="tempTest">
+            </object>
       </mesh>
       <mesh geo="grid" mat="mat1"></mesh>
     </scene>

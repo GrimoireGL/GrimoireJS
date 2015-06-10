@@ -164,11 +164,6 @@ class GomlLoader extends jThreeObject {
           console.warn(`${elem.tagName} tag was parsed,but failed to create instance. Skipped.`);
           continue;
         }
-        //configure class name and attribute to HTMLElement to make it easy to find this node in next time.
-        elem.classList.add("x-j3-" + newNode.ID);
-        elem.setAttribute('x-j3-id', newNode.ID);
-        //after configuration, this node is going to add to NodesById
-        this.NodesById.set(newNode.ID, newNode);
         //in first call, it is use for adding into the array for containing root nodes.
         //after first call, it is no used, so this code have no effect after first call.
         actionForChildren(newNode);
@@ -181,8 +176,15 @@ class GomlLoader extends jThreeObject {
     }
   }
   
-  public append(source:JQuery,parent:HTMLElement)
+  public instanciateTemplate(template:string,parentNode:GomlTreeNodeBase)
   {
+    var templateInElems=$(template);
+    this.append(templateInElems,parentNode.Element,false);
+  }
+  
+  public append(source:JQuery,parent:HTMLElement,needLoad?:boolean)
+  {
+   if(typeof needLoad ==='undefined')needLoad=true;
     var id = parent.getAttribute("x-j3-id");
     var parentOfGoml = this.NodesById.get(id);
     var loadedGomls=[];
@@ -190,6 +192,7 @@ class GomlLoader extends jThreeObject {
       var s = source[i];
       this.parseChildren(parentOfGoml,$(s),(v)=>{loadedGomls.push(v)});
     }
+    if(!needLoad)return;
     this.eachNode(v=> v.beforeLoad(),loadedGomls);
     this.eachNode(v=> v.Load(),loadedGomls);
     this.eachNode(v=> v.afterLoad(),loadedGomls);

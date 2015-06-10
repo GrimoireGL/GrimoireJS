@@ -1,7 +1,7 @@
-enum ListStateChangedTypee
+enum ListStateChangedType
 {
   Add,
   Delete
 }
 
-export=ListStateChangedTypee;
+export=ListStateChangedType;

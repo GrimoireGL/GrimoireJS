@@ -14,6 +14,11 @@ class TreeNodeBase extends JThreeObjectWithID
 	 */
 	protected element:HTMLElement;
 	
+	public get Element():HTMLElement
+	{
+		return this.element;
+	}
+	
 	/**
 	 * the parent node of this node
 	 */
