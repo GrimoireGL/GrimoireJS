@@ -16,8 +16,8 @@ class Texture extends ContextSafeResourceContainer<TextureWrapper>
     this.imageSource=source;
   }
 
-  private minFilter: TextureMinFilterType=TextureMinFilterType.Nearest;
-  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;
+  private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
+  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;;
   private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private imageSource:ImageSource;

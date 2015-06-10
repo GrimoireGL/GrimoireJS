@@ -37,10 +37,10 @@ class TextureWrapper extends ResourceWrapper
 
   private applyTextureParameters():void
   {
-    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parentTexture.MinFilter);
-    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,this.WebGLContext.,this.parentTexture.MagFilter);
-    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parentTexture.SWrap);
-    // this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parentTexture.TWrap);
+    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parentTexture.MinFilter);
+    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MagFilter,this.parentTexture.MagFilter);
+     this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parentTexture.SWrap);
+    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parentTexture.TWrap);
   }
 
   public bind(register:TextureRegister):void
