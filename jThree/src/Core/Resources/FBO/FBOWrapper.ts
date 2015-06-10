@@ -1,17 +1,14 @@
 import JThreeObject = require('../../../Base/JThreeObject');
 import ContextManagerBase = require("../../ContextManagerBase");
 import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
-
-class FBOWrapper extends JThreeObject
+import ResourceWrapper = require('../ResourceWrapper');
+class FBOWrapper extends ResourceWrapper
 {
 
     constructor(renderer:ContextManagerBase) {
-        super();
+        super(renderer);
         this.glContext = renderer.Context;
-        this.ID = renderer.ID;
     }
-
-    private ID:string="";
 
     private initialized: boolean = false;
 
@@ -27,7 +24,7 @@ class FBOWrapper extends JThreeObject
     init(): void {
         if (!this.initialized) {
             this.targetFBO = this.glContext.CreateFrameBuffer();
-
+            this.glContext.BindFrameBuffer(this.targetFBO);
         }
     }
 

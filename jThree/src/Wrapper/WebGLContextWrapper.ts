@@ -19,6 +19,7 @@ import TextureMinType = require('./Texture/TextureMinFilterType');
 import TextureMagType = require('./Texture/TextureMagFilterType');
 import TextureWrapType = require('./Texture/TextureWrapType');
 import TextureRegister = require('./Texture/TextureRegister');
+import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
 
@@ -272,5 +273,28 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.CheckErrorAsFatal();
     this.gl.activeTexture(textureRegister);
   }
+  
+        
+      CreateRenderBuffer():WebGLRenderbuffer
+      {
+        this.CheckErrorAsFatal();
+        return this.gl.createFramebuffer();
+      }
+      
+      BindRenderBuffer(bindTarget:WebGLRenderbuffer):void
+      {
+        this.CheckErrorAsFatal();
+        this.gl.bindRenderbuffer(this.gl.RENDERBUFFER,bindTarget);
+      }
+      
+      RenderBufferStorage(internalFormat:RenderBufferInternalFormats,width:number,height:number):void{
+        this.CheckErrorAsFatal();
+        this.gl.renderbufferStorage(this.gl.RENDERBUFFER,internalFormat ,width,height);
+      }
+      
+      FrameBufferRenderBuffer(attachment:FrameBufferAttachmentType,buffer:WebGLRenderbuffer){
+                this.CheckErrorAsFatal();
+        this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER,attachment,this.gl.RENDERBUFFER,buffer);
+      }
 }
 export =WebGLContextWrapper;

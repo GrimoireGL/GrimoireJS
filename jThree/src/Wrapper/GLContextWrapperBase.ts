@@ -20,6 +20,7 @@ import TextureMinType = require('./Texture/TextureMinFilterType');
 import TextureMagType = require('./Texture/TextureMagFilterType');
 import TextureWrapType = require('./Texture/TextureWrapType');
 import TextureRegister = require('./Texture/TextureRegister');
+import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
 class GLContextWrapperBase extends JThreeObject
   {
       /**
@@ -334,6 +335,24 @@ class GLContextWrapperBase extends JThreeObject
 
       Uniform1i(webGlUniformLocation:WebGLUniformLocation,num:number):void
       {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+      
+      CreateRenderBuffer():WebGLRenderbuffer
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+      
+      BindRenderBuffer(bindTarget:WebGLRenderbuffer):void
+      {
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+      
+      RenderBufferStorage(internalFormat:RenderBufferInternalFormats,width:number,height:number):void{
+        throw new Exceptions.AbstractClassMethodCalledException();
+      }
+      
+      FrameBufferRenderBuffer(attachment:FrameBufferAttachmentType,buffer:WebGLRenderbuffer){
         throw new Exceptions.AbstractClassMethodCalledException();
       }
   }
