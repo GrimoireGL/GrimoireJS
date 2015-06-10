@@ -188,10 +188,9 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.uniform3f(webGlUniformLocation, vector.X, vector.Y, vector.Z);
   }
 
-  Uniform1i(webGlUniformLocation:WebGLUniformLocation,num:number):void
-  {
+  Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void {
     this.CheckErrorAsFatal();
-    this.gl.uniform1i(webGlUniformLocation,num);
+    this.gl.uniform1i(webGlUniformLocation, num);
   }
 
   Enable(feature: GLFeatureType): void {
@@ -268,33 +267,30 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.texParameteri(targetTexture, param, value);
   }
 
-  ActiveTexture(textureRegister:TextureRegister)
-  {
+  ActiveTexture(textureRegister: TextureRegister) {
     this.CheckErrorAsFatal();
     this.gl.activeTexture(textureRegister);
   }
-  
-        
-      CreateRenderBuffer():WebGLRenderbuffer
-      {
-        this.CheckErrorAsFatal();
-        return this.gl.createFramebuffer();
-      }
-      
-      BindRenderBuffer(bindTarget:WebGLRenderbuffer):void
-      {
-        this.CheckErrorAsFatal();
-        this.gl.bindRenderbuffer(this.gl.RENDERBUFFER,bindTarget);
-      }
-      
-      RenderBufferStorage(internalFormat:RenderBufferInternalFormats,width:number,height:number):void{
-        this.CheckErrorAsFatal();
-        this.gl.renderbufferStorage(this.gl.RENDERBUFFER,internalFormat ,width,height);
-      }
-      
-      FrameBufferRenderBuffer(attachment:FrameBufferAttachmentType,buffer:WebGLRenderbuffer){
-                this.CheckErrorAsFatal();
-        this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER,attachment,this.gl.RENDERBUFFER,buffer);
-      }
+
+
+  CreateRenderBuffer(): WebGLRenderbuffer {
+    this.CheckErrorAsFatal();
+    return this.gl.createFramebuffer();
+  }
+
+  BindRenderBuffer(bindTarget: WebGLRenderbuffer): void {
+    this.CheckErrorAsFatal();
+    this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, bindTarget);
+  }
+
+  RenderBufferStorage(internalFormat: RenderBufferInternalFormats, width: number, height: number): void {
+    this.CheckErrorAsFatal();
+    this.gl.renderbufferStorage(this.gl.RENDERBUFFER, internalFormat, width, height);
+  }
+
+  FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
+    this.CheckErrorAsFatal();
+    this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer);
+  }
 }
 export =WebGLContextWrapper;
