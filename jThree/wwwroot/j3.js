@@ -11574,7 +11574,7 @@
 	var JThreeObject = __webpack_require__(9);
 	var Exceptions = __webpack_require__(16);
 	var AttributeParser = __webpack_require__(80);
-	var RotationAnimater = __webpack_require__(85);
+	var RotationAnimater = __webpack_require__(87);
 	var RotationAttributeConverter = (function (_super) {
 	    __extends(RotationAttributeConverter, _super);
 	    function RotationAttributeConverter() {
@@ -11615,8 +11615,8 @@
 	};
 	var AttributeConverterBase = __webpack_require__(81);
 	var Exceptions = __webpack_require__(16);
-	var Color4 = __webpack_require__(86);
-	var Color4Animater = __webpack_require__(87);
+	var Color4 = __webpack_require__(85);
+	var Color4Animater = __webpack_require__(86);
 	var Color4AttributeConverter = (function (_super) {
 	    __extends(Color4AttributeConverter, _super);
 	    function Color4AttributeConverter() {
@@ -12068,7 +12068,7 @@
 	var GomlTreeNodeBase = __webpack_require__(91);
 	var JThreeContextProxy = __webpack_require__(3);
 	var $ = __webpack_require__(4);
-	var Color4 = __webpack_require__(86);
+	var Color4 = __webpack_require__(85);
 	var RendererNode = (function (_super) {
 	    __extends(RendererNode, _super);
 	    function RendererNode(elem, loader, parent) {
@@ -12602,12 +12602,11 @@
 	var ObjectNode = (function (_super) {
 	    __extends(ObjectNode, _super);
 	    function ObjectNode(elem, loader, parent, parentSceneNode, parentObject) {
-	        debugger;
 	        _super.call(this, elem, loader, parent, parentSceneNode, parentObject);
 	        var templateName = elem.getAttribute("template");
 	        if (templateName) {
 	            this.targetTemplate = this.loader.nodeRegister.getObject("jthree.template", templateName);
-	            this.loader.instanciateTemplate(this.targetTemplate.TemplateGoml, this);
+	            this.loader.instanciateTemplate(this.targetTemplate.GetGomlToInstanciate(this.element), this);
 	        }
 	    }
 	    ObjectNode.prototype.ConstructTarget = function () {
@@ -12883,10 +12882,8 @@
 	        this.templateGoml = "";
 	        var name = elem.getAttribute("name");
 	        if (name) {
-	            debugger;
 	            loader.nodeRegister.addObject("jthree.template", name, this);
 	            this.templateGoml = elem.innerHTML;
-	            console.log(this.templateGoml);
 	        }
 	        else {
 	            console.error("template tag should be specified name.");
@@ -12899,6 +12896,31 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    TemplateNode.prototype.GetGomlToInstanciate = function (instanciateParent) {
+	        var valueMap = {};
+	        var templateAttributes = this.element.attributes;
+	        for (var i = 0; i < templateAttributes.length; i++) {
+	            var attribute = templateAttributes.item(i);
+	            if (TemplateNode.templateIgnore.indexOf(attribute.name) === -1) {
+	                valueMap[attribute.name] = attribute.value;
+	            }
+	        }
+	        var instanciateParentAttributes = instanciateParent.attributes;
+	        for (var i = 0; i < instanciateParentAttributes.length; i++) {
+	            var attribute = instanciateParentAttributes.item(i);
+	            if (TemplateNode.parentIgnore.indexOf(attribute.name) === -1) {
+	                valueMap[attribute.name] = attribute.value;
+	            }
+	        }
+	        var replaceTarget = this.TemplateGoml;
+	        for (var replaceKey in valueMap) {
+	            var value = valueMap[replaceKey];
+	            replaceTarget = replaceTarget.replace("{{" + replaceKey + "}}", value);
+	        }
+	        return replaceTarget;
+	    };
+	    TemplateNode.parentIgnore = ["template"];
+	    TemplateNode.templateIgnore = ["name"];
 	    return TemplateNode;
 	})(GomlTreeNodeBase);
 	module.exports = TemplateNode;
@@ -13460,34 +13482,6 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var AnimagterBase = __webpack_require__(111);
-	var Quaternion = __webpack_require__(110);
-	var RotationAnimater = (function (_super) {
-	    __extends(RotationAnimater, _super);
-	    function RotationAnimater() {
-	        _super.apply(this, arguments);
-	    }
-	    RotationAnimater.prototype.updateAnimation = function (progress) {
-	        var b = this.beginValue;
-	        var e = this.endValue;
-	        var ef = this.easingFunction.Ease;
-	        this.targetAttribute.Value = Quaternion.Slerp(b, e, ef(0, 1, progress));
-	    };
-	    return RotationAnimater;
-	})(AnimagterBase);
-	module.exports = RotationAnimater;
-
-
-/***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
 	var JThreeObject = __webpack_require__(9);
 	var Vector4 = __webpack_require__(114);
 	var Color4 = (function (_super) {
@@ -13590,7 +13584,7 @@
 
 
 /***/ },
-/* 87 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -13600,7 +13594,7 @@
 	    d.prototype = new __();
 	};
 	var AnimagterBase = __webpack_require__(111);
-	var Color4 = __webpack_require__(86);
+	var Color4 = __webpack_require__(85);
 	var Color4Animater = (function (_super) {
 	    __extends(Color4Animater, _super);
 	    function Color4Animater() {
@@ -13618,6 +13612,34 @@
 
 
 /***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var AnimagterBase = __webpack_require__(111);
+	var Quaternion = __webpack_require__(110);
+	var RotationAnimater = (function (_super) {
+	    __extends(RotationAnimater, _super);
+	    function RotationAnimater() {
+	        _super.apply(this, arguments);
+	    }
+	    RotationAnimater.prototype.updateAnimation = function (progress) {
+	        var b = this.beginValue;
+	        var e = this.endValue;
+	        var ef = this.easingFunction.Ease;
+	        this.targetAttribute.Value = Quaternion.Slerp(b, e, ef(0, 1, progress));
+	    };
+	    return RotationAnimater;
+	})(AnimagterBase);
+	module.exports = RotationAnimater;
+
+
+/***/ },
 /* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -13629,7 +13651,7 @@
 	};
 	var JThreeObject = __webpack_require__(9);
 	var Vector3 = __webpack_require__(83);
-	var Color4 = __webpack_require__(86);
+	var Color4 = __webpack_require__(85);
 	var Color3 = (function (_super) {
 	    __extends(Color3, _super);
 	    function Color3(r, g, b) {
@@ -13747,7 +13769,7 @@
 	var WebGLContextWrapper = __webpack_require__(116);
 	var Rectangle = __webpack_require__(93);
 	var JThreeContextProxy = __webpack_require__(3);
-	var Color4 = __webpack_require__(86);
+	var Color4 = __webpack_require__(85);
 	var ClearTargetType = __webpack_require__(117);
 	var CanvasManager = (function (_super) {
 	    __extends(CanvasManager, _super);
@@ -14507,7 +14529,7 @@
 	var JThreeContextProxy = __webpack_require__(3);
 	var ShaderType = __webpack_require__(127);
 	var Matrix = __webpack_require__(128);
-	var Color4 = __webpack_require__(86);
+	var Color4 = __webpack_require__(85);
 	var SolidColorMaterial = (function (_super) {
 	    __extends(SolidColorMaterial, _super);
 	    function SolidColorMaterial() {
@@ -14614,7 +14636,7 @@
 	var ShaderType = __webpack_require__(127);
 	var Vector3 = __webpack_require__(83);
 	var Matrix = __webpack_require__(128);
-	var Color4 = __webpack_require__(86);
+	var Color4 = __webpack_require__(85);
 	var LambertMaterial = (function (_super) {
 	    __extends(LambertMaterial, _super);
 	    function LambertMaterial() {
@@ -14678,7 +14700,7 @@
 	var Vector3 = __webpack_require__(83);
 	var Vector4 = __webpack_require__(114);
 	var Matrix = __webpack_require__(128);
-	var Color4 = __webpack_require__(86);
+	var Color4 = __webpack_require__(85);
 	var Color3 = __webpack_require__(88);
 	var TextureRegister = __webpack_require__(129);
 	var PhongMaterial = (function (_super) {

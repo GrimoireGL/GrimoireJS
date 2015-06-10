@@ -19,13 +19,12 @@ class ObjectNode extends SceneObjectNodeBase
   
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
-    debugger;
       super(elem,loader,parent,parentSceneNode,parentObject);
       var templateName=elem.getAttribute("template");
       if(templateName)
       {
         this.targetTemplate=<TemplateNode>this.loader.nodeRegister.getObject("jthree.template",templateName);
-        this.loader.instanciateTemplate(this.targetTemplate.TemplateGoml,this);
+        this.loader.instanciateTemplate(this.targetTemplate.GetGomlToInstanciate(this.element),this);
       }
   }
 
