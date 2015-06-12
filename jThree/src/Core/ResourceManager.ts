@@ -4,7 +4,7 @@ import BufferTargetType = require("../Wrapper/BufferTargetType");
 import BufferUsageType = require("../Wrapper/BufferUsageType");
 import ElementType = require("../Wrapper/ElementType");
 import ShaderType = require("../Wrapper/ShaderType");
-
+import Delegates = require('../Delegates');
 import jThreeObject = require("../Base/JThreeObject");
 import Buffer = require("./Resources/Buffer/Buffer");
 import Shader = require("./Resources/Shader/Shader");
@@ -12,6 +12,7 @@ import Program = require("./Resources/Program/Program");
 import Texture = require('./Resources/Texture/Texture');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import RBO = require('./Resources/RBO/RBO');
+import ResourceArray = require('./Resources/ResourceArray');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
@@ -109,14 +110,18 @@ class ResourceManager extends jThreeObject
       return this.textures.get(id);
     }
     
-    private rbos:AssociativeArray<RBO> = new AssociativeArray<RBO>();
-    
+    private rbos:ResourceArray<RBO,Delegates.Func3<JThreeContext,number,number,RBO>> = new ResourceArray<RBO,Delegates.Func3<JThreeContext,number,number,RBO>>(
+        (context,width,height)=>
+        {
+            var r=new RBO(context,width,height);
+            r.each(v=>v.init());
+            return r;
+        }
+        );
+        
     createRBO(id:string,width:number,height:number):RBO
     {
-        var rbo = new RBO(this.context,width,height);
-        rbo.each((v)=>v.init());
-        this.rbos.set(id,rbo);
-        return rbo;
+        return this.rbos.create(id)(this.context,width,height);
     }
 }
 export=ResourceManager;
