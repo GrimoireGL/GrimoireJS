@@ -11,6 +11,7 @@ import Shader = require("./Resources/Shader/Shader");
 import Program = require("./Resources/Program/Program");
 import Texture = require('./Resources/Texture/Texture');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
+import RBO = require('./Resources/RBO/RBO');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
@@ -106,6 +107,16 @@ class ResourceManager extends jThreeObject
     getTexture(id:string):Texture
     {
       return this.textures.get(id);
+    }
+    
+    private rbos:AssociativeArray<RBO> = new AssociativeArray<RBO>();
+    
+    createRBO(id:string,width:number,height:number):RBO
+    {
+        var rbo = new RBO(this.context,width,height);
+        rbo.each((v)=>v.init());
+        this.rbos.set(id,rbo);
+        return rbo;
     }
 }
 export=ResourceManager;

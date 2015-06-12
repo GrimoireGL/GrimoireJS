@@ -49,6 +49,7 @@ static j3(query:string|Delegates.Action0):JThreeInterface
       JThreeInit.img= new Image();
       JThreeInit.img.onload = ()=>{j3.ResourceManager.createTexture("test",JThreeInit.img)};
       JThreeInit.img.src="/miku.png";
+      j3.ResourceManager.createRBO("testRBO",128,128);
     });
   }
 }
