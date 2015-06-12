@@ -29,39 +29,31 @@ class ResourceManager extends jThreeObject
         return JThreeContextProxy.getJThreeContext();
     }
 
-    private buffers: AssociativeArray<Buffer> = new AssociativeArray<Buffer>();
+    private buffers: ResourceArray<Buffer,Delegates.Func5<JThreeContext,BufferTargetType,BufferUsageType,number,ElementType,Buffer>>=new ResourceArray<Buffer,Delegates.Func5<JThreeContext,BufferTargetType,BufferUsageType,number,ElementType,Buffer>>
+    (
+        (context,target,usage,unitcount,elementType)=>
+        {
+            return Buffer.CreateBuffer(context,target,usage,unitcount,elementType);
+        }
+    );
 
     createBuffer(id:string,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType):Buffer {
-        if (this.buffers.has(id)) {
-            throw new Error("Buffer id cant be dupelicated");
-        }
-        var buf: Buffer = Buffer.CreateBuffer(this.context.CanvasManagers, target, usage,unitCount,elementType);
-        this.buffers.set(id, buf);
-        return buf;
+        return this.buffers.create(id)(this.context,target,usage,unitCount,elementType);
     }
 
     getBuffer(id:string): Buffer {
-      if(!this.buffers.has(id))console.error('there were no such buffer');
         return this.buffers.get(id);
     }
 
-    private shaders: AssociativeArray<Shader> = new AssociativeArray<Shader>();
+    private shaders:ResourceArray<Shader,Delegates.Func3<JThreeContext,string,ShaderType,Shader>>=new ResourceArray<Shader,Delegates.Func3<JThreeContext,string,ShaderType,Shader>>(
+        (context:JThreeContext,source:string,shaderType:ShaderType)=>
+        {
+            return Shader.CreateShader(context,source,shaderType);
+        }
+    );
 
     createShader(id: string,source:string,shaderType:ShaderType): Shader {
-        var shader: Shader = Shader.CreateShader(this.context, source, shaderType);
-        this.shaders.set(id, shader);
-        return shader;
-    }
-
-    createOrGetShader(id:string,source:string,shaderType:ShaderType):Shader
-    {
-      if(this.hasShader(id))
-      {
-        return this.getShader(id);
-      }else
-      {
-        return this.createShader(id,source,shaderType);
-      }
+        return this.shaders.create(id)(this.context,source,shaderType);
     }
 
     getShader(id: string):Shader {
@@ -73,36 +65,37 @@ class ResourceManager extends jThreeObject
       return this.shaders.has(id);
     }
 
-    private programs: AssociativeArray<Program> = new AssociativeArray<Program>();
+    private programs: ResourceArray<Program,Delegates.Func2<JThreeContext,Shader[],Program>>=new ResourceArray<Program,Delegates.Func2<JThreeContext,Shader[],Program>>(
+       (context:JThreeContext,shaders:Shader[])=>
+       {
+           return Program.CreateProgram(context,shaders);
+       }
+    );
 
     createProgram(id: string,shaders:Shader[]): Program {
-        var program: Program = Program.CreateProgram(this.context, shaders);
-        this.programs.set(id, program);
-        return program;
+        return this.programs.create(id)(this.context,shaders);
     }
     public createorGetProgram(id:string,shaders:Shader[]):Program
     {
-      if(!this.programs.has(id))
-      {
-        return this.createProgram(id,shaders);
-      }else
-      {
-        return this.getProgram(id);
-      }
+        return this.programs.create(id)(this.context,shaders);
     }
 
     getProgram(id: string): Program {
         return this.programs.get(id);
     }
-
-    private textures:AssociativeArray<Texture>=new AssociativeArray<Texture>();
+    
+    private textures:ResourceArray<Texture,Delegates.Func2<JThreeContext,ImageSource,Texture>>=new ResourceArray<Texture,Delegates.Func2<JThreeContext,ImageSource,Texture>>(
+        (context,imageSource)=>{
+            var tex = new Texture(this.context,imageSource);
+            tex.each(v=>v.init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
+            return tex;
+        }
+    );
+    
 
     createTexture(id:string,source:ImageSource):Texture
     {
-      var texture= new Texture(this.context,source);
-      texture.each((v)=>v.init());
-      this.textures.set(id,texture);
-      return texture;
+      return this.textures.create(id)(this.context,source);
     }
 
     getTexture(id:string):Texture
@@ -122,6 +115,11 @@ class ResourceManager extends jThreeObject
     createRBO(id:string,width:number,height:number):RBO
     {
         return this.rbos.create(id)(this.context,width,height);
+    }
+    
+    getRBO(id:string):RBO
+    {
+        return this.rbos.get(id);
     }
 }
 export=ResourceManager;

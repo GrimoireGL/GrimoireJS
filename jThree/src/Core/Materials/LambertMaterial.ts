@@ -37,8 +37,8 @@ set Color(col:Color4)
           var fs = require('../Shaders/Lambert.glsl');
           var rm=jThreeContext.ResourceManager;
           var vsShader: Shader;
-          vsShader=rm.createOrGetShader("jthree.shaders.vertex.basic",vs,ShaderType.VertexShader);
-          var fsShader: Shader = rm.createOrGetShader("jthree.shaders.fragment.lambert", fs, ShaderType.FragmentShader);
+          vsShader=rm.createShader("jthree.shaders.vertex.basic",vs,ShaderType.VertexShader);
+          var fsShader: Shader = rm.createShader("jthree.shaders.fragment.lambert", fs, ShaderType.FragmentShader);
           vsShader.loadAll();
           fsShader.loadAll();
           this.program= jThreeContext.ResourceManager.createorGetProgram("jthree.programs.lambert", [vsShader, fsShader]);

@@ -10,15 +10,16 @@ import JThreeContextProxy = require("../../JThreeContextProxy");
 import CanvasListChangedEventArgs = require('../../CanvasListChangedEventArgs');
 import ListStateChangedType = require("../../ListStateChangedType");
 import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
+import JThreeContext = require('../../JThreeContext');
 class Buffer extends BufferProxy
 {
-    static CreateBuffer(glContexts:CanvasManager[],target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
+    static CreateBuffer(context:JThreeContext,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
         var buf: Buffer = new Buffer();
         buf.target = target;
         buf.usage = usage;
         buf.unitCount = unitCount;
         buf.elementType = elementType;
-        glContexts.forEach((v, i, a) => {
+        context.CanvasManagers.forEach((v, i, a) => {
             var wrap: BufferWrapper = new BufferWrapper(buf, v.Context);
             buf.managedProxies.push(wrap);
             buf.bufWrappers.set(v.ID, wrap);
