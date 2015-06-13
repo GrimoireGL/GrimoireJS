@@ -307,8 +307,8 @@ class GLContextWrapperBase extends JThreeObject
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }
-
-      TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormat:TextureInternalFormatType,type:TextureType,pixels:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView):void
+      
+      TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }
