@@ -17,7 +17,7 @@ class TextureWrapper extends ResourceWrapper
     this.parentTexture=parent;
   }
 
-  private targetTexture:WebGLTexture;
+  public targetTexture:WebGLTexture;
 
   private initialized:boolean;
 

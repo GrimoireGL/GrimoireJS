@@ -13,6 +13,7 @@ import Texture = require('./Resources/Texture/Texture');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import RBO = require('./Resources/RBO/RBO');
 import ResourceArray = require('./Resources/ResourceArray');
+import FBO = require('./Resources/FBO/FBO');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
@@ -120,6 +121,19 @@ class ResourceManager extends jThreeObject
     getRBO(id:string):RBO
     {
         return this.rbos.get(id);
+    }
+    
+    private fbos:ResourceArray<FBO,Delegates.Func1<JThreeContext,FBO>>=new ResourceArray<FBO,Delegates.Func1<JThreeContext,FBO>>(
+        (context)=>{
+            var fbo =new FBO(context);
+            fbo.each(v=>v.init());
+            return fbo;
+        }
+    );
+    
+    createFBO(id:string):FBO
+    {
+        return this.fbos.create(id,this.context);
     }
     
     

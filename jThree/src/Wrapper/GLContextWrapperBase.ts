@@ -299,7 +299,7 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
       }
 
-      FrameBufferTexture2D(fboTarget:FrameBufferAttachmentType,attachment:FrameBufferAttachmentType,tex:WebGLTexture):void
+      FrameBufferTexture2D(fboTarget:FrameBufferAttachmentType,tex:WebGLTexture):void
       {
         throw new Exceptions.AbstractClassMethodCalledException();
       }

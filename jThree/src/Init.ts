@@ -6,7 +6,8 @@ import Quaternion = require("./Math/Quaternion");
 import Vector3 = require("./Math/Vector3");
 import Delegates = require('./Delegates');
 import JThreeInterface = require('./JThreeInterface');
-import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration')
+import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration');
+import TextureAttachmentType = require('./Wrapper/FramebufferAttachmentType');
 class JThreeStatic
 { 
   public addComponent(declaration:GomlComponentDeclaration)
@@ -47,7 +48,12 @@ static j3(query:string|Delegates.Action0):JThreeInterface
       var j3=JThreeContext.getInstanceForProxy();
       j3.init();
       JThreeInit.img= new Image();
-      JThreeInit.img.onload = ()=>{j3.ResourceManager.createTexture("test",JThreeInit.img)};
+      JThreeInit.img.onload = ()=>{j3.ResourceManager.createTexture("test",JThreeInit.img);
+        var tex=j3.ResourceManager.createTexture("fbotex",JThreeInit.img);
+        var fbo=j3.ResourceManager.createFBO("testFBO");
+        fbo.getForRenderer(j3.CanvasManagers[0]).attachTexture(TextureAttachmentType.ColorAttachment0,tex);
+        
+        };
       JThreeInit.img.src="/miku.png";
       j3.ResourceManager.createRBO("testRBO",128,128);
     });
