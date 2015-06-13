@@ -2,7 +2,7 @@
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import JThreeObject = require('../../Base/JThreeObject');
 
-class ResourceArray<T,F> extends JThreeObject
+class ResourceArray<T,F extends Function> extends JThreeObject
 {
 	private creationFunction:F;
 	
@@ -14,13 +14,16 @@ class ResourceArray<T,F> extends JThreeObject
 		this.creationFunction=creationFunction;
 	}
 	
-	public create(id:string):F{
+	
+	public create(id:string,...args){
 		if(this.resourceArray.has(id))
 		{
 			var resource=this.resourceArray.get(id);
-			return <F>(<any>function(){return resource;});
+			return resource;
 		}else{
-			return this.creationFunction;
+			resource=this.creationFunction.apply(this,args);
+			this.resourceArray.set(id,resource);
+			return resource;
 		}
 	}
 	
@@ -32,6 +35,15 @@ class ResourceArray<T,F> extends JThreeObject
 	public has(id:string):boolean
 	{
 		return this.resourceArray.has(id);
+	}
+	
+	public toString():string
+	{
+		var logInfo:string ="";
+		this.resourceArray.forEach((v,k,m)=>{
+			logInfo=logInfo+k+"\n";
+		});
+		return logInfo;
 	}
 }
 

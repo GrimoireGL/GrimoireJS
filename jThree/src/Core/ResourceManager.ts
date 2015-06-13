@@ -38,7 +38,7 @@ class ResourceManager extends jThreeObject
     );
 
     createBuffer(id:string,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType):Buffer {
-        return this.buffers.create(id)(this.context,target,usage,unitCount,elementType);
+        return this.buffers.create(id,this.context,target,usage,unitCount,elementType);
     }
 
     getBuffer(id:string): Buffer {
@@ -53,7 +53,7 @@ class ResourceManager extends jThreeObject
     );
 
     createShader(id: string,source:string,shaderType:ShaderType): Shader {
-        return this.shaders.create(id)(this.context,source,shaderType);
+        return this.shaders.create(id,this.context,source,shaderType);
     }
 
     getShader(id: string):Shader {
@@ -73,11 +73,11 @@ class ResourceManager extends jThreeObject
     );
 
     createProgram(id: string,shaders:Shader[]): Program {
-        return this.programs.create(id)(this.context,shaders);
+        return this.programs.create(id,this.context,shaders);
     }
     public createorGetProgram(id:string,shaders:Shader[]):Program
     {
-        return this.programs.create(id)(this.context,shaders);
+        return this.programs.create(id,this.context,shaders);
     }
 
     getProgram(id: string): Program {
@@ -95,7 +95,7 @@ class ResourceManager extends jThreeObject
 
     createTexture(id:string,source:ImageSource):Texture
     {
-      return this.textures.create(id)(this.context,source);
+      return this.textures.create(id,this.context,source);
     }
 
     getTexture(id:string):Texture
@@ -114,12 +114,18 @@ class ResourceManager extends jThreeObject
         
     createRBO(id:string,width:number,height:number):RBO
     {
-        return this.rbos.create(id)(this.context,width,height);
+        return this.rbos.create(id,this.context,width,height);
     }
     
     getRBO(id:string):RBO
     {
         return this.rbos.get(id);
     }
+    
+    
+   public toString()
+   {
+       return `buffer:${this.buffers.toString()}\nshader:${this.shaders.toString()}\nprograms:${this.programs.toString()}\ntexture:${this.textures.toString()}`;
+   }
 }
 export=ResourceManager;
