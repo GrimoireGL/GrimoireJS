@@ -239,6 +239,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
   FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
     this.CheckErrorAsFatal();
+    debugger;
     this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, fboTarget,this.gl.TEXTURE_2D, tex, 0);
         console.warn(this.gl.checkFramebufferStatus(this.gl.FRAMEBUFFER));
   }
@@ -251,6 +252,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.CheckErrorAsFatal();
     if(type)
     {//void texImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, ArrayBufferView? pixels)
+      debugger;
       this.gl.texImage2D(targetTexture,level,internalFormat,<number>targetFormatOrWidth,<number>typeOrHeight,<number>pixelsOrBorder,internalFormat,type,<ArrayBufferView>bufferObj);
       return;
     }else{

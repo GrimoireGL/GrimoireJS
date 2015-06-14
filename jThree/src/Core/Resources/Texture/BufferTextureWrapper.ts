@@ -20,7 +20,7 @@ class BufferTextureWrapper extends ResourceWrapper
 	
 	private targetTexture:WebGLTexture;
 	
-	public TargetTexture():WebGLTexture
+	public get TargetTexture():WebGLTexture
 	{
 		return this.targetTexture;
 	}
