@@ -17,7 +17,7 @@ class Texture extends ContextSafeResourceContainer<TextureWrapper>
   }
 
   private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
-  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;;
+  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;
   private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private imageSource:ImageSource;
@@ -33,7 +33,7 @@ class Texture extends ContextSafeResourceContainer<TextureWrapper>
     this.minFilter = value;
   }
 
-  public get MagFiltrer(): TextureMagFilterType {
+  public get MagFilter(): TextureMagFilterType {
     return this.magFilter;
   }
   public set MagFilter(value: TextureMagFilterType) {

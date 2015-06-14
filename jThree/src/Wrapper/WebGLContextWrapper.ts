@@ -252,12 +252,11 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.CheckErrorAsFatal();
     if(type)
     {//void texImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, ArrayBufferView? pixels)
-      debugger;
       this.gl.texImage2D(targetTexture,level,internalFormat,<number>targetFormatOrWidth,<number>typeOrHeight,<number>pixelsOrBorder,internalFormat,type,<ArrayBufferView>bufferObj);
       return;
     }else{
       //void texImage2D(GLenum target, GLint level, GLenum internalformat, GLenum format, GLenum type, TexImageSource? source) /* May throw DOMException */
-     this.gl.texImage2D(targetTexture, level, internalFormat, targetFormatOrWidth, type, <ImageData>pixelsOrBorder);
+     this.gl.texImage2D(targetTexture, level, internalFormat, targetFormatOrWidth, typeOrHeight, <ImageData>pixelsOrBorder);
     }
   }
 

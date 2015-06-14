@@ -38,7 +38,7 @@ class BufferTexture extends ContextSafeResourceContainer<BufferTextureWrapper>
 		return this.elementFormat;
 	}
 	private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
-  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;;
+  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;
   private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   public get MinFilter(): TextureMinFilterType {
@@ -48,7 +48,7 @@ class BufferTexture extends ContextSafeResourceContainer<BufferTextureWrapper>
     this.minFilter = value;
   }
 
-  public get MagFiltrer(): TextureMagFilterType {
+  public get MagFilter(): TextureMagFilterType {
     return this.magFilter;
   }
   public set MagFilter(value: TextureMagFilterType) {

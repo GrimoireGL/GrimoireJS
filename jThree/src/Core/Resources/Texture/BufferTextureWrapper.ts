@@ -39,6 +39,7 @@ class BufferTextureWrapper extends ResourceWrapper
     this.WebGLContext.TexParameteri(TargetTextureType.Texture2D,TextureParameterType.MinFilter,this.parent.MinFilter);
     this.WebGLContext.TexParameteri(TargetTextureType.Texture2D,TextureParameterType.MagFilter,this.parent.MagFilter);
      this.WebGLContext.TexParameteri(TargetTextureType.Texture2D,TextureParameterType.WrapS,this.parent.SWrap);
+	 debugger;
     this.WebGLContext.TexParameteri(TargetTextureType.Texture2D,TextureParameterType.WrapT,this.parent.TWrap);
   }
 
