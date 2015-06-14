@@ -37,8 +37,7 @@ class BufferTexture extends ContextSafeResourceContainer<BufferTextureWrapper>
 	{
 		return this.elementFormat;
 	}
-	
-	  private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
+	private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
   private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;;
   private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
@@ -80,7 +79,13 @@ class BufferTexture extends ContextSafeResourceContainer<BufferTextureWrapper>
 		this.height=height;
 		this.textureFormat=textureFormat;
 		this.elementFormat=elementFormat;
+		debugger;
 	}
+	
+	  protected getInstanceForRenderer(contextManager: ContextManagerBase): BufferTextureWrapper {
+      var textureWrapper=new BufferTextureWrapper(contextManager,this);
+      return textureWrapper;
+  }
 	
 	
 }

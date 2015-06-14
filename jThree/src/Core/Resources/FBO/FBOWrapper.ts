@@ -2,7 +2,7 @@ import JThreeObject = require('../../../Base/JThreeObject');
 import ContextManagerBase = require("../../ContextManagerBase");
 import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import ResourceWrapper = require('../ResourceWrapper');
-import Texture = require('../Texture/Texture');
+import TextureBuffer = require('../Texture/BufferTexture');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require('../../../Wrapper/ClearTargetType');
 import TextureRegister= require('../../../Wrapper/Texture/TextureRegister');
@@ -44,14 +44,14 @@ class FBOWrapper extends ResourceWrapper
         this.WebGLContext.BindFrameBuffer(null);
     }
     
-    attachTexture(attachmentType:FrameBufferAttachmentType,tex:Texture)
+    attachTexture(attachmentType:FrameBufferAttachmentType,tex:TextureBuffer)
     {
                 if(!this.initialized)this.init();
                 this.bind();
-                this.WebGLContext.FrameBufferTexture2D(attachmentType,tex.getForRenderer(this.OwnerCanvas).targetTexture);
+                this.WebGLContext.FrameBufferTexture2D(attachmentType,tex.getForRenderer(this.OwnerCanvas).TargetTexture);
                 this.WebGLContext.Clear(ClearTargetType.ColorBits);
                 this.WebGLContext.ActiveTexture(TextureRegister.Texture0);
-                this.WebGLContext.BindTexture(TargetTextureType.Texture2D,tex.getForRenderer(this.OwnerCanvas).targetTexture);
+                this.WebGLContext.BindTexture(TargetTextureType.Texture2D,tex.getForRenderer(this.OwnerCanvas).TargetTexture);
                 this.unbind();
     }
 

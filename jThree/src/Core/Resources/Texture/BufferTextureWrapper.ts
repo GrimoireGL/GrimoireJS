@@ -31,6 +31,7 @@ class BufferTextureWrapper extends ResourceWrapper
 		this.targetTexture= this.WebGLContext.CreateTexture();
 		this.WebGLContext.BindTexture(TargetTextureType.Texture2D,this.targetTexture);
 		this.WebGLContext.TexImage2D(TargetTextureType.Texture2D,0,this.parent.TextureFormat,this.parent.Width,this.parent.Height,0,this.parent.ElementFormat,null);
+		this.applyTextureParameters();
 	}
 	
 	  private applyTextureParameters():void

@@ -39,6 +39,7 @@ import Matrix = require("./Math/Matrix");
 
     export class AbstractClassMethodCalledException extends jThreeException {
         constructor() {
+            debugger;
             super("Invalid method was called.","This method is abstract method, cant call by this instance");
         }
     }

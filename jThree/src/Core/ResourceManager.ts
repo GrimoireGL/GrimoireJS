@@ -14,6 +14,9 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import RBO = require('./Resources/RBO/RBO');
 import ResourceArray = require('./Resources/ResourceArray');
 import FBO = require('./Resources/FBO/FBO');
+import BufferTexture = require('./Resources/Texture/BufferTexture');
+import TextureFormat = require('../Wrapper/TextureInternalFormatType');
+import ElementFormat = require('../Wrapper/TextureType');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
@@ -136,6 +139,19 @@ class ResourceManager extends jThreeObject
         return this.fbos.create(id,this.context);
     }
     
+    private bufferTextures:ResourceArray<BufferTexture,Delegates.Func5<JThreeContext,number,number,TextureFormat,ElementFormat,BufferTexture>>=new ResourceArray<BufferTexture,Delegates.Func5<JThreeContext,number,number,TextureFormat,ElementFormat,BufferTexture>>(
+        (context,width,height,texType,elemType)=>
+        {
+           var bt=new BufferTexture(context,width,height,texType,elemType);
+           bt.each(v=>v.init());
+           return bt;
+        }
+    );
+    
+    createBufferTexture(id:string,width:number,height:number)
+    {
+        return this.bufferTextures.create(id,this.context,width,height,TextureFormat.RGBA,ElementFormat.UnsignedByte);
+    }
     
    public toString()
    {

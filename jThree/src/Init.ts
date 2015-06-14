@@ -49,7 +49,7 @@ static j3(query:string|Delegates.Action0):JThreeInterface
       j3.init();
       JThreeInit.img= new Image();
       JThreeInit.img.onload = ()=>{j3.ResourceManager.createTexture("test",JThreeInit.img);
-        var tex=j3.ResourceManager.createTexture("fbotex",JThreeInit.img);
+        var tex=j3.ResourceManager.createBufferTexture("testTex",256,256);
         var fbo=j3.ResourceManager.createFBO("testFBO");
         fbo.getForRenderer(j3.CanvasManagers[0]).attachTexture(TextureAttachmentType.ColorAttachment0,tex);
         
