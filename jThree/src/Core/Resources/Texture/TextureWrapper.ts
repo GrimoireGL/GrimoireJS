@@ -19,20 +19,18 @@ class TextureWrapper extends ResourceWrapper
 
   public targetTexture:WebGLTexture;
 
-  private initialized:boolean;
-
   private parentTexture:Texture;
 
   init()
   {
-    if(this.initialized)return;
+    if(this.Initialized)return;
     this.targetTexture = this.WebGLContext.CreateTexture();
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
     this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,this.parentTexture.ImageSource);
     this.applyTextureParameters();
     this.WebGLContext.GenerateMipmap(TextureTargetType.Texture2D);
-    this.initialized=true;
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,null);
+    this.setInitialized();
   }
 
   private applyTextureParameters():void

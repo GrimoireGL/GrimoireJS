@@ -2,6 +2,8 @@ import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import JThreeObject = require('../../Base/JThreeObject');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ContextManager = require('../ContextManagerBase');
+import JThreeEvent = require('../../Base/JThreeEvent');
+import Delegates = require('../../Delegates');
 class ResourceWrapper extends JThreeObject
 {
   constructor(ownerCanvas:ContextManager)
@@ -27,10 +29,41 @@ class ResourceWrapper extends JThreeObject
   {
     return this.ownerCanvas.ID;
   }
-
+  
   protected get WebGLContext():GLContextWrapperBase
   {
     return this.ownerCanvas.Context;
+  }
+  
+  /**
+   * Whether this resource was initialized for this context or not.
+   */
+  private initialized:boolean;
+  
+  protected onInitializeChangedEvent:JThreeEvent<boolean> = new JThreeEvent<boolean>();
+  
+  /**
+   * add event handler for changing initialized state changed.
+   */
+  public onInitializeChanged(handler:Delegates.Action2<ResourceWrapper,boolean>)
+  {
+    this.onInitializeChangedEvent.addListerner(handler);
+  }
+  
+   /**
+   * Getter for whether this resource was initialized for this context or not.
+   */
+  public get Initialized():boolean
+  {
+    return this.initialized;
+  }
+  
+  protected setInitialized(initialized?:boolean):void
+  {
+    if(typeof initialized === "undefined")initialized=true;
+    if(initialized===this.initialized)return;
+    this.initialized=initialized;
+    this.onInitializeChangedEvent.fire(this,initialized);
   }
 }
 

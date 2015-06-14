@@ -11,31 +11,29 @@ class ShaderWrapper extends ResourceWrapper
         this.parentShader = parent;
     }
 
-    private initialized: boolean = false;
-
     private targetShader: WebGLShader = null;
 
     private parentShader: Shader;
 
     get TargetShader(): WebGLShader {
-        if (!this.initialized) this.init();
+        if (!this.Initialized) this.init();
         return this.targetShader;
     }
 
     init(): void {
-        if (!this.initialized) {
+        if (!this.Initialized) {
             this.targetShader = this.WebGLContext.CreateShader(this.parentShader.ShaderType);
             this.WebGLContext.ShaderSource(this.targetShader, this.parentShader.ShaderSource);
             this.WebGLContext.CompileShader(this.targetShader);
+            this.setInitialized(true);
         }
     }
 
     dispose() {
-        if (this
-            .initialized) {
+        if (this.Initialized) {
             this.WebGLContext.DeleteShader(this.targetShader);
             this.targetShader = null;
-            this.initialized = false;
+            this.setInitialized(false);
         }
     }
 }

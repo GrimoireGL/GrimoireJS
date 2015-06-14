@@ -17,8 +17,6 @@ class ProgramWrapper extends ResourceWrapper
        this.parentProgram = parent;
    }
 
-   private initialized: boolean = false;
-
    private isLinked:boolean=false;
 
    private targetProgram: WebGLProgram = null;
@@ -34,19 +32,19 @@ class ProgramWrapper extends ResourceWrapper
    }
 
    init(): void {
-       if (!this.initialized) {
+       if (!this.Initialized) {
            this.targetProgram = this.WebGLContext.CreateProgram();
            this.parentProgram.AttachedShaders.forEach((v, i, a) => {
                this.WebGLContext.AttachShader(this.targetProgram, v.getForRendererID(this.OwnerID).TargetShader);
            });
-           this.initialized = true;
+           this.setInitialized();
        }
    }
 
    dispose() {
-       if (this.initialized) {
+       if (this.Initialized) {
            this.WebGLContext.DeleteProgram(this.targetProgram);
-           this.initialized = false;
+           this.setInitialized(false);
            this.targetProgram = null;
            this.isLinked = false;
        }
@@ -61,7 +59,7 @@ class ProgramWrapper extends ResourceWrapper
 
    useProgram(): void
    {
-       if (!this.initialized) {
+       if (!this.Initialized) {
            console.log("useProgram was called, but program was not initialized.");
            this.init();
        }

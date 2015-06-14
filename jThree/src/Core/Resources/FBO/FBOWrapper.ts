@@ -15,27 +15,26 @@ class FBOWrapper extends ResourceWrapper
         this.glContext = renderer.Context;
     }
 
-    private initialized: boolean = false;
-
     private glContext: GLContextWrapperBase = null;
 
     private targetFBO:WebGLFramebuffer;
 
     get TargetShader(): WebGLShader {
-        if (!this.initialized) this.init();
+        if (!this.Initialized) this.init();
         return this.targetFBO;
     }
 
     init(): void {
-        if (!this.initialized) {
+        if (!this.Initialized) {
             this.targetFBO = this.glContext.CreateFrameBuffer();
             this.glContext.BindFrameBuffer(this.targetFBO);
+            this.setInitialized();
         }
     }
     
     bind()
     {
-        if(!this.initialized)this.init();
+        if(!this.Initialized)this.init();
         this.WebGLContext.BindFrameBuffer(this.targetFBO);
     }
     
@@ -46,7 +45,7 @@ class FBOWrapper extends ResourceWrapper
     
     attachTexture(attachmentType:FrameBufferAttachmentType,tex:TextureBuffer)
     {
-                if(!this.initialized)this.init();
+                if(!this.Initialized)this.init();
                 this.bind();
                 this.WebGLContext.FrameBufferTexture2D(attachmentType,tex.getForRenderer(this.OwnerCanvas).TargetTexture);
                 this.WebGLContext.ClearColor(255,0,0,255);
@@ -58,11 +57,10 @@ class FBOWrapper extends ResourceWrapper
     }
 
     dispose() {
-        if (this
-            .initialized) {
+        if (this.Initialized) {
               //TODO Dispose frame buffer
             this.targetFBO = null;
-            this.initialized = false;
+            this.setInitialized(false);
         }
     }
 }

@@ -10,13 +10,7 @@ class RBOWrapper extends ResourceWrapper
 	/**
 	 *	Reference to the WebGLRenderbuffer this class managing.
 	  */
-	private targetRBO:WebGLRenderbuffer;
-	
-	/**
-	 * Whethrer this class completed initialize renderbuffer already or not.
-	 */
-	private initialized:boolean=false;
-	
+	private targetRBO:WebGLRenderbuffer;	
 	/**
 	 * The parent RBOWrapper container class.
 	 */
@@ -30,10 +24,11 @@ class RBOWrapper extends ResourceWrapper
 	
 	init()
 	{
-		if(this.initialized)return;
+		if(this.Initialized)return;
 		this.targetRBO=this.WebGLContext.CreateRenderBuffer();
 		this.WebGLContext.BindRenderBuffer(this.targetRBO);
 		this.WebGLContext.RenderBufferStorage(this.parent.Format,this.parent.Width,this.parent.Height);
+		this.setInitialized();
 	}
 }
 export = RBOWrapper;
