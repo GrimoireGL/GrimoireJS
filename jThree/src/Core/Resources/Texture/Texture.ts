@@ -3,8 +3,8 @@ import TextureWrapper = require('./TextureWrapper');
 import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
 import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
 import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
-import ContextManagerBase = require('../../ContextManagerBase');
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
+import ContextManagerBase = require('../../ContextManagerBase');
 import JThreeContext = require('../../JThreeContext');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
