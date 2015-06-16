@@ -8,6 +8,7 @@ import JThreeContextProxy = require("./JThreeContextProxy");
 import Color4 = require("../Base/Color/Color4");
 import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
+import GLFeatureType = require('../Wrapper/GLFeatureType');
 /**
  * Provides some of feature managing canvas.
  */
@@ -69,7 +70,7 @@ class CanvasManager extends ContextManagerBase {
     ClearCanvas():void
     {
       this.Context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
-      this.Context.Enable(2929);
+      this.Context.Enable(GLFeatureType.DepthTest);
       this.Context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
     }
 
