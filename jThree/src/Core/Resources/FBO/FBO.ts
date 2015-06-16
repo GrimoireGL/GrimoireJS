@@ -7,6 +7,7 @@ class FBO extends ContextSafeResourceContainer<FBOWrapper>
 		constructor(context:JThreeContext)
 	{
 		super(context);
+		this.initializeForFirst();
 	}
 	
 	protected getInstanceForRenderer(renderer:ContextManagerBase): FBOWrapper {

@@ -21,6 +21,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
      */
     constructor(context:JThreeContext) {
         super(context);
+        this.initializeForFirst();
     }
 
     private shaderType: ShaderType;

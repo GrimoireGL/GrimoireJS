@@ -8,18 +8,20 @@ import ListStateChangedType = require("../ListStateChangedType");
 import JThreeCollection = require('../../Base/JThreeCollection');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ResourceWrapper = require('./ResourceWrapper');
-class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject
-{
+class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject {
     private context: JThreeContext = null;
 
-    constructor(context:JThreeContext) {
+    constructor(context: JThreeContext) {
         super();
         this.context = context;
         //Initialize resources for the renderers already subscribed.
+        this.context.onRendererChanged(this.rendererChanged.bind(this));
+    }
+
+    protected initializeForFirst() {
         this.context.CanvasManagers.forEach((v) => {
             this.cachedObject.set(v.ID, this.getInstanceForRenderer(v));
         });
-        this.context.onRendererChanged(this.rendererChanged.bind(this));
     }
 
     private cachedObject: AssociativeArray<T> = new AssociativeArray<T>();
@@ -29,7 +31,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     }
 
     public getForRendererID(id: string): T {
-        if (!this.cachedObject.has(id))console.log("There is no matching object with the ID:"+id);
+        if (!this.cachedObject.has(id)) console.log("There is no matching object with the ID:" + id);
         return this.cachedObject.get(id);
     }
 
@@ -39,7 +41,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
         }));
     }
 
-    private rendererChanged(object:any,arg:CanvasListChangedEventArgs): void {
+    private rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
         switch (arg.ChangeType) {
             case ListStateChangedType.Add:
                 this.cachedObject.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
@@ -52,7 +54,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
         }
     }
 
-    protected getInstanceForRenderer(renderer:ContextManagerBase): T {
+    protected getInstanceForRenderer(renderer: ContextManagerBase): T {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
@@ -61,4 +63,4 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     }
 }
 
-export=ContextSafeResourceContainer;
+export =ContextSafeResourceContainer;

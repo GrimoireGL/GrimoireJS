@@ -15,26 +15,19 @@ class TextureWrapper extends TextureWrapperBase
   {
     super(contextManager,parent);
   }
-  private parentTexture:Texture;
+
 
   init()
   {
+    var parent=<Texture>this.Parent;
     if(this.Initialized)return;
     this.setTargetTexture(this.WebGLContext.CreateTexture());
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.TargetTexture);
-    this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,this.parentTexture.ImageSource);
-    this.applyTextureParameters();
+    this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,parent.ImageSource);
+    this.applyTextureParameter();
     this.WebGLContext.GenerateMipmap(TextureTargetType.Texture2D);
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,null);
     this.setInitialized();
-  }
-
-  private applyTextureParameters():void
-  {
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parentTexture.MinFilter);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MagFilter,this.parentTexture.MagFilter);
-     this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parentTexture.SWrap);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parentTexture.TWrap);
   }
 }
 

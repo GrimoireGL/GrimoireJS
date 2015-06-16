@@ -20,6 +20,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
   constructor(context:JThreeContext)
   {
     super(context);
+    this.initializeForFirst();
   }
 
   public get MinFilter(): TextureMinFilterType {

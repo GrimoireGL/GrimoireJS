@@ -8,6 +8,7 @@ import ProgramWrapper = require("./ProgramWrapper");
 class Program extends ContextSafeContainer<ProgramWrapper>{
     constructor(context:JThreeContext) {
         super(context);
+        this.initializeForFirst();
     }
 
 

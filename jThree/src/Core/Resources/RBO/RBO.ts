@@ -11,6 +11,7 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper>
 		this.width=width;
 		this.height=height;
 		this.format=format;
+		this.initializeForFirst();
 	}
 	
 	private width:number;
