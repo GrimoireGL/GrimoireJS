@@ -5,43 +5,20 @@ import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../../Wrapper/TextureType');
 import BufferTexture = require('./BufferTexture')
 import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
-
-class BufferTextureWrapper extends ResourceWrapper {
+import TextureWrapperBase = require('./TextureWrapperBase');
+class BufferTextureWrapper extends TextureWrapperBase {
 	constructor(ownerCanvas: CanvasManagerBase, parent: BufferTexture) {
-		super(ownerCanvas);
-		this.parent = parent;
-	}
-
-	private parent: BufferTexture;
-
-	private targetTexture: WebGLTexture;
-
-	public get TargetTexture(): WebGLTexture {
-		return this.targetTexture;
+		super(ownerCanvas,parent);
 	}
 
 	init() {
 		if (this.Initialized) return;
-		this.targetTexture = this.WebGLContext.CreateTexture();
-		this.WebGLContext.BindTexture(TargetTextureType.Texture2D, this.targetTexture);
-		this.WebGLContext.TexImage2D(TargetTextureType.Texture2D, 0, this.parent.TextureFormat, this.parent.Width, this.parent.Height, 0, this.parent.ElementFormat, null);
-		this.applyTextureParameters();
+		var parent = <BufferTexture>this.Parent;
+		this.setTargetTexture(this.WebGLContext.CreateTexture());
+		this.WebGLContext.BindTexture(TargetTextureType.Texture2D, this.TargetTexture);
+		this.WebGLContext.TexImage2D(TargetTextureType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
+		this.applyTextureParameter();
 		this.setInitialized();
-	}
-
-	private applyTextureParameters(): void {
-		this.WebGLContext.TexParameteri(TargetTextureType.Texture2D, TextureParameterType.MinFilter, this.parent.MinFilter);
-		this.WebGLContext.TexParameteri(TargetTextureType.Texture2D, TextureParameterType.MagFilter, this.parent.MagFilter);
-		this.WebGLContext.TexParameteri(TargetTextureType.Texture2D, TextureParameterType.WrapS, this.parent.SWrap);
-		this.WebGLContext.TexParameteri(TargetTextureType.Texture2D, TextureParameterType.WrapT, this.parent.TWrap);
-	}
-	
-	/**
-	 * Bind target texture to 
-	 */
-	public bind(textureType:TargetTextureType)
-	{
-		this.WebGLContext.BindTexture(textureType,this.targetTexture);
 	}
 	
 	public unbind()

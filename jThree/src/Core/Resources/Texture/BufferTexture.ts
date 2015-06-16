@@ -8,7 +8,8 @@ import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilter
 import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
 import ContextManagerBase = require('../../ContextManagerBase');
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
-class BufferTexture extends ContextSafeResourceContainer<BufferTextureWrapper>
+import TextureBase = require('./TextureBase');
+class BufferTexture extends TextureBase
 {
 	private width:number;
 	
@@ -37,41 +38,7 @@ class BufferTexture extends ContextSafeResourceContainer<BufferTextureWrapper>
 	{
 		return this.elementFormat;
 	}
-	private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
-  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;
-  private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
-  private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
-  public get MinFilter(): TextureMinFilterType {
-    return this.minFilter;
-  }
-  public set MinFilter(value: TextureMinFilterType) {
-    this.minFilter = value;
-  }
-
-  public get MagFilter(): TextureMagFilterType {
-    return this.magFilter;
-  }
-  public set MagFilter(value: TextureMagFilterType) {
-    this.magFilter = value;
-  }
-
-  public get SWrap(): TextureWrapType {
-    return this.sWrap;
-  }
-
-  public set SWrap(value: TextureWrapType) {
-    this.sWrap = value;
-  }
-
-  public get TWrap(): TextureWrapType {
-    return this.tWrap;
-  }
-
-  public set TWrap(value: TextureWrapType) {
-    this.tWrap = value;
-  }
-	
-	
+		
 	constructor(context:JThreeContext,width:number,height:number,textureFormat:TextureFormat,elementFormat:ElementFormat)
 	{
 		super(context);
@@ -79,7 +46,6 @@ class BufferTexture extends ContextSafeResourceContainer<BufferTextureWrapper>
 		this.height=height;
 		this.textureFormat=textureFormat;
 		this.elementFormat=elementFormat;
-		debugger;
 	}
 	
 	  protected getInstanceForRenderer(contextManager: ContextManagerBase): BufferTextureWrapper {

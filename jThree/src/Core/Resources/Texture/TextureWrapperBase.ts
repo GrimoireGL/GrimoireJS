@@ -1,39 +1,54 @@
 import ResourceWrapper = require('../ResourceWrapper');
-
+import TextureTargetType = require('../../../Wrapper/TargetTextureType');
+import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
+import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
+import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
+import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
+import TextureInternalFormat = require('../../../Wrapper/TextureInternalFormatType');
+import TextureType = require('../../../Wrapper/TextureType');
+import TextureBase = require('TextureBase');
+import ContextManagerBase = require('../../ContextManagerBase');
 class TextureWrapperBase extends ResourceWrapper
 {	
-  private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
-  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;
-  private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
-  private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
-  public get MinFilter(): TextureMinFilterType {
-    return this.minFilter;
+  constructor(owner:ContextManagerBase,parent:TextureBase)
+  {
+    super(owner);
+    this.parent=parent;
+    this.parent.onFilterParameterChanged(this.applyTextureParameter);
   }
-  public set MinFilter(value: TextureMinFilterType) {
-    this.minFilter = value;
+  private parent:TextureBase;
+  
+  public get Parent():TextureBase
+  {
+    return this.parent;
   }
-
-  public get MagFilter(): TextureMagFilterType {
-    return this.magFilter;
+  
+  private targetTexture:WebGLTexture;
+  
+  protected setTargetTexture(texture:WebGLTexture)
+  {
+    this.targetTexture=texture;
   }
-  public set MagFilter(value: TextureMagFilterType) {
-    this.magFilter = value;
+  
+  public get TargetTexture():WebGLTexture
+  {
+    return this.targetTexture;
   }
-
-  public get SWrap(): TextureWrapType {
-    return this.sWrap;
+  
+  /**
+   * apply texture parameters
+   */
+  protected applyTextureParameter()
+  {
+    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parent.MinFilter);
+    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MagFilter,this.parent.MagFilter);
+    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parent.SWrap);
+    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parent.TWrap);
   }
-
-  public set SWrap(value: TextureWrapType) {
-    this.sWrap = value;
-  }
-
-  public get TWrap(): TextureWrapType {
-    return this.tWrap;
-  }
-
-  public set TWrap(value: TextureWrapType) {
-    this.tWrap = value;
+  
+  public bind()
+  {
+    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
   }
 }
 export = TextureWrapperBase;

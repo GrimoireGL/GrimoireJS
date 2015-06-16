@@ -6,6 +6,7 @@ import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilter
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import JThreeEvent = require('../../../Base/JThreeEvent');
 import Delegates = require('../../../Delegates');
+import JThreeContext = require('../../JThreeContext');
 /**
  * 
  */
@@ -16,6 +17,10 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
   private magFilter: TextureMagFilterType = TextureMagFilterType.Linear;
   private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
+  constructor(context:JThreeContext)
+  {
+    super(context);
+  }
 
   public get MinFilter(): TextureMinFilterType {
     return this.minFilter;

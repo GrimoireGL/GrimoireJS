@@ -6,57 +6,26 @@ import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilter
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import ContextManagerBase = require('../../ContextManagerBase');
 import JThreeContext = require('../../JThreeContext');
+import TextureBase =require('./TextureBase');
+import TextureWrapperBase = require('./TextureWrapperBase');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
-class Texture extends ContextSafeResourceContainer<TextureWrapper>
+class Texture extends TextureBase
 {
   constructor(context:JThreeContext,source:ImageSource)
   {
     super(context);
     this.imageSource=source;
   }
-
-  private minFilter: TextureMinFilterType=TextureMinFilterType.LinearMipmapLinear;
-  private magFilter: TextureMagFilterType=TextureMagFilterType.Linear;
-  private tWrap: TextureWrapType=TextureWrapType.ClampToEdge;
-  private sWrap: TextureWrapType=TextureWrapType.ClampToEdge;
+  
   private imageSource:ImageSource;
 
   public get ImageSource():ImageSource
   {
     return this.imageSource;
   }
-  public get MinFilter(): TextureMinFilterType {
-    return this.minFilter;
-  }
-  public set MinFilter(value: TextureMinFilterType) {
-    this.minFilter = value;
-  }
 
-  public get MagFilter(): TextureMagFilterType {
-    return this.magFilter;
-  }
-  public set MagFilter(value: TextureMagFilterType) {
-    this.magFilter = value;
-  }
-
-  public get SWrap(): TextureWrapType {
-    return this.sWrap;
-  }
-
-  public set SWrap(value: TextureWrapType) {
-    this.sWrap = value;
-  }
-
-  public get TWrap(): TextureWrapType {
-    return this.tWrap;
-  }
-
-  public set TWrap(value: TextureWrapType) {
-    this.tWrap = value;
-  }
-
-  protected getInstanceForRenderer(contextManager: ContextManagerBase): TextureWrapper {
+  protected getInstanceForRenderer(contextManager: ContextManagerBase):TextureWrapperBase {
       var textureWrapper=new TextureWrapper(contextManager,this);
       return textureWrapper;
   }

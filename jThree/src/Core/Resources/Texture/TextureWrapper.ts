@@ -1,4 +1,4 @@
-import ResourceWrapper = require('../ResourceWrapper');
+import TextureWrapperBase = require('./TextureWrapperBase');
 import ContextManagerBase = require('../../ContextManagerBase');
 import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
@@ -6,26 +6,22 @@ import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilter
 import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import TextureInternalFormat = require('../../../Wrapper/TextureInternalFormatType');
-import Texture = require('./Texture');
 import TextureType = require('../../../Wrapper/TextureType');
+import Texture = require('./Texture');
 import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
-class TextureWrapper extends ResourceWrapper
+class TextureWrapper extends TextureWrapperBase
 {
   constructor(contextManager:ContextManagerBase,parent:Texture)
   {
-    super(contextManager);
-    this.parentTexture=parent;
+    super(contextManager,parent);
   }
-
-  public targetTexture:WebGLTexture;
-
   private parentTexture:Texture;
 
   init()
   {
     if(this.Initialized)return;
-    this.targetTexture = this.WebGLContext.CreateTexture();
-    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
+    this.setTargetTexture(this.WebGLContext.CreateTexture());
+    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.TargetTexture);
     this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,this.parentTexture.ImageSource);
     this.applyTextureParameters();
     this.WebGLContext.GenerateMipmap(TextureTargetType.Texture2D);
@@ -39,12 +35,6 @@ class TextureWrapper extends ResourceWrapper
     this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MagFilter,this.parentTexture.MagFilter);
      this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parentTexture.SWrap);
     this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parentTexture.TWrap);
-  }
-
-  public bind(register:TextureRegister):void
-  {
-    this.WebGLContext.ActiveTexture(register);
-    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
   }
 }
 

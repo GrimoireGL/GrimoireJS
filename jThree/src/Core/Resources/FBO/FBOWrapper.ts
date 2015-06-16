@@ -51,7 +51,7 @@ class FBOWrapper extends ResourceWrapper
                 this.WebGLContext.ClearColor(255,0,0,255);
                 this.WebGLContext.Clear(ClearTargetType.ColorBits);
                 this.WebGLContext.ActiveTexture(TextureRegister.Texture0);
-                tex.getForRenderer(this.OwnerCanvas).bind(TargetTextureType.Texture2D);
+                tex.getForRenderer(this.OwnerCanvas).bind();
                 this.WebGLContext.GenerateMipmap(TargetTextureType.Texture2D);
                 this.unbind();
     }
