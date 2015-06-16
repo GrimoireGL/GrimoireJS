@@ -69,18 +69,15 @@ class CanvasManager extends ContextManagerBase {
 
     ClearCanvas():void
     {
-      this.context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
-      this.context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
-      this.context.Enable(2929);
+      this.Context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
+      this.Context.Enable(2929);
+      this.Context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
     }
-
-    private glContext: WebGLRenderingContext;
 
     constructor(glContext: WebGLRenderingContext) {
         super();
        // this.enabled = true;
-        this.glContext = glContext;
-        this.context = new WebGLContextWrapper(this.glContext);
+        this.setContext(new WebGLContextWrapper(glContext));
     }
 
     public getDefaultRectangle():Rectangle

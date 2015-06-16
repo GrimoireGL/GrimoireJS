@@ -1,39 +1,40 @@
-
 import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
-
 import jThreeObjectId = require("../Base/JThreeObjectWithID");
 import RendererBase = require("./Renderers/RendererBase");
-class ContextManagerBase extends jThreeObjectId
-{
+/**
+ * Provides base interface for the classes managing GLcontext
+ */
+class ContextManagerBase extends jThreeObjectId {
     constructor() {
         super();
     }
-    protected context: GLContextWrapperBase;
-
-    get Context(): GLContextWrapperBase
+    
+    private context: GLContextWrapperBase;
+    
+    protected setContext(context:GLContextWrapperBase)
     {
+        this.context=context;
+    }
+
+    get Context(): GLContextWrapperBase {
         return this.context;
     }
 
-    beforeRender(renderer:RendererBase):void
-    {
-        
-    }
-
-    afterRender(renderer:RendererBase):void
-    {
+    beforeRender(renderer: RendererBase): void {
 
     }
 
-    beforeRenderAll():void
-    {
+    afterRender(renderer: RendererBase): void {
 
     }
 
-    afterRenderAll():void
-    {
-      
+    beforeRenderAll(): void {
+
+    }
+
+    afterRenderAll(): void {
+
     }
 }
 
-export=ContextManagerBase;
+export =ContextManagerBase;

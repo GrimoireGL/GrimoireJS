@@ -10,14 +10,14 @@ class CanvasListChangedEventArgs extends JThreeObject
 
 
   /**
-   * レンダラへの変更の種類
+   * the type of changing to renderer
    */
   get ChangeType(): RendererStateChangedType {
       return this.changeType;
   }
 
   /**
-   * 影響を受けたレンダラ
+   * the renderer affected
    */
   get AffectedRenderer(): ContextManagerBase {
       return this.affectedRenderer;

@@ -49,8 +49,6 @@ class JThreeContext extends JThreeObject
       });
     }
 
-
-
     get SceneManager(): SceneManager {
         return this.sceneManager;
     }
@@ -65,7 +63,6 @@ class JThreeContext extends JThreeObject
         this.timer = new ContextTimer();
         this.sceneManager = new SceneManager();
         this.gomlLoader = new GomlLoader();
-        console.warn("JthreeContext was instanciated");
     }
 
     /**
