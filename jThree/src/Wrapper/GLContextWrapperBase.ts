@@ -23,6 +23,11 @@ import TextureRegister = require('./Texture/TextureRegister');
 import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
 class GLContextWrapperBase extends JThreeObject
   {
+    public get Context():WebGLRenderingContext
+    {
+      return null;
+    }
+    
       /**
        * Check gl error, and abort if error has been occured.
        */

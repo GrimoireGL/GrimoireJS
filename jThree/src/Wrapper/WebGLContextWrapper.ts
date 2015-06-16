@@ -22,7 +22,12 @@ import TextureRegister = require('./Texture/TextureRegister');
 import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
-
+  
+    public get Context():WebGLRenderingContext
+    {
+      return this.gl;
+    }
+    
 
   constructor(gl: WebGLRenderingContext) {
     super();

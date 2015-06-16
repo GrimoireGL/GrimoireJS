@@ -1,24 +1,26 @@
 import JThreeObject = require('../Base/JThreeObject');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
+import GLContextWrapperBase = require('../Wrapper/GLContextWrapperBase');
 class GLExtensionManager extends JThreeObject
 {
 	private requiredExtensions:string[]=["WEBGL_draw_buffers"];
 	private extensions:AssociativeArray<any>=new AssociativeArray<any>();
-	
 	
 	constructor()
 	{
 		super();
 	}
 	
-	public checkExtensions(context:WebGLRenderingContext)
+	public checkExtensions(context:GLContextWrapperBase)
 	{
 		for (var i = 0; i < this.requiredExtensions.length; i++) {
 			var element = this.requiredExtensions[i];
-			var ext=context.getExtension(element);
+			var ext=context.Context.getExtension(element);
 			if(!ext)
 			{
 				console.error(`WebGL Extension:${element} was requested,but your browser is not supporting this feature.`)
+			}else{
+				console.log(`WebGL Extension:${element} was instanciated successfully`);
 			}
 			this.extensions.set(element,ext);
 		}

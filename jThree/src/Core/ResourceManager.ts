@@ -93,7 +93,7 @@ class ResourceManager extends jThreeObject
     private textures:ResourceArray<Texture,Delegates.Func2<JThreeContext,ImageSource,Texture>>=new ResourceArray<Texture,Delegates.Func2<JThreeContext,ImageSource,Texture>>(
         (context,imageSource)=>{
             var tex = new Texture(this.context,imageSource);
-            tex.each(v=>(<TextureWrapper>v).init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
+            tex.each(v=>v.init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
             return tex;
         }
     );
@@ -145,7 +145,7 @@ class ResourceManager extends jThreeObject
         (context,width,height,texType,elemType)=>
         {
            var bt=new BufferTexture(context,width,height,texType,elemType);
-           bt.each(v=>(<BufferTextureWrapper>v).init());
+           bt.each(v=>v.init());
            return bt;
         }
     );

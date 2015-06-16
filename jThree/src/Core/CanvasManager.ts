@@ -24,8 +24,7 @@ class CanvasManager extends ContextManagerBase {
             renderer.targetCanvas=canvas;
             instance.addCanvasManager(renderer);
             return renderer;
-        } catch (e) {
-            
+        } catch (e) {   
           console.error("Web GL context Generation failed");
             if (!gl) {
               console.error("WebGL Context Generation failed."+e);

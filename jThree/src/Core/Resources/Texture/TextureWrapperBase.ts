@@ -50,5 +50,10 @@ class TextureWrapperBase extends ResourceWrapper
   {
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
   }
+  
+  public init()
+  {
+    
+  }
 }
 export = TextureWrapperBase;

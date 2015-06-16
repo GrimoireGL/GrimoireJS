@@ -17,7 +17,7 @@ class TextureWrapper extends TextureWrapperBase
   }
 
 
-  init()
+  public init()
   {
     var parent=<Texture>this.Parent;
     if(this.Initialized)return;

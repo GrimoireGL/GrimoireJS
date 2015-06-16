@@ -11,7 +11,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
 		super(ownerCanvas,parent);
 	}
 
-	init() {
+	public init() {
 		if (this.Initialized) return;
 		var parent = <BufferTexture>this.Parent;
 		this.setTargetTexture(this.WebGLContext.CreateTexture());
