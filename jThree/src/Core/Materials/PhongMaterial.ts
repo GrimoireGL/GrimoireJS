@@ -94,7 +94,7 @@ class PhongMaterial extends Material
          console.log(resourceManager.toString());
          var tex=jThreeContext.ResourceManager.getTexture("test");
          renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
-         if(tex)tex.getForRenderer(renderer.ContextManager).bind();
+        // if(tex)tex.getForRenderer(renderer.ContextManager).bind();
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("uv",geometry.UVBuffer.getForRenderer(renderer.ContextManager));

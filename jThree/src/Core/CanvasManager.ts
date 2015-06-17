@@ -94,7 +94,7 @@ class CanvasManager extends ContextManagerBase {
     {
         if(val===this.fullscreen)return;
         this.fullscreen=val;
-        if(val)this.targetCanvas.webkitRequestFullScreen();
+        if(val)this.targetCanvas.webkitRequestFullScreen();//TODO fix it
     }
 }
 
