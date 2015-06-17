@@ -39,7 +39,7 @@ set Color(col:Color4)
           var fsShader: Shader = rm.createShader("jthree.shaders.fragment.solidcolor", fs, ShaderType.FragmentShader);
           vsShader.loadAll();
           fsShader.loadAll();
-          this.program= jThreeContext.ResourceManager.createorGetProgram("jthree.programs.solidcolor", [vsShader, fsShader]);
+          this.program= jThreeContext.ResourceManager.createProgram("jthree.programs.solidcolor", [vsShader, fsShader]);
       }
 
      configureMaterial(renderer: RendererBase, object:SceneObject): void {

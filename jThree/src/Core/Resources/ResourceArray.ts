@@ -1,27 +1,24 @@
 
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import JThreeObject = require('../../Base/JThreeObject');
-
-class ResourceArray<T,F extends Function> extends JThreeObject
-{
-	private creationFunction:F;
-	
+import Delegates = require('./../../Delegates')
+class ResourceArray<T> extends JThreeObject
+{	
 	private resourceArray:AssociativeArray<T>=new AssociativeArray<T>();
 	
-	constructor(creationFunction:F)
+	constructor()
 	{
 		super();
-		this.creationFunction=creationFunction;
 	}
 	
 	
-	public create(id:string,...args){
+	public create(id:string,creationFunc:Delegates.Func0<T>){
 		if(this.resourceArray.has(id))
 		{
 			var resource=this.resourceArray.get(id);
 			return resource;
 		}else{
-			resource=this.creationFunction.apply(this,args);
+			resource=creationFunc();
 			this.resourceArray.set(id,resource);
 			return resource;
 		}
