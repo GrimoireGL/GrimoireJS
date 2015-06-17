@@ -19,6 +19,7 @@ import TextureFormat = require('../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../Wrapper/TextureType');
 import BufferTextureWrapper = require('./Resources/Texture/BufferTextureWrapper');
 import TextureWrapper = require('./Resources/Texture/TextureWrapper');
+import TextureBase = require('./Resources/Texture/TextureBase');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
@@ -74,11 +75,11 @@ class ResourceManager extends jThreeObject {
         return this.programs.get(id);
     }
 
-    private textures: ResourceArray<Texture> = new ResourceArray<Texture>();
+    private textures: ResourceArray<TextureBase> = new ResourceArray<TextureBase>();
 
 
-    createTexture(id: string, source: ImageSource): Texture {
-        return this.textures.create(id, () => {
+    createTextureWithSource(id: string, source: ImageSource): Texture {
+        return <Texture>this.textures.create(id, () => {
             var tex = new Texture(this.context, source);
             tex.each(v=> v.init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
             return tex;
@@ -86,7 +87,7 @@ class ResourceManager extends jThreeObject {
     }
 
     getTexture(id: string): Texture {
-        return this.textures.get(id);
+        return <Texture>this.textures.get(id);
     }
 
     private rbos: ResourceArray<RBO> = new ResourceArray<RBO>(
@@ -114,10 +115,8 @@ class ResourceManager extends jThreeObject {
         });
     }
 
-    private bufferTextures: ResourceArray<BufferTexture> = new ResourceArray<BufferTexture>();
-
-    createBufferTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
-        return this.bufferTextures.create(id, () => {
+    createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
+        return this.textures.create(id, () => {
             var bt = new BufferTexture(this.context, width, height, texType, elemType);
             bt.each(v=> v.init());
             return bt;

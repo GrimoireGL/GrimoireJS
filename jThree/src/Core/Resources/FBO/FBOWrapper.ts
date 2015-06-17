@@ -7,6 +7,7 @@ import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachme
 import ClearTargetType = require('../../../Wrapper/ClearTargetType');
 import TextureRegister= require('../../../Wrapper/Texture/TextureRegister');
 import TargetTextureType = require('../../../Wrapper/TargetTextureType');
+import TextureBase = require('../Texture/TextureBase')
 class FBOWrapper extends ResourceWrapper
 {
 
@@ -43,7 +44,7 @@ class FBOWrapper extends ResourceWrapper
         this.WebGLContext.BindFrameBuffer(null);
     }
     
-    attachTexture(attachmentType:FrameBufferAttachmentType,tex:TextureBuffer)
+    attachTexture(attachmentType:FrameBufferAttachmentType,tex:TextureBase)
     {
                 if(!this.Initialized)this.init();
                 this.bind();
