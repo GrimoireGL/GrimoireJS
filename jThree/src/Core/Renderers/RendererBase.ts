@@ -2,9 +2,12 @@ import ContextManagerBase = require("./../ContextManagerBase");
 import Delegates = require("../../Delegates");
 import Exceptions = require("../../Exceptions");
 import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
-import jThreeObjectWithId = require("../../Base/JThreeObjectWithId");
+import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import Camera = require("./../Camera/Camera");
-class RendererBase extends jThreeObjectWithId
+/**
+ * Provides base class feature for renderer classes.
+ */
+class RendererBase extends jThreeObjectWithID
 {
     
     private camera:Camera;
@@ -30,13 +33,12 @@ class RendererBase extends jThreeObjectWithId
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    protected contextManager: ContextManagerBase;
-
-    get ContextManager(): ContextManagerBase {
+    private contextManager: ContextManagerBase;
+    public get ContextManager(): ContextManagerBase {
         return this.contextManager;
     }
 
-    get Context(): GLContextWrapperBase {
+    public get GLContext(): GLContextWrapperBase {
         return this.contextManager.Context;
     }
 }

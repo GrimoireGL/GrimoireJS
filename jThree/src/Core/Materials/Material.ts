@@ -39,13 +39,13 @@ class Material extends JThreeObjectWithID
 
     protected configureMaterial(renderer:RendererBase,object:SceneObject): void {
       if(this.CullEnabled){
-        renderer.Context.Enable(
+        renderer.GLContext.Enable(
           GLFeatureType.CullFace);
-          renderer.Context.CullFace(this.cullMode);
+          renderer.GLContext.CullFace(this.cullMode);
         }
         else
         {
-          renderer.Context.Disable(GLFeatureType.CullFace);
+          renderer.GLContext.Disable(GLFeatureType.CullFace);
         }
         return;
     }
@@ -59,7 +59,7 @@ class Material extends JThreeObjectWithID
       if(!object.Geometry)return;
       var geometry=object.Geometry;
       this.configureMaterial(renderer,object);
-      renderer.Context.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
+      renderer.GLContext.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
     }
 
 /**

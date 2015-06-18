@@ -54,7 +54,7 @@ set Color(col:Color4)
           programWrapper.setUniformMatrix("matMV",Matrix.multiply(renderer.Camera.ViewMatrix,object.Transformer.LocalToGlobal));
           programWrapper.setUniformVector("u_color",this.Color.toVector());
           geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
-          renderer.Context.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
+          renderer.GLContext.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
      }
   }
 

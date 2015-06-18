@@ -27,15 +27,15 @@ class ViewPortRenderer extends RendererBase
     }
 
     applyViewportConfigure(): void {
-        this.contextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top,this.viewportArea.Width, this.viewportArea.Height);
+        this.ContextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top,this.viewportArea.Width, this.viewportArea.Height);
     }
 
     render(drawAct: Delegates.Action0): void {
        this.ContextManager.beforeRender(this);
         this.applyViewportConfigure();
         drawAct();
-        this.contextManager.Context.Flush();
-        this.contextManager.afterRender(this);RendererBase
+        this.ContextManager.Context.Flush();
+        this.ContextManager.afterRender(this);
     }
 }
 
