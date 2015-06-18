@@ -4,7 +4,6 @@ import RendererBase = require("./RendererBase");
 import ContextManagerBase = require("./../ContextManagerBase");
 import Delegates = require("../../Delegates");
 import ClearTargetType = require("../../Wrapper/ClearTargetType");
-
 import jThreeObject = require("../../Base/JThreeObject");
 import Camera = require("./../Camera/Camera");
 
@@ -17,17 +16,6 @@ class ViewPortRenderer extends RendererBase
 
     private viewportArea: Rectangle;
 
-    private camera:Camera;
-
-    public get Camera():Camera
-    {
-      return this.camera;
-    }
-    public set Camera(camera:Camera)
-    {
-      this.camera=camera;
-    }
-
     public get ViewPortArea():Rectangle
     {
       return this.viewportArea;
@@ -38,13 +26,13 @@ class ViewPortRenderer extends RendererBase
       this.viewportArea=area;
     }
 
-    applyConfigure(): void {
+    applyViewportConfigure(): void {
         this.contextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top,this.viewportArea.Width, this.viewportArea.Height);
     }
 
     render(drawAct: Delegates.Action0): void {
        this.ContextManager.beforeRender(this);
-        this.applyConfigure();
+        this.applyViewportConfigure();
         drawAct();
         this.contextManager.Context.Flush();
         this.contextManager.afterRender(this);RendererBase

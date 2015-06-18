@@ -2,21 +2,26 @@ import ContextManagerBase = require("./../ContextManagerBase");
 import Delegates = require("../../Delegates");
 import Exceptions = require("../../Exceptions");
 import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
-
-import jThreeObject = require("../../Base/JThreeObject");
+import jThreeObjectWithId = require("../../Base/JThreeObjectWithId");
 import Camera = require("./../Camera/Camera");
-class RendererBase extends jThreeObject
+class RendererBase extends jThreeObjectWithId
 {
+    
+    private camera:Camera;
+
+    public get Camera():Camera
+    {
+      return this.camera;
+    }
+    
+    public set Camera(camera:Camera)
+    {
+      this.camera=camera;
+    }
 
     constructor(contextManager:ContextManagerBase) {
         super();
         this.contextManager = contextManager;
-    }
-    protected id: string;
-
-    get ID(): string
-    {
-        return this.id;
     }
 
     public enabled: boolean;
@@ -33,11 +38,6 @@ class RendererBase extends jThreeObject
 
     get Context(): GLContextWrapperBase {
         return this.contextManager.Context;
-    }
-
-    public get Camera():Camera
-    {
-      return null;
     }
 }
 
