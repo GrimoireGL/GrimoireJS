@@ -7,7 +7,7 @@ class Geometry extends jThreeObject {
    protected normalBuffer: Buffer;
    protected uvBuffer: Buffer;
    protected indexBuffer:Buffer;
-   protected primitiveTopology:PrimitiveTopology;
+   protected primitiveTopology:PrimitiveTopology=PrimitiveTopology.Triangles;
 
    get PositionBuffer(): Buffer {
        return this.positionBuffer;

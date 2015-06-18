@@ -4,6 +4,7 @@
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />
     <cube name="cube" divide="30" />
+    <quad name="quad"/>
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
@@ -17,7 +18,9 @@
           <component id="modTest" name="test"/>
           <component name="test2"/>
         </components>
-        <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)"></camera>
+        <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)">
+          <mesh geo="quad" mat="mat1" position="0,0,-1" scale="0.2" rotation="y(15d)"/>
+        </camera>
       </object>
       <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3">
             <object position="0.5,1,-1" template="tempTest" geometry="grid" rotation="x(20d)">

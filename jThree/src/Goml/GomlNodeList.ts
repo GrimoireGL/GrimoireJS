@@ -10,7 +10,8 @@ var gomlList=[
     "GRID":require('./Nodes/Geometries/GridGeometryNode'),
     "CUBE":require('./Nodes/Geometries/CubeGeometryNode'),
     "CIRCLE":require('./Nodes/Geometries/CircleGeometryNode'),
-    "CYLINDER":require('./Nodes/Geometries/CylinderGeometryNode')
+    "CYLINDER":require('./Nodes/Geometries/CylinderGeometryNode'),
+    "QUAD":require('./Nodes/Geometries/QuadGeometryNode')
   }),
   new GomlNodeListElement('jthree.basic',
   require("./Factories/TagFactory"),
