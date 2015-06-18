@@ -1,4 +1,5 @@
 # jThree
+[![Build Status](https://travis-ci.org/jThreeJS/jThree.svg?branch=develop)](https://travis-ci.org/jThreeJS/jThree)
 
 ## What is jThree?
 
@@ -38,6 +39,17 @@ tsd reinstall
 bower install
 ```
 
+## Coding Style
+Almost every code in this project is witten with Typescript.
+For writing Typescript, we use these coding style below.
+There is too much code in this project that is not forrowing this coding style, but It will follow these coding style in future by refactoring.
 
+### Names
 
-[![Build Status](https://travis-ci.org/jThreeJS/jThree.svg?branch=develop)](https://travis-ci.org/jThreeJS/jThree)
+* Use PascalCase for type names.
+* Do not use "I" as a prefix for interface names.
+* Use PascalCase for enum values.
+* Use camelCase for function names.
+* Use camelCase for property names and local variables.
+* Do not use "_" as a prefix for private properties.
+* Use whole words in names when possible.
