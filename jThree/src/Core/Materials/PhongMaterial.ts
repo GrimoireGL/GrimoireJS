@@ -17,6 +17,8 @@ import Color3 = require('../../Base/Color/Color3');
 import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
 import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
+import TextureBase = require('../Resources/Texture/TextureBase');
+import TargetTextureType = require('../../Wrapper/TargetTextureType');
 declare function require(string):string;
 
 class PhongMaterial extends Material
@@ -67,6 +69,18 @@ class PhongMaterial extends Material
     {
       this.specularCoefficient=val;
     }
+    
+    private texture:TextureBase;
+    
+    get Texture():TextureBase
+    {
+      return this.texture;
+    }
+    
+    set Texture(tex:TextureBase)
+    {
+      this.texture=tex;
+    }
 
       protected program:Program;
       constructor() {
@@ -92,9 +106,10 @@ class PhongMaterial extends Material
          var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
          var resourceManager = jThreeContext.ResourceManager;
          console.log(resourceManager.toString());
-         var tex=jThreeContext.ResourceManager.getTexture("fbo-tex");
+         var tex=this.Texture;
          renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
          if(tex)tex.getForRenderer(renderer.ContextManager).bind();
+         else renderer.GLContext.BindTexture(TargetTextureType.Texture2D,null);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("uv",geometry.UVBuffer.getForRenderer(renderer.ContextManager));

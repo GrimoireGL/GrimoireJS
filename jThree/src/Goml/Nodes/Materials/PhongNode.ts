@@ -5,7 +5,8 @@ import GomlLoader = require("../../GomlLoader");
 import Color4 = require("../../../Base/Color/Color4");
 import JThreeID = require("../../../Base/JThreeID");
 import MaterialNodeBase = require('./MaterialNodeBase');
-import Material = require('../../../Core/Materials/Material');
+import Material = require('../../../Core/Materials/Material')
+import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
 class PhongNode extends MaterialNodeBase
 {
     material:Phong;
@@ -26,6 +27,14 @@ class PhongNode extends MaterialNodeBase
           "specularpower":
           {
             value:10,converter:"number",handler:(v)=>{this.material.SpecularCoefficient=v.Value;}
+          },
+          "texture":
+          {//TODO implement texture node
+              value:"tex",converter:"string",handler:(v)=>
+              {
+                  var context = JThreeContextProxy.getJThreeContext();
+                  this.material.Texture=context.ResourceManager.getTexture(v.Value);
+              }
           }
         });
 

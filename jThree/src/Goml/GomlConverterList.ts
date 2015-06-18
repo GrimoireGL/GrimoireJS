@@ -10,6 +10,7 @@ var converterList={
   "color4":require('./Converter/Color4AttributeConverter'),
   "color3":require('./Converter/Color3AttributeConverter'),
   "boolean":require('./Converter/BooleanAttributeConverter'),
-  "integer":require('./Converter/IntegerAttributeConverter')
+  "integer":require('./Converter/IntegerAttributeConverter'),
+  "string":require('./Converter/StringAttributeConverter')
 };
 export=converterList;

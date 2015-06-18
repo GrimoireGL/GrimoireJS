@@ -1,6 +1,6 @@
 <goml>
   <resources>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat1" />
+    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat1" texture ="fbo-tex"/>
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />
     <cube name="cube" divide="30" />
