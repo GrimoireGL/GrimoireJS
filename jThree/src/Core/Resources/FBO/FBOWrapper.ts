@@ -19,6 +19,8 @@ class FBOWrapper extends ResourceWrapper
     private glContext: GLContextWrapperBase = null;
 
     private targetFBO:WebGLFramebuffer;
+    
+    private textures:TextureBase[]=[];
 
     get TargetShader(): WebGLShader {
         if (!this.Initialized) this.init();
@@ -42,6 +44,10 @@ class FBOWrapper extends ResourceWrapper
     unbind()
     {
         this.WebGLContext.BindFrameBuffer(null);
+        this.textures.forEach(tex=>{
+        tex.getForRenderer(this.OwnerCanvas).bind();
+        this.WebGLContext.GenerateMipmap(TargetTextureType.Texture2D);
+        });
     }
     
     attachTexture(attachmentType:FrameBufferAttachmentType,tex:TextureBase)
@@ -49,11 +55,9 @@ class FBOWrapper extends ResourceWrapper
                 if(!this.Initialized)this.init();
                 this.bind();
                 this.WebGLContext.FrameBufferTexture2D(attachmentType,tex.getForRenderer(this.OwnerCanvas).TargetTexture);
-                this.WebGLContext.ClearColor(255,0,0,255);
-                this.WebGLContext.Clear(ClearTargetType.ColorBits);
-                this.WebGLContext.ActiveTexture(TextureRegister.Texture0);
                 tex.getForRenderer(this.OwnerCanvas).bind();
                 this.WebGLContext.GenerateMipmap(TargetTextureType.Texture2D);
+                this.textures.push(tex);
                 this.unbind();
     }
 

@@ -17,8 +17,10 @@ class TextureRenderer extends ViewportRenderer
        this.ContextManager.beforeRender(this);
         this.applyViewportConfigure();
         drawAct();
-        this.ContextManager.Context.Flush();
+        this.ContextManager.Context.Finish();
         this.ContextManager.afterRender(this);
 		this.targetFBO.getForRenderer(this.ContextManager).unbind();
     }
 }
+
+export = TextureRenderer;

@@ -92,7 +92,7 @@ class PhongMaterial extends Material
          var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
          var resourceManager = jThreeContext.ResourceManager;
          console.log(resourceManager.toString());
-         var tex=jThreeContext.ResourceManager.getTexture("test");
+         var tex=jThreeContext.ResourceManager.getTexture("fbo-tex");
          renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
          if(tex)tex.getForRenderer(renderer.ContextManager).bind();
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));

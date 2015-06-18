@@ -10,6 +10,8 @@ import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
+import TextureRenderer = require('../../../Core/Renderers/TextureRenderer');
+import FramebufferAttachmentType = require('../../../Wrapper/FramebufferAttachmentType');
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNode;
@@ -23,13 +25,23 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     afterLoad(){
       var rdr:RendererNode=this.parentRendererNode=<RendererNode>this.parent;
+      var defaultRect = rdr.canvasManager.getDefaultRectangle();
       this.targetRenderer=new ViewportRenderer(rdr.canvasManager,new Rectangle(this.Left,this.Top,this.Width,this.Height));
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
+      //test code begin
+      var tex=context.ResourceManager.createTexture("fbo-tex",defaultRect.Width,defaultRect.Height);
+      var fbo = context.ResourceManager.createFBO("fbo");
+      fbo.getForRenderer(this.targetRenderer.ContextManager).attachTexture(FramebufferAttachmentType.ColorAttachment0,tex);
+      var texRenderer = new TextureRenderer(this.targetRenderer.ContextManager,defaultRect,fbo);
+      texRenderer.Camera=cameraNode.TargetCamera;
+      scene.addRenderer(texRenderer);
+      //test code end
       scene.addRenderer(this.targetRenderer);
-      var defaultRect = rdr.canvasManager.getDefaultRectangle();
+
+      
       this.attributes.defineAttribute({
         "width":{
           value:defaultRect.Width,
