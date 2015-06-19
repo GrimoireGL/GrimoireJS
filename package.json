@@ -55,6 +55,7 @@
     "shader-loader": "^1.1.2",
     "ts-loader": "^0.4.3",
     "tsdoc": "0.0.4",
+    "typedoc": "^0.3.4",
     "typescript": "^1.4.1",
     "webpack": "^1.8.9",
     "yargs": "^3.8.0"
