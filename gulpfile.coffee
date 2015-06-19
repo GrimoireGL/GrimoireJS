@@ -169,9 +169,19 @@ gulp.task('gen-doc-travis',function(){
   }));
 });
 ###
+
 gulp.task 'doc',(cb)->
-    child_process.exec("./node_modules/.bin/typedoc --out ./ci/docs"+branch+" --module commonjs --target es5 --name jThree ./jThree/src/",cb);
-    undefined
+  gulp
+    .src ['jThree/src/**/*.ts']
+    .pipe typedoc
+      module: 'commonjs'
+      target: 'es5'
+      out: "ci/docs/#{branch}"
+      name: 'jThree'
+
+# gulp.task 'doc',(cb)->
+#     child_process.exec("typedoc --out ./ci/docs"+branch+" --module commonjs --target es5 --name jThree ./jThree/src/",cb);
+#     undefined
 
 
   # gulp.src tsSource
