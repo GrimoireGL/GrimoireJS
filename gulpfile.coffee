@@ -194,12 +194,7 @@ gulp.task 'doc',(cb)->
   #     json:'./ci/docs/'+branch+'doc.json',
   #     mode:'modules'
 ###
-MISC
-###
-### the task for cleaning up###
-gulp.task 'clean',(cb)->
-  rimraf 'jThree/bin',cb
-  rimraf 'jThree/src/**/*.js',cb
+MISCぎ
 
 
 
