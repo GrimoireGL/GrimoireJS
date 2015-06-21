@@ -2,7 +2,7 @@ import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Color4 = require("../../../Base/Color/Color4");
 import ViewportRenderer = require("../../../Core/Renderers/ViewportRenderer");
-import RendererNode = require("./RendererNode");
+import RendererNodeBase = require("./RendererNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
 import GomlLoader = require("../../GomlLoader");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
@@ -14,7 +14,7 @@ import TextureRenderer = require('../../../Core/Renderers/TextureRenderer');
 import FramebufferAttachmentType = require('../../../Wrapper/FramebufferAttachmentType');
 class ViewPortNode extends GomlTreeNodeBase {
 
-  private parentRendererNode:RendererNode;
+  private parentRendererNode:RendererNodeBase;
 
   private targetRenderer:ViewportRenderer;
 
@@ -24,20 +24,20 @@ class ViewPortNode extends GomlTreeNodeBase {
     }
 
     afterLoad(){
-      var rdr:RendererNode=this.parentRendererNode=<RendererNode>this.parent;
-      var defaultRect = rdr.canvasManager.getDefaultRectangle();
-      this.targetRenderer=new ViewportRenderer(rdr.canvasManager,defaultRect);
+      var rdr:RendererNodeBase=this.parentRendererNode=<RendererNodeBase>this.parent;
+      var defaultRect = rdr.CanvasManager.getDefaultRectangle();
+      this.targetRenderer=new ViewportRenderer(rdr.CanvasManager,defaultRect);
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
       //test code begin
-      var tex=context.ResourceManager.createTexture("fbo-tex",defaultRect.Width,defaultRect.Height);
-      var fbo = context.ResourceManager.createFBO("fbo");
-      fbo.getForRenderer(this.targetRenderer.ContextManager).attachTexture(FramebufferAttachmentType.ColorAttachment0,tex);
-      var texRenderer = new TextureRenderer(this.targetRenderer.ContextManager,defaultRect,fbo);
-      texRenderer.Camera=cameraNode.TargetCamera;
-      scene.addRenderer(texRenderer);
+     // var tex=context.ResourceManager.createTexture("fbo-tex",defaultRect.Width,defaultRect.Height);
+      //var fbo = context.ResourceManager.createFBO("fbo");
+      //fbo.getForRenderer(this.targetRenderer.ContextManager).attachTexture(FramebufferAttachmentType.ColorAttachment0,tex);
+      //var texRenderer = new TextureRenderer(this.targetRenderer.ContextManager,defaultRect,fbo);
+      //texRenderer.Camera=cameraNode.TargetCamera;
+      //scene.addRenderer(texRenderer);
       //test code end
       scene.addRenderer(this.targetRenderer);
 
