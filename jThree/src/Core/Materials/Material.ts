@@ -37,7 +37,7 @@ class Material extends JThreeObjectWithID
       this.cullEnabled=val;
     }
 
-    protected configureMaterial(renderer:RendererBase,object:SceneObject): void {
+    public configureMaterial(renderer:RendererBase,object:SceneObject): void {
       if(this.CullEnabled){
         renderer.GLContext.Enable(
           GLFeatureType.CullFace);
@@ -49,10 +49,6 @@ class Material extends JThreeObjectWithID
         }
         return;
     }
-
-
-
-
 
     public draw(renderer:RendererBase,object:SceneObject):void
     {

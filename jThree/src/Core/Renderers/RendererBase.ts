@@ -4,6 +4,8 @@ import Exceptions = require("../../Exceptions");
 import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import Camera = require("./../Camera/Camera");
+import Material = require('./../Materials/Material');
+import SceneObject = require('./../SceneObject');
 /**
  * Provides base class feature for renderer classes.
  */
@@ -48,6 +50,11 @@ class RendererBase extends jThreeObjectWithID
 
     public afterRender() {
         this.ContextManager.afterRender(this);
+    }
+    
+    public draw(object:SceneObject,material:Material)
+    {
+        
     }
 }
 

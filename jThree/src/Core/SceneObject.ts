@@ -131,7 +131,7 @@ class SceneObject extends JThreeObjectWithID
     }
 
     render(rendererBase:RendererBase,currentMaterial:Material) {
-        currentMaterial.draw(rendererBase,this);
+        rendererBase.draw(this,currentMaterial);
     }
 }
 

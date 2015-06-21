@@ -6,7 +6,8 @@ import Delegates = require("../../Delegates");
 import ClearTargetType = require("../../Wrapper/ClearTargetType");
 import jThreeObject = require("../../Base/JThreeObject");
 import Camera = require("./../Camera/Camera");
-
+import Material = require('./../Materials/Material');
+import SceneObject = require('./../SceneObject');
 class ViewPortRenderer extends RendererBase {
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {
         super(contextManager);
@@ -39,6 +40,13 @@ class ViewPortRenderer extends RendererBase {
 
     render(drawAct: Delegates.Action0): void {
         drawAct();
+    }
+    
+    public draw(object:SceneObject,material:Material)
+    {
+      var geometry=object.Geometry;
+      material.configureMaterial(this,object);
+      geometry.drawElements(this.ContextManager);
     }
 }
 

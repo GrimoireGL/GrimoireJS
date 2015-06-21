@@ -2,6 +2,7 @@ import jThreeObject = require("../../Base/JThreeObject");
 import Buffer = require("./../Resources/Buffer/Buffer");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import Vector3 = require("../../Math/Vector3");
+import ContextManagerBase = require('./../ContextManagerBase');
 class Geometry extends jThreeObject {
    protected positionBuffer: Buffer;
    protected normalBuffer: Buffer;
@@ -29,6 +30,11 @@ class Geometry extends jThreeObject {
    get PrimitiveTopology():PrimitiveTopology
    {
      return this.primitiveTopology;
+   }
+   
+   public drawElements(contextManager:ContextManagerBase)
+   {
+     contextManager.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length,this.IndexBuffer.ElementType,0);
    }
 
    protected addQuad(pos:number[],normal:number[],uv:number[],index:number[],points:Vector3[]):void
