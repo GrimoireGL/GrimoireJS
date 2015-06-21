@@ -26,7 +26,7 @@ class ViewPortNode extends GomlTreeNodeBase {
     afterLoad(){
       var rdr:RendererNode=this.parentRendererNode=<RendererNode>this.parent;
       var defaultRect = rdr.canvasManager.getDefaultRectangle();
-      this.targetRenderer=new ViewportRenderer(rdr.canvasManager,new Rectangle(this.Left,this.Top,this.Width,this.Height));
+      this.targetRenderer=new ViewportRenderer(rdr.canvasManager,defaultRect);
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
@@ -113,28 +113,6 @@ class ViewPortNode extends GomlTreeNodeBase {
     {
       this.cam=this.cam||this.element.getAttribute('cam');
       return this.cam;
-    }
-
-    get Left():number{
-      this.left=this.left||parseInt(this.element.getAttribute('left'))||0;
-      return this.left;
-    }
-
-    get Top():number{
-      this.top=this.top||parseInt(this.element.getAttribute('top'))||0;
-      return this.top;
-    }
-
-    get Width():number
-    {
-      this.width=this.width||parseInt(this.element.getAttribute('width'))||this.parentRendererNode.Width||300;
-      return this.width;
-    }
-
-    get Height():number
-    {
-      this.height=this.height||parseInt(this.element.getAttribute('height'))||this.parentRendererNode.Height||300;
-      return this.height;
     }
 
 }
