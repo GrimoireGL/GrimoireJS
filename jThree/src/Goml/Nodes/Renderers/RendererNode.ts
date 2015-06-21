@@ -15,10 +15,11 @@ class RendererNode extends GomlTreeNodeBase
 
     constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
-        var test = $(elem);
-        var jqueryTargetCanvas = $("<canvas></canvas>");
-        $(this.Frame).append(jqueryTargetCanvas);
-        this.targetCanvas=<HTMLCanvasElement>jqueryTargetCanvas[0];
+        var selected=document.querySelector(this.Frame);
+        this.targetCanvas=document.createElement("canvas");
+        if(selected)selected.appendChild(this.targetCanvas);
+        else
+          document.getElementsByTagName("body").item(0).appendChild(this.targetCanvas);
         this.targetCanvas.classList.add("x-j3-c-" + this.ID);
         this.canvasManager = CanvasManager.fromCanvasElement(this.targetCanvas);
         this.canvasManager.ClearColor=this.ClearColor;
