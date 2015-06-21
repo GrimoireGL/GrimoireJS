@@ -244,7 +244,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
   FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
     this.CheckErrorAsFatal();
-    debugger;
     this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, fboTarget,this.gl.TEXTURE_2D, tex, 0);
         console.warn(this.gl.checkFramebufferStatus(this.gl.FRAMEBUFFER));
   }

@@ -32,6 +32,7 @@ class SpriteMaterial extends Material
     
     set Texture(tex:TextureBase)
     {
+      debugger;
       this.texture=tex;
     }
 

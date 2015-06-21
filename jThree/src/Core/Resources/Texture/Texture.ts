@@ -15,7 +15,6 @@ class Texture extends TextureBase
   constructor(context:JThreeContext,source:ImageSource)
   {
     super(context);
-    debugger;
     this.imageSource=source;
   }
   

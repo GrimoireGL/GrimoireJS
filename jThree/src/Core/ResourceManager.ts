@@ -89,6 +89,11 @@ class ResourceManager extends jThreeObject {
     getTexture(id: string): Texture {
         return <Texture>this.textures.get(id);
     }
+    
+    getTextureHandler(id:string,handler:Delegates.Action1<Texture>)
+    {
+        this.textures.getHandler(id,handler);
+    }
 
     private rbos: ResourceArray<RBO> = new ResourceArray<RBO>(
         );

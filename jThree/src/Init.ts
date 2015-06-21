@@ -40,17 +40,12 @@ class JThreeInit {
 
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
-      j3.init();
+              j3.init();
       JThreeInit.img = new Image();
       JThreeInit.img.onload = () => {
         j3.ResourceManager.createTextureWithSource("test",JThreeInit.img);
-        var tex = j3.ResourceManager.createTexture("testTex", 256, 256);
-        var fbo = j3.ResourceManager.createFBO("testFBO");
-        fbo.getForRenderer(j3.CanvasManagers[0]).attachTexture(TextureAttachmentType.ColorAttachment0, tex);
-
       };
-      JThreeInit.img.src = "/miku.png";
-      j3.ResourceManager.createRBO("testRBO", 128, 128);
+      JThreeInit.img.src = "/miku2.png";
     });
   }
 }

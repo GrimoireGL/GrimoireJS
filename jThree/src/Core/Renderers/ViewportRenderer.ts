@@ -7,36 +7,39 @@ import ClearTargetType = require("../../Wrapper/ClearTargetType");
 import jThreeObject = require("../../Base/JThreeObject");
 import Camera = require("./../Camera/Camera");
 
-class ViewPortRenderer extends RendererBase
-{
-    constructor(contextManager: ContextManagerBase,viewportArea:Rectangle) {
+class ViewPortRenderer extends RendererBase {
+    constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {
         super(contextManager);
         this.viewportArea = viewportArea;
     }
 
     private viewportArea: Rectangle;
 
-    public get ViewPortArea():Rectangle
-    {
-      return this.viewportArea;
+    public get ViewPortArea(): Rectangle {
+        return this.viewportArea;
     }
 
-    public set ViewPortArea(area:Rectangle)
-    {
-      this.viewportArea=area;
+    public set ViewPortArea(area: Rectangle) {
+        this.viewportArea = area;
     }
 
     applyViewportConfigure(): void {
-        this.ContextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top,this.viewportArea.Width, this.viewportArea.Height);
+        this.ContextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
+    }
+
+    beforeRender() {
+        super.beforeRender();
+        this.applyViewportConfigure();
+    }
+
+    afterRender() {
+        this.ContextManager.Context.Flush();
+        super.afterRender();
     }
 
     render(drawAct: Delegates.Action0): void {
-       this.ContextManager.beforeRender(this);
-        this.applyViewportConfigure();
         drawAct();
-        this.ContextManager.Context.Flush();
-        this.ContextManager.afterRender(this);
     }
 }
 
-export=ViewPortRenderer;
+export =ViewPortRenderer;

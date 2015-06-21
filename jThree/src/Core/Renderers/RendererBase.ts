@@ -41,6 +41,14 @@ class RendererBase extends jThreeObjectWithID
     public get GLContext(): GLContextWrapperBase {
         return this.contextManager.Context;
     }
+    
+    public beforeRender() {
+        this.ContextManager.beforeRender(this);
+    }
+
+    public afterRender() {
+        this.ContextManager.afterRender(this);
+    }
 }
 
 
