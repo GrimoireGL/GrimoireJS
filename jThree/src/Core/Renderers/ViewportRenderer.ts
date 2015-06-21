@@ -25,7 +25,9 @@ class ViewPortRenderer extends RendererBase {
     public set ViewPortArea(area: Rectangle) {
         this.viewportArea = area;
     }
+    
     private renderStages: RenderStageBase[] = [new FowardShadingStage(this)];
+    
     public get RenderStages(): RenderStageBase[] {
         return this.renderStages;
     }
