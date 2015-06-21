@@ -6,6 +6,7 @@ import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import Camera = require("./../Camera/Camera");
 import Material = require('./../Materials/Material');
 import SceneObject = require('./../SceneObject');
+import RenderStageBase = require('./RenderStages/RenderStageBase');
 /**
  * Provides base class feature for renderer classes.
  */
@@ -19,6 +20,11 @@ class RendererBase extends jThreeObjectWithID {
 
     public set Camera(camera: Camera) {
         this.camera = camera;
+    }
+    
+    public get RenderStages():RenderStageBase[]
+    {
+        return [];
     }
 
     constructor(contextManager: ContextManagerBase) {
@@ -47,10 +53,6 @@ class RendererBase extends jThreeObjectWithID {
 
     public afterRender() {
         this.ContextManager.afterRender(this);
-    }
-
-    public draw(object: SceneObject, material: Material) {
-
     }
 }
 

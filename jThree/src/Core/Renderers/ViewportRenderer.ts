@@ -8,6 +8,8 @@ import jThreeObject = require("../../Base/JThreeObject");
 import Camera = require("./../Camera/Camera");
 import Material = require('./../Materials/Material');
 import SceneObject = require('./../SceneObject');
+import RenderStageBase = require('./RenderStages/RenderStageBase');
+import FowardShadingStage = require('./RenderStages/FowardShadingStage');
 class ViewPortRenderer extends RendererBase {
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {
         super(contextManager);
@@ -23,6 +25,10 @@ class ViewPortRenderer extends RendererBase {
     public set ViewPortArea(area: Rectangle) {
         this.viewportArea = area;
     }
+    private renderStages: RenderStageBase[] = [new FowardShadingStage(this)];
+    public get RenderStages(): RenderStageBase[] {
+        return this.renderStages;
+    }
 
     applyViewportConfigure(): void {
         this.ContextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
@@ -36,14 +42,6 @@ class ViewPortRenderer extends RendererBase {
     afterRender() {
         this.ContextManager.Context.Flush();
         super.afterRender();
-    }
-    
-    public draw(object:SceneObject,material:Material)
-    {
-      var geometry=object.Geometry;
-      if(!geometry||!material)return;
-      material.configureMaterial(this,object);
-      geometry.drawElements(this.ContextManager);
     }
 }
 

@@ -129,10 +129,6 @@ class SceneObject extends JThreeObjectWithID
     update() {
 
     }
-
-    render(rendererBase:RendererBase,currentMaterial:Material) {
-        rendererBase.draw(this,currentMaterial);
-    }
 }
 
 export=SceneObject;

@@ -11,9 +11,6 @@ class TextureRenderer extends ViewportRenderer {
 
     private targetFBO: FBO;
 
-    public render(drawAct: Delegates.Action0): void {
-    }
-
     beforeRender() {
         this.targetFBO.getForRenderer(this.ContextManager).bind();
         super.beforeRender();
