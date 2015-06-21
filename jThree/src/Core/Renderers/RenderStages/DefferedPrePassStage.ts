@@ -18,7 +18,16 @@ class DefferedPrePassStage extends RenderStageBase
 		var context = JThreeContextProxy.getJThreeContext();
 		this.rb1Texture=context.ResourceManager.createTexture("rb1",512,512);
 		this.rb1FBO=context.ResourceManager.createFBO("rb1");
-		this.rb1FBO.getForRenderer(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb1Texture);
+		this.rb1FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb1Texture);
+	}
+	public preBeginStage()
+	{
+		this.rb1FBO.getForContext(this.Renderer.ContextManager).bind();
+	}
+	
+	public postEndStage()
+	{
+		this.rb1FBO.getForContext(this.Renderer.ContextManager).unbind();
 	}
 	
 	public render(object: SceneObject, material: Material) {
