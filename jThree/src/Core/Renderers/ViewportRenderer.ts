@@ -37,14 +37,11 @@ class ViewPortRenderer extends RendererBase {
         this.ContextManager.Context.Flush();
         super.afterRender();
     }
-
-    render(drawAct: Delegates.Action0): void {
-        drawAct();
-    }
     
     public draw(object:SceneObject,material:Material)
     {
       var geometry=object.Geometry;
+      if(!geometry||!material)return;
       material.configureMaterial(this,object);
       geometry.drawElements(this.ContextManager);
     }

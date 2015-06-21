@@ -50,14 +50,6 @@ class Material extends JThreeObjectWithID
         return;
     }
 
-    public draw(renderer:RendererBase,object:SceneObject):void
-    {
-      if(!object.Geometry)return;
-      var geometry=object.Geometry;
-      this.configureMaterial(renderer,object);
-      renderer.GLContext.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
-    }
-
 /**
 * Calculate MVP(Model-View-Projection) matrix
 */

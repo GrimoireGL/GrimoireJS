@@ -14,7 +14,7 @@ class MaterialObjectPair {
     }
 
     private material: Material;
-       private targetObject: SceneObject;
+    private targetObject: SceneObject;
 
     get Material(): Material {
         return this.material;
@@ -36,19 +36,17 @@ class Scene extends jThreeObjectWithID {
         this.enabled = true;
     }
 
-    enabled:boolean;
+    enabled: boolean;
 
     update(): void {
         if (!this.enabled) return;//enabled==falseならいらない。
-        this.sceneObjects.forEach(v=>v.update());
+        this.sceneObjects.forEach(v=> v.update());
     }
 
     render(): void {
         this.renderers.forEach((r) => {
             r.beforeRender();
-            r.render(() => {
-                this.renderPairs.forEach((v) => v.TargetObject.render(r, v.Material));
-            });
+            this.renderPairs.forEach((v) => v.TargetObject.render(r, v.Material));
             r.afterRender();
         });
     }
@@ -61,7 +59,7 @@ class Scene extends jThreeObjectWithID {
 
     private renderPairs: MaterialObjectPair[] = [];
 
-    private sceneObjects:SceneObject[]=[];
+    private sceneObjects: SceneObject[] = [];
 
     public addObject(targetObject: SceneObject): void {
         //TargetObjectに所属するマテリアルを分割して配列に登録します。
@@ -70,34 +68,30 @@ class Scene extends jThreeObjectWithID {
         this.sortObjects();
     }
 
-    public addRenderQueue(targetObject:SceneObject):void
-    {
-      targetObject.eachMaterial((m) => { this.renderPairs.push(new MaterialObjectPair(m, targetObject)) });
-      this.sortObjects();
+    public addRenderQueue(targetObject: SceneObject): void {
+        targetObject.eachMaterial((m) => { this.renderPairs.push(new MaterialObjectPair(m, targetObject)) });
+        this.sortObjects();
     }
 
     private sortObjects(): void {
-      //sort renderPairs by order of rendering
+        //sort renderPairs by order of rendering
         this.renderPairs.sort((v1, v2) => { return v1.Material.Priorty - v2.Material.Priorty });
     }
 
-    private cameras:Map<string,Camera>=new Map<string,Camera>();
+    private cameras: Map<string, Camera> = new Map<string, Camera>();
 
-    public addCamera(camera:Camera)
-    {
-      this.cameras.set(camera.ID,camera);
+    public addCamera(camera: Camera) {
+        this.cameras.set(camera.ID, camera);
     }
 
-    public getCamera(id:string):Camera
-    {
-      return this.cameras.get(id);
+    public getCamera(id: string): Camera {
+        return this.cameras.get(id);
     }
 
-    public toString():string
-    {
-      console.log(this);
-      return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.sceneObjects.length}\nSceneObjectCount by Material:${this.renderPairs.length}\n`;
+    public toString(): string {
+        console.log(this);
+        return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.sceneObjects.length}\nSceneObjectCount by Material:${this.renderPairs.length}\n`;
     }
 }
 
-export=Scene;
+export =Scene;

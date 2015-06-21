@@ -9,22 +9,19 @@ import SceneObject = require('./../SceneObject');
 /**
  * Provides base class feature for renderer classes.
  */
-class RendererBase extends jThreeObjectWithID
-{
-    
-    private camera:Camera;
+class RendererBase extends jThreeObjectWithID {
 
-    public get Camera():Camera
-    {
-      return this.camera;
-    }
-    
-    public set Camera(camera:Camera)
-    {
-      this.camera=camera;
+    private camera: Camera;
+
+    public get Camera(): Camera {
+        return this.camera;
     }
 
-    constructor(contextManager:ContextManagerBase) {
+    public set Camera(camera: Camera) {
+        this.camera = camera;
+    }
+
+    constructor(contextManager: ContextManagerBase) {
         super();
         this.contextManager = contextManager;
     }
@@ -43,7 +40,7 @@ class RendererBase extends jThreeObjectWithID
     public get GLContext(): GLContextWrapperBase {
         return this.contextManager.Context;
     }
-    
+
     public beforeRender() {
         this.ContextManager.beforeRender(this);
     }
@@ -51,12 +48,11 @@ class RendererBase extends jThreeObjectWithID
     public afterRender() {
         this.ContextManager.afterRender(this);
     }
-    
-    public draw(object:SceneObject,material:Material)
-    {
-        
+
+    public draw(object: SceneObject, material: Material) {
+
     }
 }
 
 
-export=RendererBase;
+export =RendererBase;
