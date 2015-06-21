@@ -48,8 +48,12 @@ class Scene extends jThreeObjectWithID {
             r.beforeRender();
             var renderStages = r.RenderStages;
             renderStages.forEach(s=> {
-                this.renderPairs.forEach((v) =>{if(s.needRender(v.TargetObject,v.Material))s.render(v.TargetObject,v.Material)});
-            });
+                this.renderPairs.forEach((v) =>
+                    {
+                        s.preBeginStage();
+                    if(s.needRender(v.TargetObject,v.Material))s.render(v.TargetObject,v.Material)});
+                    s.postEndStage();
+                     });
             r.afterRender();
         });
     }

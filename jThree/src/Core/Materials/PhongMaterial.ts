@@ -100,7 +100,7 @@ class PhongMaterial extends Material
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
        super.configureMaterial(renderer,object);
           var geometry=object.Geometry;
-         var programWrapper = this.program.getForRenderer(renderer.ContextManager);
+         var programWrapper = this.program.getForContext(renderer.ContextManager);
          programWrapper.useProgram();
          var v=this.CalculateMVPMatrix(renderer,object);
          var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
@@ -108,7 +108,7 @@ class PhongMaterial extends Material
          console.log(resourceManager.toString());
          var tex=this.Texture;
          renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
-         if(tex)tex.getForRenderer(renderer.ContextManager).bind();
+         if(tex)tex.getForContext(renderer.ContextManager).bind();
          else renderer.GLContext.BindTexture(TargetTextureType.Texture2D,null);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));

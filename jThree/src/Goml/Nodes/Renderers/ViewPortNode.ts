@@ -34,7 +34,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       //test code begin
       var tex=context.ResourceManager.createTexture("fbo-tex",defaultRect.Width,defaultRect.Height);
       var fbo = context.ResourceManager.createFBO("fbo");
-      fbo.getForRenderer(this.targetRenderer.ContextManager).attachTexture(FramebufferAttachmentType.ColorAttachment0,tex);
+      fbo.getForContext(this.targetRenderer.ContextManager).attachTexture(FramebufferAttachmentType.ColorAttachment0,tex);
       var texRenderer = new TextureRenderer(this.targetRenderer.ContextManager,defaultRect,fbo);
       texRenderer.Camera=cameraNode.TargetCamera;
       scene.addRenderer(texRenderer);

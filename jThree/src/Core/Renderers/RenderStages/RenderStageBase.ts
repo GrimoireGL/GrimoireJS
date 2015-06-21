@@ -15,6 +15,16 @@ class RenderStageBase extends JThreeObject {
 		super();
 		this.renderer = renderer;
 	}
+	
+	public preBeginStage()
+	{
+		
+	}
+	
+	public postEndStage()
+	{
+		
+	}
 
 	public render(object: SceneObject, material: Material) {
 

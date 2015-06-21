@@ -45,7 +45,7 @@ set Color(col:Color4)
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
        super.configureMaterial(renderer,object);
           var geometry=object.Geometry;
-         var programWrapper = this.program.getForRenderer(renderer.ContextManager);
+         var programWrapper = this.program.getForContext(renderer.ContextManager);
          programWrapper.useProgram();
          var v=this.CalculateMVPMatrix(renderer,object);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));

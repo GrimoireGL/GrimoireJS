@@ -34,7 +34,7 @@ class ProgramWrapper extends ResourceWrapper {
         if (!this.Initialized) {
             this.targetProgram = this.WebGLContext.CreateProgram();
             this.parentProgram.AttachedShaders.forEach((v, i, a) => {
-                this.WebGLContext.AttachShader(this.targetProgram, v.getForRendererID(this.OwnerID).TargetShader);
+                this.WebGLContext.AttachShader(this.targetProgram, v.getForContextID(this.OwnerID).TargetShader);
             });
             this.setInitialized();
         }

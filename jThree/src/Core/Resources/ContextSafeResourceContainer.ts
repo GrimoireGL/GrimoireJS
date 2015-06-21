@@ -26,11 +26,11 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
 
     private cachedObject: AssociativeArray<T> = new AssociativeArray<T>();
 
-    public getForRenderer(contextManager: ContextManagerBase): T {
-        return this.getForRendererID(contextManager.ID);
+    public getForContext(contextManager: ContextManagerBase): T {
+        return this.getForContextID(contextManager.ID);
     }
 
-    public getForRendererID(id: string): T {
+    public getForContextID(id: string): T {
         if (!this.cachedObject.has(id)) console.log("There is no matching object with the ID:" + id);
         return this.cachedObject.get(id);
     }
