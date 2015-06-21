@@ -33,7 +33,7 @@ class DefferedPrePassStage extends RenderStageBase
 	public render(object: SceneObject, material: Material) {
 		var geometry = object.Geometry;
 		if (!geometry || !material) return;
-		material.configureMaterial(this.Renderer, object);
+		material.configureDefferedPrePassMaterial(this.Renderer, object);
 		geometry.drawElements(this.Renderer.ContextManager);
 	}
 

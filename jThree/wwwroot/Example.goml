@@ -3,7 +3,7 @@
     <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat1" texture ="rb1"/>
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />
-    <cube name="cube" divide="30" />
+    <cylinder name="cube" divide="30" />
     <quad name="quad"/>
   </resources>
   <renderers>
