@@ -51,6 +51,8 @@ class RendererNode extends RendererNodeBase {
         this.targetCanvas.width=width;
         this.targetCanvas.height=height;
     }
+    
+
 
 }
 

@@ -69,6 +69,7 @@ class ViewPortNode extends GomlTreeNodeBase {
           }
         }
       });
+      this.attributes.applyDefaultValue();
     }
 
     private updateViewportArea()

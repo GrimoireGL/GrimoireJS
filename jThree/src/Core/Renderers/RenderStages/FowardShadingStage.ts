@@ -10,6 +10,7 @@ class FowardShadingStage extends RenderStageBase {
 	
 	public preBeginStage()
 	{
+		this.Renderer.configureRenderer();
 	}
 
 	public render(object: SceneObject, material: Material,passCount:number) {

@@ -54,6 +54,11 @@ class RendererBase extends jThreeObjectWithID {
     public afterRender() {
         this.ContextManager.afterRender(this);
     }
+    
+        public configureRenderer()
+    {
+        
+    }
 }
 
 

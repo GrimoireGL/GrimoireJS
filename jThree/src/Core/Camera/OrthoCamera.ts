@@ -2,13 +2,18 @@ import ViewCamera=require('./ViewCameraBase');
 import Matrix = require("../../Math/Matrix");
 class OrthoCamera extends ViewCamera
 {
-  left:number;
-  right:number;
-  top:number;
-  bottom:number;
-  near:number;
-  far:number;
-  projection:Matrix;
+  private left:number;
+  private right:number;
+  private top:number;
+  private bottom:number;
+  private near:number;
+  private far:number;
+  private projection:Matrix;
+  constructor()
+  {
+    super();
+    this.updateProjection();
+  }
 
   private updateProjection()
   {
