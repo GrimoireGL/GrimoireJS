@@ -49,12 +49,13 @@ class Scene extends jThreeObjectWithID {
             var renderStages = r.RenderStages;
             renderStages.forEach(s=> {
                 var passCount = s.PassCount;
-                for (var passIndex = 0; passIndex < passCount; passIndex++)
+                for (var passIndex = 0; passIndex < passCount; passIndex++) {
+                    s.preBeginStage(passIndex);
                     this.renderPairs.forEach((v) => {
-                        s.preBeginStage(passIndex);
                         if (s.needRender(v.TargetObject, v.Material, passIndex)) s.render(v.TargetObject, v.Material, passIndex);
-                        s.postEndStage(passIndex);
                     });
+                    s.postEndStage(passIndex);
+                }
             });
             r.afterRender();
         });

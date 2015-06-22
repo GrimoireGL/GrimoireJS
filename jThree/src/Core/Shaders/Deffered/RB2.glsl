@@ -11,6 +11,6 @@ uniform sampler2D texture;
 //B=ALBEDO.B
 //A=ROUGHNESS
 void main(void){
-  gl_FragColor.rgb = vec3(0,1,0);//texture2D(texture,v_uv).rgb;
+  gl_FragColor.rgb = texture2D(texture,v_uv).rgb;
   gl_FragColor.a = 1.0;
 }

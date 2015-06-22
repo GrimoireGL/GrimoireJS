@@ -23,11 +23,11 @@
           <mesh geo="quad" mat="mat1" position="0,0,-1" scale="0.2" rotation="y(15d)"/>
         </camera>
       </object>
+      <mesh geo="grid" mat="mat2"></mesh>
       <mesh id="tri" class="triangle" geo="cube" mat="mat2" scale="0.3">
             <object position="0.5,1,-1" template="tempTest" geometry="grid" rotation="x(20d)">
             </object>
       </mesh>
-      <mesh geo="grid" mat="mat2"></mesh>
     </scene>
   </scenes>
   <templates>

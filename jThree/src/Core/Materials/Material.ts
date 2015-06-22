@@ -64,7 +64,7 @@ class Material extends JThreeObjectWithID {
                  programWrapper=this.defferedRb1Program.getForContext(renderer.ContextManager);
             break;
             case 1:
-                             programWrapper=this.defferedRb1Program.getForContext(renderer.ContextManager);
+                             programWrapper=this.defferedRb2Program.getForContext(renderer.ContextManager);
             break;
         }
         programWrapper.useProgram();
