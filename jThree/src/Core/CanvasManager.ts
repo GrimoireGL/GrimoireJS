@@ -69,9 +69,9 @@ class CanvasManager extends ContextManagerBase {
 
     ClearCanvas():void
     {
+      this.Context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
       this.Context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
       this.Context.Enable(GLFeatureType.DepthTest);
-      this.Context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
     }
 
     constructor(glContext: WebGLRenderingContext) {

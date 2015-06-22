@@ -16,22 +16,27 @@ class RenderStageBase extends JThreeObject {
 		this.renderer = renderer;
 	}
 	
-	public preBeginStage()
+	public preBeginStage(passCount:number)
 	{
 		
 	}
 	
-	public postEndStage()
+	public postEndStage(passCount:number)
 	{
 		
 	}
 
-	public render(object: SceneObject, material: Material) {
+	public render(object: SceneObject, material: Material,passCount:number) {
 
 	}
 
-	public needRender(object: SceneObject, material: Material): boolean {
+	public needRender(object: SceneObject, material: Material,passCount:number): boolean {
 		return false;
+	}
+	
+	public get PassCount():number
+	{
+		return 1;
 	}
 }
 

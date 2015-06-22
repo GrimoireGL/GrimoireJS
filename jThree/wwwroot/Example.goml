@@ -1,6 +1,7 @@
 <goml>
   <resources>
-    <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat1" texture ="rb1"/>
+    <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat1" texture ="rb2"/>
+    <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture ="test"/>
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />
     <cylinder name="cube" divide="30" />
@@ -22,16 +23,16 @@
           <mesh geo="quad" mat="mat1" position="0,0,-1" scale="0.2" rotation="y(15d)"/>
         </camera>
       </object>
-      <mesh id="tri" class="triangle" geo="cube" mat="mat1" scale="0.3">
+      <mesh id="tri" class="triangle" geo="cube" mat="mat2" scale="0.3">
             <object position="0.5,1,-1" template="tempTest" geometry="grid" rotation="x(20d)">
             </object>
       </mesh>
-      <mesh geo="grid" mat="mat1"></mesh>
+      <mesh geo="grid" mat="mat2"></mesh>
     </scene>
   </scenes>
   <templates>
     <template name="tempTest" geometry="triangle">
-      <mesh class="triangle" geo="{{geometry}}" mat = "mat1" scale="0.5"/>
+      <mesh class="triangle" geo="{{geometry}}" mat = "mat2" scale="0.5"/>
     </template>
   </templates>
 </goml>

@@ -6,10 +6,15 @@ import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
 import JThreeContextProxy = require('./../JThreeContextProxy');
 import ShaderType = require("../../Wrapper/ShaderType");
-import Program = require('../Resources/Program/Program')
+import Program = require('../Resources/Program/Program');
+import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
+import TextureBase = require('../Resources/Texture/TextureBase');
+import TargetTextureType = require('../../Wrapper/TargetTextureType');
 declare function require(string): string;
 class Material extends JThreeObjectWithID {
-    private defferedPrePassProgram: Program;
+    private defferedRb1Program: Program;
+    private defferedRb2Program: Program;
+    
     constructor() {
         super();
         var jThreeContext = JThreeContextProxy.getJThreeContext();
@@ -20,8 +25,11 @@ class Material extends JThreeObjectWithID {
         var fsShader = rm.createShader("jthree.shaders.fragment.deffered.rb1", fs, ShaderType.FragmentShader);
         vsShader.loadAll();
         fsShader.loadAll();
-        this.defferedPrePassProgram = jThreeContext.ResourceManager.createProgram("jthree.programs.rb1", [vsShader, fsShader]);
-    }
+        this.defferedRb1Program = jThreeContext.ResourceManager.createProgram("jthree.programs.rb1", [vsShader, fsShader]);
+        fsShader=rm.createShader('jthree.shaders.fragment.deffered.rb2',require('../Shaders/Deffered/RB2.glsl'),ShaderType.FragmentShader);
+        fsShader.loadAll();
+        this.defferedRb2Program = jThreeContext.ResourceManager.createProgram("jthree.programs.rb2",[vsShader,fsShader]);
+            }
 
     private priorty: number;
 
@@ -45,18 +53,33 @@ class Material extends JThreeObjectWithID {
         this.cullEnabled = val;
     }
 
-    public configureDefferedPrePassMaterial(renderer: RendererBase, object: SceneObject): void {
+    public configureDefferedPrePassMaterial(renderer: RendererBase, object: SceneObject,passCount:number): void {
         this.applyCullConfigure(renderer);
+        var context = JThreeContextProxy.getJThreeContext();
         var geometry = object.Geometry;
-        var programWrapper = this.defferedPrePassProgram.getForContext(renderer.ContextManager);
+        var programWrapper =null;
+        switch(passCount)
+        {
+            case 0:
+                 programWrapper=this.defferedRb1Program.getForContext(renderer.ContextManager);
+            break;
+            case 1:
+                             programWrapper=this.defferedRb1Program.getForContext(renderer.ContextManager);
+            break;
+        }
         programWrapper.useProgram();
         var v = this.CalculateMVPMatrix(renderer, object);
         programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
+        var tex=context.ResourceManager.getTexture("test");
+        renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
+        if(tex)tex.getForContext(renderer.ContextManager).bind();
+        else renderer.GLContext.BindTexture(TargetTextureType.Texture2D,null);
         programWrapper.setUniformMatrix("matMVP", v);
         programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
         programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
+        programWrapper.setUniform1i("texture",0);
         geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
     }
 
