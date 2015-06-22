@@ -17,6 +17,11 @@ class ViewPortNode extends GomlTreeNodeBase {
   private parentRendererNode:RendererNodeBase;
 
   private targetRenderer:ViewportRenderer;
+  
+  public get TargetViewport():ViewportRenderer
+  {
+    return this.targetRenderer;
+  }
 
     constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
     {
@@ -31,17 +36,9 @@ class ViewPortNode extends GomlTreeNodeBase {
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
-      //test code begin
-      // var tex=context.ResourceManager.createTexture("fbo-tex",defaultRect.Width,defaultRect.Height);
-      // var fbo = context.ResourceManager.createFBO("fbo");
-      // fbo.getForContext(this.targetRenderer.ContextManager).attachTexture(FramebufferAttachmentType.ColorAttachment0,tex);
-      // var texRenderer = new TextureRenderer(this.targetRenderer.ContextManager,defaultRect,fbo);
-      // texRenderer.Camera=cameraNode.TargetCamera;
-      // scene.addRenderer(texRenderer);
-      //test code end
       scene.addRenderer(this.targetRenderer);
 
-      
+      //register attributes
       this.attributes.defineAttribute({
         "width":{
           value:defaultRect.Width,

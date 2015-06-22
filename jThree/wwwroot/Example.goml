@@ -1,6 +1,6 @@
 <goml>
   <resources>
-    <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat1" texture ="rb2"/>
+    <ddebug viewport="viewport" name="mat1" target="rb2"/>
     <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture ="test"/>
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />

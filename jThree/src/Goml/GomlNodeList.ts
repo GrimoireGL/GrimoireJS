@@ -27,7 +27,8 @@ var gomlList=[
     "SOLID":require('./Nodes/Materials/SolidColorNode'),
     "LAMBERT":require('./Nodes/Materials/LambertNode'),
     "PHONG":require('./Nodes/Materials/PhongNode'),
-    "SPRITE":require('./Nodes/Materials/SpriteNode')
+    "SPRITE":require('./Nodes/Materials/SpriteNode'),
+    "DDEBUG":require('./Nodes/Materials/DefferedDebugNode')
   }),
   new GomlNodeListElement(
     'jthree.sceneobject',

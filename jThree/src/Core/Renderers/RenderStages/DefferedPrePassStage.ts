@@ -22,11 +22,12 @@ class DefferedPrePassStage extends RenderStageBase
 		super(renderer);
 		var context = JThreeContextProxy.getJThreeContext();
 		var width =512,height=512;
-		this.rb1Texture=context.ResourceManager.createTexture("rb1",width,height);
-		this.rb1FBO=context.ResourceManager.createFBO("rb1");
+		var id = this.Renderer.ID;
+		this.rb1Texture=context.ResourceManager.createTexture(id+".deffered.rb1",width,height);
+		this.rb1FBO=context.ResourceManager.createFBO(id+".deffered.rb1");
 		this.rb1FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb1Texture);
-		this.rb2Texture=context.ResourceManager.createTexture("rb2",width,height);
-		this.rb2FBO=context.ResourceManager.createFBO("rb2");
+		this.rb2Texture=context.ResourceManager.createTexture(id+".deffered.rb2",width,height);
+		this.rb2FBO=context.ResourceManager.createFBO(id+".deffered.rb2");
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb2Texture);
 	}
 	

@@ -202,5 +202,17 @@ class GomlLoader extends jThreeObject {
   public getNode(id: string): GomlTreeNodeBase {
     return this.NodesById.get(id);
   }
+  
+  public getNodeByQuery(query:string):GomlTreeNodeBase[]
+  {
+    var result=[];
+    var found=this.rootObj.find(query);
+    for(var index=0;index<found.length;index++)
+    {
+      var id = found[index].getAttribute("x-j3-id");
+      result.push(this.getNode(id));
+    }
+    return result;
+  }
 }
 export = GomlLoader;
