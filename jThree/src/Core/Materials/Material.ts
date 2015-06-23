@@ -106,6 +106,11 @@ class Material extends JThreeObjectWithID {
     protected CalculateMVPMatrix(renderer: RendererBase, object: SceneObject): Matrix {
         return Matrix.multiply(Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix), object.Transformer.LocalToGlobal);
     }
+    
+    public get NeedFoward():boolean
+    {
+        return false;
+    }
 }
 
 export =Material;

@@ -21,7 +21,7 @@ class FowardShadingStage extends RenderStageBase {
 	}
 
 	public needRender(object: SceneObject, material: Material,passCount:number): boolean {
-		return true;
+		return material.NeedFoward;
 	}
 }
 
