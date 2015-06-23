@@ -21,7 +21,7 @@
           <component id="modTest" name="test"/>
           <component name="test2"/>
         </components>
-        <camera aspect="1" far="20" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)">
+        <camera aspect="1" far="2" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)">
           <mesh geo="quad" mat="mat2" position="0,0,-1" scale="0.2" rotation="y(15d)"/>
         </camera>
       </object>

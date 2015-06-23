@@ -28,7 +28,26 @@ class SpriteNode extends MaterialNodeBase {
                     });
                     }
                 }
-            }
+            },
+            "R":
+            {
+                value:"0",converter:"number",handler:(v)=>{this.material.CTR=v.Value;}
+            },
+            
+            "G":
+            {
+                value:"1",converter:"number",handler:(v)=>{this.material.CTG=v.Value;}
+            },
+            
+            "B":
+            {
+                value:"2",converter:"number",handler:(v)=>{this.material.CTB=v.Value;}
+            },
+            
+            "A":
+            {
+                value:"3",converter:"number",handler:(v)=>{this.material.CTA=v.Value;}
+            },
         });
 
     }

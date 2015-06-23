@@ -55,8 +55,8 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
         return this.elements[colmun * 4 + row];
     }
 
-    private setAt(colmun: number, row: number, val: number) {
-        this.elements.set[colmun * 4 + row] = val;
+    setAt(colmun: number, row: number, val: number) {
+        this.elements[colmun * 4 + row] = val;
     }
 
     getBySingleIndex(index: number): number {

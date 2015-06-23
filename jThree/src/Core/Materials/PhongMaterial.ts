@@ -88,13 +88,7 @@ class PhongMaterial extends Material
           var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
           var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
           var fs = require('../Shaders/Phong.glsl');
-          var rm=jThreeContext.ResourceManager;
-          var vsShader: Shader;
-          vsShader=rm.createShader("jthree.shaders.vertex.basic",vs,ShaderType.VertexShader);
-          var fsShader: Shader = rm.createShader("jthree.shaders.fragment.phong", fs, ShaderType.FragmentShader);
-          vsShader.loadAll();
-          fsShader.loadAll();
-          this.program= jThreeContext.ResourceManager.createProgram("jthree.programs.phong", [vsShader, fsShader]);
+          this.program= this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.phong","jthree.programs.phong",vs,fs);
       }
 
      configureMaterial(renderer: RendererBase, object:SceneObject): void {
