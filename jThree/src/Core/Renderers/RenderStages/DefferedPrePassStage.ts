@@ -10,7 +10,8 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../../Wrapper/TextureType');
 import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
-import Scene = require('../../Scene')
+import Scene = require('../../Scene');
+import Program = require('../../Resources/Program/Program');
 class DefferedPrePassStage extends RenderStageBase
 {
 	private rb1Texture:TextureBase;
@@ -23,22 +24,32 @@ class DefferedPrePassStage extends RenderStageBase
 	
 	private rb2FBO:FBO;
 	
+	private rblight:TextureBase;
+	
+	private rbLightFBO:FBO;
+	
+	private lightAccumrationProgram:Program;
+	
 	constructor(renderer:RendererBase)
 	{
 		super(renderer);
 		var context = JThreeContextProxy.getJThreeContext();
 		var width =512,height=512;
 		var id = this.Renderer.ID;
-		this.rb1Texture=context.ResourceManager.createTexture(id+".deffered.rb1",width,height);
-		this.rb1FBO=context.ResourceManager.createFBO(id+".deffered.rb1");
+		var rm = context.ResourceManager;
+		this.rb1Texture=rm.createTexture(id+".deffered.rb1",width,height);
+		this.rb1FBO=rm.createFBO(id+".deffered.rb1");
 		this.rb1FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb1Texture);
-		this.rb2Texture=context.ResourceManager.createTexture(id+".deffered.rb2",width,height);
-		this.rb2Texture.FlipY=true;
-		this.rb2FBO=context.ResourceManager.createFBO(id+".deffered.rb2");
+		this.rb2Texture=rm.createTexture(id+".deffered.rb2",width,height);
+		this.rb2FBO=rm.createFBO(id+".deffered.rb2");
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb2Texture);
-		this.rbDepthTexture=context.ResourceManager.createTexture(id+".deffered.depth",width,height,TextureFormat.DEPTH_COMPONENT,ElementFormat.UnsignedShort);
+		this.rbDepthTexture=rm.createTexture(id+".deffered.depth",width,height,TextureFormat.DEPTH_COMPONENT,ElementFormat.UnsignedShort);
 		this.rbDepthTexture.MinFilter=TextureMinFilterType.Linear;
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment,this.rbDepthTexture);
+		this.rblight=rm.createTexture(id+".deffered.light",width,height);
+		this.rbLightFBO=rm.createFBO("id"+"deffered.light");
+		this.rbLightFBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rblight);
+		
 	}
 	
 	
@@ -68,8 +79,17 @@ class DefferedPrePassStage extends RenderStageBase
 			break;
 			case 1:
 				this.rb2FBO.getForContext(this.Renderer.ContextManager).unbind();
+				this.renderLightAccumulation();
 			break;
 		}
+	}
+	
+	private renderLightAccumulation()
+	{
+		this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
+		this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
+		
+		this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
 	}
 	
 	public render(scene:Scene,object: SceneObject, material: Material,passCount:number) {
