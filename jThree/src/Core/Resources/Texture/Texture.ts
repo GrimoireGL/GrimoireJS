@@ -29,6 +29,7 @@ class Texture extends TextureBase
       var textureWrapper=new TextureWrapper(contextManager,this);
       return textureWrapper;
   }
+  
 }
 
 export = Texture;

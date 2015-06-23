@@ -7,6 +7,7 @@ import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import JThreeEvent = require('../../../Base/JThreeEvent');
 import Delegates = require('../../../Delegates');
 import JThreeContext = require('../../JThreeContext');
+import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 /**
  * 
  */
@@ -64,6 +65,21 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
   public onFilterParameterChanged(handler:Delegates.Action2<TextureBase,TextureParameterType>):void
   {
     this.onFilterParameterChangedHandler.addListerner(handler);
+  }
+  
+  public generateMipmapIfNeed()
+  {
+    switch(this.MinFilter)
+    {
+      case TextureMinFilterType.LinearMipmapLinear:
+      case TextureMinFilterType.LinearMipmapNearest:
+      case TextureMinFilterType.NearestMipmapLinear:
+      case TextureMinFilterType.NearestMipmapNearest:
+        this.each((v)=>{
+          v.bind();
+          v.OwnerCanvas.Context.GenerateMipmap(TextureTargetType.Texture2D);
+        })
+    }
   }
 }
 

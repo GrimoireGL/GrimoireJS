@@ -46,7 +46,7 @@ class FBOWrapper extends ResourceWrapper
         this.WebGLContext.BindFrameBuffer(null);
         this.textures.forEach(tex=>{
         tex.getForContext(this.OwnerCanvas).bind();
-        this.WebGLContext.GenerateMipmap(TargetTextureType.Texture2D);
+        tex.generateMipmapIfNeed();
         });
     }
     
@@ -56,7 +56,7 @@ class FBOWrapper extends ResourceWrapper
                 this.bind();
                 this.WebGLContext.FrameBufferTexture2D(attachmentType,tex.getForContext(this.OwnerCanvas).TargetTexture);
                 tex.getForContext(this.OwnerCanvas).bind();
-                this.WebGLContext.GenerateMipmap(TargetTextureType.Texture2D);
+                tex.generateMipmapIfNeed();
                 this.textures.push(tex);
                 this.unbind();
     }

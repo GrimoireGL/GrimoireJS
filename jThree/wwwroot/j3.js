@@ -9784,16 +9784,16 @@
 	};
 	var JThreeContextProxy = __webpack_require__(3);
 	var jThreeObject = __webpack_require__(9);
-	var Buffer = __webpack_require__(23);
-	var Shader = __webpack_require__(24);
-	var Program = __webpack_require__(25);
-	var Texture = __webpack_require__(26);
-	var RBO = __webpack_require__(27);
-	var ResourceArray = __webpack_require__(28);
-	var FBO = __webpack_require__(29);
-	var BufferTexture = __webpack_require__(30);
-	var TextureFormat = __webpack_require__(31);
-	var ElementFormat = __webpack_require__(32);
+	var Buffer = __webpack_require__(22);
+	var Shader = __webpack_require__(23);
+	var Program = __webpack_require__(24);
+	var Texture = __webpack_require__(25);
+	var RBO = __webpack_require__(26);
+	var ResourceArray = __webpack_require__(27);
+	var FBO = __webpack_require__(28);
+	var BufferTexture = __webpack_require__(29);
+	var TextureFormat = __webpack_require__(30);
+	var ElementFormat = __webpack_require__(31);
 	var ResourceManager = (function (_super) {
 	    __extends(ResourceManager, _super);
 	    function ResourceManager() {
@@ -9897,7 +9897,7 @@
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var JsHack = __webpack_require__(22);
+	var JsHack = __webpack_require__(32);
 	var JThreeObject = (function () {
 	    function JThreeObject() {
 	    }
@@ -10475,23 +10475,6 @@
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var JsHack = (function () {
-	    function JsHack() {
-	    }
-	    JsHack.getObjectName = function (obj) {
-	        var funcNameRegex = /function (.{1,})\(/;
-	        var result = (funcNameRegex).exec((obj).constructor.toString());
-	        return (result && result.length > 1) ? result[1] : "";
-	    };
-	    return JsHack;
-	})();
-	module.exports = JsHack;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -10631,7 +10614,7 @@
 
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10685,7 +10668,7 @@
 
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10730,7 +10713,7 @@
 
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10764,7 +10747,7 @@
 
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10818,7 +10801,7 @@
 
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10880,7 +10863,7 @@
 
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10908,7 +10891,7 @@
 
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -10966,7 +10949,7 @@
 
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var TextureInternalFormatType;
@@ -10976,12 +10959,14 @@
 	    TextureInternalFormatType[TextureInternalFormatType["LuminanceAlpha"] = 6410] = "LuminanceAlpha";
 	    TextureInternalFormatType[TextureInternalFormatType["RGB"] = 6407] = "RGB";
 	    TextureInternalFormatType[TextureInternalFormatType["RGBA"] = 6408] = "RGBA";
+	    TextureInternalFormatType[TextureInternalFormatType["DEPTH_COMPONENT"] = 6402] = "DEPTH_COMPONENT";
+	    TextureInternalFormatType[TextureInternalFormatType["DEPTH_STENCIL"] = 34041] = "DEPTH_STENCIL";
 	})(TextureInternalFormatType || (TextureInternalFormatType = {}));
 	module.exports = TextureInternalFormatType;
 
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var TextureType;
@@ -10991,8 +10976,28 @@
 	    TextureType[TextureType["UnsignedShort565"] = 33635] = "UnsignedShort565";
 	    TextureType[TextureType["UnsignedShort4444"] = 32819] = "UnsignedShort4444";
 	    TextureType[TextureType["UnsignedShort5551"] = 32820] = "UnsignedShort5551";
+	    TextureType[TextureType["UnsignedShort"] = 5123] = "UnsignedShort";
+	    TextureType[TextureType["UnsignedInt"] = 5125] = "UnsignedInt";
+	    TextureType[TextureType["UnsignedInt24_8WebGL"] = 34042] = "UnsignedInt24_8WebGL";
 	})(TextureType || (TextureType = {}));
 	module.exports = TextureType;
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var JsHack = (function () {
+	    function JsHack() {
+	    }
+	    JsHack.getObjectName = function (obj) {
+	        var funcNameRegex = /function (.{1,})\(/;
+	        var result = (funcNameRegex).exec((obj).constructor.toString());
+	        return (result && result.length > 1) ? result[1] : "";
+	    };
+	    return JsHack;
+	})();
+	module.exports = JsHack;
 
 
 /***/ },
@@ -11331,6 +11336,13 @@
 	        this.context = context;
 	        this.context.onRendererChanged(this.rendererChanged.bind(this));
 	    }
+	    Object.defineProperty(ContextSafeResourceContainer.prototype, "Context", {
+	        get: function () {
+	            return this.context;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    ContextSafeResourceContainer.prototype.initializeForFirst = function () {
 	        var _this = this;
 	        this.context.CanvasManagers.forEach(function (v) {
@@ -11589,7 +11601,6 @@
 	    d.prototype = new __();
 	};
 	var ResourceWrapper = __webpack_require__(89);
-	var TargetTextureType = __webpack_require__(90);
 	var FBOWrapper = (function (_super) {
 	    __extends(FBOWrapper, _super);
 	    function FBOWrapper(renderer) {
@@ -11624,7 +11635,7 @@
 	        this.WebGLContext.BindFrameBuffer(null);
 	        this.textures.forEach(function (tex) {
 	            tex.getForContext(_this.OwnerCanvas).bind();
-	            _this.WebGLContext.GenerateMipmap(TargetTextureType.Texture2D);
+	            tex.generateMipmapIfNeed();
 	        });
 	    };
 	    FBOWrapper.prototype.attachTexture = function (attachmentType, tex) {
@@ -11633,7 +11644,7 @@
 	        this.bind();
 	        this.WebGLContext.FrameBufferTexture2D(attachmentType, tex.getForContext(this.OwnerCanvas).TargetTexture);
 	        tex.getForContext(this.OwnerCanvas).bind();
-	        this.WebGLContext.GenerateMipmap(TargetTextureType.Texture2D);
+	        tex.generateMipmapIfNeed();
 	        this.textures.push(tex);
 	        this.unbind();
 	    };
@@ -11658,10 +11669,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var TextureWrapperBase = __webpack_require__(91);
-	var TextureTargetType = __webpack_require__(90);
-	var TextureInternalFormat = __webpack_require__(31);
-	var TextureType = __webpack_require__(32);
+	var TextureWrapperBase = __webpack_require__(90);
+	var TextureTargetType = __webpack_require__(91);
+	var TextureInternalFormat = __webpack_require__(30);
+	var TextureType = __webpack_require__(31);
 	var TextureWrapper = (function (_super) {
 	    __extends(TextureWrapper, _super);
 	    function TextureWrapper(contextManager, parent) {
@@ -11700,6 +11711,7 @@
 	var TextureMagFilterType = __webpack_require__(94);
 	var TextureWrapType = __webpack_require__(95);
 	var JThreeEvent = __webpack_require__(14);
+	var TextureTargetType = __webpack_require__(91);
 	var TextureBase = (function (_super) {
 	    __extends(TextureBase, _super);
 	    function TextureBase(context) {
@@ -11766,6 +11778,18 @@
 	    TextureBase.prototype.onFilterParameterChanged = function (handler) {
 	        this.onFilterParameterChangedHandler.addListerner(handler);
 	    };
+	    TextureBase.prototype.generateMipmapIfNeed = function () {
+	        switch (this.MinFilter) {
+	            case TextureMinFilterType.LinearMipmapLinear:
+	            case TextureMinFilterType.LinearMipmapNearest:
+	            case TextureMinFilterType.NearestMipmapLinear:
+	            case TextureMinFilterType.NearestMipmapNearest:
+	                this.each(function (v) {
+	                    v.bind();
+	                    v.OwnerCanvas.Context.GenerateMipmap(TextureTargetType.Texture2D);
+	                });
+	        }
+	    };
 	    return TextureBase;
 	})(ContextSafeResourceContainer);
 	module.exports = TextureBase;
@@ -11781,8 +11805,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var TargetTextureType = __webpack_require__(90);
-	var TextureWrapperBase = __webpack_require__(91);
+	var TargetTextureType = __webpack_require__(91);
+	var TextureWrapperBase = __webpack_require__(90);
 	var BufferTextureWrapper = (function (_super) {
 	    __extends(BufferTextureWrapper, _super);
 	    function BufferTextureWrapper(ownerCanvas, parent) {
@@ -13719,23 +13743,6 @@
 /* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var TargetTextureType;
-	(function (TargetTextureType) {
-	    TargetTextureType[TargetTextureType["Texture2D"] = 3553] = "Texture2D";
-	    TargetTextureType[TargetTextureType["CubePositiveX"] = 34069] = "CubePositiveX";
-	    TargetTextureType[TargetTextureType["CubeNegativeX"] = 34070] = "CubeNegativeX";
-	    TargetTextureType[TargetTextureType["CubePositiveY"] = 34071] = "CubePositiveY";
-	    TargetTextureType[TargetTextureType["CubeNegativeY"] = 34072] = "CubeNegativeY";
-	    TargetTextureType[TargetTextureType["CubePositiveZ"] = 34073] = "CubePositiveZ";
-	    TargetTextureType[TargetTextureType["CubeNegativeZ"] = 34074] = "CubeNegativeZ";
-	})(TargetTextureType || (TargetTextureType = {}));
-	module.exports = TargetTextureType;
-
-
-/***/ },
-/* 91 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __extends = this.__extends || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -13743,14 +13750,14 @@
 	    d.prototype = new __();
 	};
 	var ResourceWrapper = __webpack_require__(89);
-	var TextureTargetType = __webpack_require__(90);
+	var TextureTargetType = __webpack_require__(91);
 	var TextureParameterType = __webpack_require__(92);
 	var TextureWrapperBase = (function (_super) {
 	    __extends(TextureWrapperBase, _super);
 	    function TextureWrapperBase(owner, parent) {
 	        _super.call(this, owner);
 	        this.parent = parent;
-	        this.parent.onFilterParameterChanged(this.applyTextureParameter);
+	        this.parent.onFilterParameterChanged(this.applyTextureParameter.bind(this));
 	    }
 	    Object.defineProperty(TextureWrapperBase.prototype, "Parent", {
 	        get: function () {
@@ -13783,6 +13790,23 @@
 	    return TextureWrapperBase;
 	})(ResourceWrapper);
 	module.exports = TextureWrapperBase;
+
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var TargetTextureType;
+	(function (TargetTextureType) {
+	    TargetTextureType[TargetTextureType["Texture2D"] = 3553] = "Texture2D";
+	    TargetTextureType[TargetTextureType["CubePositiveX"] = 34069] = "CubePositiveX";
+	    TargetTextureType[TargetTextureType["CubeNegativeX"] = 34070] = "CubeNegativeX";
+	    TargetTextureType[TargetTextureType["CubePositiveY"] = 34071] = "CubePositiveY";
+	    TargetTextureType[TargetTextureType["CubeNegativeY"] = 34072] = "CubeNegativeY";
+	    TargetTextureType[TargetTextureType["CubePositiveZ"] = 34073] = "CubePositiveZ";
+	    TargetTextureType[TargetTextureType["CubeNegativeZ"] = 34074] = "CubeNegativeZ";
+	})(TargetTextureType || (TargetTextureType = {}));
+	module.exports = TargetTextureType;
 
 
 /***/ },
@@ -15066,7 +15090,7 @@
 	var Color4 = __webpack_require__(102);
 	var Color3 = __webpack_require__(104);
 	var TextureRegister = __webpack_require__(143);
-	var TargetTextureType = __webpack_require__(90);
+	var TargetTextureType = __webpack_require__(91);
 	var PhongMaterial = (function (_super) {
 	    __extends(PhongMaterial, _super);
 	    function PhongMaterial() {
@@ -15178,7 +15202,7 @@
 	var JThreeContextProxy = __webpack_require__(3);
 	var Matrix = __webpack_require__(142);
 	var TextureRegister = __webpack_require__(143);
-	var TargetTextureType = __webpack_require__(90);
+	var TargetTextureType = __webpack_require__(91);
 	var SpriteMaterial = (function (_super) {
 	    __extends(SpriteMaterial, _super);
 	    function SpriteMaterial() {
@@ -16941,7 +16965,7 @@
 	var JThreeContextProxy = __webpack_require__(3);
 	var ShaderType = __webpack_require__(165);
 	var TextureRegister = __webpack_require__(143);
-	var TargetTextureType = __webpack_require__(90);
+	var TargetTextureType = __webpack_require__(91);
 	var Material = (function (_super) {
 	    __extends(Material, _super);
 	    function Material() {
@@ -17620,6 +17644,9 @@
 	var JThreeContextProxy = __webpack_require__(3);
 	var FrameBufferAttachmentType = __webpack_require__(173);
 	var ClearTargetType = __webpack_require__(137);
+	var TextureFormat = __webpack_require__(30);
+	var ElementFormat = __webpack_require__(31);
+	var TextureMinFilterType = __webpack_require__(93);
 	var DefferedPrePassStage = (function (_super) {
 	    __extends(DefferedPrePassStage, _super);
 	    function DefferedPrePassStage(renderer) {
@@ -17633,6 +17660,9 @@
 	        this.rb2Texture = context.ResourceManager.createTexture(id + ".deffered.rb2", width, height);
 	        this.rb2FBO = context.ResourceManager.createFBO(id + ".deffered.rb2");
 	        this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, this.rb2Texture);
+	        this.rbDepthTexture = context.ResourceManager.createTexture(id + ".deffered.depth", width, height, TextureFormat.DEPTH_COMPONENT, ElementFormat.UnsignedShort);
+	        this.rbDepthTexture.MinFilter = TextureMinFilterType.Linear;
+	        this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, this.rbDepthTexture);
 	    }
 	    DefferedPrePassStage.prototype.preBeginStage = function (passCount) {
 	        this.Renderer.GLContext.ClearColor(0, 0, 0, 0);

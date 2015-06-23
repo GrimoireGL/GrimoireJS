@@ -1,6 +1,6 @@
 <goml>
   <resources>
-    <ddebug viewport="viewport#main" name="rb1" target="rb1"/>
+    <ddebug viewport="viewport#main" name="rb1" target="depth"/>
     <ddebug viewport="viewport#main" name="rb2" target="rb2"/>
     <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture ="test"/>
     <grid hdiv="20" name="grid" vdiv="20" />
@@ -21,8 +21,9 @@
           <component id="modTest" name="test"/>
           <component name="test2"/>
         </components>
-        <camera aspect="1" far="2" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)">
-          <mesh geo="quad" mat="mat2" position="0,0,-1" scale="0.2" rotation="y(15d)"/>
+                  <mesh geo="quad" mat="mat2" position="0,0,0" scale="0.2" rotation="y(15d)"/>
+        <camera id="maincam" aspect="1" far="2" fovy="1/4p" name="CAM1" near="0.1" position="(0,0.5,2)">
+
         </camera>
       </object>
       <mesh geo="grid" mat="mat2"></mesh>

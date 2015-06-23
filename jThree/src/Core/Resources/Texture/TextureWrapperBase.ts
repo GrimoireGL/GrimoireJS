@@ -14,7 +14,7 @@ class TextureWrapperBase extends ResourceWrapper
   {
     super(owner);
     this.parent=parent;
-    this.parent.onFilterParameterChanged(this.applyTextureParameter);
+    this.parent.onFilterParameterChanged(this.applyTextureParameter.bind(this));
   }
   private parent:TextureBase;
   

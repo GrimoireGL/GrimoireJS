@@ -10,7 +10,11 @@ import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ResourceWrapper = require('./ResourceWrapper');
 class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject {
     private context: JThreeContext = null;
-
+    
+    public get Context():JThreeContext
+    {
+        return this.context;
+    }
     constructor(context: JThreeContext) {
         super();
         this.context = context;

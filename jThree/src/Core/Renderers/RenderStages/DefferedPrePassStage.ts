@@ -9,6 +9,7 @@ import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachme
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../../Wrapper/TextureType');
+import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
 class DefferedPrePassStage extends RenderStageBase
 {
 	private rb1Texture:TextureBase;
@@ -33,7 +34,9 @@ class DefferedPrePassStage extends RenderStageBase
 		this.rb2Texture=context.ResourceManager.createTexture(id+".deffered.rb2",width,height);
 		this.rb2FBO=context.ResourceManager.createFBO(id+".deffered.rb2");
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb2Texture);
-		this.rb2Texture=context.ResourceManager.createTexture(id+".deffered.depth",width,height,TextureFormat.)
+		this.rbDepthTexture=context.ResourceManager.createTexture(id+".deffered.depth",width,height,TextureFormat.DEPTH_COMPONENT,ElementFormat.UnsignedShort);
+		this.rbDepthTexture.MinFilter=TextureMinFilterType.Linear;
+		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment,this.rbDepthTexture);
 	}
 	
 	
