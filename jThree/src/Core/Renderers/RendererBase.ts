@@ -21,9 +21,8 @@ class RendererBase extends jThreeObjectWithID {
     public set Camera(camera: Camera) {
         this.camera = camera;
     }
-    
-    public get RenderStages():RenderStageBase[]
-    {
+
+    public get RenderStages(): RenderStageBase[] {
         return [];
     }
 
@@ -54,10 +53,9 @@ class RendererBase extends jThreeObjectWithID {
     public afterRender() {
         this.ContextManager.afterRender(this);
     }
-    
-        public configureRenderer()
-    {
-        
+
+    public configureRenderer() {
+
     }
 }
 

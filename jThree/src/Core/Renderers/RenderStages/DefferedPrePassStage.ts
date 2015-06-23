@@ -7,6 +7,8 @@ import FBO = require('./../../Resources/FBO/FBO');
 import JThreeContextProxy = require('../../JThreeContextProxy');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
+import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
+import ElementFormat = require('../../../Wrapper/TextureType');
 class DefferedPrePassStage extends RenderStageBase
 {
 	private rb1Texture:TextureBase;
@@ -14,6 +16,8 @@ class DefferedPrePassStage extends RenderStageBase
 	private rb1FBO:FBO;
 	
 	private rb2Texture:TextureBase;
+	
+	private rbDepthTexture:TextureBase;
 	
 	private rb2FBO:FBO;
 	
@@ -29,6 +33,7 @@ class DefferedPrePassStage extends RenderStageBase
 		this.rb2Texture=context.ResourceManager.createTexture(id+".deffered.rb2",width,height);
 		this.rb2FBO=context.ResourceManager.createFBO(id+".deffered.rb2");
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb2Texture);
+		this.rb2Texture=context.ResourceManager.createTexture(id+".deffered.depth",width,height,TextureFormat.)
 	}
 	
 	
