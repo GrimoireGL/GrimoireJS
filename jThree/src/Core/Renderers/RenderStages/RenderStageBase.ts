@@ -2,6 +2,7 @@ import JThreeObject = require('./../../../Base/JThreeObject');
 import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
 import Material = require('../../Materials/Material');
+import Scene = require('../../Scene')
 class RenderStageBase extends JThreeObject {
 	private renderer: RendererBase;
 	/**
@@ -16,21 +17,21 @@ class RenderStageBase extends JThreeObject {
 		this.renderer = renderer;
 	}
 	
-	public preBeginStage(passCount:number)
+	public preBeginStage(scene:Scene,passCount:number)
 	{
 		
 	}
 	
-	public postEndStage(passCount:number)
+	public postEndStage(scene:Scene,passCount:number)
 	{
 		
 	}
 
-	public render(object: SceneObject, material: Material,passCount:number) {
+	public render(scene:Scene,object: SceneObject, material: Material,passCount:number) {
 
 	}
 
-	public needRender(object: SceneObject, material: Material,passCount:number): boolean {
+	public needRender(scene:Scene,object: SceneObject, material: Material,passCount:number): boolean {
 		return false;
 	}
 	

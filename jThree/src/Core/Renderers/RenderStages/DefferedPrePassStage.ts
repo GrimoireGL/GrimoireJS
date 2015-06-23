@@ -10,6 +10,7 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../../Wrapper/TextureType');
 import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
+import Scene = require('../../Scene')
 class DefferedPrePassStage extends RenderStageBase
 {
 	private rb1Texture:TextureBase;
@@ -29,11 +30,10 @@ class DefferedPrePassStage extends RenderStageBase
 		var width =512,height=512;
 		var id = this.Renderer.ID;
 		this.rb1Texture=context.ResourceManager.createTexture(id+".deffered.rb1",width,height);
-
 		this.rb1FBO=context.ResourceManager.createFBO(id+".deffered.rb1");
 		this.rb1FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb1Texture);
 		this.rb2Texture=context.ResourceManager.createTexture(id+".deffered.rb2",width,height);
-				this.rb2Texture.FlipY=true;
+		this.rb2Texture.FlipY=true;
 		this.rb2FBO=context.ResourceManager.createFBO(id+".deffered.rb2");
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb2Texture);
 		this.rbDepthTexture=context.ResourceManager.createTexture(id+".deffered.depth",width,height,TextureFormat.DEPTH_COMPONENT,ElementFormat.UnsignedShort);
@@ -42,7 +42,7 @@ class DefferedPrePassStage extends RenderStageBase
 	}
 	
 	
-	public preBeginStage(passCount:number)
+	public preBeginStage(scene:Scene,passCount:number)
 	{
 		this.Renderer.GLContext.ClearColor(0,0,0,0);
 		switch(passCount)
@@ -59,7 +59,7 @@ class DefferedPrePassStage extends RenderStageBase
 
 	}
 	
-	public postEndStage(passCount:number)
+	public postEndStage(scene:Scene,passCount:number)
 	{
 		switch(passCount)
 		{
@@ -72,14 +72,14 @@ class DefferedPrePassStage extends RenderStageBase
 		}
 	}
 	
-	public render(object: SceneObject, material: Material,passCount:number) {
+	public render(scene:Scene,object: SceneObject, material: Material,passCount:number) {
 		var geometry = object.Geometry;
 		if (!geometry || !material) return;
 		material.configureDefferedPrePassMaterial(this.Renderer, object,passCount);
 		geometry.drawElements(this.Renderer.ContextManager);
 	}
 
-	public needRender(object: SceneObject, material: Material,passCount:number): boolean {
+	public needRender(scene:Scene,object: SceneObject, material: Material,passCount:number): boolean {
 		return true;
 	}
 	

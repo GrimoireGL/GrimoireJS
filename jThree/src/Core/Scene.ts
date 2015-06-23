@@ -4,6 +4,9 @@ import RendererBase = require("./Renderers/RendererBase");
 import Material = require("./Materials/Material");
 import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");
+import PointLight = require('./Light/PointLight');
+import Color4 = require('../Base/Color/Color4');
+import Vector3 = require('../Math/Vector3');
 /**
 * NON PUBLIC CLASS
 */
@@ -50,11 +53,11 @@ class Scene extends jThreeObjectWithID {
             renderStages.forEach(s=> {
                 var passCount = s.PassCount;
                 for (var passIndex = 0; passIndex < passCount; passIndex++) {
-                    s.preBeginStage(passIndex);
+                    s.preBeginStage(this,passIndex);
                     this.renderPairs.forEach((v) => {
-                        if (s.needRender(v.TargetObject, v.Material, passIndex)) s.render(v.TargetObject, v.Material, passIndex);
+                        if (s.needRender(this,v.TargetObject, v.Material, passIndex)) s.render(this,v.TargetObject, v.Material, passIndex);
                     });
-                    s.postEndStage(passIndex);
+                    s.postEndStage(this,passIndex);
                 }
             });
             r.afterRender();
@@ -70,6 +73,13 @@ class Scene extends jThreeObjectWithID {
     private renderPairs: MaterialObjectPair[] = [];
 
     private sceneObjects: SceneObject[] = [];
+    
+    private pointLights:PointLight[]=[new PointLight(Color4.parseColor("red"),new Vector3(1,1,0))];
+    
+    public get PointLights():PointLight[]
+    {
+        return this.pointLights;
+    }
 
     public addObject(targetObject: SceneObject): void {
         //TargetObjectに所属するマテリアルを分割して配列に登録します。
