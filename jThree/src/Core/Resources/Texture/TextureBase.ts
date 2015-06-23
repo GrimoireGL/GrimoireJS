@@ -18,10 +18,21 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
   private magFilter: TextureMagFilterType = TextureMagFilterType.Linear;
   private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
+  private flipY:boolean = false;
   constructor(context:JThreeContext)
   {
     super(context);
     this.initializeForFirst();
+  }
+  
+  public get FlipY():boolean
+  {
+    return this.flipY;
+  }
+  
+  public set FlipY(val:boolean)
+  {
+    this.flipY=val;
   }
 
   public get MinFilter(): TextureMinFilterType {

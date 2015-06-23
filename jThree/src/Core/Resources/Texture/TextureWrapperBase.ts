@@ -8,6 +8,7 @@ import TextureInternalFormat = require('../../../Wrapper/TextureInternalFormatTy
 import TextureType = require('../../../Wrapper/TextureType');
 import TextureBase = require('TextureBase');
 import ContextManagerBase = require('../../ContextManagerBase');
+import PixelStoreParamType = require('../../../Wrapper/Texture/PixelStoreParamType');
 class TextureWrapperBase extends ResourceWrapper
 {	
   constructor(owner:ContextManagerBase,parent:TextureBase)
@@ -49,6 +50,7 @@ class TextureWrapperBase extends ResourceWrapper
   public bind()
   {
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
+    this.WebGLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL,this.parent.FlipY?1:0);
   }
   
   public init()

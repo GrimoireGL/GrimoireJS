@@ -29,6 +29,7 @@ class TextureWrapper extends TextureWrapperBase
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,null);
     this.setInitialized();
   }
+
 }
 
 export = TextureWrapper;

@@ -20,6 +20,7 @@ import TextureMagType = require('./Texture/TextureMagFilterType');
 import TextureWrapType = require('./Texture/TextureWrapType');
 import TextureRegister = require('./Texture/TextureRegister');
 import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
+import PixelStoreParamType = require('./Texture/PixelStoreParamType');
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
   
@@ -250,6 +251,12 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   CreateTexture(): WebGLTexture {
     this.CheckErrorAsFatal();
     return this.gl.createTexture();
+  }
+  
+  PixelStorei(pname:PixelStoreParamType,value:number)
+  {
+    this.CheckErrorAsFatal();
+    this.gl.pixelStorei(pname,value);
   }
 
   TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{

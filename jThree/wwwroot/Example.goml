@@ -1,7 +1,8 @@
 <goml>
   <resources>
-    <ddebug viewport="viewport#main" name="rb1" target="depth" />
+    <ddebug viewport="viewport#main" name="dep" target="depth" />
     <ddebug viewport="viewport#main" name="rb2" target="rb2" />
+    <ddebug viewport="viewport#main" name="rb1" target="rb1" />
     <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />
@@ -11,7 +12,7 @@
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" id="main" width="512" height="512" />
-      <viewport cam="CAM2" id="debug" width="256" height="512" left="512" />
+      <viewport cam="CAM2" id="debug" width="512" height="512" left="512" />
     </renderer>
   </renderers>
   <scenes>
@@ -31,9 +32,10 @@
       </mesh>
     </scene>
     <scene>
-      <camera aspect="0.5" far="20" fovy="1/2p" name="CAM2" near="0.1" position="(0,0,1)" />
-      <mesh geo="quad" scale="0.5" position="0,-0.5,0" mat="rb1"/>
-      <mesh geo="quad" scale="0.5" position="0,0.5,0" mat="rb2"/>
+      <camera aspect="1" far="20" fovy="1/2p" name="CAM2" near="0.1" position="(0,0,1)" />
+      <mesh geo="quad" scale="0.5" position="-0.5,-0.5,0" mat="rb1"/>
+      <mesh geo="quad" scale="0.5" position="-0.5,0.5,0" mat="rb2"/>
+      <mesh geo="quad" scale="0.5" position="0.5,0.5,0" mat="dep"/>
     </scene>
   </scenes>
   <templates>
