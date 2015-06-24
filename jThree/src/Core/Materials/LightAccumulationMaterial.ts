@@ -32,6 +32,8 @@ class LightaccumulationMaterial extends Material {
   private rb2: TextureBase;
 
   private depth: TextureBase;
+  
+  private time:number;
 
   constructor(rb1: TextureBase, rb2: TextureBase, depth: TextureBase) {
     super();
@@ -78,6 +80,7 @@ class LightaccumulationMaterial extends Material {
     programWrapper.setUniformVectorArray("l_pos",lpos);
     programWrapper.setUniformVectorArray("l_col",lcol);
     programWrapper.setUniformMatrix("matIP",ip);
+    programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 
   }

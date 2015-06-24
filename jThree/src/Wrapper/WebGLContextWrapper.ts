@@ -364,6 +364,12 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     }
     this.gl.uniform4fv(webGlUniformLocation,new Float32Array(arr));
   }
+  
+  Uniform1f(webglUniformLocation:WebGLUniformLocation,num:number)
+  {
+    this.CheckErrorAsFatal();
+    this.gl.uniform1f(webglUniformLocation,num);
+  }
 
 }
 export =WebGLContextWrapper;

@@ -358,6 +358,11 @@ class GLContextWrapperBase extends JThreeObject {
   PixelStorei(pname: PixelStoreParamType, value: number) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
+  
+    Uniform1f(webglUniformLocation:WebGLUniformLocation,num:number)
+  {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
 }
 
 export =GLContextWrapperBase;

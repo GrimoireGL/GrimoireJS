@@ -67,31 +67,37 @@ class ProgramWrapper extends ResourceWrapper {
         }
         this.WebGLContext.UseProgram(this.targetProgram);
     }
+    
+    private fetchUniformLocation(valName:string):WebGLUniformLocation
+    {
+        if(!this.uniformLocations.has(valName))
+        {
+            this.uniformLocations.set(valName,this.WebGLContext.GetUniformLocation(this.TargetProgram,valName));
+        }
+        return this.uniformLocations.get(valName);
+    }
 
     setUniformMatrix(valName: string, matrix: Matrix): void {
         this.useProgram();
-        if (!this.uniformLocations.has(valName)) {
-            this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
-        }
-        var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+        var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         this.WebGLContext.UniformMatrix(uniformIndex, matrix);
     }
 
     setUniform1i(valName: string, num: number): void {
         this.useProgram();
-        if (!this.uniformLocations.has(valName)) {
-            this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
-        }
-        var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+        var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         this.WebGLContext.Uniform1i(uniformIndex, num);
+    }
+    
+    setUniform1f(valName:string,num:number):void{
+        this.useProgram();
+        var uniformIndex=this.fetchUniformLocation(valName);
+        this.WebGLContext.Uniform1f(uniformIndex,num);
     }
 
     setUniformVector(valName: string, vec: VectorBase): void {
         this.useProgram();
-        if (!this.uniformLocations.has(valName)) {
-            this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
-        }
-        var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+        var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         switch (vec.ElementCount) {
             case 2:
                 this.WebGLContext.UniformVector2(uniformIndex, <Vector2>vec);
@@ -107,10 +113,7 @@ class ProgramWrapper extends ResourceWrapper {
 
     setUniformVectorArray(valName: string, vec: VectorBase[]) {
         this.useProgram();
-        if (!this.uniformLocations.has(valName)) {
-            this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
-        }
-        var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+        var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         if(vec.length===0)return;
         switch (vec[0].ElementCount) {
             case 2:

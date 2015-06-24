@@ -50,7 +50,7 @@ class TextureWrapperBase extends ResourceWrapper
   public bind()
   {
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
-    this.WebGLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL,this.parent.FlipY?1:0);
+  //  this.WebGLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL,this.parent.FlipY?1:0);
   }
   
   public init()

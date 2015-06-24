@@ -9,6 +9,7 @@ import Color4 = require("../Base/Color/Color4");
 import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import GLFeatureType = require('../Wrapper/GLFeatureType');
+import PixelStoreParamType = require('../Wrapper/Texture/PixelStoreParamType');
 /**
  * Provides some of feature managing canvas.
  */
@@ -72,6 +73,7 @@ class CanvasManager extends ContextManagerBase {
       this.Context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
       this.Context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
       this.Context.Enable(GLFeatureType.DepthTest);
+      this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL,1);
     }
 
     constructor(glContext: WebGLRenderingContext) {
