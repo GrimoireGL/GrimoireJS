@@ -20,6 +20,7 @@ import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
 import Scene=require('../Scene');
+import agent = require('superagent');
 declare function require(string): string;
 
 class LightaccumulationMaterial extends Material {
@@ -38,9 +39,13 @@ class LightaccumulationMaterial extends Material {
     this.rb2 = rb2;
     this.depth = depth;
     var vs = require('../Shaders/VertexShaders/PostEffectGeometries.glsl');
-    var fs = require('../Shaders/Deffered/LightAccumulation.glsl');
-    this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, fs);
+    agent.get("http://localhost:8080/LightAccumulation.glsl").end((err,res:agent.Response)=>
+      {
+     this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);       
+      });
+
   }
+  
 
   registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
     renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);
@@ -49,6 +54,7 @@ class LightaccumulationMaterial extends Material {
   }
 
   configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {
+    if(!this.program)return;
     super.configureMaterial(scene,renderer, object);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);

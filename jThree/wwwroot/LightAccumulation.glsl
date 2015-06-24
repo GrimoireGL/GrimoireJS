@@ -13,11 +13,17 @@ uniform mat4 matIP;
 
 void main(void){
   float d=texture2D(depth,v_uv).r;
+  if(d==1.0)
+  {
+      gl_FragColor=vec4(0,0,0,0);
+      return;
+  }
   vec3 posClip=vec3(2.0*v_uv+vec2(-1,-1),d);
   vec3 normal=texture2D(rb1,v_uv).xyz;
   vec4 position=matIP*vec4(posClip,1);
-  vec3 p2l=normalize(l_pos[0]-position.xyz);
-  float l = dot(p2l,normal);
-  gl_FragColor.rgb=(posClip+vec3(1.0,1.0,1.0))/2.0;
+  position.z=d*4.0;
+  vec3 p2l=l_pos[0]-position.xyz;
+  float l =1.0-length(p2l)/4.0;
+  gl_FragColor.rgb=position.xyz;
   gl_FragColor.a=1.0;
 }

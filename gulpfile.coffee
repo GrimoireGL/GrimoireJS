@@ -73,6 +73,9 @@ gulp.task 'webpack',->
       resolve:
         alias:
           'jquery':path.join __dirname,'jquery.js'
+          'superagent':path.join __dirname,'superagent.js'
+          'emitter':path.join __dirname,'emitter.js'
+          'reduce':path.join __dirname,'reduce.js'
         extensions:['','.ts']
         root:[
           webpack_src_root
@@ -178,7 +181,7 @@ gulp.task 'doc',(cb)->
       target: 'es5'
       out: "ci/docs/#{branch}"
       name: 'jThree'
-
+###
 # gulp.task 'doc',(cb)->
 #     child_process.exec("typedoc --out ./ci/docs"+branch+" --module commonjs --target es5 --name jThree ./jThree/src/",cb);
 #     undefined
@@ -193,12 +196,11 @@ gulp.task 'doc',(cb)->
   #     includeDeclarations:true,
   #     json:'./ci/docs/'+branch+'doc.json',
   #     mode:'modules'
+  
 ###
-MISCぎ
 
 
-
-### the task for editing gulpfile.coffee###
+### the task for editing gulpfile.coffee ###
 gulp.task 'gulp-edit',->
   gulp.watch 'gulpfile.coffee',['gulp-compile']
 

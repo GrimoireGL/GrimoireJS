@@ -7,6 +7,12 @@
   "installed": {
     "jquery/jquery.d.ts": {
       "commit": "de18109f44d99864a19441509a3fc876adba68e9"
+    },
+    "superagent/superagent.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "node/node.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
     }
   }
 }

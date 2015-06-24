@@ -11,6 +11,6 @@ uniform mat4 matV;
 //A=DEPTH
 void main(void){
   float w=v_pos.z;
-  gl_FragColor.rgb=v_normal.xyz;
+  gl_FragColor.rgb=v_normal;
   gl_FragColor.a=w;
 }
