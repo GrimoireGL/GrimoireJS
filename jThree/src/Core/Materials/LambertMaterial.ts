@@ -14,6 +14,7 @@ import Quaternion = require("../../Math/Quaternion");
 import Color4 = require("../../Base/Color/Color4");
 import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
+import Scene = require('../Scene');
 declare function require(string):string;
 
 class LambertMaterial extends Material
@@ -37,8 +38,8 @@ set Color(col:Color4)
           this.program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.lambert","jthree.programs.lambert",vs,fs);
       }
 
-     configureMaterial(renderer: RendererBase, object:SceneObject): void {
-       super.configureMaterial(renderer,object);
+     configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject): void {
+       super.configureMaterial(scene,renderer,object);
           var geometry=object.Geometry;
          var programWrapper = this.program.getForContext(renderer.ContextManager);
          programWrapper.useProgram();

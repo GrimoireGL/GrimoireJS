@@ -10,6 +10,7 @@ import Program = require('../Resources/Program/Program');
 import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
+import Scene = require('../Scene');
 declare function require(string): string;
 class Material extends JThreeObjectWithID {
     private defferedRb1Program: Program;
@@ -84,7 +85,7 @@ class Material extends JThreeObjectWithID {
         geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
     }
 
-    public configureMaterial(renderer: RendererBase, object: SceneObject): void {
+    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {
         this.applyCullConfigure(renderer);
         return;
     }

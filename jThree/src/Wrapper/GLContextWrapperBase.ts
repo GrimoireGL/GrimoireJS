@@ -255,6 +255,33 @@ class GLContextWrapperBase extends JThreeObject {
   UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector: Vector4) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
+  
+    /**
+  * Pass vector as uniform variable
+  * @param webGlUniformLocation uniform variable location
+  * @param vector vector you want to pass
+  */
+  UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+  /**
+  * Pass vector as uniform variable
+  * @param webGlUniformLocation uniform variable location
+  * @param vector vector you want to pass
+  */
+  UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[]) {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+  /**
+  * Pass vector as uniform variable
+  * @param webGlUniformLocation uniform variable location
+  * @param vector vector you want to pass
+  */
+  UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[]) {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
 
   CullFace(cullMode: GLCullMode): void {
     throw new Exceptions.AbstractClassMethodCalledException();

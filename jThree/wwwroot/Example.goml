@@ -3,6 +3,7 @@
     <ddebug viewport="viewport#main" name="dep" target="depth" />
     <ddebug viewport="viewport#main" name="rb2" target="rb2" />
     <ddebug viewport="viewport#main" name="rb1" target="rb1" />
+        <ddebug viewport="viewport#main" name="light" target="light" />
     <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />
@@ -36,6 +37,7 @@
       <mesh geo="quad" scale="0.5" position="-0.5,-0.5,0" mat="rb1"/>
       <mesh geo="quad" scale="0.5" position="-0.5,0.5,0" mat="rb2"/>
       <mesh geo="quad" scale="0.5" position="0.5,0.5,0" mat="dep"/>
+      <mesh geo="quad" scale="0.5" position="0.5,-0.5,0" mat="light"/>
     </scene>
   </scenes>
   <templates>

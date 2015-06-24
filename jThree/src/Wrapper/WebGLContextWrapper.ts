@@ -313,5 +313,57 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer)
     console.warn(this.gl.checkFramebufferStatus(this.gl.FRAMEBUFFER));
   }
+  
+      /**
+  * Pass vector as uniform variable
+  * @param webGlUniformLocation uniform variable location
+  * @param vector vector you want to pass
+  */
+  UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
+    this.CheckErrorAsFatal();
+    var arr=new Array(vector.length*2);
+    for(var i=0;i<vector.length;i++)
+    {
+      arr[i*2]=vector[i].X;
+      arr[i*2+1]=vector[i].Y;
+    }
+    this.gl.uniform2fv(webGlUniformLocation,new Float32Array(arr));
+  }
+
+  /**
+  * Pass vector as uniform variable
+  * @param webGlUniformLocation uniform variable location
+  * @param vector vector you want to pass
+  */
+  UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[]) {
+    this.CheckErrorAsFatal();
+    var arr=new Array(vector.length*3);
+    for(var i=0;i<vector.length;i++)
+    {
+      arr[i*3]=vector[i].X;
+      arr[i*3+1]=vector[i].Y;
+      arr[i*3+2]=vector[i].Z;
+    }
+    this.gl.uniform3fv(webGlUniformLocation,new Float32Array(arr));
+  }
+
+  /**
+  * Pass vector as uniform variable
+  * @param webGlUniformLocation uniform variable location
+  * @param vector vector you want to pass
+  */
+  UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[]) {
+    this.CheckErrorAsFatal();
+    var arr=new Array(vector.length*4);
+    for(var i=0;i<vector.length;i++)
+    {
+      arr[i*4]=vector[i].X;
+      arr[i*4+1]=vector[i].Y;
+      arr[i*4+2]=vector[i].Z;
+      arr[i*4+3]=vector[i].W;
+    }
+    this.gl.uniform4fv(webGlUniformLocation,new Float32Array(arr));
+  }
+
 }
 export =WebGLContextWrapper;

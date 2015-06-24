@@ -18,6 +18,7 @@ import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
 import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
+import Scene = require('../Scene');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
 declare function require(string):string;
 
@@ -91,8 +92,8 @@ class PhongMaterial extends Material
           this.program= this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.phong","jthree.programs.phong",vs,fs);
       }
 
-     configureMaterial(renderer: RendererBase, object:SceneObject): void {
-       super.configureMaterial(renderer,object);
+     configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject): void {
+       super.configureMaterial(scene,renderer,object);
           var geometry=object.Geometry;
          var programWrapper = this.program.getForContext(renderer.ContextManager);
          programWrapper.useProgram();

@@ -12,6 +12,9 @@ import ElementFormat = require('../../../Wrapper/TextureType');
 import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
 import Scene = require('../../Scene');
 import Program = require('../../Resources/Program/Program');
+import QuadGeometry = require('../../Geometries/QuadGeometry');
+import LightAccumulationMaterial = require('../../Materials/LightAccumulationMaterial');
+import Mesh=require('../../../Shapes/Mesh');
 class DefferedPrePassStage extends RenderStageBase
 {
 	private rb1Texture:TextureBase;
@@ -28,7 +31,9 @@ class DefferedPrePassStage extends RenderStageBase
 	
 	private rbLightFBO:FBO;
 	
-	private lightAccumrationProgram:Program;
+	private quad:QuadGeometry=new QuadGeometry("jthree.geometries.quad.lightaccumulation");
+	
+	private lightAccumulationMaterial:LightAccumulationMaterial;
 	
 	constructor(renderer:RendererBase)
 	{
@@ -47,9 +52,9 @@ class DefferedPrePassStage extends RenderStageBase
 		this.rbDepthTexture.MinFilter=TextureMinFilterType.Linear;
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment,this.rbDepthTexture);
 		this.rblight=rm.createTexture(id+".deffered.light",width,height);
-		this.rbLightFBO=rm.createFBO("id"+"deffered.light");
+		this.rbLightFBO=rm.createFBO(id+".deffered.light");
 		this.rbLightFBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rblight);
-		
+		this.lightAccumulationMaterial=new LightAccumulationMaterial(this.rb1Texture,this.rb2Texture,this.rbDepthTexture);
 	}
 	
 	
@@ -79,16 +84,17 @@ class DefferedPrePassStage extends RenderStageBase
 			break;
 			case 1:
 				this.rb2FBO.getForContext(this.Renderer.ContextManager).unbind();
-				this.renderLightAccumulation();
+				this.renderLightAccumulation(scene);
 			break;
 		}
 	}
 	
-	private renderLightAccumulation()
+	private renderLightAccumulation(scene:Scene)
 	{
 		this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
 		this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
-		
+		this.lightAccumulationMaterial.configureMaterial(scene,this.Renderer,new Mesh(this.quad,this.lightAccumulationMaterial));
+		this.quad.drawElements(this.Renderer.ContextManager);
 		this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
 	}
 	

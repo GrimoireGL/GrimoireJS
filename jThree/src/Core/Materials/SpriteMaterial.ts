@@ -19,6 +19,7 @@ import GLFeatureType = require("../../Wrapper/GLFeatureType");
 import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
+import Scene = require('../Scene');
 declare function require(string): string;
 
 class SpriteMaterial extends Material {
@@ -78,8 +79,8 @@ class SpriteMaterial extends Material {
     this.program=this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.sprite","jthree.programs.sprite",vs,fs);
   }
 
-  configureMaterial(renderer: RendererBase, object: SceneObject): void {
-    super.configureMaterial(renderer, object);
+  configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {
+    super.configureMaterial(scene,renderer, object);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();

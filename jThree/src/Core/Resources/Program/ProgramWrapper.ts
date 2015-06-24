@@ -105,6 +105,27 @@ class ProgramWrapper extends ResourceWrapper {
         }
     }
 
+    setUniformVectorArray(valName: string, vec: VectorBase[]) {
+        this.useProgram();
+        if (!this.uniformLocations.has(valName)) {
+            this.uniformLocations.set(valName, this.WebGLContext.GetUniformLocation(this.TargetProgram, valName));
+        }
+        var uniformIndex: WebGLUniformLocation = this.uniformLocations.get(valName);
+        if(vec.length===0)return;
+        switch (vec[0].ElementCount) {
+            case 2:
+                this.WebGLContext.UniformVector2Array(uniformIndex, <Vector2[]>vec);
+                break;
+            case 3:
+                this.WebGLContext.UniformVector3Array(uniformIndex, <Vector3[]>vec);
+                break;
+            case 4:
+                this.WebGLContext.UniformVector4Array(uniformIndex, <Vector4[]>vec);
+                break;
+        }
+
+    }
+
     setAttributeVerticies(valName: string, buffer: BufferWrapper): void {
         this.useProgram();
         buffer.bindBuffer();
