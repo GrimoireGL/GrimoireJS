@@ -63,7 +63,7 @@ class LightaccumulationMaterial extends Material {
     programWrapper.useProgram();
     var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
     var resourceManager = jThreeContext.ResourceManager;
-    var ip=Matrix.inverse(renderer.Camera.ProjectionMatrix);
+    var ip=Matrix.fromElements(1,0,0,0,0,1,0,0,0,0,0,-1,0,0,-4.9,5.0999);
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setUniformVector("c_pos", renderer.Camera.Position);
@@ -77,10 +77,15 @@ class LightaccumulationMaterial extends Material {
       lpos[i]=Matrix.transformPoint(renderer.Camera.ViewMatrix,scene.PointLights[i].Position);
       lcol[i]=scene.PointLights[i].Color.toVector();
     }
+
+    programWrapper.setUniform1f("c_near",0.1);
+    programWrapper.setUniform1f("c_far",5);
     programWrapper.setUniformVectorArray("l_pos",lpos);
     programWrapper.setUniformVectorArray("l_col",lcol);
     programWrapper.setUniformMatrix("matIP",ip);
     programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
+    programWrapper.setUniform1f("xtest",<number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));
+    programWrapper.setUniform1f("ztest",<number>new Number((<HTMLInputElement>document.getElementsByName("z").item(0)).value));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 
   }

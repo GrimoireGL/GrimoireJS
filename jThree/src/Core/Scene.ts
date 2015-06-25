@@ -74,7 +74,7 @@ class Scene extends jThreeObjectWithID {
 
     private sceneObjects: SceneObject[] = [];
     
-    private pointLights:PointLight[]=[new PointLight(Color4.parseColor("red"),new Vector3(0,1,0))];
+    private pointLights:PointLight[]=[new PointLight(Color4.parseColor("red"),new Vector3(0,0,0))];
     
     public get PointLights():PointLight[]
     {
