@@ -112,6 +112,12 @@ class Material extends JThreeObjectWithID {
     {
         return false;
     }
+    
+    registerTexture(program:Program,renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
+    renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);
+    tex.getForContext(renderer.ContextManager).bind();
+    program.getForContext(renderer.ContextManager).setUniform1i(samplerName, texNumber);
+  }
 }
 
 export =Material;

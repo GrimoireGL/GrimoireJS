@@ -48,13 +48,6 @@ class LightaccumulationMaterial extends Material {
 
   }
 
-
-  registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
-    renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);
-    tex.getForContext(renderer.ContextManager).bind();
-    this.program.getForContext(renderer.ContextManager).setUniform1i(samplerName, texNumber);
-  }
-
   configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {
     if(!this.program)return;
     super.configureMaterial(scene,renderer, object);
@@ -63,14 +56,14 @@ class LightaccumulationMaterial extends Material {
     programWrapper.useProgram();
     var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
     var resourceManager = jThreeContext.ResourceManager;
-    var ip=Matrix.fromElements(1,0,0,0,0,1,0,0,0,0,0,-1,0,0,-4.9,5.0999);
+    var ip=Matrix.inverse(renderer.Camera.ProjectionMatrix);
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setUniformVector("c_pos", renderer.Camera.Position);
     programWrapper.setUniformVector("c_dir", renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis());
-    this.registerTexture(renderer, this.rb1, 0, "rb1");
-    this.registerTexture(renderer, this.rb2, 1, "rb2");
-    this.registerTexture(renderer, this.depth, 2, "depth");
+    this.registerTexture(this.program,renderer, this.rb1, 0, "rb1");
+    this.registerTexture(this.program,renderer, this.rb2, 1, "rb2");
+    this.registerTexture(this.program,renderer, this.depth, 2, "depth");
     var lpos=new Array(scene.PointLights.length);
     var lcol=new Array(scene.PointLights.length);
     for(var i =0; i<scene.PointLights.length;i++){

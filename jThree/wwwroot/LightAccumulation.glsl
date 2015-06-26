@@ -22,6 +22,7 @@ void main(void){
       gl_FragColor=vec4(0,0,1,1);
       return;
   }
+  gl_FragColor.rgb=vec3(0,0,0);
    float z = -c_far*c_near/(-c_far+d*(c_far-c_near));
   vec2 uv=vec2(v_uv.x,1.-v_uv.y);
   vec3 posClip=vec3(2.0*uv+vec2(-1,-1),d*2.-1.);
@@ -30,8 +31,11 @@ void main(void){
   position.x*=position.z;
   position.y*=position.z;
   position.z=z;
-  float l=1.-length(position.xz-vec2(0,2));
-  float de=position.y-xtest/100.;
-  gl_FragColor.rgb=abs(de)<0.1?vec3(0,0,0):texture2D(rb2,v_uv).xyz;
+  float l=length(position.xyz-vec3(cos(time/800.0)*2.,-0.5,sin(time/1000.0)*2.)+vec3(0,0,-2));
+  gl_FragColor.rgb+=vec3(1.-l,0,0);
+  l=length(position.xyz-vec3(cos(time/1200.0)*2.,-0.5+sin(time/500.)/2.,sin(time/900.0)*2.)+vec3(0,0,-2));
+  gl_FragColor.rgb+=vec3(0,1.-l,0);
+    l=length(position.xyz-vec3(cos(time/1000.0)*2.,-0.5,sin(time/1200.0)*2.)+vec3(0,0,-2));
+  gl_FragColor.rgb+=vec3(0,0,1.-l);
   gl_FragColor.a=1.0;
 }
