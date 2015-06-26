@@ -76,6 +76,7 @@ gulp.task 'webpack',->
           'superagent':path.join __dirname,'superagent.js'
           'emitter':path.join __dirname,'emitter.js'
           'reduce':path.join __dirname,'reduce.js'
+          'glm':path.join __dirname,'gl-matrix-min.js'
         extensions:['','.ts']
         root:[
           webpack_src_root

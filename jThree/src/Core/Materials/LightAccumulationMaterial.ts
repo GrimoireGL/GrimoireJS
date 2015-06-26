@@ -32,7 +32,7 @@ class LightaccumulationMaterial extends Material {
   private rb2: TextureBase;
 
   private depth: TextureBase;
-  
+
   private time:number;
 
   constructor(rb1: TextureBase, rb2: TextureBase, depth: TextureBase) {
@@ -43,11 +43,11 @@ class LightaccumulationMaterial extends Material {
     var vs = require('../Shaders/VertexShaders/PostEffectGeometries.glsl');
     agent.get("http://localhost:8080/LightAccumulation.glsl").end((err,res:agent.Response)=>
       {
-     this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);       
+     this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);
       });
 
   }
-  
+
 
   registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
     renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);

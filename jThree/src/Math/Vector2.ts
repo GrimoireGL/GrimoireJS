@@ -4,6 +4,7 @@ import ILinearObjectGenerator = require("./ILinearObjectGenerator");
 import VectorEnumeratorBase = require("./VectorEnumeratorBase");
 import Exceptions = require("../Exceptions");
 import IEnumrator = require("../Base/Collections/IEnumrator");
+import glm = require('glm');
 class Vector2Factory implements ILinearObjectFactory<Vector2> {
     static instance: Vector2Factory;
 
@@ -33,7 +34,6 @@ class Vector2Enumerator extends VectorEnumeratorBase<Vector2>{
                 throw new Exceptions.IrregularElementAccessException(this.currentIndex);
         }
     }
-
 }
 
 class Vector2 extends VectorBase implements ILinearObjectGenerator<Vector2>{
@@ -45,41 +45,48 @@ class Vector2 extends VectorBase implements ILinearObjectGenerator<Vector2>{
     public static get YUnit(): Vector2 {
         return new Vector2(0, 1);
     }
-    constructor(x: number, y: number) {
+   
+    constructor(x: number|glm.GLM.IArray, y?: number) {
         super();
-        this.x = x;
-        this.y = y;
+        if(typeof y ==='undefined')
+        {
+            this.targetVector=<glm.GLM.IArray>x;
+            return;
+        }
+        this.targetVector=[<number>x,y];
     }
-
-    private x: number;
-    private y: number;
-
+    
+    public targetVector:glm.GLM.IArray;
+    
     get X(): number {
-        return this.x;
+        return this.targetVector[0];
     }
 
     get Y(): number {
-        return this.y;
+        return this.targetVector[1];
     }
 
     static dot(v1: Vector2, v2: Vector2): number {
-        return VectorBase.elementDot(v1, v2);
+        return glm.vec2.dot(v1.targetVector,v2.targetVector);
     }
 
     static add(v1: Vector2, v2: Vector2): Vector2 {
-        return VectorBase.elementAdd(v1, v2, v1.getFactory());
+        var newVec=glm.vec2.create();
+        return new Vector2(glm.vec2.add(newVec,v1.targetVector,v2.targetVector));
     }
 
     static subtract(v1: Vector2, v2: Vector2): Vector2 {
-        return VectorBase.elementSubtract(v1, v2, v1.getFactory());
+        var newVec=glm.vec2.create();
+        return new Vector2(glm.vec2.sub(newVec,v1.targetVector,v2.targetVector));
     }
 
     static multiply(s: number, v: Vector2): Vector2 {
-        return VectorBase.elementScalarMultiply(v, s, v.getFactory());
+        var newVec=glm.vec2.create();
+        return new Vector2(glm.vec2.scale(newVec,v.targetVector,s));
     }
 
     static negate(v1: Vector2): Vector2 {
-        return VectorBase.elementNegate(v1, v1.getFactory());
+        return Vector2.multiply(-1,v1);
     }
 
     static equal(v1: Vector2, v2: Vector2): boolean {
@@ -87,7 +94,8 @@ class Vector2 extends VectorBase implements ILinearObjectGenerator<Vector2>{
     }
 
     static normalize(v1: Vector2): Vector2 {
-        return VectorBase.normalizeElements(v1, v1.getFactory());
+        var newVec=glm.vec2.create();
+        return new Vector2(glm.vec2.normalize(newVec,v1.targetVector));
     }
 
     dotWith(v: Vector2): number {
@@ -119,7 +127,7 @@ class Vector2 extends VectorBase implements ILinearObjectGenerator<Vector2>{
     }
 
     toString(): string {
-        return `Vector2(x=${this.x}},y=${this.y})`;
+        return `Vector2(x=${this.X}},y=${this.Y})`;
     }
 
     getEnumrator(): IEnumrator<number> {

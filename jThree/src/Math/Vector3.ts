@@ -5,7 +5,7 @@ import VectorBase = require("./VectorBase");
 import ILinearObjectGenerator = require("./ILinearObjectGenerator");
 import ILinearObjectFactory = require("./ILinearObjectFactory");
 import IEnumrator = require("../Base/Collections/IEnumrator");
-
+import glm=require('glm');
 class Vector3Factory implements ILinearObjectFactory<Vector3> {
     static instance: Vector3Factory;
 
@@ -56,47 +56,51 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
       return new Vector3(0,0,0);
     }
 
-    constructor(x: number, y: number, z: number) {
+    constructor(x: number|glm.GLM.IArray, y?: number, z?: number) {
         super();
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        if(typeof y ==='undefined')
+        {
+            this.targetVector=<glm.GLM.IArray>x;
+            return;
+        }
+        this.targetVector=[<number>x,y,z];
     }
 
-    private x: number;
-    private y: number;
-    private z: number;
+    public targetVector:glm.GLM.IArray;
 
     get X(): number {
-        return this.x;
+        return this.targetVector[0];
     }
 
     get Y(): number {
-        return this.y;
+        return this.targetVector[1];
     }
 
     get Z(): number {
-        return this.z;
+        return this.targetVector[2];
     }
 
     static dot(v1: Vector3, v2: Vector3): number {
-        return VectorBase.elementDot(v1, v2);
+        return glm.vec2.dot(v1.targetVector,v2.targetVector);
     }
 
     static add(v1: Vector3, v2: Vector3): Vector3 {
-        return VectorBase.elementAdd(v1, v2, v1.getFactory());
+        var newVec=glm.vec3.create();
+        return new Vector3(glm.vec3.add(newVec,v1.targetVector,v2.targetVector));
     }
 
     static subtract(v1: Vector3, v2: Vector3): Vector3 {
-        return VectorBase.elementSubtract(v1, v2, v1.getFactory());
+        var newVec=glm.vec3.create();
+        return new Vector3(glm.vec3.sub(newVec,v1.targetVector,v2.targetVector));
     }
 
     static multiply(s: number, v: Vector3): Vector3 {
-        return VectorBase.elementScalarMultiply(v, s, v.getFactory());
+        var newVec=glm.vec3.create();
+        return new Vector3(glm.vec3.scale(newVec,v.targetVector,s));
     }
 
     static negate(v1: Vector3): Vector3 {
-        return VectorBase.elementNegate(v1, v1.getFactory());
+        return Vector3.multiply(-1,v1);
     }
 
     static equal(v1: Vector3, v2: Vector3): boolean {
@@ -104,11 +108,13 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
     }
 
     static normalize(v1: Vector3): Vector3 {
-        return VectorBase.normalizeElements(v1, v1.getFactory());
+        var newVec=glm.vec3.create();
+        return new Vector3(glm.vec3.normalize(newVec,v1.targetVector));
     }
 
     static cross(v1: Vector3, v2: Vector3): Vector3 {
-        return new Vector3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
+        var newVec=glm.vec3.create();
+        return new Vector3(glm.vec3.cross(newVec,v1.targetVector,v2.targetVector));
     }
 
     normalizeThis(): Vector3 {
@@ -144,7 +150,7 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
     }
 
     toString(): string {
-        return `Vector3(${this.x}, ${this.y}, ${this.z})`;
+        return `Vector3(${this.X}, ${this.Y}, ${this.Z})`;
     }
 
     getEnumrator(): IEnumrator<number> {
