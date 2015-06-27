@@ -4,7 +4,7 @@
     <ddebug viewport="viewport#main" name="rb2" target="rb2" />
     <ddebug viewport="viewport#main" name="rb1" target="rb1" />
      <ddebug viewport="viewport#main" name="light" target="light" />
-    <sprite diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
+    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
     <grid hdiv="20" name="grid" vdiv="20" />
     <tri name="triangle" />
     <cylinder name="cyl" divide="30" />
@@ -24,7 +24,7 @@
       </object>
         <mesh geo="quad" mat="mat2" scale="2" position="0,0,-1" rotation="x(-90d)"/>
         <mesh geo="cyl" mat="mat2" rotation="x(90d)" position="0,0,-1" scale="0.3"/>
-                <mesh geo="cube" mat="mat2" rotation="x(30d)" position="0.5,0,-1" scale="0.3"/>
+        <mesh geo="cube" mat="mat2" rotation="x(30d)" position="0.5,0,-1" scale="0.3"/>
       </mesh>
     </scene>
     <scene>

@@ -20,6 +20,7 @@ import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import Scene = require('../Scene');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
+import agent = require('superagent');
 declare function require(string):string;
 
 class PhongMaterial extends Material
@@ -89,10 +90,14 @@ class PhongMaterial extends Material
           var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
           var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
           var fs = require('../Shaders/Phong.glsl');
-          this.program= this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.phong","jthree.programs.phong",vs,fs);
+              agent.get("http://localhost:8080/Phong.glsl").end((err,res:agent.Response)=>
+      {
+     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, res.text);
+      });
       }
 
      configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject): void {
+       if(!this.program)return;
        super.configureMaterial(scene,renderer,object);
        var id =renderer.ID;
           var geometry=object.Geometry;
@@ -106,6 +111,7 @@ class PhongMaterial extends Material
          renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
          if(tex)tex.getForContext(renderer.ContextManager).bind();
          else renderer.GLContext.BindTexture(TargetTextureType.Texture2D,null);
+         this.registerTexture(this.program,renderer,resourceManager.getTexture(id+".deffered.light"),1,"u_light");
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("uv",geometry.UVBuffer.getForRenderer(renderer.ContextManager));

@@ -19,7 +19,7 @@ void main(void){
   vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);
   float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));
   gl_FragColor = texture2D(u_sampler,adjuv);
-  gl_FragColor.rgb*=brightness;
+  gl_FragColor.rgb*=0.6;
   //half vector in view space
   vec3 hv=normalize(dlDir+vec3(0,0,1));
   float spBrightness=pow(dot(hv,v_normal),u_specular.a);
@@ -27,5 +27,5 @@ void main(void){
   gl_FragColor.rgb+=u_specular.rgb*spBrightness;
   //calculate light uv
   vec2 lightUV=(v_pos.xy/v_pos.w+vec2(1,1))/2.;
-  gl_FragColor.rgb=texture2D(u_light,lightUV).xyz;
+  gl_FragColor.rgb+=texture2D(u_light,lightUV).xyz;
 }
