@@ -15,25 +15,28 @@ uniform vec3 pl_pos[5];
 uniform vec4 pl_col[5];
 uniform vec2 pl_coef[5];//(decay,distance)
 uniform int pl_count;
+
 uniform mat4 matIP;
 uniform float time;
 
 vec3 calcPointLight(vec3 position,vec3 normal)
 {
  vec3 accum=vec3(0,0,0);
-  for(int index=0;index<5;index++)
+  for(int index=0;index<5;index++)//TODO fix this code for N s lights
   {
     if(index>=pl_count)break;
    float l=length(pl_pos[index]-position.xyz);
-   if(dot(pl_pos[index]-position,normal)<=0.)accum+= vec3(0,0,0);
+   vec3 p2l=normalize(pl_pos[index]-position);
+   if(dot(p2l,normal)<=0.)accum+= vec3(0,0,0);
   else
    {
       if(l<=pl_coef[index].y)
       {
+      l=max(0.,dot(p2l,normal));
       float brightness=pow(1.-l/pl_coef[index].y,pl_coef[index].x);
       accum+= pl_col[index].rgb*brightness;
       }
-   }
+   } 
     
    }
    return accum;

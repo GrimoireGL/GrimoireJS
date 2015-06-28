@@ -31,18 +31,21 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
           handler: (v) => {
             this.targetOrtho.Right = v.Value;
           }
-        }, "bottom": {
+        },
+         "bottom": {
           value: -100,
           converter: "number",
           handler: (v) => {
             this.targetOrtho.Bottom = v.Value;
           }
-        }, "top": {
+        }, 
+        "top": {
           value: 100,
           converter: "number",
           handler: (v) => {
             this.targetOrtho.Top = v.Value;
-          },
+          }
+         },
           "near": {
             value: -100,
             converter: "number",
@@ -57,7 +60,6 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
               this.targetOrtho.Far = v.Value;
             }
           }
-        }
       }
       );
   }

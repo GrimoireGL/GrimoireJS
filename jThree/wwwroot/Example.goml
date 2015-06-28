@@ -29,7 +29,7 @@
       </mesh>
     </scene>
     <scene>
-      <camera aspect="1" far="5" fovy="1/2p" name="CAM2" near="0.1" position="(0,0.5,2)" />
+      <ocamera left="-1" right="1" top="1" bottom="-1" far="5" near="0.1" aspect="1" far="5" fovy="1/2p" name="CAM2" near="0.1" position="(0,0.5,2)" />
       <mesh geo="quad" scale="1" position="0,0.5,1" mat="light"/>
     </scene>
   </scenes>
