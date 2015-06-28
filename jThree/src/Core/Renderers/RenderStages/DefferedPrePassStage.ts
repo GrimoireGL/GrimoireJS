@@ -15,11 +15,14 @@ import Program = require('../../Resources/Program/Program');
 import QuadGeometry = require('../../Geometries/QuadGeometry');
 import LightAccumulationMaterial = require('../../Materials/LightAccumulationMaterial');
 import Mesh=require('../../../Shapes/Mesh');
+import RBO = require('../../Resources/RBO/RBO');
 class DefferedPrePassStage extends RenderStageBase
 {
 	private rb1Texture:TextureBase;
 	
 	private rb1FBO:FBO;
+	
+	private rb1RBO:RBO;
 	
 	private rb2Texture:TextureBase;
 	
@@ -45,6 +48,8 @@ class DefferedPrePassStage extends RenderStageBase
 		this.rb1Texture=rm.createTexture(id+".deffered.rb1",width,height);
 		this.rb1FBO=rm.createFBO(id+".deffered.rb1");
 		this.rb1FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb1Texture);
+		this.rb1RBO=rm.createRBO(id+".deffered.rb1",width,height);
+		this.rb1FBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,this.rb1RBO);
 		this.rb2Texture=rm.createTexture(id+".deffered.rb2",width,height);
 		this.rb2FBO=rm.createFBO(id+".deffered.rb2");
 		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb2Texture);

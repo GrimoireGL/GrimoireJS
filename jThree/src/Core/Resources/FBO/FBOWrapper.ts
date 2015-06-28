@@ -8,6 +8,7 @@ import ClearTargetType = require('../../../Wrapper/ClearTargetType');
 import TextureRegister= require('../../../Wrapper/Texture/TextureRegister');
 import TargetTextureType = require('../../../Wrapper/TargetTextureType');
 import TextureBase = require('../Texture/TextureBase')
+import RBO =require('../RBO/RBO');
 class FBOWrapper extends ResourceWrapper
 {
 
@@ -58,6 +59,15 @@ class FBOWrapper extends ResourceWrapper
                 tex.getForContext(this.OwnerCanvas).bind();
                 tex.generateMipmapIfNeed();
                 this.textures.push(tex);
+                this.unbind();
+    }
+    
+    attachRBO(attachmentType:FrameBufferAttachmentType,rbo:RBO)
+    {
+        var wrapper=rbo.getForContext(this.OwnerCanvas);
+        if(!this.Initialized)this.init();
+                this.bind();
+                this.WebGLContext.FrameBufferRenderBuffer(attachmentType,wrapper.Target);
                 this.unbind();
     }
 

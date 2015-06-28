@@ -11,6 +11,11 @@ class RBOWrapper extends ResourceWrapper
 	 *	Reference to the WebGLRenderbuffer this class managing.
 	  */
 	private targetRBO:WebGLRenderbuffer;	
+	
+	public get Target():WebGLRenderbuffer
+	{
+		return this.targetRBO;
+	}
 	/**
 	 * The parent RBOWrapper container class.
 	 */

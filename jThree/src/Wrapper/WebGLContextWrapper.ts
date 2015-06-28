@@ -295,7 +295,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
   CreateRenderBuffer(): WebGLRenderbuffer {
     this.CheckErrorAsFatal();
-    return this.gl.createFramebuffer();
+    return this.gl.createRenderbuffer();
   }
 
   BindRenderBuffer(bindTarget: WebGLRenderbuffer): void {
