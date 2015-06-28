@@ -11,10 +11,34 @@ uniform float c_far;
 uniform float xtest;
 uniform float ztest;
 uniform float coef;
-uniform vec3 l_pos[5];
-uniform vec4 l_col[5];
+uniform vec3 pl_pos[5];
+uniform vec4 pl_col[5];
+uniform vec2 pl_coef[5];//(decay,distance)
+uniform int pl_count;
 uniform mat4 matIP;
 uniform float time;
+
+vec3 calcPointLight(vec3 position,vec3 normal)
+{
+ vec3 accum=vec3(0,0,0);
+  for(int index=0;index<5;index++)
+  {
+    if(index>=pl_count)break;
+   float l=length(pl_pos[index]-position.xyz);
+   if(dot(pl_pos[index]-position,normal)<=0.)accum+= vec3(0,0,0);
+  else
+   {
+      if(l<=pl_coef[index].y)
+      {
+      float brightness=pow(1.-l/pl_coef[index].y,pl_coef[index].x);
+      accum+= pl_col[index].rgb*brightness;
+      }
+   }
+    
+   }
+   return accum;
+}
+
 void main(void){
   float d=texture2D(depth,v_uv).r;
   if(d==1.)
@@ -23,19 +47,14 @@ void main(void){
       return;
   }
   gl_FragColor.rgb=vec3(0,0,0);
-   float z = -c_far*c_near/(-c_far+d*(c_far-c_near));
+   float z = c_far*c_near/(-c_far+d*(c_far-c_near));
   vec2 uv=vec2(v_uv.x,1.-v_uv.y);
   vec3 posClip=vec3(2.0*uv+vec2(-1,-1),d*2.-1.);
   vec3 normal=(texture2D(rb1,v_uv).xyz-vec3(0.5,0.5,0.5))*2.0;
   vec4 position=matIP*vec4(posClip,z);
-  position.x*=position.z;
-  position.y*=position.z;
+ position.x*=-position.z;
+ position.y*=-position.z;
   position.z=z;
-  float l=length(position.xyz-vec3(cos(time/800.0)*2.,-0.5,sin(time/1000.0)*2.)+vec3(0,0,-2));
-  gl_FragColor.rgb+=vec3(1.-l,0,0);
-  l=length(position.xyz-vec3(cos(time/1200.0)*2.,-0.5+sin(time/500.)/2.,sin(time/900.0)*2.)+vec3(0,0,-2));
-  gl_FragColor.rgb+=vec3(0,1.-l,0);
-    l=length(position.xyz-vec3(cos(time/1000.0)*2.,-0.5,sin(time/1200.0)*2.)+vec3(0,0,-2));
-  gl_FragColor.rgb+=vec3(0,0,1.-l);
-  gl_FragColor.a=1.0;
+    gl_FragColor.rgb+=calcPointLight(position.xyz,normal);
+    gl_FragColor.a=1.0;
 }

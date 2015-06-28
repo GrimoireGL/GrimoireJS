@@ -7,6 +7,8 @@ import Camera = require("./Camera/Camera");
 import PointLight = require('./Light/PointLight');
 import Color4 = require('../Base/Color/Color4');
 import Vector3 = require('../Math/Vector3');
+import AssociativeArray = require('../Base/Collections/AssociativeArray');
+import LightBase = require('./Light/LightBase')
 /**
 * NON PUBLIC CLASS
 */
@@ -74,11 +76,23 @@ class Scene extends jThreeObjectWithID {
 
     private sceneObjects: SceneObject[] = [];
     
-    private pointLights:PointLight[]=[new PointLight(Color4.parseColor("red"),new Vector3(0,0,0))];
+    private lights:AssociativeArray<LightBase[]>=new AssociativeArray<LightBase[]>();
     
-    public get PointLights():PointLight[]
+    public getLights(alias:string):LightBase[]
     {
-        return this.pointLights;
+        var lights= this.lights.get(alias);
+        if(!lights)return [];
+        return lights;
+    }
+    
+    public addLight(light:LightBase):void
+    {
+        if(!this.lights.has(light.AliasName))
+        {
+            this.lights.set(light.AliasName,[light]);
+            return;
+        }
+        this.lights.get(light.AliasName).push(light);
     }
 
     public addObject(targetObject: SceneObject): void {
@@ -98,12 +112,18 @@ class Scene extends jThreeObjectWithID {
         this.renderPairs.sort((v1, v2) => { return v1.Material.Priorty - v2.Material.Priorty });
     }
 
-    private cameras: Map<string, Camera> = new Map<string, Camera>();
-
+    private cameras: AssociativeArray<Camera>=new AssociativeArray<Camera>();
+    
+    /**
+     * Append the camera to this scene as managed
+     */
     public addCamera(camera: Camera) {
         this.cameras.set(camera.ID, camera);
     }
-
+    
+    /**
+     * Get the camera managed in this scene.
+     */
     public getCamera(id: string): Camera {
         return this.cameras.get(id);
     }

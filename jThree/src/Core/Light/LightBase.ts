@@ -4,11 +4,9 @@ import Vector3 = require('../../Math/Vector3');
 import SceneObject = require('../SceneObject');
 class LightBase extends SceneObject
 {
-	constructor(color:Color4,pos:Vector3)
+	constructor()
 	{
 		super();
-		this.color=color;
-		this.Transformer.Position=pos;
 	}
 	
 	private color:Color4;
@@ -18,9 +16,19 @@ class LightBase extends SceneObject
 		return this.color;
 	}
 	
+	public set Color(col:Color4)
+	{
+		this.color=col;
+	}
+	
 	public get Position():Vector3
 	{
 		return this.Transformer.Position;
+	}
+	
+	public get AliasName():string
+	{
+		return null;
 	}
 }
 

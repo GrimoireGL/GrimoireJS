@@ -37,7 +37,8 @@ var gomlList=[
     "CAMERA":require('./Nodes/SceneObjects/Cameras/CameraNode'),
     "OCAMERA":require('./Nodes/SceneObjects/Cameras/OrthoCameraNode'),
     "MESH":require('./Nodes/SceneObjects/MeshNode'),
-    "OBJECT":require('./Nodes/SceneObjects/ObjectNode')
+    "OBJECT":require('./Nodes/SceneObjects/ObjectNode'),
+    "PLIGHT":require('./Nodes/SceneObjects/Lights/PointLightNode')
   }),
   new GomlNodeListElement("jthree.components",require('./Factories/TagFactory'),
   {
