@@ -23,6 +23,7 @@ import TargetTextureType = require('../../Wrapper/TargetTextureType');
 import PointLight = require('../Light/PointLight');
 import Scene=require('../Scene');
 import agent = require('superagent');
+import DirectionalLight = require('../Light/DirectionalLight');
 declare function require(string): string;
 
 class LightaccumulationMaterial extends Material {
@@ -66,6 +67,7 @@ class LightaccumulationMaterial extends Material {
     this.registerTexture(this.program,renderer, this.rb1, 0, "rb1");
     this.registerTexture(this.program,renderer, this.rb2, 1, "rb2");
     this.registerTexture(this.program,renderer, this.depth, 2, "depth");
+    //pass variables related to point lights
     var plights=scene.getLights("jthree.lights.pointlight");
     var lpos=new Array(plights.length);
     var lcol=new Array(plights.length);
@@ -75,14 +77,26 @@ class LightaccumulationMaterial extends Material {
       lpos[i]=Matrix.transformPoint(renderer.Camera.ViewMatrix,plights[i].Position);
       lcol[i]=plights[i].Color.toVector().multiplyWith(pl.Intensity);
       lcoef[i]=new Vector2(pl.Decay,pl.Distance);
-      debugger;
     }
-    programWrapper.setUniform1f("c_near",0.1);
-    programWrapper.setUniform1f("c_far",5);
     programWrapper.setUniformVectorArray("pl_pos",lpos);
     programWrapper.setUniformVectorArray("pl_col",lcol);
     programWrapper.setUniformVectorArray("pl_coef",lcoef);
     programWrapper.setUniform1i("pl_count",plights.length);
+    //pass variables related to directional lights
+    var dlights = scene.getLights("jthree.lights.directionallight");
+    var ddir=new Array(dlights.length);
+    var dcol=new Array(dlights.length);
+    for(var i=0;i<dlights.length;i++)
+    {
+      var dl=<DirectionalLight>dlights[i];
+      ddir[i]=Matrix.transformNormal(renderer.Camera.ViewMatrix,dlights[i].Transformer.Foward);
+      dcol[i]=dl.Color.toVector();
+    }
+    programWrapper.setUniformVectorArray("dl_dir",ddir);
+    programWrapper.setUniformVectorArray("dl_col",dcol);
+    programWrapper.setUniform1i("dl_count",dlights.length);
+    programWrapper.setUniform1f("c_near",0.1);
+    programWrapper.setUniform1f("c_far",5);
     programWrapper.setUniformMatrix("matIP",ip);
     programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
     programWrapper.setUniform1f("xtest",<number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));

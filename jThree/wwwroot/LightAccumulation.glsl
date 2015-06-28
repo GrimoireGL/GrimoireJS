@@ -16,6 +16,9 @@ uniform vec4 pl_col[5];
 uniform vec2 pl_coef[5];//(decay,distance)
 uniform int pl_count;
 
+uniform vec3 dl_dir[5];
+uniform vec4 dl_col[5];
+uniform int dl_count;
 uniform mat4 matIP;
 uniform float time;
 
@@ -42,6 +45,18 @@ vec3 calcPointLight(vec3 position,vec3 normal)
    return accum;
 }
 
+vec3 calcDirectionalLight(vec3 position,vec3 normal)
+{
+   vec3 accum=vec3(0,0,0);
+   for(int index=0;index<5;index++)
+   {
+     if(index>=dl_count)break;
+     float brightness=dot(dl_dir[index],normal);
+     accum+=dl_col[index].rgb*max(0.,brightness);
+   }
+   return accum;
+}
+
 void main(void){
   float d=texture2D(depth,v_uv).r;
   if(d==1.)
@@ -59,5 +74,6 @@ void main(void){
  position.y*=-position.z;
   position.z=z;
     gl_FragColor.rgb+=calcPointLight(position.xyz,normal);
+    gl_FragColor.rgb+=calcDirectionalLight(position.xyz,normal);
     gl_FragColor.a=1.0;
 }

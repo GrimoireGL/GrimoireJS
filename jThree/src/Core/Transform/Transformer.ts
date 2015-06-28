@@ -13,6 +13,7 @@ class Transformer extends JThreeObject
     this.position=Vector3.Zero;
     this.rotation=Quaternion.Identity;
     this.scale=new Vector3(1,1,1);
+    this.foward=new Vector3(0,0,-1);
     this.updateTransform();
   }
   private relatedTo:SceneObject;
@@ -22,6 +23,8 @@ class Transformer extends JThreeObject
   private position:Vector3;
 
   private scale:Vector3;
+  
+  private foward:Vector3;
 
   private localTransofrm:Matrix;
 
@@ -43,10 +46,16 @@ class Transformer extends JThreeObject
   {
     this.localTransofrm=Matrix.TRS(this.position,this.rotation,this.scale);
     this.localToGlobal=Matrix.multiply(this.relatedTo!=null&&this.relatedTo.Parent!=null?this.relatedTo.Parent.Transformer.localToGlobal:Matrix.identity(),this.localTransofrm);
+    this.foward=Matrix.transformNormal(this.localToGlobal,new Vector3(0,0,-1)).normalizeThis();
     this.relatedTo.Children.each((v)=>{
       v.Transformer.updateTransform();
     });
     this.notifyOnUpdateTransform();
+  }
+  
+  public get Foward():Vector3
+  {
+    return this.foward;
   }
 
   get LocalToGlobal():Matrix
