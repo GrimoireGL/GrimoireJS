@@ -2,16 +2,13 @@ import MatrixBase = require("./MatrixBase");
 import Vector2 = require("./Vector2");
 import Vector3 = require("./Vector3");
 import Vector4 = require("./Vector4");
-import ILinearObjectGenerator = require("./ILinearObjectGenerator");
 import Exceptions = require("../Exceptions");
 import Collection = require("../Base/Collections/Collection");
-import MatrixFactory = require("./MatrixFactory");
 import IEnumrator = require("../Base/Collections/IEnumrator");
-import MatrixEnumerator = require("./MatrixEnumerator");
 import Delegates=require('../Delegates');
 import Quaternion = require("./Quaternion");
 import glm = require('glm');
-class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
+class Matrix extends MatrixBase{
     public static zero(): Matrix {
         return new Matrix([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     }
@@ -69,25 +66,22 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
     getRow(row: number):Vector4 {
         return new Vector4(this.targetMatrix[row], this.targetMatrix[row + 4], this.targetMatrix[row + 8], this.targetMatrix[row + 12]);
     }
-
-    isNaN(): boolean {
-        var result: boolean = false;
-        Collection.foreach<number>(this, (a) => {
-            if (isNaN(a)) result = true;
-        });
-        return result;
-    }
-
+    
     static equal(m1: Matrix, m2: Matrix): boolean {
         return Matrix.elementEqual(m1, m2);
     }
 
     static add(m1: Matrix, m2: Matrix): Matrix {
-        return this.elementAdd(m1, m2, m1.getFactory());
+        var mat=glm.mat4.create();
+        for(var i=0;i<16;i++)
+        {
+            mat[i]=m1.targetMatrix[i]+m2.targetMatrix[i];
+        }
+        return new Matrix(mat);
     }
 
     static subtract(m1: Matrix, m2: Matrix): Matrix {
-        return this.elementSubtract(m1, m2, m1.getFactory());
+        return Matrix.add(m1,Matrix.negate(m2));
     }
 
     static scalarMultiply(s: number, m: Matrix): Matrix {
@@ -240,19 +234,7 @@ class Matrix extends MatrixBase implements ILinearObjectGenerator<Matrix> {
                  |${this.getBySingleIndex(2)} ${this.getBySingleIndex(6)} ${this.getBySingleIndex(10)} ${this.getBySingleIndex(14)}|\n
                  |${this.getBySingleIndex(3)} ${this.getBySingleIndex(7)} ${this.getBySingleIndex(11)} ${this.getBySingleIndex(15)}|`)  }
 
-    getEnumrator(): IEnumrator<number> {
-        return new MatrixEnumerator(this);
-    }
-
     get ElementCount(): number { return 16; }
-
-    private static factoryCache: MatrixFactory;
-
-
-    getFactory(): MatrixFactory {
-        Matrix.factoryCache = Matrix.factoryCache || new MatrixFactory();
-        return Matrix.factoryCache;
-    }
 
     get RowCount(): number { return 4; }
 

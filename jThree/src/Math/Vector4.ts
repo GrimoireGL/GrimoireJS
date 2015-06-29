@@ -1,49 +1,10 @@
 import JThreeObject=require('Base/JThreeObject');
-import VectorEnumeratorBase = require("./VectorEnumeratorBase");
-import ILinearObjectFactory = require("./ILinearObjectFactory");
 import Exceptions = require("../Exceptions");
 import VectorBase = require("./VectorBase");
-import ILinearObjectGenerator = require("./ILinearObjectGenerator");
 import IEnumrator = require("../Base/Collections/IEnumrator");
 import glm = require('glm');
-class Vector4Enumerator extends VectorEnumeratorBase<Vector4> {
-    constructor(vec: Vector4) {
-        super(vec);
-    }
 
-
-    getCurrent(): number {
-        switch (this.currentIndex) {
-            case 0:
-                return this.vector.X;
-            case 1:
-                return this.vector.Y;
-            case 2:
-                return this.vector.Z;
-            case 3:
-                return this.vector.W;
-            default:
-                throw new Exceptions.IrregularElementAccessException(this.currentIndex);
-        }
-    }
-}
-
-
-class Vector4Factory implements ILinearObjectFactory<Vector4> {
-    static instance: Vector4Factory;
-
-    static getInstance(): Vector4Factory {
-        this.instance = this.instance || new Vector4Factory();
-        return this.instance;
-    }
-
-    fromArray(array: Float32Array): Vector4 {
-        return new Vector4(array[0], array[1], array[2], array[3]);
-    }
-}
-
-
-class Vector4 extends VectorBase implements ILinearObjectGenerator<Vector4>{
+class Vector4 extends VectorBase{
 
     public static get XUnit(): Vector4 {
         return new Vector4(1, 0, 0, 0);
@@ -72,6 +33,11 @@ class Vector4 extends VectorBase implements ILinearObjectGenerator<Vector4>{
     }
     
     private targetVector:glm.GLM.IArray;
+    
+    public get RawElements():glm.GLM.IArray
+    {
+        return this.targetVector;
+    }
 
     get X() {
         return this.targetVector[0];
@@ -150,15 +116,12 @@ class Vector4 extends VectorBase implements ILinearObjectGenerator<Vector4>{
     }
 
 
-    getEnumrator(): IEnumrator<number> { return new Vector4Enumerator(this); }
-
     get ElementCount(): number { return 4; }
 
     toString(): string {
         return `Vector4(${this.X}, ${this.Y}, ${this.Z},${this.W})`;
     }
 
-    getFactory(): ILinearObjectFactory<Vector4> { return Vector4Factory.getInstance(); }
 }
 
 

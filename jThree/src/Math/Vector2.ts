@@ -1,42 +1,9 @@
-import ILinearObjectFactory = require("./ILinearObjectFactory");
 import VectorBase = require("./VectorBase");
-import ILinearObjectGenerator = require("./ILinearObjectGenerator");
-import VectorEnumeratorBase = require("./VectorEnumeratorBase");
 import Exceptions = require("../Exceptions");
 import IEnumrator = require("../Base/Collections/IEnumrator");
 import glm = require('glm');
-class Vector2Factory implements ILinearObjectFactory<Vector2> {
-    static instance: Vector2Factory;
 
-    static getInstance(): Vector2Factory {
-        this.instance = this.instance || new Vector2Factory();
-        return this.instance;
-    }
-
-    fromArray(array: Float32Array): Vector2 {
-        return new Vector2(array[0], array[1]);
-    }
-}
-
-class Vector2Enumerator extends VectorEnumeratorBase<Vector2>{
-
-    constructor(vec: Vector2) {
-        super(vec);
-    }
-
-    getCurrent(): number {
-        switch (this.currentIndex) {
-            case 0:
-                return this.vector.X;
-            case 1:
-                return this.vector.Y;
-            default:
-                throw new Exceptions.IrregularElementAccessException(this.currentIndex);
-        }
-    }
-}
-
-class Vector2 extends VectorBase implements ILinearObjectGenerator<Vector2>{
+class Vector2 extends VectorBase{
 
     public static get XUnit(): Vector2 {
         return new Vector2(1, 0);
@@ -130,13 +97,8 @@ class Vector2 extends VectorBase implements ILinearObjectGenerator<Vector2>{
         return `Vector2(x=${this.X}},y=${this.Y})`;
     }
 
-    getEnumrator(): IEnumrator<number> {
-        return new Vector2Enumerator(this);
-    }
-
     get ElementCount(): number { return 2; }
 
-    getFactory(): ILinearObjectFactory<Vector2> { return Vector2Factory.getInstance(); }
 }
 
 export=Vector2;

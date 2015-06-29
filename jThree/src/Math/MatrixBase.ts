@@ -1,14 +1,16 @@
-import LinearBase = require("./LinearBase");
 import IEnumerable = require("../Base/Collections/IEnumerable");
 import IEnumrator = require("../Base/Collections/IEnumrator");
-import IMatrixFactory = require("./IMatrixFactory");
-class MatrixBase extends LinearBase implements IEnumerable<number> {
-    getEnumrator(): IEnumrator<number> { throw new Error("Not implemented"); }
+class MatrixBase {
 
-    protected static elementTranspose<T extends MatrixBase>(a: T, factory: IMatrixFactory<T>): T {
-        return factory.fromFunc((i, j) => {
-            return a.getAt(j, i);
-        });
+    protected static elementEqual(m1:MatrixBase,m2:MatrixBase):boolean
+    {
+        if(m1.RowCount!==m2.RowCount||m1.ColmunCount!==m2.ColmunCount)return false;
+        var count=m1.RowCount*m2.ColmunCount;
+        for(var i=0;i<count;i++)
+        {
+            if(m1.getBySingleIndex(i)!==m2.getBySingleIndex(i))return false;
+        }
+        return true;
     }
 
     get RowCount(): number {

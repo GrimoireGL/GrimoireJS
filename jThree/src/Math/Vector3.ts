@@ -1,44 +1,9 @@
 import JThreeObject=require('Base/JThreeObject');
-import VectorEnumeratorBase = require("./VectorEnumeratorBase");
 import Exceptions = require("../Exceptions");
 import VectorBase = require("./VectorBase");
-import ILinearObjectGenerator = require("./ILinearObjectGenerator");
-import ILinearObjectFactory = require("./ILinearObjectFactory");
 import IEnumrator = require("../Base/Collections/IEnumrator");
 import glm=require('glm');
-class Vector3Factory implements ILinearObjectFactory<Vector3> {
-    static instance: Vector3Factory;
-
-    static getInstance(): Vector3Factory {
-        this.instance = this.instance || new Vector3Factory();
-        return this.instance;
-    }
-
-    fromArray(array: Float32Array): Vector3 {
-        return new Vector3(array[0], array[1], array[2]);
-    }
-}
-
-class Vector3Enumerator extends VectorEnumeratorBase<Vector3>{
-
-    constructor(vec: Vector3) {
-        super(vec);
-    }
-
-    getCurrent(): number {
-        switch (this.currentIndex) {
-            case 0:
-                return this.vector.X;
-            case 1:
-                return this.vector.Y;
-            case 2:
-                return this.vector.Z;
-            default:
-                throw new Exceptions.IrregularElementAccessException(this.currentIndex);
-        }
-    }
-}
-class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
+class Vector3 extends VectorBase{
     public static get XUnit(): Vector3 {
         return new Vector3(1, 0, 0);
     }
@@ -153,13 +118,7 @@ class Vector3 extends VectorBase implements ILinearObjectGenerator<Vector3> {
         return `Vector3(${this.X}, ${this.Y}, ${this.Z})`;
     }
 
-    getEnumrator(): IEnumrator<number> {
-        return new Vector3Enumerator(this);
-    }
-
     get ElementCount(): number { return 3; }
-
-    getFactory(): ILinearObjectFactory<Vector3> { return Vector3Factory.getInstance(); }
 
     static parse(str:string):Vector3
     {

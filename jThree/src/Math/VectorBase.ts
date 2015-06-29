@@ -1,22 +1,31 @@
 import JThreeObject=require('Base/JThreeObject');
-import LinearBase = require("./LinearBase");
 import Collection = require("../Base/Collections/Collection");
-import ILinearObjectFactory = require("./ILinearObjectFactory");
-class VectorBase extends LinearBase {
-
-
+import glm=require('glm');
+class VectorBase {
 
     private magnitudeSquaredCache: number = -1;
 
     get magnitudeSquared(): number {
         if (this.magnitudeSquaredCache < 0) {
             var sum: number = 0;
-            Collection.foreach(this, (t) => {
-                sum += t * t;
-            });
+            var r=this.RawElements;
+            for(var i=0;i<this.ElementCount;i++)
+            {
+                sum+=r[i]*r[i];
+            }
             this.magnitudeSquaredCache = sum;
         }
         return this.magnitudeSquaredCache;
+    }
+    
+    protected static elementEqual(v1:VectorBase,v2:VectorBase):boolean
+    {
+        if(v1.ElementCount!==v2.ElementCount)return false;
+        for(var i=0;i<v1.ElementCount;i++)
+        {
+            if(v1.RawElements[i]!==v2.RawElements[i])return false;
+        }
+        return true;
     }
 
     private magnitudeCache: number = -1;
@@ -28,13 +37,14 @@ class VectorBase extends LinearBase {
         return this.magnitudeCache;
     }
 
-    protected static normalizeElements<T extends VectorBase>(a: T, factory: ILinearObjectFactory<T>): T {
-        var magnitude: number = a.magnitude;
-        var result: Float32Array = new Float32Array(a.ElementCount);
-        Collection.foreach<number>(a, (a, i) => {
-            result[i] = a / magnitude;
-        });
-        return factory.fromArray(result);
+    public get ElementCount():number
+    {
+        return 0;
+    }
+    
+    public get RawElements():glm.GLM.IArray
+    {
+        return null;
     }
 
 }
