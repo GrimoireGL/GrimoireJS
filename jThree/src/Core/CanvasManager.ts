@@ -10,6 +10,8 @@ import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import GLFeatureType = require('../Wrapper/GLFeatureType');
 import PixelStoreParamType = require('../Wrapper/Texture/PixelStoreParamType');
+import JThreeEvent = require('../Base/JThreeEvent');
+import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
 /**
  * Provides some of feature managing canvas.
  */
@@ -17,14 +19,17 @@ class CanvasManager extends ContextManagerBase {
     /**
      * Generate instance from HtmlCanvasElement
      */
-    public static fromCanvasElement(canvas: HTMLCanvasElement): CanvasManager {
+    public static fromCanvasElement(canvas: HTMLCanvasElement): CanvasManager {//TODO need refactoring
         var gl: WebGLRenderingContext;
         try {
             gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
             var renderer: CanvasManager = new CanvasManager(gl);
             var instance=JThreeContextProxy.getJThreeContext();
             renderer.targetCanvas=canvas;
+            renderer.lastHeight=canvas.height;
+            renderer.lastWidth=canvas.width;
             instance.addCanvasManager(renderer);
+            //add div for monitoring size changing in canvas
             return renderer;
         } catch (e) {   
           console.error("Web GL context Generation failed");
@@ -36,6 +41,12 @@ class CanvasManager extends ContextManagerBase {
     }
     
     private targetCanvas:HTMLCanvasElement;
+    
+    private lastHeight:number;
+    
+    private lastWidth:number;
+    
+    private sizeChangedEventHandler:JThreeEvent<CanvasSizeChangedEventArgs>=new JThreeEvent<CanvasSizeChangedEventArgs>();
     
     private clearColor:Color4;
     get ClearColor():Color4
@@ -66,6 +77,16 @@ class CanvasManager extends ContextManagerBase {
         this.ClearCanvas();
         this.isDirty=false;
       }
+    }
+    
+    public beforeRenderAll():void
+    {
+        if(this.targetCanvas.height!==this.lastHeight||this.targetCanvas.width!==this.lastWidth)
+        {
+            this.sizeChangedEventHandler.fire(this,new CanvasSizeChangedEventArgs(this,this.lastWidth,this.lastHeight,this.targetCanvas.width,this.targetCanvas.height));
+            this.lastHeight=this.targetCanvas.height;this.lastWidth=this.targetCanvas.width;
+            console.warn("size changed");
+        }
     }
 
     ClearCanvas():void

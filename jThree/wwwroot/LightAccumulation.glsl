@@ -70,14 +70,10 @@ void main(void){
   vec3 posClip=vec3(2.0*uv+vec2(-1,-1),d*2.-1.);
   vec3 normal=(texture2D(rb1,v_uv).xyz-vec3(0.5,0.5,0.5))*2.0;
   vec4 position=matIP*vec4(posClip,z);
- position.x*=position.z;
- position.y*=-position.z;
+  position.x*=position.z;
+  position.y*=-position.z;
   position.z=z;
     gl_FragColor.rgb+=calcPointLight(position.xyz,normal);
     gl_FragColor.rgb+=calcDirectionalLight(position.xyz,normal);
-    if(abs(position.x-xtest/100.)<0.05)
-    {
-      gl_FragColor.rgb=vec3(1.,1.,1.);
-    }
     gl_FragColor.a=1.0;
 }

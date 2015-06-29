@@ -65,7 +65,6 @@ class ViewCameraBase extends Camera
     pos2la=Matrix.transformNormal(Matrix.RotationQuaternion(this.transformer.Rotation),pos2la);
     var newLa=Vector3.add(newPos,pos2la);
     var newUp=Matrix.transformNormal(Matrix.RotationQuaternion(this.transformer.Rotation),this.updir);
-    console.log(`pos:${newPos.toString()},la:${newLa.toString()},up:${newUp.toString()}`);
     this.viewMatrix=Matrix.lookAt(newPos,newLa,newUp);
   }
 }

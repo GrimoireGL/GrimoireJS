@@ -14,7 +14,7 @@ import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
 {
   private onFilterParameterChangedHandler: JThreeEvent<TextureParameterType> = new JThreeEvent<TextureParameterType>();
-  private minFilter: TextureMinFilterType = TextureMinFilterType.LinearMipmapLinear;
+  private minFilter: TextureMinFilterType = TextureMinFilterType.Linear;
   private magFilter: TextureMagFilterType = TextureMagFilterType.Linear;
   private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;

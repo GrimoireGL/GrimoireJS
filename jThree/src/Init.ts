@@ -8,6 +8,7 @@ import Delegates = require('./Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration');
 import TextureAttachmentType = require('./Wrapper/FramebufferAttachmentType');
+import TextureMinFilter =require('./Wrapper/Texture/TextureMinFilterType');
 class JThreeStatic {
   public addComponent(declaration: GomlComponentDeclaration) {
     var context = JThreeContextProxy.getJThreeContext();
@@ -43,7 +44,8 @@ class JThreeInit {
               j3.init();
       JThreeInit.img = new Image();
       JThreeInit.img.onload = () => {
-        j3.ResourceManager.createTextureWithSource("test",JThreeInit.img);
+        var res=j3.ResourceManager.createTextureWithSource("test",JThreeInit.img);
+        res.MinFilter=TextureMinFilter.LinearMipmapLinear;
       };
       JThreeInit.img.src = "/miku2.png";
     });
