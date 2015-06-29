@@ -30,7 +30,6 @@ class SpriteMaterial extends Material {
   }
 
   set Texture(tex: TextureBase) {
-    debugger;
     this.texture = tex;
   }
 
@@ -85,7 +84,6 @@ class SpriteMaterial extends Material {
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
     var v = this.CalculateMVPMatrix(renderer, object);
-    debugger;
     var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
     var resourceManager = jThreeContext.ResourceManager;
     var tex = this.Texture;

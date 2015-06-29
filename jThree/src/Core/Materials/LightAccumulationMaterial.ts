@@ -77,6 +77,7 @@ class LightaccumulationMaterial extends Material {
       lpos[i]=Matrix.transformPoint(renderer.Camera.ViewMatrix,plights[i].Position);
       lcol[i]=plights[i].Color.toVector().multiplyWith(pl.Intensity);
       lcoef[i]=new Vector2(pl.Decay,pl.Distance);
+     // console.log(`${pl.Position.toString()} -> ${lpos[i].toString()}\n${renderer.Camera.ViewMatrix.toString()}`);
     }
     programWrapper.setUniformVectorArray("pl_pos",lpos);
     programWrapper.setUniformVectorArray("pl_col",lcol);

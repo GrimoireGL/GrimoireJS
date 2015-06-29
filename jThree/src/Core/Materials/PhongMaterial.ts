@@ -106,7 +106,6 @@ class PhongMaterial extends Material
          var v=this.CalculateMVPMatrix(renderer,object);
          var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
          var resourceManager = jThreeContext.ResourceManager;
-         console.log(resourceManager.toString());
          var tex=this.Texture;
          renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
          if(tex)tex.getForContext(renderer.ContextManager).bind();

@@ -60,11 +60,13 @@ class ViewCameraBase extends Camera
   private UpdateViewMatrix(obj?:SceneObject):void
   {
     var cam:Camera=<Camera>obj||this;//To avoid to get this
-    var fp=Matrix.transformPoint;
-    var fn=Matrix.transformNormal;
-    var t=cam.Transformer.LocalToGlobal;
-    var mat=cam.Transformer.LocalToGlobal;
-    this.viewMatrix=Matrix.lookAt(fp(mat,cam.Position),fp(mat,cam.LookAt),fn(mat,cam.UpDirection));
+    var newPos=Vector3.add(cam.Position,this.transformer.Position);
+    var pos2la=Vector3.subtract(cam.LookAt,cam.Position);
+    pos2la=Matrix.transformNormal(Matrix.RotationQuaternion(this.transformer.Rotation),pos2la);
+    var newLa=Vector3.add(newPos,pos2la);
+    var newUp=Matrix.transformNormal(Matrix.RotationQuaternion(this.transformer.Rotation),this.updir);
+    console.log(`pos:${newPos.toString()},la:${newLa.toString()},up:${newUp.toString()}`);
+    this.viewMatrix=Matrix.lookAt(newPos,newLa,newUp);
   }
 }
 

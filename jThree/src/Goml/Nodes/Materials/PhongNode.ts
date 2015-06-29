@@ -34,7 +34,6 @@ class PhongNode extends MaterialNodeBase
               {
                   var context = JThreeContextProxy.getJThreeContext();
                   context.ResourceManager.getTextureHandler(v.Value,(v)=>{
-                      debugger;
                       this.material.Texture=v;
                   });
               }

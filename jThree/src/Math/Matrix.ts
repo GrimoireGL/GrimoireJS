@@ -113,12 +113,9 @@ class Matrix extends MatrixBase{
     }
 
     static transformPoint(m: Matrix, t: Vector3): Vector3 {
-        var newVec=glm.vec4.create();
-        var trans=glm.vec4.create();
-       trans[0]=t.X;trans[1]=t.Y;trans[2]=t.Z;trans[3]=1.0;
-        glm.vec4.transformMat4(newVec,trans,m.targetMatrix)
-        glm.vec4.scale(newVec,newVec,newVec[3]);
-        return new Vector3(newVec[0],newVec[1],newVec[2]);
+        var newVec=glm.vec3.create();
+        glm.vec3.transformMat4(newVec,t.targetVector,m.targetMatrix);
+        return new Vector3(newVec);
     }
 
     static transformNormal(m: Matrix, t: Vector3): Vector3 {
