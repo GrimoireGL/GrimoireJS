@@ -44,11 +44,7 @@ class LightaccumulationMaterial extends Material {
     this.rb2 = rb2;
     this.depth = depth;
     var vs = require('../Shaders/VertexShaders/PostEffectGeometries.glsl');
-    agent.get("http://localhost:8080/LightAccumulation.glsl").end((err,res:agent.Response)=>
-      {
-     this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);
-      });
-
+         this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs,require('../Shaders/Deffered/LightAccumulation.glsl') );
   }
 
   configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {

@@ -13,6 +13,8 @@ uniform mat4 matV;
 uniform sampler2D u_sampler;
 uniform sampler2D u_light;
 
+$Common
+
 void main(void){
   vec2 adjuv=v_uv;
   //calculate light vector in view space
@@ -26,6 +28,6 @@ void main(void){
   gl_FragColor.rgb+=u_ambient.rgb;
   gl_FragColor.rgb+=u_specular.rgb*spBrightness;
   //calculate light uv
-  vec2 lightUV=(v_pos.xy/v_pos.w+vec2(1,1))/2.;
+  vec2 lightUV=calcLightUV(v_pos);
   gl_FragColor.rgb=texture2D(u_light,lightUV).xyz;
 }

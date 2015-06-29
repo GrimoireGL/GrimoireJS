@@ -1,24 +1,87 @@
 precision mediump float;
 varying  vec2 v_uv;
 
-uniform sampler2D rb1;
-uniform sampler2D rb2;
-uniform sampler2D depth;
+uniform mediump sampler2D rb1;
+uniform mediump sampler2D rb2;
+uniform mediump sampler2D depth;
 uniform vec3 c_pos;
 uniform vec3 c_dir;
+uniform float c_near;
+uniform float c_far;
+uniform float xtest;
+uniform float ztest;
+uniform float coef;
 
-uniform vec3 l_pos[5];
-uniform vec4 l_col[5];
+$Directional_Head
+
+$Point_Head
+
 uniform mat4 matIP;
 uniform float time;
 
+vec3 calcPointLight(vec3 position,vec3 normal)
+{
+ vec3 accum=vec3(0,0,0);
+  for(int index=0;index<5;index++)//TODO fix this code for N s lights
+  {
+    if(index>=pl_count)break;
+   float l=length(pl_pos[index]-position.xyz);
+   vec3 p2l=normalize(pl_pos[index]-position);
+   if(dot(p2l,normal)<=0.)accum+= vec3(0,0,0);
+  else
+   {
+      if(l<=pl_coef[index].y)
+      {
+      l=max(0.,dot(p2l,normal));
+      float brightness=pow(1.-l/pl_coef[index].y,pl_coef[index].x);
+      accum+= pl_col[index].rgb*brightness;
+      }
+   }
+
+   }
+   return accum;
+}
+
+vec3 calcDirectionalLight(vec3 position,vec3 normal)
+{
+   vec3 accum=vec3(0,0,0);
+   for(int index=0;index<5;index++)
+   {
+     if(index>=dl_count)break;
+     float brightness=dot(dl_dir[index],normal);
+     accum+=dl_col[index].rgb*max(0.,brightness);
+   }
+   return accum;
+}
+
+vec3 reconstructPosition(float d)
+{
+  float z = c_far*c_near/(-c_far+d*(c_far-c_near));
+  vec2 uv=vec2(v_uv.x,1.-v_uv.y);
+  vec3 posClip=vec3(2.0*uv+vec2(-1,-1),d*2.-1.);
+  vec4 position=matIP*vec4(posClip,z);
+  position.x*=position.z;
+  position.y*=-position.z;
+  position.z=z;
+  return position.xyz;
+}
+
+vec3 reconstructNormal()
+{
+  return (texture2D(rb1,v_uv).xyz-vec3(0.5,0.5,0.5))*2.0;
+}
+
 void main(void){
   float d=texture2D(depth,v_uv).r;
-  vec3 posClip=vec3(2.0*v_uv+vec2(-1,-1),d);
-  vec3 normal=(texture2D(rb1,v_uv).xyz-vec3(0.5,0.5,0.5))*2.0;
-  vec4 position=matIP*vec4(posClip,1);
-  vec3 p2l=normalize(l_pos[0]-position.xyz);
-  float l = dot(p2l,normal);
-  gl_FragColor.rgb=(posClip+vec3(1.0,1.0,1.0))/2.0;
+  if(d==1.)// if the depth was same with farclip distance,it will not be count
+  {
+      gl_FragColor=vec4(0,0,0,0);
+      return;
+  }
+  gl_FragColor.rgb=vec3(0,0,0);
+  vec3 position=reconstructPosition(d);
+  vec3 normal=reconstructNormal();
+  gl_FragColor.rgb+=calcPointLight(position.xyz,normal);
+  gl_FragColor.rgb+=calcDirectionalLight(position.xyz,normal);
   gl_FragColor.a=1.0;
 }

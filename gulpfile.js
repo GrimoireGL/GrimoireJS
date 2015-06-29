@@ -138,7 +138,9 @@ gulp.task('webpack', function() {
         }
       ]
     },
-    glsl: {},
+    glsl: {
+      chunkPath: "./Chunk"
+    },
     cache: true,
     plugins: [new wpcore.ResolverPlugin(new wpcore.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"]))]
   })).pipe(gulp.dest('jThree/bin/product')).pipe(gulp.dest('jThree/wwwroot'));

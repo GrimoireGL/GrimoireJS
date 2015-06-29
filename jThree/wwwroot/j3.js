@@ -13344,7 +13344,7 @@
 	    d.prototype = new __();
 	};
 	var LightNodeBase = __webpack_require__(133);
-	var PointLight = __webpack_require__(135);
+	var PointLight = __webpack_require__(134);
 	var PointLightNode = (function (_super) {
 	    __extends(PointLightNode, _super);
 	    function PointLightNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -13382,7 +13382,7 @@
 	    d.prototype = new __();
 	};
 	var LightNodeBase = __webpack_require__(133);
-	var DirectionalLight = __webpack_require__(134);
+	var DirectionalLight = __webpack_require__(135);
 	var DirectionalLightNode = (function (_super) {
 	    __extends(DirectionalLightNode, _super);
 	    function DirectionalLightNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -16329,45 +16329,6 @@
 	    d.prototype = new __();
 	};
 	var LightBase = __webpack_require__(163);
-	var DirectionalLight = (function (_super) {
-	    __extends(DirectionalLight, _super);
-	    function DirectionalLight() {
-	        _super.call(this);
-	        this.intensity = 1.0;
-	    }
-	    Object.defineProperty(DirectionalLight.prototype, "Intensity", {
-	        get: function () {
-	            return this.intensity;
-	        },
-	        set: function (intensity) {
-	            this.intensity = intensity;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(DirectionalLight.prototype, "AliasName", {
-	        get: function () {
-	            return "jthree.lights.directionallight";
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return DirectionalLight;
-	})(LightBase);
-	module.exports = DirectionalLight;
-
-
-/***/ },
-/* 135 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var LightBase = __webpack_require__(163);
 	var PointLight = (function (_super) {
 	    __extends(PointLight, _super);
 	    function PointLight() {
@@ -16416,6 +16377,45 @@
 	    return PointLight;
 	})(LightBase);
 	module.exports = PointLight;
+
+
+/***/ },
+/* 135 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var LightBase = __webpack_require__(163);
+	var DirectionalLight = (function (_super) {
+	    __extends(DirectionalLight, _super);
+	    function DirectionalLight() {
+	        _super.call(this);
+	        this.intensity = 1.0;
+	    }
+	    Object.defineProperty(DirectionalLight.prototype, "Intensity", {
+	        get: function () {
+	            return this.intensity;
+	        },
+	        set: function (intensity) {
+	            this.intensity = intensity;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(DirectionalLight.prototype, "AliasName", {
+	        get: function () {
+	            return "jthree.lights.directionallight";
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return DirectionalLight;
+	})(LightBase);
+	module.exports = DirectionalLight;
 
 
 /***/ },
@@ -19440,7 +19440,7 @@
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\n\r\nuniform vec4 u_diffuse;\r\nuniform vec4 u_specular;\r\nuniform vec4 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  //calculate light vector in view space\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = texture2D(u_sampler,adjuv);\r\n  gl_FragColor.rgb*=brightness;\r\n  //half vector in view space\r\n  vec3 hv=normalize(dlDir+vec3(0,0,1));\r\n  float spBrightness=pow(dot(hv,v_normal),u_specular.a);\r\n  gl_FragColor.rgb+=u_ambient.rgb;\r\n  gl_FragColor.rgb+=u_specular.rgb*spBrightness;\r\n  //calculate light uv\r\n  vec2 lightUV=(v_pos.xy/v_pos.w+vec2(1,1))/2.;\r\n  gl_FragColor.rgb=texture2D(u_light,lightUV).xyz;\r\n}\r\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\n\r\nuniform vec4 u_diffuse;\r\nuniform vec4 u_specular;\r\nuniform vec4 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\n{\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\n}\n\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  //calculate light vector in view space\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = texture2D(u_sampler,adjuv);\r\n  gl_FragColor.rgb*=brightness;\r\n  //half vector in view space\r\n  vec3 hv=normalize(dlDir+vec3(0,0,1));\r\n  float spBrightness=pow(dot(hv,v_normal),u_specular.a);\r\n  gl_FragColor.rgb+=u_ambient.rgb;\r\n  gl_FragColor.rgb+=u_specular.rgb*spBrightness;\r\n  //calculate light uv\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgb=texture2D(u_light,lightUV).xyz;\r\n}\r\n"
 
 /***/ },
 /* 168 */
@@ -20149,19 +20149,15 @@
 	var JThreeContextProxy = __webpack_require__(3);
 	var Vector2 = __webpack_require__(186);
 	var Matrix = __webpack_require__(150);
-	var agent = __webpack_require__(152);
 	var LightaccumulationMaterial = (function (_super) {
 	    __extends(LightaccumulationMaterial, _super);
 	    function LightaccumulationMaterial(rb1, rb2, depth) {
-	        var _this = this;
 	        _super.call(this);
 	        this.rb1 = rb1;
 	        this.rb2 = rb2;
 	        this.depth = depth;
 	        var vs = __webpack_require__(187);
-	        agent.get("http://localhost:8080/LightAccumulation.glsl").end(function (err, res) {
-	            _this.program = _this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);
-	        });
+	        this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, __webpack_require__(188));
 	    }
 	    LightaccumulationMaterial.prototype.configureMaterial = function (scene, renderer, object) {
 	        if (!this.program)
@@ -20649,6 +20645,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec2 uv;\r\n\r\nvarying vec2 v_uv;\r\n\r\nvoid main(void){\r\ngl_Position =vec4(position,1.0);\r\nv_uv=uv;\r\n}\r\n"
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "precision mediump float;\r\nvarying  vec2 v_uv;\r\n\r\nuniform mediump sampler2D rb1;\r\nuniform mediump sampler2D rb2;\r\nuniform mediump sampler2D depth;\r\nuniform vec3 c_pos;\r\nuniform vec3 c_dir;\r\nuniform float c_near;\r\nuniform float c_far;\r\nuniform float xtest;\r\nuniform float ztest;\r\nuniform float coef;\r\n\r\n#define DIRECTIONAL_LIGHT_MAX 5\r\nuniform vec3 dl_dir[DIRECTIONAL_LIGHT_MAX];\r\nuniform vec4 dl_col[DIRECTIONAL_LIGHT_MAX];\r\nuniform int dl_count;\r\n\r\n#define POINT_LIGHT_MAX 5\r\nuniform vec3 pl_pos[POINT_LIGHT_MAX];\r\nuniform vec4 pl_col[POINT_LIGHT_MAX];\r\nuniform vec2 pl_coef[POINT_LIGHT_MAX];//(decay,distance)\r\nuniform int pl_count;\r\n\r\nuniform mat4 matIP;\r\nuniform float time;\r\n\r\nvec3 calcPointLight(vec3 position,vec3 normal)\r\n{\r\n vec3 accum=vec3(0,0,0);\r\n  for(int index=0;index<5;index++)//TODO fix this code for N s lights\r\n  {\r\n    if(index>=pl_count)break;\r\n   float l=length(pl_pos[index]-position.xyz);\r\n   vec3 p2l=normalize(pl_pos[index]-position);\r\n   if(dot(p2l,normal)<=0.)accum+= vec3(0,0,0);\r\n  else\r\n   {\r\n      if(l<=pl_coef[index].y)\r\n      {\r\n      l=max(0.,dot(p2l,normal));\r\n      float brightness=pow(1.-l/pl_coef[index].y,pl_coef[index].x);\r\n      accum+= pl_col[index].rgb*brightness;\r\n      }\r\n   }\r\n\r\n   }\r\n   return accum;\r\n}\r\n\r\nvec3 calcDirectionalLight(vec3 position,vec3 normal)\r\n{\r\n   vec3 accum=vec3(0,0,0);\r\n   for(int index=0;index<5;index++)\r\n   {\r\n     if(index>=dl_count)break;\r\n     float brightness=dot(dl_dir[index],normal);\r\n     accum+=dl_col[index].rgb*max(0.,brightness);\r\n   }\r\n   return accum;\r\n}\r\n\r\nvec3 reconstructPosition(float d)\r\n{\r\n  float z = c_far*c_near/(-c_far+d*(c_far-c_near));\r\n  vec2 uv=vec2(v_uv.x,1.-v_uv.y);\r\n  vec3 posClip=vec3(2.0*uv+vec2(-1,-1),d*2.-1.);\r\n  vec4 position=matIP*vec4(posClip,z);\r\n  position.x*=position.z;\r\n  position.y*=-position.z;\r\n  position.z=z;\r\n  return position.xyz;\r\n}\r\n\r\nvec3 reconstructNormal()\r\n{\r\n  return (texture2D(rb1,v_uv).xyz-vec3(0.5,0.5,0.5))*2.0;\r\n}\r\n\r\nvoid main(void){\r\n  float d=texture2D(depth,v_uv).r;\r\n  if(d==1.)// if the depth was same with farclip distance,it will not be count\r\n  {\r\n      gl_FragColor=vec4(0,0,0,0);\r\n      return;\r\n  }\r\n  gl_FragColor.rgb=vec3(0,0,0);\r\n  vec3 position=reconstructPosition(d);\r\n  vec3 normal=reconstructNormal();\r\n  gl_FragColor.rgb+=calcPointLight(position.xyz,normal);\r\n  gl_FragColor.rgb+=calcDirectionalLight(position.xyz,normal);\r\n  gl_FragColor.a=1.0;\r\n}\r\n"
 
 /***/ }
 /******/ ]);

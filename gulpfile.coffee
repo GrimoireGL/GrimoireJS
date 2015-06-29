@@ -93,6 +93,7 @@ gulp.task 'webpack',->
             {
               test:/\.glsl$/
               loader:'shader'
+              
             }
             {
               test:/\.ts$/
@@ -100,7 +101,9 @@ gulp.task 'webpack',->
               configFileName:'jThree/tsconfig.json'
             }
           ]
-      glsl:{}
+      glsl:{
+        chunkPath:"./Chunk"
+      }
       cache:true
       plugins:
         [
