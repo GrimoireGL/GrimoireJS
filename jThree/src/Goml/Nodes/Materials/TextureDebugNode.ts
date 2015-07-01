@@ -7,26 +7,19 @@ import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
 import ViewportNode = require('../Renderers/ViewPortNode');
-class DefferedDebugNode extends MaterialNodeBase {
+class TextureDebugNode extends MaterialNodeBase {
     material: DebugSprite;
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
         this.attributes.defineAttribute({
             "target": {
-                value: "rb1", converter: "string"
-            },
-            "viewport":
-            {//TODO implement texture node
-                value: "viewport", converter: "string", handler: (v) => {
+                value: "rb1", converter: "string",
+                handler: (v) => {
                     var context = JThreeContextProxy.getJThreeContext();
-                    var viewportTargets = loader.getNodeByQuery(v.Value);
-                    if (viewportTargets.length > 0) {
-                        var viewport = <ViewportNode>viewportTargets[0];
-                        context.ResourceManager.getTextureHandler(viewport.TargetViewport.ID + ".deffered." + this.attributes.getValue("target"), (v) => {
+                        context.ResourceManager.getTextureHandler(this.attributes.getValue("target"), (v) => {
                             this.material.Texture = v;
                         });
-                    }
                 }
             },
             "R":
@@ -63,4 +56,4 @@ class DefferedDebugNode extends MaterialNodeBase {
 
 }
 
-export =DefferedDebugNode;
+export =TextureDebugNode;

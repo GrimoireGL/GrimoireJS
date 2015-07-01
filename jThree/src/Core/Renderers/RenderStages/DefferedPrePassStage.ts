@@ -114,7 +114,7 @@ class DefferedPrePassStage extends RenderStageBase
 		return true;
 	}
 	
-	public get PassCount():number
+		public getPassCount(scene:Scene)
 	{
 		return 2;
 	}

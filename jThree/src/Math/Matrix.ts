@@ -31,6 +31,11 @@ class Matrix extends MatrixBase{
     get rawElements(): Float32Array {
         return <Float32Array>this.targetMatrix;
     }
+    
+    public get RawElements():glm.GLM.IArray
+    {
+        return this.targetMatrix;
+    }
 
     private isValidArray(arr: Float32Array): boolean {
         if (arr.length !== 16) return false;

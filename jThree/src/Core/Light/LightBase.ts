@@ -2,6 +2,10 @@ import JThreeObject = require('../../Base/JThreeObject');
 import Color4 = require('../../Base/Color/Color4');
 import Vector3 = require('../../Math/Vector3');
 import SceneObject = require('../SceneObject');
+import ContextManagerBase = require('../ContextManagerBase');
+import Scene = require('../Scene');
+import Material = require('Materials/Material');
+import RendererBase = require('../Renderers/RendererBase');
 class LightBase extends SceneObject
 {
 	constructor()
@@ -30,6 +34,20 @@ class LightBase extends SceneObject
 	{
 		return null;
 	}
+	
+	public drawBuffer(renderer:RendererBase,scene:Scene,object: SceneObject, material: Material,passCount:number) {
+	}
+	
+	public beforeRender(target:ContextManagerBase)
+	{
+		
+	}
+	
+	public afterRender(target:ContextManagerBase)
+	{
+		
+	}
+	
 }
 
 export = LightBase;

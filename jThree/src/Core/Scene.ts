@@ -53,7 +53,7 @@ class Scene extends jThreeObjectWithID {
             r.beforeRender();
             var renderStages = r.RenderStages;
             renderStages.forEach(s=> {
-                var passCount = s.PassCount;
+                var passCount = s.getPassCount(this);
                 for (var passIndex = 0; passIndex < passCount; passIndex++) {
                     s.preBeginStage(this,passIndex);
                     this.renderPairs.forEach((v) => {
@@ -78,6 +78,8 @@ class Scene extends jThreeObjectWithID {
     
     private lights:AssociativeArray<LightBase[]>=new AssociativeArray<LightBase[]>();
     
+    private lightCount:number=0;
+    
     public getLights(alias:string):LightBase[]
     {
         var lights= this.lights.get(alias);
@@ -85,8 +87,33 @@ class Scene extends jThreeObjectWithID {
         return lights;
     }
     
+    public getLightByIndex(index:number):LightBase
+    {
+        var i=0;
+        var target:LightBase;
+        this.lights.forEach(
+            v=>
+            {
+                v.forEach(e=>{
+                   if(i==index)
+                   {
+                       target=e;
+                   }
+                   i++;
+                });
+            }
+        );
+        return target;
+    }
+    
+    public get LightCount():number
+    {
+        return this.lightCount;
+    }
+    
     public addLight(light:LightBase):void
     {
+        this.lightCount++;
         if(!this.lights.has(light.AliasName))
         {
             this.lights.set(light.AliasName,[light]);

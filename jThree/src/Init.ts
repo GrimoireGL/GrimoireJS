@@ -45,7 +45,6 @@ class JThreeInit {
       JThreeInit.img = new Image();
       JThreeInit.img.onload = () => {
         var res=j3.ResourceManager.createTextureWithSource("test",JThreeInit.img);
-        res.MinFilter=TextureMinFilter.LinearMipmapLinear;
       };
       JThreeInit.img.src = "/miku2.png";
     });

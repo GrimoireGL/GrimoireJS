@@ -1,5 +1,6 @@
 import IEnumerable = require("../Base/Collections/IEnumerable");
 import IEnumrator = require("../Base/Collections/IEnumrator");
+import glm=require('glm');
 class MatrixBase {
 
     protected static elementEqual(m1:MatrixBase,m2:MatrixBase):boolean
@@ -27,6 +28,10 @@ class MatrixBase {
 
     getBySingleIndex(index: number): number {
         throw new Error("Not implemented");
+    }
+    
+    public get RawElements():glm.GLM.IArray{
+        return null;
     }
 }
 export=MatrixBase;

@@ -12,6 +12,7 @@ import GLFeatureType = require('../Wrapper/GLFeatureType');
 import PixelStoreParamType = require('../Wrapper/Texture/PixelStoreParamType');
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
+import Delegates=require('Delegates');
 /**
  * Provides some of feature managing canvas.
  */
@@ -47,6 +48,11 @@ class CanvasManager extends ContextManagerBase {
     private lastWidth:number;
     
     private sizeChangedEventHandler:JThreeEvent<CanvasSizeChangedEventArgs>=new JThreeEvent<CanvasSizeChangedEventArgs>();
+    
+    public onResize(act:Delegates.Action2<CanvasManager,CanvasSizeChangedEventArgs>)
+    {
+        this.sizeChangedEventHandler.addListerner(act);
+    }
     
     private clearColor:Color4;
     get ClearColor():Color4
@@ -85,7 +91,6 @@ class CanvasManager extends ContextManagerBase {
         {
             this.sizeChangedEventHandler.fire(this,new CanvasSizeChangedEventArgs(this,this.lastWidth,this.lastHeight,this.targetCanvas.width,this.targetCanvas.height));
             this.lastHeight=this.targetCanvas.height;this.lastWidth=this.targetCanvas.width;
-            console.warn("size changed");
         }
     }
 

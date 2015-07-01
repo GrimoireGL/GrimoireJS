@@ -4,6 +4,7 @@ varying  vec2 v_uv;
 uniform mediump sampler2D rb1;
 uniform mediump sampler2D rb2;
 uniform mediump sampler2D depth;
+uniform mediump sampler2D u_ldepth;
 uniform vec3 c_pos;
 uniform vec3 c_dir;
 uniform float c_near;
@@ -17,6 +18,9 @@ $Directional_Head
 $Point_Head
 
 uniform mat4 matIP;
+uniform mat4 matTV;
+uniform mat4 matLV;
+uniform vec3 posL;
 uniform float time;
 
 vec3 calcPointLight(vec3 position,vec3 normal)
@@ -49,7 +53,15 @@ vec3 calcDirectionalLight(vec3 position,vec3 normal)
    {
      if(index>=dl_count)break;
      float brightness=dot(dl_dir[index],normal);
-     accum+=dl_col[index].rgb*max(0.,brightness);
+     float pDepth=distance(position,posL);
+     vec2 lUv=(matLV*matTV*vec4(position,1.)).xy;
+     float lDepth=texture2D(u_ldepth,lUv).z*5.656;
+     if(pDepth>lDepth){
+     return vec3(0,0,0); 
+      accum+=dl_col[index].rgb*max(0.,brightness);
+      }
+     else
+      accum+=vec3(0,1,0);
    }
    return accum;
 }

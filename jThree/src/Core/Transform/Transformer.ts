@@ -4,6 +4,7 @@ import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
 import Delegates = require("../../Delegates");
+import glm = require('glm');
 class Transformer extends JThreeObject
 {
   constructor(sceneObj:SceneObject)
@@ -29,6 +30,8 @@ class Transformer extends JThreeObject
   private localTransofrm:Matrix;
 
   private localToGlobal:Matrix;
+  
+  private cacheMat:glm.GLM.IArray=glm.mat4.create();
 
   private onUpdateTransformHandler:Delegates.Action1<SceneObject>[]=[];
 

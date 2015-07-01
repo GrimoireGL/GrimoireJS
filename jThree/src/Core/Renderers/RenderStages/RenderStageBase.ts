@@ -35,7 +35,7 @@ class RenderStageBase extends JThreeObject {
 		return false;
 	}
 	
-	public get PassCount():number
+	public getPassCount(scene:Scene)
 	{
 		return 1;
 	}

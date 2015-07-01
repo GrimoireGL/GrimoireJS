@@ -44,7 +44,9 @@ class LightaccumulationMaterial extends Material {
     this.rb2 = rb2;
     this.depth = depth;
     var vs = require('../Shaders/VertexShaders/PostEffectGeometries.glsl');
-         this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs,require('../Shaders/Deffered/LightAccumulation.glsl') );
+    agent.get("/LightAccumulation.glsl").end((err,res:agent.Response)=>{
+          this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs,res.text);
+    });
   }
 
   configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {
@@ -73,14 +75,13 @@ class LightaccumulationMaterial extends Material {
       lpos[i]=Matrix.transformPoint(renderer.Camera.ViewMatrix,plights[i].Position);
       lcol[i]=plights[i].Color.toVector().multiplyWith(pl.Intensity);
       lcoef[i]=new Vector2(pl.Decay,pl.Distance);
-     // console.log(`${pl.Position.toString()} -> ${lpos[i].toString()}\n${renderer.Camera.ViewMatrix.toString()}`);
     }
     programWrapper.setUniformVectorArray("pl_pos",lpos);
     programWrapper.setUniformVectorArray("pl_col",lcol);
     programWrapper.setUniformVectorArray("pl_coef",lcoef);
     programWrapper.setUniform1i("pl_count",plights.length);
     //pass variables related to directional lights
-    var dlights = scene.getLights("jthree.lights.directionallight");
+    var dlights =<DirectionalLight[]> scene.getLights("jthree.lights.directionallight");
     var ddir=new Array(dlights.length);
     var dcol=new Array(dlights.length);
     for(var i=0;i<dlights.length;i++)
@@ -95,6 +96,11 @@ class LightaccumulationMaterial extends Material {
     programWrapper.setUniform1f("c_near",0.1);
     programWrapper.setUniform1f("c_far",5);
     programWrapper.setUniformMatrix("matIP",ip);
+    programWrapper.setUniformMatrix("matTV",Matrix.inverse(renderer.Camera.ViewMatrix));
+    programWrapper.setUniformMatrix("matLV",dlights[0]?dlights[0].VP:Matrix.identity());
+    if(!dlights[0])console.warn("there is no directional!");
+    this.registerTexture(this.program,renderer,resourceManager.getTexture("directional.test"),3,"u_ldepth");
+    programWrapper.setUniformVector("posL",Matrix.transformPoint(renderer.Camera.ViewMatrix,new Vector3(2,0.15,1)));
     programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
     programWrapper.setUniform1f("xtest",<number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));
     programWrapper.setUniform1f("ztest",<number>new Number((<HTMLInputElement>document.getElementsByName("z").item(0)).value));
