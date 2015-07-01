@@ -52,7 +52,7 @@ bower install
 Almost every code in this project is witten with Typescript.
 For writing Typescript, we use these coding style below.
 There is too much code in this project that is not forrowing this coding style, but It will follow these coding style in future by refactoring.
-
+https://github.com/jThreeJS/jThree/edit/develop/README.md#
 ### Names
 
 * Use PascalCase for type names.
@@ -62,3 +62,10 @@ There is too much code in this project that is not forrowing this coding style, 
 * Use camelCase for property names and local variables.
 * Do not use "_" as a prefix for private properties.
 * Use whole words in names when possible.
+
+
+## Rendering algorithm
+
+jThree is implemented by light pre-pass deffered renderer.
+The rendering path is like this below. (This signature is drawed for the specific case there is no post effect)
+![](https://lh6.googleusercontent.com/PHI6mM8ZfJmFtNuRbY9MBNpsaQ_2fXdbIVrJQnXDN85HvkIzyf48SNXKwmSX1Jo29m5CS1S27rrej6s=w2124-h1072-rw)
