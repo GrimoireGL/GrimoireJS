@@ -58,8 +58,7 @@ class FBOWrapper extends ResourceWrapper
                 this.WebGLContext.FrameBufferTexture2D(attachmentType,tex.getForContext(this.OwnerCanvas).TargetTexture);
                 tex.getForContext(this.OwnerCanvas).bind();
                 tex.generateMipmapIfNeed();
-                this.textures.push(tex);
-                this.unbind();
+                if(this.textures.indexOf(tex)!==-1)this.textures.push(tex);
     }
     
     attachRBO(attachmentType:FrameBufferAttachmentType,rbo:RBO)
@@ -68,7 +67,6 @@ class FBOWrapper extends ResourceWrapper
         if(!this.Initialized)this.init();
                 this.bind();
                 this.WebGLContext.FrameBufferRenderBuffer(attachmentType,wrapper.Target);
-                this.unbind();
     }
 
     dispose() {

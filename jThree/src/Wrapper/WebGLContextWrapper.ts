@@ -246,7 +246,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
     this.CheckErrorAsFatal();
     this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, fboTarget,this.gl.TEXTURE_2D, tex, 0);
-        console.warn(this.gl.checkFramebufferStatus(this.gl.FRAMEBUFFER));
   }
   CreateTexture(): WebGLTexture {
     this.CheckErrorAsFatal();
@@ -311,7 +310,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
     this.CheckErrorAsFatal();
     this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer)
-    console.warn(this.gl.checkFramebufferStatus(this.gl.FRAMEBUFFER));
   }
   
       /**

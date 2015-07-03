@@ -21,9 +21,10 @@ import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
 import PointLight = require('../Light/PointLight');
+import DirectionalLight = require('../Light/DirectionalLight');
 import Scene=require('../Scene');
 import agent = require('superagent');
-import DirectionalLight = require('../Light/DirectionalLight');
+
 declare function require(string): string;
 
 class LightaccumulationMaterial extends Material {
@@ -88,7 +89,7 @@ class LightaccumulationMaterial extends Material {
     {
       var dl=<DirectionalLight>dlights[i];
       ddir[i]=Matrix.transformNormal(renderer.Camera.ViewMatrix,dlights[i].Transformer.Foward);
-      dcol[i]=dl.Color.toVector();
+      dcol[i]=dl.Color.toVector().multiplyWith(dl.Intensity);
     }
     programWrapper.setUniformVectorArray("dl_dir",ddir);
     programWrapper.setUniformVectorArray("dl_col",dcol);
@@ -100,7 +101,7 @@ class LightaccumulationMaterial extends Material {
     programWrapper.setUniformMatrix("matLV",dlights[0]?dlights[0].VP:Matrix.identity());
     if(!dlights[0])console.warn("there is no directional!");
     this.registerTexture(this.program,renderer,resourceManager.getTexture("directional.test"),3,"u_ldepth");
-    programWrapper.setUniformVector("posL",Matrix.transformPoint(renderer.Camera.ViewMatrix,new Vector3(2,0.15,1)));
+    programWrapper.setUniformVector("posL",Matrix.transformPoint(renderer.Camera.ViewMatrix,new Vector3(2,0.4,-2)));
     programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
     programWrapper.setUniform1f("xtest",<number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));
     programWrapper.setUniform1f("ztest",<number>new Number((<HTMLInputElement>document.getElementsByName("z").item(0)).value));

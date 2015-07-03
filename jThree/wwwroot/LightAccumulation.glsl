@@ -98,7 +98,10 @@ void main(void){
   float d=texture2D(depth,v_uv).r;
   if(d==1.)// if the depth was same with farclip distance,it will not be count
   {
-      gl_FragColor=vec4(0,0,0,0);
+      //gl_FragColor=vec4(0,0,0,0);
+      gl_FragColor=texture2D(rb1,v_uv);
+      gl_FragColor.a=1.;
+      gl_FragColor.b=1.;
       return;
   }
   gl_FragColor.rgb=vec3(0,0,0);

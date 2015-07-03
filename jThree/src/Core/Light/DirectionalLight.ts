@@ -27,7 +27,7 @@ class DirectionalLight extends LightBase
 		this.shadowMapFBO=rm.createFBO("directional.test");
 		this.shadowMapColTex=rm.createTexture("directional.testcol",width,height);
 		this.shadowMapTexture=rm.createTexture("directional.test",width,height,TextureFormat.DEPTH_COMPONENT,ElementFormat.UnsignedShort);
-		this.depthMat.VP=Matrix.multiply(Matrix.ortho(-2.828,2.828,-1,1,0,5.656),Matrix.lookAt(new Vector3(2,0.15,1),new Vector3(0,0,-1),new Vector3(0,1,0)));
+		this.depthMat.VP=Matrix.multiply(Matrix.ortho(-2.828,2.828,-1,1,0,5.656),Matrix.lookAt(new Vector3(2,0.4,-2),new Vector3(0,0,-1),new Vector3(0,1,0)));
 	}
 	
 	private shadowMapFBO:FBO;

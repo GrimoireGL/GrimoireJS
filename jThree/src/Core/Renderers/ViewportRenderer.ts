@@ -27,12 +27,6 @@ class ViewPortRenderer extends RendererBase {
     public set ViewPortArea(area: Rectangle) {
         this.viewportArea = area;
     }
-    
-    private renderStages: RenderStageBase[] = [new DefferedPrePassStage(this),new LightShadowStage(this),new FowardShadingStage(this)];
-    
-    public get RenderStages(): RenderStageBase[] {
-        return this.renderStages;
-    }
 
     applyViewportConfigure(): void {
         this.ContextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);

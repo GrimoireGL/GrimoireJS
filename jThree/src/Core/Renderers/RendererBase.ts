@@ -7,6 +7,11 @@ import Camera = require("./../Camera/Camera");
 import Material = require('./../Materials/Material');
 import SceneObject = require('./../SceneObject');
 import RenderStageBase = require('./RenderStages/RenderStageBase');
+import RenderStageManager = require('./RenderStageManager');
+import RB1RenderStage = require('./RenderStages/RB1RenderStage');
+import RB2RenderStage = require('./RenderStages/RB2RenderStage');
+import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationStage');
+import FowardRenderStage = require('./RenderStages/FowardShadingStage');
 /**
  * Provides base class feature for renderer classes.
  */
@@ -29,6 +34,38 @@ class RendererBase extends jThreeObjectWithID {
     constructor(contextManager: ContextManagerBase) {
         super();
         this.contextManager = contextManager;
+        this.renderStageManager.StageChains.push(
+            {
+                buffers: {
+                    OUT: "deffered.rb1"
+                },
+                stage: new RB1RenderStage(this)
+            }
+            ,
+            {
+                buffers:{
+                    DEPTH:"deffered.depth",
+                    OUT:"deffered.rb2"
+                },
+                stage:new RB2RenderStage(this)
+            }
+             ,{
+                buffers:{
+                    RB1:"deffered.rb1",
+                    RB2:"deffered.rb2",
+                    DEPTH:"deffered.depth",
+                    OUT:"deffered.light"
+                },
+                stage:new LightAccumulationRenderStage(this)
+            }
+            // },{
+            //     buffers:{
+            //         LIGHT:"jthree.deffered.light",
+            //         OUT:"default"
+            //     },
+            //     stage:new FowardRenderStage(this)
+            // }
+            );
     }
 
     public enabled: boolean;
@@ -56,6 +93,14 @@ class RendererBase extends jThreeObjectWithID {
 
     public configureRenderer() {
 
+    }
+
+    private renderStageManager: RenderStageManager = new RenderStageManager(this);
+    /**
+     * Provides render stage abstraction
+     */
+    public get RenderStageManager(): RenderStageManager {
+        return this.renderStageManager;
     }
 }
 
