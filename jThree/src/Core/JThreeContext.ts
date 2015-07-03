@@ -45,7 +45,7 @@ class JThreeContext extends JThreeObject
     {
       var time=this.timer.Time;
       this.animaters.each(v=>{
-        if(v.update(time))this.animaters.delete(v);
+        if(v.update(time))this.animaters.del(v);
       });
     }
 

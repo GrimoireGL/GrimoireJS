@@ -27,7 +27,7 @@ class JThreeCollection<T extends JThreeObjectWithID>
     }
   }
 
-  public delete(item:T):boolean
+  public del(item:T):boolean
   {
     if(this.collection.has(item.ID))
     {
