@@ -43,7 +43,7 @@ set Color(col:Color4)
           var geometry=object.Geometry;
          var programWrapper = this.program.getForContext(renderer.ContextManager);
          programWrapper.useProgram();
-         var v=this.CalculateMVPMatrix(renderer,object);
+         var v=object.Transformer.calculateMVPMatrix(renderer);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setAttributeVerticies("uv",geometry.UVBuffer.getForRenderer(renderer.ContextManager));

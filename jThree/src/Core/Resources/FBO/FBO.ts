@@ -1,16 +1,15 @@
 import FBOWrapper = require('./FBOWrapper');
-import ContextSafeResourceContainer =require('./../ContextSafeResourceContainer');
+import ContextSafeResourceContainer = require('./../ContextSafeResourceContainer');
 import JThreeContext = require('../../JThreeContext');
 import ContextManagerBase = require('../../ContextManagerBase');
 class FBO extends ContextSafeResourceContainer<FBOWrapper>
 {
-		constructor(context:JThreeContext)
-	{
+	constructor(context: JThreeContext) {
 		super(context);
 		this.initializeForFirst();
 	}
-	
-	protected getInstanceForRenderer(renderer:ContextManagerBase): FBOWrapper {
+
+	protected getInstanceForRenderer(renderer: ContextManagerBase): FBOWrapper {
 		return new FBOWrapper(renderer);
     }
 

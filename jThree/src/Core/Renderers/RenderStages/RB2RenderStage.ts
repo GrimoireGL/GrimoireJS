@@ -75,7 +75,7 @@ class RB2RenderStage extends RenderStageBase
         var geometry = object.Geometry;
         var programWrapper = this.rb2Program.getForContext(this.Renderer.ContextManager);
         programWrapper.useProgram();
-        var v = this.CalculateMVPMatrix(this.Renderer, object);
+        var v = object.Transformer.calculateMVPMatrix(this.Renderer);
         programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(this.Renderer.ContextManager));
         programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(this.Renderer.ContextManager));
         programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(this.Renderer.ContextManager));

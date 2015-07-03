@@ -43,28 +43,28 @@ class RendererBase extends jThreeObjectWithID {
             }
             ,
             {
-                buffers:{
-                    DEPTH:"deffered.depth",
-                    OUT:"deffered.rb2"
+                buffers: {
+                    DEPTH: "deffered.depth",
+                    OUT: "deffered.rb2"
                 },
-                stage:new RB2RenderStage(this)
+                stage: new RB2RenderStage(this)
             }
-             ,{
-                buffers:{
-                    RB1:"deffered.rb1",
-                    RB2:"deffered.rb2",
-                    DEPTH:"deffered.depth",
-                    OUT:"deffered.light"
+            , {
+                buffers: {
+                    RB1: "deffered.rb1",
+                    RB2: "deffered.rb2",
+                    DEPTH: "deffered.depth",
+                    OUT: "deffered.light"
                 },
-                stage:new LightAccumulationRenderStage(this)
+                stage: new LightAccumulationRenderStage(this)
             }
-            // },{
-            //     buffers:{
-            //         LIGHT:"jthree.deffered.light",
-            //         OUT:"default"
-            //     },
-            //     stage:new FowardRenderStage(this)
-            // }
+        // },{
+        //     buffers:{
+        //         LIGHT:"jthree.deffered.light",
+        //         OUT:"default"
+        //     },
+        //     stage:new FowardRenderStage(this)
+        // }
             );
     }
 

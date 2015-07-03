@@ -10,6 +10,9 @@ import Vector3 = require("../../../Math/Vector3");
 import Vector4 = require("../../../Math/Vector4");
 import ResourceWrapper = require('../ResourceWrapper');
 import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
+import RendererBase = require('../../Renderers/RendererBase');
+import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
+import TextureBase = require('../Texture/TextureBase');
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, contextManager: ContextManagerBase) {
         super(contextManager);
@@ -139,6 +142,12 @@ class ProgramWrapper extends ResourceWrapper {
         this.WebGLContext.EnableVertexAttribArray(attribIndex);
         this.WebGLContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
     }
+    
+  registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
+    renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);
+    tex.getForContext(renderer.ContextManager).bind();
+    this.setUniform1i(samplerName, texNumber);
+  }
 
 }
 

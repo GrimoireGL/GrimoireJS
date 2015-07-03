@@ -7,6 +7,7 @@ import Scene=require('./Scene');
 import RendererBase = require("./Renderers/RendererBase");
 import JThreeCollection = require("../Base/JThreeCollection");
 import Transformer = require("./Transform/Transformer");
+import AssociativeArray = require('../Base/Collections/AssociativeArray');
 /**
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
@@ -21,7 +22,7 @@ class SceneObject extends JThreeObjectWithID
   }
     private materialChanagedHandler:Delegates.Action2<Material,SceneObject>[]=[];
 
-    private materials:JThreeCollection<Material>=new JThreeCollection<Material>();
+    private materials:AssociativeArray<JThreeCollection<Material>>=new AssociativeArray<JThreeCollection<Material>>();
 
     /**
      * Contains the children.
@@ -99,17 +100,16 @@ class SceneObject extends JThreeObjectWithID
      * すべてのマテリアルに対して処理を実行します。
      */
     eachMaterial(func:Delegates.Action1<Material>): void {
-        this.materials.each((v) => func(v));
+        this.materials.forEach((v) =>v.each(e=>func(e)));
     }
 
     addMaterial(mat: Material): void
     {
-        this.materials.insert(mat);
-    }
-
-    deleteMaterial(mat: Material): void
-    {
-      this.materials.delete(mat);
+        if(!this.materials.has(mat.MaterialAlias))
+        {
+            this.materials.set(mat.MaterialAlias,new JThreeCollection<Material>());    
+        }        
+        this.materials.get(mat.MaterialAlias).insert(mat);
     }
 
     protected geometry:Geometry;

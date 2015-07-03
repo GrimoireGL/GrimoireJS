@@ -15,7 +15,7 @@
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" id="main" width="512" height="512" />
-      <!--<viewport cam="CAM2" id="debug" width="512" height="512" left="512" />-->
+      <viewport cam="CAM2" id="debug" width="512" height="512" left="512" />
     </renderer>
   </renderers>
   <scenes>

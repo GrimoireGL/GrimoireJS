@@ -5,6 +5,7 @@ import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
 import Delegates = require("../../Delegates");
 import glm = require('glm');
+import RendererBase = require('./../Renderers/RendererBase');
 class Transformer extends JThreeObject
 {
   constructor(sceneObj:SceneObject)
@@ -46,7 +47,7 @@ class Transformer extends JThreeObject
   }
 
   public updateTransform():void
-  {
+  {//TODO optimize this
     this.localTransofrm=Matrix.TRS(this.position,this.rotation,this.scale);
     this.localToGlobal=Matrix.multiply(this.relatedTo!=null&&this.relatedTo.Parent!=null?this.relatedTo.Parent.Transformer.localToGlobal:Matrix.identity(),this.localTransofrm);
     this.foward=Matrix.transformNormal(this.localToGlobal,new Vector3(0,0,-1)).normalizeThis();
@@ -54,6 +55,11 @@ class Transformer extends JThreeObject
       v.Transformer.updateTransform();
     });
     this.notifyOnUpdateTransform();
+  }
+  
+  public calculateMVPMatrix(renderer:RendererBase):Matrix
+  {//TODO optimize this by glm
+      return Matrix.multiply(Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix), this.LocalToGlobal);
   }
   
   public get Foward():Vector3

@@ -5,23 +5,22 @@ import ResourceWrapper = require('../ResourceWrapper');
 import TextureBuffer = require('../Texture/BufferTexture');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require('../../../Wrapper/ClearTargetType');
-import TextureRegister= require('../../../Wrapper/Texture/TextureRegister');
+import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
 import TargetTextureType = require('../../../Wrapper/TargetTextureType');
 import TextureBase = require('../Texture/TextureBase')
-import RBO =require('../RBO/RBO');
-class FBOWrapper extends ResourceWrapper
-{
+import RBO = require('../RBO/RBO');
+class FBOWrapper extends ResourceWrapper {
 
-    constructor(renderer:ContextManagerBase) {
+    constructor(renderer: ContextManagerBase) {
         super(renderer);
         this.glContext = renderer.Context;
     }
 
     private glContext: GLContextWrapperBase = null;
 
-    private targetFBO:WebGLFramebuffer;
-    
-    private textures:TextureBase[]=[];
+    private targetFBO: WebGLFramebuffer;
+
+    private textures: TextureBase[] = [];
 
     get TargetShader(): WebGLShader {
         if (!this.Initialized) this.init();
@@ -35,47 +34,43 @@ class FBOWrapper extends ResourceWrapper
             this.setInitialized();
         }
     }
-    
-    bind()
-    {
-        if(!this.Initialized)this.init();
+
+    bind() {
+        if (!this.Initialized) this.init();
         this.WebGLContext.BindFrameBuffer(this.targetFBO);
     }
-    
-    unbind()
-    {
+
+    unbind() {
         this.WebGLContext.BindFrameBuffer(null);
-        this.textures.forEach(tex=>{
-        tex.getForContext(this.OwnerCanvas).bind();
-        tex.generateMipmapIfNeed();
+        this.textures.forEach(tex=> {
+            tex.getForContext(this.OwnerCanvas).bind();
+            tex.generateMipmapIfNeed();
         });
     }
-    
-    attachTexture(attachmentType:FrameBufferAttachmentType,tex:TextureBase)
-    {
-                if(!this.Initialized)this.init();
-                this.bind();
-                this.WebGLContext.FrameBufferTexture2D(attachmentType,tex.getForContext(this.OwnerCanvas).TargetTexture);
-                tex.getForContext(this.OwnerCanvas).bind();
-                tex.generateMipmapIfNeed();
-                if(this.textures.indexOf(tex)!==-1)this.textures.push(tex);
+
+    attachTexture(attachmentType: FrameBufferAttachmentType, tex: TextureBase) {
+        if (!this.Initialized) this.init();
+        this.bind();
+        this.WebGLContext.FrameBufferTexture2D(attachmentType, tex.getForContext(this.OwnerCanvas).TargetTexture);
+        tex.getForContext(this.OwnerCanvas).bind();
+        tex.generateMipmapIfNeed();
+        if (this.textures.indexOf(tex) !== -1) this.textures.push(tex);
     }
-    
-    attachRBO(attachmentType:FrameBufferAttachmentType,rbo:RBO)
-    {
-        var wrapper=rbo.getForContext(this.OwnerCanvas);
-        if(!this.Initialized)this.init();
-                this.bind();
-                this.WebGLContext.FrameBufferRenderBuffer(attachmentType,wrapper.Target);
+
+    attachRBO(attachmentType: FrameBufferAttachmentType, rbo: RBO) {
+        var wrapper = rbo.getForContext(this.OwnerCanvas);
+        if (!this.Initialized) this.init();
+        this.bind();
+        this.WebGLContext.FrameBufferRenderBuffer(attachmentType, wrapper.Target);
     }
 
     dispose() {
         if (this.Initialized) {
-              //TODO Dispose frame buffer
+            //TODO Dispose frame buffer
             this.targetFBO = null;
             this.setInitialized(false);
         }
     }
 }
 
-export=FBOWrapper;
+export =FBOWrapper;

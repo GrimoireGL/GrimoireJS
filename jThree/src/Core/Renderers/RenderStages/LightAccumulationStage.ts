@@ -85,10 +85,9 @@ class LitghtAccumulationStage extends RenderStageBase
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setUniformVector("c_pos", renderer.Camera.Position);
     programWrapper.setUniformVector("c_dir", renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis());
-    this.registerTexture(this.program,renderer,texs["RB1"], 0, "rb1");
-    this.registerTexture(this.program,renderer,texs["RB2"], 1, "rb2");
-    
-    this.registerTexture(this.program,renderer,texs["DEPTH"], 2, "depth");
+    programWrapper.registerTexture(renderer,texs["RB1"], 0, "rb1");
+    programWrapper.registerTexture(renderer,texs["RB2"], 1, "rb2"); 
+    programWrapper.registerTexture(renderer,texs["DEPTH"], 2, "depth");
     //pass variables related to point lights
     var plights=scene.getLights("jthree.lights.pointlight");
     var lpos=new Array(plights.length);
@@ -123,7 +122,7 @@ class LitghtAccumulationStage extends RenderStageBase
     programWrapper.setUniformMatrix("matTV",Matrix.inverse(renderer.Camera.ViewMatrix));
     programWrapper.setUniformMatrix("matLV",dlights[0]?dlights[0].VP:Matrix.identity());
 
-    this.registerTexture(this.program,renderer,resourceManager.getTexture("directional.test"),3,"u_ldepth");
+    programWrapper.registerTexture(renderer,resourceManager.getTexture("directional.test"),3,"u_ldepth");
     programWrapper.setUniformVector("posL",Matrix.transformPoint(renderer.Camera.ViewMatrix,new Vector3(2,0.4,-2)));
     programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
     programWrapper.setUniform1f("xtest",<number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));

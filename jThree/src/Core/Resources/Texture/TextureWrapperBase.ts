@@ -57,5 +57,6 @@ class TextureWrapperBase extends ResourceWrapper
   {
     
   }
+ 
 }
 export = TextureWrapperBase;

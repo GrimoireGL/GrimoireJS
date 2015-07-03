@@ -83,7 +83,7 @@ class SpriteMaterial extends Material {
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
-    var v = this.CalculateMVPMatrix(renderer, object);
+    var v = object.Transformer.calculateMVPMatrix(renderer);
     var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
     var resourceManager = jThreeContext.ResourceManager;
     var tex = this.Texture;
