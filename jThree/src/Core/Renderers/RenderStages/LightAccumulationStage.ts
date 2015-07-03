@@ -13,7 +13,6 @@ import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilter
 import Scene = require('../../Scene');
 import Program = require('../../Resources/Program/Program');
 import QuadGeometry = require('../../Geometries/QuadGeometry');
-import LightAccumulationMaterial = require('../../Materials/LightAccumulationMaterial');
 import Mesh=require('../../../Shapes/Mesh');
 import RBO = require('../../Resources/RBO/RBO');
 import Matrix = require('../../../Math/Matrix');
@@ -33,9 +32,6 @@ class LitghtAccumulationStage extends RenderStageBase
   private rblightRBO:RBO;
 	
 	private program:Program;
-	
-	
-	private lightAccumulationMaterial:LightAccumulationMaterial;
 	
 	constructor(renderer:RendererBase)
 	{
@@ -71,7 +67,7 @@ class LitghtAccumulationStage extends RenderStageBase
 	public render(scene:Scene,object: SceneObject,passCount:number,texs:ResolvedChainInfo) {
 		var geometry = object.Geometry;
 		if (!geometry) return;
-		this.configureMaterial(scene,this.Renderer,new Mesh(geometry,this.lightAccumulationMaterial),texs);
+		this.configureMaterial(scene,this.Renderer,new Mesh(geometry,null),texs);
 		geometry.drawElements(this.Renderer.ContextManager);
     this.Renderer.GLContext.Flush();
 		//this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();

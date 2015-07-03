@@ -10,7 +10,6 @@ import Material = require('./../Materials/Material');
 import SceneObject = require('./../SceneObject');
 import RenderStageBase = require('./RenderStages/RenderStageBase');
 import FowardShadingStage = require('./RenderStages/FowardShadingStage');
-import DefferedPrePassStage = require('./RenderStages/DefferedPrePassStage');
 import LightShadowStage = require('./RenderStages/LightShadowStage');
 class ViewPortRenderer extends RendererBase {
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {

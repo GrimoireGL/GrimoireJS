@@ -13,7 +13,6 @@ import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilter
 import Scene = require('../../Scene');
 import Program = require('../../Resources/Program/Program');
 import QuadGeometry = require('../../Geometries/QuadGeometry');
-import LightAccumulationMaterial = require('../../Materials/LightAccumulationMaterial');
 import Mesh = require('../../../Shapes/Mesh');
 import RBO = require('../../Resources/RBO/RBO');
 import Matrix = require('../../../Math/Matrix');
