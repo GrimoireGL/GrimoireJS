@@ -109,5 +109,6 @@ void main(void){
   vec3 normal=reconstructNormal();
   gl_FragColor.rgb+=calcPointLight(position.xyz,normal);
   gl_FragColor.rgb+=calcDirectionalLight(position.xyz,normal);
+  gl_FragColor.rgb+=vec3(0.2,0.2,0.2);
   gl_FragColor.a=1.0;
 }

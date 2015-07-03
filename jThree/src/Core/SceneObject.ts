@@ -111,6 +111,21 @@ class SceneObject extends JThreeObjectWithID
         }        
         this.materials.get(mat.MaterialAlias).insert(mat);
     }
+    
+    getMaterial(matAlias:string):Material
+    {
+        if(this.materials.has(matAlias))
+        {
+            var a=this.materials.get(matAlias);
+            var ret=null;
+            a.each((e)=>{
+                ret=e;
+                return;
+            });
+            return ret;
+        }
+        return null;
+    }
 
     protected geometry:Geometry;
 

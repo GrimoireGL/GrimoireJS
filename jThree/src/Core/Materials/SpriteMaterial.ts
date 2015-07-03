@@ -20,6 +20,7 @@ import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
 import Scene = require('../Scene');
+import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 declare function require(string): string;
 
 class SpriteMaterial extends Material {
@@ -78,8 +79,8 @@ class SpriteMaterial extends Material {
     this.program=this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.sprite","jthree.programs.sprite",vs,fs);
   }
 
-  configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {
-    super.configureMaterial(scene,renderer, object);
+  configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
+    super.configureMaterial(scene,renderer, object,texs);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();

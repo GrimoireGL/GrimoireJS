@@ -29,6 +29,8 @@ class LitghtAccumulationStage extends RenderStageBase
 	private rblight:TextureBase;
 	
 	private rbLightFBO:FBO;
+  
+  private rblightRBO:RBO;
 	
 	private program:Program;
 	
@@ -44,7 +46,9 @@ class LitghtAccumulationStage extends RenderStageBase
 		var rm = context.ResourceManager;
 		this.rblight=rm.createTexture(id+".deffered.light",width,height);
 		this.rbLightFBO=rm.createFBO(id+".deffered.light");
+    this.rblightRBO=rm.createRBO(id+".deffered.light",width,height);
 		this.rbLightFBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rblight);
+    		this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,this.rblightRBO);
 	    var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
     agent.get("/LightAccumulation.glsl").end((err,res:agent.Response)=>{
           this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs,res.text);
@@ -52,11 +56,12 @@ class LitghtAccumulationStage extends RenderStageBase
   }
 	
 	
-	public preBeginStage(scene:Scene,passCount:number)
+	public preBeginStage(scene:Scene,passCount:number,texs:ResolvedChainInfo)
 	{
-    this.Renderer.GLContext.BindFrameBuffer(null);
+    this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
     this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
     this.Renderer.GLContext.Disable(GLFeatureType.CullFace);
+    this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
 	}
 	
 	public postEndStage(scene:Scene,passCount:number)
@@ -66,7 +71,6 @@ class LitghtAccumulationStage extends RenderStageBase
 	public render(scene:Scene,object: SceneObject,passCount:number,texs:ResolvedChainInfo) {
 		var geometry = object.Geometry;
 		if (!geometry) return;
-		//this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
 		this.configureMaterial(scene,this.Renderer,new Mesh(geometry,this.lightAccumulationMaterial),texs);
 		geometry.drawElements(this.Renderer.ContextManager);
     this.Renderer.GLContext.Flush();
@@ -122,7 +126,7 @@ class LitghtAccumulationStage extends RenderStageBase
     programWrapper.setUniformMatrix("matTV",Matrix.inverse(renderer.Camera.ViewMatrix));
     programWrapper.setUniformMatrix("matLV",dlights[0]?dlights[0].VP:Matrix.identity());
 
-    programWrapper.registerTexture(renderer,resourceManager.getTexture("directional.test"),3,"u_ldepth");
+    //programWrapper.registerTexture(renderer,resourceManager.getTexture("directional.test"),3,"u_ldepth");
     programWrapper.setUniformVector("posL",Matrix.transformPoint(renderer.Camera.ViewMatrix,new Vector3(2,0.4,-2)));
     programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
     programWrapper.setUniform1f("xtest",<number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));

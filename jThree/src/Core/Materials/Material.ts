@@ -11,6 +11,7 @@ import TextureRegister = require('../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
 import Scene = require('../Scene');
+import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 declare function require(string): string;
 class Material extends JThreeObjectWithID {
     private defferedRb1Program: Program;
@@ -61,7 +62,7 @@ class Material extends JThreeObjectWithID {
         return rm.createProgram(pid,[vShader,fShader]);
     }
 
-    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject): void {
+    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
         this.applyCullConfigure(renderer);
         return;
     }

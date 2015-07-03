@@ -57,14 +57,14 @@ class RendererBase extends jThreeObjectWithID {
                     OUT: "deffered.light"
                 },
                 stage: new LightAccumulationRenderStage(this)
-            }
-        // },{
-        //     buffers:{
-        //         LIGHT:"jthree.deffered.light",
-        //         OUT:"default"
-        //     },
-        //     stage:new FowardRenderStage(this)
-        // }
+            },
+         {
+            buffers:{
+                LIGHT:"deffered.light",
+                OUT:"default"
+            },
+            stage:new FowardRenderStage(this)
+        }
             );
     }
 
