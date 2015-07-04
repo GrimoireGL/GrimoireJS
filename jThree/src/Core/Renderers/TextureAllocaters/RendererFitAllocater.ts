@@ -39,7 +39,7 @@ class RendererFitAllocater extends TextureAllocatorBase {
 		}
 		var elementFormat:TextureType;
 		texInfo["element"]=texInfo["element"]||"UBYTE";
-				switch ((new String(texInfo["elements"])).toUpperCase()) {
+				switch ((new String(texInfo["element"])).toUpperCase()) {
 			case "UBYTE":
 				elementFormat=TextureType.UnsignedByte;
 				break;

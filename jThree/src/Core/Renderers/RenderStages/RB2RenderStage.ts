@@ -20,10 +20,6 @@ import ResolvedChainInfo = require('../ResolvedChainInfo');
 class RB2RenderStage extends RenderStageBase
 {
 	
-	private rb2Texture:TextureBase;
-	
-	private rbDepthTexture:TextureBase;
-	
 	private rb2FBO:FBO;
 	
 	private rb2Program:Program;
@@ -35,12 +31,7 @@ class RB2RenderStage extends RenderStageBase
 		var width =512,height=512;
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
-		this.rb2Texture=rm.createTexture(id+".deffered.rb2",width,height);
 		this.rb2FBO=rm.createFBO(id+".deffered.rb2");
-		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rb2Texture);
-		this.rbDepthTexture=rm.createTexture(id+".deffered.depth",width,height,TextureFormat.DEPTH_COMPONENT,ElementFormat.UnsignedShort);
-		this.rbDepthTexture.MinFilter=TextureMinFilterType.Linear;
-		this.rb2FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment,this.rbDepthTexture);
 				var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
         var fs = require('../../Shaders/Deffered/RB2.glsl');
         this.rb2Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb2","jthree.programs.rb2",vs,fs);

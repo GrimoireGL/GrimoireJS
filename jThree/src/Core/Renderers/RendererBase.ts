@@ -71,6 +71,20 @@ class RendererBase extends jThreeObjectWithID {
                     alocater:"rendererfit",
                     internalFormat:"RGBA",
                     element:"UBYTE"
+                },
+                "deffered.rb2":{
+                    alocater:"rendererfit",
+                    internalFormat:"RGBA",
+                    element:"UBYTE"
+                },"deffered.depth":{
+                    alocater:"rendererfit",
+                    internalFormat:"DEPTH",
+                    element:"USHORT"
+                }
+                ,"deffered.light":{
+                    alocater:"rendererfit",
+                    internalFormat:"RGBA",
+                    element:"UBYTE"
                 }
             };
             this.renderStageManager.generateAllTextures();

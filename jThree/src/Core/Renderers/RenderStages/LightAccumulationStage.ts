@@ -25,7 +25,6 @@ import agent = require('superagent');
 import GLFeatureType = require("../../../Wrapper/GLFeatureType");
 class LitghtAccumulationStage extends RenderStageBase
 {
-	private rblight:TextureBase;
 	
 	private rbLightFBO:FBO;
   
@@ -40,10 +39,8 @@ class LitghtAccumulationStage extends RenderStageBase
 		var width =512,height=512;
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
-		this.rblight=rm.createTexture(id+".deffered.light",width,height);
 		this.rbLightFBO=rm.createFBO(id+".deffered.light");
     this.rblightRBO=rm.createRBO(id+".deffered.light",width,height);
-		this.rbLightFBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.rblight);
     		this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,this.rblightRBO);
 	    var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
     agent.get("/LightAccumulation.glsl").end((err,res:agent.Response)=>{
