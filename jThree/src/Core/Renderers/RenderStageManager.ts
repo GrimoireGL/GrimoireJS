@@ -9,6 +9,8 @@ import Mesh = require('../../Shapes/Mesh')
 import Scene = require('../Scene');
 import QuadGeometry = require('../Geometries/QuadGeometry');
 import ResolvedChainInfo = require('./ResolvedChainInfo');
+import TextureAllocationInfo = require('./TextureAllocaters/TextureAllocationInfo');
+import TextureAllocatorBase = require('./TextureAllocaters/TextureAllocaterBase');
 class RenderStageManager {
 	private parentRenderer: RendererBase;
 	private defaultQuad: QuadGeometry;
@@ -19,6 +21,32 @@ class RenderStageManager {
 	}
 
 	private stageChains: RenderStageChain[] = [];
+	
+	private textureBuffers:TextureAllocationInfo={};
+	
+	public get TextureBuffers()
+	{
+		return this.textureBuffers;
+	}
+	
+	public set TextureBuffers(val:TextureAllocationInfo)
+	{
+		this.textureBuffers=val;
+	}
+	
+	public get Generaters(){
+		return require('./TextureAllocaters/TextureAllocatorList');//TODO extendable
+	}
+	
+	public generateAllTextures()
+	{
+		for(var name in this.textureBuffers)
+		{
+			var textureAllocationInfo=this.textureBuffers[name];
+			var generater=<TextureAllocatorBase>new this.Generaters[textureAllocationInfo.alocater](this.parentRenderer);
+			generater.generate(name,textureAllocationInfo);
+		}
+	}
 
 	private genChainTexture(chain: RenderStageChain): ResolvedChainInfo {
 		var texInfo: ResolvedChainInfo = {};

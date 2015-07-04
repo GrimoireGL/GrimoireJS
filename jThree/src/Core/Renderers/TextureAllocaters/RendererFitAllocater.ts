@@ -8,7 +8,8 @@ class RendererFitAllocater extends TextureAllocatorBase {
 		super(parent);
 	}
 
-	public generate(texInfo: TextureAllocationInfoChunk) {
+	public generate(name:string,texInfo: TextureAllocationInfoChunk) {
+		var width=512,height=512;
 		var internalFormat: TextureInternalFormatType;
 		texInfo["internalFormat"] = texInfo["internalFormat"] || "RGBA";
 		switch ((new String(texInfo["internalFormat"])).toUpperCase()) {
@@ -66,6 +67,7 @@ class RendererFitAllocater extends TextureAllocatorBase {
 			default:
 				console.error("the given parameter was invalid : element format " + texInfo["element"]);
 		}
+		return this.Context.ResourceManager.createTexture(this.parentRenderer.ID+"."+name,width,height,internalFormat,elementFormat);
 	}
 }
 

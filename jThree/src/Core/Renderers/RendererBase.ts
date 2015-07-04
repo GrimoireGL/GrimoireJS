@@ -66,6 +66,14 @@ class RendererBase extends jThreeObjectWithID {
             stage:new FowardRenderStage(this)
         }
             );
+            this.renderStageManager.TextureBuffers={
+                "deffered.rb1":{
+                    alocater:"rendererfit",
+                    internalFormat:"RGBA",
+                    element:"UBYTE"
+                }
+            };
+            this.renderStageManager.generateAllTextures();
     }
 
     public enabled: boolean;

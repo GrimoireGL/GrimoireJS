@@ -18,7 +18,6 @@ import RBO = require('../../Resources/RBO/RBO');
 import Matrix = require('../../../Math/Matrix');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 class RB1RenderStage extends RenderStageBase {
-	private rb1Texture: TextureBase;
 
 	private rb1FBO: FBO;
 
@@ -32,9 +31,7 @@ class RB1RenderStage extends RenderStageBase {
 		var width = 512, height = 512;
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
-		this.rb1Texture = rm.createTexture(id + ".deffered.rb1", width, height);
 		this.rb1FBO = rm.createFBO(id + ".deffered.rb1");
-		this.rb1FBO.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, this.rb1Texture);
 		this.rb1RBO = rm.createRBO(id + ".deffered.rb1", width, height);
 		this.rb1FBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, this.rb1RBO);
 		var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');

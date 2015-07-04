@@ -1,6 +1,6 @@
 import TextureAllocationInfoChunk = require('./TextureAllocationInfoChunk');
 import RendererBase = require('../RendererBase');
-
+import JThreeContextProxy = require('../../JThreeContextProxy');
 class TextureAllocaterBase {
 	protected parentRenderer: RendererBase;
 
@@ -8,8 +8,12 @@ class TextureAllocaterBase {
 		this.parentRenderer = parent;
 	}
 
-	public generate(texInfo: TextureAllocationInfoChunk) {
+	public generate(name:string,texInfo: TextureAllocationInfoChunk) {
 
+	}
+	
+	public get Context(){
+		return JThreeContextProxy.getJThreeContext();
 	}
 }
 
