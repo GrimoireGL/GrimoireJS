@@ -1,9 +1,9 @@
 import TextureAllocationInfoChunk = require('./TextureAllocationInfoChunk');
 import RendererBase = require('../RendererBase');
-import TextureAllocatorBase = require('./TextureAllocaterBase');
+import TextureAllocaterBase = require('./TextureAllocaterBase');
 import TextureInternalFormatType = require('../../../Wrapper/TextureInternalFormatType');
 import TextureType = require('../../../Wrapper/TextureType');
-class RendererFitAllocater extends TextureAllocatorBase {
+class RendererFitAllocater extends TextureAllocaterBase {
 	constructor(parent: RendererBase) {
 		super(parent);
 	}

@@ -17,20 +17,6 @@ import FowardRenderStage = require('./RenderStages/FowardShadingStage');
  */
 class RendererBase extends jThreeObjectWithID {
 
-    private camera: Camera;
-
-    public get Camera(): Camera {
-        return this.camera;
-    }
-
-    public set Camera(camera: Camera) {
-        this.camera = camera;
-    }
-
-    public get RenderStages(): RenderStageBase[] {
-        return [];
-    }
-
     constructor(contextManager: ContextManagerBase) {
         super();
         this.contextManager = contextManager;
@@ -49,7 +35,8 @@ class RendererBase extends jThreeObjectWithID {
                 },
                 stage: new RB2RenderStage(this)
             }
-            , {
+            ,
+            {
                 buffers: {
                     RB1: "deffered.rb1",
                     RB2: "deffered.rb2",
@@ -58,65 +45,100 @@ class RendererBase extends jThreeObjectWithID {
                 },
                 stage: new LightAccumulationRenderStage(this)
             },
-         {
-            buffers:{
-                LIGHT:"deffered.light",
-                OUT:"default"
-            },
-            stage:new FowardRenderStage(this)
-        }
-            );
-            this.renderStageManager.TextureBuffers={
-                "deffered.rb1":{
-                    alocater:"rendererfit",
-                    internalFormat:"RGBA",
-                    element:"UBYTE"
+            {
+                buffers: {
+                    LIGHT: "deffered.light",
+                    OUT: "default"
                 },
-                "deffered.rb2":{
-                    alocater:"rendererfit",
-                    internalFormat:"RGBA",
-                    element:"UBYTE"
-                },"deffered.depth":{
-                    alocater:"rendererfit",
-                    internalFormat:"DEPTH",
-                    element:"USHORT"
-                }
-                ,"deffered.light":{
-                    alocater:"rendererfit",
-                    internalFormat:"RGBA",
-                    element:"UBYTE"
-                }
-            };
-            this.renderStageManager.generateAllTextures();
+                stage: new FowardRenderStage(this)
+            }
+            );
+        this.renderStageManager.TextureBuffers = {
+            "deffered.rb1": {
+                alocater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            },
+            "deffered.rb2": {
+                alocater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            }, "deffered.depth": {
+                alocater: "rendererfit",
+                internalFormat: "DEPTH",
+                element: "USHORT"
+            }
+            , "deffered.light": {
+                alocater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            }
+        };
+        this.renderStageManager.generateAllTextures();
+    }
+
+
+    /**
+     * The camera reference this renderer using for draw.
+     */
+    private camera: Camera;
+    /**
+     * The camera reference this renderer using for draw.
+     */
+    public get Camera(): Camera {
+        return this.camera;
+    }
+    /**
+     * The camera reference this renderer using for draw.
+     */
+    public set Camera(camera: Camera) {
+        this.camera = camera;
     }
 
     public enabled: boolean;
 
-    render(drawAct: Delegates.Action0): void {
+    public render(drawAct: Delegates.Action0): void {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
+    /**
+     * ContextManager managing this renderer.
+     */
     private contextManager: ContextManagerBase;
+    
+    /**
+     * ContextManager managing this renderer.
+     */
     public get ContextManager(): ContextManagerBase {
         return this.contextManager;
     }
-
+    
+    /**
+     * Obtain the reference for wrapper of WebGLRenderingContext
+     */
     public get GLContext(): GLContextWrapperBase {
         return this.contextManager.Context;
     }
-
+    
+    /**
+     * It will be called before processing renderer.
+     * If you need to override this method, you need to call same method of super class first. 
+     */
     public beforeRender() {
         this.ContextManager.beforeRender(this);
     }
 
+    /**
+     * It will be called after processing renderer.
+     * If you need to override this method, you need to call same method of super class first. 
+     */
     public afterRender() {
         this.ContextManager.afterRender(this);
     }
 
-    public configureRenderer() {
-
-    }
-
+    /**
+    * Provides render stage abstraction
+    */
     private renderStageManager: RenderStageManager = new RenderStageManager(this);
     /**
      * Provides render stage abstraction
