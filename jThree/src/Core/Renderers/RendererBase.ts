@@ -65,21 +65,21 @@ class RendererBase extends jThreeObjectWithID {
             );
         this.renderStageManager.TextureBuffers = {
             "deffered.rb1": {
-                alocater: "rendererfit",
+                generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "UBYTE"
             },
             "deffered.rb2": {
-                alocater: "rendererfit",
+                generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "UBYTE"
             }, "deffered.depth": {
-                alocater: "rendererfit",
+                generater: "rendererfit",
                 internalFormat: "DEPTH",
                 element: "USHORT"
             }
             , "deffered.light": {
-                alocater: "rendererfit",
+                generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "UBYTE"
             }

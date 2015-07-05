@@ -63,7 +63,7 @@ class RenderStageManager {
 		for(var name in this.textureBuffers)
 		{
 			var textureAllocationInfo=this.textureBuffers[name];
-			var generater=this.Generaters.get(textureAllocationInfo.alocater);
+			var generater=this.Generaters.get(textureAllocationInfo.generater);
 			generater.generate(name,textureAllocationInfo);
 		}
 	}

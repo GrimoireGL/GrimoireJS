@@ -23,3 +23,8 @@ declare var Set: {
     new <T>(): Set<T>;
     prototype: Set<any>;
 }
+
+interface WebGLRenderingContext
+{
+    texImage2D(target:number,level:number,internalFormat:number,width:number,height:number,border:number,format:number,type:number,pixels?:ArrayBufferView)
+}

@@ -1,5 +1,11 @@
+/**
+ * Provides argument definition of declaration to single generate texture.
+ */
 interface GeneraterInfoChunk {
-	alocater: string;
+	/**
+	 * Name that is used for texture generation.
+	 */
+	generater: string;
 }
 
 export = GeneraterInfoChunk;
