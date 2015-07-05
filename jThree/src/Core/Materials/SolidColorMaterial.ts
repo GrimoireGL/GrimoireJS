@@ -14,44 +14,42 @@ import Quaternion = require("../../Math/Quaternion");
 import Color4 = require("../../Base/Color/Color4");
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
-declare function require(string):string;
+declare function require(string): string;
 
-class SolidColorMaterial extends Material
-  {
-    private color:Color4=Color4.parseColor('#F0F');
+class SolidColorMaterial extends Material {
+  private color: Color4 = Color4.parseColor('#F0F');
 
-    get Color():Color4
-    {
-      return this.color;
-    }
-
-set Color(col:Color4)
-{
-  this.color=col;
-}
-      protected program:Program;
-      constructor() {
-          super();
-          var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
-          var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-          var fs = require('../Shaders/SolidColor.glsl');
-          this.program=this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.solidcolor","jthree.programs.solidcolor",vs,fs);
-      }
-
-     configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject,texs:ResolvedChainInfo): void {
-       super.configureMaterial(scene,renderer,object,texs);
-          var geometry=object.Geometry;
-         var programWrapper = this.program.getForContext(renderer.ContextManager);
-         programWrapper.useProgram();
-         var v=object.Transformer.calculateMVPMatrix(renderer);
-          programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-          programWrapper.setAttributeVerticies("normal",geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-          programWrapper.setUniformMatrix("matMVP",v);
-          programWrapper.setUniformMatrix("matMV",Matrix.multiply(renderer.Camera.ViewMatrix,object.Transformer.LocalToGlobal));
-          programWrapper.setUniformVector("u_color",this.Color.toVector());
-          geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
-          renderer.GLContext.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length,geometry.IndexBuffer.ElementType,0);
-     }
+  get Color(): Color4 {
+    return this.color;
   }
 
-  export=SolidColorMaterial;
+  set Color(col: Color4) {
+    this.color = col;
+  }
+  protected program: Program;
+  constructor() {
+    super();
+    var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
+    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
+    var fs = require('../Shaders/SolidColor.glsl');
+    this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.solidcolor", "jthree.programs.solidcolor", vs, fs);
+    this.setLoaded();
+  }
+
+  configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
+    super.configureMaterial(scene, renderer, object, texs);
+    var geometry = object.Geometry;
+    var programWrapper = this.program.getForContext(renderer.ContextManager);
+    programWrapper.useProgram();
+    var v = object.Transformer.calculateMVPMatrix(renderer);
+    programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
+    programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+    programWrapper.setUniformMatrix("matMVP", v);
+    programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
+    programWrapper.setUniformVector("u_color", this.Color.toVector());
+    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+    renderer.GLContext.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length, geometry.IndexBuffer.ElementType, 0);
+  }
+}
+
+export =SolidColorMaterial;

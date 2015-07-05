@@ -76,11 +76,12 @@ class SpriteMaterial extends Material {
     super();
     var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
     var fs = require('../Shaders/Sprite.glsl');
-    this.program=this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.sprite","jthree.programs.sprite",vs,fs);
+    this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.sprite", "jthree.programs.sprite", vs, fs);
+    this.setLoaded();
   }
 
-  configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
-    super.configureMaterial(scene,renderer, object,texs);
+  configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
+    super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
@@ -100,17 +101,15 @@ class SpriteMaterial extends Material {
     programWrapper.setUniform1i("u_sampler", 0);
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
     //gen ct matrix
-    var ctM:Matrix = Matrix.zero();
-    if(this.CTR<4)ctM.setAt(this.CTR,0,1);
-    if(this.CTG<4)ctM.setAt(this.CTG,1,1);
-    if(this.CTB<4)ctM.setAt(this.CTB,2,1);
-    if(this.CTA<4)ctM.setAt(this.CTA,3,1);
-    if(this.CTA<4)
-    {
-      programWrapper.setUniform1i("additionA",0);
-    }else
-    {
-      programWrapper.setUniform1i("additionA",1);
+    var ctM: Matrix = Matrix.zero();
+    if (this.CTR < 4) ctM.setAt(this.CTR, 0, 1);
+    if (this.CTG < 4) ctM.setAt(this.CTG, 1, 1);
+    if (this.CTB < 4) ctM.setAt(this.CTB, 2, 1);
+    if (this.CTA < 4) ctM.setAt(this.CTA, 3, 1);
+    if (this.CTA < 4) {
+      programWrapper.setUniform1i("additionA", 0);
+    } else {
+      programWrapper.setUniform1i("additionA", 1);
     }
     programWrapper.setUniformMatrix("ctM", ctM);
   }

@@ -15148,6 +15148,7 @@
 	        var vs = __webpack_require__(165);
 	        var fs = __webpack_require__(166);
 	        this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.solidcolor", "jthree.programs.solidcolor", vs, fs);
+	        this.setLoaded();
 	    }
 	    Object.defineProperty(SolidColorMaterial.prototype, "Color", {
 	        get: function () {
@@ -15246,6 +15247,7 @@
 	        var vs = __webpack_require__(165);
 	        var fs = __webpack_require__(167);
 	        this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.lambert", "jthree.programs.lambert", vs, fs);
+	        this.setLoaded();
 	    }
 	    Object.defineProperty(LambertMaterial.prototype, "Color", {
 	        get: function () {
@@ -15312,6 +15314,7 @@
 	        var fs = __webpack_require__(168);
 	        agent.get("http://localhost:8080/Phong.glsl").end(function (err, res) {
 	            _this.program = _this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, res.text);
+	            _this.setLoaded();
 	        });
 	    }
 	    Object.defineProperty(PhongMaterial.prototype, "Diffuse", {
@@ -15427,6 +15430,7 @@
 	        var vs = __webpack_require__(165);
 	        var fs = __webpack_require__(169);
 	        this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.sprite", "jthree.programs.sprite", vs, fs);
+	        this.setLoaded();
 	    }
 	    Object.defineProperty(SpriteMaterial.prototype, "Texture", {
 	        get: function () {
@@ -17470,6 +17474,7 @@
 	    __extends(Material, _super);
 	    function Material() {
 	        _super.call(this);
+	        this.loaded = false;
 	        this.cullMode = GLCullMode.Front;
 	        this.cullEnabled = true;
 	        var jThreeContext = JThreeContextProxy.getJThreeContext();
@@ -17478,6 +17483,17 @@
 	        this.defferedRb1Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb1", "jthree.programs.rb1", vs, fs);
 	        this.defferedRb2Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb2", "jthree.program.rb2", vs, __webpack_require__(176));
 	    }
+	    Material.prototype.setLoaded = function (flag) {
+	        flag = typeof flag === 'undefined' ? true : flag;
+	        this.loaded = flag;
+	    };
+	    Object.defineProperty(Material.prototype, "Loaded", {
+	        get: function () {
+	            return this.loaded;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Object.defineProperty(Material.prototype, "Priorty", {
 	        get: function () {
 	            return this.priorty;
@@ -19371,6 +19387,7 @@
 	        var vs = __webpack_require__(187);
 	        var fs = __webpack_require__(188);
 	        this.program = this.loadProgram("jthree.shaders.vertex.depth", "jthree.shaders.fragment.depth", "jthree.programs.depth", vs, fs);
+	        this.setLoaded();
 	    }
 	    Object.defineProperty(DepthMaterial.prototype, "VP", {
 	        get: function () {
@@ -20441,15 +20458,13 @@
 	    };
 	    LitghtAccumulationStage.prototype.render = function (scene, object, passCount, texs) {
 	        var geometry = object.Geometry;
-	        if (!geometry)
+	        if (!geometry || !this.program)
 	            return;
 	        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
 	        geometry.drawElements(this.Renderer.ContextManager);
 	        this.Renderer.GLContext.Flush();
 	    };
 	    LitghtAccumulationStage.prototype.configureMaterial = function (scene, renderer, object, texs) {
-	        if (!this.program)
-	            return;
 	        var geometry = object.Geometry;
 	        var programWrapper = this.program.getForContext(renderer.ContextManager);
 	        programWrapper.useProgram();
@@ -20541,6 +20556,8 @@
 	        if (!geometry)
 	            return;
 	        var material = object.getMaterial("jthree.materials.forematerial");
+	        if (!material || !material.Loaded)
+	            return;
 	        material.configureMaterial(scene, this.Renderer, object, texs);
 	        geometry.drawElements(this.Renderer.ContextManager);
 	    };

@@ -37,6 +37,7 @@ class DepthMaterial extends Material
           var vs = require('../Shaders/VertexShaders/DepthGeometries.glsl');
           var fs = require('../Shaders/Depth/Depth.glsl');
           this.program = this.loadProgram("jthree.shaders.vertex.depth","jthree.shaders.fragment.depth","jthree.programs.depth",vs,fs);
+          this.setLoaded();
       }
 
      configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject): void {

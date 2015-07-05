@@ -37,6 +37,7 @@ set Color(col:Color4)
           var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
           var fs = require('../Shaders/Lambert.glsl');
           this.program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.lambert","jthree.programs.lambert",vs,fs);
+          this.setLoaded();
       }
 
      configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject,texs:ResolvedChainInfo): void {

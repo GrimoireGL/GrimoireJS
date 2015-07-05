@@ -63,7 +63,7 @@ class LitghtAccumulationStage extends RenderStageBase
 	
 	public render(scene:Scene,object: SceneObject,passCount:number,texs:ResolvedChainInfo) {
 		var geometry = object.Geometry;
-		if (!geometry) return;
+		if (!geometry||!this.program) return;
 		this.configureMaterial(scene,this.Renderer,new Mesh(geometry,null),texs);
 		geometry.drawElements(this.Renderer.ContextManager);
     this.Renderer.GLContext.Flush();
@@ -71,7 +71,6 @@ class LitghtAccumulationStage extends RenderStageBase
 	}
 	
 	configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
-    if(!this.program)return;
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();

@@ -82,6 +82,7 @@ class PhongMaterial extends Material {
     var fs = require('../Shaders/Phong.glsl');
     agent.get("http://localhost:8080/Phong.glsl").end((err, res: agent.Response) => {
       this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, res.text);
+      this.setLoaded();
     });
   }
 

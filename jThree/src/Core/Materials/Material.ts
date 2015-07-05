@@ -16,6 +16,20 @@ declare function require(string): string;
 class Material extends JThreeObjectWithID {
     private defferedRb1Program: Program;
     private defferedRb2Program: Program;
+    private loaded:boolean=false;
+    
+    protected setLoaded(flag?:boolean)
+    {
+        flag=typeof flag ==='undefined'?true:flag;
+        this.loaded=flag;
+    }
+    /**
+     * Provides the flag this material finished loading or not.
+     */
+    public get Loaded():boolean
+    {
+        return this.loaded;
+    }
 
     constructor() {
         super();

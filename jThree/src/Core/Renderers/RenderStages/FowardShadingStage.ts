@@ -24,6 +24,7 @@ class FowardShadingStage extends RenderStageBase {
 		var geometry = object.Geometry;
 		if (!geometry) return;
 		var material=object.getMaterial("jthree.materials.forematerial");
+		if(!material||!material.Loaded)return;
 		material.configureMaterial(scene,this.Renderer, object,texs);
 		geometry.drawElements(this.Renderer.ContextManager);
 	}
