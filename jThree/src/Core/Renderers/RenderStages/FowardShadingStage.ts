@@ -5,31 +5,42 @@ import Material = require('../../Materials/Material');
 import RenderStageBase = require('./RenderStageBase');
 import Scene = require('../../Scene');
 import FBO = require('../../Resources/FBO/FBO');
-import RBO =require('../../Resources/RBO/RBO');
+import RBO = require('../../Resources/RBO/RBO');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
+import JThreeContextProxy = require('../../JThreeContextProxy')
+import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
+import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
-	private fbo:FBO;
-	
-	private rbo:RBO;
-	
+	private fbo: FBO;
+
+	private rbo: RBO;
 	constructor(renderer: RendererBase) {
 		super(renderer);
-	}
-	
-	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		this.Renderer.GLContext.BindFrameBuffer(null);
+		var context = JThreeContextProxy.getJThreeContext();
+		var rm=context.ResourceManager;
+		this.fbo=rm.createFBO(renderer.ID+"fore");
+		this.rbo=rm.createRBO(renderer.ID+"fore",512,512);
+		this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,this.rbo);
 	}
 
-	public render(scene:Scene,object: SceneObject,passCount:number,texs:ResolvedChainInfo) {
+	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+		if (texs["OUT"] == null) this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,null);
+		else{
+			this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
+			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits)
+		}
+	}
+
+	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
 		var geometry = object.Geometry;
 		if (!geometry) return;
-		var material=object.getMaterial("jthree.materials.forematerial");
-		if(!material||!material.Loaded)return;
-		material.configureMaterial(scene,this.Renderer, object,texs);
+		var material = object.getMaterial("jthree.materials.forematerial");
+		if (!material || !material.Loaded) return;
+		material.configureMaterial(scene, this.Renderer, object, texs);
 		geometry.drawElements(this.Renderer.ContextManager);
 	}
 
-	public needRender(scene:Scene,object: SceneObject,passCount:number): boolean {
+	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
 		return true;
 	}
 }

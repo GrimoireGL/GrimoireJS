@@ -51,6 +51,10 @@ class FBOWrapper extends ResourceWrapper {
     attachTexture(attachmentType: FrameBufferAttachmentType, tex: TextureBase) {
         if (!this.Initialized) this.init();
         this.bind();
+        if (tex == null) {
+            this.WebGLContext.FrameBufferTexture2D(attachmentType, null);
+            return;
+        }
         this.WebGLContext.FrameBufferTexture2D(attachmentType, tex.getForContext(this.OwnerCanvas).TargetTexture);
         tex.getForContext(this.OwnerCanvas).bind();
         tex.generateMipmapIfNeed();

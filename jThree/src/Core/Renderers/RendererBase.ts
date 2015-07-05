@@ -12,6 +12,7 @@ import RB1RenderStage = require('./RenderStages/RB1RenderStage');
 import RB2RenderStage = require('./RenderStages/RB2RenderStage');
 import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationStage');
 import FowardRenderStage = require('./RenderStages/FowardShadingStage');
+import GrayScaleStage = require('./RenderStages/GrayScaleStage');
 /**
  * Provides base class feature for renderer classes.
  */
@@ -48,9 +49,16 @@ class RendererBase extends jThreeObjectWithID {
             {
                 buffers: {
                     LIGHT: "deffered.light",
-                    OUT: "default"
+                    OUT: "deffered.rb1"
                 },
                 stage: new FowardRenderStage(this)
+            },
+            {
+                buffers:{
+                    SOURCE:"deffered.rb1",
+                    OUT:"default"
+                },
+                stage:new GrayScaleStage(this)
             }
             );
         this.renderStageManager.TextureBuffers = {
