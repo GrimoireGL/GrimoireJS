@@ -28,8 +28,6 @@ class LitghtAccumulationStage extends RenderStageBase {
 
 	private rbLightFBO: FBO;
 
-	private rblightRBO: RBO;
-
 	private program: Program;
 
 	constructor(renderer: RendererBase) {
@@ -39,8 +37,7 @@ class LitghtAccumulationStage extends RenderStageBase {
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
 		this.rbLightFBO = rm.createFBO(id + ".post.gray");
-		this.rblightRBO = rm.createRBO(id + ".post.gray", width, height);
-		this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, this.rblightRBO);
+		this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rm.getRBO("jthree.rbo.default"));
 		var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
 		agent.get("/GrayScale.glsl").end((err, res: agent.Response) => {
 			this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.post.gray", "jthree.programs.post.gray", vs, res.text);

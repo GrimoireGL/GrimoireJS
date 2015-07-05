@@ -9,8 +9,8 @@ import Mesh = require('../../Shapes/Mesh')
 import Scene = require('../Scene');
 import QuadGeometry = require('../Geometries/QuadGeometry');
 import ResolvedChainInfo = require('./ResolvedChainInfo');
-import TextureAllocationInfo = require('./TextureAllocaters/TextureAllocationInfo');
-import TextureAllocatorBase = require('./TextureAllocaters/TextureAllocaterBase');
+import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
+import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
 class RenderStageManager {
 	private parentRenderer: RendererBase;
 	private defaultQuad: QuadGeometry;
@@ -18,32 +18,52 @@ class RenderStageManager {
 	constructor(parent: RendererBase) {
 		this.parentRenderer = parent;
 		this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
+		this.initializeGeneraters();
+	}
+	
+	private initializeGeneraters()
+	{
+		var generaters=require('./TextureGeneraters/GeneraterList');
+		for (var key in generaters) {
+			if (generaters.hasOwnProperty(key)) {
+				var element = generaters[key];
+				this.generaters.set(key,new element(this.parentRenderer));
+			}
+		}
 	}
 
 	private stageChains: RenderStageChain[] = [];
 	
-	private textureBuffers:TextureAllocationInfo={};
+	private textureBuffers:GeneraterInfo={};
 	
 	public get TextureBuffers()
 	{
 		return this.textureBuffers;
 	}
 	
-	public set TextureBuffers(val:TextureAllocationInfo)
+	public set TextureBuffers(val:GeneraterInfo)
 	{
 		this.textureBuffers=val;
 	}
 	
+	private generaters:AssociativeArray<GeneraterBase>=new AssociativeArray<GeneraterBase>();
+	
+	/**
+	 * Provides the list of texture generaters
+	 */
 	public get Generaters(){
-		return require('./TextureAllocaters/TextureAllocatorList');//TODO extendable
+		return this.generaters;
 	}
 	
+	/**
+	 * Generate all textures subscribed to TextureBuffers
+	 */
 	public generateAllTextures()
 	{
 		for(var name in this.textureBuffers)
 		{
 			var textureAllocationInfo=this.textureBuffers[name];
-			var generater=<TextureAllocatorBase>new this.Generaters[textureAllocationInfo.alocater](this.parentRenderer);
+			var generater=this.Generaters.get(textureAllocationInfo.alocater);
 			generater.generate(name,textureAllocationInfo);
 		}
 	}

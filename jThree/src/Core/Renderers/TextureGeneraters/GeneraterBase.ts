@@ -1,14 +1,14 @@
-import TextureAllocationInfoChunk = require('./TextureAllocationInfoChunk');
+import GeneraterInfoChunk = require('./GeneraterInfoChunk');
 import RendererBase = require('../RendererBase');
 import JThreeContextProxy = require('../../JThreeContextProxy');
-class TextureAllocaterBase {
+class GeneraterBase {
 	protected parentRenderer: RendererBase;
 
 	constructor(parent: RendererBase) {
 		this.parentRenderer = parent;
 	}
 
-	public generate(name:string,texInfo: TextureAllocationInfoChunk) {
+	public generate(name:string,texInfo: GeneraterInfoChunk) {
 
 	}
 	
@@ -17,4 +17,4 @@ class TextureAllocaterBase {
 	}
 }
 
-export = TextureAllocaterBase;
+export = GeneraterBase;

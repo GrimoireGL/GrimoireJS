@@ -13,6 +13,7 @@ import RB2RenderStage = require('./RenderStages/RB2RenderStage');
 import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationStage');
 import FowardRenderStage = require('./RenderStages/FowardShadingStage');
 import GrayScaleStage = require('./RenderStages/GrayScaleStage');
+import JThreeContextProxy = require('../JThreeContextProxy');
 /**
  * Provides base class feature for renderer classes.
  */
@@ -21,6 +22,7 @@ class RendererBase extends jThreeObjectWithID {
     constructor(contextManager: ContextManagerBase) {
         super();
         this.contextManager = contextManager;
+        JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("jthree.rbo.default", 512, 512);
         this.renderStageManager.StageChains.push(
             {
                 buffers: {
@@ -54,11 +56,11 @@ class RendererBase extends jThreeObjectWithID {
                 stage: new FowardRenderStage(this)
             },
             {
-                buffers:{
-                    SOURCE:"deffered.rb1",
-                    OUT:"default"
+                buffers: {
+                    SOURCE: "deffered.rb1",
+                    OUT: "default"
                 },
-                stage:new GrayScaleStage(this)
+                stage: new GrayScaleStage(this)
             }
             );
         this.renderStageManager.TextureBuffers = {
@@ -83,6 +85,7 @@ class RendererBase extends jThreeObjectWithID {
             }
         };
         this.renderStageManager.generateAllTextures();
+
     }
 
 

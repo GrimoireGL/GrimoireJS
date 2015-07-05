@@ -20,9 +20,6 @@ import ResolvedChainInfo = require('../ResolvedChainInfo');
 class RB1RenderStage extends RenderStageBase {
 
 	private rb1FBO: FBO;
-
-	private rb1RBO: RBO;
-	
 	private rb1Program:Program;
 
 	constructor(renderer: RendererBase) {
@@ -32,8 +29,8 @@ class RB1RenderStage extends RenderStageBase {
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
 		this.rb1FBO = rm.createFBO(id + ".deffered.rb1");
-		this.rb1RBO = rm.createRBO(id + ".deffered.rb1", width, height);
-		this.rb1FBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, this.rb1RBO);
+		var rbo=rm.getRBO("jthree.rbo.default");
+		this.rb1FBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
 		var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
         var fs = require('../../Shaders/Deffered/RB1.glsl');
         this.rb1Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb1","jthree.programs.rb1",vs,fs);

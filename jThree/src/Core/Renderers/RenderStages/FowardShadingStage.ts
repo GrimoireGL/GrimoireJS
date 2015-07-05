@@ -12,15 +12,13 @@ import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachme
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
 	private fbo: FBO;
-
-	private rbo: RBO;
 	constructor(renderer: RendererBase) {
 		super(renderer);
 		var context = JThreeContextProxy.getJThreeContext();
 		var rm=context.ResourceManager;
 		this.fbo=rm.createFBO(renderer.ID+"fore");
-		this.rbo=rm.createRBO(renderer.ID+"fore",512,512);
-		this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,this.rbo);
+		var rbo=rm.getRBO("jthree.rbo.default");
+		this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,rbo);
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {

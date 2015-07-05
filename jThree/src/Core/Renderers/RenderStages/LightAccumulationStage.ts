@@ -27,11 +27,9 @@ class LitghtAccumulationStage extends RenderStageBase
 {
 	
 	private rbLightFBO:FBO;
-  
-  private rblightRBO:RBO;
+ 
 	
 	private program:Program;
-	
 	constructor(renderer:RendererBase)
 	{
 		super(renderer);
@@ -40,8 +38,6 @@ class LitghtAccumulationStage extends RenderStageBase
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
 		this.rbLightFBO=rm.createFBO(id+".deffered.light");
-    this.rblightRBO=rm.createRBO(id+".deffered.light",width,height);
-    		this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,this.rblightRBO);
 	    var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
     agent.get("/LightAccumulation.glsl").end((err,res:agent.Response)=>{
           this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs,res.text);
@@ -52,8 +48,6 @@ class LitghtAccumulationStage extends RenderStageBase
 	public preBeginStage(scene:Scene,passCount:number,texs:ResolvedChainInfo)
 	{
     this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
-    this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-    this.Renderer.GLContext.Disable(GLFeatureType.CullFace);
     this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
 	}
 	

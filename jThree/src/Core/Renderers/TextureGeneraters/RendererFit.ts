@@ -1,14 +1,14 @@
-import TextureAllocationInfoChunk = require('./TextureAllocationInfoChunk');
+import GeneraterInfoChunk = require('./GeneraterInfoChunk');
 import RendererBase = require('../RendererBase');
-import TextureAllocaterBase = require('./TextureAllocaterBase');
+import GeneraterBase = require('./GeneraterBase');
 import TextureInternalFormatType = require('../../../Wrapper/TextureInternalFormatType');
 import TextureType = require('../../../Wrapper/TextureType');
-class RendererFitAllocater extends TextureAllocaterBase {
+class RendererFit extends GeneraterBase {
 	constructor(parent: RendererBase) {
 		super(parent);
 	}
 
-	public generate(name:string,texInfo: TextureAllocationInfoChunk) {
+	public generate(name:string,texInfo: GeneraterInfoChunk) {
 		var width=512,height=512;
 		var internalFormat: TextureInternalFormatType;
 		texInfo["internalFormat"] = texInfo["internalFormat"] || "RGBA";
@@ -71,4 +71,4 @@ class RendererFitAllocater extends TextureAllocaterBase {
 	}
 }
 
-export = RendererFitAllocater;
+export = RendererFit;
