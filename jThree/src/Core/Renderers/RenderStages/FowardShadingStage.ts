@@ -16,13 +16,15 @@ class FowardShadingStage extends RenderStageBase {
 		super(renderer);
 		var context = JThreeContextProxy.getJThreeContext();
 		var rm=context.ResourceManager;
-		this.fbo=rm.createFBO(renderer.ID+"fore");
+		this.fbo=rm.getFBO("jthree.fbo.default");
 		var rbo=rm.getRBO("jthree.rbo.default");
 		this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,rbo);
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		if (texs["OUT"] == null) this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,null);
+		if (texs["OUT"] == null){
+			this.fbo.getForContext(this.Renderer.ContextManager).unbind();
+		}
 		else{
 			this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
 			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits)

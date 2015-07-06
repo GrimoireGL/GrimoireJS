@@ -23,7 +23,7 @@ class DefferedDebugNode extends MaterialNodeBase {
                     var viewportTargets = loader.getNodeByQuery(v.Value);
                     if (viewportTargets.length > 0) {
                         var viewport = <ViewportNode>viewportTargets[0];
-                        context.ResourceManager.getTextureHandler(viewport.TargetViewport.ID + ".deffered." + this.attributes.getValue("target"), (v) => {
+                        context.ResourceManager.getTextureHandler(viewport.TargetViewport.ID + "." + this.attributes.getValue("target"), (v) => {
                             this.material.Texture = v;
                         });
                     }
@@ -47,7 +47,7 @@ class DefferedDebugNode extends MaterialNodeBase {
             "A":
             {
                 value: "3", converter: "number", handler: (v) => { this.material.CTA = v.Value; }
-            },
+            }
         });
 
     }

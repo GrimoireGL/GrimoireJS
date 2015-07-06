@@ -11723,23 +11723,23 @@
 	    new GomlNodeListElement('jthree.basic', __webpack_require__(72), {
 	        "RENDERER": __webpack_require__(91),
 	        "VIEWPORT": __webpack_require__(102),
-	        "SCENE": __webpack_require__(126),
+	        "SCENE": __webpack_require__(125),
 	    }),
 	    new GomlNodeListElement('jthree.materials', __webpack_require__(72), {
-	        "SOLID": __webpack_require__(128),
-	        "LAMBERT": __webpack_require__(131),
-	        "PHONG": __webpack_require__(134),
+	        "SOLID": __webpack_require__(127),
+	        "LAMBERT": __webpack_require__(130),
+	        "PHONG": __webpack_require__(133),
 	        "SPRITE": __webpack_require__(49),
-	        "DDEBUG": __webpack_require__(137),
-	        "TDEBUG": __webpack_require__(139)
+	        "DDEBUG": __webpack_require__(136),
+	        "TDEBUG": __webpack_require__(138)
 	    }),
-	    new GomlNodeListElement('jthree.sceneobject', __webpack_require__(140), {
-	        "CAMERA": __webpack_require__(141),
-	        "OCAMERA": __webpack_require__(147),
-	        "MESH": __webpack_require__(149),
-	        "OBJECT": __webpack_require__(150),
-	        "PLIGHT": __webpack_require__(151),
-	        "DLIGHT": __webpack_require__(155)
+	    new GomlNodeListElement('jthree.sceneobject', __webpack_require__(139), {
+	        "CAMERA": __webpack_require__(140),
+	        "OCAMERA": __webpack_require__(146),
+	        "MESH": __webpack_require__(148),
+	        "OBJECT": __webpack_require__(149),
+	        "PLIGHT": __webpack_require__(150),
+	        "DLIGHT": __webpack_require__(154)
 	    }),
 	    new GomlNodeListElement("jthree.components", __webpack_require__(72), {
 	        "COMPONENTS": __webpack_require__(160),
@@ -14776,12 +14776,11 @@
 	};
 	var Exceptions = __webpack_require__(8);
 	var jThreeObjectWithID = __webpack_require__(31);
-	var RenderStageManager = __webpack_require__(105);
-	var RB1RenderStage = __webpack_require__(114);
-	var RB2RenderStage = __webpack_require__(117);
+	var RenderStageManager = __webpack_require__(108);
+	var RB1RenderStage = __webpack_require__(117);
+	var RB2RenderStage = __webpack_require__(105);
 	var LightAccumulationRenderStage = __webpack_require__(118);
 	var FowardRenderStage = __webpack_require__(124);
-	var GrayScaleStage = __webpack_require__(125);
 	var JThreeContextProxy = __webpack_require__(55);
 	var RendererBase = (function (_super) {
 	    __extends(RendererBase, _super);
@@ -14790,6 +14789,7 @@
 	        this.renderStageManager = new RenderStageManager(this);
 	        this.contextManager = contextManager;
 	        JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("jthree.rbo.default", 512, 512);
+	        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO("jthree.fbo.default");
 	        this.renderStageManager.StageChains.push({
 	            buffers: {
 	                OUT: "deffered.rb1"
@@ -14806,23 +14806,23 @@
 	                RB1: "deffered.rb1",
 	                RB2: "deffered.rb2",
 	                DEPTH: "deffered.depth",
+	                DIR: "jthree.light.dir1",
 	                OUT: "deffered.light"
 	            },
 	            stage: new LightAccumulationRenderStage(this)
 	        }, {
 	            buffers: {
 	                LIGHT: "deffered.light",
-	                OUT: "deffered.rb1"
+	                OUT: "default",
 	            },
 	            stage: new FowardRenderStage(this)
-	        }, {
-	            buffers: {
-	                SOURCE: "deffered.rb1",
-	                OUT: "default"
-	            },
-	            stage: new GrayScaleStage(this)
 	        });
 	        this.renderStageManager.TextureBuffers = {
+	            "jthree.light.dir1": {
+	                generater: "rendererfit",
+	                internalFormat: "DEPTH",
+	                element: "USHORT"
+	            },
 	            "deffered.rb1": {
 	                generater: "rendererfit",
 	                internalFormat: "RGBA",
@@ -14894,9 +14894,168 @@
 /* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var RenderStageBase = __webpack_require__(106);
+	var JThreeContextProxy = __webpack_require__(55);
+	var FrameBufferAttachmentType = __webpack_require__(107);
+	var ClearTargetType = __webpack_require__(93);
+	var Matrix = __webpack_require__(59);
+	var RB2RenderStage = (function (_super) {
+	    __extends(RB2RenderStage, _super);
+	    function RB2RenderStage(renderer) {
+	        _super.call(this, renderer);
+	        var context = JThreeContextProxy.getJThreeContext();
+	        var width = 512, height = 512;
+	        var id = this.Renderer.ID;
+	        var rm = context.ResourceManager;
+	        this.rb2FBO = rm.createFBO(id + ".deffered.rb2");
+	        var vs = __webpack_require__(56);
+	        var fs = __webpack_require__(58);
+	        this.rb2Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb2", "jthree.programs.rb2", vs, fs);
+	    }
+	    RB2RenderStage.prototype.preBeginStage = function (scene, passCount, texs) {
+	        this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
+	        this.rb2FBO.getForContext(this.Renderer.ContextManager).bind();
+	        this.rb2FBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
+	        this.rb2FBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, texs["DEPTH"]);
+	        this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	    };
+	    RB2RenderStage.prototype.postEndStage = function (scene, passCount) {
+	        this.rb2FBO.getForContext(this.Renderer.ContextManager).unbind();
+	    };
+	    RB2RenderStage.prototype.render = function (scene, object, passCount) {
+	        var geometry = object.Geometry;
+	        if (!geometry)
+	            return;
+	        this.configureProgram(object);
+	        geometry.drawElements(this.Renderer.ContextManager);
+	    };
+	    RB2RenderStage.prototype.configureProgram = function (object) {
+	        var context = JThreeContextProxy.getJThreeContext();
+	        var geometry = object.Geometry;
+	        var programWrapper = this.rb2Program.getForContext(this.Renderer.ContextManager);
+	        programWrapper.useProgram();
+	        var v = object.Transformer.calculateMVPMatrix(this.Renderer);
+	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(this.Renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(this.Renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(this.Renderer.ContextManager));
+	        programWrapper.setUniformMatrix("matMVP", v);
+	        programWrapper.setUniformMatrix("matV", this.Renderer.Camera.ViewMatrix);
+	        programWrapper.setUniformMatrix("matMV", Matrix.multiply(this.Renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
+	        programWrapper.setUniform1i("texture", 0);
+	        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
+	    };
+	    RB2RenderStage.prototype.needRender = function (scene, object, passCount) {
+	        return true;
+	    };
+	    RB2RenderStage.prototype.getPassCount = function (scene) {
+	        return 1;
+	    };
+	    return RB2RenderStage;
+	})(RenderStageBase);
+	module.exports = RB2RenderStage;
+
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var JThreeObject = __webpack_require__(5);
+	var JThreeContextProxy = __webpack_require__(55);
+	var ShaderType = __webpack_require__(52);
+	var RenderStageBase = (function (_super) {
+	    __extends(RenderStageBase, _super);
+	    function RenderStageBase(renderer) {
+	        _super.call(this);
+	        this.renderer = renderer;
+	    }
+	    Object.defineProperty(RenderStageBase.prototype, "Renderer", {
+	        get: function () {
+	            return this.renderer;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RenderStageBase.prototype.preBeginStage = function (scene, passCount, texs) {
+	    };
+	    RenderStageBase.prototype.postEndStage = function (scene, passCount, texs) {
+	    };
+	    RenderStageBase.prototype.render = function (scene, object, passCount, texs) {
+	    };
+	    RenderStageBase.prototype.needRender = function (scene, object, passCount) {
+	        return false;
+	    };
+	    RenderStageBase.prototype.getPassCount = function (scene) {
+	        return 1;
+	    };
+	    Object.defineProperty(RenderStageBase.prototype, "TargetGeometry", {
+	        get: function () {
+	            return "scene";
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RenderStageBase.prototype.loadProgram = function (vsid, fsid, pid, vscode, fscode) {
+	        var jThreeContext = JThreeContextProxy.getJThreeContext();
+	        var rm = jThreeContext.ResourceManager;
+	        var vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
+	        var fShader = rm.createShader(fsid, fscode, ShaderType.FragmentShader);
+	        vShader.loadAll();
+	        fShader.loadAll();
+	        return rm.createProgram(pid, [vShader, fShader]);
+	    };
+	    return RenderStageBase;
+	})(JThreeObject);
+	module.exports = RenderStageBase;
+
+
+/***/ },
+/* 107 */
+/***/ function(module, exports) {
+
+	var FrameBufferAttachmentType;
+	(function (FrameBufferAttachmentType) {
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment0"] = 36064] = "ColorAttachment0";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment1"] = 36065] = "ColorAttachment1";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment2"] = 36066] = "ColorAttachment2";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment3"] = 36067] = "ColorAttachment3";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment4"] = 36068] = "ColorAttachment4";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment5"] = 36069] = "ColorAttachment5";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment6"] = 36070] = "ColorAttachment6";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment7"] = 36071] = "ColorAttachment7";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment8"] = 36072] = "ColorAttachment8";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment9"] = 36073] = "ColorAttachment9";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment10"] = 36074] = "ColorAttachment10";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment11"] = 36075] = "ColorAttachment11";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment12"] = 36076] = "ColorAttachment12";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment13"] = 36077] = "ColorAttachment13";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment14"] = 36078] = "ColorAttachment14";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment15"] = 36079] = "ColorAttachment15";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["DepthAttachment"] = 36096] = "DepthAttachment";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["StencilAttachment"] = 36128] = "StencilAttachment";
+	    FrameBufferAttachmentType[FrameBufferAttachmentType["DepthStencilAttachment"] = 33306] = "DepthStencilAttachment";
+	})(FrameBufferAttachmentType || (FrameBufferAttachmentType = {}));
+	module.exports = FrameBufferAttachmentType;
+
+
+/***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var AssociativeArray = __webpack_require__(11);
 	var JThreeContextProxy = __webpack_require__(55);
-	var Mesh = __webpack_require__(106);
+	var Mesh = __webpack_require__(109);
 	var QuadGeometry = __webpack_require__(90);
 	var RenderStageManager = (function () {
 	    function RenderStageManager(parent) {
@@ -14908,7 +15067,7 @@
 	        this.initializeGeneraters();
 	    }
 	    RenderStageManager.prototype.initializeGeneraters = function () {
-	        var generaters = __webpack_require__(109);
+	        var generaters = __webpack_require__(112);
 	        for (var key in generaters) {
 	            if (generaters.hasOwnProperty(key)) {
 	                var element = generaters[key];
@@ -14992,7 +15151,7 @@
 
 
 /***/ },
-/* 106 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15001,7 +15160,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObject = __webpack_require__(107);
+	var SceneObject = __webpack_require__(110);
 	var Mesh = (function (_super) {
 	    __extends(Mesh, _super);
 	    function Mesh(geometry, mat) {
@@ -15017,7 +15176,7 @@
 
 
 /***/ },
-/* 107 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15028,7 +15187,7 @@
 	};
 	var JThreeObjectWithID = __webpack_require__(31);
 	var JThreeCollection = __webpack_require__(67);
-	var Transformer = __webpack_require__(108);
+	var Transformer = __webpack_require__(111);
 	var AssociativeArray = __webpack_require__(11);
 	var SceneObject = (function (_super) {
 	    __extends(SceneObject, _super);
@@ -15131,7 +15290,7 @@
 
 
 /***/ },
-/* 108 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15230,16 +15389,16 @@
 
 
 /***/ },
-/* 109 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    "rendererfit": __webpack_require__(110)
+	    "rendererfit": __webpack_require__(113)
 	};
 
 
 /***/ },
-/* 110 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15248,9 +15407,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var GeneraterBase = __webpack_require__(111);
-	var TextureInternalFormatType = __webpack_require__(112);
-	var TextureType = __webpack_require__(113);
+	var GeneraterBase = __webpack_require__(114);
+	var TextureInternalFormatType = __webpack_require__(115);
+	var TextureType = __webpack_require__(116);
 	var RendererFit = (function (_super) {
 	    __extends(RendererFit, _super);
 	    function RendererFit(parent) {
@@ -15323,7 +15482,7 @@
 
 
 /***/ },
-/* 111 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var JThreeContextProxy = __webpack_require__(55);
@@ -15346,7 +15505,7 @@
 
 
 /***/ },
-/* 112 */
+/* 115 */
 /***/ function(module, exports) {
 
 	var TextureInternalFormatType;
@@ -15363,7 +15522,7 @@
 
 
 /***/ },
-/* 113 */
+/* 116 */
 /***/ function(module, exports) {
 
 	var TextureType;
@@ -15381,7 +15540,7 @@
 
 
 /***/ },
-/* 114 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -15390,9 +15549,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var RenderStageBase = __webpack_require__(115);
+	var RenderStageBase = __webpack_require__(106);
 	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(116);
+	var FrameBufferAttachmentType = __webpack_require__(107);
 	var ClearTargetType = __webpack_require__(93);
 	var Matrix = __webpack_require__(59);
 	var RB1RenderStage = (function (_super) {
@@ -15454,165 +15613,6 @@
 
 
 /***/ },
-/* 115 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var JThreeObject = __webpack_require__(5);
-	var JThreeContextProxy = __webpack_require__(55);
-	var ShaderType = __webpack_require__(52);
-	var RenderStageBase = (function (_super) {
-	    __extends(RenderStageBase, _super);
-	    function RenderStageBase(renderer) {
-	        _super.call(this);
-	        this.renderer = renderer;
-	    }
-	    Object.defineProperty(RenderStageBase.prototype, "Renderer", {
-	        get: function () {
-	            return this.renderer;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    RenderStageBase.prototype.preBeginStage = function (scene, passCount, texs) {
-	    };
-	    RenderStageBase.prototype.postEndStage = function (scene, passCount, texs) {
-	    };
-	    RenderStageBase.prototype.render = function (scene, object, passCount, texs) {
-	    };
-	    RenderStageBase.prototype.needRender = function (scene, object, passCount) {
-	        return false;
-	    };
-	    RenderStageBase.prototype.getPassCount = function (scene) {
-	        return 1;
-	    };
-	    Object.defineProperty(RenderStageBase.prototype, "TargetGeometry", {
-	        get: function () {
-	            return "scene";
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    RenderStageBase.prototype.loadProgram = function (vsid, fsid, pid, vscode, fscode) {
-	        var jThreeContext = JThreeContextProxy.getJThreeContext();
-	        var rm = jThreeContext.ResourceManager;
-	        var vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
-	        var fShader = rm.createShader(fsid, fscode, ShaderType.FragmentShader);
-	        vShader.loadAll();
-	        fShader.loadAll();
-	        return rm.createProgram(pid, [vShader, fShader]);
-	    };
-	    return RenderStageBase;
-	})(JThreeObject);
-	module.exports = RenderStageBase;
-
-
-/***/ },
-/* 116 */
-/***/ function(module, exports) {
-
-	var FrameBufferAttachmentType;
-	(function (FrameBufferAttachmentType) {
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment0"] = 36064] = "ColorAttachment0";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment1"] = 36065] = "ColorAttachment1";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment2"] = 36066] = "ColorAttachment2";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment3"] = 36067] = "ColorAttachment3";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment4"] = 36068] = "ColorAttachment4";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment5"] = 36069] = "ColorAttachment5";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment6"] = 36070] = "ColorAttachment6";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment7"] = 36071] = "ColorAttachment7";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment8"] = 36072] = "ColorAttachment8";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment9"] = 36073] = "ColorAttachment9";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment10"] = 36074] = "ColorAttachment10";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment11"] = 36075] = "ColorAttachment11";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment12"] = 36076] = "ColorAttachment12";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment13"] = 36077] = "ColorAttachment13";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment14"] = 36078] = "ColorAttachment14";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["ColorAttachment15"] = 36079] = "ColorAttachment15";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["DepthAttachment"] = 36096] = "DepthAttachment";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["StencilAttachment"] = 36128] = "StencilAttachment";
-	    FrameBufferAttachmentType[FrameBufferAttachmentType["DepthStencilAttachment"] = 33306] = "DepthStencilAttachment";
-	})(FrameBufferAttachmentType || (FrameBufferAttachmentType = {}));
-	module.exports = FrameBufferAttachmentType;
-
-
-/***/ },
-/* 117 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var RenderStageBase = __webpack_require__(115);
-	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(116);
-	var ClearTargetType = __webpack_require__(93);
-	var Matrix = __webpack_require__(59);
-	var RB2RenderStage = (function (_super) {
-	    __extends(RB2RenderStage, _super);
-	    function RB2RenderStage(renderer) {
-	        _super.call(this, renderer);
-	        var context = JThreeContextProxy.getJThreeContext();
-	        var width = 512, height = 512;
-	        var id = this.Renderer.ID;
-	        var rm = context.ResourceManager;
-	        this.rb2FBO = rm.createFBO(id + ".deffered.rb2");
-	        var vs = __webpack_require__(56);
-	        var fs = __webpack_require__(58);
-	        this.rb2Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb2", "jthree.programs.rb2", vs, fs);
-	    }
-	    RB2RenderStage.prototype.preBeginStage = function (scene, passCount, texs) {
-	        this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).bind();
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, texs["DEPTH"]);
-	        this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-	    };
-	    RB2RenderStage.prototype.postEndStage = function (scene, passCount) {
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).unbind();
-	    };
-	    RB2RenderStage.prototype.render = function (scene, object, passCount) {
-	        var geometry = object.Geometry;
-	        if (!geometry)
-	            return;
-	        this.configureProgram(object);
-	        geometry.drawElements(this.Renderer.ContextManager);
-	    };
-	    RB2RenderStage.prototype.configureProgram = function (object) {
-	        var context = JThreeContextProxy.getJThreeContext();
-	        var geometry = object.Geometry;
-	        var programWrapper = this.rb2Program.getForContext(this.Renderer.ContextManager);
-	        programWrapper.useProgram();
-	        var v = object.Transformer.calculateMVPMatrix(this.Renderer);
-	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(this.Renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(this.Renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(this.Renderer.ContextManager));
-	        programWrapper.setUniformMatrix("matMVP", v);
-	        programWrapper.setUniformMatrix("matV", this.Renderer.Camera.ViewMatrix);
-	        programWrapper.setUniformMatrix("matMV", Matrix.multiply(this.Renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-	        programWrapper.setUniform1i("texture", 0);
-	        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
-	    };
-	    RB2RenderStage.prototype.needRender = function (scene, object, passCount) {
-	        return true;
-	    };
-	    RB2RenderStage.prototype.getPassCount = function (scene) {
-	        return 1;
-	    };
-	    return RB2RenderStage;
-	})(RenderStageBase);
-	module.exports = RB2RenderStage;
-
-
-/***/ },
 /* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15622,10 +15622,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var RenderStageBase = __webpack_require__(115);
+	var RenderStageBase = __webpack_require__(106);
 	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(116);
-	var Mesh = __webpack_require__(106);
+	var FrameBufferAttachmentType = __webpack_require__(107);
+	var Mesh = __webpack_require__(109);
 	var Matrix = __webpack_require__(59);
 	var Vector3 = __webpack_require__(24);
 	var Vector2 = __webpack_require__(119);
@@ -15639,7 +15639,7 @@
 	        var width = 512, height = 512;
 	        var id = this.Renderer.ID;
 	        var rm = context.ResourceManager;
-	        this.rbLightFBO = rm.createFBO(id + ".deffered.light");
+	        this.rbLightFBO = rm.getFBO("jthree.fbo.default");
 	        var vs = __webpack_require__(123);
 	        agent.get("/LightAccumulation.glsl").end(function (err, res) {
 	            _this.program = _this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);
@@ -15703,6 +15703,7 @@
 	        programWrapper.setUniformMatrix("matIP", ip);
 	        programWrapper.setUniformMatrix("matTV", Matrix.inverse(renderer.Camera.ViewMatrix));
 	        programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());
+	        programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
 	        programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(2, 0.4, -2)));
 	        programWrapper.setUniform1f("time", (new Date()).getMilliseconds() + 1000 * (new Date().getSeconds()));
 	        programWrapper.setUniform1f("xtest", new Number(document.getElementsByName("x").item(0).value));
@@ -17177,9 +17178,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var RenderStageBase = __webpack_require__(115);
+	var RenderStageBase = __webpack_require__(106);
 	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(116);
+	var FrameBufferAttachmentType = __webpack_require__(107);
 	var ClearTargetType = __webpack_require__(93);
 	var FowardShadingStage = (function (_super) {
 	    __extends(FowardShadingStage, _super);
@@ -17187,13 +17188,14 @@
 	        _super.call(this, renderer);
 	        var context = JThreeContextProxy.getJThreeContext();
 	        var rm = context.ResourceManager;
-	        this.fbo = rm.createFBO(renderer.ID + "fore");
+	        this.fbo = rm.getFBO("jthree.fbo.default");
 	        var rbo = rm.getRBO("jthree.rbo.default");
 	        this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
 	    }
 	    FowardShadingStage.prototype.preBeginStage = function (scene, passCount, texs) {
-	        if (texs["OUT"] == null)
-	            this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, null);
+	        if (texs["OUT"] == null) {
+	            this.fbo.getForContext(this.Renderer.ContextManager).unbind();
+	        }
 	        else {
 	            this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
 	            this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
@@ -17227,86 +17229,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var RenderStageBase = __webpack_require__(115);
-	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(116);
-	var Mesh = __webpack_require__(106);
-	var Matrix = __webpack_require__(59);
-	var agent = __webpack_require__(120);
-	var LitghtAccumulationStage = (function (_super) {
-	    __extends(LitghtAccumulationStage, _super);
-	    function LitghtAccumulationStage(renderer) {
-	        var _this = this;
-	        _super.call(this, renderer);
-	        var context = JThreeContextProxy.getJThreeContext();
-	        var width = 512, height = 512;
-	        var id = this.Renderer.ID;
-	        var rm = context.ResourceManager;
-	        this.rbLightFBO = rm.createFBO(id + ".post.gray");
-	        this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rm.getRBO("jthree.rbo.default"));
-	        var vs = __webpack_require__(123);
-	        agent.get("/GrayScale.glsl").end(function (err, res) {
-	            _this.program = _this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.post.gray", "jthree.programs.post.gray", vs, res.text);
-	        });
-	    }
-	    LitghtAccumulationStage.prototype.preBeginStage = function (scene, passCount, texs) {
-	        if (texs["OUT"] == null) {
-	            this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
-	        }
-	        else
-	            this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
-	    };
-	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
-	    };
-	    LitghtAccumulationStage.prototype.render = function (scene, object, passCount, texs) {
-	        var geometry = object.Geometry;
-	        if (!geometry || !this.program)
-	            return;
-	        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
-	        geometry.drawElements(this.Renderer.ContextManager);
-	        this.Renderer.GLContext.Flush();
-	    };
-	    LitghtAccumulationStage.prototype.configureMaterial = function (scene, renderer, object, texs) {
-	        var geometry = object.Geometry;
-	        var programWrapper = this.program.getForContext(renderer.ContextManager);
-	        programWrapper.useProgram();
-	        var jThreeContext = JThreeContextProxy.getJThreeContext();
-	        var resourceManager = jThreeContext.ResourceManager;
-	        var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
-	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.registerTexture(renderer, texs["SOURCE"], 0, "source");
-	    };
-	    LitghtAccumulationStage.prototype.needRender = function (scene, object, passCount) {
-	        return true;
-	    };
-	    LitghtAccumulationStage.prototype.getPassCount = function (scene) {
-	        return 1;
-	    };
-	    Object.defineProperty(LitghtAccumulationStage.prototype, "TargetGeometry", {
-	        get: function () {
-	            return "quad";
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return LitghtAccumulationStage;
-	})(RenderStageBase);
-	module.exports = LitghtAccumulationStage;
-
-
-/***/ },
-/* 126 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
 	var GomlTreeNodeBase = __webpack_require__(65);
-	var Scene = __webpack_require__(127);
+	var Scene = __webpack_require__(126);
 	var JThreeContextProxy = __webpack_require__(55);
 	var SceneNode = (function (_super) {
 	    __extends(SceneNode, _super);
@@ -17324,7 +17248,7 @@
 
 
 /***/ },
-/* 127 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17334,6 +17258,7 @@
 	    d.prototype = new __();
 	};
 	var jThreeObjectWithID = __webpack_require__(31);
+	var JThreeEvent = __webpack_require__(12);
 	var AssociativeArray = __webpack_require__(11);
 	var MaterialObjectPair = (function () {
 	    function MaterialObjectPair(material, targetObject) {
@@ -17367,6 +17292,7 @@
 	    __extends(Scene, _super);
 	    function Scene() {
 	        _super.call(this);
+	        this.rendererChanged = new JThreeEvent();
 	        this.renderers = [];
 	        this.renderPairs = [];
 	        this.sceneObjects = [];
@@ -17390,7 +17316,18 @@
 	    };
 	    Scene.prototype.addRenderer = function (renderer) {
 	        this.renderers.push(renderer);
+	        this.rendererChanged.fire(this, renderer);
 	    };
+	    Scene.prototype.rendererAdded = function (act) {
+	        this.rendererChanged.addListerner(act);
+	    };
+	    Object.defineProperty(Scene.prototype, "Renderers", {
+	        get: function () {
+	            return this.renderers;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Scene.prototype.getLights = function (alias) {
 	        var lights = this.lights.get(alias);
 	        if (!lights)
@@ -17455,7 +17392,7 @@
 
 
 /***/ },
-/* 128 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17464,7 +17401,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SolidColor = __webpack_require__(129);
+	var SolidColor = __webpack_require__(128);
 	var MaterialNodeBase = __webpack_require__(64);
 	var SolidColorNode = (function (_super) {
 	    __extends(SolidColorNode, _super);
@@ -17490,7 +17427,7 @@
 
 
 /***/ },
-/* 129 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17510,7 +17447,7 @@
 	        this.color = Color4.parseColor('#F0F');
 	        var jThreeContext = JThreeContextProxy.getJThreeContext();
 	        var vs = __webpack_require__(56);
-	        var fs = __webpack_require__(130);
+	        var fs = __webpack_require__(129);
 	        this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.solidcolor", "jthree.programs.solidcolor", vs, fs);
 	        this.setLoaded();
 	    }
@@ -17544,13 +17481,13 @@
 
 
 /***/ },
-/* 130 */
+/* 129 */
 /***/ function(module, exports) {
 
 	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\n\r\nuniform vec4 u_color;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nvoid main(void){\r\n  gl_FragColor = u_color;\r\n}\r\n"
 
 /***/ },
-/* 131 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17559,7 +17496,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Lambert = __webpack_require__(132);
+	var Lambert = __webpack_require__(131);
 	var MaterialNodeBase = __webpack_require__(64);
 	var LambertNode = (function (_super) {
 	    __extends(LambertNode, _super);
@@ -17586,7 +17523,7 @@
 
 
 /***/ },
-/* 132 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17605,7 +17542,7 @@
 	        _super.call(this);
 	        this.color = Color4.parseColor('#F0F');
 	        var vs = __webpack_require__(56);
-	        var fs = __webpack_require__(133);
+	        var fs = __webpack_require__(132);
 	        this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.lambert", "jthree.programs.lambert", vs, fs);
 	        this.setLoaded();
 	    }
@@ -17641,13 +17578,13 @@
 
 
 /***/ },
-/* 133 */
+/* 132 */
 /***/ function(module, exports) {
 
 	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nuniform vec4 u_color;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\n\r\nvoid main(void){\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = u_color;\r\n  gl_FragColor.rgb*=brightness;\r\n}\r\n"
 
 /***/ },
-/* 134 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17656,7 +17593,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Phong = __webpack_require__(135);
+	var Phong = __webpack_require__(134);
 	var MaterialNodeBase = __webpack_require__(64);
 	var JThreeContextProxy = __webpack_require__(55);
 	var PhongNode = (function (_super) {
@@ -17700,7 +17637,7 @@
 
 
 /***/ },
-/* 135 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17730,7 +17667,7 @@
 	        this.specularCoefficient = 10;
 	        var jThreeContext = JThreeContextProxy.getJThreeContext();
 	        var vs = __webpack_require__(56);
-	        var fs = __webpack_require__(136);
+	        var fs = __webpack_require__(135);
 	        agent.get("http://localhost:8080/Phong.glsl").end(function (err, res) {
 	            _this.program = _this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, res.text);
 	            _this.setLoaded();
@@ -17824,13 +17761,13 @@
 
 
 /***/ },
-/* 136 */
+/* 135 */
 /***/ function(module, exports) {
 
 	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\n\r\nuniform vec4 u_diffuse;\r\nuniform vec4 u_specular;\r\nuniform vec4 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\n{\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\n}\n\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  //calculate light vector in view space\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = texture2D(u_sampler,adjuv);\r\n  gl_FragColor.rgb*=brightness;\r\n  //half vector in view space\r\n  vec3 hv=normalize(dlDir+vec3(0,0,1));\r\n  float spBrightness=pow(dot(hv,v_normal),u_specular.a);\r\n  gl_FragColor.rgb+=u_ambient.rgb;\r\n  gl_FragColor.rgb+=u_specular.rgb*spBrightness;\r\n  //calculate light uv\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgb=texture2D(u_light,lightUV).xyz;\r\n}\r\n"
 
 /***/ },
-/* 137 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17839,7 +17776,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var DebugSprite = __webpack_require__(138);
+	var DebugSprite = __webpack_require__(137);
 	var MaterialNodeBase = __webpack_require__(64);
 	var JThreeContextProxy = __webpack_require__(55);
 	var DefferedDebugNode = (function (_super) {
@@ -17857,7 +17794,7 @@
 	                    var viewportTargets = loader.getNodeByQuery(v.Value);
 	                    if (viewportTargets.length > 0) {
 	                        var viewport = viewportTargets[0];
-	                        context.ResourceManager.getTextureHandler(viewport.TargetViewport.ID + ".deffered." + _this.attributes.getValue("target"), function (v) {
+	                        context.ResourceManager.getTextureHandler(viewport.TargetViewport.ID + "." + _this.attributes.getValue("target"), function (v) {
 	                            _this.material.Texture = v;
 	                        });
 	                    }
@@ -17874,7 +17811,7 @@
 	            },
 	            "A": {
 	                value: "3", converter: "number", handler: function (v) { _this.material.CTA = v.Value; }
-	            },
+	            }
 	        });
 	    }
 	    DefferedDebugNode.prototype.ConstructMaterial = function () {
@@ -17890,7 +17827,7 @@
 
 
 /***/ },
-/* 138 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17918,7 +17855,7 @@
 
 
 /***/ },
-/* 139 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -17927,7 +17864,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var DebugSprite = __webpack_require__(138);
+	var DebugSprite = __webpack_require__(137);
 	var MaterialNodeBase = __webpack_require__(64);
 	var JThreeContextProxy = __webpack_require__(55);
 	var TextureDebugNode = (function (_super) {
@@ -17972,7 +17909,7 @@
 
 
 /***/ },
-/* 140 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18015,7 +17952,7 @@
 
 
 /***/ },
-/* 141 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18024,8 +17961,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var PerspectiveCamera = __webpack_require__(142);
-	var GomlTreeCameraNodeBase = __webpack_require__(145);
+	var PerspectiveCamera = __webpack_require__(141);
+	var GomlTreeCameraNodeBase = __webpack_require__(144);
 	var GomlTreeCameraNode = (function (_super) {
 	    __extends(GomlTreeCameraNode, _super);
 	    function GomlTreeCameraNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18097,7 +18034,7 @@
 
 
 /***/ },
-/* 142 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18106,7 +18043,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ViewCamera = __webpack_require__(143);
+	var ViewCamera = __webpack_require__(142);
 	var Matrix = __webpack_require__(59);
 	var PerspectiveCamera = (function (_super) {
 	    __extends(PerspectiveCamera, _super);
@@ -18177,7 +18114,7 @@
 
 
 /***/ },
-/* 143 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18186,7 +18123,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var Camera = __webpack_require__(144);
+	var Camera = __webpack_require__(143);
 	var Vector3 = __webpack_require__(24);
 	var Matrix = __webpack_require__(59);
 	var ViewCameraBase = (function (_super) {
@@ -18255,7 +18192,7 @@
 
 
 /***/ },
-/* 144 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18264,7 +18201,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObject = __webpack_require__(107);
+	var SceneObject = __webpack_require__(110);
 	var Exceptions = __webpack_require__(8);
 	var Camera = (function (_super) {
 	    __extends(Camera, _super);
@@ -18324,7 +18261,7 @@
 
 
 /***/ },
-/* 145 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18334,7 +18271,7 @@
 	    d.prototype = new __();
 	};
 	var JThreeID = __webpack_require__(32);
-	var SceneObjectNodeBase = __webpack_require__(146);
+	var SceneObjectNodeBase = __webpack_require__(145);
 	var GomlTreeCameraNodeBase = (function (_super) {
 	    __extends(GomlTreeCameraNodeBase, _super);
 	    function GomlTreeCameraNodeBase(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18376,7 +18313,7 @@
 
 
 /***/ },
-/* 146 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18478,7 +18415,7 @@
 
 
 /***/ },
-/* 147 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18487,8 +18424,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var OrthoCamera = __webpack_require__(148);
-	var GomlTreeCameraNodeBase = __webpack_require__(145);
+	var OrthoCamera = __webpack_require__(147);
+	var GomlTreeCameraNodeBase = __webpack_require__(144);
 	var OrthoCameraNode = (function (_super) {
 	    __extends(OrthoCameraNode, _super);
 	    function OrthoCameraNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18556,7 +18493,7 @@
 
 
 /***/ },
-/* 148 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18565,7 +18502,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ViewCamera = __webpack_require__(143);
+	var ViewCamera = __webpack_require__(142);
 	var Matrix = __webpack_require__(59);
 	var OrthoCamera = (function (_super) {
 	    __extends(OrthoCamera, _super);
@@ -18655,7 +18592,7 @@
 
 
 /***/ },
-/* 149 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18664,9 +18601,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObjectNodeBase = __webpack_require__(146);
-	var Mesh = __webpack_require__(106);
-	var SolidColor = __webpack_require__(129);
+	var SceneObjectNodeBase = __webpack_require__(145);
+	var Mesh = __webpack_require__(109);
+	var SolidColor = __webpack_require__(128);
 	var GomlTreeMeshNode = (function (_super) {
 	    __extends(GomlTreeMeshNode, _super);
 	    function GomlTreeMeshNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18706,7 +18643,7 @@
 
 
 /***/ },
-/* 150 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18715,8 +18652,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObjectNodeBase = __webpack_require__(146);
-	var Mesh = __webpack_require__(106);
+	var SceneObjectNodeBase = __webpack_require__(145);
+	var Mesh = __webpack_require__(109);
 	var ObjectNode = (function (_super) {
 	    __extends(ObjectNode, _super);
 	    function ObjectNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18743,7 +18680,7 @@
 
 
 /***/ },
-/* 151 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18752,8 +18689,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var LightNodeBase = __webpack_require__(152);
-	var PointLight = __webpack_require__(153);
+	var LightNodeBase = __webpack_require__(151);
+	var PointLight = __webpack_require__(152);
 	var PointLightNode = (function (_super) {
 	    __extends(PointLightNode, _super);
 	    function PointLightNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18772,7 +18709,7 @@
 	        });
 	    }
 	    PointLightNode.prototype.constructLight = function () {
-	        this.targetLight = new PointLight();
+	        this.targetLight = new PointLight(this.ContainedSceneNode.targetScene);
 	        return this.targetLight;
 	    };
 	    return PointLightNode;
@@ -18781,7 +18718,7 @@
 
 
 /***/ },
-/* 152 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18790,7 +18727,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObjectNodeBase = __webpack_require__(146);
+	var SceneObjectNodeBase = __webpack_require__(145);
 	var LightNodeBase = (function (_super) {
 	    __extends(LightNodeBase, _super);
 	    function LightNodeBase(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18818,7 +18755,7 @@
 
 
 /***/ },
-/* 153 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18827,11 +18764,11 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var LightBase = __webpack_require__(154);
+	var LightBase = __webpack_require__(153);
 	var PointLight = (function (_super) {
 	    __extends(PointLight, _super);
-	    function PointLight() {
-	        _super.call(this);
+	    function PointLight(scene) {
+	        _super.call(this, scene);
 	        this.distance = 0.0;
 	        this.intensity = 1.0;
 	        this.decay = 1;
@@ -18879,7 +18816,7 @@
 
 
 /***/ },
-/* 154 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18888,11 +18825,12 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var SceneObject = __webpack_require__(107);
+	var SceneObject = __webpack_require__(110);
 	var LightBase = (function (_super) {
 	    __extends(LightBase, _super);
-	    function LightBase() {
+	    function LightBase(scene) {
 	        _super.call(this);
+	        this.scene = scene;
 	    }
 	    Object.defineProperty(LightBase.prototype, "Color", {
 	        get: function () {
@@ -18930,7 +18868,7 @@
 
 
 /***/ },
-/* 155 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18939,8 +18877,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var LightNodeBase = __webpack_require__(152);
-	var DirectionalLight = __webpack_require__(156);
+	var LightNodeBase = __webpack_require__(151);
+	var DirectionalLight = __webpack_require__(155);
 	var DirectionalLightNode = (function (_super) {
 	    __extends(DirectionalLightNode, _super);
 	    function DirectionalLightNode(elem, loader, parent, parentSceneNode, parentObject) {
@@ -18953,7 +18891,7 @@
 	        });
 	    }
 	    DirectionalLightNode.prototype.constructLight = function () {
-	        this.targetLight = new DirectionalLight();
+	        this.targetLight = new DirectionalLight(this.ContainedSceneNode.targetScene);
 	        return this.targetLight;
 	    };
 	    return DirectionalLightNode;
@@ -18962,7 +18900,7 @@
 
 
 /***/ },
-/* 156 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -18972,30 +18910,47 @@
 	    d.prototype = new __();
 	};
 	var Vector3 = __webpack_require__(24);
-	var LightBase = __webpack_require__(154);
-	var JThreeContextProxy = __webpack_require__(55);
-	var TextureFormat = __webpack_require__(112);
-	var ElementFormat = __webpack_require__(113);
-	var FrameBufferAttachmentType = __webpack_require__(116);
-	var DepthMaterial = __webpack_require__(157);
+	var LightBase = __webpack_require__(153);
 	var Matrix = __webpack_require__(59);
-	var ClearTargetType = __webpack_require__(93);
+	var DepthRenderStage = __webpack_require__(156);
 	var DirectionalLight = (function (_super) {
 	    __extends(DirectionalLight, _super);
-	    function DirectionalLight() {
-	        _super.call(this);
+	    function DirectionalLight(scene) {
+	        var _this = this;
+	        _super.call(this, scene);
 	        this.intensity = 1.0;
-	        this.depthMat = new DepthMaterial();
-	        var width = 512, height = 512;
-	        var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
-	        this.shadowMapFBO = rm.createFBO("directional.test");
-	        this.shadowMapColTex = rm.createTexture("directional.testcol", width, height);
-	        this.shadowMapTexture = rm.createTexture("directional.test", width, height, TextureFormat.DEPTH_COMPONENT, ElementFormat.UnsignedShort);
-	        this.depthMat.VP = Matrix.multiply(Matrix.ortho(-2.828, 2.828, -1, 1, 0, 5.656), Matrix.lookAt(new Vector3(2, 0.4, -2), new Vector3(0, 0, -1), new Vector3(0, 1, 0)));
+	        this.targetStages = [];
+	        this.vp = Matrix.multiply(Matrix.ortho(-2.828, 2.828, -1, 1, 0, 5.656), Matrix.lookAt(new Vector3(2, 0.4, -2), new Vector3(0, 0, -1), new Vector3(0, 1, 0)));
+	        scene.Renderers.forEach(function (v) {
+	            var stage = new DepthRenderStage(v);
+	            _this.targetStages.push(stage);
+	            v.RenderStageManager.StageChains.unshift({
+	                buffers: {
+	                    "OUT": "jthree.light.dir1"
+	                },
+	                stage: stage
+	            });
+	            ;
+	        });
+	        scene.rendererAdded(function (o, v) {
+	            var stage = new DepthRenderStage(v);
+	            _this.targetStages.push(stage);
+	            v.RenderStageManager.StageChains.unshift({
+	                buffers: {
+	                    "OUT": "jthree.light.dir1"
+	                },
+	                stage: stage
+	            });
+	            ;
+	            stage.VP = _this.vp;
+	        });
+	        this.targetStages.forEach(function (v) {
+	            v.VP = _this.vp;
+	        });
 	    }
 	    Object.defineProperty(DirectionalLight.prototype, "VP", {
 	        get: function () {
-	            return this.depthMat.VP;
+	            return this.vp;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -19017,25 +18972,70 @@
 	        enumerable: true,
 	        configurable: true
 	    });
-	    DirectionalLight.prototype.beforeRender = function (target) {
-	        this.shadowMapFBO.getForContext(target).attachTexture(FrameBufferAttachmentType.ColorAttachment0, this.shadowMapColTex);
-	        this.shadowMapFBO.getForContext(target).attachTexture(FrameBufferAttachmentType.DepthAttachment, this.shadowMapTexture);
-	        this.shadowMapFBO.getForContext(target).bind();
-	        target.Context.ClearColor(0, 0, 0, 0);
-	        target.Context.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-	    };
-	    DirectionalLight.prototype.afterRender = function (target) {
-	        this.shadowMapFBO.getForContext(target).unbind();
-	    };
-	    DirectionalLight.prototype.drawBuffer = function (renderer, scene, object, material, passCount) {
-	        if (!object.Geometry)
-	            return;
-	        this.depthMat.configureMaterial(scene, renderer, object);
-	        object.Geometry.drawElements(renderer.ContextManager);
-	    };
 	    return DirectionalLight;
 	})(LightBase);
 	module.exports = DirectionalLight;
+
+
+/***/ },
+/* 156 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var RenderStageBase = __webpack_require__(106);
+	var JThreeContextProxy = __webpack_require__(55);
+	var FrameBufferAttachmentType = __webpack_require__(107);
+	var ClearTargetType = __webpack_require__(93);
+	var DepthMaterial = __webpack_require__(157);
+	var DirectionalLightDepthStage = (function (_super) {
+	    __extends(DirectionalLightDepthStage, _super);
+	    function DirectionalLightDepthStage(renderer) {
+	        _super.call(this, renderer);
+	        this.mat = new DepthMaterial();
+	        var context = JThreeContextProxy.getJThreeContext();
+	        var rm = context.ResourceManager;
+	        this.fbo = rm.createFBO(renderer.ID + "depth");
+	        var rbo = rm.getRBO("jthree.rbo.default");
+	        this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
+	        var tex = rm.createTexture("test.direct", 512, 512);
+	        this.fbo.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, tex);
+	    }
+	    Object.defineProperty(DirectionalLightDepthStage.prototype, "VP", {
+	        get: function () {
+	            return this.mat.VP;
+	        },
+	        set: function (mat) {
+	            this.mat.VP = mat;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    DirectionalLightDepthStage.prototype.preBeginStage = function (scene, passCount, texs) {
+	        if (texs["OUT"] == null)
+	            this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, null);
+	        else {
+	            this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, texs["OUT"]);
+	            this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        }
+	    };
+	    DirectionalLightDepthStage.prototype.render = function (scene, object, passCount, texs) {
+	        var geometry = object.Geometry;
+	        if (!geometry)
+	            return;
+	        this.mat.configureMaterial(scene, this.Renderer, object, texs);
+	        geometry.drawElements(this.Renderer.ContextManager);
+	    };
+	    DirectionalLightDepthStage.prototype.needRender = function (scene, object, passCount) {
+	        return true;
+	    };
+	    return DirectionalLightDepthStage;
+	})(RenderStageBase);
+	module.exports = DirectionalLightDepthStage;
 
 
 /***/ },
@@ -19070,7 +19070,7 @@
 	        enumerable: true,
 	        configurable: true
 	    });
-	    DepthMaterial.prototype.configureMaterial = function (scene, renderer, object) {
+	    DepthMaterial.prototype.configureMaterial = function (scene, renderer, object, texs) {
 	        renderer.GLContext.Disable(GLFeatureType.CullFace);
 	        var geometry = object.Geometry;
 	        var programWrapper = this.program.getForContext(renderer.ContextManager);
@@ -19485,8 +19485,8 @@
 	var ResourceArray = __webpack_require__(190);
 	var FBO = __webpack_require__(191);
 	var BufferTexture = __webpack_require__(193);
-	var TextureFormat = __webpack_require__(112);
-	var ElementFormat = __webpack_require__(113);
+	var TextureFormat = __webpack_require__(115);
+	var ElementFormat = __webpack_require__(116);
 	var ResourceManager = (function (_super) {
 	    __extends(ResourceManager, _super);
 	    function ResourceManager() {
@@ -19567,6 +19567,9 @@
 	            fbo.each(function (v) { return v.init(); });
 	            return fbo;
 	        });
+	    };
+	    ResourceManager.prototype.getFBO = function (id) {
+	        return this.fbos.get(id);
 	    };
 	    ResourceManager.prototype.createTexture = function (id, width, height, texType, elemType) {
 	        var _this = this;
@@ -20585,8 +20588,8 @@
 	};
 	var TextureWrapperBase = __webpack_require__(184);
 	var TextureTargetType = __webpack_require__(62);
-	var TextureInternalFormat = __webpack_require__(112);
-	var TextureType = __webpack_require__(113);
+	var TextureInternalFormat = __webpack_require__(115);
+	var TextureType = __webpack_require__(116);
 	var TextureWrapper = (function (_super) {
 	    __extends(TextureWrapper, _super);
 	    function TextureWrapper(contextManager, parent) {

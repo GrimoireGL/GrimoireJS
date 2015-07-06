@@ -36,7 +36,7 @@ class LitghtAccumulationStage extends RenderStageBase {
 		var width = 512, height = 512;
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
-		this.rbLightFBO = rm.createFBO(id + ".post.gray");
+		this.rbLightFBO = rm.getFBO("jthree.fbo.default");
 		this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rm.getRBO("jthree.rbo.default"));
 		var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
 		agent.get("/GrayScale.glsl").end((err, res: agent.Response) => {

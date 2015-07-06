@@ -3,7 +3,7 @@
     <ddebug viewport="viewport#main" name="dep" target="depth" />
     <ddebug viewport="viewport#main" name="rb2" target="rb2" />
     <ddebug viewport="viewport#main" name="rb1" target="rb1" />
-     <ddebug viewport="viewport#main" name="light" target="light" />
+     <ddebug viewport="viewport#main" name="light" target="jthree.light.dir1" />
      <tdebug target="directional.test" name="dli"/>
     <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
     <grid hdiv="20" name="grid" vdiv="20" />
@@ -27,12 +27,12 @@
         <mesh geo="cyl" mat="mat2" rotation="x(90d)" position="0,0,-1" scale="0.3"/>
         <mesh geo="cube" mat="mat2" rotation="x(30d)" position="0.5,0,-1" scale="0.3"/>
         <plight color="brown" position ="0,0.1,0" distance="1.2" intensity="0.4" decay="0"/>
-       <!-- <dlight color="white" intensity="0.2" rotation="x(90d)"/>-->
+        <dlight color="white" intensity="0.2" rotation="x(90d)"/>
       </mesh>
     </scene>s
     <scene>
       <ocamera left="-1" right="1" top="1" bottom="-1" far="5" near="0.1" aspect="1" far="5" fovy="1/2p" name="CAM2" near="0.1" position="(0,0.5,2)" />
-      <mesh geo="quad" scale="1" position="0,0.5,1" mat="dli"/>
+      <mesh geo="quad" scale="1" position="0,0.5,1" mat="light"/>
     </scene>
   </scenes>
 </goml>

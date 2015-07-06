@@ -6,7 +6,7 @@ import LightBase = require('./LightBase');
 import FBO = require('../Resources/FBO/FBO');
 import RBO = require('../Resources/RBO/RBO');
 import TextureBase = require('../Resources/Texture/TextureBase');
-import JThreeContextProxy=require('../JThreeContextProxy');
+import JThreeContextProxy = require('../JThreeContextProxy');
 import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../Wrapper/TextureType');
 import ContextManagerBase = require('../ContextManagerBase');
@@ -17,74 +17,63 @@ import DepthMaterial = require('../Materials/DepthMaterial');
 import Matrix = require('../../Math/Matrix');
 import RendererBase = require('../Renderers/RendererBase');
 import ClearTargetType = require('../../Wrapper/ClearTargetType');
-class DirectionalLight extends LightBase
-{
-	constructor()
-	{
-		super();
-		var width=512,height=512;//TODO fix this
-		var rm=JThreeContextProxy.getJThreeContext().ResourceManager;
-		this.shadowMapFBO=rm.createFBO("directional.test");
-		this.shadowMapColTex=rm.createTexture("directional.testcol",width,height);
-		this.shadowMapTexture=rm.createTexture("directional.test",width,height,TextureFormat.DEPTH_COMPONENT,ElementFormat.UnsignedShort);
-		this.depthMat.VP=Matrix.multiply(Matrix.ortho(-2.828,2.828,-1,1,0,5.656),Matrix.lookAt(new Vector3(2,0.4,-2),new Vector3(0,0,-1),new Vector3(0,1,0)));
+import DepthRenderStage = require('../Renderers/RenderStages/ShadowMaps/DirectionalShadowMapStage');
+class DirectionalLight extends LightBase {
+	constructor(scene: Scene) {
+		super(scene);
+				this.vp = Matrix.multiply(Matrix.ortho(-2.828, 2.828, -1, 1, 0, 5.656), Matrix.lookAt(new Vector3(2, 0.4, -2), new Vector3(0, 0, -1), new Vector3(0, 1, 0)));
+		scene.Renderers.forEach(v=> {
+			var stage = new DepthRenderStage(v)
+			this.targetStages.push(stage);
+			v.RenderStageManager.StageChains.unshift({
+				buffers: {
+					"OUT": "jthree.light.dir1"
+				},
+				stage: stage
+			});;
+		});
+		scene.rendererAdded((o, v) => {
+			var stage = new DepthRenderStage(v)
+			this.targetStages.push(stage);
+			v.RenderStageManager.StageChains.unshift({
+				buffers: {
+					"OUT": "jthree.light.dir1"
+				},
+				stage: stage
+			});;
+			stage.VP=this.vp;
+		});
+		this.targetStages.forEach(v=> {
+			v.VP = this.vp;
+		});
 	}
-	
-	private shadowMapFBO:FBO;
-	
-	private shadowMapColTex:TextureBase;
-	
-	private shadowMapTexture:TextureBase;
-	
-	private intensity:number=1.0;
-	
-	private depthMat:DepthMaterial=new DepthMaterial();
-	
-	public get VP():Matrix
-	{
-		return this.depthMat.VP;
+
+	private intensity: number = 1.0;
+
+	private targetStages: DepthRenderStage[] = [];
+
+	private vp: Matrix;
+
+	public get VP(): Matrix {
+		return this.vp;
 	}
 	
 	/**
 	 * Light's intensity
 	 */
-	public get Intensity():number
-	{
+	public get Intensity(): number {
 		return this.intensity;
 	}
 	
 	/**
 	 * Light's intensity
 	 */
-	public set Intensity(intensity:number)
-	{
-		this.intensity=intensity;
+	public set Intensity(intensity: number) {
+		this.intensity = intensity;
 	}
-	
-	public get AliasName():string
-	{
+
+	public get AliasName(): string {
 		return "jthree.lights.directionallight";
-	}
-	
-	public beforeRender(target:ContextManagerBase)
-	{
-		this.shadowMapFBO.getForContext(target).attachTexture(FrameBufferAttachmentType.ColorAttachment0,this.shadowMapColTex);
-		this.shadowMapFBO.getForContext(target).attachTexture(FrameBufferAttachmentType.DepthAttachment,this.shadowMapTexture);
-		this.shadowMapFBO.getForContext(target).bind();
-		target.Context.ClearColor(0,0,0,0);
-		target.Context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
-	}
-	
-	public afterRender(target:ContextManagerBase)
-	{
-		this.shadowMapFBO.getForContext(target).unbind();
-	}
-	
-	public drawBuffer(renderer:RendererBase,scene:Scene,object: SceneObject, material: Material,passCount:number) 
-	{
-		if(!object.Geometry)return;
-		this.depthMat.configureMaterial(scene,renderer,object);
-		object.Geometry.drawElements(renderer.ContextManager);
 	}
 }
 

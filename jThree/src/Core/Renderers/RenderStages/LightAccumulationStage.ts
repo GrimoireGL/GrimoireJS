@@ -37,7 +37,7 @@ class LitghtAccumulationStage extends RenderStageBase
 		var width =512,height=512;
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
-		this.rbLightFBO=rm.createFBO(id+".deffered.light");
+		this.rbLightFBO=rm.getFBO("jthree.fbo.default");
 	    var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
     agent.get("/LightAccumulation.glsl").end((err,res:agent.Response)=>{
           this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs,res.text);
@@ -112,7 +112,7 @@ class LitghtAccumulationStage extends RenderStageBase
     programWrapper.setUniformMatrix("matTV",Matrix.inverse(renderer.Camera.ViewMatrix));
     programWrapper.setUniformMatrix("matLV",dlights[0]?dlights[0].VP:Matrix.identity());
 
-    //programWrapper.registerTexture(renderer,resourceManager.getTexture("directional.test"),3,"u_ldepth");
+    programWrapper.registerTexture(renderer,texs["DIR"],3,"u_ldepth");
     programWrapper.setUniformVector("posL",Matrix.transformPoint(renderer.Camera.ViewMatrix,new Vector3(2,0.4,-2)));
     programWrapper.setUniform1f("time",(new Date()).getMilliseconds()+1000*(new Date().getSeconds()));
     programWrapper.setUniform1f("xtest",<number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));

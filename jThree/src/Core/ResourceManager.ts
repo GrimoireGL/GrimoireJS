@@ -119,6 +119,11 @@ class ResourceManager extends jThreeObject {
             return fbo;
         });
     }
+    
+    getFBO(id:string):FBO
+    {
+        return this.fbos.get(id);
+    }
 
     createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
         return this.textures.create(id, () => {

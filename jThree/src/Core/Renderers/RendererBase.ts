@@ -23,6 +23,7 @@ class RendererBase extends jThreeObjectWithID {
         super();
         this.contextManager = contextManager;
         JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("jthree.rbo.default", 512, 512);
+        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO("jthree.fbo.default");
         this.renderStageManager.StageChains.push(
             {
                 buffers: {
@@ -44,6 +45,7 @@ class RendererBase extends jThreeObjectWithID {
                     RB1: "deffered.rb1",
                     RB2: "deffered.rb2",
                     DEPTH: "deffered.depth",
+                    DIR:"jthree.light.dir1",
                     OUT: "deffered.light"
                 },
                 stage: new LightAccumulationRenderStage(this)
@@ -51,19 +53,25 @@ class RendererBase extends jThreeObjectWithID {
             {
                 buffers: {
                     LIGHT: "deffered.light",
-                    OUT: "deffered.rb1"
+                    OUT: "default",
                 },
                 stage: new FowardRenderStage(this)
-            },
-            {
-                buffers: {
-                    SOURCE: "deffered.rb1",
-                    OUT: "default"
-                },
-                stage: new GrayScaleStage(this)
             }
+            // },
+            // {
+            //     buffers: {
+            //         SOURCE: "deffered.rb1",
+            //         OUT: "default"
+            //     },
+            //     stage: new GrayScaleStage(this)
+            // }
             );
         this.renderStageManager.TextureBuffers = {
+            "jthree.light.dir1":{
+                generater: "rendererfit",
+                internalFormat: "DEPTH",
+                element: "USHORT"
+            },
             "deffered.rb1": {
                 generater: "rendererfit",
                 internalFormat: "RGBA",

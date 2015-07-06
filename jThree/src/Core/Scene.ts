@@ -1,5 +1,6 @@
 import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import jThreeId = require("../Base/JThreeID");
+import JThreeEvent = require('../Base/JThreeEvent');
 import RendererBase = require("./Renderers/RendererBase");
 import Material = require("./Materials/Material");
 import SceneObject = require("./SceneObject");
@@ -9,6 +10,7 @@ import Color4 = require('../Base/Color/Color4');
 import Vector3 = require('../Math/Vector3');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
+import Delegates =require('../Delegates')
 /**
 * NON PUBLIC CLASS
 */
@@ -55,11 +57,24 @@ class Scene extends jThreeObjectWithID {
             r.afterRender();
         });
     }
+    
+    private rendererChanged:JThreeEvent<RendererBase>=new JThreeEvent<RendererBase>();
 
     private renderers: RendererBase[] = [];
 
     public addRenderer(renderer: RendererBase): void {
         this.renderers.push(renderer);
+        this.rendererChanged.fire(this,renderer);
+    }
+    
+    public rendererAdded(act:Delegates.Action2<Scene,RendererBase>)
+    {
+        this.rendererChanged.addListerner(act);
+    }
+    
+    public get Renderers():RendererBase[]
+    {
+        return this.renderers;
     }
 
     private renderPairs: MaterialObjectPair[] = [];

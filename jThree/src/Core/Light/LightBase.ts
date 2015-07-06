@@ -8,9 +8,12 @@ import Material = require('Materials/Material');
 import RendererBase = require('../Renderers/RendererBase');
 class LightBase extends SceneObject
 {
-	constructor()
+	protected scene:Scene;
+	
+	constructor(scene:Scene)
 	{
 		super();
+		this.scene=scene;
 	}
 	
 	private color:Color4;
