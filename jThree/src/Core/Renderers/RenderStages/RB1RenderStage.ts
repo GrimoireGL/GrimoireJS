@@ -28,7 +28,7 @@ class RB1RenderStage extends RenderStageBase {
 		var width = 512, height = 512;
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
-		this.rb1FBO = rm.createFBO(id + ".deffered.rb1");
+		this.rb1FBO = rm.getFBO("jthree.fbo.default")
 		var rbo=rm.getRBO("jthree.rbo.default");
 		this.rb1FBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
 		var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');

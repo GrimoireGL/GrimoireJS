@@ -159,6 +159,7 @@ class RendererBase extends jThreeObjectWithID {
     * Provides render stage abstraction
     */
     private renderStageManager: RenderStageManager = new RenderStageManager(this);
+    
     /**
      * Provides render stage abstraction
      */

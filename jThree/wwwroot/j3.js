@@ -15562,7 +15562,7 @@
 	        var width = 512, height = 512;
 	        var id = this.Renderer.ID;
 	        var rm = context.ResourceManager;
-	        this.rb1FBO = rm.createFBO(id + ".deffered.rb1");
+	        this.rb1FBO = rm.getFBO("jthree.fbo.default");
 	        var rbo = rm.getRBO("jthree.rbo.default");
 	        this.rb1FBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
 	        var vs = __webpack_require__(56);
@@ -15646,8 +15646,9 @@
 	        });
 	    }
 	    LitghtAccumulationStage.prototype.preBeginStage = function (scene, passCount, texs) {
-	        this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
 	        this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
+	        this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
+	        this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, null);
 	    };
 	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
 	    };

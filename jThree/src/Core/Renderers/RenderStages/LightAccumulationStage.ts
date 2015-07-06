@@ -46,9 +46,10 @@ class LitghtAccumulationStage extends RenderStageBase
 	
 	
 	public preBeginStage(scene:Scene,passCount:number,texs:ResolvedChainInfo)
-	{
-    this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
+	{   
     this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
+    this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
+        this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment,null);
 	}
 	
 	public postEndStage(scene:Scene,passCount:number)
