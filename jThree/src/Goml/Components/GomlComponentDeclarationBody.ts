@@ -1,4 +1,4 @@
-import Delegates = require('../../Delegates');
+import Delegates = require('../../Base/Delegates');
 import GomlTreeNodeBase = require('../GomlTreeNodeBase');
 import GomlAttributeDeclaration = require('../AttributeDeclaration');
 interface GomlComponentDeclarationBody
