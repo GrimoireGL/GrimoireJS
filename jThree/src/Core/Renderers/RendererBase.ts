@@ -58,9 +58,9 @@ class RendererBase extends jThreeObjectWithID {
                     OUT: "deffered.rb1",
                 },
                 stage: new FowardRenderStage(this)
-            },
+            }
             // },
-            {
+            ,{
                 buffers: {
                     SOURCE: "deffered.rb1",
                     OUT: "default"

@@ -37,9 +37,8 @@ class RB2RenderStage extends RenderStageBase {
 				target: 0
 			},
 			{
-				texture: this.DefaultRBO,
-				target: "depth",
-				type:"rbo"
+				texture: texs["DEPTH"],
+				target: "depth"
 			}
 		], () => {
 			this.Renderer.GLContext.ClearColor(0, 0, 0, 0);

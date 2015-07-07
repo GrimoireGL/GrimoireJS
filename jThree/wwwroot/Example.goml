@@ -3,7 +3,7 @@
     <ddebug viewport="viewport#main" name="dep" target="depth" />
     <ddebug viewport="viewport#main" name="rb2" target="rb2" />
     <ddebug viewport="viewport#main" name="rb1" target="rb1" />
-     <ddebug viewport="viewport#main" name="light" target="deffered.light" />
+     <ddebug viewport="viewport#main" name="light" target="jthree.light.dir1" />
      <tdebug target="directional.test" name="dli"/>
     <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
     <grid hdiv="20" name="grid" vdiv="20" />
