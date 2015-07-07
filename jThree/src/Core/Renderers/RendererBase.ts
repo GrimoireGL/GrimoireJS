@@ -24,8 +24,8 @@ class RendererBase extends jThreeObjectWithID {
     constructor(contextManager: ContextManagerBase) {
         super();
         this.contextManager = contextManager;
-        JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("jthree.rbo.default", 512, 512);
-        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO("jthree.fbo.default");
+        JThreeContextProxy.getJThreeContext().ResourceManager.createRBO(this.ID+".rbo.default", 512, 512);
+        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO(this.ID+".fbo.default");
         this.renderStageManager.StageChains.push(
             {
                 buffers: {

@@ -26,19 +26,11 @@ import GLFeatureType = require("../../../Wrapper/GLFeatureType");
 class LitghtAccumulationStage extends RenderStageBase
 {
 	
-	private rbLightFBO:FBO;
- 
-	
 	private program:Program;
 	constructor(renderer:RendererBase)
 	{
 		super(renderer);
-		var context = JThreeContextProxy.getJThreeContext();
-		var width =512,height=512;
-		var id = this.Renderer.ID;
-		var rm = context.ResourceManager;
-		this.rbLightFBO=rm.getFBO("jthree.fbo.default");
-	    var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
+	  var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
     agent.get("/LightAccumulation.glsl").end((err,res:agent.Response)=>{
           this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs,res.text);
     });
@@ -47,9 +39,13 @@ class LitghtAccumulationStage extends RenderStageBase
 	
 	public preBeginStage(scene:Scene,passCount:number,texs:ResolvedChainInfo)
 	{   
-    this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
-    this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
-        this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment,null);
+    this.bindAsOutBuffer(this.DefaultFBO,[
+      {texture:texs["OUT"],target:0},
+      {texture:null,target:"depth",isOptional:true}
+    ],()=>{
+      this.GLContext.ClearColor(0,0,0,1);
+      this.GLContext.Clear(ClearTargetType.ColorBits);
+    });
 	}
 	
 	public postEndStage(scene:Scene,passCount:number)

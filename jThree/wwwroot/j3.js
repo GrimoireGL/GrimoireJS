@@ -14817,8 +14817,8 @@
 	        this.renderStageManager = new RenderStageManager(this);
 	        this.onResizeHandler = new JThreeEvent();
 	        this.contextManager = contextManager;
-	        JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("jthree.rbo.default", 512, 512);
-	        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO("jthree.fbo.default");
+	        JThreeContextProxy.getJThreeContext().ResourceManager.createRBO(this.ID + ".rbo.default", 512, 512);
+	        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO(this.ID + ".fbo.default");
 	        this.renderStageManager.StageChains.push({
 	            buffers: {
 	                OUT: "deffered.rb1"
@@ -14940,7 +14940,7 @@
 	};
 	var RenderStageBase = __webpack_require__(106);
 	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(107);
+	var ClearTargetType = __webpack_require__(93);
 	var Mesh = __webpack_require__(108);
 	var Matrix = __webpack_require__(59);
 	var Vector3 = __webpack_require__(24);
@@ -14951,20 +14951,20 @@
 	    function LitghtAccumulationStage(renderer) {
 	        var _this = this;
 	        _super.call(this, renderer);
-	        var context = JThreeContextProxy.getJThreeContext();
-	        var width = 512, height = 512;
-	        var id = this.Renderer.ID;
-	        var rm = context.ResourceManager;
-	        this.rbLightFBO = rm.getFBO("jthree.fbo.default");
 	        var vs = __webpack_require__(115);
 	        agent.get("/LightAccumulation.glsl").end(function (err, res) {
 	            _this.program = _this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);
 	        });
 	    }
 	    LitghtAccumulationStage.prototype.preBeginStage = function (scene, passCount, texs) {
-	        this.rbLightFBO.getForContext(this.Renderer.ContextManager).bind();
-	        this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
-	        this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, null);
+	        var _this = this;
+	        this.bindAsOutBuffer(this.DefaultFBO, [
+	            { texture: texs["OUT"], target: 0 },
+	            { texture: null, target: "depth", isOptional: true }
+	        ], function () {
+	            _this.GLContext.ClearColor(0, 0, 0, 1);
+	            _this.GLContext.Clear(ClearTargetType.ColorBits);
+	        });
 	    };
 	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
 	    };
@@ -15072,6 +15072,13 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    Object.defineProperty(RenderStageBase.prototype, "GLContext", {
+	        get: function () {
+	            return this.Renderer.GLContext;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    RenderStageBase.prototype.preBeginStage = function (scene, passCount, texs) {
 	    };
 	    RenderStageBase.prototype.postEndStage = function (scene, passCount, texs) {
@@ -15146,6 +15153,20 @@
 	            console.error("unknown bind type!");
 	        }
 	    };
+	    Object.defineProperty(RenderStageBase.prototype, "DefaultFBO", {
+	        get: function () {
+	            return JThreeContextProxy.getJThreeContext().ResourceManager.getFBO(this.Renderer.ID + ".fbo.default");
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(RenderStageBase.prototype, "DefaultRBO", {
+	        get: function () {
+	            return JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return RenderStageBase;
 	})(JThreeObject);
 	module.exports = RenderStageBase;
@@ -17138,33 +17159,36 @@
 	};
 	var RenderStageBase = __webpack_require__(106);
 	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(107);
 	var ClearTargetType = __webpack_require__(93);
 	var Matrix = __webpack_require__(59);
 	var RB1RenderStage = (function (_super) {
 	    __extends(RB1RenderStage, _super);
 	    function RB1RenderStage(renderer) {
 	        _super.call(this, renderer);
-	        var context = JThreeContextProxy.getJThreeContext();
-	        var width = 512, height = 512;
-	        var id = this.Renderer.ID;
-	        var rm = context.ResourceManager;
-	        this.rb1FBO = rm.getFBO("jthree.fbo.default");
-	        this.rbo = rm.getRBO("jthree.rbo.default");
 	        var vs = __webpack_require__(56);
 	        var fs = __webpack_require__(57);
 	        this.rb1Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb1", "jthree.programs.rb1", vs, fs);
 	    }
 	    RB1RenderStage.prototype.preBeginStage = function (scene, passCount, chainInfo) {
-	        this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
-	        this.rb1FBO.getForContext(this.Renderer.ContextManager).bind();
-	        this.rb1FBO.getForContext(this.Renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, this.rbo);
-	        this.rb1FBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, chainInfo["OUT"]);
-	        this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        var _this = this;
+	        this.bindAsOutBuffer(this.DefaultFBO, [
+	            {
+	                texture: chainInfo["OUT"],
+	                target: 0
+	            },
+	            {
+	                texture: this.DefaultRBO,
+	                target: "depth",
+	                type: "rbo"
+	            }
+	        ], function () {
+	            _this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
+	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        });
 	    };
 	    RB1RenderStage.prototype.postEndStage = function (scene, passCount) {
 	        this.Renderer.GLContext.Flush();
-	        this.rb1FBO.getForContext(this.Renderer.ContextManager).unbind();
+	        this.DefaultFBO.getForContext(this.Renderer.ContextManager).unbind();
 	    };
 	    RB1RenderStage.prototype.render = function (scene, object, passCount) {
 	        var geometry = object.Geometry;
@@ -17211,7 +17235,6 @@
 	};
 	var RenderStageBase = __webpack_require__(106);
 	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(107);
 	var ClearTargetType = __webpack_require__(93);
 	var Matrix = __webpack_require__(59);
 	var RB2RenderStage = (function (_super) {
@@ -17219,23 +17242,29 @@
 	    function RB2RenderStage(renderer) {
 	        _super.call(this, renderer);
 	        var context = JThreeContextProxy.getJThreeContext();
-	        var width = 512, height = 512;
-	        var id = this.Renderer.ID;
-	        var rm = context.ResourceManager;
-	        this.rb2FBO = rm.getFBO("jthree.fbo.default");
 	        var vs = __webpack_require__(56);
 	        var fs = __webpack_require__(58);
 	        this.rb2Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb2", "jthree.programs.rb2", vs, fs);
 	    }
 	    RB2RenderStage.prototype.preBeginStage = function (scene, passCount, texs) {
-	        this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).bind();
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs["OUT"]);
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, texs["DEPTH"]);
-	        this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        var _this = this;
+	        this.bindAsOutBuffer(this.DefaultFBO, [
+	            {
+	                texture: texs["OUT"],
+	                target: 0
+	            },
+	            {
+	                texture: this.DefaultRBO,
+	                target: "depth",
+	                type: "rbo"
+	            }
+	        ], function () {
+	            _this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
+	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        });
 	    };
 	    RB2RenderStage.prototype.postEndStage = function (scene, passCount) {
-	        this.rb2FBO.getForContext(this.Renderer.ContextManager).unbind();
+	        this.DefaultFBO.getForContext(this.Renderer.ContextManager).unbind();
 	    };
 	    RB2RenderStage.prototype.render = function (scene, object, passCount) {
 	        var geometry = object.Geometry;
@@ -17281,25 +17310,23 @@
 	    d.prototype = new __();
 	};
 	var RenderStageBase = __webpack_require__(106);
-	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(107);
 	var ClearTargetType = __webpack_require__(93);
 	var FowardShadingStage = (function (_super) {
 	    __extends(FowardShadingStage, _super);
 	    function FowardShadingStage(renderer) {
 	        _super.call(this, renderer);
-	        var context = JThreeContextProxy.getJThreeContext();
-	        var rm = context.ResourceManager;
-	        this.fbo = rm.getFBO("jthree.fbo.default");
-	        var rbo = rm.getRBO("jthree.rbo.default");
-	        this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
 	    }
 	    FowardShadingStage.prototype.preBeginStage = function (scene, passCount, texs) {
 	        var _this = this;
-	        this.bindAsOutBuffer(this.fbo, [{
+	        this.bindAsOutBuffer(this.DefaultFBO, [{
 	                texture: texs["OUT"],
 	                target: 0,
 	                isOptional: false
+	            },
+	            {
+	                texture: this.DefaultRBO,
+	                target: "depth",
+	                type: "rbo"
 	            }], function () {
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 	        });
@@ -17344,24 +17371,18 @@
 	    function LitghtAccumulationStage(renderer) {
 	        var _this = this;
 	        _super.call(this, renderer);
-	        var context = JThreeContextProxy.getJThreeContext();
-	        var width = 512, height = 512;
-	        var id = this.Renderer.ID;
-	        var rm = context.ResourceManager;
-	        this.rbLightFBO = rm.getFBO("jthree.fbo.default");
 	        var vs = __webpack_require__(115);
-	        this.rbo = rm.getRBO("jthree.rbo.default");
 	        agent.get("/GrayScale.glsl").end(function (err, res) {
 	            _this.program = _this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.post.gray", "jthree.programs.post.gray", vs, res.text);
 	        });
 	    }
 	    LitghtAccumulationStage.prototype.preBeginStage = function (scene, passCount, texs) {
 	        var _this = this;
-	        this.bindAsOutBuffer(this.rbLightFBO, [{
+	        this.bindAsOutBuffer(this.DefaultFBO, [{
 	                texture: texs["OUT"],
 	                target: 0, isOptional: false
 	            }, {
-	                texture: this.rbo,
+	                texture: this.DefaultRBO,
 	                type: "rbo",
 	                target: "depth"
 	            }], function () {
@@ -17369,7 +17390,7 @@
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
 	        });
 	        this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-	        this.Renderer.GLContext.Enable(GLFeatureType.DepthTest);
+	        this.Renderer.GLContext.Disable(GLFeatureType.DepthTest);
 	    };
 	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
 	    };
@@ -19180,7 +19201,6 @@
 	};
 	var RenderStageBase = __webpack_require__(106);
 	var JThreeContextProxy = __webpack_require__(55);
-	var FrameBufferAttachmentType = __webpack_require__(107);
 	var ClearTargetType = __webpack_require__(93);
 	var DepthMaterial = __webpack_require__(158);
 	var DirectionalLightDepthStage = (function (_super) {
@@ -19190,11 +19210,9 @@
 	        this.mat = new DepthMaterial();
 	        var context = JThreeContextProxy.getJThreeContext();
 	        var rm = context.ResourceManager;
-	        this.fbo = rm.createFBO(renderer.ID + "depth");
-	        var rbo = rm.getRBO("jthree.rbo.default");
-	        this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
-	        var tex = rm.createTexture("test.direct", 512, 512);
-	        this.fbo.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, tex);
+	        this.fbo = this.DefaultFBO;
+	        var rbo = this.DefaultRBO;
+	        this.tex = rm.createTexture("test.direct", 512, 512);
 	    }
 	    Object.defineProperty(DirectionalLightDepthStage.prototype, "VP", {
 	        get: function () {
@@ -19207,12 +19225,19 @@
 	        configurable: true
 	    });
 	    DirectionalLightDepthStage.prototype.preBeginStage = function (scene, passCount, texs) {
-	        if (texs["OUT"] == null)
-	            this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0, null);
-	        else {
-	            this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment, texs["OUT"]);
-	            this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-	        }
+	        var _this = this;
+	        this.bindAsOutBuffer(this.DefaultFBO, [
+	            {
+	                texture: texs["OUT"],
+	                target: "depth"
+	            },
+	            {
+	                texture: this.tex,
+	                target: 0
+	            }
+	        ], function () {
+	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        });
 	    };
 	    DirectionalLightDepthStage.prototype.render = function (scene, object, passCount, texs) {
 	        var geometry = object.Geometry;

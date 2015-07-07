@@ -26,21 +26,12 @@ import GLFeatureType = require("../../../Wrapper/GLFeatureType");
 declare function require(name: string): any;
 class LitghtAccumulationStage extends RenderStageBase {
 
-	private rbLightFBO: FBO;
-
 	private program: Program;
-	
-	private rbo:RBO;
+
 
 	constructor(renderer: RendererBase) {
 		super(renderer);
-		var context = JThreeContextProxy.getJThreeContext();
-		var width = 512, height = 512;
-		var id = this.Renderer.ID;
-		var rm = context.ResourceManager;
-		this.rbLightFBO = rm.getFBO("jthree.fbo.default");
 		var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
-		this.rbo=rm.getRBO("jthree.rbo.default");
 		agent.get("/GrayScale.glsl").end((err, res: agent.Response) => {
 			this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.post.gray", "jthree.programs.post.gray", vs, res.text);
 		});
@@ -48,20 +39,19 @@ class LitghtAccumulationStage extends RenderStageBase {
 
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		
-		this.bindAsOutBuffer(this.rbLightFBO, [{
+		this.bindAsOutBuffer(this.DefaultFBO, [{
 			texture: texs["OUT"],
 			target: 0, isOptional: false
-		},{
-			texture:this.rbo,
-			type:"rbo",
-			target:"depth"
-		}], () => {
-			this.Renderer.GLContext.ClearColor(0, 0, 0, 1);
-			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
-		});
+		}, {
+				texture: this.DefaultRBO,
+				type: "rbo",
+				target: "depth"
+			}], () => {
+				this.Renderer.GLContext.ClearColor(0, 0, 0, 1);
+				this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
+			});
 		this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-		this.Renderer.GLContext.Enable(GLFeatureType.DepthTest);
+		this.Renderer.GLContext.Disable(GLFeatureType.DepthTest);
 	}
 
 	public postEndStage(scene: Scene, passCount: number) {

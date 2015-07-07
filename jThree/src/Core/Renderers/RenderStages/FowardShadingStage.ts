@@ -11,23 +11,22 @@ import JThreeContextProxy = require('../../JThreeContextProxy')
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
-	private fbo: FBO;
 	constructor(renderer: RendererBase) {
 		super(renderer);
-		var context = JThreeContextProxy.getJThreeContext();
-		var rm=context.ResourceManager;
-		this.fbo=rm.getFBO("jthree.fbo.default");
-		var rbo=rm.getRBO("jthree.rbo.default");
-		this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,rbo);
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		this.bindAsOutBuffer(this.fbo,[{
-			texture:texs["OUT"],
-			target:0,
-			isOptional:false
-		}],()=>{
-			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits)
+		this.bindAsOutBuffer(this.DefaultFBO, [{
+			texture: texs["OUT"],
+			target: 0,
+			isOptional: false
+		},
+		{
+			texture:this.DefaultRBO,
+			target:"depth",
+			type:"rbo"
+		}], () => {
+			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
 		});
 	}
 
