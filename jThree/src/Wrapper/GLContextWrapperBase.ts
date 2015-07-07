@@ -366,8 +366,11 @@ class GLContextWrapperBase extends JThreeObject {
   IsTexture(tex: WebGLTexture): boolean {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
-  DeleteTexture(tex:WebGLTexture)
-  {
+  DeleteTexture(tex: WebGLTexture) {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+  ClearDepth(depth: number) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 }

@@ -75,6 +75,24 @@ class FBOWrapper extends ResourceWrapper {
             this.setInitialized(false);
         }
     }
+    
+    clear(r:number,g:number,b:number,a:number,d?:number,s?:number)
+    {
+        this.bind();
+        var clearFlag=0;
+        if(typeof r !=='undefined'&&typeof g !=='undefined'&&typeof b !=='undefined'&&typeof a !=='undefined')
+        {
+            clearFlag=clearFlag|ClearTargetType.ColorBits;
+            this.glContext.ClearColor(r,g,b,a);
+        }
+        if(typeof d!=='undefined')
+        {
+            clearFlag=clearFlag|ClearTargetType.DepthBits;
+            this.glContext.ClearDepth(d);
+        }
+        //TODO add stencil
+        this.glContext.Clear(clearFlag);
+    }
 }
 
 export =FBOWrapper;

@@ -14224,6 +14224,9 @@
 	    WebGLContextWrapper.prototype.DeleteTexture = function (tex) {
 	        this.gl.deleteTexture(tex);
 	    };
+	    WebGLContextWrapper.prototype.ClearDepth = function (depth) {
+	        this.gl.clearDepth(depth);
+	    };
 	    return WebGLContextWrapper;
 	})(GLContextWrapperBase);
 	module.exports = WebGLContextWrapper;
@@ -14413,6 +14416,9 @@
 	        throw new Exceptions.AbstractClassMethodCalledException();
 	    };
 	    GLContextWrapperBase.prototype.DeleteTexture = function (tex) {
+	        throw new Exceptions.AbstractClassMethodCalledException();
+	    };
+	    GLContextWrapperBase.prototype.ClearDepth = function (depth) {
 	        throw new Exceptions.AbstractClassMethodCalledException();
 	    };
 	    return GLContextWrapperBase;
@@ -15114,6 +15120,7 @@
 	        var shouldBeDefault = false;
 	        var targetWrapper = fbo.getForContext(this.Renderer.ContextManager);
 	        bindInfo.forEach(function (v) {
+	            v.target = v.target.toString().toLowerCase();
 	            var attachmentType = FrameBufferAttachmentType.ColorAttachment0;
 	            if (v.target === "depth") {
 	                attachmentType = FrameBufferAttachmentType.DepthAttachment;
@@ -21149,6 +21156,7 @@
 	    d.prototype = new __();
 	};
 	var ResourceWrapper = __webpack_require__(172);
+	var ClearTargetType = __webpack_require__(93);
 	var FBOWrapper = (function (_super) {
 	    __extends(FBOWrapper, _super);
 	    function FBOWrapper(renderer) {
@@ -21212,6 +21220,19 @@
 	            this.targetFBO = null;
 	            this.setInitialized(false);
 	        }
+	    };
+	    FBOWrapper.prototype.clear = function (r, g, b, a, d, s) {
+	        this.bind();
+	        var clearFlag = 0;
+	        if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined' && typeof a !== 'undefined') {
+	            clearFlag = clearFlag | ClearTargetType.ColorBits;
+	            this.glContext.ClearColor(r, g, b, a);
+	        }
+	        if (typeof d !== 'undefined') {
+	            clearFlag = clearFlag | ClearTargetType.DepthBits;
+	            this.glContext.ClearDepth(d);
+	        }
+	        this.glContext.Clear(clearFlag);
 	    };
 	    return FBOWrapper;
 	})(ResourceWrapper);

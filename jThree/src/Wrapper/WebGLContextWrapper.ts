@@ -377,6 +377,11 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   {
     this.gl.deleteTexture(tex);
   }
+  
+  ClearDepth(depth:number)
+  {
+    this.gl.clearDepth(depth);
+  }
 
 }
 export =WebGLContextWrapper;
