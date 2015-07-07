@@ -4,7 +4,7 @@ import $ = require('jquery');
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration');
-import TextureAttachmentType = require('./Wrapper/FramebufferAttachmentType');
+import TextureAttachmentType = require('./Wrapper/FrameBufferAttachmentType');
 import TextureMinFilter =require('./Wrapper/Texture/TextureMinFilterType');
 class JThreeStatic {
   public addComponent(declaration: GomlComponentDeclaration) {

@@ -227,7 +227,8 @@ gulp.task('doc', function(cb) {
     module: 'commonjs',
     target: 'es5',
     out: "ci/docs/" + branch,
-    name: 'jThree'
+    name: 'jThree',
+    json: "ci/docs/" + branch + ".json"
   }));
 });
 

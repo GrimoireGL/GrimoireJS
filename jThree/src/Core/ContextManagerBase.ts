@@ -2,6 +2,7 @@ import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 import jThreeObjectId = require("../Base/JThreeObjectWithID");
 import RendererBase = require("./Renderers/RendererBase");
 import GLExtensionManager = require('./GLExtensionManager');
+import Color4 = require('../Base/Color/Color4');
 /**
  * Provides base interface for the classes managing GLcontext
  */
@@ -50,6 +51,19 @@ class ContextManagerBase extends jThreeObjectId {
      */
     public afterRenderAll(): void {
 
+    }
+    
+        /**
+     * backing field for ClearColor
+     */
+    private clearColor: Color4;
+
+    public get ClearColor(): Color4 {
+        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
+        return this.clearColor;
+    }
+    public set ClearColor(col: Color4) {
+        this.clearColor = col || new Color4(1, 1, 1, 1);
     }
 }
 

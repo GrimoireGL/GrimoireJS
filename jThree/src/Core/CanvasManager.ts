@@ -66,11 +66,7 @@ class CanvasManager extends ContextManagerBase {
      * cache for the last width.
      */
     private lastWidth: number;
-    
-    /**
-     * backing field for ClearColor
-     */
-    private clearColor: Color4;
+
     
     /**
      * backing field for IsDirty
@@ -148,14 +144,6 @@ class CanvasManager extends ContextManagerBase {
         if (val) this.targetCanvas.webkitRequestFullScreen();//TODO fix it
     }
 
-
-    public get ClearColor(): Color4 {
-        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
-        return this.clearColor;
-    }
-    public set ClearColor(col: Color4) {
-        this.clearColor = col || new Color4(1, 1, 1, 1);
-    }
 
     public get IsDirty(): boolean {
         return this.isDirty;

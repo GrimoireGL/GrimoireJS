@@ -185,6 +185,9 @@ gulp.task 'doc',(cb)->
       target: 'es5'
       out: "ci/docs/#{branch}"
       name: 'jThree'
+      json:"ci/docs/#{branch}.json"
+      
+      
 ###
 # gulp.task 'doc',(cb)->
 #     child_process.exec("typedoc --out ./ci/docs"+branch+" --module commonjs --target es5 --name jThree ./jThree/src/",cb);

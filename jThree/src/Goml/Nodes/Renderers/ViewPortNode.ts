@@ -11,7 +11,6 @@ import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
 import TextureRenderer = require('../../../Core/Renderers/TextureRenderer');
-import FramebufferAttachmentType = require('../../../Wrapper/FramebufferAttachmentType');
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNodeBase;
