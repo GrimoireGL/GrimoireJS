@@ -74,7 +74,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">ContextSafeContainer</span>
+						<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html" class="tsd-signature-type">ContextSafeResourceContainer</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">Shader</span>
@@ -109,6 +109,7 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#context" class="tsd-kind-icon">Context</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_resources_shader_shader_.shader.html#shadersource-1" class="tsd-kind-icon">Shader<wbr>Source</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_resources_shader_shader_.shader.html#shadertype-1" class="tsd-kind-icon">Shader<wbr>Type</a></li>
 							</ul>
@@ -117,11 +118,12 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="_core_resources_shader_shader_.shader.html#disposeresource" class="tsd-kind-icon">dispose<wbr>Resource</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_resources_shader_shader_.shader.html#each" class="tsd-kind-icon">each</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#getforrenderer" class="tsd-kind-icon">get<wbr>For<wbr>Renderer</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#getforrendererid" class="tsd-kind-icon">get<wbr>For<wbr>RendererID</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#each" class="tsd-kind-icon">each</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#getforcontext" class="tsd-kind-icon">get<wbr>For<wbr>Context</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#getforcontextid" class="tsd-kind-icon">get<wbr>For<wbr>ContextID</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="_core_resources_shader_shader_.shader.html#getinstanceforrenderer" class="tsd-kind-icon">get<wbr>Instance<wbr>For<wbr>Renderer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_resources_shader_shader_.shader.html#initializeforfirst" class="tsd-kind-icon">initialize<wbr>For<wbr>First</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_shader_shader_.shader.html#loadall" class="tsd-kind-icon">load<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_shader_shader_.shader.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_core_resources_shader_shader_.shader.html#createshader" class="tsd-kind-icon">Create<wbr>Shader</a></li>
@@ -171,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">shader<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L35">Core/Resources/Shader/Shader.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L36">Core/Resources/Shader/Shader.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,13 +183,31 @@
 					<div class="tsd-signature tsd-kind-icon">shader<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/_wrapper_shadertype_.shadertype.html" class="tsd-signature-type">ShaderType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L26">Core/Resources/Shader/Shader.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L27">Core/Resources/Shader/Shader.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="context" class="tsd-anchor"></a>
+					<h3>Context</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Context<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#context-1">Context</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L14">Core/Resources/ContextSafeResourceContainer.ts:14</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="shadersource-1" class="tsd-anchor"></a>
 					<h3>Shader<wbr>Source</h3>
@@ -198,7 +218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L39">Core/Resources/Shader/Shader.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L40">Core/Resources/Shader/Shader.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -220,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L31">Core/Resources/Shader/Shader.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L32">Core/Resources/Shader/Shader.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,7 +267,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#disposeresource">disposeResource</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L56">Core/Resources/Shader/Shader.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L57">Core/Resources/Shader/Shader.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -260,24 +280,24 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="each" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> each</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">each<span class="tsd-signature-symbol">(</span>act<span class="tsd-signature-symbol">: </span><a href="../interfaces/_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<h3>each</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">each<span class="tsd-signature-symbol">(</span>act<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#each">each</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L33">Core/Resources/ContextSafeResourceContainer.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L42">Core/Resources/ContextSafeResourceContainer.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>act: <a href="../interfaces/_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>act: <a href="../interfaces/_base_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -285,17 +305,17 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="getforrenderer" class="tsd-anchor"></a>
-					<h3>get<wbr>For<wbr>Renderer</h3>
+					<a name="getforcontext" class="tsd-anchor"></a>
+					<h3>get<wbr>For<wbr>Context</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>For<wbr>Renderer<span class="tsd-signature-symbol">(</span>contextManager<span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>For<wbr>Context<span class="tsd-signature-symbol">(</span>contextManager<span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#getforrenderer">getForRenderer</a></p>
+								<p>Inherited from <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#getforcontext">getForContext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L24">Core/Resources/ContextSafeResourceContainer.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L33">Core/Resources/ContextSafeResourceContainer.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -309,17 +329,17 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="getforrendererid" class="tsd-anchor"></a>
-					<h3>get<wbr>For<wbr>RendererID</h3>
+					<a name="getforcontextid" class="tsd-anchor"></a>
+					<h3>get<wbr>For<wbr>ContextID</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>For<wbr>RendererID<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>For<wbr>ContextID<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_shader_shaderwrapper_.shaderwrapper.html" class="tsd-signature-type">ShaderWrapper</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#getforrendererid">getForRendererID</a></p>
+								<p>Inherited from <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#getforcontextid">getForContextID</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L28">Core/Resources/ContextSafeResourceContainer.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L37">Core/Resources/ContextSafeResourceContainer.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -343,7 +363,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#getinstanceforrenderer">getInstanceForRenderer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L52">Core/Resources/Shader/Shader.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L53">Core/Resources/Shader/Shader.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -374,6 +394,24 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="initializeforfirst" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> initialize<wbr>For<wbr>First</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">initialize<wbr>For<wbr>First<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html">ContextSafeResourceContainer</a>.<a href="_core_resources_contextsaferesourcecontainer_.contextsaferesourcecontainer.html#initializeforfirst">initializeForFirst</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ContextSafeResourceContainer.ts#L25">Core/Resources/ContextSafeResourceContainer.ts:25</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="loadall" class="tsd-anchor"></a>
 					<h3>load<wbr>All</h3>
@@ -384,7 +422,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L46">Core/Resources/Shader/Shader.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Shader/Shader.ts#L47">Core/Resources/Shader/Shader.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -405,6 +443,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_istringconvertable_.istringconvertable.html">IStringConvertable</a>.<a href="../interfaces/_base_istringconvertable_.istringconvertable.html#tostring">toString</a></p>
 								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L5">Base/JThreeObject.ts:5</a></li>
@@ -477,6 +516,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_resources_shader_shader_.shader.html#shadertype" class="tsd-kind-icon">shader<wbr>Type</a>
 							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_resources_shader_shader_.shader.html#context" class="tsd-kind-icon">Context</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_core_resources_shader_shader_.shader.html#shadersource-1" class="tsd-kind-icon">Shader<wbr>Source</a>
 							</li>
@@ -486,20 +528,23 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 								<a href="_core_resources_shader_shader_.shader.html#disposeresource" class="tsd-kind-icon">dispose<wbr>Resource</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_resources_shader_shader_.shader.html#each" class="tsd-kind-icon">each</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_resources_shader_shader_.shader.html#getforrenderer" class="tsd-kind-icon">get<wbr>For<wbr>Renderer</a>
+								<a href="_core_resources_shader_shader_.shader.html#getforcontext" class="tsd-kind-icon">get<wbr>For<wbr>Context</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_resources_shader_shader_.shader.html#getforrendererid" class="tsd-kind-icon">get<wbr>For<wbr>RendererID</a>
+								<a href="_core_resources_shader_shader_.shader.html#getforcontextid" class="tsd-kind-icon">get<wbr>For<wbr>ContextID</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 								<a href="_core_resources_shader_shader_.shader.html#getinstanceforrenderer" class="tsd-kind-icon">get<wbr>Instance<wbr>For<wbr>Renderer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_resources_shader_shader_.shader.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_core_resources_shader_shader_.shader.html#initializeforfirst" class="tsd-kind-icon">initialize<wbr>For<wbr>First</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resources_shader_shader_.shader.html#loadall" class="tsd-kind-icon">load<wbr>All</a>

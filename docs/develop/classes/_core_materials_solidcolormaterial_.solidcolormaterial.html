@@ -110,19 +110,23 @@
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#color-1" class="tsd-kind-icon">Color</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#cullenabled" class="tsd-kind-icon">Cull<wbr>Enabled</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#cullenabled" class="tsd-kind-icon">Cull<wbr>Enabled</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#cullmode" class="tsd-kind-icon">Cull<wbr>Mode</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#id" class="tsd-kind-icon">ID</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#loaded" class="tsd-kind-icon">Loaded</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#materialalias" class="tsd-kind-icon">Material<wbr>Alias</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#needfoward" class="tsd-kind-icon">Need<wbr>Foward</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#priorty" class="tsd-kind-icon">Priorty</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#calculatemvpmatrix" class="tsd-kind-icon">CalculateMVPMatrix</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#applycullconfigure" class="tsd-kind-icon">apply<wbr>Cull<wbr>Configure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#configurematerial" class="tsd-kind-icon">configure<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#draw" class="tsd-kind-icon">draw</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#setloaded" class="tsd-kind-icon">set<wbr>Loaded</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
@@ -142,7 +146,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L30">Core/Materials/SolidColorMaterial.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L29">Core/Materials/SolidColorMaterial.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_materials_solidcolormaterial_.solidcolormaterial.html" class="tsd-signature-type">SolidColorMaterial</a></h4>
@@ -158,7 +162,7 @@
 					<div class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">:</span> <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L19">Core/Materials/SolidColorMaterial.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L20">Core/Materials/SolidColorMaterial.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -168,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">program<span class="tsd-signature-symbol">:</span> <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L30">Core/Materials/SolidColorMaterial.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L29">Core/Materials/SolidColorMaterial.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L21">Core/Materials/SolidColorMaterial.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L22">Core/Materials/SolidColorMaterial.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></h4>
@@ -207,21 +211,37 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 					<a name="cullenabled" class="tsd-anchor"></a>
 					<h3>Cull<wbr>Enabled</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> CullEnabled<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> CullEnabled<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#cullenabled-1">CullEnabled</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L30">Core/Materials/Material.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L57">Core/Materials/Material.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#cullenabled-1">CullEnabled</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L61">Core/Materials/Material.ts:61</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>val: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -236,7 +256,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#cullmode-1">CullMode</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L23">Core/Materials/Material.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L51">Core/Materials/Material.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_wrapper_glcullmode_.glcullmode.html" class="tsd-signature-type">GLCullMode</a></h4>
@@ -267,6 +287,65 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="loaded" class="tsd-anchor"></a>
+					<h3>Loaded</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Loaded<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#loaded-1">Loaded</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L29">Core/Materials/Material.ts:29</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Provides the flag this material finished loading or not.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="materialalias" class="tsd-anchor"></a>
+					<h3>Material<wbr>Alias</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> MaterialAlias<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#materialalias">MaterialAlias</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L65">Core/Materials/Material.ts:65</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="needfoward" class="tsd-anchor"></a>
+					<h3>Need<wbr>Foward</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> NeedFoward<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#needfoward">NeedFoward</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L95">Core/Materials/Material.ts:95</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="priorty" class="tsd-anchor"></a>
 					<h3>Priorty</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
@@ -277,7 +356,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#priorty-1">Priorty</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L17">Core/Materials/Material.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L45">Core/Materials/Material.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -288,34 +367,26 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="calculatemvpmatrix" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> CalculateMVPMatrix</h3>
+					<a name="applycullconfigure" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> apply<wbr>Cull<wbr>Configure</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">CalculateMVPMatrix<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a>, object<span class="tsd-signature-symbol">: </span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></li>
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Cull<wbr>Configure<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#calculatemvpmatrix">CalculateMVPMatrix</a></p>
+								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#applycullconfigure">applyCullConfigure</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L61">Core/Materials/Material.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L84">Core/Materials/Material.ts:84</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Calculate MVP(Model-View-Projection) matrix</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>renderer: <a href="_core_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
-								</li>
-								<li>
-									<h5>object: <a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h5>
+									<h5>renderer: <a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -323,50 +394,29 @@
 					<a name="configurematerial" class="tsd-anchor"></a>
 					<h3>configure<wbr>Material</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">configure<wbr>Material<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a>, object<span class="tsd-signature-symbol">: </span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">configure<wbr>Material<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a>, object<span class="tsd-signature-symbol">: </span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#configurematerial">configureMaterial</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L45">Core/Materials/SolidColorMaterial.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/SolidColorMaterial.ts#L39">Core/Materials/SolidColorMaterial.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>renderer: <a href="_core_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
+									<h5>scene: <a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a></h5>
+								</li>
+								<li>
+									<h5>renderer: <a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
 								</li>
 								<li>
 									<h5>object: <a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h5>
 								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="draw" class="tsd-anchor"></a>
-					<h3>draw</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">draw<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a>, object<span class="tsd-signature-symbol">: </span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#draw">draw</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L50">Core/Materials/Material.ts:50</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
 								<li>
-									<h5>renderer: <a href="_core_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
-								</li>
-								<li>
-									<h5>object: <a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h5>
+									<h5>texs: <a href="../interfaces/_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -391,6 +441,66 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="loadprogram" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> load<wbr>Program</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Program<span class="tsd-signature-symbol">(</span>vsid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fsid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, pid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, vscode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fscode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#loadprogram">loadProgram</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L70">Core/Materials/Material.ts:70</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>vsid: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>fsid: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>pid: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>vscode: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>fscode: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="setloaded" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> set<wbr>Loaded</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Loaded<span class="tsd-signature-symbol">(</span>flag<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#setloaded">setLoaded</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L21">Core/Materials/Material.ts:21</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> flag: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="tostring" class="tsd-anchor"></a>
 					<h3>to<wbr>String</h3>
@@ -400,6 +510,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_istringconvertable_.istringconvertable.html">IStringConvertable</a>.<a href="../interfaces/_base_istringconvertable_.istringconvertable.html#tostring">toString</a></p>
 								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L5">Base/JThreeObject.ts:5</a></li>
@@ -441,7 +552,7 @@
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#color-1" class="tsd-kind-icon">Color</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#cullenabled" class="tsd-kind-icon">Cull<wbr>Enabled</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
@@ -451,19 +562,31 @@
 								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#id" class="tsd-kind-icon">ID</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#loaded" class="tsd-kind-icon">Loaded</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#materialalias" class="tsd-kind-icon">Material<wbr>Alias</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#needfoward" class="tsd-kind-icon">Need<wbr>Foward</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#priorty" class="tsd-kind-icon">Priorty</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#calculatemvpmatrix" class="tsd-kind-icon">CalculateMVPMatrix</a>
+								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#applycullconfigure" class="tsd-kind-icon">apply<wbr>Cull<wbr>Configure</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#configurematerial" class="tsd-kind-icon">configure<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#draw" class="tsd-kind-icon">draw</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#setloaded" class="tsd-kind-icon">set<wbr>Loaded</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_materials_solidcolormaterial_.solidcolormaterial.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
