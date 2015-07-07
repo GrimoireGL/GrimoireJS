@@ -3,13 +3,23 @@ import RendererBase = require('../RendererBase');
 import GeneraterBase = require('./GeneraterBase');
 import TextureInternalFormatType = require('../../../Wrapper/TextureInternalFormatType');
 import TextureType = require('../../../Wrapper/TextureType');
+import Rectangle = require('../../../Math/Rectangle');
 class RendererFit extends GeneraterBase {
 	constructor(parent: RendererBase) {
 		super(parent);
 	}
 
-	public generate(name:string,texInfo: GeneraterInfoChunk) {
-		var width=512,height=512;
+	private get ParentRenderRectangle(): Rectangle {
+		if (this.parentRenderer["ViewPortArea"]) {
+			return this.parentRenderer["ViewPortArea"];
+		} else {
+			return new Rectangle(0, 0, 512, 512);
+		}
+	}
+
+	public generate(name: string, texInfo: GeneraterInfoChunk) {
+		var rect=this.ParentRenderRectangle;
+		var width = rect.Width, height = rect.Height;
 		var internalFormat: TextureInternalFormatType;
 		texInfo["internalFormat"] = texInfo["internalFormat"] || "RGBA";
 		switch ((new String(texInfo["internalFormat"])).toUpperCase()) {
@@ -37,37 +47,37 @@ class RendererFit extends GeneraterBase {
 			default:
 				console.error("the given parameter was invalid : texture format " + texInfo["internalFormat"]);
 		}
-		var elementFormat:TextureType;
-		texInfo["element"]=texInfo["element"]||"UBYTE";
-				switch ((new String(texInfo["element"])).toUpperCase()) {
+		var elementFormat: TextureType;
+		texInfo["element"] = texInfo["element"] || "UBYTE";
+		switch ((new String(texInfo["element"])).toUpperCase()) {
 			case "UBYTE":
-				elementFormat=TextureType.UnsignedByte;
+				elementFormat = TextureType.UnsignedByte;
 				break;
 			case "FLOAT":
-				elementFormat=TextureType.Float;
+				elementFormat = TextureType.Float;
 				break;
 			case "USHORT565":
-				elementFormat=TextureType.UnsignedShort565;
+				elementFormat = TextureType.UnsignedShort565;
 				break;
 			case "USHORT4444":
-				elementFormat=TextureType.UnsignedShort4444;
+				elementFormat = TextureType.UnsignedShort4444;
 				break;
 			case "USHORT5551":
-				elementFormat=TextureType.UnsignedShort5551;
+				elementFormat = TextureType.UnsignedShort5551;
 				break;
 			case "UINT":
-				elementFormat=TextureType.UnsignedInt;
+				elementFormat = TextureType.UnsignedInt;
 				break;
 			case "USHORT":
-				elementFormat=TextureType.UnsignedShort;
+				elementFormat = TextureType.UnsignedShort;
 				break;
 			case "UINT24_8":
-				elementFormat=TextureType.UnsignedInt24_8WebGL;
+				elementFormat = TextureType.UnsignedInt24_8WebGL;
 				break;
 			default:
 				console.error("the given parameter was invalid : element format " + texInfo["element"]);
 		}
-		return this.Context.ResourceManager.createTexture(this.parentRenderer.ID+"."+name,width,height,internalFormat,elementFormat);
+		return this.Context.ResourceManager.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
 	}
 }
 

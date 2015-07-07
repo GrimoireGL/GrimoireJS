@@ -14,6 +14,7 @@ import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationS
 import FowardRenderStage = require('./RenderStages/FowardShadingStage');
 import GrayScaleStage = require('./RenderStages/GrayScaleStage');
 import JThreeContextProxy = require('../JThreeContextProxy');
+import JThreeEvent =require('../../Base/JThreeEvent');
 /**
  * Provides base class feature for renderer classes.
  */

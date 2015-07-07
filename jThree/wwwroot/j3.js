@@ -13768,9 +13768,9 @@
 	    __extends(CanvasManager, _super);
 	    function CanvasManager(glContext) {
 	        _super.call(this);
-	        this.sizeChangedEventHandler = new JThreeEvent();
-	        this.isDirty = true;
 	        this.fullscreen = false;
+	        this.isDirty = true;
+	        this.onResizeEventHandler = new JThreeEvent();
 	        this.setContext(new WebGLContextWrapper(glContext));
 	    }
 	    CanvasManager.fromCanvasElement = function (canvas) {
@@ -13793,8 +13793,55 @@
 	        }
 	    };
 	    CanvasManager.prototype.onResize = function (act) {
-	        this.sizeChangedEventHandler.addListerner(act);
+	        this.onResizeEventHandler.addListerner(act);
 	    };
+	    CanvasManager.prototype.afterRenderAll = function () {
+	        this.isDirty = true;
+	    };
+	    CanvasManager.prototype.beforeRender = function (renderer) {
+	        if (this.isDirty) {
+	            this.clearCanvas();
+	            this.isDirty = false;
+	        }
+	    };
+	    CanvasManager.prototype.beforeRenderAll = function () {
+	        if (this.targetCanvas.height !== this.lastHeight || this.targetCanvas.width !== this.lastWidth) {
+	            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.targetCanvas.width, this.targetCanvas.height));
+	            this.lastHeight = this.targetCanvas.height;
+	            this.lastWidth = this.targetCanvas.width;
+	        }
+	    };
+	    CanvasManager.prototype.clearCanvas = function () {
+	        this.Context.BindFrameBuffer(null);
+	        this.Context.ClearColor(this.ClearColor.R, this.ClearColor.G, this.ClearColor.B, this.ClearColor.A);
+	        this.Context.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        this.Context.Enable(GLFeatureType.DepthTest);
+	        this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
+	    };
+	    CanvasManager.prototype.getDefaultRectangle = function () {
+	        return new Rectangle(0, 0, this.targetCanvas.width, this.targetCanvas.height);
+	    };
+	    Object.defineProperty(CanvasManager.prototype, "TargetCanvas", {
+	        get: function () {
+	            return this.targetCanvas;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(CanvasManager.prototype, "FullScreen", {
+	        get: function () {
+	            return this.fullscreen;
+	        },
+	        set: function (val) {
+	            if (val === this.fullscreen)
+	                return;
+	            this.fullscreen = val;
+	            if (val)
+	                this.targetCanvas.webkitRequestFullScreen();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Object.defineProperty(CanvasManager.prototype, "ClearColor", {
 	        get: function () {
 	            this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
@@ -13809,45 +13856,6 @@
 	    Object.defineProperty(CanvasManager.prototype, "IsDirty", {
 	        get: function () {
 	            return this.isDirty;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    CanvasManager.prototype.afterRenderAll = function () {
-	        this.isDirty = true;
-	    };
-	    CanvasManager.prototype.beforeRender = function (renderer) {
-	        if (this.isDirty) {
-	            this.ClearCanvas();
-	            this.isDirty = false;
-	        }
-	    };
-	    CanvasManager.prototype.beforeRenderAll = function () {
-	        if (this.targetCanvas.height !== this.lastHeight || this.targetCanvas.width !== this.lastWidth) {
-	            this.sizeChangedEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.targetCanvas.width, this.targetCanvas.height));
-	            this.lastHeight = this.targetCanvas.height;
-	            this.lastWidth = this.targetCanvas.width;
-	        }
-	    };
-	    CanvasManager.prototype.ClearCanvas = function () {
-	        this.Context.ClearColor(this.ClearColor.R, this.ClearColor.G, this.ClearColor.B, this.ClearColor.A);
-	        this.Context.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-	        this.Context.Enable(GLFeatureType.DepthTest);
-	        this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
-	    };
-	    CanvasManager.prototype.getDefaultRectangle = function () {
-	        return new Rectangle(0, 0, this.targetCanvas.width, this.targetCanvas.height);
-	    };
-	    Object.defineProperty(CanvasManager.prototype, "FullScreen", {
-	        get: function () {
-	            return this.fullscreen;
-	        },
-	        set: function (val) {
-	            if (val === this.fullscreen)
-	                return;
-	            this.fullscreen = val;
-	            if (val)
-	                this.targetCanvas.webkitRequestFullScreen();
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -14478,6 +14486,9 @@
 	    Rectangle.prototype.toString = function () {
 	        return "Rectangle(" + this.left + "," + this.top + "-" + this.Right + "," + this.Bottom + ")";
 	    };
+	    Rectangle.Equals = function (r1, r2) {
+	        return r1.Left === r2.Left && r1.Right === r2.Right && r1.Top === r2.Top && r1.Bottom === r2.Bottom;
+	    };
 	    return Rectangle;
 	})(jThreeObject);
 	module.exports = Rectangle;
@@ -14727,11 +14738,14 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
+	var Rectangle = __webpack_require__(98);
 	var RendererBase = __webpack_require__(104);
+	var JThreeEvent = __webpack_require__(12);
 	var ViewPortRenderer = (function (_super) {
 	    __extends(ViewPortRenderer, _super);
 	    function ViewPortRenderer(contextManager, viewportArea) {
 	        _super.call(this, contextManager);
+	        this.onResizeHandler = new JThreeEvent();
 	        this.viewportArea = viewportArea;
 	    }
 	    Object.defineProperty(ViewPortRenderer.prototype, "ViewPortArea", {
@@ -14739,7 +14753,10 @@
 	            return this.viewportArea;
 	        },
 	        set: function (area) {
-	            this.viewportArea = area;
+	            if (!Rectangle.Equals(area, this.viewportArea)) {
+	                this.viewportArea = area;
+	                this.onResizeHandler.fire(this, area);
+	            }
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -14757,6 +14774,9 @@
 	    };
 	    ViewPortRenderer.prototype.configureRenderer = function () {
 	        this.applyViewportConfigure();
+	    };
+	    ViewPortRenderer.prototype.onResize = function (act) {
+	        this.onResizeHandler.addListerner(act);
 	    };
 	    return ViewPortRenderer;
 	})(RendererBase);
@@ -15151,12 +15171,13 @@
 	var Matrix = __webpack_require__(59);
 	var JThreeObject = __webpack_require__(5);
 	var glm = __webpack_require__(26);
+	var JThreeEvent = __webpack_require__(12);
 	var Transformer = (function (_super) {
 	    __extends(Transformer, _super);
 	    function Transformer(sceneObj) {
 	        _super.call(this);
 	        this.cacheMat = glm.mat4.create();
-	        this.onUpdateTransformHandler = [];
+	        this.onUpdateTransformHandler = new JThreeEvent();
 	        this.relatedTo = sceneObj;
 	        this.position = Vector3.Zero;
 	        this.rotation = Quaternion.Identity;
@@ -15165,11 +15186,7 @@
 	        this.updateTransform();
 	    }
 	    Transformer.prototype.onUpdateTransform = function (action) {
-	        this.onUpdateTransformHandler.push(action);
-	    };
-	    Transformer.prototype.notifyOnUpdateTransform = function () {
-	        var _this = this;
-	        this.onUpdateTransformHandler.forEach(function (v) { v(_this.relatedTo); });
+	        this.onUpdateTransformHandler.addListerner(action);
 	    };
 	    Transformer.prototype.updateTransform = function () {
 	        this.localTransofrm = Matrix.TRS(this.position, this.rotation, this.scale);
@@ -15178,7 +15195,7 @@
 	        this.relatedTo.Children.each(function (v) {
 	            v.Transformer.updateTransform();
 	        });
-	        this.notifyOnUpdateTransform();
+	        this.onUpdateTransformHandler.fire(this, this.relatedTo);
 	    };
 	    Transformer.prototype.calculateMVPMatrix = function (renderer) {
 	        return Matrix.multiply(Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix), this.LocalToGlobal);
@@ -15257,13 +15274,27 @@
 	var GeneraterBase = __webpack_require__(111);
 	var TextureInternalFormatType = __webpack_require__(112);
 	var TextureType = __webpack_require__(113);
+	var Rectangle = __webpack_require__(98);
 	var RendererFit = (function (_super) {
 	    __extends(RendererFit, _super);
 	    function RendererFit(parent) {
 	        _super.call(this, parent);
 	    }
+	    Object.defineProperty(RendererFit.prototype, "ParentRenderRectangle", {
+	        get: function () {
+	            if (this.parentRenderer["ViewPortArea"]) {
+	                return this.parentRenderer["ViewPortArea"];
+	            }
+	            else {
+	                return new Rectangle(0, 0, 512, 512);
+	            }
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    RendererFit.prototype.generate = function (name, texInfo) {
-	        var width = 512, height = 512;
+	        var rect = this.ParentRenderRectangle;
+	        var width = rect.Width, height = rect.Height;
 	        var internalFormat;
 	        texInfo["internalFormat"] = texInfo["internalFormat"] || "RGBA";
 	        switch ((new String(texInfo["internalFormat"])).toUpperCase()) {
@@ -18278,7 +18309,7 @@
 	        this.lookAt = new Vector3(0, 0, -1);
 	        this.updir = new Vector3(0, 1, 0);
 	        this.UpdateViewMatrix();
-	        this.transformer.onUpdateTransform(function (o) { return _this.UpdateViewMatrix(o); });
+	        this.transformer.onUpdateTransform(function (t, o) { return _this.UpdateViewMatrix(o); });
 	    }
 	    Object.defineProperty(ViewCameraBase.prototype, "Position", {
 	        get: function () {

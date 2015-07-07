@@ -12,7 +12,7 @@ import GLFeatureType = require('../Wrapper/GLFeatureType');
 import PixelStoreParamType = require('../Wrapper/Texture/PixelStoreParamType');
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
-import Delegates=require('../Base/Delegates');
+import Delegates = require('../Base/Delegates');
 /**
  * Provides some of feature managing canvas.
  */
@@ -25,106 +25,142 @@ class CanvasManager extends ContextManagerBase {
         try {
             gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
             var renderer: CanvasManager = new CanvasManager(gl);
-            var instance=JThreeContextProxy.getJThreeContext();
-            renderer.targetCanvas=canvas;
-            renderer.lastHeight=canvas.height;
-            renderer.lastWidth=canvas.width;
+            var instance = JThreeContextProxy.getJThreeContext();
+            renderer.targetCanvas = canvas;
+            renderer.lastHeight = canvas.height;
+            renderer.lastWidth = canvas.width;
             instance.addCanvasManager(renderer);
             //add div for monitoring size changing in canvas
             return renderer;
-        } catch (e) {   
-          console.error("Web GL context Generation failed");
+        } catch (e) {
+            console.error("Web GL context Generation failed");
             if (!gl) {
-              console.error("WebGL Context Generation failed."+e);
+                console.error("WebGL Context Generation failed." + e);
                 //Processing for this error
             }
         }
     }
-    
-    private targetCanvas:HTMLCanvasElement;
-    
-    private lastHeight:number;
-    
-    private lastWidth:number;
-    
-    private sizeChangedEventHandler:JThreeEvent<CanvasSizeChangedEventArgs>=new JThreeEvent<CanvasSizeChangedEventArgs>();
-    
-    public onResize(act:Delegates.Action2<CanvasManager,CanvasSizeChangedEventArgs>)
-    {
-        this.sizeChangedEventHandler.addListerner(act);
-    }
-    
-    private clearColor:Color4;
-    get ClearColor():Color4
-    {
-      this.clearColor=this.clearColor||new Color4(1,1,1,1);
-      return this.clearColor;
-    }
-    set ClearColor(col:Color4)
-    {
-      this.clearColor=col||new Color4(1,1,1,1);
-    }
-
-    private isDirty:boolean=true;
-    get IsDirty():boolean
-    {
-      return this.isDirty;
-    }
-
-    afterRenderAll():void
-    {
-      this.isDirty=true;
-    }
-
-    beforeRender(renderer:RendererBase):void
-    {
-
-      if(this.isDirty){
-        this.ClearCanvas();
-        this.isDirty=false;
-      }
-    }
-    
-    public beforeRenderAll():void
-    {
-        if(this.targetCanvas.height!==this.lastHeight||this.targetCanvas.width!==this.lastWidth)
-        {
-            this.sizeChangedEventHandler.fire(this,new CanvasSizeChangedEventArgs(this,this.lastWidth,this.lastHeight,this.targetCanvas.width,this.targetCanvas.height));
-            this.lastHeight=this.targetCanvas.height;this.lastWidth=this.targetCanvas.width;
-        }
-    }
-
-    ClearCanvas():void
-    {
-      this.Context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
-      this.Context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
-      this.Context.Enable(GLFeatureType.DepthTest);
-      this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL,1);
-    }
 
     constructor(glContext: WebGLRenderingContext) {
         super();
-       // this.enabled = true;
+        // this.enabled = true;
         this.setContext(new WebGLContextWrapper(glContext));
     }
-
-    public getDefaultRectangle():Rectangle
-    {
-        return new Rectangle(0,0,this.targetCanvas.width,this.targetCanvas.height);
+    
+    /**
+     * backing field of FullScreen.
+     */
+    private fullscreen: boolean = false;
+    
+    /**
+     * target canvas this class managing.
+     */
+    private targetCanvas: HTMLCanvasElement;
+    
+    /**
+     * cache for the last height.
+     */
+    private lastHeight: number;
+    
+    /**
+     * cache for the last width.
+     */
+    private lastWidth: number;
+    
+    /**
+     * backing field for ClearColor
+     */
+    private clearColor: Color4;
+    
+    /**
+     * backing field for IsDirty
+     */
+    private isDirty: boolean = true;
+    
+    /**
+     * event cache for resize event.
+     */
+    private onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
+    /**
+     * add event handler that will be called when canvas size was changed.
+     */
+    public onResize(act: Delegates.Action2<CanvasManager, CanvasSizeChangedEventArgs>) {
+        this.onResizeEventHandler.addListerner(act);
     }
     
-    private fullscreen:boolean =false;
-    public get FullScreen():boolean
-    {
+    public afterRenderAll(): void {
+        this.isDirty = true;
+    }
+
+    public beforeRender(renderer: RendererBase): void {
+        if (this.isDirty) {//check it needs clear default buffer or not.
+            this.clearCanvas();
+            this.isDirty = false;
+        }
+    }
+
+    public beforeRenderAll(): void {
+        //check size changed or not.
+        if (this.targetCanvas.height !== this.lastHeight || this.targetCanvas.width !== this.lastWidth) {
+            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.targetCanvas.width, this.targetCanvas.height));
+            this.lastHeight = this.targetCanvas.height; this.lastWidth = this.targetCanvas.width;
+        }
+    }
+    
+    /**
+     * clear the default buffer of this canvas with ClearColor.
+     */
+    public clearCanvas(): void {
+        this.Context.BindFrameBuffer(null);//binds to default buffer.
+        this.Context.ClearColor(this.ClearColor.R, this.ClearColor.G, this.ClearColor.B, this.ClearColor.A);
+        this.Context.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+        this.Context.Enable(GLFeatureType.DepthTest);
+        this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
+    }
+
+    /**
+     * Get default rectangle it fills this canvas.
+     */
+    public getDefaultRectangle(): Rectangle {
+        return new Rectangle(0, 0, this.targetCanvas.width, this.targetCanvas.height);
+    }
+    
+    /**
+     * Get accessor for the reference of canvas element this object managing.
+     */
+    public get TargetCanvas(): HTMLCanvasElement {
+        return this.targetCanvas;
+    }
+    
+    /**
+     * Get accessor whether this canvas is fullscreen or not.
+     */
+    public get FullScreen(): boolean {
         return this.fullscreen;
     }
-    public set FullScreen(val:boolean)
-    {
-        if(val===this.fullscreen)return;
-        this.fullscreen=val;
-        if(val)this.targetCanvas.webkitRequestFullScreen();//TODO fix it
+    
+    /**
+     * Set accessor whether this canvas is fullscreen or not.
+     */
+    public set FullScreen(val: boolean) {
+        if (val === this.fullscreen) return;
+        this.fullscreen = val;
+        if (val) this.targetCanvas.webkitRequestFullScreen();//TODO fix it
+    }
+
+
+    public get ClearColor(): Color4 {
+        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
+        return this.clearColor;
+    }
+    public set ClearColor(col: Color4) {
+        this.clearColor = col || new Color4(1, 1, 1, 1);
+    }
+
+    public get IsDirty(): boolean {
+        return this.isDirty;
     }
 }
 
 
-export=CanvasManager;
+export =CanvasManager;

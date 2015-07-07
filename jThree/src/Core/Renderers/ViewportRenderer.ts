@@ -11,6 +11,7 @@ import SceneObject = require('./../SceneObject');
 import RenderStageBase = require('./RenderStages/RenderStageBase');
 import FowardShadingStage = require('./RenderStages/FowardShadingStage');
 import LightShadowStage = require('./RenderStages/LightShadowStage');
+import JThreeEvent = require('../../Base/JThreeEvent');
 class ViewPortRenderer extends RendererBase {
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {
         super(contextManager);
@@ -24,7 +25,11 @@ class ViewPortRenderer extends RendererBase {
     }
 
     public set ViewPortArea(area: Rectangle) {
-        this.viewportArea = area;
+        if (!Rectangle.Equals(area, this.viewportArea)) {
+            this.viewportArea = area;
+            this.onResizeHandler.fire(this,area);
+        }
+
     }
 
     applyViewportConfigure(): void {
@@ -43,6 +48,12 @@ class ViewPortRenderer extends RendererBase {
 
     public configureRenderer() {
         this.applyViewportConfigure();
+    }
+
+    protected onResizeHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
+    
+    public onResize(act: Delegates.Action2<RendererBase, Rectangle>) {
+        this.onResizeHandler.addListerner(act);
     }
 }
 
