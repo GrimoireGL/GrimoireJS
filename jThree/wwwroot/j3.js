@@ -14952,7 +14952,6 @@
 	var Vector3 = __webpack_require__(24);
 	var Vector2 = __webpack_require__(111);
 	var agent = __webpack_require__(112);
-	var GLFeatureType = __webpack_require__(54);
 	var LitghtAccumulationStage = (function (_super) {
 	    __extends(LitghtAccumulationStage, _super);
 	    function LitghtAccumulationStage(renderer) {
@@ -14969,7 +14968,6 @@
 	            { texture: texs["OUT"], target: 0 },
 	            { texture: this.DefaultRBO, type: "rbo", target: "depth", isOptional: true }
 	        ], function () {
-	            _this.GLContext.Disable(GLFeatureType.DepthTest);
 	            _this.GLContext.ClearColor(0, 0, 0, 1);
 	            _this.GLContext.Clear(ClearTargetType.ColorBits);
 	        });
@@ -15048,6 +15046,15 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    Object.defineProperty(LitghtAccumulationStage.prototype, "RenderStageConfig", {
+	        get: function () {
+	            return {
+	                depthTest: false
+	            };
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return LitghtAccumulationStage;
 	})(RenderStageBase);
 	module.exports = LitghtAccumulationStage;
@@ -15066,6 +15073,8 @@
 	var JThreeObject = __webpack_require__(5);
 	var JThreeContextProxy = __webpack_require__(55);
 	var ShaderType = __webpack_require__(52);
+	var GLCullMode = __webpack_require__(53);
+	var GLFeature = __webpack_require__(54);
 	var FrameBufferAttachmentType = __webpack_require__(107);
 	var RenderStageBase = (function (_super) {
 	    __extends(RenderStageBase, _super);
@@ -15102,6 +15111,38 @@
 	    Object.defineProperty(RenderStageBase.prototype, "TargetGeometry", {
 	        get: function () {
 	            return "scene";
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RenderStageBase.prototype.applyStageConfig = function () {
+	        this.applyStageConfigToGLFeature(this.RenderStageConfig.cullFace, GLFeature.CullFace, true);
+	        this.applyStageConfigToGLFeature(this.RenderStageConfig.depthTest, GLFeature.DepthTest, true);
+	        if (!this.RenderStageConfig.cullFront) {
+	            this.GLContext.CullFace(GLCullMode.Front);
+	        }
+	        else {
+	            this.GLContext.CullFace(GLCullMode.Back);
+	        }
+	    };
+	    RenderStageBase.prototype.applyStageConfigToGLFeature = function (flag, target, def) {
+	        if (typeof flag === 'undefined') {
+	            flag = def;
+	        }
+	        if (flag) {
+	            this.GLContext.Enable(target);
+	        }
+	        else {
+	            this.GLContext.Disable(target);
+	        }
+	    };
+	    Object.defineProperty(RenderStageBase.prototype, "RenderStageConfig", {
+	        get: function () {
+	            return {
+	                cullFace: true,
+	                cullFront: false,
+	                depthTest: true
+	            };
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -16971,6 +17012,7 @@
 	                default:
 	                    targetObjects = sceneObjects;
 	            }
+	            stage.applyStageConfig();
 	            for (var i = 0; i < passCount; i++) {
 	                stage.preBeginStage(scene, i, texs);
 	                targetObjects.forEach(function (v) {
@@ -17373,7 +17415,6 @@
 	var Mesh = __webpack_require__(108);
 	var Matrix = __webpack_require__(59);
 	var agent = __webpack_require__(112);
-	var GLFeatureType = __webpack_require__(54);
 	var LitghtAccumulationStage = (function (_super) {
 	    __extends(LitghtAccumulationStage, _super);
 	    function LitghtAccumulationStage(renderer) {
@@ -17398,7 +17439,6 @@
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
 	        });
 	        this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-	        this.Renderer.GLContext.Disable(GLFeatureType.DepthTest);
 	    };
 	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
 	    };
@@ -17430,6 +17470,15 @@
 	    Object.defineProperty(LitghtAccumulationStage.prototype, "TargetGeometry", {
 	        get: function () {
 	            return "quad";
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(LitghtAccumulationStage.prototype, "RenderStageConfig", {
+	        get: function () {
+	            return {
+	                depthTest: true
+	            };
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -21156,7 +21205,7 @@
 	    d.prototype = new __();
 	};
 	var ResourceWrapper = __webpack_require__(172);
-	var ClearTargetType = __webpack_require__(93);
+	var ClearTargetType = __webpack_require__(98);
 	var FBOWrapper = (function (_super) {
 	    __extends(FBOWrapper, _super);
 	    function FBOWrapper(renderer) {

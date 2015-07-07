@@ -40,7 +40,6 @@ class LitghtAccumulationStage extends RenderStageBase {
       { texture: texs["OUT"], target: 0 },
       { texture:this.DefaultRBO,type:"rbo",target: "depth", isOptional: true }
     ], () => {
-      this.GLContext.Disable(GLFeatureType.DepthTest);
       this.GLContext.ClearColor(0, 0, 0, 1);
       this.GLContext.Clear(ClearTargetType.ColorBits);
     });
@@ -125,5 +124,12 @@ class LitghtAccumulationStage extends RenderStageBase {
 		public get TargetGeometry(): string {
     return "quad";
   }
+  
+  	public get RenderStageConfig()
+	{
+		return {
+			depthTest:false
+		};
+	}
 }
 export = LitghtAccumulationStage;

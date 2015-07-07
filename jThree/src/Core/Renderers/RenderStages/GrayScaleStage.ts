@@ -51,7 +51,6 @@ class LitghtAccumulationStage extends RenderStageBase {
 				this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
 			});
 		this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-		this.Renderer.GLContext.Disable(GLFeatureType.DepthTest);
 	}
 
 	public postEndStage(scene: Scene, passCount: number) {
@@ -89,6 +88,12 @@ class LitghtAccumulationStage extends RenderStageBase {
 
 	public get TargetGeometry(): string {
 		return "quad";
+	}
+
+	public get RenderStageConfig() {
+		return {
+			depthTest: true
+		};
 	}
 }
 export = LitghtAccumulationStage;

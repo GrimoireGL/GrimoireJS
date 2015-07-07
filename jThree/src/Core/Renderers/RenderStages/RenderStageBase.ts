@@ -14,12 +14,20 @@ import RBO = require('../../Resources/RBO/RBO');
 import FBO = require('../../Resources/FBO/FBO');
 import FBOWrapper = require('../../Resources/FBO/FBOWrapper');
 import Delegates = require('../../../Base/Delegates');
+import GLCullMode = require('../../../Wrapper/GLCullMode');
+import GLFeature = require('../../../Wrapper/GLFeatureType');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 interface FBOBindData {
 	texture: TextureBase|RBO,
 	target: string|number,
 	isOptional?: boolean,
 	type?: string
+}
+
+interface RenderStageConfig {
+	cullFace?: boolean;
+	cullFront?: boolean;
+	depthTest?: boolean;
 }
 
 class RenderStageBase extends JThreeObject {
@@ -64,6 +72,38 @@ class RenderStageBase extends JThreeObject {
 		return "scene";
 	}
 
+	public applyStageConfig() {
+		//cull enabled/disabled
+		this.applyStageConfigToGLFeature(this.RenderStageConfig.cullFace, GLFeature.CullFace, true);
+		this.applyStageConfigToGLFeature(this.RenderStageConfig.depthTest, GLFeature.DepthTest, true);
+		//cull face direction
+		if (!this.RenderStageConfig.cullFront) {
+			this.GLContext.CullFace(GLCullMode.Front);
+		} else {
+			this.GLContext.CullFace(GLCullMode.Back);
+		}
+	}
+
+	private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
+		if (typeof flag === 'undefined') {
+			flag = def;
+		}
+		if (flag) {
+			this.GLContext.Enable(target);
+		}
+		else {
+			this.GLContext.Disable(target);
+		}
+	}
+
+	public get RenderStageConfig(): RenderStageConfig {
+		return {
+			cullFace: true,
+			cullFront: false,
+			depthTest: true
+		};
+	}
+
 	protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
         var jThreeContext = JThreeContextProxy.getJThreeContext();
         var rm = jThreeContext.ResourceManager;
@@ -77,7 +117,7 @@ class RenderStageBase extends JThreeObject {
 		var shouldBeDefault = false;
 		var targetWrapper = fbo.getForContext(this.Renderer.ContextManager);
 		bindInfo.forEach(v=> {
-			v.target=v.target.toString().toLowerCase();
+			v.target = v.target.toString().toLowerCase();
 			var attachmentType = FrameBufferAttachmentType.ColorAttachment0;
 			if (v.target === "depth") {
 				attachmentType = FrameBufferAttachmentType.DepthAttachment;

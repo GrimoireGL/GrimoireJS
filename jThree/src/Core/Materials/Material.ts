@@ -82,7 +82,7 @@ class Material extends JThreeObjectWithID {
     }
 
     protected applyCullConfigure(renderer: RendererBase) {
-        if (this.CullEnabled) {
+        if (this.CullEnabled) {//default = Cull.Front
             renderer.GLContext.Enable(
                 GLFeatureType.CullFace);
             renderer.GLContext.CullFace(this.cullMode);

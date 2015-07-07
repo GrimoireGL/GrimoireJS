@@ -20,51 +20,46 @@ class RenderStageManager {
 		this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
 		this.initializeGeneraters();
 	}
-	
-	private initializeGeneraters()
-	{
-		var generaters=require('./TextureGeneraters/GeneraterList');
+
+	private initializeGeneraters() {
+		var generaters = require('./TextureGeneraters/GeneraterList');
 		for (var key in generaters) {
 			if (generaters.hasOwnProperty(key)) {
 				var element = generaters[key];
-				this.generaters.set(key,new element(this.parentRenderer));
+				this.generaters.set(key, new element(this.parentRenderer));
 			}
 		}
 	}
 
 	private stageChains: RenderStageChain[] = [];
-	
-	private textureBuffers:GeneraterInfo={};
-	
-	public get TextureBuffers()
-	{
+
+	private textureBuffers: GeneraterInfo = {};
+
+	public get TextureBuffers() {
 		return this.textureBuffers;
 	}
-	
-	public set TextureBuffers(val:GeneraterInfo)
-	{
-		this.textureBuffers=val;
+
+	public set TextureBuffers(val: GeneraterInfo) {
+		this.textureBuffers = val;
 	}
-	
-	private generaters:AssociativeArray<GeneraterBase>=new AssociativeArray<GeneraterBase>();
+
+	private generaters: AssociativeArray<GeneraterBase> = new AssociativeArray<GeneraterBase>();
 	
 	/**
 	 * Provides the list of texture generaters
 	 */
-	public get Generaters(){
+	public get Generaters() {
 		return this.generaters;
 	}
 	
 	/**
 	 * Generate all textures subscribed to TextureBuffers
 	 */
-	public generateAllTextures()
-	{
-		for(var name in this.textureBuffers)
-		{
-			var textureAllocationInfo=this.textureBuffers[name];
-			var generater=this.Generaters.get(textureAllocationInfo.generater);
-			generater.generate(name,textureAllocationInfo);
+	public generateAllTextures() {
+		for (var name in this.textureBuffers) {
+			var textureAllocationInfo = this.textureBuffers[name];
+			var generater = this.Generaters.get(textureAllocationInfo.generater);
+			generater.generate(name, textureAllocationInfo);
 		}
 	}
 
@@ -101,6 +96,7 @@ class RenderStageManager {
 				default:
 					targetObjects = sceneObjects;
 			}
+			stage.applyStageConfig();
 			for (var i = 0; i < passCount; i++) {
 				stage.preBeginStage(scene, i, texs);
 				targetObjects.forEach(v=> {
