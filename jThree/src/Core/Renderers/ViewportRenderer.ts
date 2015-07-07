@@ -49,12 +49,6 @@ class ViewPortRenderer extends RendererBase {
     public configureRenderer() {
         this.applyViewportConfigure();
     }
-
-    protected onResizeHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
-    
-    public onResize(act: Delegates.Action2<RendererBase, Rectangle>) {
-        this.onResizeHandler.addListerner(act);
-    }
 }
 
 export =ViewPortRenderer;

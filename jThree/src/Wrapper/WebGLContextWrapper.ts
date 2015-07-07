@@ -368,6 +368,15 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.CheckErrorAsFatal();
     this.gl.uniform1f(webglUniformLocation,num);
   }
+  
+  IsTexture(tex: WebGLTexture): boolean {
+    return this.gl.isTexture(tex);
+  }
+  
+    DeleteTexture(tex:WebGLTexture)
+  {
+    this.gl.deleteTexture(tex);
+  }
 
 }
 export =WebGLContextWrapper;

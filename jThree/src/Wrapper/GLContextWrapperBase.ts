@@ -256,11 +256,11 @@ class GLContextWrapperBase extends JThreeObject {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   
-    /**
-  * Pass vector as uniform variable
-  * @param webGlUniformLocation uniform variable location
-  * @param vector vector you want to pass
-  */
+  /**
+* Pass vector as uniform variable
+* @param webGlUniformLocation uniform variable location
+* @param vector vector you want to pass
+*/
   UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
@@ -358,8 +358,15 @@ class GLContextWrapperBase extends JThreeObject {
   PixelStorei(pname: PixelStoreParamType, value: number) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
-  
-    Uniform1f(webglUniformLocation:WebGLUniformLocation,num:number)
+
+  Uniform1f(webglUniformLocation: WebGLUniformLocation, num: number) {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+  IsTexture(tex: WebGLTexture): boolean {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+  DeleteTexture(tex:WebGLTexture)
   {
     throw new Exceptions.AbstractClassMethodCalledException();
   }

@@ -14,7 +14,8 @@ import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationS
 import FowardRenderStage = require('./RenderStages/FowardShadingStage');
 import GrayScaleStage = require('./RenderStages/GrayScaleStage');
 import JThreeContextProxy = require('../JThreeContextProxy');
-import JThreeEvent =require('../../Base/JThreeEvent');
+import JThreeEvent = require('../../Base/JThreeEvent');
+import Rectangle = require('../../Math/Rectangle');
 /**
  * Provides base class feature for renderer classes.
  */
@@ -46,7 +47,7 @@ class RendererBase extends jThreeObjectWithID {
                     RB1: "deffered.rb1",
                     RB2: "deffered.rb2",
                     DEPTH: "deffered.depth",
-                    DIR:"jthree.light.dir1",
+                    DIR: "jthree.light.dir1",
                     OUT: "deffered.light"
                 },
                 stage: new LightAccumulationRenderStage(this)
@@ -68,7 +69,7 @@ class RendererBase extends jThreeObjectWithID {
             }
             );
         this.renderStageManager.TextureBuffers = {
-            "jthree.light.dir1":{
+            "jthree.light.dir1": {
                 generater: "rendererfit",
                 internalFormat: "DEPTH",
                 element: "USHORT"
@@ -166,6 +167,12 @@ class RendererBase extends jThreeObjectWithID {
      */
     public get RenderStageManager(): RenderStageManager {
         return this.renderStageManager;
+    }
+
+    protected onResizeHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
+    
+    public onResize(act: Delegates.Action2<RendererBase, Rectangle>) {
+        this.onResizeHandler.addListerner(act);
     }
 }
 

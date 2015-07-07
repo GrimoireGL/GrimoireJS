@@ -9,51 +9,54 @@ import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilter
 import ContextManagerBase = require('../../ContextManagerBase');
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import TextureBase = require('./TextureBase');
-class BufferTexture extends TextureBase
-{
-	private width:number;
-	
-	get Width():number
-	{
+class BufferTexture extends TextureBase {
+	private width: number;
+
+	get Width(): number {
 		return this.width;
 	}
-	
-	private height:number;
-	
-	get Height():number
-	{
+
+	private height: number;
+
+	get Height(): number {
 		return this.height;
 	}
-	
-	private textureFormat:TextureFormat;
-	
-	get TextureFormat():TextureFormat
-	{
+
+	private textureFormat: TextureFormat;
+
+	get TextureFormat(): TextureFormat {
 		return this.textureFormat;
 	}
-	
-	private elementFormat:ElementFormat;
-	
-	get ElementFormat():ElementFormat
-	{
+
+	private elementFormat: ElementFormat;
+
+	get ElementFormat(): ElementFormat {
 		return this.elementFormat;
 	}
-		
-	constructor(context:JThreeContext,width:number,height:number,textureFormat:TextureFormat,elementFormat:ElementFormat)
-	{
+
+	constructor(context: JThreeContext, width: number, height: number, textureFormat: TextureFormat, elementFormat: ElementFormat) {
 		super(context);
-		this.width=width;
-		this.height=height;
-		this.textureFormat=textureFormat;
-		this.elementFormat=elementFormat;
+		this.width = width;
+		this.height = height;
+		this.textureFormat = textureFormat;
+		this.elementFormat = elementFormat;
+	}
+
+	protected getInstanceForRenderer(contextManager: ContextManagerBase): BufferTextureWrapper {
+		var textureWrapper = new BufferTextureWrapper(contextManager, this);
+		return textureWrapper;
 	}
 	
-	  protected getInstanceForRenderer(contextManager: ContextManagerBase): BufferTextureWrapper {
-      var textureWrapper=new BufferTextureWrapper(contextManager,this);
-      return textureWrapper;
-  }
-	
-	
+	public resize(width:number,height:number)
+	{
+		if(this.width!==width||this.height!==height)
+		{
+			this.width=width;
+			this.height=height;
+			this.each(v=>(<BufferTextureWrapper>v).resize(width,height));
+		}
+	}
+
 }
 
 export = BufferTexture;

@@ -4,6 +4,7 @@ import GeneraterBase = require('./GeneraterBase');
 import TextureInternalFormatType = require('../../../Wrapper/TextureInternalFormatType');
 import TextureType = require('../../../Wrapper/TextureType');
 import Rectangle = require('../../../Math/Rectangle');
+import BufferTexture = require('../../Resources/Texture/BufferTexture');
 class RendererFit extends GeneraterBase {
 	constructor(parent: RendererBase) {
 		super(parent);
@@ -77,7 +78,12 @@ class RendererFit extends GeneraterBase {
 			default:
 				console.error("the given parameter was invalid : element format " + texInfo["element"]);
 		}
-		return this.Context.ResourceManager.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
+		var resource=this.Context.ResourceManager.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
+			this.parentRenderer.onResize((r,s:Rectangle)=>{
+				console.warn("resize!");
+				(<BufferTexture>resource).resize(s.Width,s.Height);
+			});
+		return resource;
 	}
 }
 
