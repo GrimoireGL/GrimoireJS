@@ -15072,6 +15072,13 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    Object.defineProperty(RenderStageBase.prototype, "GLContext", {
+	        get: function () {
+	            return this.Renderer.GLContext;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    RenderStageBase.prototype.preBeginStage = function (scene, passCount, texs) {
 	    };
 	    RenderStageBase.prototype.postEndStage = function (scene, passCount, texs) {
@@ -17291,8 +17298,7 @@
 	        var context = JThreeContextProxy.getJThreeContext();
 	        var rm = context.ResourceManager;
 	        this.fbo = rm.getFBO("jthree.fbo.default");
-	        var rbo = rm.getRBO("jthree.rbo.default");
-	        this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rbo);
+	        this.rbo = rm.getRBO("jthree.rbo.default");
 	    }
 	    FowardShadingStage.prototype.preBeginStage = function (scene, passCount, texs) {
 	        var _this = this;
@@ -17301,6 +17307,7 @@
 	                target: 0,
 	                isOptional: false
 	            }], function () {
+	            _this.fbo.getForContext(_this.Renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, _this.rbo);
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 	        });
 	    };
@@ -17369,7 +17376,7 @@
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
 	        });
 	        this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-	        this.Renderer.GLContext.Enable(GLFeatureType.DepthTest);
+	        this.Renderer.GLContext.Disable(GLFeatureType.DepthTest);
 	    };
 	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
 	    };

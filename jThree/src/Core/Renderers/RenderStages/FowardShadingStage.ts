@@ -12,22 +12,24 @@ import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachme
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
 	private fbo: FBO;
+
+	private rbo: RBO;
 	constructor(renderer: RendererBase) {
 		super(renderer);
 		var context = JThreeContextProxy.getJThreeContext();
-		var rm=context.ResourceManager;
-		this.fbo=rm.getFBO("jthree.fbo.default");
-		var rbo=rm.getRBO("jthree.rbo.default");
-		this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,rbo);
+		var rm = context.ResourceManager;
+		this.fbo = rm.getFBO("jthree.fbo.default");
+		this.rbo = rm.getRBO("jthree.rbo.default");
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		this.bindAsOutBuffer(this.fbo,[{
-			texture:texs["OUT"],
-			target:0,
-			isOptional:false
-		}],()=>{
-			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits)
+		this.bindAsOutBuffer(this.fbo, [{
+			texture: texs["OUT"],
+			target: 0,
+			isOptional: false
+		}], () => {
+			this.fbo.getForContext(this.Renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, this.rbo);
+			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
 		});
 	}
 

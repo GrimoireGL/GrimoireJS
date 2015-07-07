@@ -48,7 +48,6 @@ class LitghtAccumulationStage extends RenderStageBase {
 
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		
 		this.bindAsOutBuffer(this.rbLightFBO, [{
 			texture: texs["OUT"],
 			target: 0, isOptional: false
@@ -61,7 +60,7 @@ class LitghtAccumulationStage extends RenderStageBase {
 			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
 		});
 		this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-		this.Renderer.GLContext.Enable(GLFeatureType.DepthTest);
+		this.Renderer.GLContext.Disable(GLFeatureType.DepthTest);
 	}
 
 	public postEndStage(scene: Scene, passCount: number) {
