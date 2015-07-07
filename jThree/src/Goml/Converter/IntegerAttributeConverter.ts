@@ -5,7 +5,7 @@ import AttributeConverterBase = require("./AttributeConverterBase");
 import IntegerAnimater = require('../Animater/IntegerAnimater');
 import GomlAttribute = require('../GomlAttribute');
 import EasingFunctionBase = require('../Easing/EasingFunctionBase');
-import Delegates = require('../../Delegates');
+import Delegates = require('../../Base/Delegates');
 import AnimaterBase = require('../Animater/AnimaterBase');
 class IntegerAttributeConverter extends AttributeConverterBase
 {

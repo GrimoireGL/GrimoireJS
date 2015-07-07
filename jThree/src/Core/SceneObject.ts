@@ -1,7 +1,7 @@
 import JThreeObject=require('Base/JThreeObject');
 import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Material = require("./Materials/Material");
-import Delegates = require("../Delegates");
+import Delegates = require("../Base/Delegates");
 import Geometry = require("./Geometries/Geometry");
 import Scene=require('./Scene');
 import RendererBase = require("./Renderers/RendererBase");

@@ -1,7 +1,7 @@
 import JThreeObject = require("../../Base/JThreeObject");
 import GomlAttribute = require("../GomlAttribute");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import Delegates = require("../../Delegates");
+import Delegates = require("../../Base/Delegates");
 import AnimagterBase = require("./AnimaterBase");
 class NumberAnimater extends AnimagterBase
 {

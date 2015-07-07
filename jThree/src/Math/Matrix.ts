@@ -5,7 +5,7 @@ import Vector4 = require("./Vector4");
 import Exceptions = require("../Exceptions");
 import Collection = require("../Base/Collections/Collection");
 import IEnumrator = require("../Base/Collections/IEnumrator");
-import Delegates=require('../Delegates');
+import Delegates=require('../Base/Delegates');
 import Quaternion = require("./Quaternion");
 import glm = require('glm');
 class Matrix extends MatrixBase{

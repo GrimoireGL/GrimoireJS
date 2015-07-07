@@ -29,6 +29,8 @@ class LitghtAccumulationStage extends RenderStageBase {
 	private rbLightFBO: FBO;
 
 	private program: Program;
+	
+	private rbo:RBO;
 
 	constructor(renderer: RendererBase) {
 		super(renderer);
@@ -37,8 +39,8 @@ class LitghtAccumulationStage extends RenderStageBase {
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
 		this.rbLightFBO = rm.getFBO("jthree.fbo.default");
-		this.rbLightFBO.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment, rm.getRBO("jthree.rbo.default"));
 		var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
+		this.rbo=rm.getRBO("jthree.rbo.default");
 		agent.get("/GrayScale.glsl").end((err, res: agent.Response) => {
 			this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.post.gray", "jthree.programs.post.gray", vs, res.text);
 		});
@@ -46,11 +48,20 @@ class LitghtAccumulationStage extends RenderStageBase {
 
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		if (texs["OUT"] == null){
-			this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
-		}
-		else
-			this.rbLightFBO.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
+		
+		this.bindAsOutBuffer(this.rbLightFBO, [{
+			texture: texs["OUT"],
+			target: 0, isOptional: false
+		},{
+			texture:this.rbo,
+			type:"rbo",
+			target:"depth"
+		}], () => {
+			this.Renderer.GLContext.ClearColor(0, 0, 0, 1);
+			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
+		});
+		this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
+		this.Renderer.GLContext.Enable(GLFeatureType.DepthTest);
 	}
 
 	public postEndStage(scene: Scene, passCount: number) {

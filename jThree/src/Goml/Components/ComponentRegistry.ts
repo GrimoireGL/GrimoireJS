@@ -1,6 +1,6 @@
 import JThreeObject = require('../../Base/JThreeObject');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
-import Delegates = require('../../Delegates');
+import Delegates = require('../../Base/Delegates');
 import GomlAttribute = require('../GomlAttribute');
 import GomlComponentDeclaration = require('./GomlComponentDeclaration');
 import GomlComponentDeclarationBody = require('./GomlComponentDeclarationBody');

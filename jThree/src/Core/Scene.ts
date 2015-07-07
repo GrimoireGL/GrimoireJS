@@ -10,7 +10,7 @@ import Color4 = require('../Base/Color/Color4');
 import Vector3 = require('../Math/Vector3');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
-import Delegates =require('../Delegates')
+import Delegates =require('../Base/Delegates')
 /**
 * NON PUBLIC CLASS
 */

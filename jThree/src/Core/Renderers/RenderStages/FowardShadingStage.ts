@@ -22,13 +22,13 @@ class FowardShadingStage extends RenderStageBase {
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		if (texs["OUT"] == null){
-			this.fbo.getForContext(this.Renderer.ContextManager).unbind();
-		}
-		else{
-			this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,texs["OUT"]);
+		this.bindAsOutBuffer(this.fbo,[{
+			texture:texs["OUT"],
+			target:0,
+			isOptional:false
+		}],()=>{
 			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits)
-		}
+		});
 	}
 
 	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {

@@ -5,7 +5,7 @@ import AttributeRotationBase = require("./AttributeConverterBase");
 import RotationAnimater = require("../Animater/RotationAnimater");
 import GomlAttribute = require("../GomlAttribute");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import Delegates = require("../../Delegates");
+import Delegates = require("../../Base/Delegates");
 import AnimaterBase = require("../Animater/AnimaterBase");
 
 class RotationAttributeConverter extends JThreeObject

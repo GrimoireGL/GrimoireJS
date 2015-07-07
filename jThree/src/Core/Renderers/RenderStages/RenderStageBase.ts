@@ -10,6 +10,18 @@ import ShaderType = require("../../../Wrapper/ShaderType");
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../../Resources/Texture/TextureBase');
+import RBO = require('../../Resources/RBO/RBO');
+import FBO = require('../../Resources/FBO/FBO');
+import FBOWrapper = require('../../Resources/FBO/FBOWrapper');
+import Delegates = require('../../../Base/Delegates');
+import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
+interface FBOBindData {
+	texture: TextureBase|RBO,
+	target: string|number,
+	isOptional?: boolean,
+	type?: string
+}
+
 class RenderStageBase extends JThreeObject {
 	private renderer: RendererBase;
 	/**
@@ -56,6 +68,47 @@ class RenderStageBase extends JThreeObject {
         vShader.loadAll(); fShader.loadAll();
         return rm.createProgram(pid, [vShader, fShader]);
     }
+
+	protected bindAsOutBuffer(fbo: FBO, bindInfo: FBOBindData[], onBind: Delegates.Action0, onDefaultBuffer?: Delegates.Action0) {
+		var shouldBeDefault = false;
+		var targetWrapper = fbo.getForContext(this.Renderer.ContextManager);
+		bindInfo.forEach(v=> {
+			var attachmentType = FrameBufferAttachmentType.ColorAttachment0;
+			if (v.target === "depth") {
+				attachmentType = FrameBufferAttachmentType.DepthAttachment;
+			} else if (v.target === "stencil") {
+				attachmentType = FrameBufferAttachmentType.StencilAttachment;
+			} else if (v.target === "depthstencil") {
+				attachmentType = FrameBufferAttachmentType.DepthStencilAttachment;
+			} else {
+				attachmentType = ((<number>FrameBufferAttachmentType.ColorAttachment0) + <number>new Number(v.target));
+			}
+			if (shouldBeDefault||(typeof v.isOptional !== 'undefined' && !v.isOptional && v.texture === null)) {//use default buffer
+				this.attachToWrapper(v,targetWrapper,attachmentType);
+				this.Renderer.GLContext.BindFrameBuffer(null);
+				shouldBeDefault=true;
+			}else
+			{
+				this.attachToWrapper(v,targetWrapper,attachmentType);
+			}
+		});
+		if(shouldBeDefault)
+		{
+			if(onDefaultBuffer)onDefaultBuffer();
+		}else{
+			onBind();
+		}
+	}
+
+	private attachToWrapper(v:FBOBindData,targetWrapper:FBOWrapper,targetAttachment:FrameBufferAttachmentType) {
+		if (!v.type || v.type == "texture") {
+			targetWrapper.attachTexture(targetAttachment,<TextureBase>v.texture);
+		} else if (v.type = "rbo") {
+			targetWrapper.attachRBO(targetAttachment,<RBO>v.texture);
+		} else {
+			console.error("unknown bind type!");
+		}
+	}
 }
 
 export = RenderStageBase;

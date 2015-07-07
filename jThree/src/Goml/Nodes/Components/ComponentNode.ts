@@ -1,6 +1,6 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import Delegates = require('../../../Delegates');
+import Delegates = require('../../../Base/Delegates');
 import GomlAttribute = require('../../GomlAttribute');
 import AttributeDeclaration = require('../../AttributeDeclaration');
 class ComponentNode extends GomlTreeNodeBase

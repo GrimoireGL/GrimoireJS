@@ -1,7 +1,7 @@
 
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import JThreeObject = require('../../Base/JThreeObject');
-import Delegates = require('./../../Delegates')
+import Delegates = require('./../../Base/Delegates')
 class ResourceArray<T> extends JThreeObject
 {	
 	private resourceArray:AssociativeArray<T>=new AssociativeArray<T>();

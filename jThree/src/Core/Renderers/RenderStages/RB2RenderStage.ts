@@ -31,7 +31,7 @@ class RB2RenderStage extends RenderStageBase
 		var width =512,height=512;
 		var id = this.Renderer.ID;
 		var rm = context.ResourceManager;
-		this.rb2FBO=rm.createFBO(id+".deffered.rb2");
+		this.rb2FBO=rm.getFBO("jthree.fbo.default");
 		var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
         var fs = require('../../Shaders/Deffered/RB2.glsl');
         this.rb2Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb2","jthree.programs.rb2",vs,fs);

@@ -2,7 +2,7 @@ import JThreeObject = require("./Base/JThreeObject");
 import JThreeContextProxy = require("./Core/JThreeContextProxy");
 import JThreeContext = require("./Core/JThreeContext");
 import GomlTreeNodeBase = require("./Goml/GomlTreeNodeBase");
-import Delegate = require("./Delegates");
+import Delegate = require("./Base/Delegates");
 class JThreeInterface extends JThreeObject {
   constructor(jq: JQuery) {
     super();

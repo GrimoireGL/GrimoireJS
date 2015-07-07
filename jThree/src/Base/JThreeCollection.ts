@@ -1,6 +1,6 @@
 import JThreeObject = require('./JThreeObject');
 import JThreeObjectWithID = require("./JThreeObjectWithID");
-import Delegates = require("../Delegates");
+import Delegates = require("../Base/Delegates");
 import AssociativeArray = require('./Collections/AssociativeArray');
 class JThreeCollection<T extends JThreeObjectWithID>
 {

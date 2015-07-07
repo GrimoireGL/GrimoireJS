@@ -1,5 +1,5 @@
 import ContextManagerBase = require("./../ContextManagerBase");
-import Delegates = require("../../Delegates");
+import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
 import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
@@ -53,18 +53,18 @@ class RendererBase extends jThreeObjectWithID {
             {
                 buffers: {
                     LIGHT: "deffered.light",
-                    OUT: "default",
+                    OUT: "deffered.rb1",
                 },
                 stage: new FowardRenderStage(this)
-            }
+            },
             // },
-            // {
-            //     buffers: {
-            //         SOURCE: "deffered.rb1",
-            //         OUT: "default"
-            //     },
-            //     stage: new GrayScaleStage(this)
-            // }
+            {
+                buffers: {
+                    SOURCE: "deffered.rb1",
+                    OUT: "default"
+                },
+                stage: new GrayScaleStage(this)
+            }
             );
         this.renderStageManager.TextureBuffers = {
             "jthree.light.dir1":{

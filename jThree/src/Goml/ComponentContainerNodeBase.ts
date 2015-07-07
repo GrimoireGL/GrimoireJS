@@ -1,5 +1,5 @@
 import TreeNodeBase = require('./TreeNodeBase');
-import Delegates = require('../Delegates');
+import Delegates = require('../Base/Delegates');
 import GomlAttribute = require('./GomlAttribute');
 import ComponentNode = require('./Nodes/Components/ComponentNode');
 import GomlLoader = require('./GomlLoader');

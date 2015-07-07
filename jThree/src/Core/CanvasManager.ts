@@ -12,7 +12,7 @@ import GLFeatureType = require('../Wrapper/GLFeatureType');
 import PixelStoreParamType = require('../Wrapper/Texture/PixelStoreParamType');
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
-import Delegates=require('Delegates');
+import Delegates=require('../Base/Delegates');
 /**
  * Provides some of feature managing canvas.
  */

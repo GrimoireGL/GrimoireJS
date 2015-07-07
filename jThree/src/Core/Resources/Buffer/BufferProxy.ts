@@ -2,7 +2,7 @@ import JThreeObject=require('Base/JThreeObject');
 import ArrayEnumratorFactory = require("../../../Base/Collections/ArrayEnumratorFactory");
 import Buffer = require("./Buffer");
 import Collection = require("../../../Base/Collections/Collection");
-import Delegate = require("../../../Delegates");
+import Delegate = require("../../../Base/Delegates");
 import IEnumrator = require("../../../Base/Collections/IEnumrator");
 class BufferProxy extends ArrayEnumratorFactory<BufferProxy> {
     constructor(parentBuffer: Buffer, targetProxies: BufferProxy[])

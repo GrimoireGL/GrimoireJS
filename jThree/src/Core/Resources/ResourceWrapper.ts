@@ -3,7 +3,7 @@ import JThreeObject = require('../../Base/JThreeObject');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ContextManager = require('../ContextManagerBase');
 import JThreeEvent = require('../../Base/JThreeEvent');
-import Delegates = require('../../Delegates');
+import Delegates = require('../../Base/Delegates');
 class ResourceWrapper extends JThreeObject
 {
   constructor(ownerCanvas:ContextManager)

@@ -3,7 +3,7 @@ import Exceptions = require("../../Exceptions");
 import AnimaterBase = require("../Animater/AnimaterBase");
 import GomlAttribute = require("../GomlAttribute");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import Delegates = require("../../Delegates");
+import Delegates = require("../../Base/Delegates");
 class AttributeConverterBase extends JThreeObject
 {
   constructor()

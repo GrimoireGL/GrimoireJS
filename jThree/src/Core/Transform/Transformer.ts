@@ -3,7 +3,7 @@ import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
-import Delegates = require("../../Delegates");
+import Delegates = require("../../Base/Delegates");
 import glm = require('glm');
 import RendererBase = require('./../Renderers/RendererBase');
 class Transformer extends JThreeObject

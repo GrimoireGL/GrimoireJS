@@ -1,6 +1,6 @@
 import JThreeObject = require("../../Base/JThreeObject");
 import ContextManagerBase = require("../ContextManagerBase");
-import Delegates = require("../../Delegates");
+import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
 import JThreeContext = require("../JThreeContext");
 import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");

@@ -90,7 +90,7 @@
         "./Core/TextureCanvasManager.ts",
         "./Core/Timer.ts",
         "./Core/Transform/Transformer.ts",
-        "./Delegates.ts",
+        "./Base/Delegates.ts",
         "./Exceptions.ts",
         "./Goml/Animater/AnimaterBase.ts",
         "./Goml/Animater/Color4Animater.ts",

@@ -1,5 +1,5 @@
 import JThreeObject = require('./JThreeObject');
-import Delegates = require('../Delegates');
+import Delegates = require('../Base/Delegates');
 import Exceptions = require('../Exceptions');
 /**
 * The class for implementing in Event-Driven architecture.
