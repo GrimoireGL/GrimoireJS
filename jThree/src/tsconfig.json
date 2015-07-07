@@ -166,7 +166,6 @@
         "./Goml/TreeNodeBase.ts",
         "./Init.ts",
         "./JThreeInterface.ts",
-        "./Math/Math.ts",
         "./Math/Matrix.ts",
         "./Math/MatrixBase.ts",
         "./Math/Quaternion.ts",
