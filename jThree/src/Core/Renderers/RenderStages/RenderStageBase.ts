@@ -30,9 +30,8 @@ class RenderStageBase extends JThreeObject {
 	public get Renderer(): RendererBase {
 		return this.renderer;
 	}
-	
-	public get GLContext()
-	{
+
+	public get GLContext() {
 		return this.Renderer.GLContext;
 	}
 
@@ -88,31 +87,43 @@ class RenderStageBase extends JThreeObject {
 			} else {
 				attachmentType = ((<number>FrameBufferAttachmentType.ColorAttachment0) + <number>new Number(v.target));
 			}
-			if (shouldBeDefault||(typeof v.isOptional !== 'undefined' && !v.isOptional && v.texture === null)) {//use default buffer
-				this.attachToWrapper(v,targetWrapper,attachmentType);
+			if (shouldBeDefault || (typeof v.isOptional !== 'undefined' && !v.isOptional && v.texture === null)) {//use default buffer
+				this.attachToWrapper(v, targetWrapper, attachmentType);
 				this.Renderer.GLContext.BindFrameBuffer(null);
-				shouldBeDefault=true;
-			}else
-			{
-				this.attachToWrapper(v,targetWrapper,attachmentType);
+				shouldBeDefault = true;
+			} else {
+				this.attachToWrapper(v, targetWrapper, attachmentType);
 			}
 		});
-		if(shouldBeDefault)
-		{
-			if(onDefaultBuffer)onDefaultBuffer();
-		}else{
+		if (shouldBeDefault) {
+			if (onDefaultBuffer) onDefaultBuffer();
+		} else {
 			onBind();
 		}
 	}
 
-	private attachToWrapper(v:FBOBindData,targetWrapper:FBOWrapper,targetAttachment:FrameBufferAttachmentType) {
+	private attachToWrapper(v: FBOBindData, targetWrapper: FBOWrapper, targetAttachment: FrameBufferAttachmentType) {
 		if (!v.type || v.type == "texture") {
-			targetWrapper.attachTexture(targetAttachment,<TextureBase>v.texture);
+			targetWrapper.attachTexture(targetAttachment, <TextureBase>v.texture);
 		} else if (v.type = "rbo") {
-			targetWrapper.attachRBO(targetAttachment,<RBO>v.texture);
+			targetWrapper.attachRBO(targetAttachment, <RBO>v.texture);
 		} else {
 			console.error("unknown bind type!");
 		}
+	}
+	
+	/**
+	 * Get default fbo that is allocated for this renderer.
+	 */
+	public get DefaultFBO(): FBO {
+		return JThreeContextProxy.getJThreeContext().ResourceManager.getFBO(this.Renderer.ID + ".fbo.default");
+	}
+	
+	/**
+	 * Get default rbo that is allocated for this renderer.
+	 */
+	public get DefaultRBO(): RBO {
+		return JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
 	}
 }
 

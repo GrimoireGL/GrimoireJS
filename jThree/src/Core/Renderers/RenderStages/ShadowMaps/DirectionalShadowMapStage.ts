@@ -17,6 +17,7 @@ class DirectionalLightDepthStage extends RenderStageBase {
 	
 	private mat:DepthMaterial=new DepthMaterial();
 	
+	private tex;
 	public get VP():Matrix
 	{
 		return this.mat.VP;
@@ -30,20 +31,24 @@ class DirectionalLightDepthStage extends RenderStageBase {
 		super(renderer);
 		var context = JThreeContextProxy.getJThreeContext();
 		var rm=context.ResourceManager;
-		this.fbo=rm.createFBO(renderer.ID+"depth");
-		var rbo=rm.getRBO("jthree.rbo.default");
-		this.fbo.getForContext(renderer.ContextManager).attachRBO(FrameBufferAttachmentType.DepthAttachment,rbo);
-		var tex =rm.createTexture("test.direct",512,512);
-		this.fbo.getForContext(renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,tex);
-		
+		this.fbo=this.DefaultFBO;
+		var rbo=this.DefaultRBO;
+		this.tex =rm.createTexture("test.direct",512,512);
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-		if (texs["OUT"] == null) this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.ColorAttachment0,null);
-		else{
-			this.fbo.getForContext(this.Renderer.ContextManager).attachTexture(FrameBufferAttachmentType.DepthAttachment,texs["OUT"]);
+		this.bindAsOutBuffer(this.DefaultFBO,[
+			{
+				texture:texs["OUT"],
+				target:"depth"
+			},
+			{
+				texture:this.tex,
+				target:0
+			}
+		],()=>{
 			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits)
-		}
+		});
 	}
 
 	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
