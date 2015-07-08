@@ -4,7 +4,7 @@ import jThreeObject = require("../Base/JThreeObject");
 import Exceptions = require("../Exceptions");
 import Delegates = require("../Base/Delegates");
 import JQuery = require("jquery");
-import $=require("jquery");
+import $ = require("jquery");
 import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeContext = require("../Core/JThreeContext");
 import GomlNodeListElement = require("./GomlNodeListElement");
@@ -14,15 +14,17 @@ import JThreeEvent = require('../Base/JThreeEvent');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import ComponentRegistry = require('./Components/ComponentRegistry');
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
-import ComponentRunner =require('./Components/ComponentRunner');
+import ComponentRunner = require('./Components/ComponentRunner');
+import PluginLoader = require('./Plugins/PluginLoader');
 declare function require(string): any;
 /**
 * The class for loading goml.
 */
 class GomlLoader extends jThreeObject {
-  update()
-  {
-    if(!this.ready)return;
+
+  private pluginLoader: PluginLoader = new PluginLoader();
+  update() {
+    if (!this.ready) return;
     this.componentRunner.executeForAllComponents("update");
   }
   /**
@@ -55,29 +57,28 @@ class GomlLoader extends jThreeObject {
   /**
   * this configurator will load any tag information by require
   */
-  private configurator:GomlLoaderConfigurator=new GomlLoaderConfigurator();
+  private configurator: GomlLoaderConfigurator = new GomlLoaderConfigurator();
 
   /**
   * The configurator for new tag,converter,easingfunctions
   */
-  public get Configurator():GomlLoaderConfigurator
-  {
+  public get Configurator(): GomlLoaderConfigurator {
     return this.configurator;
   }
 
   nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
 
   componentRegistry: ComponentRegistry = new ComponentRegistry();
-  
-  componentRunner:ComponentRunner = new ComponentRunner();
+
+  componentRunner: ComponentRunner = new ComponentRunner();
 
   rootObj: JQuery;
 
-  rootNodes:AssociativeArray<GomlTreeNodeBase[]>=new AssociativeArray<GomlTreeNodeBase[]>();
+  rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
 
-  NodesById:AssociativeArray<GomlTreeNodeBase>=new AssociativeArray<GomlTreeNodeBase>();
+  NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
 
-  ready:boolean=false;
+  ready: boolean = false;
   /**
   * Attempt to load GOMLs that placed in HTML file.
   */
@@ -119,31 +120,42 @@ class GomlLoader extends jThreeObject {
     var catched = this.rootObj = $(source);
     if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
     //generate node tree
-    this.configurator.GomlRootNodes.forEach(v=>{
-      var children = catched.find(v).children();
-      this.rootNodes.set(v,[]);
-      this.parseChildren(null,children,(e)=>{
-        this.rootNodes.get(v).push(e);
-      })
+    var children = catched.find("plugins").children();
+    this.rootNodes.set("plugins", []);
+    var pluginRequest = [];
+    children.each((i,e)=>{
+      if(e.tagName!=="PLUGIN")return;
+      pluginRequest.push({
+        id:e.getAttribute("id"),
+        versionId:e.getAttribute("version")
+      });
     });
-    this.eachNode(v=> v.beforeLoad());
-    this.eachNode(v=> v.Load());
-    this.eachNode(v=> v.afterLoad());
-    this.eachNode(v=>v.attributes.applyDefaultValue());
-    this.onLoadEvent.fire(this, source);
-    this.ready=true;
+    this.pluginLoader.resolvePlugins(pluginRequest, () => {
+      this.configurator.GomlRootNodes.forEach(v=> {
+        var children = catched.find(v).children();
+        this.rootNodes.set(v, []);
+        this.parseChildren(null, children, (e) => {
+          this.rootNodes.get(v).push(e);
+        })
+      });
+      this.eachNode(v=> v.beforeLoad());
+      this.eachNode(v=> v.Load());
+      this.eachNode(v=> v.afterLoad());
+      this.eachNode(v=> v.attributes.applyDefaultValue());
+      this.onLoadEvent.fire(this, source);
+      this.ready = true;
+    });
   }
 
-  private eachNode(act: Delegates.Action1<GomlTreeNodeBase>,targets?:GomlTreeNodeBase[]) {
-    if(targets)
-    {
-      targets.forEach(v=>{
+  private eachNode(act: Delegates.Action1<GomlTreeNodeBase>, targets?: GomlTreeNodeBase[]) {
+    if (targets) {
+      targets.forEach(v=> {
         v.callRecursive(act);
       });
       return;
     }
-    this.configurator.GomlRootNodes.forEach(v=>{
-      this.rootNodes.get(v).forEach(e=>e.callRecursive(act));
+    this.configurator.GomlRootNodes.forEach(v=> {
+      this.rootNodes.get(v).forEach(e=> e.callRecursive(act));
     });
   }
 
@@ -153,7 +165,7 @@ class GomlLoader extends jThreeObject {
       //generate instances for every children nodes
       //obtain factory class for the node
       var elem: HTMLElement = child[i];
-      var tagFactory=this.configurator.getGomlTagFactory(elem.tagName);
+      var tagFactory = this.configurator.getGomlTagFactory(elem.tagName);
       //if factory was not defined, there is nothing to do.
       if (tagFactory) {
         var newNode = tagFactory.CreateNodeForThis(elem, this, parent);
@@ -168,47 +180,43 @@ class GomlLoader extends jThreeObject {
         //after first call, it is no used, so this code have no effect after first call.
         actionForChildren(newNode);
         //call this function recursive
-        if(!tagFactory.NoNeedParseChildren)this.parseChildren(newNode, $(elem).children(), (e) => { });
+        if (!tagFactory.NoNeedParseChildren) this.parseChildren(newNode, $(elem).children(), (e) => { });
       } else {
         //when specified node could not be found
         console.warn(`${elem.tagName} was not parsed.'`);
       }
     }
   }
-  
-  public instanciateTemplate(template:string,parentNode:GomlTreeNodeBase)
-  {
-    var templateInElems=$(template);
-    this.append(templateInElems,parentNode.Element,false);
+
+  public instanciateTemplate(template: string, parentNode: GomlTreeNodeBase) {
+    var templateInElems = $(template);
+    this.append(templateInElems, parentNode.Element, false);
   }
-  
-  public append(source:JQuery,parent:HTMLElement,needLoad?:boolean)
-  {
-   if(typeof needLoad ==='undefined')needLoad=true;
+
+  public append(source: JQuery, parent: HTMLElement, needLoad?: boolean) {
+    if (typeof needLoad === 'undefined') needLoad = true;
     var id = parent.getAttribute("x-j3-id");
     var parentOfGoml = this.NodesById.get(id);
-    var loadedGomls=[];
+    var loadedGomls = [];
     for (var i = 0; i < source.length; i++) {
       var s = source[i];
-      this.parseChildren(parentOfGoml,$(s),(v)=>{loadedGomls.push(v)});
+      this.parseChildren(parentOfGoml, $(s), (v) => { loadedGomls.push(v) });
     }
-    if(!needLoad)return;
-    this.eachNode(v=> v.beforeLoad(),loadedGomls);
-    this.eachNode(v=> v.Load(),loadedGomls);
-    this.eachNode(v=> v.afterLoad(),loadedGomls);
-    this.eachNode(v=>v.attributes.applyDefaultValue(),loadedGomls);
+    if (!needLoad) return;
+    this.eachNode(v=> v.beforeLoad(), loadedGomls);
+    this.eachNode(v=> v.Load(), loadedGomls);
+    this.eachNode(v=> v.afterLoad(), loadedGomls);
+    this.eachNode(v=> v.attributes.applyDefaultValue(), loadedGomls);
   }
 
   public getNode(id: string): GomlTreeNodeBase {
     return this.NodesById.get(id);
   }
-  
-  public getNodeByQuery(query:string):GomlTreeNodeBase[]
-  {
-    var result=[];
-    var found=this.rootObj.find(query);
-    for(var index=0;index<found.length;index++)
-    {
+
+  public getNodeByQuery(query: string): GomlTreeNodeBase[] {
+    var result = [];
+    var found = this.rootObj.find(query);
+    for (var index = 0; index < found.length; index++) {
       var id = found[index].getAttribute("x-j3-id");
       result.push(this.getNode(id));
     }

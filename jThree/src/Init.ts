@@ -5,7 +5,8 @@ import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration');
 import TextureAttachmentType = require('./Wrapper/FrameBufferAttachmentType');
-import TextureMinFilter =require('./Wrapper/Texture/TextureMinFilterType');
+import TextureMinFilter = require('./Wrapper/Texture/TextureMinFilterType');
+import PluginLoader = require('./Goml/Plugins/PluginLoader');
 class JThreeStatic {
   public addComponent(declaration: GomlComponentDeclaration) {
     var context = JThreeContextProxy.getJThreeContext();
@@ -38,12 +39,15 @@ class JThreeInit {
 
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
-              j3.init();
-      JThreeInit.img = new Image();
-      JThreeInit.img.onload = () => {
-        var res=j3.ResourceManager.createTextureWithSource("test",JThreeInit.img);
-      };
-      JThreeInit.img.src = "/miku2.png";
+      j3.GomlLoader.onload(() => {
+
+        JThreeInit.img = new Image();
+        JThreeInit.img.onload = () => {
+          var res = j3.ResourceManager.createTextureWithSource("test", JThreeInit.img);
+        };
+        JThreeInit.img.src = "/miku2.png";
+      });
+      j3.init();
     });
   }
 }

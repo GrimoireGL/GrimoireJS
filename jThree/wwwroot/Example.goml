@@ -1,4 +1,7 @@
 <goml>
+  <plugins>
+    <plugin id="test1" version="1"></plugin>
+  </plugins>
   <resources>
     <ddebug viewport="viewport#main" name="dep" target="depth" />
     <ddebug viewport="viewport#main" name="rb2" target="rb2" />
