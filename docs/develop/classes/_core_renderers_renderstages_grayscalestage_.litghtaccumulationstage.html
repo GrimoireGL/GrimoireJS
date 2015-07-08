@@ -111,6 +111,7 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#glcontext" class="tsd-kind-icon">GLContext</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#renderer" class="tsd-kind-icon">Renderer</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a></li>
 							</ul>
@@ -118,6 +119,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#configurematerial" class="tsd-kind-icon">configure<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a></li>
@@ -186,7 +188,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultfbo">DefaultFBO</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L119">Core/Renderers/RenderStages/RenderStageBase.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L164">Core/Renderers/RenderStages/RenderStageBase.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -209,7 +211,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultrbo">DefaultRBO</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L126">Core/Renderers/RenderStages/RenderStageBase.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L171">Core/Renderers/RenderStages/RenderStageBase.ts:171</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -232,10 +234,33 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#glcontext">GLContext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L34">Core/Renderers/RenderStages/RenderStageBase.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L42">Core/Renderers/RenderStages/RenderStageBase.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<a name="renderstageconfig" class="tsd-anchor"></a>
+					<h3>Render<wbr>Stage<wbr>Config</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> RenderStageConfig<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderstageconfig">RenderStageConfig</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L93">Core/Renderers/RenderStages/GrayScaleStage.ts:93</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>depth<wbr>Test<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -250,7 +275,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderer-1">Renderer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L30">Core/Renderers/RenderStages/RenderStageBase.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L38">Core/Renderers/RenderStages/RenderStageBase.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -273,7 +298,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#targetgeometry">TargetGeometry</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L90">Core/Renderers/RenderStages/GrayScaleStage.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L89">Core/Renderers/RenderStages/GrayScaleStage.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -283,6 +308,24 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="applystageconfig" class="tsd-anchor"></a>
+					<h3>apply<wbr>Stage<wbr>Config</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Stage<wbr>Config<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#applystageconfig">applyStageConfig</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L80">Core/Renderers/RenderStages/RenderStageBase.ts:80</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="bindasoutbuffer" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> bind<wbr>AsOut<wbr>Buffer</h3>
@@ -294,7 +337,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#bindasoutbuffer">bindAsOutBuffer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L76">Core/Renderers/RenderStages/RenderStageBase.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L121">Core/Renderers/RenderStages/RenderStageBase.ts:121</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -326,7 +369,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L69">Core/Renderers/RenderStages/GrayScaleStage.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L68">Core/Renderers/RenderStages/GrayScaleStage.ts:68</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -359,7 +402,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#getpasscount">getPassCount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L85">Core/Renderers/RenderStages/GrayScaleStage.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L84">Core/Renderers/RenderStages/GrayScaleStage.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -401,7 +444,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#loadprogram">loadProgram</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L67">Core/Renderers/RenderStages/RenderStageBase.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L112">Core/Renderers/RenderStages/RenderStageBase.ts:112</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -437,7 +480,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#needrender">needRender</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L81">Core/Renderers/RenderStages/GrayScaleStage.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L80">Core/Renderers/RenderStages/GrayScaleStage.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -467,7 +510,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postendstage">postEndStage</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L57">Core/Renderers/RenderStages/GrayScaleStage.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L56">Core/Renderers/RenderStages/GrayScaleStage.ts:56</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -524,7 +567,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L60">Core/Renderers/RenderStages/GrayScaleStage.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts#L59">Core/Renderers/RenderStages/GrayScaleStage.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -600,11 +643,17 @@
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#glcontext" class="tsd-kind-icon">GLContext</a>
 							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#renderer" class="tsd-kind-icon">Renderer</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_core_renderers_renderstages_grayscalestage_.litghtaccumulationstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a>
