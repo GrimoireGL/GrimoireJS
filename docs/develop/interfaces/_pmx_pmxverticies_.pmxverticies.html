@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>JThreeStatic | jThree</title>
+	<title>PMXVerticies | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,32 +57,24 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_init_.html">&quot;Init&quot;</a>
+					<a href="../modules/_pmx_pmxverticies_.html">&quot;PMX/PMXVerticies&quot;</a>
 				</li>
 				<li>
-					<a href="_init_.jthreestatic.html">JThreeStatic</a>
+					<a href="_pmx_pmxverticies_.pmxverticies.html">PMXVerticies</a>
 				</li>
 			</ul>
-			<h1>Class JThreeStatic</h1>
+			<h1>Interface PMXVerticies</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>the methods having the syntax like j3.SOMETHING() should be contained in this class.
-						These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">JThreeStatic</span>
+						<span class="target">PMXVerticies</span>
 					</li>
 				</ul>
 			</section>
@@ -90,39 +82,81 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Methods</h3>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_init_.jthreestatic.html#addcomponent" class="tsd-kind-icon">add<wbr>Component</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxverticies_.pmxverticies.html#additionaluv" class="tsd-kind-icon">additionalUV</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxverticies_.pmxverticies.html#edgescaling" class="tsd-kind-icon">edge<wbr>Scaling</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxverticies_.pmxverticies.html#normals" class="tsd-kind-icon">normals</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxverticies_.pmxverticies.html#positions" class="tsd-kind-icon">positions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxverticies_.pmxverticies.html#uvs" class="tsd-kind-icon">uvs</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxverticies_.pmxverticies.html#verticies" class="tsd-kind-icon">verticies</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-					<a name="addcomponent" class="tsd-anchor"></a>
-					<h3>add<wbr>Component</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Component<span class="tsd-signature-symbol">(</span>declaration<span class="tsd-signature-symbol">: </span><a href="../interfaces/_goml_components_gomlcomponentdeclaration_.gomlcomponentdeclaration.html" class="tsd-signature-type">GomlComponentDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Init.ts#L17">Init.ts:17</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>declaration: <a href="../interfaces/_goml_components_gomlcomponentdeclaration_.gomlcomponentdeclaration.html" class="tsd-signature-type">GomlComponentDeclaration</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="additionaluv" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> additionalUV</h3>
+					<div class="tsd-signature tsd-kind-icon">additionalUV<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXVerticies.ts#L6">PMX/PMXVerticies.ts:6</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="edgescaling" class="tsd-anchor"></a>
+					<h3>edge<wbr>Scaling</h3>
+					<div class="tsd-signature tsd-kind-icon">edge<wbr>Scaling<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXVerticies.ts#L7">PMX/PMXVerticies.ts:7</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="normals" class="tsd-anchor"></a>
+					<h3>normals</h3>
+					<div class="tsd-signature tsd-kind-icon">normals<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXVerticies.ts#L4">PMX/PMXVerticies.ts:4</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="positions" class="tsd-anchor"></a>
+					<h3>positions</h3>
+					<div class="tsd-signature tsd-kind-icon">positions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXVerticies.ts#L3">PMX/PMXVerticies.ts:3</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="uvs" class="tsd-anchor"></a>
+					<h3>uvs</h3>
+					<div class="tsd-signature tsd-kind-icon">uvs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXVerticies.ts#L5">PMX/PMXVerticies.ts:5</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="verticies" class="tsd-anchor"></a>
+					<h3>verticies</h3>
+					<div class="tsd-signature tsd-kind-icon">verticies<span class="tsd-signature-symbol">:</span> <a href="_pmx_pmxverticies_.pmxvertex.html" class="tsd-signature-type">PMXVertex</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXVerticies.ts#L8">PMX/PMXVerticies.ts:8</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -133,27 +167,54 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_init_.html">"<wbr>Init"</a>
+						<a href="../modules/_pmx_pmxverticies_.html">"PMX/PMXVerticies"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_init_.jthreeinit.html" class="tsd-kind-icon">JThree<wbr>Init</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_pmx_pmxverticies_.bdef1.html" class="tsd-kind-icon">BDEF1</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_pmx_pmxverticies_.bdef2.html" class="tsd-kind-icon">BDEF2</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_pmx_pmxverticies_.bdef4.html" class="tsd-kind-icon">BDEF4</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_pmx_pmxverticies_.pmxvertex.html" class="tsd-kind-icon">PMXVertex</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_init_.jthreestatic.html" class="tsd-kind-icon">JThree<wbr>Static</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_pmx_pmxverticies_.pmxverticies.html" class="tsd-kind-icon">PMXVerticies</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_init_.jthreestatic.html#addcomponent" class="tsd-kind-icon">add<wbr>Component</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_pmx_pmxverticies_.pmxverticies.html#additionaluv" class="tsd-kind-icon">additionalUV</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_pmx_pmxverticies_.pmxverticies.html#edgescaling" class="tsd-kind-icon">edge<wbr>Scaling</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_pmx_pmxverticies_.pmxverticies.html#normals" class="tsd-kind-icon">normals</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_pmx_pmxverticies_.pmxverticies.html#positions" class="tsd-kind-icon">positions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_pmx_pmxverticies_.pmxverticies.html#uvs" class="tsd-kind-icon">uvs</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_pmx_pmxverticies_.pmxverticies.html#verticies" class="tsd-kind-icon">verticies</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_pmx_pmxverticies_.sdef.html" class="tsd-kind-icon">SDEF</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
