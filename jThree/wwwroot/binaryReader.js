@@ -1,38 +1,13 @@
+var NODE =false;
+var BROWSER=true;
 var compatibility = {
 	// NodeJS Buffer in v0.5.5 and newer
-	NodeBuffer: NODE && 'Buffer' in global,
-	DataView: 'DataView' in global,
-	ArrayBuffer: 'ArrayBuffer' in global,
-	PixelData: BROWSER && 'CanvasPixelArray' in global && !('Uint8ClampedArray' in global) && 'document' in global
+	// 	DataView: 'DataView' in window,
+	ArrayBuffer:true,
 };
 
-var TextEncoder = global.TextEncoder;
-var TextDecoder = global.TextDecoder;
-
-// we don't want to bother with old Buffer implementation
-if (NODE && compatibility.NodeBuffer) {
-	(function (buffer) {
-		try {
-			buffer.writeFloatLE(Infinity, 0);
-		} catch (e) {
-			compatibility.NodeBuffer = false;
-		}
-	})(new Buffer(4));
-}
-
-if (BROWSER && compatibility.PixelData) {
-	var context2d = document.createElement('canvas').getContext('2d');
-	var createPixelData = function (byteLength, buffer) {
-		var data = context2d.createImageData((byteLength + 3) / 4, 1).data;
-		data.byteLength = byteLength;
-		if (buffer !== undefined) {
-			for (var i = 0; i < byteLength; i++) {
-				data[i] = buffer[i];
-			}
-		}
-		return data;
-	};
-}
+var TextEncoder = window.TextEncoder;
+var TextDecoder = window.TextDecoder;
 
 var dataTypes = {
 	'Int8': 1,
@@ -281,7 +256,7 @@ var proto = jDataView.prototype = {
 	},
 
 	_arrayBufferAction: function (type, isReadAction, byteOffset, littleEndian, value) {
-		var size = dataTypes[type], TypedArray = global[type + 'Array'], typedArray;
+		var size = dataTypes[type], TypedArray = window[type + 'Array'], typedArray;
 
 		littleEndian = defined(littleEndian, this._littleEndian);
 

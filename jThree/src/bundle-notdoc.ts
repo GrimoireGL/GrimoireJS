@@ -30,19 +30,19 @@ interface WebGLRenderingContext
 }
 
 declare var jDataView:{
-    new (buffer: string): jDataView;
+    new (buffer: ArrayBuffer,offset:number,length:number,littleEndian): jDataView;
 }
 
 interface jDataView
 {
-    getString(offset:number,length: Number);
-    getInt8(offset:number,littleEndian:boolean);
-    getUInt8(offset:number,littleEndian:boolean);
-    getInt16(offset:number,);
-    getUInt16(offset:number,littleEndian:boolean);
-    getInt32(offset:number,littleEndian:boolean);
-    getUInt32(offset:number,littleEndian:boolean);
-    getUInt32(offset:number,littleEndian:boolean);
-    getFloat(offset:number,littleEndian:boolean);
-    getDouble(offset:number,littleEndian:boolean);
+    getString(length: Number);
+    getInt8(offset?:number,littleEndian?:boolean);
+    getUint8(offset?:number,littleEndian?:boolean);
+    getInt16(offset?:number,littleEndian?:boolean);
+    getUint16(offset?:number,littleEndian?:boolean);
+    getInt32(offset?:number,littleEndian?:boolean);
+    getUint32(offset?:number,littleEndian?:boolean);
+    getUint32(offset?:number,littleEndian?:boolean);
+    getFloat32(offset?:number,littleEndian?:boolean);
+    getFloat64(offset?:number,littleEndian?:boolean);
 }

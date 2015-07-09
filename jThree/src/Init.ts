@@ -56,9 +56,13 @@ class JThreeInit {
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
       var oReq = new XMLHttpRequest();
-      oReq.open("GET", "/tune/Tune.pmx", false);
+      oReq.responseType = "arraybuffer";
+      oReq.open("GET", "/tune/Tune.pmx", true);
+      oReq.onload=()=>
+      {
+    var pmx = new PMX(oReq.response);
+      };
       oReq.send(null);
-    var pmx = new PMX(oReq.responseText);
     debugger;
       j3.GomlLoader.onload(() => {
         //Test code
