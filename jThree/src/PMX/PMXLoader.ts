@@ -2,6 +2,10 @@ import PMXHeader = require('./PMXHeader');
 import PMXVerticies = require('./PMXVerticies');
 import PMXMaterial = require('./PMXMaterial');
 import PMXBone = require('./PMXBone');
+import PMXMorph = require('./PMXMorph');
+import PMXDisplayFrame = require('./PMXDisplayFrame');
+import PMXRigidBody = require('./PMXRigidBody');
+import PMXJoint = require('./PMXJoint');
 class PMX {
 	private reader: jDataView;
 
@@ -17,6 +21,14 @@ class PMX {
 
 	private bones: PMXBone[];
 
+	private morphs: PMXMorph[];
+
+	private displayFrames: PMXDisplayFrame[];
+
+	private rigidBodies: PMXRigidBody[];
+
+	private joints: PMXJoint[];
+
 	constructor(data: ArrayBuffer) {
 		this.reader = new jDataView(data, 0, data.byteLength, true);
 		this.loadHeader();
@@ -25,6 +37,11 @@ class PMX {
 		this.loadTextures();
 		this.loadMaterials();
 		this.loadBones();
+		this.loadMorphs();
+		this.loadDisplayFrames();
+		this.loadRigidBodies();
+		this.loadJoints();
+		debugger;
 	}
 
 	private readTextBuf(): string {
@@ -99,6 +116,19 @@ class PMX {
 
 	private readTextureIndex() {
 		return this.readIndexExceptVertex(this.header.textureIndexSize);
+	}
+
+	private readMorphIndex() {
+		return this.readIndexExceptVertex(this.header.morphIndexSize);
+	}
+
+	private readMaterialIndex() {
+		return this.readIndexExceptVertex(this.header.materialIndexSize);
+	}
+
+	private readRigidBodyIndex()
+	{
+		return this.readIndexExceptVertex(this.header.rigidBodyIndexSize);
 	}
 	private readVertexIndex() {
 		switch (this.header.vertexIndexSize) {
@@ -274,25 +304,176 @@ class PMX {
 				connectingBoneIndex: (boneFlagCache & 0x0001) > 0 ? this.readBoneIndex() : undefined,
 				providingBoneIndex: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? this.readBoneIndex() : undefined,
 				providingRate: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? r.getFloat32() : undefined,
-				fixedAxis: (boneFlagCache & 0x0400) > 0 ?[r.getFloat32(),r.getFloat32(),r.getFloat32()]:undefined,
-				localAxisX:(boneFlagCache&0x0800)>0?[r.getFloat32(),r.getFloat32(),r.getFloat32()]:undefined,
-				localAxisZ:(boneFlagCache&0x0800)>0?[r.getFloat32(),r.getFloat32(),r.getFloat32()]:undefined,
-				externalParentTransformKey:(boneFlagCache&0x2000)>0?r.getInt32():undefined,
-				ikTargetBoneIndex:(boneFlagCache&0x0020)>0?this.readBoneIndex():undefined,
-				ikLoopCount:(boneFlagCache&0x0020)>0?r.getInt32():undefined,
-				ikLimitedRotation:(boneFlagCache&0x0020)>0?r.getFloat32():undefined,
-				ikLinkCount:(boneFlagCache&0x0020)>0?ikLinkCountCache=r.getInt32():ikLinkCountCache=undefined,
-				ikLinks:(boneFlagCache&0x0020)>0?new Array(ikLinkCountCache):undefined
+				fixedAxis: (boneFlagCache & 0x0400) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
+				localAxisX: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
+				localAxisZ: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
+				externalParentTransformKey: (boneFlagCache & 0x2000) > 0 ? r.getInt32() : undefined,
+				ikTargetBoneIndex: (boneFlagCache & 0x0020) > 0 ? this.readBoneIndex() : undefined,
+				ikLoopCount: (boneFlagCache & 0x0020) > 0 ? r.getInt32() : undefined,
+				ikLimitedRotation: (boneFlagCache & 0x0020) > 0 ? r.getFloat32() : undefined,
+				ikLinkCount: (boneFlagCache & 0x0020) > 0 ? ikLinkCountCache = r.getInt32() : ikLinkCountCache = undefined,
+				ikLinks: (boneFlagCache & 0x0020) > 0 ? new Array(ikLinkCountCache) : undefined
 			};
-			if(ikLinkCountCache)
-				for (var j = 0; j < ikLinkCountCache;j++)
-				{
-					this.bones[i].ikLinks[j]={
-						ikLinkBoneIndex:this.readBoneIndex(),
-						isLimitedRotation:ikLimitedCache=r.getUint8(),
-						limitedRotation:ikLimitedCache>0?[r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32()]:undefined
+			if (ikLinkCountCache)
+				for (var j = 0; j < ikLinkCountCache; j++) {
+					this.bones[i].ikLinks[j] = {
+						ikLinkBoneIndex: this.readBoneIndex(),
+						isLimitedRotation: ikLimitedCache = r.getUint8(),
+						limitedRotation: ikLimitedCache > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined
 					}
 				}
+		}
+	}
+	private loadMorphs() {
+		var r = this.reader;
+		var count = r.getInt32();
+		this.morphs = new Array(count);
+		var morphCountCache = 0;
+		for (var i = 0; i < count; i++) {
+			this.morphs[i] = {
+				morphName: this.readTextBuf(),
+				morphNameEn: this.readTextBuf(),
+				editPanel: r.getUint8(),
+				morphKind: r.getUint8(),
+				morphOffsetCount: morphCountCache = r.getInt32()
+			};
+			switch (this.morphs[i].morphKind) {
+				case 0:
+					//group morph
+					this.morphs[i].groupMorph = new Array(morphCountCache);
+					for (var j = 0; j < morphCountCache; j++) {
+						this.morphs[i].groupMorph[j] = {
+							morphIndex: this.readMorphIndex(),
+							morphRate: r.getFloat32()
+						};
+					}
+					break;
+				case 1:
+					this.morphs[i].vertexMorph = new Array(morphCountCache);
+					for (var j = 0; j < morphCountCache; j++) {
+						this.morphs[i].vertexMorph[j] =
+						{
+							vertexIndex: this.readVertexIndex(),
+							vertexOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32()]
+						}
+					}
+					break;
+				case 2:
+					this.morphs[i].boneMorph = new Array(morphCountCache);
+					for (var j = 0; j < morphCountCache; j++) {
+						this.morphs[i].boneMorph[j]
+						= {
+							boneIndex: this.readBoneIndex(),
+							translationOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							rotationOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+						};
+					}
+					break;
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+					this.morphs[i].uvMorph = new Array(morphCountCache);
+					for (var j = 0; j < morphCountCache; j++) {
+						this.morphs[i].uvMorph[j]
+						= {
+							vertexIndex: this.readVertexIndex(),
+							uvOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+						};
+					}
+					break;
+				case 8:
+					this.morphs[i].materialMorph = new Array(morphCountCache);
+					for (var j = 0; j < morphCountCache; j++) {
+						this.morphs[i].materialMorph[j]
+						= {
+							materialIndex: this.readMaterialIndex(),
+							operationType: r.getUint8(),
+							diffuse: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							specular: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							ambient: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							edgeColor: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							edgeSize: r.getFloat32(),
+							textureCoefficient: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							sphereTextureCoefficient: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							toonTextureCoefficient: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+						};
+					}
+					break;
+			}
+		}
+	}
+
+	private loadDisplayFrames() {
+		var r = this.reader;
+		var count = r.getInt32();
+		this.displayFrames = new Array(count);
+		var countCache = 0;
+		var targetCache = 0;
+		for (var i = 0; i < count; i++) {
+			this.displayFrames[i] =
+			{
+				frameName: this.readTextBuf(),
+				frameNameEn: this.readTextBuf(),
+				specialFrameFlag: r.getUint8(),
+				elementCount: countCache = r.getInt32(),
+				targetElementTypes: new Array(countCache),
+				targetIndex: new Array(countCache)
+			};
+			for (var j = 0; j < countCache; j++) {
+				this.displayFrames[i].targetElementTypes[j] = targetCache = r.getUint8();
+				this.displayFrames[i].targetIndex[j] = targetCache > 0 ? this.readMorphIndex() : this.readBoneIndex();
+			}
+		}
+	}
+
+	private loadRigidBodies() {
+		var r = this.reader;
+		var count = r.getInt32();
+		this.rigidBodies = new Array(count);
+		for (var i = 0; i < count; i++) {
+			this.rigidBodies[i] = {
+				rigidBodyName: this.readTextBuf(),
+				rigidBodyNameEn: this.readTextBuf(),
+				boneIndex: this.readBoneIndex(),
+				group: r.getUint8(),
+				unCollisionGroupFlag: r.getUint16(),
+				shape: r.getUint8(),
+				size: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+				position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+				rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+				mass: r.getFloat32(),
+				translationFraction: r.getFloat32(),
+				rotationFraction: r.getFloat32(),
+				boundness: r.getFloat32(),
+				fraction: r.getFloat32(),
+				calcType: r.getUint8(),
+			};
+		}
+	}
+
+	private loadJoints() {
+		var r = this.reader;
+		var count = r.getInt32();
+		this.joints = new Array(count);
+		var typeCache = 0;
+		for (var i = 0; i < count; i++) {
+			this.joints[i]={
+				jointName:this.readTextBuf(),
+				jointNameEn:this.readTextBuf(),
+				jointType:typeCache=r.getUint8(),
+				spring:typeCache==0?
+				{
+					targetRigidBody1:this.readRigidBodyIndex(),
+					targetRigidBody2:this.readRigidBodyIndex(),
+					position:[r.getFloat32(),r.getFloat32(),r.getFloat32()],
+					rotation:[r.getFloat32(),r.getFloat32(),r.getFloat32()],
+					translationLimit:[r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32()],
+					rotationLimit:[r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32()],
+					springCoefficientLimit:[r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32()]
+				}:undefined
+			};
 		}
 	}
 }
