@@ -13,6 +13,8 @@
         "!./node_modules/**/*.ts"
     ],
     "files": [
+        "./PMX/PMXLoader.ts",
+        "./PMX/PMXHeader.ts",
         "bundle-notdoc.ts",
         "./Base/Collections/ArrayEnumratorFactory.ts",
         "./Base/Collections/AssociativeArray.ts",

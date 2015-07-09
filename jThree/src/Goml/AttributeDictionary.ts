@@ -12,6 +12,12 @@ import AttributeDeclaration = require('./AttributeDeclaration');
  */
 class AttributeDictionary extends JThreeObject
 {
+
+  /**
+   * @param {node} the node this attribute dictionary has.
+   * @param {loader} the loader loaded this node.
+   * @param {element} the element bound to this node.
+   */
   constructor(node:GomlTreeNodeBase,loader:GomlLoader,element:HTMLElement)
   {
     super();
@@ -19,7 +25,7 @@ class AttributeDictionary extends JThreeObject
     this.element=element;
     this.node=node;
   }
-
+  
   private node:GomlTreeNodeBase;
 
   private loader:GomlLoader;

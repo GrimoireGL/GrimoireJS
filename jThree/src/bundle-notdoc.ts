@@ -28,3 +28,21 @@ interface WebGLRenderingContext
 {
     texImage2D(target:number,level:number,internalFormat:number,width:number,height:number,border:number,format:number,type:number,pixels?:ArrayBufferView)
 }
+
+declare var jDataView:{
+    new (buffer: string): jDataView;
+}
+
+interface jDataView
+{
+    getString(offset:number,length: Number);
+    getInt8(offset:number,littleEndian:boolean);
+    getUInt8(offset:number,littleEndian:boolean);
+    getInt16(offset:number,);
+    getUInt16(offset:number,littleEndian:boolean);
+    getInt32(offset:number,littleEndian:boolean);
+    getUInt32(offset:number,littleEndian:boolean);
+    getUInt32(offset:number,littleEndian:boolean);
+    getFloat(offset:number,littleEndian:boolean);
+    getDouble(offset:number,littleEndian:boolean);
+}
