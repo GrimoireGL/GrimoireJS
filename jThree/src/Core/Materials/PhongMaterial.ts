@@ -89,18 +89,12 @@ class PhongMaterial extends Material {
   configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
     if (!this.program) return;
     super.configureMaterial(scene, renderer, object,texs);
-    var id = renderer.ID;
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
-    var resourceManager = jThreeContext.ResourceManager;
-    var tex = this.Texture;
-    renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
-    if (tex) tex.getForContext(renderer.ContextManager).bind();
-    else renderer.GLContext.BindTexture(TargetTextureType.Texture2D, null);
-    programWrapper.registerTexture(renderer, texs["LIGHT"], 1, "u_light");
+    programWrapper.registerTexture(renderer,this.Texture,0,"u_texture");
+    programWrapper.registerTexture(renderer, texs["LIGHT"], 1, "u_sampler");
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
@@ -109,9 +103,7 @@ class PhongMaterial extends Material {
     programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
     programWrapper.setUniformVector("u_ambient", this.Ambient.toVector());
     programWrapper.setUniformVector("u_diffuse", this.Diffuse.toVector());
-    programWrapper.setUniform1i("u_sampler", 0);
-    var s = this.Specular.toVector();
-    programWrapper.setUniformVector("u_specular", new Vector4(s.X, s.Y, s.Z, this.specularCoefficient));
+    programWrapper.setUniformVector("u_specular",this.Specular.toVector4(this.specularCoefficient));
     programWrapper.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }

@@ -48,7 +48,6 @@ class SolidColorMaterial extends Material {
     programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
     programWrapper.setUniformVector("u_color", this.Color.toVector());
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
-    renderer.GLContext.DrawElements(geometry.PrimitiveTopology, geometry.IndexBuffer.Length, geometry.IndexBuffer.ElementType, 0);
   }
 }
 

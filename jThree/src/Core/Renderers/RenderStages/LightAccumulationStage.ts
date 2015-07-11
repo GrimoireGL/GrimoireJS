@@ -57,8 +57,6 @@ class LitghtAccumulationStage extends RenderStageBase {
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
-    var jThreeContext = JThreeContextProxy.getJThreeContext();
-    var resourceManager = jThreeContext.ResourceManager;
     var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));

@@ -28,7 +28,7 @@ class Texture extends TextureBase
   public set ImageSource(img:ImageSource)
   {
     this.imageSource=img;
-    this.each((v)=>v.init(true));
+    this.each((v)=>(<TextureWrapper>v).init(true));
   }
 
   protected getInstanceForRenderer(contextManager: ContextManagerBase):TextureWrapperBase {

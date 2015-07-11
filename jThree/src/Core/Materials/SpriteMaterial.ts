@@ -86,19 +86,13 @@ class SpriteMaterial extends Material {
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
-    var resourceManager = jThreeContext.ResourceManager;
-    var tex = this.Texture;
-    renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
-    if (tex) tex.getForContext(renderer.ContextManager).bind();
-    else renderer.GLContext.BindTexture(TargetTextureType.Texture2D, null);
+    programWrapper.registerTexture(renderer,this.Texture,0,"u_sampler");
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setUniformMatrix("matMVP", v);
     programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
     programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-    programWrapper.setUniform1i("u_sampler", 0);
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
     //gen ct matrix
     var ctM: Matrix = Matrix.zero();

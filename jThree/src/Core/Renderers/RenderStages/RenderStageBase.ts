@@ -17,6 +17,7 @@ import Delegates = require('../../../Base/Delegates');
 import GLCullMode = require('../../../Wrapper/GLCullMode');
 import GLFeature = require('../../../Wrapper/GLFeatureType');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
+import TargetTextureType = require('../../../Wrapper/TargetTextureType');
 interface FBOBindData {
 	texture: TextureBase|RBO,
 	target: string|number,
@@ -87,6 +88,8 @@ class RenderStageBase extends JThreeObject {
 		} else {
 			this.GLContext.CullFace(GLCullMode.Back);
 		}
+		//reset texture register
+		this.resetActiveTextures();
 	}
 
 	private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
@@ -98,6 +101,15 @@ class RenderStageBase extends JThreeObject {
 		}
 		else {
 			this.GLContext.Disable(target);
+		}
+	}
+	
+	private resetActiveTextures()
+	{
+		for(var i=0;i<32;i++)
+		{
+			this.GLContext.ActiveTexture(TextureRegister.Texture0+i);
+			this.GLContext.BindTexture(TargetTextureType.Texture2D,null);
 		}
 	}
 
@@ -124,6 +136,7 @@ class RenderStageBase extends JThreeObject {
 		bindInfo.forEach(v=> {
 			v.target = v.target.toString().toLowerCase();
 			var attachmentType = FrameBufferAttachmentType.ColorAttachment0;
+			//assign attachment type
 			if (v.target === "depth") {
 				attachmentType = FrameBufferAttachmentType.DepthAttachment;
 			} else if (v.target === "stencil") {
@@ -170,6 +183,11 @@ class RenderStageBase extends JThreeObject {
 	 */
 	public get DefaultRBO(): RBO {
 		return JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
+	}
+	
+	protected get Context()
+	{
+		return JThreeContextProxy.getJThreeContext();
 	}
 }
 

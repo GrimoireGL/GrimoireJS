@@ -54,7 +54,6 @@ class RB1RenderStage extends RenderStageBase {
 	}
 
 	private configureProgram(object: SceneObject) {
-        var context = JThreeContextProxy.getJThreeContext();
         var geometry = object.Geometry;
         var programWrapper = this.rb1Program.getForContext(this.Renderer.ContextManager);
         programWrapper.useProgram();
