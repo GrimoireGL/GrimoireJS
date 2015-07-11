@@ -46,11 +46,6 @@ class RB2RenderStage extends RenderStageBase {
 		});
 
 	}
-
-	public postEndStage(scene: Scene, passCount: number) {
-		this.DefaultFBO.getForContext(this.Renderer.ContextManager).unbind();
-	}
-
 	public render(scene: Scene, object: SceneObject, passCount: number) {
 		var geometry = object.Geometry;
 		if (!geometry) return;
@@ -75,7 +70,7 @@ class RB2RenderStage extends RenderStageBase {
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
-		return true;
+		return typeof object.Geometry!="undefined"&&object.Geometry!=null;
 	}
 
 	public getPassCount(scene: Scene) {

@@ -108,7 +108,7 @@ class Buffer extends BufferProxy
         return this.bufWrappers;
     }
     private elementCache:Float32Array;
-    private length:number;
+    private length:number=0;
 
     get Length():number{
       return this.length;

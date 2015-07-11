@@ -3,7 +3,7 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import GLContextWrapperBase = require('../Wrapper/GLContextWrapperBase');
 class GLExtensionManager extends JThreeObject
 {
-	private requiredExtensions:string[]=["WEBGL_draw_buffers","WEBGL_depth_texture"];
+	private requiredExtensions:string[]=["WEBGL_draw_buffers","WEBGL_depth_texture","OES_element_index_uint"];
 	private extensions:AssociativeArray<any>=new AssociativeArray<any>();
 	
 	constructor()

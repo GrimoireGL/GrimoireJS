@@ -56,6 +56,10 @@
 	var $ = __webpack_require__(10);
 	var JThreeInterface = __webpack_require__(199);
 	var PMX = __webpack_require__(200);
+	var Mesh = __webpack_require__(108);
+	var PMXGeometry = __webpack_require__(201);
+	var PhongGeometry = __webpack_require__(135);
+	var Vector3 = __webpack_require__(24);
 	var JThreeStatic = (function () {
 	    function JThreeStatic() {
 	    }
@@ -85,20 +89,23 @@
 	        }
 	        $(function () {
 	            var j3 = JThreeContext.getInstanceForProxy();
-	            var oReq = new XMLHttpRequest();
-	            oReq.responseType = "arraybuffer";
-	            oReq.open("GET", "/tune/Tune.pmx", true);
-	            oReq.onload = function () {
-	                var pmx = new PMX(oReq.response);
-	            };
-	            oReq.send(null);
-	            debugger;
 	            j3.GomlLoader.onload(function () {
 	                JThreeInit.img = new Image();
 	                JThreeInit.img.onload = function () {
 	                    var res = j3.ResourceManager.createTextureWithSource("test", JThreeInit.img);
 	                };
 	                JThreeInit.img.src = "/miku2.png";
+	                var oReq = new XMLHttpRequest();
+	                oReq.open("GET", "/tune/Tune.pmx", true);
+	                oReq.setRequestHeader("Accept", "*/*");
+	                oReq.responseType = "arraybuffer";
+	                oReq.onload = function () {
+	                    var pmx = new PMX(oReq.response);
+	                    var mesh = new Mesh(new PMXGeometry(pmx), new PhongGeometry());
+	                    mesh.Transformer.Scale = new Vector3(0.1, 0.1, 0.1);
+	                    j3.SceneManager.Scenes[0].addObject(mesh);
+	                };
+	                oReq.send(null);
 	            });
 	            j3.init();
 	        });
@@ -556,6 +563,19 @@
 	    Object.defineProperty(AssociativeArray.prototype, "size", {
 	        get: function () {
 	            return this.target.size;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(AssociativeArray.prototype, "asArray", {
+	        get: function () {
+	            var array = new Array(this.size);
+	            var i = 0;
+	            this.forEach(function (v) {
+	                array[i] = v;
+	                i++;
+	            });
+	            return array;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -13949,7 +13969,7 @@
 	    __extends(GLExtensionManager, _super);
 	    function GLExtensionManager() {
 	        _super.call(this);
-	        this.requiredExtensions = ["WEBGL_draw_buffers", "WEBGL_depth_texture"];
+	        this.requiredExtensions = ["WEBGL_draw_buffers", "WEBGL_depth_texture", "OES_element_index_uint"];
 	        this.extensions = new AssociativeArray();
 	    }
 	    GLExtensionManager.prototype.checkExtensions = function (context) {
@@ -14998,15 +15018,12 @@
 	            _this.GLContext.Clear(ClearTargetType.ColorBits);
 	        });
 	    };
-	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
-	    };
 	    LitghtAccumulationStage.prototype.render = function (scene, object, passCount, texs) {
 	        var geometry = object.Geometry;
 	        if (!geometry || !this.program)
 	            return;
 	        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
 	        geometry.drawElements(this.Renderer.ContextManager);
-	        this.Renderer.GLContext.Flush();
 	    };
 	    LitghtAccumulationStage.prototype.configureMaterial = function (scene, renderer, object, texs) {
 	        var geometry = object.Geometry;
@@ -15060,7 +15077,7 @@
 	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 	    };
 	    LitghtAccumulationStage.prototype.needRender = function (scene, object, passCount) {
-	        return true;
+	        return typeof object.Geometry != "undefined" && object.Geometry != null;
 	    };
 	    LitghtAccumulationStage.prototype.getPassCount = function (scene) {
 	        return 1;
@@ -15125,6 +15142,7 @@
 	    RenderStageBase.prototype.preBeginStage = function (scene, passCount, texs) {
 	    };
 	    RenderStageBase.prototype.postEndStage = function (scene, passCount, texs) {
+	        this.Renderer.GLContext.Flush();
 	    };
 	    RenderStageBase.prototype.render = function (scene, object, passCount, texs) {
 	    };
@@ -15398,6 +15416,9 @@
 	    Object.defineProperty(SceneObject.prototype, "Geometry", {
 	        get: function () {
 	            return this.geometry;
+	        },
+	        set: function (geo) {
+	            this.geometry = geo;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -17263,10 +17284,6 @@
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 	        });
 	    };
-	    RB1RenderStage.prototype.postEndStage = function (scene, passCount) {
-	        this.Renderer.GLContext.Flush();
-	        this.DefaultFBO.getForContext(this.Renderer.ContextManager).unbind();
-	    };
 	    RB1RenderStage.prototype.render = function (scene, object, passCount) {
 	        var geometry = object.Geometry;
 	        if (!geometry)
@@ -17290,7 +17307,7 @@
 	        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
 	    };
 	    RB1RenderStage.prototype.needRender = function (scene, object, passCount) {
-	        return true;
+	        return typeof object.Geometry != "undefined" && object.Geometry != null;
 	    };
 	    RB1RenderStage.prototype.getPassCount = function (scene) {
 	        return 1;
@@ -17339,9 +17356,6 @@
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 	        });
 	    };
-	    RB2RenderStage.prototype.postEndStage = function (scene, passCount) {
-	        this.DefaultFBO.getForContext(this.Renderer.ContextManager).unbind();
-	    };
 	    RB2RenderStage.prototype.render = function (scene, object, passCount) {
 	        var geometry = object.Geometry;
 	        if (!geometry)
@@ -17365,7 +17379,7 @@
 	        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
 	    };
 	    RB2RenderStage.prototype.needRender = function (scene, object, passCount) {
-	        return true;
+	        return typeof object.Geometry != "undefined" && object.Geometry != null;
 	    };
 	    RB2RenderStage.prototype.getPassCount = function (scene) {
 	        return 1;
@@ -17418,7 +17432,7 @@
 	        geometry.drawElements(this.Renderer.ContextManager);
 	    };
 	    FowardShadingStage.prototype.needRender = function (scene, object, passCount) {
-	        return true;
+	        return typeof object.Geometry != "undefined" && object.Geometry != null;
 	    };
 	    return FowardShadingStage;
 	})(RenderStageBase);
@@ -17441,9 +17455,9 @@
 	var Mesh = __webpack_require__(108);
 	var Matrix = __webpack_require__(59);
 	var agent = __webpack_require__(112);
-	var LitghtAccumulationStage = (function (_super) {
-	    __extends(LitghtAccumulationStage, _super);
-	    function LitghtAccumulationStage(renderer) {
+	var GrayScaleStage = (function (_super) {
+	    __extends(GrayScaleStage, _super);
+	    function GrayScaleStage(renderer) {
 	        var _this = this;
 	        _super.call(this, renderer);
 	        var vs = __webpack_require__(115);
@@ -17451,7 +17465,7 @@
 	            _this.program = _this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.post.gray", "jthree.programs.post.gray", vs, res.text);
 	        });
 	    }
-	    LitghtAccumulationStage.prototype.preBeginStage = function (scene, passCount, texs) {
+	    GrayScaleStage.prototype.preBeginStage = function (scene, passCount, texs) {
 	        var _this = this;
 	        this.bindAsOutBuffer(this.DefaultFBO, [{
 	                texture: texs["OUT"],
@@ -17466,17 +17480,14 @@
 	        });
 	        this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
 	    };
-	    LitghtAccumulationStage.prototype.postEndStage = function (scene, passCount) {
-	    };
-	    LitghtAccumulationStage.prototype.render = function (scene, object, passCount, texs) {
+	    GrayScaleStage.prototype.render = function (scene, object, passCount, texs) {
 	        var geometry = object.Geometry;
 	        if (!geometry || !this.program)
 	            return;
 	        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
 	        geometry.drawElements(this.Renderer.ContextManager);
-	        this.Renderer.GLContext.Flush();
 	    };
-	    LitghtAccumulationStage.prototype.configureMaterial = function (scene, renderer, object, texs) {
+	    GrayScaleStage.prototype.configureMaterial = function (scene, renderer, object, texs) {
 	        var geometry = object.Geometry;
 	        var programWrapper = this.program.getForContext(renderer.ContextManager);
 	        programWrapper.useProgram();
@@ -17486,21 +17497,22 @@
 	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
 	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
 	        programWrapper.registerTexture(renderer, texs["SOURCE"], 0, "source");
+	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 	    };
-	    LitghtAccumulationStage.prototype.needRender = function (scene, object, passCount) {
+	    GrayScaleStage.prototype.needRender = function (scene, object, passCount) {
 	        return true;
 	    };
-	    LitghtAccumulationStage.prototype.getPassCount = function (scene) {
+	    GrayScaleStage.prototype.getPassCount = function (scene) {
 	        return 1;
 	    };
-	    Object.defineProperty(LitghtAccumulationStage.prototype, "TargetGeometry", {
+	    Object.defineProperty(GrayScaleStage.prototype, "TargetGeometry", {
 	        get: function () {
 	            return "quad";
 	        },
 	        enumerable: true,
 	        configurable: true
 	    });
-	    Object.defineProperty(LitghtAccumulationStage.prototype, "RenderStageConfig", {
+	    Object.defineProperty(GrayScaleStage.prototype, "RenderStageConfig", {
 	        get: function () {
 	            return {
 	                depthTest: true
@@ -17509,9 +17521,9 @@
 	        enumerable: true,
 	        configurable: true
 	    });
-	    return LitghtAccumulationStage;
+	    return GrayScaleStage;
 	})(RenderStageBase);
-	module.exports = LitghtAccumulationStage;
+	module.exports = GrayScaleStage;
 
 
 /***/ },
@@ -19330,7 +19342,7 @@
 	        geometry.drawElements(this.Renderer.ContextManager);
 	    };
 	    DirectionalLightDepthStage.prototype.needRender = function (scene, object, passCount) {
-	        return true;
+	        return typeof object.Geometry != "undefined" && object.Geometry != null;
 	    };
 	    return DirectionalLightDepthStage;
 	})(RenderStageBase);
@@ -20235,6 +20247,7 @@
 	        this.stride = 0;
 	        this.offset = 0;
 	        this.bufWrappers = new AssociativeArray();
+	        this.length = 0;
 	        this.parentBuffer = this;
 	    }
 	    Buffer.CreateBuffer = function (context, target, usage, unitCount, elementType) {
@@ -21554,6 +21567,13 @@
 	            this.scenes.set(scene.ID, scene);
 	        }
 	    };
+	    Object.defineProperty(SceneManager.prototype, "Scenes", {
+	        get: function () {
+	            return this.scenes.asArray;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    SceneManager.prototype.removeScene = function (scene) {
 	        if (this.scenes.has(scene.ID)) {
 	            this.scenes.delete(scene.ID);
@@ -21713,11 +21733,30 @@
 	        this.loadDisplayFrames();
 	        this.loadRigidBodies();
 	        this.loadJoints();
-	        debugger;
 	    }
+	    Object.defineProperty(PMX.prototype, "Verticies", {
+	        get: function () {
+	            return this.verticies;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMX.prototype, "Surfaces", {
+	        get: function () {
+	            return this.surfaces;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    PMX.prototype.readTextBuf = function () {
 	        var length = this.reader.getInt32();
-	        return this.reader.getString(length);
+	        var numbers = new Array(length);
+	        for (var i = 0; i < length; i++) {
+	            numbers[i] = this.reader.getUint8();
+	        }
+	        var result = "";
+	        result += String.fromCharCode.apply(null, numbers);
+	        return result;
 	    };
 	    PMX.prototype.toUTF8 = function (str) {
 	        var utf8 = [];
@@ -21812,7 +21851,6 @@
 	    };
 	    PMX.prototype.loadVerticies = function () {
 	        var r = this.reader;
-	        debugger;
 	        var count = r.getInt32();
 	        var uvCount = this.header.uvAddition;
 	        var additionalUvs = new Array(uvCount);
@@ -22122,6 +22160,48 @@
 	    return PMX;
 	})();
 	module.exports = PMX;
+
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var Geometry = __webpack_require__(76);
+	var PrimitiveTopology = __webpack_require__(77);
+	var BufferTargetType = __webpack_require__(78);
+	var BufferUsageType = __webpack_require__(79);
+	var ElementType = __webpack_require__(80);
+	var JThreeContextProxy = __webpack_require__(55);
+	var PMXGeometry = (function (_super) {
+	    __extends(PMXGeometry, _super);
+	    function PMXGeometry(pmx) {
+	        _super.call(this);
+	        var name = "pmxtest";
+	        var j3 = JThreeContextProxy.getJThreeContext();
+	        this.primitiveTopology = PrimitiveTopology.Triangles;
+	        this.indexBuffer = j3.ResourceManager.createBuffer(name + "-index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedInt);
+	        this.positionBuffer = j3.ResourceManager.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
+	        this.normalBuffer = j3.ResourceManager.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
+	        this.uvBuffer = j3.ResourceManager.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
+	        this.updateBuffers(pmx);
+	    }
+	    PMXGeometry.prototype.updateBuffers = function (pmx) {
+	        var surfaceBuffer = new Uint32Array(pmx.Surfaces);
+	        var positionBuffer = new Float32Array(pmx.Verticies.positions);
+	        this.indexBuffer.update(surfaceBuffer, surfaceBuffer.length);
+	        this.normalBuffer.update(new Float32Array(pmx.Verticies.normals), pmx.Verticies.normals.length);
+	        this.uvBuffer.update(new Float32Array(pmx.Verticies.uvs), pmx.Verticies.uvs.length);
+	        this.positionBuffer.update(positionBuffer, positionBuffer.length);
+	    };
+	    return PMXGeometry;
+	})(Geometry);
+	module.exports = PMXGeometry;
 
 
 /***/ }

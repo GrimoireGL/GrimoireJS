@@ -24,7 +24,7 @@ import DirectionalLight = require('../../Light/DirectionalLight');
 import agent = require('superagent');
 import GLFeatureType = require("../../../Wrapper/GLFeatureType");
 declare function require(name: string): any;
-class LitghtAccumulationStage extends RenderStageBase {
+class GrayScaleStage extends RenderStageBase {
 
 	private program: Program;
 
@@ -53,15 +53,12 @@ class LitghtAccumulationStage extends RenderStageBase {
 		this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
 	}
 
-	public postEndStage(scene: Scene, passCount: number) {
-	}
 
 	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
 		var geometry = object.Geometry;
 		if (!geometry || !this.program) return;
 		this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
 		geometry.drawElements(this.Renderer.ContextManager);
-		this.Renderer.GLContext.Flush();
 		//this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
 	}
 
@@ -75,6 +72,7 @@ class LitghtAccumulationStage extends RenderStageBase {
 		programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
 		programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
 		programWrapper.registerTexture(renderer, texs["SOURCE"], 0, "source");
+		geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
@@ -96,4 +94,4 @@ class LitghtAccumulationStage extends RenderStageBase {
 		};
 	}
 }
-export = LitghtAccumulationStage;
+export = GrayScaleStage;

@@ -45,15 +45,11 @@ class LitghtAccumulationStage extends RenderStageBase {
     });
   }
 
-  public postEndStage(scene: Scene, passCount: number) {
-  }
-
   public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
     var geometry = object.Geometry;
     if (!geometry || !this.program) return;
     this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
     geometry.drawElements(this.Renderer.ContextManager);
-    this.Renderer.GLContext.Flush();
     //this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
   }
 
@@ -113,7 +109,7 @@ class LitghtAccumulationStage extends RenderStageBase {
   }
 
   public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
-    return true;
+		return typeof object.Geometry!="undefined"&&object.Geometry!=null;
   }
 
 		public getPassCount(scene: Scene) {

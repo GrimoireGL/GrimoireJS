@@ -133,6 +133,11 @@ class SceneObject extends JThreeObjectWithID
     {
       return this.geometry;
     }
+    
+    public set Geometry(geo:Geometry)
+    {
+        this.geometry=geo;
+    }
 
     protected transformer:Transformer;
 

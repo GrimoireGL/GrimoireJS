@@ -35,7 +35,7 @@ declare var jDataView:{
 
 interface jDataView
 {
-    getString(length: Number);
+    getString(length: Number,offset?:number,encoding?:string);
     getInt8(offset?:number,littleEndian?:boolean);
     getUint8(offset?:number,littleEndian?:boolean);
     getInt16(offset?:number,littleEndian?:boolean);
@@ -45,4 +45,7 @@ interface jDataView
     getUint32(offset?:number,littleEndian?:boolean);
     getFloat32(offset?:number,littleEndian?:boolean);
     getFloat64(offset?:number,littleEndian?:boolean);
+    slice(start: number, end: number, forceCopy?: boolean);
+    skip(byteLength: number);
+    tell(): number;
 }

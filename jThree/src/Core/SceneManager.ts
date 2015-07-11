@@ -20,6 +20,11 @@ class SceneManager extends jThreeObject {
             this.scenes.set(scene.ID, scene);
         }
     }
+    
+    get Scenes()
+    {
+        return this.scenes.asArray;
+    }
 
     /**
     *

@@ -29,6 +29,14 @@ class PMX {
 
 	private joints: PMXJoint[];
 
+	public get Verticies() {
+		return this.verticies;
+	}
+
+	public get Surfaces() {
+		return this.surfaces;
+	}
+
 	constructor(data: ArrayBuffer) {
 		this.reader = new jDataView(data, 0, data.byteLength, true);
 		this.loadHeader();
@@ -41,12 +49,17 @@ class PMX {
 		this.loadDisplayFrames();
 		this.loadRigidBodies();
 		this.loadJoints();
-		debugger;
 	}
 
 	private readTextBuf(): string {
 		var length = this.reader.getInt32();
-		return this.reader.getString(length);
+		var numbers = new Array(length);
+		for (var i = 0; i < length; i++) {
+			numbers[i] = this.reader.getUint8();
+		}
+		var result = "";
+		result += String.fromCharCode.apply(null, numbers);
+		return result;
 	}
 
 	private toUTF8(str: string) {
@@ -126,8 +139,7 @@ class PMX {
 		return this.readIndexExceptVertex(this.header.materialIndexSize);
 	}
 
-	private readRigidBodyIndex()
-	{
+	private readRigidBodyIndex() {
 		return this.readIndexExceptVertex(this.header.rigidBodyIndexSize);
 	}
 	private readVertexIndex() {
@@ -160,7 +172,6 @@ class PMX {
 
 	private loadVerticies() {
 		var r = this.reader;
-		debugger;
 		var count = r.getInt32();
 		var uvCount = this.header.uvAddition;
 		//allocate arrays
@@ -247,8 +258,19 @@ class PMX {
 		this.surfaces = new Array(count);
 		for (var i = 0; i < count; i++) {
 			this.surfaces[i] = this.readVertexIndex();
-		}
+			}
 	}
+	//		var r = this.reader;
+		// var count = r.getInt32();
+		// var indexCount = Math.floor(count / 65535) + 1;
+		// this.surfaces = new Array(indexCount);
+		// for (var targetIndex = 0; targetIndex < indexCount; targetIndex++) {
+		// 	var indexMax=Math.min(65535,count-targetIndex*65535);
+		// 	this.surfaces[targetIndex] = new Array(indexMax);
+		// 	for (var i = 0; i < indexMax; i++) {
+		// 		this.surfaces[targetIndex][i] = this.readVertexIndex();
+		// 	}
+		// }
 
 	private loadTextures() {
 		var r = this.reader;
@@ -459,20 +481,20 @@ class PMX {
 		this.joints = new Array(count);
 		var typeCache = 0;
 		for (var i = 0; i < count; i++) {
-			this.joints[i]={
-				jointName:this.readTextBuf(),
-				jointNameEn:this.readTextBuf(),
-				jointType:typeCache=r.getUint8(),
-				spring:typeCache==0?
-				{
-					targetRigidBody1:this.readRigidBodyIndex(),
-					targetRigidBody2:this.readRigidBodyIndex(),
-					position:[r.getFloat32(),r.getFloat32(),r.getFloat32()],
-					rotation:[r.getFloat32(),r.getFloat32(),r.getFloat32()],
-					translationLimit:[r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32()],
-					rotationLimit:[r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32()],
-					springCoefficientLimit:[r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32(),r.getFloat32()]
-				}:undefined
+			this.joints[i] = {
+				jointName: this.readTextBuf(),
+				jointNameEn: this.readTextBuf(),
+				jointType: typeCache = r.getUint8(),
+				spring: typeCache == 0 ?
+					{
+						targetRigidBody1: this.readRigidBodyIndex(),
+						targetRigidBody2: this.readRigidBodyIndex(),
+						position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+						rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+						translationLimit: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+						rotationLimit: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+						springCoefficientLimit: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+					} : undefined
 			};
 		}
 	}

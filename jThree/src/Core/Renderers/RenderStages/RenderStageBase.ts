@@ -58,7 +58,7 @@ class RenderStageBase extends JThreeObject {
 	 * This method will be called after process render in each pass.
 	 */
 	public postEndStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-
+		this.Renderer.GLContext.Flush();
 	}
 
 	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {

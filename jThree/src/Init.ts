@@ -9,6 +9,11 @@ import TextureMinFilter = require('./Wrapper/Texture/TextureMinFilterType');
 import PluginLoader = require('./Goml/Plugins/PluginLoader');
 import agent = require('superagent');
 import PMX = require('./PMX/PMXLoader');
+import Mesh = require('./Shapes/Mesh')
+import PMXGeometry = require('./PMX/Mesh/PMXModel');
+import PhongGeometry = require('./Core/Materials/PhongMaterial');
+import QuadGeometry = require('./Core/Geometries/QuadGeometry');
+import Vector3 = require('./Math/Vector3');
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -55,15 +60,6 @@ class JThreeInit {
 
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
-      var oReq = new XMLHttpRequest();
-      oReq.responseType = "arraybuffer";
-      oReq.open("GET", "/tune/Tune.pmx", true);
-      oReq.onload=()=>
-      {
-    var pmx = new PMX(oReq.response);
-      };
-      oReq.send(null);
-    debugger;
       j3.GomlLoader.onload(() => {
         //Test code
         JThreeInit.img = new Image();
@@ -71,6 +67,19 @@ class JThreeInit {
           var res = j3.ResourceManager.createTextureWithSource("test", JThreeInit.img);
         };
         JThreeInit.img.src = "/miku2.png";
+        var oReq = new XMLHttpRequest();
+
+        oReq.open("GET", "/tune/Tune.pmx", true);
+        oReq.setRequestHeader("Accept", "*/*");
+        oReq.responseType = "arraybuffer";
+        oReq.onload = () => {
+          var pmx = new PMX(oReq.response);
+          var mesh = new Mesh(new PMXGeometry(pmx), new PhongGeometry());
+          mesh.Transformer.Scale=new Vector3(0.1,0.1,0.1);
+          j3.SceneManager.Scenes[0].addObject(mesh)
+        };
+        oReq.send(null);
+
       });
       j3.init();
     });

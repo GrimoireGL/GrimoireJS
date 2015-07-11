@@ -59,7 +59,7 @@ class DirectionalLightDepthStage extends RenderStageBase {
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
-		return true;
+		return typeof object.Geometry!="undefined"&&object.Geometry!=null;
 	}
 }
 
