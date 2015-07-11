@@ -50,7 +50,7 @@ class RB1RenderStage extends RenderStageBase {
 		var geometry = object.Geometry;
 		if (!geometry) return;
 		this.configureProgram(object);
-		geometry.drawElements(this.Renderer.ContextManager);
+		geometry.drawElements(this.Renderer.ContextManager,null);
 	}
 
 	private configureProgram(object: SceneObject) {

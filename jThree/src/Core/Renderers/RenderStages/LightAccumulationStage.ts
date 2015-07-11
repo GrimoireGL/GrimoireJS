@@ -49,7 +49,7 @@ class LitghtAccumulationStage extends RenderStageBase {
     var geometry = object.Geometry;
     if (!geometry || !this.program) return;
     this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
-    geometry.drawElements(this.Renderer.ContextManager);
+    geometry.drawElements(this.Renderer.ContextManager,null);
     //this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
   }
 
@@ -101,7 +101,7 @@ class LitghtAccumulationStage extends RenderStageBase {
     programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());
 
     programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
-    programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(2, 0.4, -2)));
+    programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1,2,-3)));
     programWrapper.setUniform1f("time", (new Date()).getMilliseconds() + 1000 * (new Date().getSeconds()));
     programWrapper.setUniform1f("xtest", <number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));
     programWrapper.setUniform1f("ztest", <number>new Number((<HTMLInputElement>document.getElementsByName("z").item(0)).value));

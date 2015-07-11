@@ -10,10 +10,11 @@ import PluginLoader = require('./Goml/Plugins/PluginLoader');
 import agent = require('superagent');
 import PMX = require('./PMX/PMXLoader');
 import Mesh = require('./Shapes/Mesh')
-import PMXGeometry = require('./PMX/Mesh/PMXModel');
+import PMXGeometry = require('./PMX/Core/PMXGeometry');
 import PhongGeometry = require('./Core/Materials/PhongMaterial');
 import QuadGeometry = require('./Core/Geometries/QuadGeometry');
 import Vector3 = require('./Math/Vector3');
+import PMXMaterial = require('./PMX/Core/PMXMaterial');
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -68,13 +69,19 @@ class JThreeInit {
         };
         JThreeInit.img.src = "/miku2.png";
         var oReq = new XMLHttpRequest();
-
-        oReq.open("GET", "/tune/Tune.pmx", true);
+        oReq.open("GET", "/tune/Miku.pmx", true);
         oReq.setRequestHeader("Accept", "*/*");
         oReq.responseType = "arraybuffer";
         oReq.onload = () => {
           var pmx = new PMX(oReq.response);
-          var mesh = new Mesh(new PMXGeometry(pmx), new PhongGeometry());
+          var mesh = new Mesh(new PMXGeometry(pmx), null);
+          var offsetCount=0;
+          for (var matIndex = 0; matIndex < pmx.Materials.length; matIndex++) {
+            var element = pmx.Materials[matIndex];
+            var pmxMaterial=new PMXMaterial(element,offsetCount);
+            offsetCount+=element.vertexCount;
+            mesh.addMaterial(pmxMaterial);
+          }
           mesh.Transformer.Scale=new Vector3(0.1,0.1,0.1);
           j3.SceneManager.Scenes[0].addObject(mesh)
         };

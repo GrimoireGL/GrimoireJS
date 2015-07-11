@@ -21,7 +21,7 @@ import DepthRenderStage = require('../Renderers/RenderStages/ShadowMaps/Directio
 class DirectionalLight extends LightBase {
 	constructor(scene: Scene) {
 		super(scene);
-				this.vp = Matrix.multiply(Matrix.ortho(-2.828, 2.828, -1, 1, 0, 5.656), Matrix.lookAt(new Vector3(2, 0.4, -2), new Vector3(0, 0, -1), new Vector3(0, 1, 0)));
+				this.vp = Matrix.multiply(Matrix.ortho(-2.828, 2.828, -1, 1, 0, 5.656), Matrix.lookAt(new Vector3(1,2,-3), new Vector3(0, 1, 0), new Vector3(0, 1, 0)));
 		scene.Renderers.forEach(v=> {
 			var stage = new DepthRenderStage(v)
 			this.targetStages.push(stage);

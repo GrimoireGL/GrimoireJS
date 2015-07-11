@@ -24,7 +24,7 @@ class TextureWrapperBase extends ResourceWrapper
     return this.parent;
   }
   
-  private targetTexture:WebGLTexture;
+  private targetTexture:WebGLTexture=null;
   
   protected setTargetTexture(texture:WebGLTexture)
   {

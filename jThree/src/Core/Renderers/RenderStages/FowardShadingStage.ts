@@ -21,26 +21,30 @@ class FowardShadingStage extends RenderStageBase {
 			target: 0,
 			isOptional: false
 		},
-		{
-			texture:this.DefaultRBO,
-			target:"depth",
-			type:"rbo"
-		}], () => {
-			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
-		});
+			{
+				texture: this.DefaultRBO,
+				target: "depth",
+				type: "rbo"
+			}], () => {
+				this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
+			});
 	}
 
 	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
 		var geometry = object.Geometry;
 		if (!geometry) return;
-		var material = object.getMaterial("jthree.materials.forematerial");
-		if (!material || !material.Loaded) return;
-		material.configureMaterial(scene, this.Renderer, object, texs);
-		geometry.drawElements(this.Renderer.ContextManager);
+		var materials = object.getMaterials("jthree.materials.forematerial");
+		for (var i = 0; i < materials.length; i++) {
+			var material = materials[i];
+			if (!material || !material.Loaded) return;
+			material.configureMaterial(scene, this.Renderer, object, texs);
+			geometry.drawElements(this.Renderer.ContextManager, material);
+
+		}
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
-		return typeof object.Geometry!="undefined"&&object.Geometry!=null;
+		return typeof object.Geometry != "undefined" && object.Geometry != null;
 	}
 }
 

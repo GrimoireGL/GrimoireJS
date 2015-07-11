@@ -9,6 +9,7 @@ import TextureInternalFormat = require('../../../Wrapper/TextureInternalFormatTy
 import TextureType = require('../../../Wrapper/TextureType');
 import Texture = require('./Texture');
 import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
+import TextureType = require('../../../Wrapper/Texture/TextureType')
 class TextureWrapper extends TextureWrapperBase
 {
   constructor(contextManager:ContextManagerBase,parent:Texture)
@@ -17,19 +18,24 @@ class TextureWrapper extends TextureWrapperBase
   }
 
 
-  public init()
+  public init(isChanged?:boolean)
   {
     var parent=<Texture>this.Parent;
-    if(this.Initialized)return;
-    this.setTargetTexture(this.WebGLContext.CreateTexture());
+    if(this.Initialized&&!isChanged)return;
+    if(this.TargetTexture==null)this.setTargetTexture(this.WebGLContext.CreateTexture());
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.TargetTexture);
-    this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,parent.ImageSource);
+    if(parent.ImageSource==null)
+    {
+      this.WebGLContext.TexImage2D(TextureTargetType.Texture2D, 0, TextureInternalFormat.RGBA, 1,1, 0,ElementFormat.UnsignedShort4444, null)
+    }else{    
+      this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,parent.ImageSource);
+    }
     this.applyTextureParameter();
     this.WebGLContext.GenerateMipmap(TextureTargetType.Texture2D);
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,null);
-    this.setInitialized();
+    this.setInitialized();}
+
   }
 
-}
 
 export = TextureWrapper;

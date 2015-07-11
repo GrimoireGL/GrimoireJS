@@ -41,6 +41,11 @@ class JThreeCollection<T extends JThreeObjectWithID>
   {
     this.collection.forEach((a,b)=>act(a,b,this));
   }
+
+  public asArray():T[]
+  {
+    return this.collection.asArray;
+  }
 }
 
 export=JThreeCollection;

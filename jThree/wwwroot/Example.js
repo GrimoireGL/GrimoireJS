@@ -1,7 +1,5 @@
 j3(function(){
-  j3("dlight").animate({intensity:"0.3"},10000);
   // j3("viewport#main").attr({width:256});
-  j3("mesh#floor").animate({rotation:"y(270d)"},10000);  //j3("mesh").animate({position:"0,3,0"},10000);
   // j3("mesh#tri").animate({rotation:"axis(270d,1,1,1)"},10000);
   // j3("camera#maincam").animate({position:"0,0,0"},10000);
   // j3("object:first").animate({rotation:"y(270d)"},10000);

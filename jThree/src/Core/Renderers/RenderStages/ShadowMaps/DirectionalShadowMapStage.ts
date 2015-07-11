@@ -55,7 +55,7 @@ class DirectionalLightDepthStage extends RenderStageBase {
 		var geometry = object.Geometry;
 		if (!geometry) return;
 		this.mat.configureMaterial(scene, this.Renderer, object, texs);
-		geometry.drawElements(this.Renderer.ContextManager);
+		geometry.drawElements(this.Renderer.ContextManager,this.mat);
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

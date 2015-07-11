@@ -3,6 +3,10 @@ import Buffer = require("./../Resources/Buffer/Buffer");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import Vector3 = require("../../Math/Vector3");
 import ContextManagerBase = require('./../ContextManagerBase');
+import Material = require('./../Materials/Material');
+/**
+ * Base abstraction for geometry.
+ */
 class Geometry extends jThreeObject {
    protected positionBuffer: Buffer;
    protected normalBuffer: Buffer;
@@ -32,7 +36,7 @@ class Geometry extends jThreeObject {
      return this.primitiveTopology;
    }
    
-   public drawElements(contextManager:ContextManagerBase)
+   public drawElements(contextManager:ContextManagerBase,material:Material)
    {
      contextManager.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length,this.IndexBuffer.ElementType,0);
    }

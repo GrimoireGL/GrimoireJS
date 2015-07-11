@@ -36,6 +36,11 @@ class PMX {
 	public get Surfaces() {
 		return this.surfaces;
 	}
+	
+	public get Materials()
+	{
+		return this.materials;
+	}
 
 	constructor(data: ArrayBuffer) {
 		this.reader = new jDataView(data, 0, data.byteLength, true);
