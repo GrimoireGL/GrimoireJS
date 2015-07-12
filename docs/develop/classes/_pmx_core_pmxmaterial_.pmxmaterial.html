@@ -111,7 +111,11 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#ambient" class="tsd-kind-icon">ambient</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#diffuse" class="tsd-kind-icon">diffuse</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#materialindex" class="tsd-kind-icon">material<wbr>Index</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#pmxdata" class="tsd-kind-icon">pmx<wbr>Data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#program" class="tsd-kind-icon">program</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#sphere" class="tsd-kind-icon">sphere</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#texture" class="tsd-kind-icon">texture</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#verticiescount" class="tsd-kind-icon">verticies<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#verticiesoffset" class="tsd-kind-icon">verticies<wbr>Offset</a></li>
 							</ul>
@@ -121,6 +125,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#cullenabled" class="tsd-kind-icon">Cull<wbr>Enabled</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#cullmode" class="tsd-kind-icon">Cull<wbr>Mode</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#diffuse-1" class="tsd-kind-icon">Diffuse</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#id" class="tsd-kind-icon">ID</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#loaded" class="tsd-kind-icon">Loaded</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#materialalias" class="tsd-kind-icon">Material<wbr>Alias</a></li>
@@ -136,6 +141,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#applycullconfigure" class="tsd-kind-icon">apply<wbr>Cull<wbr>Configure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#configurematerial" class="tsd-kind-icon">configure<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#loadpmxtexture" class="tsd-kind-icon">loadPMXTexture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#setloaded" class="tsd-kind-icon">set<wbr>Loaded</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmaterial_.pmxmaterial.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
@@ -150,23 +156,29 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new PMXMaterial<span class="tsd-signature-symbol">(</span>materialData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PMXMaterialData</span>, offset<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxmaterial_.pmxmaterial.html" class="tsd-signature-type">PMXMaterial</a></li>
+						<li class="tsd-signature tsd-kind-icon">new PMXMaterial<span class="tsd-signature-symbol">(</span>pmx<span class="tsd-signature-symbol">: </span><a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, offset<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, directory<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxmaterial_.pmxmaterial.html" class="tsd-signature-type">PMXMaterial</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L54">PMX/Core/PMXMaterial.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L68">PMX/Core/PMXMaterial.ts:68</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>materialData: <span class="tsd-signature-type">PMXMaterialData</span></h5>
+									<h5>pmx: <a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></h5>
+								</li>
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
 									<h5>offset: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>directory: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_pmx_core_pmxmaterial_.pmxmaterial.html" class="tsd-signature-type">PMXMaterial</a></h4>
@@ -182,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">ambient<span class="tsd-signature-symbol">:</span> <a href="_base_color_color3_.color3.html" class="tsd-signature-type">Color3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L52">PMX/Core/PMXMaterial.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L58">PMX/Core/PMXMaterial.ts:58</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -192,7 +204,27 @@
 					<div class="tsd-signature tsd-kind-icon">diffuse<span class="tsd-signature-symbol">:</span> <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L54">PMX/Core/PMXMaterial.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L60">PMX/Core/PMXMaterial.ts:60</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="materialindex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> material<wbr>Index</h3>
+					<div class="tsd-signature tsd-kind-icon">material<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L68">PMX/Core/PMXMaterial.ts:68</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="pmxdata" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> pmx<wbr>Data</h3>
+					<div class="tsd-signature tsd-kind-icon">pmx<wbr>Data<span class="tsd-signature-symbol">:</span> <a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L66">PMX/Core/PMXMaterial.ts:66</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -202,7 +234,27 @@
 					<div class="tsd-signature tsd-kind-icon">program<span class="tsd-signature-symbol">:</span> <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L32">PMX/Core/PMXMaterial.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L34">PMX/Core/PMXMaterial.ts:34</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="sphere" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> sphere</h3>
+					<div class="tsd-signature tsd-kind-icon">sphere<span class="tsd-signature-symbol">:</span> <a href="_core_resources_texture_texture_.texture.html" class="tsd-signature-type">Texture</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L62">PMX/Core/PMXMaterial.ts:62</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="texture" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> texture</h3>
+					<div class="tsd-signature tsd-kind-icon">texture<span class="tsd-signature-symbol">:</span> <a href="_core_resources_texture_texture_.texture.html" class="tsd-signature-type">Texture</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L64">PMX/Core/PMXMaterial.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -212,7 +264,7 @@
 					<div class="tsd-signature tsd-kind-icon">verticies<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L34">PMX/Core/PMXMaterial.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L36">PMX/Core/PMXMaterial.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -222,7 +274,7 @@
 					<div class="tsd-signature tsd-kind-icon">verticies<wbr>Offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L36">PMX/Core/PMXMaterial.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L38">PMX/Core/PMXMaterial.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -278,6 +330,23 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_wrapper_glcullmode_.glcullmode.html" class="tsd-signature-type">GLCullMode</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="diffuse-1" class="tsd-anchor"></a>
+					<h3>Diffuse</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Diffuse<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L54">PMX/Core/PMXMaterial.ts:54</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -391,7 +460,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L41">PMX/Core/PMXMaterial.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L43">PMX/Core/PMXMaterial.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -413,7 +482,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L48">PMX/Core/PMXMaterial.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L50">PMX/Core/PMXMaterial.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -463,7 +532,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_materials_material_.material.html">Material</a>.<a href="_core_materials_material_.material.html#configurematerial">configureMaterial</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L71">PMX/Core/PMXMaterial.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L89">PMX/Core/PMXMaterial.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -500,6 +569,35 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="loadpmxtexture" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> loadPMXTexture</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">loadPMXTexture<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, prefix<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, directory<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texture_.texture.html" class="tsd-signature-type">Texture</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L108">PMX/Core/PMXMaterial.ts:108</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>prefix: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>directory: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_resources_texture_texture_.texture.html" class="tsd-signature-type">Texture</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -611,8 +709,20 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#diffuse" class="tsd-kind-icon">diffuse</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#materialindex" class="tsd-kind-icon">material<wbr>Index</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#pmxdata" class="tsd-kind-icon">pmx<wbr>Data</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#program" class="tsd-kind-icon">program</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#sphere" class="tsd-kind-icon">sphere</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#texture" class="tsd-kind-icon">texture</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#verticiescount" class="tsd-kind-icon">verticies<wbr>Count</a>
@@ -625,6 +735,9 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#cullmode" class="tsd-kind-icon">Cull<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#diffuse-1" class="tsd-kind-icon">Diffuse</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#id" class="tsd-kind-icon">ID</a>
@@ -655,6 +768,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#loadpmxtexture" class="tsd-kind-icon">loadPMXTexture</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_pmx_core_pmxmaterial_.pmxmaterial.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a>
