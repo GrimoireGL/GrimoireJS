@@ -89,7 +89,8 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
         this.each((v)=>{
           v.bind();
           v.OwnerCanvas.Context.GenerateMipmap(TextureTargetType.Texture2D);
-        })
+        });
+     default:
     }
   }
 }

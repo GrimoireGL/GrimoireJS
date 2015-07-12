@@ -13,6 +13,7 @@ import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import RendererBase = require('../../Renderers/RendererBase');
 import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Texture/TextureBase');
+import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, contextManager: ContextManagerBase) {
         super(contextManager);
@@ -145,7 +146,13 @@ class ProgramWrapper extends ResourceWrapper {
     
   registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
     renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);
-    tex.getForContext(renderer.ContextManager).bind();
+    if(tex!=null&&typeof tex !== 'undefined')
+    {
+        tex.getForContext(renderer.ContextManager).bind();
+    }else
+    {
+        this.WebGLContext.BindTexture(TextureTargetType.Texture2D,null);
+    }
     this.setUniform1i(samplerName, texNumber);
   }
 

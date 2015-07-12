@@ -62,27 +62,23 @@ class JThreeInit {
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
       j3.GomlLoader.onload(() => {
-        //Test code
-        JThreeInit.img = new Image();
-        JThreeInit.img.onload = () => {
-          var res = j3.ResourceManager.createTextureWithSource("test", JThreeInit.img);
-        };
-        JThreeInit.img.src = "/miku2.png";
+        var targetUrl = "/tune/Tune.pmx";
+        var targetDirectory = targetUrl.substr(0, targetUrl.lastIndexOf("/") + 1);
         var oReq = new XMLHttpRequest();
-        oReq.open("GET", "/tune/Miku.pmx", true);
+        oReq.open("GET", targetUrl, true);
         oReq.setRequestHeader("Accept", "*/*");
         oReq.responseType = "arraybuffer";
         oReq.onload = () => {
           var pmx = new PMX(oReq.response);
           var mesh = new Mesh(new PMXGeometry(pmx), null);
-          var offsetCount=0;
+          var offsetCount = 0;
           for (var matIndex = 0; matIndex < pmx.Materials.length; matIndex++) {
             var element = pmx.Materials[matIndex];
-            var pmxMaterial=new PMXMaterial(element,offsetCount);
-            offsetCount+=element.vertexCount;
+            var pmxMaterial = new PMXMaterial(pmx,matIndex, offsetCount, targetDirectory);
+            offsetCount += element.vertexCount;
             mesh.addMaterial(pmxMaterial);
           }
-          mesh.Transformer.Scale=new Vector3(0.1,0.1,0.1);
+          mesh.Transformer.Scale = new Vector3(0.1, 0.1, 0.1);
           j3.SceneManager.Scenes[0].addObject(mesh)
         };
         oReq.send(null);

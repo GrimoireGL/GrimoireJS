@@ -30,7 +30,6 @@ class TextureWrapper extends TextureWrapperBase
       this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,parent.ImageSource);
     }
     this.applyTextureParameter();
-    this.WebGLContext.GenerateMipmap(TextureTargetType.Texture2D);
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,null);
     this.setInitialized();}
 

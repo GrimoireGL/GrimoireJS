@@ -41,6 +41,7 @@ class PMXGeometry extends Geometry {
             context.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
             return;
         }
+        if(mat.Diffuse.A == 0)return;
         context.Context.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset*4);
     }
 }

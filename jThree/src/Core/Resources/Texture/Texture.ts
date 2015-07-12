@@ -29,6 +29,7 @@ class Texture extends TextureBase
   {
     this.imageSource=img;
     this.each((v)=>(<TextureWrapper>v).init(true));
+    this.generateMipmapIfNeed();
   }
 
   protected getInstanceForRenderer(contextManager: ContextManagerBase):TextureWrapperBase {

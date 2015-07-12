@@ -36,10 +36,13 @@ class PMX {
 	public get Surfaces() {
 		return this.surfaces;
 	}
-	
-	public get Materials()
-	{
+
+	public get Materials() {
 		return this.materials;
+	}
+
+	public get Textures() {
+		return this.textures;
 	}
 
 	constructor(data: ArrayBuffer) {
@@ -195,10 +198,10 @@ class PMX {
 		for (var i = 0; i < count; i++) {
 			result.positions[3 * i + 0] = r.getFloat32();
 			result.positions[3 * i + 1] = r.getFloat32();
-			result.positions[3 * i + 2] = r.getFloat32();
+			result.positions[3 * i + 2] = -r.getFloat32();
 			result.normals[3 * i + 0] = r.getFloat32();
 			result.normals[3 * i + 1] = r.getFloat32();
-			result.normals[3 * i + 2] = r.getFloat32();
+			result.normals[3 * i + 2] = -r.getFloat32();
 			result.uvs[2 * i + 0] = r.getFloat32();
 			result.uvs[2 * i + 1] = r.getFloat32();
 			for (var j = 0; j < uvCount; j++) {
@@ -261,21 +264,23 @@ class PMX {
 		var r = this.reader;
 		var count = r.getInt32();
 		this.surfaces = new Array(count);
-		for (var i = 0; i < count; i++) {
-			this.surfaces[i] = this.readVertexIndex();
-			}
+		for (var i = 0; i < count / 3; i++) {
+			this.surfaces[3 * i + 0] = this.readVertexIndex();
+			this.surfaces[3 * i + 2] = this.readVertexIndex();
+			this.surfaces[3 * i + 1] = this.readVertexIndex();
+		}
 	}
 	//		var r = this.reader;
-		// var count = r.getInt32();
-		// var indexCount = Math.floor(count / 65535) + 1;
-		// this.surfaces = new Array(indexCount);
-		// for (var targetIndex = 0; targetIndex < indexCount; targetIndex++) {
-		// 	var indexMax=Math.min(65535,count-targetIndex*65535);
-		// 	this.surfaces[targetIndex] = new Array(indexMax);
-		// 	for (var i = 0; i < indexMax; i++) {
-		// 		this.surfaces[targetIndex][i] = this.readVertexIndex();
-		// 	}
-		// }
+	// var count = r.getInt32();
+	// var indexCount = Math.floor(count / 65535) + 1;
+	// this.surfaces = new Array(indexCount);
+	// for (var targetIndex = 0; targetIndex < indexCount; targetIndex++) {
+	// 	var indexMax=Math.min(65535,count-targetIndex*65535);
+	// 	this.surfaces[targetIndex] = new Array(indexMax);
+	// 	for (var i = 0; i < indexMax; i++) {
+	// 		this.surfaces[targetIndex][i] = this.readVertexIndex();
+	// 	}
+	// }
 
 	private loadTextures() {
 		var r = this.reader;

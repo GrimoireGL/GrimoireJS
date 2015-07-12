@@ -90,13 +90,10 @@
 	        $(function () {
 	            var j3 = JThreeContext.getInstanceForProxy();
 	            j3.GomlLoader.onload(function () {
-	                JThreeInit.img = new Image();
-	                JThreeInit.img.onload = function () {
-	                    var res = j3.ResourceManager.createTextureWithSource("test", JThreeInit.img);
-	                };
-	                JThreeInit.img.src = "/miku2.png";
+	                var targetUrl = "/tune/Tune.pmx";
+	                var targetDirectory = targetUrl.substr(0, targetUrl.lastIndexOf("/") + 1);
 	                var oReq = new XMLHttpRequest();
-	                oReq.open("GET", "/tune/Miku.pmx", true);
+	                oReq.open("GET", targetUrl, true);
 	                oReq.setRequestHeader("Accept", "*/*");
 	                oReq.responseType = "arraybuffer";
 	                oReq.onload = function () {
@@ -105,7 +102,7 @@
 	                    var offsetCount = 0;
 	                    for (var matIndex = 0; matIndex < pmx.Materials.length; matIndex++) {
 	                        var element = pmx.Materials[matIndex];
-	                        var pmxMaterial = new PMXMaterial(element, offsetCount);
+	                        var pmxMaterial = new PMXMaterial(pmx, matIndex, offsetCount, targetDirectory);
 	                        offsetCount += element.vertexCount;
 	                        mesh.addMaterial(pmxMaterial);
 	                    }
@@ -20716,6 +20713,7 @@
 	var ResourceWrapper = __webpack_require__(172);
 	var AssociativeArray = __webpack_require__(8);
 	var TextureRegister = __webpack_require__(114);
+	var TextureTargetType = __webpack_require__(116);
 	var ProgramWrapper = (function (_super) {
 	    __extends(ProgramWrapper, _super);
 	    function ProgramWrapper(parent, contextManager) {
@@ -20834,7 +20832,12 @@
 	    };
 	    ProgramWrapper.prototype.registerTexture = function (renderer, tex, texNumber, samplerName) {
 	        renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);
-	        tex.getForContext(renderer.ContextManager).bind();
+	        if (tex != null && typeof tex !== 'undefined') {
+	            tex.getForContext(renderer.ContextManager).bind();
+	        }
+	        else {
+	            this.WebGLContext.BindTexture(TextureTargetType.Texture2D, null);
+	        }
 	        this.setUniform1i(samplerName, texNumber);
 	    };
 	    return ProgramWrapper;
@@ -20868,6 +20871,7 @@
 	        set: function (img) {
 	            this.imageSource = img;
 	            this.each(function (v) { return v.init(true); });
+	            this.generateMipmapIfNeed();
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -20914,7 +20918,6 @@
 	            this.WebGLContext.TexImage2D(TextureTargetType.Texture2D, 0, TextureInternalFormat.RGBA, TextureInternalFormat.RGBA, TextureType.UnsignedByte, parent.ImageSource);
 	        }
 	        this.applyTextureParameter();
-	        this.WebGLContext.GenerateMipmap(TextureTargetType.Texture2D);
 	        this.WebGLContext.BindTexture(TextureTargetType.Texture2D, null);
 	        this.setInitialized();
 	    };
@@ -21095,6 +21098,7 @@
 	                    v.bind();
 	                    v.OwnerCanvas.Context.GenerateMipmap(TextureTargetType.Texture2D);
 	                });
+	            default:
 	        }
 	    };
 	    return TextureBase;
@@ -21683,6 +21687,13 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    Object.defineProperty(PMX.prototype, "Textures", {
+	        get: function () {
+	            return this.textures;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    PMX.prototype.readTextBuf = function () {
 	        var length = this.reader.getInt32();
 	        var numbers = new Array(length);
@@ -21803,10 +21814,10 @@
 	        for (var i = 0; i < count; i++) {
 	            result.positions[3 * i + 0] = r.getFloat32();
 	            result.positions[3 * i + 1] = r.getFloat32();
-	            result.positions[3 * i + 2] = r.getFloat32();
+	            result.positions[3 * i + 2] = -r.getFloat32();
 	            result.normals[3 * i + 0] = r.getFloat32();
 	            result.normals[3 * i + 1] = r.getFloat32();
-	            result.normals[3 * i + 2] = r.getFloat32();
+	            result.normals[3 * i + 2] = -r.getFloat32();
 	            result.uvs[2 * i + 0] = r.getFloat32();
 	            result.uvs[2 * i + 1] = r.getFloat32();
 	            for (var j = 0; j < uvCount; j++) {
@@ -21868,8 +21879,10 @@
 	        var r = this.reader;
 	        var count = r.getInt32();
 	        this.surfaces = new Array(count);
-	        for (var i = 0; i < count; i++) {
-	            this.surfaces[i] = this.readVertexIndex();
+	        for (var i = 0; i < count / 3; i++) {
+	            this.surfaces[3 * i + 0] = this.readVertexIndex();
+	            this.surfaces[3 * i + 2] = this.readVertexIndex();
+	            this.surfaces[3 * i + 1] = this.readVertexIndex();
 	        }
 	    };
 	    PMX.prototype.loadTextures = function () {
@@ -22140,6 +22153,8 @@
 	            context.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
 	            return;
 	        }
+	        if (mat.Diffuse.A == 0)
+	            return;
 	        context.Context.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset * 4);
 	    };
 	    return PMXGeometry;
@@ -22161,21 +22176,23 @@
 	var JThreeContextProxy = __webpack_require__(55);
 	var Color4 = __webpack_require__(38);
 	var Color3 = __webpack_require__(43);
-	var TextureRegister = __webpack_require__(114);
-	var TargetTextureType = __webpack_require__(116);
 	var PMXMaterial = (function (_super) {
 	    __extends(PMXMaterial, _super);
-	    function PMXMaterial(materialData, offset) {
+	    function PMXMaterial(pmx, index, offset, directory) {
 	        _super.call(this);
+	        this.pmxData = pmx;
+	        this.materialIndex = index;
+	        var materialData = pmx.Materials[index];
 	        this.verticiesCount = materialData.vertexCount;
 	        this.verticiesOffset = offset;
 	        this.CullEnabled = !((materialData.drawFlag & 0x01) > 0);
 	        this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
 	        this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
-	        var jThreeContext = JThreeContextProxy.getJThreeContext();
 	        var vs = __webpack_require__(202);
 	        var fs = __webpack_require__(203);
 	        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
+	        this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere", directory);
+	        this.texture = this.loadPMXTexture(materialData.textureIndex, "texture", directory);
 	        this.setLoaded();
 	    }
 	    Object.defineProperty(PMXMaterial.prototype, "VerticiesCount", {
@@ -22192,6 +22209,13 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    Object.defineProperty(PMXMaterial.prototype, "Diffuse", {
+	        get: function () {
+	            return this.diffuse;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    PMXMaterial.prototype.configureMaterial = function (scene, renderer, object, texs) {
 	        if (!this.program)
 	            return;
@@ -22201,11 +22225,8 @@
 	        var programWrapper = this.program.getForContext(renderer.ContextManager);
 	        programWrapper.useProgram();
 	        var v = object.Transformer.calculateMVPMatrix(renderer);
-	        var jThreeContext = JThreeContextProxy.getJThreeContext();
-	        var resourceManager = jThreeContext.ResourceManager;
-	        renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
-	        renderer.GLContext.BindTexture(TargetTextureType.Texture2D, null);
 	        programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
+	        programWrapper.registerTexture(renderer, this.texture, 1, "u_texture");
 	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
 	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
 	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
@@ -22213,6 +22234,24 @@
 	        programWrapper.setUniformVector("u_ambient", this.ambient.toVector());
 	        programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
 	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+	    };
+	    PMXMaterial.prototype.loadPMXTexture = function (index, prefix, directory) {
+	        if (index < 0)
+	            return null;
+	        var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
+	        var resourceName = "jthree.pmx." + prefix + "." + index;
+	        if (rm.getTexture(resourceName)) {
+	            return rm.getTexture(resourceName);
+	        }
+	        else {
+	            var texture = rm.createTextureWithSource(resourceName, null);
+	            var img = new Image();
+	            img.onload = function () {
+	                texture.ImageSource = img;
+	            };
+	            img.src = directory + this.pmxData.Textures[index];
+	            return texture;
+	        }
 	    };
 	    return PMXMaterial;
 	})(Material);
@@ -22229,7 +22268,7 @@
 /* 203 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform vec4 u_diffuse;\r\n\r\nuniform vec4 u_specular;\r\nuniform vec3 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\r\n{\r\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\r\n}\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgba=u_diffuse;\r\n  gl_FragColor.rgb*=texture2D(u_light,lightUV).rgb;\r\n  gl_FragColor.rgb+=u_ambient.rgb;\r\n}\r\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform vec4 u_diffuse;\r\n\r\nuniform vec4 u_specular;\r\nuniform vec3 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\nuniform sampler2D u_texture;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\r\n{\r\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\r\n}\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  adjuv.y=1.-adjuv.y;\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgba=u_diffuse;\r\n  gl_FragColor.rgba=texture2D(u_texture,adjuv);\r\n  //gl_FragColor.rgb*=texture2D(u_light,lightUV).rgb;\r\n  //gl_FragColor.rgb+=u_ambient.rgb;\r\n}\r\n"
 
 /***/ }
 /******/ ]);

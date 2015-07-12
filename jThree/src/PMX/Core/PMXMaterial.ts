@@ -23,6 +23,8 @@ import TargetTextureType = require('../../Wrapper/TargetTextureType');
 import agent = require('superagent');
 import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
 import PMXMaterialData = require('../PMXMaterial');
+import PMX = require('../PMXLoader');
+import Texture = require('../../Core/Resources/Texture/Texture');
 declare function require(string): string;
 
 /**
@@ -48,23 +50,39 @@ class PMXMaterial extends Material {
   public get VerticiesOffset() {
     return this.verticiesOffset;
   }
+  
+  public get Diffuse():Color4{
+    return this.diffuse;
+  }
 
   private ambient: Color3;
 
   private diffuse: Color4;
 
+  private sphere: Texture;
+  
+  private texture:Texture;
+  
+  private pmxData:PMX;
+  
+  private materialIndex:number;
 
-  constructor(materialData: PMXMaterialData, offset: number) {
+
+  constructor(pmx: PMX, index: number, offset: number, directory: string) {
     super();
+    this.pmxData=pmx;
+    this.materialIndex=index;
+    var materialData = pmx.Materials[index];
     this.verticiesCount = materialData.vertexCount;
     this.verticiesOffset = offset;
     this.CullEnabled = !((materialData.drawFlag & 0x01) > 0);//each side draw flag
     this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
     this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
-    var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
     var vs = require('../Shader/PMXVertex.glsl');
     var fs = require('../Shader/PMXFragment.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
+    this.sphere=this.loadPMXTexture(materialData.sphereTextureIndex,"sphere",directory);
+    this.texture=this.loadPMXTexture(materialData.textureIndex,"texture",directory);
     this.setLoaded();
   }
 
@@ -76,11 +94,8 @@ class PMXMaterial extends Material {
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
-    var resourceManager = jThreeContext.ResourceManager;
-    renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0);
-    renderer.GLContext.BindTexture(TargetTextureType.Texture2D, null);
     programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
+    programWrapper.registerTexture(renderer,this.texture,1,"u_texture");
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
@@ -88,6 +103,26 @@ class PMXMaterial extends Material {
     programWrapper.setUniformVector("u_ambient", this.ambient.toVector());
     programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+  }
+  
+  private loadPMXTexture(index:number,prefix:string,directory:string):Texture
+  {
+    if(index<0)return null;
+    var rm=JThreeContextProxy.getJThreeContext().ResourceManager;
+    var resourceName="jthree.pmx."+prefix+"."+index;
+    if(rm.getTexture(resourceName))
+    {
+      return rm.getTexture(resourceName);
+    }else{
+      var texture=rm.createTextureWithSource(resourceName,null);
+      var img = new Image();
+      img.onload=()=>
+      {
+        texture.ImageSource=img;
+      };
+      img.src = directory + this.pmxData.Textures[index];
+      return texture;
+    }
   }
 }
 
