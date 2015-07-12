@@ -25,6 +25,7 @@ import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
 import PMXMaterialData = require('../PMXMaterial');
 import PMX = require('../PMXLoader');
 import Texture = require('../../Core/Resources/Texture/Texture');
+import BlendFuncParamType=require("../../Wrapper/BlendFuncParamType");
 declare function require(string): string;
 
 /**
@@ -89,6 +90,8 @@ class PMXMaterial extends Material {
   configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     if (!this.program) return;
     super.configureMaterial(scene, renderer, object, texs);
+    renderer.GLContext.Enable(GLFeatureType.Blend);
+    renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha,BlendFuncParamType.OneMinusSrcAlpha);
     var id = renderer.ID;
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);

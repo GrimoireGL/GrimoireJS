@@ -21,6 +21,9 @@ import TextureWrapType = require('./Texture/TextureWrapType');
 import TextureRegister = require('./Texture/TextureRegister');
 import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
 import PixelStoreParamType = require('./Texture/PixelStoreParamType');
+import BlendEquationType = require('./BlendEquationType');
+import BlendFuncParamType = require('./BlendFuncParamType');
+  
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
   
@@ -382,6 +385,15 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   {
     this.gl.clearDepth(depth);
   }
-
+  
+  BlendFunc(b1:BlendFuncParamType,b2:BlendFuncParamType)
+  {
+    this.gl.blendFunc(b1,b2);
+  }
+  
+  BlendEquation(eq:BlendEquationType)
+  {
+    this.gl.blendEquation(eq);
+  }
 }
 export =WebGLContextWrapper;

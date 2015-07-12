@@ -22,6 +22,9 @@ import TextureWrapType = require('./Texture/TextureWrapType');
 import TextureRegister = require('./Texture/TextureRegister');
 import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
 import PixelStoreParamType = require('./Texture/PixelStoreParamType');
+import BlendEquationType = require('./BlendEquationType');
+import BlendFuncParamType = require('./BlendFuncParamType');
+  
 class GLContextWrapperBase extends JThreeObject {
   public get Context(): WebGLRenderingContext {
     return null;
@@ -373,6 +376,16 @@ class GLContextWrapperBase extends JThreeObject {
   ClearDepth(depth: number) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
-}
+  
+  
+  BlendFunc(b1:BlendFuncParamType,b2:BlendFuncParamType)
+  {
 
+  }
+  
+  BlendEquation(eq:BlendEquationType)
+  {
+
+  }
+}
 export =GLContextWrapperBase;
