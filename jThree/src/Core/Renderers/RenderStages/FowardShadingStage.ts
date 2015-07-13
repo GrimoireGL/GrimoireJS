@@ -27,6 +27,8 @@ class FowardShadingStage extends RenderStageBase {
 				type: "rbo"
 			}], () => {
 				this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
+			},()=>{
+				this.Renderer.GLContext.Clear(ClearTargetType.DepthBits)
 			});
 	}
 
@@ -39,7 +41,6 @@ class FowardShadingStage extends RenderStageBase {
 			if (!material || !material.Loaded) return;
 			material.configureMaterial(scene, this.Renderer, object, texs);
 			geometry.drawElements(this.Renderer.ContextManager, material);
-
 		}
 	}
 

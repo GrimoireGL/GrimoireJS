@@ -62,7 +62,7 @@ class PMXMaterial extends Material {
 
   private sphere: Texture;
   
-  private texture:Texture;
+  private texture:Texture=null;
   
   private pmxData:PMX;
   
@@ -90,8 +90,10 @@ class PMXMaterial extends Material {
   configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     if (!this.program) return;
     super.configureMaterial(scene, renderer, object, texs);
-    renderer.GLContext.Enable(GLFeatureType.Blend);
-    renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha,BlendFuncParamType.OneMinusSrcAlpha);
+    renderer.GLContext.Enable(GLFeatureType.DepthTest);
+    renderer.GLContext.DepthFunc(515);
+   // renderer.GLContext.Enable(GLFeatureType.Blend);
+    //renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha,BlendFuncParamType.OneMinusSrcAlpha);
     var id = renderer.ID;
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
@@ -99,12 +101,15 @@ class PMXMaterial extends Material {
     var v = object.Transformer.calculateMVPMatrix(renderer);
     programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
     programWrapper.registerTexture(renderer,this.texture,1,"u_texture");
+    programWrapper.setUniform1i("u_textureUsed",this.texture==null||this.texture.ImageSource==null?0:1);
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setUniformMatrix("matMVP", v);
     programWrapper.setUniformVector("u_ambient", this.ambient.toVector());
     programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
+    programWrapper.setUniform1f("u_matIndex",this.materialIndex);
+    programWrapper.setUniform1f("xtest", <number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
   

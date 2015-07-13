@@ -23,7 +23,7 @@ import RenderBufferInternalFormats = require('./RBO/RBOInternalFormat');
 import PixelStoreParamType = require('./Texture/PixelStoreParamType');
 import BlendEquationType = require('./BlendEquationType');
 import BlendFuncParamType = require('./BlendFuncParamType');
-  
+ import DepthFuncType = require('./DepthFuncType');
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
   
@@ -389,6 +389,11 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   BlendFunc(b1:BlendFuncParamType,b2:BlendFuncParamType)
   {
     this.gl.blendFunc(b1,b2);
+  }
+  
+    DepthFunc(func:DepthFuncType)
+  {
+    this.gl.depthFunc(func); 
   }
   
   BlendEquation(eq:BlendEquationType)

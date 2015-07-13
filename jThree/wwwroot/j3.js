@@ -14238,6 +14238,9 @@
 	    WebGLContextWrapper.prototype.BlendFunc = function (b1, b2) {
 	        this.gl.blendFunc(b1, b2);
 	    };
+	    WebGLContextWrapper.prototype.DepthFunc = function (func) {
+	        this.gl.depthFunc(func);
+	    };
 	    WebGLContextWrapper.prototype.BlendEquation = function (eq) {
 	        this.gl.blendEquation(eq);
 	    };
@@ -14438,6 +14441,8 @@
 	    GLContextWrapperBase.prototype.BlendFunc = function (b1, b2) {
 	    };
 	    GLContextWrapperBase.prototype.BlendEquation = function (eq) {
+	    };
+	    GLContextWrapperBase.prototype.DepthFunc = function (func) {
 	    };
 	    return GLContextWrapperBase;
 	})(JThreeObject);
@@ -17441,6 +17446,8 @@
 	                type: "rbo"
 	            }], function () {
 	            _this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+	        }, function () {
+	            _this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
 	        });
 	    };
 	    FowardShadingStage.prototype.render = function (scene, object, passCount, texs) {
@@ -22164,9 +22171,12 @@
 	            context.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
 	            return;
 	        }
-	        if (mat.Diffuse.A < 0.01)
+	        if (mat.Diffuse.A < 0.01) {
 	            return;
+	        }
+	        ;
 	        context.Context.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset * 4);
+	        context.Context.Flush();
 	    };
 	    return PMXGeometry;
 	})(Geometry);
@@ -22188,11 +22198,11 @@
 	var Color4 = __webpack_require__(38);
 	var Color3 = __webpack_require__(43);
 	var GLFeatureType = __webpack_require__(54);
-	var BlendFuncParamType = __webpack_require__(202);
 	var PMXMaterial = (function (_super) {
 	    __extends(PMXMaterial, _super);
 	    function PMXMaterial(pmx, index, offset, directory) {
 	        _super.call(this);
+	        this.texture = null;
 	        this.pmxData = pmx;
 	        this.materialIndex = index;
 	        var materialData = pmx.Materials[index];
@@ -22201,8 +22211,8 @@
 	        this.CullEnabled = !((materialData.drawFlag & 0x01) > 0);
 	        this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
 	        this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
-	        var vs = __webpack_require__(203);
-	        var fs = __webpack_require__(204);
+	        var vs = __webpack_require__(202);
+	        var fs = __webpack_require__(203);
 	        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
 	        this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere", directory);
 	        this.texture = this.loadPMXTexture(materialData.textureIndex, "texture", directory);
@@ -22233,8 +22243,8 @@
 	        if (!this.program)
 	            return;
 	        _super.prototype.configureMaterial.call(this, scene, renderer, object, texs);
-	        renderer.GLContext.Enable(GLFeatureType.Blend);
-	        renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
+	        renderer.GLContext.Enable(GLFeatureType.DepthTest);
+	        renderer.GLContext.DepthFunc(515);
 	        var id = renderer.ID;
 	        var geometry = object.Geometry;
 	        var programWrapper = this.program.getForContext(renderer.ContextManager);
@@ -22242,12 +22252,15 @@
 	        var v = object.Transformer.calculateMVPMatrix(renderer);
 	        programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
 	        programWrapper.registerTexture(renderer, this.texture, 1, "u_texture");
+	        programWrapper.setUniform1i("u_textureUsed", this.texture == null || this.texture.ImageSource == null ? 0 : 1);
 	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
 	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
 	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
 	        programWrapper.setUniformMatrix("matMVP", v);
 	        programWrapper.setUniformVector("u_ambient", this.ambient.toVector());
 	        programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
+	        programWrapper.setUniform1f("u_matIndex", this.materialIndex);
+	        programWrapper.setUniform1f("xtest", new Number(document.getElementsByName("x").item(0).value));
 	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 	    };
 	    PMXMaterial.prototype.loadPMXTexture = function (index, prefix, directory) {
@@ -22277,37 +22290,13 @@
 /* 202 */
 /***/ function(module, exports) {
 
-	var BlendFuncParamType;
-	(function (BlendFuncParamType) {
-	    BlendFuncParamType[BlendFuncParamType["Zero"] = 0] = "Zero";
-	    BlendFuncParamType[BlendFuncParamType["One"] = 1] = "One";
-	    BlendFuncParamType[BlendFuncParamType["SrcColor"] = 768] = "SrcColor";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusSrcColor"] = 769] = "OneMinusSrcColor";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusDstColor"] = 775] = "OneMinusDstColor";
-	    BlendFuncParamType[BlendFuncParamType["SrcAlpha"] = 770] = "SrcAlpha";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusSrcAlpha"] = 771] = "OneMinusSrcAlpha";
-	    BlendFuncParamType[BlendFuncParamType["DstAlpha"] = 772] = "DstAlpha";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusDstAlpha"] = 773] = "OneMinusDstAlpha";
-	    BlendFuncParamType[BlendFuncParamType["ConstantColor"] = 32769] = "ConstantColor";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusConstantColor"] = 32770] = "OneMinusConstantColor";
-	    BlendFuncParamType[BlendFuncParamType["ConstantAlpha"] = 32771] = "ConstantAlpha";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusConstantAlpha"] = 32772] = "OneMinusConstantAlpha";
-	    BlendFuncParamType[BlendFuncParamType["SrcAlphaSaturate"] = 776] = "SrcAlphaSaturate";
-	})(BlendFuncParamType || (BlendFuncParamType = {}));
-	module.exports = BlendFuncParamType;
-
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute vec2 uv;\r\n\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\n\r\n\r\nvarying vec3 v_normal;\r\nvarying vec2 v_uv;\r\nvarying vec4 v_pos;\r\n\r\nvoid main(void){\r\nv_pos=gl_Position = matMVP*vec4(position,1.0);\r\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\r\nv_uv=uv;\r\n}\r\n"
 
 /***/ },
 /* 203 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute vec2 uv;\r\n\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\n\r\n\r\nvarying vec3 v_normal;\r\nvarying vec2 v_uv;\r\nvarying vec4 v_pos;\r\n\r\nvoid main(void){\r\nv_pos=gl_Position = matMVP*vec4(position,1.0);\r\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\r\nv_uv=uv;\r\n}\r\n"
-
-/***/ },
-/* 204 */
-/***/ function(module, exports) {
-
-	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform vec4 u_diffuse;\r\n\r\nuniform vec4 u_specular;\r\nuniform vec3 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\nuniform sampler2D u_texture;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\r\n{\r\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\r\n}\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  adjuv.y=1.-adjuv.y;\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgba=u_diffuse;\r\n  gl_FragColor.rgba=texture2D(u_texture,adjuv);\r\n  //gl_FragColor.rgb*=texture2D(u_light,lightUV).rgb;\r\n  //gl_FragColor.rgb+=u_ambient.rgb;\r\n}\r\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform vec4 u_diffuse;\r\n\r\nuniform vec4 u_specular;\r\nuniform vec3 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\nuniform sampler2D u_texture;\r\nuniform int u_textureUsed;\r\nuniform float u_matIndex;\r\nuniform float xtest;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\r\n{\r\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\r\n}\r\n\r\nvoid main(void){\r\n if(u_matIndex == xtest)\r\n {\r\n  gl_FragColor=vec4(0,1,0,1);\r\n  return;\r\n }\r\n\r\n  vec2 adjuv=v_uv;\r\n  adjuv.y=1.-adjuv.y;\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgba=u_diffuse;\r\n    if(u_textureUsed>0) gl_FragColor.rgba=texture2D(u_texture,adjuv);\r\n  //gl_FragColor.rgb*=texture2D(u_light,lightUV).rgb;\r\n  //gl_FragColor.rgb+=u_ambient.rgb;\r\n}\r\n"
 
 /***/ }
 /******/ ]);
