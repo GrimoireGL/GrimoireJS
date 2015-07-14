@@ -13,22 +13,24 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
 	constructor(renderer: RendererBase) {
 		super(renderer);
+		JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("pmxtestrbo",512,512);
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
 		this.bindAsOutBuffer(this.DefaultFBO, [{
+				texture: JThreeContextProxy.getJThreeContext().ResourceManager.getRBO("pmxtestrbo"),
+				target: "depth",
+				type: "rbo"
+			},{
 			texture: texs["OUT"],
 			target: 0,
 			isOptional: false
-		},
-			{
-				texture: this.DefaultRBO,
-				target: "depth",
-				type: "rbo"
-			}], () => {
-				this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
+		},], () => {
+			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
 			},()=>{
-				this.Renderer.GLContext.Clear(ClearTargetType.DepthBits)
+
+				this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
+
 			});
 	}
 

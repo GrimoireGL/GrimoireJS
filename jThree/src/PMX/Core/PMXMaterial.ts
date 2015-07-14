@@ -69,7 +69,8 @@ class PMXMaterial extends Material {
   private pmxData:PMX;
   
   private materialIndex:number;
-
+  
+  public Name:string;
 
   constructor(pmx: PMX, index: number, offset: number, directory: string) {
     super();
@@ -78,6 +79,7 @@ class PMXMaterial extends Material {
     var materialData = pmx.Materials[index];
     this.verticiesCount = materialData.vertexCount;
     this.verticiesOffset = offset;
+    this.Name=materialData.materialName;
     this.CullEnabled = !((materialData.drawFlag & 0x01) > 0);//each side draw flag
     this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
     this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
@@ -97,7 +99,6 @@ class PMXMaterial extends Material {
     if (!this.program) return;
     super.configureMaterial(scene, renderer, object, texs);
     renderer.GLContext.Enable(GLFeatureType.DepthTest);
-    renderer.GLContext.DepthFunc(515);
    // renderer.GLContext.Enable(GLFeatureType.Blend);
     //renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha,BlendFuncParamType.OneMinusSrcAlpha);
     var id = renderer.ID;
@@ -139,6 +140,11 @@ class PMXMaterial extends Material {
       img.src = directory + this.pmxData.Textures[index];
       return texture;
     }
+  }
+  
+  public get Priorty():number
+  {
+    return 100+this.materialIndex;
   }
 }
 

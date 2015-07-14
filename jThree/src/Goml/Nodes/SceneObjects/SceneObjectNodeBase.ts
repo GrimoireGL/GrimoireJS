@@ -17,17 +17,17 @@ class SceneObjectNodeBase extends GomlTreeNodeBase
       this.attributes.defineAttribute({
         "position":{
           value:new Vector3(0,0,0),
-          converter:"vector3",handler:(v)=>{this.targetSceneObject.Transformer.Position=<Vector3>v.Value;}
+          converter:"vector3",handler:(v)=>{if(this.targetSceneObject!=null)this.targetSceneObject.Transformer.Position=<Vector3>v.Value;}
         },
         "scale":{
           value:new Vector3(1,1,1),
-          converter:"vector3",handler:(v)=>{this.targetSceneObject.Transformer.Scale=<Vector3>v.Value;}
+          converter:"vector3",handler:(v)=>{if(this.targetSceneObject!=null)this.targetSceneObject.Transformer.Scale=<Vector3>v.Value;}
         },
         "rotation":
         {
           value:Quaternion.Identity,
           converter:"rotation",
-          handler:(v)=>{
+          handler:(v)=>{if(this.targetSceneObject!=null)
             this.targetSceneObject.Transformer.Rotation=v.Value;}
         }
       });
@@ -37,11 +37,18 @@ class SceneObjectNodeBase extends GomlTreeNodeBase
   {
     return null;
   }
+  
+  protected targetUpdated()
+  {
+    this.beforeLoad();
+  }
+  
 
   public beforeLoad():void
   {
     super.beforeLoad();
     this.targetSceneObject=this.ConstructTarget();
+    if(this.targetSceneObject==null)return;
     //append targetObject to parent
     if(!this.targetSceneObject)
     {
