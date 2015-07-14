@@ -49,7 +49,7 @@ class DepthMaterial extends Material
           var v=Matrix.multiply(this.matVP,object.Transformer.LocalToGlobal);
           programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
           programWrapper.setUniformMatrix("matMVP",v);
-          geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+          geometry.bindIndexBuffer(renderer.ContextManager);
      }
   }
 

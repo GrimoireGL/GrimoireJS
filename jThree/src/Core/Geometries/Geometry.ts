@@ -117,5 +117,10 @@ class Geometry extends jThreeObject {
        index.push(startIndex,startIndex+1,startIndex+2,startIndex,startIndex+2,startIndex+3);
      }
    }
+   
+   public bindIndexBuffer(contextManager:ContextManagerBase)
+   {
+     this.IndexBuffer.getForRenderer(contextManager).bindBuffer();
+   }
 }
 export=Geometry;

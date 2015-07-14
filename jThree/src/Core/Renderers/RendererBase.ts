@@ -46,7 +46,7 @@ class RendererBase extends jThreeObjectWithID {
                 buffers: {
                     RB1: "deffered.rb1",
                     RB2: "deffered.rb2",
-                    DEPTH: "deffered.depth",
+                    DEPTH:"deffered.depth",
                     DIR: "jthree.light.dir1",
                     OUT: "deffered.light"
                 },

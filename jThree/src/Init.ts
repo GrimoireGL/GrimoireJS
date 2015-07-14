@@ -14,7 +14,7 @@ import PMXGeometry = require('./PMX/Core/PMXGeometry');
 import PhongGeometry = require('./Core/Materials/PhongMaterial');
 import QuadGeometry = require('./Core/Geometries/QuadGeometry');
 import Vector3 = require('./Math/Vector3');
-import PMXMaterial = require('./PMX/Core/PMXMaterial');
+import PMXModel = require('./PMX/Core/PMXModel');
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -62,27 +62,11 @@ class JThreeInit {
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
       j3.GomlLoader.onload(() => {
-        var targetUrl = "/tune/Tune.pmx";
-        var targetDirectory = targetUrl.substr(0, targetUrl.lastIndexOf("/") + 1);
-        var oReq = new XMLHttpRequest();
-        oReq.open("GET", targetUrl, true);
-        oReq.setRequestHeader("Accept", "*/*");
-        oReq.responseType = "arraybuffer";
-        oReq.onload = () => {
-          var pmx = new PMX(oReq.response);
-          var mesh = new Mesh(new PMXGeometry(pmx), null);
-          var offsetCount = 0;
-          for (var matIndex = 0; matIndex < pmx.Materials.length; matIndex++) {
-            var element = pmx.Materials[matIndex];
-            var pmxMaterial = new PMXMaterial(pmx,matIndex, offsetCount, targetDirectory);
-            offsetCount += element.vertexCount;
-            mesh.addMaterial(pmxMaterial);
-          }
-          mesh.Transformer.Scale = new Vector3(0.1, 0.1, 0.1);
-          j3.SceneManager.Scenes[0].addObject(mesh)
-        };
-        oReq.send(null);
-
+        PMXModel.LoadFromUrl("/tune/Tune.pmx",(m)=>
+          {
+            m.Transformer.Scale=new Vector3(0.1,0.1,0.1);
+            j3.SceneManager.Scenes[0].addObject(m);
+          });
       });
       j3.init();
     });

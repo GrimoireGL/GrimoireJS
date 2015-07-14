@@ -64,6 +64,8 @@ class PMXMaterial extends Material {
   
   private texture:Texture=null;
   
+  private toon:Texture;
+  
   private pmxData:PMX;
   
   private materialIndex:number;
@@ -84,6 +86,10 @@ class PMXMaterial extends Material {
     this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
     this.sphere=this.loadPMXTexture(materialData.sphereTextureIndex,"sphere",directory);
     this.texture=this.loadPMXTexture(materialData.textureIndex,"texture",directory);
+    if(materialData.sharedToonFlag==0)
+    {// not shared texture
+      this.toon=this.loadPMXTexture(materialData.targetToonIndex,"toon",directory);
+    }
     this.setLoaded();
   }
 
@@ -101,6 +107,8 @@ class PMXMaterial extends Material {
     var v = object.Transformer.calculateMVPMatrix(renderer);
     programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
     programWrapper.registerTexture(renderer,this.texture,1,"u_texture");
+    programWrapper.registerTexture(renderer,this.toon,2,"u_toon");
+    programWrapper.registerTexture(renderer,this.sphere,3,"u_sphere");
     programWrapper.setUniform1i("u_textureUsed",this.texture==null||this.texture.ImageSource==null?0:1);
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
@@ -110,7 +118,7 @@ class PMXMaterial extends Material {
     programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
     programWrapper.setUniform1f("u_matIndex",this.materialIndex);
     programWrapper.setUniform1f("xtest", <number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+    geometry.bindIndexBuffer(renderer.ContextManager);
   }
   
   private loadPMXTexture(index:number,prefix:string,directory:string):Texture
