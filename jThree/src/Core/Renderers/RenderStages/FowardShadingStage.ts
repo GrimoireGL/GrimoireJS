@@ -18,7 +18,7 @@ class FowardShadingStage extends RenderStageBase {
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
 		this.bindAsOutBuffer(this.DefaultFBO, [{
-				texture: JThreeContextProxy.getJThreeContext().ResourceManager.getRBO("pmxtestrbo"),
+				texture: null,
 				target: "depth",
 				type: "rbo"
 			},{

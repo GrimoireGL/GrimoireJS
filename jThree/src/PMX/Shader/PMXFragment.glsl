@@ -39,5 +39,4 @@ void main(void){
     //float l=length(lc)/1.732;
     //gl_FragColor.rgb*=texture2D(u_toon,vec2(0,1.-l)).rgb*lc;
     //gl_FragColor.rgb+=u_ambient;
-    gl_FragColor.a=1.;
 }

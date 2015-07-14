@@ -10,6 +10,7 @@ import Vector3 = require('../../Math/Vector3');
 import Buffer = require('../../Core/Resources/Buffer/Buffer');
 import Material = require('../../Core/Materials/Material');
 import PMXMaterial = require('./PMXMaterial');
+import CullMode = require('../../Wrapper/GLCullMode');
 class PMXGeometry extends Geometry {
     constructor(pmx: PMX) {
         super();
@@ -37,15 +38,14 @@ class PMXGeometry extends Geometry {
 
     public drawElements(context: ContextManagerBase, material: Material) {
         var mat = <PMXMaterial>material;
-        if (mat==null||!mat.VerticiesCount) {
+        if (mat == null || !mat.VerticiesCount) {
             context.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
             return;
         }
-        if(mat.Diffuse.A <0.01){
+        if (mat.Diffuse.A < 0.01) {
             return;
-            
-            };
-        context.Context.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset*4);
+        };
+        context.Context.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset * 4);
         context.Context.Flush();
     }
 }

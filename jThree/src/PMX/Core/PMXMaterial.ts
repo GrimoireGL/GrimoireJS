@@ -99,8 +99,8 @@ class PMXMaterial extends Material {
     if (!this.program) return;
     super.configureMaterial(scene, renderer, object, texs);
     renderer.GLContext.Enable(GLFeatureType.DepthTest);
-   // renderer.GLContext.Enable(GLFeatureType.Blend);
-    //renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha,BlendFuncParamType.OneMinusSrcAlpha);
+   renderer.GLContext.Enable(GLFeatureType.Blend);
+    renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha,BlendFuncParamType.OneMinusSrcAlpha);
     var id = renderer.ID;
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);

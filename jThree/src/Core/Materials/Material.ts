@@ -46,7 +46,7 @@ class Material extends JThreeObjectWithID {
         return this.priorty;
     }
 
-    private cullMode: GLCullMode = GLCullMode.Front;
+    private cullMode: GLCullMode = GLCullMode.Back;
 
     get CullMode(): GLCullMode {
         return this.cullMode;
