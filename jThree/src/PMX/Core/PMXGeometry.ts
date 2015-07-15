@@ -12,6 +12,8 @@ import Material = require('../../Core/Materials/Material');
 import PMXMaterial = require('./PMXMaterial');
 import CullMode = require('../../Wrapper/GLCullMode');
 class PMXGeometry extends Geometry {
+
+    public edgeSizeBuffer: Buffer;
     constructor(pmx: PMX) {
         super();
         var name = "pmxtest";
@@ -21,6 +23,8 @@ class PMXGeometry extends Geometry {
         this.positionBuffer = j3.ResourceManager.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer = j3.ResourceManager.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer = j3.ResourceManager.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
+        this.edgeSizeBuffer = j3.ResourceManager.createBuffer(name + "-edgeSize", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.Float);
+
         this.updateBuffers(pmx);
     }
 	
@@ -34,6 +38,7 @@ class PMXGeometry extends Geometry {
         this.normalBuffer.update(new Float32Array(pmx.Verticies.normals), pmx.Verticies.normals.length);
         this.uvBuffer.update(new Float32Array(pmx.Verticies.uvs), pmx.Verticies.uvs.length);
         this.positionBuffer.update(positionBuffer, positionBuffer.length);
+        this.edgeSizeBuffer.update(new Float32Array(pmx.Verticies.edgeScaling),pmx.Verticies.edgeScaling.length)
     }
 
     public drawElements(context: ContextManagerBase, material: Material) {

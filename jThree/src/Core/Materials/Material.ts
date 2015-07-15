@@ -66,6 +66,11 @@ class Material extends JThreeObjectWithID {
     {
         return "jthree.materials.forematerial";
     }
+    
+    public get PassCount():number
+    {
+        return 0;
+    }
 
     protected loadProgram(vsid: string, fsid: string, pid: string,vscode:string,fscode:string): Program {
         var jThreeContext = JThreeContextProxy.getJThreeContext();
@@ -76,7 +81,7 @@ class Material extends JThreeObjectWithID {
         return rm.createProgram(pid,[vShader,fShader]);
     }
 
-    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
+    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo,passCount?:number): void {
         this.applyCullConfigure(renderer);
         return;
     }

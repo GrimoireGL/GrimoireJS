@@ -52,7 +52,7 @@ class Geometry extends jThreeObject {
      normal.push(nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z);
      uv.push(0,1,1,1,1,0,0,0);
      pos.push(v0.X,v0.Y,v0.Z,v1.X,v1.Y,v1.Z,v3.X,v3.Y,v3.Z,v2.X,v2.Y,v2.Z);
-     index.push(startIndex,startIndex+1,startIndex+2,startIndex,startIndex+2,startIndex+3);
+     index.push(startIndex,startIndex+2,startIndex+1,startIndex,startIndex+3,startIndex+2);
    }
 
    protected addCircle(pos:number[],normal:number[],uv:number[],index:number[],divide:number,center:Vector3,normalVector:Vector3,tangentVector:Vector3)
