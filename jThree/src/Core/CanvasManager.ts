@@ -77,49 +77,6 @@ class CanvasManager extends ContextManagerBase {
      * event cache for resize event.
      */
     private onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
-    /**
-     * add event handler that will be called when canvas size was changed.
-     */
-    public onResize(act: Delegates.Action2<CanvasManager, CanvasSizeChangedEventArgs>) {
-        this.onResizeEventHandler.addListerner(act);
-    }
-    
-    public afterRenderAll(): void {
-        this.isDirty = true;
-    }
-
-    public beforeRender(renderer: RendererBase): void {
-        if (this.isDirty) {//check it needs clear default buffer or not.
-            this.clearCanvas();
-            this.isDirty = false;
-        }
-    }
-
-    public beforeRenderAll(): void {
-        //check size changed or not.
-        if (this.targetCanvas.height !== this.lastHeight || this.targetCanvas.width !== this.lastWidth) {
-            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.targetCanvas.width, this.targetCanvas.height));
-            this.lastHeight = this.targetCanvas.height; this.lastWidth = this.targetCanvas.width;
-        }
-    }
-    
-    /**
-     * clear the default buffer of this canvas with ClearColor.
-     */
-    public clearCanvas(): void {
-        this.Context.BindFrameBuffer(null);//binds to default buffer.
-        this.Context.ClearColor(this.ClearColor.R, this.ClearColor.G, this.ClearColor.B, this.ClearColor.A);
-        this.Context.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-        this.Context.Enable(GLFeatureType.DepthTest);
-        this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
-    }
-
-    /**
-     * Get default rectangle it fills this canvas.
-     */
-    public getDefaultRectangle(): Rectangle {
-        return new Rectangle(0, 0, this.targetCanvas.width, this.targetCanvas.height);
-    }
     
     /**
      * Get accessor for the reference of canvas element this object managing.
@@ -147,6 +104,48 @@ class CanvasManager extends ContextManagerBase {
 
     public get IsDirty(): boolean {
         return this.isDirty;
+    }
+    /**
+     * add event handler that will be called when canvas size was changed.
+     */
+    public onResize(act: Delegates.Action2<CanvasManager, CanvasSizeChangedEventArgs>) {
+        this.onResizeEventHandler.addListerner(act);
+    }
+
+    public afterRenderAll(): void {
+        this.isDirty = true;
+    }
+
+    public beforeRender(renderer: RendererBase): void {
+        if (this.isDirty) {//check it needs clear default buffer or not.
+            this.clearCanvas();
+            this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
+            this.isDirty = false;
+        }
+    }
+
+    public beforeRenderAll(): void {
+        //check size changed or not.
+        if (this.targetCanvas.height !== this.lastHeight || this.targetCanvas.width !== this.lastWidth) {
+            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.targetCanvas.width, this.targetCanvas.height));
+            this.lastHeight = this.targetCanvas.height; this.lastWidth = this.targetCanvas.width;
+        }
+    }
+    
+    /**
+     * clear the default buffer of this canvas with ClearColor.
+     */
+    public clearCanvas(): void {
+        this.Context.BindFrameBuffer(null);//binds to default buffer.
+        this.applyClearColor();
+        this.Context.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+    }
+
+    /**
+     * Get default rectangle it fills this canvas.
+     */
+    public getDefaultRectangle(): Rectangle {
+        return new Rectangle(0, 0, this.targetCanvas.width, this.targetCanvas.height);
     }
 }
 

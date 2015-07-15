@@ -1,4 +1,4 @@
-import Quaternion= require("../../Math/Quaternion");
+import Quaternion = require("../../Math/Quaternion");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
@@ -12,155 +12,156 @@ import JThreeEvent = require('./../../Base/JThreeEvent');
  * Every scene object in a scene has Toransformer.It's used to store and manipulate the position,rotation and scale ob the object.
  * Every Transformer can have a parent, each parent Transformer affect children's Transformer hierachically.
  */
-class Transformer extends JThreeObject
-{
+class Transformer extends JThreeObject {
   /**
    * Constructor of Transformer
    * @param sceneObj the scene object this transformer attached to.
    */
-  constructor(sceneObj:SceneObject)
-  {
+  constructor(sceneObj: SceneObject) {
     super();
-    this.relatedTo=sceneObj;
-    this.position=Vector3.Zero;
-    this.rotation=Quaternion.Identity;
-    this.scale=new Vector3(1,1,1);
-    this.foward=new Vector3(0,0,-1);
+    this.relatedTo = sceneObj;
+    this.position = Vector3.Zero;
+    this.rotation = Quaternion.Identity;
+    this.scale = new Vector3(1, 1, 1);
+    this.foward = new Vector3(0, 0, -1);
     this.updateTransform();
   }
   /**
    * Scene oject reference this transformer related to.
    */
-  private relatedTo:SceneObject;
+  private relatedTo: SceneObject;
   
   /**
    * backing field of Rotation.
    */
-  private rotation:Quaternion;
+  private rotation: Quaternion;
   
   /**
    * backing field of Position.
    */
-  private position:Vector3;
+  private position: Vector3;
   
   /**
    * backing field of Scale.
    */
-  private scale:Vector3;
+  private scale: Vector3;
   
   /**
    * backing filed of Foward.
    */
-  private foward:Vector3;
+  private foward: Vector3;
 
   /**
    * backing field of LocalTransform.
    */
-  private localTransofrm:Matrix;
+  private localTransform: Matrix;
 
   /**
    * backing field of LocalToGlobal
    */
-  private localToGlobal:Matrix;
+  private localToGlobal: Matrix;
   
   /**
    * calculation cache
    */
-  private cacheMat:glm.GLM.IArray=glm.mat4.create();
+  private cacheMat: glm.GLM.IArray=glm.mat4.create();
+
+  private cacheMat2: glm.GLM.IArray=glm.mat4.create();
   
   /**
    * properties for storeing event handlers
    */
-  private onUpdateTransformHandler:JThreeEvent<SceneObject>=new JThreeEvent<SceneObject>();
+  private onUpdateTransformHandler: JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
 
   /**
    * Subscribe event handlers it will be called when this transformer's transform was changed.
    * @param action the event handler for this event.
    */
-  public onUpdateTransform(action:Delegates.Action2<Transformer,SceneObject>):void
-  {
+  public onUpdateTransform(action: Delegates.Action2<Transformer, SceneObject>): void {
     this.onUpdateTransformHandler.addListerner(action);
   }
   /**
    * update all transform
    * You no need to call this method manually if you access all of properties in this transformer by accessor.
    */
-  public updateTransform():void
-  {//TODO optimize this
-    this.localTransofrm=Matrix.TRS(this.position,this.rotation,this.scale);
-    this.localToGlobal=Matrix.multiply(this.relatedTo!=null&&this.relatedTo.Parent!=null?this.relatedTo.Parent.Transformer.localToGlobal:Matrix.identity(),this.localTransofrm);
-    this.foward=Matrix.transformNormal(this.localToGlobal,new Vector3(0,0,-1)).normalizeThis();
-    this.relatedTo.Children.each((v)=>{
+  public updateTransform(): void {//TODO optimize this
+    glm.mat4.identity(this.cacheMat);
+    glm.mat4.scale(this.cacheMat, this.cacheMat, this.Scale.targetVector);
+    glm.mat4.fromQuat(this.cacheMat2, this.rotation.targetQuat);
+    glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);
+    glm.mat4.identity(this.cacheMat2);
+    glm.mat4.translate(this.cacheMat2, this.cacheMat2, this.position.targetVector);
+    glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);
+    this.localTransform = new Matrix(this.cacheMat);
+    if (this.relatedTo != null && this.relatedTo.Parent != null) {
+      glm.mat4.copy(this.cacheMat2, this.relatedTo.Parent.Transformer.LocalToGlobal.rawElements);
+    } else {
+      glm.mat4.identity(this.cacheMat2);
+    }
+    this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2, this.cacheMat2, this.localTransform.rawElements));
+    this.foward = Matrix.transformNormal(this.localToGlobal, new Vector3(0, 0, -1)).normalizeThis();
+    this.relatedTo.Children.each((v) => {
       v.Transformer.updateTransform();
     });
-    this.onUpdateTransformHandler.fire(this,this.relatedTo);
+    this.onUpdateTransformHandler.fire(this, this.relatedTo);
   }
   /**
    * Calculate Projection-View-Model matrix with renderer camera.
    */
-  public calculateMVPMatrix(renderer:RendererBase):Matrix
-  {//TODO optimize this by glm
-      return Matrix.multiply(Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix), this.LocalToGlobal);
+  public calculateMVPMatrix(renderer: RendererBase): Matrix {//TODO optimize this by glm
+    return Matrix.multiply(Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix), this.LocalToGlobal);
   }
   /**
    * Get accessor for the direction of foward of this model.
    */
-  public get Foward():Vector3
-  {
+  public get Foward(): Vector3 {
     return this.foward;
   }
   /**
    * Get accessor for the matrix providing the transform Local space into Global space.
    */
-  get LocalToGlobal():Matrix
-  {
+  get LocalToGlobal(): Matrix {
     return this.localToGlobal;
   }
   /**
    * Get accessor for model rotation.
    */
-  get Rotation():Quaternion
-  {
+  get Rotation(): Quaternion {
     return this.rotation;
   }
   /**
    * Set accessor for model rotation.
    */
-  set Rotation(quat:Quaternion)
-  {
-    this.rotation=quat;
+  set Rotation(quat: Quaternion) {
+    this.rotation = quat;
     this.updateTransform();
   }
   /**
    * Get Accessor for model position.
    */
-  get Position():Vector3
-  {
+  get Position(): Vector3 {
     return this.position
   }
   /**
    * Set Accessor for model position.
    */
-  set Position(vec:Vector3)
-  {
-    this.position=vec;
+  set Position(vec: Vector3) {
+    this.position = vec;
     this.updateTransform();
   }
   
   /**
    * Get Accessor for model scale.
    */
-  get Scale():Vector3
-  {
+  get Scale(): Vector3 {
     return this.scale;
   }
   
   /**
    * Set Accessor for model scale.
    */
-  set Scale(vec:Vector3)
-  {
-    this.scale=vec;
+  set Scale(vec: Vector3) {
+    this.scale = vec;
     this.updateTransform();
   }
 }

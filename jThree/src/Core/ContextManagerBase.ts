@@ -52,7 +52,11 @@ class ContextManagerBase extends jThreeObjectId {
     public afterRenderAll(): void {
 
     }
-    
+
+
+    public applyClearColor()
+    {
+        this.context.ClearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);    }    
         /**
      * backing field for ClearColor
      */

@@ -40,7 +40,7 @@ void main(void){
     }
 
     vec3 lc=texture2D(u_light,lightUV).rgb;
-    float l=0.5;//length(lc)/1.732;
+    float l=0.2;//length(lc)/1.732;
     if(u_toonFlag==1)
     {
           gl_FragColor.rgb*=texture2D(u_toon,vec2(0,1.-l)).rgb*l;

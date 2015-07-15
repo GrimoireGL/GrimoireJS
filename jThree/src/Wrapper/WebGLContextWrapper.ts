@@ -127,7 +127,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   UseProgram(program: WebGLProgram): void {
-    this.CheckErrorAsFatal();
     this.gl.useProgram(program);
   }
 
@@ -137,12 +136,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   EnableVertexAttribArray(attribNumber: number): void {
-    this.CheckErrorAsFatal();
     this.gl.enableVertexAttribArray(attribNumber);
   }
 
   VertexAttribPointer(attribLocation: number, sizePerVertex: number, elemType: ElementType, normalized: boolean, stride: number, offset: number): void {
-    this.CheckErrorAsFatal();
     this.gl.vertexAttribPointer(attribLocation, sizePerVertex, elemType, normalized, stride, offset);
   }
 
@@ -173,7 +170,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix) {
-    this.CheckErrorAsFatal();
     this.gl.uniformMatrix4fv(webGlUniformLocation, false, matrix.rawElements);
   }
 
@@ -183,7 +179,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param vector vector you want to pass
   */
   UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector: Vector2) {
-    this.CheckErrorAsFatal();
     this.gl.uniform2f(webGlUniformLocation, vector.X, vector.Y);
   }
 
@@ -193,12 +188,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param vector vector you want to pass
   */
   UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector: Vector3) {
-    this.CheckErrorAsFatal();
     this.gl.uniform3f(webGlUniformLocation, vector.X, vector.Y, vector.Z);
   }
 
   Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void {
-    this.CheckErrorAsFatal();
     this.gl.uniform1i(webGlUniformLocation, num);
   }
 
@@ -222,7 +215,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param vector vector you want to pass
   */
   UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector: Vector4) {
-    this.CheckErrorAsFatal();
     this.gl.uniform4f(webGlUniformLocation, vector.X, vector.Y, vector.Z, vector.W);
   }
 
@@ -232,7 +224,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void {
-    this.CheckErrorAsFatal();
     this.gl.drawElements(topology, length, dataType, offset);
   }
 
@@ -242,7 +233,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   BindFrameBuffer(fbo: WebGLFramebuffer): void {
-    this.CheckErrorAsFatal();
     this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, fbo);
   }
 
@@ -275,7 +265,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
 
   BindTexture(targetTexture: TargetTextureType, texture: WebGLTexture): void {
-    this.CheckErrorAsFatal();
     this.gl.bindTexture(targetTexture, texture);
   }
 
@@ -290,7 +279,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   ActiveTexture(textureRegister: TextureRegister) {
-    this.CheckErrorAsFatal();
     this.gl.activeTexture(textureRegister);
   }
 
@@ -301,7 +289,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   BindRenderBuffer(bindTarget: WebGLRenderbuffer): void {
-    this.CheckErrorAsFatal();
     this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, bindTarget);
   }
 
@@ -311,7 +298,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
-    this.CheckErrorAsFatal();
     this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer)
   }
   
@@ -321,7 +307,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param vector vector you want to pass
   */
   UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
-    this.CheckErrorAsFatal();
     var arr=new Array(vector.length*2);
     for(var i=0;i<vector.length;i++)
     {
@@ -337,7 +322,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param vector vector you want to pass
   */
   UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[]) {
-    this.CheckErrorAsFatal();
     var arr=new Array(vector.length*3);
     for(var i=0;i<vector.length;i++)
     {
@@ -354,7 +338,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param vector vector you want to pass
   */
   UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[]) {
-    this.CheckErrorAsFatal();
     var arr=new Array(vector.length*4);
     for(var i=0;i<vector.length;i++)
     {
@@ -368,7 +351,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   
   Uniform1f(webglUniformLocation:WebGLUniformLocation,num:number)
   {
-    this.CheckErrorAsFatal();
     this.gl.uniform1f(webglUniformLocation,num);
   }
   

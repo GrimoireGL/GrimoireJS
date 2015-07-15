@@ -45,6 +45,11 @@ class PMX {
 		return this.textures;
 	}
 
+	public get Bones()
+	{
+		return this.bones;
+	}
+
 	constructor(data: ArrayBuffer) {
 		this.reader = new jDataView(data, 0, data.byteLength, true);
 		this.loadHeader();
@@ -61,13 +66,7 @@ class PMX {
 
 	private readTextBuf(): string {
 		var length = this.reader.getInt32();
-		var numbers = new Array(length);
-		for (var i = 0; i < length; i++) {
-			numbers[i] = this.reader.getUint8();
-		}
-		var result = "";
-		result += String.fromCharCode.apply(null, numbers);
-		return result;
+		return this.reader.getString(length, this.reader.tell(), "utf8");
 	}
 
 	private toUTF8(str: string) {

@@ -30,6 +30,11 @@ class GLExtensionManager extends JThreeObject
 	{
 		return this.extensions.get(extName);
 	}
+
+	public hasExtension(extName:string):boolean
+	{
+		return this.extensions.has(extName);
+	}
 	
 }
 export = GLExtensionManager;
