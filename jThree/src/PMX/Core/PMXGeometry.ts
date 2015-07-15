@@ -14,6 +14,11 @@ import CullMode = require('../../Wrapper/GLCullMode');
 class PMXGeometry extends Geometry {
 
     public edgeSizeBuffer: Buffer;
+
+    public boneIndexBuffer: Buffer;
+
+    public boneWeightBuffer: Buffer;
+
     constructor(pmx: PMX) {
         super();
         var name = "pmxtest";
@@ -24,7 +29,8 @@ class PMXGeometry extends Geometry {
         this.normalBuffer = j3.ResourceManager.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer = j3.ResourceManager.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
         this.edgeSizeBuffer = j3.ResourceManager.createBuffer(name + "-edgeSize", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.Float);
-
+        this.boneIndexBuffer = j3.ResourceManager.createBuffer(name + "-boneIndex", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 4, ElementType.UnsignedInt);
+        this.boneWeightBuffer = j3.ResourceManager.createBuffer(name + "-boneWeight", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 4, ElementType.Float);
         this.updateBuffers(pmx);
     }
 	
@@ -38,7 +44,10 @@ class PMXGeometry extends Geometry {
         this.normalBuffer.update(new Float32Array(pmx.Verticies.normals), pmx.Verticies.normals.length);
         this.uvBuffer.update(new Float32Array(pmx.Verticies.uvs), pmx.Verticies.uvs.length);
         this.positionBuffer.update(positionBuffer, positionBuffer.length);
-        this.edgeSizeBuffer.update(new Float32Array(pmx.Verticies.edgeScaling),pmx.Verticies.edgeScaling.length)
+        this.edgeSizeBuffer.update(new Float32Array(pmx.Verticies.edgeScaling), pmx.Verticies.edgeScaling.length)
+        this.boneIndexBuffer.update(new Uint32Array(pmx.Verticies.boneIndicies), pmx.Verticies.boneIndicies.length)
+        this.boneWeightBuffer.update(new Float32Array(pmx.Verticies.boneWeights), pmx.Verticies.boneWeights.length)
+
     }
 
     public drawElements(context: ContextManagerBase, material: Material) {

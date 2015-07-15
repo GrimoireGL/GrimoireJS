@@ -45,8 +45,7 @@ class PMX {
 		return this.textures;
 	}
 
-	public get Bones()
-	{
+	public get Bones() {
 		return this.bones;
 	}
 
@@ -186,15 +185,22 @@ class PMX {
 		for (var i = 0; i < uvCount; i++) {
 			additionalUvs[i] = new Array(count * 4);
 		}
+		var bi1 = 0, bi2 = 0, bi3 = 0, bi4 = 0;
+		var bw1 = 0, bw2 = 0, bw3 = 0, bw4 = 0;
+		var sumCache = 0;
 		var result: PMXVerticies = {
 			positions: new Array(count * 3),
 			normals: new Array(count * 3),
 			uvs: new Array(count * 2),
 			additionalUV: additionalUvs,
 			edgeScaling: new Array(count),
-			verticies: new Array(count)
+			verticies: new Array(count),
+			boneIndicies: new Array(count * 4),
+			boneWeights: new Array(count * 4)
 		};
 		for (var i = 0; i < count; i++) {
+			bi1 = 0; bi2 = 0; bi3 = 0; bi4 = 0;
+			bw1 = 0; bw2 = 0; bw3 = 0; bw4 = 0;
 			result.positions[3 * i + 0] = r.getFloat32();
 			result.positions[3 * i + 1] = r.getFloat32();
 			result.positions[3 * i + 2] = -r.getFloat32();
@@ -212,34 +218,37 @@ class PMX {
 			result.verticies[i] = { weightTransform: r.getUint8() }
 			switch (result.verticies[i].weightTransform) {
 				case 0://BDEF
-					result.verticies[i].bdef1 = { boneIndex: this.readBoneIndex() }
+					bi1 = this.readBoneIndex();
+					bw1 = 1;
 					break;
 				case 1://BDEF2
-					result.verticies[i].bdef2 =
-					{
-						boneIndex1: this.readBoneIndex(),
-						boneIndex2: this.readBoneIndex(),
-						boneWeight: r.getFloat32()
-					}
+					bi1 = this.readBoneIndex();
+					bi2 = this.readBoneIndex();
+					bw1 = r.getFloat32();
+					bw2 = 1 - bw1;
 					break;
 				case 2://BDEF4
-					result.verticies[i].bdef4 = {
-						boneIndex1: this.readBoneIndex(),
-						boneIndex2: this.readBoneIndex(),
-						boneIndex3: this.readBoneIndex(),
-						boneIndex4: this.readBoneIndex(),
-						boneWeight1: r.getFloat32(),
-						boneWeight2: r.getFloat32(),
-						boneWeight3: r.getFloat32(),
-						boneWeight4: r.getFloat32(),
-					}
+					bi1 = this.readBoneIndex();
+					bi2 = this.readBoneIndex();
+					bi3 = this.readBoneIndex();
+					bi4 = this.readBoneIndex();
+					bw1 = r.getFloat32();
+					bw2 = r.getFloat32();
+					bw3 = r.getFloat32();
+					bw4 = r.getFloat32();
+					sumCache = bw1 + bw2 + bw3 + bw4;
+					bw1 /= sumCache;
+					bw2 /= sumCache;
+					bw3 /= sumCache;
+					bw4 /= sumCache;
 					break;
 				case 3://SDEF
+					bi1 = this.readBoneIndex();
+					bi2 = this.readBoneIndex();
+					bw1 = r.getFloat32();
+					bw2 = 1 - bw1;
 					result.verticies[i].sdef =
 					{
-						boneIndex1: this.readBoneIndex(),
-						boneIndex2: this.readBoneIndex(),
-						boneWeight: r.getFloat32(),
 						boneParams: [
 							r.getFloat32(),
 							r.getFloat32(),
@@ -254,6 +263,14 @@ class PMX {
 					}
 					break;
 			}
+			result.boneIndicies[4 * i + 0] = bi1;
+			result.boneIndicies[4 * i + 1] = bi2;
+			result.boneIndicies[4 * i + 2] = bi3;
+			result.boneIndicies[4 * i + 3] = bi4;
+			result.boneWeights[4 * i + 0] = bw1;
+			result.boneWeights[4 * i + 1] = bw2;
+			result.boneWeights[4 * i + 2] = bw3;
+			result.boneWeights[4 * i + 3] = bw4;
 			result.edgeScaling[i] = r.getFloat32()
 		}
 		this.verticies = result;
