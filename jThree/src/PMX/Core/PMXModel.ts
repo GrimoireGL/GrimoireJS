@@ -5,6 +5,7 @@ import PMXMaterial = require('./PMXMaterial');
 import Delegates = require('../../Base/Delegates');
 import PMXSkeleton = require('./PMXSkeleton');
 import PMXMorphManager = require('./PMXMorphManager');
+import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
                 var targetUrl = url;
@@ -27,6 +28,18 @@ class PMXModel extends SceneObject {
 
         private morphManager: PMXMorphManager;
 
+        private materialDictionary: AssociativeArray<PMXMaterial> = new AssociativeArray<PMXMaterial>();
+
+        private pmxMaterials: PMXMaterial[];
+
+        public getPMXMaterialByName(name: string) {
+                return this.materialDictionary.get(name);
+        }
+
+        public getPMXMaterialByIndex(index: number) {
+                return this.pmxMaterials[index];
+        }
+
         public get ModelData(): PMXModelData {
                 return this.modelData;
         }
@@ -35,19 +48,30 @@ class PMXModel extends SceneObject {
                 return this.skeleton;
         }
 
+        public get Materials(): PMXMaterial[] {
+                return this.pmxMaterials;
+        }
+
+        public get MorphManager(): PMXMorphManager {
+                return this.morphManager;
+        }
+
         constructor(pmx: PMXModelData, resourceDirectory: string) {
                 super();
                 this.modelData = pmx;
                 this.geometry = new PMXGeometry(pmx);
                 this.skeleton = new PMXSkeleton(this);
+                this.pmxMaterials = new Array(pmx.Materials.length);
                 var offset = 0;
                 for (var materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
                         var currentMat = pmx.Materials[materialCount];
-                        this.addMaterial(new PMXMaterial(this, materialCount, offset, resourceDirectory));
+                        var mat = new PMXMaterial(this, materialCount, offset, resourceDirectory);
+                        this.addMaterial(mat);
+                        this.pmxMaterials[materialCount] = mat;
+                        this.materialDictionary.set(currentMat.materialName, mat);
                         offset += currentMat.vertexCount;
                 }
                 this.morphManager = new PMXMorphManager(this);
-                this.morphManager.getMorphByName("ウインク").Progress = 1.0;
         }
 
         public update() {

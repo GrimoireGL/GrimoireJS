@@ -28,12 +28,11 @@ import Texture = require('../../Core/Resources/Texture/Texture');
 import BlendFuncParamType = require("../../Wrapper/BlendFuncParamType");
 import PMXGeometry = require('./PMXGeometry');
 import PMXModel = require('./PMXModel');
+import Delegates = require('../../Base/Delegates');
 declare function require(string): string;
 
-class PMXMaterialMorphParamContainer
-{
-    constructor(calcFlag:number)
-    {
+class PMXMaterialMorphParamContainer {
+    constructor(calcFlag: number) {
         this.calcFlag = calcFlag;
         var def = 1 - calcFlag;
         this.diffuse = [def, def, def, def];
@@ -41,19 +40,47 @@ class PMXMaterialMorphParamContainer
         this.ambient = [def, def, def];
         this.edgeColor = [def, def, def, def];
         this.edgeSize = def;
+        this.textureCoeff = [def, def, def, def];
+        this.sphereCoeff = [def, def, def, def];
+        this.toonCoeff = [def, def, def, def];
     }
 
     private calcFlag: number;
 
     public diffuse: number[];
 
-    public specular:number[];
+    public specular: number[];
 
     public ambient: number[];
 
     public edgeColor: number[];
 
     public edgeSize: number;
+
+    public textureCoeff: number[];
+
+    public sphereCoeff: number[];
+
+    public toonCoeff: number[];
+
+    public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Delegates.Func1<PMXMaterialMorphParamContainer, number>) {
+        return base * target(mul) + target(add);
+    }
+
+    public static calcMorphedVectorValue(base: Vector4|Vector3, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Delegates.Func1<PMXMaterialMorphParamContainer, number[]>, vecLength: number): Vector3|Vector4 {
+        switch (vecLength) {
+            case 3:
+                return new Vector3(base.X * target(mul)[0] + target(add)[0],
+                    base.Y * target(mul)[1] + target(add)[1],
+                    base.Z * target(mul)[2] + target(add)[2]);
+            case 4:
+                return new Vector4(base.X * target(mul)[0] + target(add)[0],
+                    base.Y * target(mul)[1] + target(add)[1],
+                    base.Z * target(mul)[2] + target(add)[2],
+                    (<Vector4>base).W * target(mul)[3] + target(add)[3]
+                    );
+        }
+    }
 }
 
 /**
@@ -110,12 +137,18 @@ class PMXMaterial extends Material {
 
     public Name: string;
 
+    public addMorphParam: PMXMaterialMorphParamContainer;
+
+    public mulMorphParam: PMXMaterialMorphParamContainer;
+
     public get PassCount(): number {
         return this.edgeColor == null ? 1 : 2;
     }
 
     constructor(pmx: PMXModel, index: number, offset: number, directory: string) {
         super();
+        this.addMorphParam = new PMXMaterialMorphParamContainer(1);
+        this.mulMorphParam = new PMXMaterialMorphParamContainer(0);
         this.parentModel = pmx;
         this.pmxData = pmx.ModelData;
         this.materialIndex = index;
@@ -173,10 +206,17 @@ class PMXMaterial extends Material {
         programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setUniformMatrix("matMVP", v);
         programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
-        programWrapper.setUniformVector("u_ambient", this.ambient.toVector());
-        programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
+        programWrapper.setUniformVector("u_ambient", PMXMaterialMorphParamContainer.calcMorphedVectorValue(this.ambient.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.ambient, 3));
+        programWrapper.setUniformVector("u_diffuse", PMXMaterialMorphParamContainer.calcMorphedVectorValue(this.diffuse.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.diffuse, 4));
         programWrapper.setUniform1f("u_matIndex", this.materialIndex);
         programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
+        programWrapper.setUniformVector("u_addTexCoeff", new Vector4(this.addMorphParam.textureCoeff));
+        programWrapper.setUniformVector("u_mulTexCoeff", new Vector4(this.mulMorphParam.textureCoeff));
+        programWrapper.setUniformVector("u_addSphereCoeff", new Vector4(this.addMorphParam.sphereCoeff));
+        programWrapper.setUniformVector("u_mulSphereCoeff", new Vector4(this.mulMorphParam.sphereCoeff));
+        programWrapper.setUniformVector("u_addToonCoeff", new Vector4(this.addMorphParam.toonCoeff));
+        programWrapper.setUniformVector("u_mulToonCoeff", new Vector4(this.mulMorphParam.toonCoeff));
+
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
@@ -191,13 +231,12 @@ class PMXMaterial extends Material {
         programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 0, "u_boneMatricies");
         programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setAttributeVerticies("edgeScaling", geometry.edgeSizeBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setUniformMatrix("matVP",  Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
-        programWrapper.setUniform1f("u_edgeSize", this.edgeSize);
-        programWrapper.setUniformVector("u_edgeColor", this.edgeColor.toVector());
+        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
+        programWrapper.setUniform1f("u_edgeSize", PMXMaterialMorphParamContainer.calcMorphedSingleValue(this.edgeSize, this.addMorphParam, this.mulMorphParam, (t) => t.edgeSize));
+        programWrapper.setUniformVector("u_edgeColor", PMXMaterialMorphParamContainer.calcMorphedVectorValue(this.edgeColor.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.edgeColor, 4));
         programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
-
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 

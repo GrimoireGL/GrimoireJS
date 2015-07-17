@@ -4,7 +4,7 @@ import PMXGeometry = require('./PMXGeometry');
 import PMXMorphData = require('../PMXMorph');
 import PMXMorphManager = require('./PMXMorphManager');
 class PMXMorph {
-	public static CreateMorph(model: PMXModel, index: number, morphManager: PMXMorphManager):PMXMorph {
+	public static CreateMorph(model: PMXModel, index: number, morphManager: PMXMorphManager): PMXMorph {
 		var morphData = model.ModelData.Morphs[index];
 		switch (morphData.morphKind) {
 			case 0:
@@ -13,6 +13,8 @@ class PMXMorph {
 				return new PMXVertexMorph(model, index, morphManager);
 			case 3:
 				return new PMXUVMorph(model, index, morphManager);
+			case 8:
+				return new PMXMaterialMorph(model, index, morphManager);
 			default:
 				return null;
 		}
@@ -43,8 +45,7 @@ class PMXMorph {
 		}
 	}
 
-	public get MorphName():string
-	{
+	public get MorphName(): string {
 		return this.TargetMorphData.morphName;
 	}
 
@@ -84,7 +85,7 @@ class PMXVertexMorph extends PMXMorph {
 			var vm = this.TargetMorphData.vertexMorph[i];
 			(<PMXGeometry>this.model.Geometry).positionBuferSource[3 * vm.vertexIndex + 0] += vm.vertexOffset[0] * ratio;
 			(<PMXGeometry>this.model.Geometry).positionBuferSource[3 * vm.vertexIndex + 1] += vm.vertexOffset[1] * ratio;
-			(<PMXGeometry>this.model.Geometry).positionBuferSource[3 * vm.vertexIndex+ 2] += vm.vertexOffset[2] * ratio;
+			(<PMXGeometry>this.model.Geometry).positionBuferSource[3 * vm.vertexIndex + 2] += vm.vertexOffset[2] * ratio;
 		}
 	}
 }
@@ -104,14 +105,45 @@ class PMXUVMorph extends PMXMorph {
 	}
 }
 
-class PMXGroupMorph extends PMXMorph
-{
-	protected updateProgress(current:number,last:number)
-	{
+class PMXGroupMorph extends PMXMorph {
+	protected updateProgress(current: number, last: number) {
 		var ratio = current - last;
 		for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
 			var vm = this.TargetMorphData.groupMorph[i];
 			this.morphManager.getMorphByIndex(vm.morphIndex).Progress += ratio * vm.morphRate;
+		}
+	}
+}
+
+class PMXMaterialMorph extends PMXMorph {
+	protected updateProgress(current: number, last: number) {
+		var ratio = current - last;
+		for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
+			var vm = this.TargetMorphData.materialMorph[i];
+			if (vm.materialIndex == -1) {
+				var targetMaterials = this.model.Materials;
+			} else {
+				var targetMaterials = [this.model.getPMXMaterialByIndex(vm.materialIndex)];
+			}
+			for (var j = 0; j < targetMaterials.length; j++) {
+				var targetMaterial = targetMaterials[j];
+				var target = vm.operationType == 1 ? targetMaterial.addMorphParam : targetMaterial.mulMorphParam;
+				target.edgeSize += ratio * (vm.edgeSize + vm.operationType - 1);
+				this.assignMorphValues(3, target.ambient, vm.ambient, ratio, vm.operationType);
+				this.assignMorphValues(4, target.diffuse, vm.diffuse, ratio, vm.operationType);
+				this.assignMorphValues(4, target.specular, vm.specular, ratio, vm.operationType);
+				this.assignMorphValues(4, target.edgeColor, vm.edgeColor, ratio, vm.operationType);
+				this.assignMorphValues(4, target.textureCoeff, vm.textureCoefficient, ratio, vm.operationType);
+				this.assignMorphValues(4, target.sphereCoeff, vm.sphereTextureCoefficient, ratio, vm.operationType);
+				this.assignMorphValues(4, target.toonCoeff, vm.toonTextureCoefficient, ratio, vm.operationType);
+
+			}
+		}
+	}
+
+	private assignMorphValues(vecLength: number, target: number[], morphValues: number[], ratio: number, opType: number) {
+		for (var i = 0; i < vecLength; i++) {
+			target[i] += ratio * (morphValues[i] + opType - 1);
 		}
 	}
 }

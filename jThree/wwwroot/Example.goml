@@ -29,7 +29,11 @@
         <plight color="brown" position ="0,0.1,0" distance="1.2" intensity="0.4" decay="0"/>
         -->
         <dlight color="white" intensity="0.5" rotation="x(90d)" position="0,1,0"/>
-         <pmx url="/tune/Tune.pmx" scale="0.1" />
+         <pmx url="/tune/Tune.pmx" scale="0.1">
+          <morphs>
+            <morph name="ウインク" value="1"/>
+          </morphs>
+         </pmx>
     </scene>
     <scene>
       <ocamera left="-1" right="1" top="1" bottom="-1" far="5" near="0.1" aspect="1" far="5" fovy="1/2p" name="CAM2" near="0.1" position="(0,0.5,2)" />

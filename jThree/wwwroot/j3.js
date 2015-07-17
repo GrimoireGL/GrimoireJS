@@ -54,7 +54,7 @@
 	var JThreeContext = __webpack_require__(2);
 	var JThreeContextProxy = __webpack_require__(51);
 	var $ = __webpack_require__(10);
-	var JThreeInterface = __webpack_require__(213);
+	var JThreeInterface = __webpack_require__(216);
 	var JThreeStatic = (function () {
 	    function JThreeStatic() {
 	    }
@@ -106,11 +106,11 @@
 	};
 	var ContextTimer = __webpack_require__(3);
 	var GomlLoader = __webpack_require__(7);
-	var ResourceManager = __webpack_require__(182);
+	var ResourceManager = __webpack_require__(185);
 	var JThreeObject = __webpack_require__(5);
-	var CanvasListChangedEventArgs = __webpack_require__(211);
-	var SceneManager = __webpack_require__(212);
-	var ListStateChangedType = __webpack_require__(185);
+	var CanvasListChangedEventArgs = __webpack_require__(214);
+	var SceneManager = __webpack_require__(215);
+	var ListStateChangedType = __webpack_require__(188);
 	var JThreeCollection = __webpack_require__(56);
 	var JThreeEvent = __webpack_require__(12);
 	var JThreeContext = (function (_super) {
@@ -349,8 +349,8 @@
 	var AssociativeArray = __webpack_require__(8);
 	var ComponentRegistry = __webpack_require__(13);
 	var GomlLoaderConfigurator = __webpack_require__(14);
-	var ComponentRunner = __webpack_require__(180);
-	var PluginLoader = __webpack_require__(181);
+	var ComponentRunner = __webpack_require__(183);
+	var PluginLoader = __webpack_require__(184);
 	var GomlLoader = (function (_super) {
 	    __extends(GomlLoader, _super);
 	    function GomlLoader() {
@@ -11780,6 +11780,12 @@
 	    }),
 	    new GomlNodeListElement("jthree.template", __webpack_require__(178), {
 	        "TEMPLATE": __webpack_require__(179)
+	    }),
+	    new GomlNodeListElement("jthree.pmx", __webpack_require__(180), {
+	        "MORPH": __webpack_require__(181)
+	    }),
+	    new GomlNodeListElement("jthree.pmx", __webpack_require__(50), {
+	        "MORPHS": __webpack_require__(182)
 	    })
 	];
 	module.exports = gomlList;
@@ -12098,6 +12104,17 @@
 	            if (typeof v.Value !== 'undefined')
 	                v.notifyValueChanged();
 	        });
+	    };
+	    AttributeDictionary.prototype.updateValue = function (attrName) {
+	        if (typeof attrName === 'undefined') {
+	            this.attributes.each(function (v) {
+	                v.notifyValueChanged();
+	            });
+	        }
+	        else {
+	            var target = this.attributes.getById(attrName);
+	            target.notifyValueChanged();
+	        }
 	    };
 	    return AttributeDictionary;
 	})(JThreeObject);
@@ -18587,7 +18604,6 @@
 	        return null;
 	    };
 	    SceneObjectNodeBase.prototype.targetUpdated = function () {
-	        this.beforeLoad();
 	    };
 	    SceneObjectNodeBase.prototype.beforeLoad = function () {
 	        _super.prototype.beforeLoad.call(this);
@@ -18605,9 +18621,7 @@
 	                this.ContainedSceneNode.targetScene.addRenderQueue(this.targetSceneObject);
 	            }
 	        }
-	        this.targetSceneObject.Transformer.Position = this.Position;
-	        this.targetSceneObject.Transformer.Rotation = this.Rotation;
-	        this.targetSceneObject.Transformer.Scale = this.Scale;
+	        this.attributes.applyDefaultValue();
 	    };
 	    Object.defineProperty(SceneObjectNodeBase.prototype, "ContainedSceneNode", {
 	        get: function () {
@@ -19348,17 +19362,36 @@
 	};
 	var SceneObjectNodeBase = __webpack_require__(145);
 	var PMXModel = __webpack_require__(161);
+	var JThreeEvent = __webpack_require__(12);
 	var PMXNode = (function (_super) {
 	    __extends(PMXNode, _super);
 	    function PMXNode(elem, loader, parent, parentSceneNode, parentObject) {
 	        _super.call(this, elem, loader, parent, parentSceneNode, parentObject);
 	        this.pmxModel = null;
+	        this.pmxTargetUpdated = new JThreeEvent();
 	        this.attributes.defineAttribute({
 	            "url": {
 	                converter: "string", value: ""
 	            }
 	        });
 	    }
+	    Object.defineProperty(PMXNode.prototype, "PMXModel", {
+	        get: function () {
+	            return this.pmxModel;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXNode.prototype, "PMXModelReady", {
+	        get: function () {
+	            return this.PMXModel != null;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    PMXNode.prototype.onPMXTargetUpdate = function (handler) {
+	        this.pmxTargetUpdated.addListerner(handler);
+	    };
 	    PMXNode.prototype.ConstructTarget = function () {
 	        return this.pmxModel;
 	    };
@@ -19368,7 +19401,11 @@
 	        PMXModel.LoadFromUrl(this.attributes.getValue("url"), function (m) {
 	            _this.pmxModel = m;
 	            _this.targetUpdated();
+	            _this.pmxTargetUpdated.fire(_this, m);
 	        });
+	    };
+	    PMXNode.prototype.targetUpdated = function () {
+	        _super.prototype.beforeLoad.call(this);
 	    };
 	    PMXNode.prototype.Load = function () {
 	        _super.prototype.Load.call(this);
@@ -19389,26 +19426,31 @@
 	    d.prototype = new __();
 	};
 	var SceneObject = __webpack_require__(92);
-	var PMXModelData = __webpack_require__(168);
-	var PMXGeometry = __webpack_require__(169);
-	var PMXMaterial = __webpack_require__(162);
+	var PMXModelData = __webpack_require__(162);
+	var PMXGeometry = __webpack_require__(163);
+	var PMXMaterial = __webpack_require__(164);
 	var PMXSkeleton = __webpack_require__(170);
 	var PMXMorphManager = __webpack_require__(173);
+	var AssociativeArray = __webpack_require__(8);
 	var PMXModel = (function (_super) {
 	    __extends(PMXModel, _super);
 	    function PMXModel(pmx, resourceDirectory) {
 	        _super.call(this);
+	        this.materialDictionary = new AssociativeArray();
 	        this.modelData = pmx;
 	        this.geometry = new PMXGeometry(pmx);
 	        this.skeleton = new PMXSkeleton(this);
+	        this.pmxMaterials = new Array(pmx.Materials.length);
 	        var offset = 0;
 	        for (var materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
 	            var currentMat = pmx.Materials[materialCount];
-	            this.addMaterial(new PMXMaterial(this, materialCount, offset, resourceDirectory));
+	            var mat = new PMXMaterial(this, materialCount, offset, resourceDirectory);
+	            this.addMaterial(mat);
+	            this.pmxMaterials[materialCount] = mat;
+	            this.materialDictionary.set(currentMat.materialName, mat);
 	            offset += currentMat.vertexCount;
 	        }
 	        this.morphManager = new PMXMorphManager(this);
-	        this.morphManager.getMorphByName("ウインク").Progress = 1.0;
 	    }
 	    PMXModel.LoadFromUrl = function (url, onComplete) {
 	        var targetUrl = url;
@@ -19424,6 +19466,12 @@
 	        };
 	        oReq.send(null);
 	    };
+	    PMXModel.prototype.getPMXMaterialByName = function (name) {
+	        return this.materialDictionary.get(name);
+	    };
+	    PMXModel.prototype.getPMXMaterialByIndex = function (index) {
+	        return this.pmxMaterials[index];
+	    };
 	    Object.defineProperty(PMXModel.prototype, "ModelData", {
 	        get: function () {
 	            return this.modelData;
@@ -19434,6 +19482,20 @@
 	    Object.defineProperty(PMXModel.prototype, "Skeleton", {
 	        get: function () {
 	            return this.skeleton;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXModel.prototype, "Materials", {
+	        get: function () {
+	            return this.pmxMaterials;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXModel.prototype, "MorphManager", {
+	        get: function () {
+	            return this.morphManager;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -19449,222 +19511,6 @@
 
 /***/ },
 /* 162 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = this.__extends || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    __.prototype = b.prototype;
-	    d.prototype = new __();
-	};
-	var Material = __webpack_require__(124);
-	var JThreeContextProxy = __webpack_require__(51);
-	var Matrix = __webpack_require__(94);
-	var Color4 = __webpack_require__(38);
-	var Color3 = __webpack_require__(43);
-	var GLCullMode = __webpack_require__(103);
-	var GLFeatureType = __webpack_require__(106);
-	var BlendFuncParamType = __webpack_require__(163);
-	var PMXMaterial = (function (_super) {
-	    __extends(PMXMaterial, _super);
-	    function PMXMaterial(pmx, index, offset, directory) {
-	        _super.call(this);
-	        this.edgeColor = null;
-	        this.sphere = null;
-	        this.texture = null;
-	        this.toon = null;
-	        this.parentModel = pmx;
-	        this.pmxData = pmx.ModelData;
-	        this.materialIndex = index;
-	        var materialData = this.pmxData.Materials[index];
-	        this.verticiesCount = materialData.vertexCount;
-	        this.verticiesOffset = offset;
-	        this.Name = materialData.materialName;
-	        this.CullEnabled = !((materialData.drawFlag & 0x01) > 0);
-	        this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
-	        this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
-	        if ((materialData.drawFlag & 0x10) > 0)
-	            this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);
-	        this.edgeSize = materialData.edgeSize;
-	        this.sphereMode = materialData.sphereMode;
-	        var vs = __webpack_require__(164);
-	        var fs = __webpack_require__(165);
-	        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
-	        var vs = __webpack_require__(166);
-	        var fs = __webpack_require__(167);
-	        this.edgeProgram = this.loadProgram("jthree.shaders.vertex.pmx.edge", "jthree.shaders.fragment.pmx.edge", "jthree.programs.pmx.edge", vs, fs);
-	        this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere", directory);
-	        this.texture = this.loadPMXTexture(materialData.textureIndex, "texture", directory);
-	        if (materialData.sharedToonFlag == 0) {
-	            this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon", directory);
-	        }
-	        this.setLoaded();
-	    }
-	    Object.defineProperty(PMXMaterial.prototype, "VerticiesCount", {
-	        get: function () {
-	            return this.verticiesCount;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(PMXMaterial.prototype, "VerticiesOffset", {
-	        get: function () {
-	            return this.verticiesOffset;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(PMXMaterial.prototype, "Diffuse", {
-	        get: function () {
-	            return this.diffuse;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(PMXMaterial.prototype, "PassCount", {
-	        get: function () {
-	            return this.edgeColor == null ? 1 : 2;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    PMXMaterial.prototype.configureMaterial = function (scene, renderer, object, texs, pass) {
-	        if (pass == 1) {
-	            this.configureEdgeMaterial(renderer, object);
-	            return;
-	        }
-	        if (!this.program)
-	            return;
-	        _super.prototype.configureMaterial.call(this, scene, renderer, object, texs);
-	        renderer.GLContext.Enable(GLFeatureType.DepthTest);
-	        renderer.GLContext.Enable(GLFeatureType.Blend);
-	        renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
-	        var id = renderer.ID;
-	        var geometry = object.Geometry;
-	        var programWrapper = this.program.getForContext(renderer.ContextManager);
-	        programWrapper.useProgram();
-	        var v = object.Transformer.calculateMVPMatrix(renderer);
-	        programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
-	        programWrapper.registerTexture(renderer, this.texture, 1, "u_texture");
-	        programWrapper.registerTexture(renderer, this.toon, 2, "u_toon");
-	        programWrapper.registerTexture(renderer, this.sphere, 3, "u_sphere");
-	        programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 4, "u_boneMatricies");
-	        programWrapper.setUniform1i("u_textureUsed", this.texture == null || this.texture.ImageSource == null ? 0 : 1);
-	        programWrapper.setUniform1i("u_sphereMode", this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode);
-	        programWrapper.setUniform1i("u_toonFlag", this.toon == null || this.toon.ImageSource == null ? 0 : 1);
-	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setUniformMatrix("matMVP", v);
-	        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
-	        programWrapper.setUniformVector("u_ambient", this.ambient.toVector());
-	        programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
-	        programWrapper.setUniform1f("u_matIndex", this.materialIndex);
-	        programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
-	        geometry.bindIndexBuffer(renderer.ContextManager);
-	    };
-	    PMXMaterial.prototype.configureEdgeMaterial = function (renderer, object) {
-	        if (!this.program)
-	            return;
-	        renderer.GLContext.Enable(GLFeatureType.CullFace);
-	        renderer.GLContext.CullFace(GLCullMode.Front);
-	        var id = renderer.ID;
-	        var geometry = object.Geometry;
-	        var programWrapper = this.edgeProgram.getForContext(renderer.ContextManager);
-	        programWrapper.useProgram();
-	        programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 0, "u_boneMatricies");
-	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("edgeScaling", geometry.edgeSizeBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
-	        programWrapper.setUniform1f("u_edgeSize", this.edgeSize);
-	        programWrapper.setUniformVector("u_edgeColor", this.edgeColor.toVector());
-	        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
-	        programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
-	        geometry.bindIndexBuffer(renderer.ContextManager);
-	    };
-	    PMXMaterial.prototype.loadPMXTexture = function (index, prefix, directory) {
-	        if (index < 0)
-	            return null;
-	        var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
-	        var resourceName = "jthree.pmx." + prefix + "." + index;
-	        if (rm.getTexture(resourceName)) {
-	            return rm.getTexture(resourceName);
-	        }
-	        else {
-	            var texture = rm.createTextureWithSource(resourceName, null);
-	            var img = new Image();
-	            img.onload = function () {
-	                texture.ImageSource = img;
-	            };
-	            img.src = directory + this.pmxData.Textures[index];
-	            return texture;
-	        }
-	    };
-	    Object.defineProperty(PMXMaterial.prototype, "Priorty", {
-	        get: function () {
-	            return 100 + this.materialIndex;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return PMXMaterial;
-	})(Material);
-	module.exports = PMXMaterial;
-
-
-/***/ },
-/* 163 */
-/***/ function(module, exports) {
-
-	var BlendFuncParamType;
-	(function (BlendFuncParamType) {
-	    BlendFuncParamType[BlendFuncParamType["Zero"] = 0] = "Zero";
-	    BlendFuncParamType[BlendFuncParamType["One"] = 1] = "One";
-	    BlendFuncParamType[BlendFuncParamType["SrcColor"] = 768] = "SrcColor";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusSrcColor"] = 769] = "OneMinusSrcColor";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusDstColor"] = 775] = "OneMinusDstColor";
-	    BlendFuncParamType[BlendFuncParamType["SrcAlpha"] = 770] = "SrcAlpha";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusSrcAlpha"] = 771] = "OneMinusSrcAlpha";
-	    BlendFuncParamType[BlendFuncParamType["DstAlpha"] = 772] = "DstAlpha";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusDstAlpha"] = 773] = "OneMinusDstAlpha";
-	    BlendFuncParamType[BlendFuncParamType["ConstantColor"] = 32769] = "ConstantColor";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusConstantColor"] = 32770] = "OneMinusConstantColor";
-	    BlendFuncParamType[BlendFuncParamType["ConstantAlpha"] = 32771] = "ConstantAlpha";
-	    BlendFuncParamType[BlendFuncParamType["OneMinusConstantAlpha"] = 32772] = "OneMinusConstantAlpha";
-	    BlendFuncParamType[BlendFuncParamType["SrcAlphaSaturate"] = 776] = "SrcAlphaSaturate";
-	})(BlendFuncParamType || (BlendFuncParamType = {}));
-	module.exports = BlendFuncParamType;
-
-
-/***/ },
-/* 164 */
-/***/ function(module, exports) {
-
-	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute vec2 uv;\r\nattribute vec4 boneWeights;\r\nattribute vec4 boneIndicies;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matVP;\r\n\r\nvarying vec3 v_normal;\r\nvarying vec2 v_uv;\r\nvarying vec4 v_pos;\r\nvarying vec2 v_spuv;\r\n\r\n\r\nuniform mediump sampler2D u_boneMatricies;\r\nuniform float u_boneCount;\r\n\r\nmat4 matFromIndex(float index)\r\n{\r\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\r\n\ty=1.-y;\r\n\treturn mat4(\r\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\r\n}\r\n\r\nmat4 getBoneTransform()\r\n{\r\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\r\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\r\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\r\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\r\n}\r\n\r\nvoid main(void){\r\nmat4 boneTransform=getBoneTransform();\r\nv_pos=gl_Position = matVP*boneTransform*vec4(position,1.0);\r\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\r\nv_spuv=v_normal.xy/2.+vec2(0.5,0.5);\r\nv_uv=uv;\t\r\n}\r\n"
-
-/***/ },
-/* 165 */
-/***/ function(module, exports) {
-
-	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform vec4 u_diffuse;\r\n\r\nuniform vec4 u_specular;\r\nuniform vec3 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\nuniform sampler2D u_texture;\r\nuniform sampler2D u_sphere;\r\nuniform sampler2D u_toon;\r\nvarying vec2 v_spuv;\r\nuniform int u_textureUsed;\r\nuniform int u_sphereMode;\r\nuniform int u_toonFlag;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\r\n{\r\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\r\n}\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  adjuv.y=1.-adjuv.y;\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgba=u_diffuse;\r\n    if(u_textureUsed>0) gl_FragColor.rgba=texture2D(u_texture,adjuv);\r\n    if(u_sphereMode==1)\r\n    {\r\n          gl_FragColor.rgb*=texture2D(u_sphere,v_spuv).rgb;\r\n    }else if(u_sphereMode==2)\r\n    {\r\n      gl_FragColor.rgb+=texture2D(u_sphere,v_spuv).rgb;\r\n    }\r\n\r\n    vec3 lc=texture2D(u_light,lightUV).rgb;\r\n    float l=0.2;//length(lc)/1.732;\r\n    if(u_toonFlag==1)\r\n    {\r\n          gl_FragColor.rgb*=texture2D(u_toon,vec2(0,1.-l)).rgb*l;\r\n    }else\r\n    {\r\n          gl_FragColor.rgb*=l;\r\n    }\r\n    gl_FragColor.rgb+=u_ambient;\r\n}\r\n"
-
-/***/ },
-/* 166 */
-/***/ function(module, exports) {
-
-	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute float edgeScaling;\r\nattribute vec4 boneWeights;\r\nattribute vec4 boneIndicies;\r\n\r\nuniform mat4 matVP;\r\nuniform float u_edgeSize;\r\n\r\n\r\nuniform mediump sampler2D u_boneMatricies;\r\nuniform float u_boneCount;\r\n\r\nmat4 matFromIndex(float index)\r\n{\r\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\r\n\ty=1.-y;\r\n\treturn mat4(\r\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\r\n}\r\n\r\nmat4 getBoneTransform()\r\n{\r\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\r\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\r\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\r\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\r\n}\r\nvoid main(void){\r\n\tmat4 matMVP=matVP*getBoneTransform();\r\n\tvec4 p0 = matMVP*vec4(position,1);\r\n\tvec4 p1 = matMVP*vec4(position+normal,1);\r\n\tp0.xy/=p0.w;\r\n\tp1.xy/=p1.w;\r\n\tfloat coeff=(512./2.0)*distance(p0.xy,p1.xy);\r\n\tif(coeff > 1.0) coeff = 1.0/coeff;\r\n\tcoeff*=u_edgeSize*edgeScaling;\r\n\tgl_Position = matMVP*vec4(position + coeff*normal,1);\r\n}\r\n"
-
-/***/ },
-/* 167 */
-/***/ function(module, exports) {
-
-	module.exports = "precision mediump float;\r\nuniform vec4 u_edgeColor;\r\n\r\nvoid main(void)\r\n{\r\n   gl_FragColor=u_edgeColor;\r\n}"
-
-/***/ },
-/* 168 */
 /***/ function(module, exports) {
 
 	var PMX = (function () {
@@ -20158,7 +20004,7 @@
 
 
 /***/ },
-/* 169 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -20223,6 +20069,258 @@
 	})(Geometry);
 	module.exports = PMXGeometry;
 
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var Material = __webpack_require__(124);
+	var JThreeContextProxy = __webpack_require__(51);
+	var Vector3 = __webpack_require__(24);
+	var Vector4 = __webpack_require__(39);
+	var Matrix = __webpack_require__(94);
+	var Color4 = __webpack_require__(38);
+	var Color3 = __webpack_require__(43);
+	var GLCullMode = __webpack_require__(103);
+	var GLFeatureType = __webpack_require__(106);
+	var BlendFuncParamType = __webpack_require__(165);
+	var PMXMaterialMorphParamContainer = (function () {
+	    function PMXMaterialMorphParamContainer(calcFlag) {
+	        this.calcFlag = calcFlag;
+	        var def = 1 - calcFlag;
+	        this.diffuse = [def, def, def, def];
+	        this.specular = [def, def, def, def];
+	        this.ambient = [def, def, def];
+	        this.edgeColor = [def, def, def, def];
+	        this.edgeSize = def;
+	        this.textureCoeff = [def, def, def, def];
+	        this.sphereCoeff = [def, def, def, def];
+	        this.toonCoeff = [def, def, def, def];
+	    }
+	    PMXMaterialMorphParamContainer.calcMorphedSingleValue = function (base, add, mul, target) {
+	        return base * target(mul) + target(add);
+	    };
+	    PMXMaterialMorphParamContainer.calcMorphedVectorValue = function (base, add, mul, target, vecLength) {
+	        switch (vecLength) {
+	            case 3:
+	                return new Vector3(base.X * target(mul)[0] + target(add)[0], base.Y * target(mul)[1] + target(add)[1], base.Z * target(mul)[2] + target(add)[2]);
+	            case 4:
+	                return new Vector4(base.X * target(mul)[0] + target(add)[0], base.Y * target(mul)[1] + target(add)[1], base.Z * target(mul)[2] + target(add)[2], base.W * target(mul)[3] + target(add)[3]);
+	        }
+	    };
+	    return PMXMaterialMorphParamContainer;
+	})();
+	var PMXMaterial = (function (_super) {
+	    __extends(PMXMaterial, _super);
+	    function PMXMaterial(pmx, index, offset, directory) {
+	        _super.call(this);
+	        this.edgeColor = null;
+	        this.sphere = null;
+	        this.texture = null;
+	        this.toon = null;
+	        this.addMorphParam = new PMXMaterialMorphParamContainer(1);
+	        this.mulMorphParam = new PMXMaterialMorphParamContainer(0);
+	        this.parentModel = pmx;
+	        this.pmxData = pmx.ModelData;
+	        this.materialIndex = index;
+	        var materialData = this.pmxData.Materials[index];
+	        this.verticiesCount = materialData.vertexCount;
+	        this.verticiesOffset = offset;
+	        this.Name = materialData.materialName;
+	        this.CullEnabled = !((materialData.drawFlag & 0x01) > 0);
+	        this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
+	        this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
+	        if ((materialData.drawFlag & 0x10) > 0)
+	            this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);
+	        this.edgeSize = materialData.edgeSize;
+	        this.sphereMode = materialData.sphereMode;
+	        var vs = __webpack_require__(166);
+	        var fs = __webpack_require__(167);
+	        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
+	        var vs = __webpack_require__(168);
+	        var fs = __webpack_require__(169);
+	        this.edgeProgram = this.loadProgram("jthree.shaders.vertex.pmx.edge", "jthree.shaders.fragment.pmx.edge", "jthree.programs.pmx.edge", vs, fs);
+	        this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere", directory);
+	        this.texture = this.loadPMXTexture(materialData.textureIndex, "texture", directory);
+	        if (materialData.sharedToonFlag == 0) {
+	            this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon", directory);
+	        }
+	        this.setLoaded();
+	    }
+	    Object.defineProperty(PMXMaterial.prototype, "VerticiesCount", {
+	        get: function () {
+	            return this.verticiesCount;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXMaterial.prototype, "VerticiesOffset", {
+	        get: function () {
+	            return this.verticiesOffset;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXMaterial.prototype, "Diffuse", {
+	        get: function () {
+	            return this.diffuse;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXMaterial.prototype, "PassCount", {
+	        get: function () {
+	            return this.edgeColor == null ? 1 : 2;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    PMXMaterial.prototype.configureMaterial = function (scene, renderer, object, texs, pass) {
+	        if (pass == 1) {
+	            this.configureEdgeMaterial(renderer, object);
+	            return;
+	        }
+	        if (!this.program)
+	            return;
+	        _super.prototype.configureMaterial.call(this, scene, renderer, object, texs);
+	        renderer.GLContext.Enable(GLFeatureType.DepthTest);
+	        renderer.GLContext.Enable(GLFeatureType.Blend);
+	        renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
+	        var id = renderer.ID;
+	        var geometry = object.Geometry;
+	        var programWrapper = this.program.getForContext(renderer.ContextManager);
+	        programWrapper.useProgram();
+	        var v = object.Transformer.calculateMVPMatrix(renderer);
+	        programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
+	        programWrapper.registerTexture(renderer, this.texture, 1, "u_texture");
+	        programWrapper.registerTexture(renderer, this.toon, 2, "u_toon");
+	        programWrapper.registerTexture(renderer, this.sphere, 3, "u_sphere");
+	        programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 4, "u_boneMatricies");
+	        programWrapper.setUniform1i("u_textureUsed", this.texture == null || this.texture.ImageSource == null ? 0 : 1);
+	        programWrapper.setUniform1i("u_sphereMode", this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode);
+	        programWrapper.setUniform1i("u_toonFlag", this.toon == null || this.toon.ImageSource == null ? 0 : 1);
+	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setUniformMatrix("matMVP", v);
+	        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
+	        programWrapper.setUniformVector("u_ambient", PMXMaterialMorphParamContainer.calcMorphedVectorValue(this.ambient.toVector(), this.addMorphParam, this.mulMorphParam, function (t) { return t.ambient; }, 3));
+	        programWrapper.setUniformVector("u_diffuse", PMXMaterialMorphParamContainer.calcMorphedVectorValue(this.diffuse.toVector(), this.addMorphParam, this.mulMorphParam, function (t) { return t.diffuse; }, 4));
+	        programWrapper.setUniform1f("u_matIndex", this.materialIndex);
+	        programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
+	        programWrapper.setUniformVector("u_addTexCoeff", new Vector4(this.addMorphParam.textureCoeff));
+	        programWrapper.setUniformVector("u_mulTexCoeff", new Vector4(this.mulMorphParam.textureCoeff));
+	        programWrapper.setUniformVector("u_addSphereCoeff", new Vector4(this.addMorphParam.sphereCoeff));
+	        programWrapper.setUniformVector("u_mulSphereCoeff", new Vector4(this.mulMorphParam.sphereCoeff));
+	        programWrapper.setUniformVector("u_addToonCoeff", new Vector4(this.addMorphParam.toonCoeff));
+	        programWrapper.setUniformVector("u_mulToonCoeff", new Vector4(this.mulMorphParam.toonCoeff));
+	        geometry.bindIndexBuffer(renderer.ContextManager);
+	    };
+	    PMXMaterial.prototype.configureEdgeMaterial = function (renderer, object) {
+	        if (!this.program)
+	            return;
+	        renderer.GLContext.Enable(GLFeatureType.CullFace);
+	        renderer.GLContext.CullFace(GLCullMode.Front);
+	        var id = renderer.ID;
+	        var geometry = object.Geometry;
+	        var programWrapper = this.edgeProgram.getForContext(renderer.ContextManager);
+	        programWrapper.useProgram();
+	        programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 0, "u_boneMatricies");
+	        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("edgeScaling", geometry.edgeSizeBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
+	        programWrapper.setUniform1f("u_edgeSize", PMXMaterialMorphParamContainer.calcMorphedSingleValue(this.edgeSize, this.addMorphParam, this.mulMorphParam, function (t) { return t.edgeSize; }));
+	        programWrapper.setUniformVector("u_edgeColor", PMXMaterialMorphParamContainer.calcMorphedVectorValue(this.edgeColor.toVector(), this.addMorphParam, this.mulMorphParam, function (t) { return t.edgeColor; }, 4));
+	        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
+	        programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
+	        geometry.bindIndexBuffer(renderer.ContextManager);
+	    };
+	    PMXMaterial.prototype.loadPMXTexture = function (index, prefix, directory) {
+	        if (index < 0)
+	            return null;
+	        var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
+	        var resourceName = "jthree.pmx." + prefix + "." + index;
+	        if (rm.getTexture(resourceName)) {
+	            return rm.getTexture(resourceName);
+	        }
+	        else {
+	            var texture = rm.createTextureWithSource(resourceName, null);
+	            var img = new Image();
+	            img.onload = function () {
+	                texture.ImageSource = img;
+	            };
+	            img.src = directory + this.pmxData.Textures[index];
+	            return texture;
+	        }
+	    };
+	    Object.defineProperty(PMXMaterial.prototype, "Priorty", {
+	        get: function () {
+	            return 100 + this.materialIndex;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return PMXMaterial;
+	})(Material);
+	module.exports = PMXMaterial;
+
+
+/***/ },
+/* 165 */
+/***/ function(module, exports) {
+
+	var BlendFuncParamType;
+	(function (BlendFuncParamType) {
+	    BlendFuncParamType[BlendFuncParamType["Zero"] = 0] = "Zero";
+	    BlendFuncParamType[BlendFuncParamType["One"] = 1] = "One";
+	    BlendFuncParamType[BlendFuncParamType["SrcColor"] = 768] = "SrcColor";
+	    BlendFuncParamType[BlendFuncParamType["OneMinusSrcColor"] = 769] = "OneMinusSrcColor";
+	    BlendFuncParamType[BlendFuncParamType["OneMinusDstColor"] = 775] = "OneMinusDstColor";
+	    BlendFuncParamType[BlendFuncParamType["SrcAlpha"] = 770] = "SrcAlpha";
+	    BlendFuncParamType[BlendFuncParamType["OneMinusSrcAlpha"] = 771] = "OneMinusSrcAlpha";
+	    BlendFuncParamType[BlendFuncParamType["DstAlpha"] = 772] = "DstAlpha";
+	    BlendFuncParamType[BlendFuncParamType["OneMinusDstAlpha"] = 773] = "OneMinusDstAlpha";
+	    BlendFuncParamType[BlendFuncParamType["ConstantColor"] = 32769] = "ConstantColor";
+	    BlendFuncParamType[BlendFuncParamType["OneMinusConstantColor"] = 32770] = "OneMinusConstantColor";
+	    BlendFuncParamType[BlendFuncParamType["ConstantAlpha"] = 32771] = "ConstantAlpha";
+	    BlendFuncParamType[BlendFuncParamType["OneMinusConstantAlpha"] = 32772] = "OneMinusConstantAlpha";
+	    BlendFuncParamType[BlendFuncParamType["SrcAlphaSaturate"] = 776] = "SrcAlphaSaturate";
+	})(BlendFuncParamType || (BlendFuncParamType = {}));
+	module.exports = BlendFuncParamType;
+
+
+/***/ },
+/* 166 */
+/***/ function(module, exports) {
+
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute vec2 uv;\r\nattribute vec4 boneWeights;\r\nattribute vec4 boneIndicies;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matVP;\r\n\r\nvarying vec3 v_normal;\r\nvarying vec2 v_uv;\r\nvarying vec4 v_pos;\r\nvarying vec2 v_spuv;\r\n\r\n\r\nuniform mediump sampler2D u_boneMatricies;\r\nuniform float u_boneCount;\r\n\r\nmat4 matFromIndex(float index)\r\n{\r\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\r\n\ty=1.-y;\r\n\treturn mat4(\r\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\r\n}\r\n\r\nmat4 getBoneTransform()\r\n{\r\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\r\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\r\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\r\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\r\n}\r\n\r\nvoid main(void){\r\nmat4 boneTransform=getBoneTransform();\r\nv_pos=gl_Position = matVP*boneTransform*vec4(position,1.0);\r\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\r\nv_spuv=v_normal.xy/2.+vec2(0.5,0.5);\r\nv_uv=uv;\t\r\n}\r\n"
+
+/***/ },
+/* 167 */
+/***/ function(module, exports) {
+
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform vec4 u_diffuse;\r\n\r\nuniform vec4 u_specular;\r\nuniform vec3 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\nuniform sampler2D u_texture;\r\nuniform sampler2D u_sphere;\r\nuniform sampler2D u_toon;\r\nvarying vec2 v_spuv;\r\nuniform int u_textureUsed;\r\nuniform int u_sphereMode;\r\nuniform int u_toonFlag;\r\nuniform vec4 u_addTexCoeff;\r\nuniform vec4 u_mulTexCoeff;\r\nuniform vec4 u_addSphereCoeff;\r\nuniform vec4 u_mulSphereCoeff;\r\nuniform vec4 u_addToonCoeff;\r\nuniform vec4 u_mulToonCoeff;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\r\n{\r\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\r\n}\r\n\r\nvec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)\r\n{\r\n    vec4 result=texture2D(source,uv);\r\n    result.rgb=mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);\r\n    result.rgb=result.rgb*mulCoeff.rgb+addCoeff.rgb;\r\n    return result;\r\n}\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  adjuv.y=1.-adjuv.y;\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgba=u_diffuse;\r\n    if(u_textureUsed>0) gl_FragColor.rgba*=blendPMXTexture(u_texture,adjuv,u_addTexCoeff,u_mulTexCoeff);\r\n    if(u_sphereMode==1)\r\n    {\r\n      gl_FragColor.rgb*=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;\r\n    }else if(u_sphereMode==2)\r\n    {\r\n      gl_FragColor.rgb+=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;\r\n    }\r\n    vec3 lc=texture2D(u_light,lightUV).rgb;\r\n    float l=0.2;//length(lc)/1.732;\r\n    if(u_toonFlag==1)\r\n    {\r\n          gl_FragColor.rgb*=blendPMXTexture(u_toon,vec2(0,1.-l),u_addToonCoeff  ,u_mulToonCoeff ).rgb*l;\r\n    }else\r\n    {\r\n          gl_FragColor.rgb*=l;\r\n    }\r\n    gl_FragColor.rgb+=u_ambient;\r\n}\r\n"
+
+/***/ },
+/* 168 */
+/***/ function(module, exports) {
+
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute float edgeScaling;\r\nattribute vec4 boneWeights;\r\nattribute vec4 boneIndicies;\r\n\r\nuniform mat4 matVP;\r\nuniform float u_edgeSize;\r\n\r\n\r\nuniform mediump sampler2D u_boneMatricies;\r\nuniform float u_boneCount;\r\n\r\nmat4 matFromIndex(float index)\r\n{\r\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\r\n\ty=1.-y;\r\n\treturn mat4(\r\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\r\n}\r\n\r\nmat4 getBoneTransform()\r\n{\r\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\r\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\r\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\r\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\r\n}\r\nvoid main(void){\r\n\tmat4 matMVP=matVP*getBoneTransform();\r\n\tvec4 p0 = matMVP*vec4(position,1);\r\n\tvec4 p1 = matMVP*vec4(position+normal,1);\r\n\tp0.xy/=p0.w;\r\n\tp1.xy/=p1.w;\r\n\tfloat coeff=(512./2.0)*distance(p0.xy,p1.xy);\r\n\tif(coeff > 1.0) coeff = 1.0/coeff;\r\n\tcoeff*=u_edgeSize*edgeScaling;\r\n\tgl_Position = matMVP*vec4(position + coeff*normal,1);\r\n}\r\n"
+
+/***/ },
+/* 169 */
+/***/ function(module, exports) {
+
+	module.exports = "precision mediump float;\r\nuniform vec4 u_edgeColor;\r\n\r\nvoid main(void)\r\n{\r\n   gl_FragColor=u_edgeColor;\r\n}"
 
 /***/ },
 /* 170 */
@@ -20435,6 +20533,9 @@
 	    PMXMorphManager.prototype.getMorphByName = function (name) {
 	        return this.morphsDictionary.get(name);
 	    };
+	    PMXMorphManager.prototype.getMorphByIndex = function (index) {
+	        return this.morphs[index];
+	    };
 	    return PMXMorphManager;
 	})();
 	module.exports = PMXMorphManager;
@@ -20461,10 +20562,14 @@
 	    PMXMorph.CreateMorph = function (model, index, morphManager) {
 	        var morphData = model.ModelData.Morphs[index];
 	        switch (morphData.morphKind) {
+	            case 0:
+	                return new PMXGroupMorph(model, index, morphManager);
 	            case 1:
 	                return new PMXVertexMorph(model, index, morphManager);
 	            case 3:
 	                return new PMXUVMorph(model, index, morphManager);
+	            case 8:
+	                return new PMXMaterialMorph(model, index, morphManager);
 	            default:
 	                return null;
 	        }
@@ -20553,6 +20658,56 @@
 	        }
 	    };
 	    return PMXUVMorph;
+	})(PMXMorph);
+	var PMXGroupMorph = (function (_super) {
+	    __extends(PMXGroupMorph, _super);
+	    function PMXGroupMorph() {
+	        _super.apply(this, arguments);
+	    }
+	    PMXGroupMorph.prototype.updateProgress = function (current, last) {
+	        var ratio = current - last;
+	        for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
+	            var vm = this.TargetMorphData.groupMorph[i];
+	            this.morphManager.getMorphByIndex(vm.morphIndex).Progress += ratio * vm.morphRate;
+	        }
+	    };
+	    return PMXGroupMorph;
+	})(PMXMorph);
+	var PMXMaterialMorph = (function (_super) {
+	    __extends(PMXMaterialMorph, _super);
+	    function PMXMaterialMorph() {
+	        _super.apply(this, arguments);
+	    }
+	    PMXMaterialMorph.prototype.updateProgress = function (current, last) {
+	        var ratio = current - last;
+	        for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
+	            var vm = this.TargetMorphData.materialMorph[i];
+	            if (vm.materialIndex == -1) {
+	                var targetMaterials = this.model.Materials;
+	            }
+	            else {
+	                var targetMaterials = [this.model.getPMXMaterialByIndex(vm.materialIndex)];
+	            }
+	            for (var j = 0; j < targetMaterials.length; j++) {
+	                var targetMaterial = targetMaterials[j];
+	                var target = vm.operationType == 1 ? targetMaterial.addMorphParam : targetMaterial.mulMorphParam;
+	                target.edgeSize += ratio * (vm.edgeSize + vm.operationType - 1);
+	                this.assignMorphValues(3, target.ambient, vm.ambient, ratio, vm.operationType);
+	                this.assignMorphValues(4, target.diffuse, vm.diffuse, ratio, vm.operationType);
+	                this.assignMorphValues(4, target.specular, vm.specular, ratio, vm.operationType);
+	                this.assignMorphValues(4, target.edgeColor, vm.edgeColor, ratio, vm.operationType);
+	                this.assignMorphValues(4, target.textureCoeff, vm.textureCoefficient, ratio, vm.operationType);
+	                this.assignMorphValues(4, target.sphereCoeff, vm.sphereTextureCoefficient, ratio, vm.operationType);
+	                this.assignMorphValues(4, target.toonCoeff, vm.toonTextureCoefficient, ratio, vm.operationType);
+	            }
+	        }
+	    };
+	    PMXMaterialMorph.prototype.assignMorphValues = function (vecLength, target, morphValues, ratio, opType) {
+	        for (var i = 0; i < vecLength; i++) {
+	            target[i] += ratio * (morphValues[i] + opType - 1);
+	        }
+	    };
+	    return PMXMaterialMorph;
 	})(PMXMorph);
 	module.exports = PMXMorph;
 
@@ -20869,6 +21024,105 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
+	var TagFactory = __webpack_require__(50);
+	var PMXMorphTagFactory = (function (_super) {
+	    __extends(PMXMorphTagFactory, _super);
+	    function PMXMorphTagFactory() {
+	        _super.apply(this, arguments);
+	    }
+	    PMXMorphTagFactory.prototype.CreateNodeForThis = function (elem, loader, parent) {
+	        if (parent.getTypeName() === "PMXMorphsNode") {
+	            var castedParent = parent;
+	            return new this.nodeType(elem, loader, parent, castedParent.TargetPMXNode);
+	        }
+	    };
+	    return PMXMorphTagFactory;
+	})(TagFactory);
+	module.exports = PMXMorphTagFactory;
+
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var GomlTreeNodeBase = __webpack_require__(54);
+	var PMXMorphNode = (function (_super) {
+	    __extends(PMXMorphNode, _super);
+	    function PMXMorphNode(elem, loader, parent, pmx) {
+	        var _this = this;
+	        _super.call(this, elem, loader, parent);
+	        this.targetPMX = pmx;
+	        this.targetPMX.onPMXTargetUpdate(function (e, o) { _this.attributes.updateValue(); });
+	        this.attributes.defineAttribute({
+	            "name": {
+	                value: "",
+	                converter: "string"
+	            },
+	            "value": {
+	                value: 0,
+	                converter: "number",
+	                handler: function (v) {
+	                    if (_this.targetPMX.PMXModelReady) {
+	                        var key = _this.attributes.getValue("name");
+	                        var target = _this.targetPMX.PMXModel.MorphManager.getMorphByName(key);
+	                        if (target != null) {
+	                            target.Progress = v.Value;
+	                        }
+	                    }
+	                }
+	            }
+	        });
+	    }
+	    return PMXMorphNode;
+	})(GomlTreeNodeBase);
+	module.exports = PMXMorphNode;
+
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
+	var GomlTreeNodeBase = __webpack_require__(54);
+	var PMXMorphsNode = (function (_super) {
+	    __extends(PMXMorphsNode, _super);
+	    function PMXMorphsNode(elem, loader, parent) {
+	        _super.call(this, elem, loader, parent);
+	        this.targetPMXNode = parent;
+	    }
+	    Object.defineProperty(PMXMorphsNode.prototype, "TargetPMXNode", {
+	        get: function () {
+	            return this.targetPMXNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return PMXMorphsNode;
+	})(GomlTreeNodeBase);
+	module.exports = PMXMorphsNode;
+
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __extends = this.__extends || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    __.prototype = b.prototype;
+	    d.prototype = new __();
+	};
 	var JThreeObject = __webpack_require__(5);
 	var JThreeCollection = __webpack_require__(56);
 	var JThreeObjectWithID = __webpack_require__(31);
@@ -20926,7 +21180,7 @@
 
 
 /***/ },
-/* 181 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AssociativeArray = __webpack_require__(8);
@@ -20998,7 +21252,7 @@
 
 
 /***/ },
-/* 182 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21009,14 +21263,14 @@
 	};
 	var JThreeContextProxy = __webpack_require__(51);
 	var jThreeObject = __webpack_require__(5);
-	var Buffer = __webpack_require__(189);
-	var Shader = __webpack_require__(194);
-	var Program = __webpack_require__(196);
-	var Texture = __webpack_require__(198);
-	var RBO = __webpack_require__(183);
-	var ResourceArray = __webpack_require__(206);
-	var FBO = __webpack_require__(207);
-	var BufferTexture = __webpack_require__(209);
+	var Buffer = __webpack_require__(192);
+	var Shader = __webpack_require__(197);
+	var Program = __webpack_require__(199);
+	var Texture = __webpack_require__(201);
+	var RBO = __webpack_require__(186);
+	var ResourceArray = __webpack_require__(209);
+	var FBO = __webpack_require__(210);
+	var BufferTexture = __webpack_require__(212);
 	var TextureFormat = __webpack_require__(99);
 	var ElementFormat = __webpack_require__(100);
 	var ResourceManager = (function (_super) {
@@ -21122,7 +21376,7 @@
 
 
 /***/ },
-/* 183 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21131,9 +21385,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextSafeResourceContainer = __webpack_require__(184);
-	var RBOWrapper = __webpack_require__(186);
-	var RBOInternalFormatType = __webpack_require__(188);
+	var ContextSafeResourceContainer = __webpack_require__(187);
+	var RBOWrapper = __webpack_require__(189);
+	var RBOInternalFormatType = __webpack_require__(191);
 	var RBO = (function (_super) {
 	    __extends(RBO, _super);
 	    function RBO(context, width, height, format) {
@@ -21176,7 +21430,7 @@
 
 
 /***/ },
-/* 184 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21187,7 +21441,7 @@
 	};
 	var JThreeObject = __webpack_require__(5);
 	var Exceptions = __webpack_require__(9);
-	var ListStateChangedType = __webpack_require__(185);
+	var ListStateChangedType = __webpack_require__(188);
 	var AssociativeArray = __webpack_require__(8);
 	var ContextSafeResourceContainer = (function (_super) {
 	    __extends(ContextSafeResourceContainer, _super);
@@ -21248,7 +21502,7 @@
 
 
 /***/ },
-/* 185 */
+/* 188 */
 /***/ function(module, exports) {
 
 	var ListStateChangedType;
@@ -21260,7 +21514,7 @@
 
 
 /***/ },
-/* 186 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21269,7 +21523,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ResourceWrapper = __webpack_require__(187);
+	var ResourceWrapper = __webpack_require__(190);
 	var RBOWrapper = (function (_super) {
 	    __extends(RBOWrapper, _super);
 	    function RBOWrapper(contextManager, parentRBO) {
@@ -21297,7 +21551,7 @@
 
 
 /***/ },
-/* 187 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21360,7 +21614,7 @@
 
 
 /***/ },
-/* 188 */
+/* 191 */
 /***/ function(module, exports) {
 
 	var RBOInternalFormat;
@@ -21374,7 +21628,7 @@
 
 
 /***/ },
-/* 189 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21383,10 +21637,10 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var BufferProxy = __webpack_require__(190);
-	var BufferWrapper = __webpack_require__(193);
+	var BufferProxy = __webpack_require__(193);
+	var BufferWrapper = __webpack_require__(196);
 	var JThreeContextProxy = __webpack_require__(51);
-	var ListStateChangedType = __webpack_require__(185);
+	var ListStateChangedType = __webpack_require__(188);
 	var AssociativeArray = __webpack_require__(8);
 	var Buffer = (function (_super) {
 	    __extends(Buffer, _super);
@@ -21517,7 +21771,7 @@
 
 
 /***/ },
-/* 190 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21526,8 +21780,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ArrayEnumratorFactory = __webpack_require__(191);
-	var Collection = __webpack_require__(192);
+	var ArrayEnumratorFactory = __webpack_require__(194);
+	var Collection = __webpack_require__(195);
 	var BufferProxy = (function (_super) {
 	    __extends(BufferProxy, _super);
 	    function BufferProxy(parentBuffer, targetProxies) {
@@ -21599,7 +21853,7 @@
 
 
 /***/ },
-/* 191 */
+/* 194 */
 /***/ function(module, exports) {
 
 	var ArrayEnumratorFactory = (function () {
@@ -21631,7 +21885,7 @@
 
 
 /***/ },
-/* 192 */
+/* 195 */
 /***/ function(module, exports) {
 
 	var Collection = (function () {
@@ -21677,7 +21931,7 @@
 
 
 /***/ },
-/* 193 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21686,7 +21940,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var BufferProxy = __webpack_require__(190);
+	var BufferProxy = __webpack_require__(193);
 	var BufferWrapper = (function (_super) {
 	    __extends(BufferWrapper, _super);
 	    function BufferWrapper(parentBuffer, glContext) {
@@ -21791,7 +22045,7 @@
 
 
 /***/ },
-/* 194 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21800,8 +22054,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextSafeContainer = __webpack_require__(184);
-	var ShaderWrapper = __webpack_require__(195);
+	var ContextSafeContainer = __webpack_require__(187);
+	var ShaderWrapper = __webpack_require__(198);
 	var Shader = (function (_super) {
 	    __extends(Shader, _super);
 	    function Shader(context) {
@@ -21845,7 +22099,7 @@
 
 
 /***/ },
-/* 195 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21854,7 +22108,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ResourceWrapper = __webpack_require__(187);
+	var ResourceWrapper = __webpack_require__(190);
 	var ShaderWrapper = (function (_super) {
 	    __extends(ShaderWrapper, _super);
 	    function ShaderWrapper(parent, contextManager) {
@@ -21892,7 +22146,7 @@
 
 
 /***/ },
-/* 196 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21901,8 +22155,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextSafeContainer = __webpack_require__(184);
-	var ProgramWrapper = __webpack_require__(197);
+	var ContextSafeContainer = __webpack_require__(187);
+	var ProgramWrapper = __webpack_require__(200);
 	var Program = (function (_super) {
 	    __extends(Program, _super);
 	    function Program(context) {
@@ -21937,7 +22191,7 @@
 
 
 /***/ },
-/* 197 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -21946,7 +22200,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ResourceWrapper = __webpack_require__(187);
+	var ResourceWrapper = __webpack_require__(190);
 	var AssociativeArray = __webpack_require__(8);
 	var TextureRegister = __webpack_require__(105);
 	var TextureTargetType = __webpack_require__(108);
@@ -22082,7 +22336,7 @@
 
 
 /***/ },
-/* 198 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22091,8 +22345,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var TextureWrapper = __webpack_require__(199);
-	var TextureBase = __webpack_require__(202);
+	var TextureWrapper = __webpack_require__(202);
+	var TextureBase = __webpack_require__(205);
 	var Texture = (function (_super) {
 	    __extends(Texture, _super);
 	    function Texture(context, source) {
@@ -22122,7 +22376,7 @@
 
 
 /***/ },
-/* 199 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22131,7 +22385,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var TextureWrapperBase = __webpack_require__(200);
+	var TextureWrapperBase = __webpack_require__(203);
 	var TextureTargetType = __webpack_require__(108);
 	var TextureInternalFormat = __webpack_require__(99);
 	var TextureType = __webpack_require__(100);
@@ -22163,7 +22417,7 @@
 
 
 /***/ },
-/* 200 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22172,9 +22426,9 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ResourceWrapper = __webpack_require__(187);
+	var ResourceWrapper = __webpack_require__(190);
 	var TextureTargetType = __webpack_require__(108);
-	var TextureParameterType = __webpack_require__(201);
+	var TextureParameterType = __webpack_require__(204);
 	var TextureWrapperBase = (function (_super) {
 	    __extends(TextureWrapperBase, _super);
 	    function TextureWrapperBase(owner, parent) {
@@ -22217,7 +22471,7 @@
 
 
 /***/ },
-/* 201 */
+/* 204 */
 /***/ function(module, exports) {
 
 	var TextureParameterType;
@@ -22231,7 +22485,7 @@
 
 
 /***/ },
-/* 202 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22240,11 +22494,11 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ContextSafeResourceContainer = __webpack_require__(184);
-	var TextureParameterType = __webpack_require__(201);
-	var TextureMinFilterType = __webpack_require__(203);
-	var TextureMagFilterType = __webpack_require__(204);
-	var TextureWrapType = __webpack_require__(205);
+	var ContextSafeResourceContainer = __webpack_require__(187);
+	var TextureParameterType = __webpack_require__(204);
+	var TextureMinFilterType = __webpack_require__(206);
+	var TextureMagFilterType = __webpack_require__(207);
+	var TextureWrapType = __webpack_require__(208);
 	var JThreeEvent = __webpack_require__(12);
 	var TextureTargetType = __webpack_require__(108);
 	var TextureBase = (function (_super) {
@@ -22343,7 +22597,7 @@
 
 
 /***/ },
-/* 203 */
+/* 206 */
 /***/ function(module, exports) {
 
 	var TextureMinFilterType;
@@ -22359,7 +22613,7 @@
 
 
 /***/ },
-/* 204 */
+/* 207 */
 /***/ function(module, exports) {
 
 	var TextureMagFilterType;
@@ -22371,7 +22625,7 @@
 
 
 /***/ },
-/* 205 */
+/* 208 */
 /***/ function(module, exports) {
 
 	var TextureWrapType;
@@ -22384,7 +22638,7 @@
 
 
 /***/ },
-/* 206 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22446,7 +22700,7 @@
 
 
 /***/ },
-/* 207 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22455,8 +22709,8 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var FBOWrapper = __webpack_require__(208);
-	var ContextSafeResourceContainer = __webpack_require__(184);
+	var FBOWrapper = __webpack_require__(211);
+	var ContextSafeResourceContainer = __webpack_require__(187);
 	var FBO = (function (_super) {
 	    __extends(FBO, _super);
 	    function FBO(context) {
@@ -22474,7 +22728,7 @@
 
 
 /***/ },
-/* 208 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22483,7 +22737,7 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var ResourceWrapper = __webpack_require__(187);
+	var ResourceWrapper = __webpack_require__(190);
 	var ClearTargetType = __webpack_require__(78);
 	var FBOWrapper = (function (_super) {
 	    __extends(FBOWrapper, _super);
@@ -22572,7 +22826,7 @@
 
 
 /***/ },
-/* 209 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22581,11 +22835,11 @@
 	    __.prototype = b.prototype;
 	    d.prototype = new __();
 	};
-	var BufferTextureWrapper = __webpack_require__(210);
+	var BufferTextureWrapper = __webpack_require__(213);
 	var ElementFormat = __webpack_require__(100);
-	var TextureMinFilterType = __webpack_require__(203);
-	var TextureMagFilterType = __webpack_require__(204);
-	var TextureBase = __webpack_require__(202);
+	var TextureMinFilterType = __webpack_require__(206);
+	var TextureMagFilterType = __webpack_require__(207);
+	var TextureBase = __webpack_require__(205);
 	var BufferTexture = (function (_super) {
 	    __extends(BufferTexture, _super);
 	    function BufferTexture(context, width, height, textureFormat, elementFormat) {
@@ -22649,7 +22903,7 @@
 
 
 /***/ },
-/* 210 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22659,7 +22913,7 @@
 	    d.prototype = new __();
 	};
 	var TargetTextureType = __webpack_require__(108);
-	var TextureWrapperBase = __webpack_require__(200);
+	var TextureWrapperBase = __webpack_require__(203);
 	var BufferTextureWrapper = (function (_super) {
 	    __extends(BufferTextureWrapper, _super);
 	    function BufferTextureWrapper(ownerCanvas, parent) {
@@ -22698,7 +22952,7 @@
 
 
 /***/ },
-/* 211 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22735,7 +22989,7 @@
 
 
 /***/ },
-/* 212 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {
@@ -22792,7 +23046,7 @@
 
 
 /***/ },
-/* 213 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = this.__extends || function (d, b) {

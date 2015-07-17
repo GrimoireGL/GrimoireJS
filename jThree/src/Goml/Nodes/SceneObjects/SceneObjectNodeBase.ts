@@ -40,7 +40,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase
   
   protected targetUpdated()
   {
-    this.beforeLoad();
+    
   }
   
 
@@ -63,9 +63,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase
         this.ContainedSceneNode.targetScene.addRenderQueue(this.targetSceneObject);
       }
     }
-    this.targetSceneObject.Transformer.Position=this.Position;
-    this.targetSceneObject.Transformer.Rotation=this.Rotation;
-    this.targetSceneObject.Transformer.Scale=this.Scale;
+    this.attributes.applyDefaultValue();
   }
 
   protected targetSceneObject:SceneObject;

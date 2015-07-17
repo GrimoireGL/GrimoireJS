@@ -6,9 +6,28 @@ import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjec
 import SceneNode = require("../../Goml/Nodes/SceneNode");
 import SceneObject = require("../../Core/SceneObject");
 import PMXModel= require('../Core/PMXModel');
+import JThreeEvent = require('../../Base/JThreeEvent');
+import Delegates = require('../../Base/Delegates');
 class PMXNode extends SceneObjectNodeBase
 {
   private pmxModel:PMXModel=null;
+
+  public get PMXModel()
+  {
+    return this.pmxModel;
+  }
+
+  public get PMXModelReady()
+  {
+    return this.PMXModel != null;
+  }
+
+  private pmxTargetUpdated: JThreeEvent<PMXModel> = new JThreeEvent<PMXModel>();
+
+  public onPMXTargetUpdate(handler:Delegates.Action2<PMXNode,PMXModel>)
+  {
+    this.pmxTargetUpdated.addListerner(handler);
+  }
 
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
@@ -34,7 +53,13 @@ class PMXNode extends SceneObjectNodeBase
     PMXModel.LoadFromUrl(this.attributes.getValue("url"),(m)=>{
       this.pmxModel=m;
       this.targetUpdated();
+      this.pmxTargetUpdated.fire(this,m);
     });
+  }
+
+  protected targetUpdated()
+  {
+    super.beforeLoad();
   }
 
   Load()
