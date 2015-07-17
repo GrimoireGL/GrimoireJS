@@ -49,6 +49,11 @@ class PMX {
 		return this.bones;
 	}
 
+	public get Morphs()
+	{
+		return this.morphs;
+	}
+
 	constructor(data: ArrayBuffer) {
 		this.reader = new jDataView(data, 0, data.byteLength, true);
 		this.loadHeader();

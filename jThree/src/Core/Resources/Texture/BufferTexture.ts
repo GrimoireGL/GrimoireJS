@@ -9,6 +9,7 @@ import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilter
 import ContextManagerBase = require('../../ContextManagerBase');
 import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import TextureBase = require('./TextureBase');
+
 class BufferTexture extends TextureBase {
 	private width: number;
 
@@ -40,6 +41,11 @@ class BufferTexture extends TextureBase {
 		this.height = height;
 		this.textureFormat = textureFormat;
 		this.elementFormat = elementFormat;
+		if(this.elementFormat==ElementFormat.Float)
+		{
+			this.MinFilter = TextureMinFilterType.Nearest;
+			this.MagFilter = TextureMagFilterType.Nearest;
+		}
 	}
 
 	protected getInstanceForRenderer(contextManager: ContextManagerBase): BufferTextureWrapper {
@@ -55,6 +61,13 @@ class BufferTexture extends TextureBase {
 			this.height=height;
 			this.each(v=>(<BufferTextureWrapper>v).resize(width,height));
 		}
+	}
+
+	public updateTexture(buffer:ArrayBufferView)
+	{
+		this.each(t=> {
+			(<BufferTextureWrapper>t).updateTexture(buffer);
+		});
 	}
 
 }

@@ -19,6 +19,10 @@ class PMXGeometry extends Geometry {
 
     public boneWeightBuffer: Buffer;
 
+    public positionBuferSource: Float32Array;
+
+    public uvBufferSource: Float32Array;
+
     constructor(pmx: PMX) {
         super();
         var name = "pmxtest";
@@ -29,7 +33,7 @@ class PMXGeometry extends Geometry {
         this.normalBuffer = j3.ResourceManager.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer = j3.ResourceManager.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
         this.edgeSizeBuffer = j3.ResourceManager.createBuffer(name + "-edgeSize", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.Float);
-        this.boneIndexBuffer = j3.ResourceManager.createBuffer(name + "-boneIndex", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 4, ElementType.UnsignedInt);
+        this.boneIndexBuffer = j3.ResourceManager.createBuffer(name + "-boneIndex", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 4, ElementType.Float);
         this.boneWeightBuffer = j3.ResourceManager.createBuffer(name + "-boneWeight", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 4, ElementType.Float);
         this.updateBuffers(pmx);
     }
@@ -39,15 +43,15 @@ class PMXGeometry extends Geometry {
      */
     protected updateBuffers(pmx: PMX): void {//TODO use unsigned short
         var surfaceBuffer = new Uint32Array(pmx.Surfaces);
-        var positionBuffer = new Float32Array(pmx.Verticies.positions);
+        this.positionBuferSource = new Float32Array(pmx.Verticies.positions);
+        this.uvBufferSource = new Float32Array(pmx.Verticies.uvs);
         this.indexBuffer.update(surfaceBuffer, surfaceBuffer.length);
         this.normalBuffer.update(new Float32Array(pmx.Verticies.normals), pmx.Verticies.normals.length);
-        this.uvBuffer.update(new Float32Array(pmx.Verticies.uvs), pmx.Verticies.uvs.length);
-        this.positionBuffer.update(positionBuffer, positionBuffer.length);
+        this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
+        this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);
         this.edgeSizeBuffer.update(new Float32Array(pmx.Verticies.edgeScaling), pmx.Verticies.edgeScaling.length)
-        this.boneIndexBuffer.update(new Uint32Array(pmx.Verticies.boneIndicies), pmx.Verticies.boneIndicies.length)
+        this.boneIndexBuffer.update(new Float32Array(pmx.Verticies.boneIndicies), pmx.Verticies.boneIndicies.length)
         this.boneWeightBuffer.update(new Float32Array(pmx.Verticies.boneWeights), pmx.Verticies.boneWeights.length)
-
     }
 
     public drawElements(context: ContextManagerBase, material: Material) {
@@ -60,7 +64,14 @@ class PMXGeometry extends Geometry {
             return;
         };
         context.Context.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset * 4);
-        context.Context.Flush();
+    }
+
+    public updatePositionBuffer() {
+        this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);
+    }
+
+    public updateUVBuffer() {
+        this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
     }
 }
 

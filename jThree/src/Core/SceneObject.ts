@@ -15,10 +15,10 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 class SceneObject extends JThreeObjectWithID
 {
 
-  constructor()
+  constructor(transformer?:Transformer)
   {
     super();
-    this.transformer=new Transformer(this);
+    this.transformer=transformer||new Transformer(this);
   }
     private materialChanagedHandler:Delegates.Action2<Material,SceneObject>[]=[];
 

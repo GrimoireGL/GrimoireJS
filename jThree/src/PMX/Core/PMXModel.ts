@@ -4,6 +4,7 @@ import PMXGeometry = require('./PMXGeometry');
 import PMXMaterial = require('./PMXMaterial');
 import Delegates = require('../../Base/Delegates');
 import PMXSkeleton = require('./PMXSkeleton');
+import PMXMorphManager = require('./PMXMorphManager');
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
                 var targetUrl = url;
@@ -24,6 +25,8 @@ class PMXModel extends SceneObject {
 
         private skeleton: PMXSkeleton;
 
+        private morphManager: PMXMorphManager;
+
         public get ModelData(): PMXModelData {
                 return this.modelData;
         }
@@ -40,9 +43,16 @@ class PMXModel extends SceneObject {
                 var offset = 0;
                 for (var materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
                         var currentMat = pmx.Materials[materialCount];
-                        this.addMaterial(new PMXMaterial(pmx, materialCount, offset, resourceDirectory));
+                        this.addMaterial(new PMXMaterial(this, materialCount, offset, resourceDirectory));
                         offset += currentMat.vertexCount;
                 }
+                this.morphManager = new PMXMorphManager(this);
+                this.morphManager.getMorphByName("ウインク").Progress = 1.0;
+        }
+
+        public update() {
+                this.morphManager.applyMorph();
+                this.skeleton.updateMatricies();
         }
 }
 

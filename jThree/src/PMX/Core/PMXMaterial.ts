@@ -27,7 +27,34 @@ import PMX = require('../PMXLoader');
 import Texture = require('../../Core/Resources/Texture/Texture');
 import BlendFuncParamType = require("../../Wrapper/BlendFuncParamType");
 import PMXGeometry = require('./PMXGeometry');
+import PMXModel = require('./PMXModel');
 declare function require(string): string;
+
+class PMXMaterialMorphParamContainer
+{
+    constructor(calcFlag:number)
+    {
+        this.calcFlag = calcFlag;
+        var def = 1 - calcFlag;
+        this.diffuse = [def, def, def, def];
+        this.specular = [def, def, def, def];
+        this.ambient = [def, def, def];
+        this.edgeColor = [def, def, def, def];
+        this.edgeSize = def;
+    }
+
+    private calcFlag: number;
+
+    public diffuse: number[];
+
+    public specular:number[];
+
+    public ambient: number[];
+
+    public edgeColor: number[];
+
+    public edgeSize: number;
+}
 
 /**
  * the materials for PMX.
@@ -41,16 +68,16 @@ class PMXMaterial extends Material {
 
     private verticiesOffset;
     
-  /**
-   * Count of verticies
-   */
+    /**
+     * Count of verticies
+     */
     public get VerticiesCount() {
         return this.verticiesCount;
     }
     
-  /**
-   * Offset of verticies in index buffer
-   */
+    /**
+     * Offset of verticies in index buffer
+     */
     public get VerticiesOffset() {
         return this.verticiesOffset;
     }
@@ -75,6 +102,8 @@ class PMXMaterial extends Material {
 
     private pmxData: PMX;
 
+    private parentModel: PMXModel;
+
     private sphereMode: number;
 
     private materialIndex: number;
@@ -85,11 +114,12 @@ class PMXMaterial extends Material {
         return this.edgeColor == null ? 1 : 2;
     }
 
-    constructor(pmx: PMX, index: number, offset: number, directory: string) {
+    constructor(pmx: PMXModel, index: number, offset: number, directory: string) {
         super();
-        this.pmxData = pmx;
+        this.parentModel = pmx;
+        this.pmxData = pmx.ModelData;
         this.materialIndex = index;
-        var materialData = pmx.Materials[index];
+        var materialData = this.pmxData.Materials[index];
         this.verticiesCount = materialData.vertexCount;
         this.verticiesOffset = offset;
         this.Name = materialData.materialName;
@@ -124,7 +154,7 @@ class PMXMaterial extends Material {
         renderer.GLContext.Enable(GLFeatureType.Blend);
         renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
         var id = renderer.ID;
-        var geometry = object.Geometry;
+        var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         programWrapper.useProgram();
         var v = object.Transformer.calculateMVPMatrix(renderer);
@@ -132,16 +162,21 @@ class PMXMaterial extends Material {
         programWrapper.registerTexture(renderer, this.texture, 1, "u_texture");
         programWrapper.registerTexture(renderer, this.toon, 2, "u_toon");
         programWrapper.registerTexture(renderer, this.sphere, 3, "u_sphere");
+        programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 4, "u_boneMatricies");
         programWrapper.setUniform1i("u_textureUsed", this.texture == null || this.texture.ImageSource == null ? 0 : 1);
         programWrapper.setUniform1i("u_sphereMode", this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode);
         programWrapper.setUniform1i("u_toonFlag", this.toon == null || this.toon.ImageSource == null ? 0 : 1);
         programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
+        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
+        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setUniformMatrix("matMVP", v);
+        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
         programWrapper.setUniformVector("u_ambient", this.ambient.toVector());
         programWrapper.setUniformVector("u_diffuse", this.diffuse.toVector());
         programWrapper.setUniform1f("u_matIndex", this.materialIndex);
+        programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
@@ -153,12 +188,16 @@ class PMXMaterial extends Material {
         var geometry = <PMXGeometry> object.Geometry;
         var programWrapper = this.edgeProgram.getForContext(renderer.ContextManager);
         programWrapper.useProgram();
-        var v = object.Transformer.calculateMVPMatrix(renderer);
+        programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 0, "u_boneMatricies");
         programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
         programWrapper.setAttributeVerticies("edgeScaling", geometry.edgeSizeBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setUniformMatrix("matMVP", v);
+        programWrapper.setUniformMatrix("matVP",  Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
         programWrapper.setUniform1f("u_edgeSize", this.edgeSize);
         programWrapper.setUniformVector("u_edgeColor", this.edgeColor.toVector());
+        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
+        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
+        programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
+
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 

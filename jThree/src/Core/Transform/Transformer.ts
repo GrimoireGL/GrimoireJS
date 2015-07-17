@@ -67,6 +67,10 @@ class Transformer extends JThreeObject {
   private cacheMat: glm.GLM.IArray=glm.mat4.create();
 
   private cacheMat2: glm.GLM.IArray=glm.mat4.create();
+
+  private fowardCache: glm.GLM.IArray = glm.vec3.create();
+
+  private cacheVec: glm.GLM.IArray = glm.vec4.create();
   
   /**
    * properties for storeing event handlers
@@ -99,8 +103,9 @@ class Transformer extends JThreeObject {
       glm.mat4.identity(this.cacheMat2);
     }
     this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2, this.cacheMat2, this.localTransform.rawElements));
-    this.foward = Matrix.transformNormal(this.localToGlobal, new Vector3(0, 0, -1)).normalizeThis();
-    this.relatedTo.Children.each((v) => {
+    glm.vec4.transformMat4(this.cacheVec, this.cacheMat2, [0, 0, 1,0]);    
+    glm.vec3.normalize(this.fowardCache,this.cacheVec);
+    if(this.relatedTo.Children)this.relatedTo.Children.each((v) => {
       v.Transformer.updateTransform();
     });
     this.onUpdateTransformHandler.fire(this, this.relatedTo);

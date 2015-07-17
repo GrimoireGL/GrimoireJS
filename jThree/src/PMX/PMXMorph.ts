@@ -51,4 +51,4 @@ interface GroupMorph
 	morphRate:number
 }
 
-export =PMXMorph;
+export=PMXMorph;

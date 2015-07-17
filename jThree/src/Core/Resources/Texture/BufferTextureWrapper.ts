@@ -34,6 +34,14 @@ class BufferTextureWrapper extends TextureWrapperBase {
 		}
 	}
 
+	public updateTexture(buffer: ArrayBufferView) {
+		this.bind();
+		if (this.WebGLContext.IsTexture(this.TargetTexture)) {
+			var parent = <BufferTexture>this.Parent;
+			this.WebGLContext.TexImage2D(TargetTextureType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat,buffer);
+		}
+	}
+
 }
 
 export = BufferTextureWrapper;

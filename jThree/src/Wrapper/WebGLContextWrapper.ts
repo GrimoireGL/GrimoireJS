@@ -39,10 +39,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   CheckErrorAsFatal(): void {
-    var ec = this.gl.getError();
-    if (ec !== WebGLRenderingContext.NO_ERROR) {
-      console.error(`WebGL error was occured:${ec}`);
-    }
+   // var ec = this.gl.getError();
+    // if (ec !== WebGLRenderingContext.NO_ERROR) {
+    //   console.error(`WebGL error was occured:${ec}`);
+    // }
   }
 
   CreateBuffer(): WebGLBuffer {
@@ -131,7 +131,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
   GetAttribLocation(program: WebGLProgram, name: string): number {
-    this.CheckErrorAsFatal();
     return this.gl.getAttribLocation(program, name);
   }
 
