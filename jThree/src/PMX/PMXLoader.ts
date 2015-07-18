@@ -195,13 +195,13 @@ class PMX {
 		var sumCache = 0;
 		var result: PMXVerticies = {
 			positions: new Array(count * 3),
-			normals: new Array(count * 3),
+			normals: new Float32Array(count * 3),
 			uvs: new Array(count * 2),
 			additionalUV: additionalUvs,
-			edgeScaling: new Array(count),
+			edgeScaling: new Float32Array(count),
 			verticies: new Array(count),
-			boneIndicies: new Array(count * 4),
-			boneWeights: new Array(count * 4)
+			boneIndicies: new Float32Array(count * 4),
+			boneWeights: new Float32Array(count * 4)
 		};
 		for (var i = 0; i < count; i++) {
 			bi1 = 0; bi2 = 0; bi3 = 0; bi4 = 0;

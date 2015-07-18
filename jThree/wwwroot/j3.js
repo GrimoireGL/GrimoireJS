@@ -19727,13 +19727,13 @@
 	        var sumCache = 0;
 	        var result = {
 	            positions: new Array(count * 3),
-	            normals: new Array(count * 3),
+	            normals: new Float32Array(count * 3),
 	            uvs: new Array(count * 2),
 	            additionalUV: additionalUvs,
-	            edgeScaling: new Array(count),
+	            edgeScaling: new Float32Array(count),
 	            verticies: new Array(count),
-	            boneIndicies: new Array(count * 4),
-	            boneWeights: new Array(count * 4)
+	            boneIndicies: new Float32Array(count * 4),
+	            boneWeights: new Float32Array(count * 4)
 	        };
 	        for (var i = 0; i < count; i++) {
 	            bi1 = 0;
@@ -20087,15 +20087,16 @@
 	    }
 	    PMXGeometry.prototype.updateBuffers = function (pmx) {
 	        var surfaceBuffer = new Uint32Array(pmx.Surfaces);
-	        this.positionBuferSource = new Float32Array(pmx.Verticies.positions);
-	        this.uvBufferSource = new Float32Array(pmx.Verticies.uvs);
+	        var verticies = pmx.Verticies;
+	        this.positionBuferSource = new Float32Array(verticies.positions);
+	        this.uvBufferSource = new Float32Array(verticies.uvs);
 	        this.indexBuffer.update(surfaceBuffer, surfaceBuffer.length);
-	        this.normalBuffer.update(new Float32Array(pmx.Verticies.normals), pmx.Verticies.normals.length);
+	        this.normalBuffer.update(verticies.normals, verticies.normals.length);
 	        this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
 	        this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);
-	        this.edgeSizeBuffer.update(new Float32Array(pmx.Verticies.edgeScaling), pmx.Verticies.edgeScaling.length);
-	        this.boneIndexBuffer.update(new Float32Array(pmx.Verticies.boneIndicies), pmx.Verticies.boneIndicies.length);
-	        this.boneWeightBuffer.update(new Float32Array(pmx.Verticies.boneWeights), pmx.Verticies.boneWeights.length);
+	        this.edgeSizeBuffer.update(verticies.edgeScaling, verticies.edgeScaling.length);
+	        this.boneIndexBuffer.update(verticies.boneIndicies, verticies.boneIndicies.length);
+	        this.boneWeightBuffer.update(verticies.boneWeights, verticies.boneWeights.length);
 	    };
 	    PMXGeometry.prototype.drawElements = function (context, material) {
 	        var mat = material;
@@ -21344,7 +21345,7 @@
 	    };
 	    PluginLoader.prototype.resolveToAll = function (plugins, dependency, resolveOrder, onComplete) {
 	        var _this = this;
-	        if (!plugins) {
+	        if (!plugins || plugins.length == 0) {
 	            onComplete();
 	            return;
 	        }

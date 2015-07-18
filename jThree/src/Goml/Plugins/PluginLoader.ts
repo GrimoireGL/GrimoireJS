@@ -15,7 +15,7 @@ class PluginLoader {
 	}
 
 	private resolveToAll(plugins: PluginRequest[], dependency: AssociativeArray<PluginDeclaration>, resolveOrder: PluginDeclaration[], onComplete: Delegates.Action0) {
-		if (!plugins) {
+		if (!plugins||plugins.length==0) {
 			onComplete();
 			return;
 		}

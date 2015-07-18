@@ -1,12 +1,12 @@
 interface PMXVerticies
 {
 	positions:number[];
-	normals:number[];
+	normals:Float32Array;
 	uvs:number[];
 	additionalUV?:number[][];
-	edgeScaling:number[];
-	boneIndicies: number[];
-	boneWeights: number[];
+	edgeScaling:Float32Array;
+	boneIndicies:Float32Array;
+	boneWeights:Float32Array;
 	verticies:PMXVertex[];
 }
 
