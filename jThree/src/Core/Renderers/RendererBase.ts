@@ -16,6 +16,7 @@ import GrayScaleStage = require('./RenderStages/GrayScaleStage');
 import JThreeContextProxy = require('../JThreeContextProxy');
 import JThreeEvent = require('../../Base/JThreeEvent');
 import Rectangle = require('../../Math/Rectangle');
+import RBDepthStage = require('./RenderStages/RBDepthStage');
 /**
  * Provides base class feature for renderer classes.
  */
@@ -33,15 +34,21 @@ class RendererBase extends jThreeObjectWithID {
                 },
                 stage: new RB1RenderStage(this)
             }
+            // ,
+            // {
+            //     buffers: {
+            //         DEPTH: "deffered.depth",
+            //         OUT: "deffered.rb2"
+            //     },
+            //     stage: new RB2RenderStage(this)
+            // }
             ,
             {
-                buffers: {
-                    DEPTH: "deffered.depth",
-                    OUT: "deffered.rb2"
+                buffers:{
+                    OUT:"deffered.depth"
                 },
-                stage: new RB2RenderStage(this)
-            }
-            ,
+                stage: new RBDepthStage(this)
+            },
             {
                 buffers: {
                     RB1: "deffered.rb1",
@@ -63,11 +70,11 @@ class RendererBase extends jThreeObjectWithID {
 
             );
         this.renderStageManager.TextureBuffers = {
-            "jthree.light.dir1": {
-                generater: "rendererfit",
-                internalFormat: "DEPTH",
-                element: "USHORT"
-            },
+            // "jthree.light.dir1": {
+            //     generater: "rendererfit",
+            //     internalFormat: "ALPHA",
+            //     element: "FLOAT"
+            // },
             "deffered.rb1": {
                 generater: "rendererfit",
                 internalFormat: "RGBA",
@@ -79,8 +86,8 @@ class RendererBase extends jThreeObjectWithID {
                 element: "UBYTE"
             }, "deffered.depth": {
                 generater: "rendererfit",
-                internalFormat: "DEPTH",
-                element: "USHORT"
+                internalFormat: "RGBA",
+                element: "UBYTE"
             }
             , "deffered.light": {
                 generater: "rendererfit",

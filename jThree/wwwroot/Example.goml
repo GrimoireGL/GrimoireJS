@@ -28,7 +28,7 @@
         <mesh geo="cube" mat="mat2" rotation="x(30d)" position="0.5,0,-1" scale="0.3"/>
         <plight color="brown" position ="0,0.1,0" distance="1.2" intensity="0.4" decay="0"/>
         -->
-        <dlight color="white" intensity="0.5" rotation="x(90d)" position="0,1,0"/>
+       <!-- <dlight color="white" intensity="0.5" rotation="x(90d)" position="0,1,0"/>-->
          <pmx url="/tune/Tune.pmx" scale="0.1">
           <morphs>
             <morph id="wrink" name="ウインク" value="1"/>

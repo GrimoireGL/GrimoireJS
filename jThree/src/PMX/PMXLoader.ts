@@ -291,18 +291,7 @@ class PMX {
 			this.surfaces[3 * i + 1] = this.readVertexIndex();
 		}
 	}
-	//		var r = this.reader;
-	// var count = r.getInt32();
-	// var indexCount = Math.floor(count / 65535) + 1;
-	// this.surfaces = new Array(indexCount);
-	// for (var targetIndex = 0; targetIndex < indexCount; targetIndex++) {
-	// 	var indexMax=Math.min(65535,count-targetIndex*65535);
-	// 	this.surfaces[targetIndex] = new Array(indexMax);
-	// 	for (var i = 0; i < indexMax; i++) {
-	// 		this.surfaces[targetIndex][i] = this.readVertexIndex();
-	// 	}
-	// }
-
+	
 	private loadTextures() {
 		var r = this.reader;
 		var count = r.getInt32();
