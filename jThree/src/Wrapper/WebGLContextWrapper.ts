@@ -24,6 +24,7 @@ import PixelStoreParamType = require('./Texture/PixelStoreParamType');
 import BlendEquationType = require('./BlendEquationType');
 import BlendFuncParamType = require('./BlendFuncParamType');
  import DepthFuncType = require('./DepthFuncType');
+ import GetParameterType = require('./GetParameterType');
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
   
@@ -381,5 +382,11 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   {
     this.gl.blendEquation(eq);
   }
+
+    GetParameter(type:GetParameterType)
+  {
+    return this.gl.getParameter(type);  
+  }
 }
+
 export =WebGLContextWrapper;

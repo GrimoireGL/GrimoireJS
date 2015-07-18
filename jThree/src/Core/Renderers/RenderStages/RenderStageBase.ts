@@ -18,6 +18,7 @@ import GLCullMode = require('../../../Wrapper/GLCullMode');
 import GLFeature = require('../../../Wrapper/GLFeatureType');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import TargetTextureType = require('../../../Wrapper/TargetTextureType');
+import GLSpecManager = require('../../GLSpecManager');
 interface FBOBindData {
 	texture: TextureBase|RBO,
 	target: string|number,
@@ -106,7 +107,7 @@ class RenderStageBase extends JThreeObject {
 	
 	private resetActiveTextures()
 	{
-		for(var i=0;i<32;i++)
+		for(var i=0;i<GLSpecManager.MaxTextureCount;i++)
 		{
 			this.GLContext.ActiveTexture(TextureRegister.Texture0+i);
 			this.GLContext.BindTexture(TargetTextureType.Texture2D,null);

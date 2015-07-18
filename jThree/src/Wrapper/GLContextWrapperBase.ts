@@ -25,6 +25,7 @@ import PixelStoreParamType = require('./Texture/PixelStoreParamType');
 import BlendEquationType = require('./BlendEquationType');
 import BlendFuncParamType = require('./BlendFuncParamType');
  import DepthFuncType = require('./DepthFuncType');
+ import GetParameterType = require('./GetParameterType');
 class GLContextWrapperBase extends JThreeObject {
   public get Context(): WebGLRenderingContext {
     return null;
@@ -391,6 +392,11 @@ class GLContextWrapperBase extends JThreeObject {
   DepthFunc(func:DepthFuncType)
   {
     
+  }
+
+  GetParameter(type:GetParameterType)
+  {
+
   }
 }
 export =GLContextWrapperBase;

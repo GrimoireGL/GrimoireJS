@@ -5,6 +5,7 @@ import GomlTreeNodeBase = require("../../../Goml/GomlTreeNodeBase");
 import SceneNode = require("../../../Goml/Nodes/SceneNode");
 import PMXBonesNode = require('../PMXBonesNode');
 import SceneObjectNodeBase = require("../../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
+
 /**
 * PMXMorph node factory
 */
