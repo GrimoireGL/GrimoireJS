@@ -55,13 +55,18 @@ var gomlList = [
     {
       "TEMPLATE": require('./Nodes/Templates/TemplateNode')
     }),
-  new GomlNodeListElement("jthree.pmx", require('../PMX/Goml/Factory/PMXMorphTagFactory'),
+  new GomlNodeListElement("jthree.pmx.morph", require('../PMX/Goml/Factory/PMXMorphTagFactory'),
     {
-      "MORPH": require('../PMX/Goml/PMXMorphNode')
+      "MORPH": require('../PMX/Goml/PMXMorphNode'),
     }),
-  new GomlNodeListElement("jthree.pmx", require('./Factories/TagFactory'),
+    new GomlNodeListElement("jthree.pmx.bone", require('../PMX/Goml/Factory/PMXBoneTagFactory'),
     {
-      "MORPHS": require('../PMX/Goml/PMXMorphsNode')
+      "BONE": require('../PMX/Goml/PMXBoneNode'),
+    }),
+  new GomlNodeListElement("jthree.pmx.contents", require('./Factories/TagFactory'),
+    {
+      "MORPHS": require('../PMX/Goml/PMXMorphsNode'),
+      "BONES": require('../PMX/Goml/PMXBonesNode')
     })
 ];
 export =gomlList;
