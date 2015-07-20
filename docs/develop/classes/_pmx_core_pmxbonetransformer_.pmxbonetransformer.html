@@ -93,27 +93,33 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#boneindex" class="tsd-kind-icon">bone<wbr>Index</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmx" class="tsd-kind-icon">pmx</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#transformupdated" class="tsd-kind-icon">transform<wbr>Updated</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#foward" class="tsd-kind-icon">Foward</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#islocalprovidingbone" class="tsd-kind-icon">Is<wbr>Local<wbr>Providing<wbr>Bone</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#isrotationprovidingbone" class="tsd-kind-icon">Is<wbr>Rotation<wbr>Providing<wbr>Bone</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#istranslationprovidingbone" class="tsd-kind-icon">Is<wbr>Translation<wbr>Providing<wbr>Bone</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#localorigin" class="tsd-kind-icon">Local<wbr>Origin</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#localtoglobal" class="tsd-kind-icon">Local<wbr>ToGlobal</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#position" class="tsd-kind-icon">Position</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#rotation" class="tsd-kind-icon">Rotation</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#scale" class="tsd-kind-icon">Scale</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#targetbonedata" class="tsd-kind-icon">Target<wbr>Bone<wbr>Data</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -129,36 +135,32 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new PMXBone<wbr>Transformer<span class="tsd-signature-symbol">(</span>sceneObj<span class="tsd-signature-symbol">: </span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html" class="tsd-signature-type">PMXBoneTransformer</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new PMXBone<wbr>Transformer<span class="tsd-signature-symbol">(</span>sceneObj<span class="tsd-signature-symbol">: </span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a>, pmx<span class="tsd-signature-symbol">: </span><a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html" class="tsd-signature-type">PMXBoneTransformer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_transform_transformer_.transformer.html">Transformer</a>.<a href="_core_transform_transformer_.transformer.html#constructor">constructor</a></p>
+								<p>Overwrites <a href="_core_transform_transformer_.transformer.html">Transformer</a>.<a href="_core_transform_transformer_.transformer.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L15">Core/Transform/Transformer.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L28">PMX/Core/PMXBoneTransformer.ts:28</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructor of Transformer</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>sceneObj: <a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>the scene object this transformer attached to.</p>
-										</div>
-									</div>
+								</li>
+								<li>
+									<h5>pmx: <a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></h5>
+								</li>
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html" class="tsd-signature-type">PMXBoneTransformer</a></h4>
@@ -168,18 +170,38 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="boneindex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> bone<wbr>Index</h3>
+					<div class="tsd-signature tsd-kind-icon">bone<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L8">PMX/Core/PMXBoneTransformer.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="pmx" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> pmx</h3>
+					<div class="tsd-signature tsd-kind-icon">pmx<span class="tsd-signature-symbol">:</span> <a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L6">PMX/Core/PMXBoneTransformer.ts:6</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="transformupdated" class="tsd-anchor"></a>
 					<h3>transform<wbr>Updated</h3>
 					<div class="tsd-signature tsd-kind-icon">transform<wbr>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L4">PMX/Core/PMXBoneTransformer.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L37">PMX/Core/PMXBoneTransformer.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="foward" class="tsd-anchor"></a>
@@ -201,6 +223,57 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="islocalprovidingbone" class="tsd-anchor"></a>
+					<h3>Is<wbr>Local<wbr>Providing<wbr>Bone</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> IsLocalProvidingBone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L15">PMX/Core/PMXBoneTransformer.ts:15</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="isrotationprovidingbone" class="tsd-anchor"></a>
+					<h3>Is<wbr>Rotation<wbr>Providing<wbr>Bone</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> IsRotationProvidingBone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L20">PMX/Core/PMXBoneTransformer.ts:20</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="istranslationprovidingbone" class="tsd-anchor"></a>
+					<h3>Is<wbr>Translation<wbr>Providing<wbr>Bone</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> IsTranslationProvidingBone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L25">PMX/Core/PMXBoneTransformer.ts:25</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -393,6 +466,23 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="targetbonedata" class="tsd-anchor"></a>
+					<h3>Target<wbr>Bone<wbr>Data</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> TargetBoneData<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_pmx_pmxbone_.pmxbone.html" class="tsd-signature-type">PMXBone</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L10">PMX/Core/PMXBoneTransformer.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_pmx_pmxbone_.pmxbone.html" class="tsd-signature-type">PMXBone</a></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
@@ -505,7 +595,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_transform_transformer_.transformer.html">Transformer</a>.<a href="_core_transform_transformer_.transformer.html#updatetransform">updateTransform</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L6">PMX/Core/PMXBoneTransformer.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L39">PMX/Core/PMXBoneTransformer.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -532,14 +622,29 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html" class="tsd-kind-icon">PMXBone<wbr>Transformer</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#boneindex" class="tsd-kind-icon">bone<wbr>Index</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmx" class="tsd-kind-icon">pmx</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#transformupdated" class="tsd-kind-icon">transform<wbr>Updated</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#foward" class="tsd-kind-icon">Foward</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#islocalprovidingbone" class="tsd-kind-icon">Is<wbr>Local<wbr>Providing<wbr>Bone</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#isrotationprovidingbone" class="tsd-kind-icon">Is<wbr>Rotation<wbr>Providing<wbr>Bone</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#istranslationprovidingbone" class="tsd-kind-icon">Is<wbr>Translation<wbr>Providing<wbr>Bone</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#localorigin" class="tsd-kind-icon">Local<wbr>Origin</a>
@@ -555,6 +660,9 @@
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#scale" class="tsd-kind-icon">Scale</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#targetbonedata" class="tsd-kind-icon">Target<wbr>Bone<wbr>Data</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#calculatemvpmatrix" class="tsd-kind-icon">calculateMVPMatrix</a>
