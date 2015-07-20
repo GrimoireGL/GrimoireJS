@@ -82,6 +82,7 @@ class SceneObject extends JThreeObjectWithID
      /**
      * The Getter for the parent scene containing this SceneObject.
      */
+    
     public set ParentScene(scene:Scene)
     {
         this.parentScene=scene;

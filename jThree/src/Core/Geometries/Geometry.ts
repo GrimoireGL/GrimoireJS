@@ -43,16 +43,26 @@ class Geometry extends jThreeObject {
 
    protected addQuad(pos:number[],normal:number[],uv:number[],index:number[],points:Vector3[]):void
    {
-     var v0=points[0],v1=points[1],v2=points[2];
-     var v02v1=v1.subtractWith(v0);
-     var v02v2=v2.subtractWith(v0);
-     var v3=v0.addWith(v02v1).addWith(v02v2);
-     var nV=v02v2.crossWith(v02v1).normalizeThis();
-     var startIndex=pos.length/3;
-     normal.push(nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z);
-     uv.push(0,1,1,1,1,0,0,0);
-     pos.push(v0.X,v0.Y,v0.Z,v1.X,v1.Y,v1.Z,v3.X,v3.Y,v3.Z,v2.X,v2.Y,v2.Z);
-     index.push(startIndex,startIndex+2,startIndex+1,startIndex,startIndex+3,startIndex+2);
+     var startIndex = pos.length / 3;
+     var v0 = points[0], v1 = points[1], v3 = points[2];
+     var v02v1 = v1.subtractWith(v0);
+     var v02v3 = v3.subtractWith(v0);
+     var v2 = v0.addWith(v02v1).addWith(v02v3);
+     var nV = v02v1.crossWith(v02v3).normalizeThis();
+     normal.push(nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z);
+     uv.push(0, 1, 0, 0, 1, 0, 1, 1);
+     pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, v3.X, v3.Y, v3.Z);
+     index.push(startIndex, startIndex + 1, startIndex + 3, startIndex + 3, startIndex + 1, startIndex + 2);
+     // var v0=points[0],v1=points[1],v=points[2];
+     // var v02v1=v1.subtractWith(v0);
+     // var v02v2=v2.subtractWith(v0);
+     // var v3=v0.addWith(v02v1).addWith(v02v2);
+     // var nV=v02v2.crossWith(v02v1).normalizeThis();
+     // var startIndex=pos.length/3;
+     // normal.push(nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z,nV.X,nV.Y,nV.Z);
+     // uv.push(0,1,1,1,1,0,0,0);
+     // pos.push(v0.X,v0.Y,v0.Z,v1.X,v1.Y,v1.Z,v3.X,v3.Y,v3.Z,v2.X,v2.Y,v2.Z);
+     // index.push(startIndex,startIndex+2,startIndex+1,startIndex,startIndex+3,startIndex+2);
    }
 
    protected addCircle(pos:number[],normal:number[],uv:number[],index:number[],divide:number,center:Vector3,normalVector:Vector3,tangentVector:Vector3)

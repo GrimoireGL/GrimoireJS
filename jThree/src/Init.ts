@@ -14,7 +14,7 @@ import PMXGeometry = require('./PMX/Core/PMXGeometry');
 import PhongGeometry = require('./Core/Materials/PhongMaterial');
 import QuadGeometry = require('./Core/Geometries/QuadGeometry');
 import Vector3 = require('./Math/Vector3');
-import PMXModel = require('./PMX/Core/PMXModel');
+import VMDData = require('./VMD/Parser/VMDData');
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -62,6 +62,7 @@ class JThreeInit {
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
       j3.GomlLoader.onload(() => {
+      VMDData.LoadFromUrl("/melt.vmd", (v) => { debugger;})
         // PMXModel.LoadFromUrl("/Tda/Miku.pmx",(m)=>
         //   {
         //     m.Transformer.Scale=new Vector3(0.1,0.1,0.1);

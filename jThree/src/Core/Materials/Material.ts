@@ -69,7 +69,7 @@ class Material extends JThreeObjectWithID {
     
     public get PassCount():number
     {
-        return 0;
+        return 1;
     }
 
     protected loadProgram(vsid: string, fsid: string, pid: string,vscode:string,fscode:string): Program {

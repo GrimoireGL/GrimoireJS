@@ -55,6 +55,7 @@
 	var JThreeContextProxy = __webpack_require__(67);
 	var $ = __webpack_require__(10);
 	var JThreeInterface = __webpack_require__(221);
+	var VMDData = __webpack_require__(222);
 	var JThreeStatic = (function () {
 	    function JThreeStatic() {
 	    }
@@ -85,6 +86,7 @@
 	        $(function () {
 	            var j3 = JThreeContext.getInstanceForProxy();
 	            j3.GomlLoader.onload(function () {
+	                VMDData.LoadFromUrl("/melt.vmd", function (v) { debugger; });
 	            });
 	            j3.init();
 	        });
@@ -12300,6 +12302,7 @@
 	        this.position = Vector3.Zero;
 	        this.rotation = Quaternion.Identity;
 	        this.scale = new Vector3(1, 1, 1);
+	        this.localOrigin = new Vector3(0, 0, 0);
 	        this.foward = new Vector3(0, 0, -1);
 	        this.updateTransform();
 	    }
@@ -12308,11 +12311,8 @@
 	    };
 	    Transformer.prototype.updateTransform = function () {
 	        glm.mat4.identity(this.cacheMat);
-	        glm.mat4.scale(this.cacheMat, this.cacheMat, this.Scale.targetVector);
-	        glm.mat4.fromQuat(this.cacheMat2, this.rotation.targetQuat);
-	        glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);
 	        glm.mat4.identity(this.cacheMat2);
-	        glm.mat4.translate(this.cacheMat2, this.cacheMat2, this.position.targetVector);
+	        glm.mat4.fromRotationTranslationScaleOrigin(this.cacheMat, this.rotation.targetQuat, this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);
 	        glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);
 	        this.localTransform = new Matrix(this.cacheMat);
 	        if (this.relatedTo != null && this.relatedTo.Parent != null) {
@@ -12321,7 +12321,7 @@
 	        else {
 	            glm.mat4.identity(this.cacheMat2);
 	        }
-	        this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2, this.cacheMat2, this.localTransform.rawElements));
+	        this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2, this.localTransform.rawElements, this.cacheMat2));
 	        glm.vec4.transformMat4(this.cacheVec, this.cacheMat2, [0, 0, 1, 0]);
 	        glm.vec3.normalize(this.fowardCache, this.cacheVec);
 	        if (this.relatedTo.Children)
@@ -12375,6 +12375,17 @@
 	        },
 	        set: function (vec) {
 	            this.scale = vec;
+	            this.updateTransform();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Transformer.prototype, "LocalOrigin", {
+	        get: function () {
+	            return this.localOrigin;
+	        },
+	        set: function (origin) {
+	            this.localOrigin = origin;
 	            this.updateTransform();
 	        },
 	        enumerable: true,
@@ -13419,16 +13430,16 @@
 	        contextManager.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
 	    };
 	    Geometry.prototype.addQuad = function (pos, normal, uv, index, points) {
-	        var v0 = points[0], v1 = points[1], v2 = points[2];
-	        var v02v1 = v1.subtractWith(v0);
-	        var v02v2 = v2.subtractWith(v0);
-	        var v3 = v0.addWith(v02v1).addWith(v02v2);
-	        var nV = v02v2.crossWith(v02v1).normalizeThis();
 	        var startIndex = pos.length / 3;
+	        var v0 = points[0], v1 = points[1], v3 = points[2];
+	        var v02v1 = v1.subtractWith(v0);
+	        var v02v3 = v3.subtractWith(v0);
+	        var v2 = v0.addWith(v02v1).addWith(v02v3);
+	        var nV = v02v1.crossWith(v02v3).normalizeThis();
 	        normal.push(nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z);
-	        uv.push(0, 1, 1, 1, 1, 0, 0, 0);
-	        pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v3.X, v3.Y, v3.Z, v2.X, v2.Y, v2.Z);
-	        index.push(startIndex, startIndex + 2, startIndex + 1, startIndex, startIndex + 3, startIndex + 2);
+	        uv.push(0, 1, 0, 0, 1, 0, 1, 1);
+	        pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, v3.X, v3.Y, v3.Z);
+	        index.push(startIndex, startIndex + 1, startIndex + 3, startIndex + 3, startIndex + 1, startIndex + 2);
 	    };
 	    Geometry.prototype.addCircle = function (pos, normal, uv, index, divide, center, normalVector, tangentVector) {
 	        var tan2 = Vector3.cross(tangentVector, normalVector);
@@ -14016,7 +14027,7 @@
 	        var nor = [];
 	        var uv = [];
 	        var index = [];
-	        this.addQuad(pos, nor, uv, index, [new Vector3(-1, 1, 0), new Vector3(1, 1, 0), new Vector3(-1, -1, 0)]);
+	        this.addQuad(pos, nor, uv, index, [new Vector3(-1, 1, 0), new Vector3(-1, -1, 0), new Vector3(1, 1, 0)]);
 	        this.positionBuffer.update(new Float32Array(pos), pos.length);
 	        this.normalBuffer.update(new Float32Array(nor), nor.length);
 	        this.uvBuffer.update(new Float32Array(uv), uv.length);
@@ -18017,7 +18028,7 @@
 	    });
 	    Object.defineProperty(Material.prototype, "PassCount", {
 	        get: function () {
-	            return 0;
+	            return 1;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -19872,17 +19883,17 @@
 	            this.bones[i] = {
 	                boneName: this.readTextBuf(),
 	                boneNameEn: this.readTextBuf(),
-	                position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+	                position: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
 	                parentBoneIndex: this.readBoneIndex(),
 	                transformLayer: r.getInt32(),
 	                boneFlag: boneFlagCache = r.getUint16(),
-	                positionOffset: (boneFlagCache & 0x0001) == 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
+	                positionOffset: (boneFlagCache & 0x0001) == 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
 	                connectingBoneIndex: (boneFlagCache & 0x0001) > 0 ? this.readBoneIndex() : undefined,
 	                providingBoneIndex: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? this.readBoneIndex() : undefined,
 	                providingRate: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? r.getFloat32() : undefined,
-	                fixedAxis: (boneFlagCache & 0x0400) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
-	                localAxisX: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
-	                localAxisZ: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
+	                fixedAxis: (boneFlagCache & 0x0400) > 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
+	                localAxisX: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
+	                localAxisZ: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
 	                externalParentTransformKey: (boneFlagCache & 0x2000) > 0 ? r.getInt32() : undefined,
 	                ikTargetBoneIndex: (boneFlagCache & 0x0020) > 0 ? this.readBoneIndex() : undefined,
 	                ikLoopCount: (boneFlagCache & 0x0020) > 0 ? r.getInt32() : undefined,
@@ -19929,7 +19940,7 @@
 	                        this.morphs[i].vertexMorph[j] =
 	                            {
 	                                vertexIndex: this.readVertexIndex(),
-	                                vertexOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32()]
+	                                vertexOffset: [r.getFloat32(), r.getFloat32(), -r.getFloat32()]
 	                            };
 	                    }
 	                    break;
@@ -19939,7 +19950,7 @@
 	                        this.morphs[i].boneMorph[j]
 	                            = {
 	                                boneIndex: this.readBoneIndex(),
-	                                translationOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+	                                translationOffset: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
 	                                rotationOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
 	                            };
 	                    }
@@ -20014,7 +20025,7 @@
 	                unCollisionGroupFlag: r.getUint16(),
 	                shape: r.getUint8(),
 	                size: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-	                position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+	                position: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
 	                rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
 	                mass: r.getFloat32(),
 	                translationFraction: r.getFloat32(),
@@ -20452,6 +20463,7 @@
 	};
 	var SceneObject = __webpack_require__(53);
 	var PMXBoneTransformer = __webpack_require__(174);
+	var Vector3 = __webpack_require__(24);
 	var PMXBone = (function (_super) {
 	    __extends(PMXBone, _super);
 	    function PMXBone(model, skeleton, boneIndex) {
@@ -20495,6 +20507,7 @@
 	        else {
 	            this.targetSkeleton.getBoneByIndex(this.TargetBoneData.parentBoneIndex).addChild(this);
 	        }
+	        this.Transformer.LocalOrigin = new Vector3(this.TargetBoneData.position);
 	    };
 	    PMXBone.prototype.structureToString = function (layer) {
 	        var result = "";
@@ -23308,6 +23321,155 @@
 	    return JThreeInterface;
 	})(JThreeObject);
 	module.exports = JThreeInterface;
+
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var glm = __webpack_require__(26);
+	var VMDData = (function () {
+	    function VMDData(data) {
+	        this.reader = new jDataView(data, 0, data.byteLength, true);
+	        this.loadHeader();
+	        this.loadMotion();
+	        this.loadMorph();
+	    }
+	    VMDData.LoadFromUrl = function (url, onComplete) {
+	        var targetUrl = url;
+	        var oReq = new XMLHttpRequest();
+	        oReq.open("GET", targetUrl, true);
+	        oReq.setRequestHeader("Accept", "*/*");
+	        oReq.responseType = "arraybuffer";
+	        oReq.onload = function () {
+	            var data = new VMDData(oReq.response);
+	            onComplete(data);
+	        };
+	        oReq.send(null);
+	    };
+	    VMDData.prototype.loadHeader = function () {
+	        var r = this.reader;
+	        this.header
+	            = {
+	                header: this.loadString(30),
+	                modelName: this.loadString(20)
+	            };
+	    };
+	    VMDData.prototype.loadMotion = function () {
+	        this.motions = {};
+	        var r = this.reader;
+	        var frameCount = r.getUint32();
+	        for (var i = 0; i < frameCount; i++) {
+	            var frameName = this.loadString(15);
+	            var data = {
+	                frameNumber: r.getUint32(),
+	                position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+	                rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+	                interpolation: this.loadInterpolation()
+	            };
+	            if (typeof this.motions[frameName] === 'undefined') {
+	                this.motions[frameName] = [];
+	            }
+	            this.motions[frameName].push(data);
+	        }
+	    };
+	    VMDData.prototype.loadMorph = function () {
+	        this.morphs = {};
+	        var r = this.reader;
+	        var frameCount = r.getUint32();
+	        for (var i = 0; i < frameCount; i++) {
+	            var frameName = this.loadString(15);
+	            var data = {
+	                frameNumber: r.getUint32(),
+	                morphValue: r.getFloat32()
+	            };
+	            if (typeof this.morphs[frameName] === 'undefined') {
+	                this.morphs[frameName] = [];
+	            }
+	            this.morphs[frameName].push(data);
+	        }
+	    };
+	    VMDData.prototype.loadBytes = function (byteLength) {
+	        var isPadding = false;
+	        var arr = [];
+	        for (var i = 0; i < byteLength; i++) {
+	            var current = this.reader.getUint8();
+	            if (current == 0x00) {
+	                isPadding = true;
+	            }
+	            if (!isPadding)
+	                arr.push(current);
+	        }
+	        return new Uint8Array(arr);
+	    };
+	    VMDData.prototype.loadString = function (length) {
+	        var decoder = new TextDecoder("shift-jis");
+	        return decoder.decode(this.loadBytes(length));
+	    };
+	    VMDData.prototype.loadInterpolation = function () {
+	        var result = new Uint8Array(64);
+	        for (var i = 0; i < 64; i++) {
+	            result[i] = this.reader.getUint8();
+	        }
+	        return result;
+	    };
+	    VMDData.prototype.binaryframeSearch = function (source, frame) {
+	        var minIndex = 0;
+	        var maxIndex = source.length - 1;
+	        var currentIndex;
+	        var currentElement;
+	        if (source.length == 1)
+	            return 0;
+	        while (minIndex <= maxIndex) {
+	            currentIndex = (minIndex + maxIndex) / 2 | 0;
+	            currentElement = source[currentIndex];
+	            if (currentElement.frameNumber < frame) {
+	                if (currentIndex + 1 < source.length && source[currentIndex + 1].frameNumber > frame) {
+	                    return currentIndex;
+	                }
+	                minIndex = currentIndex + 1;
+	            }
+	            else if (currentElement.frameNumber > frame) {
+	                maxIndex = currentIndex - 1;
+	                if (currentIndex - 1 >= 0 && source[currentIndex - 1].frameNumber < frame) {
+	                    return currentIndex - 1;
+	                }
+	            }
+	            else {
+	                return currentIndex;
+	            }
+	        }
+	        return -1;
+	    };
+	    VMDData.prototype.getBoneFrame = function (frame, boneName) {
+	        var frames = this.motions[boneName];
+	        if (typeof frames === 'undefined') {
+	            return null;
+	        }
+	        else {
+	            var index = this.binaryframeSearch(frames, frame);
+	            if (index + 1 < frames.length) {
+	                var nextFrame = frames[index + 1];
+	                var currentFrame = frames[index];
+	                var progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);
+	                return {
+	                    frameNumber: frame,
+	                    position: glm.vec3.lerp([0, 0, 0], currentFrame.position, nextFrame.position, progress),
+	                    rotation: glm.quat.slerp([0, 0, 0, 0], currentFrame.rotation, nextFrame.rotation, progress)
+	                };
+	            }
+	            else {
+	                return {
+	                    frameNumber: frame,
+	                    position: frames[index].position,
+	                    rotation: frames[index].rotation
+	                };
+	            }
+	        }
+	    };
+	    return VMDData;
+	})();
+	module.exports = VMDData;
 
 
 /***/ }

@@ -24,7 +24,7 @@ interface PMXBone
 interface PMXIKLink
 {
 	ikLinkBoneIndex:number,
-	isLimitedRotation:boolean,
+	isLimitedRotation:number,
 	limitedRotation?:number[]//[minX,minY,minZ,maxX,maxY,maxZ]
 }
 

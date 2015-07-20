@@ -23,6 +23,7 @@ class Transformer extends JThreeObject {
     this.position = Vector3.Zero;
     this.rotation = Quaternion.Identity;
     this.scale = new Vector3(1, 1, 1);
+    this.localOrigin = new Vector3(0, 0, 0);
     this.foward = new Vector3(0, 0, -1);
     this.updateTransform();
   }
@@ -40,6 +41,8 @@ class Transformer extends JThreeObject {
    * backing field of Position.
    */
   private position: Vector3;
+
+  private localOrigin: Vector3;
   
   /**
    * backing field of Scale.
@@ -64,9 +67,9 @@ class Transformer extends JThreeObject {
   /**
    * calculation cache
    */
-  private cacheMat: glm.GLM.IArray=glm.mat4.create();
+  private cacheMat: glm.GLM.IArray = glm.mat4.create();
 
-  private cacheMat2: glm.GLM.IArray=glm.mat4.create();
+  private cacheMat2: glm.GLM.IArray = glm.mat4.create();
 
   private fowardCache: glm.GLM.IArray = glm.vec3.create();
 
@@ -84,32 +87,46 @@ class Transformer extends JThreeObject {
   public onUpdateTransform(action: Delegates.Action2<Transformer, SceneObject>): void {
     this.onUpdateTransformHandler.addListerner(action);
   }
+
   /**
    * update all transform
    * You no need to call this method manually if you access all of properties in this transformer by accessor.
    */
   public updateTransform(): void {//TODO optimize this
     glm.mat4.identity(this.cacheMat);
-    glm.mat4.scale(this.cacheMat, this.cacheMat, this.Scale.targetVector);
-    glm.mat4.fromQuat(this.cacheMat2, this.rotation.targetQuat);
-    glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);
     glm.mat4.identity(this.cacheMat2);
-    glm.mat4.translate(this.cacheMat2, this.cacheMat2, this.position.targetVector);
+    // this.cacheMat[12] = this.position.X;
+    // this.cacheMat[13] = this.position.Y;
+    // this.cacheMat[14] = this.position.Z;
+    // //glm.mat4.translate(this.cacheMat, this.cacheMat, this.Position.targetVector);
+    // if(this.relatedTo["boneIndex"]==8)
+    // {
+    //  // glm.mat4
+    // }
+    // glm.mat4.fromQuat(this.cacheMat2, this.rotation.targetQuat);
+    // glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);//T(p)*T*R
+    // glm.mat4.identity(this.cacheMat2);
+    // this.cacheMat2[12] = -this.position.X;
+    // this.cacheMat2[13] = -this.position.Y;
+    // this.cacheMat2[14] = -this.position.Z;
+    glm.mat4.fromRotationTranslationScaleOrigin(this.cacheMat, this.rotation.targetQuat,this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);
     glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);
     this.localTransform = new Matrix(this.cacheMat);
+
     if (this.relatedTo != null && this.relatedTo.Parent != null) {
       glm.mat4.copy(this.cacheMat2, this.relatedTo.Parent.Transformer.LocalToGlobal.rawElements);
     } else {
       glm.mat4.identity(this.cacheMat2);
     }
-    this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2, this.cacheMat2, this.localTransform.rawElements));
-    glm.vec4.transformMat4(this.cacheVec, this.cacheMat2, [0, 0, 1,0]);    
-    glm.vec3.normalize(this.fowardCache,this.cacheVec);
-    if(this.relatedTo.Children)this.relatedTo.Children.each((v) => {
+    this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2, this.localTransform.rawElements,this.cacheMat2));
+    glm.vec4.transformMat4(this.cacheVec, this.cacheMat2, [0, 0, 1, 0]);
+    glm.vec3.normalize(this.fowardCache, this.cacheVec);
+    if (this.relatedTo.Children) this.relatedTo.Children.each((v) => {
       v.Transformer.updateTransform();
     });
     this.onUpdateTransformHandler.fire(this, this.relatedTo);
   }
+
   /**
    * Calculate Projection-View-Model matrix with renderer camera.
    */
@@ -145,7 +162,7 @@ class Transformer extends JThreeObject {
    * Get Accessor for model position.
    */
   get Position(): Vector3 {
-    return this.position
+    return this.position;
   }
   /**
    * Set Accessor for model position.
@@ -167,6 +184,17 @@ class Transformer extends JThreeObject {
    */
   set Scale(vec: Vector3) {
     this.scale = vec;
+    this.updateTransform();
+  }
+
+  get LocalOrigin():Vector3
+  {
+    return this.localOrigin;
+  }
+
+  set LocalOrigin(origin:Vector3)
+  {
+    this.localOrigin = origin;
     this.updateTransform();
   }
 }

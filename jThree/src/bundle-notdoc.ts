@@ -35,17 +35,25 @@ declare var jDataView:{
 
 interface jDataView
 {
-    getString(length: Number,offset?:number,encoding?:string);
-    getInt8(offset?:number,littleEndian?:boolean);
-    getUint8(offset?:number,littleEndian?:boolean);
-    getInt16(offset?:number,littleEndian?:boolean);
-    getUint16(offset?:number,littleEndian?:boolean);
-    getInt32(offset?:number,littleEndian?:boolean);
-    getUint32(offset?:number,littleEndian?:boolean);
-    getUint32(offset?:number,littleEndian?:boolean);
-    getFloat32(offset?:number,littleEndian?:boolean);
-    getFloat64(offset?:number,littleEndian?:boolean);
+    getString(length: Number,offset?:number,encoding?:string):string;
+    getInt8(offset?:number,littleEndian?:boolean):number;
+    getUint8(offset?:number,littleEndian?:boolean):number;
+    getInt16(offset?:number,littleEndian?:boolean):number;
+    getUint16(offset?:number,littleEndian?:boolean):number;
+    getInt32(offset?:number,littleEndian?:boolean):number;
+    getUint32(offset?:number,littleEndian?:boolean):number;
+    getUint32(offset?:number,littleEndian?:boolean):number;
+    getFloat32(offset?:number,littleEndian?:boolean):number;
+    getFloat64(offset?:number,littleEndian?:boolean):number;
     slice(start: number, end: number, forceCopy?: boolean);
     skip(byteLength: number);
     tell(): number;
+}
+
+declare var TextDecoder: {
+    new (encoding:string):TextDecoder;
+    prototype: TextDecoder;
+}
+interface TextDecoder{
+    decode(buf:Uint8Array);
 }

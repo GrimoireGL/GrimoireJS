@@ -338,17 +338,17 @@ class PMX {
 			this.bones[i] = {
 				boneName: this.readTextBuf(),
 				boneNameEn: this.readTextBuf(),
-				position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+				position: [r.getFloat32(), r.getFloat32(),-r.getFloat32()],
 				parentBoneIndex: this.readBoneIndex(),
 				transformLayer: r.getInt32(),
 				boneFlag: boneFlagCache = r.getUint16(),
-				positionOffset: (boneFlagCache & 0x0001) == 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
+				positionOffset: (boneFlagCache & 0x0001) == 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
 				connectingBoneIndex: (boneFlagCache & 0x0001) > 0 ? this.readBoneIndex() : undefined,
 				providingBoneIndex: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? this.readBoneIndex() : undefined,
 				providingRate: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? r.getFloat32() : undefined,
-				fixedAxis: (boneFlagCache & 0x0400) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
-				localAxisX: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
-				localAxisZ: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined,
+				fixedAxis: (boneFlagCache & 0x0400) > 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
+				localAxisX: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(),- r.getFloat32()] : undefined,
+				localAxisZ: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
 				externalParentTransformKey: (boneFlagCache & 0x2000) > 0 ? r.getInt32() : undefined,
 				ikTargetBoneIndex: (boneFlagCache & 0x0020) > 0 ? this.readBoneIndex() : undefined,
 				ikLoopCount: (boneFlagCache & 0x0020) > 0 ? r.getInt32() : undefined,
@@ -396,7 +396,7 @@ class PMX {
 						this.morphs[i].vertexMorph[j] =
 						{
 							vertexIndex: this.readVertexIndex(),
-							vertexOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32()]
+							vertexOffset: [r.getFloat32(), r.getFloat32(),-r.getFloat32()]
 						}
 					}
 					break;
@@ -406,7 +406,7 @@ class PMX {
 						this.morphs[i].boneMorph[j]
 						= {
 							boneIndex: this.readBoneIndex(),
-							translationOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+							translationOffset: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
 							rotationOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
 						};
 					}
@@ -483,7 +483,7 @@ class PMX {
 				unCollisionGroupFlag: r.getUint16(),
 				shape: r.getUint8(),
 				size: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-				position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
+				position: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
 				rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
 				mass: r.getFloat32(),
 				translationFraction: r.getFloat32(),

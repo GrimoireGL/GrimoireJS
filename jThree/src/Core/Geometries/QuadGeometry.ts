@@ -24,7 +24,7 @@ class QuadGeometry extends Geometry {
       var nor:number[]=[];
       var uv:number[] = [];
       var index:number[]=[];
-      this.addQuad(pos,nor,uv,index,[new Vector3(-1,1,0),new Vector3(1,1,0),new Vector3(-1,-1,0)]);
+      this.addQuad(pos,nor,uv,index,[new Vector3(-1,1,0),new Vector3(-1,-1,0),new Vector3(1,1,0)]);
       this.positionBuffer.update(new Float32Array(pos),pos.length);
       this.normalBuffer.update(new Float32Array(nor),nor.length);
       this.uvBuffer.update(new Float32Array(uv),uv.length);
