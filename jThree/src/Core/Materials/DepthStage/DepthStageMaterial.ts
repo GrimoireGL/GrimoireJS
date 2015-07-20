@@ -43,7 +43,6 @@ class DepthStageMaterial extends Material {
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    programWrapper.registerTexture(renderer, this.Texture, 0, "u_sampler");
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
