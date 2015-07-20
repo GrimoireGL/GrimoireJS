@@ -22,6 +22,7 @@
       </object>
         <dlight color="white" intensity="0.5" rotation="z(90d)" position="0,1,0"/>
          <pmx url="/Tda/Miku.pmx">
+          <vmd url="melt.vmd" frame="1200"/>
           <morphs>
             <morph id="wrink" name="ウインク" value="1"/>
           </morphs>

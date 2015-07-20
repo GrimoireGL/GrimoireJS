@@ -61,14 +61,7 @@ class JThreeInit {
 
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
-      j3.GomlLoader.onload(() => {
-      VMDData.LoadFromUrl("/melt.vmd", (v) => { debugger;})
-        // PMXModel.LoadFromUrl("/Tda/Miku.pmx",(m)=>
-        //   {
-        //     m.Transformer.Scale=new Vector3(0.1,0.1,0.1);
-        //     j3.SceneManager.Scenes[0].addObject(m);
-        //   });
-      });
+      j3.GomlLoader.onload(() => { });
       j3.init();
     });
   }

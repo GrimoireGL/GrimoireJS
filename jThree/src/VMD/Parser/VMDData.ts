@@ -28,6 +28,11 @@ class VMDData {
 
 	private morphs: VMDMorph;
 
+	public get Motions()
+	{
+		return this.motions;
+	}
+
 	constructor(data: ArrayBuffer) {
 		this.reader = new jDataView(data, 0, data.byteLength, true);
 		this.loadHeader();
@@ -53,12 +58,10 @@ class VMDData {
 			var data =
 				{
 					frameNumber: r.getUint32(),
-					position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-					rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
+					position: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
+					rotation: [-r.getFloat32(),-r.getFloat32(), r.getFloat32(), r.getFloat32()],
 					interpolation: this.loadInterpolation()
 				};
-			// data.rotation[0]=w;
-			// data.rotation[3]=x;
 			if (typeof this.motions[frameName] === 'undefined') {
 				this.motions[frameName] = [];
 			}

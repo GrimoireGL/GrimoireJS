@@ -118,7 +118,7 @@ class Transformer extends JThreeObject {
     } else {
       glm.mat4.identity(this.cacheMat2);
     }
-    this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2, this.localTransform.rawElements,this.cacheMat2));
+    this.localToGlobal = new Matrix(glm.mat4.multiply(this.cacheMat2,this.cacheMat2, this.localTransform.rawElements));
     glm.vec4.transformMat4(this.cacheVec, this.cacheMat2, [0, 0, 1, 0]);
     glm.vec3.normalize(this.fowardCache, this.cacheVec);
     if (this.relatedTo.Children) this.relatedTo.Children.each((v) => {
