@@ -76,7 +76,7 @@ gulp.task 'webpack',->
           'superagent':path.join __dirname,'superagent.js'
           'emitter':path.join __dirname,'emitter.js'
           'reduce':path.join __dirname,'reduce.js'
-          'glm':path.join __dirname,'gl-matrix-min.js',
+          'glm':path.join __dirname,'gl-matrix-min.js'
           'binary':path.join __dirname,'binaryReader.js'
         extensions:['','.ts']
         root:[
@@ -94,7 +94,7 @@ gulp.task 'webpack',->
             {
               test:/\.glsl$/
               loader:'shader'
-              
+
             }
             {
               test:/\.ts$/
@@ -151,7 +151,7 @@ gulp.task 'reload',->
 ###
 server task
 ###
-gulp.task 'server',['webpack'],->
+gulp.task 'server',->
   connect.server
     root:'./jThree/wwwroot'
     livereload:true
@@ -187,8 +187,8 @@ gulp.task 'doc',(cb)->
       out: "ci/docs/#{branch}"
       name: 'jThree'
       json:"ci/docs/#{branch}.json"
-      
-      
+
+
 ###
 # gulp.task 'doc',(cb)->
 #     child_process.exec("typedoc --out ./ci/docs"+branch+" --module commonjs --target es5 --name jThree ./jThree/src/",cb);
@@ -204,7 +204,7 @@ gulp.task 'doc',(cb)->
   #     includeDeclarations:true,
   #     json:'./ci/docs/'+branch+'doc.json',
   #     mode:'modules'
-  
+
 ###
 
 
