@@ -101,8 +101,6 @@ class LitghtAccumulationStage extends RenderStageBase {
     programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
     programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1,2,-3)));
     programWrapper.setUniform1f("time", (new Date()).getMilliseconds() + 1000 * (new Date().getSeconds()));
-    programWrapper.setUniform1f("xtest", <number>new Number((<HTMLInputElement>document.getElementsByName("x").item(0)).value));
-    programWrapper.setUniform1f("ztest", <number>new Number((<HTMLInputElement>document.getElementsByName("z").item(0)).value));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
 
@@ -118,7 +116,7 @@ class LitghtAccumulationStage extends RenderStageBase {
 		public get TargetGeometry(): string {
     return "quad";
   }
-  
+
   	public get RenderStageConfig()
 	{
 		return {

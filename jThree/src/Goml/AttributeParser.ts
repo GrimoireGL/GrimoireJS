@@ -24,6 +24,7 @@ class AttributeParser extends jThreeObject
 
   public static ParseRotation3D(input:string):Quaternion
   {
+    input = input.replace(/\s/g, '')
     if(input.match(/^[xyz]\(.+\)$/))
     {
       var signature=input.replace(/^([xyz])\(.+\)$/,"$1");
@@ -39,11 +40,11 @@ class AttributeParser extends jThreeObject
       {
         return Quaternion.AngleAxis(angle,Vector3.ZUnit);
       }
-    }else if(input.match(/^eular\([0-9E/\(\)\.]+p?d?,[0-9E/\(\)\.]+p?d?,[0-9E/\(\)\.]+p?d?\)$/))
+    }else if(input.match(/^euler\([0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?\)$/))
     {
-      var angles=input.replace(/^eular\(([0-9E/\(\)\.]+p?d?),([0-9E/\(\)\.]+p?d?),([0-9E/\(\)\.]+p?d?)\)$/,"$1,$2,$3");
+      var angles=input.replace(/^euler\(([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?)\)$/,"$1,$2,$3");
       var splitted=angles.split(/,/);
-      return Quaternion.Eular(AttributeParser.ParseAngle(splitted[0]),AttributeParser.ParseAngle(splitted[1]),AttributeParser.ParseAngle(splitted[2]));
+      return Quaternion.Euler(AttributeParser.ParseAngle(splitted[0]),AttributeParser.ParseAngle(splitted[1]),AttributeParser.ParseAngle(splitted[2]));
     }else if(input.match(/^axis\([0-9E/\(\)\.-]+p?d?,[\d\.]+,[\d\.]+,[\d\.]\)$/))
     {
       var angles=input.replace(/^axis\(([0-9E/\(\)\.-]+p?d?),([\d\.]+),([\d\.]+),([\d\.]+)\)$/,"$1,$2,$3,$4");

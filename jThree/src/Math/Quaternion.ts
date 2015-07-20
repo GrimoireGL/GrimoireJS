@@ -103,7 +103,7 @@ class Quaternion extends JThreeObject
   public static Add(q1:Quaternion,q2:Quaternion):Quaternion
   {
     var newQuat=glm.quat.create();
-    
+
     return new Quaternion(glm.quat.add(newQuat,q1.targetQuat,q2.targetQuat));
   }
 
@@ -129,7 +129,7 @@ class Quaternion extends JThreeObject
     return new Quaternion(glm.quat.setAxisAngle(newQuat,axisVec,angle));
   }
 
-  public static Eular(x:number,y:number,z:number):Quaternion
+  public static Euler(x:number,y:number,z:number):Quaternion
   {
     return Quaternion.Multiply(Quaternion.AngleAxis(z,Vector3.ZUnit),Quaternion.Multiply(Quaternion.AngleAxis(x,Vector3.XUnit),Quaternion.AngleAxis(y,Vector3.YUnit)));
   }

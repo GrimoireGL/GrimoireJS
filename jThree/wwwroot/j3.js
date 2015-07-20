@@ -10230,6 +10230,7 @@
 	        return evalued;
 	    };
 	    AttributeParser.ParseRotation3D = function (input) {
+	        input = input.replace(/\s/g, '');
 	        if (input.match(/^[xyz]\(.+\)$/)) {
 	            var signature = input.replace(/^([xyz])\(.+\)$/, "$1");
 	            var value = input.replace(/^[xyz]\((.+)\)$/, "$1");
@@ -10244,10 +10245,10 @@
 	                return Quaternion.AngleAxis(angle, Vector3.ZUnit);
 	            }
 	        }
-	        else if (input.match(/^eular\([0-9E/\(\)\.]+p?d?,[0-9E/\(\)\.]+p?d?,[0-9E/\(\)\.]+p?d?\)$/)) {
-	            var angles = input.replace(/^eular\(([0-9E/\(\)\.]+p?d?),([0-9E/\(\)\.]+p?d?),([0-9E/\(\)\.]+p?d?)\)$/, "$1,$2,$3");
+	        else if (input.match(/^euler\([0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?\)$/)) {
+	            var angles = input.replace(/^euler\(([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?)\)$/, "$1,$2,$3");
 	            var splitted = angles.split(/,/);
-	            return Quaternion.Eular(AttributeParser.ParseAngle(splitted[0]), AttributeParser.ParseAngle(splitted[1]), AttributeParser.ParseAngle(splitted[2]));
+	            return Quaternion.Euler(AttributeParser.ParseAngle(splitted[0]), AttributeParser.ParseAngle(splitted[1]), AttributeParser.ParseAngle(splitted[2]));
 	        }
 	        else if (input.match(/^axis\([0-9E/\(\)\.-]+p?d?,[\d\.]+,[\d\.]+,[\d\.]\)$/)) {
 	            var angles = input.replace(/^axis\(([0-9E/\(\)\.-]+p?d?),([\d\.]+),([\d\.]+),([\d\.]+)\)$/, "$1,$2,$3,$4");
@@ -10361,7 +10362,7 @@
 	        var newQuat = glm.quat.create();
 	        return new Quaternion(glm.quat.setAxisAngle(newQuat, axisVec, angle));
 	    };
-	    Quaternion.Eular = function (x, y, z) {
+	    Quaternion.Euler = function (x, y, z) {
 	        return Quaternion.Multiply(Quaternion.AngleAxis(z, Vector3.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(x, Vector3.XUnit), Quaternion.AngleAxis(y, Vector3.YUnit)));
 	    };
 	    Quaternion.Slerp = function (q1, q2, t) {
@@ -14942,9 +14943,10 @@
 /* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = {
+	var generatorList = {
 	    "rendererfit": __webpack_require__(97)
 	};
+	module.exports = generatorList;
 
 
 /***/ },
@@ -15618,8 +15620,6 @@
 	        programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
 	        programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1, 2, -3)));
 	        programWrapper.setUniform1f("time", (new Date()).getMilliseconds() + 1000 * (new Date().getSeconds()));
-	        programWrapper.setUniform1f("xtest", new Number(document.getElementsByName("x").item(0).value));
-	        programWrapper.setUniform1f("ztest", new Number(document.getElementsByName("z").item(0).value));
 	        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
 	    };
 	    LitghtAccumulationStage.prototype.needRender = function (scene, object, passCount) {
@@ -20579,7 +20579,6 @@
 	                this.morphsDictionary.set(this.morphs[i].MorphName, this.morphs[i]);
 	        }
 	    }
-	    ;
 	    PMXMorphManager.prototype.applyMorph = function () {
 	        for (var i = 0; i < this.morphs.length; ++i) {
 	            if (this.morphs[i] != null)
