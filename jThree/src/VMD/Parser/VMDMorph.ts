@@ -6,6 +6,7 @@ interface VMDMorphs
 
 interface VMDMorph extends VMDFrameData
 {
-	frameNumber:number,
-	morphValue:number}
+	frameNumber:number;
+	morphValue:number;
+}
 export=VMDMorphs;

@@ -20,9 +20,9 @@ import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachme
 import TargetTextureType = require('../../../Wrapper/TargetTextureType');
 import GLSpecManager = require('../../GLSpecManager');
 interface FBOBindData {
-	texture: TextureBase|RBO,
-	target: string|number,
-	isOptional?: boolean,
+	texture: TextureBase|RBO;
+	target: string|number;
+	isOptional?: boolean;
 	type?: string
 }
 
@@ -49,7 +49,7 @@ class RenderStageBase extends JThreeObject {
 		super();
 		this.renderer = renderer;
 	}
-	
+
 	/**
 	 * This method will be called before process render in each pass
 	 */
@@ -104,7 +104,7 @@ class RenderStageBase extends JThreeObject {
 			this.GLContext.Disable(target);
 		}
 	}
-	
+
 	private resetActiveTextures()
 	{
 		for(var i=0;i<GLSpecManager.MaxTextureCount;i++)
@@ -171,21 +171,21 @@ class RenderStageBase extends JThreeObject {
 			console.error("unknown bind type!");
 		}
 	}
-	
+
 	/**
 	 * Get default fbo that is allocated for this renderer.
 	 */
 	public get DefaultFBO(): FBO {
 		return JThreeContextProxy.getJThreeContext().ResourceManager.getFBO(this.Renderer.ID + ".fbo.default");
 	}
-	
+
 	/**
 	 * Get default rbo that is allocated for this renderer.
 	 */
 	public get DefaultRBO(): RBO {
 		return JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
 	}
-	
+
 	protected get Context()
 	{
 		return JThreeContextProxy.getJThreeContext();

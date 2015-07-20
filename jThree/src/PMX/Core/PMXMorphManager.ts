@@ -9,7 +9,7 @@ class PMXMorphManager
 
 	private morphsDictionary: AssociativeArray<PMXMorph> = new AssociativeArray<PMXMorph>();
 
-;	public postProcessFlag: boolean[]=[false,false,false,false,false,false,false,false,false];
+	public postProcessFlag: boolean[]=[false,false,false,false,false,false,false,false,false];
 
 	constructor(model:PMXModel)
 	{

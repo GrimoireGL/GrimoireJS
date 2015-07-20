@@ -1,5 +1,7 @@
 declare function require(name:string):any;
-export=
-{
+
+var generatorList = {
 	"rendererfit":require('./RendererFit')
-}
+};
+
+export = generatorList;

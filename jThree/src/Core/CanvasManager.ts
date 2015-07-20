@@ -46,52 +46,52 @@ class CanvasManager extends ContextManagerBase {
         // this.enabled = true;
         this.setContext(new WebGLContextWrapper(glContext));
     }
-    
+
     /**
      * backing field of FullScreen.
      */
     private fullscreen: boolean = false;
-    
+
     /**
      * target canvas this class managing.
      */
     private targetCanvas: HTMLCanvasElement;
-    
+
     /**
      * cache for the last height.
      */
     private lastHeight: number;
-    
+
     /**
      * cache for the last width.
      */
     private lastWidth: number;
 
-    
+
     /**
      * backing field for IsDirty
      */
     private isDirty: boolean = true;
-    
+
     /**
      * event cache for resize event.
      */
     private onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
-    
+
     /**
      * Get accessor for the reference of canvas element this object managing.
      */
     public get TargetCanvas(): HTMLCanvasElement {
         return this.targetCanvas;
     }
-    
+
     /**
      * Get accessor whether this canvas is fullscreen or not.
      */
     public get FullScreen(): boolean {
         return this.fullscreen;
     }
-    
+
     /**
      * Set accessor whether this canvas is fullscreen or not.
      */
@@ -131,7 +131,7 @@ class CanvasManager extends ContextManagerBase {
             this.lastHeight = this.targetCanvas.height; this.lastWidth = this.targetCanvas.width;
         }
     }
-    
+
     /**
      * clear the default buffer of this canvas with ClearColor.
      */
