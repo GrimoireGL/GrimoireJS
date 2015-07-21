@@ -5,6 +5,7 @@ import PMXBone = require('../../PMX/Core/PMXBone');
 import VMDData = require('../Parser/VMDData');
 import Vector3 = require('../../Math/Vector3');
 import Quaternion = require('../../Math/Quaternion');
+import PMXMorph = require('../../PMX/Core/PMXMorph');
 class VMDNode extends GomlTreeNodeBase
 {
 	private targetPMX: PMXNode;
@@ -47,6 +48,15 @@ class VMDNode extends GomlTreeNodeBase
 								var current = this.targetVMD.getBoneFrame(v.Value, boneName);
 								bone.Transformer.Position = new Vector3(current.position);
 								bone.Transformer.Rotation = new Quaternion(current.rotation);
+							}
+						}
+						for(var morphName in this.targetVMD	.Morphs)
+						{
+							var morph:PMXMorph;
+							if(morph = this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName))
+							{
+								var morphCurrent = this.targetVMD.getMorphFrame(v.Value, morphName);
+								morph.Progress = morphCurrent.value;
 							}
 						}
 					}

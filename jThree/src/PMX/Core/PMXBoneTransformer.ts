@@ -27,6 +27,11 @@ class PMXBoneTransformer extends Transformer
 		return (this.TargetBoneData.boneFlag & 0x0200) > 0;
 	}
 
+	public get IsIKBone()
+	{
+		return (this.TargetBoneData.boneFlag & 0x0020) > 0;
+	}
+
 	constructor(sceneObj:SceneObject,pmx:PMX,index:number)
 	{
 		super(sceneObj);
@@ -38,8 +43,16 @@ class PMXBoneTransformer extends Transformer
 
 	public updateTransform(): void {
 		super.updateTransform();
-
+		if(this.IsIKBone)
+		{
+			this.applyCCDIK();
+		}
 		this.transformUpdated = true;
+	}
+
+	private applyCCDIK()
+	{
+
 	}
 }
 

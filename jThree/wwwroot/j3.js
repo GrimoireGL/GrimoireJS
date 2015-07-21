@@ -15523,13 +15523,13 @@
 /* 111 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nattribute vec3 position;\nattribute vec3 normal;\nattribute vec2 uv;\n\nuniform mat4 matMVP;\nuniform mat4 matMV;\n\n\nvarying vec3 v_normal;\nvarying vec2 v_uv;\nvarying vec4 v_pos;\n\nvoid main(void){\nv_pos=gl_Position = matMVP*vec4(position,1.0);\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\nv_uv=uv;\n}\n"
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute vec2 uv;\r\n\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\n\r\n\r\nvarying vec3 v_normal;\r\nvarying vec2 v_uv;\r\nvarying vec4 v_pos;\r\n\r\nvoid main(void){\r\nv_pos=gl_Position = matMVP*vec4(position,1.0);\r\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\r\nv_uv=uv;\r\n}\r\n"
 
 /***/ },
 /* 112 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nvarying vec3 v_normal;\nvarying  vec2 v_uv;\nvarying vec4 v_pos;\nuniform mat4 matMVP;\nuniform mat4 matMV;\nuniform mat4 matV;\n//R=NORMAL.X\n//G=NORMAL.Y\n//B=NORMAL.Z\n//A=DEPTH\nvoid main(void){\n  float w=v_pos.z;\n  gl_FragColor.rgb=v_normal*0.5+vec3(0.5,0.5,0.5);\n  gl_FragColor.a=w;\n}\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\n//R=NORMAL.X\r\n//G=NORMAL.Y\r\n//B=NORMAL.Z\r\n//A=DEPTH\r\nvoid main(void){\r\n  float w=v_pos.z;\r\n  gl_FragColor.rgb=v_normal*0.5+vec3(0.5,0.5,0.5);\r\n  gl_FragColor.a=w;\r\n}\r\n"
 
 /***/ },
 /* 113 */
@@ -17087,7 +17087,7 @@
 /* 118 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nattribute vec3 position;\nattribute vec2 uv;\n\nvarying vec2 v_uv;\n\nvoid main(void){\ngl_Position =vec4(position,1.0);\nv_uv=uv;\n}\n"
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec2 uv;\r\n\r\nvarying vec2 v_uv;\r\n\r\nvoid main(void){\r\ngl_Position =vec4(position,1.0);\r\nv_uv=uv;\r\n}\r\n"
 
 /***/ },
 /* 119 */
@@ -17218,13 +17218,13 @@
 /* 121 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nattribute vec3 position;\n\nuniform mat4 matMVP;\n\nvarying vec4 v_pos;\n\nvoid main(void){\n\tv_pos=gl_Position =matMVP*vec4(position,1.0);\n}\n"
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\n\r\nuniform mat4 matMVP;\r\n\r\nvarying vec4 v_pos;\r\n\r\nvoid main(void){\r\n\tv_pos=gl_Position =matMVP*vec4(position,1.0);\r\n}\r\n"
 
 /***/ },
 /* 122 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nuniform mat4 matMVP;\nvarying vec4 v_pos;\nvoid main()\n{\n   float depth=v_pos.z/v_pos.w;\n   float r = depth;\n    float g = fract(r * 255.0);\n    float b = fract(g * 255.0);\n    float a = fract(b * 255.0);\n    float coef = 1.0 / 255.0;\n    r -= g * coef;\n    g -= b * coef;\n    b -= a * coef;\n    gl_FragColor=vec4(r, g, b, a);\n}\n"
+	module.exports = "precision mediump float;\r\nuniform mat4 matMVP;\r\nvarying vec4 v_pos;\r\nvoid main()\r\n{\r\n   float depth=v_pos.z/v_pos.w;\r\n   float r = depth;\r\n    float g = fract(r * 255.0);\r\n    float b = fract(g * 255.0);\r\n    float a = fract(b * 255.0);\r\n    float coef = 1.0 / 255.0;\r\n    r -= g * coef;\r\n    g -= b * coef;\r\n    b -= a * coef;\r\n    gl_FragColor=vec4(r, g, b, a);\r\n}\r\n"
 
 /***/ },
 /* 123 */
@@ -17601,13 +17601,13 @@
 /* 128 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nvarying vec3 v_normal;\nvarying  vec2 v_uv;\nvarying vec4 v_pos;\nuniform mat4 matMVP;\nuniform mat4 matMV;\nuniform mat4 matV;\nuniform sampler2D texture;\n//R=ALBEDO.R\n//G=ALBEDO.G\n//B=ALBEDO.B\n//A=ROUGHNESS\nvoid main(void){\n  gl_FragColor.rgb = texture2D(texture,v_uv).rgb;\n  gl_FragColor.a = 1.0;\n}\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D texture;\r\n//R=ALBEDO.R\r\n//G=ALBEDO.G\r\n//B=ALBEDO.B\r\n//A=ROUGHNESS\r\nvoid main(void){\r\n  gl_FragColor.rgb = texture2D(texture,v_uv).rgb;\r\n  gl_FragColor.a = 1.0;\r\n}\r\n"
 
 /***/ },
 /* 129 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nvarying vec3 v_normal;\nvarying  vec2 v_uv;\n\nuniform vec4 u_color;\nuniform mat4 matMVP;\nuniform mat4 matMV;\nvoid main(void){\n  gl_FragColor = u_color;\n}\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\n\r\nuniform vec4 u_color;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nvoid main(void){\r\n  gl_FragColor = u_color;\r\n}\r\n"
 
 /***/ },
 /* 130 */
@@ -17750,7 +17750,7 @@
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nvarying vec3 v_normal;\nvarying  vec2 v_uv;\nuniform vec4 u_color;\nuniform vec3 u_DirectionalLight;\nuniform mat4 matMVP;\nuniform mat4 matMV;\nuniform mat4 matV;\n\nvoid main(void){\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\n  gl_FragColor = u_color;\n  gl_FragColor.rgb*=brightness;\n}\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nuniform vec4 u_color;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\n\r\nvoid main(void){\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = u_color;\r\n  gl_FragColor.rgb*=brightness;\r\n}\r\n"
 
 /***/ },
 /* 134 */
@@ -17920,7 +17920,7 @@
 /* 136 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nvarying vec3 v_normal;\nvarying  vec2 v_uv;\nvarying vec4 v_pos;\n\nuniform vec4 u_diffuse;\nuniform vec4 u_specular;\nuniform vec4 u_ambient;\nuniform vec3 u_DirectionalLight;\nuniform mat4 matMVP;\nuniform mat4 matMV;\nuniform mat4 matV;\nuniform sampler2D u_sampler;\nuniform sampler2D u_light;\n\nvec2 calcLightUV(vec4 projectionSpacePos)\n{\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\n}\n\n\nvoid main(void){\n  vec2 adjuv=v_uv;\n  //calculate light vector in view space\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\n  gl_FragColor = texture2D(u_sampler,adjuv);\n  gl_FragColor.rgb*=brightness;\n  //half vector in view space\n  vec3 hv=normalize(dlDir+vec3(0,0,1));\n  float spBrightness=pow(dot(hv,v_normal),u_specular.a);\n  gl_FragColor.rgb+=u_ambient.rgb;\n  gl_FragColor.rgb+=u_specular.rgb*spBrightness;\n  //calculate light uv\n  vec2 lightUV=calcLightUV(v_pos);\n  gl_FragColor.rgb=texture2D(u_light,lightUV).xyz;\n}\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\n\r\nuniform vec4 u_diffuse;\r\nuniform vec4 u_specular;\r\nuniform vec4 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\n{\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\n}\n\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  //calculate light vector in view space\r\n  vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);\r\n  float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));\r\n  gl_FragColor = texture2D(u_sampler,adjuv);\r\n  gl_FragColor.rgb*=brightness;\r\n  //half vector in view space\r\n  vec3 hv=normalize(dlDir+vec3(0,0,1));\r\n  float spBrightness=pow(dot(hv,v_normal),u_specular.a);\r\n  gl_FragColor.rgb+=u_ambient.rgb;\r\n  gl_FragColor.rgb+=u_specular.rgb*spBrightness;\r\n  //calculate light uv\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgb=texture2D(u_light,lightUV).xyz;\r\n}\r\n"
 
 /***/ },
 /* 137 */
@@ -18079,7 +18079,7 @@
 /* 139 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nvarying vec3 v_normal;\nvarying  vec2 v_uv;\n\nuniform mat4 matMVP;\nuniform mat4 matMV;\nuniform mat4 matV;\nuniform mat4 ctM;\nuniform float additonA;\nuniform sampler2D u_sampler;\n\nvoid main(void){\n  gl_FragColor = ctM*texture2D(u_sampler,v_uv);\n  gl_FragColor.a += additonA;\n  //if(gl_FragColor.a==0.0)discard;\n}\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\n\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform mat4 ctM;\r\nuniform float additonA;\r\nuniform sampler2D u_sampler;\r\n\r\nvoid main(void){\r\n  gl_FragColor = ctM*texture2D(u_sampler,v_uv);\r\n  gl_FragColor.a += additonA;\r\n  //if(gl_FragColor.a==0.0)discard;\r\n}\r\n"
 
 /***/ },
 /* 140 */
@@ -20362,25 +20362,25 @@
 /* 168 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nattribute vec3 position;\nattribute vec3 normal;\nattribute vec2 uv;\nattribute vec4 boneWeights;\nattribute vec4 boneIndicies;\nuniform mat4 matMVP;\nuniform mat4 matMV;\nuniform mat4 matVP;\n\nvarying vec3 v_normal;\nvarying vec2 v_uv;\nvarying vec4 v_pos;\nvarying vec2 v_spuv;\n\n\nuniform mediump sampler2D u_boneMatricies;\nuniform float u_boneCount;\n\nmat4 matFromIndex(float index)\n{\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\n\ty=1.-y;\n\treturn mat4(\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\n}\n\nmat4 getBoneTransform()\n{\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\n}\n\nvoid main(void){\nmat4 boneTransform=getBoneTransform();\nv_pos=gl_Position = matVP*boneTransform*vec4(position,1.0);\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\nv_spuv=v_normal.xy/2.+vec2(0.5,0.5);\nv_uv=uv;\t\n}\n"
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute vec2 uv;\r\nattribute vec4 boneWeights;\r\nattribute vec4 boneIndicies;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matVP;\r\n\r\nvarying vec3 v_normal;\r\nvarying vec2 v_uv;\r\nvarying vec4 v_pos;\r\nvarying vec2 v_spuv;\r\n\r\n\r\nuniform mediump sampler2D u_boneMatricies;\r\nuniform float u_boneCount;\r\n\r\nmat4 matFromIndex(float index)\r\n{\r\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\r\n\ty=1.-y;\r\n\treturn mat4(\r\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\r\n}\r\n\r\nmat4 getBoneTransform()\r\n{\r\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\r\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\r\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\r\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\r\n}\r\n\r\nvoid main(void){\r\nmat4 boneTransform=getBoneTransform();\r\nv_pos=gl_Position = matVP*boneTransform*vec4(position,1.0);\r\nv_normal=normalize((matMV*vec4(normal,0)).xyz);\r\nv_spuv=v_normal.xy/2.+vec2(0.5,0.5);\r\nv_uv=uv;\t\r\n}\r\n"
 
 /***/ },
 /* 169 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nvarying vec3 v_normal;\nvarying  vec2 v_uv;\nvarying vec4 v_pos;\nuniform vec4 u_diffuse;\n\nuniform vec4 u_specular;\nuniform vec3 u_ambient;\nuniform vec3 u_DirectionalLight;\nuniform mat4 matMVP;\nuniform mat4 matMV;\nuniform mat4 matV;\nuniform sampler2D u_sampler;\nuniform sampler2D u_light;\nuniform sampler2D u_texture;\nuniform sampler2D u_sphere;\nuniform sampler2D u_toon;\nvarying vec2 v_spuv;\nuniform int u_textureUsed;\nuniform int u_sphereMode;\nuniform int u_toonFlag;\nuniform vec4 u_addTexCoeff;\nuniform vec4 u_mulTexCoeff;\nuniform vec4 u_addSphereCoeff;\nuniform vec4 u_mulSphereCoeff;\nuniform vec4 u_addToonCoeff;\nuniform vec4 u_mulToonCoeff;\n\nvec2 calcLightUV(vec4 projectionSpacePos)\n{\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\n}\n\nvec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)\n{\n    vec4 result=texture2D(source,uv);\n    result.rgb=mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);\n    result.rgb=result.rgb*mulCoeff.rgb+addCoeff.rgb;\n    return result;\n}\n\nvoid main(void){\n  vec2 adjuv=v_uv;\n  adjuv.y=1.-adjuv.y;\n  vec2 lightUV=calcLightUV(v_pos);\n  gl_FragColor.rgba=u_diffuse;\n    if(u_textureUsed>0) gl_FragColor.rgba*=blendPMXTexture(u_texture,adjuv,u_addTexCoeff,u_mulTexCoeff);\n    if(u_sphereMode==1)\n    {\n      gl_FragColor.rgb*=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;\n    }else if(u_sphereMode==2)\n    {\n      gl_FragColor.rgb+=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;\n    }\n    vec3 lc=texture2D(u_light,lightUV).rgb;\n    float l=0.2;//length(lc)/1.732;\n    if(u_toonFlag==1)\n    {\n          gl_FragColor.rgb*=blendPMXTexture(u_toon,vec2(0,1.-l),u_addToonCoeff  ,u_mulToonCoeff ).rgb*l;\n    }else\n    {\n          gl_FragColor.rgb*=l;\n    }\n    gl_FragColor.rgb+=u_ambient;\n}\n"
+	module.exports = "precision mediump float;\r\nvarying vec3 v_normal;\r\nvarying  vec2 v_uv;\r\nvarying vec4 v_pos;\r\nuniform vec4 u_diffuse;\r\n\r\nuniform vec4 u_specular;\r\nuniform vec3 u_ambient;\r\nuniform vec3 u_DirectionalLight;\r\nuniform mat4 matMVP;\r\nuniform mat4 matMV;\r\nuniform mat4 matV;\r\nuniform sampler2D u_sampler;\r\nuniform sampler2D u_light;\r\nuniform sampler2D u_texture;\r\nuniform sampler2D u_sphere;\r\nuniform sampler2D u_toon;\r\nvarying vec2 v_spuv;\r\nuniform int u_textureUsed;\r\nuniform int u_sphereMode;\r\nuniform int u_toonFlag;\r\nuniform vec4 u_addTexCoeff;\r\nuniform vec4 u_mulTexCoeff;\r\nuniform vec4 u_addSphereCoeff;\r\nuniform vec4 u_mulSphereCoeff;\r\nuniform vec4 u_addToonCoeff;\r\nuniform vec4 u_mulToonCoeff;\r\n\r\nvec2 calcLightUV(vec4 projectionSpacePos)\r\n{\r\n   return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;\r\n}\r\n\r\nvec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)\r\n{\r\n    vec4 result=texture2D(source,uv);\r\n    result.rgb=mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);\r\n    result.rgb=result.rgb*mulCoeff.rgb+addCoeff.rgb;\r\n    return result;\r\n}\r\n\r\nvoid main(void){\r\n  vec2 adjuv=v_uv;\r\n  adjuv.y=1.-adjuv.y;\r\n  vec2 lightUV=calcLightUV(v_pos);\r\n  gl_FragColor.rgba=u_diffuse;\r\n    if(u_textureUsed>0) gl_FragColor.rgba*=blendPMXTexture(u_texture,adjuv,u_addTexCoeff,u_mulTexCoeff);\r\n    if(u_sphereMode==1)\r\n    {\r\n      gl_FragColor.rgb*=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;\r\n    }else if(u_sphereMode==2)\r\n    {\r\n      gl_FragColor.rgb+=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;\r\n    }\r\n    vec3 lc=texture2D(u_light,lightUV).rgb;\r\n    float l=0.2;//length(lc)/1.732;\r\n    if(u_toonFlag==1)\r\n    {\r\n          gl_FragColor.rgb*=blendPMXTexture(u_toon,vec2(0,1.-l),u_addToonCoeff  ,u_mulToonCoeff ).rgb*l;\r\n    }else\r\n    {\r\n          gl_FragColor.rgb*=l;\r\n    }\r\n    gl_FragColor.rgb+=u_ambient;\r\n}\r\n"
 
 /***/ },
 /* 170 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nattribute vec3 position;\nattribute vec3 normal;\nattribute float edgeScaling;\nattribute vec4 boneWeights;\nattribute vec4 boneIndicies;\n\nuniform mat4 matVP;\nuniform float u_edgeSize;\n\n\nuniform mediump sampler2D u_boneMatricies;\nuniform float u_boneCount;\n\nmat4 matFromIndex(float index)\n{\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\n\ty=1.-y;\n\treturn mat4(\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\n}\n\nmat4 getBoneTransform()\n{\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\n}\nvoid main(void){\n\tmat4 matMVP=matVP*getBoneTransform();\n\tvec4 p0 = matMVP*vec4(position,1);\n\tvec4 p1 = matMVP*vec4(position+normal,1);\n\tp0.xy/=p0.w;\n\tp1.xy/=p1.w;\n\tfloat coeff=(512./2.0)*distance(p0.xy,p1.xy);\n\tif(coeff > 1.0) coeff = 1.0/coeff;\n\tcoeff*=u_edgeSize*edgeScaling;\n\tgl_Position = matMVP*vec4(position + coeff*normal,1);\n}\n"
+	module.exports = "precision mediump float;\r\nattribute vec3 position;\r\nattribute vec3 normal;\r\nattribute float edgeScaling;\r\nattribute vec4 boneWeights;\r\nattribute vec4 boneIndicies;\r\n\r\nuniform mat4 matVP;\r\nuniform float u_edgeSize;\r\n\r\n\r\nuniform mediump sampler2D u_boneMatricies;\r\nuniform float u_boneCount;\r\n\r\nmat4 matFromIndex(float index)\r\n{\r\n\tfloat y =index/u_boneCount+1./u_boneCount/2.;\r\n\ty=1.-y;\r\n\treturn mat4(\r\n\ttexture2D(u_boneMatricies,vec2(0.125,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.375,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.625,y)),\r\n\ttexture2D(u_boneMatricies,vec2(0.875,y)));\r\n}\r\n\r\nmat4 getBoneTransform()\r\n{\r\n\treturn boneWeights.x*matFromIndex(boneIndicies.x)\r\n\t+boneWeights.y*matFromIndex(boneIndicies.y)\r\n\t+boneWeights.z*matFromIndex(boneIndicies.z)\r\n\t+boneWeights.w*matFromIndex(boneIndicies.w);\r\n}\r\nvoid main(void){\r\n\tmat4 matMVP=matVP*getBoneTransform();\r\n\tvec4 p0 = matMVP*vec4(position,1);\r\n\tvec4 p1 = matMVP*vec4(position+normal,1);\r\n\tp0.xy/=p0.w;\r\n\tp1.xy/=p1.w;\r\n\tfloat coeff=(512./2.0)*distance(p0.xy,p1.xy);\r\n\tif(coeff > 1.0) coeff = 1.0/coeff;\r\n\tcoeff*=u_edgeSize*edgeScaling;\r\n\tgl_Position = matMVP*vec4(position + coeff*normal,1);\r\n}\r\n"
 
 /***/ },
 /* 171 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\nuniform vec4 u_edgeColor;\n\nvoid main(void)\n{\n   gl_FragColor=u_edgeColor;\n}"
+	module.exports = "precision mediump float;\r\nuniform vec4 u_edgeColor;\r\n\r\nvoid main(void)\r\n{\r\n   gl_FragColor=u_edgeColor;\r\n}"
 
 /***/ },
 /* 172 */
@@ -20465,7 +20465,7 @@
 	var PMXBone = (function (_super) {
 	    __extends(PMXBone, _super);
 	    function PMXBone(model, skeleton, boneIndex) {
-	        _super.call(this, new PMXBoneTransformer(this));
+	        _super.call(this, new PMXBoneTransformer(this, model.ModelData, boneIndex));
 	        this.targetModel = model;
 	        this.targetSkeleton = skeleton;
 	        this.boneIndex = boneIndex;
@@ -20548,13 +20548,55 @@
 	var Transformer = __webpack_require__(93);
 	var PMXBoneTransformer = (function (_super) {
 	    __extends(PMXBoneTransformer, _super);
-	    function PMXBoneTransformer() {
-	        _super.apply(this, arguments);
+	    function PMXBoneTransformer(sceneObj, pmx, index) {
+	        _super.call(this, sceneObj);
 	        this.transformUpdated = false;
+	        this.pmx = pmx;
+	        this.boneIndex = index;
 	    }
+	    Object.defineProperty(PMXBoneTransformer.prototype, "TargetBoneData", {
+	        get: function () {
+	            return this.pmx.Bones[this.boneIndex];
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXBoneTransformer.prototype, "IsLocalProvidingBone", {
+	        get: function () {
+	            return (this.TargetBoneData.boneFlag & 0x0080) > 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXBoneTransformer.prototype, "IsRotationProvidingBone", {
+	        get: function () {
+	            return (this.TargetBoneData.boneFlag & 0x0100) > 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXBoneTransformer.prototype, "IsTranslationProvidingBone", {
+	        get: function () {
+	            return (this.TargetBoneData.boneFlag & 0x0200) > 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXBoneTransformer.prototype, "IsIKBone", {
+	        get: function () {
+	            return (this.TargetBoneData.boneFlag & 0x0020) > 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    PMXBoneTransformer.prototype.updateTransform = function () {
 	        _super.prototype.updateTransform.call(this);
+	        if (this.IsIKBone) {
+	            this.applyCCDIK();
+	        }
 	        this.transformUpdated = true;
+	    };
+	    PMXBoneTransformer.prototype.applyCCDIK = function () {
 	    };
 	    return PMXBoneTransformer;
 	})(Transformer);
@@ -21320,6 +21362,13 @@
 	                                bone.Transformer.Rotation = new Quaternion(current.rotation);
 	                            }
 	                        }
+	                        for (var morphName in _this.targetVMD.Morphs) {
+	                            var morph;
+	                            if (morph = _this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {
+	                                var morphCurrent = _this.targetVMD.getMorphFrame(v.Value, morphName);
+	                                morph.Progress = morphCurrent.value;
+	                            }
+	                        }
 	                    }
 	                }
 	            }
@@ -21357,6 +21406,13 @@
 	    Object.defineProperty(VMDData.prototype, "Motions", {
 	        get: function () {
 	            return this.motions;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(VMDData.prototype, "Morphs", {
+	        get: function () {
+	            return this.morphs;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -21477,6 +21533,30 @@
 	                    frameNumber: frame,
 	                    position: frames[index].position,
 	                    rotation: frames[index].rotation
+	                };
+	            }
+	        }
+	    };
+	    VMDData.prototype.getMorphFrame = function (frame, morphName) {
+	        var frames = this.morphs[morphName];
+	        if (typeof frames === 'undefined') {
+	            return null;
+	        }
+	        else {
+	            var index = this.binaryframeSearch(frames, frame);
+	            if (index + 1 < frames.length) {
+	                var nextFrame = frames[index + 1];
+	                var currentFrame = frames[index];
+	                var progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);
+	                return {
+	                    frameNumber: frame,
+	                    value: currentFrame.morphValue + (nextFrame.morphValue - currentFrame.morphValue) * progress,
+	                };
+	            }
+	            else {
+	                return {
+	                    frameNumber: frame,
+	                    value: frames[index].morphValue,
 	                };
 	            }
 	        }

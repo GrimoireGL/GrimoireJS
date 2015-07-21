@@ -4,6 +4,7 @@ import VMDMorph = require('./VMDMorph');
 import VMDFrameData = require('./VMDFrameData');
 import VMDBoneStatus= require('./VMDBoneStatus');
 import Delegates = require('../../Base/Delegates');
+import VMDMorphStatus = require('./VMDMorphStatus');
 import glm = require('glm');
 class VMDData {
 
@@ -31,6 +32,11 @@ class VMDData {
 	public get Motions()
 	{
 		return this.motions;
+	}
+
+	public get Morphs()
+	{
+		return this.morphs;
 	}
 
 	constructor(data: ArrayBuffer) {
@@ -171,6 +177,34 @@ class VMDData {
 					frameNumber:frame,
 					position:frames[index].position,
 					rotation:frames[index].rotation
+				};
+			}
+		}
+	}
+
+	public getMorphFrame(frame:number,morphName:string):VMDMorphStatus
+	{
+		var frames = this.morphs[morphName];
+		if(typeof frames === 'undefined')
+		{
+			return null;
+		}else
+		{
+			var index=this.binaryframeSearch(frames, frame);
+			if(index+1<frames.length)
+			{
+				var nextFrame = frames[index + 1];
+				var currentFrame = frames[index];
+				var progress = (frame-currentFrame.frameNumber)/(nextFrame.frameNumber-currentFrame.frameNumber);
+				return {
+					frameNumber:frame,
+					value:currentFrame.morphValue+(nextFrame.morphValue	-currentFrame.morphValue)*progress,
+				}
+			}else
+			{
+				return {
+					frameNumber:frame,
+					value:frames[index].morphValue,
 				};
 			}
 		}

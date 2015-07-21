@@ -21,12 +21,12 @@
       <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,18,10)" rotation="x(-30d)"></camera>
       </object>
         <dlight color="white" intensity="0.5" rotation="z(90d)" position="0,1,0"/>
-<!--          <pmx url="/Tda/Miku.pmx">
+          <pmx url="/Tda/Miku.pmx">
           <vmd url="melt.vmd" frame="0"/>
           <morphs>
             <morph id="wrink" name="ウインク" value="1"/>
           </morphs>
-         </pmx> -->
+         </pmx> 
       <mesh geo="quad" scale="1" position="0,1.5,0" mat="phong"/>
     </scene>
     <scene>
