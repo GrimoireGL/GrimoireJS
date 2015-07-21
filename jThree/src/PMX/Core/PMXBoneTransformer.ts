@@ -43,6 +43,7 @@ class PMXBoneTransformer extends Transformer
 
 	public updateTransform(): void {
 		super.updateTransform();
+		if (this.pmx == null) return;
 		if(this.IsIKBone)
 		{
 			this.applyCCDIK();
