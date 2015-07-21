@@ -4,8 +4,9 @@
 # For jThree envirnoment
 ci/
 docs/
-jThree/wwwroot/GUMI/
-jThree/wwwroot/Tda/
+jThree/wwwroot/_debug/GUMI/
+jThree/wwwroot/_debug/Tda/
+jThree/wwwroot/j3.js
 jThree/src/*.js
 jThree/src/*.js.map
 jThree/src/**/*.js
