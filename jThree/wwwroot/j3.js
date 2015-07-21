@@ -20465,7 +20465,7 @@
 	var PMXBone = (function (_super) {
 	    __extends(PMXBone, _super);
 	    function PMXBone(model, skeleton, boneIndex) {
-	        _super.call(this, new PMXBoneTransformer(this));
+	        _super.call(this, new PMXBoneTransformer(this, model.ModelData, boneIndex));
 	        this.targetModel = model;
 	        this.targetSkeleton = skeleton;
 	        this.boneIndex = boneIndex;
@@ -20548,10 +20548,40 @@
 	var Transformer = __webpack_require__(93);
 	var PMXBoneTransformer = (function (_super) {
 	    __extends(PMXBoneTransformer, _super);
-	    function PMXBoneTransformer() {
-	        _super.apply(this, arguments);
+	    function PMXBoneTransformer(sceneObj, pmx, index) {
+	        _super.call(this, sceneObj);
 	        this.transformUpdated = false;
+	        this.pmx = pmx;
+	        this.boneIndex = index;
 	    }
+	    Object.defineProperty(PMXBoneTransformer.prototype, "TargetBoneData", {
+	        get: function () {
+	            return this.pmx.Bones[this.boneIndex];
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXBoneTransformer.prototype, "IsLocalProvidingBone", {
+	        get: function () {
+	            return (this.TargetBoneData.boneFlag & 0x0080) > 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXBoneTransformer.prototype, "IsRotationProvidingBone", {
+	        get: function () {
+	            return (this.TargetBoneData.boneFlag & 0x0100) > 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PMXBoneTransformer.prototype, "IsTranslationProvidingBone", {
+	        get: function () {
+	            return (this.TargetBoneData.boneFlag & 0x0200) > 0;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    PMXBoneTransformer.prototype.updateTransform = function () {
 	        _super.prototype.updateTransform.call(this);
 	        this.transformUpdated = true;
