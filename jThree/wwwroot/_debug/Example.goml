@@ -1,0 +1,37 @@
+<goml>
+  <resources>
+     <ddebug viewport="viewport#main" name="light" target="deffered.light" />
+     <tdebug target="directional.test" name="dli"/>
+    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
+    <grid hdiv="20" name="grid" vdiv="20" />
+    <tri name="triangle" />
+    <cylinder name="cyl" divide="30" />
+    <cube name="cube"/>
+    <cube name="quad" />
+  </resources>
+  <renderers>
+    <renderer clearColor="#324D7C" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main" width="512" height="512" />
+      <viewport cam="CAM2" id="debug" width="512" height="512" left="512" />
+    </renderer>
+  </renderers>
+  <scenes>
+    <scene>
+      <object rotation="y(30d)">
+      <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,18,10)" rotation="x(-30d)"></camera>
+      </object>
+        <dlight color="white" intensity="0.5" rotation="z(90d)" position="0,1,0"/>
+<!--          <pmx url="/Tda/Miku.pmx">
+          <vmd url="melt.vmd" frame="0"/>
+          <morphs>
+            <morph id="wrink" name="ウインク" value="1"/>
+          </morphs>
+         </pmx> -->
+      <mesh geo="quad" scale="1" position="0,1.5,0" mat="phong"/>
+    </scene>
+    <scene>
+      <ocamera left="-1" right="1" top="1" bottom="-1" far="5" near="0.1" aspect="1" far="5" fovy="1/2p" name="CAM2" near="0.1" position="(0,0.5,2)" />
+      <mesh geo="quad" scale="1" position="0,0.5,1" mat="light"/>
+    </scene>
+  </scenes>
+</goml>
