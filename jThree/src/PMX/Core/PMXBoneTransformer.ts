@@ -14,6 +14,8 @@ class PMXBoneTransformer extends Transformer {
 	private pmxCalcCacheVec2 = glm.vec3.create();
 
 	private pmxCalcCacheQuat = glm.quat.create();
+
+		private pmxCalcCacheQuat2 = glm.quat.create();
 	private pmxCalcCahceMat = glm.mat4.create();
 
 	public get PMXModelData() {
@@ -103,7 +105,8 @@ class PMXBoneTransformer extends Transformer {
 		//軸を中心として回転する行列を作成する。
 		var rotation = glm.quat.setAxisAngle(this.pmxCalcCacheQuat, rotationAxis, rotationAngle);
 		glm.quat.normalize(rotation,rotation);
-		link.Rotation=new Quaternion(glm.quat.mul(rotation,rotation,link.Rotation.targetQuat));
+		glm.quat.copy(this.pmxCalcCacheQuat2, rotation);
+		link.Rotation=new Quaternion(glm.quat.mul(this.pmxCalcCacheQuat2,this.pmxCalcCacheQuat2,link.Rotation.targetQuat));
 	}
 
 	private clampFloat(f: number, limit: number) {
