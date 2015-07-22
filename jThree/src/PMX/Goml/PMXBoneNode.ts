@@ -31,11 +31,8 @@ class PMXBoneNode extends SceneObjectNodeBase {
 						this.targetSceneObject = bone;
 						if (this.children) {
 							for (var i = 0; i < this.children.length; i++) {
+								(<SceneObjectNodeBase>this.children[i]).TargetObject.Transformer.Position=bone.Transformer.LocalOrigin;
 								(<SceneObjectNodeBase>this.children[i]).parentChanged();
-								var n = (<SceneObjectNodeBase>this.children[i]);
-								var mesh = new Mesh(new CubeGeometry("testets"), new Phong());
-								bone.addChild(mesh);
-								n.ContainedSceneNode.targetScene.addRenderQueue(mesh);
 							}
 						}
 

@@ -1,37 +1,37 @@
 <goml>
   <resources>
-     <ddebug viewport="viewport#main" name="light" target="deffered.light" />
-     <tdebug target="directional.test" name="dli"/>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
-    <grid hdiv="20" name="grid" vdiv="20" />
-    <tri name="triangle" />
-    <cylinder name="cyl" divide="30" />
+    <ddebug name="light" target="deffered.light" viewport="viewport#main"/>
+    <tdebug name="dli" target="directional.test"/>
+    <phong diffuse="blue" name="mat2" specular="#CCC" specularpower="15" texture="test"/>
+    <grid hdiv="20" name="grid" vdiv="20"/>
+    <tri name="triangle"/>
+    <cylinder divide="30" name="cyl"/>
     <cube name="cube"/>
-    <cube name="quad" />
-    <solid name="bl" color="blue"/>
+    <cube name="quad"/>
+    <solid color="blue" name="bl"/>
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
-      <viewport cam="CAM1" id="main" width="512" height="512" left="256"/>
+      <viewport cam="CAM1" height="512" id="main" left="256" width="512"/>
     </renderer>
   </renderers>
   <scenes>
     <scene>
-      <camera id="maincam" aspect="1" far="100" fovy="1/2p" name="CAM1" near="0.1" position="(0,18,25)" rotation="x(-30d)"></camera>
-          <mesh geo="quad" scale="1" mat="bl">
-              <mesh geo="quad" position="1,0,0" mat="phong"/
->          </mesh>
-<!--           <pmx url="/Tda/Miku.pmx">
-          <vmd url="melt.vmd" frame="0"/>
-          <morphs>
-            <morph id="wrink" name="ウインク" value="1"/>
-          </morphs>
-          <bones>
-            <bone name="右手首">
-                <mesh geo="quad" scale="10" mat="phong"/>
-            </bone>
-          </bones>
-         </pmx>  -->
+      <camera aspect="1" far="100" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,18,25)" rotation="x(-30d)"/>
+      <pmx src="/Tda/Miku.pmx">
+        <vmd frame="0" src="melt.vmd"/>
+        <morphs>
+          <morph id="wrink" name="ウインク" value="1"/>
+        </morphs>
+        <bones>
+          <bone name="右足ＩＫ">
+            <mesh geo="quad" mat="bl" scale="0.3"/>
+          </bone>
+          <bone name="左足ＩＫ">
+            <mesh geo="quad" mat="phong" scale="0.3"/>
+          </bone
+>        </bones>
+      </pmx>
     </scene>
   </scenes>
 </goml>

@@ -19,7 +19,7 @@ class VMDNode extends GomlTreeNodeBase
 		this.targetPMX = <PMXNode>this.parent;
 		this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
 		this.attributes.defineAttribute({
-			"url":
+			"src":
 			{
 				value: "",
 				converter: "string",

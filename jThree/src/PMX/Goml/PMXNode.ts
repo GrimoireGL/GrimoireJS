@@ -34,7 +34,7 @@ class PMXNode extends SceneObjectNodeBase
       super(elem,loader,parent,parentSceneNode,parentObject);
       this.attributes.defineAttribute(
         {
-          "url":
+          "src":
           {
             converter:"string",value:""
           }
@@ -50,7 +50,7 @@ class PMXNode extends SceneObjectNodeBase
   beforeLoad()
   {
     super.beforeLoad();
-    PMXModel.LoadFromUrl(this.attributes.getValue("url"),(m)=>{
+    PMXModel.LoadFromUrl(this.attributes.getValue("src"),(m)=>{
       this.pmxModel=m;
       this.targetUpdated();
       this.pmxTargetUpdated.fire(this,m);
