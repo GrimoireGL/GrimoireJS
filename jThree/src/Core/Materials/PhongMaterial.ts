@@ -93,7 +93,7 @@ class PhongMaterial extends Material {
     var v = object.Transformer.calculateMVPMatrix(renderer);
     pw.registerTexture(renderer,this.Texture,0,"u_texture");
     pw.registerTexture(renderer, texs["LIGHT"], 1, "u_sampler");
-    pw.setUniform1i("u_textureUsed",this.Texture!=null);
+    pw.setUniform1i("u_textureUsed",<number>this.Texture!=null);
     pw.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     pw.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
     pw.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
