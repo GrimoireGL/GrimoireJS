@@ -15,7 +15,8 @@ class PMXBoneTransformer extends Transformer {
 
 	private pmxCalcCacheQuat = glm.quat.create();
 
-		private pmxCalcCacheQuat2 = glm.quat.create();
+	private pmxCalcCacheQuat2 = glm.quat.create();
+	
 	private pmxCalcCahceMat = glm.mat4.create();
 
 	public get PMXModelData() {

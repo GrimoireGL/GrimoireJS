@@ -95,21 +95,7 @@ class Transformer extends JThreeObject {
   public updateTransform(): void {//TODO optimize this
     glm.mat4.identity(this.cacheMat);
     glm.mat4.identity(this.cacheMat2);
-    // this.cacheMat[12] = this.position.X;
-    // this.cacheMat[13] = this.position.Y;
-    // this.cacheMat[14] = this.position.Z;
-    // //glm.mat4.translate(this.cacheMat, this.cacheMat, this.Position.targetVector);
-    // if(this.relatedTo["boneIndex"]==8)
-    // {
-    //  // glm.mat4
-    // }
-    // glm.mat4.fromQuat(this.cacheMat2, this.rotation.targetQuat);
-    // glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);//T(p)*T*R
-    // glm.mat4.identity(this.cacheMat2);
-    // this.cacheMat2[12] = -this.position.X;
-    // this.cacheMat2[13] = -this.position.Y;
-    // this.cacheMat2[14] = -this.position.Z;
-    glm.mat4.fromRotationTranslationScaleOrigin(this.cacheMat, this.rotation.targetQuat,this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);
+  glm.mat4.fromRotationTranslationScaleOrigin(this.cacheMat, this.rotation.targetQuat,this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);
     glm.mat4.multiply(this.cacheMat, this.cacheMat, this.cacheMat2);
     this.localTransform = new Matrix(this.cacheMat);
 

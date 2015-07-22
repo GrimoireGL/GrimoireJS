@@ -16,7 +16,19 @@ class GomlAttribute extends JThreeObjectWithID
 
   protected onchangedHandlers:JThreeEvent<GomlAttribute>=new JThreeEvent<GomlAttribute>();
 
-  protected managedClass:GomlTreeNodeBase;
+  protected managedClass: GomlTreeNodeBase;
+
+  private needNotifyUpdate: boolean = true;
+
+  public get NeedNotifyUpdate()
+  {
+    return this.needNotifyUpdate;
+  }
+
+  public set NeedNotifyUpdate(val:boolean)
+  {
+    this.needNotifyUpdate = val;
+  }
 
   constructor(node:GomlTreeNodeBase,element:HTMLElement,name:string,value:any,converter:AttributeConverterBase,handler?:Delegates.Action1<GomlAttribute>)
   {
@@ -54,7 +66,7 @@ class GomlAttribute extends JThreeObjectWithID
     this.value=this.Converter.FromInterface(val);
     this.element.setAttribute(this.Name,this.Converter.ToAttribute(val));
     this.cached=true;
-    this.notifyValueChanged();
+    if(this.NeedNotifyUpdate)this.notifyValueChanged();
   }
 
   get Converter():AttributeConverterBase
@@ -66,6 +78,11 @@ class GomlAttribute extends JThreeObjectWithID
   {
     var t=this;
     this.onchangedHandlers.fire(this,this);
+  }
+
+  public onValueChanged(handler:Delegates.Action1<GomlAttribute>)
+  {
+    this.onchangedHandlers.addListerner(handler);
   }
 }
 

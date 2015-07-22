@@ -39,13 +39,21 @@ class AttributeDictionary extends JThreeObject {
       return attr.Converter.FromInterface(attr.Value);
   }
 
-  public setValue(attrName: string, value: any): void {
+  public setValue(attrName: string, value: any, needUpdate: boolean = true): void {
     var attr = this.attributes.getById(attrName);
     if (attr == null) console.warn(`attribute \"${attrName}\" is not found.`);
-    else
-      attr.Value = attr.Converter.FromInterface(value);
+    else {
+      var cacheNotifyConfigure = attr.NeedNotifyUpdate;
+      attr.NeedNotifyUpdate = needUpdate;
+      attr.Value = value;
+      attr.NeedNotifyUpdate = cacheNotifyConfigure;
+    }
   }
 
+  public getAttribute(attrName:string):GomlAttribute
+  {
+    return this.attributes.getById(attrName);
+  }
 
   public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Delegates.Action0) {
     var attr = this.attributes.getById(attrName);
