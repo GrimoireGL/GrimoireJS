@@ -4,6 +4,8 @@ import PMX = require('../PMXLoader');
 import PMXModel = require('./PMXModel');
 import glm = require('glm');
 import Quaternion = require('../../Math/Quaternion');
+import Vector3 = require('../../Math/Vector3');
+import Matrix = require('../../Math/Matrix');
 class PMXBoneTransformer extends Transformer {
 	private pmx: PMXModel;
 
@@ -70,7 +72,8 @@ class PMXBoneTransformer extends Transformer {
 	private CCDIKOperation() {
 		var effector = this.PMXModelData.Bones[this.TargetBoneData.ikTargetBoneIndex];
 		var effectorTransformer = <PMXBoneTransformer> this.pmx.Skeleton.getBoneByIndex(this.TargetBoneData.ikTargetBoneIndex).Transformer;
-		var TargetGlobalPos = glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.targetVector, this.LocalToGlobal.rawElements);
+		var TargetGlobalPos =Matrix.transformPoint(this.LocalToGlobal,this.LocalOrigin);
+		// glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.targetVector, this.LocalToGlobal.rawElements);
 		for (var i = 0; i < this.TargetBoneData.ikLinkCount; i++) {
 			var ikLinkData = this.TargetBoneData.ikLinks[i];
 			var ikLinkTransform = <PMXBoneTransformer>this.pmx.Skeleton.getBoneByIndex(ikLinkData.ikLinkBoneIndex).Transformer;
@@ -81,38 +84,40 @@ class PMXBoneTransformer extends Transformer {
 	}
 
 	private getLink2Effector(link: PMXBoneTransformer, effector: PMXBoneTransformer) {
-		var ToLinkLocal = glm.mat4.invert(this.pmxCalcCahceMat, link.LocalToGlobal.rawElements);
+		var ToLinkLocal =  Matrix.inverse(link.LocalToGlobal);
 		var ep = effector.LocalOrigin;
-		var effectorPos = glm.vec3.transformMat4(this.pmxCalcCacheVec2, [ep.X, ep.Y, ep.Z, 1], glm.mat4.mul(this.pmxCalcCahceMat, ToLinkLocal, effector.LocalToGlobal.rawElements)); //●
-		return glm.vec3.normalize(this.pmxCalcCacheVec2, glm.vec3.sub(this.pmxCalcCacheVec2, effectorPos, link.LocalOrigin.targetVector));
+		var local2effectorLocal=Matrix.multiply(ToLinkLocal,effector.LocalToGlobal);
+		var effectorPos = Matrix.transformPoint(local2effectorLocal,ep);
+		return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();
 	}
 
-	private getLink2Target(link: PMXBoneTransformer, tp: glm.GLM.IArray) {
-		var targetInLinkLocal = glm.vec3.transformMat4(this.pmxCalcCacheVec, [tp[0], tp[1], tp[2], 1], this.pmxCalcCahceMat);
-		return glm.vec3.normalize(this.pmxCalcCacheVec, glm.vec3.sub(this.pmxCalcCacheVec, tp, link.LocalOrigin.targetVector));
+	private getLink2Target(link: PMXBoneTransformer, tp: Vector3) {
+		var ToLinkLocal =  Matrix.inverse(link.LocalToGlobal);
+		var effectorPos = Matrix.transformPoint(ToLinkLocal,tp);
+		return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();
 	}
 
-	private ikLinkCalc(link: PMXBoneTransformer, effector: glm.GLM.IArray, target: glm.GLM.IArray, rotationLimit: number) {
+	private ikLinkCalc(link: PMXBoneTransformer, effector: Vector3, target: Vector3, rotationLimit: number) {
 		//回転角度を求める
-		var dot = glm.vec3.dot(effector, target);
+		var dot = Vector3.dot(effector,target);
 		if (dot > 1.0) dot = 1.0;
 		var rotationAngle = this.clampFloat(Math.acos(dot), rotationLimit);
 		if (isNaN(rotationAngle)) return;
 		if (rotationAngle <= 1.0e-3) return;
 
 		//回転軸を求める
-		var rotationAxis = glm.vec3.cross(effector,effector,target);
+		var rotationAxis = Vector3.cross(effector,target);
 
 		//軸を中心として回転する行列を作成する。
-		var rotation = glm.quat.setAxisAngle(this.pmxCalcCacheQuat, rotationAxis, rotationAngle);
-		glm.quat.normalize(rotation,rotation);
-		glm.quat.copy(this.pmxCalcCacheQuat2, rotation);
-		link.Rotation=new Quaternion(glm.quat.mul(this.pmxCalcCacheQuat2,this.pmxCalcCacheQuat2,link.Rotation.targetQuat));
+		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
+		link.Rotation=Quaternion.Multiply(rotation,link.Rotation);
 	}
+
 
 	private clampFloat(f: number, limit: number) {
 		return Math.max(Math.min(f, limit), -limit);
 	}
+
 
 }
 

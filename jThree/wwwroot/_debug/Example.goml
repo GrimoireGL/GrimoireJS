@@ -18,20 +18,16 @@
   <scenes>
     <scene>
       <camera aspect="1" far="100" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,18,25)" rotation="x(-30d)"/>
-      <pmx src="/Tda/Miku.pmx">
+      <pmx src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
-        <morphs>
-          <morph id="wrink" name="ウインク" value="1"/>
-        </morphs>
+
         <bones>
-          <bone name="右足ＩＫ">
+<!--           <bone name="右足ＩＫ">
             <mesh geo="quad" mat="bl" scale="0.3"/>
           </bone>
           <bone name="左足ＩＫ">
             <mesh geo="quad" mat="mat2" scale="1"/>
-          </bone>
-          <bone name="右手首">
-          </bone>
+          </bone> -->
         </bones>
       </pmx>
     </scene>

@@ -1,6 +1,7 @@
 import JThreeObject = require("../Base/JThreeObject");
 import Vector3 = require("./Vector3");
 import glm = require('glm');
+import Matrix = require('./Matrix');
 /**
 * The class to maniplate quaternion.
 * Each element will be represented as (w;x,y,z)
@@ -156,6 +157,24 @@ class Quaternion extends JThreeObject
       return `axis(180d,${this.X},${this.Y},${this.Z})`;
     }
   }
-}
 
+  public FactoringQuaternionZXY()
+   {
+        var result={x:0,y:0,z:0};
+            var mat=Matrix.RotationQuaternion(this);
+            var sx=mat.rawElements[6];
+            if(Math.abs(sx)<1)
+            {
+              result.x=Math.asin(sx);
+              result.z=Math.atan2(-mat.rawElements[4],mat.rawElements[5]);
+              result.y=Math.atan2(-mat.rawElements[2],mat.rawElements[10]);
+            }else{
+              result.y=0;
+              result.x=Math.PI/2*sx;
+              result.z=Math.atan2(mat.rawElements[1],mat.rawElements[0]);
+            }
+            return result;
+    }
+
+}
 export=Quaternion;

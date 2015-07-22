@@ -56,7 +56,7 @@ class VMDNode extends GomlTreeNodeBase
 							if(morph = this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName))
 							{
 								var morphCurrent = this.targetVMD.getMorphFrame(v.Value, morphName);
-								morph.Progress = morphCurrent.value;
+								if(morph)morph.Progress = morphCurrent.value;
 							}
 						}
 					}

@@ -110,13 +110,15 @@ class PMXGroupMorph extends PMXMorph {
 		var ratio = current - last;
 		for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
 			var vm = this.TargetMorphData.groupMorph[i];
-			this.morphManager.getMorphByIndex(vm.morphIndex).Progress += ratio * vm.morphRate;
+			var m=this.morphManager.getMorphByIndex(vm.morphIndex);
+			if(m)m.Progress += ratio * vm.morphRate;
 		}
 	}
 }
 
 class PMXMaterialMorph extends PMXMorph {
-	protected updateProgress(current: number, last: number) {
+	protected updateProgress(current: number, last: number) {
+
 		var ratio = current - last;
 		for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
 			var vm = this.TargetMorphData.materialMorph[i];
