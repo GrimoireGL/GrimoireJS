@@ -64,7 +64,7 @@ class PhongMaterial extends Material {
     this.specularCoefficient = val;
   }
 
-  private texture: TextureBase;
+  private texture: TextureBase=null;
 
   get Texture(): TextureBase {
     return this.texture;
@@ -80,31 +80,30 @@ class PhongMaterial extends Material {
     var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
     var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
     var fs = require('../Shaders/Phong.glsl');
-    agent.get("http://localhost:8080/Phong.glsl").end((err, res: agent.Response) => {
-      this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, res.text);
-      this.setLoaded();
-    });
+    this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, fs);
+    this.setLoaded();
   }
 
   configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
     if (!this.program) return;
     super.configureMaterial(scene, renderer, object,texs);
     var geometry = object.Geometry;
-    var programWrapper = this.program.getForContext(renderer.ContextManager);
-    programWrapper.useProgram();
+    var pw = this.program.getForContext(renderer.ContextManager);
+    pw.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    programWrapper.registerTexture(renderer,this.Texture,0,"u_texture");
-    programWrapper.registerTexture(renderer, texs["LIGHT"], 1, "u_sampler");
-    programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setUniformMatrix("matMVP", v);
-    programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
-    programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-    programWrapper.setUniformVector("u_ambient", this.Ambient.toVector());
-    programWrapper.setUniformVector("u_diffuse", this.Diffuse.toVector());
-    programWrapper.setUniformVector("u_specular",this.Specular.toVector4(this.specularCoefficient));
-    programWrapper.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
+    pw.registerTexture(renderer,this.Texture,0,"u_texture");
+    pw.registerTexture(renderer, texs["LIGHT"], 1, "u_sampler");
+    pw.setUniform1i("u_textureUsed",this.Texture!=null);
+    pw.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
+    pw.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
+    pw.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
+    pw.setUniformMatrix("matMVP", v);
+    pw.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
+    pw.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
+    pw.setUniformVector("u_ambient", this.Ambient.toVector());
+    pw.setUniformVector("u_diffuse", this.Diffuse.toVector());
+    pw.setUniformVector("u_specular",this.Specular.toVector4(this.specularCoefficient));
+    pw.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
 }

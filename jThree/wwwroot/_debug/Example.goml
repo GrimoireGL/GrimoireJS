@@ -2,7 +2,7 @@
   <resources>
     <ddebug name="light" target="deffered.light" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
-    <phong diffuse="blue" name="mat2" specular="#CCC" specularpower="15" texture="test"/>
+    <phong diffuse="blue" name="mat2" specular="#CCC" specularpower="15"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cylinder divide="30" name="cyl"/>
@@ -28,9 +28,11 @@
             <mesh geo="quad" mat="bl" scale="0.3"/>
           </bone>
           <bone name="左足ＩＫ">
-            <mesh geo="quad" mat="phong" scale="0.3"/>
-          </bone
->        </bones>
+            <mesh geo="quad" mat="mat2" scale="1"/>
+          </bone>
+          <bone name="右手首">
+          </bone>
+        </bones>
       </pmx>
     </scene>
   </scenes>
