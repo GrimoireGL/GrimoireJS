@@ -158,6 +158,15 @@ class SceneObject extends JThreeObjectWithID
       return this.transformer;
     }
 
+    public callRecursive(action:Delegates.Action1<SceneObject>)
+    {
+      if(this.children)
+      {
+      this.children.each(t=> t.callRecursive(action));
+      }
+      action(this);
+    }
+
     update() {
 
     }

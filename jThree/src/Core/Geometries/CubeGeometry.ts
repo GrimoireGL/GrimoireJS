@@ -39,7 +39,6 @@ class CubeGeometry extends Geometry {
     }
 
   public drawElements(contextManager, material) {
-    debugger;
     super.drawElements(contextManager, material);
   }
 

@@ -85,9 +85,9 @@ class Scene extends jThreeObjectWithID {
     
     private lightCount:number=0;
     
-    public getLights(alias:string):LightBase[]
+    public getLights(ns:string):LightBase[]
     {
-        var lights= this.lights.get(alias);
+        var lights= this.lights.get(ns);
         if(!lights)return [];
         return lights;
     }

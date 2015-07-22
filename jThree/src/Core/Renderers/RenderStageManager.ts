@@ -100,7 +100,9 @@ class RenderStageManager {
 			for (var i = 0; i < passCount; i++) {
 				stage.preBeginStage(scene, i, texs);
 				targetObjects.forEach(v=> {
-					if (stage.needRender(scene, v, i)) stage.render(scene, v, i, texs);
+					v.callRecursive(v=> {
+						if (stage.needRender(scene, v, i)) stage.render(scene, v, i, texs);
+					});
 				});
 				stage.postEndStage(scene, i, texs);
 			}

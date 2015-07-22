@@ -51,7 +51,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   }
 
   private applyHierarchy() {
-        if (!this.targetSceneObject) {
+    if (!this.targetSceneObject) {
       console.error("SceneObject node must override ConstructTarget and return the object extending SceneObjnect");
     } else {
       if (this.parentSceneObjectNode == null)//this is root object of scene

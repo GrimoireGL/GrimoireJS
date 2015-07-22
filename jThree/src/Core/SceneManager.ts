@@ -36,7 +36,7 @@ class SceneManager extends jThreeObject {
     }
 
     renderAll(): void {
-      JThreeContextProxy.getJThreeContext().CanvasManagers.forEach((c)=>{c.beforeRenderAll()});
+        JThreeContextProxy.getJThreeContext().CanvasManagers.forEach((c)=>{c.beforeRenderAll()});
         this.scenes.forEach((v) => {
             v.update();
             v.render();
