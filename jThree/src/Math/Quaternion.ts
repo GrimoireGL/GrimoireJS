@@ -135,6 +135,11 @@ class Quaternion extends JThreeObject
     return Quaternion.Multiply(Quaternion.AngleAxis(z,Vector3.ZUnit),Quaternion.Multiply(Quaternion.AngleAxis(x,Vector3.XUnit),Quaternion.AngleAxis(y,Vector3.YUnit)));
   }
 
+  public static EulerXYZ(x:number,y:number,z:number):Quaternion
+  {
+    return Quaternion.Multiply(Quaternion.AngleAxis(z,Vector3.ZUnit),Quaternion.Multiply(Quaternion.AngleAxis(y,Vector3.YUnit),Quaternion.AngleAxis(x,Vector3.XUnit)));
+  }
+
 
   public static Slerp(q1:Quaternion,q2:Quaternion,t:number):Quaternion
   {
@@ -163,7 +168,7 @@ class Quaternion extends JThreeObject
         var result={x:0,y:0,z:0};
             var mat=Matrix.RotationQuaternion(this);
             var sx=mat.rawElements[6];
-            if(Math.abs(sx)<1)
+            if(Math.abs(sx)<1-1.0E-4)
             {
               result.x=Math.asin(sx);
               result.z=Math.atan2(-mat.rawElements[4],mat.rawElements[5]);
@@ -175,6 +180,27 @@ class Quaternion extends JThreeObject
             }
             return result;
     }
+
+
+  public FactoringQuaternionXYZ()
+   {
+        var result={x:0,y:0,z:0};
+            var mat=Matrix.RotationQuaternion(this);
+            var sy=-mat.rawElements[2];
+            if(Math.abs(sy)<1-1.0E-4)
+            {
+              result.x=Math.atan2(mat.rawElements[6],mat.rawElements[10]);
+              result.y=Math.asin(sy);
+              result.z=Math.atan2(mat.rawElements[1],mat.rawElements[0]);
+            }else
+            {
+              result.x=0;
+              result.y=Math.PI/2*sy;
+              result.z=Math.atan2(-mat.rawElements[4],mat.rawElements[5]);
+            }
+            return result;
+    }
+
 
 }
 export=Quaternion;

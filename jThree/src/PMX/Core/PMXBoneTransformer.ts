@@ -104,10 +104,8 @@ class PMXBoneTransformer extends Transformer {
 		var rotationAngle = this.clampFloat(Math.acos(dot), rotationLimit);
 		if (isNaN(rotationAngle)) return;
 		if (rotationAngle <= 1.0e-3) return;
-
 		//回転軸を求める
 		var rotationAxis = Vector3.cross(effector,target);
-
 		//軸を中心として回転する行列を作成する。
 		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
 		link.Rotation=Quaternion.Multiply(rotation,link.Rotation);

@@ -15,6 +15,7 @@ import PhongGeometry = require('./Core/Materials/PhongMaterial');
 import QuadGeometry = require('./Core/Geometries/QuadGeometry');
 import Vector3 = require('./Math/Vector3');
 import VMDData = require('./VMD/Parser/VMDData');
+import Quaternion =require('./Math/Quaternion');
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -62,6 +63,7 @@ class JThreeInit {
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
       j3.GomlLoader.onload(() => { });
+      console.log(Quaternion.EulerXYZ(0,Math.PI/2,-Math.PI/4).FactoringQuaternionXYZ());
       j3.init();
     });
   }
