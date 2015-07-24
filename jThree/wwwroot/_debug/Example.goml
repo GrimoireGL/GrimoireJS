@@ -17,18 +17,20 @@
   </renderers>
   <scenes>
     <scene>
-      <camera aspect="1" far="100" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,18,25)" rotation="x(-30d)"/>
+      <camera aspect="1" far="100" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(-3,10,10)" rotation="y(-30d)"/>
       <pmx src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
-
-        <bones>
-<!--           <bone name="右足ＩＫ">
+<!--         <bones>
+          <bone name="右足ＩＫ">
             <mesh geo="quad" mat="bl" scale="0.3"/>
           </bone>
           <bone name="左足ＩＫ">
-            <mesh geo="quad" mat="mat2" scale="1"/>
-          </bone> -->
-        </bones>
+            <mesh geo="quad" mat="mat2" scale="0.3"/>
+          </bone>
+        </bones> -->
+        <morphs>
+          <morph name="黒化" value="0" id="morphTest"/>
+        </morphs>
       </pmx>
     </scene>
   </scenes>

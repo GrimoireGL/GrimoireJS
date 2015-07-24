@@ -119,7 +119,6 @@ class CanvasManager extends ContextManagerBase {
     public beforeRender(renderer: RendererBase): void {
         if (this.isDirty) {//check it needs clear default buffer or not.
             this.clearCanvas();
-            this.Context.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
             this.isDirty = false;
         }
     }

@@ -19,17 +19,20 @@ import GLFeature = require('../../../Wrapper/GLFeatureType');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import TargetTextureType = require('../../../Wrapper/TargetTextureType');
 import GLSpecManager = require('../../GLSpecManager');
+import PixelStoreParamType = require('../../../Wrapper/Texture/PixelStoreParamType');
+
 interface FBOBindData {
 	texture: TextureBase|RBO;
 	target: string|number;
 	isOptional?: boolean;
-	type?: string
+	type?: string,
 }
 
 interface RenderStageConfig {
 	cullFace?: boolean;
 	cullFront?: boolean;
 	depthTest?: boolean;
+	texYFlip?:boolean;
 }
 
 class RenderStageBase extends JThreeObject {
@@ -88,6 +91,12 @@ class RenderStageBase extends JThreeObject {
 			this.GLContext.CullFace(GLCullMode.Front);
 		} else {
 			this.GLContext.CullFace(GLCullMode.Back);
+		}
+		if(typeof this.RenderStageConfig.texYFlip ==='undefined'||this.RenderStageConfig.texYFlip)
+		{
+			this.GLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);		}else
+		{
+	        this.GLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 0);
 		}
 		//reset texture register
 		this.resetActiveTextures();

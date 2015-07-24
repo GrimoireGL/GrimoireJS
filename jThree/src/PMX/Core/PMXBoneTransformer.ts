@@ -6,6 +6,7 @@ import glm = require('glm');
 import Quaternion = require('../../Math/Quaternion');
 import Vector3 = require('../../Math/Vector3');
 import Matrix = require('../../Math/Matrix');
+import PMXIKLink= require('../PMXIKLink');
 class PMXBoneTransformer extends Transformer {
 	private pmx: PMXModel;
 
@@ -79,7 +80,7 @@ class PMXBoneTransformer extends Transformer {
 			var ikLinkTransform = <PMXBoneTransformer>this.pmx.Skeleton.getBoneByIndex(ikLinkData.ikLinkBoneIndex).Transformer;
 			var link2Effector = this.getLink2Effector(ikLinkTransform, effectorTransformer);
 			var link2Target = this.getLink2Target(ikLinkTransform, TargetGlobalPos);
-			this.ikLinkCalc(ikLinkTransform, link2Effector, link2Target, this.TargetBoneData.ikLimitedRotation);
+			this.ikLinkCalc(ikLinkTransform, link2Effector, link2Target, this.TargetBoneData.ikLimitedRotation,ikLinkData);
 		}
 	}
 
@@ -97,7 +98,7 @@ class PMXBoneTransformer extends Transformer {
 		return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();
 	}
 
-	private ikLinkCalc(link: PMXBoneTransformer, effector: Vector3, target: Vector3, rotationLimit: number) {
+	private ikLinkCalc(link: PMXBoneTransformer, effector: Vector3, target: Vector3, rotationLimit: number,ikLink:PMXIKLink) {
 		//回転角度を求める
 		var dot = Vector3.dot(effector,target);
 		if (dot > 1.0) dot = 1.0;
@@ -108,9 +109,19 @@ class PMXBoneTransformer extends Transformer {
 		var rotationAxis = Vector3.cross(effector,target);
 		//軸を中心として回転する行列を作成する。
 		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
-		link.Rotation=Quaternion.Multiply(rotation,link.Rotation);
+		link.Rotation=this.RestrictRotation(ikLink,Quaternion.Multiply(rotation,link.Rotation));
 	}
 
+	    private RestrictRotation(link:PMXIKLink,rot:Quaternion):Quaternion
+        {
+            if (!link.isLimitedRotation) return rot;
+            var decomposed = rot.FactoringQuaternionXYZ();
+            var xRotation = Math.max(link.limitedRotation[0],Math.min(link.limitedRotation[3],-decomposed.x));
+            var yRotation = Math.max(link.limitedRotation[1],Math.min(link.limitedRotation[4],-decomposed.y));
+            var zRotation = Math.max(link.limitedRotation[2],Math.min(link.limitedRotation[5],decomposed.z));
+            return Quaternion.EulerXYZ(-xRotation,-yRotation,zRotation);
+        
+}
 
 	private clampFloat(f: number, limit: number) {
 		return Math.max(Math.min(f, limit), -limit);

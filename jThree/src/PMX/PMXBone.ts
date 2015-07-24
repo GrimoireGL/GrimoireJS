@@ -1,3 +1,4 @@
+import PMXIKLink = require('./PMXIKLink');
 interface PMXBone
 {
 	boneName:string;
@@ -21,11 +22,5 @@ interface PMXBone
 	ikLinks?:PMXIKLink[];
 }
 
-interface PMXIKLink
-{
-	ikLinkBoneIndex:number;
-	isLimitedRotation:number;
-	limitedRotation?:number[];//[minX,minY,minZ,maxX,maxY,maxZ]
-}
 
 export = PMXBone;
