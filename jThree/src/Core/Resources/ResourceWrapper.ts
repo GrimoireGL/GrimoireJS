@@ -32,7 +32,7 @@ class ResourceWrapper extends JThreeObject
   
   protected get WebGLContext():GLContextWrapperBase
   {
-    return this.ownerCanvas.Context;
+    return this.ownerCanvas.GLContext;
   }
   
   /**

@@ -58,13 +58,13 @@ class PMXGeometry extends Geometry {
     public drawElements(context: ContextManagerBase, material: Material) {
         var mat = <PMXMaterial>material;
         if (mat == null || !mat.VerticiesCount) {
-            context.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
+            context.GLContext.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
             return;
         }
         if (mat.Diffuse.A < 0.01) {
             return;
         };
-        context.Context.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset * 4);
+        context.GLContext.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset * 4);
     }
 
     public updatePositionBuffer() {

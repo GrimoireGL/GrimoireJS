@@ -28,15 +28,15 @@ class TextureCanvasManager extends ContextManagerBase
 
     ClearCanvas():void
     {
-      this.Context.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
-      this.Context.Enable(GLFeatureType.DepthTest);
-      this.Context.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
+      this.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
+      this.GLContext.Enable(GLFeatureType.DepthTest);
+      this.GLContext.ClearColor(this.ClearColor.R,this.ClearColor.G,this.ClearColor.B,this.ClearColor.A);
     }
 
     constructor(canvasManager:CanvasManager) {
         super();
        // this.enabled = true;
-        this.setContext(canvasManager.Context);
+        this.setContext(canvasManager.GLContext);
     }
     
     private width:number=128;

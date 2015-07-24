@@ -139,7 +139,7 @@ class RendererBase extends jThreeObjectWithID {
      * Obtain the reference for wrapper of WebGLRenderingContext
      */
     public get GLContext(): GLContextWrapperBase {
-        return this.contextManager.Context;
+        return this.contextManager.GLContext;
     }
     
     /**

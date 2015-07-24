@@ -13,7 +13,7 @@ class FBOWrapper extends ResourceWrapper {
 
     constructor(renderer: ContextManagerBase) {
         super(renderer);
-        this.glContext = renderer.Context;
+        this.glContext = renderer.GLContext;
     }
 
     private glContext: GLContextWrapperBase = null;

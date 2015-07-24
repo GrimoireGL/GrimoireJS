@@ -32,7 +32,7 @@ class ViewPortRenderer extends RendererBase {
     }
 
     applyViewportConfigure(): void {
-        this.ContextManager.Context.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
+        this.ContextManager.GLContext.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
     }
 
     beforeRender() {
@@ -41,7 +41,7 @@ class ViewPortRenderer extends RendererBase {
     }
 
     afterRender() {
-        this.ContextManager.Context.Flush();
+        this.ContextManager.GLContext.Flush();
         super.afterRender();
     }
 

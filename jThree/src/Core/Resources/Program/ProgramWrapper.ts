@@ -145,7 +145,7 @@ class ProgramWrapper extends ResourceWrapper {
     }
     
   registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
-    renderer.ContextManager.Context.ActiveTexture(TextureRegister.Texture0 + texNumber);
+    renderer.ContextManager.GLContext.ActiveTexture(TextureRegister.Texture0 + texNumber);
     if(tex!=null&&typeof tex !== 'undefined')
     {
         tex.getForContext(renderer.ContextManager).bind();

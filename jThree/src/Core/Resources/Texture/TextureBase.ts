@@ -88,7 +88,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
       case TextureMinFilterType.NearestMipmapNearest:
         this.each((v)=>{
           v.bind();
-          v.OwnerCanvas.Context.GenerateMipmap(TextureTargetType.Texture2D);
+          v.OwnerCanvas.GLContext.GenerateMipmap(TextureTargetType.Texture2D);
         });
      default:
     }

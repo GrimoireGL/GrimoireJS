@@ -38,7 +38,7 @@ class Geometry extends jThreeObject {
    
    public drawElements(contextManager:ContextManagerBase,material:Material)
    {
-     contextManager.Context.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length,this.IndexBuffer.ElementType,0);
+     contextManager.GLContext.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length,this.IndexBuffer.ElementType,0);
    }
 
    protected addQuad(pos:number[],normal:number[],uv:number[],index:number[],points:Vector3[]):void

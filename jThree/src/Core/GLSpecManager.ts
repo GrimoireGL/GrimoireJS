@@ -11,7 +11,7 @@ class GLSpecManager
 	{
 		if(this.Context.CanvasManagers.length>0)
 		{
-			return this.Context.CanvasManagers[0].Context;
+			return this.Context.CanvasManagers[0].GLContext;
 		}else{
 			console.error("can't obtain the gl context to check gl spec");
 		}

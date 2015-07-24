@@ -20,7 +20,7 @@ class Buffer extends BufferProxy
         buf.unitCount = unitCount;
         buf.elementType = elementType;
         context.CanvasManagers.forEach((v, i, a) => {
-            var wrap: BufferWrapper = new BufferWrapper(buf, v.Context);
+            var wrap: BufferWrapper = new BufferWrapper(buf, v.GLContext);
             buf.managedProxies.push(wrap);
             buf.bufWrappers.set(v.ID, wrap);
         });
@@ -31,7 +31,7 @@ class Buffer extends BufferProxy
     changedRenderer(arg:CanvasListChangedEventArgs):void{
       if(arg.ChangeType==ListStateChangedType.Add)
       {
-        var wrapper=new BufferWrapper(this,arg.AffectedRenderer.Context);
+        var wrapper=new BufferWrapper(this,arg.AffectedRenderer.GLContext);
         wrapper.loadAll();
       //  this.bufWrappers.set(arg.AffectedRenderer.ID,wrapper);
       }
@@ -124,7 +124,7 @@ class Buffer extends BufferProxy
     getForRenderer(renderer: ContextManagerBase): BufferWrapper {
         if(!this.bufWrappers.has(renderer.ID))
         {
-          var wrap=new BufferWrapper(this,renderer.Context);
+          var wrap=new BufferWrapper(this,renderer.GLContext);
           wrap.loadAll();
           if(this.elementCache)wrap.update(this.elementCache,this.length);
           this.addProxy(wrap);
