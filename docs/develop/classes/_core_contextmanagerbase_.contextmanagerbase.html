@@ -89,9 +89,6 @@
 									<li>
 										<a href="_core_canvasmanager_.canvasmanager.html" class="tsd-signature-type">CanvasManager</a>
 									</li>
-									<li>
-										<a href="_core_texturecanvasmanager_.texturecanvasmanager.html" class="tsd-signature-type">TextureCanvasManager</a>
-									</li>
 								</ul>
 							</li>
 						</ul>
@@ -118,15 +115,16 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_contextmanagerbase_.contextmanagerbase.html#clearcolor" class="tsd-kind-icon">clear<wbr>Color</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_contextmanagerbase_.contextmanagerbase.html#context" class="tsd-kind-icon">context</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_contextmanagerbase_.contextmanagerbase.html#extensions" class="tsd-kind-icon">extensions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_contextmanagerbase_.contextmanagerbase.html#glcontext" class="tsd-kind-icon">gl<wbr>Context</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_contextmanagerbase_.contextmanagerbase.html#glextensionmanager" class="tsd-kind-icon">gl<wbr>Extension<wbr>Manager</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_contextmanagerbase_.contextmanagerbase.html#clearcolor-1" class="tsd-kind-icon">Clear<wbr>Color</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_contextmanagerbase_.contextmanagerbase.html#context-1" class="tsd-kind-icon">Context</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_contextmanagerbase_.contextmanagerbase.html#glcontext-1" class="tsd-kind-icon">GLContext</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_contextmanagerbase_.contextmanagerbase.html#glextensionmanager-1" class="tsd-kind-icon">GLExtension<wbr>Manager</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_contextmanagerbase_.contextmanagerbase.html#id" class="tsd-kind-icon">ID</a></li>
 							</ul>
 						</section>
@@ -139,7 +137,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_contextmanagerbase_.contextmanagerbase.html#beforerender" class="tsd-kind-icon">before<wbr>Render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_contextmanagerbase_.contextmanagerbase.html#beforerenderall" class="tsd-kind-icon">before<wbr>Render<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_contextmanagerbase_.contextmanagerbase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_core_contextmanagerbase_.contextmanagerbase.html#setcontext" class="tsd-kind-icon">set<wbr>Context</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_core_contextmanagerbase_.contextmanagerbase.html#setglcontext" class="tsd-kind-icon">setGLContext</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_contextmanagerbase_.contextmanagerbase.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
@@ -175,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">clear<wbr>Color<span class="tsd-signature-symbol">:</span> <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L63">Core/ContextManagerBase.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L17">Core/ContextManagerBase.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -185,22 +183,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="context" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></div>
+					<a name="glcontext" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> gl<wbr>Context</h3>
+					<div class="tsd-signature tsd-kind-icon">gl<wbr>Context<span class="tsd-signature-symbol">:</span> <a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L14">Core/ContextManagerBase.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L22">Core/ContextManagerBase.ts:22</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>backing field for GLContext</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="extensions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> extensions</h3>
-					<div class="tsd-signature tsd-kind-icon">extensions<span class="tsd-signature-symbol">:</span> <a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></div>
+					<a name="glextensionmanager" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> gl<wbr>Extension<wbr>Manager</h3>
+					<div class="tsd-signature tsd-kind-icon">gl<wbr>Extension<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L16">Core/ContextManagerBase.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L24">Core/ContextManagerBase.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -218,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L65">Core/ContextManagerBase.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L37">Core/ContextManagerBase.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></h4>
@@ -226,7 +229,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L69">Core/ContextManagerBase.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L41">Core/ContextManagerBase.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -240,19 +243,41 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="context-1" class="tsd-anchor"></a>
-					<h3>Context</h3>
+					<a name="glcontext-1" class="tsd-anchor"></a>
+					<h3>GLContext</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Context<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> GLContext<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L24">Core/ContextManagerBase.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L33">Core/ContextManagerBase.ts:33</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>WebGL raw RenderingContext</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="glextensionmanager-1" class="tsd-anchor"></a>
+					<h3>GLExtension<wbr>Manager</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> GLExtensionManager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L26">Core/ContextManagerBase.ts:26</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -292,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L38">Core/ContextManagerBase.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L65">Core/ContextManagerBase.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -320,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L52">Core/ContextManagerBase.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L79">Core/ContextManagerBase.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -342,7 +367,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L57">Core/ContextManagerBase.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L84">Core/ContextManagerBase.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -359,7 +384,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L31">Core/ContextManagerBase.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L58">Core/ContextManagerBase.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -387,7 +412,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L45">Core/ContextManagerBase.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L72">Core/ContextManagerBase.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -418,22 +443,27 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a name="setcontext" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> set<wbr>Context</h3>
+					<a name="setglcontext" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> setGLContext</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Context<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">setGLContext<span class="tsd-signature-symbol">(</span>glContext<span class="tsd-signature-symbol">: </span><a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L18">Core/ContextManagerBase.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ContextManagerBase.ts#L48">Core/ContextManagerBase.ts:48</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>apply gl context after webglrendering context initiated.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>context: <a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></h5>
+									<h5>glContext: <a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -486,16 +516,19 @@
 								<a href="_core_contextmanagerbase_.contextmanagerbase.html#clearcolor" class="tsd-kind-icon">clear<wbr>Color</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_contextmanagerbase_.contextmanagerbase.html#context" class="tsd-kind-icon">context</a>
+								<a href="_core_contextmanagerbase_.contextmanagerbase.html#glcontext" class="tsd-kind-icon">gl<wbr>Context</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_contextmanagerbase_.contextmanagerbase.html#extensions" class="tsd-kind-icon">extensions</a>
+								<a href="_core_contextmanagerbase_.contextmanagerbase.html#glextensionmanager" class="tsd-kind-icon">gl<wbr>Extension<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="_core_contextmanagerbase_.contextmanagerbase.html#clearcolor-1" class="tsd-kind-icon">Clear<wbr>Color</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_core_contextmanagerbase_.contextmanagerbase.html#context-1" class="tsd-kind-icon">Context</a>
+								<a href="_core_contextmanagerbase_.contextmanagerbase.html#glcontext-1" class="tsd-kind-icon">GLContext</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_core_contextmanagerbase_.contextmanagerbase.html#glextensionmanager-1" class="tsd-kind-icon">GLExtension<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_contextmanagerbase_.contextmanagerbase.html#id" class="tsd-kind-icon">ID</a>
@@ -519,7 +552,7 @@
 								<a href="_core_contextmanagerbase_.contextmanagerbase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="_core_contextmanagerbase_.contextmanagerbase.html#setcontext" class="tsd-kind-icon">set<wbr>Context</a>
+								<a href="_core_contextmanagerbase_.contextmanagerbase.html#setglcontext" class="tsd-kind-icon">setGLContext</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_contextmanagerbase_.contextmanagerbase.html#tostring" class="tsd-kind-icon">to<wbr>String</a>

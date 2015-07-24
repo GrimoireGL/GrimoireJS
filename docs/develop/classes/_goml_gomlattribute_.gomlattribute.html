@@ -106,6 +106,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_goml_gomlattribute_.gomlattribute.html#converter" class="tsd-kind-icon">converter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_goml_gomlattribute_.gomlattribute.html#element" class="tsd-kind-icon">element</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_goml_gomlattribute_.gomlattribute.html#managedclass" class="tsd-kind-icon">managed<wbr>Class</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_goml_gomlattribute_.gomlattribute.html#neednotifyupdate" class="tsd-kind-icon">need<wbr>Notify<wbr>Update</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_goml_gomlattribute_.gomlattribute.html#onchangedhandlers" class="tsd-kind-icon">onchanged<wbr>Handlers</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_goml_gomlattribute_.gomlattribute.html#value" class="tsd-kind-icon">value</a></li>
 							</ul>
@@ -116,6 +117,7 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_goml_gomlattribute_.gomlattribute.html#converter-1" class="tsd-kind-icon">Converter</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_goml_gomlattribute_.gomlattribute.html#id" class="tsd-kind-icon">ID</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_goml_gomlattribute_.gomlattribute.html#name" class="tsd-kind-icon">Name</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_goml_gomlattribute_.gomlattribute.html#neednotifyupdate-1" class="tsd-kind-icon">Need<wbr>Notify<wbr>Update</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_goml_gomlattribute_.gomlattribute.html#value-1" class="tsd-kind-icon">Value</a></li>
 							</ul>
 						</section>
@@ -124,6 +126,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_gomlattribute_.gomlattribute.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_gomlattribute_.gomlattribute.html#notifyvaluechanged" class="tsd-kind-icon">notify<wbr>Value<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_gomlattribute_.gomlattribute.html#onvaluechanged" class="tsd-kind-icon">on<wbr>Value<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_gomlattribute_.gomlattribute.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
@@ -143,7 +146,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L19">Goml/GomlAttribute.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L31">Goml/GomlAttribute.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -214,6 +217,16 @@
 						</ul>
 					</aside>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="neednotifyupdate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> need<wbr>Notify<wbr>Update</h3>
+					<div class="tsd-signature tsd-kind-icon">need<wbr>Notify<wbr>Update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L21">Goml/GomlAttribute.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="onchangedhandlers" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> onchanged<wbr>Handlers</h3>
@@ -247,7 +260,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L60">Goml/GomlAttribute.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L72">Goml/GomlAttribute.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_goml_converter_attributeconverterbase_.attributeconverterbase.html" class="tsd-signature-type">AttributeConverterBase</a></h4>
@@ -287,10 +300,42 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L31">Goml/GomlAttribute.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L43">Goml/GomlAttribute.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="neednotifyupdate-1" class="tsd-anchor"></a>
+					<h3>Need<wbr>Notify<wbr>Update</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> NeedNotifyUpdate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> NeedNotifyUpdate<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L23">Goml/GomlAttribute.ts:23</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L28">Goml/GomlAttribute.ts:28</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>val: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -305,7 +350,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L36">Goml/GomlAttribute.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L48">Goml/GomlAttribute.ts:48</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -313,7 +358,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L52">Goml/GomlAttribute.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L64">Goml/GomlAttribute.ts:64</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -357,9 +402,32 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L65">Goml/GomlAttribute.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L77">Goml/GomlAttribute.ts:77</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="onvaluechanged" class="tsd-anchor"></a>
+					<h3>on<wbr>Value<wbr>Changed</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Value<wbr>Changed<span class="tsd-signature-symbol">(</span>handler<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlAttribute.ts#L83">Goml/GomlAttribute.ts:83</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>handler: <a href="../interfaces/_base_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -418,6 +486,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="_goml_gomlattribute_.gomlattribute.html#managedclass" class="tsd-kind-icon">managed<wbr>Class</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_goml_gomlattribute_.gomlattribute.html#neednotifyupdate" class="tsd-kind-icon">need<wbr>Notify<wbr>Update</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="_goml_gomlattribute_.gomlattribute.html#onchangedhandlers" class="tsd-kind-icon">onchanged<wbr>Handlers</a>
 							</li>
@@ -434,6 +505,9 @@
 								<a href="_goml_gomlattribute_.gomlattribute.html#name" class="tsd-kind-icon">Name</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="_goml_gomlattribute_.gomlattribute.html#neednotifyupdate-1" class="tsd-kind-icon">Need<wbr>Notify<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="_goml_gomlattribute_.gomlattribute.html#value-1" class="tsd-kind-icon">Value</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -441,6 +515,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_goml_gomlattribute_.gomlattribute.html#notifyvaluechanged" class="tsd-kind-icon">notify<wbr>Value<wbr>Changed</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_goml_gomlattribute_.gomlattribute.html#onvaluechanged" class="tsd-kind-icon">on<wbr>Value<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_goml_gomlattribute_.gomlattribute.html#tostring" class="tsd-kind-icon">to<wbr>String</a>

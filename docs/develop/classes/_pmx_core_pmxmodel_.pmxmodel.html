@@ -131,6 +131,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmodel_.pmxmodel.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmodel_.pmxmodel.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmodel_.pmxmodel.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmodel_.pmxmodel.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmodel_.pmxmodel.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_pmx_core_pmxmodel_.pmxmodel.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a></li>
@@ -152,7 +153,7 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new PMXModel<span class="tsd-signature-symbol">(</span>pmx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PMXModelData</span>, resourceDirectory<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxmodel_.pmxmodel.html" class="tsd-signature-type">PMXModel</a></li>
+						<li class="tsd-signature tsd-kind-icon">new PMXModel<span class="tsd-signature-symbol">(</span>pmx<span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmxmodeldata" class="tsd-signature-type">PMXModelData</a>, resourceDirectory<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxmodel_.pmxmodel.html" class="tsd-signature-type">PMXModel</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -165,7 +166,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>pmx: <span class="tsd-signature-type">PMXModelData</span></h5>
+									<h5>pmx: <a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmxmodeldata" class="tsd-signature-type">PMXModelData</a></h5>
 								</li>
 								<li>
 									<h5>resourceDirectory: <span class="tsd-signature-type">string</span></h5>
@@ -202,7 +203,7 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="modeldata" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> model<wbr>Data</h3>
-					<div class="tsd-signature tsd-kind-icon">model<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PMXModelData</span></div>
+					<div class="tsd-signature tsd-kind-icon">model<wbr>Data<span class="tsd-signature-symbol">:</span> <a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmxmodeldata" class="tsd-signature-type">PMXModelData</a></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXModel.ts#L25">PMX/Core/PMXModel.ts:25</a></li>
@@ -354,7 +355,7 @@
 					<a name="modeldata-1" class="tsd-anchor"></a>
 					<h3>Model<wbr>Data</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ModelData<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PMXModelData</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ModelData<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmxmodeldata" class="tsd-signature-type">PMXModelData</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -363,7 +364,7 @@
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXModel.ts#L43">PMX/Core/PMXModel.ts:43</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PMXModelData</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmxmodeldata" class="tsd-signature-type">PMXModelData</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -526,6 +527,30 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>mat: <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="callrecursive" class="tsd-anchor"></a>
+					<h3>call<wbr>Recursive</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">call<wbr>Recursive<span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#callrecursive">callRecursive</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L161">Core/SceneObject.ts:161</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>action: <a href="../interfaces/_base_delegates_.action1.html" class="tsd-signature-type">Action1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -839,6 +864,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxmodel_.pmxmodel.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_pmx_core_pmxmodel_.pmxmodel.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_pmx_core_pmxmodel_.pmxmodel.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a>
