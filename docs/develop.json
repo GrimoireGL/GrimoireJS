@@ -8134,7 +8134,7 @@
 									"parameters": [
 										{
 											"id": 3039,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -9845,7 +9845,7 @@
 									"parameters": [
 										{
 											"id": 6654,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -11489,7 +11489,7 @@
 									"parameters": [
 										{
 											"id": 6746,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -12817,7 +12817,7 @@
 									"parameters": [
 										{
 											"id": 6552,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -25696,7 +25696,7 @@
 									"parameters": [
 										{
 											"id": 4123,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -26928,7 +26928,7 @@
 									"parameters": [
 										{
 											"id": 2605,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -28433,7 +28433,7 @@
 									"parameters": [
 										{
 											"id": 2692,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -29333,7 +29333,7 @@
 						},
 						{
 							"id": 7080,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -29352,14 +29352,14 @@
 									},
 									"inheritedFrom": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"inheritedFrom": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -30251,7 +30251,7 @@
 						},
 						{
 							"id": 3971,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -30270,14 +30270,14 @@
 									},
 									"inheritedFrom": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"inheritedFrom": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -31126,7 +31126,7 @@
 						},
 						{
 							"id": 8133,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -31145,14 +31145,14 @@
 									},
 									"overwrites": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"overwrites": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -32015,7 +32015,7 @@
 						},
 						{
 							"id": 7132,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -32034,14 +32034,14 @@
 									},
 									"inheritedFrom": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"inheritedFrom": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -32880,7 +32880,7 @@
 						},
 						{
 							"id": 2791,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -33858,7 +33858,7 @@
 						},
 						{
 							"id": 6224,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -33877,14 +33877,14 @@
 									},
 									"inheritedFrom": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"inheritedFrom": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -34905,7 +34905,7 @@
 						},
 						{
 							"id": 3546,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -34924,14 +34924,14 @@
 									},
 									"inheritedFrom": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"inheritedFrom": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -36001,7 +36001,7 @@
 						},
 						{
 							"id": 7009,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -36020,14 +36020,14 @@
 									},
 									"inheritedFrom": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"inheritedFrom": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -67332,7 +67332,7 @@
 									"parameters": [
 										{
 											"id": 2972,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -128093,7 +128093,7 @@
 									"parameters": [
 										{
 											"id": 5687,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -131481,7 +131481,7 @@
 						},
 						{
 							"id": 6081,
-							"name": "MaterialAlias",
+							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
 							"flags": {
@@ -131500,14 +131500,14 @@
 									},
 									"inheritedFrom": {
 										"type": "reference",
-										"name": "Material.MaterialAlias",
+										"name": "Material.MaterialGroup",
 										"id": 2791
 									}
 								}
 							],
 							"inheritedFrom": {
 								"type": "reference",
-								"name": "Material.MaterialAlias",
+								"name": "Material.MaterialGroup",
 								"id": 2791
 							}
 						},
@@ -133477,7 +133477,7 @@
 									"parameters": [
 										{
 											"id": 5971,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
@@ -146694,7 +146694,7 @@
 									"parameters": [
 										{
 											"id": 3680,
-											"name": "matAlias",
+											"name": "matGroup",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
