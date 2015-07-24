@@ -41,8 +41,6 @@ class DepthMaterial extends Material
       }
 
      configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject,texs): void {
-       //super.configureMaterial(scene,renderer,object);
-          renderer.GLContext.Disable(GLFeatureType.CullFace);
           var geometry=object.Geometry;
           var programWrapper = this.program.getForContext(renderer.ContextManager);
           programWrapper.useProgram();

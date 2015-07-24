@@ -62,7 +62,7 @@ class Material extends JThreeObjectWithID {
         this.cullEnabled = val;
     }
     
-    get MaterialAlias():string
+    get MaterialGroup():string
     {
         return "jthree.materials.forematerial";
     }

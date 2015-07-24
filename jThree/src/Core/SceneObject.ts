@@ -106,18 +106,18 @@ class SceneObject extends JThreeObjectWithID
 
     addMaterial(mat: Material): void
     {
-        if(!this.materials.has(mat.MaterialAlias))
+        if(!this.materials.has(mat.MaterialGroup))
         {
-            this.materials.set(mat.MaterialAlias,new JThreeCollection<Material>());    
+            this.materials.set(mat.MaterialGroup,new JThreeCollection<Material>());    
         }        
-        this.materials.get(mat.MaterialAlias).insert(mat);
+        this.materials.get(mat.MaterialGroup).insert(mat);
     }
     
-    getMaterial(matAlias:string):Material
+    getMaterial(matGroup:string):Material
     {
-        if(this.materials.has(matAlias))
+        if(this.materials.has(matGroup))
         {
-            var a=this.materials.get(matAlias);
+            var a=this.materials.get(matGroup);
             var ret=null;
             a.each((e)=>{
                 ret=e;

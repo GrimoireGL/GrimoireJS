@@ -25,7 +25,7 @@ declare function require(string): string;
 
 class DepthStageMaterial extends Material {
 
-  get MaterialAlias(): string {
+  get MaterialGroup(): string {
     return "jthree.materials.depth";
   }
   protected program: Program;
