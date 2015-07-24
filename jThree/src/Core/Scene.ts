@@ -77,8 +77,6 @@ class Scene extends jThreeObjectWithID {
         return this.renderers;
     }
 
-    private renderPairs: MaterialObjectPair[] = [];
-
     private sceneObjects: SceneObject[] = [];
     
     private lights:AssociativeArray<LightBase[]>=new AssociativeArray<LightBase[]>();
@@ -130,18 +128,6 @@ class Scene extends jThreeObjectWithID {
     public addObject(targetObject: SceneObject): void {
         //TargetObjectに所属するマテリアルを分割して配列に登録します。
         this.sceneObjects.push(targetObject);
-        targetObject.eachMaterial((m) => { this.renderPairs.push(new MaterialObjectPair(m, targetObject)) });
-        this.sortObjects();
-    }
-
-    public addRenderQueue(targetObject: SceneObject): void {
-        targetObject.eachMaterial((m) => { this.renderPairs.push(new MaterialObjectPair(m, targetObject)) });
-        this.sortObjects();
-    }
-
-    private sortObjects(): void {
-        //sort renderPairs by order of rendering
-        this.renderPairs.sort((v1, v2) => { return v1.Material.Priorty - v2.Material.Priorty });
     }
 
     private cameras: AssociativeArray<Camera>=new AssociativeArray<Camera>();
@@ -162,7 +148,7 @@ class Scene extends jThreeObjectWithID {
 
     public toString(): string {
         console.log(this);
-        return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.sceneObjects.length}\nSceneObjectCount by Material:${this.renderPairs.length}\n`;
+        return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.sceneObjects.length}\n`;
     }
 }
 

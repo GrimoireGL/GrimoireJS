@@ -44,7 +44,7 @@ class CanvasManager extends ContextManagerBase {
     constructor(glContext: WebGLRenderingContext) {
         super();
         // this.enabled = true;
-        this.setContext(new WebGLContextWrapper(glContext));
+        this.setGLContext(new WebGLContextWrapper(glContext));
     }
 
     /**

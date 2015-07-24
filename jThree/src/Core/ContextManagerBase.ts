@@ -11,22 +11,46 @@ class ContextManagerBase extends jThreeObjectId {
         super();
     }
     
+    /**
+    * backing field for ClearColor
+    */
+    private clearColor: Color4;
+    
+    /**
+     * backing field for GLContext
+     */
     private glContext: GLContextWrapperBase;
+
+    private glExtensionManager: GLExtensionManager = new GLExtensionManager();
     
-    private extensions:GLExtensionManager=new GLExtensionManager();
-    
-    protected setContext(glContext:GLContextWrapperBase)
-    {
-        this.glContext=glContext;
-        this.extensions.checkExtensions(glContext);
+    public get GLExtensionManager() {
+        return this.glExtensionManager;
     }
     
     /**
-     * WebGL raw RenderingContext
-     */
+    * WebGL raw RenderingContext
+    */
     public get GLContext(): GLContextWrapperBase {
         return this.glContext;
     }
+
+    public get ClearColor(): Color4 {
+        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
+        return this.clearColor;
+    }
+    public set ClearColor(col: Color4) {
+        this.clearColor = col || new Color4(1, 1, 1, 1);
+    }
+    
+    /**
+     * apply gl context after webglrendering context initiated.
+     */
+    protected setGLContext(glContext: GLContextWrapperBase) {
+        this.glContext = glContext;
+        this.glExtensionManager.checkExtensions(glContext);
+    }
+    
+
 
     /**
      * Called before rendering. It needs super.beforeRenderer(renderer) when you need to override.
@@ -57,20 +81,8 @@ class ContextManagerBase extends jThreeObjectId {
     }
 
 
-    public applyClearColor()
-    {
-        this.glContext.ClearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);    }    
-        /**
-     * backing field for ClearColor
-     */
-    private clearColor: Color4;
-
-    public get ClearColor(): Color4 {
-        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
-        return this.clearColor;
-    }
-    public set ClearColor(col: Color4) {
-        this.clearColor = col || new Color4(1, 1, 1, 1);
+    public applyClearColor() {
+        this.glContext.ClearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
     }
 }
 
