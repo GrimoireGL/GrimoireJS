@@ -59,7 +59,6 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
       else {
         if (this.parentSceneObjectNode.targetSceneObject == null) return;
         this.parentSceneObjectNode.targetSceneObject.addChild(this.targetSceneObject);
-        this.ContainedSceneNode.targetScene.addRenderQueue(this.targetSceneObject);
       }
     }
 

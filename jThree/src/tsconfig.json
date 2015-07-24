@@ -104,7 +104,6 @@
         "./Core/Scene.ts",
         "./Core/SceneManager.ts",
         "./Core/SceneObject.ts",
-        "./Core/TextureCanvasManager.ts",
         "./Core/Timer.ts",
         "./Core/Transform/Transformer.ts",
         "./Exceptions.ts",

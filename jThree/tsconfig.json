@@ -91,7 +91,6 @@
         "./src/Core/Scene.ts",
         "./src/Core/SceneManager.ts",
         "./src/Core/SceneObject.ts",
-        "./src/Core/TextureCanvasManager.ts",
         "./src/Core/Timer.ts",
         "./src/Core/Transform/Transformer.ts",
         "./src/Delegates.ts",

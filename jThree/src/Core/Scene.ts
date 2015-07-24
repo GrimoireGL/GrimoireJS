@@ -11,30 +11,6 @@ import Vector3 = require('../Math/Vector3');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates =require('../Base/Delegates')
-/**
-* NON PUBLIC CLASS
-*/
-class MaterialObjectPair {
-    constructor(material: Material, targetObject: SceneObject) {
-        this.material = material;
-        this.targetObject = targetObject;
-    }
-
-    private material: Material;
-    private targetObject: SceneObject;
-
-    get Material(): Material {
-        return this.material;
-    }
-
-    get TargetObject(): SceneObject {
-        return this.targetObject;
-    }
-
-    get ID(): string {
-        return this.material.ID + "-" + this.targetObject.ID;
-    }
-}
 
 //シーン
 class Scene extends jThreeObjectWithID {
