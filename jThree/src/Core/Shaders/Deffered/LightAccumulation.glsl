@@ -117,5 +117,7 @@ void main(void){
   vec3 normal=reconstructNormal();
   gl_FragColor.rgb+=calcPointLight(position,normal);
   gl_FragColor.rgb+=calcDirectionalLight(position,normal);
-  gl_FragColor.rgb=texture2D(depth,v_uv).rgb;
+  float l=distance(vec3(0,-2,-3),position);
+  gl_FragColor.rgb+=(1.-max(0.,l/2.))*vec3(1,0,0);
+  //gl_FragColor.rgb=texture2D(depth,v_uv).rgb;
 }

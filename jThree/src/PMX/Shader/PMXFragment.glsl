@@ -62,4 +62,5 @@ void main(void){
           gl_FragColor.rgb*=l;
     }
     gl_FragColor.rgb+=u_ambient;
+    gl_FragColor.rgb+=texture2D(u_light,lightUV).rgb;
 }

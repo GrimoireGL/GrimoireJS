@@ -19,7 +19,7 @@
   <scenes>
     <scene>
       <camera aspect="1" far="20" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(-3,10,10)" rotation="y(-30d)"/>
-      <plight color="red" intensity="0.3" distance="3.0" decay="1"/>
+      <plight color="red" intensity="0.3" distance="10.0" decay="1" position="(0,0,-3)"/>
       <pmx src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
 <!--         <bones>
@@ -34,7 +34,7 @@
           <morph name="黒化" value="0" id="morphTest"/>
         </morphs> -->
       </pmx>
-      <mesh geo="quad" mat="bl" rotation="x(-90d)" scale="100"/> 
+      <mesh geo="quad" mat="mat2" rotation="x(-90d)" scale="100"/> 
     </scene>
     <scene>
       <ocamera left="-1" right="1" top="1" bottom="-1" far="5"  name="CAM2" near="0"/>
