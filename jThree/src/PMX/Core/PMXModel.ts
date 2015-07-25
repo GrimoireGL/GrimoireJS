@@ -6,6 +6,7 @@ import Delegates = require('../../Base/Delegates');
 import PMXSkeleton = require('./PMXSkeleton');
 import PMXMorphManager = require('./PMXMorphManager');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
+import DepthMaterial = require('../../Core/Materials/DepthStage/DepthStageMaterial');
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
                 var targetUrl = url;
@@ -71,6 +72,7 @@ class PMXModel extends SceneObject {
                         this.materialDictionary.set(currentMat.materialName, mat);
                         offset += currentMat.vertexCount;
                 }
+                this.addMaterial(new DepthMaterial());
                 this.morphManager = new PMXMorphManager(this);
         }
 

@@ -30,6 +30,19 @@ class Geometry extends jThreeObject {
    {
      return this.indexBuffer;
    }
+   
+   /**
+    * 3 times of surface count.
+    */
+   get IndexCount()
+   {
+     return this.indexBuffer.Length;
+   }
+   
+   get GeometryOffset()
+   {
+     return 0;
+   }
 
    get PrimitiveTopology():PrimitiveTopology
    {
@@ -38,7 +51,12 @@ class Geometry extends jThreeObject {
    
    public drawElements(contextManager:ContextManagerBase,material:Material)
    {
-     contextManager.GLContext.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length,this.IndexBuffer.ElementType,0);
+     if(material)
+     {
+       contextManager.GLContext.DrawElements(this.PrimitiveTopology,material.getDrawGeometryLength(this),this.IndexBuffer.ElementType,material.getDrawGeometryOffset(this));
+       return;
+     }
+     contextManager.GLContext.DrawElements(this.PrimitiveTopology,this.IndexCount,this.IndexBuffer.ElementType,this.GeometryOffset);
    }
 
    protected addQuad(pos:number[],normal:number[],uv:number[],index:number[],points:Vector3[]):void

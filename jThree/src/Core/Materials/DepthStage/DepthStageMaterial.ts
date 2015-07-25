@@ -28,11 +28,12 @@ class DepthStageMaterial extends Material {
   get MaterialGroup(): string {
     return "jthree.materials.depth";
   }
+  
   protected program: Program;
   constructor() {
     super();
-    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-    var fs = require('../Shaders/Sprite.glsl');
+    var vs = require('../../Shaders/VertexShaders/DepthGeometries.glsl');
+    var fs = require('../../Shaders/Depth/Depth.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.sprite", "jthree.programs.sprite", vs, fs);
     this.setLoaded();
   }
@@ -44,11 +45,7 @@ class DepthStageMaterial extends Material {
     programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setUniformMatrix("matMVP", v);
-    programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
-    programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
 }

@@ -51,18 +51,10 @@ class RBDepthStage extends RenderStageBase {
 	public render(scene: Scene, object: SceneObject, passCount: number) {
 		var geometry = object.Geometry;
 		if (!geometry) return;
-		this.configureProgram(object);
+		var mats = object.getMaterials("jthree.materials.depth");
+		if(!mats||mats.length<1)return;
+		mats[0].configureMaterial(scene,this.Renderer,object,null);
 		geometry.drawElements(this.Renderer.ContextManager,null);
-	}
-
-	private configureProgram(object: SceneObject) {
-        var geometry = object.Geometry;
-        var programWrapper = this.rbDepthProgram.getForContext(this.Renderer.ContextManager);
-        programWrapper.useProgram();
-        var v = object.Transformer.calculateMVPMatrix(this.Renderer);
-        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(this.Renderer.ContextManager));
-        programWrapper.setUniformMatrix("matMVP", v);
-        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

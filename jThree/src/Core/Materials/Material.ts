@@ -12,6 +12,7 @@ import TextureBase = require('../Resources/Texture/TextureBase');
 import TargetTextureType = require('../../Wrapper/TargetTextureType');
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import Geometry = require('../Geometries/Geometry')
 declare function require(string): string;
 class Material extends JThreeObjectWithID {
     private defferedRb1Program: Program;
@@ -100,6 +101,16 @@ class Material extends JThreeObjectWithID {
     public get NeedFoward():boolean
     {
         return false;
+    }
+    
+    public getDrawGeometryLength(geo:Geometry):number
+    {
+        return geo.IndexCount;
+    }
+    
+    public getDrawGeometryOffset(geo:Geometry):number
+    {
+        return geo.GeometryOffset;
     }
 }
 
