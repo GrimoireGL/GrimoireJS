@@ -19,28 +19,19 @@
   <scenes>
     <scene>
       <camera aspect="1" far="50" fovy="45d" id="maincam" name="CAM1" near="0.1" position="(-3,10,32)"/>
-      <plight color="red" intensity="0.3" distance="5" decay="1" position="(0,0,0)"/>
+      <plight color="red" decay="1" distance="5" intensity="0.3" position="(0,0,0)"/>
       <pmx src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
-<!--         <bones>
-          <bone name="右足ＩＫ">
-            <mesh geo="quad" mat="bl" scale="0.3"/>
-          </bone>
-          <bone name="左足ＩＫ">
-            <mesh geo="quad" mat="mat2" scale="0.3"/>
-          </bone>
-        </bones> -->
-<!--         <morphs>
-          <morph name="黒化" value="0" id="morphTest"/>
-        </morphs> -->
+        <!--         <bones><bone name="右足ＩＫ"><mesh geo="quad" mat="bl" scale="0.3"/></bone><bone name="左足ＩＫ"><mesh geo="quad" mat="mat2" scale="0.3"/></bone></bones>-->
+        <!--         <morphs><morph name="黒化" value="0" id="morphTest"/></morphs>-->
       </pmx>
       <object rotation="x(-90d)">
-        <mesh id="floor" geo="quad" mat="mat2" scale="5"/> 
+        <mesh geo="quad" id="floor" mat="mat2" scale="5"/>
       </object>
     </scene>
     <scene>
-      <ocamera left="-1" right="1" top="1" bottom="-1" far="5"  name="CAM2" near="0"/>
-      <mesh geo="quad" scale="1" mat="light"/>
+      <ocamera bottom="-1" far="5" left="-1" name="CAM2" near="0" right="1" top="1"/>
+      <mesh geo="quad" mat="light" scale="1"/>
     </scene>
   </scenes>
 </goml>

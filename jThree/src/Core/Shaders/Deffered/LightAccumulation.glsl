@@ -117,9 +117,5 @@ void main(void){
   vec3 normal=reconstructNormal();
   gl_FragColor.rgb+=calcPointLight(position,normal);
   gl_FragColor.rgb+=calcDirectionalLight(position,normal);
-  if(abs(position.y-xtest)<0.1)
-  {
-    gl_FragColor.rgb=vec3(1,0,0);
-  }
   //gl_FragColor.rgb=texture2D(depth,v_uv).rgb;
 }

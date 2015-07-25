@@ -1,0 +1,16 @@
+.prop-container:before {
+	content:attr(propName);
+	padding:10px;
+	margin:10px;
+}
+
+.prop-container
+{
+	margin:10px 0;
+}
+
+.op-panel
+{
+	background-color:gray;
+	padding:10px;
+}
