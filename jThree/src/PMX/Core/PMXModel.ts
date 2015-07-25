@@ -7,6 +7,7 @@ import PMXSkeleton = require('./PMXSkeleton');
 import PMXMorphManager = require('./PMXMorphManager');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import PMXDepthMaterial = require('./PMXDepthMaterial');
+import PMXNormalMaterial = require('./PMXNormalMaterial');
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
                 var targetUrl = url;
@@ -69,6 +70,7 @@ class PMXModel extends SceneObject {
                         var mat = new PMXMaterial(this, materialCount, offset, resourceDirectory);
                         this.addMaterial(mat);
                         this.addMaterial(new PMXDepthMaterial(mat));
+                        this.addMaterial(new PMXNormalMaterial(mat));
                         this.pmxMaterials[materialCount] = mat;
                         this.materialDictionary.set(currentMat.materialName, mat);
                         offset += currentMat.vertexCount;

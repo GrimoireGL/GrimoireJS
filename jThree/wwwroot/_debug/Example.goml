@@ -1,6 +1,6 @@
 <goml>
   <resources>
-    <ddebug name="light" target="deffered.depth" viewport="viewport#main"/>
+    <ddebug name="light" target="deffered.rb1" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
     <phong diffuse="blue" name="mat2" specular="#CCC" specularpower="15"/>
     <grid hdiv="20" name="grid" vdiv="20"/>

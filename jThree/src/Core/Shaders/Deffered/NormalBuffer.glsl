@@ -5,6 +5,6 @@ void main(void){
   vec2 pre1 = compressed;
   vec2 pre2 = fract(pre1 * 255.0);
   float coef = 1.0 / 255.0;
-  r -= g * coef;
+  pre1 -=pre2 * coef;
   gl_FragColor=vec4(pre1.x,pre2.x,pre1.y,pre2.y);
 }
