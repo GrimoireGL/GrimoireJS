@@ -19,7 +19,7 @@ class Geometry extends jThreeObject {
    }
 
    get NormalBuffer(): Buffer {
-       return this.normalBuffer;
+       return this.normalBuffer; 
    }
 
    get UVBuffer(): Buffer {

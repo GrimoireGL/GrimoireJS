@@ -1,5 +1,4 @@
 precision mediump float;
-uniform mat4 matMVP;
 varying vec4 v_pos;
 void main()
 {

@@ -108,6 +108,11 @@ class PMXMaterial extends Material {
     public get VerticiesOffset() {
         return this.verticiesOffset;
     }
+    
+    public get ParentModel()
+    {
+        return this.parentModel;
+    }
 
     public get Diffuse(): Color4 {
         return this.diffuse;
