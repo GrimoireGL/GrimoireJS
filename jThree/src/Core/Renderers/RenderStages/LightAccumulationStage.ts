@@ -29,16 +29,15 @@ class LitghtAccumulationStage extends RenderStageBase {
   constructor(renderer: RendererBase) {
     super(renderer);
     var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
-    agent.get("/LightAccumulation.glsl").end((err, res: agent.Response) => {
-      this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, res.text);
-    });
+    var fs = require('../../Shaders/Deffered/LightAccumulation.glsl')
+    this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, fs);
   }
 
 
   public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
     this.bindAsOutBuffer(this.DefaultFBO, [
       { texture: texs["OUT"], target: 0 },
-      { texture:this.DefaultRBO,type:"rbo",target: "depth", isOptional: true }
+      { texture: this.DefaultRBO, type: "rbo", target: "depth", isOptional: true }
     ], () => {
       this.GLContext.ClearColor(0, 0, 0, 0);
       this.GLContext.Clear(ClearTargetType.ColorBits);
@@ -49,7 +48,7 @@ class LitghtAccumulationStage extends RenderStageBase {
     var geometry = object.Geometry;
     if (!geometry || !this.program) return;
     this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
-    geometry.drawElements(this.Renderer.ContextManager,null);
+    geometry.drawElements(this.Renderer.ContextManager, null);
     //this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
   }
 
@@ -99,13 +98,13 @@ class LitghtAccumulationStage extends RenderStageBase {
     programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());
 
     programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
-    programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1,2,-3)));
+    programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1, 2, -3)));
     programWrapper.setUniform1f("time", (new Date()).getMilliseconds() + 1000 * (new Date().getSeconds()));
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
 
   public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
-		return typeof object.Geometry!="undefined"&&object.Geometry!=null;
+    return typeof object.Geometry != "undefined" && object.Geometry != null;
   }
 
 		public getPassCount(scene: Scene) {
@@ -117,11 +116,11 @@ class LitghtAccumulationStage extends RenderStageBase {
     return "quad";
   }
 
-  	public get RenderStageConfig()
-	{
-		return {
-			depthTest:false
-		};
-	}
+  public get RenderStageConfig() {
+    return {
+      depthTest: false,
+      cullFace:false
+    };
+  }
 }
 export = LitghtAccumulationStage;
