@@ -24,10 +24,6 @@ class RBDepthStage extends RenderStageBase {
 
 	constructor(renderer: RendererBase) {
 		super(renderer);
-		var context = JThreeContextProxy.getJThreeContext();
-		var vs = require('../../Shaders/VertexShaders/DepthGeometries.glsl');
-        var fs = require('../../Shaders/Depth/Depth.glsl');
-        this.rbDepthProgram = this.loadProgram("jthree.shaders.vertex.depth", "jthree.shaders.fragment.depth", "jthree.programs.depth", vs, fs);
 	}
 
 
@@ -53,8 +49,15 @@ class RBDepthStage extends RenderStageBase {
 		if (!geometry) return;
 		var mats = object.getMaterials("jthree.materials.depth");
 		if(!mats||mats.length<1)return;
-		mats[0].configureMaterial(scene,this.Renderer,object,null);
-		geometry.drawElements(this.Renderer.ContextManager,null);
+		var materials = mats;
+		for (var i = 0; i < materials.length; i++) {
+			var material = materials[i];
+			if (!material || !material.Loaded) return;
+			for (var pass = 0; pass < material.PassCount; pass++) {
+				material.configureMaterial(scene, this.Renderer, object,null,pass);
+				geometry.drawElements(this.Renderer.ContextManager, material);
+			}
+		}
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

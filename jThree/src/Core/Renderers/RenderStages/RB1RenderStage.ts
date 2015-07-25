@@ -19,13 +19,9 @@ import Matrix = require('../../../Math/Matrix');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 class RB1RenderStage extends RenderStageBase {
 
-	private rb1Program: Program;
-
 	constructor(renderer: RendererBase) {
 		super(renderer);
-		var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
-        var fs = require('../../Shaders/Deffered/RB1.glsl');
-        this.rb1Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb1", "jthree.programs.rb1", vs, fs);
+
 	}
 
 
@@ -49,24 +45,19 @@ class RB1RenderStage extends RenderStageBase {
 	public render(scene: Scene, object: SceneObject, passCount: number) {
 		var geometry = object.Geometry;
 		if (!geometry) return;
-		this.configureProgram(object);
-		geometry.drawElements(this.Renderer.ContextManager,null);
+		var mats = object.getMaterials("jthree.materials.normal");
+		if(!mats||mats.length<1)return;
+		var materials = mats;
+		for (var i = 0; i < materials.length; i++) {
+			var material = materials[i];
+			if (!material || !material.Loaded) return;
+			for (var pass = 0; pass < material.PassCount; pass++) {
+				material.configureMaterial(scene, this.Renderer, object,null,pass);
+				geometry.drawElements(this.Renderer.ContextManager, material);
+			}
+		}
 	}
 
-	private configureProgram(object: SceneObject) {
-        var geometry = object.Geometry;
-        var programWrapper = this.rb1Program.getForContext(this.Renderer.ContextManager);
-        programWrapper.useProgram();
-        var v = object.Transformer.calculateMVPMatrix(this.Renderer);
-        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(this.Renderer.ContextManager));
-        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(this.Renderer.ContextManager));
-        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(this.Renderer.ContextManager));
-        programWrapper.setUniformMatrix("matMVP", v);
-        programWrapper.setUniformMatrix("matV", this.Renderer.Camera.ViewMatrix);
-        programWrapper.setUniformMatrix("matMV", Matrix.multiply(this.Renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-        programWrapper.setUniform1i("texture", 0);
-        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
-	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
 		return typeof object.Geometry!="undefined"&&object.Geometry!=null;

@@ -61,8 +61,8 @@ class PMXDepthMaterial extends Material {
         super();
         this.associatedMaterial=material;
         var vs = require('../Shader/PMXDepthVertex.glsl');
-        var fs = require('../Shader/PMXFragment.glsl');
-        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
+        var fs = require('../Shader/PMXDepthFragment.glsl');
+        this.program = this.loadProgram("jthree.shaders.vertex.pmx.depth", "jthree.shaders.fragment.pmx.depth", "jthree.programs.pmx.depth", vs, fs);
         this.setLoaded();
     }
 
