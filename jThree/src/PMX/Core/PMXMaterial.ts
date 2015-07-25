@@ -260,6 +260,14 @@ class PMXMaterial extends Material {
     public get Priorty(): number {
         return 100 + this.materialIndex;
     }
+
+    public getDrawGeometryLength(geo: Geometry): number {
+        return this.diffuse.A>0?this.VerticiesCount:0;
+    }
+
+    public getDrawGeometryOffset(geo: Geometry): number {
+        return this.VerticiesOffset*4;
+    }
 }
 
 export =PMXMaterial;

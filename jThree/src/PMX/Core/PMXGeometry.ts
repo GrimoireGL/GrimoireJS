@@ -55,18 +55,6 @@ class PMXGeometry extends Geometry {
         this.boneWeightBuffer.update(verticies.boneWeights, verticies.boneWeights.length)
     }
 
-    public drawElements(context: ContextManagerBase, material: Material) {
-        var mat = <PMXMaterial>material;
-        if (mat == null || !mat.VerticiesCount) {
-            context.GLContext.DrawElements(this.PrimitiveTopology, this.IndexBuffer.Length, this.IndexBuffer.ElementType, 0);
-            return;
-        }
-        if (mat.Diffuse.A < 0.01) {
-            return;
-        };
-        context.GLContext.DrawElements(this.PrimitiveTopology, mat.VerticiesCount, this.IndexBuffer.ElementType, mat.VerticiesOffset * 4);
-    }
-
     public updatePositionBuffer() {
         this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);
     }
