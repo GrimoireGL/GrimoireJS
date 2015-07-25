@@ -54,6 +54,7 @@ class LitghtAccumulationStage extends RenderStageBase {
 
   configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     var geometry = object.Geometry;
+    debugger;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
     var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);

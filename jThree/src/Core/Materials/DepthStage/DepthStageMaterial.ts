@@ -34,7 +34,7 @@ class DepthStageMaterial extends Material {
     super();
     var vs = require('../../Shaders/VertexShaders/DepthGeometries.glsl');
     var fs = require('../../Shaders/Depth/Depth.glsl');
-    this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.sprite", "jthree.programs.sprite", vs, fs);
+    this.program = this.loadProgram("jthree.shaders.vertex.depth", "jthree.shaders.fragment.depth", "jthree.programs.depth", vs, fs);
     this.setLoaded();
   }
 
