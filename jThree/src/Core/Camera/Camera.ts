@@ -52,6 +52,16 @@ class Camera extends SceneObject
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
+	
+	get Far():number
+	{
+		return undefined;
+	}
+	
+	get Near():number
+	{
+		return undefined;
+	}
 	update():void
 	{
 		super.update();

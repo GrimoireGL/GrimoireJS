@@ -42,18 +42,18 @@ vec3 calcPointLight(vec3 position,vec3 normal)
   for(int index=0;index<5;index++)//TODO fix this code for N s lights
   {
     if(index>=pl_count)break;
-   float l=length(pl_pos[index]-position.xyz);
-   vec3 p2l=normalize(pl_pos[index]-position);
-   if(dot(p2l,normal)<=0.)accum+= vec3(0,0,0);
-  else
-   {
-      if(l<=pl_coef[index].y)
-      {
-      l=max(0.,dot(p2l,normal));
-      float brightness=pow(1.-l/pl_coef[index].y,pl_coef[index].x);
-      accum+= pl_col[index].rgb*brightness;
-      }
-   }
+   float l=distance(pl_pos[index],position.xyz);
+   accum+=(1.-l/3.)*pl_col[index].rgb;
+  //  vec3 p2l=normalize(pl_pos[index]-position);
+  //  if(dot(p2l,normal)<=0.)accum+= vec3(0,0,0);
+  // else
+  //  {
+  //     if(l<=pl_coef[index].y&&dot(p2l,normal)>0.)
+  //     {
+  //     float brightness=pow(1.-l/pl_coef[index].y,pl_coef[index].x);
+  //     accum+= pl_col[index].rgb*brightness;
+  //     }
+  //  }
 
    }
    return accum;
@@ -117,7 +117,9 @@ void main(void){
   vec3 normal=reconstructNormal();
   gl_FragColor.rgb+=calcPointLight(position,normal);
   gl_FragColor.rgb+=calcDirectionalLight(position,normal);
-  float l=distance(vec3(0,-2,-3),position);
-  gl_FragColor.rgb+=(1.-max(0.,l/2.))*vec3(1,0,0);
+  if(abs(position.y-xtest)<0.1)
+  {
+    gl_FragColor.rgb=vec3(1,0,0);
+  }
   //gl_FragColor.rgb=texture2D(depth,v_uv).rgb;
 }

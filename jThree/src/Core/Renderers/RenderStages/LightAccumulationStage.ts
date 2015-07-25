@@ -54,7 +54,6 @@ class LitghtAccumulationStage extends RenderStageBase {
 
   configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     var geometry = object.Geometry;
-    debugger;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     programWrapper.useProgram();
     var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
@@ -92,12 +91,12 @@ class LitghtAccumulationStage extends RenderStageBase {
     programWrapper.setUniformVectorArray("dl_dir", ddir);
     programWrapper.setUniformVectorArray("dl_col", dcol);
     programWrapper.setUniform1i("dl_count", dlights.length);
-    programWrapper.setUniform1f("c_near", 0.1);
-    programWrapper.setUniform1f("c_far", 5);
+    programWrapper.setUniform1f("c_near", renderer.Camera.Near);
+    programWrapper.setUniform1f("c_far", renderer.Camera.Far);
     programWrapper.setUniformMatrix("matIP", ip);
     programWrapper.setUniformMatrix("matTV", Matrix.inverse(renderer.Camera.ViewMatrix));
     programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());
-
+    programWrapper.setUniform1f("xtest",(<HTMLInputElement>document.getElementById("x")).valueAsNumber);
     programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
     programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1, 2, -3)));
     programWrapper.setUniform1f("time", (new Date()).getMilliseconds() + 1000 * (new Date().getSeconds()));

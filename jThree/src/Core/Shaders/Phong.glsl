@@ -31,7 +31,7 @@ void main(void){
   float spBrightness=pow(dot(hv,v_normal),u_specular.a);
   gl_FragColor.rgb+=u_ambient.rgb;
   gl_FragColor.rgb+=u_specular.rgb*spBrightness;
-  //calculate light uv
+  ////calculate light uv
   vec2 lightUV=calcLightUV(v_pos);
   gl_FragColor.rgb+=texture2D(u_light,lightUV).xyz;
 
