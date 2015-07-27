@@ -10,6 +10,7 @@ uniform vec3 c_dir;
 uniform float c_near;
 uniform float c_far;
 uniform float xtest;
+uniform float ytest;
 uniform float ztest;
 uniform float coef;
 
@@ -105,6 +106,36 @@ vec3 reconstructNormal()
   return result;
 }
 
+bool inRegion(float dp,float p)
+{
+  return abs(dp-p)<0.01;
+}
+
+vec3 calcDebugLine(vec3 baseColor,vec3 position)
+{
+  bool isInRegion=false;
+  vec3 result=vec3(0,0,0);
+  if(inRegion(position.x,xtest))
+  {
+    result+=vec3(1,0,0);
+    isInRegion=true;
+  }
+  if(inRegion(position.y,ytest))
+  {
+    result+=vec3(0,1,0);
+        isInRegion=true;
+
+  }
+  if(inRegion(position.z,ztest))
+  {
+    result+=vec3(0,0,1);
+        isInRegion=true;
+
+  }
+  if(!isInRegion)return baseColor;
+  return result;
+}
+
 void main(void){
   float d=decomposeDepth(v_uv);
   if(d>=1.)// if the depth was same with farclip distance,it will not be count
@@ -117,5 +148,5 @@ void main(void){
   vec3 normal=reconstructNormal();
   gl_FragColor.rgb+=calcPointLight(position,normal);
   gl_FragColor.rgb+=calcDirectionalLight(position,normal);
-  //gl_FragColor.rgb=texture2D(depth,v_uv).rgb;
+  gl_FragColor.rgb=calcDebugLine(gl_FragColor.rgb,position);
 }

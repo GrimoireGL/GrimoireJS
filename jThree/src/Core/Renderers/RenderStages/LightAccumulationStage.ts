@@ -97,6 +97,8 @@ class LitghtAccumulationStage extends RenderStageBase {
     programWrapper.setUniformMatrix("matTV", Matrix.inverse(renderer.Camera.ViewMatrix));
     programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());
     programWrapper.setUniform1f("xtest",(<HTMLInputElement>document.getElementById("x")).valueAsNumber);
+    programWrapper.setUniform1f("ytest",(<HTMLInputElement>document.getElementById("y")).valueAsNumber);
+    programWrapper.setUniform1f("ztest",(<HTMLInputElement>document.getElementById("z")).valueAsNumber);
     programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
     programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1, 2, -3)));
     programWrapper.setUniform1f("time", (new Date()).getMilliseconds() + 1000 * (new Date().getSeconds()));
