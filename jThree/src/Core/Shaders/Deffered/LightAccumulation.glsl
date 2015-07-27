@@ -9,6 +9,7 @@ uniform vec3 c_pos;
 uniform vec3 c_dir;
 uniform float c_near;
 uniform float c_far;
+uniform float c_fovyCoef;
 uniform float xtest;
 uniform float ytest;
 uniform float ztest;
@@ -34,7 +35,8 @@ uniform float time;
 float decomposeDepth(vec2 uv)
 {
   vec4 dTex=texture2D(depth,uv);
-  return dot(dTex,vec4(1.0,1.0/255.0,1.0/(255.0*255.0),1.0/(255.0*255.0*255.0)));
+  float decomposed=dot(dTex,vec4(1.0,1.0/255.0,1.0/(255.0*255.0),1.0/(255.0*255.0*255.0)));
+  return decomposed*2.0-1.0;
 }
 
 vec3 calcPointLight(vec3 position,vec3 normal)
@@ -86,13 +88,13 @@ vec3 calcDirectionalLight(vec3 position,vec3 normal)
 
 vec3 reconstructPosition(float d)
 {
-  float z = c_far*c_near/(-c_far+d*(c_far-c_near));
-  vec2 uv=vec2(v_uv.x,1.-v_uv.y);
-  vec3 posClip=vec3(2.0*uv+vec2(-1,-1),d*2.-1.);
-  vec4 position=matIP*vec4(posClip,z);
-  position.x*=position.z;
-  position.y*=-position.z;
-  position.z=z;
+  float zcoef=d-c_far*c_near/(c_near-c_far);
+  float z = 2.*c_near*c_far/(c_near-c_far)/zcoef;
+  vec2 uv=vec2(v_uv.x,v_uv.y);
+  vec2 clxy=2.0*uv+vec2(-1,-1);
+  vec3 position=vec3(0,0,z);
+  position.x=clxy.x/(-z)*c_fovyCoef;//need to multiply aspect ratio
+  position.y=clxy.y/(-z)*c_fovyCoef;
   return position.xyz;
 }
 
@@ -123,14 +125,13 @@ vec3 calcDebugLine(vec3 baseColor,vec3 position)
   if(inRegion(position.y,ytest))
   {
     result+=vec3(0,1,0);
-        isInRegion=true;
+    isInRegion=true;
 
   }
   if(inRegion(position.z,ztest))
   {
     result+=vec3(0,0,1);
-        isInRegion=true;
-
+    isInRegion=true;
   }
   if(!isInRegion)return baseColor;
   return result;

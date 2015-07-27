@@ -3,7 +3,7 @@ uniform mat4 matMVP;
 varying vec4 v_pos;
 void main()
 {
-   float depth=v_pos.z/v_pos.w;
+   float depth=(v_pos.z/v_pos.w+1.0)/2.0;
    float r = depth;
     float g = fract(r * 255.0);
     float b = fract(g * 255.0);

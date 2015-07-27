@@ -23,6 +23,7 @@ import PointLight = require('../../Light/PointLight');
 import DirectionalLight = require('../../Light/DirectionalLight');
 import agent = require('superagent');
 import GLFeatureType = require("../../../Wrapper/GLFeatureType");
+import PerspectiveCamera = require('../../Camera/PerspectiveCamera');
 class LitghtAccumulationStage extends RenderStageBase {
 
   private program: Program;
@@ -93,6 +94,7 @@ class LitghtAccumulationStage extends RenderStageBase {
     programWrapper.setUniform1i("dl_count", dlights.length);
     programWrapper.setUniform1f("c_near", renderer.Camera.Near);
     programWrapper.setUniform1f("c_far", renderer.Camera.Far);
+    programWrapper.setUniform1f("c_fovyCoef",Math.tan((<PerspectiveCamera>renderer.Camera).Fovy/2));
     programWrapper.setUniformMatrix("matIP", ip);
     programWrapper.setUniformMatrix("matTV", Matrix.inverse(renderer.Camera.ViewMatrix));
     programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());
