@@ -110,25 +110,25 @@ vec3 reconstructNormal()
 
 bool inRegion(float dp,float p)
 {
-  return abs(dp-p)<0.01;
+  return abs(dp-p)<0.1;
 }
 
 vec3 calcDebugLine(vec3 baseColor,vec3 position)
 {
   bool isInRegion=false;
   vec3 result=vec3(0,0,0);
-  if(inRegion(position.x,xtest))
+  if(position.z>xtest)
   {
     result+=vec3(1,0,0);
     isInRegion=true;
   }
-  if(inRegion(position.y,ytest))
+  if(position.z<ytest)
   {
     result+=vec3(0,1,0);
     isInRegion=true;
 
   }
-  if(inRegion(position.z,ztest))
+  if(abs(position.z)<1./ztest)
   {
     result+=vec3(0,0,1);
     isInRegion=true;
@@ -149,5 +149,7 @@ void main(void){
   vec3 normal=reconstructNormal();
   gl_FragColor.rgb+=calcPointLight(position,normal);
   gl_FragColor.rgb+=calcDirectionalLight(position,normal);
-  gl_FragColor.rgb=calcDebugLine(gl_FragColor.rgb,position);
+    vec4 dTex=texture2D(depth,v_uv);
+  float decomposed=dTex.r;//dot(dTex,vec4(1.0,1.0/255.0,1.0/(255.0*255.0),1.0/(255.0*255.0*255.0)));
+  gl_FragColor.rgb=vec3(decomposed,0,0);//calcDebugLine(gl_FragColor.rgb,position);
 }

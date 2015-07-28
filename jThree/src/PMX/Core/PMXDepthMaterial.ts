@@ -87,7 +87,7 @@ class PMXDepthMaterial extends Material {
 
     public get Priorty(): number {
         return 100;
-            }
+    }
 
     public getDrawGeometryLength(geo: Geometry): number {
         return this.VerticiesCount;

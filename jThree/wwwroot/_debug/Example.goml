@@ -18,7 +18,7 @@
   </renderers>
   <scenes>
     <scene>
-      <camera aspect="1" far="50" fovy="45d" id="maincam" name="CAM1" near="0.1" position="(-3,10,32)"/>
+      <camera aspect="1" far="35" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(-3,10,32)"/>
       <plight color="red" decay="1" distance="5" intensity="0.3" position="(0,0,0)"/>
       <pmx src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
@@ -26,7 +26,7 @@
         <!--         <morphs><morph name="黒化" value="0" id="morphTest"/></morphs>-->
       </pmx>
       <object rotation="x(-90d)">
-        <mesh geo="quad" id="floor" mat="mat2" scale="5"/>
+        <mesh geo="quad" id="floor" mat="mat2" scale="500"/>
       </object>
     </scene>
     <scene>
