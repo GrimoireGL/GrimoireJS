@@ -152,4 +152,8 @@ void main(void){
     vec4 dTex=texture2D(depth,v_uv);
   float decomposed=dTex.r;//dot(dTex,vec4(1.0,1.0/255.0,1.0/(255.0*255.0),1.0/(255.0*255.0*255.0)));
   gl_FragColor.rgb=vec3(decomposed,0,0);//calcDebugLine(gl_FragColor.rgb,position);
+  if(abs(decomposed-ztest)<0.1)
+  {
+    gl_FragColor.rgb+=vec3(0,0,1);
+  }
 }
