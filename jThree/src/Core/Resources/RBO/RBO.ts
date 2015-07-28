@@ -39,6 +39,16 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper>
     protected disposeResource(resource: RBOWrapper): void {
 
     }
+
+    public resize(width:number,height:number)
+	{
+		if(this.width!==width||this.height!==height)
+		{
+			this.width=width;
+			this.height=height;
+			this.each(v=>(<RBOWrapper>v).resize(width,height));
+		}
+	}
 }
 
 export = RBO;

@@ -1,6 +1,7 @@
 <goml>
   <resources>
-    <ddebug name="light" target="deffered.depth" viewport="viewport#main"/>
+    <ddebug name="light" target="deffered.light" viewport="viewport#main"/>
+    <ddebug name="depth" target="deffered.depth" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
     <phong diffuse="darkgray" name="mat2" specular="#CCC" specularpower="15"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
@@ -13,7 +14,8 @@
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" height="512" id="main" left="0" width="512"/>
-      <viewport cam="CAM2" height="512" id="main" left="512" width="512"/>
+      <viewport cam="CAM2" height="256" id="main" left="512" width="256"/>
+      <viewport cam="CAM3" height="256" id="main" left="768" width="256"/>
     </renderer>
   </renderers>
   <scenes>
@@ -30,8 +32,12 @@
       </object>
     </scene>
     <scene>
-      <ocamera bottom="-1" far="5" left="-1" name="CAM2" near="0" right="1" top="1"/>
+      <ocamera bottom="-1" far="1" left="-1" name="CAM2" near="0" right="1" top="1"/>
       <mesh geo="quad" mat="light" scale="1"/>
+    </scene>
+    <scene>
+      <ocamera bottom="-1" far="1" left="-1" name="CAM3" near="0" right="1" top="1"/>
+    <mesh geo="quad" mat="depth" scale="1"/>
     </scene>
   </scenes>
 </goml>

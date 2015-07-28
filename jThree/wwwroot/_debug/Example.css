@@ -14,3 +14,29 @@
 	background-color:gray;
 	padding:10px;
 }
+
+.vp-label
+{
+	position:absolute;
+}
+.vp-label-result
+{
+	position: relative;
+}
+.vp-label-light
+{
+	left: 512px;
+}
+.vp-label-depth
+{
+	left: 768px;
+}
+canvas{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+}

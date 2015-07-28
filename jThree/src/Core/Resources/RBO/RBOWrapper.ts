@@ -31,9 +31,21 @@ class RBOWrapper extends ResourceWrapper
 	{
 		if(this.Initialized)return;
 		this.targetRBO=this.WebGLContext.CreateRenderBuffer();
-		this.WebGLContext.BindRenderBuffer(this.targetRBO);
+		this.bind();
 		this.WebGLContext.RenderBufferStorage(this.parent.Format,this.parent.Width,this.parent.Height);
 		this.setInitialized();
+	}
+
+	public bind()
+	{
+		this.WebGLContext.BindRenderBuffer(this.targetRBO);
+	}
+
+	public resize(width: number, height: number) {
+		if (this.Initialized) {
+			this.bind();
+			this.WebGLContext.RenderBufferStorage(this.parent.Format,this.parent.Width,this.parent.Height);
+		}
 	}
 }
 export = RBOWrapper;

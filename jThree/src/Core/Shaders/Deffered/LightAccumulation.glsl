@@ -35,6 +35,7 @@ uniform float time;
 float decomposeDepth(vec2 uv)
 {
   vec4 dTex=texture2D(depth,uv);
+  if(all(equal(dTex,vec4(0,0,0,0))))discard;
   float decomposed=dot(dTex,vec4(1.0,1.0/255.0,1.0/(255.0*255.0),1.0/(255.0*255.0*255.0)));
   return decomposed*2.0-1.0;
 }
@@ -139,19 +140,19 @@ vec3 calcDebugLine(vec3 baseColor,vec3 position)
 
 void main(void){
   float d=decomposeDepth(v_uv);
-  if(d>=1.)// if the depth was same with farclip distance,it will not be count
+  if(d>=xtest/100.)// if the depth was same with farclip distance,it will not be count
   {
-      gl_FragColor=vec4(0,0,0,0);
+      gl_FragColor=vec4(0,0,1,1);
       return;
   }
   gl_FragColor.rgba=vec4(0,0,0,1);
   vec3 position=reconstructPosition(d);
   vec3 normal=reconstructNormal();
-  gl_FragColor.rgb+=calcPointLight(position,normal);
-  gl_FragColor.rgb+=calcDirectionalLight(position,normal);
+  //gl_FragColor.rgb+=calcPointLight(position,normal);
+  //gl_FragColor.rgb+=calcDirectionalLight(position,normal);
     vec4 dTex=texture2D(depth,v_uv);
   float decomposed=dTex.r;//dot(dTex,vec4(1.0,1.0/255.0,1.0/(255.0*255.0),1.0/(255.0*255.0*255.0)));
-  gl_FragColor.rgb=vec3(decomposed,0,0);//calcDebugLine(gl_FragColor.rgb,position);
+  gl_FragColor.rgb=vec3(gl_FragCoord.x,0,0);//calcDebugLine(gl_FragColor.rgb,position);
   if(abs(decomposed-ztest)<0.1)
   {
     gl_FragColor.rgb+=vec3(0,0,1);
