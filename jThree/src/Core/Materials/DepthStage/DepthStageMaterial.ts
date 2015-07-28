@@ -46,7 +46,8 @@ class DepthStageMaterial extends Material {
     var v = object.Transformer.calculateMVPMatrix(renderer);
     programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
     programWrapper.setUniformMatrix("matMVP", v);
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+    console.log("model"+object.Transformer.LocalToGlobal.toMathematicaString());
+        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
 }
 

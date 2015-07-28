@@ -28,7 +28,7 @@
         <!--         <morphs><morph name="黒化" value="0" id="morphTest"/></morphs>-->
       </pmx>
       <object rotation="x(-90d)">
-        <mesh geo="quad" id="floor" mat="mat2" scale="500"/>
+        <mesh geo="quad" id="floor" mat="mat2" scale="32"/>
       </object>
     </scene>
     <scene>
