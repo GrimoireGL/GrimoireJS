@@ -20,16 +20,29 @@
   </renderers>
   <scenes>
     <scene>
-      <camera aspect="1" far="35" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(-3,10,32)"/>
+      <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,0.5,1)"/>
       <plight color="red" decay="1" distance="5" intensity="0.3" position="(0,0,0)"/>
-      <pmx src="/_debug/tune/Tune.pmx">
+ <!--       <pmx src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
-        <!--         <bones><bone name="右足ＩＫ"><mesh geo="quad" mat="bl" scale="0.3"/></bone><bone name="左足ＩＫ"><mesh geo="quad" mat="mat2" scale="0.3"/></bone></bones>-->
-        <!--         <morphs><morph name="黒化" value="0" id="morphTest"/></morphs>-->
-      </pmx>
-      <object rotation="x(-90d)">
-        <mesh geo="quad" id="floor" mat="mat2" scale="32"/>
-      </object>
+                 <bones><bone name="右足ＩＫ"><mesh geo="quad" mat="bl" scale="0.3"/></bone><bone name="左足ＩＫ"><mesh geo="quad" mat="mat2" scale="0.3"/></bone></bones>
+        <!--         <morphs><morph name="黒化" value="0" id="morphTest"/></morphs>
+      </pmx> --> 
+        <mesh geo="quad" id="floor" mat="mat2" scale="1" rotation="x(-90d)"/>
+        <mesh geo="quad" mat="mat2" scale="0.1" position="1,0.5,-1"/>
+        <mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,-0.5"/>
+        <mesh geo="quad" mat="mat2" scale="0.1"  position="-0.5,0.5,0"/>
+        <mesh geo="quad" mat="mat2" scale="0.1"  position="-0.5,0.5,0.5"/>
+                <mesh geo="quad" mat="mat2" scale="0.1" position="1,1.5,-1"/>
+        <mesh geo="quad" mat="mat2" scale="0.1"  position="0,1.5,-0.5"/>
+        <mesh geo="quad" mat="mat2" scale="0.1"  position="-0.5,1.5,0"/>
+        <mesh geo="quad" mat="mat2" scale="0.1"  position="-0.5,1.5,0.5"/>
+<!--         <mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,0.890"/>
+ -->        
+         <mesh geo="cube" mat="mat2" scale="0.1"  position="0,0,0.5" rotation="y(30d)"/>
+         <mesh geo="cube" mat="mat2" scale="0.1"  position="-0.5,0,0" rotation="y(40d)"/>
+         <mesh geo="cube" mat="mat2" scale="0.1"  position="0.5,0,-0.5" rotation="y(10d)"/>
+         <mesh geo="cube" mat="mat2" scale="0.1"  position="1,0,0.3" rotation="y(60d)"/>
+
     </scene>
     <scene>
       <ocamera bottom="-1" far="1" left="-1" name="CAM2" near="0" right="1" top="1"/>

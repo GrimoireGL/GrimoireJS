@@ -18,6 +18,7 @@ vec2 calcLightUV(vec4 projectionSpacePos)
 {
    return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;
 }
+
 void main(void){
   vec2 adjuv=v_uv;
   //calculate light vector in view space
@@ -34,6 +35,6 @@ void main(void){
   ////calculate light uv
   vec2 lightUV=calcLightUV(v_pos);
   gl_FragColor.rgb+=texture2D(u_light,lightUV).xyz;
-  gl_FragColor.r=1.;//gl_FragCoord.z;
+  gl_FragColor.gb=vec2(0,0);
 }
 
