@@ -7,9 +7,6 @@ uniform mediump sampler2D depth;
 uniform mediump sampler2D u_ldepth;
 uniform vec3 c_pos;
 uniform vec3 c_dir;
-uniform float c_near;
-uniform float c_far;
-uniform float c_fovyCoef;
 uniform float xtest;
 uniform float ytest;
 uniform float ztest;
@@ -47,25 +44,15 @@ float decomposeDepth(vec2 uv)
 
 vec3 calcPointLight(vec3 position,vec3 normal)
 {
- vec3 accum=vec3(0,0,0);
+  vec3 accum=vec3(0,0,0);
   for(int index=0;index<5;index++)//TODO fix this code for N s lights
   {
     if(index>=pl_count)break;
-   float l=distance(pl_pos[index],position.xyz);
-   accum+=(1.-l/3.)*pl_col[index].rgb;
-  //  vec3 p2l=normalize(pl_pos[index]-position);
-  //  if(dot(p2l,normal)<=0.)accum+= vec3(0,0,0);
-  // else
-  //  {
-  //     if(l<=pl_coef[index].y&&dot(p2l,normal)>0.)
-  //     {
-  //     float brightness=pow(1.-l/pl_coef[index].y,pl_coef[index].x);
-  //     accum+= pl_col[index].rgb*brightness;
-  //     }
-  //  }
-
-   }
-   return accum;
+    float l=distance(pl_pos[index],position);
+    vec3 p2l=normalize(pl_pos[index]-position);
+    accum+=dot(p2l,normal)*pow(max(0.,1.-l/pl_coef[index].y),pl_coef[index].x)*pl_col[index].rgb;
+  }
+  return accum;
 }
 
 vec3 calcDirectionalLight(vec3 position,vec3 normal)
@@ -138,15 +125,10 @@ vec3 calcDebugLine(vec3 baseColor,vec3 position)
 
 void main(void){
   float d=decomposeDepth(v_uv);
-  // if(d>=xtest/100.)// if the depth was same with farclip distance,it will not be count
-  // {
-  //     gl_FragColor=vec4(0,0,1,1);
-  //     return;
-  // }
   gl_FragColor.rgba=vec4(0,0,0,1);
   vec3 position=reconstructPosition(d);
   vec3 normal=reconstructNormal();
-  //gl_FragColor.rgb+=calcPointLight(position,normal);
+  gl_FragColor.rgb+=calcPointLight(position,normal);
   //gl_FragColor.rgb+=calcDirectionalLight(position,normal);
-  gl_FragColor.rgb=calcDebugLine(gl_FragColor.rgb,position);
+  //gl_FragColor.rgb=calcDebugLine(gl_FragColor.rgb,position);
 }

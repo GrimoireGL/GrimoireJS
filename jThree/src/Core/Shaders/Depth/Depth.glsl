@@ -2,8 +2,7 @@ precision mediump float;
 uniform mat4 matMVP;
 varying vec4 v_pos;
 void main()
-{  const float c_far=1.0;
-   const float c_near=0.0;
+{  
    //float depth=gl_FragCoord.z;
     float depth=(v_pos.z/v_pos.w+1.0)/2.0;
     float r = depth;

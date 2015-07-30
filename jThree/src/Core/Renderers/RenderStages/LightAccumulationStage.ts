@@ -92,9 +92,6 @@ class LitghtAccumulationStage extends RenderStageBase {
     programWrapper.setUniformVectorArray("dl_dir", ddir);
     programWrapper.setUniformVectorArray("dl_col", dcol);
     programWrapper.setUniform1i("dl_count", dlights.length);
-    programWrapper.setUniform1f("c_near", renderer.Camera.Near);
-    programWrapper.setUniform1f("c_far", renderer.Camera.Far);
-    programWrapper.setUniform1f("c_fovyCoef",Math.tan((<PerspectiveCamera>renderer.Camera).Fovy/2));
     programWrapper.setUniformMatrix("matIP", ip);
     programWrapper.setUniformMatrix("matTV", Matrix.inverse(renderer.Camera.ViewMatrix));
     programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());

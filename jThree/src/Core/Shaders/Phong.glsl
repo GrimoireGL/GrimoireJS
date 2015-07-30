@@ -35,6 +35,5 @@ void main(void){
   ////calculate light uv
   vec2 lightUV=calcLightUV(v_pos);
   gl_FragColor.rgb+=texture2D(u_light,lightUV).xyz;
-  gl_FragColor.gb=vec2(0,0);
 }
 
