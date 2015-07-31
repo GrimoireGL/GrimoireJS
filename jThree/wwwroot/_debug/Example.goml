@@ -2,6 +2,7 @@
   <resources>
     <ddebug name="light" target="deffered.light" viewport="viewport#main"/>
     <ddebug name="depth" target="deffered.depth" viewport="viewport#main"/>
+    <ddebug name="normal" target="deffered.rb1" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
     <phong diffuse="darkgray" name="mat2" specular="#CCC" specularpower="15"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
@@ -16,12 +17,17 @@
       <viewport cam="CAM1" height="512" id="main" left="0" width="512"/>
       <viewport cam="CAM2" height="256" id="main" left="512" width="256"/>
       <viewport cam="CAM3" height="256" id="main" left="768" width="256"/>
+      <viewport cam="CAM4" height="256" id="main" left="512" width="256" top="256"/>
     </renderer>
   </renderers>
   <scenes>
     <scene>
       <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,0.5,1)"/>
-      <plight color="red" decay="1" distance="0.3" intensity="0.3" position="(0,0.1,0)"/>
+      <object id="light-root">
+      <plight color="red" decay="1" distance="5" intensity="0.8" position="(0,0.1,0)"/>
+      <plight color="blue" decay="1" distance="5" intensity="0.8" position="(0.5,0.1,0)"/>
+      <plight color="green" decay="1" distance="5" intensity="0.8" position="(-0.5,0.1,0)"/>
+    </object>
       <pmx src="/_debug/tune/Tune.pmx" scale="0.1">
         <vmd frame="0" src="melt.vmd"/>
                  <bones><bone name="右足ＩＫ"><mesh geo="quad" mat="bl" scale="0.3"/></bone><bone name="左足ＩＫ"><mesh geo="quad" mat="mat2" scale="0.3"/></bone></bones>
@@ -51,6 +57,10 @@
     <scene>
       <ocamera bottom="-1" far="1" left="-1" name="CAM3" near="0" right="1" top="1"/>
     <mesh geo="quad" mat="depth" scale="1"/>
+    </scene>
+    <scene>
+      <ocamera bottom="-1" far="1" left="-1" name="CAM4" near="0" right="1" top="1"/>
+    <mesh geo="quad" mat="normal" scale="1"/>
     </scene>
   </scenes>
 </goml>

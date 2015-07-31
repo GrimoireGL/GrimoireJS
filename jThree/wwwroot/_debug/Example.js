@@ -3,6 +3,10 @@ j3(function(){
   j3("#wrink").animate({value:0},30000);
   j3("vmd").animate({frame:7200},240000);
   j3("#morphTest").animate({value:1},30000);
+  j3("#light-root").animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
+  .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
+  .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
+  .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000);
   // j3("#floor").animate({rotation:"y(120d)"},10000);
   // j3("viewport#main").attr({width:256});
   // j3("mesh#tri").animate({rotation:"axis(270d,1,1,1)"},10000);
