@@ -1,8 +1,8 @@
-import ResourceWrapper = require("../ResourceWrapper");
-import TextureTargetType = require("../../../Wrapper/TargetTextureType");
-import TextureParameterType = require("../../../Wrapper/Texture/TextureParameterType");
-import TextureBase = require("TextureBase");
-import ContextManagerBase = require("../../ContextManagerBase");
+import ResourceWrapper = require('../ResourceWrapper');
+import TextureTargetType = require('../../../Wrapper/TargetTextureType');
+import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
+import TextureBase = require('TextureBase');
+import ContextManagerBase = require('../../ContextManagerBase');
 
 class TextureWrapperBase extends ResourceWrapper
 {	

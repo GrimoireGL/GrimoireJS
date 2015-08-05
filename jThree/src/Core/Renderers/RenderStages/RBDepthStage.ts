@@ -1,10 +1,10 @@
-import RendererBase = require("../RendererBase");
-import SceneObject = require("../../SceneObject");
-import RenderStageBase = require("./RenderStageBase");
+import RendererBase = require('../RendererBase');
+import SceneObject = require('../../SceneObject');
+import RenderStageBase = require('./RenderStageBase');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-import Scene = require("../../Scene");
-import Program = require("../../Resources/Program/Program");
-import ResolvedChainInfo = require("../ResolvedChainInfo");
+import Scene = require('../../Scene');
+import Program = require('../../Resources/Program/Program');
+import ResolvedChainInfo = require('../ResolvedChainInfo');
 declare function require(target: string): any;
 class RBDepthStage extends RenderStageBase {
 

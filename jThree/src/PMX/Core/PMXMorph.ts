@@ -1,6 +1,6 @@
-import PMXModel = require("./PMXModel");
-import PMXGeometry = require("./PMXGeometry");
-import PMXMorphManager = require("./PMXMorphManager");
+import PMXModel = require('./PMXModel');
+import PMXGeometry = require('./PMXGeometry');
+import PMXMorphManager = require('./PMXMorphManager');
 class PMXMorph {
 	public static CreateMorph(model: PMXModel, index: number, morphManager: PMXMorphManager): PMXMorph {
 		var morphData = model.ModelData.Morphs[index];

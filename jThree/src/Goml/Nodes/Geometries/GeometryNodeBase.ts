@@ -18,7 +18,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
   * Identical Name for geometry
   */
   get Name():string{
-    this.name=this.name||this.element.getAttribute("name")||JThreeID.getUniqueRandom(10);
+    this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
     return this.name;
   }
 
@@ -29,7 +29,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
   */
   get Lazy():boolean
   {
-    this.lazy=typeof this.lazy === "undefined"?this.element.getAttribute("lazy").toLowerCase()=="true":this.lazy;
+    this.lazy=typeof this.lazy === 'undefined'?this.element.getAttribute('lazy').toLowerCase()=='true':this.lazy;
     return this.lazy;
   }
 

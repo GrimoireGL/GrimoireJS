@@ -50,7 +50,7 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
   * Identical Name for camera
   */
   get Name():string{
-    this.name=this.name||this.element.getAttribute("name")||JThreeID.getUniqueRandom(10);
+    this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
     return this.name;
   }
 }

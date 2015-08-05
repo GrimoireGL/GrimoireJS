@@ -1,24 +1,24 @@
-import RendererBase = require("../RendererBase");
-import SceneObject = require("../../SceneObject");
-import RenderStageBase = require("./RenderStageBase");
+import RendererBase = require('../RendererBase');
+import SceneObject = require('../../SceneObject');
+import RenderStageBase = require('./RenderStageBase');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-import Scene = require("../../Scene");
-import Program = require("../../Resources/Program/Program");
-import Mesh = require("../../../Shapes/Mesh");
-import Matrix = require("../../../Math/Matrix");
-import Vector3 = require("../../../Math/Vector3");
-import Vector2 = require("../../../Math/Vector2");
-import ResolvedChainInfo = require("../ResolvedChainInfo");
-import PointLight = require("../../Light/PointLight");
-import DirectionalLight = require("../../Light/DirectionalLight");
+import Scene = require('../../Scene');
+import Program = require('../../Resources/Program/Program');
+import Mesh = require('../../../Shapes/Mesh');
+import Matrix = require('../../../Math/Matrix');
+import Vector3 = require('../../../Math/Vector3');
+import Vector2 = require('../../../Math/Vector2');
+import ResolvedChainInfo = require('../ResolvedChainInfo');
+import PointLight = require('../../Light/PointLight');
+import DirectionalLight = require('../../Light/DirectionalLight');
 
 class LitghtAccumulationStage extends RenderStageBase {
 
   private program: Program;
   constructor(renderer: RendererBase) {
     super(renderer);
-    var vs = require("../../Shaders/VertexShaders/PostEffectGeometries.glsl");
-    var fs = require("../../Shaders/Deffered/LightAccumulation.glsl")
+    var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
+    var fs = require('../../Shaders/Deffered/LightAccumulation.glsl')
     this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.deffered.lightaccum", "jthree.programs.deffered.light", vs, fs);
   }
 

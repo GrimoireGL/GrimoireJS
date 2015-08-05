@@ -1,7 +1,7 @@
-import JThreeObject = require("../../Base/JThreeObject");
-import AssociativeArray = require("../../Base/Collections/AssociativeArray");
-import GomlComponentDeclaration = require("./GomlComponentDeclaration");
-import GomlComponentDeclarationBody = require("./GomlComponentDeclarationBody");
+import JThreeObject = require('../../Base/JThreeObject');
+import AssociativeArray = require('../../Base/Collections/AssociativeArray');
+import GomlComponentDeclaration = require('./GomlComponentDeclaration');
+import GomlComponentDeclarationBody = require('./GomlComponentDeclarationBody');
 /**
 * The class for managing classes registered.
 */

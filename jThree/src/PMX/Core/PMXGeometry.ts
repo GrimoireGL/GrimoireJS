@@ -1,11 +1,11 @@
-import Geometry = require("../../Core/Geometries/Geometry");
-import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import BufferTargetType = require("../../Wrapper/BufferTargetType");
-import BufferUsageType = require("../../Wrapper/BufferUsageType");
-import ElementType = require("../../Wrapper/ElementType");
-import JThreeContextProxy = require("../../Core/JThreeContextProxy");
-import PMX = require("../PMXLoader");
-import Buffer = require("../../Core/Resources/Buffer/Buffer");
+import Geometry = require('../../Core/Geometries/Geometry');
+import PrimitiveTopology = require('../../Wrapper/PrimitiveTopology');
+import BufferTargetType = require('../../Wrapper/BufferTargetType');
+import BufferUsageType = require('../../Wrapper/BufferUsageType');
+import ElementType = require('../../Wrapper/ElementType');
+import JThreeContextProxy = require('../../Core/JThreeContextProxy');
+import PMX = require('../PMXLoader');
+import Buffer = require('../../Core/Resources/Buffer/Buffer');
 
 class PMXGeometry extends Geometry {
 

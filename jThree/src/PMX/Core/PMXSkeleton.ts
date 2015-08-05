@@ -1,10 +1,10 @@
-import PMXModel = require("./PMXModel");
-import PMXBone = require("./PMXBone");
-import AssociativeArray = require("../../Base/Collections/AssociativeArray")
-import TextureBuffer = require("../../Core/Resources/Texture/BufferTexture");
-import JThreeContextProxy = require("../../Core/JThreeContextProxy");
-import TextureFormat = require("../../Wrapper/TextureInternalFormatType");
-import ElementFormat = require("../../Wrapper/TextureType");
+import PMXModel = require('./PMXModel');
+import PMXBone = require('./PMXBone');
+import AssociativeArray = require('../../Base/Collections/AssociativeArray')
+import TextureBuffer = require('../../Core/Resources/Texture/BufferTexture');
+import JThreeContextProxy = require('../../Core/JThreeContextProxy');
+import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
+import ElementFormat = require('../../Wrapper/TextureType');
 
 class PMXSkeleton {
 	constructor(model: PMXModel) {

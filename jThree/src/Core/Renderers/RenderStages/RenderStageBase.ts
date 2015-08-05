@@ -1,23 +1,23 @@
-import JThreeObject = require("./../../../Base/JThreeObject");
-import RendererBase = require("../RendererBase");
-import SceneObject = require("../../SceneObject");
-import Scene = require("../../Scene")
-import Program = require("../../Resources/Program/Program");
-import JThreeContextProxy = require("../../JThreeContextProxy");
+import JThreeObject = require('./../../../Base/JThreeObject');
+import RendererBase = require('../RendererBase');
+import SceneObject = require('../../SceneObject');
+import Scene = require('../../Scene')
+import Program = require('../../Resources/Program/Program');
+import JThreeContextProxy = require('../../JThreeContextProxy');
 import ShaderType = require("../../../Wrapper/ShaderType");
-import ResolvedChainInfo = require("../ResolvedChainInfo");
-import TextureRegister = require("../../../Wrapper/Texture/TextureRegister");
-import TextureBase = require("../../Resources/Texture/TextureBase");
-import RBO = require("../../Resources/RBO/RBO");
-import FBO = require("../../Resources/FBO/FBO");
-import FBOWrapper = require("../../Resources/FBO/FBOWrapper");
-import Delegates = require("../../../Base/Delegates");
-import GLCullMode = require("../../../Wrapper/GLCullMode");
-import GLFeature = require("../../../Wrapper/GLFeatureType");
-import FrameBufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
-import TargetTextureType = require("../../../Wrapper/TargetTextureType");
-import GLSpecManager = require("../../GLSpecManager");
-import PixelStoreParamType = require("../../../Wrapper/Texture/PixelStoreParamType");
+import ResolvedChainInfo = require('../ResolvedChainInfo');
+import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
+import TextureBase = require('../../Resources/Texture/TextureBase');
+import RBO = require('../../Resources/RBO/RBO');
+import FBO = require('../../Resources/FBO/FBO');
+import FBOWrapper = require('../../Resources/FBO/FBOWrapper');
+import Delegates = require('../../../Base/Delegates');
+import GLCullMode = require('../../../Wrapper/GLCullMode');
+import GLFeature = require('../../../Wrapper/GLFeatureType');
+import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
+import TargetTextureType = require('../../../Wrapper/TargetTextureType');
+import GLSpecManager = require('../../GLSpecManager');
+import PixelStoreParamType = require('../../../Wrapper/Texture/PixelStoreParamType');
 
 interface FBOBindData {
 	texture: TextureBase|RBO;
@@ -90,7 +90,7 @@ class RenderStageBase extends JThreeObject {
 		} else {
 			this.GLContext.CullFace(GLCullMode.Back);
 		}
-		if(typeof this.RenderStageConfig.texYFlip ==="undefined"||this.RenderStageConfig.texYFlip)
+		if(typeof this.RenderStageConfig.texYFlip ==='undefined'||this.RenderStageConfig.texYFlip)
 		{
 			this.GLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);		}else
 		{
@@ -101,7 +101,7 @@ class RenderStageBase extends JThreeObject {
 	}
 
 	private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
-		if (typeof flag === "undefined") {
+		if (typeof flag === 'undefined') {
 			flag = def;
 		}
 		if (flag) {
@@ -154,7 +154,7 @@ class RenderStageBase extends JThreeObject {
 			} else {
 				attachmentType = ((<number>FrameBufferAttachmentType.ColorAttachment0) + <number>new Number(v.target));
 			}
-			if (shouldBeDefault || (typeof v.isOptional !== "undefined" && !v.isOptional && v.texture === null)) {//use default buffer
+			if (shouldBeDefault || (typeof v.isOptional !== 'undefined' && !v.isOptional && v.texture === null)) {//use default buffer
 				this.attachToWrapper(v, targetWrapper, attachmentType);
 				this.Renderer.GLContext.BindFrameBuffer(null);
 				shouldBeDefault = true;

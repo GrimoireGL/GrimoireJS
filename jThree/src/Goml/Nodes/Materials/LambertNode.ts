@@ -2,8 +2,8 @@
 import Lambert = require("../../../Core/Materials/LambertMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import MaterialNodeBase = require("./MaterialNodeBase");
-import Material = require("../../../Core/Materials/Material");
+import MaterialNodeBase = require('./MaterialNodeBase');
+import Material = require('../../../Core/Materials/Material');
 class LambertNode extends MaterialNodeBase
 {
     material:Lambert;

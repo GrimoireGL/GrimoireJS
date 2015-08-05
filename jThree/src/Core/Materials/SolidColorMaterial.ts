@@ -6,12 +6,12 @@ import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import Matrix = require("../../Math/Matrix");
 import Color4 = require("../../Base/Color/Color4");
-import Scene = require("../Scene");
-import ResolvedChainInfo = require("../Renderers/ResolvedChainInfo");
+import Scene = require('../Scene');
+import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 declare function require(string): string;
 
 class SolidColorMaterial extends Material {
-  private color: Color4 = Color4.parseColor("#F0F");
+  private color: Color4 = Color4.parseColor('#F0F');
 
   get Color(): Color4 {
     return this.color;
@@ -24,8 +24,8 @@ class SolidColorMaterial extends Material {
   constructor() {
     super();
     var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
-    var vs = require("../Shaders/VertexShaders/BasicGeometries.glsl");
-    var fs = require("../Shaders/SolidColor.glsl");
+    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
+    var fs = require('../Shaders/SolidColor.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.solidcolor", "jthree.programs.solidcolor", vs, fs);
     this.setLoaded();
   }

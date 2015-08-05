@@ -1,7 +1,7 @@
-import ViewportRenderer = require("./ViewportRenderer");
-import ContextManagerBase = require("./../ContextManagerBase");
-import Rectangle = require("./../../Math/Rectangle");
-import FBO = require("./../Resources/FBO/FBO");
+import ViewportRenderer = require('./ViewportRenderer');
+import ContextManagerBase = require('./../ContextManagerBase');
+import Rectangle = require('./../../Math/Rectangle');
+import FBO = require('./../Resources/FBO/FBO');
 
 class TextureRenderer extends ViewportRenderer {
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle, targetFBO: FBO) {

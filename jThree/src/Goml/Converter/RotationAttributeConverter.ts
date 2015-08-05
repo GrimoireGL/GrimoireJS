@@ -26,10 +26,10 @@ class RotationAttributeConverter extends JThreeObject
 
   public FromInterface(val:any):any
   {
-    if(typeof val === "string")
+    if(typeof val === 'string')
     {
       return this.FromAttribute(val);
-    }else if(typeof val === "object")
+    }else if(typeof val === 'object')
     {
       return val;
     }

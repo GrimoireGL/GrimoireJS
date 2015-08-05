@@ -94,19 +94,19 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   private position: Vector3;
 
   public get Position(): Vector3 {
-    return this.position || Vector3.parse(this.element.getAttribute("position") || "0");
+    return this.position || Vector3.parse(this.element.getAttribute('position') || "0");
   }
 
   private rotation: Quaternion;
 
   public get Rotation(): Quaternion {
-    return this.rotation || AttributeParser.ParseRotation3D(this.element.getAttribute("rotation") || "x(0)");
+    return this.rotation || AttributeParser.ParseRotation3D(this.element.getAttribute('rotation') || "x(0)");
   }
 
   private scale: Vector3;
 
   public get Scale(): Vector3 {
-    return this.scale || Vector3.parse(this.element.getAttribute("scale") || "1");
+    return this.scale || Vector3.parse(this.element.getAttribute('scale') || "1");
   }
 
 }

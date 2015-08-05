@@ -6,12 +6,12 @@ import VectorBase = require("../../../Math/VectorBase");
 import Vector2 = require("../../../Math/Vector2");
 import Vector3 = require("../../../Math/Vector3");
 import Vector4 = require("../../../Math/Vector4");
-import ResourceWrapper = require("../ResourceWrapper");
-import AssociativeArray = require("../../../Base/Collections/AssociativeArray");
-import RendererBase = require("../../Renderers/RendererBase");
-import TextureRegister = require("../../../Wrapper/Texture/TextureRegister");
-import TextureBase = require("../Texture/TextureBase");
-import TextureTargetType = require("../../../Wrapper/TargetTextureType");
+import ResourceWrapper = require('../ResourceWrapper');
+import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
+import RendererBase = require('../../Renderers/RendererBase');
+import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
+import TextureBase = require('../Texture/TextureBase');
+import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, contextManager: ContextManagerBase) {
         super(contextManager);
@@ -144,7 +144,7 @@ class ProgramWrapper extends ResourceWrapper {
     
   registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
     renderer.ContextManager.GLContext.ActiveTexture(TextureRegister.Texture0 + texNumber);
-    if(tex!=null&&typeof tex !== "undefined")
+    if(tex!=null&&typeof tex !== 'undefined')
     {
         tex.getForContext(renderer.ContextManager).bind();
     }else

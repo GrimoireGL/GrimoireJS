@@ -1,10 +1,10 @@
 import DebugSprite = require("../../../Core/Materials/DebugSpriteMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import MaterialNodeBase = require("./MaterialNodeBase");
-import Material = require("../../../Core/Materials/Material")
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
-import ViewportNode = require("../Renderers/ViewPortNode");
+import MaterialNodeBase = require('./MaterialNodeBase');
+import Material = require('../../../Core/Materials/Material')
+import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
+import ViewportNode = require('../Renderers/ViewPortNode');
 class DefferedDebugNode extends MaterialNodeBase {
     material: DebugSprite;
 

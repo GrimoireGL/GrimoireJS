@@ -3,7 +3,7 @@ import Program = require("../Resources/Program/Program");
 import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import Matrix = require("../../Math/Matrix");
-import Scene = require("../Scene");
+import Scene = require('../Scene');
 declare function require(string):string;
 
 class DepthMaterial extends Material
@@ -23,8 +23,8 @@ class DepthMaterial extends Material
       protected program:Program;
       constructor() {
           super();
-          var vs = require("../Shaders/VertexShaders/DepthGeometries.glsl");
-          var fs = require("../Shaders/Depth/Depth.glsl");
+          var vs = require('../Shaders/VertexShaders/DepthGeometries.glsl');
+          var fs = require('../Shaders/Depth/Depth.glsl');
           this.program = this.loadProgram("jthree.shaders.vertex.depth","jthree.shaders.fragment.depth","jthree.programs.depth",vs,fs);
           this.setLoaded();
       }

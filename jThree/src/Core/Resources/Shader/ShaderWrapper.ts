@@ -1,6 +1,6 @@
 import Shader = require("./Shader");
 import ContextManagerBase = require("../../ContextManagerBase");
-import ResourceWrapper = require("../ResourceWrapper");
+import ResourceWrapper = require('../ResourceWrapper');
 class ShaderWrapper extends ResourceWrapper
 {
 

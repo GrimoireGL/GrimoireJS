@@ -3,9 +3,9 @@ import Program = require("../Resources/Program/Program");
 import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import Matrix = require("../../Math/Matrix");
-import TextureBase = require("../Resources/Texture/TextureBase");
-import Scene = require("../Scene");
-import ResolvedChainInfo = require("../Renderers/ResolvedChainInfo");
+import TextureBase = require('../Resources/Texture/TextureBase');
+import Scene = require('../Scene');
+import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 declare function require(string): string;
 
 class SpriteMaterial extends Material {
@@ -59,8 +59,8 @@ class SpriteMaterial extends Material {
   protected program: Program;
   constructor() {
     super();
-    var vs = require("../Shaders/VertexShaders/BasicGeometries.glsl");
-    var fs = require("../Shaders/Sprite.glsl");
+    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
+    var fs = require('../Shaders/Sprite.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.sprite", "jthree.programs.sprite", vs, fs);
     this.setLoaded();
   }

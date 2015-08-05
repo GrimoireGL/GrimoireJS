@@ -19,7 +19,7 @@ class StringAttributeConverter extends AttributeConverterBase
 
   public FromInterface(val:any):any
   {
-    if(typeof val === "string")
+    if(typeof val === 'string')
     {
       return this.FromAttribute(val);
     }

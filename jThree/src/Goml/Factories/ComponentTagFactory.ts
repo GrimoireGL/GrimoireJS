@@ -1,7 +1,7 @@
 import GomlLoader = require("../GomlLoader");
 import TagFactory = require("./TagFactory");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
-import ComponentNode = require("../Nodes/Components/ComponentsNode");
+import ComponentNode = require('../Nodes/Components/ComponentsNode');
 /**
 * Goml tree node factory for the node extending SceneObjectNodeBase
 */

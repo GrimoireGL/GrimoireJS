@@ -1,7 +1,7 @@
-import TreeNodeBase = require("./TreeNodeBase");
-import ComponentNode = require("./Nodes/Components/ComponentNode");
-import GomlLoader = require("./GomlLoader");
-import AssociativeArray = require("../Base/Collections/AssociativeArray");
+import TreeNodeBase = require('./TreeNodeBase');
+import ComponentNode = require('./Nodes/Components/ComponentNode');
+import GomlLoader = require('./GomlLoader');
+import AssociativeArray = require('../Base/Collections/AssociativeArray');
 class ComponentContainerNodeBase extends TreeNodeBase
 {
 	constructor(elem:HTMLElement,parent?:TreeNodeBase,loader?:GomlLoader)

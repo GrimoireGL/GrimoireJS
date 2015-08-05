@@ -7,14 +7,14 @@ import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import Color4 = require("../../Base/Color/Color4");
-import Color3 = require("../../Base/Color/Color3");
-import TextureBase = require("../Resources/Texture/TextureBase");
-import Scene = require("../Scene");
-import ResolvedChainInfo = require("../Renderers/ResolvedChainInfo");
+import Color3 = require('../../Base/Color/Color3');
+import TextureBase = require('../Resources/Texture/TextureBase');
+import Scene = require('../Scene');
+import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 declare function require(string): string;
 
 class PhongMaterial extends Material {
-  private diffuse = Color4.parseColor("#F0F");
+  private diffuse = Color4.parseColor('#F0F');
 
   get Diffuse(): Color4 {
     return this.diffuse;
@@ -24,7 +24,7 @@ class PhongMaterial extends Material {
     this.diffuse = col;
   }
 
-  private ambient = Color4.parseColor("#F0F");
+  private ambient = Color4.parseColor('#F0F');
 
   get Ambient(): Color4 {
     return this.ambient;
@@ -34,7 +34,7 @@ class PhongMaterial extends Material {
     this.ambient = col;
   }
 
-  private specular = Color3.parseColor("#F0F");
+  private specular = Color3.parseColor('#F0F');
   get Specular(): Color3 {
     return this.specular;
   }
@@ -67,8 +67,8 @@ class PhongMaterial extends Material {
   constructor() {
     super();
     var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
-    var vs = require("../Shaders/VertexShaders/BasicGeometries.glsl");
-    var fs = require("../Shaders/Phong.glsl");
+    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
+    var fs = require('../Shaders/Phong.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, fs);
     this.setLoaded();
   }

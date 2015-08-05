@@ -66,8 +66,8 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
     camera.Bottom = this.attributes.getValue("right");
     camera.Top = this.attributes.getValue("top");
     camera.Right = this.attributes.getValue("right");
-    camera.Far = this.attributes.getValue("far");
-    camera.Near = this.attributes.getValue("near");
+    camera.Far = this.attributes.getValue('far');
+    camera.Near = this.attributes.getValue('near');
     return camera;
   }
 

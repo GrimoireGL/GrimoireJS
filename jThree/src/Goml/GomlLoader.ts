@@ -4,12 +4,12 @@ import Exceptions = require("../Exceptions");
 import Delegates = require("../Base/Delegates");
 import $ = require("jquery");
 import GomlNodeDictionary = require("./GomlNodeDictionary");
-import JThreeEvent = require("../Base/JThreeEvent");
-import AssociativeArray = require("../Base/Collections/AssociativeArray");
-import ComponentRegistry = require("./Components/ComponentRegistry");
-import GomlLoaderConfigurator = require("./GomlLoaderConfigurator");
-import ComponentRunner = require("./Components/ComponentRunner");
-import PluginLoader = require("./Plugins/PluginLoader");
+import JThreeEvent = require('../Base/JThreeEvent');
+import AssociativeArray = require('../Base/Collections/AssociativeArray');
+import ComponentRegistry = require('./Components/ComponentRegistry');
+import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
+import ComponentRunner = require('./Components/ComponentRunner');
+import PluginLoader = require('./Plugins/PluginLoader');
 declare function require(string): any;
 /**
 * The class for loading goml.
@@ -27,7 +27,7 @@ class GomlLoader extends jThreeObject {
   constructor() {
     super();
     //obtain the script tag that is refering this source code.
-    var scriptTags = document.getElementsByTagName("script");
+    var scriptTags = document.getElementsByTagName('script');
     this.selfTag = scriptTags[scriptTags.length - 1];
   }
 
@@ -90,7 +90,7 @@ class GomlLoader extends jThreeObject {
   * Attempt to load x-goml attribute from script tag refering this source.
   */
   private attemptToLoadGomlInScriptAttr(): void {
-    var url = this.selfTag.getAttribute("x-goml");
+    var url = this.selfTag.getAttribute('x-goml');
     $.get(url, [], (d) => {
       this.scriptLoaded(d);
     });
@@ -188,7 +188,7 @@ class GomlLoader extends jThreeObject {
   }
 
   public append(source: JQuery, parent: HTMLElement, needLoad?: boolean) {
-    if (typeof needLoad === "undefined") needLoad = true;
+    if (typeof needLoad === 'undefined') needLoad = true;
     var id = parent.getAttribute("x-j3-id");
     var parentOfGoml = this.NodesById.get(id);
     var loadedGomls = [];

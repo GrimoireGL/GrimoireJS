@@ -4,9 +4,9 @@ import Rectangle = require("../Math/Rectangle");
 import JThreeContextProxy = require("./JThreeContextProxy");
 import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
-import JThreeEvent = require("../Base/JThreeEvent");
-import CanvasSizeChangedEventArgs = require("./CanvasSizeChangedEventArgs");
-import Delegates = require("../Base/Delegates");
+import JThreeEvent = require('../Base/JThreeEvent');
+import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
+import Delegates = require('../Base/Delegates');
 /**
  * Provides some of feature managing canvas.
  */

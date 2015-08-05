@@ -3,7 +3,7 @@ import GomlLoader = require("../../../GomlLoader");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import SceneObject = require("../../../../Core/SceneObject");
-import LightBase =require("../../../../Core/Light/LightBase");
+import LightBase =require('../../../../Core/Light/LightBase');
 class LightNodeBase extends SceneObjectNodeBase {
 	
 	private targetLightBase:LightBase;

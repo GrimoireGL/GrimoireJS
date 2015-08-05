@@ -25,10 +25,10 @@ class Vector3AttributeConverter extends AttributeConverterBase
 
   public FromInterface(val:any):any
   {
-    if(typeof val === "string")
+    if(typeof val === 'string')
     {
       return Vector3.parse(val);
-    }else if(typeof val === "object")
+    }else if(typeof val === 'object')
     {
       return val;
     }

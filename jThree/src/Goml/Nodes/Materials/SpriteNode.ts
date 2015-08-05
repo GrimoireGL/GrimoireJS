@@ -2,9 +2,9 @@
 import Sprite = require("../../../Core/Materials/SpriteMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import MaterialNodeBase = require("./MaterialNodeBase");
-import Material = require("../../../Core/Materials/Material")
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
+import MaterialNodeBase = require('./MaterialNodeBase');
+import Material = require('../../../Core/Materials/Material')
+import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
 class SpriteNode extends MaterialNodeBase {
     material: Sprite;
 

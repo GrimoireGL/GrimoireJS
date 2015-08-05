@@ -1,5 +1,5 @@
-import Scene = require("../Scene");
-import LightBase = require("./LightBase");
+import Scene = require('../Scene');
+import LightBase = require('./LightBase');
 
 class PointLight extends LightBase
 {

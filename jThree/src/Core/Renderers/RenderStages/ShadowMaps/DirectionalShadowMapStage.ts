@@ -1,13 +1,13 @@
-import RendererBase = require("../../RendererBase");
-import SceneObject = require("../../../SceneObject");
-import RenderStageBase = require("./../RenderStageBase");
-import Scene = require("../../../Scene");
-import FBO = require("../../../Resources/FBO/FBO");
-import ResolvedChainInfo = require("../../ResolvedChainInfo");
-import JThreeContextProxy = require("../../../JThreeContextProxy")
+import RendererBase = require('../../RendererBase');
+import SceneObject = require('../../../SceneObject');
+import RenderStageBase = require('./../RenderStageBase');
+import Scene = require('../../../Scene');
+import FBO = require('../../../Resources/FBO/FBO');
+import ResolvedChainInfo = require('../../ResolvedChainInfo');
+import JThreeContextProxy = require('../../../JThreeContextProxy')
 import ClearTargetType = require("../../../../Wrapper/ClearTargetType");
-import DepthMaterial = require("../../../Materials/DepthMaterial");
-import Matrix = require("../../../../Math/Matrix");
+import DepthMaterial = require('../../../Materials/DepthMaterial');
+import Matrix = require('../../../../Math/Matrix');
 class DirectionalLightDepthStage extends RenderStageBase {
 	private fbo: FBO;
 	
