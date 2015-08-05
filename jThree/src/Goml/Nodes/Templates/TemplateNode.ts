@@ -1,9 +1,6 @@
-import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import Scene = require("../../../Core/Scene");
-import JThreeContextProxy=require('../../../Core/JThreeContextProxy');
-import JThreeContext=require('../../../Core/JThreeContext');
+
 class TemplateNode extends GomlTreeNodeBase
 {
   private static parentIgnore:string[]=["template"];

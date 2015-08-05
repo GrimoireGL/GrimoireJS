@@ -1,11 +1,5 @@
-import JThreeObject=require('Base/JThreeObject');
-import SceneObject = require("../Core/SceneObject");
-import TriangleGeometry = require("../Core/Geometries/TriangleGeometry");
 import Geometry = require("../Core/Geometries/Geometry");
 import Material = require("../Core/Materials/Material");
-import Color4 = require("../Base/Color/Color4");
-import SolidColor = require("../Core/Materials/SolidColorMaterial");
-import GridGeometry = require("../Core/Geometries/GridGeometry");
 import Mesh = require('./Mesh');
 import DepthMaterial = require('../Core/Materials/DepthStage/DepthStageMaterial');
 import NormalMaterial=require('../Core/Materials/NormalMaterial');

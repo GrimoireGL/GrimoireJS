@@ -1,4 +1,3 @@
-import JThreeObject = require("../../Base/JThreeObject");
 import EasingFunctionBase = require("./EasingFunctionBase");
 class SwingEasingFunction extends EasingFunctionBase
 {

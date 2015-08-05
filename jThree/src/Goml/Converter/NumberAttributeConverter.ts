@@ -1,6 +1,4 @@
-import JThreeObject = require("../../Base/JThreeObject");
 import AttributeConverterBase = require("./AttributeConverterBase");
-import AttributeParser = require("../AttributeParser");
 import Exceptions = require("../../Exceptions");
 import GomlAttribute = require("../GomlAttribute");
 import Delegates = require("../../Base/Delegates");

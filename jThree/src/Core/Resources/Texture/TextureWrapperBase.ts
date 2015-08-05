@@ -1,14 +1,9 @@
 import ResourceWrapper = require('../ResourceWrapper');
 import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
-import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
-import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
-import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
-import TextureInternalFormat = require('../../../Wrapper/TextureInternalFormatType');
-import TextureType = require('../../../Wrapper/TextureType');
 import TextureBase = require('TextureBase');
 import ContextManagerBase = require('../../ContextManagerBase');
-import PixelStoreParamType = require('../../../Wrapper/Texture/PixelStoreParamType');
+
 class TextureWrapperBase extends ResourceWrapper
 {	
   constructor(owner:ContextManagerBase,parent:TextureBase)

@@ -1,7 +1,5 @@
 import PMXModel = require('./PMXModel');
-import PMXSkeleton = require('./PMXSkeleton');
 import PMXGeometry = require('./PMXGeometry');
-import PMXMorphData = require('../PMXMorph');
 import PMXMorphManager = require('./PMXMorphManager');
 class PMXMorph {
 	public static CreateMorph(model: PMXModel, index: number, morphManager: PMXMorphManager): PMXMorph {

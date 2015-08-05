@@ -1,10 +1,7 @@
 import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import JThreeContext = require("../../../Core/JThreeContext");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
-import Scene = require("../../../Core/Scene");
 import GomlLoader = require("../../GomlLoader");
-import Color4 = require("../../../Base/Color/Color4");
 import RendererNodeBase = require('./RendererNodeBase');
 
 class RendererNode extends RendererNodeBase {

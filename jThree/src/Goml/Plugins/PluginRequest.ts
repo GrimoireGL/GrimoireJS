@@ -1,4 +1,3 @@
-import PluginDeclaration = require('./PluginDeclaration');
 interface PluginRequest {
 	provider?: string;
 	id: string;

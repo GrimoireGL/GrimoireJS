@@ -1,10 +1,6 @@
-import ResourceWrapper = require('../ResourceWrapper')
 import CanvasManagerBase = require('../../ContextManagerBase')
 import TargetTextureType = require('../../../Wrapper/TargetTextureType')
-import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
-import ElementFormat = require('../../../Wrapper/TextureType');
 import BufferTexture = require('./BufferTexture')
-import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
 import TextureWrapperBase = require('./TextureWrapperBase');
 class BufferTextureWrapper extends TextureWrapperBase {
 	constructor(ownerCanvas: CanvasManagerBase, parent: BufferTexture) {

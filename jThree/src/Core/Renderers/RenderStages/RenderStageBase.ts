@@ -1,11 +1,9 @@
 import JThreeObject = require('./../../../Base/JThreeObject');
 import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
-import Material = require('../../Materials/Material');
 import Scene = require('../../Scene')
 import Program = require('../../Resources/Program/Program');
 import JThreeContextProxy = require('../../JThreeContextProxy');
-import Matrix = require('../../../Math/Matrix')
 import ShaderType = require("../../../Wrapper/ShaderType");
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
@@ -25,7 +23,7 @@ interface FBOBindData {
 	texture: TextureBase|RBO;
 	target: string|number;
 	isOptional?: boolean;
-	type?: string,
+    type?: string;
 }
 
 interface RenderStageConfig {

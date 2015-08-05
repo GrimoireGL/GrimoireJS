@@ -1,5 +1,5 @@
 import JThreeObject = require("../Base/JThreeObject");
-import TagFactory = require("./Factories/TagFactory");
+
 class GomlNodeListElement extends JThreeObject
 {
   private group:string;

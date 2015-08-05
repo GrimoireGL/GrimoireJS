@@ -1,5 +1,3 @@
-import GomlNodeListElement = require("./GomlNodeListElement");
-
 declare function require(string):any ;
 
 var converterList={

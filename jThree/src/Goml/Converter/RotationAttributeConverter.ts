@@ -1,7 +1,6 @@
 import JThreeObject = require("../../Base/JThreeObject");
 import Exceptions = require("../../Exceptions");
 import AttributeParser = require("../AttributeParser");
-import AttributeRotationBase = require("./AttributeConverterBase");
 import RotationAnimater = require("../Animater/RotationAnimater");
 import GomlAttribute = require("../GomlAttribute");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");

@@ -1,7 +1,5 @@
-import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import GomlLoader = require("../../Goml/GomlLoader");
-import JThreeID = require("../../Base/JThreeID");
 import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
 import SceneNode = require("../../Goml/Nodes/SceneNode");
 import SceneObject = require("../../Core/SceneObject");

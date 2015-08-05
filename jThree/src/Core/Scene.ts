@@ -1,13 +1,8 @@
 import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
-import jThreeId = require("../Base/JThreeID");
 import JThreeEvent = require('../Base/JThreeEvent');
 import RendererBase = require("./Renderers/RendererBase");
-import Material = require("./Materials/Material");
 import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");
-import PointLight = require('./Light/PointLight');
-import Color4 = require('../Base/Color/Color4');
-import Vector3 = require('../Math/Vector3');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates =require('../Base/Delegates')

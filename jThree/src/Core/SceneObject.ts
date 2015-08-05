@@ -1,10 +1,8 @@
-import JThreeObject=require('Base/JThreeObject');
 import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Material = require("./Materials/Material");
 import Delegates = require("../Base/Delegates");
 import Geometry = require("./Geometries/Geometry");
 import Scene=require('./Scene');
-import RendererBase = require("./Renderers/RendererBase");
 import JThreeCollection = require("../Base/JThreeCollection");
 import Transformer = require("./Transform/Transformer");
 import AssociativeArray = require('../Base/Collections/AssociativeArray');

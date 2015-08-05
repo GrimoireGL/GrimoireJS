@@ -1,6 +1,3 @@
-import JThreeObject = require("../../Base/JThreeObject");
-import Exceptions = require("../../Exceptions");
-import AttributeParser = require("../AttributeParser");
 import AttributeConverterBase = require("./AttributeConverterBase");
 class BooleanAttributeConverter extends AttributeConverterBase
 {

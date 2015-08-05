@@ -1,21 +1,9 @@
 import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
-import Material = require('../../Materials/Material');
 import RenderStageBase = require('./RenderStageBase');
-import TextureBase = require('./../../Resources/Texture/TextureBase');
-import FBO = require('./../../Resources/FBO/FBO');
-import JThreeContextProxy = require('../../JThreeContextProxy');
-import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
-import ElementFormat = require('../../../Wrapper/TextureType');
-import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
 import Scene = require('../../Scene');
 import Program = require('../../Resources/Program/Program');
-import QuadGeometry = require('../../Geometries/QuadGeometry');
-import Mesh = require('../../../Shapes/Mesh');
-import RBO = require('../../Resources/RBO/RBO');
-import Matrix = require('../../../Math/Matrix');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 declare function require(target: string): any;
 class RBDepthStage extends RenderStageBase {

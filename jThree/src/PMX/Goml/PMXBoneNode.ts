@@ -1,11 +1,7 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import GomlLoader = require("../../Goml/GomlLoader");
-import PMXNode = require('./PMXNode');
-import SceneObjectNodeBase = require('../../Goml/Nodes/SceneObjects/SceneObjectNodeBase');
-import glm = require('glm');
-import Phong = require('../../Core/Materials/PhongMaterial');
-import CubeGeometry = require('../../Core/Geometries/CubeGeometry');
-import Mesh = require('../../Shapes/Mesh');
+import PMXNode = require("./PMXNode");
+import SceneObjectNodeBase = require("../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
 
 class PMXBoneNode extends SceneObjectNodeBase {
 

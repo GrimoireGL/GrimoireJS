@@ -1,6 +1,5 @@
 import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
-import Exceptions = require("../Exceptions");
 import Delegates = require("../Base/Delegates");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
 import JThreeEvent = require('../Base/JThreeEvent')

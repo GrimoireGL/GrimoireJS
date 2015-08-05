@@ -1,7 +1,4 @@
-import JThreeObject=require('Base/JThreeObject');
-import Exceptions = require("../Exceptions");
 import VectorBase = require("./VectorBase");
-import IEnumrator = require("../Base/Collections/IEnumrator");
 import glm = require('glm');
 
 class Vector4 extends VectorBase{

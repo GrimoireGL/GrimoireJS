@@ -1,28 +1,14 @@
 import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
-import Material = require('../../Materials/Material');
 import RenderStageBase = require('./RenderStageBase');
-import TextureBase = require('./../../Resources/Texture/TextureBase');
-import FBO = require('./../../Resources/FBO/FBO');
-import JThreeContextProxy = require('../../JThreeContextProxy');
-import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
-import ElementFormat = require('../../../Wrapper/TextureType');
-import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
 import Scene = require('../../Scene');
 import Program = require('../../Resources/Program/Program');
-import QuadGeometry = require('../../Geometries/QuadGeometry');
 import Mesh = require('../../../Shapes/Mesh');
-import RBO = require('../../Resources/RBO/RBO');
 import Matrix = require('../../../Math/Matrix');
-import Vector3 = require('../../../Math/Vector3');
-import Vector2 = require('../../../Math/Vector2');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
-import PointLight = require('../../Light/PointLight');
-import DirectionalLight = require('../../Light/DirectionalLight');
 import agent = require('superagent');
-import GLFeatureType = require("../../../Wrapper/GLFeatureType");
+
 declare function require(name: string): any;
 class GrayScaleStage extends RenderStageBase {
 

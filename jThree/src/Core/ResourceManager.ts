@@ -10,15 +10,12 @@ import Buffer = require("./Resources/Buffer/Buffer");
 import Shader = require("./Resources/Shader/Shader");
 import Program = require("./Resources/Program/Program");
 import Texture = require('./Resources/Texture/Texture');
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import RBO = require('./Resources/RBO/RBO');
 import ResourceArray = require('./Resources/ResourceArray');
 import FBO = require('./Resources/FBO/FBO');
 import BufferTexture = require('./Resources/Texture/BufferTexture');
 import TextureFormat = require('../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../Wrapper/TextureType');
-import BufferTextureWrapper = require('./Resources/Texture/BufferTextureWrapper');
-import TextureWrapper = require('./Resources/Texture/TextureWrapper');
 import TextureBase = require('./Resources/Texture/TextureBase');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 

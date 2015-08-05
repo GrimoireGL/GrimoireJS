@@ -1,12 +1,7 @@
-import JThreeObject = require('../../../Base/JThreeObject');
 import GomlLoader = require("../../../Goml/GomlLoader");
 import TagFactory = require("../../../Goml/Factories/TagFactory");
 import GomlTreeNodeBase = require("../../../Goml/GomlTreeNodeBase");
-import SceneNode = require("../../../Goml/Nodes/SceneNode");
-import PMXBonesNode = require('../PMXBonesNode');
-import SceneObjectNodeBase = require("../../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
-
-/**
+import PMXBonesNode = require("../PMXBonesNode"); /**
 * PMXMorph node factory
 */
 class PMXBoneTagFactory extends TagFactory {

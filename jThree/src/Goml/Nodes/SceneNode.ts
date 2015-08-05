@@ -1,4 +1,3 @@
-import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import GomlLoader = require("../GomlLoader");
 import Scene = require("../../Core/Scene");

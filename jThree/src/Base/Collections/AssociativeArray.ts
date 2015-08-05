@@ -1,5 +1,3 @@
-import JThreeObject = require('../JThreeObject');
-
 /**
 * AssociativeArray string with an object.
 */

@@ -1,6 +1,5 @@
 import Transformer = require('../../Core/Transform/Transformer');
 import SceneObject = require('../../Core/SceneObject');
-import PMX = require('../PMXLoader');
 import PMXModel = require('./PMXModel');
 import glm = require('glm');
 import Quaternion = require('../../Math/Quaternion');

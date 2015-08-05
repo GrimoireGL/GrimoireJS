@@ -1,5 +1,3 @@
-import JThreeObject=require('Base/JThreeObject');
-import CanvasManager = require("../../CanvasManager");
 import BufferTargetType = require("../../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../../Wrapper/BufferUsageType");
 import ContextManagerBase = require("../../ContextManagerBase");

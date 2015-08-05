@@ -1,22 +1,7 @@
-import JThreeObject = require('../../Base/JThreeObject');
-import Color4 = require('../../Base/Color/Color4');
 import Vector3 = require('../../Math/Vector3');
-import SceneObject = require('../SceneObject');
 import LightBase = require('./LightBase');
-import FBO = require('../Resources/FBO/FBO');
-import RBO = require('../Resources/RBO/RBO');
-import TextureBase = require('../Resources/Texture/TextureBase');
-import JThreeContextProxy = require('../JThreeContextProxy');
-import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
-import ElementFormat = require('../../Wrapper/TextureType');
-import ContextManagerBase = require('../ContextManagerBase');
-import FrameBufferAttachmentType = require('../../Wrapper/FrameBufferAttachmentType');
 import Scene = require('../Scene');
-import Material = require('../Materials/Material');
-import DepthMaterial = require('../Materials/DepthMaterial');
 import Matrix = require('../../Math/Matrix');
-import RendererBase = require('../Renderers/RendererBase');
-import ClearTargetType = require('../../Wrapper/ClearTargetType');
 import DepthRenderStage = require('../Renderers/RenderStages/ShadowMaps/DirectionalShadowMapStage');
 class DirectionalLight extends LightBase {
 	constructor(scene: Scene) {

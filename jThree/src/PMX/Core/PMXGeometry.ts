@@ -5,12 +5,8 @@ import BufferUsageType = require('../../Wrapper/BufferUsageType');
 import ElementType = require('../../Wrapper/ElementType');
 import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import PMX = require('../PMXLoader');
-import ContextManagerBase = require('../../Core/ContextManagerBase');
-import Vector3 = require('../../Math/Vector3');
 import Buffer = require('../../Core/Resources/Buffer/Buffer');
-import Material = require('../../Core/Materials/Material');
-import PMXMaterial = require('./PMXMaterial');
-import CullMode = require('../../Wrapper/GLCullMode');
+
 class PMXGeometry extends Geometry {
 
     public edgeSizeBuffer: Buffer;

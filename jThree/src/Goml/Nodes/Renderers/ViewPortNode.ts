@@ -1,6 +1,4 @@
-import JThreeObject=require('Base/JThreeObject');
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Color4 = require("../../../Base/Color/Color4");
 import ViewportRenderer = require("../../../Core/Renderers/ViewportRenderer");
 import RendererNodeBase = require("./RendererNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
@@ -10,7 +8,7 @@ import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
-import TextureRenderer = require('../../../Core/Renderers/TextureRenderer');
+
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNodeBase;

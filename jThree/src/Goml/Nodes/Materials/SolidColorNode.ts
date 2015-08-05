@@ -3,8 +3,6 @@ import SolidColor = require("../../../Core/Materials/SolidColorMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import GomlLoader = require("../../GomlLoader");
-import Color4 = require("../../../Base/Color/Color4");
-import JThreeID = require("../../../Base/JThreeID");
 import Material = require('../../../Core/Materials/Material');
 class SolidColorNode extends MaterialNodeBase
 {

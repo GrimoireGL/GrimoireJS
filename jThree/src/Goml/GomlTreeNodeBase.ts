@@ -1,8 +1,5 @@
-import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import GomlLoader = require("./GomlLoader");
-import GomlAttribute = require("./GomlAttribute");
 import AttributeDictionary = require("./AttributeDictionary");
-import Delegates = require('../Base/Delegates');
 import ComponentContainerNode = require('./ComponentContainerNodeBase');
 import TreeNodeBase = require('./TreeNodeBase');
 

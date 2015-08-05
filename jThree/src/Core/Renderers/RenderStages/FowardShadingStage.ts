@@ -1,14 +1,9 @@
-import JThreeObject = require('./../../../Base/JThreeObject');
 import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
-import Material = require('../../Materials/Material');
 import RenderStageBase = require('./RenderStageBase');
 import Scene = require('../../Scene');
-import FBO = require('../../Resources/FBO/FBO');
-import RBO = require('../../Resources/RBO/RBO');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import JThreeContextProxy = require('../../JThreeContextProxy')
-import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
 	constructor(renderer: RendererBase) {

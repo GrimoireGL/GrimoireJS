@@ -1,10 +1,6 @@
 import MatrixBase = require("./MatrixBase");
-import Vector2 = require("./Vector2");
 import Vector3 = require("./Vector3");
 import Vector4 = require("./Vector4");
-import Exceptions = require("../Exceptions");
-import Collection = require("../Base/Collections/Collection");
-import IEnumrator = require("../Base/Collections/IEnumrator");
 import Delegates=require('../Base/Delegates');
 import Quaternion = require("./Quaternion");
 import glm = require('glm');

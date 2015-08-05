@@ -1,4 +1,3 @@
-import JThreeObject = require('./JThreeObject');
 import JThreeObjectWithID = require("./JThreeObjectWithID");
 import Delegates = require("../Base/Delegates");
 import AssociativeArray = require('./Collections/AssociativeArray');

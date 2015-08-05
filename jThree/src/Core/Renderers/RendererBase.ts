@@ -4,20 +4,9 @@ import Exceptions = require("../../Exceptions");
 import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import Camera = require("./../Camera/Camera");
-import Material = require('./../Materials/Material');
-import SceneObject = require('./../SceneObject');
-import RenderStageBase = require('./RenderStages/RenderStageBase');
 import RenderStageManager = require('./RenderStageManager');
-import RB1RenderStage = require('./RenderStages/RB1RenderStage');
-import RB2RenderStage = require('./RenderStages/RB2RenderStage');
-import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationStage');
-import FowardRenderStage = require('./RenderStages/FowardShadingStage');
-import GrayScaleStage = require('./RenderStages/GrayScaleStage');
-import JThreeContextProxy = require('../JThreeContextProxy');
 import JThreeEvent = require('../../Base/JThreeEvent');
-import Rectangle = require('../../Math/Rectangle');
-import RBDepthStage = require('./RenderStages/RBDepthStage');
-/**
+import Rectangle = require('../../Math/Rectangle'); /**
  * Provides base class feature for renderer classes.
  */
 class RendererBase extends jThreeObjectWithID {

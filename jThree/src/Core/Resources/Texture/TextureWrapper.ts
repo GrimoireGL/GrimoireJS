@@ -1,13 +1,8 @@
 import TextureWrapperBase = require('./TextureWrapperBase');
 import ContextManagerBase = require('../../ContextManagerBase');
 import TextureTargetType = require('../../../Wrapper/TargetTextureType');
-import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
-import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
-import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
-import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
 import TextureInternalFormat = require('../../../Wrapper/TextureInternalFormatType');
 import Texture = require('./Texture');
-import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
 import TextureType = require('../../../Wrapper/TextureType')
 class TextureWrapper extends TextureWrapperBase
 {

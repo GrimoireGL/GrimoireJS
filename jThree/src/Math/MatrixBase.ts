@@ -1,5 +1,3 @@
-import IEnumerable = require("../Base/Collections/IEnumerable");
-import IEnumrator = require("../Base/Collections/IEnumrator");
 import glm=require('glm');
 class MatrixBase {
 

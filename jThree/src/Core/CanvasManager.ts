@@ -1,15 +1,9 @@
-import JThreeContext = require("./JThreeContext");
 import ContextManagerBase = require("./ContextManagerBase");
 import WebGLContextWrapper = require("../Wrapper/WebGLContextWrapper");
-import ViewPortRenderer = require("./Renderers/ViewportRenderer");
 import Rectangle = require("../Math/Rectangle");
-import jThreeObject = require("../Base/JThreeObject");
 import JThreeContextProxy = require("./JThreeContextProxy");
-import Color4 = require("../Base/Color/Color4");
 import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
-import GLFeatureType = require('../Wrapper/GLFeatureType');
-import PixelStoreParamType = require('../Wrapper/Texture/PixelStoreParamType');
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
 import Delegates = require('../Base/Delegates');
@@ -98,7 +92,7 @@ class CanvasManager extends ContextManagerBase {
     public set FullScreen(val: boolean) {
         if (val === this.fullscreen) return;
         this.fullscreen = val;
-        if (val) this.targetCanvas.webkitRequestFullScreen();//TODO fix it
+        //if (val) this.targetCanvas.webkitRequestFullScreen();//TODO fix it
     }
 
 

@@ -1,12 +1,8 @@
-import JThreeObject = require('../../../Base/JThreeObject');
 import ContextManagerBase = require("../../ContextManagerBase");
 import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import ResourceWrapper = require('../ResourceWrapper');
-import TextureBuffer = require('../Texture/BufferTexture');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require('../../../Wrapper/ClearTargetType');
-import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
-import TargetTextureType = require('../../../Wrapper/TargetTextureType');
 import TextureBase = require('../Texture/TextureBase')
 import RBO = require('../RBO/RBO');
 class FBOWrapper extends ResourceWrapper {

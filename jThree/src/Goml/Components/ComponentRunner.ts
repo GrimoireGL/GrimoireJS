@@ -1,7 +1,6 @@
 import JThreeObject = require('../../Base/JThreeObject');
 import JThreeCollection = require('../../Base/JThreeCollection');
 import ComponentNode = require('../Nodes/Components/ComponentNode');
-import Delegates = require('../../Base/Delegates');
 import ComponentContainerNodeBase = require('../ComponentContainerNodeBase');
 import JThreeObjectWithID = require('../../Base/JThreeObjectWithID');
 /**

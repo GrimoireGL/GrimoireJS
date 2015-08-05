@@ -5,8 +5,7 @@ import TextureBuffer = require('../../Core/Resources/Texture/BufferTexture');
 import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../Wrapper/TextureType');
-import Quaternion = require('../../Math/Quaternion');
-import Vector3 = require('../../Math/Vector3');
+
 class PMXSkeleton {
 	constructor(model: PMXModel) {
 		var bones = model.ModelData.Bones;

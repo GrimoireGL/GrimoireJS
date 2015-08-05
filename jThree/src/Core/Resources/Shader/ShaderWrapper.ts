@@ -1,7 +1,5 @@
-import JThreeObject = require('../../../Base/JThreeObject');
 import Shader = require("./Shader");
 import ContextManagerBase = require("../../ContextManagerBase");
-import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import ResourceWrapper = require('../ResourceWrapper');
 class ShaderWrapper extends ResourceWrapper
 {

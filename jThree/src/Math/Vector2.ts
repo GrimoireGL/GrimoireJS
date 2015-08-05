@@ -1,6 +1,4 @@
 import VectorBase = require("./VectorBase");
-import Exceptions = require("../Exceptions");
-import IEnumrator = require("../Base/Collections/IEnumrator");
 import glm = require('glm');
 
 class Vector2 extends VectorBase{

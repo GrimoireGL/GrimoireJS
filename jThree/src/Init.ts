@@ -4,17 +4,6 @@ import $ = require('jquery');
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration');
-import TextureAttachmentType = require('./Wrapper/FrameBufferAttachmentType');
-import TextureMinFilter = require('./Wrapper/Texture/TextureMinFilterType');
-import PluginLoader = require('./Goml/Plugins/PluginLoader');
-import agent = require('superagent');
-import PMX = require('./PMX/PMXLoader');
-import Mesh = require('./Shapes/Mesh')
-import PMXGeometry = require('./PMX/Core/PMXGeometry');
-import PhongGeometry = require('./Core/Materials/PhongMaterial');
-import QuadGeometry = require('./Core/Geometries/QuadGeometry');
-import Vector3 = require('./Math/Vector3');
-import VMDData = require('./VMD/Parser/VMDData');
 import Quaternion =require('./Math/Quaternion');
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.

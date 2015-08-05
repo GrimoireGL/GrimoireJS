@@ -1,10 +1,6 @@
-import JThreeObject = require('../../Base/JThreeObject');
-import Color4 = require('../../Base/Color/Color4');
-import Vector3 = require('../../Math/Vector3');
-import SceneObject = require('../SceneObject');
 import Scene = require('../Scene');
 import LightBase = require('./LightBase');
-import ContextManagerBase = require('../ContextManagerBase');
+
 class PointLight extends LightBase
 {
 	constructor(scene:Scene)

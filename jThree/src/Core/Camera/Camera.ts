@@ -1,9 +1,7 @@
 import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
-import Exceptions = require("../../Exceptions");
-import Quaternion = require("../../Math/Quaternion");
-//カメラ関係のクラスの基底クラス
+import Exceptions = require("../../Exceptions"); //カメラ関係のクラスの基底クラス
 class Camera extends SceneObject
 {
 	constructor()

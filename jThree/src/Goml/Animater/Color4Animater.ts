@@ -1,9 +1,4 @@
-import JThreeObject = require("../../Base/JThreeObject");
-import GomlAttribute = require("../GomlAttribute");
-import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import Delegates = require("../../Base/Delegates");
 import AnimagterBase = require("./AnimaterBase");
-import Vector3 = require("../../Math/Vector3");
 import Color4 = require("../../Base/Color/Color4");
 class Color4Animater extends AnimagterBase
 {

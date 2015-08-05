@@ -1,7 +1,5 @@
-import JThreeObject = require("../../../Base/JThreeObject");
 import Program = require("./Program");
 import ContextManagerBase = require("../../ContextManagerBase");
-import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import Matrix = require("../../../Math/Matrix");
 import BufferWrapper = require("../Buffer/BufferWrapper");
 import VectorBase = require("../../../Math/VectorBase");

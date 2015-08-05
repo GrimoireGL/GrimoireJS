@@ -1,5 +1,3 @@
-import JThreeObject=require('Base/JThreeObject');
-import Collection = require("../Base/Collections/Collection");
 import glm=require('glm');
 class VectorBase {
 

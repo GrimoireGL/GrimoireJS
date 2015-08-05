@@ -1,16 +1,11 @@
-import JThreeObject = require("../../Base/JThreeObject");
 import AttributeConverterBase = require("./AttributeConverterBase");
-import AttributeParser = require("../AttributeParser");
 import Exceptions = require("../../Exceptions");
 import GomlAttribute = require("../GomlAttribute");
 import Delegates = require("../../Base/Delegates");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import AnimaterBase = require("../Animater/AnimaterBase");
-import NumberAnimater = require("../Animater/NumberAnimater");
-import Vector3 = require("../../Math/Vector3");
-import Vector3Animater = require("../Animater/Vector3Animater");
 import Color3 = require("../../Base/Color/Color3");
-import Color4Animater = require("../Animater/Color4Animater");
+
 class Color3AttributeConverter extends AttributeConverterBase
 {
   constructor()

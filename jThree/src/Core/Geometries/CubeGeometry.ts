@@ -1,11 +1,8 @@
-import JThreeObject = require('Base/JThreeObject');
 import Geometry = require("./Geometry");
 import JThreeContextProxy = require("../JThreeContextProxy");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
 import ElementType = require("../../Wrapper/ElementType");
-import JthreeID = require("../../Base/JThreeID");
-import Buffer = require("../Resources/Buffer/Buffer");
 import Vector3 = require("../../Math/Vector3");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 class CubeGeometry extends Geometry {

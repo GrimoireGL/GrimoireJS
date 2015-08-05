@@ -1,6 +1,5 @@
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import jThreeObject = require("../../Base/JThreeObject");
-import JThreeContext = require("../../Core/JThreeContext");
 import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import GomlLoader = require("../GomlLoader");
 class TagFactory extends jThreeObject {
