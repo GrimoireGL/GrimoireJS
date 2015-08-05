@@ -10,7 +10,17 @@ class Vector2 extends VectorBase{
     public static get YUnit(): Vector2 {
         return new Vector2(0, 1);
     }
-   
+
+    public static get One(): Vector2 {
+        return new Vector2(1, 1);
+    }
+
+    public static get Zero(): Vector2 {
+        return new Vector2(0, 0);
+    }
+    
+    constructor(x: number, y: number);
+    constructor(x:glm.GLM.IArray);
     constructor(x: number|glm.GLM.IArray, y?: number) {
         super();
         if(typeof y ==='undefined')
@@ -29,6 +39,16 @@ class Vector2 extends VectorBase{
 
     get Y(): number {
         return this.targetVector[1];
+    }
+
+    set X(x: number)
+    {
+        this.targetVector[0] = x;
+    }
+
+    set Y(y: number)
+    {
+        this.targetVector[1] = y;
     }
 
     static dot(v1: Vector2, v2: Vector2): number {

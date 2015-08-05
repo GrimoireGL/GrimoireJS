@@ -18,6 +18,12 @@ class Vector3 extends VectorBase{
       return new Vector3(0,0,0);
     }
 
+    public static get One(): Vector3 {
+        return new Vector3(1, 1, 1);
+    }
+
+    constructor(x: number, y: number, z: number);
+    constructor(x:glm.GLM.IArray);
     constructor(x: number|glm.GLM.IArray, y?: number, z?: number) {
         super();
         if(typeof y ==='undefined')
@@ -40,6 +46,21 @@ class Vector3 extends VectorBase{
 
     get Z(): number {
         return this.targetVector[2];
+    }
+
+    set X(x: number)
+    {
+        this.targetVector[0] = x;
+    }
+
+    set Y(y: number)
+    {
+        this.targetVector[1] = y;
+    }
+
+    set Z(z: number)
+    {
+        this.targetVector[2] = z;
     }
 
     static dot(v1: Vector3, v2: Vector3): number {

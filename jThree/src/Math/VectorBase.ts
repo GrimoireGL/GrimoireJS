@@ -3,7 +3,7 @@ class VectorBase {
 
     private magnitudeSquaredCache: number = -1;
 
-    get magnitudeSquared(): number {
+    get sqrMagnitude(): number {
         if (this.magnitudeSquaredCache < 0) {
             var sum: number = 0;
             var r=this.RawElements;
@@ -30,7 +30,7 @@ class VectorBase {
 
     get magnitude() {
         if (this.magnitudeCache < 0) {
-            this.magnitudeCache = Math.sqrt(this.magnitudeSquared);
+            this.magnitudeCache = Math.sqrt(this.sqrMagnitude);
         }
         return this.magnitudeCache;
     }

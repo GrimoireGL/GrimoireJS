@@ -1,7 +1,11 @@
 import VectorBase = require("./VectorBase");
 import glm = require('glm');
 
-class Vector4 extends VectorBase{
+class Vector4 extends VectorBase
+{
+    /**
+     * Static properties
+     */
 
     public static get XUnit(): Vector4 {
         return new Vector4(1, 0, 0, 0);
@@ -19,7 +23,18 @@ class Vector4 extends VectorBase{
         return new Vector4(0, 0, 0, 1);
     }
 
-    constructor(x: number|glm.GLM.IArray, y?: number, z?: number, w?: number) {
+    public static get One(): Vector4 {
+        return new Vector4(1, 1, 1, 1);
+    }
+
+    public static get Zero(): Vector4 {
+        return new Vector4(0, 0, 0, 0);
+    }
+
+    constructor(x: glm.GLM.IArray);
+    constructor(x:number,y:number,z:number,w:number);
+    constructor(x: number|glm.GLM.IArray, y?: number, z?: number, w?: number)
+    {
         super();
         if(typeof y === 'undefined')
         {
@@ -50,6 +65,25 @@ class Vector4 extends VectorBase{
 
     get W() {
         return this.targetVector[3];
+    }
+
+    set X(x:number) {
+        this.targetVector[0] = x;
+    }
+
+    set Y(y: number)
+    {
+        this.targetVector[1] = y;
+    }
+
+    set Z(z: number)
+    {
+        this.targetVector[2] = z;
+    }
+
+    set W(w: number)
+    {
+        this.targetVector[3] = w;
     }
 
     static dot(v1: Vector4, v2: Vector4) {
