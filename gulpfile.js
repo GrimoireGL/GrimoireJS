@@ -1,4 +1,4 @@
-var args, bower_files, bower_prefix, branch, coffee, combinePrefix, connect, destJs, gulp, merge, moveFromSrc, path, rimraf, srcFolder, tsSource, tsc, tscConfig, typedoc, util, watch_build_file, watch_reload_file, watching, webpack, webpack_exculde, webpack_files, webpack_src_root, wpcore;
+var args, bower_files, bower_prefix, branch, coffee, combinePrefix, connect, destJs, gulp, merge, mocha, moveFromSrc, path, rimraf, srcFolder, tsSource, tsc, tscConfig, typedoc, util, watch_build_file, watch_reload_file, watching, webpack, webpack_exculde, webpack_files, webpack_src_root, wpcore;
 
 gulp = require('gulp');
 
@@ -21,6 +21,8 @@ util = require('util');
 rimraf = require('rimraf');
 
 typedoc = require('gulp-typedoc');
+
+mocha = require('gulp-mocha');
 
 args = require('yargs').argv;
 
@@ -244,4 +246,13 @@ gulp.task('gulp-compile', function() {
   return gulp.src('gulpfile.coffee').pipe(coffee({
     bare: true
   })).pipe(gulp.dest('./'));
+});
+
+
+/*
+test task
+ */
+
+gulp.task('test', function() {
+  return gulp.src('./jThree/test/**/*test.coffee').pipe(mocha());
 });

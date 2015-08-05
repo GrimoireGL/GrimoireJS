@@ -9,6 +9,7 @@ path = require 'path'
 util = require 'util'
 rimraf = require 'rimraf'
 typedoc = require 'gulp-typedoc'
+mocha = require 'gulp-mocha'
 args = require 'yargs'
   .argv
 
@@ -187,3 +188,11 @@ gulp.task 'gulp-compile', ->
     .src 'gulpfile.coffee'
     .pipe coffee bare: true
     .pipe gulp.dest './'
+
+###
+test task
+###
+gulp.task 'test', ->
+  gulp
+    .src './jThree/test/**/*test.coffee'
+    .pipe mocha()
