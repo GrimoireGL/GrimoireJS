@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PMXMorph | jThree</title>
+	<title>SpringJoint | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_pmx_pmxmorph_.html">&quot;PMX/PMXMorph&quot;</a>
+					<a href="../modules/_pmx_joints_springjoint_.html">&quot;PMX/Joints/SpringJoint&quot;</a>
 				</li>
 				<li>
-					<a href="_pmx_pmxmorph_.pmxmorph.html">PMXMorph</a>
+					<a href="_pmx_joints_springjoint_.springjoint.html">SpringJoint</a>
 				</li>
 			</ul>
-			<h1>Interface PMXMorph</h1>
+			<h1>Interface SpringJoint</h1>
 		</div>
 	</div>
 </header>
@@ -74,7 +74,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PMXMorph</span>
+						<span class="target">SpringJoint</span>
 					</li>
 				</ul>
 			</section>
@@ -85,16 +85,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#bonemorph" class="tsd-kind-icon">bone<wbr>Morph</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#editpanel" class="tsd-kind-icon">edit<wbr>Panel</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#groupmorph" class="tsd-kind-icon">group<wbr>Morph</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#materialmorph" class="tsd-kind-icon">material<wbr>Morph</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#morphkind" class="tsd-kind-icon">morph<wbr>Kind</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#morphname" class="tsd-kind-icon">morph<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#morphnameen" class="tsd-kind-icon">morph<wbr>Name<wbr>En</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#morphoffsetcount" class="tsd-kind-icon">morph<wbr>Offset<wbr>Count</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#uvmorph" class="tsd-kind-icon">uv<wbr>Morph</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_pmxmorph_.pmxmorph.html#vertexmorph" class="tsd-kind-icon">vertex<wbr>Morph</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_joints_springjoint_.springjoint.html#position" class="tsd-kind-icon">position</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_joints_springjoint_.springjoint.html#rotation" class="tsd-kind-icon">rotation</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_joints_springjoint_.springjoint.html#rotationlimit" class="tsd-kind-icon">rotation<wbr>Limit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_joints_springjoint_.springjoint.html#springcoefficientlimit" class="tsd-kind-icon">spring<wbr>Coefficient<wbr>Limit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_joints_springjoint_.springjoint.html#targetrigidbody1" class="tsd-kind-icon">target<wbr>Rigid<wbr>Body1</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_joints_springjoint_.springjoint.html#targetrigidbody2" class="tsd-kind-icon">target<wbr>Rigid<wbr>Body2</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pmx_joints_springjoint_.springjoint.html#translationlimit" class="tsd-kind-icon">translation<wbr>Limit</a></li>
 							</ul>
 						</section>
 					</div>
@@ -103,102 +100,72 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="bonemorph" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> bone<wbr>Morph</h3>
-					<div class="tsd-signature tsd-kind-icon">bone<wbr>Morph<span class="tsd-signature-symbol">:</span> <a href="_pmx_morphs_bonemorph_.bonemorph.html" class="tsd-signature-type">BoneMorph</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="position" class="tsd-anchor"></a>
+					<h3>position</h3>
+					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L16">PMX/PMXMorph.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Joints/SpringJoint.ts#L5">PMX/Joints/SpringJoint.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="editpanel" class="tsd-anchor"></a>
-					<h3>edit<wbr>Panel</h3>
-					<div class="tsd-signature tsd-kind-icon">edit<wbr>Panel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="rotation" class="tsd-anchor"></a>
+					<h3>rotation</h3>
+					<div class="tsd-signature tsd-kind-icon">rotation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L11">PMX/PMXMorph.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Joints/SpringJoint.ts#L6">PMX/Joints/SpringJoint.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="groupmorph" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> group<wbr>Morph</h3>
-					<div class="tsd-signature tsd-kind-icon">group<wbr>Morph<span class="tsd-signature-symbol">:</span> <a href="_pmx_morphs_groupmorph_.groupmorph.html" class="tsd-signature-type">GroupMorph</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="rotationlimit" class="tsd-anchor"></a>
+					<h3>rotation<wbr>Limit</h3>
+					<div class="tsd-signature tsd-kind-icon">rotation<wbr>Limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L18">PMX/PMXMorph.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Joints/SpringJoint.ts#L8">PMX/Joints/SpringJoint.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="materialmorph" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> material<wbr>Morph</h3>
-					<div class="tsd-signature tsd-kind-icon">material<wbr>Morph<span class="tsd-signature-symbol">:</span> <a href="_pmx_morphs_materialmorph_.materialmorph.html" class="tsd-signature-type">MaterialMorph</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="springcoefficientlimit" class="tsd-anchor"></a>
+					<h3>spring<wbr>Coefficient<wbr>Limit</h3>
+					<div class="tsd-signature tsd-kind-icon">spring<wbr>Coefficient<wbr>Limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L17">PMX/PMXMorph.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Joints/SpringJoint.ts#L9">PMX/Joints/SpringJoint.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="morphkind" class="tsd-anchor"></a>
-					<h3>morph<wbr>Kind</h3>
-					<div class="tsd-signature tsd-kind-icon">morph<wbr>Kind<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="targetrigidbody1" class="tsd-anchor"></a>
+					<h3>target<wbr>Rigid<wbr>Body1</h3>
+					<div class="tsd-signature tsd-kind-icon">target<wbr>Rigid<wbr>Body1<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L12">PMX/PMXMorph.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Joints/SpringJoint.ts#L3">PMX/Joints/SpringJoint.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="morphname" class="tsd-anchor"></a>
-					<h3>morph<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">morph<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="targetrigidbody2" class="tsd-anchor"></a>
+					<h3>target<wbr>Rigid<wbr>Body2</h3>
+					<div class="tsd-signature tsd-kind-icon">target<wbr>Rigid<wbr>Body2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L9">PMX/PMXMorph.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Joints/SpringJoint.ts#L4">PMX/Joints/SpringJoint.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="morphnameen" class="tsd-anchor"></a>
-					<h3>morph<wbr>Name<wbr>En</h3>
-					<div class="tsd-signature tsd-kind-icon">morph<wbr>Name<wbr>En<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="translationlimit" class="tsd-anchor"></a>
+					<h3>translation<wbr>Limit</h3>
+					<div class="tsd-signature tsd-kind-icon">translation<wbr>Limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L10">PMX/PMXMorph.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="morphoffsetcount" class="tsd-anchor"></a>
-					<h3>morph<wbr>Offset<wbr>Count</h3>
-					<div class="tsd-signature tsd-kind-icon">morph<wbr>Offset<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L13">PMX/PMXMorph.ts:13</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="uvmorph" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> uv<wbr>Morph</h3>
-					<div class="tsd-signature tsd-kind-icon">uv<wbr>Morph<span class="tsd-signature-symbol">:</span> <a href="_pmx_morphs_uvmorph_.uvmorph.html" class="tsd-signature-type">UVMorph</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L15">PMX/PMXMorph.ts:15</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="vertexmorph" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> vertex<wbr>Morph</h3>
-					<div class="tsd-signature tsd-kind-icon">vertex<wbr>Morph<span class="tsd-signature-symbol">:</span> <a href="_pmx_morphs_vertexmorph_.vertexmorph.html" class="tsd-signature-type">VertexMorph</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXMorph.ts#L14">PMX/PMXMorph.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Joints/SpringJoint.ts#L7">PMX/Joints/SpringJoint.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -211,7 +178,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_pmx_pmxmorph_.html">"PMX/PMXMorph"</a>
+						<a href="../modules/_pmx_joints_springjoint_.html">"PMX/<wbr>Joints/<wbr>Spring<wbr>Joint"</a>
 					</li>
 				</ul>
 			</nav>
@@ -220,37 +187,28 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_pmx_pmxmorph_.pmxmorph.html" class="tsd-kind-icon">PMXMorph</a>
+						<a href="_pmx_joints_springjoint_.springjoint.html" class="tsd-kind-icon">Spring<wbr>Joint</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#bonemorph" class="tsd-kind-icon">bone<wbr>Morph</a>
+								<a href="_pmx_joints_springjoint_.springjoint.html#position" class="tsd-kind-icon">position</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#editpanel" class="tsd-kind-icon">edit<wbr>Panel</a>
+								<a href="_pmx_joints_springjoint_.springjoint.html#rotation" class="tsd-kind-icon">rotation</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#groupmorph" class="tsd-kind-icon">group<wbr>Morph</a>
+								<a href="_pmx_joints_springjoint_.springjoint.html#rotationlimit" class="tsd-kind-icon">rotation<wbr>Limit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#materialmorph" class="tsd-kind-icon">material<wbr>Morph</a>
+								<a href="_pmx_joints_springjoint_.springjoint.html#springcoefficientlimit" class="tsd-kind-icon">spring<wbr>Coefficient<wbr>Limit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#morphkind" class="tsd-kind-icon">morph<wbr>Kind</a>
+								<a href="_pmx_joints_springjoint_.springjoint.html#targetrigidbody1" class="tsd-kind-icon">target<wbr>Rigid<wbr>Body1</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#morphname" class="tsd-kind-icon">morph<wbr>Name</a>
+								<a href="_pmx_joints_springjoint_.springjoint.html#targetrigidbody2" class="tsd-kind-icon">target<wbr>Rigid<wbr>Body2</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#morphnameen" class="tsd-kind-icon">morph<wbr>Name<wbr>En</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#morphoffsetcount" class="tsd-kind-icon">morph<wbr>Offset<wbr>Count</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#uvmorph" class="tsd-kind-icon">uv<wbr>Morph</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pmx_pmxmorph_.pmxmorph.html#vertexmorph" class="tsd-kind-icon">vertex<wbr>Morph</a>
+								<a href="_pmx_joints_springjoint_.springjoint.html#translationlimit" class="tsd-kind-icon">translation<wbr>Limit</a>
 							</li>
 						</ul>
 					</li>
