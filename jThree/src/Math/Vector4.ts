@@ -51,6 +51,10 @@ class Vector4 extends VectorBase
         return this.targetVector;
     }
 
+    public get normalized() {
+        return this.multiplyWith(1 / this.magnitude);
+    }
+
     get X() {
         return this.targetVector[0];
     }

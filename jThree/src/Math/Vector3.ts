@@ -34,7 +34,12 @@ class Vector3 extends VectorBase{
         this.targetVector=[<number>x,y,z];
     }
 
-    public targetVector:glm.GLM.IArray;
+    public targetVector: glm.GLM.IArray;
+
+    public get normalized()
+    {
+        return this.multiplyWith(1 / this.magnitude);
+    }
 
     get X(): number {
         return this.targetVector[0];
