@@ -48,6 +48,12 @@ tsd reinstall
 bower install
 ```
 
+** That is all you need to do!**
+Then, you can run server and build files with following command.
+```shell
+gulp watch
+```
+
 ## Coding Style
 Almost every code in this project is witten with Typescript.
 For writing Typescript, we use these coding style below.
