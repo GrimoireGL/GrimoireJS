@@ -69,7 +69,7 @@ class PMXModel extends SceneObject {
                         var currentMat = pmx.Materials[materialCount];
                         var mat = new PMXMaterial(this, materialCount, offset, resourceDirectory);
                         this.addMaterial(mat);
-                        this.addMaterial(new PMXDepthMaterial(mat));
+                        if(mat.SelfShadow)this.addMaterial(new PMXDepthMaterial(mat));
                         this.addMaterial(new PMXNormalMaterial(mat));
                         this.pmxMaterials[materialCount] = mat;
                         this.materialDictionary.set(currentMat.materialName, mat);

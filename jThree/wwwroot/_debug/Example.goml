@@ -22,17 +22,23 @@
   </renderers>
   <scenes>
     <scene>
-      <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,0.5,1)"/>
+      <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,1)"/>
       <object id="light-root">
-        <plight color="red" decay="1" distance="5" intensity="0.8" position="(0,0.1,0)"/>
-        <plight color="blue" decay="1" distance="5" intensity="0.8" position="(0.5,0.1,0)"/>
-        <plight color="green" decay="1" distance="5" intensity="0.8" position="(-0.5,0.1,0)"/>
+        <plight color="red" decay="1" distance="5" intensity="0.8" position="(0,0.5,0)"/>
+        <plight color="blue" decay="1" distance="5" intensity="0.8" position="(0.5,0.5,0)"/>
+        <plight color="green" decay="1" distance="5" intensity="0.8" position="(-0.5,0.5,0)"/>
       </object>
-      <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
-        <vmd frame="0" src="melt.vmd"/>
-                          <bones><bone name="右足ＩＫ"><mesh geo="quad" mat="bl" scale="0.3"/></bone><bone name="左足ＩＫ"><mesh geo="quad" mat="mat2" scale="0.3"/></bone></bones>
-                 <morphs><morph name="黒化" value="0" id="morphTest"/></morphs>
-      </pmx>
+<pmx scale="0.1" src="/_debug/tune/Tune.pmx">
+  <vmd frame="0" src="melt.vmd"/>
+  <bones>
+    <bone name="右足ＩＫ">
+      <mesh geo="quad" mat="bl" scale="0.3"/>
+    </bone>
+    <bone name="左足ＩＫ">
+      <mesh geo="quad" mat="mat2" scale="0.3"/>
+    </bone>
+  </bones>
+</pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
       <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="0,0.5,-0.5" scale="0.1"/>

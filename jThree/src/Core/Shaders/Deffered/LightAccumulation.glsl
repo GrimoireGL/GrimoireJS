@@ -44,7 +44,7 @@ vec3 calcPointLight(vec3 position,vec3 normal)
     if(index>=pl_count)break;
     float l=distance(pl_pos[index],position);//calc distance between light and fragment in view space
     vec3 p2l=normalize(pl_pos[index]-position);//calc direction vector from fragment to light in view space
-    accum+=dot(p2l,normal)*pow(max(0.,1.-l/pl_coef[index].y),pl_coef[index].x)*pl_col[index].rgb;
+    accum+=(dot(p2l,normal)+0.1)*pow(max(0.,1.-l/pl_coef[index].y),pl_coef[index].x)*pl_col[index].rgb;
   }
   return accum;
 }
@@ -123,6 +123,7 @@ void main(void){
   vec3 normal=reconstructNormal();
   gl_FragColor.rgba=vec4(0,0,0,1);
   gl_FragColor.rgb+=calcPointLight(position,normal);
+  gl_FragColor.rgb+=vec3(0.1,0.1,0.1);
   //gl_FragColor.rgb+=calcDirectionalLight(position,normal);
   //gl_FragColor.rgb=calcDebugLine(gl_FragColor.rgb,position);
 }

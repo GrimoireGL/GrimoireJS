@@ -53,7 +53,7 @@ void main(void){
       gl_FragColor.rgb+=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;
     }
     vec3 lc=texture2D(u_light,lightUV).rgb;
-    float l=0.2;//length(lc)/1.732;
+    float l=length(lc)/1.732;
     if(u_toonFlag==1)
     {
           gl_FragColor.rgb*=blendPMXTexture(u_toon,vec2(0,1.-l),u_addToonCoeff  ,u_mulToonCoeff ).rgb*l;

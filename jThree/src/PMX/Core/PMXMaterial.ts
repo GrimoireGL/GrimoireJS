@@ -150,6 +150,11 @@ class PMXMaterial extends Material {
         return this.edgeColor == null ? 1 : 2;
     }
 
+    public get SelfShadow():boolean
+    {
+        return (this.pmxData.Materials[this.materialIndex].drawFlag & 0x04)>0;
+    }
+
     constructor(pmx: PMXModel, index: number, offset: number, directory: string) {
         super();
         this.addMorphParam = new PMXMaterialMorphParamContainer(1);
