@@ -1,9 +1,9 @@
-import RendererBase = require('../RendererBase');
-import SceneObject = require('../../SceneObject');
-import RenderStageBase = require('./RenderStageBase');
-import Scene = require('../../Scene');
-import ResolvedChainInfo = require('../ResolvedChainInfo');
-import JThreeContextProxy = require('../../JThreeContextProxy')
+import RendererBase = require("../RendererBase");
+import SceneObject = require("../../SceneObject");
+import RenderStageBase = require("./RenderStageBase");
+import Scene = require("../../Scene");
+import ResolvedChainInfo = require("../ResolvedChainInfo");
+import JThreeContextProxy = require("../../JThreeContextProxy")
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
 	constructor(renderer: RendererBase) {

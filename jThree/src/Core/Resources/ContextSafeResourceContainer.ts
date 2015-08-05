@@ -5,8 +5,8 @@ import Exceptions = require("../../Exceptions");
 import JThreeContext = require("../JThreeContext");
 import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
 import ListStateChangedType = require("../ListStateChangedType");
-import AssociativeArray = require('../../Base/Collections/AssociativeArray');
-import ResourceWrapper = require('./ResourceWrapper');
+import AssociativeArray = require("../../Base/Collections/AssociativeArray");
+import ResourceWrapper = require("./ResourceWrapper");
 class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject {
     private context: JThreeContext = null;
     

@@ -4,8 +4,8 @@ import GomlAttribute = require("./GomlAttribute");
 import Delegates = require("../Base/Delegates");
 import GomlLoader = require("./GomlLoader");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
-import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-import AttributeDeclaration = require('./AttributeDeclaration');
+import GomlTreeNodeBase = require("./GomlTreeNodeBase");
+import AttributeDeclaration = require("./AttributeDeclaration");
 /**
  * The class managing attributes of a node.
  */
@@ -83,12 +83,12 @@ class AttributeDictionary extends JThreeObject {
    */
   public applyDefaultValue() {
     this.attributes.each(v=> {
-      if (typeof v.Value !== 'undefined') v.notifyValueChanged();
+      if (typeof v.Value !== "undefined") v.notifyValueChanged();
     });
   }
 
   public updateValue(attrName?: string) {
-    if (typeof attrName === 'undefined') {
+    if (typeof attrName === "undefined") {
       this.attributes.each(v=> {
         v.notifyValueChanged();
       });

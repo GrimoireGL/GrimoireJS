@@ -1,8 +1,8 @@
-import JThreeObject = require('../../Base/JThreeObject');
-import JThreeCollection = require('../../Base/JThreeCollection');
-import ComponentNode = require('../Nodes/Components/ComponentNode');
-import ComponentContainerNodeBase = require('../ComponentContainerNodeBase');
-import JThreeObjectWithID = require('../../Base/JThreeObjectWithID');
+import JThreeObject = require("../../Base/JThreeObject");
+import JThreeCollection = require("../../Base/JThreeCollection");
+import ComponentNode = require("../Nodes/Components/ComponentNode");
+import ComponentContainerNodeBase = require("../ComponentContainerNodeBase");
+import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 /**
  * container class for storeing ComponentNode and TargetNode
  */

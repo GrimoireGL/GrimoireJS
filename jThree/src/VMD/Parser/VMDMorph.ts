@@ -1,4 +1,4 @@
-import VMDFrameData = require('./VMDFrameData');
+import VMDFrameData = require("./VMDFrameData");
 interface VMDMorphs
 {
 	[morphName:string]:VMDMorph[];

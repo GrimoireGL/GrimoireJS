@@ -1,8 +1,8 @@
 import jThreeObject = require("../Base/JThreeObject");
 import GomlTreeNodeBase = require("./GomlTreeNodeBase");
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
-import JThreeEvent = require('../Base/JThreeEvent');
-import Delegates = require('../Base/Delegates');
+import AssociativeArray = require("../Base/Collections/AssociativeArray");
+import JThreeEvent = require("../Base/JThreeEvent");
+import Delegates = require("../Base/Delegates");
 /**
  * Dictionary class to cache GOML node objects.
  */

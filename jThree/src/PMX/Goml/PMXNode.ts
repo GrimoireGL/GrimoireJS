@@ -3,9 +3,9 @@ import GomlLoader = require("../../Goml/GomlLoader");
 import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
 import SceneNode = require("../../Goml/Nodes/SceneNode");
 import SceneObject = require("../../Core/SceneObject");
-import PMXModel= require('../Core/PMXModel');
-import JThreeEvent = require('../../Base/JThreeEvent');
-import Delegates = require('../../Base/Delegates');
+import PMXModel= require("../Core/PMXModel");
+import JThreeEvent = require("../../Base/JThreeEvent");
+import Delegates = require("../../Base/Delegates");
 class PMXNode extends SceneObjectNodeBase
 {
   private pmxModel:PMXModel=null;

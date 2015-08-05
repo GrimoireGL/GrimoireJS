@@ -1,12 +1,12 @@
-import RendererBase = require('../RendererBase');
-import SceneObject = require('../../SceneObject');
-import RenderStageBase = require('./RenderStageBase');
-import JThreeContextProxy = require('../../JThreeContextProxy');
+import RendererBase = require("../RendererBase");
+import SceneObject = require("../../SceneObject");
+import RenderStageBase = require("./RenderStageBase");
+import JThreeContextProxy = require("../../JThreeContextProxy");
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-import Scene = require('../../Scene');
-import Program = require('../../Resources/Program/Program');
-import Matrix = require('../../../Math/Matrix');
-import ResolvedChainInfo = require('../ResolvedChainInfo');
+import Scene = require("../../Scene");
+import Program = require("../../Resources/Program/Program");
+import Matrix = require("../../../Math/Matrix");
+import ResolvedChainInfo = require("../ResolvedChainInfo");
 class RB2RenderStage extends RenderStageBase {
 
 	private rb2Program: Program;
@@ -14,8 +14,8 @@ class RB2RenderStage extends RenderStageBase {
 	constructor(renderer: RendererBase) {
 		super(renderer);
 		var context = JThreeContextProxy.getJThreeContext();
-		var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
-        var fs = require('../../Shaders/Deffered/RB2.glsl');
+		var vs = require("../../Shaders/VertexShaders/BasicGeometries.glsl");
+        var fs = require("../../Shaders/Deffered/RB2.glsl");
         this.rb2Program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.deffered.rb2", "jthree.programs.rb2", vs, fs);
 	}
 

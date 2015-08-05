@@ -2,9 +2,9 @@ import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
 import GomlLoader = require("../../../GomlLoader");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
-import LightNodeBase = require('./LightNodeBase');
-import PointLight = require('../../../../Core/Light/PointLight');
-import LightBase =require('../../../../Core/Light/LightBase');
+import LightNodeBase = require("./LightNodeBase");
+import PointLight = require("../../../../Core/Light/PointLight");
+import LightBase =require("../../../../Core/Light/LightBase");
 class PointLightNode extends LightNodeBase
 {
 	private targetLight:PointLight;

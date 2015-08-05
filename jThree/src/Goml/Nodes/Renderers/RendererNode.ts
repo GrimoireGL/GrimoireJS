@@ -2,7 +2,7 @@ import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import GomlLoader = require("../../GomlLoader");
-import RendererNodeBase = require('./RendererNodeBase');
+import RendererNodeBase = require("./RendererNodeBase");
 
 class RendererNode extends RendererNodeBase {
     targetCanvas: HTMLCanvasElement;

@@ -1,8 +1,8 @@
-import PluginDeclaration = require('./PluginDeclaration');
-import PluginRequest = require('./PluginRequest');
-import AssociativeArray = require('./../../Base/Collections/AssociativeArray');
-import Delegates = require('../../Base/Delegates');
-import agent = require('superagent');
+import PluginDeclaration = require("./PluginDeclaration");
+import PluginRequest = require("./PluginRequest");
+import AssociativeArray = require("./../../Base/Collections/AssociativeArray");
+import Delegates = require("../../Base/Delegates");
+import agent = require("superagent");
 class PluginLoader {
 	private plugins: AssociativeArray<PluginDeclaration> = new AssociativeArray<PluginDeclaration>();
 

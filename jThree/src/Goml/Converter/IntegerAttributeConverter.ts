@@ -1,9 +1,9 @@
 import AttributeConverterBase = require("./AttributeConverterBase");
-import IntegerAnimater = require('../Animater/IntegerAnimater');
-import GomlAttribute = require('../GomlAttribute');
-import EasingFunctionBase = require('../Easing/EasingFunctionBase');
-import Delegates = require('../../Base/Delegates');
-import AnimaterBase = require('../Animater/AnimaterBase');
+import IntegerAnimater = require("../Animater/IntegerAnimater");
+import GomlAttribute = require("../GomlAttribute");
+import EasingFunctionBase = require("../Easing/EasingFunctionBase");
+import Delegates = require("../../Base/Delegates");
+import AnimaterBase = require("../Animater/AnimaterBase");
 class IntegerAttributeConverter extends AttributeConverterBase
 {
   constructor()
@@ -23,10 +23,10 @@ class IntegerAttributeConverter extends AttributeConverterBase
 
   public FromInterface(val:any):any
   {
-    if(typeof val ==='number')
+    if(typeof val ==="number")
     {
       return Math.floor(<number>val);
-    }else if(typeof val === 'string')
+    }else if(typeof val === "string")
     {
       return Math.floor(this.FromAttribute(val));
     }

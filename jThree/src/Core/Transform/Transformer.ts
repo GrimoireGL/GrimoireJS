@@ -4,9 +4,9 @@ import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
 import Delegates = require("../../Base/Delegates");
-import glm = require('glm');
-import RendererBase = require('./../Renderers/RendererBase');
-import JThreeEvent = require('./../../Base/JThreeEvent');
+import glm = require("glm");
+import RendererBase = require("./../Renderers/RendererBase");
+import JThreeEvent = require("./../../Base/JThreeEvent");
 /**
  * Position,rotation and scale of scene object.
  * Every scene object in a scene has Toransformer.It's used to store and manipulate the position,rotation and scale ob the object.

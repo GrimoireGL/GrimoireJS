@@ -1,9 +1,9 @@
 import MatrixBase = require("./MatrixBase");
 import Vector3 = require("./Vector3");
 import Vector4 = require("./Vector4");
-import Delegates=require('../Base/Delegates');
+import Delegates=require("../Base/Delegates");
 import Quaternion = require("./Quaternion");
-import glm = require('glm');
+import glm = require("glm");
 class Matrix extends MatrixBase{
     public static zero(): Matrix {
         return new Matrix([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);

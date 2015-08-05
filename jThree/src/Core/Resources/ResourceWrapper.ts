@@ -1,8 +1,8 @@
 import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
-import JThreeObject = require('../../Base/JThreeObject');
-import ContextManager = require('../ContextManagerBase');
-import JThreeEvent = require('../../Base/JThreeEvent');
-import Delegates = require('../../Base/Delegates');
+import JThreeObject = require("../../Base/JThreeObject");
+import ContextManager = require("../ContextManagerBase");
+import JThreeEvent = require("../../Base/JThreeEvent");
+import Delegates = require("../../Base/Delegates");
 class ResourceWrapper extends JThreeObject
 {
   constructor(ownerCanvas:ContextManager)

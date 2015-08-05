@@ -1,10 +1,10 @@
-import GeneraterInfoChunk = require('./GeneraterInfoChunk');
-import RendererBase = require('../RendererBase');
-import GeneraterBase = require('./GeneraterBase');
-import TextureInternalFormatType = require('../../../Wrapper/TextureInternalFormatType');
-import TextureType = require('../../../Wrapper/TextureType');
-import Rectangle = require('../../../Math/Rectangle');
-import BufferTexture = require('../../Resources/Texture/BufferTexture');
+import GeneraterInfoChunk = require("./GeneraterInfoChunk");
+import RendererBase = require("../RendererBase");
+import GeneraterBase = require("./GeneraterBase");
+import TextureInternalFormatType = require("../../../Wrapper/TextureInternalFormatType");
+import TextureType = require("../../../Wrapper/TextureType");
+import Rectangle = require("../../../Math/Rectangle");
+import BufferTexture = require("../../Resources/Texture/BufferTexture");
 class RendererFit extends GeneraterBase {
 	constructor(parent: RendererBase) {
 		super(parent);

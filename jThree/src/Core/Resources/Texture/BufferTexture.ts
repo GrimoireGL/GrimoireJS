@@ -1,11 +1,11 @@
-import BufferTextureWrapper = require('./BufferTextureWrapper');
-import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
-import ElementFormat = require('../../../Wrapper/TextureType');
-import JThreeContext = require('../../JThreeContext');
-import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
-import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
-import ContextManagerBase = require('../../ContextManagerBase');
-import TextureBase = require('./TextureBase');
+import BufferTextureWrapper = require("./BufferTextureWrapper");
+import TextureFormat = require("../../../Wrapper/TextureInternalFormatType");
+import ElementFormat = require("../../../Wrapper/TextureType");
+import JThreeContext = require("../../JThreeContext");
+import TextureMinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
+import TextureMagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
+import ContextManagerBase = require("../../ContextManagerBase");
+import TextureBase = require("./TextureBase");
 
 class BufferTexture extends TextureBase {
 	private width: number;

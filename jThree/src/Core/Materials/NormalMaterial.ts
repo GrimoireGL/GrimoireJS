@@ -4,8 +4,8 @@ import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import Scene = require("../Scene");
+import ResolvedChainInfo = require("../Renderers/ResolvedChainInfo");
 declare function require(string): string;
 
 class NormalMaterial extends Material {
@@ -17,8 +17,8 @@ class NormalMaterial extends Material {
   protected program: Program;
   constructor() {
     super();
-    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-    var fs = require('../Shaders/Deffered/NormalBuffer.glsl');
+    var vs = require("../Shaders/VertexShaders/BasicGeometries.glsl");
+    var fs = require("../Shaders/Deffered/NormalBuffer.glsl");
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.normal", "jthree.programs.normal", vs, fs);
     this.setLoaded();
   }

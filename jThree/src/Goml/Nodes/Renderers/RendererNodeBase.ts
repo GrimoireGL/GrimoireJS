@@ -1,6 +1,6 @@
-import GomlTreeNodeBase = require('../../GomlTreeNodeBase');
-import GomlLoader = require('../../GomlLoader');
-import CanvasManager = require('../../../Core/CanvasManager');
+import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import GomlLoader = require("../../GomlLoader");
+import CanvasManager = require("../../../Core/CanvasManager");
 class RendererNodeBase extends GomlTreeNodeBase {
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
@@ -12,7 +12,7 @@ class RendererNodeBase extends GomlTreeNodeBase {
                 value: 128, converter: "number", handler: (v) => { this.sizeChanged(this.attributes.getValue("width"),v.Value)}
             },
             "clearColor": {
-                value: '#0FF', converter: "color4", handler: (v) => { this.canvasManager.ClearColor = v.Value; }
+                value: "#0FF", converter: "color4", handler: (v) => { this.canvasManager.ClearColor = v.Value; }
             },
         });
     }

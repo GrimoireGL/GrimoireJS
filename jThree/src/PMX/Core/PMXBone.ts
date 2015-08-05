@@ -1,8 +1,8 @@
-import SceneObject = require('../../Core/SceneObject');
-import PMXSkeleton = require('./PMXSkeleton');
-import PMXModel = require('./PMXModel');
-import PMXBoneTransformer = require('./PMXBoneTransformer');
-import Vector3 = require('../../Math/Vector3');
+import SceneObject = require("../../Core/SceneObject");
+import PMXSkeleton = require("./PMXSkeleton");
+import PMXModel = require("./PMXModel");
+import PMXBoneTransformer = require("./PMXBoneTransformer");
+import Vector3 = require("../../Math/Vector3");
 class PMXBone extends SceneObject {
 	private targetModel: PMXModel;
 
@@ -49,10 +49,10 @@ class PMXBone extends SceneObject {
 	public structureToString(layer: number) {
 		var result = "";
 		for (var i = 0; i < layer; i++)result += "  ";
-		result += this.toString() + '\n';
+		result += this.toString() + "\n";
 		var arr = this.Children.asArray();
 		for (var index = 0; index < arr.length; index++) {
-			if (typeof arr[index] !== 'undefined') result += (<PMXBone>arr[index]).structureToString(layer + 1);
+			if (typeof arr[index] !== "undefined") result += (<PMXBone>arr[index]).structureToString(layer + 1);
 		}
 		return result;
 	}

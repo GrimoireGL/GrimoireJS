@@ -1,9 +1,9 @@
 import TagFactory = require("./Factories/TagFactory");
 import GomlNodeListElement = require("./GomlNodeListElement");
 import JThreeObject = require("../Base/JThreeObject");
-import EasingFunction = require('./Easing/EasingFunctionBase');
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
-import AttributeConvrterBase = require('./Converter/AttributeConverterBase');
+import EasingFunction = require("./Easing/EasingFunctionBase");
+import AssociativeArray = require("../Base/Collections/AssociativeArray");
+import AttributeConvrterBase = require("./Converter/AttributeConverterBase");
 declare function require(string): any;
 
 class GomlLoaderConigurator extends JThreeObject
@@ -47,7 +47,7 @@ class GomlLoaderConigurator extends JThreeObject
   */
   private initializeRootObjectNames()
   {
-    this.rootNodes=require('./TopNodeList');
+    this.rootNodes=require("./TopNodeList");
   }
 
   /**
@@ -55,17 +55,17 @@ class GomlLoaderConigurator extends JThreeObject
   */
   private initializeEasingFunctions()
   {
-    this.loadIntoAssociativeArray(this.easingFunctions,require('./EasingFunctionList'));
+    this.loadIntoAssociativeArray(this.easingFunctions,require("./EasingFunctionList"));
   }
 
   private initializeConverters()
   {
-    this.loadIntoAssociativeArray(this.converters,require('./GomlConverterList'));
+    this.loadIntoAssociativeArray(this.converters,require("./GomlConverterList"));
   }
 
   private initializeGomlTags()
   {
-    var newList: GomlNodeListElement[] = require('./GomlNodeList');
+    var newList: GomlNodeListElement[] = require("./GomlNodeList");
     newList.forEach((v) => {
       for (var key in v.NodeTypes) {
         var keyInString: string = key;

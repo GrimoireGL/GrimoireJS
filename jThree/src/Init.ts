@@ -1,10 +1,10 @@
 import JThreeContext = require("./Core/JThreeContext");
 import JThreeContextProxy = require("./Core/JThreeContextProxy");
-import $ = require('jquery');
-import Delegates = require('./Base/Delegates');
-import JThreeInterface = require('./JThreeInterface');
-import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration');
-import Quaternion =require('./Math/Quaternion');
+import $ = require("jquery");
+import Delegates = require("./Base/Delegates");
+import JThreeInterface = require("./JThreeInterface");
+import GomlComponentDeclaration = require("./Goml/Components/GomlComponentDeclaration");
+import Quaternion =require("./Math/Quaternion");
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -29,7 +29,7 @@ class JThreeInit {
   */
   static j3(query: string|Delegates.Action0): JThreeInterface {
     var context = JThreeContextProxy.getJThreeContext();
-    if (typeof query === 'function') {//check whether this is function or not.
+    if (typeof query === "function") {//check whether this is function or not.
       context.GomlLoader.onload(query);
       return undefined;//when function was subscribed, it is no need to return JThreeInterface.
     }

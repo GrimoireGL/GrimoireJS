@@ -1,14 +1,14 @@
-import RendererBase = require('./RendererBase');
-import AssociativeArray = require('../../Base/Collections/AssociativeArray');
-import RenderStageChain = require('./RenderStageChain');
-import JThreeContextProxy = require('./../JThreeContextProxy');
-import SceneObject = require('../SceneObject');
-import Mesh = require('../../Shapes/Mesh')
-import Scene = require('../Scene');
-import QuadGeometry = require('../Geometries/QuadGeometry');
-import ResolvedChainInfo = require('./ResolvedChainInfo');
-import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
-import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
+import RendererBase = require("./RendererBase");
+import AssociativeArray = require("../../Base/Collections/AssociativeArray");
+import RenderStageChain = require("./RenderStageChain");
+import JThreeContextProxy = require("./../JThreeContextProxy");
+import SceneObject = require("../SceneObject");
+import Mesh = require("../../Shapes/Mesh")
+import Scene = require("../Scene");
+import QuadGeometry = require("../Geometries/QuadGeometry");
+import ResolvedChainInfo = require("./ResolvedChainInfo");
+import GeneraterInfo = require("./TextureGeneraters/GeneraterInfo");
+import GeneraterBase = require("./TextureGeneraters/GeneraterBase");
 class RenderStageManager {
 	private parentRenderer: RendererBase;
 	private defaultQuad: QuadGeometry;
@@ -20,7 +20,7 @@ class RenderStageManager {
 	}
 
 	private initializeGeneraters() {
-		var generaters = require('./TextureGeneraters/GeneraterList');
+		var generaters = require("./TextureGeneraters/GeneraterList");
 		for (var key in generaters) {
 			if (generaters.hasOwnProperty(key)) {
 				var element = generaters[key];
@@ -66,7 +66,7 @@ class RenderStageManager {
 		var context = JThreeContextProxy.getJThreeContext();
 		for (var targetName in chain.buffers) {
 			var bufferName = chain.buffers[targetName];
-			if (bufferName == 'default') {
+			if (bufferName == "default") {
 				texInfo[targetName] = null;//default buffer
 				continue;
 			}

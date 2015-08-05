@@ -1,11 +1,11 @@
-import Transformer = require('../../Core/Transform/Transformer');
-import SceneObject = require('../../Core/SceneObject');
-import PMXModel = require('./PMXModel');
-import glm = require('glm');
-import Quaternion = require('../../Math/Quaternion');
-import Vector3 = require('../../Math/Vector3');
-import Matrix = require('../../Math/Matrix');
-import PMXIKLink= require('../PMXIKLink');
+import Transformer = require("../../Core/Transform/Transformer");
+import SceneObject = require("../../Core/SceneObject");
+import PMXModel = require("./PMXModel");
+import glm = require("glm");
+import Quaternion = require("../../Math/Quaternion");
+import Vector3 = require("../../Math/Vector3");
+import Matrix = require("../../Math/Matrix");
+import PMXIKLink= require("../PMXIKLink");
 class PMXBoneTransformer extends Transformer {
 	private pmx: PMXModel;
 

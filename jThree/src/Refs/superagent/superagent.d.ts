@@ -6,7 +6,7 @@
 /// <reference path='../node/node.d.ts' />
 
 declare module "superagent" {
-  import stream = require('stream');
+  import stream = require("stream");
 
   type CallbackHandler = { (err: any, res: request.Response): void; }|{ (res: request.Response): void; };
 
@@ -90,7 +90,7 @@ declare module "superagent" {
       field(name: string, val: string): Req;
       get(field: string): string;
       on(name: string, handler: Function): Req;
-      on(name: 'error', handler: (err: any) => void): Req;
+      on(name: "error", handler: (err: any) => void): Req;
       part(): Req;
       pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
       query(val: Object): Req;

@@ -1,7 +1,7 @@
 import JThreeObject = require("../JThreeObject");
 import Vector3 = require("../../Math/Vector3");
-import Color4 = require('./Color4');
-import Vector4 = require('../../Math/Vector4');
+import Color4 = require("./Color4");
+import Vector4 = require("../../Math/Vector4");
 declare function require(string): { [key: string]: string };
 
 class Color3 extends JThreeObject {
@@ -39,11 +39,11 @@ class Color3 extends JThreeObject {
     
     public toVector4(a?:number):Vector4
     {
-        if(typeof a ==='undefined')a=0;
+        if(typeof a ==="undefined")a=0;
         return new Vector4(this.R,this.G,this.B,a);
     }
 
-    static colorTable: { [key: string]: string } = require('static/color.json');
+    static colorTable: { [key: string]: string } = require("static/color.json");
     ///Color parser for css like syntax
     static internalParse(color: string, isFirst: boolean): Color3 {
         if (isFirst && Color4.colorTable[color]) {

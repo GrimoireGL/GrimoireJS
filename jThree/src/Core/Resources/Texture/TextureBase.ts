@@ -1,13 +1,13 @@
-import ContextSafeResourceContainer = require('../ContextSafeResourceContainer');
-import TextureWrapperBase = require('./TextureWrapperBase');
-import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
-import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
-import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
-import TextureWrapType = require('../../../Wrapper/Texture/TextureWrapType');
-import JThreeEvent = require('../../../Base/JThreeEvent');
-import Delegates = require('../../../Base/Delegates');
-import JThreeContext = require('../../JThreeContext');
-import TextureTargetType = require('../../../Wrapper/TargetTextureType');
+import ContextSafeResourceContainer = require("../ContextSafeResourceContainer");
+import TextureWrapperBase = require("./TextureWrapperBase");
+import TextureParameterType = require("../../../Wrapper/Texture/TextureParameterType");
+import TextureMinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
+import TextureMagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
+import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
+import JThreeEvent = require("../../../Base/JThreeEvent");
+import Delegates = require("../../../Base/Delegates");
+import JThreeContext = require("../../JThreeContext");
+import TextureTargetType = require("../../../Wrapper/TargetTextureType");
 /**
  * 
  */

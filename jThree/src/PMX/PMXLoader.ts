@@ -1,11 +1,11 @@
-import PMXHeader = require('./PMXHeader');
-import PMXVerticies = require('./PMXVerticies');
-import PMXMaterial = require('./PMXMaterial');
-import PMXBone = require('./PMXBone');
-import PMXMorph = require('./PMXMorph');
-import PMXDisplayFrame = require('./PMXDisplayFrame');
-import PMXRigidBody = require('./PMXRigidBody');
-import PMXJoint = require('./PMXJoint');
+import PMXHeader = require("./PMXHeader");
+import PMXVerticies = require("./PMXVerticies");
+import PMXMaterial = require("./PMXMaterial");
+import PMXBone = require("./PMXBone");
+import PMXMorph = require("./PMXMorph");
+import PMXDisplayFrame = require("./PMXDisplayFrame");
+import PMXRigidBody = require("./PMXRigidBody");
+import PMXJoint = require("./PMXJoint");
 class PMX {
 	private reader: jDataView;
 

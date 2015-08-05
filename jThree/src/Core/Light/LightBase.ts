@@ -1,10 +1,10 @@
-import Color4 = require('../../Base/Color/Color4');
-import Vector3 = require('../../Math/Vector3');
-import SceneObject = require('../SceneObject');
-import ContextManagerBase = require('../ContextManagerBase');
-import Scene = require('../Scene');
-import Material = require('Materials/Material');
-import RendererBase = require('../Renderers/RendererBase');
+import Color4 = require("../../Base/Color/Color4");
+import Vector3 = require("../../Math/Vector3");
+import SceneObject = require("../SceneObject");
+import ContextManagerBase = require("../ContextManagerBase");
+import Scene = require("../Scene");
+import Material = require("Materials/Material");
+import RendererBase = require("../Renderers/RendererBase");
 class LightBase extends SceneObject
 {
 	protected scene:Scene;

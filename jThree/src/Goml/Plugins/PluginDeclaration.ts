@@ -1,7 +1,7 @@
-import Delegates=require('../../Base/Delegates');
-import GomlLoader = require('../GomlLoader');
-import JThreeContext= require('../../Core/JThreeContext');
-import PluginRequest = require('./PluginRequest');
+import Delegates=require("../../Base/Delegates");
+import GomlLoader = require("../GomlLoader");
+import JThreeContext= require("../../Core/JThreeContext");
+import PluginRequest = require("./PluginRequest");
 interface PluginDeclaration
 {
 	/**

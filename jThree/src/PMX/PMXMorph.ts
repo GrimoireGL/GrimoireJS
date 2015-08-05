@@ -1,3 +1,9 @@
+import VertexMorph = require("Morphs/VertexMorph");
+import UVMorph = require("Morphs/UVMorph");
+import BoneMorph = require("Morphs/BoneMorph");
+import MaterialMorph = require("Morphs/MaterialMorph");
+import GroupMorph = require("Morphs/GroupMorph");
+
 interface PMXMorph
 {
 	morphName:string;
@@ -10,45 +16,6 @@ interface PMXMorph
 	boneMorph?:BoneMorph[];
 	materialMorph?:MaterialMorph[];
 	groupMorph?:GroupMorph[];
-}
-
-interface VertexMorph
-{
-	vertexIndex:number;
-	vertexOffset:number[];
-}
-
-interface UVMorph
-{
-	vertexIndex:number;
-	uvOffset:number[];
-}
-
-interface BoneMorph
-{
-	boneIndex:number;
-	translationOffset:number[];
-	rotationOffset:number[];
-}
-
-interface MaterialMorph
-{
-	materialIndex:number;
-	operationType:number;
-	diffuse:number[];
-	specular:number[];
-	ambient:number[];
-	edgeColor:number[];
-	edgeSize:number;
-	textureCoefficient:number[];
-	sphereTextureCoefficient:number[];
-	toonTextureCoefficient:number[];
-}
-
-interface GroupMorph
-{
-	morphIndex:number;
-	morphRate:number;
 }
 
 export=PMXMorph;

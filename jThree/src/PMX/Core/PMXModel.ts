@@ -1,13 +1,13 @@
-import SceneObject = require('../../Core/SceneObject');
-import PMXModelData = require('../PMXLoader');
-import PMXGeometry = require('./PMXGeometry');
-import PMXMaterial = require('./PMXMaterial');
-import Delegates = require('../../Base/Delegates');
-import PMXSkeleton = require('./PMXSkeleton');
-import PMXMorphManager = require('./PMXMorphManager');
-import AssociativeArray = require('../../Base/Collections/AssociativeArray');
-import PMXDepthMaterial = require('./PMXDepthMaterial');
-import PMXNormalMaterial = require('./PMXNormalMaterial');
+import SceneObject = require("../../Core/SceneObject");
+import PMXModelData = require("../PMXLoader");
+import PMXGeometry = require("./PMXGeometry");
+import PMXMaterial = require("./PMXMaterial");
+import Delegates = require("../../Base/Delegates");
+import PMXSkeleton = require("./PMXSkeleton");
+import PMXMorphManager = require("./PMXMorphManager");
+import AssociativeArray = require("../../Base/Collections/AssociativeArray");
+import PMXDepthMaterial = require("./PMXDepthMaterial");
+import PMXNormalMaterial = require("./PMXNormalMaterial");
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
                 var targetUrl = url;

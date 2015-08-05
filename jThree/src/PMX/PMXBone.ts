@@ -1,4 +1,4 @@
-import PMXIKLink = require('./PMXIKLink');
+import PMXIKLink = require("./PMXIKLink");
 interface PMXBone
 {
 	boneName:string;

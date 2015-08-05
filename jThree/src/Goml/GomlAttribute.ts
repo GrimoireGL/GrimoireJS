@@ -1,8 +1,8 @@
 import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import Delegates = require("../Base/Delegates");
-import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-import JThreeEvent = require('../Base/JThreeEvent')
+import GomlTreeNodeBase = require("./GomlTreeNodeBase");
+import JThreeEvent = require("../Base/JThreeEvent")
 class GomlAttribute extends JThreeObjectWithID
 {
   protected element:HTMLElement;

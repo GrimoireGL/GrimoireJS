@@ -1,8 +1,8 @@
 import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 import jThreeObjectId = require("../Base/JThreeObjectWithID");
 import RendererBase = require("./Renderers/RendererBase");
-import GLExtensionManager = require('./GLExtensionManager');
-import Color4 = require('../Base/Color/Color4');
+import GLExtensionManager = require("./GLExtensionManager");
+import Color4 = require("../Base/Color/Color4");
 /**
  * Provides base interface for the classes managing GLcontext
  */

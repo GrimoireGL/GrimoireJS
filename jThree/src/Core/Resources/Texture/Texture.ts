@@ -1,8 +1,8 @@
-import TextureWrapper = require('./TextureWrapper');
-import ContextManagerBase = require('../../ContextManagerBase');
-import JThreeContext = require('../../JThreeContext');
-import TextureBase =require('./TextureBase');
-import TextureWrapperBase = require('./TextureWrapperBase');
+import TextureWrapper = require("./TextureWrapper");
+import ContextManagerBase = require("../../ContextManagerBase");
+import JThreeContext = require("../../JThreeContext");
+import TextureBase =require("./TextureBase");
+import TextureWrapperBase = require("./TextureWrapperBase");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 class Texture extends TextureBase

@@ -1,6 +1,6 @@
-import JThreeObject = require('./JThreeObject');
-import Delegates = require('../Base/Delegates');
-import Exceptions = require('../Exceptions');
+import JThreeObject = require("./JThreeObject");
+import Delegates = require("../Base/Delegates");
+import Exceptions = require("../Exceptions");
 /**
 * The class for implementing in Event-Driven architecture.
 */
@@ -30,7 +30,7 @@ class JThreeEvent<T> extends JThreeObject
   */
   public addListerner(handler:Delegates.Action2<any,T>):void
   {
-    if(typeof handler === 'undefined')throw new Exceptions.InvalidArgumentException("you can not add undefined as event handler");
+    if(typeof handler === "undefined")throw new Exceptions.InvalidArgumentException("you can not add undefined as event handler");
     this.eventHandlers.push(handler);
   }
 

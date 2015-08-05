@@ -1,4 +1,4 @@
-import CanvasManager = require('./CanvasManager');
+import CanvasManager = require("./CanvasManager");
 
 class CanvasSizeChangedEventArg
 {

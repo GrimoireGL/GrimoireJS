@@ -1,5 +1,5 @@
-import JThreeObjectWithID = require('../Base/JThreeObjectWithID');
-import Delegates = require('../Base/Delegates');
+import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
+import Delegates = require("../Base/Delegates");
 class TreeNodeBase extends JThreeObjectWithID
 {
 	constructor(elem:HTMLElement,parent?:TreeNodeBase)

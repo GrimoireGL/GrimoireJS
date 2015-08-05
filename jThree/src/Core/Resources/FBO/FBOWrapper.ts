@@ -1,10 +1,10 @@
 import ContextManagerBase = require("../../ContextManagerBase");
 import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
-import ResourceWrapper = require('../ResourceWrapper');
-import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
-import ClearTargetType = require('../../../Wrapper/ClearTargetType');
-import TextureBase = require('../Texture/TextureBase')
-import RBO = require('../RBO/RBO');
+import ResourceWrapper = require("../ResourceWrapper");
+import FrameBufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
+import ClearTargetType = require("../../../Wrapper/ClearTargetType");
+import TextureBase = require("../Texture/TextureBase")
+import RBO = require("../RBO/RBO");
 class FBOWrapper extends ResourceWrapper {
 
     constructor(renderer: ContextManagerBase) {
@@ -80,11 +80,11 @@ class FBOWrapper extends ResourceWrapper {
     clear(r: number, g: number, b: number, a: number, d?: number, s?: number) {
         this.bind();
         var clearFlag = 0;
-        if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined' && typeof a !== 'undefined') {
+        if (typeof r !== "undefined" && typeof g !== "undefined" && typeof b !== "undefined" && typeof a !== "undefined") {
             clearFlag = clearFlag | ClearTargetType.ColorBits;
             this.glContext.ClearColor(r, g, b, a);
         }
-        if (typeof d !== 'undefined') {
+        if (typeof d !== "undefined") {
             clearFlag = clearFlag | ClearTargetType.DepthBits;
             this.glContext.ClearDepth(d);
         }

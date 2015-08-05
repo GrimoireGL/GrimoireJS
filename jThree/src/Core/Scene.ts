@@ -1,11 +1,11 @@
 import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
-import JThreeEvent = require('../Base/JThreeEvent');
+import JThreeEvent = require("../Base/JThreeEvent");
 import RendererBase = require("./Renderers/RendererBase");
 import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
-import LightBase = require('./Light/LightBase')
-import Delegates =require('../Base/Delegates')
+import AssociativeArray = require("../Base/Collections/AssociativeArray");
+import LightBase = require("./Light/LightBase")
+import Delegates =require("../Base/Delegates")
 
 //シーン
 class Scene extends jThreeObjectWithID {

@@ -5,12 +5,12 @@ import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import Color4 = require("../../Base/Color/Color4");
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import Scene = require("../Scene");
+import ResolvedChainInfo = require("../Renderers/ResolvedChainInfo");
 declare function require(string): string;
 
 class LambertMaterial extends Material {
-  private color: Color4 = Color4.parseColor('#F0F');
+  private color: Color4 = Color4.parseColor("#F0F");
 
   get Color(): Color4 {
     return this.color;
@@ -22,8 +22,8 @@ class LambertMaterial extends Material {
   protected program: Program;
   constructor() {
     super();
-    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-    var fs = require('../Shaders/Lambert.glsl');
+    var vs = require("../Shaders/VertexShaders/BasicGeometries.glsl");
+    var fs = require("../Shaders/Lambert.glsl");
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.lambert", "jthree.programs.lambert", vs, fs);
     this.setLoaded();
   }

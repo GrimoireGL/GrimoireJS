@@ -36,7 +36,7 @@ class Color4 extends JThreeObject {
       return new Vector4(this.R,this.G,this.B,this.A);
     }
 
-    static colorTable: { [key: string]: string } = require('static/color.json');
+    static colorTable: { [key: string]: string } = require("static/color.json");
     ///Color parser for css like syntax
     static internalParse(color: string, isFirst: boolean): Color4 {
         if (isFirst && Color4.colorTable[color]) {

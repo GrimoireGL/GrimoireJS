@@ -1,13 +1,13 @@
-import RendererBase = require('../RendererBase');
-import SceneObject = require('../../SceneObject');
-import RenderStageBase = require('./RenderStageBase');
+import RendererBase = require("../RendererBase");
+import SceneObject = require("../../SceneObject");
+import RenderStageBase = require("./RenderStageBase");
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-import Scene = require('../../Scene');
-import Program = require('../../Resources/Program/Program');
-import Mesh = require('../../../Shapes/Mesh');
-import Matrix = require('../../../Math/Matrix');
-import ResolvedChainInfo = require('../ResolvedChainInfo');
-import agent = require('superagent');
+import Scene = require("../../Scene");
+import Program = require("../../Resources/Program/Program");
+import Mesh = require("../../../Shapes/Mesh");
+import Matrix = require("../../../Math/Matrix");
+import ResolvedChainInfo = require("../ResolvedChainInfo");
+import agent = require("superagent");
 
 declare function require(name: string): any;
 class GrayScaleStage extends RenderStageBase {
@@ -17,7 +17,7 @@ class GrayScaleStage extends RenderStageBase {
 
 	constructor(renderer: RendererBase) {
 		super(renderer);
-		var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
+		var vs = require("../../Shaders/VertexShaders/PostEffectGeometries.glsl");
 		agent.get("/GrayScale.glsl").end((err, res: agent.Response) => {
 			this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.post.gray", "jthree.programs.post.gray", vs, res.text);
 		});

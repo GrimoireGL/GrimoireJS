@@ -1,11 +1,11 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import GomlLoader = require("../../Goml/GomlLoader");
 import PMXNode = require("../../PMX/Goml/PMXNode");
-import PMXBone = require('../../PMX/Core/PMXBone');
-import VMDData = require('../Parser/VMDData');
-import Vector3 = require('../../Math/Vector3');
-import Quaternion = require('../../Math/Quaternion');
-import PMXMorph = require('../../PMX/Core/PMXMorph');
+import PMXBone = require("../../PMX/Core/PMXBone");
+import VMDData = require("../Parser/VMDData");
+import Vector3 = require("../../Math/Vector3");
+import Quaternion = require("../../Math/Quaternion");
+import PMXMorph = require("../../PMX/Core/PMXMorph");
 class VMDNode extends GomlTreeNodeBase
 {
 	private targetPMX: PMXNode;

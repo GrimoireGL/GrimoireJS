@@ -29,14 +29,14 @@ class GridGeometryNode extends GeometryNodeBase
 
   get HDiv():number
   {
-    this.hdiv=parseFloat(this.element.getAttribute('hdiv'));
+    this.hdiv=parseFloat(this.element.getAttribute("hdiv"));
     this.hdiv=this.hdiv||10;
     return this.hdiv;
   }
 
   get VDiv():number
   {
-    this.vdiv =parseFloat(this.element.getAttribute('vdiv'));
+    this.vdiv =parseFloat(this.element.getAttribute("vdiv"));
     this.vdiv=this.vdiv||10;
     return this.vdiv;
   }

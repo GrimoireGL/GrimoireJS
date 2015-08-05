@@ -1,8 +1,8 @@
-import ContextSafeResourceContainer = require('./../ContextSafeResourceContainer');
-import RBOWrapper = require('./RBOWrapper');
-import RBOInternalFormatType = require('../../../Wrapper/RBO/RBOInternalFormat');
-import ContextManagerBase = require('../../../Core/ContextManagerBase');
-import JThreeContext = require('../../../Core/JThreeContext')
+import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer");
+import RBOWrapper = require("./RBOWrapper");
+import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat");
+import ContextManagerBase = require("../../../Core/ContextManagerBase");
+import JThreeContext = require("../../../Core/JThreeContext")
 class RBO extends ContextSafeResourceContainer<RBOWrapper>
 {
 	constructor(context:JThreeContext,width:number,height:number,format:RBOInternalFormatType=RBOInternalFormatType.DepthComponent16)

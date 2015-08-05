@@ -1,5 +1,5 @@
-import Delegates = require('../Base/Delegates');
-import GomlAttribute = require('./GomlAttribute');
+import Delegates = require("../Base/Delegates");
+import GomlAttribute = require("./GomlAttribute");
 /**
  * The interface for declare attribute speciied in GOML.
  */

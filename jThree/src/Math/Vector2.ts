@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require('glm');
+import glm = require("glm");
 
 class Vector2 extends VectorBase{
 
@@ -13,7 +13,7 @@ class Vector2 extends VectorBase{
    
     constructor(x: number|glm.GLM.IArray, y?: number) {
         super();
-        if(typeof y ==='undefined')
+        if(typeof y ==="undefined")
         {
             this.targetVector=<glm.GLM.IArray>x;
             return;

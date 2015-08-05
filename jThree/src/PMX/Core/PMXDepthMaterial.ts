@@ -1,14 +1,14 @@
-import Material = require('../../Core/Materials/Material');
+import Material = require("../../Core/Materials/Material");
 import Program = require("../../Core/Resources/Program/Program");
 import RendererBase = require("../../Core/Renderers/RendererBase");
 import Geometry = require("../../Core/Geometries/Geometry");
 import SceneObject = require("../../Core/SceneObject");
 import Matrix = require("../../Math/Matrix");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
-import Scene = require('../../Core/Scene');
-import PMXMaterial = require('./PMXMaterial');
-import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
-import PMXGeometry = require('./PMXGeometry');
+import Scene = require("../../Core/Scene");
+import PMXMaterial = require("./PMXMaterial");
+import ResolvedChainInfo = require("../../Core/Renderers/ResolvedChainInfo");
+import PMXGeometry = require("./PMXGeometry");
 
 declare function require(string): string;
 /**
@@ -41,8 +41,8 @@ class PMXDepthMaterial extends Material {
     constructor(material:PMXMaterial) {
         super();
         this.associatedMaterial=material;
-        var vs = require('../Shader/PMXDepthVertex.glsl');
-        var fs = require('../Shader/PMXDepthFragment.glsl');
+        var vs = require("../Shader/PMXDepthVertex.glsl");
+        var fs = require("../Shader/PMXDepthFragment.glsl");
         this.program = this.loadProgram("jthree.shaders.vertex.pmx.depth", "jthree.shaders.fragment.pmx.depth", "jthree.programs.pmx.depth", vs, fs);
         this.setLoaded();
     }

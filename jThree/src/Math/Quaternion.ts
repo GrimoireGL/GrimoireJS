@@ -1,7 +1,7 @@
 import JThreeObject = require("../Base/JThreeObject");
 import Vector3 = require("./Vector3");
-import glm = require('glm');
-import Matrix = require('./Matrix');
+import glm = require("glm");
+import Matrix = require("./Matrix");
 /**
 * The class to maniplate quaternion.
 * Each element will be represented as (w;x,y,z)

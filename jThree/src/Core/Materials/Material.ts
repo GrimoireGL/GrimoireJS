@@ -3,12 +3,12 @@ import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
-import JThreeContextProxy = require('./../JThreeContextProxy');
+import JThreeContextProxy = require("./../JThreeContextProxy");
 import ShaderType = require("../../Wrapper/ShaderType");
-import Program = require('../Resources/Program/Program');
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
-import Geometry = require('../Geometries/Geometry')
+import Program = require("../Resources/Program/Program");
+import Scene = require("../Scene");
+import ResolvedChainInfo = require("../Renderers/ResolvedChainInfo");
+import Geometry = require("../Geometries/Geometry")
 declare function require(string): string;
 class Material extends JThreeObjectWithID {
     private defferedRb1Program: Program;
@@ -17,7 +17,7 @@ class Material extends JThreeObjectWithID {
     
     protected setLoaded(flag?:boolean)
     {
-        flag=typeof flag ==='undefined'?true:flag;
+        flag=typeof flag ==="undefined"?true:flag;
         this.loaded=flag;
     }
     /**
@@ -31,10 +31,10 @@ class Material extends JThreeObjectWithID {
     constructor() {
         super();
         var jThreeContext = JThreeContextProxy.getJThreeContext();
-        var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-        var fs = require('../Shaders/Deffered/RB1.glsl');
+        var vs = require("../Shaders/VertexShaders/BasicGeometries.glsl");
+        var fs = require("../Shaders/Deffered/RB1.glsl");
         this.defferedRb1Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb1","jthree.programs.rb1",vs,fs);
-        this.defferedRb2Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb2","jthree.program.rb2",vs,require('../Shaders/Deffered/RB2.glsl'));
+        this.defferedRb2Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb2","jthree.program.rb2",vs,require("../Shaders/Deffered/RB2.glsl"));
     }
 
     private priorty: number;

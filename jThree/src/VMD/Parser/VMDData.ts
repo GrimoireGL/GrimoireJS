@@ -1,11 +1,11 @@
-import VMDHeader = require('./VMDHeader');
-import VMDMotion = require('./VMDMotion');
-import VMDMorph = require('./VMDMorph');
-import VMDFrameData = require('./VMDFrameData');
-import VMDBoneStatus= require('./VMDBoneStatus');
-import Delegates = require('../../Base/Delegates');
-import VMDMorphStatus = require('./VMDMorphStatus');
-import glm = require('glm');
+import VMDHeader = require("./VMDHeader");
+import VMDMotion = require("./VMDMotion");
+import VMDMorph = require("./VMDMorph");
+import VMDFrameData = require("./VMDFrameData");
+import VMDBoneStatus= require("./VMDBoneStatus");
+import Delegates = require("../../Base/Delegates");
+import VMDMorphStatus = require("./VMDMorphStatus");
+import glm = require("glm");
 class VMDData {
 
 	public static LoadFromUrl(url: string, onComplete: Delegates.Action1<VMDData>) {
@@ -68,7 +68,7 @@ class VMDData {
 					rotation: [-r.getFloat32(),-r.getFloat32(), r.getFloat32(), r.getFloat32()],
 					interpolation: this.loadInterpolation()
 				};
-			if (typeof this.motions[frameName] === 'undefined') {
+			if (typeof this.motions[frameName] === "undefined") {
 				this.motions[frameName] = [];
 			}
 			this.motions[frameName].push(data);
@@ -87,7 +87,7 @@ class VMDData {
 					frameNumber: r.getUint32(),
 					morphValue: r.getFloat32()
 				};
-			if (typeof this.morphs[frameName] === 'undefined') {
+			if (typeof this.morphs[frameName] === "undefined") {
 				this.morphs[frameName] = [];
 			}
 			this.morphs[frameName].push(data);
@@ -154,7 +154,7 @@ class VMDData {
 	public getBoneFrame(frame:number,boneName:string):VMDBoneStatus
 	{
 		var frames = this.motions[boneName];
-		if(typeof frames === 'undefined')
+		if(typeof frames === "undefined")
 		{
 			return null;
 		}else
@@ -185,7 +185,7 @@ class VMDData {
 	public getMorphFrame(frame:number,morphName:string):VMDMorphStatus
 	{
 		var frames = this.morphs[morphName];
-		if(typeof frames === 'undefined')
+		if(typeof frames === "undefined")
 		{
 			return null;
 		}else

@@ -5,10 +5,10 @@ import BufferProxy = require("./BufferProxy");
 import ElementType = require("../../../Wrapper/ElementType");
 import BufferWrapper = require("./BufferWrapper");
 import JThreeContextProxy = require("../../JThreeContextProxy");
-import CanvasListChangedEventArgs = require('../../CanvasListChangedEventArgs');
+import CanvasListChangedEventArgs = require("../../CanvasListChangedEventArgs");
 import ListStateChangedType = require("../../ListStateChangedType");
-import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
-import JThreeContext = require('../../JThreeContext');
+import AssociativeArray = require("../../../Base/Collections/AssociativeArray");
+import JThreeContext = require("../../JThreeContext");
 class Buffer extends BufferProxy
 {
     static CreateBuffer(context:JThreeContext,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {

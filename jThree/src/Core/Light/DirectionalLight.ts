@@ -1,8 +1,8 @@
-import Vector3 = require('../../Math/Vector3');
-import LightBase = require('./LightBase');
-import Scene = require('../Scene');
-import Matrix = require('../../Math/Matrix');
-import DepthRenderStage = require('../Renderers/RenderStages/ShadowMaps/DirectionalShadowMapStage');
+import Vector3 = require("../../Math/Vector3");
+import LightBase = require("./LightBase");
+import Scene = require("../Scene");
+import Matrix = require("../../Math/Matrix");
+import DepthRenderStage = require("../Renderers/RenderStages/ShadowMaps/DirectionalShadowMapStage");
 class DirectionalLight extends LightBase {
 	constructor(scene: Scene) {
 		super(scene);

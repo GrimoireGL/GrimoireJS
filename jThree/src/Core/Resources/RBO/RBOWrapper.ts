@@ -1,6 +1,6 @@
-import ResourceWrapper = require('../ResourceWrapper');
-import ContextManagerBase = require('../../ContextManagerBase');
-import RBO = require('./RBO');
+import ResourceWrapper = require("../ResourceWrapper");
+import ContextManagerBase = require("../../ContextManagerBase");
+import RBO = require("./RBO");
 /**
  * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.
  * Most of user may have no reason to modify by themselves.

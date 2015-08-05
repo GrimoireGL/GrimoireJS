@@ -106,7 +106,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     get Cam():string
     {
-      this.cam=this.cam||this.element.getAttribute('cam');
+      this.cam=this.cam||this.element.getAttribute("cam");
       return this.cam;
     }
 

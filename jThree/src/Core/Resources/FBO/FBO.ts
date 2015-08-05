@@ -1,7 +1,7 @@
-import FBOWrapper = require('./FBOWrapper');
-import ContextSafeResourceContainer = require('./../ContextSafeResourceContainer');
-import JThreeContext = require('../../JThreeContext');
-import ContextManagerBase = require('../../ContextManagerBase');
+import FBOWrapper = require("./FBOWrapper");
+import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer");
+import JThreeContext = require("../../JThreeContext");
+import ContextManagerBase = require("../../ContextManagerBase");
 class FBO extends ContextSafeResourceContainer<FBOWrapper>
 {
 	constructor(context: JThreeContext) {

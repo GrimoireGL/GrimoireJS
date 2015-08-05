@@ -9,7 +9,7 @@ class AttributeParser extends jThreeObject
     var isDegree=input.match(/[0-9E/\(\)\.-]+d$/);
     var needPiMultiply=input.match(/[0-9E/\(\)\.-]+p/);
     //http://regexper.com/#%2F%5E%5B0-9E%2F%5C(%5C)%5C.-%5D%2Bp%3Fd%3F%24%2F
-    var replaced=input.replace(/^([0-9E/\(\)\.-]+)p?d?$/,'$1');
+    var replaced=input.replace(/^([0-9E/\(\)\.-]+)p?d?$/,"$1");
     var evalued=eval(replaced);
     if(isDegree!=null)
     {
@@ -24,16 +24,16 @@ class AttributeParser extends jThreeObject
 
   public static ParseRotation3D(input:string):Quaternion
   {
-    input = input.replace(/\s/g, '')
+    input = input.replace(/\s/g, "")
     if(input.match(/^[xyz]\(.+\)$/))
     {
       var signature=input.replace(/^([xyz])\(.+\)$/,"$1");
       var value=input.replace(/^[xyz]\((.+)\)$/,"$1");
       var angle=AttributeParser.ParseAngle(value);
-      if(signature=='x')
+      if(signature=="x")
       {
         return Quaternion.AngleAxis(angle,Vector3.XUnit);
-      }else if(signature=='y')
+      }else if(signature=="y")
       {
         return Quaternion.AngleAxis(angle,Vector3.YUnit);
       }else

@@ -1,4 +1,4 @@
-import glm=require('glm');
+import glm=require("glm");
 class VectorBase {
 
     private magnitudeSquaredCache: number = -1;

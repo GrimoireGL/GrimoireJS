@@ -20,7 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -606,6 +606,12 @@
     <TypeScriptCompile Include="src\PMX\Goml\PMXMorphNode.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\PMXMorphsNode.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\PMXNode.ts" />
+    <TypeScriptCompile Include="src\PMX\Joints\SpringJoint.ts" />
+    <TypeScriptCompile Include="src\PMX\Morphs\BoneMorph.ts" />
+    <TypeScriptCompile Include="src\PMX\Morphs\GroupMorph.ts" />
+    <TypeScriptCompile Include="src\PMX\Morphs\MaterialMorph.ts" />
+    <TypeScriptCompile Include="src\PMX\Morphs\UVMorph.ts" />
+    <TypeScriptCompile Include="src\PMX\Morphs\VertexMorph.ts" />
     <TypeScriptCompile Include="src\PMX\PMXBone.ts" />
     <TypeScriptCompile Include="src\PMX\PMXDisplayFrame.ts" />
     <TypeScriptCompile Include="src\PMX\PMXHeader.ts" />
@@ -667,6 +673,8 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
+    <TypeScriptSourceRoot>C:\jThree\jThree\jThree\src</TypeScriptSourceRoot>
+    <TypeScriptMapRoot>C:\jThree\jThree\jThree\src</TypeScriptMapRoot>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

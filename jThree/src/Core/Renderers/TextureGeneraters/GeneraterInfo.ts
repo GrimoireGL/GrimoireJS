@@ -1,4 +1,4 @@
-import GeneraterInfoChunk = require('./GeneraterInfoChunk');
+import GeneraterInfoChunk = require("./GeneraterInfoChunk");
 /**
  * Provides argument definition of declaration to generate textures.
  */

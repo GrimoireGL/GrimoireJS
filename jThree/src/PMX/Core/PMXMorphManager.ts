@@ -1,6 +1,6 @@
-import PMXMorph = require('./PMXMorph');
-import PMXModel = require('./PMXModel');
-import AssociativeArray = require('./../../Base/Collections/AssociativeArray');
+import PMXMorph = require("./PMXMorph");
+import PMXModel = require("./PMXModel");
+import AssociativeArray = require("./../../Base/Collections/AssociativeArray");
 class PMXMorphManager
 {
 	private morphs: PMXMorph[];

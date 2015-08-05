@@ -2,8 +2,8 @@ import jThreeObject = require("../../Base/JThreeObject");
 import Buffer = require("./../Resources/Buffer/Buffer");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import Vector3 = require("../../Math/Vector3");
-import ContextManagerBase = require('./../ContextManagerBase');
-import Material = require('./../Materials/Material');
+import ContextManagerBase = require("./../ContextManagerBase");
+import Material = require("./../Materials/Material");
 /**
  * Base abstraction for geometry.
  */

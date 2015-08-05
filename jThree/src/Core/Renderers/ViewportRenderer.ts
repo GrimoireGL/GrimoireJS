@@ -1,11 +1,11 @@
 import Rectangle = require("../../Math/Rectangle");
 import RendererBase = require("./RendererBase");
 import ContextManagerBase = require("./../ContextManagerBase");
-import RB1RenderStage = require('./RenderStages/RB1RenderStage');
-import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationStage');
-import FowardRenderStage = require('./RenderStages/FowardShadingStage');
-import JThreeContextProxy = require('../JThreeContextProxy');
-import RBDepthStage = require('./RenderStages/RBDepthStage');
+import RB1RenderStage = require("./RenderStages/RB1RenderStage");
+import LightAccumulationRenderStage = require("./RenderStages/LightAccumulationStage");
+import FowardRenderStage = require("./RenderStages/FowardShadingStage");
+import JThreeContextProxy = require("../JThreeContextProxy");
+import RBDepthStage = require("./RenderStages/RBDepthStage");
 class ViewPortRenderer extends RendererBase {
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {
         super(contextManager);

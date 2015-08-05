@@ -1,4 +1,4 @@
-import RenderStage = require('./RenderStages/RenderStageBase');
+import RenderStage = require("./RenderStages/RenderStageBase");
 interface RenderStageChain {
 	buffers: {
 		[name: string]: string

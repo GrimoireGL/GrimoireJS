@@ -25,10 +25,10 @@ class Color3AttributeConverter extends AttributeConverterBase
 
   public FromInterface(val:any):any
   {
-    if(typeof val === 'string')
+    if(typeof val === "string")
     {
       return Color3.parseColor(val);
-    }else if(typeof val === 'object')
+    }else if(typeof val === "object")
     {
       return val;
     }

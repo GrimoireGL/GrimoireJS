@@ -1,6 +1,6 @@
-import JThreeObject = require('../Base/JThreeObject');
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
-import GLContextWrapperBase = require('../Wrapper/GLContextWrapperBase');
+import JThreeObject = require("../Base/JThreeObject");
+import AssociativeArray = require("../Base/Collections/AssociativeArray");
+import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 class GLExtensionManager extends JThreeObject
 {
 	private requiredExtensions:string[]=["WEBGL_draw_buffers","WEBGL_depth_texture","OES_element_index_uint","OES_texture_float"];

@@ -103,7 +103,7 @@ class JThreeInterface extends JThreeObject {
   }
 
   private static getNode(elem: HTMLElement): GomlTreeNodeBase {
-    var id = elem.getAttribute('x-j3-id');
+    var id = elem.getAttribute("x-j3-id");
     return JThreeInterface.Context.GomlLoader.getNode(id);
   }
 

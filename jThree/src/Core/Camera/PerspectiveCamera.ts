@@ -1,4 +1,4 @@
-import ViewCamera=require('./ViewCameraBase');
+import ViewCamera=require("./ViewCameraBase");
 import Matrix = require("../../Math/Matrix");
 class PerspectiveCamera extends ViewCamera
 {

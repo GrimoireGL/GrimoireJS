@@ -13,12 +13,12 @@ class BooleanAttributeConverter extends AttributeConverterBase
 
   public FromAttribute(attr:string):any
   {
-    return attr === 'true';
+    return attr === "true";
   }
 
   public FromInterface(val:any):any
   {
-    if(typeof val === 'boolean')return val;
+    if(typeof val === "boolean")return val;
     return this.FromAttribute(val);
   }
 }

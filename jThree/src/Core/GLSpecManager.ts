@@ -1,5 +1,5 @@
-import JThreeContextProxy = require('./JThreeContextProxy');
-import GetParameterType = require('../Wrapper/GetParameterType');
+import JThreeContextProxy = require("./JThreeContextProxy");
+import GetParameterType = require("../Wrapper/GetParameterType");
 class GLSpecManager
 {
 	private static get Context()

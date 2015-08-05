@@ -1,8 +1,8 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import Delegates = require('../../../Base/Delegates');
-import GomlAttribute = require('../../GomlAttribute');
-import AttributeDeclaration = require('../../AttributeDeclaration');
+import Delegates = require("../../../Base/Delegates");
+import GomlAttribute = require("../../GomlAttribute");
+import AttributeDeclaration = require("../../AttributeDeclaration");
 class ComponentNode extends GomlTreeNodeBase
 {
   private static ignoreNode:string[]=["name","cachedOrder","cachedEnabled","children","parent","loader","element"];
@@ -18,15 +18,15 @@ class ComponentNode extends GomlTreeNodeBase
         if(component)
         {
           //load d`efault value of component
-          if(typeof component.order !== 'undefined')this.cachedOrder=component.order;
-          if(typeof component.enabled !== 'undefined')var componentEnabled=component.enabled;
+          if(typeof component.order !== "undefined")this.cachedOrder=component.order;
+          if(typeof component.enabled !== "undefined")var componentEnabled=component.enabled;
             else
             componentEnabled=true;
-          if(typeof component.awake === 'function')this.awakeDelegate=component.awake;
-          if(typeof component.update === 'function')this.updateDelegate=component.update;
-          if(typeof component.start === 'function')this.startDelegate=component.start;
-          if(typeof component.onEnabled === 'function')this.onEnabledDelegate=component.onEnabled;
-          if(typeof component.onDisabled === 'function')this.onDisabledDelegate = component.onDisabled;
+          if(typeof component.awake === "function")this.awakeDelegate=component.awake;
+          if(typeof component.update === "function")this.updateDelegate=component.update;
+          if(typeof component.start === "function")this.startDelegate=component.start;
+          if(typeof component.onEnabled === "function")this.onEnabledDelegate=component.onEnabled;
+          if(typeof component.onDisabled === "function")this.onDisabledDelegate = component.onDisabled;
           //define component
           this.attributes.defineAttribute(
             {
@@ -34,7 +34,7 @@ class ComponentNode extends GomlTreeNodeBase
                 converter:"boolean",
                 value:componentEnabled,
                 handler:(v)=>{//when enabled attribute changed
-                  if(v.Value===this.enabled&&typeof v.Value === 'undefined'){
+                  if(v.Value===this.enabled&&typeof v.Value === "undefined"){
                     this.cachedEnabled=true;
                     this.onEnabled(this.componentTarget);
                   }
