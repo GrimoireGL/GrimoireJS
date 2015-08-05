@@ -124,7 +124,7 @@ class VMDData {
 	private binaryframeSearch(source: VMDFrameData[], frame: number) {
 		var minIndex = 0;
 		var maxIndex = source.length - 1;
-		var currentIndex;
+		var currentIndex=-1;
 		var currentElement: VMDFrameData;
 		if (source.length == 1) return 0;
 		while (minIndex <= maxIndex) {
@@ -146,9 +146,8 @@ class VMDData {
 			else {
 				return currentIndex;
 			}
-		}
-
-		return -1;
+        }
+		return currentIndex;
 	}
 
 	public getBoneFrame(frame:number,boneName:string):VMDBoneStatus
@@ -163,7 +162,7 @@ class VMDData {
 			if(index+1<frames.length)
 			{
 				var nextFrame = frames[index + 1];
-				var currentFrame = frames[index];
+			    var currentFrame = frames[index];
 				var progress = (frame-currentFrame.frameNumber)/(nextFrame.frameNumber-currentFrame.frameNumber);
 				return {
 					frameNumber:frame,
@@ -194,7 +193,15 @@ class VMDData {
 			if(index+1<frames.length)
 			{
 				var nextFrame = frames[index + 1];
-				var currentFrame = frames[index];
+                var currentFrame = frames[index];
+                if (typeof nextFrame === 'undefined') {
+                    console.warn(`nextFrame is undefined at index ${index+1}`);
+                }
+                if (typeof currentFrame === 'undefined')
+                {
+                    console.warn(`currentFrame is undefined at index ${index}`);
+                    console.log(frames);
+                }
 				var progress = (frame-currentFrame.frameNumber)/(nextFrame.frameNumber-currentFrame.frameNumber);
 				return {
 					frameNumber:frame,
