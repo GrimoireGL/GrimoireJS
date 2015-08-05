@@ -48,7 +48,7 @@ tsd reinstall
 bower install
 ```
 
-**That is all you need to do!**
+**That is all you need to do for preparation!**
 Then, you can run server and build files with following command.
 ```shell
 gulp watch
