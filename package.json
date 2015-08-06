@@ -28,7 +28,8 @@
     "start": "./node_modules/.bin/gulp --require coffee-script/register server",
     "build": "./node_modules/.bin/gulp --require coffee-script/register build",
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
-    "test": "./node_modules/.bin/gulp --require coffee-script/register test"
+    "test": "./node_modules/.bin/gulp --require coffee-script/register test",
+    "doc" : "./node_modules/.bin/gulp --require coffee-script/register doc"
   },
   "devDependencies": {
     "bower": "^1.4.1",
