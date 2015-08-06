@@ -29,13 +29,14 @@
     "build": "./node_modules/.bin/gulp --require coffee-script/register build",
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "./node_modules/.bin/gulp --require coffee-script/register test",
-    "doc" : "./node_modules/.bin/gulp --require coffee-script/register doc"
+    "doc": "./node_modules/.bin/gulp --require coffee-script/register doc"
   },
   "devDependencies": {
     "bower": "^1.4.1",
     "bower-webpack-plugin": "^0.1.8",
     "chai": "^3.2.0",
     "coffee-gulp": "0.0.2",
+    "coffee-script": "^1.9.3",
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
     "gulp-coffee": "^2.3.1",
