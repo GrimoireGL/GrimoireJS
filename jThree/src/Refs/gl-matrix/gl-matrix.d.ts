@@ -6,7 +6,7 @@ declare module "glm"
 {
 
     export module GLM {
-        interface IArray {
+        export interface IArray {
             /**
              * Must be indexable like an array
              */

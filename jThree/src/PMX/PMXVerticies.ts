@@ -1,3 +1,5 @@
+import PmxVertex = require("PMXVertex");
+
 interface PMXVerticies
 {
 	positions:number[];
@@ -7,19 +9,7 @@ interface PMXVerticies
 	edgeScaling:Float32Array;
 	boneIndicies:Float32Array;
 	boneWeights:Float32Array;
-	verticies:PMXVertex[];
+	verticies:PmxVertex[];
 }
-
-interface PMXVertex
-{
-	weightTransform:number;
-	sdef?:SDEF;
-}
-
-interface SDEF
-{
-	boneParams:number[];//0-2:C,3-5:R0,6-8:R1
-}
-
 
 export = PMXVerticies;

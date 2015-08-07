@@ -18,20 +18,8 @@ import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachme
 import TargetTextureType = require('../../../Wrapper/TargetTextureType');
 import GLSpecManager = require('../../GLSpecManager');
 import PixelStoreParamType = require('../../../Wrapper/Texture/PixelStoreParamType');
-
-interface FBOBindData {
-	texture: TextureBase|RBO;
-	target: string|number;
-	isOptional?: boolean;
-    type?: string;
-}
-
-interface RenderStageConfig {
-	cullFace?: boolean;
-	cullFront?: boolean;
-	depthTest?: boolean;
-	texYFlip?:boolean;
-}
+import FboBindData = require("../FBOBindData");
+import RenderStageConfig = require("../RenderStageConfig");
 
 class RenderStageBase extends JThreeObject {
 	private renderer: RendererBase;
@@ -138,7 +126,7 @@ class RenderStageBase extends JThreeObject {
         return rm.createProgram(pid, [vShader, fShader]);
     }
 
-	protected bindAsOutBuffer(fbo: FBO, bindInfo: FBOBindData[], onBind: Delegates.Action0, onDefaultBuffer?: Delegates.Action0) {
+	protected bindAsOutBuffer(fbo: FBO, bindInfo: FboBindData[], onBind: Delegates.Action0, onDefaultBuffer?: Delegates.Action0) {
 		var shouldBeDefault = false;
 		var targetWrapper = fbo.getForContext(this.Renderer.ContextManager);
 		bindInfo.forEach(v=> {
@@ -169,7 +157,7 @@ class RenderStageBase extends JThreeObject {
 		}
 	}
 
-	private attachToWrapper(v: FBOBindData, targetWrapper: FBOWrapper, targetAttachment: FrameBufferAttachmentType) {
+	private attachToWrapper(v: FboBindData, targetWrapper: FBOWrapper, targetAttachment: FrameBufferAttachmentType) {
 		if (!v.type || v.type == "texture") {
 			targetWrapper.attachTexture(targetAttachment, <TextureBase>v.texture);
 		} else if (v.type = "rbo") {
