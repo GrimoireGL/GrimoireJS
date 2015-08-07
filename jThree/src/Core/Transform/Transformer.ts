@@ -127,32 +127,32 @@ class Transformer extends JThreeObject {
   /**
    * Get accessor for the matrix providing the transform Local space into Global space.
    */
-  get LocalToGlobal(): Matrix {
+    public get LocalToGlobal(): Matrix {
     return this.localToGlobal;
   }
   /**
    * Get accessor for model rotation.
    */
-  get Rotation(): Quaternion {
+    public get Rotation(): Quaternion {
     return this.rotation;
   }
   /**
    * Set accessor for model rotation.
    */
-  set Rotation(quat: Quaternion) {
+    public set Rotation(quat: Quaternion) {
     this.rotation = quat;
     this.updateTransform();
   }
   /**
    * Get Accessor for model position.
    */
-  get Position(): Vector3 {
+    public get Position(): Vector3 {
     return this.position;
   }
   /**
    * Set Accessor for model position.
    */
-  set Position(vec: Vector3) {
+    public set Position(vec: Vector3) {
     this.position = vec;
     this.updateTransform();
   }
@@ -160,24 +160,24 @@ class Transformer extends JThreeObject {
   /**
    * Get Accessor for model scale.
    */
-  get Scale(): Vector3 {
+    public get Scale(): Vector3 {
     return this.scale;
   }
   
   /**
    * Set Accessor for model scale.
    */
-  set Scale(vec: Vector3) {
+    public set Scale(vec: Vector3) {
     this.scale = vec;
     this.updateTransform();
   }
 
-  get LocalOrigin():Vector3
+    public get LocalOrigin():Vector3
   {
     return this.localOrigin;
   }
 
-  set LocalOrigin(origin:Vector3)
+    public set LocalOrigin(origin:Vector3)
   {
     this.localOrigin = origin;
     this.updateTransform();

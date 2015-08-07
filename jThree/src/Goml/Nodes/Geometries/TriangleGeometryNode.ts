@@ -19,7 +19,7 @@ class GomlTreeTriNode extends GeometryNodeBase
     return this.TriGeometry=new TriangleGeometry(this.Name);
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
     this.TriGeometry.First=this.First;
@@ -28,20 +28,23 @@ class GomlTreeTriNode extends GeometryNodeBase
   }
 
   private first:Vector3;
-  get First():Vector3{
+
+    public get First():Vector3{
     this.first=this.first||Vector3.parse(this.element.getAttribute('first')||"(-1,0,0)");
     return this.first;
   }
 
   private second:Vector3;
-  get Second():Vector3
+
+    public get Second():Vector3
   {
     this.second=this.second||Vector3.parse(this.element.getAttribute('second')||"(0,1,0)");
     return this.second;
   }
 
   private third:Vector3;
-  get Third():Vector3
+
+    public get Third():Vector3
   {
     this.third=this.third||Vector3.parse(this.element.getAttribute('third')||"(1,0,0)");
     return this.third;

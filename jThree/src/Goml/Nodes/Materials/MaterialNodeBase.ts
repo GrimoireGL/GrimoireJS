@@ -23,7 +23,7 @@ class MaterialNodeBase extends GomlTreeNodeBase
         });
     }
 
-    beforeLoad()
+    public beforeLoad()
     {
       this.targetMaterial=this.ConstructMaterial();
       this.loader.nodeRegister.addObject("jthree.materials",this.Name,this);
@@ -35,7 +35,7 @@ class MaterialNodeBase extends GomlTreeNodeBase
     * GOML Attribute
     * Identical Name for camera
     */
-    get Name():string{
+    public get Name():string{
       this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
       return this.name;
     }

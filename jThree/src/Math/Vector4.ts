@@ -55,105 +55,104 @@ class Vector4 extends VectorBase
         return this.multiplyWith(1 / this.magnitude);
     }
 
-    get X() {
+    public get X() {
         return this.targetVector[0];
     }
 
-    get Y() {
+    public get Y() {
         return this.targetVector[1];
     }
 
-    get Z() {
+    public get Z() {
         return this.targetVector[2];
     }
 
-    get W() {
+    public get W() {
         return this.targetVector[3];
     }
 
-    set X(x:number) {
+    public set X(x:number) {
         this.targetVector[0] = x;
     }
 
-    set Y(y: number)
+    public set Y(y: number)
     {
         this.targetVector[1] = y;
     }
 
-    set Z(z: number)
+    public set Z(z: number)
     {
         this.targetVector[2] = z;
     }
 
-    set W(w: number)
+    public set W(w: number)
     {
         this.targetVector[3] = w;
     }
 
-    static dot(v1: Vector4, v2: Vector4) {
+    public static dot(v1: Vector4, v2: Vector4) {
         return glm.vec4.dot(v1.targetVector,v2.targetVector);
     }
 
-    static add(v1: Vector4, v2: Vector4): Vector4 {
+    public static add(v1: Vector4, v2: Vector4): Vector4 {
         var newVec=glm.vec4.create();
         return new Vector4(glm.vec4.add(newVec,v1.targetVector,v2.targetVector));
     }
 
-    static subtract(v1: Vector4, v2: Vector4): Vector4 {
+    public static subtract(v1: Vector4, v2: Vector4): Vector4 {
         var newVec=glm.vec4.create();
         return new Vector4(glm.vec4.sub(newVec,v1.targetVector,v2.targetVector));
     }
 
-    static multiply(s: number, v: Vector4): Vector4 {
+    public static multiply(s: number, v: Vector4): Vector4 {
         var newVec=glm.vec4.create();
         return new Vector4(glm.vec4.scale(newVec,v.targetVector,s));
     }
 
-    static negate(v1: Vector4): Vector4 {
+    public static negate(v1: Vector4): Vector4 {
         return Vector4.multiply(-1,v1);
     }
 
-    static equal(v1: Vector4, v2: Vector4): boolean {
+    public static equal(v1: Vector4, v2: Vector4): boolean {
         return VectorBase.elementEqual(v1, v2);
     }
 
-    static normalize(v1: Vector4): Vector4 {
+    public static normalize(v1: Vector4): Vector4 {
         var newVec=glm.vec4.create();
         return new Vector4(glm.vec4.normalize(newVec,v1.targetVector));
     }
 
-    normalizeThis(): Vector4 {
+    public normalizeThis(): Vector4 {
         return Vector4.normalize(this);
     }
 
-    dotWith(v: Vector4): number {
+    public dotWith(v: Vector4): number {
         return Vector4.dot(this, v);
     }
 
-    addWith(v: Vector4): Vector4 {
+    public addWith(v: Vector4): Vector4 {
         return Vector4.add(this, v);
     }
 
-    subtractWith(v: Vector4): Vector4 {
+    public subtractWith(v: Vector4): Vector4 {
         return Vector4.subtract(v, this);
     }
 
-    multiplyWith(s: number): Vector4 {
+    public multiplyWith(s: number): Vector4 {
         return Vector4.multiply(s, this);
     }
 
-    negateThis(): Vector4 {
+    public negateThis(): Vector4 {
         return Vector4.negate(this);
     }
 
-    equalWith(v: Vector4): boolean {
+    public equalWith(v: Vector4): boolean {
         return Vector4.equal(this, v);
     }
 
+    public get ElementCount(): number { return 4; }
 
-    get ElementCount(): number { return 4; }
-
-    toString(): string {
+    public toString(): string {
         return `Vector4(${this.X}, ${this.Y}, ${this.Z},${this.W})`;
     }
 

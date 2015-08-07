@@ -6,7 +6,7 @@ import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material');
 class LambertNode extends MaterialNodeBase
 {
-    material:Lambert;
+    public material:Lambert;
 
     constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
@@ -25,7 +25,7 @@ class LambertNode extends MaterialNodeBase
       return this.material;
     }
 
-    beforeLoad()
+    public beforeLoad()
     {
       super.beforeLoad();
     }

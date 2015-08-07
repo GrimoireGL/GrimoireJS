@@ -39,64 +39,64 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl = gl;
   }
 
-  CheckErrorAsFatal(): void {
+    public CheckErrorAsFatal(): void {
    // var ec = this.gl.getError();
     // if (ec !== WebGLRenderingContext.NO_ERROR) {
     //   console.error(`WebGL error was occured:${ec}`);
     // }
   }
 
-  CreateBuffer(): WebGLBuffer {
+    public CreateBuffer(): WebGLBuffer {
     this.CheckErrorAsFatal();
     return this.gl.createBuffer();
   }
 
-  BindBuffer(target: BufferTargetType, buffer: WebGLBuffer): void {
+    public BindBuffer(target: BufferTargetType, buffer: WebGLBuffer): void {
     this.CheckErrorAsFatal();
     this.gl.bindBuffer(target, buffer);
   }
 
-  UnbindBuffer(target: BufferTargetType): void {
+    public UnbindBuffer(target: BufferTargetType): void {
     this.CheckErrorAsFatal();
     this.gl.bindBuffer(target, null);
   }
 
-  DeleteBuffer(target: WebGLBuffer): void {
+    public DeleteBuffer(target: WebGLBuffer): void {
     this.CheckErrorAsFatal();
     this.gl.deleteBuffer(target);
   }
 
-  BufferData(target: BufferTargetType, array: ArrayBuffer, usage: number): void {
+    public BufferData(target: BufferTargetType, array: ArrayBuffer, usage: number): void {
     this.CheckErrorAsFatal();
     this.gl.bufferData(target, array, usage);
   }
 
-  ClearColor(red: number, green: number, blue: number, alpha: number): void {
+    public ClearColor(red: number, green: number, blue: number, alpha: number): void {
     this.CheckErrorAsFatal();
     this.gl.clearColor(red, green, blue, alpha);
   }
 
-  Clear(mask: ClearTargetType): void {
+    public Clear(mask: ClearTargetType): void {
     this.CheckErrorAsFatal();
     this.gl.clear(mask);
   }
 
-  CreateShader(flag: ShaderType): WebGLShader {
+    public CreateShader(flag: ShaderType): WebGLShader {
     this.CheckErrorAsFatal();
     return this.gl.createShader(flag);
   }
 
-  DeleteShader(shader: WebGLShader): void {
+    public DeleteShader(shader: WebGLShader): void {
     this.CheckErrorAsFatal();
     this.gl.deleteShader(shader);
   }
 
-  ShaderSource(shader: WebGLShader, src: string): void {
+    public ShaderSource(shader: WebGLShader, src: string): void {
     this.CheckErrorAsFatal();
     this.gl.shaderSource(shader, src);
   }
 
-  CompileShader(shader: WebGLShader): void {
+    public CompileShader(shader: WebGLShader): void {
     this.CheckErrorAsFatal();
     this.gl.compileShader(shader);
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
@@ -107,17 +107,17 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     }
   }
 
-  CreateProgram(): WebGLProgram {
+    public CreateProgram(): WebGLProgram {
     this.CheckErrorAsFatal();
     return this.gl.createProgram();
   }
 
-  AttachShader(program: WebGLProgram, shader: WebGLShader): void {
+    public AttachShader(program: WebGLProgram, shader: WebGLShader): void {
     this.CheckErrorAsFatal();
     this.gl.attachShader(program, shader);
   }
 
-  LinkProgram(program: WebGLProgram): void {
+    public LinkProgram(program: WebGLProgram): void {
     this.CheckErrorAsFatal();
     this.gl.linkProgram(program);
     if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
@@ -127,49 +127,49 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     }
   }
 
-  UseProgram(program: WebGLProgram): void {
+    public UseProgram(program: WebGLProgram): void {
     this.gl.useProgram(program);
   }
 
-  GetAttribLocation(program: WebGLProgram, name: string): number {
+    public GetAttribLocation(program: WebGLProgram, name: string): number {
     return this.gl.getAttribLocation(program, name);
   }
 
-  EnableVertexAttribArray(attribNumber: number): void {
+    public EnableVertexAttribArray(attribNumber: number): void {
     this.gl.enableVertexAttribArray(attribNumber);
   }
 
-  VertexAttribPointer(attribLocation: number, sizePerVertex: number, elemType: ElementType, normalized: boolean, stride: number, offset: number): void {
+    public VertexAttribPointer(attribLocation: number, sizePerVertex: number, elemType: ElementType, normalized: boolean, stride: number, offset: number): void {
     this.gl.vertexAttribPointer(attribLocation, sizePerVertex, elemType, normalized, stride, offset);
   }
 
-  DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void {
+    public DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void {
     this.CheckErrorAsFatal();
     this.gl.drawArrays(drawType, offset, length);
   }
 
-  Flush(): void {
+    public Flush(): void {
     this.CheckErrorAsFatal();
     this.gl.flush();
   }
 
-  Finish(): void {
+    public Finish(): void {
     this
       .CheckErrorAsFatal();
     this.gl.finish();
   }
 
-  DeleteProgram(target: WebGLProgram): void {
+    public DeleteProgram(target: WebGLProgram): void {
     this.CheckErrorAsFatal();
     this.gl.deleteProgram(target);
   }
 
-  GetUniformLocation(target: WebGLProgram, name: string): WebGLUniformLocation {
+    public GetUniformLocation(target: WebGLProgram, name: string): WebGLUniformLocation {
     this.CheckErrorAsFatal();
     return this.gl.getUniformLocation(target, name);
   }
 
-  UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix) {
+    public UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix) {
     this.gl.uniformMatrix4fv(webGlUniformLocation, false, matrix.rawElements);
   }
 
@@ -178,7 +178,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector: Vector2) {
+    public UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector: Vector2) {
     this.gl.uniform2f(webGlUniformLocation, vector.X, vector.Y);
   }
 
@@ -187,25 +187,25 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector: Vector3) {
+    public UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector: Vector3) {
     this.gl.uniform3f(webGlUniformLocation, vector.X, vector.Y, vector.Z);
   }
 
-  Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void {
+    public Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void {
     this.gl.uniform1i(webGlUniformLocation, num);
   }
 
-  Enable(feature: GLFeatureType): void {
+    public Enable(feature: GLFeatureType): void {
     this.CheckErrorAsFatal();
     this.gl.enable(feature);
   }
 
-  Disable(feature: GLFeatureType): void {
+    public Disable(feature: GLFeatureType): void {
     this.CheckErrorAsFatal();
     this.gl.disable(feature);
   }
 
-  CullFace(cullMode: GLCullMode): void {
+    public CullFace(cullMode: GLCullMode): void {
     this.CheckErrorAsFatal();
     this.gl.cullFace(cullMode);
   }
@@ -214,44 +214,45 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector: Vector4) {
+    public UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector: Vector4) {
     this.gl.uniform4f(webGlUniformLocation, vector.X, vector.Y, vector.Z, vector.W);
   }
 
-  ViewPort(x: number, y: number, width: number, height: number): void {
+    public ViewPort(x: number, y: number, width: number, height: number): void {
     this.CheckErrorAsFatal();
     this.gl.viewport(x, y, width, height);
   }
 
-  DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void {
+    public DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void {
     this.gl.drawElements(topology, length, dataType, offset);
   }
 
-  CreateFrameBuffer(): WebGLFramebuffer {
+    public CreateFrameBuffer(): WebGLFramebuffer {
     this.CheckErrorAsFatal();
     return this.gl.createFramebuffer();
   }
 
-  BindFrameBuffer(fbo: WebGLFramebuffer): void {
+    public BindFrameBuffer(fbo: WebGLFramebuffer): void {
     this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, fbo);
   }
 
-  FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
+    public FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
     this.CheckErrorAsFatal();
     this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, fboTarget,this.gl.TEXTURE_2D, tex, 0);
   }
-  CreateTexture(): WebGLTexture {
+
+    public CreateTexture(): WebGLTexture {
     this.CheckErrorAsFatal();
     return this.gl.createTexture();
   }
-  
-  PixelStorei(pname:PixelStoreParamType,value:number)
+
+    public PixelStorei(pname:PixelStoreParamType,value:number)
   {
     this.CheckErrorAsFatal();
     this.gl.pixelStorei(pname,value);
   }
 
-  TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{
+    public TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{
     this.CheckErrorAsFatal();
     if(type)
     {//void texImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, ArrayBufferView? pixels)
@@ -263,41 +264,39 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     }
   }
 
-
-  BindTexture(targetTexture: TargetTextureType, texture: WebGLTexture): void {
+    public BindTexture(targetTexture: TargetTextureType, texture: WebGLTexture): void {
     this.gl.bindTexture(targetTexture, texture);
   }
 
-  GenerateMipmap(targetTexture: TargetTextureType): void {
+    public GenerateMipmap(targetTexture: TargetTextureType): void {
     this.CheckErrorAsFatal();
     this.gl.generateMipmap(targetTexture);
   }
 
-  TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
+    public TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
     this.CheckErrorAsFatal();
     this.gl.texParameteri(targetTexture, param, value);
   }
 
-  ActiveTexture(textureRegister: TextureRegister) {
+    public ActiveTexture(textureRegister: TextureRegister) {
     this.gl.activeTexture(textureRegister);
   }
 
-
-  CreateRenderBuffer(): WebGLRenderbuffer {
+    public CreateRenderBuffer(): WebGLRenderbuffer {
     this.CheckErrorAsFatal();
     return this.gl.createRenderbuffer();
   }
 
-  BindRenderBuffer(bindTarget: WebGLRenderbuffer): void {
+    public BindRenderBuffer(bindTarget: WebGLRenderbuffer): void {
     this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, bindTarget);
   }
 
-  RenderBufferStorage(internalFormat: RenderBufferInternalFormats, width: number, height: number): void {
+    public RenderBufferStorage(internalFormat: RenderBufferInternalFormats, width: number, height: number): void {
     this.CheckErrorAsFatal();
     this.gl.renderbufferStorage(this.gl.RENDERBUFFER, internalFormat, width, height);
   }
 
-  FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
+    public FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
     this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer)
   }
   
@@ -306,7 +305,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
+    public UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
     var arr=new Array(vector.length*2);
     for(var i=0;i<vector.length;i++)
     {
@@ -321,7 +320,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[]) {
+    public UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[]) {
     var arr=new Array(vector.length*3);
     for(var i=0;i<vector.length;i++)
     {
@@ -337,7 +336,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[]) {
+    public UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[]) {
     var arr=new Array(vector.length*4);
     for(var i=0;i<vector.length;i++)
     {
@@ -348,42 +347,42 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     }
     this.gl.uniform4fv(webGlUniformLocation,new Float32Array(arr));
   }
-  
-  Uniform1f(webglUniformLocation:WebGLUniformLocation,num:number)
+
+    public Uniform1f(webglUniformLocation:WebGLUniformLocation,num:number)
   {
     this.gl.uniform1f(webglUniformLocation,num);
   }
-  
-  IsTexture(tex: WebGLTexture): boolean {
+
+    public IsTexture(tex: WebGLTexture): boolean {
     return this.gl.isTexture(tex);
   }
-  
-    DeleteTexture(tex:WebGLTexture)
+
+    public DeleteTexture(tex:WebGLTexture)
   {
     this.gl.deleteTexture(tex);
   }
-  
-  ClearDepth(depth:number)
+
+    public ClearDepth(depth:number)
   {
     this.gl.clearDepth(depth);
   }
-  
-  BlendFunc(b1:BlendFuncParamType,b2:BlendFuncParamType)
+
+    public BlendFunc(b1:BlendFuncParamType,b2:BlendFuncParamType)
   {
     this.gl.blendFunc(b1,b2);
   }
-  
-    DepthFunc(func:DepthFuncType)
+
+    public DepthFunc(func:DepthFuncType)
   {
     this.gl.depthFunc(func); 
   }
-  
-  BlendEquation(eq:BlendEquationType)
+
+    public BlendEquation(eq:BlendEquationType)
   {
     this.gl.blendEquation(eq);
   }
 
-    GetParameter(type:GetParameterType)
+    public GetParameter(type:GetParameterType)
   {
     return this.gl.getParameter(type);  
   }

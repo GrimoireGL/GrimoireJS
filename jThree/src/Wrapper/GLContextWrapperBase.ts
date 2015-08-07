@@ -34,14 +34,14 @@ class GLContextWrapperBase extends JThreeObject {
   /**
    * Check gl error, and abort if error has been occured.
    */
-  CheckErrorAsFatal(): void {
+    public CheckErrorAsFatal(): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Create WebGLBuffer
    * @returns {The new buffer reference that has been created.}
    */
-  CreateBuffer(): WebGLBuffer {
+    public CreateBuffer(): WebGLBuffer {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -49,7 +49,7 @@ class GLContextWrapperBase extends JThreeObject {
    * @param target target buffer you want to bind
    * @param buffer the buffer you want to bind
    */
-  BindBuffer(target: BufferTargetType, buffer: WebGLBuffer): void {
+    public BindBuffer(target: BufferTargetType, buffer: WebGLBuffer): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -58,14 +58,14 @@ class GLContextWrapperBase extends JThreeObject {
    * @param array data source array
    * @param usage type how to use data source
    */
-  BufferData(target: BufferTargetType, array: ArrayBuffer, usage: number): void {
+    public BufferData(target: BufferTargetType, array: ArrayBuffer, usage: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Unbind buffer
    * @param target the buffer type you want to unbind
    */
-  UnbindBuffer(target: BufferTargetType): void {
+    public UnbindBuffer(target: BufferTargetType): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
@@ -76,14 +76,14 @@ class GLContextWrapperBase extends JThreeObject {
    * @param blue blue color value [0,1]
    * @param alpha alpha color value [0,1]
    */
-  ClearColor(red: number, green: number, blue: number, alpha: number): void {
+    public ClearColor(red: number, green: number, blue: number, alpha: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Clear buffers
    * @param mask type of buffer you want to clear
    */
-  Clear(mask: ClearTargetType): void {
+    public Clear(mask: ClearTargetType): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -91,14 +91,14 @@ class GLContextWrapperBase extends JThreeObject {
    * @param flag the shader type you want to create
    * @returns {new shader}
    */
-  CreateShader(flag: ShaderType): WebGLShader {
+    public CreateShader(flag: ShaderType): WebGLShader {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Delete passed shader
    * @param shader the shader you want to delete
    */
-  DeleteShader(shader: WebGLShader): void {
+    public DeleteShader(shader: WebGLShader): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -106,21 +106,21 @@ class GLContextWrapperBase extends JThreeObject {
    * @param shader reference you want to be stored
    * @param src shader source code
    */
-  ShaderSource(shader: WebGLShader, src: string): void {
+    public ShaderSource(shader: WebGLShader, src: string): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Compile shader source
    * @param shader shader reference you want to be compiled
    */
-  CompileShader(shader: WebGLShader): void {
+    public CompileShader(shader: WebGLShader): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Create new program
    * @returns {created program}
    */
-  CreateProgram(): WebGLProgram {
+    public CreateProgram(): WebGLProgram {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -128,21 +128,21 @@ class GLContextWrapperBase extends JThreeObject {
    * @param program the program you want to be attached
    * @param shader the shader you want to attach
    */
-  AttachShader(program: WebGLProgram, shader: WebGLShader): void {
+    public AttachShader(program: WebGLProgram, shader: WebGLShader): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Link program
    * @param program the program you want to link
    */
-  LinkProgram(program: WebGLProgram): void {
+    public LinkProgram(program: WebGLProgram): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Use program
    * @param program the program you want to use
    */
-  UseProgram(program: WebGLProgram): void {
+    public UseProgram(program: WebGLProgram): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -151,14 +151,14 @@ class GLContextWrapperBase extends JThreeObject {
    * @param name attribute variable name
    * @returns {attribute variable location}
    */
-  GetAttribLocation(program: WebGLProgram, name: string): number {
+    public GetAttribLocation(program: WebGLProgram, name: string): number {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Enable vartex attribute array
    * @param attribNumber the attribute variable location you want to enable vertex attribute array
    */
-  EnableVertexAttribArray(attribNumber: number): void {
+    public EnableVertexAttribArray(attribNumber: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -170,14 +170,15 @@ class GLContextWrapperBase extends JThreeObject {
    * @param stride stride in buffer array
    * @param offset offset of buffer array
    */
-  VertexAttribPointer(attribLocation: number, sizePerVertex: number, elemType: ElementType, normalized: boolean, stride: number, offset: number): void {
-    throw new Exceptions.AbstractClassMethodCalledException();
-  }
-  Enable(feature: GLFeatureType): void {
+    public VertexAttribPointer(attribLocation: number, sizePerVertex: number, elemType: ElementType, normalized: boolean, stride: number, offset: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  Disable(feature: GLFeatureType): void {
+    public Enable(feature: GLFeatureType): void {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+    public Disable(feature: GLFeatureType): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
@@ -187,33 +188,33 @@ class GLContextWrapperBase extends JThreeObject {
    * @param offset vertex array offset
    * @param length count of the vertex you want to draw.
    */
-  DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void {
+    public DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Flush drawing
    */
-  Flush(): void {
+    public Flush(): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Finish drawing
    */
-  Finish() {
+    public Finish() {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Delete buffer
    * @param target the buffer you want to delete
    */
-  DeleteBuffer(target: WebGLBuffer): void {
+    public DeleteBuffer(target: WebGLBuffer): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
    * Delete program
    * @param target the program you want to delete.
    */
-  DeleteProgram(target: WebGLProgram): void {
+    public DeleteProgram(target: WebGLProgram): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -221,7 +222,7 @@ class GLContextWrapperBase extends JThreeObject {
    * @param target the program you want to locate uniform variable
    * @param name the name of uniform variable
    */
-  GetUniformLocation(target: WebGLProgram, name: string): WebGLUniformLocation {
+    public GetUniformLocation(target: WebGLProgram, name: string): WebGLUniformLocation {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -229,7 +230,7 @@ class GLContextWrapperBase extends JThreeObject {
    * @param webGlUniformLocation uniform variable location
    * @param matrix matrix you want to pass
    */
-  UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix) {
+    public UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
@@ -238,7 +239,7 @@ class GLContextWrapperBase extends JThreeObject {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector: Vector2) {
+    public UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector: Vector2) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
@@ -247,7 +248,7 @@ class GLContextWrapperBase extends JThreeObject {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector: Vector3) {
+    public UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector: Vector3) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
@@ -256,7 +257,7 @@ class GLContextWrapperBase extends JThreeObject {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector: Vector4) {
+    public UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector: Vector4) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   
@@ -265,7 +266,7 @@ class GLContextWrapperBase extends JThreeObject {
 * @param webGlUniformLocation uniform variable location
 * @param vector vector you want to pass
 */
-  UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
+    public UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[]) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
@@ -274,7 +275,7 @@ class GLContextWrapperBase extends JThreeObject {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[]) {
+    public UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[]) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
@@ -283,11 +284,11 @@ class GLContextWrapperBase extends JThreeObject {
   * @param webGlUniformLocation uniform variable location
   * @param vector vector you want to pass
   */
-  UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[]) {
+    public UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[]) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  CullFace(cullMode: GLCullMode): void {
+    public CullFace(cullMode: GLCullMode): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
   /**
@@ -297,104 +298,106 @@ class GLContextWrapperBase extends JThreeObject {
    * @param width width of viewport
    * @param height height of viewport
    */
-  ViewPort(x: number, y: number, width: number, height: number): void {
+    public ViewPort(x: number, y: number, width: number, height: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void {
+    public DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  CreateFrameBuffer(): WebGLFramebuffer {
+    public CreateFrameBuffer(): WebGLFramebuffer {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  BindFrameBuffer(fbo: WebGLFramebuffer): void {
+    public BindFrameBuffer(fbo: WebGLFramebuffer): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
-    throw new Exceptions.AbstractClassMethodCalledException();
-  }
-  CreateTexture(): WebGLTexture {
+    public FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  TexImage2D(targetTexture: TargetTextureType, level: number, internalFormat: TextureInternalFormatType, targetFormatOrWidth: TextureInternalFormatType|number, typeOrHeight: TextureType|number, pixelsOrBorder: HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number, type?: TextureType, bufferObj?: ArrayBufferView): void {
+    public CreateTexture(): WebGLTexture {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  BindTexture(targetTexture: TargetTextureType, texture: WebGLTexture): void {
+    public TexImage2D(targetTexture: TargetTextureType, level: number, internalFormat: TextureInternalFormatType, targetFormatOrWidth: TextureInternalFormatType|number, typeOrHeight: TextureType|number, pixelsOrBorder: HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number, type?: TextureType, bufferObj?: ArrayBufferView): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  GenerateMipmap(targetTexture: TargetTextureType): void {
+    public BindTexture(targetTexture: TargetTextureType, texture: WebGLTexture): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
+    public GenerateMipmap(targetTexture: TargetTextureType): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  ActiveTexture(textureRegister: TextureRegister) {
+    public TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void {
+    public ActiveTexture(textureRegister: TextureRegister) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  CreateRenderBuffer(): WebGLRenderbuffer {
+    public Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  BindRenderBuffer(bindTarget: WebGLRenderbuffer): void {
+    public CreateRenderBuffer(): WebGLRenderbuffer {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  RenderBufferStorage(internalFormat: RenderBufferInternalFormats, width: number, height: number): void {
+    public BindRenderBuffer(bindTarget: WebGLRenderbuffer): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
-    throw new Exceptions.AbstractClassMethodCalledException();
-  }
-  PixelStorei(pname: PixelStoreParamType, value: number) {
+    public RenderBufferStorage(internalFormat: RenderBufferInternalFormats, width: number, height: number): void {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  Uniform1f(webglUniformLocation: WebGLUniformLocation, num: number) {
+    public FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  IsTexture(tex: WebGLTexture): boolean {
-    throw new Exceptions.AbstractClassMethodCalledException();
-  }
-  DeleteTexture(tex: WebGLTexture) {
+    public PixelStorei(pname: PixelStoreParamType, value: number) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
 
-  ClearDepth(depth: number) {
+    public Uniform1f(webglUniformLocation: WebGLUniformLocation, num: number) {
     throw new Exceptions.AbstractClassMethodCalledException();
   }
-  
-  
-  BlendFunc(b1:BlendFuncParamType,b2:BlendFuncParamType)
+
+    public IsTexture(tex: WebGLTexture): boolean {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+    public DeleteTexture(tex: WebGLTexture) {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+    public ClearDepth(depth: number) {
+    throw new Exceptions.AbstractClassMethodCalledException();
+  }
+
+    public BlendFunc(b1:BlendFuncParamType,b2:BlendFuncParamType)
   {
 
   }
-  
-  BlendEquation(eq:BlendEquationType)
+
+    public BlendEquation(eq:BlendEquationType)
   {
 
   }
-  
-  DepthFunc(func:DepthFuncType)
+
+    public DepthFunc(func:DepthFuncType)
   {
     
   }
 
-  GetParameter(type:GetParameterType)
+    public GetParameter(type:GetParameterType)
   {
 
   }

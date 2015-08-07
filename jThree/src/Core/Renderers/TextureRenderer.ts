@@ -11,12 +11,12 @@ class TextureRenderer extends ViewportRenderer {
 
     private targetFBO: FBO;
 
-    beforeRender() {
+    public beforeRender() {
         this.targetFBO.getForContext(this.ContextManager).bind();
         super.beforeRender();
     }
 
-    afterRender() {
+    public afterRender() {
         super.afterRender();
         this.targetFBO.getForContext(this.ContextManager).unbind();
     }

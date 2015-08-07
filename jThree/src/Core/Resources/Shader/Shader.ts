@@ -1,4 +1,4 @@
-import JThreeContext = require("../../JThreeContext");
+﻿import JThreeContext = require("../../JThreeContext");
 import ContextSafeContainer = require("../ContextSafeResourceContainer");
 import ShaderType = require("../../../Wrapper/ShaderType");
 import ContextManagerBase = require("../../ContextManagerBase");
@@ -29,7 +29,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
      * Shader Type
      * (VertexShader or FragmentShader)
      */
-    get ShaderType(): ShaderType {
+    public get ShaderType(): ShaderType {
         return this.shaderType;
     }
 
@@ -37,14 +37,14 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
     /**
      * Shader Source in text
      */
-    get ShaderSource(): string {
+    public get ShaderSource(): string {
         return this.shaderSource;
     }
 
     /**
      * Load all shaderWrappers
      */
-    loadAll() {
+    public loadAll() {
         this.each((v)=> {
             v.init();
         });

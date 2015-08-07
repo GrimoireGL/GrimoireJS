@@ -2,11 +2,11 @@ import JsHack = require("./JsHack");
 import IStringConvertable = require("./IStringConvertable");
 class JThreeObject implements IStringConvertable
 {
-  toString(): string {
+    public toString(): string {
       return JsHack.getObjectName(this);
   }
 
-  getTypeName(): string {
+    public getTypeName(): string {
       return JsHack.getObjectName(this);
   }
 }

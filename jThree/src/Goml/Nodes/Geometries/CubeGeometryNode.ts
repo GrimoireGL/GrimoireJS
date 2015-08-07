@@ -19,7 +19,7 @@ class CubeGeometryNode extends GeometryNodeBase
     return this.gridGeometry=new CubeGeometry(this.Name);
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
   }

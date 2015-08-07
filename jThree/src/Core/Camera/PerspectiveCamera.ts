@@ -6,57 +6,58 @@ class PerspectiveCamera extends ViewCamera
   private aspect:number=1;
   private near:number=0.1;
   private far:number=10;
-  projection:Matrix;
+    public projection:Matrix;
 
   private updateProjection()
   {
     this.projection=Matrix.perspective(this.fovy,this.aspect,this.near,this.far);
   }
 
-  get Fovy():number
+    public get Fovy():number
   {
     return this.fovy;
   }
 
-  set Fovy(fovy:number)
+    public set Fovy(fovy:number)
   {
     this.fovy=fovy;
     this.updateProjection();
   }
 
-  get Aspect():number
+    public get Aspect():number
   {
     return this.aspect;
   }
 
-  set Aspect(aspect:number)
+    public set Aspect(aspect:number)
   {
     this.aspect=aspect;
     this.updateProjection();
   }
 
-  get Near():number
+    public get Near():number
   {
     return this.near;
   }
-  set Near(near:number)
+
+    public set Near(near:number)
   {
     this.near=near;
     this.updateProjection();
   }
 
-  get Far():number
+    public get Far():number
   {
     return this.far;
   }
 
-  set Far(far:number)
+    public set Far(far:number)
   {
     this.far=far;
     this.updateProjection();
   }
 
-  get ProjectionMatrix():Matrix
+    public get ProjectionMatrix():Matrix
   {
     return this.projection;
   }

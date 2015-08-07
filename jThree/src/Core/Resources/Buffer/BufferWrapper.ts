@@ -1,4 +1,4 @@
-import BufferProxy = require("./BufferProxy");
+﻿import BufferProxy = require("./BufferProxy");
 import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import Buffer = require("./Buffer");
 import ElementType = require("../../../Wrapper/ElementType");
@@ -26,42 +26,42 @@ class BufferWrapper extends BufferProxy
     /**
      * Get the flag wheather this buffer is initialized or not.
      */
-    get IsInitialized()
+    public get IsInitialized()
     {
         return this.isInitialized;
     }
 
-    get Length(): number {
+    public get Length(): number {
         return this.length;
     }
 
-    get UnitCount(): number {
+    public get UnitCount(): number {
         return this.parentBuffer.UnitCount;
     }
 
-    get ElementType():ElementType
+    public get ElementType():ElementType
     {
       return this.parentBuffer.ElementType;
     }
 
-    get Normalized():boolean
+    public get Normalized():boolean
     {
       return this.parentBuffer.Normalized;
     }
 
-    get Stride():number
+    public get Stride():number
     {
       return this.parentBuffer.Stride;
     }
 
-    get Offset():number
+    public get Offset():number
     {
       return this.parentBuffer.Offset;
     }
 
-    get isAllInitialized(): boolean { return this.IsInitialized; }
+    public get isAllInitialized(): boolean { return this.IsInitialized; }
 
-    update(array: Float32Array, length: number): void
+    public update(array: Float32Array, length: number): void
     {
         if (!this.isInitialized)
         {
@@ -73,7 +73,7 @@ class BufferWrapper extends BufferProxy
         this.length = length;
     }
 
-    loadAll(): void
+    public loadAll(): void
     {
         if (this.targetBuffer == null)
         {
@@ -82,7 +82,7 @@ class BufferWrapper extends BufferProxy
         }
     }
 
-    bindBuffer(): void
+    public bindBuffer(): void
     {
         if (this.isInitialized)
         {
@@ -94,7 +94,7 @@ class BufferWrapper extends BufferProxy
         }
     }
 
-    unbindBuffer(): void
+    public unbindBuffer(): void
     {
         if (this.isInitialized)
         {
@@ -102,6 +102,6 @@ class BufferWrapper extends BufferProxy
         }
     }
 
-    get ManagedProxies() { return [this]; }
+    public get ManagedProxies() { return [this]; }
 }
 export=BufferWrapper;

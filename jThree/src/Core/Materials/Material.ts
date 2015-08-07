@@ -39,27 +39,27 @@ class Material extends JThreeObjectWithID {
 
     private priorty: number;
 
-    get Priorty(): number {
+    public get Priorty(): number {
         return this.priorty;
     }
 
     private cullMode: GLCullMode = GLCullMode.Back;
 
-    get CullMode(): GLCullMode {
+    public get CullMode(): GLCullMode {
         return this.cullMode;
     }
 
     private cullEnabled: boolean = true;
 
-    get CullEnabled(): boolean {
+    public get CullEnabled(): boolean {
         return this.cullEnabled;
     }
 
-    set CullEnabled(val: boolean) {
+    public set CullEnabled(val: boolean) {
         this.cullEnabled = val;
     }
-    
-    get MaterialGroup():string
+
+    public get MaterialGroup():string
     {
         return "jthree.materials.forematerial";
     }

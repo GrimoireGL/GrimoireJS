@@ -47,7 +47,7 @@ class PMXDepthMaterial extends Material {
         this.setLoaded();
     }
 
-    configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs);
         renderer.GLContext.Disable(GLFeatureType.Blend);
@@ -77,8 +77,8 @@ class PMXDepthMaterial extends Material {
     public getDrawGeometryOffset(geo: Geometry): number {
         return this.VerticiesOffset*4;
     }
-    
-      get MaterialGroup(): string {
+
+    public get MaterialGroup(): string {
     return "jthree.materials.depth";
   }
 }

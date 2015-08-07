@@ -24,17 +24,17 @@ class GomlTreeNodeBase extends ComponentContainerNode
      */
     public attributes:AttributeDictionary;
 
-    beforeLoad()
+    public beforeLoad()
     {
       //this method should be overriden by the class extends this class.
     }
 
-    Load()
+    public Load()
     {
       //this method should be overriden by the class extends this class.
     }
 
-    afterLoad()
+    public afterLoad()
     {
       //this method should be overriden by the class extends this class.
     }

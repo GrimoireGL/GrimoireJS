@@ -98,16 +98,16 @@ class ViewPortRenderer extends RendererBase {
 
     }
 
-    applyViewportConfigure(): void {
+    public applyViewportConfigure(): void {
         this.ContextManager.GLContext.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
     }
 
-    beforeRender() {
+    public beforeRender() {
         super.beforeRender();
         this.applyViewportConfigure();
     }
 
-    afterRender() {
+    public afterRender() {
         this.ContextManager.GLContext.Flush();
         super.afterRender();
     }

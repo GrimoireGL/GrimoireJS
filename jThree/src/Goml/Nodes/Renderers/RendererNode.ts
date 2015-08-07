@@ -5,9 +5,8 @@ import GomlLoader = require("../../GomlLoader");
 import RendererNodeBase = require('./RendererNodeBase');
 
 class RendererNode extends RendererNodeBase {
-    targetCanvas: HTMLCanvasElement;
-    
-    targetFrame:HTMLElement;
+    public targetCanvas: HTMLCanvasElement;
+    public targetFrame:HTMLElement;
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
@@ -31,7 +30,7 @@ class RendererNode extends RendererNodeBase {
         this.attributes.applyDefaultValue();
     }
 
-    get Frame(): string {
+    public get Frame(): string {
         return this.element.getAttribute("frame") || "body";
     }
 

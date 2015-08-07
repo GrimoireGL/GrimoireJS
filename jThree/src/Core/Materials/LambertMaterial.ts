@@ -12,11 +12,11 @@ declare function require(string): string;
 class LambertMaterial extends Material {
   private color: Color4 = Color4.parseColor('#F0F');
 
-  get Color(): Color4 {
+    public get Color(): Color4 {
     return this.color;
   }
 
-  set Color(col: Color4) {
+    public set Color(col: Color4) {
     this.color = col;
   }
   protected program: Program;
@@ -28,7 +28,7 @@ class LambertMaterial extends Material {
     this.setLoaded();
   }
 
-  configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);

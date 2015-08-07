@@ -9,8 +9,7 @@ import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 declare function require(string): string;
 
 class NormalMaterial extends Material {
-
-  get MaterialGroup(): string {
+    public get MaterialGroup(): string {
     return "jthree.materials.normal";
   }
   
@@ -23,7 +22,7 @@ class NormalMaterial extends Material {
     this.setLoaded();
   }
 
-  configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);

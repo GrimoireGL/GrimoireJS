@@ -5,7 +5,7 @@ import PMXMorphsNode = require("../PMXMorphsNode"); /**
 * PMXMorph node factory
 */
 class PMXMorphTagFactory extends TagFactory {
-	CreateNodeForThis(elem: Element, loader: GomlLoader, parent: GomlTreeNodeBase): GomlTreeNodeBase {
+    public CreateNodeForThis(elem: Element, loader: GomlLoader, parent: GomlTreeNodeBase): GomlTreeNodeBase {
 		if (parent.getTypeName() === "PMXMorphsNode") {
 			var castedParent = <PMXMorphsNode>parent;
 			return new this.nodeType(elem, loader, parent, castedParent.TargetPMXNode);

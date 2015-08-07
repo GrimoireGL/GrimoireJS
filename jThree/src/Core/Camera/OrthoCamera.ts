@@ -20,72 +20,73 @@ class OrthoCamera extends ViewCamera
     this.projection=Matrix.ortho(this.Left,this.Right,this.Bottom,this.Top,this.Near,this.Far);
   }
 
-  get Left():number
+    public get Left():number
   {
     return this.left;
   }
 
-  set Left(left:number)
+    public set Left(left:number)
   {
     this.left=left;
     this.updateProjection();
   }
 
-  get Right():number
+    public get Right():number
   {
     return this.right;
   }
 
-  set Right(right:number)
+    public set Right(right:number)
   {
     this.right=right;
     this.updateProjection();
   }
 
-  get Top():number
+    public get Top():number
   {
     return this.top;
   }
 
-  set Top(top:number)
+    public set Top(top:number)
   {
     this.top=top;
     this.updateProjection();
   }
 
-  get Bottom()
+    public get Bottom()
   {
     return this.bottom;
   }
 
-  set Bottom(bottom:number)
+    public set Bottom(bottom:number)
   {
     this.bottom=bottom;
     this.updateProjection();
   }
 
-  get Near():number
+    public get Near():number
   {
     return this.near;
   }
-  set Near(near:number)
+
+    public set Near(near:number)
   {
     this.near=near;
     this.updateProjection();
   }
 
-  get Far():number
+    public get Far():number
   {
     return this.far;
   }
 
-  set Far(far:number)
+    public set Far(far:number)
   {
     this.far=far;
     this.updateProjection();
   }
 
-  get ProjectionMatrix():Matrix
+    public get ProjectionMatrix():Matrix
   {
     return this.projection;
   }

@@ -48,7 +48,7 @@ class GrayScaleStage extends RenderStageBase {
 		//this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
 	}
 
-	configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
 		var geometry = object.Geometry;
 		var programWrapper = this.program.getForContext(renderer.ContextManager);
 		programWrapper.useProgram();

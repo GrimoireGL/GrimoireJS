@@ -24,12 +24,12 @@ class GomlTreeMeshNode extends SceneObjectNodeBase
     return this.targetMesh;
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
   }
 
-  Load()
+    public Load()
   {
     super.Load();
   }
@@ -41,7 +41,8 @@ class GomlTreeMeshNode extends SceneObjectNodeBase
     return this.geo;
   }
 
-  private mat:string;JThreeObject
+  private mat:string;
+    public JThreeObject
   public get Mat():string
   {
     this.mat=this.mat||this.element.getAttribute("mat");

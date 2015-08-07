@@ -6,7 +6,7 @@ import GomlLoader = require("../../GomlLoader");
 import Material = require('../../../Core/Materials/Material');
 class SolidColorNode extends MaterialNodeBase
 {
-    material:SolidColor;
+    public material:SolidColor;
 
     constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
@@ -24,7 +24,7 @@ class SolidColorNode extends MaterialNodeBase
       return this.material;
     }
 
-    beforeLoad()
+    public beforeLoad()
     {
       super.beforeLoad();
     }

@@ -29,7 +29,7 @@ class CircleGeometryNode extends GeometryNodeBase
     return this.gridGeometry;
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
   }

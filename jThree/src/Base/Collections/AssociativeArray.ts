@@ -4,30 +4,37 @@
 class AssociativeArray<T> implements Map<string, T>
 {
   private target: Map<string, T> = new Map<string, T>();
-  clear(): void {
+
+    public clear(): void {
     this.target.clear();
   }
-  delete(key: string): boolean {
+
+    public delete(key: string): boolean {
     return this.target.delete(key);
   }
-  forEach(callbackfn: (value: T, index: string, map: Map<string, T>) => void, thisArg?: any): void {
+
+    public forEach(callbackfn: (value: T, index: string, map: Map<string, T>) => void, thisArg?: any): void {
     this.target.forEach(callbackfn, thisArg);
   }
-  get(key: string): T {
+
+    public get(key: string): T {
     return this.target.get(key);
   }
-  has(key: string): boolean {
+
+    public has(key: string): boolean {
     return this.target.has(key);
   }
-  set(key: string, value: T): AssociativeArray<T> {
+
+    public set(key: string, value: T): AssociativeArray<T> {
     this.target.set(key, value);
     return this;
   }
-  get size(): number {
+
+    public get size(): number {
     return this.target.size;
   }
 
-  get asArray(): T[] {
+    public get asArray(): T[] {
     var array = new Array(this.size);
     var i = 0;
     this.forEach((v) => {

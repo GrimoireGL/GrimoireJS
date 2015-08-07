@@ -26,8 +26,8 @@ class RBOWrapper extends ResourceWrapper
 		super(contextManager);
 		this.parent=parentRBO;
 	}
-	
-	init()
+
+    public init()
 	{
 		if(this.Initialized)return;
 		this.targetRBO=this.WebGLContext.CreateRenderBuffer();

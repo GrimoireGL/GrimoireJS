@@ -32,12 +32,12 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
     return this.targetCamera;
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
   }
 
-  Load()
+    public Load()
   {
     super.Load();
     this.ContainedSceneNode.targetScene.addCamera(this.targetCamera);
@@ -49,7 +49,7 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
   * GOML Attribute
   * Identical Name for camera
   */
-  get Name():string{
+    public get Name():string{
     this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
     return this.name;
   }

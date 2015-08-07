@@ -18,12 +18,12 @@ class FBOWrapper extends ResourceWrapper {
 
     private textures: TextureBase[] = [];
 
-    get TargetShader(): WebGLShader {
+    public get TargetShader(): WebGLShader {
         if (!this.Initialized) this.init();
         return this.targetFBO;
     }
 
-    init(): void {
+    public init(): void {
         if (!this.Initialized) {
             this.targetFBO = this.glContext.CreateFrameBuffer();
             this.glContext.BindFrameBuffer(this.targetFBO);
@@ -31,12 +31,12 @@ class FBOWrapper extends ResourceWrapper {
         }
     }
 
-    bind() {
+    public bind() {
         if (!this.Initialized) this.init();
         this.WebGLContext.BindFrameBuffer(this.targetFBO);
     }
 
-    unbind() {
+    public unbind() {
         this.WebGLContext.BindFrameBuffer(null);
         this.textures.forEach(tex=> {
             tex.getForContext(this.OwnerCanvas).bind();
@@ -44,7 +44,7 @@ class FBOWrapper extends ResourceWrapper {
         });
     }
 
-    attachTexture(attachmentType: FrameBufferAttachmentType, tex: TextureBase) {
+    public attachTexture(attachmentType: FrameBufferAttachmentType, tex: TextureBase) {
         if (!this.Initialized) this.init();
         this.bind();
         if (tex == null) {
@@ -57,7 +57,7 @@ class FBOWrapper extends ResourceWrapper {
         if (this.textures.indexOf(tex) !== -1) this.textures.push(tex);
     }
 
-    attachRBO(attachmentType: FrameBufferAttachmentType, rbo: RBO) {
+    public attachRBO(attachmentType: FrameBufferAttachmentType, rbo: RBO) {
         if (!this.Initialized) this.init();
         this.bind();
         if(rbo==null)
@@ -69,7 +69,7 @@ class FBOWrapper extends ResourceWrapper {
         this.WebGLContext.FrameBufferRenderBuffer(attachmentType, wrapper.Target);
     }
 
-    dispose() {
+    public dispose() {
         if (this.Initialized) {
             //TODO Dispose frame buffer
             this.targetFBO = null;
@@ -77,7 +77,7 @@ class FBOWrapper extends ResourceWrapper {
         }
     }
 
-    clear(r: number, g: number, b: number, a: number, d?: number, s?: number) {
+    public clear(r: number, g: number, b: number, a: number, d?: number, s?: number) {
         this.bind();
         var clearFlag = 0;
         if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined' && typeof a !== 'undefined') {

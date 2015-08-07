@@ -52,22 +52,22 @@ class GomlTreeCameraNode extends GomlTreeCameraNodeBase
     return camera;
   }
 
-  get Fovy():number
+    public get Fovy():number
   {
     return this.attributes.getValue("fovy");
   }
 
-  get Aspect():number
+    public get Aspect():number
   {
     return this.attributes.getValue("aspect");
   }
 
-  get Near():number
+    public get Near():number
   {
     return this.attributes.getValue("near");
   }
 
-  get Far():number
+    public get Far():number
   {
     return this.attributes.getValue("far");
   }

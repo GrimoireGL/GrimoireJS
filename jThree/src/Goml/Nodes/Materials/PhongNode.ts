@@ -7,7 +7,7 @@ import Material = require('../../../Core/Materials/Material')
 import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
 class PhongNode extends MaterialNodeBase
 {
-    material:Phong;
+    public material:Phong;
 
     constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
@@ -46,7 +46,7 @@ class PhongNode extends MaterialNodeBase
       return this.material;
     }
 
-    beforeLoad()
+    public beforeLoad()
     {
       super.beforeLoad();
     }

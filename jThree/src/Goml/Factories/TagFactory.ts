@@ -15,17 +15,16 @@ class TagFactory extends jThreeObject {
 
     protected nodeType:any;
 
-    get TagName(): string {
+    public get TagName(): string {
         return this.tagName;
     }
-    
-    get NoNeedParseChildren():boolean
+
+    public get NoNeedParseChildren():boolean
     {
         return false;
     }
 
-
-    CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
+    public CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
         return new this.nodeType(elem,loader,parent);
     }
 

@@ -14,19 +14,19 @@ class Geometry extends jThreeObject {
    protected indexBuffer:Buffer;
    protected primitiveTopology:PrimitiveTopology=PrimitiveTopology.Triangles;
 
-   get PositionBuffer(): Buffer {
+    public get PositionBuffer(): Buffer {
        return this.positionBuffer;
    }
 
-   get NormalBuffer(): Buffer {
+    public get NormalBuffer(): Buffer {
        return this.normalBuffer; 
    }
 
-   get UVBuffer(): Buffer {
+    public get UVBuffer(): Buffer {
        return this.uvBuffer;
    }
 
-   get IndexBuffer():Buffer
+    public get IndexBuffer():Buffer
    {
      return this.indexBuffer;
    }
@@ -34,17 +34,17 @@ class Geometry extends jThreeObject {
    /**
     * 3 times of surface count.
     */
-   get IndexCount()
+    public get IndexCount()
    {
      return this.indexBuffer.Length;
    }
-   
-   get GeometryOffset()
+
+    public get GeometryOffset()
    {
      return 0;
    }
 
-   get PrimitiveTopology():PrimitiveTopology
+    public get PrimitiveTopology():PrimitiveTopology
    {
      return this.primitiveTopology;
    }

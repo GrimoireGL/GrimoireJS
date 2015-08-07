@@ -29,12 +29,12 @@ class ObjectNode extends SceneObjectNodeBase
     return this.targetMesh;
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
   }
 
-  Load()
+    public Load()
   {
     super.Load();
   }

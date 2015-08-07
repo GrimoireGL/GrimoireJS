@@ -11,11 +11,11 @@ declare function require(string): string;
 class SpriteMaterial extends Material {
   private texture: TextureBase;
 
-  get Texture(): TextureBase {
+    public get Texture(): TextureBase {
     return this.texture;
   }
 
-  set Texture(tex: TextureBase) {
+    public set Texture(tex: TextureBase) {
     this.texture = tex;
   }
 
@@ -65,7 +65,7 @@ class SpriteMaterial extends Material {
     this.setLoaded();
   }
 
-  configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);

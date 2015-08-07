@@ -5,14 +5,14 @@ import JThreeContextProxy=require('../../Core/JThreeContextProxy');
 import JThreeContext=require('../../Core/JThreeContext');
 class SceneNode extends GomlTreeNodeBase
 {
-  targetScene:Scene;
+    public targetScene:Scene;
 
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
   {
       super(elem,loader,parent);
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     this.targetScene=new Scene();
     var context:JThreeContext=JThreeContextProxy.getJThreeContext();

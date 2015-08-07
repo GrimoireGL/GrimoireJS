@@ -11,10 +11,10 @@ import Matrix = require("./Math/Matrix");
             this.message = message;
         }
 
-        name: string;
-        message: string;
+        public name: string;
+        public message: string;
 
-        toString(): string {
+        public toString(): string {
             return `Exception:${super.toString()}\nName:${this.name}\nMessage:${this.message}`;
         }
     }

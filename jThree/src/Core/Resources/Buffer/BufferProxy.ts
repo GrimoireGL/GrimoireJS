@@ -24,22 +24,22 @@ class BufferProxy extends ArrayEnumratorFactory<BufferProxy> {
 
     private proxyHash: number = 0;
 
-    get ManagedProxies(): BufferProxy[]
+    public get ManagedProxies(): BufferProxy[]
     {
         return Collection.CopyArray(this.managedProxies);
     }
 
-    update(array: Float32Array, length: number): void
+    public update(array: Float32Array, length: number): void
     {
         this.each((a) => a.update(array, length));
     }
 
-    loadAll(): void
+    public loadAll(): void
     {
         this.each((a) => a.loadAll());
     }
 
-    get isAllInitialized(): boolean
+    public get isAllInitialized(): boolean
     {
         var isIniatilized = true;
         this.each((a) =>
@@ -54,8 +54,7 @@ class BufferProxy extends ArrayEnumratorFactory<BufferProxy> {
         Collection.foreach(this,(a, i) => { act(a); });
     }
 
-
-    addProxy(proxy: BufferProxy): BufferProxy
+    public addProxy(proxy: BufferProxy): BufferProxy
     {
         var proxies: BufferProxy[] = this.ManagedProxies;
         var hasTarget: boolean = false;
@@ -67,7 +66,7 @@ class BufferProxy extends ArrayEnumratorFactory<BufferProxy> {
         return new BufferProxy(this.parentBuffer, proxies);
     }
 
-    deleteProxy(proxy: BufferProxy): BufferProxy
+    public deleteProxy(proxy: BufferProxy): BufferProxy
     {
         var proxies: BufferProxy[] = this.ManagedProxies;
         var resultProxies: BufferProxy[] = [];
@@ -81,9 +80,7 @@ class BufferProxy extends ArrayEnumratorFactory<BufferProxy> {
         return new BufferProxy(this.parentBuffer, resultProxies);
     }
 
-
-
-    getEnumrator(): IEnumrator<BufferProxy>
+    public getEnumrator(): IEnumrator<BufferProxy>
     {
         return super.getEnumrator();
     }

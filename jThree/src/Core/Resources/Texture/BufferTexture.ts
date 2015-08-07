@@ -10,25 +10,25 @@ import TextureBase = require('./TextureBase');
 class BufferTexture extends TextureBase {
 	private width: number;
 
-	get Width(): number {
+    public get Width(): number {
 		return this.width;
 	}
 
 	private height: number;
 
-	get Height(): number {
+    public get Height(): number {
 		return this.height;
 	}
 
 	private textureFormat: TextureFormat;
 
-	get TextureFormat(): TextureFormat {
+    public get TextureFormat(): TextureFormat {
 		return this.textureFormat;
 	}
 
 	private elementFormat: ElementFormat;
 
-	get ElementFormat(): ElementFormat {
+    public get ElementFormat(): ElementFormat {
 		return this.elementFormat;
 	}
 

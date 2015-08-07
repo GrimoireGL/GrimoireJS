@@ -16,19 +16,19 @@ class Color4 extends JThreeObject {
     private g: number;
     private b: number;
 
-    get A(): number {
+    public get A(): number {
         return this.a;
     }
 
-    get R(): number {
+    public get R(): number {
         return this.r;
     }
 
-    get G(): number {
+    public get G(): number {
         return this.g;
     }
 
-    get B(): number {
+    public get B(): number {
         return this.b;
     }
     public toVector():Vector4
@@ -36,9 +36,9 @@ class Color4 extends JThreeObject {
       return new Vector4(this.R,this.G,this.B,this.A);
     }
 
-    static colorTable: { [key: string]: string } = require("static/color.json");
+    public static colorTable: { [key: string]: string } = require("static/color.json");
     ///Color parser for css like syntax
-    static internalParse(color: string, isFirst: boolean): Color4 {
+    public static internalParse(color: string, isFirst: boolean): Color4 {
         if (isFirst && Color4.colorTable[color]) {
             return Color4.internalParse(Color4.colorTable[color], false);
         }
@@ -105,11 +105,11 @@ class Color4 extends JThreeObject {
         throw new Error("color parse failed.");
     }
 
-    static parseColor(color: string): Color4 {
+    public static parseColor(color: string): Color4 {
         return Color4.internalParse(color, true);
     }
 
-    toString(): string {
+    public toString(): string {
         var st ="#";
         st += Math.round(this.R * 0xff).toString(16).toUpperCase();
         st += Math.round(this.G * 0xff).toString(16).toUpperCase();

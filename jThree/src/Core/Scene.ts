@@ -1,4 +1,4 @@
-import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
+﻿import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import JThreeEvent = require('../Base/JThreeEvent');
 import RendererBase = require("./Renderers/RendererBase");
 import SceneObject = require("./SceneObject");
@@ -14,14 +14,14 @@ class Scene extends jThreeObjectWithID {
         this.enabled = true;
     }
 
-    enabled: boolean;
+    public enabled: boolean;
 
-    update(): void {
+    public update(): void {
         if (!this.enabled) return;//enabled==falseならいらない。
         this.sceneObjects.forEach(v=> v.update());
     }
 
-    render(): void {
+    public render(): void {
         this.renderers.forEach((r) => {
             r.beforeRender();
             r.RenderStageManager.processRender(this,this.sceneObjects);

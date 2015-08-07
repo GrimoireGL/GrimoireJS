@@ -39,12 +39,12 @@ class GomlAttribute extends JThreeObjectWithID
     if(handler)this.onchangedHandlers.addListerner(handler);
   }
 
-  get Name():string
+    public get Name():string
   {
     return this.ID;
   }
 
-  get Value():any
+    public get Value():any
   {
     if(this.cached)
     {
@@ -60,7 +60,7 @@ class GomlAttribute extends JThreeObjectWithID
     }
   }
 
-  set Value(val:any)
+    public set Value(val:any)
   {
     this.value=this.Converter.FromInterface(val);
     this.element.setAttribute(this.Name,this.Converter.ToAttribute(val));
@@ -68,7 +68,7 @@ class GomlAttribute extends JThreeObjectWithID
     if(this.NeedNotifyUpdate)this.notifyValueChanged();
   }
 
-  get Converter():AttributeConverterBase
+    public get Converter():AttributeConverterBase
   {
     return this.converter;
   }

@@ -28,11 +28,11 @@ class ProgramWrapper extends ResourceWrapper {
 
     private uniformLocations: AssociativeArray<WebGLUniformLocation> = new AssociativeArray<WebGLUniformLocation>();
 
-    get TargetProgram(): WebGLProgram {
+    public get TargetProgram(): WebGLProgram {
         return this.targetProgram;
     }
 
-    init(): void {
+    public init(): void {
         if (!this.Initialized) {
             this.targetProgram = this.WebGLContext.CreateProgram();
             this.parentProgram.AttachedShaders.forEach((v, i, a) => {
@@ -42,7 +42,7 @@ class ProgramWrapper extends ResourceWrapper {
         }
     }
 
-    dispose() {
+    public dispose() {
         if (this.Initialized) {
             this.WebGLContext.DeleteProgram(this.targetProgram);
             this.setInitialized(false);
@@ -51,14 +51,14 @@ class ProgramWrapper extends ResourceWrapper {
         }
     }
 
-    linkProgram(): void {
+    public linkProgram(): void {
         if (!this.isLinked) {
             this.WebGLContext.LinkProgram(this.targetProgram);
             this.isLinked = true;
         }
     }
 
-    useProgram(): void {
+    public useProgram(): void {
         if (!this.Initialized) {
             console.log("useProgram was called, but program was not initialized.");
             this.init();
@@ -79,25 +79,25 @@ class ProgramWrapper extends ResourceWrapper {
         return this.uniformLocations.get(valName);
     }
 
-    setUniformMatrix(valName: string, matrix: Matrix): void {
+    public setUniformMatrix(valName: string, matrix: Matrix): void {
         this.useProgram();
         var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         this.WebGLContext.UniformMatrix(uniformIndex, matrix);
     }
 
-    setUniform1i(valName: string, num: number): void {
+    public setUniform1i(valName: string, num: number): void {
         this.useProgram();
         var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         this.WebGLContext.Uniform1i(uniformIndex, num);
     }
-    
-    setUniform1f(valName:string,num:number):void{
+
+    public setUniform1f(valName:string,num:number):void{
         this.useProgram();
         var uniformIndex=this.fetchUniformLocation(valName);
         this.WebGLContext.Uniform1f(uniformIndex,num);
     }
 
-    setUniformVector(valName: string, vec: VectorBase): void {
+    public setUniformVector(valName: string, vec: VectorBase): void {
         this.useProgram();
         var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         switch (vec.ElementCount) {
@@ -113,7 +113,7 @@ class ProgramWrapper extends ResourceWrapper {
         }
     }
 
-    setUniformVectorArray(valName: string, vec: VectorBase[]) {
+    public setUniformVectorArray(valName: string, vec: VectorBase[]) {
         this.useProgram();
         var uniformIndex: WebGLUniformLocation = this.fetchUniformLocation(valName);
         if(vec.length===0)return;
@@ -131,7 +131,7 @@ class ProgramWrapper extends ResourceWrapper {
 
     }
 
-    setAttributeVerticies(valName: string, buffer: BufferWrapper): void {
+    public setAttributeVerticies(valName: string, buffer: BufferWrapper): void {
         this.useProgram();
         buffer.bindBuffer();
         if (!this.attributeLocations.has(valName)) {
@@ -141,8 +141,8 @@ class ProgramWrapper extends ResourceWrapper {
         this.WebGLContext.EnableVertexAttribArray(attribIndex);
         this.WebGLContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
     }
-    
-  registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
+
+    public registerTexture(renderer: RendererBase, tex: TextureBase, texNumber: number, samplerName: string) {
     renderer.ContextManager.GLContext.ActiveTexture(TextureRegister.Texture0 + texNumber);
     if(tex!=null&&typeof tex !== 'undefined')
     {

@@ -27,7 +27,7 @@ class JThreeInit {
   * 1, to use for select elements like jQuery in GOML.
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
-  static j3(query: string|Delegates.Action0): JThreeInterface {
+    public static j3(query: string|Delegates.Action0): JThreeInterface {
     var context = JThreeContextProxy.getJThreeContext();
     if (typeof query === 'function') {//check whether this is function or not.
       context.GomlLoader.onload(query);
@@ -37,11 +37,11 @@ class JThreeInit {
     return new JThreeInterface(targetObject);
   }
 
-  static img: HTMLImageElement;
+    public static img: HTMLImageElement;
   /**
   * This method should be called when Jthree loaded.
   */
-  static Init(): void {
+    public static Init(): void {
     //register interfaces
     window["j3"] = JThreeInit.j3;//$(~~~)
     var pro = Object.getPrototypeOf(window["j3"]);

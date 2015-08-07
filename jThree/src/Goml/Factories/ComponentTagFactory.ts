@@ -7,7 +7,7 @@ import ComponentNode = require('../Nodes/Components/ComponentsNode');
 */
 class ComponentTagFactory extends TagFactory
 {
-  CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
+    public CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
     if(parent.getTypeName()==="ComponentsNode")
     {
       var castedParent=<ComponentNode>parent;

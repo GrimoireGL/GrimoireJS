@@ -12,19 +12,19 @@ class MatrixBase {
         return true;
     }
 
-    get RowCount(): number {
+    public get RowCount(): number {
         return 0;
     }
 
-    get ColmunCount(): number {
+    public get ColmunCount(): number {
         return 0;
     }
 
-    getAt(row: number, colmun: number): number {
+    public getAt(row: number, colmun: number): number {
         throw new Error("Not implemented");
     }
 
-    getBySingleIndex(index: number): number {
+    public getBySingleIndex(index: number): number {
         throw new Error("Not implemented");
     }
     

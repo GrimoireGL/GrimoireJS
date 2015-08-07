@@ -1,4 +1,4 @@
-import JThreeContext = require("./JThreeContext");
+﻿import JThreeContext = require("./JThreeContext");
 import JThreeContextProxy = require("./JThreeContextProxy");
 import BufferTargetType = require("../Wrapper/BufferTargetType");
 import BufferUsageType = require("../Wrapper/BufferUsageType");
@@ -34,48 +34,47 @@ class ResourceManager extends jThreeObject {
 
     private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
 
-    createBuffer(id: string, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType): Buffer {
+    public createBuffer(id: string, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType): Buffer {
         return this.buffers.create(id, () => {
             return Buffer.CreateBuffer(this.context, target, usage, unitCount, elementType);
         });
     }
 
-    getBuffer(id: string): Buffer {
+    public getBuffer(id: string): Buffer {
         return this.buffers.get(id);
     }
 
     private shaders: ResourceArray<Shader> = new ResourceArray<Shader>();
 
-    createShader(id: string, source: string, shaderType: ShaderType): Shader {
+    public createShader(id: string, source: string, shaderType: ShaderType): Shader {
         return this.shaders.create(id, () => {
             return Shader.CreateShader(this.context, source, shaderType);
         });
     }
 
-    getShader(id: string): Shader {
+    public getShader(id: string): Shader {
         return this.shaders.get(id);
     }
 
-    hasShader(id: string): boolean {
+    public hasShader(id: string): boolean {
         return this.shaders.has(id);
     }
 
     private programs: ResourceArray<Program> = new ResourceArray<Program>();
 
-    createProgram(id: string, shaders: Shader[]): Program {
+    public createProgram(id: string, shaders: Shader[]): Program {
         return this.programs.create(id, () => {
             return Program.CreateProgram(this.context, shaders);
         });
     }
 
-    getProgram(id: string): Program {
+    public getProgram(id: string): Program {
         return this.programs.get(id);
     }
 
     private textures: ResourceArray<TextureBase> = new ResourceArray<TextureBase>();
 
-
-    createTextureWithSource(id: string, source: ImageSource): Texture {
+    public createTextureWithSource(id: string, source: ImageSource): Texture {
         return <Texture>this.textures.create(id, () => {
             var tex = new Texture(this.context, source);
             tex.each(v=> v.init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
@@ -83,11 +82,11 @@ class ResourceManager extends jThreeObject {
         });
     }
 
-    getTexture(id: string): Texture {
+    public getTexture(id: string): Texture {
         return <Texture>this.textures.get(id);
     }
-    
-    getTextureHandler(id:string,handler:Delegates.Action1<Texture>)
+
+    public getTextureHandler(id:string,handler:Delegates.Action1<Texture>)
     {
         this.textures.getHandler(id,handler);
     }
@@ -95,7 +94,7 @@ class ResourceManager extends jThreeObject {
     private rbos: ResourceArray<RBO> = new ResourceArray<RBO>(
         );
 
-    createRBO(id: string, width: number, height: number): RBO {
+    public createRBO(id: string, width: number, height: number): RBO {
         return this.rbos.create(id, () => {
             var r = new RBO(this.context, width, height);
             r.each(v=> v.init());
@@ -103,26 +102,26 @@ class ResourceManager extends jThreeObject {
         });
     }
 
-    getRBO(id: string): RBO {
+    public getRBO(id: string): RBO {
         return this.rbos.get(id);
     }
 
     private fbos: ResourceArray<FBO> = new ResourceArray<FBO>();
 
-    createFBO(id: string): FBO {
+    public createFBO(id: string): FBO {
         return this.fbos.create(id, () => {
             var fbo = new FBO(this.context);
             fbo.each(v=> v.init());
             return fbo;
         });
     }
-    
-    getFBO(id:string):FBO
+
+    public getFBO(id:string):FBO
     {
         return this.fbos.get(id);
     }
 
-    createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
+    public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
         return this.textures.create(id, () => {
             var bt = new BufferTexture(this.context, width, height, texType, elemType);
             bt.each(v=> v.init());

@@ -1,4 +1,4 @@
-import BufferTargetType = require("../../../Wrapper/BufferTargetType");
+﻿import BufferTargetType = require("../../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../../Wrapper/BufferUsageType");
 import ContextManagerBase = require("../../ContextManagerBase");
 import BufferProxy = require("./BufferProxy");
@@ -11,7 +11,7 @@ import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import JThreeContext = require('../../JThreeContext');
 class Buffer extends BufferProxy
 {
-    static CreateBuffer(context:JThreeContext,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
+    public static CreateBuffer(context:JThreeContext,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
         var buf: Buffer = new Buffer();
         buf.target = target;
         buf.usage = usage;
@@ -26,7 +26,7 @@ class Buffer extends BufferProxy
         return buf;
     }
 
-    changedRenderer(arg:CanvasListChangedEventArgs):void{
+    public changedRenderer(arg:CanvasListChangedEventArgs):void{
       if(arg.ChangeType==ListStateChangedType.Add)
       {
         var wrapper=new BufferWrapper(this,arg.AffectedRenderer.GLContext);
@@ -43,30 +43,30 @@ class Buffer extends BufferProxy
 
     private target: BufferTargetType;
 
-    get Target(): BufferTargetType
+    public get Target(): BufferTargetType
     {
         return this.target;
     }
 
     private usage:BufferUsageType;
 
-    get Usage():BufferUsageType {
+    public get Usage():BufferUsageType {
         return this.usage;
     }
 
     private elementType: ElementType;
 
-    get ElementType(): ElementType {
+    public get ElementType(): ElementType {
         return this.elementType;
     }
 
     private normalized: boolean=false;
 
-    get Normalized():boolean {
+    public get Normalized():boolean {
         return this.normalized;
     }
 
-    set Normalized(normalized: boolean) {
+    public set Normalized(normalized: boolean) {
         this.normalized = normalized;
     }
 
@@ -74,20 +74,19 @@ class Buffer extends BufferProxy
 
     private offset: number=0;
 
-
-    get Stride(): number {
+    public get Stride(): number {
         return this.stride;
     }
 
-    set Stride(stride: number) {
+    public set Stride(stride: number) {
         this.stride = stride;
     }
 
-    get Offse(): number {
+    public get Offse(): number {
         return this.offset;
     }
 
-    set Offset(offset: number) {
+    public set Offset(offset: number) {
         this.offset = offset;
     }
 
@@ -96,30 +95,30 @@ class Buffer extends BufferProxy
      */
     private unitCount: number;
 
-    get UnitCount(): number {
+    public get UnitCount(): number {
         return this.unitCount;
     }
 
     private bufWrappers: AssociativeArray<BufferWrapper> = new AssociativeArray<BufferWrapper>();
 
-    get BufferWrappers(): AssociativeArray<BufferWrapper> {
+    public get BufferWrappers(): AssociativeArray<BufferWrapper> {
         return this.bufWrappers;
     }
     private elementCache:Float32Array;
     private length:number=0;
 
-    get Length():number{
+    public get Length():number{
       return this.length;
     }
 
-    update(array: Float32Array, length: number): void
+    public update(array: Float32Array, length: number): void
     {
       this.elementCache=array;
       this.length=length;
         this.each((a) => a.update(array, length));
     }
 
-    getForRenderer(renderer: ContextManagerBase): BufferWrapper {
+    public getForRenderer(renderer: ContextManagerBase): BufferWrapper {
         if(!this.bufWrappers.has(renderer.ID))
         {
           var wrap=new BufferWrapper(this,renderer.GLContext);

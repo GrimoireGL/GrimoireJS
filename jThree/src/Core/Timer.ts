@@ -11,17 +11,17 @@ class Timer extends JThreeObject
     protected time: number = 0;
     protected timeFromLast: number = 0;
 
-    get CurrentFrame(): number
+    public get CurrentFrame(): number
     {
         return this.currentFrame;
     }
 
-    get Time(): number
+    public get Time(): number
     {
         return this.time;
     }
 
-    get TimeFromLast(): number
+    public get TimeFromLast(): number
     {
         return this.timeFromLast;
     }

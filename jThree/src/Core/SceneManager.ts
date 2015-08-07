@@ -14,13 +14,13 @@ class SceneManager extends jThreeObject {
     /**
     * Add new scene to be managed.
     */
-    addScene(scene: Scene): void {
+    public addScene(scene: Scene): void {
         if (!this.scenes.has(scene.ID)) {
             this.scenes.set(scene.ID, scene);
         }
     }
-    
-    get Scenes()
+
+    public get Scenes()
     {
         return this.scenes.asArray;
     }
@@ -28,13 +28,13 @@ class SceneManager extends jThreeObject {
     /**
     *
     */
-    removeScene(scene: Scene): void {
+    public removeScene(scene: Scene): void {
         if (this.scenes.has(scene.ID)) {
             this.scenes.delete(scene.ID);
         }
     }
 
-    renderAll(): void {
+    public renderAll(): void {
         JThreeContextProxy.getJThreeContext().CanvasManagers.forEach((c)=>{c.beforeRenderAll()});
         this.scenes.forEach((v) => {
             v.update();

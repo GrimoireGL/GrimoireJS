@@ -13,15 +13,15 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
 
     private attachedShaders: Shader[] = [];
 
-    get AttachedShaders():Shader[] {
+    public get AttachedShaders():Shader[] {
         return this.attachedShaders;
     }
 
-    attachShader(shader: Shader) {
+    public attachShader(shader: Shader) {
         this.attachedShaders.push(shader);
     }
 
-    static CreateProgram(context:JThreeContext,attachShaders:Shader[]): Program {
+    public static CreateProgram(context:JThreeContext,attachShaders:Shader[]): Program {
         var program: Program = new Program(context);
         program.attachedShaders = attachShaders;
         return program;

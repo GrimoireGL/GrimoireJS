@@ -17,7 +17,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
   * GOML Attribute
   * Identical Name for geometry
   */
-  get Name():string{
+    public get Name():string{
     this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
     return this.name;
   }
@@ -27,7 +27,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
   * GOML Attribute
   * If this Attribute was true, this resource will be loaded when be used first.
   */
-  get Lazy():boolean
+    public get Lazy():boolean
   {
     this.lazy=typeof this.lazy === 'undefined'?this.element.getAttribute('lazy').toLowerCase()=='true':this.lazy;
     return this.lazy;
@@ -38,7 +38,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
 /**
 * The geometry this node managing.
 */
-  get TargetGeometry():Geometry
+    public get TargetGeometry():Geometry
   {
     return this.targetGeometry;
   }
@@ -51,7 +51,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
     return null;
   }
 
-  beforeLoad():void
+    public beforeLoad():void
   {
     super.beforeLoad();
     this.targetGeometry=this.ConstructGeometry();

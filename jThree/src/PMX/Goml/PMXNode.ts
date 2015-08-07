@@ -45,7 +45,7 @@ class PMXNode extends SceneObjectNodeBase
     return this.pmxModel;
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
     PMXModel.LoadFromUrl(this.attributes.getValue("src"),(m)=>{
@@ -60,7 +60,7 @@ class PMXNode extends SceneObjectNodeBase
     super.beforeLoad();
   }
 
-  Load()
+    public Load()
   {
     super.Load();
   }

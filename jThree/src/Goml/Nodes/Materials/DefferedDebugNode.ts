@@ -6,7 +6,7 @@ import Material = require('../../../Core/Materials/Material')
 import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
 import ViewportNode = require('../Renderers/ViewPortNode');
 class DefferedDebugNode extends MaterialNodeBase {
-    material: DebugSprite;
+    public material: DebugSprite;
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
@@ -55,7 +55,7 @@ class DefferedDebugNode extends MaterialNodeBase {
         return this.material;
     }
 
-    beforeLoad() {
+    public beforeLoad() {
         super.beforeLoad();
     }
 

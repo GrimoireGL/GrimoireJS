@@ -176,7 +176,7 @@ class PMXMaterial extends Material {
         this.setLoaded();
     }
 
-    configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
         if (pass == 1) {
             this.configureEdgeMaterial(renderer, object);
             return;

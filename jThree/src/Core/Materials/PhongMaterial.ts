@@ -16,50 +16,51 @@ declare function require(string): string;
 class PhongMaterial extends Material {
   private diffuse = Color4.parseColor('#F0F');
 
-  get Diffuse(): Color4 {
+    public get Diffuse(): Color4 {
     return this.diffuse;
   }
 
-  set Diffuse(col: Color4) {
+    public set Diffuse(col: Color4) {
     this.diffuse = col;
   }
 
   private ambient = Color4.parseColor('#F0F');
 
-  get Ambient(): Color4 {
+    public get Ambient(): Color4 {
     return this.ambient;
   }
 
-  set Ambient(col: Color4) {
+    public set Ambient(col: Color4) {
     this.ambient = col;
   }
 
   private specular = Color3.parseColor('#F0F');
-  get Specular(): Color3 {
+
+    public get Specular(): Color3 {
     return this.specular;
   }
 
-  set Specular(col: Color3) {
+    public set Specular(col: Color3) {
     this.specular = col;
   }
 
   private specularCoefficient = 10;
 
-  get SpecularCoefficient(): number {
+    public get SpecularCoefficient(): number {
     return this.specularCoefficient;
   }
 
-  set SpecularCoefficient(val: number) {
+    public set SpecularCoefficient(val: number) {
     this.specularCoefficient = val;
   }
 
   private texture: TextureBase=null;
 
-  get Texture(): TextureBase {
+    public get Texture(): TextureBase {
     return this.texture;
   }
 
-  set Texture(tex: TextureBase) {
+    public set Texture(tex: TextureBase) {
     this.texture = tex;
   }
 
@@ -73,7 +74,7 @@ class PhongMaterial extends Material {
     this.setLoaded();
   }
 
-  configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo): void {
     if (!this.program) return;
     super.configureMaterial(scene, renderer, object,texs);
     var geometry = object.Geometry;

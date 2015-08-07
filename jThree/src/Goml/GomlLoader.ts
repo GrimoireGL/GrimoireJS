@@ -17,7 +17,8 @@ declare function require(string): any;
 class GomlLoader extends jThreeObject {
 
   private pluginLoader: PluginLoader = new PluginLoader();
-  update() {
+
+    public update() {
     if (!this.ready) return;
     this.componentRunner.executeForAllComponents("update");
   }
@@ -60,23 +61,17 @@ class GomlLoader extends jThreeObject {
     return this.configurator;
   }
 
-  nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
-
-  componentRegistry: ComponentRegistry = new ComponentRegistry();
-
-  componentRunner: ComponentRunner = new ComponentRunner();
-
-  rootObj: JQuery;
-
-  rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
-
-  NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
-
-  ready: boolean = false;
+    public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
+    public componentRegistry: ComponentRegistry = new ComponentRegistry();
+    public componentRunner: ComponentRunner = new ComponentRunner();
+    public rootObj: JQuery;
+    public rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
+    public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
+    public ready: boolean = false;
   /**
   * Attempt to load GOMLs that placed in HTML file.
   */
-  initForPage(): void {
+    public initForPage(): void {
     //to load <script src="j3.js" x-goml="HERE"/>
     this.attemptToLoadGomlInScriptAttr();
     //to load the script that is type of text/goml

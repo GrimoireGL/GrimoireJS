@@ -14,45 +14,45 @@ class ViewCameraBase extends Camera
     this.transformer.onUpdateTransform((t,o)=>this.UpdateViewMatrix(o));
   }
   //ViewMatix paramaters
-  position:Vector3;
-  lookAt:Vector3;
-  updir:Vector3;
-  viewMatrix:Matrix;
+    public position:Vector3;
+    public lookAt:Vector3;
+    public updir:Vector3;
+    public viewMatrix:Matrix;
 
-  get Position():Vector3
+    public get Position():Vector3
   {
     return this.position;
   }
 
-  set Position(vec:Vector3)
+    public set Position(vec:Vector3)
   {
     this.position=vec;
     this.UpdateViewMatrix();
   }
 
-  get LookAt():Vector3
+    public get LookAt():Vector3
   {
     return this.lookAt;
   }
 
-  set LookAt(vec:Vector3)
+    public set LookAt(vec:Vector3)
   {
     this.lookAt=vec;
     this.UpdateViewMatrix();
   }
 
-  get UpDirection():Vector3
+    public get UpDirection():Vector3
   {
     return this.updir;
   }
 
-  set UpDirection(vec:Vector3)
+    public set UpDirection(vec:Vector3)
   {
     this.updir=vec;
     this.UpdateViewMatrix();
   }
 
-  get ViewMatrix():Matrix
+    public get ViewMatrix():Matrix
   {
     return this.viewMatrix;
   }

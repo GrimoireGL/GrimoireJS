@@ -29,7 +29,7 @@ class Quaternion extends JThreeObject
 /**
 * Getter for X.
 */
-  get X():number
+    public get X():number
   {
     return this.targetQuat[0];
   }
@@ -37,7 +37,7 @@ class Quaternion extends JThreeObject
   /**
   * Getter for Y.
   */
-  get Y():number
+    public get Y():number
   {
     return this.targetQuat[1];
   }
@@ -45,7 +45,7 @@ class Quaternion extends JThreeObject
   /**
   * Getter for Z.
   */
-  get Z():number
+    public get Z():number
   {
     return this.targetQuat[2];
   }
@@ -53,7 +53,7 @@ class Quaternion extends JThreeObject
   /**
   * Getter for W.
   */
-  get W():number
+    public get W():number
   {
     return this.targetQuat[3];
   }
@@ -62,7 +62,7 @@ class Quaternion extends JThreeObject
 * Getter for imaginary part vector.
 * It returns the vector (x,y,z)
 */
-  get ImaginaryPart():Vector3
+    public get ImaginaryPart():Vector3
   {
     return new Vector3(this.X,this.Y,this.Z);
   }
@@ -70,7 +70,7 @@ class Quaternion extends JThreeObject
 /**
 * Get the conjugate of this quaternion
 */
-  get Conjugate():Quaternion
+    public get Conjugate():Quaternion
   {
     var newQuat=glm.quat.create();
     return new Quaternion(glm.quat.conjugate(newQuat,this.targetQuat));
@@ -79,14 +79,14 @@ class Quaternion extends JThreeObject
 /**
 * Get the length
 */
-  get Length():number
+    public get Length():number
   {
     return glm.quat.len(this.targetQuat);
   }
 /**
 * Get normalized quaternion
 */
-  Normalize():Quaternion
+    public Normalize():Quaternion
   {
     var newQuat=glm.quat.create();
     return new Quaternion(glm.quat.normalize(newQuat,this.targetQuat));

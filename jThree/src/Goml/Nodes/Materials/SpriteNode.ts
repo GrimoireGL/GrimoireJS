@@ -6,7 +6,7 @@ import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
 class SpriteNode extends MaterialNodeBase {
-    material: Sprite;
+    public material: Sprite;
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
@@ -29,7 +29,7 @@ class SpriteNode extends MaterialNodeBase {
         return this.material;
     }
 
-    beforeLoad() {
+    public beforeLoad() {
         super.beforeLoad();
     }
 

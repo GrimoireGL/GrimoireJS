@@ -21,7 +21,7 @@ class JThreeContext extends JThreeObject
     *
     * If you want to know more, please see the doc comment of JThreeContextProxy
     */
-    static getInstanceForProxy()
+    public static getInstanceForProxy()
     {
       JThreeContext.instance=JThreeContext.instance||new JThreeContext();
       return JThreeContext.instance;
@@ -49,11 +49,11 @@ class JThreeContext extends JThreeObject
       });
     }
 
-    get SceneManager(): SceneManager {
+    public get SceneManager(): SceneManager {
         return this.sceneManager;
     }
 
-    get GomlLoader(): GomlLoader {
+    public get GomlLoader(): GomlLoader {
         return this.gomlLoader;
     }
 
@@ -69,7 +69,7 @@ class JThreeContext extends JThreeObject
      * Begin render loop.
      * In most of case, you no need to call this function by your self.
      */
-    init() {
+    public init() {
       //By calling this method,Gomlloader will start to load the content related to GOML.
       this.gomlLoader.initForPage();
       //register the render loop.
@@ -98,7 +98,7 @@ class JThreeContext extends JThreeObject
     * The main loop for rendering and updating scenes managed by jThree.
     * In most of case you no need to call this function by yourself.
     */
-    loop(): void {
+    public loop(): void {
       //update timer it will be referenced by scenes.
       this.timer.updateTimer();
       this.updateAnimation();
@@ -110,27 +110,27 @@ class JThreeContext extends JThreeObject
     /**
      * Getter of canvas renderer.
      */
-    get CanvasManagers(): CanvasManager[] {
+    public get CanvasManagers(): CanvasManager[] {
         return this.canvasManagers;
     }
     /**
     * Getter of Timer
     */
-    get Timer(): Timer {
+    public get Timer(): Timer {
         return this.timer;
     }
 
     /**
      * The class managing resources over multiple canvas(Buffer,Shader,Program,Texture)
      */
-    get ResourceManager(): ResourceManager {
+    public get ResourceManager(): ResourceManager {
         return this.resourceManager;
     }
 
     /**
      * Add renderers to be managed by jThree
      */
-    addCanvasManager(renderer: CanvasManager):void {
+    public addCanvasManager(renderer: CanvasManager):void {
         if (this.canvasManagers.indexOf(renderer) === -1) {
             this.canvasManagers.push(renderer);
             this.canvasChangedEvent.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Add,renderer));
@@ -140,7 +140,7 @@ class JThreeContext extends JThreeObject
     /**
      * Remove renderer
      */
-    removeCanvasManager(renderer: CanvasManager): void {
+    public removeCanvasManager(renderer: CanvasManager): void {
         if (this.canvasManagers.indexOf(renderer) !== -1) {
             for (var i = 0; i < this.canvasManagers.length; i++) {
                 if (this.canvasManagers[i] === renderer)
@@ -156,7 +156,7 @@ class JThreeContext extends JThreeObject
     /**
      * add function as renderer changed event handler.
      */
-    onRendererChanged(func:Delegates.Action2<any,CanvasListChangedEventArgs>): void {
+    public onRendererChanged(func:Delegates.Action2<any,CanvasListChangedEventArgs>): void {
         this.canvasChangedEvent.addListerner(func);
     }
 }

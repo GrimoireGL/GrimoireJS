@@ -40,25 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="bundle-notdoc.js" />
     <Content Include="packages.config" />
     <Content Include="src\Base\Collections\ArrayEnumratorFactory.js" />
@@ -400,9 +381,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="src\Base\Collections\ArrayEnumratorFactory.ts" />
     <TypeScriptCompile Include="src\Base\Collections\AssociativeArray.ts" />
     <TypeScriptCompile Include="src\Base\Collections\Collection.ts" />
@@ -578,9 +556,6 @@
     <TypeScriptCompile Include="src\Init.ts" />
     <TypeScriptCompile Include="src\jThree.ts" />
     <TypeScriptCompile Include="src\JThreeInterface.ts" />
-    <TypeScriptCompile Include="src\mathmatics\Math.ts" />
-    <TypeScriptCompile Include="src\mathmatics\Matrix.ts" />
-    <TypeScriptCompile Include="src\mathmatics\Vector.ts" />
     <TypeScriptCompile Include="src\Math\Matrix.ts" />
     <TypeScriptCompile Include="src\Math\MatrixBase.ts" />
     <TypeScriptCompile Include="src\Math\Quaternion.ts" />
@@ -664,6 +639,7 @@
     <TypeScriptCompile Include="src\Wrapper\WebGLContextWrapper.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
     <Folder Include="test\" />
   </ItemGroup>
   <PropertyGroup>

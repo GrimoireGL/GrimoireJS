@@ -16,8 +16,8 @@ class RendererNodeBase extends GomlTreeNodeBase {
             },
         });
     }
-    
-    beforeLoad()
+
+    public beforeLoad()
     {
         this.attributes.setValue("width",this.DefaultWidth);
         this.attributes.setValue("height",this.DefaultHeight);

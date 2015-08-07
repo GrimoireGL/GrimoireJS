@@ -17,7 +17,7 @@ class GridGeometryNode extends GeometryNodeBase
     return this.gridGeometry=new GridGeometry(this.Name);
   }
 
-  beforeLoad()
+    public beforeLoad()
   {
     super.beforeLoad();
     this.gridGeometry.HolizontalDivide=this.HDiv;
@@ -27,14 +27,14 @@ class GridGeometryNode extends GeometryNodeBase
   private hdiv=10;
   private vdiv=10;
 
-  get HDiv():number
+    public get HDiv():number
   {
     this.hdiv=parseFloat(this.element.getAttribute("hdiv"));
     this.hdiv=this.hdiv||10;
     return this.hdiv;
   }
 
-  get VDiv():number
+    public get VDiv():number
   {
     this.vdiv =parseFloat(this.element.getAttribute("vdiv"));
     this.vdiv=this.vdiv||10;

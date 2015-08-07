@@ -12,31 +12,31 @@ class Rectangle extends jThreeObject {
     private width: number;
     private height: number;
 
-    get Left(): number {
+    public get Left(): number {
         return this.left;
     }
 
-    get Right(): number {
+    public get Right(): number {
         return this.left + this.width;
     }
 
-    get Top(): number {
+    public get Top(): number {
         return this.top;
     }
 
-    get Bottom(): number {
+    public get Bottom(): number {
         return this.top + this.height;
     }
 
-    get Width(): number {
+    public get Width(): number {
         return this.width;
     }
 
-    get Height(): number {
+    public get Height(): number {
         return this.height;
     }
 
-    toString():string{
+    public toString():string{
       return `Rectangle(${this.left},${this.top}-${this.Right},${this.Bottom})`;
     }
     

@@ -25,7 +25,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         super(elem,loader,parent);
     }
 
-    afterLoad(){
+    public afterLoad(){
       var rdr:RendererNodeBase=this.parentRendererNode=<RendererNodeBase>this.parent;
       var defaultRect = rdr.CanvasManager.getDefaultRectangle();
       this.targetRenderer=new ViewportRenderer(rdr.CanvasManager,defaultRect);
@@ -104,7 +104,7 @@ class ViewPortNode extends GomlTreeNodeBase {
     private width:number;
     private height:number;
 
-    get Cam():string
+    public get Cam():string
     {
       this.cam=this.cam||this.element.getAttribute('cam');
       return this.cam;

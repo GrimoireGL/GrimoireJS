@@ -1,4 +1,4 @@
-import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
+﻿import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Material = require("./Materials/Material");
 import Delegates = require("../Base/Delegates");
 import Geometry = require("./Geometries/Geometry");
@@ -92,17 +92,17 @@ class SceneObject extends JThreeObjectWithID
         });
     }
 
-    onMaterialChanged(func:Delegates.Action2<Material,SceneObject>): void {
+    public onMaterialChanged(func:Delegates.Action2<Material,SceneObject>): void {
         this.materialChanagedHandler.push(func);
     }
     /**
      * すべてのマテリアルに対して処理を実行します。
      */
-    eachMaterial(func:Delegates.Action1<Material>): void {
+    public eachMaterial(func:Delegates.Action1<Material>): void {
         this.materials.forEach((v) =>v.each(e=>func(e)));
     }
 
-    addMaterial(mat: Material): void
+    public addMaterial(mat: Material): void
     {
         if(!this.materials.has(mat.MaterialGroup))
         {
@@ -110,8 +110,8 @@ class SceneObject extends JThreeObjectWithID
         }        
         this.materials.get(mat.MaterialGroup).insert(mat);
     }
-    
-    getMaterial(matGroup:string):Material
+
+    public getMaterial(matGroup:string):Material
     {
         if(this.materials.has(matGroup))
         {
@@ -126,8 +126,7 @@ class SceneObject extends JThreeObjectWithID
         return null;
     }
 
-
-    getMaterials(matAlias:string):Material[]
+    public getMaterials(matAlias:string):Material[]
     {
       if(this.materials.has(matAlias))
       {
@@ -165,7 +164,7 @@ class SceneObject extends JThreeObjectWithID
       action(this);
     }
 
-    update() {
+    public update() {
 
     }
 }

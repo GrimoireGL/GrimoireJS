@@ -24,7 +24,7 @@ class Matrix extends MatrixBase{
     
     private targetMatrix = glm.mat4.create();
 
-    get rawElements(): Float32Array {
+    public get rawElements(): Float32Array {
         return <Float32Array>this.targetMatrix;
     }
     
@@ -44,19 +44,19 @@ class Matrix extends MatrixBase{
         this.targetMatrix=arr;
     }
 
-    getAt(row: number, colmun: number): number {
+    public getAt(row: number, colmun: number): number {
         return this.targetMatrix[colmun * 4 + row];
     }
 
-    setAt(colmun: number, row: number, val: number) {
+    public setAt(colmun: number, row: number, val: number) {
         this.targetMatrix[colmun * 4 + row] = val;
     }
 
-    getBySingleIndex(index: number): number {
+    public getBySingleIndex(index: number): number {
         return this.targetMatrix[index];
     }
 
-    getColmun(col: number): Vector4 {
+    public getColmun(col: number): Vector4 {
         return new Vector4(this.targetMatrix[col * 4], this.targetMatrix[col * 4 + 1], this.targetMatrix[col * 4 + 2], this.targetMatrix[col * 4 + 3]);
     }
 
@@ -64,15 +64,15 @@ class Matrix extends MatrixBase{
 * Get row
 * @params row [0-3]
 */
-    getRow(row: number):Vector4 {
+    public getRow(row: number):Vector4 {
         return new Vector4(this.targetMatrix[row], this.targetMatrix[row + 4], this.targetMatrix[row + 8], this.targetMatrix[row + 12]);
     }
-    
-    static equal(m1: Matrix, m2: Matrix): boolean {
+
+    public static equal(m1: Matrix, m2: Matrix): boolean {
         return Matrix.elementEqual(m1, m2);
     }
 
-    static add(m1: Matrix, m2: Matrix): Matrix {
+    public static add(m1: Matrix, m2: Matrix): Matrix {
         var mat=glm.mat4.create();
         for(var i=0;i<16;i++)
         {
@@ -81,22 +81,22 @@ class Matrix extends MatrixBase{
         return new Matrix(mat);
     }
 
-    static subtract(m1: Matrix, m2: Matrix): Matrix {
+    public static subtract(m1: Matrix, m2: Matrix): Matrix {
         return Matrix.add(m1,Matrix.negate(m2));
     }
 
-    static scalarMultiply(s: number, m: Matrix): Matrix {
+    public static scalarMultiply(s: number, m: Matrix): Matrix {
         var newMat=glm.mat4.create();
         glm.mat4.multiply(newMat,[s,0,0,0,  0,s,0,0,  0,0,s,0 , 0,0,0,s],m.targetMatrix);
         return new Matrix(newMat);
     }
 
-    static multiply(m1: Matrix, m2: Matrix): Matrix {
+    public static multiply(m1: Matrix, m2: Matrix): Matrix {
         var newMat=glm.mat4.create();
         return new Matrix(glm.mat4.mul(newMat,m1.targetMatrix,m2.targetMatrix));
     }
 
-    static TRS(t:Vector3,rot:Quaternion,s:Vector3):Matrix
+    public static TRS(t:Vector3,rot:Quaternion,s:Vector3):Matrix
     {
        var newMat =glm.mat4.create();var cacheMat=glm.mat4.create();
        glm.mat4.mul(newMat,glm.mat4.translate(newMat,glm.mat4.create(),t.targetVector),glm.mat4.fromQuat(cacheMat,rot.targetQuat));
@@ -104,22 +104,22 @@ class Matrix extends MatrixBase{
       return new Matrix(newMat);
     }
 
-    static negate(m: Matrix): Matrix {
+    public static negate(m: Matrix): Matrix {
         return this.scalarMultiply(-1,m);
     }
 
-    static transpose(m: Matrix): Matrix {
+    public static transpose(m: Matrix): Matrix {
         var newMat = glm.mat4.create();
         return new Matrix(glm.mat4.transpose(newMat,m.targetMatrix));
     }
 
-    static transformPoint(m: Matrix, t: Vector3): Vector3 {
+    public static transformPoint(m: Matrix, t: Vector3): Vector3 {
         var newVec=glm.vec3.create();
         glm.vec3.transformMat4(newVec,t.targetVector,m.targetMatrix);
         return new Vector3(newVec);
     }
 
-    static transformNormal(m: Matrix, t: Vector3): Vector3 {
+    public static transformNormal(m: Matrix, t: Vector3): Vector3 {
         var newVec=glm.vec4.create();
         var trans=glm.vec4.create();
        trans[0]=t.X;trans[1]=t.Y;trans[2]=t.Z;trans[3]=0;
@@ -127,7 +127,7 @@ class Matrix extends MatrixBase{
         return new Vector3(newVec[0],newVec[1],newVec[2]);
     }
 
-    static transform(m: Matrix, t: Vector4): Vector4 {
+    public static transform(m: Matrix, t: Vector4): Vector4 {
         var newVec=glm.vec4.create();
         var trans=glm.vec4.create();
        trans[0]=t.X;trans[1]=t.Y;trans[2]=t.Z;trans[3]=t.W;
@@ -138,14 +138,14 @@ class Matrix extends MatrixBase{
     /**
      * Retrieve determinant of passed matrix
      */
-    static determinant(m: Matrix): number {
+    public static determinant(m: Matrix): number {
         return glm.mat4.determinant(m.targetMatrix);
     }
 
     /**
      * Compute inverted passed matrix.
      */
-    static inverse(m: Matrix): Matrix {
+    public static inverse(m: Matrix): Matrix {
       var newMat=glm.mat4.create();
       return new Matrix(glm.mat4.invert(newMat,m.targetMatrix));
     }
@@ -153,7 +153,7 @@ class Matrix extends MatrixBase{
     /**
      * Generate linear translation transform matrix.
      */
-    static translate(v: Vector3): Matrix {
+    public static translate(v: Vector3): Matrix {
         var newMat=glm.mat4.create();
         glm.mat4.translate(newMat,newMat,v.targetVector);
         return new Matrix(newMat);
@@ -162,31 +162,31 @@ class Matrix extends MatrixBase{
     /**
      * Generate linear scaling transform matrix.
      */
-    static scale(v: Vector3): Matrix {
+    public static scale(v: Vector3): Matrix {
         var newMat =glm.mat4.create();
         glm.mat4.scale(newMat,newMat,v.targetVector);
         return new Matrix(newMat);
     }
-    
-    static rotateX(angle:number):Matrix{
+
+    public static rotateX(angle:number):Matrix{
        var newMat = glm.mat4.create();
        glm.mat4.rotateX(newMat,newMat,angle);
        return new Matrix(newMat);
     }
 
-    static rotateY(angle:number):Matrix{
+    public static rotateY(angle:number):Matrix{
        var newMat = glm.mat4.create();
        glm.mat4.rotateY(newMat,newMat,angle);
        return new Matrix(newMat);
     }
 
-    static rotateZ(angle:number):Matrix{
+    public static rotateZ(angle:number):Matrix{
        var newMat = glm.mat4.create();
        glm.mat4.rotateZ(newMat,newMat,angle);
        return new Matrix(newMat);
     }
 
-    static RotationQuaternion(quat:Quaternion):Matrix
+    public static RotationQuaternion(quat:Quaternion):Matrix
     {
       var quaternion= glm.quat.create();
       var newMat = glm.mat4.create();
@@ -195,54 +195,53 @@ class Matrix extends MatrixBase{
       return new Matrix(newMat);
     }
 
-    static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {
+    public static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {
         var newMat=glm.mat4.create();
         glm.mat4.frustum(newMat,left,right,bottom,top,near,far);
 		return new Matrix(newMat);
     }
 
-    static ortho(left:number,right:number,bottom:number,top:number,near:number,far:number):Matrix
+    public static ortho(left:number,right:number,bottom:number,top:number,near:number,far:number):Matrix
     {
         var newMat = glm.mat4.create();
         glm.mat4.ortho(newMat,left,right,bottom,top,near,far);
         return new Matrix(newMat);
     }
 
-    static perspective(fovy: number, aspect: number, near: number, far: number): Matrix {
+    public static perspective(fovy: number, aspect: number, near: number, far: number): Matrix {
         var newMat = glm.mat4.create();
         glm.mat4.perspective(newMat,fovy,aspect,near,far);
         return new Matrix(newMat);
     }
 
-    static lookAt(eye: Vector3, lookAt: Vector3, up: Vector3): Matrix {
+    public static lookAt(eye: Vector3, lookAt: Vector3, up: Vector3): Matrix {
         var newMat = glm.mat4.create();
         glm.mat4.lookAt(newMat,eye.targetVector,lookAt.targetVector,up.targetVector);
         return new Matrix(newMat);
     }
 
-    multiplyWith(m: Matrix): Matrix {
+    public multiplyWith(m: Matrix): Matrix {
         return Matrix.multiply(this, m);
     }
 
-
-
-    toString(): string {
+    public toString(): string {
         return (`|${this.getBySingleIndex(0)} ${this.getBySingleIndex(4)} ${this.getBySingleIndex(8)} ${this.getBySingleIndex(12)}|\n
                  |${this.getBySingleIndex(1)} ${this.getBySingleIndex(5)} ${this.getBySingleIndex(9)} ${this.getBySingleIndex(13)}|\n
                  |${this.getBySingleIndex(2)} ${this.getBySingleIndex(6)} ${this.getBySingleIndex(10)} ${this.getBySingleIndex(14)}|\n
                  |${this.getBySingleIndex(3)} ${this.getBySingleIndex(7)} ${this.getBySingleIndex(11)} ${this.getBySingleIndex(15)}|`)  }
 
-    toMathematicaString():string
+    public toMathematicaString():string
     {
         return (`{{${this.getBySingleIndex(0)},${this.getBySingleIndex(4)},${this.getBySingleIndex(8)},${this.getBySingleIndex(12)}},
                   {${this.getBySingleIndex(1)},${this.getBySingleIndex(5)},${this.getBySingleIndex(9)},${this.getBySingleIndex(13)}},
                   {${this.getBySingleIndex(2)},${this.getBySingleIndex(6)},${this.getBySingleIndex(10)},${this.getBySingleIndex(14)}},
                   {${this.getBySingleIndex(3)},${this.getBySingleIndex(7)},${this.getBySingleIndex(11)},${this.getBySingleIndex(15)}}}`);
     }
-    get ElementCount(): number { return 16; }
 
-    get RowCount(): number { return 4; }
+    public get ElementCount(): number { return 16; }
 
-    get ColmunCount(): number { return 4; }
+    public get RowCount(): number { return 4; }
+
+    public get ColmunCount(): number { return 4; }
 }
 export=Matrix;

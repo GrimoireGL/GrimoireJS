@@ -29,7 +29,7 @@ class DepthMaterial extends Material
           this.setLoaded();
       }
 
-     configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject,texs): void {
+    public configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject,texs): void {
           var geometry=object.Geometry;
           var programWrapper = this.program.getForContext(renderer.ContextManager);
           programWrapper.useProgram();

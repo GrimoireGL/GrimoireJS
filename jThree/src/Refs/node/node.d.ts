@@ -394,16 +394,23 @@ declare module "querystring" {
 
 declare module "events" {
     export class EventEmitter implements NodeJS.EventEmitter {
-        static listenerCount(emitter: EventEmitter, event: string): number;
+        public static listenerCount(emitter: EventEmitter, event: string): number;
 
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): void;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
+        public addListener(event: string, listener: Function): EventEmitter;
+
+        public on(event: string, listener: Function): EventEmitter;
+
+        public once(event: string, listener: Function): EventEmitter;
+
+        public removeListener(event: string, listener: Function): EventEmitter;
+
+        public removeAllListeners(event?: string): EventEmitter;
+
+        public setMaxListeners(n: number): void;
+
+        public listeners(event: string): Function[];
+
+        public emit(event: string, ...args: any[]): boolean;
    }
 }
 
@@ -525,9 +532,9 @@ declare module "http" {
 	}
 
     export class Agent {
-		maxSockets: number;
-		sockets: any;
-		requests: any;
+        public maxSockets: number;
+        public sockets: any;
+        public requests: any;
 
 		constructor(opts?: AgentOptions);
 
@@ -537,7 +544,7 @@ declare module "http" {
 		 * then it is best to explicitly shut down the agent when you know that it will no longer be used. Otherwise,
 		 * sockets may hang open for quite a long time before the server terminates them.
 		 */
-		destroy(): void;
+        public destroy(): void;
 	}
 
     export var STATUS_CODES: {
@@ -562,13 +569,17 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
-        process: child.ChildProcess;
-        suicide: boolean;
-        send(message: any, sendHandle?: any): void;
-        kill(signal?: string): void;
-        destroy(signal?: string): void;
-        disconnect(): void;
+        public id: string;
+        public process: child.ChildProcess;
+        public suicide: boolean;
+
+        public send(message: any, sendHandle?: any): void;
+
+        public kill(signal?: string): void;
+
+        public destroy(signal?: string): void;
+
+        public disconnect(): void;
     }
 
     export var settings: ClusterSettings;
@@ -1646,19 +1657,30 @@ declare module "stream" {
     }
 
     export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
-        readable: boolean;
+        public readable: boolean;
         constructor(opts?: ReadableOptions);
-        _read(size: number): void;
-        read(size?: number): string|Buffer;
-        setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
-        push(chunk: any, encoding?: string): boolean;
+
+        public _read(size: number): void;
+
+        public read(size?: number): string|Buffer;
+
+        public setEncoding(encoding: string): void;
+
+        public pause(): void;
+
+        public resume(): void;
+
+        public pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+
+        public unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
+
+        public unshift(chunk: string): void;
+
+        public unshift(chunk: Buffer): void;
+
+        public wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
+
+        public push(chunk: any, encoding?: string): boolean;
     }
 
     export interface WritableOptions {
@@ -1667,17 +1689,26 @@ declare module "stream" {
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
-        writable: boolean;
+        public writable: boolean;
         constructor(opts?: WritableOptions);
-        _write(data: Buffer, encoding: string, callback: Function): void;
-        _write(data: string, encoding: string, callback: Function): void;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+
+        public _write(data: Buffer, encoding: string, callback: Function): void;
+
+        public _write(data: string, encoding: string, callback: Function): void;
+
+        public write(buffer: Buffer, cb?: Function): boolean;
+
+        public write(str: string, cb?: Function): boolean;
+
+        public write(str: string, encoding?: string, cb?: Function): boolean;
+
+        public end(): void;
+
+        public end(buffer: Buffer, cb?: Function): void;
+
+        public end(str: string, cb?: Function): void;
+
+        public end(str: string, encoding?: string, cb?: Function): void;
     }
 
     export interface DuplexOptions extends ReadableOptions, WritableOptions {
@@ -1686,46 +1717,75 @@ declare module "stream" {
 
     // Note: Duplex extends both Readable and Writable.
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
-        writable: boolean;
+        public writable: boolean;
         constructor(opts?: DuplexOptions);
-        _write(data: Buffer, encoding: string, callback: Function): void;
-        _write(data: string, encoding: string, callback: Function): void;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+
+        public _write(data: Buffer, encoding: string, callback: Function): void;
+
+        public _write(data: string, encoding: string, callback: Function): void;
+
+        public write(buffer: Buffer, cb?: Function): boolean;
+
+        public write(str: string, cb?: Function): boolean;
+
+        public write(str: string, encoding?: string, cb?: Function): boolean;
+
+        public end(): void;
+
+        public end(buffer: Buffer, cb?: Function): void;
+
+        public end(str: string, cb?: Function): void;
+
+        public end(str: string, encoding?: string, cb?: Function): void;
     }
 
     export interface TransformOptions extends ReadableOptions, WritableOptions {}
 
     // Note: Transform lacks the _read and _write methods of Readable/Writable.
     export class Transform extends events.EventEmitter implements NodeJS.ReadWriteStream {
-        readable: boolean;
-        writable: boolean;
+        public readable: boolean;
+        public writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: Buffer, encoding: string, callback: Function): void;
-        _transform(chunk: string, encoding: string, callback: Function): void;
-        _flush(callback: Function): void;
-        read(size?: number): any;
-        setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
-        push(chunk: any, encoding?: string): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
+
+        public _transform(chunk: Buffer, encoding: string, callback: Function): void;
+
+        public _transform(chunk: string, encoding: string, callback: Function): void;
+
+        public _flush(callback: Function): void;
+
+        public read(size?: number): any;
+
+        public setEncoding(encoding: string): void;
+
+        public pause(): void;
+
+        public resume(): void;
+
+        public pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+
+        public unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
+
+        public unshift(chunk: string): void;
+
+        public unshift(chunk: Buffer): void;
+
+        public wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
+
+        public push(chunk: any, encoding?: string): boolean;
+
+        public write(buffer: Buffer, cb?: Function): boolean;
+
+        public write(str: string, cb?: Function): boolean;
+
+        public write(str: string, encoding?: string, cb?: Function): boolean;
+
+        public end(): void;
+
+        public end(buffer: Buffer, cb?: Function): void;
+
+        public end(str: string, cb?: Function): void;
+
+        public end(str: string, encoding?: string, cb?: Function): void;
     }
 
     export class PassThrough extends Transform {}
@@ -1758,12 +1818,12 @@ declare module "assert" {
     function internal (value: any, message?: string): void;
     module internal {
         export class AssertionError implements Error {
-            name: string;
-            message: string;
-            actual: any;
-            expected: any;
-            operator: string;
-            generatedMessage: boolean;
+            public name: string;
+            public message: string;
+            public actual: any;
+            public expected: any;
+            public operator: string;
+            public generatedMessage: boolean;
 
             constructor(options?: {message?: string; actual?: any; expected?: any;
                                   operator?: string; stackStartFunction?: Function});
@@ -1815,18 +1875,27 @@ declare module "domain" {
     import events = require("events");
 
     export class Domain extends events.EventEmitter {
-        run(fn: Function): void;
-        add(emitter: events.EventEmitter): void;
-        remove(emitter: events.EventEmitter): void;
-        bind(cb: (err: Error, data: any) => any): any;
-        intercept(cb: (data: any) => any): any;
-        dispose(): void;
+        public run(fn: Function): void;
 
-        addListener(event: string, listener: Function): Domain;
-        on(event: string, listener: Function): Domain;
-        once(event: string, listener: Function): Domain;
-        removeListener(event: string, listener: Function): Domain;
-        removeAllListeners(event?: string): Domain;
+        public add(emitter: events.EventEmitter): void;
+
+        public remove(emitter: events.EventEmitter): void;
+
+        public bind(cb: (err: Error, data: any) => any): any;
+
+        public intercept(cb: (data: any) => any): any;
+
+        public dispose(): void;
+
+        public addListener(event: string, listener: Function): Domain;
+
+        public on(event: string, listener: Function): Domain;
+
+        public once(event: string, listener: Function): Domain;
+
+        public removeListener(event: string, listener: Function): Domain;
+
+        public removeAllListeners(event?: string): Domain;
     }
 
     export function create(): Domain;
