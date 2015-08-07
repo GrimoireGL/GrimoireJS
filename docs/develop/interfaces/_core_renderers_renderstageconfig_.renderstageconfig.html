@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SDEF | jThree</title>
+	<title>RenderStageConfig | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_pmx_pmxverticies_.html">&quot;PMX/PMXVerticies&quot;</a>
+					<a href="../modules/_core_renderers_renderstageconfig_.html">&quot;Core/Renderers/RenderStageConfig&quot;</a>
 				</li>
 				<li>
-					<a href="_pmx_pmxverticies_.sdef.html">SDEF</a>
+					<a href="_core_renderers_renderstageconfig_.renderstageconfig.html">RenderStageConfig</a>
 				</li>
 			</ul>
-			<h1>Interface SDEF</h1>
+			<h1>Interface RenderStageConfig</h1>
 		</div>
 	</div>
 </header>
@@ -74,7 +74,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">SDEF</span>
+						<span class="target">RenderStageConfig</span>
 					</li>
 				</ul>
 			</section>
@@ -82,24 +82,57 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_pmx_pmxverticies_.sdef.html#boneparams" class="tsd-kind-icon">bone<wbr>Params</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_renderers_renderstageconfig_.renderstageconfig.html#cullface" class="tsd-kind-icon">cull<wbr>Face</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_renderers_renderstageconfig_.renderstageconfig.html#cullfront" class="tsd-kind-icon">cull<wbr>Front</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_renderers_renderstageconfig_.renderstageconfig.html#depthtest" class="tsd-kind-icon">depth<wbr>Test</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_renderers_renderstageconfig_.renderstageconfig.html#texyflip" class="tsd-kind-icon">texYFlip</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="boneparams" class="tsd-anchor"></a>
-					<h3>bone<wbr>Params</h3>
-					<div class="tsd-signature tsd-kind-icon">bone<wbr>Params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="cullface" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cull<wbr>Face</h3>
+					<div class="tsd-signature tsd-kind-icon">cull<wbr>Face<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXVerticies.ts#L21">PMX/PMXVerticies.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageConfig.ts#L2">Core/Renderers/RenderStageConfig.ts:2</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="cullfront" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cull<wbr>Front</h3>
+					<div class="tsd-signature tsd-kind-icon">cull<wbr>Front<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageConfig.ts#L3">Core/Renderers/RenderStageConfig.ts:3</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="depthtest" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> depth<wbr>Test</h3>
+					<div class="tsd-signature tsd-kind-icon">depth<wbr>Test<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageConfig.ts#L4">Core/Renderers/RenderStageConfig.ts:4</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="texyflip" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> texYFlip</h3>
+					<div class="tsd-signature tsd-kind-icon">texYFlip<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageConfig.ts#L5">Core/Renderers/RenderStageConfig.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -112,25 +145,28 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_pmx_pmxverticies_.html">"PMX/PMXVerticies"</a>
+						<a href="../modules/_core_renderers_renderstageconfig_.html">"<wbr>Core/<wbr>Renderers/<wbr>Render<wbr>Stage<wbr>Config"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_pmx_pmxverticies_.pmxvertex.html" class="tsd-kind-icon">PMXVertex</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_pmx_pmxverticies_.pmxverticies.html" class="tsd-kind-icon">PMXVerticies</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_pmx_pmxverticies_.sdef.html" class="tsd-kind-icon">SDEF</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_core_renderers_renderstageconfig_.renderstageconfig.html" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_pmx_pmxverticies_.sdef.html#boneparams" class="tsd-kind-icon">bone<wbr>Params</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_renderers_renderstageconfig_.renderstageconfig.html#cullface" class="tsd-kind-icon">cull<wbr>Face</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_renderers_renderstageconfig_.renderstageconfig.html#cullfront" class="tsd-kind-icon">cull<wbr>Front</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_renderers_renderstageconfig_.renderstageconfig.html#depthtest" class="tsd-kind-icon">depth<wbr>Test</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_renderers_renderstageconfig_.renderstageconfig.html#texyflip" class="tsd-kind-icon">texYFlip</a>
 							</li>
 						</ul>
 					</li>
