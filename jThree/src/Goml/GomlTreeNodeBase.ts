@@ -18,7 +18,6 @@ class GomlTreeNodeBase extends ComponentContainerNode
         this.attributes=new AttributeDictionary(this,loader,elem);
     }
 
-
     /**
      * Attributes this node have.
      */
@@ -26,17 +25,17 @@ class GomlTreeNodeBase extends ComponentContainerNode
 
     public beforeLoad()
     {
-      //this method should be overriden by the class extends this class.
+      // this method should be overriden by the class extends this class.
     }
 
     public Load()
     {
-      //this method should be overriden by the class extends this class.
+      // this method should be overriden by the class extends this class.
     }
 
     public afterLoad()
     {
-      //this method should be overriden by the class extends this class.
+      // this method should be overriden by the class extends this class.
     }
 
 
