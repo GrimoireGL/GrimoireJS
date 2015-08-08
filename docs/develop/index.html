@@ -83,28 +83,28 @@
 					<thead>
 						<tr>
 							<th style="text-align:center">Name</th>
-							<th style="text-align:center">Purpose</th>
-							<th style="text-align:center">URL</th>
-							<th style="text-align:center">Memo</th>
+							<th style="text-align:left">Purpose</th>
+							<th style="text-align:left">URL</th>
+							<th style="text-align:left">Memo</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td style="text-align:center">jQuery</td>
-							<td style="text-align:center">Use for search goml tag.</td>
-							<td style="text-align:center"><a href="https://jquery.com/">https://jquery.com/</a></td>
-							<td style="text-align:center"><strong>This dependency will be removed soon</strong></td>
+							<td style="text-align:left">Use for search goml tag.</td>
+							<td style="text-align:left"><a href="https://jquery.com/">https://jquery.com/</a></td>
+							<td style="text-align:left"><strong>This dependency will be removed soon</strong></td>
 						</tr>
 						<tr>
 							<td style="text-align:center">superagent</td>
-							<td style="text-align:center">Use for ajax to resolve plugins</td>
-							<td style="text-align:center"><a href="https://visionmedia.github.io/superagent/">https://visionmedia.github.io/superagent/</a></td>
-							<td style="text-align:center"></td>
+							<td style="text-align:left">Use for ajax to resolve plugins</td>
+							<td style="text-align:left"><a href="https://visionmedia.github.io/superagent/">https://visionmedia.github.io/superagent/</a></td>
+							<td style="text-align:left"></td>
 						</tr>
 						<tr>
 							<td style="text-align:center">gl-matrix</td>
-							<td style="text-align:center">Use for calculation for webgl</td>
-							<td style="text-align:center"><a href="https://github.com/toji/gl-matrix">https://github.com/toji/gl-matrix</a></td>
+							<td style="text-align:left">Use for calculation for webgl</td>
+							<td style="text-align:left"><a href="https://github.com/toji/gl-matrix">https://github.com/toji/gl-matrix</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -126,11 +126,32 @@ bower install
 				<p>Then, run the command below to build &quot;j3.js&quot;</p>
 				<pre><code class="lang-shell">npm run build
 </code></pre>
-				<p>|command|description|
-					|npm run build|build &quot;j3.js&quot;|
-					|npm run test|run test|
-					|npm run watch|watch files for build and run simple web server(under wwwroot)|
-				|npm start|only run simple web server(under wwwroot)|</p>
+				<table>
+					<thead>
+						<tr>
+							<th style="text-align:center">command</th>
+							<th style="text-align:left">description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="text-align:center">npm run build</td>
+							<td style="text-align:left">build &quot;j3.js&quot;</td>
+						</tr>
+						<tr>
+							<td style="text-align:center">npm run test</td>
+							<td style="text-align:left">run test</td>
+						</tr>
+						<tr>
+							<td style="text-align:center">npm run watch</td>
+							<td style="text-align:left">watch files for build and run simple web server(under wwwroot)</td>
+						</tr>
+						<tr>
+							<td style="text-align:center">npm start</td>
+							<td style="text-align:left">only run simple web server(under wwwroot)</td>
+						</tr>
+					</tbody>
+				</table>
 				<p>(simple web server supported LiveReload)</p>
 				<h2 id="coding-style">Coding Style</h2>
 				<p>Almost every code in this project is witten with Typescript.
