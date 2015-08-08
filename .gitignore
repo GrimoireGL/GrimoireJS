@@ -13,6 +13,9 @@ jThree/src/**/*.js
 jThree/src/**/*.js.map
 jThree/bin/**/*.*
 jThree/docs/**.*
+jThree/test/build/
+jThree/test/**/*.js
+jThree/test/**/*.js.map
 bower_components/
 # User-specific files
 *.suo

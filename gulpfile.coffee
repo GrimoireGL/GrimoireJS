@@ -135,7 +135,60 @@ gulp.task 'doc', (cb) ->
 ###
 test task
 ###
-gulp.task 'test', ->
+gulp.task 'test', ['webpack:test'], ->
   gulp
-    .src './jThree/test/**/*test.coffee'
+    .src './jThree/test/build/test.js'
     .pipe mocha()
+
+###
+build for test
+###
+test_src_root = 'jThree/test'
+test_files = ['jThree/test/**/*test.ts']
+
+gulp.task 'webpack:test', ->
+  webpack_src = []
+  webpack_src.push webpack_src_root + file for file in webpack_files
+  webpack_src.push test_src_root + file for file in test_files
+  webpack_src.push '!' + webpack_src_root + file for file in webpack_exculde
+  gulp
+    .src webpack_src
+    .pipe webpack
+      watch: watching
+      entry:
+        jThree: path.join __dirname, 'jThree/test/Test.ts'
+      output:
+        filename: 'test.js'
+      resolve:
+        alias:
+          'jquery': path.join __dirname, 'jquery.js'
+          'superagent': path.join __dirname, 'superagent.js'
+          'emitter': path.join __dirname, 'emitter.js'
+          'reduce': path.join __dirname, 'reduce.js'
+          'glm': path.join __dirname, 'gl-matrix-min.js'
+          'binary': path.join __dirname, 'binaryReader.js'
+        extensions: ['', '.ts']
+        root: [
+          webpack_src_root
+          path.join __dirname, bower_prefix
+        ]
+        unsafeCache: true
+      module:
+        loaders: [
+            test: /\.json$/
+            loader: 'json'
+          ,
+            test: /\.glsl$/
+            loader: 'shader'
+          ,
+            test: /\.ts$/
+            loader: 'ts-loader'
+            configFileName: 'jThree/tsconfig.json'
+        ]
+      glsl:
+        chunkPath: "./Chunk"
+      cache: true
+      plugins: [
+        new wpcore.ResolverPlugin(new wpcore.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"]))
+      ]
+    .pipe gulp.dest('jThree/test/build')

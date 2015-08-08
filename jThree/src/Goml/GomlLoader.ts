@@ -107,7 +107,6 @@ class GomlLoader extends jThreeObject {
    * Load goml script for legacy jthree v2 syntax.
    *
    * Attempt to load src or innerText from script tag refering this source.
-   *
    * <script type='text/goml' src='path/to/goml'></script>
    * or
    * <script type='text/goml'>{{goml}}</script>

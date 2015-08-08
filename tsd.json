@@ -16,6 +16,18 @@
     },
     "gl-matrix/gl-matrix.d.ts": {
       "commit": "ac3a1f059f655059484d6aa5ba1f0f85908ae06c"
+    },
+    "mocha/mocha.d.ts": {
+      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+    },
+    "chai/chai.d.ts": {
+      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+    },
+    "sinon-chai/sinon-chai.d.ts": {
+      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+    },
+    "sinon/sinon.d.ts": {
+      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
     }
   }
 }
