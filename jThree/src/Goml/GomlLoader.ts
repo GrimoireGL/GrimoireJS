@@ -10,21 +10,24 @@ import ComponentRegistry = require('./Components/ComponentRegistry');
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
 import ComponentRunner = require('./Components/ComponentRunner');
 import PluginLoader = require('./Plugins/PluginLoader');
+
 declare function require(string): any;
+
 /**
-* The class for loading goml.
-*/
+ * The class for loading goml.
+ */
 class GomlLoader extends jThreeObject {
 
   private pluginLoader: PluginLoader = new PluginLoader();
 
-    public update() {
+  public update() {
     if (!this.ready) return;
     this.componentRunner.executeForAllComponents("update");
   }
+
   /**
-  * Constructor. User no need to call this constructor by yourself.
-  */
+   * Constructor. User no need to call this constructor by yourself.
+   */
   constructor() {
     super();
     //obtain the script tag that is refering this source code.
@@ -33,57 +36,66 @@ class GomlLoader extends jThreeObject {
   }
 
   /**
-  * The script tag that is refering this source code.
-  */
+   * The script tag that is refering this source code.
+   */
   private selfTag: HTMLScriptElement;
 
   /**
-  * The event it will be called when GomlLoader complete loading.
-  */
+   * The event it will be called when GomlLoader complete loading
+   *
+   * @type {JThreeEvent<string>}
+   */
   private onLoadEvent: JThreeEvent<string> = new JThreeEvent<string>();
 
-  /*
-  * Call passed function if loaded GOML Document.
-  */
+  /**
+   * Call passed function if loaded GOML Document.
+   *
+   * @param {Delegates.Action2<any, string>} act [description]
+   */
   public onload(act: Delegates.Action2<any, string>): void {
     this.onLoadEvent.addListerner(act);
   }
 
   /**
-  * this configurator will load any tag information by require
-  */
+   * this configurator will load any tag information by require.
+   */
   private configurator: GomlLoaderConfigurator = new GomlLoaderConfigurator();
 
   /**
-  * The configurator for new tag,converter,easingfunctions
-  */
+   * The configurator for new tag, converter, easingfunctions.
+   */
   public get Configurator(): GomlLoaderConfigurator {
     return this.configurator;
   }
 
-    public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
-    public componentRegistry: ComponentRegistry = new ComponentRegistry();
-    public componentRunner: ComponentRunner = new ComponentRunner();
-    public rootObj: JQuery;
-    public rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
-    public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
-    public ready: boolean = false;
+  public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
+  public componentRegistry: ComponentRegistry = new ComponentRegistry();
+  public componentRunner: ComponentRunner = new ComponentRunner();
+  public rootObj: JQuery;
+  public rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
+  public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
+  public ready: boolean = false;
+
   /**
-  * Attempt to load GOMLs that placed in HTML file.
-  */
-    public initForPage(): void {
-    //to load <script src="j3.js" x-goml="HERE"/>
+   * Attempt to load GOMLs that placed in HTML file.
+   */
+  public initForPage(): void {
+    // to load <script src="j3.js" x-goml="HERE"/>
     this.attemptToLoadGomlInScriptAttr();
-    //to load the script that is type of text/goml
-    //TODO replace JQuery into native js interface.
+    // to load the script that is type of text/goml
+    // TODO replace JQuery into native js interface.
     var gomls: JQuery = $("script[type='text/goml']");
     gomls.each((index: number, elem: Element) => {
       this.loadScriptTag($(elem));
     });
   }
+
   /**
-  * Attempt to load x-goml attribute from script tag refering this source.
-  */
+   * Load goml script for current jthree v3 syntax.
+   *
+   * Attempt to load x-goml attribute from script tag refering this source.
+   * <script x-goml='path/to/goml'></script>
+   */
   private attemptToLoadGomlInScriptAttr(): void {
     var url = this.selfTag.getAttribute('x-goml');
     $.get(url, [], (d) => {
@@ -92,19 +104,34 @@ class GomlLoader extends jThreeObject {
   }
 
   /**
-  * For <script type='text/goml'>
-  */
+   * Load goml script for legacy jthree v2 syntax.
+   *
+   * Attempt to load src or innerText from script tag refering this source.
+   *
+   * <script type='text/goml' src='path/to/goml'></script>
+   * or
+   * <script type='text/goml'>{{goml}}</script>
+   *
+   * @param {JQuery} scriptTag jQuery object of script tag
+   */
   private loadScriptTag(scriptTag: JQuery): void {
     var srcSource: string = scriptTag[0].getAttribute("src");
-    if (srcSource) {//when src is specified
+    if (srcSource) { // when src is specified
+      // use xhr to get script of src
       $.get(srcSource, [], (d) => {
         this.scriptLoaded(d);
       });
-    } else {
+    } else { // when src is not specified
+      // get innerText of script tag
       this.scriptLoaded(scriptTag.text());
     }
   }
 
+  /**
+   * parse goml source to node tree and load each node
+   *
+   * @param {string} source goml source
+   */
   private scriptLoaded(source: string): void {
     var catched = this.rootObj = $(source);
     if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
