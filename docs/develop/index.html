@@ -116,21 +116,22 @@
 					<li>node.js</li>
 					<li>npm</li>
 				</ul>
-				<p>You need to run these command below to install npm packages in global.</p>
-				<pre><code class="lang-shell">npm install bower --global
-npm install gulp --global
-npm install tsd --global
-npm install typedoc --global
-</code></pre>
-				<p>And you need to run the command below to install local npm packages,bower packages,and so on.</p>
+				<p>You need <strong>not</strong> to install packages in global</p>
+				<p>you need to run the command below to install local npm packages,bower packages,and so on.</p>
 				<pre><code class="lang-shell">npm install
 tsd reinstall
 bower install
 </code></pre>
-				<p><strong>That is all you need to do for preparation!</strong>
-				Then, you can run server and build files with following command.</p>
-				<pre><code class="lang-shell">gulp watch
+				<p><strong>That is all you need to do for preparation!</strong></p>
+				<p>Then, run the command below to build &quot;j3.js&quot;</p>
+				<pre><code class="lang-shell">npm run build
 </code></pre>
+				<p>|command|description|
+					|npm run build|build &quot;j3.js&quot;|
+					|npm run test|run test|
+					|npm run watch|watch files for build and run simple web server(under wwwroot)|
+				|npm start|only run simple web server(under wwwroot)|</p>
+				<p>(simple web server supported LiveReload)</p>
 				<h2 id="coding-style">Coding Style</h2>
 				<p>Almost every code in this project is witten with Typescript.
 					For writing Typescript, we use these coding style below.
