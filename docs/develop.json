@@ -87500,7 +87500,7 @@
 									"flags": {},
 									"comment": {
 										"shortText": "Load goml script for legacy jthree v2 syntax.",
-										"text": "Attempt to load src or innerText from script tag refering this source.\n\n<script type='text/goml' src='path/to/goml'></script>\nor\n<script type='text/goml'>{{goml}}</script>\n"
+										"text": "Attempt to load src or innerText from script tag refering this source.\n<script type='text/goml' src='path/to/goml'></script>\nor\n<script type='text/goml'>{{goml}}</script>\n"
 									},
 									"parameters": [
 										{
