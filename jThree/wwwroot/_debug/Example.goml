@@ -48,7 +48,7 @@
       <mesh geo="quad" mat="mat2" position="0,1.5,-0.5" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="-0.5,1.5,0" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="-0.5,1.5,0.5" scale="0.1"/>
-      <!--         <mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,0.890"/>-->
+      <!--<mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,0.890"/>-->
       <mesh geo="cube" mat="mat2" position="0,0,0.5" rotation="y(30d)" scale="0.1"/>
       <mesh geo="cube" mat="mat2" position="-0.5,0,0" rotation="y(40d)" scale="0.1"/>
       <mesh geo="cube" mat="mat2" position="0.5,0,-0.5" rotation="y(10d)" scale="0.1"/>

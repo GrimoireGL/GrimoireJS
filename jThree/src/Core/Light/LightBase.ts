@@ -5,9 +5,13 @@ import ContextManagerBase = require('../ContextManagerBase');
 import Scene = require('../Scene');
 import Material = require('Materials/Material');
 import RendererBase = require('../Renderers/RendererBase');
+import JThreeEvent = require("../../Base/JThreeEvent");
+import Delegates = require("../../Base/Delegates");
 class LightBase extends SceneObject
 {
-	protected scene:Scene;
+    protected scene: Scene;
+
+    private parameterChanged:JThreeEvent<LightBase>=new JThreeEvent();
 	
 	constructor(scene:Scene)
 	{
@@ -48,8 +52,15 @@ class LightBase extends SceneObject
 	public afterRender(target:ContextManagerBase)
 	{
 		
-	}
+    }
+
+    public onParameterChanged(handler:Delegates.Action2<Object,LightBase>) {
+        this.parameterChanged.addListerner(handler);
+    }
 	
+    public getParameters(renderer:RendererBase): number[] {
+        return [];
+    }
 }
 
 export = LightBase;

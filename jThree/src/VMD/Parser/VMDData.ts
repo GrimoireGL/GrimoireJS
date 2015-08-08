@@ -1,6 +1,6 @@
 import VMDHeader = require("./VMDHeader");
-import VMDMotion = require("./VMDMotion");
-import VMDMorph = require("./VMDMorph");
+import VMDMotions = require("./VMDMotions");
+import VMDMorphs = require("./VMDMorphs");
 import VMDFrameData = require("./VMDFrameData");
 import VMDBoneStatus= require("./VMDBoneStatus");
 import Delegates = require("../../Base/Delegates");
@@ -25,9 +25,9 @@ class VMDData {
 
 	private header: VMDHeader;
 
-	private motions: VMDMotion;
+	private motions: VMDMotions;
 
-	private morphs: VMDMorph;
+	private morphs: VMDMorphs;
 
 	public get Motions()
 	{

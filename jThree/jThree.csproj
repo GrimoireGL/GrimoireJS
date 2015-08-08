@@ -419,6 +419,7 @@
     <TypeScriptCompile Include="src\Core\JThreeContextProxy.ts" />
     <TypeScriptCompile Include="src\Core\Light\DirectionalLight.ts" />
     <TypeScriptCompile Include="src\Core\Light\LightBase.ts" />
+    <TypeScriptCompile Include="src\Core\Light\LightRegister.ts" />
     <TypeScriptCompile Include="src\Core\Light\PointLight.ts" />
     <TypeScriptCompile Include="src\Core\ListStateChangedType.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DebugSpriteMaterial.ts" />
@@ -430,8 +431,10 @@
     <TypeScriptCompile Include="src\Core\Materials\PhongMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\SolidColorMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\SpriteMaterial.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\FBOBindData.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RendererBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageChain.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStageConfig.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\FowardShadingStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GrayScaleStage.ts" />
@@ -484,6 +487,7 @@
     <TypeScriptCompile Include="src\Goml\Animater\RotationAnimater.ts" />
     <TypeScriptCompile Include="src\Goml\Animater\Vector3Animater.ts" />
     <TypeScriptCompile Include="src\Goml\AttributeDeclaration.ts" />
+    <TypeScriptCompile Include="src\Goml\AttributeDeclationBody.ts" />
     <TypeScriptCompile Include="src\Goml\AttributeDictionary.ts" />
     <TypeScriptCompile Include="src\Goml\AttributeParser.ts" />
     <TypeScriptCompile Include="src\Goml\ComponentContainerNodeBase.ts" />
@@ -569,6 +573,7 @@
     <TypeScriptCompile Include="src\PMX\Core\PMXDepthMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXGeometry.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMaterial.ts" />
+    <TypeScriptCompile Include="src\PMX\Core\PMXMaterialMorphParamContainer.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXModel.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMorph.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMorphManager.ts" />
@@ -596,7 +601,9 @@
     <TypeScriptCompile Include="src\PMX\PMXMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\PMXMorph.ts" />
     <TypeScriptCompile Include="src\PMX\PMXRigidBody.ts" />
+    <TypeScriptCompile Include="src\PMX\PMXVertex.ts" />
     <TypeScriptCompile Include="src\PMX\PMXVerticies.ts" />
+    <TypeScriptCompile Include="src\PMX\SDEF.ts" />
     <TypeScriptCompile Include="src\Refs\bundle.ts" />
     <TypeScriptCompile Include="src\Refs\gl-matrix\gl-matrix.d.ts" />
     <TypeScriptCompile Include="src\Refs\jquery\jquery.d.ts" />
@@ -610,8 +617,10 @@
     <TypeScriptCompile Include="src\VMD\Parser\VMDFrameData.ts" />
     <TypeScriptCompile Include="src\VMD\Parser\VMDHeader.ts" />
     <TypeScriptCompile Include="src\VMD\Parser\VMDMorph.ts" />
+    <TypeScriptCompile Include="src\VMD\Parser\VMDMorphs.ts" />
     <TypeScriptCompile Include="src\VMD\Parser\VMDMorphStatus.ts" />
     <TypeScriptCompile Include="src\VMD\Parser\VMDMotion.ts" />
+    <TypeScriptCompile Include="src\VMD\Parser\VMDMotions.ts" />
     <TypeScriptCompile Include="src\Wrapper\BlendEquationType.ts" />
     <TypeScriptCompile Include="src\Wrapper\BlendFuncParamType.ts" />
     <TypeScriptCompile Include="src\Wrapper\BufferTargetType.ts" />

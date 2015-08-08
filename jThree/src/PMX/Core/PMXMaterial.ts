@@ -17,7 +17,7 @@ import Texture = require('../../Core/Resources/Texture/Texture');
 import BlendFuncParamType = require("../../Wrapper/BlendFuncParamType");
 import PMXGeometry = require('./PMXGeometry');
 import PMXModel = require('./PMXModel');
-import PmxMaterialMorphParamContainer = require("PMXMaterialMorphParamContainer");
+import PmxMaterialMorphParamContainer = require("./PMXMaterialMorphParamContainer");
 
 declare function require(string): string;
 
