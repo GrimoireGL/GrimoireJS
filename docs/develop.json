@@ -86984,7 +86984,7 @@
 								"isExported": true
 							},
 							"comment": {
-								"shortText": "this configurator will load any tag information by require"
+								"shortText": "this configurator will load any tag information by require."
 							},
 							"type": {
 								"type": "reference",
@@ -87018,7 +87018,13 @@
 								"isExported": true
 							},
 							"comment": {
-								"shortText": "The event it will be called when GomlLoader complete loading."
+								"shortText": "The event it will be called when GomlLoader complete loading",
+								"tags": [
+									{
+										"tag": "type",
+										"text": "{JThreeEvent<string>}\n"
+									}
+								]
 							},
 							"type": {
 								"type": "reference",
@@ -87129,7 +87135,7 @@
 								"isPublic": true
 							},
 							"comment": {
-								"shortText": "The configurator for new tag,converter,easingfunctions"
+								"shortText": "The configurator for new tag, converter, easingfunctions."
 							},
 							"getSignature": [
 								{
@@ -87139,7 +87145,7 @@
 									"kindString": "Get signature",
 									"flags": {},
 									"comment": {
-										"shortText": "The configurator for new tag,converter,easingfunctions"
+										"shortText": "The configurator for new tag, converter, easingfunctions."
 									},
 									"type": {
 										"type": "reference",
@@ -87225,7 +87231,8 @@
 									"kindString": "Call signature",
 									"flags": {},
 									"comment": {
-										"shortText": "Attempt to load x-goml attribute from script tag refering this source."
+										"shortText": "Load goml script for current jthree v3 syntax.",
+										"text": "Attempt to load x-goml attribute from script tag refering this source.\n<script x-goml='path/to/goml'></script>\n"
 									},
 									"type": {
 										"type": "instrinct",
@@ -87492,7 +87499,8 @@
 									"kindString": "Call signature",
 									"flags": {},
 									"comment": {
-										"shortText": "For <script type='text/goml'>"
+										"shortText": "Load goml script for legacy jthree v2 syntax.",
+										"text": "Attempt to load src or innerText from script tag refering this source.\n\n<script type='text/goml' src='path/to/goml'></script>\nor\n<script type='text/goml'>{{goml}}</script>\n"
 									},
 									"parameters": [
 										{
@@ -87501,6 +87509,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "jQuery object of script tag\n"
+											},
 											"type": {
 												"type": "reference",
 												"name": "JQuery"
@@ -87530,6 +87541,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Call passed function if loaded GOML Document."
+									},
 									"parameters": [
 										{
 											"id": 1509,
@@ -87537,6 +87551,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "\n"
+											},
 											"type": {
 												"type": "reference",
 												"name": "Action2",
@@ -87644,6 +87661,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "parse goml source to node tree and load each node"
+									},
 									"parameters": [
 										{
 											"id": 1529,
@@ -87651,6 +87671,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "goml source\n"
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "string"
