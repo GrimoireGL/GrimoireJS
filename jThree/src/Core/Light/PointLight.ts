@@ -59,7 +59,12 @@ class PointLight extends LightBase
 	public get AliasName():string
 	{
 		return "jthree.lights.pointlight";
-	}
+    }
+
+    public getParameters(): number[]
+    {
+        return [this.Color.R,this.Color.G,this.Color.B];
+    }
 }
 
 export = PointLight;

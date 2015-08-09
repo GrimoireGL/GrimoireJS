@@ -2,9 +2,11 @@
 import RendererBase = require("../Renderers/RendererBase");
 import LightBase = require("LightBase");
 import JThreeCollection = require("../../Base/JThreeCollection");
-import AssociativeArray = require("../../Base/Collections/AssociativeArray"); 
-
-/**
+import AssociativeArray = require("../../Base/Collections/AssociativeArray");
+import JThreeContextProxy = require('../../Core/JThreeContextProxy');
+import InternalFormatType = require("../../Wrapper/TextureInternalFormatType");
+import TextureType = require("../../Wrapper/TextureType");
+import Scene = require("../Scene"); /**
  * Provides light management feature by renderer
  */
 class LightRegister
@@ -17,7 +19,7 @@ class LightRegister
     /**
      * Renderer using this class.
      */
-    private renderer: RendererBase;
+    private scene:Scene;
 
     /**
      * Height of texture.
@@ -40,12 +42,20 @@ class LightRegister
         return this.textureHeight;
     }
 
-    public get Renderer(): RendererBase {
-        return this.renderer;
+    public get TextureHeight(): number {
+        return this.lights.length;
     }
 
     public get ParameterTexture(): BufferTexture {
         return this.parameterTexture;
+    }
+
+    private get ResourceManager() {
+        return JThreeContextProxy.getJThreeContext().ResourceManager;
+    }
+    constructor(scene:Scene) {
+        this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID+ ".jthree.light.params", this.TextureWidth, this.TextureHeight, InternalFormatType.RGBA, TextureType.Float));
+        this.widthUpdate();
     }
 
      /**
@@ -66,12 +76,13 @@ class LightRegister
     public addLight(light:LightBase) {
         this.lights.push(light);
         this.lightIdDictionary.set(light.ID, this.lights.length - 1);
-        light.onParameterChanged((o,l)=>this.lightUpdate(l));
+        light.onParameterChanged((o, l) => this.lightUpdate(l));
+        this.heightUpdate(0);
     }
 
     private heightUpdate(start: number)
     {
-        //update texture here
+        //allocating new buffer
         var newBuffer = new Float32Array(4 * this.TextureWidth * this.lights.length);
         for (var i = 0; i < start*4*this.TextureWidth; i++) {
             newBuffer[i] = this.textureSourceBuffer[i];
@@ -81,6 +92,9 @@ class LightRegister
         for (var i = start; i < this.Lights.length; i++) {
             this.lightUpdate(this.Lights[i]);
         }
+        //update texture
+        this.parameterTexture.resize(this.TextureWidth, this.TextureHeight);
+        this.parameterTexture.updateTexture(this.textureSourceBuffer);
     }
 
     private widthUpdate() {
@@ -91,9 +105,10 @@ class LightRegister
      * Update light parameter.
      * @param light the light you want to update
      */
-    private lightUpdate(light:LightBase) {
+    private lightUpdate(light: LightBase)
+    {
         var index = this.lightIdDictionary.get(light.ID);
-        var parameters = light.getParameters(this.Renderer);
+        var parameters = light.getParameters();
         var baseIndex = index * 4 * this.TextureWidth;
         var endIndex = baseIndex + parameters.length;
         for (var i = baseIndex; i < endIndex; i++) {
@@ -102,6 +117,14 @@ class LightRegister
         for (var i = endIndex; i < baseIndex + 4 * this.TextureWidth; i++) {
             this.textureSourceBuffer[i] = 0;//fill zero
         }
+    }
+
+    public updateLightForRenderer() {
+        for (var i = 0; i < this.Lights.length; i++)
+        {
+            this.lightUpdate(this.Lights[i]);
+        }
+        this.parameterTexture.updateTexture(this.textureSourceBuffer);
     }
 }
 

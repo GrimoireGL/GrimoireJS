@@ -646,10 +646,12 @@
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureRegister.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureWrapType.ts" />
     <TypeScriptCompile Include="src\Wrapper\WebGLContextWrapper.ts" />
+    <TypeScriptCompile Include="test\Core\Light\LightRegisterTest.ts" />
+    <TypeScriptCompile Include="test\Goml\GomlLoaderTest.ts" />
+    <TypeScriptCompile Include="test\Test.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="test\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -658,7 +660,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
-    <TypeScriptSourceRoot>C:\jThree\jThree\jThree\src</TypeScriptSourceRoot>
+    <TypeScriptSourceRoot>C:\jThree\jThree\jThree</TypeScriptSourceRoot>
     <TypeScriptMapRoot>C:\jThree\jThree\jThree\src</TypeScriptMapRoot>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />

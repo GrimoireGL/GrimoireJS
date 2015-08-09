@@ -3,7 +3,7 @@ import glm = require('glm');
 
 class Vector4 extends VectorBase
 {
-    /**
+    /*
      * Static properties
      */
 

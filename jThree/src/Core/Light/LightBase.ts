@@ -19,7 +19,7 @@ class LightBase extends SceneObject
 		this.scene=scene;
 	}
 	
-	private color:Color4;
+	private color:Color4=new Color4(0,0,0,0);
 	
 	public get Color():Color4
 	{
@@ -58,7 +58,7 @@ class LightBase extends SceneObject
         this.parameterChanged.addListerner(handler);
     }
 	
-    public getParameters(renderer:RendererBase): number[] {
+    public getParameters(): number[] {
         return [];
     }
 }

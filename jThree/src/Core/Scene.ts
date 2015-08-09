@@ -6,15 +6,18 @@ import Camera = require("./Camera/Camera");
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates =require('../Base/Delegates')
-
+import LightRegister = require('./Light/LightRegister');
 //シーン
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
         this.enabled = true;
+        this.lightRegister = new LightRegister(this);
     }
 
     public enabled: boolean;
+
+    private lightRegister:LightRegister;
 
     public update(): void {
         if (!this.enabled) return;//enabled==falseならいらない。
@@ -23,7 +26,9 @@ class Scene extends jThreeObjectWithID {
 
     public render(): void {
         this.renderers.forEach((r) => {
+
             r.beforeRender();
+            this.lightRegister.updateLightForRenderer();
             r.RenderStageManager.processRender(this,this.sceneObjects);
             r.afterRender();
         });
@@ -88,6 +93,7 @@ class Scene extends jThreeObjectWithID {
     public addLight(light:LightBase):void
     {
         this.lightCount++;
+        this.lightRegister.addLight(light);
         if(!this.lights.has(light.AliasName))
         {
             this.lights.set(light.AliasName,[light]);
