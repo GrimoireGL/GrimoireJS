@@ -57,7 +57,7 @@ class DirectionalLight extends LightBase {
 		this.intensity = intensity;
 	}
 
-	public get AliasName(): string {
+	public get LightType(): string {
 		return "jthree.lights.directionallight";
 	}
 }

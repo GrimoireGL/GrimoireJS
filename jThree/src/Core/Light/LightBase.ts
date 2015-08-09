@@ -36,7 +36,7 @@ class LightBase extends SceneObject
 		return this.Transformer.Position;
 	}
 	
-	public get AliasName():string
+	public get LightType():string
 	{
 		return null;
 	}
@@ -53,7 +53,7 @@ class LightBase extends SceneObject
 	{
 		
     }
-
+    S
     public onParameterChanged(handler:Delegates.Action2<Object,LightBase>) {
         this.parameterChanged.addListerner(handler);
     }

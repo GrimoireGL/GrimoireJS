@@ -56,7 +56,7 @@ class PointLight extends LightBase
 		this.decay=d;
 	}
 	
-	public get AliasName():string
+	public get LightType():string
 	{
 		return "jthree.lights.pointlight";
     }

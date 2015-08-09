@@ -94,12 +94,12 @@ class Scene extends jThreeObjectWithID {
     {
         this.lightCount++;
         this.lightRegister.addLight(light);
-        if(!this.lights.has(light.AliasName))
+        if(!this.lights.has(light.LightType))
         {
-            this.lights.set(light.AliasName,[light]);
+            this.lights.set(light.LightType,[light]);
             return;
         }
-        this.lights.get(light.AliasName).push(light);
+        this.lights.get(light.LightType).push(light);
     }
 
     public addObject(targetObject: SceneObject): void {
