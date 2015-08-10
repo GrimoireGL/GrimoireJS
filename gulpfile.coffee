@@ -27,17 +27,25 @@ configure
 branch = args.branch || 'unknown'
 console.log "branch: #{branch}"
 
+# typedoc sources (Array), dest
+typedocSrc = ['jThree/src/**/*.ts']
+typedocDest = 'ci/docs'
+
+# tsd file sources (Array)
+tsdSrc = 'jThree/refs/**/*.d.ts'
+
+# test target (Array)
+testTarget = 'jThree/test/build/test.js'
+
+# path to tsconfig.json
+tsconfigPath = './tsconfig.json'
+
+# pathes for webpack building
 requireRoot = 'jThree/src'
 serverRoot = 'jThree/wwwroot'
 watchForReload = ['jThree/wwwroot/**/*.js', 'jThree/wwwroot/**/*.html', 'jThree/wwwroot/**/*.goml']
 
-typedocSrc = ['jThree/src/**/*.ts']
-typedocDest = 'ci/docs'
-
-testTarget = 'jThree/test/build/test.js'
-
-tsconfigPath = './tsconfig.json'
-
+# individual config for webpack building
 config =
   main:
     entry: 'jThree/src/jThree.ts'
@@ -148,7 +156,7 @@ document generation task
 ###
 gulp.task 'doc', (cb) ->
   gulp
-    .src typedocSrc
+    .src [].concat typedocSrc, tsdSrc
     .pipe typedoc
       module: 'commonjs'
       target: 'es5'
