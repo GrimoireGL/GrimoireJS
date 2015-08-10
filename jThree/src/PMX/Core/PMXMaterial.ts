@@ -17,7 +17,7 @@ import Texture = require('../../Core/Resources/Texture/Texture');
 import BlendFuncParamType = require("../../Wrapper/BlendFuncParamType");
 import PMXGeometry = require('./PMXGeometry');
 import PMXModel = require('./PMXModel');
-import PmxMaterialMorphParamContainer = require("./PMXMaterialMorphParamContainer");
+import PmxMaterialMorphParamContainer = require('./PMXMaterialMorphParamContainer');
 
 declare function require(string): string;
 
@@ -33,21 +33,21 @@ class PMXMaterial extends Material {
     private verticiesCount;
 
     private verticiesOffset;
-    
+
     /**
      * Count of verticies
      */
     public get VerticiesCount() {
         return this.verticiesCount;
     }
-    
+
     /**
      * Offset of verticies in index buffer
      */
     public get VerticiesOffset() {
         return this.verticiesOffset;
     }
-    
+
     public get ParentModel()
     {
         return this.parentModel;
