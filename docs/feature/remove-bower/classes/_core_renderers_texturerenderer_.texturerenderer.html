@@ -1,0 +1,686 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>TextureRenderer | jThree</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script src="../assets/js/modernizr.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">jThree</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_core_renderers_texturerenderer_.html">&quot;Core/Renderers/TextureRenderer&quot;</a>
+				</li>
+				<li>
+					<a href="_core_renderers_texturerenderer_.texturerenderer.html">TextureRenderer</a>
+				</li>
+			</ul>
+			<h1>Class TextureRenderer</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="_core_renderers_viewportrenderer_.viewportrenderer.html" class="tsd-signature-type">ViewPortRenderer</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">TextureRenderer</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_base_istringconvertable_.istringconvertable.html" class="tsd-signature-type">IStringConvertable</a></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_core_renderers_texturerenderer_.texturerenderer.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#enabled" class="tsd-kind-icon">enabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_renderers_texturerenderer_.texturerenderer.html#onresizehandler" class="tsd-kind-icon">on<wbr>Resize<wbr>Handler</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_texturerenderer_.texturerenderer.html#targetfbo" class="tsd-kind-icon">targetFBO</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#camera" class="tsd-kind-icon">Camera</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#contextmanager" class="tsd-kind-icon">Context<wbr>Manager</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#glcontext" class="tsd-kind-icon">GLContext</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#id" class="tsd-kind-icon">ID</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#renderstagemanager" class="tsd-kind-icon">Render<wbr>Stage<wbr>Manager</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#viewportarea" class="tsd-kind-icon">View<wbr>Port<wbr>Area</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_renderers_texturerenderer_.texturerenderer.html#afterrender" class="tsd-kind-icon">after<wbr>Render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#applyviewportconfigure" class="tsd-kind-icon">apply<wbr>Viewport<wbr>Configure</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_renderers_texturerenderer_.texturerenderer.html#beforerender" class="tsd-kind-icon">before<wbr>Render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#configurerenderer" class="tsd-kind-icon">configure<wbr>Renderer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#onresize" class="tsd-kind-icon">on<wbr>Resize</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_texturerenderer_.texturerenderer.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Renderer<span class="tsd-signature-symbol">(</span>contextManager<span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a>, viewportArea<span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a>, targetFBO<span class="tsd-signature-symbol">: </span><a href="_core_resources_fbo_fbo_.fbo.html" class="tsd-signature-type">FBO</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_texturerenderer_.texturerenderer.html" class="tsd-signature-type">TextureRenderer</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_core_renderers_viewportrenderer_.viewportrenderer.html">ViewPortRenderer</a>.<a href="_core_renderers_viewportrenderer_.viewportrenderer.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/TextureRenderer.ts#L6">Core/Renderers/TextureRenderer.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>contextManager: <a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></h5>
+								</li>
+								<li>
+									<h5>viewportArea: <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h5>
+								</li>
+								<li>
+									<h5>targetFBO: <a href="_core_resources_fbo_fbo_.fbo.html" class="tsd-signature-type">FBO</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_texturerenderer_.texturerenderer.html" class="tsd-signature-type">TextureRenderer</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="enabled" class="tsd-anchor"></a>
+					<h3>enabled</h3>
+					<div class="tsd-signature tsd-kind-icon">enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#enabled">enabled</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L37">Core/Renderers/RendererBase.ts:37</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="onresizehandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> on<wbr>Resize<wbr>Handler</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Resize<wbr>Handler<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#onresizehandler">onResizeHandler</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L90">Core/Renderers/RendererBase.ts:90</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="targetfbo" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> targetFBO</h3>
+					<div class="tsd-signature tsd-kind-icon">targetFBO<span class="tsd-signature-symbol">:</span> <a href="_core_resources_fbo_fbo_.fbo.html" class="tsd-signature-type">FBO</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/TextureRenderer.ts#L12">Core/Renderers/TextureRenderer.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+					<a name="camera" class="tsd-anchor"></a>
+					<h3>Camera</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Camera<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Camera<span class="tsd-signature-symbol">(</span>camera<span class="tsd-signature-symbol">: </span><a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#camera-1">Camera</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L27">Core/Renderers/RendererBase.ts:27</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The camera reference this renderer using for draw.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#camera-1">Camera</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L33">Core/Renderers/RendererBase.ts:33</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The camera reference this renderer using for draw.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>camera: <a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="contextmanager" class="tsd-anchor"></a>
+					<h3>Context<wbr>Manager</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ContextManager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#contextmanager-1">ContextManager</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L51">Core/Renderers/RendererBase.ts:51</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>ContextManager managing this renderer.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="glcontext" class="tsd-anchor"></a>
+					<h3>GLContext</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> GLContext<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#glcontext">GLContext</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L58">Core/Renderers/RendererBase.ts:58</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Obtain the reference for wrapper of WebGLRenderingContext</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>ID</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ID<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#id-1">ID</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectWithID.ts#L14">Base/JThreeObjectWithID.ts:14</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>このオブジェクトを識別するID</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="renderstagemanager" class="tsd-anchor"></a>
+					<h3>Render<wbr>Stage<wbr>Manager</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> RenderStageManager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_renderstagemanager_.renderstagemanager.html" class="tsd-signature-type">RenderStageManager</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#renderstagemanager-1">RenderStageManager</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L86">Core/Renderers/RendererBase.ts:86</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Provides render stage abstraction</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_renderstagemanager_.renderstagemanager.html" class="tsd-signature-type">RenderStageManager</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+					<a name="viewportarea" class="tsd-anchor"></a>
+					<h3>View<wbr>Port<wbr>Area</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ViewPortArea<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> ViewPortArea<span class="tsd-signature-symbol">(</span>area<span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_viewportrenderer_.viewportrenderer.html">ViewPortRenderer</a>.<a href="_core_renderers_viewportrenderer_.viewportrenderer.html#viewportarea-1">ViewPortArea</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/ViewportRenderer.ts#L88">Core/Renderers/ViewportRenderer.ts:88</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_viewportrenderer_.viewportrenderer.html">ViewPortRenderer</a>.<a href="_core_renderers_viewportrenderer_.viewportrenderer.html#viewportarea-1">ViewPortArea</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/ViewportRenderer.ts#L92">Core/Renderers/ViewportRenderer.ts:92</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>area: <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="afterrender" class="tsd-anchor"></a>
+					<h3>after<wbr>Render</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">after<wbr>Render<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_core_renderers_viewportrenderer_.viewportrenderer.html">ViewPortRenderer</a>.<a href="_core_renderers_viewportrenderer_.viewportrenderer.html#afterrender">afterRender</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/TextureRenderer.ts#L19">Core/Renderers/TextureRenderer.ts:19</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="applyviewportconfigure" class="tsd-anchor"></a>
+					<h3>apply<wbr>Viewport<wbr>Configure</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Viewport<wbr>Configure<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_viewportrenderer_.viewportrenderer.html">ViewPortRenderer</a>.<a href="_core_renderers_viewportrenderer_.viewportrenderer.html#applyviewportconfigure">applyViewportConfigure</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/ViewportRenderer.ts#L101">Core/Renderers/ViewportRenderer.ts:101</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="beforerender" class="tsd-anchor"></a>
+					<h3>before<wbr>Render</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">before<wbr>Render<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_core_renderers_viewportrenderer_.viewportrenderer.html">ViewPortRenderer</a>.<a href="_core_renderers_viewportrenderer_.viewportrenderer.html#beforerender">beforeRender</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/TextureRenderer.ts#L14">Core/Renderers/TextureRenderer.ts:14</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="configurerenderer" class="tsd-anchor"></a>
+					<h3>configure<wbr>Renderer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">configure<wbr>Renderer<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_viewportrenderer_.viewportrenderer.html">ViewPortRenderer</a>.<a href="_core_renderers_viewportrenderer_.viewportrenderer.html#configurerenderer">configureRenderer</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/ViewportRenderer.ts#L115">Core/Renderers/ViewportRenderer.ts:115</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="gettypename" class="tsd-anchor"></a>
+					<h3>get<wbr>Type<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Type<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#gettypename">getTypeName</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L9">Base/JThreeObject.ts:9</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="onresize" class="tsd-anchor"></a>
+					<h3>on<wbr>Resize</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Resize<span class="tsd-signature-symbol">(</span>act<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action2.html" class="tsd-signature-type">Action2</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">, </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#onresize">onResize</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L92">Core/Renderers/RendererBase.ts:92</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>act: <a href="../interfaces/_base_delegates_.action2.html" class="tsd-signature-type">Action2</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">, </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="render" class="tsd-anchor"></a>
+					<h3>render</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>drawAct<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_renderers_rendererbase_.rendererbase.html">RendererBase</a>.<a href="_core_renderers_rendererbase_.rendererbase.html#render">render</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L39">Core/Renderers/RendererBase.ts:39</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>drawAct: <a href="../interfaces/_base_delegates_.action0.html" class="tsd-signature-type">Action0</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_istringconvertable_.istringconvertable.html">IStringConvertable</a>.<a href="../interfaces/_base_istringconvertable_.istringconvertable.html#tostring">toString</a></p>
+								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L5">Base/JThreeObject.ts:5</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_core_renderers_texturerenderer_.html">"<wbr>Core/<wbr>Renderers/<wbr>Texture<wbr>Renderer"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_core_renderers_texturerenderer_.texturerenderer.html" class="tsd-kind-icon">Texture<wbr>Renderer</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#enabled" class="tsd-kind-icon">enabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#onresizehandler" class="tsd-kind-icon">on<wbr>Resize<wbr>Handler</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#targetfbo" class="tsd-kind-icon">targetFBO</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#camera" class="tsd-kind-icon">Camera</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#contextmanager" class="tsd-kind-icon">Context<wbr>Manager</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#glcontext" class="tsd-kind-icon">GLContext</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#id" class="tsd-kind-icon">ID</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#renderstagemanager" class="tsd-kind-icon">Render<wbr>Stage<wbr>Manager</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#viewportarea" class="tsd-kind-icon">View<wbr>Port<wbr>Area</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#afterrender" class="tsd-kind-icon">after<wbr>Render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#applyviewportconfigure" class="tsd-kind-icon">apply<wbr>Viewport<wbr>Configure</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#beforerender" class="tsd-kind-icon">before<wbr>Render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#configurerenderer" class="tsd-kind-icon">configure<wbr>Renderer</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#onresize" class="tsd-kind-icon">on<wbr>Resize</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_texturerenderer_.texturerenderer.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.io" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
