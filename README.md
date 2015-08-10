@@ -44,8 +44,6 @@ you need to run the command below to install local npm packages,bower packages,a
 
 ```shell
 npm install
-tsd reinstall
-bower install
 ```
 
 **That is all you need to do for preparation!**
