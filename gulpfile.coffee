@@ -1,16 +1,25 @@
-gulp = require 'gulp'
-tsc = require 'gulp-typescript'
-merge = require 'merge2'
-coffee = require 'gulp-coffee'
-webpack = require 'gulp-webpack'
-wpcore = require 'webpack'
-connect = require 'gulp-connect'
 path = require 'path'
-util = require 'util'
-rimraf = require 'rimraf'
+gulp = require 'gulp'
+webpack = require 'webpack-stream'
+connect = require 'gulp-connect'
 typedoc = require 'gulp-typedoc'
 mocha = require 'gulp-mocha'
+fs = require 'fs'
+_ = require 'lodash'
+globArray = require 'glob-array'
 args = require('yargs').argv
+
+###
+TASK SUMMARY
+
+* build     build product
+* server    start simple server
+* watch     watch file tree and build, and start simple server with liveReload
+* doc       construct document with typedoc
+* test      run test
+* tscfg     update tscofig.json by filesGlob in itself
+###
+
 
 ###
 configure
@@ -18,177 +27,169 @@ configure
 branch = args.branch || 'unknown'
 console.log "branch: #{branch}"
 
-srcFolder = 'jThree/src/'
-destJs = 'jThree/bin/js/'
-webpack_src_root = srcFolder
-webpack_files = ['**/*.json', '**/*.ts']
-webpack_exculde =['jThree.js']
-watch_build_file=['**/*.ts', '**/*.glsl']
-watch_reload_file=['jThree/wwwroot/**/*.js', 'jThree/wwwroot/**/*.html', 'jThree/wwwroot/**/*.goml']
-bower_prefix = 'bower_components/'
+requireRoot = 'jThree/src'
+serverRoot = 'jThree/wwwroot'
+watchForReload = ['jThree/wwwroot/**/*.js', 'jThree/wwwroot/**/*.html', 'jThree/wwwroot/**/*.goml']
+
+typedocSrc = ['jThree/src/**/*.ts']
+typedocDest = 'ci/docs'
+
+testTarget = 'jThree/test/build/test.js'
+
+tsconfigPath = './tsconfig.json'
+
+config =
+  main:
+    entry: 'jThree/src/jThree.ts'
+    name: 'j3.js'
+    dest: ['jThree/bin/product', 'jThree/wwwroot']
+    watch: ['jThree/src/**/*.ts', 'jThree/src/**/*.glsl']
+
+  test:
+    entry: 'jThree/test/Test.ts'
+    name: 'test.js'
+    dest: ['jThree/test/build']
+    watch: ['jThree/test/**/*Test.ts']
+
 
 ###
 default task
 ###
 gulp.task 'default', ['build']
 
+
 ###
 build task
 ###
-gulp.task 'build', ['webpack']
+gulp.task 'build', ['webpack:main']
+
 
 ###
-pack all jthree modules into one j3.js file
+webpack building task
 ###
-gulp.task 'webpack', ->
-  webpack_src=[]
-  webpack_src.push webpack_src_root + file for file in webpack_files
-  webpack_src.push '!' + webpack_src_root + file for file in webpack_exculde
-  gulp
-    .src webpack_src
-    .pipe webpack
-      watch: watching
-      entry:
-        jThree: path.join __dirname, 'jThree/src/jThree.ts'
-      output:
-        filename: 'j3.js'
-      resolve:
-        alias:
-          'jquery': path.join __dirname, 'jquery.js'
-          'superagent': path.join __dirname, 'superagent.js'
-          'emitter': path.join __dirname, 'emitter.js'
-          'reduce': path.join __dirname, 'reduce.js'
-          'glm': path.join __dirname, 'gl-matrix-min.js'
-          'binary': path.join __dirname, 'binaryReader.js'
-        extensions: ['', '.ts']
-        root: [
-          webpack_src_root
-          path.join __dirname, bower_prefix
-        ]
-        unsafeCache: true
-      module:
-        loaders: [
-            test: /\.json$/
-            loader: 'json'
-          ,
-            test: /\.glsl$/
-            loader: 'shader'
-          ,
-            test: /\.ts$/
-            loader: 'ts-loader'
-            configFileName: 'jThree/tsconfig.json'
-        ]
-      glsl:
-        chunkPath: "./Chunk"
-      cache: true
-      plugins: [
-        new wpcore.ResolverPlugin(new wpcore.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"]))
-      ]
-    .pipe gulp.dest('jThree/bin/product')
-    .pipe gulp.dest('jThree/wwwroot')
+Object.keys(config).forEach (suffix) ->
+  c = config[suffix]
+  gulp.task "webpack:#{suffix}", ->
+    gulp
+      .src path.join __dirname, c.entry
+      .pipe webpack
+        watch: watching
+        output:
+          filename: c.name
+        resolve:
+          alias:
+            'glm': 'gl-matrix'
+          extensions: ['', '.js', '.ts']
+          root: [requireRoot]
+        module:
+          loaders: [
+              test: /\.json$/
+              loader: 'json'
+            ,
+              test: /\.glsl$/
+              loader: 'shader'
+            ,
+              test: /\.ts$/
+              loader: 'ts-loader'
+              configFileName: tsconfigPath
+          ]
+        glsl:
+          chunkPath: "./Chunk"
+      .pipe gulp.dest(c.dest[0])
+      .on 'end', ->
+        for d in c.dest[1..]
+          gulp
+            .src "#{c.dest[0]}/#{c.name}"
+            .pipe gulp.dest(d)
 
 ###
-watch task
+watch-mode
 ###
 watching = false
 gulp.task 'enable-watch-mode', -> watching = true
 
-gulp.task 'watch', ['server', 'watch-reload', 'enable-watch-mode', 'webpack']
+
+###
+main watch task
+###
+gulp.task 'watch:main', ['enable-watch-mode', 'webpack:main'], ->
+  gulp.start ['server', 'watch-reload', 'reload']
 
 gulp.task 'watch-reload', ->
-  gulp.watch watch_reload_file, ['reload']
+  gulp.watch watchForReload, ['reload']
+
 
 ###
 reload task
 ###
 gulp.task 'reload', ->
   gulp
-    .src "jThree/wwwroot/**/*.*"
+    .src watchForReload
     .pipe connect.reload()
+
 
 ###
 server task
 ###
 gulp.task 'server', ->
   connect.server
-    root: './jThree/wwwroot'
+    root: serverRoot
     livereload: true
+
 
 ###
 travis task
 ###
-gulp.task 'travis', ['webpack'], ->
+gulp.task 'travis', ['webpack:main'], ->
+
 
 ###
 document generation task
 ###
 gulp.task 'doc', (cb) ->
   gulp
-    .src ['jThree/src/**/*.ts']
+    .src typedocSrc
     .pipe typedoc
       module: 'commonjs'
       target: 'es5'
-      out: "ci/docs/#{branch}"
+      out: "#{typedocDest}/#{branch}"
       name: 'jThree'
-      json: "ci/docs/#{branch}.json"
+      json: "#{typedocDest}/#{branch}.json"
+
 
 ###
 test task
 ###
 gulp.task 'test', ['webpack:test'], ->
+  gulp.start ['mocha']
+
+
+###
+test watch task
+###
+gulp.task 'watch:test', ['enable-watch-mode', 'webpack:test'], ->
+  gulp.start ['watch-mocha', 'mocha']
+
+gulp.task 'watch-mocha', ->
+  gulp.watch testTarget, ['mocha']
+
+
+###
+mocha task
+###
+gulp.task 'mocha', ->
   gulp
-    .src './jThree/test/build/test.js'
+    .src testTarget
     .pipe mocha()
 
-###
-build for test
-###
-test_src_root = 'jThree/test'
-test_files = ['jThree/test/**/*test.ts']
 
-gulp.task 'webpack:test', ->
-  webpack_src = []
-  webpack_src.push webpack_src_root + file for file in webpack_files
-  webpack_src.push test_src_root + file for file in test_files
-  webpack_src.push '!' + webpack_src_root + file for file in webpack_exculde
-  gulp
-    .src webpack_src
-    .pipe webpack
-      watch: watching
-      entry:
-        jThree: path.join __dirname, 'jThree/test/Test.ts'
-      output:
-        filename: 'test.js'
-      resolve:
-        alias:
-          'jquery': path.join __dirname, 'jquery.js'
-          'superagent': path.join __dirname, 'superagent.js'
-          'emitter': path.join __dirname, 'emitter.js'
-          'reduce': path.join __dirname, 'reduce.js'
-          'glm': path.join __dirname, 'gl-matrix-min.js'
-          'binary': path.join __dirname, 'binaryReader.js'
-        extensions: ['', '.ts']
-        root: [
-          webpack_src_root
-          path.join __dirname, bower_prefix
-        ]
-        unsafeCache: true
-      module:
-        loaders: [
-            test: /\.json$/
-            loader: 'json'
-          ,
-            test: /\.glsl$/
-            loader: 'shader'
-          ,
-            test: /\.ts$/
-            loader: 'ts-loader'
-            configFileName: 'jThree/tsconfig.json'
-        ]
-      glsl:
-        chunkPath: "./Chunk"
-      cache: true
-      plugins: [
-        new wpcore.ResolverPlugin(new wpcore.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"]))
-      ]
-    .pipe gulp.dest('jThree/test/build')
+###
+update tsconfig files (if your editor does not adapt to 'filesGlob')
+###
+gulp.task 'update-tsconfig-files', ->
+  json = JSON.parse fs.readFileSync path.join(__dirname, tsconfigPath)
+  files = globArray.sync json.filesGlob
+  json.files = _.uniq(files, true) # 2nd argu is 'isSorted'
+  fs.writeFileSync path.join(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
+
+gulp.task 'tscfg', ['update-tsconfig-files']

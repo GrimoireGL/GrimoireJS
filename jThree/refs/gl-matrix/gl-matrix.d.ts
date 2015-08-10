@@ -2,8 +2,8 @@
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Tat <https://github.com/tatchx>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module "glm"
-{
+
+declare module "glm" {
 
     export module GLM {
         export interface IArray {
@@ -17,10 +17,10 @@ declare module "glm"
     // Common
     export module glMatrix {
         /**
-        * Convert Degree To Radian
-        *
-        * @param a Angle in Degrees
-        */
+         * Convert Degree To Radian
+         *
+         * @param a Angle in Degrees
+         */
         export function toRadian(a: number): number;
     }
 
@@ -2186,4 +2186,5 @@ declare module "glm"
          */
         export function calculateW(out: GLM.IArray, a: GLM.IArray): GLM.IArray;
     }
+
 }
