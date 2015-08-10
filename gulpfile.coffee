@@ -4,10 +4,12 @@ webpack = require 'webpack-stream'
 connect = require 'gulp-connect'
 typedoc = require 'gulp-typedoc'
 mocha = require 'gulp-mocha'
+gutil = require 'gulp-util'
 fs = require 'fs'
 _ = require 'lodash'
 globArray = require 'glob-array'
 args = require('yargs').argv
+
 
 ###
 TASK SUMMARY
@@ -25,7 +27,7 @@ TASK SUMMARY
 configure
 ###
 branch = args.branch || 'unknown'
-console.log "branch: #{branch}"
+gutil.log "branch: #{branch}"
 
 # typedoc sources (Array), dest
 typedocSrc = ['jThree/src/**/*.ts']
@@ -51,13 +53,29 @@ config =
     entry: 'jThree/src/jThree.ts'
     name: 'j3.js'
     dest: ['jThree/bin/product', 'jThree/wwwroot']
-    watch: ['jThree/src/**/*.ts', 'jThree/src/**/*.glsl']
+    watch: ['jThree/src/**/*.ts', 'jThree/refs/**/*.d.ts', 'jThree/src/**/*.glsl', 'jThree/src/**/*.json']
 
   test:
     entry: 'jThree/test/Test.ts'
     name: 'test.js'
     dest: ['jThree/test/build']
-    watch: ['jThree/test/**/*Test.ts']
+    watch: ['jThree/test/**/*.ts', 'jThree/refs/**/*.d.ts']
+
+# webpack output stats config
+defaultStatsOptions =
+  colors: gutil.colors.supportsColor
+  hash: false
+  timings: true
+  chunks: false
+  chunkModules: false
+  modules: false
+  children: true
+  version: true
+  cached: false
+  cachedAssets: false
+  reasons: false
+  source: false
+  errorDetails: false
 
 
 ###
@@ -75,9 +93,13 @@ gulp.task 'build', ['webpack:main']
 ###
 webpack building task
 ###
+
 Object.keys(config).forEach (suffix) ->
   c = config[suffix]
   gulp.task "webpack:#{suffix}", ->
+    if watching && c.dest.length >= 2
+      gulp.watch "#{c.dest[0]}/#{c.name}", ->
+        copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
     gulp
       .src path.join __dirname, c.entry
       .pipe webpack
@@ -103,12 +125,23 @@ Object.keys(config).forEach (suffix) ->
           ]
         glsl:
           chunkPath: "./Chunk"
+      , null, (err, stats) ->
+        gutil.log stats.toString defaultStatsOptions
+        if stats.compilation.errors.length != 0
+          gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
       .pipe gulp.dest(c.dest[0])
       .on 'end', ->
-        for d in c.dest[1..]
-          gulp
-            .src "#{c.dest[0]}/#{c.name}"
-            .pipe gulp.dest(d)
+        unless watching
+          copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+
+###
+copy files
+###
+copyFiles = (src, dest) ->
+  for d in dest
+    gulp
+      .src src
+      .pipe gulp.dest(d)
 
 ###
 watch-mode
@@ -120,11 +153,12 @@ gulp.task 'enable-watch-mode', -> watching = true
 ###
 main watch task
 ###
-gulp.task 'watch:main', ['enable-watch-mode', 'webpack:main'], ->
-  gulp.start ['server', 'watch-reload', 'reload']
+gulp.task 'watch:main', ['enable-watch-mode', 'webpack:main', 'server', 'watch-reload']
 
 gulp.task 'watch-reload', ->
   gulp.watch watchForReload, ['reload']
+
+gulp.task 'watch', ['watch:main']
 
 
 ###
@@ -175,8 +209,7 @@ gulp.task 'test', ['webpack:test'], ->
 ###
 test watch task
 ###
-gulp.task 'watch:test', ['enable-watch-mode', 'webpack:test'], ->
-  gulp.start ['watch-mocha', 'mocha']
+gulp.task 'watch:test', ['enable-watch-mode', 'webpack:test', 'watch-mocha']
 
 gulp.task 'watch-mocha', ->
   gulp.watch testTarget, ['mocha']
