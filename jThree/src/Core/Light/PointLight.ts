@@ -1,6 +1,12 @@
 import Scene = require('../Scene');
 import LightBase = require('./LightBase');
-
+import LightTypeDeclaration = require("LightTypeDeclaration"); /**
+ * Point Light
+ * Parameter order
+ * 0:X:TypeID YZW:Color.RGB*Intencity
+ * 1:XYZ:POSITION.XYZ W: UNUSED (0)
+ * 2:X:Distance Y:Decay
+ */
 class PointLight extends LightBase
 {
 	constructor(scene:Scene)
@@ -63,7 +69,31 @@ class PointLight extends LightBase
 
     public getParameters(): number[]
     {
-        return [this.Color.R,this.Color.G,this.Color.B];
+        return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
+            this.Position.X, this.Position.Y, this.Position.Z, 0,
+        this.Distance,this.Decay];
+    }
+
+    public static get TypeDefinition(): LightTypeDeclaration {
+        return {
+            typeName: "jthree.lights.pointlight",
+            requiredParamCount: 3,
+            shaderfuncName: "calcPointLight",
+            shaderfragmentCode: `
+vec3 calcPointLight(vec3 position,vec3 normal)
+{
+  vec3 accum=vec3(0,0,0);
+  for(int index=0;index<5;index++)//TODO fix this code for N s lights
+  {
+    if(index>=pl_count)break;
+    float l=distance(pl_pos[index],position);//calc distance between light and fragment in view space
+    vec3 p2l=normalize(pl_pos[index]-position);//calc direction vector from fragment to light in view space
+    accum+=(dot(p2l,normal)+0.1)*pow(max(0.,1.-l/pl_coef[index].y),pl_coef[index].x)*pl_col[index].rgb;
+  }
+  return accum;
+}
+`
+        };
     }
 }
 

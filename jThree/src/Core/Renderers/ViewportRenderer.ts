@@ -80,7 +80,6 @@ class ViewPortRenderer extends RendererBase {
             }
         };
         this.RenderStageManager.generateAllTextures();
-
     }
 
     private viewportArea: Rectangle;

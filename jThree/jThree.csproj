@@ -320,6 +320,7 @@
     <Content Include="wwwroot\_debug\tune\Toon\toon_a25.bmp" />
     <Content Include="npm-debug.log" />
     <Content Include="tsconfig.json" />
+    <Content Include="src\Core\Shaders\Light\LightAccumulation.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -420,6 +421,8 @@
     <TypeScriptCompile Include="src\Core\Light\DirectionalLight.ts" />
     <TypeScriptCompile Include="src\Core\Light\LightBase.ts" />
     <TypeScriptCompile Include="src\Core\Light\LightRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Light\LightShderComposer.ts" />
+    <TypeScriptCompile Include="src\Core\Light\LightTypeDeclaration.ts" />
     <TypeScriptCompile Include="src\Core\Light\PointLight.ts" />
     <TypeScriptCompile Include="src\Core\ListStateChangedType.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DebugSpriteMaterial.ts" />
