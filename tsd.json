@@ -2,32 +2,31 @@
   "version": "v4",
   "repo": "borisyankov/DefinitelyTyped",
   "ref": "master",
-  "path": "jThree/src/Refs",
-  "bundle": "jThree/src/Refs/bundle.ts",
+  "path": "jThree/refs",
   "installed": {
     "jquery/jquery.d.ts": {
-      "commit": "de18109f44d99864a19441509a3fc876adba68e9"
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "superagent/superagent.d.ts": {
-      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "node/node.d.ts": {
-      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
-    },
-    "gl-matrix/gl-matrix.d.ts": {
-      "commit": "ac3a1f059f655059484d6aa5ba1f0f85908ae06c"
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "mocha/mocha.d.ts": {
-      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "chai/chai.d.ts": {
-      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "sinon-chai/sinon-chai.d.ts": {
-      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "sinon/sinon.d.ts": {
-      "commit": "8de599097a8acb3c246f9cc152f07b323c5a8b49"
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+    },
+    "jsdom/jsdom.d.ts": {
+      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     }
   }
 }

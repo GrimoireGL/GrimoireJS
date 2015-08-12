@@ -44,8 +44,6 @@ before_install:
 - ls
 install:
 - npm install
-- tsd reinstall
-- bower install
 script:
 - npm run build -- --branch=$TRAVIS_BRANCH
 - npm run doc -- --branch=$TRAVIS_BRANCH

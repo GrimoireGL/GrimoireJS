@@ -16,12 +16,10 @@ jThree/docs/**.*
 jThree/test/build/
 jThree/test/**/*.js
 jThree/test/**/*.js.map
-bower_components/
 # User-specific files
 *.suo
 *.user
 *.sln.docstates
-
 
 # Build results
 [Dd]ebug/
@@ -201,3 +199,6 @@ FakesAssemblies/
 
 # OSX
 .DS_Store
+
+# Sublime
+*.sublime-workspace
