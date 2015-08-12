@@ -35,6 +35,7 @@ class TextureWrapperBase extends ResourceWrapper
    * apply texture parameters
    */
   protected applyTextureParameter() {
+      if (!this.WebGLContext.IsTexture(this.TargetTexture))return;
       this.bind();
     this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parent.MinFilter);
     this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MagFilter,this.parent.MagFilter);
