@@ -9,7 +9,7 @@ class JThreeContextProxy extends JThreeObject
   */
   public static getJThreeContext()
   {
-    JThreeContextProxy.instance=JThreeContextProxy.instance||require("./JThreeContext").getInstanceForProxy();
+      JThreeContextProxy.instance = JThreeContextProxy.instance || require("./JThreeContext").getInstanceForProxy();
     return JThreeContextProxy.instance;
   }
 }
