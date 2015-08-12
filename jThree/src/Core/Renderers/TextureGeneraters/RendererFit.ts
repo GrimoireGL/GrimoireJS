@@ -79,8 +79,9 @@ class RendererFit extends GeneraterBase {
 				console.error("the given parameter was invalid : element format " + texInfo["element"]);
 		}
 		var resource=this.Context.ResourceManager.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
-			this.parentRenderer.onResize((r,s:Rectangle)=>{
-				console.warn("resize!");
+			this.parentRenderer.onResize((r,s:Rectangle)=> {
+                var bufTex = <BufferTexture>resource;
+                console.warn(`texture resized (${bufTex.Width},${bufTex.Height})=>(${s.Width},${s.Height})`);
 				(<BufferTexture>resource).resize(s.Width,s.Height);
 			});
 		return resource;

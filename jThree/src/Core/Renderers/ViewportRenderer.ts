@@ -82,14 +82,14 @@ class ViewPortRenderer extends RendererBase {
         this.RenderStageManager.generateAllTextures();
     }
 
-    private viewportArea: Rectangle;
+    private viewportArea: Rectangle=new Rectangle(0,0,0,0);
 
     public get ViewPortArea(): Rectangle {
         return this.viewportArea;
     }
 
     public set ViewPortArea(area: Rectangle) {
-        if (!Rectangle.Equals(area, this.viewportArea)) {
+        if (!Rectangle.Equals(area, this.viewportArea)&&(typeof area.Width !== 'undefined')&&(typeof area.Height !=='undefined')) {
             this.viewportArea = area;
             JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.ID+".rbo.default").resize(area.Width,area.Height);
             this.onResizeHandler.fire(this,area);

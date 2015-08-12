@@ -1,10 +1,14 @@
 ﻿import Shader = require("../Resources/Shader/Shader");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import LightBase = require("LightBase");
-/**
+import ThreeContext = require("../JThreeContext");
+import JThreeContextProxy = require("../JThreeContextProxy");
+import ResourceManager = require("../ResourceManager");
+import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
+import ShaderType = require("../../Wrapper/ShaderType"); /**
  * Managing shader codes for extensible.
  */
-class LightShaderComposer
+class LightShaderComposer extends JThreeObjectWithId
 {
     private shader: Shader;
 
@@ -18,8 +22,13 @@ class LightShaderComposer
 
     private shaderFuncDefs: string[] = [];
 
+    private resourceManager:ResourceManager;
+
     constructor() {
-        this.shaderCache=this.generateLightShaderSource();
+        super();
+        this.shaderCache = this.generateLightShaderSource();
+        this.resourceManager = JThreeContextProxy.getJThreeContext().ResourceManager;
+        this.shader = this.resourceManager.createShader(this.ID + ".jthree.lightaccum", "", ShaderType.FragmentShader);
     }
 
     /**
