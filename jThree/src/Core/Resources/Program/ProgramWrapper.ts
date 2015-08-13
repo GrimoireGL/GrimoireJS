@@ -153,7 +153,18 @@ class ProgramWrapper extends ResourceWrapper {
     }
     this.setUniform1i(samplerName, texNumber);
   }
-
+    
+    /**
+     * Relink shader for shader source changing
+     */
+    public relink() {
+        this.WebGLContext.DeleteProgram(this.TargetProgram);
+        this.targetProgram = this.WebGLContext.CreateProgram();
+        this.parentProgram.AttachedShaders.forEach((v, i, a) =>
+        {
+            this.WebGLContext.AttachShader(this.targetProgram, v.getForContextID(this.OwnerID).TargetShader);
+        });
+    }
 }
 
 export =ProgramWrapper;
