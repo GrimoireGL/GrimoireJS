@@ -40,7 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="bundle-notdoc.js" />
     <Content Include="packages.config" />
     <Content Include="src\Base\Collections\ArrayEnumratorFactory.js" />
     <Content Include="src\Base\Collections\AssociativeArray.js" />
@@ -60,10 +59,6 @@
     <Content Include="src\Core\Camera\OrthoCamera.js" />
     <Content Include="src\Core\Camera\PerspectiveCamera.js" />
     <Content Include="src\Core\Camera\ViewCameraBase.js" />
-    <Content Include="src\Core\CanvasListChangedEventArgs.js" />
-    <Content Include="src\Core\CanvasManager.js" />
-    <Content Include="src\Core\ContextManagerBase.js" />
-    <Content Include="src\Core\ContextTimer.js" />
     <Content Include="src\Core\Geometries\CircleGeometry.js" />
     <Content Include="src\Core\Geometries\CubeGeometry.js" />
     <Content Include="src\Core\Geometries\CylinderGeometry.js" />
@@ -71,11 +66,7 @@
     <Content Include="src\Core\Geometries\GridGeometry.js" />
     <Content Include="src\Core\Geometries\QuadGeometry.js" />
     <Content Include="src\Core\Geometries\TriangleGeometry.js" />
-    <Content Include="src\Core\GLExtensionManager.js" />
-    <Content Include="src\Core\JThreeContext.js" />
-    <Content Include="src\Core\JThreeContextProxy.js" />
     <Content Include="src\Core\Light\PointLight.js" />
-    <Content Include="src\Core\ListStateChangedType.js" />
     <Content Include="src\Core\Materials\DebugSpriteMaterial.js" />
     <Content Include="src\Core\Materials\LambertMaterial.js" />
     <Content Include="src\Core\Materials\Material.js" />
@@ -85,10 +76,6 @@
     <Content Include="src\Core\Renderers\RendererBase.js" />
     <Content Include="src\Core\Renderers\RenderStages\FowardShadingStage.js" />
     <Content Include="src\Core\Renderers\RenderStages\RenderStageBase.js" />
-    <Content Include="src\Core\Renderers\TextureRenderer.js" />
-    <Content Include="src\Core\Renderers\ViewportRenderer.js" />
-    <Content Include="src\Core\RenderStageType.js" />
-    <Content Include="src\Core\ResourceManager.js" />
     <Content Include="src\Core\Resources\Buffer\Buffer.js" />
     <Content Include="src\Core\Resources\Buffer\BufferProxy.js" />
     <Content Include="src\Core\Resources\Buffer\BufferWrapper.js" />
@@ -108,13 +95,7 @@
     <Content Include="src\Core\Resources\Texture\TextureBase.js" />
     <Content Include="src\Core\Resources\Texture\TextureWrapper.js" />
     <Content Include="src\Core\Resources\Texture\TextureWrapperBase.js" />
-    <Content Include="src\Core\Scene.js" />
-    <Content Include="src\Core\SceneManager.js" />
-    <Content Include="src\Core\SceneObject.js" />
-    <Content Include="src\Core\TextureCanvasManager.js" />
-    <Content Include="src\Core\Timer.js" />
     <Content Include="src\Core\Transform\Transformer.js" />
-    <Content Include="src\Exceptions.js" />
     <Content Include="src\Goml\Animater\AnimaterBase.js" />
     <Content Include="src\Goml\Animater\Color4Animater.js" />
     <Content Include="src\Goml\Animater\IntegerAnimater.js" />
@@ -149,12 +130,10 @@
     <Content Include="src\Goml\Factories\TemplateTagFactory.js" />
     <Content Include="src\Goml\GomlAttribute.js" />
     <Content Include="src\Goml\GomlConverterList.js" />
-    <Content Include="src\Goml\GomlLoader.js" />
     <Content Include="src\Goml\GomlLoaderConfigurator.js" />
     <Content Include="src\Goml\GomlNodeDictionary.js" />
     <Content Include="src\Goml\GomlNodeList.js" />
     <Content Include="src\Goml\GomlNodeListElement.js" />
-    <Content Include="src\Goml\GomlTreeNodeBase.js" />
     <Content Include="src\Goml\Nodes\Components\ComponentNode.js" />
     <Content Include="src\Goml\Nodes\Components\ComponentsNode.js" />
     <Content Include="src\Goml\Nodes\Geometries\CircleGeometryNode.js" />
@@ -183,10 +162,7 @@
     <Content Include="src\Goml\Nodes\SceneObjects\SceneObjectNodeBase.js" />
     <Content Include="src\Goml\Nodes\Templates\TemplateNode.js" />
     <Content Include="src\Goml\TopNodeList.js" />
-    <Content Include="src\Goml\TreeNodeBase.js" />
     <Content Include="src\Init.js" />
-    <Content Include="src\jThree.js" />
-    <Content Include="src\JThreeInterface.js" />
     <Content Include="src\Math\Matrix.js" />
     <Content Include="src\Math\MatrixBase.js" />
     <Content Include="src\Math\Quaternion.js" />
@@ -225,11 +201,11 @@
     <Content Include="src\PMX\Shader\PMXFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXNormalVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXVertex.glsl" />
-    <Content Include="src\tsconfig.json" />
     <Content Include="wwwroot\binaryReader.js" />
     <Content Include="wwwroot\cube\Example.html" />
     <Content Include="wwwroot\cube\Example.js" />
     <Content Include="wwwroot\ecl_array.js" />
+    <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\GUMI\readme_gumi.txt" />
     <Content Include="wwwroot\GUMI\readme_gumi_Eng.txt" />
     <Content Include="wwwroot\GUMI\TX\gumi1.png" />
@@ -319,7 +295,6 @@
     <Content Include="wwwroot\_debug\tune\Toon\toon_a24.bmp" />
     <Content Include="wwwroot\_debug\tune\Toon\toon_a25.bmp" />
     <Content Include="npm-debug.log" />
-    <Content Include="tsconfig.json" />
     <Content Include="src\Core\Shaders\Light\LightAccumulation.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -453,8 +428,6 @@
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterInfoChunk.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterList.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\RendererFit.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\TextureRenderer.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\ViewportRenderer.ts" />
     <TypeScriptCompile Include="src\Core\RenderStageType.ts" />
     <TypeScriptCompile Include="src\Core\ResourceManager.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Buffer\Buffer.ts" />

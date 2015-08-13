@@ -5,7 +5,9 @@ chai.use(sinonChai);
 
 var expect = chai.expect;
 
-describe("LightRegister", () => {
+describe("LightRegister", () =>
+{
+
     describe("lightUpdate", () => {
 
     });
