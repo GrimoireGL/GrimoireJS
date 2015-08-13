@@ -59,9 +59,6 @@
     <Content Include="src\Core\Shaders\VertexShaders\BasicGeometries.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\DepthGeometries.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\PostEffectGeometries.glsl" />
-    <Content Include="src\Math\Math.js.map" />
-    <Content Include="src\Math\Matrix.js.map" />
-    <Content Include="src\Math\Vector.js.map" />
     <Content Include="src\PMX\Shader\PMXDepthFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXDepthVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXEdgeFragment.glsl" />
@@ -204,6 +201,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="refs\bundle.ts" />
+    <TypeScriptCompile Include="refs\chai\chai.d.ts" />
+    <TypeScriptCompile Include="refs\gl-matrix\gl-matrix.d.ts" />
+    <TypeScriptCompile Include="refs\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="refs\jsdom\jsdom.d.ts" />
+    <TypeScriptCompile Include="refs\mocha\mocha.d.ts" />
+    <TypeScriptCompile Include="refs\node\node.d.ts" />
+    <TypeScriptCompile Include="refs\sinon-chai\sinon-chai.d.ts" />
+    <TypeScriptCompile Include="refs\sinon\sinon.d.ts" />
+    <TypeScriptCompile Include="refs\superagent\superagent.d.ts" />
     <TypeScriptCompile Include="src\Base\Collections\ArrayEnumratorFactory.ts" />
     <TypeScriptCompile Include="src\Base\Collections\AssociativeArray.ts" />
     <TypeScriptCompile Include="src\Base\Collections\Collection.ts" />
@@ -427,11 +434,6 @@
     <TypeScriptCompile Include="src\PMX\PMXVertex.ts" />
     <TypeScriptCompile Include="src\PMX\PMXVerticies.ts" />
     <TypeScriptCompile Include="src\PMX\SDEF.ts" />
-    <TypeScriptCompile Include="src\Refs\bundle.ts" />
-    <TypeScriptCompile Include="src\Refs\gl-matrix\gl-matrix.d.ts" />
-    <TypeScriptCompile Include="src\Refs\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="src\Refs\node\node.d.ts" />
-    <TypeScriptCompile Include="src\Refs\superagent\superagent.d.ts" />
     <TypeScriptCompile Include="src\Shapes\BasicObjectMesh.ts" />
     <TypeScriptCompile Include="src\Shapes\Mesh.ts" />
     <TypeScriptCompile Include="src\VMD\Goml\VMDNode.ts" />
@@ -483,7 +485,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
-    <TypeScriptSourceRoot>C:\jThree\jThree\jThree</TypeScriptSourceRoot>
+    <TypeScriptSourceRoot>C:\jThree\jThree</TypeScriptSourceRoot>
     <TypeScriptMapRoot>C:\jThree\jThree\jThree\src</TypeScriptMapRoot>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />

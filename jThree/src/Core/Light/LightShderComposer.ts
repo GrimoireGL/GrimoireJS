@@ -114,6 +114,10 @@ class LightShaderComposer extends JThreeObjectWithId
         }
         return result;
     }
+
+    private updateShaderFromCache() {
+        
+    }
 }
 
 export = LightShaderComposer;
