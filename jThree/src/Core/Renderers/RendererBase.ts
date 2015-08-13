@@ -16,7 +16,12 @@ import RBDepthStage = require('./RenderStages/RBDepthStage');
  * Provides base class feature for renderer classes.
  */
 class RendererBase extends jThreeObjectWithID {
-
+    /**
+     * Constructor of RenderBase
+     * @param contextManager 
+     * @param viewportArea 
+     * @returns {} 
+     */
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {
         super();
         this.contextManager = contextManager;
@@ -126,6 +131,7 @@ class RendererBase extends jThreeObjectWithID {
      * If you need to override this method, you need to call same method of super class first. 
      */
     public beforeRender() {
+        this.applyViewportConfigure();
         this.ContextManager.beforeRender(this);
     }
 
@@ -152,17 +158,29 @@ class RendererBase extends jThreeObjectWithID {
 
     private onViewportChangedHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
     
+    /**
+     * Register event handler to handle changing of viewport configure.
+     * @param act the handler to recieve viewport changing.
+     * @returns {} 
+     */    
     public onViewPortChanged(act: Delegates.Action2<RendererBase, Rectangle>) {
         this.onViewportChangedHandler.addListerner(act);
     }
 
     private viewportArea: Rectangle = new Rectangle(0, 0, 256, 256);
 
+    /**
+     * Getter for viewport area. Viewport area is the area to render.
+     * @returns {Rectangle} the rectangle region to render. 
+     */
     public get ViewPortArea(): Rectangle
     {
         return this.viewportArea;
     }
-
+    /**
+     * Setter for viewport area. viewport area is the area to render.
+     * @param area {Rectangle} the rectangle to render.
+     */
     public set ViewPortArea(area: Rectangle)
     {
         if (!Rectangle.Equals(area, this.viewportArea) && (typeof area.Width !== 'undefined') && (typeof area.Height !== 'undefined'))
@@ -174,6 +192,9 @@ class RendererBase extends jThreeObjectWithID {
 
     }
 
+    /**
+     * Apply viewport configuration
+     */
     public applyViewportConfigure(): void
     {
         this.ContextManager.GLContext.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
