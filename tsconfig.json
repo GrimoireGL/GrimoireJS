@@ -92,8 +92,6 @@
     "./jThree/src/Core/Renderers/TextureGeneraters/GeneraterInfoChunk.ts",
     "./jThree/src/Core/Renderers/TextureGeneraters/GeneraterList.ts",
     "./jThree/src/Core/Renderers/TextureGeneraters/RendererFit.ts",
-    "./jThree/src/Core/Renderers/TextureRenderer.ts",
-    "./jThree/src/Core/Renderers/ViewportRenderer.ts",
     "./jThree/src/Core/ResourceManager.ts",
     "./jThree/src/Core/Resources/Buffer/Buffer.ts",
     "./jThree/src/Core/Resources/Buffer/BufferProxy.ts",

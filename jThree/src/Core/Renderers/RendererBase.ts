@@ -6,14 +6,83 @@ import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import Camera = require("./../Camera/Camera");
 import RenderStageManager = require('./RenderStageManager');
 import JThreeEvent = require('../../Base/JThreeEvent');
-import Rectangle = require('../../Math/Rectangle'); /**
+import Rectangle = require('../../Math/Rectangle'); 
+import JThreeContextProxy = require('../JThreeContextProxy');
+import RB1RenderStage = require('./RenderStages/RB1RenderStage');
+import LightAccumulationRenderStage = require('./RenderStages/LightAccumulationStage');
+import FowardRenderStage = require('./RenderStages/FowardShadingStage');
+import RBDepthStage = require('./RenderStages/RBDepthStage');
+/**
  * Provides base class feature for renderer classes.
  */
 class RendererBase extends jThreeObjectWithID {
-
-    constructor(contextManager: ContextManagerBase) {
+    /**
+     * Constructor of RenderBase
+     * @param contextManager 
+     * @param viewportArea 
+     * @returns {} 
+     */
+    constructor(contextManager: ContextManagerBase, viewportArea: Rectangle) {
         super();
         this.contextManager = contextManager;
+        this.viewportArea = viewportArea;
+        if (this.viewportArea) JThreeContextProxy.getJThreeContext().ResourceManager.createRBO(this.ID + ".rbo.default", this.viewportArea.Width, this.viewportArea.Height);
+        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO(this.ID + ".fbo.default");
+        this.RenderStageManager.StageChains.push(
+            {
+                buffers: {
+                    OUT: "deffered.rb1"
+                },
+                stage: new RB1RenderStage(this)
+            }
+            ,
+            {
+                buffers: {
+                    OUT: "deffered.depth"
+                },
+                stage: new RBDepthStage(this)
+            },
+            {
+                buffers: {
+                    RB1: "deffered.rb1",
+                    RB2: "deffered.rb2",
+                    DEPTH: "deffered.depth",
+                    DIR: "jthree.light.dir1",
+                    OUT: "deffered.light"
+                },
+                stage: new LightAccumulationRenderStage(this)
+            },
+            {
+                buffers: {
+                    LIGHT: "deffered.light",
+                    OUT: "default",
+                },
+                stage: new FowardRenderStage(this)
+            }
+            );
+        this.RenderStageManager.TextureBuffers = {
+            "deffered.rb1": {
+                generater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            },
+            "deffered.rb2": {
+                generater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            }, "deffered.depth": {
+                generater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            }
+            , "deffered.light": {
+                generater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            }
+        };
+        this.RenderStageManager.generateAllTextures();
+
     }
 
 
@@ -33,8 +102,6 @@ class RendererBase extends jThreeObjectWithID {
     public set Camera(camera: Camera) {
         this.camera = camera;
     }
-
-    public enabled: boolean;
 
     public render(drawAct: Delegates.Action0): void {
         throw new Exceptions.AbstractClassMethodCalledException();
@@ -64,6 +131,7 @@ class RendererBase extends jThreeObjectWithID {
      * If you need to override this method, you need to call same method of super class first. 
      */
     public beforeRender() {
+        this.applyViewportConfigure();
         this.ContextManager.beforeRender(this);
     }
 
@@ -72,6 +140,7 @@ class RendererBase extends jThreeObjectWithID {
      * If you need to override this method, you need to call same method of super class first. 
      */
     public afterRender() {
+        this.GLContext.Flush();
         this.ContextManager.afterRender(this);
     }
 
@@ -87,10 +156,48 @@ class RendererBase extends jThreeObjectWithID {
         return this.renderStageManager;
     }
 
-    protected onResizeHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
+    private onViewportChangedHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
     
-    public onResize(act: Delegates.Action2<RendererBase, Rectangle>) {
-        this.onResizeHandler.addListerner(act);
+    /**
+     * Register event handler to handle changing of viewport configure.
+     * @param act the handler to recieve viewport changing.
+     * @returns {} 
+     */    
+    public onViewPortChanged(act: Delegates.Action2<RendererBase, Rectangle>) {
+        this.onViewportChangedHandler.addListerner(act);
+    }
+
+    private viewportArea: Rectangle = new Rectangle(0, 0, 256, 256);
+
+    /**
+     * Getter for viewport area. Viewport area is the area to render.
+     * @returns {Rectangle} the rectangle region to render. 
+     */
+    public get ViewPortArea(): Rectangle
+    {
+        return this.viewportArea;
+    }
+    /**
+     * Setter for viewport area. viewport area is the area to render.
+     * @param area {Rectangle} the rectangle to render.
+     */
+    public set ViewPortArea(area: Rectangle)
+    {
+        if (!Rectangle.Equals(area, this.viewportArea) && (typeof area.Width !== 'undefined') && (typeof area.Height !== 'undefined'))
+        {
+            this.viewportArea = area;
+            JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
+            this.onViewportChangedHandler.fire(this, area);
+        }
+
+    }
+
+    /**
+     * Apply viewport configuration
+     */
+    public applyViewportConfigure(): void
+    {
+        this.ContextManager.GLContext.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
     }
 }
 
