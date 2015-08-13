@@ -25,14 +25,14 @@ vec2 getParameterUV(int lightIndex,int parameterIndex)
    return vec2(xStep / 2. + float(parameterIndex) * xStep, yStep / 2. + float(lightIndex) * yStep);
 }
 
-vec2 getLightParameter(int lightIndex,int parameterIndex)
+vec4 getLightParameter(int lightIndex,int parameterIndex)
 {
    return texture2D(lightParams,getParameterUV(lightIndex,parameterIndex));
 }
 
 float getLightType(int lightIndex)
 {
-	return getLightParameter(lightIndex).r;
+	return getLightParameter(lightIndex,0).r;
 }
 
 float decomposeNDCDepth(vec2 uv)
@@ -67,10 +67,12 @@ void main(void){
   vec3 position=reconstructPosition(d);
   vec3 normal=reconstructNormal();
   gl_FragColor.rgba=vec4(0,0,0,1);
-  gl_FragColor.rgb+=calcPointLight(position,normal);
-  for(int i = 0; i < lightParamSize.y; i++)
+  int i = 0;
+  for(int v=0;v>-1;v++)
   {
-	///<<< LIGHT FUNCTION CALLS
+    if(i==int(lightParamSize.y))return;
+  	///<<< LIGHT FUNCTION CALLS
+	i++;
   }
 }
 

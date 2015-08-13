@@ -8,7 +8,7 @@ import JThreeEvent = require("../../../Base/JThreeEvent");
 class Shader extends ContextSafeContainer<ShaderWrapper>
 {
     /**
-     * シェーダークラスを作成する。
+     * Factory method for createshader
      */
     public static CreateShader(context:JThreeContext,source:string,shaderType:ShaderType) :Shader {
         var shader: Shader = new Shader(context);

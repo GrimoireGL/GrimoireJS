@@ -80,7 +80,7 @@ class PointLight extends LightBase
             requiredParamCount: 3,
             shaderfuncName: "calcPointLight",
             shaderfragmentCode: `
-vec3 calcPointLight(vec3 position,vec3 normal,int index)
+vec3 calcPointLight(vec3 position,vec3 normal,int i)
 {
   vec3 accum=vec3(0,0,0);
   vec3 color = getLightParameter(i,0).xyz;
