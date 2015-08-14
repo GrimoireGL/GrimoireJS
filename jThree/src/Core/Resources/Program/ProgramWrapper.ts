@@ -12,6 +12,9 @@ import RendererBase = require('../../Renderers/RendererBase');
 import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../Texture/TextureBase');
 import TextureTargetType = require('../../../Wrapper/TargetTextureType');
+import VariableRegisteringArgument = require("./VariableRegister/VariableRegisteringArgument");
+import VariableRegisterBase = require("VariableRegister/Uniforms/UniformVariableRegisterBase");
+
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, contextManager: ContextManagerBase) {
         super(contextManager);
@@ -164,6 +167,43 @@ class ProgramWrapper extends ResourceWrapper {
         {
             this.WebGLContext.AttachShader(this.targetProgram, v.getForContextID(this.OwnerID).TargetShader);
         });
+    }
+
+    /**
+     * Pass the variables into shader
+     * @param variables 
+     * @returns {} 
+     */
+    public register(variables: VariableRegisteringArgument) {
+        this.useProgram();
+        var uniformRegisterTypeList: { [name: string]: VariableRegisterBase } = require("./VariableRegister/Uniforms/UniformTypeList");
+        //register uniform variables
+        if (typeof variables.uniforms !== "undefined") {
+            for (var uniformKey in variables.uniforms) {
+                var uniform = variables.uniforms[uniformKey];
+                uniform['context'] = this.OwnerCanvas;
+                var index = this.fetchUniformLocation(uniformKey);
+                var registerer = uniformRegisterTypeList[uniform.type];
+                registerer.registerVariable(this.WebGLContext, index, uniform.value,uniform);
+            }
+        }
+
+        //register attribute variables
+        if (typeof variables.attributes !== "undefined") {
+            for (var attributeKey in variables.attributes) {
+                var attribute = variables.attributes[attributeKey];
+                var buffer = attribute.getForRenderer(this.OwnerCanvas);
+                buffer.bindBuffer();
+                if (!this.attributeLocations.has(attributeKey))
+                {
+                    this.attributeLocations.set(attributeKey, this.WebGLContext.GetAttribLocation(this.TargetProgram, attributeKey));
+                }
+                var attribIndex: number = this.attributeLocations.get(attributeKey);
+                this.WebGLContext.EnableVertexAttribArray(attribIndex);
+                this.WebGLContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
+
+            }
+        }
     }
 }
 

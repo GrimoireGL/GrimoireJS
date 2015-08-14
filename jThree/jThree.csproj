@@ -161,6 +161,7 @@
     <Content Include="wwwroot\_debug\tune\Toon\toon_a25.bmp" />
     <Content Include="npm-debug.log" />
     <Content Include="src\Core\Shaders\Light\LightAccumulation.glsl" />
+    <Content Include="src\Core\Shaders\Light\PointLightFragmentChunk.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -292,6 +293,17 @@
     <TypeScriptCompile Include="src\Core\Resources\FBO\FBOWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\Program.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\ProgramWrapper.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\AttributeRegisteringArgument.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\AttributeRegisteringConfigure.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\UniformRegisteringArgument.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\UniformRegisteringConfigure.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\MatrixFloatRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\ScalarIntegerRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\ScalarFloatRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\UniformTypeList.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\UniformVariableRegisterBase.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\VectorFloatRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\VariableRegisteringArgument.ts" />
     <TypeScriptCompile Include="src\Core\Resources\RBO\RBO.ts" />
     <TypeScriptCompile Include="src\Core\Resources\RBO\RBOWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\ResourceArray.ts" />
