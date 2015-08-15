@@ -3,12 +3,13 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import GomlLoader = require("../../GomlLoader");
 import RendererNodeBase = require('./RendererNodeBase');
+import Delegates = require("../../../Base/Delegates");
 
 class RendererNode extends RendererNodeBase {
     public targetCanvas: HTMLCanvasElement;
     public targetFrame: HTMLElement;
     public resizeIframeWindow: Window;
-    private resizedFunctions: Array = [];
+    private resizedFunctions: Delegates.Action1<RendererNode>[] = [];
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
@@ -71,7 +72,17 @@ class RendererNode extends RendererNodeBase {
         return this.element.getAttribute("frame") || "body";
     }
 
-    public resize() {
+    /**
+     * 
+     イベント発火する*/
+    public resize();
+    /**
+     * イベントハンドラの登録
+     * @param func 
+     * @returns {} 
+     */
+    public resize(func: Delegates.Action1<RendererNode>);
+    public resize( func?:Delegates.Action1<RendererNode>) {
 
         if ( typeof arguments[0]==="function") {
             this.resizedFunctions.indexOf(arguments[0]) === -1 && this.resizedFunctions.push(arguments[0]);
