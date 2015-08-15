@@ -6,14 +6,51 @@ import RendererNodeBase = require('./RendererNodeBase');
 
 class RendererNode extends RendererNodeBase {
     public targetCanvas: HTMLCanvasElement;
-    public targetFrame:HTMLElement;
+    public targetFrame: HTMLElement;
+    public resizeIframeWindow: Window;
+    private resizedFunctions: Array = [];
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
         //generate canvas
         this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
+
+        //frame resize
+        var resizeElement = document.createElement("div");
+        resizeElement.style.position = "relative";
+        resizeElement.style.margin = "0";
+        resizeElement.style.padding = "0";
+        resizeElement.style.height = "100%";
+
+        var resizeIframe = document.createElement("iframe");
+        resizeIframe.style.position = "absolute";
+        resizeIframe.style.width = "100%";
+        resizeIframe.style.height = "100%";
+        resizeIframe.style.margin = "0";
+        resizeIframe.style.padding = "0";
+        resizeIframe.style.verticalAlign = "bottom";
+        resizeIframe.setAttribute("frameborder", "0");
+        resizeIframe.setAttribute("scrolling", "no");
+
+        resizeIframe.setAttribute("name", "jThreeResizeIframe");
+        resizeElement.appendChild(resizeIframe);
+        this.targetFrame.insertBefore(resizeElement, this.targetFrame.firstChild);
+
+        var frameList = window.frames;
+        for (var i = 0, l = frameList.length; i < l; i++) {
+            if (frameList[ i ].name === "jThreeResizeIframe") {
+                this.resizeIframeWindow = frameList[i];
+                break;
+            }
+        }
+        resizeIframe.setAttribute("name", "");
+
+        this.resizeIframeWindow.addEventListener("resize", this.resize.bind(this), false);
+
         this.targetCanvas = document.createElement("canvas");
-        if (this.targetFrame) this.targetFrame.appendChild(this.targetCanvas);
+        this.targetCanvas.style.position = "relative";
+
+        if (this.targetFrame) resizeElement.appendChild(this.targetCanvas);
         this.targetCanvas.classList.add("x-j3-c-" + this.ID);
         //initialize contexts
         this.setCanvasManager(CanvasManager.fromCanvasElement(this.targetCanvas));
@@ -32,6 +69,19 @@ class RendererNode extends RendererNodeBase {
 
     public get Frame(): string {
         return this.element.getAttribute("frame") || "body";
+    }
+
+    public resize() {
+
+        if ( typeof arguments[0]==="function") {
+            this.resizedFunctions.indexOf(arguments[0]) === -1 && this.resizedFunctions.push(arguments[0]);
+        } else {
+            this.sizeChanged(this.DefaultWidth, this.DefaultHeight);
+            this.resizedFunctions.forEach(function(f) {
+                f(this);
+            }.bind(this));
+        }
+        
     }
 
     protected get DefaultWidth(): number {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,26 +10,28 @@
   <script type="text/javascript" src="./Example.js"></script>
   <link rel="stylesheet" type="text/css" href="Example.css">
 </head>
-<body style="background-color:#CCF">
-  <div></div>
-  <div id="canvas" class="canvasContainer" style="width:1024px;height:512px"></div>
-  <div>
-    <span class="vp-label vp-label-result">Result</span>
-    <span class="vp-label vp-label-light">Normal(上),Light Accumulation(下)</span>
-    <span class="vp-label vp-label-depth">Depth</span>
-  </div>
-  <div class="canvasContainer2"></div>
-  <div class="op-panel">
-    <div class="prop-container" propName="X">
-      <input type="number" name="x" id="x" value="0"/>
+<body>
+    <div></div>
+    <div id="canvas" class="canvasContainer"></div>
+    <div id="control">
+        <div>
+            <span class="vp-label vp-label-result">Result</span>
+            <span class="vp-label vp-label-light">Normal(上),Light Accumulation(下)</span>
+            <span class="vp-label vp-label-depth">Depth</span>
+          </div>
+          <div class="canvasContainer2"></div>
+        <div class="op-panel">
+            <div class="prop-container" propName="X">
+                <input type="number" name="x" id="x" value="0"/>
+            </div>
+            <div class="prop-container" propName="Y">
+                <input type="number" name="y" id="y" value="0"/>
+            </div>
+            <div class="prop-container" propName="Z">
+                <input type="number" name="z" id="z" value="0"/>
+            </div>
+            <a onclick="j3('pmx').animate({ 'rotation': 'x(90d)' }, 10000).animate({ 'rotation': 'x(0d)' }, 10000);">回転開始</a>
+        </div>
     </div>
-    <div class="prop-container" propName="Y">
-    <input type="number" name="y" id="y" value="0"/>
-    </div>
-    <div class="prop-container" propName="Z">
-    <input type="number" name="z" id="z" value="0"/>
-    </div>
-    <a onclick="j3('#neck').animate({'rotation':'x(90d)'},10000).animate({'rotation':'x(0d)'},10000);">回転開始</a>
-  </div>
 </body>
 </html>

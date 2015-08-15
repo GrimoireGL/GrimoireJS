@@ -35,6 +35,8 @@ class ViewPortNode extends GomlTreeNodeBase {
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
       scene.addRenderer(this.targetRenderer);
 
+      rdr.resize && rdr.resize(this.updateViewportArea.bind(this));
+
       //register attributes
       this.attributes.defineAttribute({
         "width":{
@@ -69,9 +71,23 @@ class ViewPortNode extends GomlTreeNodeBase {
       this.attributes.applyDefaultValue();
     }
 
-    private updateViewportArea()
-    {
-      this.targetRenderer.ViewPortArea=new Rectangle(this.left,this.top,this.width, this.height);
+    private updateViewportArea() {
+        var frame = this.parentRendererNode.targetFrame;
+        if (!frame) {
+            this.targetRenderer.ViewPortArea = new Rectangle(this.left, this.top, this.width, this.height);
+            this.targetRenderer.Camera.Aspect && (this.targetRenderer.Camera.Aspect = this.width / this.height);
+        } else {
+            var W = frame.clientWidth;
+            var H = frame.clientHeight;
+            var left = this.left > 1 ? this.left : W * this.left;
+            var top = this.top > 1 ? this.top : H * this.top;
+            var width = this.width > 1 ? this.width : W * this.width;
+            var height = this.height > 1 ? this.height : H * this.height;
+            this.targetRenderer.ViewPortArea = new Rectangle(left, top, width, height);
+
+            this.targetRenderer.Camera.Aspect && ( this.targetRenderer.Camera.Aspect = width/height );
+        }
+
     }
 
     private resolveCamera():CameraNodeBase
