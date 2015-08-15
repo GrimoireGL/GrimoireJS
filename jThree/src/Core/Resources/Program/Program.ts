@@ -19,6 +19,10 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
 
     public attachShader(shader: Shader) {
         this.attachedShaders.push(shader);
+        shader.onUpdate(() => {
+            this.relinkShader();
+        });
+
     }
 
     public static CreateProgram(context:JThreeContext,attachShaders:Shader[]): Program {
@@ -33,6 +37,12 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
 
     protected getInstanceForRenderer(renderer: ContextManagerBase): ProgramWrapper {
         return new ProgramWrapper(this, renderer);
+    }
+
+    private relinkShader() {
+        this.each((v) => {
+            v.relink();
+        });
     }
 }
 

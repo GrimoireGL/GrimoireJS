@@ -37,7 +37,6 @@ class JThreeInit {
     return new JThreeInterface(targetObject);
   }
 
-    public static img: HTMLImageElement;
   /**
   * This method should be called when Jthree loaded.
   */
@@ -51,8 +50,6 @@ class JThreeInit {
 
     $(() => {//TODO I wonder we should remove jQuery dependencies.
       var j3 = JThreeContext.getInstanceForProxy();
-      j3.GomlLoader.onload(() => { });
-      console.log(Quaternion.EulerXYZ(0,Math.PI/2,-Math.PI/4).FactoringQuaternionXYZ());
       j3.init();
     });
   }

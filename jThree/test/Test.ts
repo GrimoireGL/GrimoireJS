@@ -1,1 +1,2 @@
-require('./Goml/GomlLoaderTest');
+// require('./Goml/GomlLoaderTest');
+require('./Sample/SampleTest');

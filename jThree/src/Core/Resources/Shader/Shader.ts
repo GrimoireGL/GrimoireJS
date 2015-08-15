@@ -3,11 +3,12 @@ import ContextSafeContainer = require("../ContextSafeResourceContainer");
 import ShaderType = require("../../../Wrapper/ShaderType");
 import ContextManagerBase = require("../../ContextManagerBase");
 import ShaderWrapper = require("./ShaderWrapper");
-
+import Delegates = require("../../../Base/Delegates");
+import JThreeEvent = require("../../../Base/JThreeEvent");
 class Shader extends ContextSafeContainer<ShaderWrapper>
 {
     /**
-     * シェーダークラスを作成する。
+     * Factory method for createshader
      */
     public static CreateShader(context:JThreeContext,source:string,shaderType:ShaderType) :Shader {
         var shader: Shader = new Shader(context);
@@ -52,6 +53,28 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
 
     protected getInstanceForRenderer(renderer:ContextManagerBase): ShaderWrapper {
         return new ShaderWrapper(this, renderer);
+    }
+
+    private onUpdateEvent:JThreeEvent<string>=new JThreeEvent<string>();
+
+    /**
+     * Update shader source code.
+     * @param shaderSource new shader source code.
+     */
+    public update(shaderSource: string) {
+        this.shaderSource = shaderSource;
+        this.each((v)=> {
+            v.update();
+        });
+        this.onUpdateEvent.fire(this, shaderSource);
+    }
+
+    /**
+     * Register the handler to handle when shader source code is changed.
+     * @param handler the handler for shader changing
+     */
+    public onUpdate(handler: Delegates.Action2<Shader, string>) {
+        this.onUpdateEvent.addListerner(handler);
     }
 
     protected disposeResource(resource: ShaderWrapper): void {

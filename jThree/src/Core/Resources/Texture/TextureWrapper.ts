@@ -18,9 +18,8 @@ class TextureWrapper extends TextureWrapperBase
     if(this.Initialized&&!isChanged)return;
     if(this.TargetTexture==null)this.setTargetTexture(this.WebGLContext.CreateTexture());
     this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.TargetTexture);
-    if(parent.ImageSource==null)
-    {
-      this.WebGLContext.TexImage2D(TextureTargetType.Texture2D, 0, TextureInternalFormat.RGBA, 1,1, 0,TextureType.UnsignedShort4444, null)
+    if(parent.ImageSource==null) {
+        this.WebGLContext.TexImage2D(TextureTargetType.Texture2D, 0, TextureInternalFormat.RGBA, 1, 1, 0, TextureType.UnsignedShort4444, null);
     }else{    
       this.WebGLContext.TexImage2D(TextureTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,parent.ImageSource);
     }

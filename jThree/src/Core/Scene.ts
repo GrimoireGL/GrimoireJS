@@ -7,12 +7,15 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates =require('../Base/Delegates')
 import LightRegister = require('./Light/LightRegister');
-//シーン
+import PointLight = require("./Light/PointLight"); //シーン
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
+        var pointParam = PointLight.TypeDefinition;
+        this.lightRegister.addLightType(pointParam.requiredParamCount, pointParam.shaderfuncName, pointParam.shaderfragmentCode, pointParam.typeName);
+        console.log(this.lightRegister.ShaderCodeComposer.ShaderCode);
     }
 
     public enabled: boolean;

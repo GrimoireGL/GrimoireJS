@@ -1,6 +1,12 @@
 import Scene = require('../Scene');
 import LightBase = require('./LightBase');
-
+import LightTypeDeclaration = require("LightTypeDeclaration"); /**
+ * Point Light
+ * Parameter order
+ * 0:X:TypeID YZW:Color.RGB*Intencity
+ * 1:XYZ:POSITION.XYZ W: UNUSED (0)
+ * 2:X:Distance Y:Decay
+ */
 class PointLight extends LightBase
 {
 	constructor(scene:Scene)
@@ -63,7 +69,18 @@ class PointLight extends LightBase
 
     public getParameters(): number[]
     {
-        return [this.Color.R,this.Color.G,this.Color.B];
+        return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
+            this.Position.X, this.Position.Y, this.Position.Z, 0,
+        this.Distance,this.Decay];
+    }
+
+    public static get TypeDefinition(): LightTypeDeclaration {
+        return {
+            typeName: "jthree.lights.pointlight",
+            requiredParamCount: 3,
+            shaderfuncName: "calcPointLight",
+            shaderfragmentCode: require('../Shaders/Light/PointLightFragmentChunk.glsl')
+        };
     }
 }
 

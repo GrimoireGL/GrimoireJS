@@ -6,11 +6,12 @@ import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import InternalFormatType = require("../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../Wrapper/TextureType");
-import Scene = require("../Scene"); /**
+import Scene = require("../Scene");
+import ShaderComposer = require("./LightShderComposer"); 
+/**
  * Provides light management feature by renderer
  */
-class LightRegister
-{
+class LightRegister {
     /**
      * BufferTexture containing light parameters.
      */
@@ -19,7 +20,7 @@ class LightRegister
     /**
      * Renderer using this class.
      */
-    private scene:Scene;
+    private scene: Scene;
 
     /**
      * Height of texture.
@@ -33,7 +34,9 @@ class LightRegister
 
     private lightIdDictionary: AssociativeArray<number> = new AssociativeArray<number>();
 
-    private textureSourceBuffer:Float32Array;
+    private shaderComposer: ShaderComposer=new ShaderComposer();
+
+    private textureSourceBuffer: Float32Array;
 
     /**
      * Getter for height of texture.
@@ -53,7 +56,12 @@ class LightRegister
     private get ResourceManager() {
         return JThreeContextProxy.getJThreeContext().ResourceManager;
     }
-    constructor(scene:Scene) {
+
+    public get ShaderCodeComposer() {
+        return this.shaderComposer;
+    }
+
+constructor(scene:Scene) {
         this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID+ ".jthree.light.params", this.TextureWidth, this.TextureHeight, InternalFormatType.RGBA, TextureType.Float));
         this.widthUpdate();
     }
@@ -66,7 +74,8 @@ class LightRegister
         return this.lights;
     }
 
-    public addLightType(paramVecCount:number,shaderFuncName:string,shaderFuncCode:string) {
+    public addLightType(paramVecCount: number, shaderFuncName: string, shaderFuncCode: string, lightTypeName: string) {
+        this.shaderComposer.addLightType(shaderFuncName, shaderFuncCode, lightTypeName);
         var newSize = Math.max(paramVecCount, this.textureHeight);
         if (newSize !== this.textureHeight) {
             //apply new size of texture
@@ -109,9 +118,11 @@ class LightRegister
     {
         var index = this.lightIdDictionary.get(light.ID);
         var parameters = light.getParameters();
-        var baseIndex = index * 4 * this.TextureWidth;
+        var baseIndex = index * 4 * this.TextureWidth+1;
         var endIndex = baseIndex + parameters.length;
-        for (var i = baseIndex; i < endIndex; i++) {
+        this.textureSourceBuffer[baseIndex - 1] = this.shaderComposer.getLightTypeId(light);
+        for (var i = baseIndex; i < endIndex; i++)
+        {
             this.textureSourceBuffer[i] = parameters[i - baseIndex];
         }
         for (var i = endIndex; i < baseIndex + 4 * this.TextureWidth; i++) {
