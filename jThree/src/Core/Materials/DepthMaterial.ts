@@ -32,10 +32,13 @@ class DepthMaterial extends Material
     public configureMaterial(scene:Scene,renderer: RendererBase, object:SceneObject,texs): void {
           var geometry=object.Geometry;
           var programWrapper = this.program.getForContext(renderer.ContextManager);
-          programWrapper.useProgram();
           var v=Matrix.multiply(this.matVP,object.Transformer.LocalToGlobal);
-          programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-          programWrapper.setUniformMatrix("matMVP",v);
+          programWrapper.register({
+              attributes: { position: geometry.PositionBuffer },
+              uniforms: {
+                  matMVP: { type: "matrix", value: v }
+              }
+          });
           geometry.bindIndexBuffer(renderer.ContextManager);
      }
   }
