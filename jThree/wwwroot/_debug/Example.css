@@ -25,11 +25,11 @@
 }
 .vp-label-light
 {
-	left: 512px;
+	left: 50%;
 }
 .vp-label-depth
 {
-	left: 768px;
+    right: 0;
 }
 canvas{
 	margin: 0;
@@ -39,4 +39,18 @@ canvas{
 body{
 	margin: 0px;
 	padding: 0px;
+    background-color: #CCF;
+}
+
+#control {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.canvasContainer {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 155px;
 }
