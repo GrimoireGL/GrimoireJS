@@ -79,21 +79,26 @@ class PhongMaterial extends Material {
     super.configureMaterial(scene, renderer, object,texs);
     var geometry = object.Geometry;
     var pw = this.program.getForContext(renderer.ContextManager);
-    pw.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    pw.registerTexture(renderer,this.Texture,0,"u_texture");
-    pw.registerTexture(renderer, texs["LIGHT"], 1, "u_light");
-    pw.setUniform1i("u_textureUsed",(this.Texture!=null)?1:0);
-    pw.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-    pw.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-    pw.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-    pw.setUniformMatrix("matMVP", v);
-    pw.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
-    pw.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-    pw.setUniformVector("u_ambient", this.Ambient.toVector());
-    pw.setUniformVector("u_diffuse", this.Diffuse.toVector());
-    pw.setUniformVector("u_specular",this.Specular.toVector4(this.specularCoefficient));
-    pw.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
+        pw.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                uv:geometry.UVBuffer
+            },
+            uniforms: {
+                matMVP: { type: "matrix", value: v },
+                matV: { type: "matrix", value: renderer.Camera.ViewMatrix },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                u_texture: { type: "texture", register: 0, value: this.Texture },
+                u_light: { type: "texture", register: 1, value: texs["LIGHT"] },
+                u_ambient: { type: "vector", value: this.Ambient.toVector() },
+                u_diffuse: { type: "vector", value: this.Diffuse.toVector() },
+                u_specular: { type: "vector", value: this.Specular.toVector() },
+                u_textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 },
+                u_DirectionalLight:{type:"vector",value:new Vector3(0,0,-1)},
+            }
+        });
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
 }

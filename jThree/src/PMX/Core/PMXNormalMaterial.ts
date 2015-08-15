@@ -57,11 +57,8 @@ class PMXDepthMaterial extends Material
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs);
         renderer.GLContext.Disable(GLFeatureType.Blend);
-        var id = renderer.ID;
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
-        programWrapper.useProgram();
-        var v = object.Transformer.calculateMVPMatrix(renderer);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,

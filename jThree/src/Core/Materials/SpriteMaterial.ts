@@ -69,29 +69,29 @@ class SpriteMaterial extends Material {
     super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
-    programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    programWrapper.registerTexture(renderer,this.Texture,0,"u_sampler");
-    programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setUniformMatrix("matMVP", v);
-    programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
-    programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
     //gen ct matrix
     var ctM: Matrix = Matrix.zero();
     if (this.CTR < 4) ctM.setAt(this.CTR, 0, 1);
     if (this.CTG < 4) ctM.setAt(this.CTG, 1, 1);
     if (this.CTB < 4) ctM.setAt(this.CTB, 2, 1);
     if (this.CTA < 4) ctM.setAt(this.CTA, 3, 1);
-    if (this.CTA < 4) {
-      programWrapper.setUniform1i("additionA", 0);
-    } else {
-      programWrapper.setUniform1i("additionA", 1);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                uv:geometry.UVBuffer
+            },uniforms: {
+                matMVP: { type: "matrix", value: v },
+                matV: { type: "matrix", value: renderer.Camera.ViewMatrix },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                u_sampler: { type: "texture", register: 0, value: this.Texture },
+                additionA: { type: "integer", value: this.CTA < 4 ? 0 : 1 },
+                ctM:{type:"matrix",value:ctM}
+            }
+        });
+        geometry.bindIndexBuffer(renderer.ContextManager);
     }
-    programWrapper.setUniformMatrix("ctM", ctM);
-  }
 }
 
 export =SpriteMaterial;
