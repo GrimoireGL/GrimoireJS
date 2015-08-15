@@ -8,4 +8,4 @@ class ScalarIntegerRegister
     }
 }
 
-export = ScalarIntegerRegister; 
+export = ScalarIntegerRegister;  

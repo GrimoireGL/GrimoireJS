@@ -300,6 +300,7 @@
     <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\MatrixFloatRegister.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\ScalarIntegerRegister.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\ScalarFloatRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\Texture2DRegister.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\UniformTypeList.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\UniformVariableRegisterBase.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\VectorFloatRegister.ts" />
