@@ -86,7 +86,7 @@ class PMXMaterial extends Material {
     public mulMorphParam: PmxMaterialMorphParamContainer;
 
     public get PassCount(): number {
-        return this.edgeColor == null ? 1 : 2;
+        return 1; //this.edgeColor == null ? 1 : 2;
     }
 
     public get SelfShadow():boolean
@@ -126,10 +126,10 @@ class PMXMaterial extends Material {
     }
 
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
-        if (pass == 1) {
+/*        if (pass == 1) {
             this.configureEdgeMaterial(renderer, object);
             return;
-        }
+        }*/
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs);
         renderer.GLContext.Enable(GLFeatureType.DepthTest);
@@ -138,34 +138,77 @@ class PMXMaterial extends Material {
         var id = renderer.ID;
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
-        programWrapper.useProgram();
         var v = object.Transformer.calculateMVPMatrix(renderer);
-        programWrapper.registerTexture(renderer, texs["LIGHT"], 0, "u_light");
-        programWrapper.registerTexture(renderer, this.texture, 1, "u_texture");
-        programWrapper.registerTexture(renderer, this.toon, 2, "u_toon");
-        programWrapper.registerTexture(renderer, this.sphere, 3, "u_sphere");
-        programWrapper.registerTexture(renderer, this.parentModel.Skeleton.MatrixTexture, 4, "u_boneMatricies");
-        programWrapper.setUniform1i("u_textureUsed", this.texture == null || this.texture.ImageSource == null ? 0 : 1);
-        programWrapper.setUniform1i("u_sphereMode", this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode);
-        programWrapper.setUniform1i("u_toonFlag", this.toon == null || this.toon.ImageSource == null ? 0 : 1);
-        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setUniformMatrix("matMVP", v);
-        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
-        programWrapper.setUniformVector("u_ambient", PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.ambient.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.ambient, 3));
-        programWrapper.setUniformVector("u_diffuse", PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.diffuse.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.diffuse, 4));
-        programWrapper.setUniform1f("u_matIndex", this.materialIndex);
-        programWrapper.setUniform1f("u_boneCount", this.parentModel.Skeleton.BoneCount);
-        programWrapper.setUniformVector("u_addTexCoeff", new Vector4(this.addMorphParam.textureCoeff));
-        programWrapper.setUniformVector("u_mulTexCoeff", new Vector4(this.mulMorphParam.textureCoeff));
-        programWrapper.setUniformVector("u_addSphereCoeff", new Vector4(this.addMorphParam.sphereCoeff));
-        programWrapper.setUniformVector("u_mulSphereCoeff", new Vector4(this.mulMorphParam.sphereCoeff));
-        programWrapper.setUniformVector("u_addToonCoeff", new Vector4(this.addMorphParam.toonCoeff));
-        programWrapper.setUniformVector("u_mulToonCoeff", new Vector4(this.mulMorphParam.toonCoeff));
 
+        programWrapper.register(
+        {
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                uv: geometry.UVBuffer,
+                boneWeights: geometry.boneWeightBuffer,
+                boneIndicies: geometry.boneIndexBuffer
+                },
+            uniforms: {
+                u_light: {
+                    type: "texture",
+                    value: texs["LIGHT"],
+                    register: 0
+                },
+                u_texture: {
+                    type: "texture",
+                    value: this.texture,
+                    register: 1
+                },
+                u_toon: {
+                    type: "texture",
+                    value: this.toon,
+                    register: 2
+                },
+                u_sphere: {
+                    type: "texture",
+                    value: this.sphere,
+                    register: 3
+                },
+                    u_boneMatricies: {
+                        type: "texture",
+                        value: this.parentModel.Skeleton.MatrixTexture,
+                        register: 4
+                },
+                    u_textureUsed: {
+                        type: "integer",
+                        value: this.texture == null || this.texture.ImageSource == null ? 0 : 1
+                    },
+                    u_sphereMode: {
+                        type: "integer",
+                        value: this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode
+                    },
+                    u_toonFlag: {
+                        type: "integer",
+                        value: this.toon == null || this.toon.ImageSource == null ? 0 : 1
+                    },
+                    u_ambient: {
+                        type: "vector",
+                        value: PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.ambient.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.ambient, 3)
+                    },
+                    u_diffuse: {
+                        type: "vector",
+                        value: PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.diffuse.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.diffuse, 4)
+                    },
+                    u_addTexCoeff: { type: "vector", value: new Vector4(this.addMorphParam.textureCoeff) },
+                    u_mulTexCoeff: { type: "vector", value: new Vector4(this.mulMorphParam.textureCoeff) },
+                    u_addSphereCoeff: { type: "vector", value: new Vector4(this.addMorphParam.sphereCoeff) },
+                    u_mulSphereCoeff: { type: "vector", value: new Vector4(this.mulMorphParam.sphereCoeff) },
+                    u_addToonCoeff: { type: "vector", value: new Vector4(this.addMorphParam.toonCoeff) },
+                    u_mulToonCoeff: { type: "vector", value: new Vector4(this.mulMorphParam.toonCoeff) },
+                    matMVP: { type: "matrix", value: v },
+                    matVP: { type: "matrix", value: Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix) },
+                    u_boneCount: {
+                        type: "float",
+                        value: this.parentModel.Skeleton.BoneCount
+                    }
+                }
+        });
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
