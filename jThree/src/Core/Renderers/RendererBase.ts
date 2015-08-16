@@ -183,8 +183,8 @@ class RendererBase extends jThreeObjectWithID {
      */
     public set ViewPortArea(area: Rectangle)
     {
-        if (!Rectangle.Equals(area, this.viewportArea) && (typeof area.Width !== 'undefined') && (typeof area.Height !== 'undefined'))
-        {
+        if (!Rectangle.Equals(area, this.viewportArea) && (typeof area.Width !== 'undefined') && (typeof area.Height !== 'undefined')) {
+            if (isNaN(area.Height + area.Width))return;
             this.viewportArea = area;
             JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
             this.onViewportChangedHandler.fire(this, area);

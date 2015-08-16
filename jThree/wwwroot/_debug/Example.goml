@@ -14,31 +14,31 @@
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
-      <viewport cam="CAM1" height="1" id="main" left="0" width=".5"/>
-      <viewport cam="CAM2" height=".5" id="main" left=".5" width=".25"/>
-      <viewport cam="CAM3" height=".5" id="main" left=".75" width=".25"/>
-      <viewport cam="CAM4" height=".5" id="main" left=".5" top=".5" width=".25"/>
+      <viewport cam="CAM1" height="512" id="main" left="0" width="512"/>
+      <viewport cam="CAM2" height="256" id="main" left="512" width="256"/>
+      <viewport cam="CAM3" height="256" id="main" left="768" width="256"/>
+      <viewport cam="CAM4" height="256" id="main" left="512" top="256" width="256"/>
     </renderer>
   </renderers>
   <scenes>
     <scene>
-      <camera far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,1)"/>
+      <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,1)"/>
       <object id="light-root">
         <plight color="red" decay="1" distance="5" intensity="0.8" position="(0,0.5,0)"/>
         <plight color="blue" decay="1" distance="5" intensity="0.8" position="(0.5,0.5,0)"/>
         <plight color="lime" decay="1" distance="5" intensity="0.8" position="(-0.5,0.5,0)"/>
       </object>
-<pmx scale="0.1" src="/_debug/tune/Tune.pmx">
-  <vmd frame="0" src="melt.vmd"/>
-  <bones>
-    <bone name="右足ＩＫ">
-      <mesh geo="quad" mat="bl" scale="0.3"/>
-    </bone>
-    <bone name="左足ＩＫ">
-      <mesh geo="quad" mat="mat2" scale="0.3"/>
-    </bone>
-  </bones>
-</pmx>
+      <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
+        <vmd frame="0" src="melt.vmd"/>
+        <bones>
+          <bone name="右足ＩＫ">
+            <mesh geo="quad" mat="bl" scale="0.3"/>
+          </bone>
+          <bone name="左足ＩＫ">
+            <mesh geo="quad" mat="mat2" scale="0.3"/>
+          </bone>
+        </bones>
+      </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
       <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="0,0.5,-0.5" scale="0.1"/>

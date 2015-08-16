@@ -2,87 +2,106 @@ import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import Delegates = require("../Base/Delegates");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-import JThreeEvent = require('../Base/JThreeEvent')
+import JThreeEvent = require('../Base/JThreeEvent');
+/**
+ * Provides the feature to manage attribute of GOML.
+ */
 class GomlAttribute extends JThreeObjectWithID
 {
-  protected element:HTMLElement;
+    /**
+     * Reference to HTMLElement that whose attribute is managed by this class.
+     */
+    protected element: HTMLElement;
+    /**
+     * Whether this attribute was cached already or not.
+     */
+    protected cached: boolean = false;
+    /**
+     * The cache value for attribute.
+     * If this.cached was false, this value can be undefined.
+     */
+    protected value: any = undefined;
+    /**
+     * Reference to converter class that will manage to parse,cast to string and animation.
+     */
+    protected converter: AttributeConverterBase;
+    /**
+     * Event managing class reference for the event that will fire when attribute value was changed.
+     */
+    protected onchangedHandlers: JThreeEvent<GomlAttribute> = new JThreeEvent<GomlAttribute>();
+    /**
+     * Reference to GomlTreeNodeBase that contains this attribute.
+     */
+    protected managedClass: GomlTreeNodeBase;
+    /**
+     * Whether it is need or not when update.
+     */
+    private needNotifyUpdate: boolean = true;
 
-  protected cached:boolean=false;
-
-  protected value:any=undefined;
-
-  protected converter:AttributeConverterBase;
-
-  protected onchangedHandlers:JThreeEvent<GomlAttribute>=new JThreeEvent<GomlAttribute>();
-
-  protected managedClass: GomlTreeNodeBase;
-
-  private needNotifyUpdate: boolean = true;
-
-  public get NeedNotifyUpdate()
-  {
-    return this.needNotifyUpdate;
-  }
-
-  public set NeedNotifyUpdate(val:boolean)
-  {
-    this.needNotifyUpdate = val;
-  }
-
-  constructor(node:GomlTreeNodeBase,element:HTMLElement,name:string,value:any,converter:AttributeConverterBase,handler?:Delegates.Action1<GomlAttribute>)
-  {
-    super(name);
-    this.element=element;
-    this.converter=converter;
-    this.value=converter.FromInterface(value);
-    this.managedClass=node;
-    if(handler)this.onchangedHandlers.addListerner(handler);
-  }
-
-    public get Name():string
-  {
-    return this.ID;
-  }
-
-    public get Value():any
-  {
-    if(this.cached)
+    public get NeedNotifyUpdate()
     {
-      return this.value;
-    }else{
-      var attr=this.element.getAttribute(this.Name);
-      if(attr)
-      {//if attribute was specified, cache this attribute.
-        this.value=this.Converter.FromAttribute(this.element.getAttribute(this.Name));
-        this.cached=true;
-      }//if attribute was not specified, it will return default value of this attribute.
-      return this.value;
+        return this.needNotifyUpdate;
     }
-  }
 
-    public set Value(val:any)
-  {
-    this.value=this.Converter.FromInterface(val);
-    this.element.setAttribute(this.Name,this.Converter.ToAttribute(val));
-    this.cached=true;
-    if(this.NeedNotifyUpdate)this.notifyValueChanged();
-  }
+    public set NeedNotifyUpdate(val: boolean)
+    {
+        this.needNotifyUpdate = val;
+    }
 
-    public get Converter():AttributeConverterBase
-  {
-    return this.converter;
-  }
+    constructor(node: GomlTreeNodeBase, element: HTMLElement, name: string, value: any, converter: AttributeConverterBase, handler?: Delegates.Action1<GomlAttribute>)
+    {
+        super(name);
+        this.element = element;
+        this.converter = converter;
+        this.value = converter.FromInterface(value);
+        this.managedClass = node;
+        if (handler) this.onchangedHandlers.addListerner(handler);
+    }
 
-  public notifyValueChanged()
-  {
-    var t=this;
-    this.onchangedHandlers.fire(this,this);
-  }
+    public get Name(): string
+    {
+        return this.ID;
+    }
 
-  public onValueChanged(handler:Delegates.Action1<GomlAttribute>)
-  {
-    this.onchangedHandlers.addListerner(handler);
-  }
+    public get Value(): any
+    {
+        if (this.cached)
+        {
+            return this.value;
+        } else
+        {
+            var attr = this.element.getAttribute(this.Name);
+            if (attr)
+            {//if attribute was specified, cache this attribute.
+                this.value = this.Converter.FromAttribute(this.element.getAttribute(this.Name));
+                this.cached = true;
+            }//if attribute was not specified, it will return default value of this attribute.
+            return this.value;
+        }
+    }
+
+    public set Value(val: any)
+    {
+        this.value = this.Converter.FromInterface(val);
+        this.element.setAttribute(this.Name, this.Converter.ToAttribute(val));
+        this.cached = true;
+        if (this.NeedNotifyUpdate) this.notifyValueChanged();
+    }
+
+    public get Converter(): AttributeConverterBase
+    {
+        return this.converter;
+    }
+
+    public notifyValueChanged()
+    {
+        this.onchangedHandlers.fire(this, this);
+    }
+
+    public onValueChanged(handler: Delegates.Action1<GomlAttribute>)
+    {
+        this.onchangedHandlers.addListerner(handler);
+    }
 }
 
-export=GomlAttribute;
+export =GomlAttribute;
