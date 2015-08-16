@@ -8,6 +8,8 @@ import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
+import RendererNode = require("./RendererNode");
+import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
 
 class ViewPortNode extends GomlTreeNodeBase {
 
@@ -34,6 +36,11 @@ class ViewPortNode extends GomlTreeNodeBase {
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
       scene.addRenderer(this.targetRenderer);
+
+      if ("resize" in rdr ) {
+          var castedRdr = <RendererNode>rdr;
+          castedRdr.resize(this.updateViewportArea.bind(this));
+      }
 
       //register attributes
       this.attributes.defineAttribute({
@@ -69,9 +76,34 @@ class ViewPortNode extends GomlTreeNodeBase {
       this.attributes.applyDefaultValue();
     }
 
-    private updateViewportArea()
-    {
-      this.targetRenderer.ViewPortArea=new Rectangle(this.left,this.top,this.width, this.height);
+    private updateViewportArea() {
+
+        if ("targetFrame" in this.parentRendererNode) {
+            var castedRdr = <RendererNode>this.parentRendererNode;
+            var frame = castedRdr.targetFrame;
+
+            castedRdr.resize(this.updateViewportArea.bind(this));
+            var W = frame.clientWidth;
+            var H = frame.clientHeight;
+            var left = this.left > 1 ? this.left : W * this.left;
+            var top = this.top > 1 ? this.top : H * this.top;
+            var width = this.width > 1 ? this.width : W * this.width;
+            var height = this.height > 1 ? this.height : H * this.height;
+            this.targetRenderer.ViewPortArea = new Rectangle(left, top, width, height);
+
+            if ("Aspect" in this.targetRenderer.Camera) {//todo Camera‚©‚çƒnƒ“ƒhƒ‰“o˜^‚µ‚½‚¢ 
+                var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;
+                castedCam.Aspect = width / height;
+            }
+        } else {
+            this.targetRenderer.ViewPortArea = new Rectangle(this.left, this.top, this.width, this.height);
+
+            if ("Aspect" in this.targetRenderer.Camera) {
+                var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;
+                castedCam.Aspect = this.width / this.height;
+            }
+        }
+
     }
 
     private resolveCamera():CameraNodeBase

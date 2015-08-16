@@ -20,7 +20,7 @@ class GomlTreeCameraNode extends GomlTreeCameraNodeBase
             handler:(v)=>{this.targetPerspective.Fovy=v.Value;}
           },
           "aspect":{
-            value:1,
+            value:0,
             converter:"number",
             handler:(v)=>{this.targetPerspective.Aspect=v.Value;}
           },

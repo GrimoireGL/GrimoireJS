@@ -8,8 +8,7 @@ class PerspectiveCamera extends ViewCamera
   private far:number=10;
     public projection:Matrix;
 
-  private updateProjection()
-  {
+  private updateProjection() {
     this.projection=Matrix.perspective(this.fovy,this.aspect,this.near,this.far);
   }
 
