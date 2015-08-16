@@ -44,32 +44,40 @@ class LitghtAccumulationStage extends RenderStageBase {
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
-    programWrapper.useProgram();
     var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
-    programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setUniformVector("c_pos", renderer.Camera.Position);
-    programWrapper.setUniformVector("c_dir", renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis());
-    programWrapper.registerTexture(renderer, texs["RB1"], 0, "rb1");
-    programWrapper.registerTexture(renderer, texs["RB2"], 1, "rb2");
-    programWrapper.registerTexture(renderer, texs["DEPTH"], 2, "depth");
     //pass variables related to point lights
     var plights = scene.getLights("jthree.lights.pointlight");
     var lpos = new Array(plights.length);
     var lcol = new Array(plights.length);
     var lcoef = new Array(plights.length);
-    for (var i = 0; i < plights.length; i++) {
-      var pl = <PointLight>plights[i];
-      lpos[i] = Matrix.transformPoint(Matrix.multiply(renderer.Camera.ViewMatrix,pl.Transformer.LocalToGlobal),new Vector3(0,0,0));
-      lcol[i] = plights[i].Color.toVector().multiplyWith(pl.Intensity);
-      lcoef[i] = new Vector2(pl.Decay, pl.Distance);
+    for (var i = 0; i < plights.length; i++)
+    {
+        var pl = <PointLight>plights[i];
+        lpos[i] = Matrix.transformPoint(Matrix.multiply(renderer.Camera.ViewMatrix, pl.Transformer.LocalToGlobal), new Vector3(0, 0, 0));
+        lcol[i] = plights[i].Color.toVector().multiplyWith(pl.Intensity);
+        lcoef[i] = new Vector2(pl.Decay, pl.Distance);
     }
-    programWrapper.setUniformVectorArray("pl_pos", lpos);
-    programWrapper.setUniformVectorArray("pl_col", lcol);
-    programWrapper.setUniformVectorArray("pl_coef", lcoef);
-    programWrapper.setUniform1i("pl_count", plights.length);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                uv: geometry.UVBuffer
+            },
+            uniforms: {
+                rb1: { type: "texture", register: 0, value: texs["RB1"] },
+                rb2: { type: "texture", register: 1, value: texs["RB2"] },
+                depth: { type: "texture", register: 2, value: texs["DEPTH"] },
+                matIP: { type: "matrix", value: ip },
+                matTV: { type: "matrix", value: Matrix.inverse(renderer.Camera.ViewMatrix) },
+                pl_pos: { type: "vectorarray", value: lpos },
+                pl_col: { type: "vectorarray", value: lcol },
+                pl_coef: { type: "vectorarray", value: lcoef },
+                pl_count: { type: "integer", value: plights.length },
+                c_pos: { type: "vector", value: renderer.Camera.Position },
+                c_dir: { type: "vector", value: renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis()}
+    }
+        });
     //pass variables related to directional lights
-    var dlights = <DirectionalLight[]> scene.getLights("jthree.lights.directionallight");
+/*    var dlights = <DirectionalLight[]> scene.getLights("jthree.lights.directionallight");
     var ddir = new Array(dlights.length);
     var dcol = new Array(dlights.length);
     for (var i = 0; i < dlights.length; i++) {
@@ -79,12 +87,7 @@ class LitghtAccumulationStage extends RenderStageBase {
     }
     programWrapper.setUniformVectorArray("dl_dir", ddir);
     programWrapper.setUniformVectorArray("dl_col", dcol);
-    programWrapper.setUniform1i("dl_count", dlights.length);
-    programWrapper.setUniformMatrix("matIP", ip);
-    programWrapper.setUniformMatrix("matTV", Matrix.inverse(renderer.Camera.ViewMatrix));
-    programWrapper.setUniformMatrix("matLV", dlights[0] ? dlights[0].VP : Matrix.identity());
-    programWrapper.registerTexture(renderer, texs["DIR"], 3, "u_ldepth");
-    programWrapper.setUniformVector("posL", Matrix.transformPoint(renderer.Camera.ViewMatrix, new Vector3(1, 2, -3)));
+    programWrapper.setUniform1i("dl_count", dlights.length);*/
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
   }
 
