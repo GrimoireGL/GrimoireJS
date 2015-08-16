@@ -70,6 +70,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Utility class to parse the arguments of attributes.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -154,16 +161,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeParser.ts#L6">Goml/AttributeParser.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeParser.ts#L16">Goml/AttributeParser.ts:16</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Parse angle strings.
+										&quot;p&quot; means Pi. Ex) 3/4 p
+									&quot;d&quot; means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>input: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the string to parse.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>parsed angle in radians.</p>
 						</li>
 					</ul>
 				</section>
@@ -177,16 +195,32 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeParser.ts#L25">Goml/AttributeParser.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeParser.ts#L47">Goml/AttributeParser.ts:47</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Parse angle string in 3D.
+										&quot;p&quot; means Pi. Ex) 3/4 p
+										&quot;d&quot; means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d
+										&quot;eular(x,y,z)&quot; means rotation in eular. This means Z-X-Y rotation like Unity.
+										&quot;axis(angle,x,y,z)&quot; means rotation around specified axis. This means angle radians will be rotated around the axis (x,y,z).
+										This angle can be specified with the character &quot;p&quot; or &quot;d&quot;.
+										&quot;x(angle)&quot;,&quot;y(angle)&quot; or &quot;z(angle)&quot; means rotation around unit axis.
+									This angle can be specified with the character &quot;p&quot; or &quot;d&quot;.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>input: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the string to be parsed as angle in 3D.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+							<p>parsed rotation in Quaternion.</p>
 						</li>
 					</ul>
 				</section>

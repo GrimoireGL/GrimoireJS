@@ -78630,6 +78630,9 @@
 						"isExported": true,
 						"hasExportAssignment": true
 					},
+					"comment": {
+						"shortText": "Utility class to parse the arguments of attributes."
+					},
 					"children": [
 						{
 							"id": 5241,
@@ -78724,6 +78727,10 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Parse angle strings.\n\"p\" means Pi. Ex) 3/4 p\n\"d\" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d",
+										"returns": "parsed angle in radians.\n"
+									},
 									"parameters": [
 										{
 											"id": 5235,
@@ -78731,6 +78738,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "the string to parse."
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "string"
@@ -78761,6 +78771,10 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Parse angle string in 3D.\n\"p\" means Pi. Ex) 3/4 p\n\"d\" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d\n\"eular(x,y,z)\" means rotation in eular. This means Z-X-Y rotation like Unity.\n\"axis(angle,x,y,z)\" means rotation around specified axis. This means angle radians will be rotated around the axis (x,y,z).\nThis angle can be specified with the character \"p\" or \"d\".\n\"x(angle)\",\"y(angle)\" or \"z(angle)\" means rotation around unit axis.\nThis angle can be specified with the character \"p\" or \"d\".",
+										"returns": "parsed rotation in Quaternion.\n"
+									},
 									"parameters": [
 										{
 											"id": 5238,
@@ -78768,6 +78782,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "the string to be parsed as angle in 3D."
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "string"
@@ -85532,6 +85549,9 @@
 					"kind": 2097152,
 					"kindString": "Object literal",
 					"flags": {},
+					"comment": {
+						"shortText": "Easing function classes constructors is listed below.\nIf you extend this hash, the user can use new easing functions.\nEach easing function class must extends EasingFunctionBase class."
+					},
 					"children": [
 						{
 							"id": 5248,
@@ -87414,6 +87434,9 @@
 						"isExported": true,
 						"hasExportAssignment": true
 					},
+					"comment": {
+						"shortText": "Provides the feature to manage attribute of GOML."
+					},
 					"children": [
 						{
 							"id": 995,
@@ -87537,6 +87560,9 @@
 								"isExported": true,
 								"isProtected": true
 							},
+							"comment": {
+								"shortText": "Whether this attribute was cached already or not."
+							},
 							"type": {
 								"type": "instrinct",
 								"name": "boolean"
@@ -87551,6 +87577,9 @@
 							"flags": {
 								"isExported": true,
 								"isProtected": true
+							},
+							"comment": {
+								"shortText": "Reference to converter class that will manage to parse,cast to string and animation."
 							},
 							"type": {
 								"type": "reference",
@@ -87567,6 +87596,9 @@
 								"isExported": true,
 								"isProtected": true
 							},
+							"comment": {
+								"shortText": "Reference to HTMLElement that whose attribute is managed by this class."
+							},
 							"type": {
 								"type": "reference",
 								"name": "HTMLElement"
@@ -87580,6 +87612,9 @@
 							"flags": {
 								"isExported": true,
 								"isProtected": true
+							},
+							"comment": {
+								"shortText": "Reference to GomlTreeNodeBase that contains this attribute."
 							},
 							"type": {
 								"type": "reference",
@@ -87596,6 +87631,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "Whether it is need or not when update."
+							},
 							"type": {
 								"type": "instrinct",
 								"name": "boolean"
@@ -87611,6 +87649,9 @@
 								"isExported": true,
 								"isProtected": true
 							},
+							"comment": {
+								"shortText": "Event managing class reference for the event that will fire when attribute value was changed."
+							},
 							"type": {
 								"type": "reference",
 								"name": "JThreeEvent",
@@ -87623,7 +87664,7 @@
 									}
 								]
 							},
-							"defaultValue": "new JThreeEvent<GomlAttribute>()"
+							"defaultValue": " new JThreeEvent<GomlAttribute>()"
 						},
 						{
 							"id": 986,
@@ -87634,11 +87675,14 @@
 								"isExported": true,
 								"isProtected": true
 							},
+							"comment": {
+								"shortText": "The cache value for attribute.\nIf this.cached was false, this value can be undefined."
+							},
 							"type": {
 								"type": "instrinct",
 								"name": "any"
 							},
-							"defaultValue": "undefined"
+							"defaultValue": " undefined"
 						},
 						{
 							"id": 1009,
@@ -88086,6 +88130,9 @@
 					"kind": 2097152,
 					"kindString": "Object literal",
 					"flags": {},
+					"comment": {
+						"shortText": "List for constructor functions of converter classes.\nConverters manage how an attribute will be parsed, converted into string, or animated."
+					},
 					"children": [
 						{
 							"id": 5255,
@@ -89261,6 +89308,9 @@
 						"isExported": true,
 						"hasExportAssignment": true
 					},
+					"comment": {
+						"shortText": "Provides configurations that will be used when parse GOML.\nThese properties is intended to be used for extending by plugin feature."
+					},
 					"children": [
 						{
 							"id": 1396,
@@ -89294,6 +89344,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "List of converter function classes."
+							},
 							"type": {
 								"type": "reference",
 								"name": "AssociativeArray",
@@ -89305,7 +89358,7 @@
 									}
 								]
 							},
-							"defaultValue": "new AssociativeArray<AttributeConvrterBase>()"
+							"defaultValue": " new AssociativeArray<AttributeConvrterBase>()"
 						},
 						{
 							"id": 1382,
@@ -89315,6 +89368,9 @@
 							"flags": {
 								"isPrivate": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "List of easing function to indicate how animation will be."
 							},
 							"type": {
 								"type": "reference",
@@ -89327,7 +89383,7 @@
 									}
 								]
 							},
-							"defaultValue": "new AssociativeArray<EasingFunction>()"
+							"defaultValue": " new AssociativeArray<EasingFunction>()"
 						},
 						{
 							"id": 1384,
@@ -89337,6 +89393,9 @@
 							"flags": {
 								"isPrivate": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "All list of goml tags that will be parsed and instanciated when parse GOML."
 							},
 							"type": {
 								"type": "reference",
@@ -89361,12 +89420,15 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "List to be parsed as root elements in GOML.\nRoot elements will be parsed in an order of this array."
+							},
 							"type": {
 								"type": "instrinct",
 								"isArray": true,
 								"name": "string"
 							},
-							"defaultValue": "[]"
+							"defaultValue": " []"
 						},
 						{
 							"id": 1394,
@@ -89550,6 +89612,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Initialize converters from list."
+									},
 									"type": {
 										"type": "instrinct",
 										"name": "void"
