@@ -20,7 +20,11 @@ class Scene extends jThreeObjectWithID {
 
     public enabled: boolean;
 
-    private lightRegister:LightRegister;
+    private lightRegister: LightRegister;
+
+    public get LightRegister() {
+        return this.lightRegister;
+    }
 
     public update(): void {
         if (!this.enabled) return;//enabled==falseならいらない。

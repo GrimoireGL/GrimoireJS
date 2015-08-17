@@ -7,8 +7,9 @@ import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import InternalFormatType = require("../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../Wrapper/TextureType");
 import Scene = require("../Scene");
-import ShaderComposer = require("./LightShderComposer"); 
-/**
+import ShaderComposer = require("./LightShderComposer");
+import Program = require("../Resources/Program/Program");
+import ShaderType = require("../../Wrapper/ShaderType"); /**
  * Provides light management feature by renderer
  */
 class LightRegister {
@@ -26,6 +27,8 @@ class LightRegister {
      * Height of texture.
      */
     private textureHeight: number = 4;
+
+    private lightProgram:Program;
 
     /**
      * 
@@ -64,6 +67,12 @@ class LightRegister {
 constructor(scene:Scene) {
         this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID+ ".jthree.light.params", this.TextureWidth, this.TextureHeight, InternalFormatType.RGBA, TextureType.Float));
         this.widthUpdate();
+        var vs = require('../Shaders/VertexShaders/PostEffectGeometries.glsl');
+        var jThreeContext = JThreeContextProxy.getJThreeContext();
+        var rm = jThreeContext.ResourceManager;
+        var vShader = rm.createShader("jthree.shaders.vertex.post",vs, ShaderType.VertexShader);
+        vShader.loadAll(); 
+        this.lightProgram=rm.createProgram("jthree.programs.deffered.lights", [vShader, this.ShaderCodeComposer.Shader]);
     }
 
      /**

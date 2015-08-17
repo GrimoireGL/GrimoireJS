@@ -30,10 +30,11 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "UBYTE"
-            }};
+            }
+        };
     }
 
-    public getStageChain(target:RendererBase): RenderStageChain[]
+    public getStageChain(target: RendererBase): RenderStageChain[]
     {
         return [{
             buffers: {
