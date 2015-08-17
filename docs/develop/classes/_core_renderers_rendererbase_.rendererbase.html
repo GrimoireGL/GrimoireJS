@@ -70,13 +70,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Provides base class feature for renderer classes.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -148,14 +141,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Renderer<wbr>Base<span class="tsd-signature-symbol">(</span>contextManager<span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a>, viewportArea<span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Renderer<wbr>Base<span class="tsd-signature-symbol">(</span>contextManager<span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a>, viewportArea<span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a>, configurator<span class="tsd-signature-symbol">?: </span><a href="_core_renderers_rendererconfigurator_rendererconfiguratorbase_.rendererconfiguratorbase.html" class="tsd-signature-type">RendererConfiguratorBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L18">Core/Renderers/RendererBase.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L16">Core/Renderers/RendererBase.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -171,6 +164,9 @@
 								<li>
 									<h5>viewportArea: <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h5>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> configurator: <a href="_core_renderers_rendererconfigurator_rendererconfiguratorbase_.rendererconfiguratorbase.html" class="tsd-signature-type">RendererConfiguratorBase</a></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h4>
 						</li>
@@ -185,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">camera<span class="tsd-signature-symbol">:</span> <a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L92">Core/Renderers/RendererBase.ts:92</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L40">Core/Renderers/RendererBase.ts:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -200,7 +196,7 @@
 					<div class="tsd-signature tsd-kind-icon">context<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L113">Core/Renderers/RendererBase.ts:113</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L64">Core/Renderers/RendererBase.ts:64</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -215,7 +211,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Viewport<wbr>Changed<wbr>Handler<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L159">Core/Renderers/RendererBase.ts:159</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L115">Core/Renderers/RendererBase.ts:115</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -225,7 +221,7 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Stage<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_renderstagemanager_.renderstagemanager.html" class="tsd-signature-type">RenderStageManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L150">Core/Renderers/RendererBase.ts:150</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L105">Core/Renderers/RendererBase.ts:105</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -240,7 +236,7 @@
 					<div class="tsd-signature tsd-kind-icon">viewport<wbr>Area<span class="tsd-signature-symbol">:</span> <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L170">Core/Renderers/RendererBase.ts:170</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L127">Core/Renderers/RendererBase.ts:127</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -258,7 +254,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L96">Core/Renderers/RendererBase.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L44">Core/Renderers/RendererBase.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -271,7 +267,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L102">Core/Renderers/RendererBase.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L51">Core/Renderers/RendererBase.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -299,7 +295,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L118">Core/Renderers/RendererBase.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L69">Core/Renderers/RendererBase.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -321,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L125">Core/Renderers/RendererBase.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L77">Core/Renderers/RendererBase.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -366,7 +362,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L155">Core/Renderers/RendererBase.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L110">Core/Renderers/RendererBase.ts:110</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -389,7 +385,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L176">Core/Renderers/RendererBase.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L133">Core/Renderers/RendererBase.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -403,7 +399,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L184">Core/Renderers/RendererBase.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L141">Core/Renderers/RendererBase.ts:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -440,7 +436,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L142">Core/Renderers/RendererBase.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L96">Core/Renderers/RendererBase.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -463,7 +459,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L198">Core/Renderers/RendererBase.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L156">Core/Renderers/RendererBase.ts:156</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -485,7 +481,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L133">Core/Renderers/RendererBase.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L86">Core/Renderers/RendererBase.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -526,7 +522,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L166">Core/Renderers/RendererBase.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L122">Core/Renderers/RendererBase.ts:122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -557,7 +553,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L106">Core/Renderers/RendererBase.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L56">Core/Renderers/RendererBase.ts:56</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
