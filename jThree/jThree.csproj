@@ -266,6 +266,8 @@
     <TypeScriptCompile Include="src\Core\Materials\SpriteMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\FBOBindData.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RendererBase.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RendererConfigurator\BasicRendererConfigurator.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RendererConfigurator\RendererConfiguratorBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageChain.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageConfig.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
@@ -491,6 +493,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
