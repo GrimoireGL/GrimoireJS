@@ -72728,54 +72728,6 @@
 							]
 						},
 						{
-							"id": 3201,
-							"name": "cacheMat",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isPrivate": true,
-								"isExported": true
-							},
-							"comment": {
-								"shortText": "calculation cache"
-							},
-							"type": {
-								"type": "reference",
-								"name": "IArray"
-							},
-							"defaultValue": " glm.mat4.create()"
-						},
-						{
-							"id": 3202,
-							"name": "cacheMat2",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isPrivate": true,
-								"isExported": true
-							},
-							"type": {
-								"type": "reference",
-								"name": "IArray"
-							},
-							"defaultValue": " glm.mat4.create()"
-						},
-						{
-							"id": 3203,
-							"name": "cacheMat3",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isPrivate": true,
-								"isExported": true
-							},
-							"type": {
-								"type": "reference",
-								"name": "IArray"
-							},
-							"defaultValue": " glm.mat4.create()"
-						},
-						{
 							"id": 3205,
 							"name": "cacheVec",
 							"kind": 1024,
@@ -72857,6 +72809,21 @@
 							}
 						},
 						{
+							"id": 3202,
+							"name": "localToGlobalCache",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isPrivate": true,
+								"isExported": true
+							},
+							"type": {
+								"type": "reference",
+								"name": "IArray"
+							},
+							"defaultValue": " glm.mat4.create()"
+						},
+						{
 							"id": 3199,
 							"name": "localTransform",
 							"kind": 1024,
@@ -72873,6 +72840,39 @@
 								"name": "Matrix",
 								"id": 557
 							}
+						},
+						{
+							"id": 3201,
+							"name": "localTransformCache",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isPrivate": true,
+								"isExported": true
+							},
+							"comment": {
+								"shortText": "calculation cache"
+							},
+							"type": {
+								"type": "reference",
+								"name": "IArray"
+							},
+							"defaultValue": " glm.mat4.create()"
+						},
+						{
+							"id": 3203,
+							"name": "modelViewProjectionCaluculationCache",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isPrivate": true,
+								"isExported": true
+							},
+							"type": {
+								"type": "reference",
+								"name": "IArray"
+							},
+							"defaultValue": " glm.mat4.create()"
 						},
 						{
 							"id": 3206,
@@ -73474,15 +73474,15 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								3201,
-								3202,
-								3203,
 								3205,
 								3198,
 								3204,
 								3196,
 								3200,
+								3202,
 								3199,
+								3201,
+								3203,
 								3206,
 								3195,
 								3193,
