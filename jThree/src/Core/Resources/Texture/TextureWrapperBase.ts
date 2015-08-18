@@ -1,5 +1,4 @@
 import ResourceWrapper = require('../ResourceWrapper');
-import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
 import TextureBase = require('TextureBase');
 import ContextManagerBase = require('../../ContextManagerBase');
@@ -37,15 +36,15 @@ class TextureWrapperBase extends ResourceWrapper
   protected applyTextureParameter() {
       if (!this.WebGLContext.IsTexture(this.TargetTexture))return;
       this.bind();
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MinFilter,this.parent.MinFilter);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.MagFilter,this.parent.MagFilter);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapS,this.parent.SWrap);
-    this.WebGLContext.TexParameteri(TextureTargetType.Texture2D,TextureParameterType.WrapT,this.parent.TWrap);
+    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.MinFilter,this.parent.MinFilter);
+    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.MagFilter,this.parent.MagFilter);
+    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapS,this.parent.SWrap);
+    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapT,this.parent.TWrap);
   }
   
   public bind()
   {
-    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.targetTexture);
+    this.WebGLContext.BindTexture(this.Parent.TargetTextureType,this.targetTexture);
   //  this.WebGLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL,this.parent.FlipY?1:0);
   }
   
