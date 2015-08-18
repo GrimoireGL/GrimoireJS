@@ -28411,6 +28411,9 @@
 						"isExported": true,
 						"hasExportAssignment": true
 					},
+					"comment": {
+						"shortText": "Provides light management feature by renderer"
+					},
 					"children": [
 						{
 							"id": 2873,
@@ -28458,6 +28461,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "Light dictionary being sorted with id used in shaders."
+							},
 							"type": {
 								"type": "reference",
 								"name": "AssociativeArray",
@@ -28480,6 +28486,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "Programs will be used for rendering this lights accumulation buffer."
+							},
 							"type": {
 								"type": "reference",
 								"name": "Program",
@@ -28495,7 +28504,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
-							"comment": {},
+							"comment": {
+								"shortText": "Lights subscribed to this register."
+							},
 							"type": {
 								"type": "reference",
 								"isArray": true,
@@ -28549,6 +28560,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "Provides feature to generate shader source code."
+							},
 							"type": {
 								"type": "reference",
 								"name": "ShaderComposer"
@@ -28582,6 +28596,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "Float values array for buffer of light parameter textures."
+							},
 							"type": {
 								"type": "reference",
 								"name": "Float32Array"
@@ -28596,6 +28613,9 @@
 								"isExported": true,
 								"isPublic": true
 							},
+							"comment": {
+								"shortText": "Getter for light program to use for rendering light accumulation buffer."
+							},
 							"getSignature": [
 								{
 									"id": 2872,
@@ -28603,6 +28623,9 @@
 									"kind": 524288,
 									"kindString": "Get signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Getter for light program to use for rendering light accumulation buffer."
+									},
 									"type": {
 										"type": "reference",
 										"name": "Program",
@@ -28651,6 +28674,9 @@
 								"isExported": true,
 								"isPublic": true
 							},
+							"comment": {
+								"shortText": "Getter for light parameter texture."
+							},
 							"getSignature": [
 								{
 									"id": 2866,
@@ -28658,6 +28684,9 @@
 									"kind": 524288,
 									"kindString": "Get signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Getter for light parameter texture."
+									},
 									"type": {
 										"type": "reference",
 										"name": "BufferTexture",
@@ -28675,6 +28704,9 @@
 								"isPrivate": true,
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "Provides easy access to resource manager."
+							},
 							"getSignature": [
 								{
 									"id": 2868,
@@ -28682,6 +28714,9 @@
 									"kind": 524288,
 									"kindString": "Get signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Provides easy access to resource manager."
+									},
 									"type": {
 										"type": "reference",
 										"name": "ResourceManager",
@@ -28699,6 +28734,9 @@
 								"isExported": true,
 								"isPublic": true
 							},
+							"comment": {
+								"shortText": "Getter for shader composer that generates shader source to render light accumulation buffer."
+							},
 							"getSignature": [
 								{
 									"id": 2870,
@@ -28706,6 +28744,9 @@
 									"kind": 524288,
 									"kindString": "Get signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Getter for shader composer that generates shader source to render light accumulation buffer."
+									},
 									"type": {
 										"type": "reference",
 										"name": "LightShaderComposer",
@@ -28723,6 +28764,9 @@
 								"isExported": true,
 								"isPublic": true
 							},
+							"comment": {
+								"shortText": "Getter for width of texture.\nThis parameter is same as count of lights."
+							},
 							"getSignature": [
 								{
 									"id": 2864,
@@ -28730,6 +28774,9 @@
 									"kind": 524288,
 									"kindString": "Get signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Getter for width of texture.\nThis parameter is same as count of lights."
+									},
 									"type": {
 										"type": "instrinct",
 										"name": "number"
@@ -28747,7 +28794,7 @@
 								"isPublic": true
 							},
 							"comment": {
-								"shortText": "Getter for height of texture."
+								"shortText": "Getter for height of texture.\nThis parameter is same as count of light parameter."
 							},
 							"getSignature": [
 								{
@@ -28757,7 +28804,7 @@
 									"kindString": "Get signature",
 									"flags": {},
 									"comment": {
-										"shortText": "Getter for height of texture."
+										"shortText": "Getter for height of texture.\nThis parameter is same as count of light parameter."
 									},
 									"type": {
 										"type": "instrinct",
@@ -28782,6 +28829,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Add light to this register."
+									},
 									"parameters": [
 										{
 											"id": 2886,
@@ -28789,6 +28839,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "the light to add this register.\n"
+											},
 											"type": {
 												"type": "reference",
 												"name": "LightBase",
@@ -28819,6 +28872,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Add light type and append shader code."
+									},
 									"parameters": [
 										{
 											"id": 2880,
@@ -28826,6 +28882,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "required vec4 count."
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "number"
@@ -28837,6 +28896,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "name for function name no need to include \"()\""
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "string"
@@ -28848,6 +28910,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "fragment function shader code"
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "string"
@@ -28859,6 +28924,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "light type name it should be same as LightBase.TypeName\n"
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "string"
@@ -28888,6 +28956,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Update height of light parameter texture."
+									},
 									"parameters": [
 										{
 											"id": 2889,
@@ -28895,6 +28966,9 @@
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"comment": {
+												"text": "starting line of x-coordinate to update texture variable.\n"
+											},
 											"type": {
 												"type": "instrinct",
 												"name": "number"
@@ -28924,6 +28998,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Initialize light program."
+									},
 									"type": {
 										"type": "instrinct",
 										"name": "void"
@@ -28990,6 +29067,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Update light parameter texture."
+									},
 									"type": {
 										"type": "instrinct",
 										"name": "void"
@@ -29013,6 +29093,9 @@
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
+									"comment": {
+										"shortText": "Update width of light parameter texture."
+									},
 									"type": {
 										"type": "instrinct",
 										"name": "void"
@@ -29100,6 +29183,9 @@
 					"flags": {
 						"isExported": true,
 						"hasExportAssignment": true
+					},
+					"comment": {
+						"shortText": "Managing shader codes for extensible."
 					},
 					"children": [
 						{
