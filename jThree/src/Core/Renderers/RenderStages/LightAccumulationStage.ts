@@ -43,20 +43,8 @@ class LitghtAccumulationStage extends RenderStageBase {
 
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     var geometry = object.Geometry;
-    var programWrapper = this.program.getForContext(renderer.ContextManager);
+    var programWrapper = scene.LightRegister.LightProgram.getForContext(renderer.ContextManager);
     var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
-    //pass variables related to point lights
-    var plights = scene.getLights("jthree.lights.pointlight");
-    var lpos = new Array(plights.length);
-    var lcol = new Array(plights.length);
-    var lcoef = new Array(plights.length);
-    for (var i = 0; i < plights.length; i++)
-    {
-        var pl = <PointLight>plights[i];
-        lpos[i] = Matrix.transformPoint(Matrix.multiply(renderer.Camera.ViewMatrix, pl.Transformer.LocalToGlobal), new Vector3(0, 0, 0));
-        lcol[i] = plights[i].Color.toVector().multiplyWith(pl.Intensity);
-        lcoef[i] = new Vector2(pl.Decay, pl.Distance);
-    }
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -66,12 +54,10 @@ class LitghtAccumulationStage extends RenderStageBase {
                 rb1: { type: "texture", register: 0, value: texs["RB1"] },
                 rb2: { type: "texture", register: 1, value: texs["RB2"] },
                 depth: { type: "texture", register: 2, value: texs["DEPTH"] },
+                lightParams:{type:"texture",register:3,value:scene.LightRegister.ParameterTexture},
                 matIP: { type: "matrix", value: ip },
                 matTV: { type: "matrix", value: Matrix.inverse(renderer.Camera.ViewMatrix) },
-                pl_pos: { type: "vectorarray", value: lpos },
-                pl_col: { type: "vectorarray", value: lcol },
-                pl_coef: { type: "vectorarray", value: lcoef },
-                pl_count: { type: "integer", value: plights.length },
+                lightParamSize:{type:"vector",value:new Vector2(scene.LightRegister.TextureWidth,scene.LightRegister.TextureHeight)},
                 c_pos: { type: "vector", value: renderer.Camera.Position },
                 c_dir: { type: "vector", value: renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis()}
     }

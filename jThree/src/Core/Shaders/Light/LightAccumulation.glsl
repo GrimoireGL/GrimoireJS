@@ -22,7 +22,7 @@ vec2 getParameterUV(int lightIndex,int parameterIndex)
 {
    float xStep = 1./lightParamSize.x;
    float yStep = 1./lightParamSize.y;
-   return vec2(xStep / 2. + float(parameterIndex) * xStep, yStep / 2. + float(lightIndex) * yStep);
+   return vec2(xStep / 2. + float(parameterIndex) * xStep,1.-( yStep / 2. + float(lightIndex) * yStep));
 }
 
 vec4 getLightParameter(int lightIndex,int parameterIndex)
