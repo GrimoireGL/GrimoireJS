@@ -24,9 +24,7 @@
     <scene>
       <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,1)"/>
       <object id="light-root">
-        <plight color="red" decay="1" distance="5" intensity="0.8" position="(0,0.5,0)"/>
         <plight color="blue" decay="1" distance="5" intensity="0.8" position="(0.5,0.5,0)"/>
-        <plight color="lime" decay="1" distance="5" intensity="0.8" position="(-0.5,0.5,0)"/>
       </object>
       <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
