@@ -70,6 +70,10 @@ class LightRegister
         return this.shaderComposer;
     }
 
+    public get LightProgram() {
+        return this.lightProgram;
+    }
+
     constructor(scene: Scene)
     {
         this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID + ".jthree.light.params", this.TextureWidth, this.TextureHeight, InternalFormatType.RGBA, TextureType.Float));
