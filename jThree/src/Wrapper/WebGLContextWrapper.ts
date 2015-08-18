@@ -25,6 +25,8 @@ import BlendEquationType = require("./BlendEquationType");
 import BlendFuncParamType = require("./BlendFuncParamType");
  import DepthFuncType = require("./DepthFuncType");
  import GetParameterType = require("./GetParameterType");
+ import TexImageTargetType = require("./Texture/TexImageTargetType");
+
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
   
@@ -252,7 +254,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.pixelStorei(pname,value);
   }
 
-    public TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{
+    public TexImage2D(targetTexture:TexImageTargetType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{
     this.CheckErrorAsFatal();
     if(type)
     {//void texImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, ArrayBufferView? pixels)
