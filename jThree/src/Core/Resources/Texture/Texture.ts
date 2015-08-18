@@ -2,7 +2,6 @@ import TextureWrapper = require('./TextureWrapper');
 import ContextManagerBase = require('../../ContextManagerBase');
 import JThreeContext = require('../../JThreeContext');
 import TextureBase =require('./TextureBase');
-import TextureWrapperBase = require('./TextureWrapperBase');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 class Texture extends TextureBase
@@ -27,7 +26,7 @@ class Texture extends TextureBase
     this.generateMipmapIfNeed();
   }
 
-  protected getInstanceForRenderer(contextManager: ContextManagerBase):TextureWrapperBase {
+  protected getInstanceForRenderer(contextManager: ContextManagerBase):TextureWrapper {
       var textureWrapper=new TextureWrapper(contextManager,this);
       return textureWrapper;
   }
