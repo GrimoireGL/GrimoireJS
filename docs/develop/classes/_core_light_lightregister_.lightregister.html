@@ -70,13 +70,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Provides light management feature by renderer</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -99,6 +92,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#lightiddictionary" class="tsd-kind-icon">light<wbr>IdDictionary</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#lightprogram" class="tsd-kind-icon">light<wbr>Program</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#lights" class="tsd-kind-icon">lights</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#parametertexture" class="tsd-kind-icon">parameter<wbr>Texture</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#scene" class="tsd-kind-icon">scene</a></li>
@@ -110,6 +104,7 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_light_lightregister_.lightregister.html#lightprogram-1" class="tsd-kind-icon">Light<wbr>Program</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_light_lightregister_.lightregister.html#lights-1" class="tsd-kind-icon">Lights</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_light_lightregister_.lightregister.html#parametertexture-1" class="tsd-kind-icon">Parameter<wbr>Texture</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#resourcemanager" class="tsd-kind-icon">Resource<wbr>Manager</a></li>
@@ -124,6 +119,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_light_lightregister_.lightregister.html#addlight" class="tsd-kind-icon">add<wbr>Light</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_light_lightregister_.lightregister.html#addlighttype" class="tsd-kind-icon">add<wbr>Light<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#heightupdate" class="tsd-kind-icon">height<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#initializeprogram" class="tsd-kind-icon">initialize<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#lightupdate" class="tsd-kind-icon">light<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_light_lightregister_.lightregister.html#updatelightforrenderer" class="tsd-kind-icon">update<wbr>Light<wbr>For<wbr>Renderer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_light_lightregister_.lightregister.html#widthupdate" class="tsd-kind-icon">width<wbr>Update</a></li>
@@ -144,7 +140,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L62">Core/Light/LightRegister.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L75">Core/Light/LightRegister.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -166,7 +162,17 @@
 					<div class="tsd-signature tsd-kind-icon">light<wbr>IdDictionary<span class="tsd-signature-symbol">:</span> <a href="_base_collections_associativearray_.associativearray.html" class="tsd-signature-type">AssociativeArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L35">Core/Light/LightRegister.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L39">Core/Light/LightRegister.ts:39</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="lightprogram" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> light<wbr>Program</h3>
+					<div class="tsd-signature tsd-kind-icon">light<wbr>Program<span class="tsd-signature-symbol">:</span> <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L32">Core/Light/LightRegister.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -176,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">lights<span class="tsd-signature-symbol">:</span> <a href="_core_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L33">Core/Light/LightRegister.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L37">Core/Light/LightRegister.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,7 +192,7 @@
 					<div class="tsd-signature tsd-kind-icon">parameter<wbr>Texture<span class="tsd-signature-symbol">:</span> <a href="_core_resources_texture_buffertexture_.buffertexture.html" class="tsd-signature-type">BufferTexture</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L18">Core/Light/LightRegister.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L20">Core/Light/LightRegister.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -201,7 +207,7 @@
 					<div class="tsd-signature tsd-kind-icon">scene<span class="tsd-signature-symbol">:</span> <a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L23">Core/Light/LightRegister.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L25">Core/Light/LightRegister.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -216,7 +222,7 @@
 					<div class="tsd-signature tsd-kind-icon">shader<wbr>Composer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ShaderComposer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L37">Core/Light/LightRegister.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L41">Core/Light/LightRegister.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -226,7 +232,7 @@
 					<div class="tsd-signature tsd-kind-icon">texture<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L28">Core/Light/LightRegister.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L30">Core/Light/LightRegister.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -241,13 +247,30 @@
 					<div class="tsd-signature tsd-kind-icon">texture<wbr>Source<wbr>Buffer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L39">Core/Light/LightRegister.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L43">Core/Light/LightRegister.ts:43</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="lightprogram-1" class="tsd-anchor"></a>
+					<h3>Light<wbr>Program</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> LightProgram<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L73">Core/Light/LightRegister.ts:73</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="lights-1" class="tsd-anchor"></a>
 					<h3>Lights</h3>
@@ -258,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L73">Core/Light/LightRegister.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L88">Core/Light/LightRegister.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -281,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L52">Core/Light/LightRegister.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L58">Core/Light/LightRegister.ts:58</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_resources_texture_buffertexture_.buffertexture.html" class="tsd-signature-type">BufferTexture</a></h4>
@@ -298,7 +321,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L56">Core/Light/LightRegister.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L63">Core/Light/LightRegister.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_resourcemanager_.resourcemanager.html" class="tsd-signature-type">ResourceManager</a></h4>
@@ -315,7 +338,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L60">Core/Light/LightRegister.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L68">Core/Light/LightRegister.ts:68</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_light_lightshdercomposer_.lightshadercomposer.html" class="tsd-signature-type">LightShaderComposer</a></h4>
@@ -332,7 +355,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L48">Core/Light/LightRegister.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L53">Core/Light/LightRegister.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -349,7 +372,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L44">Core/Light/LightRegister.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L48">Core/Light/LightRegister.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -374,7 +397,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L85">Core/Light/LightRegister.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L103">Core/Light/LightRegister.ts:103</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -397,7 +420,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L77">Core/Light/LightRegister.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L93">Core/Light/LightRegister.ts:93</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -429,7 +452,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L92">Core/Light/LightRegister.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L111">Core/Light/LightRegister.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -438,6 +461,23 @@
 									<h5>start: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="initializeprogram" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> initialize<wbr>Program</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">initialize<wbr>Program<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L165">Core/Light/LightRegister.ts:165</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -452,7 +492,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L117">Core/Light/LightRegister.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L139">Core/Light/LightRegister.ts:139</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -483,7 +523,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L133">Core/Light/LightRegister.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L156">Core/Light/LightRegister.ts:156</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -500,7 +540,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L109">Core/Light/LightRegister.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightRegister.ts#L130">Core/Light/LightRegister.ts:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -534,6 +574,9 @@
 								<a href="_core_light_lightregister_.lightregister.html#lightiddictionary" class="tsd-kind-icon">light<wbr>IdDictionary</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_light_lightregister_.lightregister.html#lightprogram" class="tsd-kind-icon">light<wbr>Program</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_light_lightregister_.lightregister.html#lights" class="tsd-kind-icon">lights</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -550,6 +593,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_light_lightregister_.lightregister.html#texturesourcebuffer" class="tsd-kind-icon">texture<wbr>Source<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_core_light_lightregister_.lightregister.html#lightprogram-1" class="tsd-kind-icon">Light<wbr>Program</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_core_light_lightregister_.lightregister.html#lights-1" class="tsd-kind-icon">Lights</a>
@@ -577,6 +623,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_core_light_lightregister_.lightregister.html#heightupdate" class="tsd-kind-icon">height<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_core_light_lightregister_.lightregister.html#initializeprogram" class="tsd-kind-icon">initialize<wbr>Program</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_core_light_lightregister_.lightregister.html#lightupdate" class="tsd-kind-icon">light<wbr>Update</a>
