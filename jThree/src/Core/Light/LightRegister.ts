@@ -220,7 +220,7 @@ class LightRegister
         var rm = jThreeContext.ResourceManager;
         var vShader = rm.createShader("jthree.shaders.vertex.post", vs, ShaderType.VertexShader);
         vShader.loadAll();
-        this.lightProgram = rm.createProgram("jthree.programs.deffered.lights", [vShader, this.ShaderCodeComposer.Shader]);
+        this.lightProgram = rm.createProgram(this.scene.ID+".jthree.programs.deffered.lights", [vShader, this.ShaderCodeComposer.Shader]);
     }
 }
 
