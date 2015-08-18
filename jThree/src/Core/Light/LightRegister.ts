@@ -1,7 +1,5 @@
 ﻿import BufferTexture = require("../Resources/Texture/BufferTexture");
-import RendererBase = require("../Renderers/RendererBase");
 import LightBase = require("LightBase");
-import JThreeCollection = require("../../Base/JThreeCollection");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import InternalFormatType = require("../../Wrapper/TextureInternalFormatType");
@@ -9,7 +7,9 @@ import TextureType = require("../../Wrapper/TextureType");
 import Scene = require("../Scene");
 import ShaderComposer = require("./LightShderComposer");
 import Program = require("../Resources/Program/Program");
-import ShaderType = require("../../Wrapper/ShaderType"); /**
+import ShaderType = require("../../Wrapper/ShaderType"); 
+
+/**
  * Provides light management feature by renderer
  */
 class LightRegister
@@ -28,38 +28,61 @@ class LightRegister
      * Height of texture.
      */
     private textureHeight: number = 4;
-
+    
+    /**
+     * Programs will be used for rendering this lights accumulation buffer.
+     */
     private lightProgram: Program;
 
     /**
-     * 
+     * Lights subscribed to this register.
      */
     private lights: LightBase[] = [];
 
+    /**
+     * Light dictionary being sorted with id used in shaders.
+     */
     private lightIdDictionary: AssociativeArray<number> = new AssociativeArray<number>();
 
+    /**
+     * Provides feature to generate shader source code.
+     */
     private shaderComposer: ShaderComposer = new ShaderComposer();
-
+    
+    /**
+     * Float values array for buffer of light parameter textures.
+     */
     private textureSourceBuffer: Float32Array;
 
     /**
      * Getter for height of texture.
+     * This parameter is same as count of light parameter.
      */
     public get TextureWidth(): number
     {
         return this.textureHeight;
     }
 
+    /**
+     * Getter for width of texture.
+     * This parameter is same as count of lights.
+     */
     public get TextureHeight(): number
     {
         return this.lights.length;
     }
 
+    /**
+     * Getter for light parameter texture.
+     */
     public get ParameterTexture(): BufferTexture
     {
         return this.parameterTexture;
     }
 
+    /**
+     * Provides easy access to resource manager.
+     */
     private get ResourceManager()
     {
         return JThreeContextProxy.getJThreeContext().ResourceManager;
@@ -100,15 +123,22 @@ class LightRegister
         }
     }
 
-    public addLight(light: LightBase)
+    /**
+     * Add light to this register.
+     * @param light the light to add this register.
+     */
+    public addLight(light: LightBase):void
     {
         this.lights.push(light);
         this.lightIdDictionary.set(light.ID, this.lights.length - 1);
         light.onParameterChanged((o, l) => this.lightUpdate(l));
         this.heightUpdate(0);
     }
-
-    private heightUpdate(start: number)
+    /**
+     * Update height of light parameter texture.
+     * @param start starting line of x-coordinate to update texture variable.
+     */
+    private heightUpdate(start: number):void
     {
         //allocating new buffer
         var newBuffer = new Float32Array(4 * this.TextureWidth * this.lights.length);
@@ -127,6 +157,9 @@ class LightRegister
         this.parameterTexture.updateTexture(this.textureSourceBuffer);
     }
 
+    /**
+     * Update width of light parameter texture.
+     */
     private widthUpdate()
     {
         this.heightUpdate(0);//update all
@@ -153,6 +186,9 @@ class LightRegister
         }
     }
 
+    /**
+     * Update light parameter texture.
+     */
     public updateLightForRenderer()
     {
         for (var i = 0; i < this.Lights.length; i++)
@@ -162,6 +198,9 @@ class LightRegister
         this.parameterTexture.updateTexture(this.textureSourceBuffer);
     }
 
+    /**
+     * Initialize light program.
+     */
     private initializeProgram()
     {
         var vs = require('../Shaders/VertexShaders/PostEffectGeometries.glsl');
