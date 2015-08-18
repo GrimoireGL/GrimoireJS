@@ -1,11 +1,12 @@
 ﻿import Shader = require("../Resources/Shader/Shader");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import LightBase = require("LightBase");
-import ThreeContext = require("../JThreeContext");
 import JThreeContextProxy = require("../JThreeContextProxy");
 import ResourceManager = require("../ResourceManager");
 import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
-import ShaderType = require("../../Wrapper/ShaderType"); /**
+import ShaderType = require("../../Wrapper/ShaderType");
+ 
+/**
  * Managing shader codes for extensible.
  */
 class LightShaderComposer extends JThreeObjectWithId

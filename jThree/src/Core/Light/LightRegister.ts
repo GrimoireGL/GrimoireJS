@@ -87,12 +87,17 @@ class LightRegister
     {
         return JThreeContextProxy.getJThreeContext().ResourceManager;
     }
-
+    /**
+     * Getter for shader composer that generates shader source to render light accumulation buffer.
+     */
     public get ShaderCodeComposer()
     {
         return this.shaderComposer;
     }
 
+    /**
+     * Getter for light program to use for rendering light accumulation buffer.
+     */
     public get LightProgram() {
         return this.lightProgram;
     }
@@ -113,6 +118,13 @@ class LightRegister
         return this.lights;
     }
 
+    /**
+     * Add light type and append shader code.
+     * @param paramVecCount required vec4 count.
+     * @param shaderFuncName name for function name no need to include "()"
+     * @param shaderFuncCode fragment function shader code
+     * @param lightTypeName light type name it should be same as LightBase.TypeName
+     */
     public addLightType(paramVecCount: number, shaderFuncName: string, shaderFuncCode: string, lightTypeName: string)
     {
         this.shaderComposer.addLightType(shaderFuncName, shaderFuncCode, lightTypeName);
