@@ -131,7 +131,7 @@ class RenderStageBase extends JThreeObject {
 		var targetWrapper = fbo.getForContext(this.Renderer.ContextManager);
 		bindInfo.forEach(v=> {
 			v.target = v.target.toString().toLowerCase();
-			var attachmentType = FrameBufferAttachmentType.ColorAttachment0;
+		    var attachmentType;
 			//assign attachment type
 			if (v.target === "depth") {
 				attachmentType = FrameBufferAttachmentType.DepthAttachment;

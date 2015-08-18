@@ -71,6 +71,8 @@ class Transformer extends JThreeObject {
 
   private cacheMat2: glm.GLM.IArray = glm.mat4.create();
 
+  private cacheMat3 = glm.mat4.create();
+
   private fowardCache: glm.GLM.IArray = glm.vec3.create();
 
   private cacheVec: glm.GLM.IArray = glm.vec4.create();
@@ -115,8 +117,11 @@ class Transformer extends JThreeObject {
   /**
    * Calculate Projection-View-Model matrix with renderer camera.
    */
-  public calculateMVPMatrix(renderer: RendererBase): Matrix {//TODO optimize this by glm
-    return Matrix.multiply(Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix), this.LocalToGlobal);
+  public calculateMVPMatrix(renderer: RendererBase): Matrix
+  {
+      glm.mat4.mul(this.cacheMat3, renderer.Camera.ViewMatrix.RawElements, this.LocalToGlobal.RawElements);
+      glm.mat4.mul(this.cacheMat3, renderer.Camera.ProjectionMatrix.RawElements, this.cacheMat3);
+      return new Matrix(this.cacheMat3);
   }
   /**
    * Get accessor for the direction of foward of this model.
