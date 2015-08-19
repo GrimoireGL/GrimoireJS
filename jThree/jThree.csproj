@@ -316,6 +316,8 @@
     <TypeScriptCompile Include="src\Core\Resources\Shader\ShaderWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\BufferTexture.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\BufferTextureWrapper.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Texture\CubeTexture.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Texture\CubeTextureWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\Texture.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\TextureBase.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\TextureWrapper.ts" />
@@ -481,6 +483,7 @@
     <TypeScriptCompile Include="src\Wrapper\TextureInternalFormatType.ts" />
     <TypeScriptCompile Include="src\Wrapper\TextureType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\PixelStoreParamType.ts" />
+    <TypeScriptCompile Include="src\Wrapper\Texture\TexImageTargetType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureMagFilterType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureMinFilterType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureParameterType.ts" />
