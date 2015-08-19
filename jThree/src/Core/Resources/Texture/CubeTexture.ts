@@ -1,6 +1,7 @@
 ﻿import TextureBase = require("./TextureBase");
 import JThreeContext = require("../../JThreeContext");
 import CubeTextureWrapper = require("./CubeTextureWrapper");
+import ContextManagerBase = require("../../ContextManagerBase");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 class CubeTexture extends TextureBase
 {
@@ -22,6 +23,12 @@ class CubeTexture extends TextureBase
         this.imageSource = img;
         this.each((v) => (<CubeTextureWrapper>v).init(true));
         this.generateMipmapIfNeed();
+    }
+
+    protected getInstanceForRenderer(contextManager: ContextManagerBase): CubeTextureWrapper
+    {
+        var textureWrapper = new CubeTextureWrapper(contextManager, this);
+        return textureWrapper;
     }
 }
 

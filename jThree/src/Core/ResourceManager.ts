@@ -17,6 +17,7 @@ import BufferTexture = require('./Resources/Texture/BufferTexture');
 import TextureFormat = require('../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../Wrapper/TextureType');
 import TextureBase = require('./Resources/Texture/TextureBase');
+import CubeTexture = require("./Resources/Texture/CubeTexture");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
@@ -82,8 +83,17 @@ class ResourceManager extends jThreeObject {
         });
     }
 
+
     public getTexture(id: string): Texture {
         return <Texture>this.textures.get(id);
+    }
+
+    public createCubeTextureWithSource(id: string,sources:ImageSource[]):CubeTexture {
+        return <CubeTexture>this.textures.create(id, () => {
+            var cubeTexture = new CubeTexture(this.context, sources);
+            cubeTexture.each(v => v.init());
+            return cubeTexture;
+        });
     }
 
     public getTextureHandler(id:string,handler:Delegates.Action1<Texture>)
