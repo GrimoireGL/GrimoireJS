@@ -6,7 +6,7 @@ import AccumulationStage = require("../RenderStages/LightAccumulationStage");
 import ShadingStage = require("../RenderStages/FowardShadingStage");
 import RbDepthStage = require("../RenderStages/RBDepthStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
-
+import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {
     public get TextureBuffers(): GeneraterInfo
@@ -36,12 +36,19 @@ class BasicRendererConfigurator extends ConfiguratorBase
 
     public getStageChain(target: RendererBase): RenderStageChain[]
     {
-        return [{
-            buffers: {
-                OUT: "deffered.rb1"
+        return [
+            {
+                buffers: {
+                    OUT: "default"
+                },
+                stage: new SkyBoxStage(target)
             },
-            stage: new Rb1RenderStage(target)
-        }
+            {
+                buffers: {
+                    OUT: "deffered.rb1"
+                },
+                stage: new Rb1RenderStage(target)
+            }
             ,
             {
                 buffers: {
