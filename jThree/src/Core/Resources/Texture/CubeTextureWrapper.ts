@@ -2,6 +2,7 @@
 import ContextManagerBase = require("../../ContextManagerBase");
 import CubeTexture = require("./CubeTexture");
 import TextureTargetType = require("../../../Wrapper/TargetTextureType");
+import TexImageTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
 import TextureInternalFormat = require("../../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../../Wrapper/TextureType");
 class CubeTextureWrapper extends TextureWrapperBase{
@@ -17,9 +18,9 @@ class CubeTextureWrapper extends TextureWrapperBase{
         this.WebGLContext.BindTexture(TextureTargetType.Texture2D, this.TargetTexture);
         if (parent.ImageSource == null)
         {
-            this.WebGLContext.TexImage2D(TextureTargetType.Texture2D, 0, TextureInternalFormat.RGBA, 1, 1, 0, TextureType.UnsignedShort4444, null);
+            this.WebGLContext.TexImage2D(TexImageTargetType.Texture2D, 0, TextureInternalFormat.RGBA, 1, 1, 0, TextureType.UnsignedShort4444, null);
         } else
         {
-            this.WebGLContext.TexImage2D(TextureTargetType.Texture2D, 0, TextureInternalFormat.RGBA, TextureInternalFormat.RGBA, TextureType.UnsignedByte, parent.ImageSource);
+            this.WebGLContext.TexImage2D(TexImageTargetType.Texture2D, 0, TextureInternalFormat.RGBA, TextureInternalFormat.RGBA, TextureType.UnsignedByte, parent.ImageSource);
         }
 }
