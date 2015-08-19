@@ -4,13 +4,17 @@ import RenderStageBase = require('./RenderStageBase');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
+import Program = require("../../Resources/Program/Program");
+
 class SkyBoxStage extends RenderStageBase
 {
-
+    private program:Program;
     constructor(renderer: RendererBase)
     {
         super(renderer);
-
+        var vs = require("../Shaders/VertexShaders/PostEffectGeometries.glsl");
+        var fs = require("../Shaders/Skybox.glsl");
+        this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.skybox", "jthree.programs.skybox", vs, fs);
     }
 
 
@@ -52,6 +56,14 @@ class SkyBoxStage extends RenderStageBase
     public get TargetGeometry(): string
     {
         return "cube";
+    }
+
+    public get RenderStageConfig()
+    {
+        return {
+            depthTest: false,
+            cullFace: false
+        };
     }
 }
 export = SkyBoxStage; 
