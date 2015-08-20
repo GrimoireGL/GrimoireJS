@@ -94,7 +94,7 @@ class PhongMaterial extends Material {
                 u_light: { type: "texture", register: 1, value: texs["LIGHT"] },
                 u_ambient: { type: "vector", value: this.Ambient.toVector() },
                 u_diffuse: { type: "vector", value: this.Diffuse.toVector() },
-                u_specular: { type: "vector", value: this.Specular.toVector() },
+                u_specular: { type: "vector", value: this.Specular.toVector4(this.SpecularCoefficient) },
                 u_textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 },
                 u_DirectionalLight:{type:"vector",value:new Vector3(0,0,-1)},
             }

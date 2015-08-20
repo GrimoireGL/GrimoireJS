@@ -5,6 +5,8 @@ import ContextManagerBase = require('../../ContextManagerBase');
 
 class TextureWrapperBase extends ResourceWrapper
 {	
+
+    protected static altTextureBuffer:Float32Array=new Uint8Array([255,0,255,255]);
   constructor(owner:ContextManagerBase,parent:TextureBase)
   {
     super(owner);

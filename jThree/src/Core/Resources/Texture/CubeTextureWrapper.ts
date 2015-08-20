@@ -18,7 +18,7 @@ class CubeTextureWrapper extends TextureWrapperBase {
         this.WebGLContext.BindTexture(TextureTargetType.CubeTexture, this.TargetTexture);
         if (parent.ImageSource == null) {
             for (var i = 0; i < 6; i++) {
-                this.WebGLContext.TexImage2D(TexImageTargetType.CubePositiveX + i, 0, TextureInternalFormat.RGBA, 1, 1, 0, TextureType.UnsignedByte, null);
+                this.WebGLContext.TexImage2D(TexImageTargetType.CubePositiveX + i, 0, TextureInternalFormat.RGBA, 1, 1, 0, TextureType.UnsignedByte, TextureWrapperBase.altTextureBuffer);
             }
         } else {
             for (var i = 0; i < 6; i++) {
