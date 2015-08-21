@@ -45,7 +45,6 @@
     <Content Include="src\Core\Shaders\Chunk\Common.glsl" />
     <Content Include="src\Core\Shaders\Deffered\Chunk\Directional_Head.glsl" />
     <Content Include="src\Core\Shaders\Deffered\Chunk\Point_Head.glsl" />
-    <Content Include="src\Core\Shaders\Deffered\LightAccumulation.glsl" />
     <Content Include="src\Core\Shaders\Deffered\NormalBuffer.glsl" />
     <Content Include="src\Core\Shaders\Deffered\RB1.glsl" />
     <Content Include="src\Core\Shaders\Deffered\RB2.glsl" />
@@ -111,6 +110,12 @@
     <Content Include="wwwroot\Tda\toon_defo.bmp" />
     <Content Include="wwwroot\Tda\toon_hair.bmp" />
     <Content Include="wwwroot\Tda\toon_skin.bmp" />
+    <Content Include="wwwroot\_debug\cube\cube_NX.png" />
+    <Content Include="wwwroot\_debug\cube\cube_NY.png" />
+    <Content Include="wwwroot\_debug\cube\cube_NZ.png" />
+    <Content Include="wwwroot\_debug\cube\cube_PX.png" />
+    <Content Include="wwwroot\_debug\cube\cube_PY.png" />
+    <Content Include="wwwroot\_debug\cube\cube_PZ.png" />
     <Content Include="wwwroot\_debug\Example.css" />
     <Content Include="wwwroot\_debug\Example.html" />
     <Content Include="wwwroot\_debug\Example.js" />
@@ -162,6 +167,7 @@
     <Content Include="npm-debug.log" />
     <Content Include="src\Core\Shaders\Light\LightAccumulation.glsl" />
     <Content Include="src\Core\Shaders\Light\PointLightFragmentChunk.glsl" />
+    <Content Include="src\Core\Shaders\SkyBox.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -279,6 +285,7 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RBDepthStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RenderStageBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\ShadowMaps\DirectionalShadowMapStage.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\SkyBoxStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\ResolvedChainInfo.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterInfo.ts" />

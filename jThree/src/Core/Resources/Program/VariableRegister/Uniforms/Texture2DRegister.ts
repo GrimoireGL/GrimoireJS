@@ -7,16 +7,19 @@ class Texture2DRegister
 {
     public registerVariable(gl: GlContextWrapperBase, index: WebGLUniformLocation, value: any, configure: any)
     {
-        var texNumber = configure.register | 0;
+        var texNumber = configure.register;
         gl.ActiveTexture(TextureRegister.Texture0 + texNumber);
         if (value != null)
         {
-            (<TextureBase>value).getForContext(configure.context).bind();
-        } else
-        {
-            gl.BindTexture(TargetTextureType.Texture2D, null);
+            var tex = (<TextureBase>value).getForContext(configure.context);
+            if (tex.Initialized) {
+                tex.bind();
+                gl.Uniform1i(index, texNumber);
+                return;
+            }
         }
-        gl.Uniform1i(index, texNumber);
+        gl.BindTexture(TargetTextureType.Texture2D, null);
+        gl.Uniform1i(index, -1);
     }
 }
 

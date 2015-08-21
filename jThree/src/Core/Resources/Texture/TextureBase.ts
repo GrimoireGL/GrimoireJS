@@ -20,15 +20,15 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
     }
 
     private onFilterParameterChangedHandler: JThreeEvent<TextureParameterType> = new JThreeEvent<TextureParameterType>();
-    private minFilter: TextureMinFilterType = TextureMinFilterType.Linear;
-    private magFilter: TextureMagFilterType = TextureMagFilterType.Linear;
+    private minFilter: TextureMinFilterType = TextureMinFilterType.Nearest;
+    private magFilter: TextureMagFilterType = TextureMagFilterType.Nearest;
     private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
     private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
     private flipY: boolean = false;
 
-    constructor(context: JThreeContext);
-    constructor(context: JThreeContext, isCubeTexture: boolean);
-    constructor(context: JThreeContext, isCubeTexture?: boolean)
+    constructor(context: JThreeContext,textureName:string);
+    constructor(context: JThreeContext,textureName:string, isCubeTexture: boolean);
+    constructor(context: JThreeContext,textureName:string, isCubeTexture?: boolean)
     {
         super(context);
         if (typeof isCubeTexture === "undefined") isCubeTexture = false;
@@ -113,6 +113,12 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
                 });
             default:
         }
+    }
+
+    private textureName:string;
+
+    public get TextureName(): string {
+        return this.textureName;
     }
 }
 

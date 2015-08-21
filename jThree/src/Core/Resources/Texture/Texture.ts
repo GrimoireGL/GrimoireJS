@@ -6,9 +6,9 @@ type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 class Texture extends TextureBase
 {
-  constructor(context:JThreeContext,source:ImageSource)
+  constructor(context:JThreeContext,source:ImageSource,textureName:string)
   {
-    super(context);
+    super(context,textureName);
     this.imageSource=source;
   }
   

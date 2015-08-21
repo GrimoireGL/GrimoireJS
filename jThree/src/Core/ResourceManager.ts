@@ -77,7 +77,7 @@ class ResourceManager extends jThreeObject {
 
     public createTextureWithSource(id: string, source: ImageSource): Texture {
         return <Texture>this.textures.create(id, () => {
-            var tex = new Texture(this.context, source);
+            var tex = new Texture(this.context, source,id);
             tex.each(v=> v.init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
             return tex;
         });
@@ -90,7 +90,7 @@ class ResourceManager extends jThreeObject {
 
     public createCubeTextureWithSource(id: string,sources:ImageSource[]):CubeTexture {
         return <CubeTexture>this.textures.create(id, () => {
-            var cubeTexture = new CubeTexture(this.context, sources);
+            var cubeTexture = new CubeTexture(this.context, sources,id);
             cubeTexture.each(v => v.init());
             return cubeTexture;
         });
@@ -133,7 +133,7 @@ class ResourceManager extends jThreeObject {
 
     public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
         return this.textures.create(id, () => {
-            var bt = new BufferTexture(this.context, width, height, texType, elemType);
+            var bt = new BufferTexture(this.context, width, height, texType, elemType,id);
             bt.each(v=> v.init());
             return bt;
         });

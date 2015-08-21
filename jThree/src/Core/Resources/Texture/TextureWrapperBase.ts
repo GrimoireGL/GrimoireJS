@@ -6,7 +6,8 @@ import ContextManagerBase = require('../../ContextManagerBase');
 class TextureWrapperBase extends ResourceWrapper
 {	
 
-    protected static altTextureBuffer:Float32Array=new Uint8Array([255,0,255,255]);
+    protected static altTextureBuffer: Float32Array = new Uint8Array([255, 0, 255, 255]);
+
   constructor(owner:ContextManagerBase,parent:TextureBase)
   {
     super(owner);
@@ -43,12 +44,14 @@ class TextureWrapperBase extends ResourceWrapper
     this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapS,this.parent.SWrap);
     this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapT,this.parent.TWrap);
   }
-  
-  public bind()
-  {
-    this.WebGLContext.BindTexture(this.Parent.TargetTextureType,this.targetTexture);
-  }
-  
+
+    public bind() {
+        if (this.WebGLContext.IsTexture(this.targetTexture)) this.WebGLContext.BindTexture(this.Parent.TargetTextureType, this.targetTexture);
+        else {
+            this.WebGLContext.BindTexture(this.Parent.TargetTextureType, null);
+        }
+    }
+
   public init()
   {
     

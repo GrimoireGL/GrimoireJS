@@ -54,8 +54,7 @@ class LitghtAccumulationStage extends RenderStageBase
                 uv: geometry.UVBuffer
             },
             uniforms: {
-                rb1: { type: "texture", register: 0, value: texs["RB1"] },
-                rb2: { type: "texture", register: 1, value: texs["RB2"] },
+                rb1: { type: "texture", register: 1, value: texs["RB1"] },
                 depth: { type: "texture", register: 2, value: texs["DEPTH"] },
                 lightParams: { type: "texture", register: 3, value: scene.LightRegister.ParameterTexture },
                 matIP: { type: "matrix", value: ip },
@@ -65,18 +64,6 @@ class LitghtAccumulationStage extends RenderStageBase
                 c_dir: { type: "vector", value: renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis() }
             }
         });
-        //pass variables related to directional lights
-        /*    var dlights = <DirectionalLight[]> scene.getLights("jthree.lights.directionallight");
-            var ddir = new Array(dlights.length);
-            var dcol = new Array(dlights.length);
-            for (var i = 0; i < dlights.length; i++) {
-              var dl = <DirectionalLight>dlights[i];
-              ddir[i] = Matrix.transformNormal(renderer.Camera.ViewMatrix, dlights[i].Transformer.Foward);
-              dcol[i] = dl.Color.toVector().multiplyWith(dl.Intensity);
-            }
-            programWrapper.setUniformVectorArray("dl_dir", ddir);
-            programWrapper.setUniformVectorArray("dl_col", dcol);
-            programWrapper.setUniform1i("dl_count", dlights.length);*/
         geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
     }
 
