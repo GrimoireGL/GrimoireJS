@@ -76,8 +76,7 @@ class LightShaderComposer extends JThreeObjectWithId
         }
         this.shaderFuncDefs.push(shaderFuncCode);
         this.shaderFuncNames.push(shaderFuncName);
-        this.shaderCache = this.generateLightShaderSource();
-        this.updateShaderFromCache();
+        this.shaderCache=this.generateLightShaderSource();
     }
 
     /**
@@ -118,8 +117,7 @@ class LightShaderComposer extends JThreeObjectWithId
     }
 
     private updateShaderFromCache() {
-        this.Shader.update(this.shaderCache);
-        console.warn("shader updated.");
+        
     }
 }
 
