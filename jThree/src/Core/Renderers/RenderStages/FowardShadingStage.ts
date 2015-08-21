@@ -8,7 +8,6 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
 	constructor(renderer: RendererBase) {
 		super(renderer);
-		JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("pmxtestrbo",512,512);
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
