@@ -38,10 +38,10 @@ class FBOWrapper extends ResourceWrapper {
 
     public unbind() {
         this.WebGLContext.BindFrameBuffer(null);
-        this.textures.forEach(tex=> {
+/*        this.textures.forEach(tex=> {
             tex.getForContext(this.OwnerCanvas).bind();
             tex.generateMipmapIfNeed();
-        });
+        });*/
     }
 
     public attachTexture(attachmentType: FrameBufferAttachmentType, tex: TextureBase) {

@@ -11,10 +11,15 @@ import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
 import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
 class RenderStageManager {
 	private parentRenderer: RendererBase;
-	private defaultQuad: QuadGeometry;
+    private defaultQuad: QuadGeometry;
+    private stageName: string;
 
-	constructor(parent: RendererBase) {
-		this.parentRenderer = parent;
+    constructor(parent: RendererBase) {
+        this.stageName = "<<<RenderStage Initialization>>>";
+        this.parentRenderer = parent;
+        this.parentRenderer.GLContext.glError((o,s) => {
+            console.error(`GL ERROR OCCURED:STAGE INFO:${this.stageName} ERROR INFO:${s}`);
+        });
 		this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
 		this.initializeGeneraters();
 	}
@@ -81,7 +86,8 @@ class RenderStageManager {
 	}
 
 	public processRender(scene: Scene, sceneObjects: SceneObject[]) {
-		this.stageChains.forEach(chain=> {
+        this.stageChains.forEach(chain=> {
+            this.stageName = "initialization of "+chain.stage.getTypeName();
 			var texs = this.genChainTexture(chain);
 			var stage = chain.stage;
 			var passCount = stage.getPassCount(scene);
@@ -95,13 +101,21 @@ class RenderStageManager {
 					targetObjects = sceneObjects;
 			}
 			stage.applyStageConfig();
-			for (var i = 0; i < passCount; i++) {
+            for (var i = 0; i < passCount; i++)
+            {
+                this.stageName ="pass:"+i+" pre begin stage of" + chain.stage.getTypeName();
 				stage.preBeginStage(scene, i, texs);
 				targetObjects.forEach(v=> {
 					v.callRecursive(v=> {
-						if (stage.needRender(scene, v, i)) stage.render(scene, v, i, texs);
+                        if (stage.needRender(scene, v, i))
+                        {
+                            this.stageName = "pass:" + i + "render" + chain.stage.getTypeName()+ "target:"+v.Geometry.getTypeName();
+						    stage.render(scene, v, i, texs);
+						    
+						}
 					});
-				});
+                });
+                this.stageName = "pass:" + i +"post begin stage of" + chain.stage.getTypeName();
 				stage.postEndStage(scene, i, texs);
 			}
 		});

@@ -42,10 +42,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public CheckErrorAsFatal(): void {
-   // var ec = this.gl.getError();
-    // if (ec !== WebGLRenderingContext.NO_ERROR) {
-    //   console.error(`WebGL error was occured:${ec}`);
-    // }
+    var ec = this.gl.getError();
+     if (ec !== WebGLRenderingContext.NO_ERROR) {
+       this.notifyGlError(`WebGL error was occured:${ec}`);
+     }
   }
 
     public CreateBuffer(): WebGLBuffer {
@@ -225,7 +225,9 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.viewport(x, y, width, height);
   }
 
-    public DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void {
+    public DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void
+    {
+    this.CheckErrorAsFatal();
     this.gl.drawElements(topology, length, dataType, offset);
   }
 
@@ -255,14 +257,15 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public TexImage2D(targetTexture:TexImageTargetType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{
-    this.CheckErrorAsFatal();
     if(type)
     {//void texImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, ArrayBufferView? pixels)
-      this.gl.texImage2D(targetTexture,level,internalFormat,<number>targetFormatOrWidth,<number>typeOrHeight,<number>pixelsOrBorder,internalFormat,type,<ArrayBufferView>bufferObj);
+        this.gl.texImage2D(targetTexture, level, internalFormat, <number>targetFormatOrWidth, <number>typeOrHeight, <number>pixelsOrBorder, internalFormat, type, <ArrayBufferView>bufferObj);
+        this.CheckErrorAsFatal();
       return;
     }else{
       //void texImage2D(GLenum target, GLint level, GLenum internalformat, GLenum format, GLenum type, TexImageSource? source) /* May throw DOMException */
-     this.gl.texImage2D(targetTexture, level, internalFormat, targetFormatOrWidth, typeOrHeight, <ImageData>pixelsOrBorder);
+        this.gl.texImage2D(targetTexture, level, internalFormat, targetFormatOrWidth, typeOrHeight, <ImageData>pixelsOrBorder);
+        this.CheckErrorAsFatal();
     }
   }
 

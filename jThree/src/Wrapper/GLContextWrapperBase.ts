@@ -26,10 +26,29 @@ import BlendEquationType = require("./BlendEquationType");
 import BlendFuncParamType = require("./BlendFuncParamType");
 import DepthFuncType = require("./DepthFuncType");
 import GetParameterType = require("./GetParameterType");
-import TexImageTargetType = require("./Texture/TexImageTargetType")
-
+import TexImageTargetType = require("./Texture/TexImageTargetType");
+import JThreeEvent = require("../Base/JThreeEvent");
+import Delegates = require("../Base/Delegates");
 class GLContextWrapperBase extends JThreeObject
 {
+    private glErrorCount=0;
+    /**
+     * Event handler register to gl error.
+     */
+    private glErrorHandler = new JThreeEvent<string>();
+
+    protected notifyGlError(error: string) {
+        this.glErrorCount++;
+        if(this.glErrorCount<=1000)this.glErrorHandler.fire(this, error);
+        if (this.glErrorCount == 1000) {
+            console.error("There is too many glError,for preventing freezing error not displayed any more.");
+        }
+    }
+
+    public glError(listener:Delegates.Action2<GLContextWrapperBase,string>) {
+        this.glErrorHandler.addListerner(listener);
+    }
+
     public get Context(): WebGLRenderingContext
     {
         return null;

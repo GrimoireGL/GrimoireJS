@@ -51,13 +51,13 @@ class JThreeInit {
     $(() => {//TODO we should remove jQuery dependencies
         var j3 = JThreeContext.getInstanceForProxy();
         JThreeInit.j3(() => {
-            JThreeInit.cubeTest = j3.ResourceManager.createCubeTextureWithSource("testcube", []);
+/*            JThreeInit.cubeTest = j3.ResourceManager.createCubeTextureWithSource("testcube", []);
             JThreeInit.loadCubeTex("PX", 0);
             JThreeInit.loadCubeTex("PY", 1);
             JThreeInit.loadCubeTex("PZ", 2);
             JThreeInit.loadCubeTex("NX", 3);
             JThreeInit.loadCubeTex("NY", 4);
-            JThreeInit.loadCubeTex("NZ", 5);
+            JThreeInit.loadCubeTex("NZ", 5);*/
         });
         j3.init();
     });

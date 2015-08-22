@@ -15,9 +15,11 @@
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" height="512" id="main" left="0" width="512"/>
+<!--
       <viewport cam="CAM2" height="256" id="main" left="512" width="256"/>
       <viewport cam="CAM3" height="256" id="main" left="768" width="256"/>
       <viewport cam="CAM4" height="256" id="main" left="512" top="256" width="256"/>
+-->
     </renderer>
   </renderers>
   <scenes>
@@ -38,20 +40,22 @@
         </bones>
       </pmx>-->
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
+<!--
       <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="0,0.5,-0.5" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="-0.5,0.5,0" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="-0.5,0.5,0.5" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="1,1.5,-1" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="0,1.5,-0.5" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="-0.5,1.5,0" scale="0.1"/>
       <mesh geo="quad" mat="mat2" position="-0.5,1.5,0.5" scale="0.1"/>
-      <!--<mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,0.890"/>-->
+      ~1~<mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,0.890"/>@1@
       <mesh geo="cube" mat="mat2" position="0,0,0.5" rotation="y(30d)" scale="0.1"/>
       <mesh geo="cube" mat="mat2" position="-0.5,0,0" rotation="y(40d)" scale="0.1"/>
       <mesh geo="cube" mat="mat2" position="0.5,0,-0.5" rotation="y(10d)" scale="0.1"/>
       <mesh geo="cube" mat="mat2" position="1,0,0.3" rotation="y(60d)" scale="0.1"/>
+-->
     </scene>
+<!--
     <scene>
       <ocamera bottom="-1" far="1" left="-1" name="CAM2" near="0" right="1" top="1"/>
       <mesh geo="quad" mat="light" scale="1"/>
@@ -64,5 +68,6 @@
       <ocamera bottom="-1" far="1" left="-1" name="CAM4" near="0" right="1" top="1"/>
       <mesh geo="quad" mat="normal" scale="1"/>
     </scene>
+-->
   </scenes>
 </goml>

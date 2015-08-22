@@ -96,7 +96,7 @@ class PhongMaterial extends Material {
                 u_diffuse: { type: "vector", value: this.Diffuse.toVector() },
                 u_specular: { type: "vector", value: this.Specular.toVector4(this.SpecularCoefficient) },
                 u_textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 },
-                u_DirectionalLight:{type:"vector",value:new Vector3(0,0,-1)},
+                u_DirectionalLight:{type:"vector",value:new Vector3(0,0,-1)}
             }
         });
     geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();

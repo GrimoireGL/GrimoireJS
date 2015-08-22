@@ -14,7 +14,7 @@ varying vec4 v_pos;
 varying vec2 v_spuv;
 
 
-uniform mediump sampler2D u_boneMatricies;
+uniform sampler2D u_boneMatricies;
 uniform float u_boneCount;
 
 mat4 matFromIndex(float index)

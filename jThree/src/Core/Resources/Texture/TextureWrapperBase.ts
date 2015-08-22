@@ -2,6 +2,7 @@ import ResourceWrapper = require('../ResourceWrapper');
 import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
 import TextureBase = require('TextureBase');
 import ContextManagerBase = require('../../ContextManagerBase');
+import TextureRegister = require("../../../Wrapper/Texture/TextureRegister");
 
 class TextureWrapperBase extends ResourceWrapper
 {	
@@ -36,7 +37,7 @@ class TextureWrapperBase extends ResourceWrapper
   /**
    * apply texture parameters
    */
-  protected applyTextureParameter() {
+  private applyTextureParameter() {
       if (!this.WebGLContext.IsTexture(this.TargetTexture))return;
       this.bind();
     this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.MinFilter,this.parent.MinFilter);
@@ -46,10 +47,22 @@ class TextureWrapperBase extends ResourceWrapper
   }
 
     public bind() {
-        if (this.WebGLContext.IsTexture(this.targetTexture)) this.WebGLContext.BindTexture(this.Parent.TargetTextureType, this.targetTexture);
+        if (this.targetTexture!==null) this.WebGLContext.BindTexture(this.Parent.TargetTextureType, this.targetTexture);
         else {
             this.WebGLContext.BindTexture(this.Parent.TargetTextureType, null);
         }
+  }
+
+    public registerTexture(registerIndex: number):boolean {
+        if (!this.WebGLContext.IsTexture(this.targetTexture)) {
+            this.WebGLContext.ActiveTexture(TextureRegister.Texture0+registerIndex);
+            this.WebGLContext.BindTexture(this.parent.TargetTextureType, null);
+            return false;
+        }
+        this.WebGLContext.ActiveTexture(TextureRegister.Texture0 +registerIndex);
+        this.applyTextureParameter();
+        this.bind();
+        return true;
     }
 
   public init()

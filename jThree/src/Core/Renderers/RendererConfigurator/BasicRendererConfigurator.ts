@@ -37,12 +37,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
     public getStageChain(target: RendererBase): RenderStageChain[]
     {
         return [
-            {
-                buffers: {
-                    OUT: "default"
-                },
-                stage: new SkyBoxStage(target)
-            },
+
             {
                 buffers: {
                     OUT: "deffered.rb1"
@@ -56,6 +51,8 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 },
                 stage: new RbDepthStage(target)
             },
+/*
+#1#
             {
                 buffers: {
                     RB1: "deffered.rb1",
@@ -66,6 +63,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 },
                 stage: new AccumulationStage(target)
             },
+*/
             {
                 buffers: {
                     LIGHT: "deffered.light",

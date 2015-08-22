@@ -14,7 +14,6 @@ class BufferTextureWrapper extends TextureWrapperBase {
 		this.setTargetTexture(this.WebGLContext.CreateTexture());
 		this.bind();
 		this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
-		this.applyTextureParameter();
 		this.setInitialized();
 	}
 

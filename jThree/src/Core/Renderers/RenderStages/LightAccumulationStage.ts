@@ -38,8 +38,8 @@ class LitghtAccumulationStage extends RenderStageBase
     {
         var geometry = object.Geometry;
         if (!geometry || !this.program) return;
-        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
-        geometry.drawElements(this.Renderer.ContextManager, null);
+/*        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
+        geometry.drawElements(this.Renderer.ContextManager, null);*/
         //this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
     }
 

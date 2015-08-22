@@ -131,7 +131,7 @@ class ResourceManager extends jThreeObject {
         return this.fbos.get(id);
     }
 
-    public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
+    public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedByte) {
         return this.textures.create(id, () => {
             var bt = new BufferTexture(this.context, width, height, texType, elemType,id);
             bt.each(v=> v.init());

@@ -11,7 +11,7 @@ uniform mat4 matMVP;
 uniform mat4 matMV;
 uniform mat4 matV;
 uniform int u_textureUsed;
-uniform sampler2D u_sampler;
+uniform sampler2D u_texture;
 uniform sampler2D u_light;
 
 vec2 calcLightUV(vec4 projectionSpacePos)
@@ -25,7 +25,7 @@ void main(void){
   vec3 dlDir=-normalize((matV*vec4(u_DirectionalLight,0)).xyz);
   float brightness=min(1.0,max(0.0,dot(dlDir,v_normal)));
   gl_FragColor.rgba=u_diffuse;
-  if(u_textureUsed==1)gl_FragColor *= texture2D(u_sampler,adjuv);
+  if(u_textureUsed==1)gl_FragColor *= texture2D(u_texture,adjuv);
 
   //half vector in view space
   vec3 hv=normalize(dlDir+vec3(0,0,1));

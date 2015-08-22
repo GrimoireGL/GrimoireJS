@@ -72,7 +72,6 @@
     "./jThree/src/Core/Materials/PhongMaterial.ts",
     "./jThree/src/Core/Materials/SolidColorMaterial.ts",
     "./jThree/src/Core/Materials/SpriteMaterial.ts",
-    "./jThree/src/Core/RenderStageType.ts",
     "./jThree/src/Core/Renderers/FBOBindData.ts",
     "./jThree/src/Core/Renderers/RenderStageChain.ts",
     "./jThree/src/Core/Renderers/RenderStageConfig.ts",
