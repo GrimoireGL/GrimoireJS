@@ -292,7 +292,6 @@
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterInfoChunk.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterList.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\RendererFit.ts" />
-    <TypeScriptCompile Include="src\Core\RenderStageType.ts" />
     <TypeScriptCompile Include="src\Core\ResourceManager.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Buffer\Buffer.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Buffer\BufferProxy.ts" />

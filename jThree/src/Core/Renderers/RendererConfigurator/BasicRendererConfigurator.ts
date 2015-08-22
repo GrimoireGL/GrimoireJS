@@ -38,21 +38,18 @@ class BasicRendererConfigurator extends ConfiguratorBase
     {
         return [
 
-            {
+           {
                 buffers: {
                     OUT: "deffered.rb1"
                 },
                 stage: new Rb1RenderStage(target)
-            }
-            ,
-            {
+            },
+           {
                 buffers: {
                     OUT: "deffered.depth"
                 },
                 stage: new RbDepthStage(target)
-            },
-/*
-#1#
+            },/*,
             {
                 buffers: {
                     RB1: "deffered.rb1",
@@ -62,8 +59,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     OUT: "deffered.light"
                 },
                 stage: new AccumulationStage(target)
-            },
-*/
+            },*/
             {
                 buffers: {
                     LIGHT: "deffered.light",

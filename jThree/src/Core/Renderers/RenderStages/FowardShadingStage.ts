@@ -11,7 +11,7 @@ class FowardShadingStage extends RenderStageBase {
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-/*		this.bindAsOutBuffer(this.DefaultFBO, [{
+		this.bindAsOutBuffer(this.DefaultFBO, [{
 				texture: null,
 				target: "depth",
 				type: "rbo"
@@ -24,7 +24,7 @@ class FowardShadingStage extends RenderStageBase {
 		},()=>{
 				this.Renderer.ContextManager.applyClearColor();
 				this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
-			});*/
+			});
 	}
 
 	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
