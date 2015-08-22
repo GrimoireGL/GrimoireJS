@@ -49,17 +49,16 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     OUT: "deffered.depth"
                 },
                 stage: new RbDepthStage(target)
-            },/*,
+            },
             {
                 buffers: {
                     RB1: "deffered.rb1",
-                    RB2: "deffered.rb2",
                     DEPTH: "deffered.depth",
                     DIR: "jthree.light.dir1",
                     OUT: "deffered.light"
                 },
                 stage: new AccumulationStage(target)
-            },*/
+            },
             {
                 buffers: {
                     LIGHT: "deffered.light",

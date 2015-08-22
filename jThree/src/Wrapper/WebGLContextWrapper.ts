@@ -54,12 +54,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public BindBuffer(target: BufferTargetType, buffer: WebGLBuffer): void {
-    this.CheckErrorAsFatal();
     this.gl.bindBuffer(target, buffer);
   }
 
     public UnbindBuffer(target: BufferTargetType): void {
-    this.CheckErrorAsFatal();
     this.gl.bindBuffer(target, null);
   }
 
@@ -146,7 +144,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void {
-    this.CheckErrorAsFatal();
     this.gl.drawArrays(drawType, offset, length);
   }
 
@@ -198,17 +195,14 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public Enable(feature: GLFeatureType): void {
-    this.CheckErrorAsFatal();
     this.gl.enable(feature);
   }
 
     public Disable(feature: GLFeatureType): void {
-    this.CheckErrorAsFatal();
     this.gl.disable(feature);
   }
 
     public CullFace(cullMode: GLCullMode): void {
-    this.CheckErrorAsFatal();
     this.gl.cullFace(cullMode);
   }
   /**
@@ -260,12 +254,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     if(type)
     {//void texImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, ArrayBufferView? pixels)
         this.gl.texImage2D(targetTexture, level, internalFormat, <number>targetFormatOrWidth, <number>typeOrHeight, <number>pixelsOrBorder, internalFormat, type, <ArrayBufferView>bufferObj);
-        this.CheckErrorAsFatal();
       return;
     }else{
       //void texImage2D(GLenum target, GLint level, GLenum internalformat, GLenum format, GLenum type, TexImageSource? source) /* May throw DOMException */
         this.gl.texImage2D(targetTexture, level, internalFormat, targetFormatOrWidth, typeOrHeight, <ImageData>pixelsOrBorder);
-        this.CheckErrorAsFatal();
     }
   }
 
@@ -274,12 +266,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public GenerateMipmap(targetTexture: TargetTextureType): void {
-    this.CheckErrorAsFatal();
     this.gl.generateMipmap(targetTexture);
   }
 
     public TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
-    this.CheckErrorAsFatal();
     this.gl.texParameteri(targetTexture, param, value);
   }
 

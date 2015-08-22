@@ -38,7 +38,7 @@ class TextureWrapperBase extends ResourceWrapper
    * apply texture parameters
    */
   private applyTextureParameter() {
-      if (!this.WebGLContext.IsTexture(this.TargetTexture))return;
+      if (this.targetTexture == null) return;
       this.bind();
     this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.MinFilter,this.parent.MinFilter);
     this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.MagFilter,this.parent.MagFilter);
@@ -47,14 +47,14 @@ class TextureWrapperBase extends ResourceWrapper
   }
 
     public bind() {
-        if (this.targetTexture!==null) this.WebGLContext.BindTexture(this.Parent.TargetTextureType, this.targetTexture);
+        if (this.targetTexture!=null) this.WebGLContext.BindTexture(this.Parent.TargetTextureType, this.targetTexture);
         else {
             this.WebGLContext.BindTexture(this.Parent.TargetTextureType, null);
         }
   }
 
     public registerTexture(registerIndex: number):boolean {
-        if (!this.WebGLContext.IsTexture(this.targetTexture)) {
+        if (this.TargetTexture== null) {
             this.WebGLContext.ActiveTexture(TextureRegister.Texture0+registerIndex);
             this.WebGLContext.BindTexture(this.parent.TargetTextureType, null);
             return false;

@@ -38,8 +38,8 @@ class LitghtAccumulationStage extends RenderStageBase
     {
         var geometry = object.Geometry;
         if (!geometry || !this.program) return;
-/*        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
-        geometry.drawElements(this.Renderer.ContextManager, null);*/
+        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
+        geometry.drawElements(this.Renderer.ContextManager, null);
         //this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
     }
 
@@ -54,9 +54,9 @@ class LitghtAccumulationStage extends RenderStageBase
                 uv: geometry.UVBuffer
             },
             uniforms: {
-                rb1: { type: "texture", register: 1, value: texs["RB1"] },
-                depth: { type: "texture", register: 2, value: texs["DEPTH"] },
-                lightParams: { type: "texture", register: 3, value: scene.LightRegister.ParameterTexture },
+                rb1: { type: "texture", register: 0, value: texs["RB1"] },
+                depth: { type: "texture", register: 1, value: texs["DEPTH"] },
+                lightParams: { type: "texture", register: 2, value: scene.LightRegister.ParameterTexture },
                 matIP: { type: "matrix", value: ip },
                 matTV: { type: "matrix", value: Matrix.inverse(renderer.Camera.ViewMatrix) },
                 lightParamSize: { type: "vector", value: new Vector2(scene.LightRegister.TextureWidth, scene.LightRegister.TextureHeight) },
