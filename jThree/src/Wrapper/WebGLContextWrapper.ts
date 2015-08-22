@@ -101,7 +101,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.compileShader(shader);
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
       //TODO 適切なエラー処理
-      alert(this.gl.getShaderInfoLog(shader));
+      console.error(this.gl.getShaderInfoLog(shader));
     } else {
       console.log("compile success");
     }
@@ -121,7 +121,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.CheckErrorAsFatal();
     this.gl.linkProgram(program);
     if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
-      alert(this.gl.getProgramInfoLog(program));
+      console.error(this.gl.getProgramInfoLog(program));
     } else {
       console.log("link success");
     }
@@ -221,7 +221,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
     public DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void
     {
-    this.CheckErrorAsFatal();
     this.gl.drawElements(topology, length, dataType, offset);
   }
 

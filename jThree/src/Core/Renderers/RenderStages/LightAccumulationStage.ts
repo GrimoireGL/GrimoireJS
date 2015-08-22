@@ -25,8 +25,7 @@ class LitghtAccumulationStage extends RenderStageBase
     public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo)
     {
         this.bindAsOutBuffer(this.DefaultFBO, [
-            { texture: texs["OUT"], target: 0 },
-            { texture: this.DefaultRBO, type: "rbo", target: "depth", isOptional: true }
+            { texture: texs["OUT"], target: 0 }
         ], () =>
             {
                 this.GLContext.ClearColor(0, 0, 0, 0);
@@ -37,10 +36,9 @@ class LitghtAccumulationStage extends RenderStageBase
     public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo)
     {
         var geometry = object.Geometry;
-        if (!geometry || !this.program) return;
+        if (!geometry) return;
         this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
         geometry.drawElements(this.Renderer.ContextManager, null);
-        //this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
     }
 
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void
