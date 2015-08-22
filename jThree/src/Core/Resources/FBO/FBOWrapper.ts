@@ -38,10 +38,10 @@ class FBOWrapper extends ResourceWrapper {
 
     public unbind() {
         this.WebGLContext.BindFrameBuffer(null);
-        this.textures.forEach(tex=> {
+/*        this.textures.forEach(tex=> {
             tex.getForContext(this.OwnerCanvas).bind();
             tex.generateMipmapIfNeed();
-        });
+        });*/
     }
 
     public attachTexture(attachmentType: FrameBufferAttachmentType, tex: TextureBase) {
@@ -55,6 +55,7 @@ class FBOWrapper extends ResourceWrapper {
         tex.getForContext(this.OwnerCanvas).bind();
         tex.generateMipmapIfNeed();
         if (this.textures.indexOf(tex) !== -1) this.textures.push(tex);
+        this.WebGLContext.BindTexture(tex.TargetTextureType,null);
     }
 
     public attachRBO(attachmentType: FrameBufferAttachmentType, rbo: RBO) {

@@ -25,6 +25,7 @@ class RendererBase extends jThreeObjectWithID
         super();
         configurator = configurator || new RendererConfigurator();
         this.contextManager = contextManager;
+        this.renderStageManager =new RenderStageManager(this);
         this.viewportArea = viewportArea;
         if (this.viewportArea) JThreeContextProxy.getJThreeContext().ResourceManager.createRBO(this.ID + ".rbo.default", this.viewportArea.Width, this.viewportArea.Height);
         JThreeContextProxy.getJThreeContext().ResourceManager.createFBO(this.ID + ".fbo.default");
@@ -102,7 +103,7 @@ class RendererBase extends jThreeObjectWithID
     /**
     * Provides render stage abstraction
     */
-    private renderStageManager: RenderStageManager = new RenderStageManager(this);
+    private renderStageManager: RenderStageManager;
     
     /**
      * Provides render stage abstraction

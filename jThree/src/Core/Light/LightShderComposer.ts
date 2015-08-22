@@ -111,15 +111,14 @@ class LightShaderComposer extends JThreeObjectWithId
     private generateLightFunctionCallers(): string {
         var result = "";
         for (var i = 0; i < this.shaderFuncNames.length; i++) {
-            result += `if(getLightType(i) == ${(i+1).toFixed(0)}.)gl_FragColor.rgb+=${this.shaderFuncNames
-            [i]}(position,normal,i);`;
+            result += `if(getLightType(int(i)) == ${(i+1).toFixed(0)}.)gl_FragColor.rgb+=${this.shaderFuncNames
+            [i]}(position,normal,int(i));`;
         }
         return result;
     }
 
     private updateShaderFromCache() {
-        this.Shader.update(this.shaderCache);
-        console.warn("shader updated.");
+        this.Shader.update(this.ShaderCode);
     }
 }
 

@@ -102,11 +102,7 @@ class RenderStageBase extends JThreeObject {
 
 	private resetActiveTextures()
 	{
-		for(var i=0;i<GLSpecManager.MaxTextureCount;i++)
-		{
-			this.GLContext.ActiveTexture(TextureRegister.Texture0+i);
-			this.GLContext.BindTexture(TargetTextureType.Texture2D,null);
-		}
+
 	}
 
 	public get RenderStageConfig(): RenderStageConfig {

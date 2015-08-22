@@ -101,6 +101,7 @@ class ProgramWrapper extends ResourceWrapper {
      */
     public register(variables: VariableRegisteringArgument) {
         this.useProgram();
+        //this.unregister();
         var uniformRegisterTypeList: { [name: string]: VariableRegisterBase } = require("./VariableRegister/Uniforms/UniformTypeList");
         //register uniform variables
         if (typeof variables.uniforms !== "undefined") {
@@ -128,6 +129,13 @@ class ProgramWrapper extends ResourceWrapper {
                 this.WebGLContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
 
             }
+        }
+    }
+
+    public unregister() {
+        for (var i = 0; i < 32; i++) {
+            this.WebGLContext.ActiveTexture(TextureRegister.Texture0 + i);
+            this.WebGLContext.BindTexture(TextureTargetType.Texture2D   ,null);
         }
     }
 }

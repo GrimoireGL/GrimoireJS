@@ -8,7 +8,6 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 class FowardShadingStage extends RenderStageBase {
 	constructor(renderer: RendererBase) {
 		super(renderer);
-		JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("pmxtestrbo",512,512);
 	}
 
 	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
@@ -21,8 +20,8 @@ class FowardShadingStage extends RenderStageBase {
 			target: 0,
 			isOptional: false
 		},], () => {
-			this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits)
-			},()=>{
+		    this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+		},()=>{
 				this.Renderer.ContextManager.applyClearColor();
 				this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
 			});

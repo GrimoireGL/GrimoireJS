@@ -25,6 +25,8 @@ import BlendEquationType = require("./BlendEquationType");
 import BlendFuncParamType = require("./BlendFuncParamType");
  import DepthFuncType = require("./DepthFuncType");
  import GetParameterType = require("./GetParameterType");
+ import TexImageTargetType = require("./Texture/TexImageTargetType");
+
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
   
@@ -40,10 +42,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public CheckErrorAsFatal(): void {
-   // var ec = this.gl.getError();
-    // if (ec !== WebGLRenderingContext.NO_ERROR) {
-    //   console.error(`WebGL error was occured:${ec}`);
-    // }
+    var ec = this.gl.getError();
+     if (ec !== WebGLRenderingContext.NO_ERROR) {
+       this.notifyGlError(`WebGL error was occured:${ec}`);
+     }
   }
 
     public CreateBuffer(): WebGLBuffer {
@@ -52,12 +54,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public BindBuffer(target: BufferTargetType, buffer: WebGLBuffer): void {
-    this.CheckErrorAsFatal();
     this.gl.bindBuffer(target, buffer);
   }
 
     public UnbindBuffer(target: BufferTargetType): void {
-    this.CheckErrorAsFatal();
     this.gl.bindBuffer(target, null);
   }
 
@@ -101,7 +101,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.compileShader(shader);
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
       //TODO 適切なエラー処理
-      alert(this.gl.getShaderInfoLog(shader));
+      console.error(this.gl.getShaderInfoLog(shader));
     } else {
       console.log("compile success");
     }
@@ -121,7 +121,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.CheckErrorAsFatal();
     this.gl.linkProgram(program);
     if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
-      alert(this.gl.getProgramInfoLog(program));
+      console.error(this.gl.getProgramInfoLog(program));
     } else {
       console.log("link success");
     }
@@ -144,7 +144,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void {
-    this.CheckErrorAsFatal();
     this.gl.drawArrays(drawType, offset, length);
   }
 
@@ -196,17 +195,14 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public Enable(feature: GLFeatureType): void {
-    this.CheckErrorAsFatal();
     this.gl.enable(feature);
   }
 
     public Disable(feature: GLFeatureType): void {
-    this.CheckErrorAsFatal();
     this.gl.disable(feature);
   }
 
     public CullFace(cullMode: GLCullMode): void {
-    this.CheckErrorAsFatal();
     this.gl.cullFace(cullMode);
   }
   /**
@@ -223,7 +219,8 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.viewport(x, y, width, height);
   }
 
-    public DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void {
+    public DrawElements(topology: PrimitiveTopology, length: number, dataType: ElementType, offset: number): void
+    {
     this.gl.drawElements(topology, length, dataType, offset);
   }
 
@@ -252,15 +249,14 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.pixelStorei(pname,value);
   }
 
-    public TexImage2D(targetTexture:TargetTextureType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{
-    this.CheckErrorAsFatal();
+    public TexImage2D(targetTexture:TexImageTargetType,level:number,internalFormat:TextureInternalFormatType,targetFormatOrWidth:TextureInternalFormatType|number,typeOrHeight:TextureType|number,pixelsOrBorder:HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number,type?:TextureType,bufferObj?:ArrayBufferView):void{
     if(type)
     {//void texImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, ArrayBufferView? pixels)
-      this.gl.texImage2D(targetTexture,level,internalFormat,<number>targetFormatOrWidth,<number>typeOrHeight,<number>pixelsOrBorder,internalFormat,type,<ArrayBufferView>bufferObj);
+        this.gl.texImage2D(targetTexture, level, internalFormat, <number>targetFormatOrWidth, <number>typeOrHeight, <number>pixelsOrBorder, internalFormat, type, <ArrayBufferView>bufferObj);
       return;
     }else{
       //void texImage2D(GLenum target, GLint level, GLenum internalformat, GLenum format, GLenum type, TexImageSource? source) /* May throw DOMException */
-     this.gl.texImage2D(targetTexture, level, internalFormat, targetFormatOrWidth, typeOrHeight, <ImageData>pixelsOrBorder);
+        this.gl.texImage2D(targetTexture, level, internalFormat, targetFormatOrWidth, typeOrHeight, <ImageData>pixelsOrBorder);
     }
   }
 
@@ -269,12 +265,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public GenerateMipmap(targetTexture: TargetTextureType): void {
-    this.CheckErrorAsFatal();
     this.gl.generateMipmap(targetTexture);
   }
 
     public TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void {
-    this.CheckErrorAsFatal();
     this.gl.texParameteri(targetTexture, param, value);
   }
 

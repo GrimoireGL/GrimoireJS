@@ -16,13 +16,12 @@ class GLExtensionManager extends JThreeObject
 		for (var i = 0; i < this.requiredExtensions.length; i++) {
 			var element = this.requiredExtensions[i];
 			var ext=context.Context.getExtension(element);
-			if(!ext)
-			{
-				console.error(`WebGL Extension:${element} was requested,but your browser is not supporting this feature.`)
+			if(!ext) {
+			    console.error(`WebGL Extension:${element} was requested,but your browser is not supporting this feature.`);
 			}else{
-				console.log(`WebGL Extension:${element} was instanciated successfully`);
+                console.log(`WebGL Extension:${element} was instanciated successfully`);
+                this.extensions.set(element, ext);
 			}
-			this.extensions.set(element,ext);
 		}
 	}
 	
