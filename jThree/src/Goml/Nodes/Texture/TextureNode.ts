@@ -36,7 +36,7 @@ class TextureDebugNode extends GomlTreeNodeBase
         super.beforeLoad();
         var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
         var name = this.attributes.getValue("name");
-        this.targetTexture= rm.createTextureWithSource("jthree.goml." + name, null);
+        this.targetTexture= rm.createTextureWithSource("jthree.goml.texture." + name, null);
         var img = new Image();
         img.onload = () => {
             this.targetTexture.ImageSource = img;

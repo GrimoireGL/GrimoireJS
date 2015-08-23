@@ -12,6 +12,7 @@
     <quad name="quad"/>
     <solid color="lightgray" name="bl"/>
     <texture name ="gomlTexture" src="miku2.png"/>
+    <cubetexture name ="gomlCube" srcs ="cube/cube_PX.png cube/cube_PY.png cube/cube_PZ.png cube/cube_NX.png cube/cube_NY.png cube/cube_NZ.png"/>
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">

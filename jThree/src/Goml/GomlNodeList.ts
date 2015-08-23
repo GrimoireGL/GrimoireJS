@@ -47,7 +47,8 @@ var gomlList = [
       "jthree.textures",
       require("./Factories/TagFactory"),
       {
-          "TEXTURE": require("./Nodes/Texture/TextureNode")
+          "TEXTURE": require("./Nodes/Texture/TextureNode"),
+          "CUBETEXTURE":require("./Nodes/Texture/CubeTextureNode")
       }),
   new GomlNodeListElement("jthree.components", require("./Factories/TagFactory"),
     {
