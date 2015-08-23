@@ -19,7 +19,7 @@ class FowardShadingStage extends RenderStageBase {
 			texture: texs["OUT"],
 			target: 0,
 			isOptional: false
-		},], () => {
+		}], () => {
 		    this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 		},()=>{
 				this.Renderer.ContextManager.applyClearColor();

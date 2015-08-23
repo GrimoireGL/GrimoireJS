@@ -35,7 +35,8 @@ class BufferTextureWrapper extends TextureWrapperBase {
 		if (this.WebGLContext.IsTexture(this.TargetTexture)) {
 			var parent = <BufferTexture>this.Parent;
 			this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat,buffer);
-		}
+        }
+        this.unbind();
 	}
 
 }

@@ -12,16 +12,16 @@ class SkyBoxStage extends RenderStageBase
     constructor(renderer: RendererBase)
     {
         super(renderer);
-        var vs = require("../../Shaders/VertexShaders/PostEffectGeometries.glsl");
+        var vs = require("../../Shaders/VertexShaders/SkyboxGeometries.glsl");
         var fs = require("../../Shaders/Skybox.glsl");
-        this.program = this.loadProgram("jthree.shaders.vertex.post", "jthree.shaders.fragment.skybox", "jthree.programs.skybox", vs, fs);
+        this.program = this.loadProgram("jthree.shaders.vertex.skybox", "jthree.shaders.fragment.skybox", "jthree.programs.skybox", vs, fs);
     }
 
 
     public preBeginStage(scene: Scene, passCount: number, chainInfo: ResolvedChainInfo) {
         this.Renderer.GLContext.BindFrameBuffer(null);
-/*        debugger;
-        this.bindAsOutBuffer(this.DefaultFBO, [
+
+      /*  this.bindAsOutBuffer(this.DefaultFBO, [
             {
                 texture: chainInfo["OUT"],
                 target: 0
@@ -43,13 +43,11 @@ class SkyBoxStage extends RenderStageBase
                 uv:geometry.UVBuffer
             },
             uniforms: {
-/*
                 skyTex: { type: "texture", register: 0, value: JThreeContext.getJThreeContext().ResourceManager.getTexture("testcube") }
-*/
             }
         });
         geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
-
+        geometry.drawElements(this.Renderer.ContextManager,null);
     }
 
 

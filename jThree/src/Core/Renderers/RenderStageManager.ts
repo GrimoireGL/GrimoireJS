@@ -9,10 +9,13 @@ import QuadGeometry = require('../Geometries/QuadGeometry');
 import ResolvedChainInfo = require('./ResolvedChainInfo');
 import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
 import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
+import CubeGeometry = require("../Geometries/CubeGeometry");
+
 class RenderStageManager
 {
     private parentRenderer: RendererBase;
     private defaultQuad: QuadGeometry;
+    private defaultCube:CubeGeometry;
     private stageName: string;
 
     constructor(parent: RendererBase)
@@ -24,6 +27,7 @@ class RenderStageManager
             console.error(`GL ERROR OCCURED:STAGE INFO:${this.stageName} ERROR INFO:${s}`);
         });
         this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
+        this.defaultCube = new CubeGeometry("jthree.renderstage.default.cube");
         this.initializeGeneraters();
     }
 
@@ -113,6 +117,9 @@ class RenderStageManager
             {
                 case "quad":
                     targetObjects = [new Mesh(this.defaultQuad, null)];
+                    break;
+                case "cube":
+                    targetObjects = [new Mesh(this.defaultCube, null)];
                     break;
                 case "scene":
                 default:
