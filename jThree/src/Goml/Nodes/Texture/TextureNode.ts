@@ -18,7 +18,7 @@ class TextureDebugNode extends GomlTreeNodeBase
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
     {
         super(elem, loader, parent);
-        this.attributes.defineAttribute({
+        this.attributes.defineAttribute({//TODO add min/mag filter
             name: {
                 converter: "string",
                 value: "",
