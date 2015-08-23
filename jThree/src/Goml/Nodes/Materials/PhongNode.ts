@@ -4,7 +4,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
-import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
+import TextureNode = require("../Texture/TextureNode")
 class PhongNode extends MaterialNodeBase
 {
     public material:Phong;
@@ -27,13 +27,9 @@ class PhongNode extends MaterialNodeBase
             value:10,converter:"number",handler:(v)=>{this.material.SpecularCoefficient=v.Value;}
           },
           "texture":
-          {//TODO implement texture node
-              value:"tex",converter:"string",handler:(v)=>
-              {
-                  var context = JThreeContextProxy.getJThreeContext();
-                  context.ResourceManager.getTextureHandler(v.Value,(v)=>{
-                      this.material.Texture=v;
-                  });
+          {
+              value:"tex",converter:"string",handler:(v)=> {
+                  this.material.Texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture", v.Value)).TargetTexture;
               }
           }
         });
@@ -49,6 +45,11 @@ class PhongNode extends MaterialNodeBase
     public beforeLoad()
     {
       super.beforeLoad();
+    }
+
+    public afterLoad() {
+        super.afterLoad();
+        this.attributes.applyDefaultValue();
     }
 
 }

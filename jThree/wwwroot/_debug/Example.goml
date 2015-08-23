@@ -4,13 +4,14 @@
     <ddebug name="depth" target="deffered.depth" viewport="viewport#main"/>
     <ddebug name="normal" target="deffered.rb1" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
-    <phong diffuse="darkgray" name="mat2" specular="#CCC" specularpower="15"/>
+    <phong diffuse="darkgray" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cylinder divide="30" name="cyl"/>
     <cube name="cube"/>
     <quad name="quad"/>
     <solid color="lightgray" name="bl"/>
+    <texture name ="gomlTexture" src="miku2.png"/>
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">

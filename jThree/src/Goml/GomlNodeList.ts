@@ -43,6 +43,12 @@ var gomlList = [
       "DLIGHT": require("./Nodes/SceneObjects/Lights/DirectionalLightNode"),
       "PMX": require("../PMX/Goml/PMXNode")
     }),
+  new GomlNodeListElement(
+      "jthree.textures",
+      require("./Factories/TagFactory"),
+      {
+          "TEXTURE": require("./Nodes/Texture/TextureNode")
+      }),
   new GomlNodeListElement("jthree.components", require("./Factories/TagFactory"),
     {
       "COMPONENTS": require("./Nodes/Components/ComponentsNode"),

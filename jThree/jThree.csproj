@@ -168,6 +168,7 @@
     <Content Include="src\Core\Shaders\Light\LightAccumulation.glsl" />
     <Content Include="src\Core\Shaders\Light\PointLightFragmentChunk.glsl" />
     <Content Include="src\Core\Shaders\SkyBox.glsl" />
+    <Content Include="src\Core\Shaders\VertexShaders\SkyboxGeometries.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
