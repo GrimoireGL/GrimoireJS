@@ -27,6 +27,7 @@ class CubeTextureWrapper extends TextureWrapperBase {
             }
         }
         this.WebGLContext.BindTexture(TextureTargetType.CubeTexture, null);
+        this.setInitialized();
     }
 
 }
