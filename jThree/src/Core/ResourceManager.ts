@@ -17,6 +17,7 @@ import BufferTexture = require('./Resources/Texture/BufferTexture');
 import TextureFormat = require('../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../Wrapper/TextureType');
 import TextureBase = require('./Resources/Texture/TextureBase');
+import CubeTexture = require("./Resources/Texture/CubeTexture");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
@@ -76,14 +77,23 @@ class ResourceManager extends jThreeObject {
 
     public createTextureWithSource(id: string, source: ImageSource): Texture {
         return <Texture>this.textures.create(id, () => {
-            var tex = new Texture(this.context, source);
+            var tex = new Texture(this.context, source,id);
             tex.each(v=> v.init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
             return tex;
         });
     }
 
+
     public getTexture(id: string): Texture {
         return <Texture>this.textures.get(id);
+    }
+
+    public createCubeTextureWithSource(id: string,sources:ImageSource[]):CubeTexture {
+        return <CubeTexture>this.textures.create(id, () => {
+            var cubeTexture = new CubeTexture(this.context, sources,id);
+            cubeTexture.each(v => v.init());
+            return cubeTexture;
+        });
     }
 
     public getTextureHandler(id:string,handler:Delegates.Action1<Texture>)
@@ -121,9 +131,9 @@ class ResourceManager extends jThreeObject {
         return this.fbos.get(id);
     }
 
-    public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedShort4444) {
+    public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedByte) {
         return this.textures.create(id, () => {
-            var bt = new BufferTexture(this.context, width, height, texType, elemType);
+            var bt = new BufferTexture(this.context, width, height, texType, elemType,id);
             bt.each(v=> v.init());
             return bt;
         });

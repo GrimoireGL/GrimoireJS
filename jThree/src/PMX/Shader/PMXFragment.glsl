@@ -10,7 +10,6 @@ uniform vec3 u_DirectionalLight;
 uniform mat4 matMVP;
 uniform mat4 matMV;
 uniform mat4 matV;
-uniform sampler2D u_sampler;
 uniform sampler2D u_light;
 uniform sampler2D u_texture;
 uniform sampler2D u_sphere;

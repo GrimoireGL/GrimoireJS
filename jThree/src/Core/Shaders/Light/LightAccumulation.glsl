@@ -1,4 +1,4 @@
-precision mediump float;
+﻿precision mediump float;
 varying  vec2 v_uv;
 
 uniform mediump sampler2D rb1;
@@ -67,12 +67,10 @@ void main(void){
   vec3 position=reconstructPosition(d);
   vec3 normal=reconstructNormal();
   gl_FragColor.rgba=vec4(0,0,0,1);
-  int i = 0;
-  for(int v=0;v>-1;v++)
+  for(float i = 0.;i>-1.; i++)
   {
-    if(i==int(lightParamSize.y))return;
-  	///<<< LIGHT FUNCTION CALLS
-	i++;
+    if(lightParamSize.y == i)break;
+	///<<< LIGHT FUNCTION CALLS
   }
 }
 

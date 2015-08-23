@@ -6,7 +6,7 @@ import AccumulationStage = require("../RenderStages/LightAccumulationStage");
 import ShadingStage = require("../RenderStages/FowardShadingStage");
 import RbDepthStage = require("../RenderStages/RBDepthStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
-
+import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {
     public get TextureBuffers(): GeneraterInfo
@@ -36,14 +36,20 @@ class BasicRendererConfigurator extends ConfiguratorBase
 
     public getStageChain(target: RendererBase): RenderStageChain[]
     {
-        return [{
-            buffers: {
-                OUT: "deffered.rb1"
-            },
-            stage: new Rb1RenderStage(target)
-        }
-            ,
+        return [
             {
+                buffers: {
+                    OUT: "default"
+                },
+                stage:new SkyBoxStage(target)
+            }
+           ,{
+                buffers: {
+                    OUT: "deffered.rb1"
+                },
+                stage: new Rb1RenderStage(target)
+            },
+           {
                 buffers: {
                     OUT: "deffered.depth"
                 },
@@ -52,7 +58,6 @@ class BasicRendererConfigurator extends ConfiguratorBase
             {
                 buffers: {
                     RB1: "deffered.rb1",
-                    RB2: "deffered.rb2",
                     DEPTH: "deffered.depth",
                     DIR: "jthree.light.dir1",
                     OUT: "deffered.light"

@@ -32,8 +32,8 @@ class BufferTexture extends TextureBase {
 		return this.elementFormat;
 	}
 
-	constructor(context: JThreeContext, width: number, height: number, textureFormat: TextureFormat, elementFormat: ElementFormat) {
-		super(context);
+	constructor(context: JThreeContext, width: number, height: number, textureFormat: TextureFormat, elementFormat: ElementFormat,textureName:string) {
+		super(context,textureName);
 		this.width = width;
 		this.height = height;
 		this.textureFormat = textureFormat;

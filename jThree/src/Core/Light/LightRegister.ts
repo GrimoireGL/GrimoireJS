@@ -104,8 +104,8 @@ class LightRegister
 
     constructor(scene: Scene) {
         this.scene = scene;
-        this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID + ".jthree.light.params", this.TextureWidth, this.TextureHeight, InternalFormatType.RGBA, TextureType.Float));
-        this.widthUpdate();
+        this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID + ".jthree.light.params", 1, 1, InternalFormatType.RGBA, TextureType.Float));
+        this.parameterTexture.updateTexture(new Float32Array([1,0,1,0]));
         this.initializeProgram();
     }
 
@@ -141,6 +141,7 @@ class LightRegister
      */
     public addLight(light: LightBase):void
     {
+
         this.lights.push(light);
         this.lightIdDictionary.set(light.ID, this.lights.length - 1);
         light.onParameterChanged((o, l) => this.lightUpdate(l));
