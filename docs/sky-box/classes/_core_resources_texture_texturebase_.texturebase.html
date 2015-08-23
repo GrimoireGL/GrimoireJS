@@ -120,6 +120,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_texture_texturebase_.texturebase.html#swrap" class="tsd-kind-icon">s<wbr>Wrap</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_texture_texturebase_.texturebase.html#twrap" class="tsd-kind-icon">t<wbr>Wrap</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_texture_texturebase_.texturebase.html#targettexturetype" class="tsd-kind-icon">target<wbr>Texture<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_texture_texturebase_.texturebase.html#texturename" class="tsd-kind-icon">texture<wbr>Name</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -132,6 +133,7 @@
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_resources_texture_texturebase_.texturebase.html#swrap-1" class="tsd-kind-icon">SWrap</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_resources_texture_texturebase_.texturebase.html#twrap-1" class="tsd-kind-icon">TWrap</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_resources_texture_texturebase_.texturebase.html#targettexturetype-1" class="tsd-kind-icon">Target<wbr>Texture<wbr>Type</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_resources_texture_texturebase_.texturebase.html#texturename-1" class="tsd-kind-icon">Texture<wbr>Name</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -158,8 +160,8 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Base<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Base<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a>, isCubeTexture<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Base<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a>, textureName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Base<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a>, textureName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isCubeTexture<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -173,6 +175,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>context: <a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></h5>
+								</li>
+								<li>
+									<h5>textureName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></h4>
@@ -188,6 +193,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>context: <a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></h5>
+								</li>
+								<li>
+									<h5>textureName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5>isCubeTexture: <span class="tsd-signature-type">boolean</span></h5>
@@ -267,6 +275,16 @@
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L16">Core/Resources/Texture/TextureBase.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="texturename" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> texture<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">texture<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L118">Core/Resources/Texture/TextureBase.ts:118</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -465,6 +483,23 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_wrapper_targettexturetype_.targettexturetype.html" class="tsd-signature-type">TargetTextureType</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="texturename-1" class="tsd-anchor"></a>
+					<h3>Texture<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> TextureName<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L120">Core/Resources/Texture/TextureBase.ts:120</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -730,6 +765,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_resources_texture_texturebase_.texturebase.html#targettexturetype" class="tsd-kind-icon">target<wbr>Texture<wbr>Type</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_resources_texture_texturebase_.texturebase.html#texturename" class="tsd-kind-icon">texture<wbr>Name</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_resources_texture_texturebase_.texturebase.html#context" class="tsd-kind-icon">Context</a>
 							</li>
@@ -750,6 +788,9 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_core_resources_texture_texturebase_.texturebase.html#targettexturetype-1" class="tsd-kind-icon">Target<wbr>Texture<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_core_resources_texture_texturebase_.texturebase.html#texturename-1" class="tsd-kind-icon">Texture<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_core_resources_texture_texturebase_.texturebase.html#disposeresource" class="tsd-kind-icon">dispose<wbr>Resource</a>
