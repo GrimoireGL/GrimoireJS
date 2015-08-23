@@ -37,13 +37,14 @@ class SkyBoxStage extends RenderStageBase
         var geometry = object.Geometry;
         if (!geometry) return;
         var pw = this.program.getForContext(this.Renderer.ContextManager);
+        var st = JThreeContext.getJThreeContext().ResourceManager.getTexture("testcube");
         pw.register({
             attributes: {
                 position: geometry.PositionBuffer,
                 uv:geometry.UVBuffer
             },
             uniforms: {
-                skyTex: { type: "texture", register: 0, value: JThreeContext.getJThreeContext().ResourceManager.getTexture("testcube") }
+                skyTex: { type: "texture", register: 0, value: st }
             }
         });
         geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();

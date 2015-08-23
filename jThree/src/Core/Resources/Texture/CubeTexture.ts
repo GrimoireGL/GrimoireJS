@@ -7,7 +7,7 @@ class CubeTexture extends TextureBase
 {
     constructor(context: JThreeContext, source: ImageSource[],textureName:string)
     {
-        super(context,textureName);
+        super(context,textureName,true);
         this.ImageSource = source;
     }
 

@@ -12,6 +12,7 @@ class Texture2DRegister
         {
             var tex = (<TextureBase>value).getForContext(configure.context);
             if (tex.Initialized) {
+                if (tex.Parent.TargetTextureType == TargetTextureType.CubeTexture)debugger;
                 if(tex.registerTexture(texNumber))
                     gl.Uniform1i(index, texNumber);
                 return;

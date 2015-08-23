@@ -61,7 +61,6 @@ class TextureWrapperBase extends ResourceWrapper
         }
         this.WebGLContext.ActiveTexture(TextureRegister.Texture0 +registerIndex);
         this.applyTextureParameter();
-        this.bind();
         return true;
     }
 
