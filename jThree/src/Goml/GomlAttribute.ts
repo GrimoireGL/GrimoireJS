@@ -38,6 +38,8 @@ class GomlAttribute extends JThreeObjectWithID
      */
     private needNotifyUpdate: boolean = true;
 
+    protected constant:boolean;
+
     public get NeedNotifyUpdate()
     {
         return this.needNotifyUpdate;
@@ -48,9 +50,11 @@ class GomlAttribute extends JThreeObjectWithID
         this.needNotifyUpdate = val;
     }
 
-    constructor(node: GomlTreeNodeBase, element: HTMLElement, name: string, value: any, converter: AttributeConverterBase, handler?: Delegates.Action1<GomlAttribute>)
+    constructor(node: GomlTreeNodeBase, element: HTMLElement, name: string, value: any, converter: AttributeConverterBase, handler?: Delegates.Action1<GomlAttribute>,constant?:boolean)
     {
         super(name);
+        if (typeof constant === "undefined") constant = false;
+        this.constant = constant;
         this.element = element;
         this.converter = converter;
         this.value = converter.FromInterface(value);
@@ -80,8 +84,12 @@ class GomlAttribute extends JThreeObjectWithID
         }
     }
 
-    public set Value(val: any)
-    {
+    public get Constant(): boolean {
+        return this.constant;
+    }
+
+    public set Value(val: any) {
+        if (this.Constant)return;
         this.value = this.Converter.FromInterface(val);
         this.element.setAttribute(this.Name, this.Converter.ToAttribute(val));
         this.cached = true;
@@ -95,6 +103,7 @@ class GomlAttribute extends JThreeObjectWithID
 
     public notifyValueChanged()
     {
+        if (this.Constant) return;
         this.onchangedHandlers.fire(this, this);
     }
 

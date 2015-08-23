@@ -180,6 +180,7 @@
     "./jThree/src/Goml/Nodes/Renderers/TexRendererNode.ts",
     "./jThree/src/Goml/Nodes/Renderers/ViewPortNode.ts",
     "./jThree/src/Goml/Nodes/SceneNode.ts",
+"./jThree/src/Goml/Nodes/Texture/TextureNode.ts","./jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts",
     "./jThree/src/Goml/Nodes/SceneObjects/Cameras/CameraNode.ts",
     "./jThree/src/Goml/Nodes/SceneObjects/Cameras/CameraNodeBase.ts",
     "./jThree/src/Goml/Nodes/SceneObjects/Cameras/OrthoCameraNode.ts",
