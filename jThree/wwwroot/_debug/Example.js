@@ -16,5 +16,6 @@ j3(function(){
   // j3("#modTest").animate({testValue:500},2000);
   // j3("#modTest").delay(2000).queue(function(){
   //   j3("#modTest").attr({enabled:false});
-  // });
+    // });
+    j3("#camera-origin").animate({rotation:"y(-120d)"},30000);
 });

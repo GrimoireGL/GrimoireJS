@@ -104,8 +104,7 @@ class Transformer extends JThreeObject
         glm.mat4.identity(this.localToGlobalCache);
         glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformCache, this.rotation.targetQuat, this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformCache 
         this.localTransform = new Matrix(this.localTransformCache);//Generate Matrix instance and substitute the matrix for localTransform
-        if (this.relatedTo != null && this.relatedTo.Parent != null)
-        {
+        if (this.relatedTo != null && this.relatedTo.Parent != null) {
             //Use LocalToGlobal matrix of parents to multiply with localTransformCache
             glm.mat4.copy(this.localToGlobalCache, this.relatedTo.Parent.Transformer.LocalToGlobal.rawElements);
         } else

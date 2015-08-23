@@ -407,6 +407,8 @@
     <TypeScriptCompile Include="src\Goml\Nodes\SceneObjects\ObjectNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\SceneObjects\SceneObjectNodeBase.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Templates\TemplateNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Texture\CubeTextureNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Texture\TextureNode.ts" />
     <TypeScriptCompile Include="src\Goml\Plugins\PluginDeclaration.ts" />
     <TypeScriptCompile Include="src\Goml\Plugins\PluginLoader.ts" />
     <TypeScriptCompile Include="src\Goml\Plugins\PluginRequest.ts" />
