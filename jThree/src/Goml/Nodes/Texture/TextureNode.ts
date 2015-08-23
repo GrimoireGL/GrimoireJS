@@ -21,7 +21,8 @@ class TextureDebugNode extends GomlTreeNodeBase
         this.attributes.defineAttribute({
             name: {
                 converter: "string",
-                value:""
+                value: "",
+                constant:true
             },
             src: {
                 converter: "string",

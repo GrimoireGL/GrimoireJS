@@ -16,7 +16,13 @@ interface AttributeDeclarationBody
 	/**
 	 * default value of this attribute.
 	 */
-	value?:any;
+    value?: any;
+
+    /**
+     * Whether this attribute accept change by interface or not.
+     * default: false
+     */
+    constant?:boolean;
 }
 
  export = AttributeDeclarationBody;
