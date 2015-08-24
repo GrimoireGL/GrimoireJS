@@ -60,52 +60,11 @@ class Scene extends jThreeObjectWithID {
     }
 
     private sceneObjects: SceneObject[] = [];
-    
-    private lights:AssociativeArray<LightBase[]>=new AssociativeArray<LightBase[]>();
-    
-    private lightCount:number=0;
-    
-    public getLights(ns:string):LightBase[]
-    {
-        var lights= this.lights.get(ns);
-        if(!lights)return [];
-        return lights;
-    }
-    
-    public getLightByIndex(index:number):LightBase
-    {
-        var i=0;
-        var target:LightBase;
-        this.lights.forEach(
-            v=>
-            {
-                v.forEach(e=>{
-                   if(i==index)
-                   {
-                       target=e;
-                   }
-                   i++;
-                });
-            }
-        );
-        return target;
-    }
-    
-    public get LightCount():number
-    {
-        return this.lightCount;
-    }
+   
     
     public addLight(light:LightBase):void
     {
-        this.lightCount++;
         this.lightRegister.addLight(light);
-        if(!this.lights.has(light.LightType))
-        {
-            this.lights.set(light.LightType,[light]);
-            return;
-        }
-        this.lights.get(light.LightType).push(light);
     }
 
     public addObject(targetObject: SceneObject): void {
