@@ -78,13 +78,6 @@ class RenderStageBase extends JThreeObject {
 		} else {
 			this.GLContext.CullFace(GLCullMode.Back);
 		}
-		if(typeof this.RenderStageConfig.texYFlip ==='undefined'||this.RenderStageConfig.texYFlip)
-		{
-			this.GLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);		}else
-		{
-	        this.GLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 0);
-		}
-		//reset texture register
 		this.resetActiveTextures();
 	}
 
@@ -154,9 +147,9 @@ class RenderStageBase extends JThreeObject {
 	}
 
 	private attachToWrapper(v: FboBindData, targetWrapper: FBOWrapper, targetAttachment: FrameBufferAttachmentType) {
-		if (!v.type || v.type == "texture") {
+		if (!v.type || v.type === "texture") {
 			targetWrapper.attachTexture(targetAttachment, <TextureBase>v.texture);
-		} else if (v.type = "rbo") {
+		} else if (v.type === "rbo") {
 			targetWrapper.attachRBO(targetAttachment, <RBO>v.texture);
 		} else {
 			console.error("unknown bind type!");
