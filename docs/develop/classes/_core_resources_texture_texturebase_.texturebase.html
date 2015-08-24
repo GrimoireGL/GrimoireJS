@@ -161,7 +161,7 @@
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Base<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a>, textureName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Base<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a>, textureName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isCubeTexture<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Texture<wbr>Base<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a>, textureName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, flipY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, isCubeTexture<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -196,6 +196,9 @@
 								</li>
 								<li>
 									<h5>textureName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>flipY: <span class="tsd-signature-type">boolean</span></h5>
 								</li>
 								<li>
 									<h5>isCubeTexture: <span class="tsd-signature-type">boolean</span></h5>
@@ -284,7 +287,7 @@
 					<div class="tsd-signature tsd-kind-icon">texture<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L118">Core/Resources/Texture/TextureBase.ts:118</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L120">Core/Resources/Texture/TextureBase.ts:120</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -320,7 +323,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L40">Core/Resources/Texture/TextureBase.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L42">Core/Resources/Texture/TextureBase.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -328,7 +331,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L45">Core/Resources/Texture/TextureBase.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L47">Core/Resources/Texture/TextureBase.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -352,7 +355,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L61">Core/Resources/Texture/TextureBase.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L63">Core/Resources/Texture/TextureBase.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_wrapper_texture_texturemagfiltertype_.texturemagfiltertype.html" class="tsd-signature-type">TextureMagFilterType</a></h4>
@@ -360,7 +363,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L65">Core/Resources/Texture/TextureBase.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L67">Core/Resources/Texture/TextureBase.ts:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -384,7 +387,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L50">Core/Resources/Texture/TextureBase.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L52">Core/Resources/Texture/TextureBase.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_wrapper_texture_textureminfiltertype_.textureminfiltertype.html" class="tsd-signature-type">TextureMinFilterType</a></h4>
@@ -392,7 +395,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L54">Core/Resources/Texture/TextureBase.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L56">Core/Resources/Texture/TextureBase.ts:56</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -416,7 +419,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L72">Core/Resources/Texture/TextureBase.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L74">Core/Resources/Texture/TextureBase.ts:74</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_wrapper_texture_texturewraptype_.texturewraptype.html" class="tsd-signature-type">TextureWrapType</a></h4>
@@ -424,7 +427,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L77">Core/Resources/Texture/TextureBase.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L79">Core/Resources/Texture/TextureBase.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -448,7 +451,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L84">Core/Resources/Texture/TextureBase.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L86">Core/Resources/Texture/TextureBase.ts:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../enums/_wrapper_texture_texturewraptype_.texturewraptype.html" class="tsd-signature-type">TextureWrapType</a></h4>
@@ -456,7 +459,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L89">Core/Resources/Texture/TextureBase.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L91">Core/Resources/Texture/TextureBase.ts:91</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -496,7 +499,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L120">Core/Resources/Texture/TextureBase.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L122">Core/Resources/Texture/TextureBase.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -564,7 +567,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L101">Core/Resources/Texture/TextureBase.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L103">Core/Resources/Texture/TextureBase.ts:103</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -689,7 +692,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L96">Core/Resources/Texture/TextureBase.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/TextureBase.ts#L98">Core/Resources/Texture/TextureBase.ts:98</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
