@@ -27,11 +27,13 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
     private flipY: boolean = false;
 
     constructor(context: JThreeContext,textureName:string);
-    constructor(context: JThreeContext,textureName:string, isCubeTexture: boolean);
-    constructor(context: JThreeContext,textureName:string, isCubeTexture?: boolean)
+    constructor(context: JThreeContext,textureName:string,flipY:boolean, isCubeTexture: boolean);
+    constructor(context: JThreeContext,textureName:string,flipY?:boolean, isCubeTexture?: boolean)
     {
         super(context);
+        if (typeof flipY === "undefined")flipY = false;
         if (typeof isCubeTexture === "undefined") isCubeTexture = false;
+        this.flipY = flipY;
         this.targetTextureType = isCubeTexture ? TextureTargetType.CubeTexture : TextureTargetType.Texture2D;
         this.initializeForFirst();
     }

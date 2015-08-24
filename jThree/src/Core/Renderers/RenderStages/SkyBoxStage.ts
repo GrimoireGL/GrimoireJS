@@ -6,6 +6,8 @@ import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import Program = require("../../Resources/Program/Program");
 import JThreeContext = require("../../JThreeContextProxy")
+import Matrix = require("../../../Math/Matrix");
+
 class SkyBoxStage extends RenderStageBase
 {
     private program:Program;
@@ -44,7 +46,8 @@ class SkyBoxStage extends RenderStageBase
                 uv:geometry.UVBuffer
             },
             uniforms: {
-                skyTex: { type: "texture", register: 0, value: st }
+                skyTex: { type: "texture", register: 0, value: st },
+                matVP:{type:"matrix",value:this.Renderer.Camera.ViewMatrix}
             }
         });
         geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
