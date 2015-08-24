@@ -73,8 +73,7 @@ class SkyBoxStage extends RenderStageBase
     {
         return {
             depthTest: false,
-            cullFace: false,
-            texYFlip:false
+            cullFace: false
         };
     }
 }
