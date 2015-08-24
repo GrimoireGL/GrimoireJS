@@ -12,7 +12,7 @@
     <quad name="quad"/>
     <solid color="lightgray" name="bl"/>
     <texture name ="gomlTexture" src="miku2.png"/>
-    <cubetexture name ="gomlCube" srcs="cube/cube_PX.png cube/cube_PY.png cube/cube_PZ.png cube/cube_NX.png cube/cube_NY.png cube/cube_NZ.png"/>
+    <cubetexture name ="gomlCube" srcs="cube/cube_PX.png cube/cube_NX.png cube/cube_PY.png cube/cube_NY.png cube/cube_PZ.png cube/cube_NZ.png"/>
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
@@ -25,7 +25,7 @@
   <scenes>
     <scene>
       <object id="camera-origin" rotation="y(120d)" position="0,-2,0">
-        <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
+        <camera aspect="1" far="10" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
       </object>
       <object id="light-root">
         <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>

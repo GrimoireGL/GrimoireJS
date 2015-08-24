@@ -88,9 +88,9 @@ class ResourceManager extends jThreeObject {
         return <Texture>this.textures.get(id);
     }
 
-    public createCubeTextureWithSource(id: string,sources:ImageSource[]):CubeTexture {
+    public createCubeTextureWithSource(id: string, sources: ImageSource[], flipY: boolean=false): CubeTexture {
         return <CubeTexture>this.textures.create(id, () => {
-            var cubeTexture = new CubeTexture(this.context, sources,id);
+            var cubeTexture = new CubeTexture(this.context, sources,id,flipY);
             cubeTexture.each(v => v.init());
             return cubeTexture;
         });

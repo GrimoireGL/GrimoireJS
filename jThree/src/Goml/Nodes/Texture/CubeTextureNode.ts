@@ -35,7 +35,7 @@ class CubeTextureNode extends GomlTreeNodeBase
         super.beforeLoad();
         var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
         var name = this.attributes.getValue("name");
-        this.targetTexture = rm.createCubeTextureWithSource("jthree.goml.cubetexture." + name, null);
+        this.targetTexture = rm.createCubeTextureWithSource("jthree.goml.cubetexture." + name, null,false);
         var srcsv = this.attributes.getValue("srcs");
         if(srcsv){
         var srcs = srcsv.split(" ");

@@ -3,6 +3,7 @@ import TextureParameterType = require('../../../Wrapper/Texture/TextureParameter
 import TextureBase = require('TextureBase');
 import ContextManagerBase = require('../../ContextManagerBase');
 import TextureRegister = require("../../../Wrapper/Texture/TextureRegister");
+import PixelStoreParamType = require("../../../Wrapper/Texture/PixelStoreParamType");
 
 class TextureWrapperBase extends ResourceWrapper
 {	
@@ -69,5 +70,12 @@ class TextureWrapperBase extends ResourceWrapper
     
   }
  
+  protected preTextureUpload() {
+      if (this.parent.FlipY) {
+          this.WebGLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
+      } else {
+          this.WebGLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL,0);
+      }
+  }
 }
 export = TextureWrapperBase;

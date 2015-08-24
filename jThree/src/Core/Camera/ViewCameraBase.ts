@@ -8,7 +8,7 @@ class ViewCameraBase extends Camera
   {
     super();
     this.position=new Vector3(0,0,0);
-    this.lookAt=new Vector3(0,0,1);
+    this.lookAt=new Vector3(0,0,-1);
     this.updir=new Vector3(0,1,0);
     this.UpdateViewMatrix();
     this.transformer.onUpdateTransform((t,o)=>this.UpdateViewMatrix(o));
@@ -60,7 +60,7 @@ class ViewCameraBase extends Camera
   private UpdateViewMatrix(obj?:SceneObject):void
   {
     var cam:Camera=<Camera>obj||this;//To avoid to get this
-    this.viewMatrix = Matrix.multiply(this.transformer.LocalToGlobal,Matrix.lookAt(cam.Position,cam.LookAt,cam.UpDirection));
+    this.viewMatrix = Matrix.multiply(this.transformer.LocalToGlobal,Matrix.lookAt(cam.Position, cam.LookAt, cam.UpDirection));
   }
 }
 

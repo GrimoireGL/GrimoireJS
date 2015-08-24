@@ -5,9 +5,9 @@ import ContextManagerBase = require("../../ContextManagerBase");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 class CubeTexture extends TextureBase
 {
-    constructor(context: JThreeContext, source: ImageSource[],textureName:string)
+    constructor(context: JThreeContext, source: ImageSource[],textureName:string,flipY:boolean)
     {
-        super(context,textureName,true);
+        super(context,textureName,flipY,true);
         this.ImageSource = source;
     }
 

@@ -25,7 +25,8 @@ class BufferTextureWrapper extends TextureWrapperBase {
 	public resize(width: number, height: number) {
 		this.bind();
 		if (this.WebGLContext.IsTexture(this.TargetTexture)) {
-			var parent = <BufferTexture>this.Parent;
+            var parent = <BufferTexture>this.Parent;
+            this.preTextureUpload();
 			this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
 		}
 	}
@@ -33,7 +34,8 @@ class BufferTextureWrapper extends TextureWrapperBase {
 	public updateTexture(buffer: ArrayBufferView) {
 		this.bind();
 		if (this.WebGLContext.IsTexture(this.TargetTexture)) {
-			var parent = <BufferTexture>this.Parent;
+            var parent = <BufferTexture>this.Parent;
+            this.preTextureUpload();
 			this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat,buffer);
         }
         this.unbind();
