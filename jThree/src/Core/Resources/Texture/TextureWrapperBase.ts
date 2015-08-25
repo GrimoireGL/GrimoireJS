@@ -70,7 +70,7 @@ class TextureWrapperBase extends ResourceWrapper
     
   }
  
-  protected preTextureUpload() {
+  public preTextureUpload() {
       if (this.parent.FlipY) {
           this.WebGLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
       } else {

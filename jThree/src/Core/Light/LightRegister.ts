@@ -131,7 +131,7 @@ class LightRegister
         var newSize = Math.max(paramVecCount, this.textureHeight);
         if (newSize !== this.textureHeight)
         {
-            //apply new size of texture
+            //TODO apply new size of texture
         }
     }
 
