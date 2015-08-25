@@ -31,6 +31,11 @@ import JThreeEvent = require("../Base/JThreeEvent");
 import Delegates = require("../Base/Delegates");
 class GLContextWrapperBase extends JThreeObject
 {
+    /**
+     * Maximum count of errors to be dislayed.
+     */
+    public static maximumOutputGLError = 1000;
+
     private glErrorCount=0;
     /**
      * Event handler register to gl error.
@@ -39,8 +44,8 @@ class GLContextWrapperBase extends JThreeObject
 
     protected notifyGlError(error: string) {
         this.glErrorCount++;
-        if(this.glErrorCount<=1000)this.glErrorHandler.fire(this, error);
-        if (this.glErrorCount == 1000) {
+        if(this.glErrorCount<=GLContextWrapperBase.maximumOutputGLError)this.glErrorHandler.fire(this, error);
+        if (this.glErrorCount === GLContextWrapperBase.maximumOutputGLError) {
             console.error("There is too many glError,for preventing freezing error not displayed any more.");
         }
     }

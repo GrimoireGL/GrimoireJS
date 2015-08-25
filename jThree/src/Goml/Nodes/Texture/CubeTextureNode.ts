@@ -2,48 +2,42 @@
 import GomlLoader = require("../../GomlLoader");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture")
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
+import TextureNodeBase = require("./TextureNodeBase");
+import ResourceManager = require("../../../Core/ResourceManager");
+import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 
-class CubeTextureNode extends GomlTreeNodeBase
+class CubeTextureNode extends TextureNodeBase
 {
-    private targetTexture: CubeTexture;
-
-    /**
-     * Texture that is managed by this node.
-     */
-    public get TargetTexture() {
-        return this.targetTexture;
-    }
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
     {
         super(elem, loader, parent);
         this.attributes.defineAttribute({//TODO add min/mag filter
-            name: {
-                converter: "string",
-                value: "",
-                constant:true
-            },
             srcs: {
                 converter: "string",
                 src:""
             }
         });
     }
-
-    public beforeLoad()
+    
+    protected generateTexture(name: string, rm: ResourceManager): TextureBase
     {
-        super.beforeLoad();
-        var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
-        var name = this.attributes.getValue("name");
-        this.targetTexture = rm.createCubeTextureWithSource("jthree.goml.cubetexture." + name, null,false);
+        var texture=rm.createCubeTextureWithSource("jthree.goml.cubetexture." + name, null, false);
         var srcsv = this.attributes.getValue("srcs");
-        if(srcsv){
-        var srcs = srcsv.split(" ");
-            for (var i = 0; i < 6; i++) {
-                this.loadImg(i,srcs[i]);
+        if (srcsv)
+        {
+            var srcs = srcsv.split(" ");
+            for (var i = 0; i < 6; i++)
+            {
+                this.loadImg(i, srcs[i]);
             }
         }
-        this.loader.nodeRegister.addObject("jthree.resource.cubetexture",name,this);
+        return texture;
+    }
+
+    protected get TextureGroupName()
+    {
+        return "cubetexture";
     }
 
     private loadedFlags: boolean[] = [false, false, false, false, false, false];
@@ -62,7 +56,7 @@ class CubeTextureNode extends GomlTreeNodeBase
             }
             if (allTrue)
             {
-                this.targetTexture.ImageSource = this.loadedImages;
+                (<CubeTexture>this.TargetTexture).ImageSource = this.loadedImages;
             }
         }
         img.src = src;
