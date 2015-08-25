@@ -24,8 +24,10 @@
   </renderers>
   <scenes>
     <scene>
-      <object id="camera-origin" rotation="y(120d)" position="0,-2,0">
-        <camera aspect="1" far="10" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
+      <object id="camera-origin">
+        <object>
+          <camera aspect="1" far="10" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
+        </object>
       </object>
       <object id="light-root">
         <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>

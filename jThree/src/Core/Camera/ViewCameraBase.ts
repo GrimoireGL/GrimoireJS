@@ -59,8 +59,8 @@ class ViewCameraBase extends Camera
 
   private UpdateViewMatrix(obj?:SceneObject):void
   {
-    var cam:Camera=<Camera>obj||this;//To avoid to get this
-    this.viewMatrix = Matrix.multiply(this.transformer.LocalToGlobal,Matrix.lookAt(cam.Position, cam.LookAt, cam.UpDirection));
+      var cam: Camera = <Camera>obj || this;
+    this.viewMatrix = Matrix.multiply(Matrix.inverse(this.transformer.LocalToGlobal),Matrix.lookAt(cam.Position, cam.LookAt, cam.UpDirection));
   }
 }
 
