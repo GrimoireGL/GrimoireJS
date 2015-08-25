@@ -7,14 +7,18 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates =require('../Base/Delegates')
 import LightRegister = require('./Light/LightRegister');
-import PointLight = require("./Light/PointLight"); 
+import PointLight = require("./Light/PointLight");
+import DirectionalLight = require("./Light/DirectionalLight");
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
+        //TODO Remove parameter registration
         var pointParam = PointLight.TypeDefinition;
+        var dp = DirectionalLight.TypeDefinition;
         this.lightRegister.addLightType(pointParam.requiredParamCount, pointParam.shaderfuncName, pointParam.shaderfragmentCode, pointParam.typeName);
+        this.lightRegister.addLightType(dp.requiredParamCount,dp.shaderfuncName,dp.shaderfragmentCode,dp.typeName);
         console.log(this.lightRegister.ShaderCodeComposer.ShaderCode);
     }
 

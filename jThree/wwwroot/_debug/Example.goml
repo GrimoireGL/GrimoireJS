@@ -30,6 +30,7 @@
         </object>
       </object>
       <object id="light-root">
+        <dlight color="lime" intencity="0.8" />
 <!--
         <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>
 -->
