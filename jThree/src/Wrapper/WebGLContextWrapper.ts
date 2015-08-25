@@ -72,12 +72,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public ClearColor(red: number, green: number, blue: number, alpha: number): void {
-    this.CheckErrorAsFatal();
     this.gl.clearColor(red, green, blue, alpha);
   }
 
     public Clear(mask: ClearTargetType): void {
-    this.CheckErrorAsFatal();
     this.gl.clear(mask);
   }
 
@@ -148,13 +146,10 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public Flush(): void {
-    this.CheckErrorAsFatal();
     this.gl.flush();
   }
 
     public Finish(): void {
-    this
-      .CheckErrorAsFatal();
     this.gl.finish();
   }
 
@@ -215,7 +210,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public ViewPort(x: number, y: number, width: number, height: number): void {
-    this.CheckErrorAsFatal();
     this.gl.viewport(x, y, width, height);
   }
 
@@ -234,7 +228,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public FrameBufferTexture2D(fboTarget: FrameBufferAttachmentType, tex: WebGLTexture): void {
-    this.CheckErrorAsFatal();
     this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, fboTarget,this.gl.TEXTURE_2D, tex, 0);
   }
 
@@ -291,8 +284,8 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   }
 
     public FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
-    this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer)
-  }
+        this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer);
+    }
   
       /**
   * Pass vector as uniform variable

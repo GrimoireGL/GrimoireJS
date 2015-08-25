@@ -11,7 +11,7 @@
     <cube name="cube"/>
     <quad name="quad"/>
     <solid color="lightgray" name="bl"/>
-    <texture name ="gomlTexture" src="miku2.png"/>
+    <texture name ="gomlTexture" src="miku2.png" minFilter="LinearMipNearest"/>
     <cubetexture name ="gomlCube" srcs="cube/cube_PX.png cube/cube_NX.png cube/cube_PY.png cube/cube_NY.png cube/cube_PZ.png cube/cube_NZ.png"/>
   </resources>
   <renderers>
@@ -30,7 +30,9 @@
         </object>
       </object>
       <object id="light-root">
+<!--
         <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>
+-->
       </object>
       <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>

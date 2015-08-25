@@ -29,7 +29,7 @@ class PhongNode extends MaterialNodeBase
           "texture":
           {
               value:"tex",converter:"string",handler:(v)=> {
-                  this.material.Texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture", v.Value)).TargetTexture;
+                  this.material.Texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
               }
           }
         });
