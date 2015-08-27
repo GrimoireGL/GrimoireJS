@@ -118,7 +118,7 @@ class ProgramWrapper extends ResourceWrapper {
         if (typeof variables.attributes !== "undefined") {
             for (var attributeKey in variables.attributes) {
                 var attribute = variables.attributes[attributeKey];
-                var buffer = attribute.getForRenderer(this.OwnerCanvas);
+                var buffer = attribute.getForContext(this.OwnerCanvas);
                 buffer.bindBuffer();
                 if (!this.attributeLocations.has(attributeKey))
                 {

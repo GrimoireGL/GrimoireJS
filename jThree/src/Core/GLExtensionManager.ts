@@ -3,7 +3,12 @@ import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 class GLExtensionManager extends JThreeObject
 {
-	private requiredExtensions:string[]=["WEBGL_draw_buffers","WEBGL_depth_texture","OES_element_index_uint","OES_texture_float"];
+    private requiredExtensions =
+    ["WEBGL_draw_buffers",
+     "WEBGL_depth_texture",
+     "OES_element_index_uint",
+      "OES_texture_float",
+    "EXT_texture_filter_anisotropic"];
 	private extensions:AssociativeArray<any>=new AssociativeArray<any>();
 	
 	constructor()
@@ -14,9 +19,18 @@ class GLExtensionManager extends JThreeObject
 	public checkExtensions(context:GLContextWrapperBase)
 	{
 		for (var i = 0; i < this.requiredExtensions.length; i++) {
-			var element = this.requiredExtensions[i];
-			var ext=context.Context.getExtension(element);
-			if(!ext) {
+            var element = this.requiredExtensions[i];
+		    var ext;
+		    if (typeof element === "string") {
+		        ext = context.Context.getExtension(element);
+		    } else {
+		        //Assume type of element is array
+		        for (var j = 0; j < element.length; j++) {
+                    ext = context.Context.getExtension(element[j]);
+                    if(ext)break;
+		        }
+		    }
+		    if(!ext) {
 			    console.error(`WebGL Extension:${element} was requested,but your browser is not supporting this feature.`);
 			}else{
                 console.log(`WebGL Extension:${element} was instanciated successfully`);

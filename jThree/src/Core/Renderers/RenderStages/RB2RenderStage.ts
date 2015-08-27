@@ -59,7 +59,7 @@ class RB2RenderStage extends RenderStageBase {
                 matV: { type: "matrix", value: this.Renderer.Camera.ViewMatrix },
             }
 	    });
-        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
+        geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

@@ -62,7 +62,7 @@ class LitghtAccumulationStage extends RenderStageBase
                 c_dir: { type: "vector", value: renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis() }
             }
         });
-        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+        geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
 
     public needRender(scene: Scene, object: SceneObject, passCount: number): boolean

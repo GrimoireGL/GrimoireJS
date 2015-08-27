@@ -6,3 +6,4 @@
 /// <reference path="sinon-chai/sinon-chai.d.ts" />
 /// <reference path="sinon/sinon.d.ts" />
 /// <reference path="superagent/superagent.d.ts" />
+///<reference path="ammo/ammo.d.ts"/>

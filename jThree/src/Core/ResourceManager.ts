@@ -37,7 +37,7 @@ class ResourceManager extends jThreeObject {
 
     public createBuffer(id: string, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType): Buffer {
         return this.buffers.create(id, () => {
-            return Buffer.CreateBuffer(this.context, target, usage, unitCount, elementType);
+            return new Buffer(this.context, target, usage, unitCount, elementType);
         });
     }
 

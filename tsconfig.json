@@ -93,7 +93,6 @@
     "./jThree/src/Core/Renderers/TextureGeneraters/RendererFit.ts",
     "./jThree/src/Core/ResourceManager.ts",
     "./jThree/src/Core/Resources/Buffer/Buffer.ts",
-    "./jThree/src/Core/Resources/Buffer/BufferProxy.ts",
     "./jThree/src/Core/Resources/Buffer/BufferWrapper.ts",
     "./jThree/src/Core/Resources/ContextSafeResourceContainer.ts",
     "./jThree/src/Core/Resources/FBO/FBO.ts",

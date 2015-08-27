@@ -52,7 +52,7 @@ class LambertMaterial extends Material
                 u_DirectionalLight: { type: "vector", value: new Vector3(0, 0, -1) }
             }
         });
-        geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+        geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
 }
 
