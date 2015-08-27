@@ -31,7 +31,7 @@ class DepthStageMaterial extends Material {
                matMVP:{type:"matrix",value:v} 
             }
         });
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+    geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
   }
 }
 

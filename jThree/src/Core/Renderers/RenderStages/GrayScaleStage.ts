@@ -60,7 +60,7 @@ class GrayScaleStage extends RenderStageBase {
                 source:{type:"texture",register:0,value:texs["SOURCE"]}
             }
         });
-		geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+		geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

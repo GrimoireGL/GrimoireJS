@@ -1,44 +1,23 @@
 ﻿import BufferTargetType = require("../../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../../Wrapper/BufferUsageType");
 import ContextManagerBase = require("../../ContextManagerBase");
-import BufferProxy = require("./BufferProxy");
 import ElementType = require("../../../Wrapper/ElementType");
-import BufferWrapper = require("./BufferWrapper");
-import JThreeContextProxy = require("../../JThreeContextProxy");
-import CanvasListChangedEventArgs = require('../../CanvasListChangedEventArgs');
-import ListStateChangedType = require("../../ListStateChangedType");
-import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import JThreeContext = require('../../JThreeContext');
-class Buffer extends BufferProxy
+import ContextSafeResourceContainer = require("../ContextSafeResourceContainer")
+import BufferWrapper = require("./BufferWrapper");
+import AssociativeArray = require("../../../Base/Collections/AssociativeArray")
+class Buffer extends ContextSafeResourceContainer<BufferWrapper>
 {
-    public static CreateBuffer(context:JThreeContext,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType) {
-        var buf: Buffer = new Buffer();
-        buf.target = target;
-        buf.usage = usage;
-        buf.unitCount = unitCount;
-        buf.elementType = elementType;
-        context.CanvasManagers.forEach((v, i, a) => {
-            var wrap: BufferWrapper = new BufferWrapper(buf, v.GLContext);
-            buf.managedProxies.push(wrap);
-            buf.bufWrappers.set(v.ID, wrap);
-        });
-        JThreeContextProxy.getJThreeContext().onRendererChanged(buf.changedRenderer);
-        return buf;
-    }
 
-    public changedRenderer(arg:CanvasListChangedEventArgs):void{
-      if(arg.ChangeType==ListStateChangedType.Add)
-      {
-        var wrapper=new BufferWrapper(this,arg.AffectedRenderer.GLContext);
-        wrapper.loadAll();
-      //  this.bufWrappers.set(arg.AffectedRenderer.ID,wrapper);
-      }
-    }
-
-    constructor()
+    constructor(context:JThreeContext,target:BufferTargetType,usage:BufferUsageType,unitCount:number,elementType:ElementType)
     {
-        super(null,[]);
-        this.parentBuffer = this;
+        super(context);
+        this.target = target;
+        this.usage = usage;
+        this.unitCount = unitCount;
+        this.elementType = elementType;
+        this.initializeForFirst();
+
     }
 
     private target: BufferTargetType;
@@ -82,7 +61,7 @@ class Buffer extends BufferProxy
         this.stride = stride;
     }
 
-    public get Offse(): number {
+    public get Offset(): number {
         return this.offset;
     }
 
@@ -118,16 +97,8 @@ class Buffer extends BufferProxy
         this.each((a) => a.update(array, length));
     }
 
-    public getForRenderer(renderer: ContextManagerBase): BufferWrapper {
-        if(!this.bufWrappers.has(renderer.ID))
-        {
-          var wrap=new BufferWrapper(this,renderer.GLContext);
-          wrap.loadAll();
-          if(this.elementCache)wrap.update(this.elementCache,this.length);
-          this.addProxy(wrap);
-          this.bufWrappers.set(renderer.ID, wrap);
-        }
-        return this.bufWrappers.get(renderer.ID);
+    protected getInstanceForRenderer(renderer: ContextManagerBase): BufferWrapper {
+        return new BufferWrapper(this, renderer);
     }
 }
 

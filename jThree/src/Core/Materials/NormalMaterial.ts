@@ -48,7 +48,7 @@ class NormalMaterial extends Material {
                 }
             }
         });
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+    geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
   }
 }
 

@@ -1,24 +1,26 @@
-﻿import BufferProxy = require("./BufferProxy");
-import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
+﻿import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import Buffer = require("./Buffer");
 import ElementType = require("../../../Wrapper/ElementType");
-
+import ResourceWrapper = require("../ResourceWrapper");
+import ContextManagerBase = require("../../ContextManagerBase");
 /**
  * Most based wrapper of buffer.
  */
-class BufferWrapper extends BufferProxy
+class BufferWrapper extends ResourceWrapper
 {
     private glContext: GLContextWrapperBase;
 
     private targetBuffer: WebGLBuffer = null;
 
-    private length:number=0;
+    private length: number = 0;
 
-    constructor(parentBuffer: Buffer, glContext: GLContextWrapperBase)
+    private parentBuffer:Buffer;
+
+    constructor(parentBuffer: Buffer,contextManager:ContextManagerBase)
     {
-        super(parentBuffer, []);
-        this.glContext = glContext;
-        this.targetArray = [this];
+        super(contextManager);
+        this.glContext = contextManager.GLContext;
+        this.parentBuffer = parentBuffer;
     }
 
     private isInitialized: boolean = false;
@@ -101,7 +103,5 @@ class BufferWrapper extends BufferProxy
             this.glContext.UnbindBuffer(this.parentBuffer.Target);
         }
     }
-
-    public get ManagedProxies() { return [this]; }
 }
 export=BufferWrapper;

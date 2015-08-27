@@ -148,7 +148,7 @@ class Geometry extends jThreeObject {
    
    public bindIndexBuffer(contextManager:ContextManagerBase)
    {
-     this.IndexBuffer.getForRenderer(contextManager).bindBuffer();
+     this.IndexBuffer.getForContext(contextManager).bindBuffer();
    }
 }
 export=Geometry;

@@ -50,7 +50,7 @@ class SkyBoxStage extends RenderStageBase
                 matVP:{type:"matrix",value:this.Renderer.Camera.ViewMatrix}
             }
         });
-        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
+        geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
         geometry.drawElements(this.Renderer.ContextManager,null);
     }
 

@@ -46,7 +46,7 @@ class SolidColorMaterial extends Material {
                 u_color:{type:"vector",value:this.Color.toVector()}
             }
         });
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+    geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
   }
 }
 

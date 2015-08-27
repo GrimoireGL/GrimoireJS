@@ -98,7 +98,7 @@ class PhongMaterial extends Material {
                 u_textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 }
             }
         });
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+    geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
   }
 }
 
