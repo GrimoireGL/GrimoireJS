@@ -1,5 +1,4 @@
-﻿import JThreeContext = require("../../JThreeContext");
-import ContextSafeContainer = require("../ContextSafeResourceContainer");
+﻿import ContextSafeContainer = require("../ContextSafeResourceContainer");
 import ShaderType = require("../../../Wrapper/ShaderType");
 import ContextManagerBase = require("../../ContextManagerBase");
 import ShaderWrapper = require("./ShaderWrapper");
@@ -10,8 +9,8 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
     /**
      * シェーダークラスを作成する。
      */
-    public static CreateShader(context:JThreeContext,source:string,shaderType:ShaderType) :Shader {
-        var shader: Shader = new Shader(context);
+    public static CreateShader(source:string,shaderType:ShaderType) :Shader {
+        var shader: Shader = new Shader();
         shader.shaderSource = source;
         shader.shaderType = shaderType;
         return shader;
@@ -20,8 +19,8 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
      * コンストラクタ
      * (Should not be called by new,You should use CreateShader static method instead.)
      */
-    constructor(context:JThreeContext) {
-        super(context);
+    constructor() {
+        super();
         this.initializeForFirst();
     }
 

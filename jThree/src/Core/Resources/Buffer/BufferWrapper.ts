@@ -56,7 +56,7 @@ class BufferWrapper extends ResourceWrapper
     {
         if (!this.Initialized)
         {
-            this.loadAll();
+            this.init();
         }
         this.bindBuffer();
         this.glContext.BufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
@@ -64,7 +64,7 @@ class BufferWrapper extends ResourceWrapper
         this.length = length;
     }
 
-    public loadAll(): void
+    public init(): void
     {
         if (this.targetBuffer == null)
         {
@@ -79,7 +79,7 @@ class BufferWrapper extends ResourceWrapper
         {
             this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
         } else {
-            this.loadAll();
+            this.init();
             this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
             this.update(this.parentBuffer.ElementCache,this.parentBuffer.Length);
         }

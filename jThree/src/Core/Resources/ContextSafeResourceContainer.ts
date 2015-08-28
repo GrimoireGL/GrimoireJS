@@ -7,16 +7,21 @@ import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
 import ListStateChangedType = require("../ListStateChangedType");
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ResourceWrapper = require('./ResourceWrapper');
-class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject {
+import JThreeContextProxy = require("../JThreeContextProxy");
+/**
+ * Provides context difference abstraction.
+ */
+class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject
+{
     private context: JThreeContext = null;
     
     public get Context():JThreeContext
     {
         return this.context;
     }
-    constructor(context: JThreeContext) {
+    constructor() {
         super();
-        this.context = context;
+        this.context = JThreeContextProxy.getJThreeContext();
         //Initialize resources for the renderers already subscribed.
         this.context.onRendererChanged(this.rendererChanged.bind(this));
     }

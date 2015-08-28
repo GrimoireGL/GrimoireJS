@@ -11,9 +11,9 @@ import BufferWrapper = require("./BufferWrapper");
 class Buffer extends ContextSafeResourceContainer<BufferWrapper>
 {
 
-    constructor(context: JThreeContext, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType)
+    constructor(target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType)
     {
-        super(context);
+        super();
         this.target = target;
         this.usage = usage;
         this.unitCount = unitCount;

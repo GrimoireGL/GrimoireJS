@@ -1,7 +1,6 @@
 import BufferTextureWrapper = require('./BufferTextureWrapper');
 import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../../Wrapper/TextureType');
-import JThreeContext = require('../../JThreeContext');
 import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
 import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
 import ContextManagerBase = require('../../ContextManagerBase');
@@ -32,8 +31,8 @@ class BufferTexture extends TextureBase {
 		return this.elementFormat;
 	}
 
-	constructor(context: JThreeContext, width: number, height: number, textureFormat: TextureFormat, elementFormat: ElementFormat,textureName:string) {
-		super(context,textureName);
+	constructor(width: number, height: number, textureFormat: TextureFormat, elementFormat: ElementFormat,textureName:string) {
+		super(textureName);
 		this.width = width;
 		this.height = height;
 		this.textureFormat = textureFormat;

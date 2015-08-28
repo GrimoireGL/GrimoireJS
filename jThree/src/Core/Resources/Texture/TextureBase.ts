@@ -26,11 +26,11 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
     private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
     private flipY: boolean = false;
 
-    constructor(context: JThreeContext,textureName:string);
-    constructor(context: JThreeContext,textureName:string,flipY:boolean, isCubeTexture: boolean);
-    constructor(context: JThreeContext,textureName:string,flipY?:boolean, isCubeTexture?: boolean)
+    constructor(textureName:string);
+    constructor(textureName:string,flipY:boolean, isCubeTexture: boolean);
+    constructor(textureName:string,flipY?:boolean, isCubeTexture?: boolean)
     {
-        super(context);
+        super();
         if (typeof flipY === "undefined")flipY = false;
         if (typeof isCubeTexture === "undefined") isCubeTexture = false;
         this.flipY = flipY;
