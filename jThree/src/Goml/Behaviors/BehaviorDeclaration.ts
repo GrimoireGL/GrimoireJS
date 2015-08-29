@@ -1,4 +1,4 @@
-import GomlComponentDeclarationBody = require("./GomlComponentDeclarationBody");
+import GomlComponentDeclarationBody = require("./BehaviorDeclarationBody");
 interface GomlComponentDeclaration
 {
 	[name:string]:GomlComponentDeclarationBody;

@@ -6,9 +6,9 @@ import $ = require("jquery");
 import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeEvent = require('../Base/JThreeEvent');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
-import ComponentRegistry = require('./Components/ComponentRegistry');
+import BehaviorRegistry = require("./Behaviors/BehaviorRegistry");
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
-import ComponentRunner = require('./Components/ComponentRunner');
+import BehaviorRunner = require('./Behaviors/BehaviorRunner');
 import PluginLoader = require('./Plugins/PluginLoader');
 
 declare function require(string): any;
@@ -69,8 +69,8 @@ class GomlLoader extends jThreeObject {
   }
 
   public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
-  public componentRegistry: ComponentRegistry = new ComponentRegistry();
-  public componentRunner: ComponentRunner = new ComponentRunner();
+  public componentRegistry: BehaviorRegistry = new BehaviorRegistry();
+  public componentRunner: BehaviorRunner = new BehaviorRunner();
   public rootObj: JQuery;
   public rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
   public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();

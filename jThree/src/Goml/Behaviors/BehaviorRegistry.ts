@@ -1,7 +1,7 @@
 import JThreeObject = require('../../Base/JThreeObject');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
-import GomlComponentDeclaration = require('./GomlComponentDeclaration');
-import GomlComponentDeclarationBody = require('./GomlComponentDeclarationBody');
+import BehaviorDeclaration = require('./BehaviorDeclaration');
+import BehaviorDeclarationBody = require('./BehaviorDeclarationBody');
 /**
 * The class for managing classes registered.
 */
@@ -12,9 +12,9 @@ class ComponentRegistry extends JThreeObject
     super();
   }
   
-  private components:AssociativeArray<GomlComponentDeclarationBody>=new AssociativeArray<GomlComponentDeclarationBody>();
+  private components:AssociativeArray<BehaviorDeclarationBody>=new AssociativeArray<BehaviorDeclarationBody>();
 
-  public addComponent(components:GomlComponentDeclaration)
+  public addComponent(components:BehaviorDeclaration)
   {
     for(var componentKey in components)
     {
@@ -23,7 +23,7 @@ class ComponentRegistry extends JThreeObject
     }
   }
 
-  public getComponent(componentName:string):GomlComponentDeclarationBody
+  public getComponent(componentName:string):BehaviorDeclarationBody
   {
     return this.components.get(componentName);
   }

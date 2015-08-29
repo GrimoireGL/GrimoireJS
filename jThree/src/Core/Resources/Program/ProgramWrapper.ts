@@ -131,13 +131,6 @@ class ProgramWrapper extends ResourceWrapper {
             }
         }
     }
-
-    public unregister() {
-        for (var i = 0; i < 32; i++) {
-            this.WebGLContext.ActiveTexture(TextureRegister.Texture0 + i);
-            this.WebGLContext.BindTexture(TextureTargetType.Texture2D   ,null);
-        }
-    }
 }
 
 export =ProgramWrapper;
