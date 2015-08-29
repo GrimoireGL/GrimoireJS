@@ -5,7 +5,7 @@ import BehaviorDeclarationBody = require('./BehaviorDeclarationBody');
 /**
 * The class for managing classes registered.
 */
-class ComponentRegistry extends JThreeObject
+class BehaviorRegistry extends JThreeObject
 {
   constructor()
   {
@@ -29,4 +29,4 @@ class ComponentRegistry extends JThreeObject
   }
 }
 
-export = ComponentRegistry;
+export = BehaviorRegistry;

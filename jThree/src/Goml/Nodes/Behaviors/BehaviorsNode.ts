@@ -2,7 +2,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 
 
-class ComponentsNode extends GomlTreeNodeBase
+class BehaviorsNode extends GomlTreeNodeBase
 {
 
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
@@ -19,4 +19,4 @@ class ComponentsNode extends GomlTreeNodeBase
   }
 }
 
-export =ComponentsNode;
+export =BehaviorsNode;

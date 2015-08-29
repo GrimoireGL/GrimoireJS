@@ -1,8 +1,8 @@
 import TreeNodeBase = require('./TreeNodeBase');
-import ComponentNode = require('./Nodes/Components/ComponentNode');
+import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
 import GomlLoader = require('./GomlLoader');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
-class ComponentContainerNodeBase extends TreeNodeBase
+class BehaviorContainerNodeBase extends TreeNodeBase
 {
 	constructor(elem:HTMLElement,parent?:TreeNodeBase,loader?:GomlLoader)
 	{
@@ -18,23 +18,23 @@ class ComponentContainerNodeBase extends TreeNodeBase
 	 /**
      * components that is attached to this node.
      */
-    protected components:AssociativeArray<ComponentNode[]>=new AssociativeArray<ComponentNode[]>();
+    protected components:AssociativeArray<BehaviorNode[]>=new AssociativeArray<BehaviorNode[]>();
     
         
     /**
      * Add component to this node.
      */
-    public addComponent(component:ComponentNode):void
+    public addComponent(component:BehaviorNode):void
     {
         this.loader.componentRunner.addComponent(component,this);
         if(!this.components.has(component.ComponentName))this.components.set(component.ComponentName,[]);
         this.components.get(component.ComponentName).push(component);
     }
     
-    public getComponents(componentName:string):ComponentNode[]
+    public getComponents(componentName:string):BehaviorNode[]
     {
         return this.components.get(componentName);
     }
 }
 
-export = ComponentContainerNodeBase;
+export = BehaviorContainerNodeBase;

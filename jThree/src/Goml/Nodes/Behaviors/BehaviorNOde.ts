@@ -3,7 +3,7 @@ import GomlLoader = require("../../GomlLoader");
 import Delegates = require("../../../Base/Delegates");
 import GomlAttribute = require("../../GomlAttribute");
 import AttributeDeclaration = require("../../AttributeDeclaration");
-class ComponentNode extends GomlTreeNodeBase
+class BehaviorNode extends GomlTreeNodeBase
 {
   private static ignoreNode:string[]=["name","cachedOrder","cachedEnabled","children","parent","loader","element"];
 
@@ -51,7 +51,7 @@ class ComponentNode extends GomlTreeNodeBase
           for(var attrKey in component.attributes)
           {
             var attr = component.attributes[attrKey];
-            if(ComponentNode.ignoreNode.indexOf(attrKey)!==-1||this.attributes.isDefined(attrKey))
+            if(BehaviorNode.ignoreNode.indexOf(attrKey)!==-1||this.attributes.isDefined(attrKey))
             {//duplicated or protected attribute
               console.error(`attribute name '${attrKey}' is protected attribute name. please change name`);
               continue;
@@ -158,4 +158,4 @@ class ComponentNode extends GomlTreeNodeBase
   }
 }
 
-export =ComponentNode;
+export =BehaviorNode;

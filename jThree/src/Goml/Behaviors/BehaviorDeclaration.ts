@@ -1,7 +1,7 @@
-import GomlComponentDeclarationBody = require("./BehaviorDeclarationBody");
-interface GomlComponentDeclaration
+import BehaviorDeclarationBody = require("./BehaviorDeclarationBody");
+interface BehaviorDeclaration
 {
-	[name:string]:GomlComponentDeclarationBody;
+	[name:string]:BehaviorDeclarationBody;
 }
 
-export = GomlComponentDeclaration;
+export = BehaviorDeclaration;
