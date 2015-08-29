@@ -1,24 +1,24 @@
 import JThreeObject = require('../../Base/JThreeObject');
 import JThreeCollection = require('../../Base/JThreeCollection');
-import ComponentNode = require('../Nodes/Components/ComponentNode');
-import ComponentContainerNodeBase = require('../ComponentContainerNodeBase');
+import BehaviorNode = require("../Nodes/Behaviors/BehaviorNode");
+import BehaviorContainerNodeBase = require("../BehaviorContainerNodeBase");
 import JThreeObjectWithID = require('../../Base/JThreeObjectWithID');
 /**
  * container class for storeing ComponentNode and TargetNode
  */
-class ComponentNodePair extends JThreeObjectWithID
+class BehaviorNodePair extends JThreeObjectWithID
 {
 	/**
 	 * ComponentNode contain the arguments of component
 	 */
-	private component:ComponentNode;
+	private component:BehaviorNode;
 	
 	/**
 	 * TargetNode contain the ComponentNode
 	 */
-	private targetNode:ComponentContainerNodeBase;
+	private targetNode:BehaviorContainerNodeBase;
 	
-	constructor(component:ComponentNode,target:ComponentContainerNodeBase)
+	constructor(component:BehaviorNode,target:BehaviorContainerNodeBase)
 	{
 		super(component.ID);
 		this.component=component;
@@ -27,33 +27,33 @@ class ComponentNodePair extends JThreeObjectWithID
 	/**
 	 * getter for component node
 	 */
-	public get Component():ComponentNode
+	public get Component():BehaviorNode
 	{
 		return this.component;
 	}
 	/**
 	 * getter for target node
 	 */
-	public get Target():ComponentContainerNodeBase
+	public get Target():BehaviorContainerNodeBase
 	{
 		return this.targetNode;
 	}
 }
 
-class ComponentRunner extends JThreeObject
+class BehaviorRunner extends JThreeObject
 {
-	private dictionary:JThreeCollection<ComponentNodePair> = new JThreeCollection<ComponentNodePair>();
+	private dictionary:JThreeCollection<BehaviorNodePair> = new JThreeCollection<BehaviorNodePair>();
 	
-	private sortedComponents:ComponentNodePair[] = [];
+	private sortedComponents:BehaviorNodePair[] = [];
 	
 	private sortComponents()
 	{
 		this.sortedComponents.sort((v1,v2)=>v1.Component.order-v2.Component.order);
 	}
 	
-	public addComponent(node:ComponentNode,target:ComponentContainerNodeBase)
+	public addComponent(node:BehaviorNode,target:BehaviorContainerNodeBase)
 	{
-		var componentPair =new ComponentNodePair(node,target);
+		var componentPair =new BehaviorNodePair(node,target);
 		this.dictionary.insert(componentPair);
 		this.sortedComponents.push(componentPair);
 		this.sortComponents();
@@ -71,4 +71,4 @@ class ComponentRunner extends JThreeObject
 		})
 	}
 }
-export = ComponentRunner;
+export = BehaviorRunner;

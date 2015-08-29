@@ -1,13 +1,12 @@
 ﻿import TextureBase = require("./TextureBase");
-import JThreeContext = require("../../JThreeContext");
 import CubeTextureWrapper = require("./CubeTextureWrapper");
 import ContextManagerBase = require("../../ContextManagerBase");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 class CubeTexture extends TextureBase
 {
-    constructor(context: JThreeContext, source: ImageSource[],textureName:string,flipY:boolean)
+    constructor(source: ImageSource[],textureName:string,flipY:boolean)
     {
-        super(context,textureName,flipY,true);
+        super(textureName,flipY,true);
         this.ImageSource = source;
     }
 

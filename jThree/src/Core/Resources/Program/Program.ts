@@ -5,8 +5,8 @@ import ContextManagerBase = require("../../ContextManagerBase");
 import ProgramWrapper = require("./ProgramWrapper");
 
 class Program extends ContextSafeContainer<ProgramWrapper>{
-    constructor(context:JThreeContext) {
-        super(context);
+    constructor() {
+        super();
         this.initializeForFirst();
     }
 
@@ -25,8 +25,8 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
 
     }
 
-    public static CreateProgram(context:JThreeContext,attachShaders:Shader[]): Program {
-        var program: Program = new Program(context);
+    public static CreateProgram(attachShaders:Shader[]): Program {
+        var program: Program = new Program();
         program.attachedShaders = attachShaders;
         return program;
     }

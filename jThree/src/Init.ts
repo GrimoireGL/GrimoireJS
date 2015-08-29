@@ -3,14 +3,14 @@ import JThreeContextProxy = require("./Core/JThreeContextProxy");
 import $ = require('jquery');
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
-import GomlComponentDeclaration = require('./Goml/Components/GomlComponentDeclaration');
+import BehaviorDeclaration = require("Goml/Behaviors/BehaviorDeclaration");
 import agent = require("superagent");
-import CubeTexture = require("./Core/Resources/Texture/CubeTexture"); /**
+/**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
 */
 class JThreeStatic {
-  public addComponent(declaration: GomlComponentDeclaration) {
+  public addComponent(declaration: BehaviorDeclaration) {
     var context = JThreeContextProxy.getJThreeContext();
     context.GomlLoader.componentRegistry.addComponent(declaration);
   }
@@ -51,43 +51,10 @@ class JThreeInit {
     $(() => {//TODO we should remove jQuery dependencies
         var j3 = JThreeContext.getInstanceForProxy();
         JThreeInit.j3(() => {
-            JThreeInit.cubeTest = j3.ResourceManager.createCubeTextureWithSource("testcube", []);
-            JThreeInit.loadCubeTex("PX", 0);
-            JThreeInit.loadCubeTex("PY", 1);
-            JThreeInit.loadCubeTex("PZ", 2);
-            JThreeInit.loadCubeTex("NX", 3);
-            JThreeInit.loadCubeTex("NY", 4);
-            JThreeInit.loadCubeTex("NZ", 5);
         });
         j3.init();
     });
     }
 
-    private static flags: boolean[] = [false, false, false, false, false, false];
-
-    private static imgSource:HTMLImageElement[]=[null,null,null,null,null,null];
-
-    private static cubeTest: CubeTexture;
-
-    private static loadCubeTex(suffix: string, index: number) {
-        var img = new Image();
-        JThreeInit.imgSource[index] = img;
-        img.onload = () => {
-            JThreeInit.flags[index] = true;
-            JThreeInit.checkCompleted();
-        };
-        img.src = "cube/cube_"+suffix+".png";
-    }
-
-    private static checkCompleted() {
-        var allTrue = true;
-        for (var i = 0; i < 6; i++) {
-            if (!JThreeInit.flags[i]) {
-                allTrue = false;
-                break;
-            }
-        }
-        if (allTrue)JThreeInit.cubeTest.ImageSource = JThreeInit.imgSource;
-    }
 }
 export =JThreeInit;

@@ -4,7 +4,7 @@ import ElementType = require("../../../Wrapper/ElementType");
 import ResourceWrapper = require("../ResourceWrapper");
 import ContextManagerBase = require("../../ContextManagerBase");
 /**
- * Most based wrapper of buffer.
+ * Buffer wrapper based on context.
  */
 class BufferWrapper extends ResourceWrapper
 {
@@ -21,16 +21,7 @@ class BufferWrapper extends ResourceWrapper
         super(contextManager);
         this.glContext = contextManager.GLContext;
         this.parentBuffer = parentBuffer;
-    }
 
-    private isInitialized: boolean = false;
-
-    /**
-     * Get the flag wheather this buffer is initialized or not.
-     */
-    public get IsInitialized()
-    {
-        return this.isInitialized;
     }
 
     public get Length(): number {
@@ -61,13 +52,11 @@ class BufferWrapper extends ResourceWrapper
       return this.parentBuffer.Offset;
     }
 
-    public get isAllInitialized(): boolean { return this.IsInitialized; }
-
     public update(array: Float32Array, length: number): void
     {
-        if (!this.isInitialized)
+        if (!this.Initialized)
         {
-            this.loadAll();
+            this.init();
         }
         this.bindBuffer();
         this.glContext.BufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
@@ -75,30 +64,30 @@ class BufferWrapper extends ResourceWrapper
         this.length = length;
     }
 
-    public loadAll(): void
+    public init(): void
     {
         if (this.targetBuffer == null)
         {
             this.targetBuffer = this.glContext.CreateBuffer();
-            this.isInitialized = true;
+            this.setInitialized();
         }
     }
 
     public bindBuffer(): void
     {
-        if (this.isInitialized)
+        if (this.Initialized)
         {
             this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
         } else {
-            this.loadAll();
+            this.init();
             this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
-            //TODO 初期化されていなかった場合の対処
+            this.update(this.parentBuffer.ElementCache,this.parentBuffer.Length);
         }
     }
 
     public unbindBuffer(): void
     {
-        if (this.isInitialized)
+        if (this.Initialized)
         {
             this.glContext.UnbindBuffer(this.parentBuffer.Target);
         }

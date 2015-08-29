@@ -1,7 +1,7 @@
 import Delegates = require("../../Base/Delegates");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import GomlAttributeDeclaration = require("../AttributeDeclaration");
-interface GomlComponentDeclarationBody
+interface BehaviorDeclarationBody
 {
 	/**
 	 * The number of order for execution.
@@ -37,4 +37,4 @@ interface GomlComponentDeclarationBody
 	 */
 	update?:Delegates.Action1<GomlTreeNodeBase>;
 }
-export = GomlComponentDeclarationBody;
+export = BehaviorDeclarationBody;

@@ -1,12 +1,12 @@
 import GomlLoader = require("./GomlLoader");
 import AttributeDictionary = require("./AttributeDictionary");
-import ComponentContainerNode = require('./ComponentContainerNodeBase');
+import BehaviorContainerNode = require("./BehaviorContainerNodeBase");
 import TreeNodeBase = require('./TreeNodeBase');
 
 /**
  * This is the most base class in all GomlNode
  */
-class GomlTreeNodeBase extends ComponentContainerNode
+class GomlTreeNodeBase extends BehaviorContainerNode
 {
     constructor(elem:HTMLElement,loader:GomlLoader,parent?:TreeNodeBase) {
         super(elem, parent, loader);
