@@ -14,7 +14,7 @@ class BehaviorNode extends GomlTreeNodeBase
      this.componentName=elem.getAttribute("name");
       if(this.componentName)
       {
-        var component=loader.componentRegistry.getComponent(this.componentName);
+        var component=loader.componentRegistry.getBehavior(this.componentName);
         if(component)
         {
           //load d`efault value of component

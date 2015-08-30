@@ -22,7 +22,7 @@ class GomlLoader extends jThreeObject {
 
   public update() {
     if (!this.ready) return;
-    this.componentRunner.executeForAllComponents("update");
+    this.componentRunner.executeForAllBehaviors("update");
   }
 
   /**

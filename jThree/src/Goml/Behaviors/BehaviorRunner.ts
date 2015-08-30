@@ -4,32 +4,32 @@ import BehaviorNode = require("../Nodes/Behaviors/BehaviorNode");
 import BehaviorContainerNodeBase = require("../BehaviorContainerNodeBase");
 import JThreeObjectWithID = require('../../Base/JThreeObjectWithID');
 /**
- * container class for storeing ComponentNode and TargetNode
+ * container class for storeing BehaviorNode and TargetNode
  */
 class BehaviorNodePair extends JThreeObjectWithID
 {
 	/**
-	 * ComponentNode contain the arguments of component
+	 * BehaviortNode contain the arguments of behavior.
 	 */
-	private component:BehaviorNode;
+	private behavior:BehaviorNode;
 	
 	/**
 	 * TargetNode contain the ComponentNode
 	 */
 	private targetNode:BehaviorContainerNodeBase;
 	
-	constructor(component:BehaviorNode,target:BehaviorContainerNodeBase)
+	constructor(behavior:BehaviorNode,target:BehaviorContainerNodeBase)
 	{
-		super(component.ID);
-		this.component=component;
+		super(behavior.ID);
+		this.behavior=behavior;
 		this.targetNode=target;
 	}
 	/**
 	 * getter for component node
 	 */
-	public get Component():BehaviorNode
+	public get Behavior():BehaviorNode
 	{
-		return this.component;
+		return this.behavior;
 	}
 	/**
 	 * getter for target node
@@ -44,31 +44,29 @@ class BehaviorRunner extends JThreeObject
 {
 	private dictionary:JThreeCollection<BehaviorNodePair> = new JThreeCollection<BehaviorNodePair>();
 	
-	private sortedComponents:BehaviorNodePair[] = [];
+	private sortedBehavior:BehaviorNodePair[] = [];
 	
-	private sortComponents()
+	private sortBehaviors()
 	{
-		this.sortedComponents.sort((v1,v2)=>v1.Component.order-v2.Component.order);
+		this.sortedBehavior.sort((v1,v2)=>v1.Behavior.order-v2.Behavior.order);
 	}
 	
-	public addComponent(node:BehaviorNode,target:BehaviorContainerNodeBase)
+	public addBehavior(node:BehaviorNode,target:BehaviorContainerNodeBase)
 	{
 		var componentPair =new BehaviorNodePair(node,target);
 		this.dictionary.insert(componentPair);
-		this.sortedComponents.push(componentPair);
-		this.sortComponents();
+		this.sortedBehavior.push(componentPair);
+		this.sortBehaviors();
 		if(!node.awaken)node.awake.call(node,target);
 		
 	}
 	
-	public executeForAllComponents(componentName:string)
-	{
-		this.sortedComponents.forEach(v=>{
-			if(v.Component.enabled)
-			{
-				v.Component[componentName](v.Target);
-			}
-		})
+	public executeForAllBehaviors(behaviorName:string) {
+	    this.sortedBehavior.forEach(v => {
+	        if (v.Behavior.enabled) {
+	            v.Behavior[behaviorName](v.Target);
+	        }
+	    });
 	}
 }
 export = BehaviorRunner;

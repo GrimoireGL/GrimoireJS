@@ -53,7 +53,9 @@
   "keywords": [],
   "dependencies": {
     "gl-matrix": "^2.3.1",
+    "gulp-haml": "^0.1.5",
     "jquery": "^2.1.4",
-    "superagent": "^1.3.0"
+    "superagent": "^1.3.0",
+    "typescript": "^1.5.3"
   }
 }

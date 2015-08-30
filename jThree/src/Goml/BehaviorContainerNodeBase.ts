@@ -26,7 +26,7 @@ class BehaviorContainerNodeBase extends TreeNodeBase
      */
     public addComponent(component:BehaviorNode):void
     {
-        this.loader.componentRunner.addComponent(component,this);
+        this.loader.componentRunner.addBehavior(component,this);
         if(!this.components.has(component.ComponentName))this.components.set(component.ComponentName,[]);
         this.components.get(component.ComponentName).push(component);
     }
