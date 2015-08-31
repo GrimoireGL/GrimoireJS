@@ -10,9 +10,9 @@ import agent = require("superagent");
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
 */
 class JThreeStatic {
-  public addComponent(declaration: BehaviorDeclaration) {
+  public addBehavior(declaration: BehaviorDeclaration) {
     var context = JThreeContextProxy.getJThreeContext();
-    context.GomlLoader.componentRegistry.addComponent(declaration);
+    context.GomlLoader.componentRegistry.addBehavior(declaration);
   }
 }
 

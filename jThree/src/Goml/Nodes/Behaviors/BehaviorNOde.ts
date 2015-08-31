@@ -14,7 +14,7 @@ class BehaviorNode extends GomlTreeNodeBase
      this.componentName=elem.getAttribute("name");
       if(this.componentName)
       {
-        var component=loader.componentRegistry.getComponent(this.componentName);
+        var component=loader.componentRegistry.getBehavior(this.componentName);
         if(component)
         {
           //load d`efault value of component
@@ -78,7 +78,7 @@ class BehaviorNode extends GomlTreeNodeBase
              attributeContainer[attrKey]=attributeBody;
             this.attributes.defineAttribute(attributeContainer);
           } 
-          componentTarget.addComponent(this);
+          componentTarget.addBehavior(this);
           this.attributes.applyDefaultValue();
         }else{
           console.warn(`component"${elem.getAttribute("name")}" is not found.`);

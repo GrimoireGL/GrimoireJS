@@ -205,6 +205,8 @@
     <Content Include="wwwroot\_debug\tune\RIMG.spa" />
     <Content Include="wwwroot\_debug\tune\Test.pmx" />
     <Content Include="wwwroot\_debug\tune\Tune.pmx" />
+    <Content Include="wwwroot\_debug\Index.hgoml" />
+    <Content Include="wwwroot\Index.hgoml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -346,11 +348,11 @@
     <TypeScriptCompile Include="src\Goml\AttributeDeclationBody.ts" />
     <TypeScriptCompile Include="src\Goml\AttributeDictionary.ts" />
     <TypeScriptCompile Include="src\Goml\AttributeParser.ts" />
-    <TypeScriptCompile Include="src\Goml\ComponentContainerNodeBase.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\ComponentRegistry.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\ComponentRunner.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\GomlComponentDeclaration.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\GomlComponentDeclarationBody.ts" />
+    <TypeScriptCompile Include="src\Goml\BehaviorContainerNodeBase.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorRegistry.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorRunner.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorDeclaration.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorDeclarationBody.ts" />
     <TypeScriptCompile Include="src\Goml\Converter\AngleAttributeConverter.ts" />
     <TypeScriptCompile Include="src\Goml\Converter\AttributeConverterBase.ts" />
     <TypeScriptCompile Include="src\Goml\Converter\BooleanAttributeConverter.ts" />
@@ -365,7 +367,7 @@
     <TypeScriptCompile Include="src\Goml\Easing\EasingFunctionBase.ts" />
     <TypeScriptCompile Include="src\Goml\Easing\LinearEasingFunction.ts" />
     <TypeScriptCompile Include="src\Goml\Easing\SwingEasingFunction.ts" />
-    <TypeScriptCompile Include="src\Goml\Factories\ComponentTagFactory.ts" />
+    <TypeScriptCompile Include="src\Goml\Factories\BehaviorTagFactory.ts" />
     <TypeScriptCompile Include="src\Goml\Factories\SceneObjectTagFactory.ts" />
     <TypeScriptCompile Include="src\Goml\Factories\TagFactory.ts" />
     <TypeScriptCompile Include="src\Goml\Factories\TemplateTagFactory.ts" />
@@ -377,8 +379,8 @@
     <TypeScriptCompile Include="src\Goml\GomlNodeList.ts" />
     <TypeScriptCompile Include="src\Goml\GomlNodeListElement.ts" />
     <TypeScriptCompile Include="src\Goml\GomlTreeNodeBase.ts" />
-    <TypeScriptCompile Include="src\Goml\Nodes\Components\ComponentNode.ts" />
-    <TypeScriptCompile Include="src\Goml\Nodes\Components\ComponentsNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Behaviors\BehaviorNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Behaviors\BehaviorsNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Geometries\CircleGeometryNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Geometries\CubeGeometryNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Geometries\CylinderGeometryNode.ts" />

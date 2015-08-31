@@ -5,6 +5,7 @@ connect = require 'gulp-connect'
 typedoc = require 'gulp-typedoc'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
+haml = require 'gulp-haml'
 fs = require 'fs'
 _ = require 'lodash'
 globArray = require 'glob-array'
@@ -89,6 +90,15 @@ build task
 ###
 gulp.task 'build', ['webpack:main']
 
+###
+HAML Task
+###
+gulp.task 'haml', ->
+    gulp
+      .src "jThree/wwwroot/**/*.hgoml"
+      .pipe haml 
+        ext:".goml"
+      .pipe gulp.dest "jThree/wwwroot/**"
 
 ###
 webpack building task

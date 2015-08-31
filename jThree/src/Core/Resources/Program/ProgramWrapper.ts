@@ -1,17 +1,7 @@
 import Program = require("./Program");
 import ContextManagerBase = require("../../ContextManagerBase");
-import Matrix = require("../../../Math/Matrix");
-import BufferWrapper = require("../Buffer/BufferWrapper");
-import VectorBase = require("../../../Math/VectorBase");
-import Vector2 = require("../../../Math/Vector2");
-import Vector3 = require("../../../Math/Vector3");
-import Vector4 = require("../../../Math/Vector4");
 import ResourceWrapper = require('../ResourceWrapper');
 import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
-import RendererBase = require('../../Renderers/RendererBase');
-import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
-import TextureBase = require('../Texture/TextureBase');
-import TextureTargetType = require('../../../Wrapper/TargetTextureType');
 import VariableRegisteringArgument = require("./VariableRegister/VariableRegisteringArgument");
 import VariableRegisterBase = require("VariableRegister/Uniforms/UniformVariableRegisterBase");
 

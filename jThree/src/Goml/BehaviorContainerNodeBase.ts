@@ -18,22 +18,22 @@ class BehaviorContainerNodeBase extends TreeNodeBase
 	 /**
      * components that is attached to this node.
      */
-    protected components:AssociativeArray<BehaviorNode[]>=new AssociativeArray<BehaviorNode[]>();
+    protected behaviors:AssociativeArray<BehaviorNode[]>=new AssociativeArray<BehaviorNode[]>();
     
         
     /**
      * Add component to this node.
      */
-    public addComponent(component:BehaviorNode):void
+    public addBehavior(behaviors:BehaviorNode):void
     {
-        this.loader.componentRunner.addComponent(component,this);
-        if(!this.components.has(component.ComponentName))this.components.set(component.ComponentName,[]);
-        this.components.get(component.ComponentName).push(component);
+        this.loader.componentRunner.addBehavior(behaviors,this);
+        if(!this.behaviors.has(behaviors.ComponentName))this.behaviors.set(behaviors.ComponentName,[]);
+        this.behaviors.get(behaviors.ComponentName).push(behaviors);
     }
     
-    public getComponents(componentName:string):BehaviorNode[]
+    public getBehaviors(behaviorName:string):BehaviorNode[]
     {
-        return this.components.get(componentName);
+        return this.behaviors.get(behaviorName);
     }
 }
 
