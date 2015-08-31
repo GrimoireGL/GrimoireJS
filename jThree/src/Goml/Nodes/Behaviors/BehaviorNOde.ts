@@ -78,7 +78,7 @@ class BehaviorNode extends GomlTreeNodeBase
              attributeContainer[attrKey]=attributeBody;
             this.attributes.defineAttribute(attributeContainer);
           } 
-          componentTarget.addComponent(this);
+          componentTarget.addBehavior(this);
           this.attributes.applyDefaultValue();
         }else{
           console.warn(`component"${elem.getAttribute("name")}" is not found.`);

@@ -19,8 +19,7 @@ class BehaviorRegistry extends JThreeObject
   {
     for(var componentKey in components)
     {
-      var component = components[componentKey];
-      this.behaviorInstances.set(componentKey,component);
+      this.behaviorInstances.set(componentKey,this.generateBehaviorInstance(components,componentKey));
     }
   }
 
@@ -35,8 +34,26 @@ class BehaviorRegistry extends JThreeObject
           //Assume generation seed is constructor of behavior
           return <BehaviorDeclarationBody>(new (<Delegates.Action0>generationSeed)());
       } else {
-          //TODO Copy object
-
+          return this.copyObject(generationSeed);
+      }
+  }
+    /**
+     * Generate reference copy
+     * @param targetObject the object you want to copy 
+     * @returns {} 
+     */
+  private copyObject(targetObject:any) {
+      if (typeof targetObject === "object") {
+          var newObject = {};
+          for (var key in targetObject) {
+              if (targetObject.hasOwnProperty(key)) {
+                  var property = targetObject[key];
+                  newObject[key] = this.copyObject(property);
+              }
+          }
+          return newObject;
+      } else {
+          return targetObject;
       }
   }
 }
