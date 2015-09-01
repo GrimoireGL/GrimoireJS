@@ -1,11 +1,25 @@
-var RotationBehavior = function() {
+var RotationBehavior = function () {
     
 }
 
 RotationBehavior.prototype.update = function(v) {
-    console.log("called update");
+    var q = v.attributes.getValue("rotation");
+    var qd=q.constructor.AngleAxis(0.1,new (v.attributes.getValue("position").constructor)(0, 1, 0));
+    var q = q.constructor.Multiply(qd, q);
+    v.attributes.setValue("rotation",q);
 }
-j3.defineBehavior("rotation",RotationBehavior);
+
+/*
+RotationBehavior.prototype.attributes =
+{
+    test: {
+        converter:"string"
+    }
+};
+*/
+
+j3.defineBehavior("rotation", RotationBehavior);
+
 j3(function () {
 
   //j3("pmx").animate({rotation:"y(120d)",scale:"0.1"},10000).animate({rotation:"y(240d)",scale:"0.1"},10000).animate({rotation:"y(360d)",scale:"0.1"},10000);
@@ -25,6 +39,6 @@ j3(function () {
   // j3("#modTest").animate({testValue:500},2000);
   // j3("#modTest").delay(2000).queue(function(){
   //   j3("#modTest").attr({enabled:false});
-    // });
+  // });
     j3("#camera-origin").animate({rotation:"y(-120d)"},30000);
 });

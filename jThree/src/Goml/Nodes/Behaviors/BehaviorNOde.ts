@@ -58,16 +58,7 @@ class BehaviorNode extends GomlTreeNodeBase
                         console.error(`attribute name '${attrKey}' is protected attribute name. please change name`);
                         continue;
                     }
-                    ((attrKey) => {
-                        Object.defineProperty(this, attrKey, {
-                            get: () => {
-                                return this.attributes.getValue(attrKey);
-                            },
-                            set: (v) => {
-                                this.attributes.setValue(attrKey, v);
-                            }
-                        });
-                    })(attrKey);
+                    this.defineAccessor(attrKey);
                     var attributeContainer: AttributeDeclaration = {};
                     attributeContainer[attrKey] = attr;
                     this.attributes.defineAttribute(attributeContainer);
@@ -82,6 +73,44 @@ class BehaviorNode extends GomlTreeNodeBase
         {
             console.warn("component name was not specified");
         }
+        var elemAttrs: NamedNodeMap = this.Element.attributes;
+        for (var index = 0; index < elemAttrs.length; index++)
+        {
+            var namedNode: Attr = elemAttrs.item(index);
+            if (!(namedNode.name in this))
+            {
+                this.defineAccessorForDefault(namedNode);
+            }
+        }
+    }
+
+    private defineAccessorForDefault(targetNode: Attr)
+    {
+        Object.defineProperty(this, targetNode.name,
+            {
+                get: () =>
+                {
+                    return targetNode.value;
+                },
+                set: (v) =>
+                {
+                    targetNode.value = v;
+                }
+            });
+    }
+
+    private defineAccessor(attrKey: string)
+    {
+        Object.defineProperty(this, attrKey, {
+            get: () =>
+            {
+                return this.attributes.getValue(attrKey);
+            },
+            set: (v) =>
+            {
+                this.attributes.setValue(attrKey, v);
+            }
+        });
     }
     /**
      * The node contains this module.
