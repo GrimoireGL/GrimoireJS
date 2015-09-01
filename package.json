@@ -45,7 +45,7 @@
     "json-loader": "^0.5.1",
     "lodash": "^3.10.1",
     "shader-loader": "^1.1.3",
-    "shaderify": "pnlybubbles/shaderify#04e38c53957938dda6f74865d7028a63161eda96",
+    "shaderify": "pnlybubbles/shaderify#0fcdf2aa0140253170cbbc608ade68d34f78e448",
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0",
     "ts-loader": "^0.5.0",
