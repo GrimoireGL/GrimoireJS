@@ -164,6 +164,7 @@
 /// <reference path="Goml/GomlNodeList.ts" />
 /// <reference path="Goml/GomlNodeListElement.ts" />
 /// <reference path="Goml/GomlTreeNodeBase.ts" />
+/// <reference path="Goml/Nodes/Behaviors/BehaviorNode.ts" />
 /// <reference path="Goml/Nodes/Behaviors/BehaviorsNode.ts" />
 /// <reference path="Goml/Nodes/Geometries/CircleGeometryNode.ts" />
 /// <reference path="Goml/Nodes/Geometries/CubeGeometryNode.ts" />

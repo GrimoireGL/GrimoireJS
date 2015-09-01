@@ -92,7 +92,7 @@ requireAliases =
 # individual config for build
 config =
   main:
-    bundler: 'webpack'
+    bundler: 'browserify'
     entry: './jThree/src/jThree.ts'
     name: 'j3.js'
     dest: ['./jThree/bin/product', './jThree/wwwroot']
