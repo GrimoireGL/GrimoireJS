@@ -200,6 +200,8 @@ Object.keys(config).forEach (suffix) ->
           .on 'end', ->
             unless watching
               copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+          .on 'error', ->
+            gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
 
 
 ###
