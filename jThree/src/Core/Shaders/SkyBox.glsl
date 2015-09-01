@@ -1,4 +1,4 @@
-﻿precision mediump float;
+precision mediump float;
 uniform samplerCube skyTex;
 varying vec2 v_uv;
 varying vec3 v_position;

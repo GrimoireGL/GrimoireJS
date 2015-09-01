@@ -3,7 +3,7 @@ import Vector3 = require("./Vector3");
 import Vector4 = require("./Vector4");
 import Delegates=require('../Base/Delegates');
 import Quaternion = require("./Quaternion");
-import glm = require('glm');
+import glm = require('gl-matrix');
 class Matrix extends MatrixBase{
     public static zero(): Matrix {
         return new Matrix([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
@@ -21,13 +21,13 @@ class Matrix extends MatrixBase{
     {
                return new Matrix([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]);
     }
-    
+
     private targetMatrix = glm.mat4.create();
 
     public get rawElements(): Float32Array {
         return <Float32Array>this.targetMatrix;
     }
-    
+
     public get RawElements():glm.GLM.IArray
     {
         return this.targetMatrix;

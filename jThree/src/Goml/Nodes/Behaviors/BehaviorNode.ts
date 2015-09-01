@@ -57,25 +57,9 @@ class BehaviorNode extends GomlTreeNodeBase
               continue;
             }
             //create handler
-            var newHandler:Delegates.Action1<GomlAttribute>
-            =attr.handler?
-            (v)=>{
-              this[attrKey]=v.Value;
-              attr.handler(v);
-            }
-            :
-            (v)=>
-            {
-              this[attrKey]=v.Value;
-            };
-            //recreate attribute body
-            var attributeBody={
-               converter:attr.converter,
-               value:attr.value,
-               handler:newHandler
-              };
+              this.defineAccessor(attrKey);
              var attributeContainer:AttributeDeclaration={};
-             attributeContainer[attrKey]=attributeBody;
+             attributeContainer[attrKey]=attr;
             this.attributes.defineAttribute(attributeContainer);
           } 
           componentTarget.addBehavior(this);
@@ -87,6 +71,20 @@ class BehaviorNode extends GomlTreeNodeBase
         console.warn("component name was not specified");
       }
   }
+
+  private defineAccessor(attrKey:string) {
+      Object.defineProperty(this, attrKey, {
+          get:
+          () =>
+          {
+              return this.attributes.getValue(attrKey);
+          },
+          set: (v) =>
+          {
+              this.attributes.setValue(attrKey, v);
+          }
+      });
+  }
   /**
    * The node contains this module.
    */
@@ -94,7 +92,7 @@ class BehaviorNode extends GomlTreeNodeBase
   
   private componentName:string;
   
-  public get  ComponentName():string
+  public get  BehaviorName():string
   {
     return this.componentName;
   }

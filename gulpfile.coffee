@@ -5,6 +5,11 @@ connect = require 'gulp-connect'
 typedoc = require 'gulp-typedoc'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
+plumber = require 'gulp-plumber'
+rename = require 'gulp-rename'
+watchify = require 'gulp-watchify'
+tsify = require 'tsify'
+shaderify = require 'shaderify'
 haml = require 'gulp-haml'
 fs = require 'fs'
 _ = require 'lodash'
@@ -30,37 +35,39 @@ configure
 branch = args.branch || 'unknown'
 gutil.log "branch: #{branch}"
 
+forceBundler = args.bundler || null
+gutil.log "force compile with bundler: #{forceBundler}" if forceBundler?
+
 # typedoc sources (Array), dest
-typedocSrc = ['jThree/src/**/*.ts']
+typedocSrc = ['./jThree/src/**/*.ts']
 typedocDest = 'ci/docs'
 
 # tsd file sources (Array)
-tsdSrc = 'jThree/refs/**/*.d.ts'
+tsdSrc = './jThree/refs/**/*.d.ts'
 
 # test target (Array)
-testTarget = 'jThree/test/build/test.js'
+testTarget = './jThree/test/build/test.js'
+
+# entries of ts files (same as tsconfig files)
+tsEntries = ["./jThree/**/*.ts", "./test/**/*.ts"]
 
 # path to tsconfig.json
 tsconfigPath = './tsconfig.json'
 
+# path to bundle.ts for references
+tsbundlePath = './jThree/src/bundle.ts'
+
+# path to tsd.json
+tsdPath = './tsd.json'
+
+# root path for simple server
+serverRoot = './jThree/wwwroot'
+
+# watch src for liveReload
+watchForReload = ['./jThree/wwwroot/**/*.js', './jThree/wwwroot/**/*.html', './jThree/wwwroot/**/*.goml']
+
 # pathes for webpack building
-requireRoot = 'jThree/src'
-serverRoot = 'jThree/wwwroot'
-watchForReload = ['jThree/wwwroot/**/*.js', 'jThree/wwwroot/**/*.html', 'jThree/wwwroot/**/*.goml']
-
-# individual config for webpack building
-config =
-  main:
-    entry: 'jThree/src/jThree.ts'
-    name: 'j3.js'
-    dest: ['jThree/bin/product', 'jThree/wwwroot']
-    watch: ['jThree/src/**/*.ts', 'jThree/refs/**/*.d.ts', 'jThree/src/**/*.glsl', 'jThree/src/**/*.json']
-
-  test:
-    entry: 'jThree/test/Test.ts'
-    name: 'test.js'
-    dest: ['jThree/test/build']
-    watch: ['jThree/test/**/*.ts', 'jThree/refs/**/*.d.ts']
+requireRoot = './jThree/src'
 
 # webpack output stats config
 defaultStatsOptions =
@@ -78,6 +85,25 @@ defaultStatsOptions =
   source: false
   errorDetails: false
 
+# alias for resolving require
+requireAliases =
+  'glm': 'gl-matrix'
+
+# individual config for build
+config =
+  main:
+    bundler: 'browserify'
+    entry: './jThree/src/jThree.ts'
+    name: 'j3.js'
+    dest: ['./jThree/bin/product', './jThree/wwwroot']
+    target: 'web'
+
+  test:
+    bundler: 'browserify'
+    entry: './jThree/test/Test.coffee'
+    name: 'test.js'
+    dest: ['./jThree/test/build']
+    target: 'node'
 
 ###
 default task
@@ -88,7 +114,7 @@ gulp.task 'default', ['build']
 ###
 build task
 ###
-gulp.task 'build', ['webpack:main']
+gulp.task 'build', ['build:main']
 
 ###
 HAML Task
@@ -96,7 +122,7 @@ HAML Task
 gulp.task 'haml', ->
     gulp
       .src "jThree/wwwroot/**/*.hgoml"
-      .pipe haml 
+      .pipe haml
         ext:".goml"
       .pipe gulp.dest "jThree/wwwroot/**"
 
@@ -106,43 +132,77 @@ webpack building task
 
 Object.keys(config).forEach (suffix) ->
   c = config[suffix]
-  gulp.task "webpack:#{suffix}", ->
-    if watching && c.dest.length >= 2
-      gulp.watch "#{c.dest[0]}/#{c.name}", ->
-        copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
-    gulp
-      .src path.join __dirname, c.entry
-      .pipe webpack
-        watch: watching
-        output:
-          filename: c.name
-        resolve:
-          alias:
-            'glm': 'gl-matrix'
-          extensions: ['', '.js', '.ts']
-          root: [requireRoot]
-        module:
-          loaders: [
-              test: /\.json$/
-              loader: 'json'
-            ,
-              test: /\.glsl$/
-              loader: 'shader'
-            ,
-              test: /\.ts$/
-              loader: 'ts-loader'
-              configFileName: tsconfigPath
-          ]
-        glsl:
-          chunkPath: "./Chunk"
-      , null, (err, stats) ->
-        gutil.log stats.toString defaultStatsOptions
-        if stats.compilation.errors.length != 0
-          gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
-      .pipe gulp.dest(c.dest[0])
-      .on 'end', ->
-        unless watching
-          copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+  bundler = forceBundler || c.bundler
+  gulp.task "build:#{suffix}", do ->
+    if bundler == 'webpack'
+      return ->
+        if watching && c.dest.length >= 2
+          gulp.watch "#{c.dest[0]}/#{c.name}", ->
+            copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+        gulp
+          .src path.resolve __dirname, c.entry
+          .pipe webpack
+            watch: watching
+            output:
+              filename: c.name
+            resolve:
+              alias:
+                'glm': 'gl-matrix'
+              extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
+              root: requireRoot
+            module:
+              loaders: [
+                  test: /\.json$/
+                  loader: 'json-loader'
+                ,
+                  test: /\.ts$/
+                  loader: 'ts-loader'
+                  configFileName: tsconfigPath
+                ,
+                  test: /\.coffee$/
+                  loader: 'coffee-loader'
+                ,
+                  test: /\.glsl$/
+                  loader: 'shader-loader'
+              ]
+            target: c.target
+            glsl:
+              chunkPath: "./Chunk"
+          , null, (err, stats) ->
+            gutil.log stats.toString defaultStatsOptions
+            if stats.compilation.errors.length != 0
+              gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
+          .pipe gulp.dest(c.dest[0])
+          .on 'end', ->
+            unless watching
+              copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+    else if bundler == 'browserify'
+      # tsdBundlePath = JSON.parse(fs.readFileSync(tsdPath))?.bundle
+      return watchify (watchify) ->
+        if watching && c.dest.length >= 2
+          gulp.watch "#{c.dest[0]}/#{c.name}", ->
+            copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+        gulp
+          .src path.resolve(__dirname, c.entry)
+          .pipe plumber()
+          .pipe watchify
+            watch: watching
+            extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
+            # debug: true
+            transform: ['coffeeify']
+            detectGlobals: c.target == 'node'
+            bundleExternal: c.target == 'web'
+            setup: (b) ->
+              b.transform shaderify
+              b.plugin tsify, {target: "es5"}
+          .pipe rename(c.name)
+          .pipe gulp.dest(c.dest[0])
+          .on 'end', ->
+            unless watching
+              copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+          .on 'error', ->
+            gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
+
 
 ###
 copy files
@@ -152,6 +212,7 @@ copyFiles = (src, dest) ->
     gulp
       .src src
       .pipe gulp.dest(d)
+
 
 ###
 watch-mode
@@ -163,7 +224,7 @@ gulp.task 'enable-watch-mode', -> watching = true
 ###
 main watch task
 ###
-gulp.task 'watch:main', ['enable-watch-mode', 'webpack:main', 'server', 'watch-reload']
+gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'server', 'watch-reload']
 
 gulp.task 'watch-reload', ->
   gulp.watch watchForReload, ['reload']
@@ -192,7 +253,7 @@ gulp.task 'server', ->
 ###
 travis task
 ###
-gulp.task 'travis', ['webpack:main'], ->
+gulp.task 'travis', ['build:main'], ->
 
 
 ###
@@ -212,14 +273,14 @@ gulp.task 'doc', (cb) ->
 ###
 test task
 ###
-gulp.task 'test', ['webpack:test'], ->
+gulp.task 'test', ['build:test'], ->
   gulp.start ['mocha']
 
 
 ###
 test watch task
 ###
-gulp.task 'watch:test', ['enable-watch-mode', 'webpack:test', 'watch-mocha']
+gulp.task 'watch:test', ['enable-watch-mode', 'build:test', 'watch-mocha']
 
 gulp.task 'watch-mocha', ->
   gulp.watch testTarget, ['mocha']
@@ -238,9 +299,17 @@ gulp.task 'mocha', ->
 update tsconfig files (if your editor does not adapt to 'filesGlob')
 ###
 gulp.task 'update-tsconfig-files', ->
-  json = JSON.parse fs.readFileSync path.join(__dirname, tsconfigPath)
-  files = globArray.sync json.filesGlob
-  json.files = _.uniq(files, true) # 2nd argu is 'isSorted'
-  fs.writeFileSync path.join(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
+  json = JSON.parse fs.readFileSync path.resolve(__dirname, tsconfigPath)
+  files = _(globArray.sync(json.filesGlob)).uniq(true)
+  fs.writeFileSync path.resolve(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
+  refs = _(files)
+    .map (v) ->
+      rpath = path.relative(path.dirname(tsbundlePath), v)
+      if rpath != 'bundle.ts'
+        "/// <reference path=\"#{rpath}\" />"
+      else
+        null
+    .compact()
+  fs.writeFileSync path.resolve(__dirname, tsbundlePath), (refs.join('\n') + '\n')
 
 gulp.task 'tscfg', ['update-tsconfig-files']
