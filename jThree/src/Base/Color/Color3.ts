@@ -36,14 +36,14 @@ class Color3 extends JThreeObject {
     {
       return new Vector3(this.R,this.G,this.B);
     }
-    
+
     public toVector4(a?:number):Vector4
     {
         if(typeof a ==="undefined")a=0;
         return new Vector4(this.R,this.G,this.B,a);
     }
 
-    public static colorTable: { [key: string]: string } = require("static/color.json");
+    public static colorTable: { [key: string]: string } = require("../../static/color.json");
     ///Color parser for css like syntax
     public static internalParse(color: string, isFirst: boolean): Color3 {
         if (isFirst && Color4.colorTable[color]) {

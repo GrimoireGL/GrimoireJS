@@ -14,8 +14,8 @@
     "!./node_modules/**/*.ts"
   ],
   "files": [
+    "./jThree/refs/bundle.ts",
     "./jThree/refs/chai/chai.d.ts",
-    "./jThree/refs/gl-matrix/gl-matrix.d.ts",
     "./jThree/refs/jquery/jquery.d.ts",
     "./jThree/refs/jsdom/jsdom.d.ts",
     "./jThree/refs/mocha/mocha.d.ts",
@@ -61,6 +61,8 @@
     "./jThree/src/Core/Light/DirectionalLight.ts",
     "./jThree/src/Core/Light/LightBase.ts",
     "./jThree/src/Core/Light/LightRegister.ts",
+    "./jThree/src/Core/Light/LightShderComposer.ts",
+    "./jThree/src/Core/Light/LightTypeDeclaration.ts",
     "./jThree/src/Core/Light/PointLight.ts",
     "./jThree/src/Core/ListStateChangedType.ts",
     "./jThree/src/Core/Materials/DebugSpriteMaterial.ts",
@@ -283,9 +285,6 @@
     "./jThree/src/Wrapper/WebGLContextWrapper.ts",
     "./jThree/src/bundle-notdoc.ts",
     "./jThree/src/jThree.ts",
-    "./jThree/test/Core/Light/LightRegisterTest.ts",
-    "./jThree/test/Goml/GomlLoaderTest.ts",
-    "./jThree/test/Sample/SampleTest.ts",
-    "./jThree/test/Test.ts"
+    "./jThree/test/Sample/SampleTs.ts"
   ]
 }

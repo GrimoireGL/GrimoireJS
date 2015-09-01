@@ -5,7 +5,7 @@ import VMDFrameData = require("./VMDFrameData");
 import VMDBoneStatus= require("./VMDBoneStatus");
 import Delegates = require("../../Base/Delegates");
 import VMDMorphStatus = require("./VMDMorphStatus");
-import glm = require("glm");
+import glm = require("gl-matrix");
 class VMDData {
 
 	public static LoadFromUrl(url: string, onComplete: Delegates.Action1<VMDData>) {

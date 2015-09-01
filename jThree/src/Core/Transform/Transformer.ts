@@ -4,7 +4,7 @@ import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
 import Delegates = require("../../Base/Delegates");
-import glm = require("glm");
+import glm = require("gl-matrix");
 import RendererBase = require("./../Renderers/RendererBase");
 import JThreeEvent = require("./../../Base/JThreeEvent");
 /**
@@ -31,24 +31,24 @@ class Transformer extends JThreeObject {
    * Scene oject reference this transformer related to.
    */
   private relatedTo: SceneObject;
-  
+
   /**
    * backing field of Rotation.
    */
   private rotation: Quaternion;
-  
+
   /**
    * backing field of Position.
    */
   private position: Vector3;
 
   private localOrigin: Vector3;
-  
+
   /**
    * backing field of Scale.
    */
   private scale: Vector3;
-  
+
   /**
    * backing filed of Foward.
    */
@@ -63,7 +63,7 @@ class Transformer extends JThreeObject {
    * backing field of LocalToGlobal
    */
   private localToGlobal: Matrix;
-  
+
   /**
    * calculation cache
    */
@@ -74,7 +74,7 @@ class Transformer extends JThreeObject {
   private fowardCache: glm.GLM.IArray = glm.vec3.create();
 
   private cacheVec: glm.GLM.IArray = glm.vec4.create();
-  
+
   /**
    * properties for storeing event handlers
    */
@@ -156,14 +156,14 @@ class Transformer extends JThreeObject {
     this.position = vec;
     this.updateTransform();
   }
-  
+
   /**
    * Get Accessor for model scale.
    */
     public get Scale(): Vector3 {
     return this.scale;
   }
-  
+
   /**
    * Set Accessor for model scale.
    */

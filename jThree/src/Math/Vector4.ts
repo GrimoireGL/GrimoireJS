@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require('glm');
+import glm = require('gl-matrix');
 
 class Vector4 extends VectorBase
 {
@@ -43,9 +43,9 @@ class Vector4 extends VectorBase
         }
         this.targetVector=[<number>x,y,z,w];
     }
-    
+
     private targetVector:glm.GLM.IArray;
-    
+
     public get RawElements():glm.GLM.IArray
     {
         return this.targetVector;

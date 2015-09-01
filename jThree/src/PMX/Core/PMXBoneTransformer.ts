@@ -1,7 +1,7 @@
 import Transformer = require('../../Core/Transform/Transformer');
 import SceneObject = require('../../Core/SceneObject');
 import PMXModel = require('./PMXModel');
-import glm = require('glm');
+import glm = require('gl-matrix');
 import Quaternion = require('../../Math/Quaternion');
 import Vector3 = require('../../Math/Vector3');
 import Matrix = require('../../Math/Matrix');
@@ -18,7 +18,7 @@ class PMXBoneTransformer extends Transformer {
 	private pmxCalcCacheQuat = glm.quat.create();
 
 	private pmxCalcCacheQuat2 = glm.quat.create();
-	
+
 	private pmxCalcCahceMat = glm.mat4.create();
 
 	public get PMXModelData() {
@@ -119,7 +119,7 @@ class PMXBoneTransformer extends Transformer {
             var yRotation = Math.max(link.limitedRotation[1],Math.min(link.limitedRotation[4],-decomposed.y));
             var zRotation = Math.max(link.limitedRotation[2],Math.min(link.limitedRotation[5],decomposed.z));
             return Quaternion.EulerXYZ(-xRotation,-yRotation,zRotation);
-        
+
 }
 
 	private clampFloat(f: number, limit: number) {

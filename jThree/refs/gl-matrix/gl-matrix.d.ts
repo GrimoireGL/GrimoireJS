@@ -3,7 +3,7 @@
 // Definitions by: Tat <https://github.com/tatchx>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "glm" {
+declare module "gl-matrix" {
 
     export module GLM {
         export interface IArray {
