@@ -1,4 +1,13 @@
-j3(function(){
+var RotationBehavior = function() {
+    
+}
+
+RotationBehavior.prototype.update = function(v) {
+    console.log("called update");
+}
+j3.defineBehavior("rotation",RotationBehavior);
+j3(function () {
+
   //j3("pmx").animate({rotation:"y(120d)",scale:"0.1"},10000).animate({rotation:"y(240d)",scale:"0.1"},10000).animate({rotation:"y(360d)",scale:"0.1"},10000);
   j3("#wrink").animate({value:0},30000);
   j3("vmd").animate({frame:7200},240000);

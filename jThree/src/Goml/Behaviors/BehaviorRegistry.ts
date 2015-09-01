@@ -4,7 +4,7 @@ import BehaviorDeclaration = require('./BehaviorDeclaration');
 import BehaviorDeclarationBody = require('./BehaviorDeclarationBody');
 import Delegates = require("../../Base/Delegates");
 /**
-* The class for managing classes registered.
+* Provides feature to register behavior.
 */
 class BehaviorRegistry extends JThreeObject
 {
@@ -13,28 +13,36 @@ class BehaviorRegistry extends JThreeObject
     super();
   }
   
-  private behaviorInstances:AssociativeArray<BehaviorDeclarationBody>=new AssociativeArray<BehaviorDeclarationBody>();
-  
-  public addBehavior(components:BehaviorDeclaration)
+  private behaviorInstances: AssociativeArray<BehaviorDeclarationBody> = new AssociativeArray<BehaviorDeclarationBody>();
+
+  public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody|Delegates.Action0);
+  public defineBehavior(behaviorDeclarations:BehaviorDeclaration);
+  public defineBehavior(nameOrDeclarations: string|BehaviorDeclaration, behaviorDeclaration?: BehaviorDeclarationBody|Delegates.Action0)
   {
-    for(var componentKey in components)
-    {
-      this.behaviorInstances.set(componentKey,this.generateBehaviorInstance(components,componentKey));
-    }
+      if (typeof nameOrDeclarations === "string") {
+          var behaviorName = <string>nameOrDeclarations;
+          this.behaviorInstances.set(behaviorName, this.generateBehaviorInstance(behaviorDeclaration));
+      } else
+      {
+          //assume arguments are object.
+          var behaviorDeclarations = <BehaviorDeclaration>nameOrDeclarations;
+          for (var behaviorKey in behaviorDeclarations) {
+              this.behaviorInstances.set(behaviorKey, this.generateBehaviorInstance(behaviorDeclarations[behaviorKey]));
+          }
+      }
   }
 
-  public getBehavior(componentName:string):BehaviorDeclarationBody
+  public getBehavior(behaviorName:string):BehaviorDeclarationBody
   {
-    return this.behaviorInstances.get(componentName);
+    return this.behaviorInstances.get(behaviorName);
   }
 
-  private generateBehaviorInstance(behaviorDecl:BehaviorDeclaration,key:string):BehaviorDeclarationBody {
-      var generationSeed = behaviorDecl[key];
-      if (typeof generationSeed === "function") {
+  private generateBehaviorInstance(behaviorDecl:BehaviorDeclarationBody|Delegates.Action0):BehaviorDeclarationBody {
+      if (typeof behaviorDecl === "function") {
           //Assume generation seed is constructor of behavior
-          return <BehaviorDeclarationBody>(new (<Delegates.Action0>generationSeed)());
+          return <BehaviorDeclarationBody>(new (<Delegates.Action0>behaviorDecl)());
       } else {
-          return this.copyObject(generationSeed);
+          return this.copyObject(behaviorDecl);
       }
   }
     /**

@@ -4,15 +4,19 @@ import $ = require('jquery');
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import BehaviorDeclaration = require("Goml/Behaviors/BehaviorDeclaration");
+import BehaviorDeclarationBody = require("Goml/Behaviors/BehaviorDeclarationBody");
 import agent = require("superagent");
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
 */
-class JThreeStatic {
-  public addBehavior(declaration: BehaviorDeclaration) {
+class JThreeStatic
+{
+    public defineBehavior(behaviorName: string, decl: BehaviorDeclarationBody|Delegates.Action0);
+    public defineBehavior(declarations:BehaviorDeclaration);
+  public defineBehavior(nameOrDeclarations:string|BehaviorDeclaration,declaration?:BehaviorDeclarationBody|Delegates.Action0) {
     var context = JThreeContextProxy.getJThreeContext();
-    context.GomlLoader.componentRegistry.addBehavior(declaration);
+    context.GomlLoader.componentRegistry.defineBehavior(<string>nameOrDeclarations,declaration);//This is not string but it is for conviniesnce.
   }
 }
 
