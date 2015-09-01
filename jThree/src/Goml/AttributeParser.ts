@@ -1,8 +1,18 @@
 import jThreeObject = require("../Base/JThreeObject");
 import Quaternion = require("../Math/Quaternion");
 import Vector3 = require("../Math/Vector3");
+/**
+ * Utility class to parse the arguments of attributes.
+ */
 class AttributeParser extends jThreeObject
 {
+    /**
+     * Parse angle strings.
+     * "p" means Pi. Ex) 3/4 p
+     * "d" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d
+     * @param input the string to parse.
+     * @returns {number} parsed angle in radians. 
+     */
   public static ParseAngle(input:string):number
   {
     if(input.match(/^p$/))return Math.PI;
@@ -22,6 +32,18 @@ class AttributeParser extends jThreeObject
     return evalued;
   }
 
+    /**
+     * Parse angle string in 3D.
+     * "p" means Pi. Ex) 3/4 p
+     * "d" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d
+     * "eular(x,y,z)" means rotation in eular. This means Z-X-Y rotation like Unity.
+     * "axis(angle,x,y,z)" means rotation around specified axis. This means angle radians will be rotated around the axis (x,y,z).
+     * This angle can be specified with the character "p" or "d".
+     * "x(angle)","y(angle)" or "z(angle)" means rotation around unit axis.
+     * This angle can be specified with the character "p" or "d". 
+     * @param input the string to be parsed as angle in 3D.
+     * @returns {Quaternion} parsed rotation in Quaternion. 
+     */
   public static ParseRotation3D(input:string):Quaternion
   {
     input = input.replace(/\s/g, "")

@@ -1,34 +1,27 @@
-﻿import BufferProxy = require("./BufferProxy");
-import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
+﻿import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import Buffer = require("./Buffer");
 import ElementType = require("../../../Wrapper/ElementType");
-
+import ResourceWrapper = require("../ResourceWrapper");
+import ContextManagerBase = require("../../ContextManagerBase");
 /**
- * Most based wrapper of buffer.
+ * Buffer wrapper based on context.
  */
-class BufferWrapper extends BufferProxy
+class BufferWrapper extends ResourceWrapper
 {
     private glContext: GLContextWrapperBase;
 
     private targetBuffer: WebGLBuffer = null;
 
-    private length:number=0;
+    private length: number = 0;
 
-    constructor(parentBuffer: Buffer, glContext: GLContextWrapperBase)
+    private parentBuffer:Buffer;
+
+    constructor(parentBuffer: Buffer,contextManager:ContextManagerBase)
     {
-        super(parentBuffer, []);
-        this.glContext = glContext;
-        this.targetArray = [this];
-    }
+        super(contextManager);
+        this.glContext = contextManager.GLContext;
+        this.parentBuffer = parentBuffer;
 
-    private isInitialized: boolean = false;
-
-    /**
-     * Get the flag wheather this buffer is initialized or not.
-     */
-    public get IsInitialized()
-    {
-        return this.isInitialized;
     }
 
     public get Length(): number {
@@ -59,13 +52,11 @@ class BufferWrapper extends BufferProxy
       return this.parentBuffer.Offset;
     }
 
-    public get isAllInitialized(): boolean { return this.IsInitialized; }
-
     public update(array: Float32Array, length: number): void
     {
-        if (!this.isInitialized)
+        if (!this.Initialized)
         {
-            this.loadAll();
+            this.init();
         }
         this.bindBuffer();
         this.glContext.BufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
@@ -73,35 +64,33 @@ class BufferWrapper extends BufferProxy
         this.length = length;
     }
 
-    public loadAll(): void
+    public init(): void
     {
         if (this.targetBuffer == null)
         {
             this.targetBuffer = this.glContext.CreateBuffer();
-            this.isInitialized = true;
+            this.setInitialized();
         }
     }
 
     public bindBuffer(): void
     {
-        if (this.isInitialized)
+        if (this.Initialized)
         {
             this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
         } else {
-            this.loadAll();
+            this.init();
             this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
-            //TODO 初期化されていなかった場合の対処
+            this.update(this.parentBuffer.ElementCache,this.parentBuffer.Length);
         }
     }
 
     public unbindBuffer(): void
     {
-        if (this.isInitialized)
+        if (this.Initialized)
         {
             this.glContext.UnbindBuffer(this.parentBuffer.Target);
         }
     }
-
-    public get ManagedProxies() { return [this]; }
 }
 export=BufferWrapper;

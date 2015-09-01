@@ -45,8 +45,8 @@ class Rectangle extends jThreeObject {
         return r1.Left===r2.Left&&r1.Right===r2.Right&&r1.Top===r2.Top&&r1.Bottom===r2.Bottom;
     }
 
-    public static SizeEquals() {
-        
+    public static SizeEquals(r1:Rectangle,r2:Rectangle) {
+        return r1.Width === r2.Width && r1.Height === r2.Height;
     }
 }
 export=Rectangle;

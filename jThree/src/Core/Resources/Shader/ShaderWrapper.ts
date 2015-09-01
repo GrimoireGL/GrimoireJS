@@ -34,6 +34,17 @@ class ShaderWrapper extends ResourceWrapper
             this.setInitialized(false);
         }
     }
+
+    /**
+     * Update shader source from Shader class.
+     */
+    public update() {
+        var gl=this.WebGLContext;
+        gl.DeleteShader(this.targetShader);
+        this.targetShader = gl.CreateShader(this.parentShader.ShaderType);
+        gl.ShaderSource(this.TargetShader, this.parentShader.ShaderSource);
+        gl.CompileShader(this.TargetShader);
+    }
 }
 
 export=ShaderWrapper;

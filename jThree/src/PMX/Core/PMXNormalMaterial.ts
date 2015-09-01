@@ -14,75 +14,87 @@ declare function require(string): string;
 /**
  * the materials for PMX.
  */
-class PMXDepthMaterial extends Material {
+class PMXDepthMaterial extends Material
+{
     protected program: Program;
 
-    protected associatedMaterial:PMXMaterial;
+    protected associatedMaterial: PMXMaterial;
     
     /**
      * Count of verticies
      */
-    public get VerticiesCount() {
+    public get VerticiesCount()
+    {
         return this.associatedMaterial.VerticiesCount;
     }
     
     /**
      * Offset of verticies in index buffer
      */
-    public get VerticiesOffset() {
+    public get VerticiesOffset()
+    {
         return this.associatedMaterial.VerticiesOffset;
     }
 
 
-    public get PassCount(): number {
+    public get PassCount(): number
+    {
         return 1;
     }
 
-    constructor(material:PMXMaterial) {
+    constructor(material: PMXMaterial)
+    {
         super();
-        this.associatedMaterial=material;
+        this.associatedMaterial = material;
         var vs = require('../Shader/PMXNormalVertex.glsl');
         var fs = require('../../Core/Shaders/Deffered/NormalBuffer.glsl');
         this.program = this.loadProgram("jthree.shaders.vertex.pmx.normal", "jthree.shaders.fragment.normal", "jthree.programs.pmx.normal", vs, fs);
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void
+    {
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs);
         renderer.GLContext.Disable(GLFeatureType.Blend);
-        var id = renderer.ID;
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
-        programWrapper.useProgram();
-        var v = object.Transformer.calculateMVPMatrix(renderer);
-        programWrapper.registerTexture(renderer, this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, 4, "u_boneMatricies");
-        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-		programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
-       // programWrapper.setUniformMatrix("matMVP", v);
-        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
-		programWrapper.setUniformMatrix("matV",renderer.Camera.ViewMatrix);
-        programWrapper.setUniform1f("u_boneCount", this.associatedMaterial.ParentModel.Skeleton.BoneCount);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                boneWeights: geometry.boneWeightBuffer,
+                boneIndicies: geometry.boneIndexBuffer
+            },
+            uniforms: {
+                u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                matVP: { type: "matrix", value: Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix) },
+                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
+                matV: { type: "matrix", value: renderer.Camera.ViewMatrix }
+            }
+        });
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
-    public get Priorty(): number {
+    public get Priorty(): number
+    {
         return 100;
-            }
+    }
 
-    public getDrawGeometryLength(geo: Geometry): number {
+    public getDrawGeometryLength(geo: Geometry): number
+    {
         return this.VerticiesCount;
     }
 
-    public getDrawGeometryOffset(geo: Geometry): number {
-        return this.VerticiesOffset*4;
+    public getDrawGeometryOffset(geo: Geometry): number
+    {
+        return this.VerticiesOffset * 4;
     }
 
-    public get MaterialGroup(): string {
-    return "jthree.materials.normal";
-  }
+    public get MaterialGroup(): string
+    {
+        return "jthree.materials.normal";
+    }
 }
 
 export =PMXDepthMaterial;

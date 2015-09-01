@@ -1,0 +1,72 @@
+import JThreeObject = require('../../Base/JThreeObject');
+import JThreeCollection = require('../../Base/JThreeCollection');
+import BehaviorNode = require("../Nodes/Behaviors/BehaviorNode");
+import BehaviorContainerNodeBase = require("../BehaviorContainerNodeBase");
+import JThreeObjectWithID = require('../../Base/JThreeObjectWithID');
+/**
+ * container class for storeing BehaviorNode and TargetNode
+ */
+class BehaviorNodePair extends JThreeObjectWithID
+{
+	/**
+	 * BehaviortNode contain the arguments of behavior.
+	 */
+	private behavior:BehaviorNode;
+	
+	/**
+	 * TargetNode contain the ComponentNode
+	 */
+	private targetNode:BehaviorContainerNodeBase;
+	
+	constructor(behavior:BehaviorNode,target:BehaviorContainerNodeBase)
+	{
+		super(behavior.ID);
+		this.behavior=behavior;
+		this.targetNode=target;
+	}
+	/**
+	 * getter for component node
+	 */
+	public get Behavior():BehaviorNode
+	{
+		return this.behavior;
+	}
+	/**
+	 * getter for target node
+	 */
+	public get Target():BehaviorContainerNodeBase
+	{
+		return this.targetNode;
+	}
+}
+
+class BehaviorRunner extends JThreeObject
+{
+	private dictionary:JThreeCollection<BehaviorNodePair> = new JThreeCollection<BehaviorNodePair>();
+	
+	private sortedBehavior:BehaviorNodePair[] = [];
+	
+	private sortBehaviors()
+	{
+		this.sortedBehavior.sort((v1,v2)=>v1.Behavior.order-v2.Behavior.order);
+	}
+	
+	public addBehavior(node:BehaviorNode,target:BehaviorContainerNodeBase)
+	{
+		var componentPair =new BehaviorNodePair(node,target);
+		this.dictionary.insert(componentPair);
+		this.sortedBehavior.push(componentPair);
+		this.sortBehaviors();
+		if(!node.awaken)node.awake.call(node,target);
+		
+	}
+	
+	public executeForAllBehaviors(behaviorName:string) {
+	    this.sortedBehavior.forEach(v => {
+	        if (v.Behavior.enabled) {
+	            v.Behavior[behaviorName](v.Target);
+	        }
+	    });
+	}
+}
+export = BehaviorRunner;

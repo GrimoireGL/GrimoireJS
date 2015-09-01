@@ -14,13 +14,13 @@ varying vec4 v_pos;
 varying vec2 v_spuv;
 
 
-uniform mediump sampler2D u_boneMatricies;
+uniform sampler2D u_boneMatricies;
 uniform float u_boneCount;
 
 mat4 matFromIndex(float index)
 {
 	float y =index/u_boneCount+1./u_boneCount/2.;
-	y=1.-y;
+	y=y;
 	return mat4(
 	texture2D(u_boneMatricies,vec2(0.125,y)),
 	texture2D(u_boneMatricies,vec2(0.375,y)),

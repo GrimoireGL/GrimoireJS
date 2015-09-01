@@ -14,11 +14,10 @@ class RB1RenderStage extends RenderStageBase {
 
 	public preBeginStage(scene: Scene, passCount: number, chainInfo: ResolvedChainInfo) {
 		this.bindAsOutBuffer(this.DefaultFBO, [
-			{
-				texture:chainInfo["OUT"],
-				target:0
-			},
-			{
+		{
+		    texture: chainInfo["OUT"],
+		    target: 0
+		},{
 				texture:this.DefaultRBO,
 				target:"depth",
 				type:"rbo"

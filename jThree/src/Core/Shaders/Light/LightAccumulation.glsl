@@ -1,4 +1,4 @@
-precision mediump float;
+﻿precision mediump float;
 varying  vec2 v_uv;
 
 uniform mediump sampler2D rb1;
@@ -22,17 +22,17 @@ vec2 getParameterUV(int lightIndex,int parameterIndex)
 {
    float xStep = 1./lightParamSize.x;
    float yStep = 1./lightParamSize.y;
-   return vec2(xStep / 2. + float(parameterIndex) * xStep, yStep / 2. + float(lightIndex) * yStep);
+   return vec2(xStep / 2. + float(parameterIndex) * xStep,1.-( yStep / 2. + float(lightIndex) * yStep));
 }
 
-vec2 getLightParameter(int lightIndex,int parameterIndex)
+vec4 getLightParameter(int lightIndex,int parameterIndex)
 {
    return texture2D(lightParams,getParameterUV(lightIndex,parameterIndex));
 }
 
 float getLightType(int lightIndex)
 {
-	return getLightParameter(lightIndex).r;
+	return getLightParameter(lightIndex,0).r;
 }
 
 float decomposeNDCDepth(vec2 uv)
@@ -67,9 +67,9 @@ void main(void){
   vec3 position=reconstructPosition(d);
   vec3 normal=reconstructNormal();
   gl_FragColor.rgba=vec4(0,0,0,1);
-  gl_FragColor.rgb+=calcPointLight(position,normal);
-  for(int i = 0; i < lightParamSize.y; i++)
+  for(float i = 0.;i>-1.; i++)
   {
+    if(lightParamSize.y == i)break;
 	///<<< LIGHT FUNCTION CALLS
   }
 }

@@ -43,13 +43,20 @@ var gomlList = [
       "DLIGHT": require("./Nodes/SceneObjects/Lights/DirectionalLightNode"),
       "PMX": require("../PMX/Goml/PMXNode")
     }),
-  new GomlNodeListElement("jthree.components", require("./Factories/TagFactory"),
+  new GomlNodeListElement(
+      "jthree.textures",
+      require("./Factories/TagFactory"),
+      {
+          "TEXTURE": require("./Nodes/Texture/TextureNode"),
+          "CUBETEXTURE":require("./Nodes/Texture/CubeTextureNode")
+      }),
+  new GomlNodeListElement("jthree.behaviors", require("./Factories/TagFactory"),
     {
-      "COMPONENTS": require("./Nodes/Components/ComponentsNode"),
+      "BEHAVIORS": require("./Nodes/Behaviors/BehaviorsNode"),
     }),
-  new GomlNodeListElement("jthree.component", require("./Factories/ComponentTagFactory"),
+  new GomlNodeListElement("jthree.behavior", require("./Factories/BehaviorTagFactory"),
     {
-      "COMPONENT": require("./Nodes/Components/ComponentNode")
+      "BEHAVIOR": require("./Nodes/Behaviors/BehaviorNode")
     }),
   new GomlNodeListElement("jthree.template", require("./Factories/TemplateTagFactory"),
     {

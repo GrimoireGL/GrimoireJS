@@ -1,0 +1,34 @@
+﻿import TextureBase = require("./TextureBase");
+import CubeTextureWrapper = require("./CubeTextureWrapper");
+import ContextManagerBase = require("../../ContextManagerBase");
+type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
+class CubeTexture extends TextureBase
+{
+    constructor(source: ImageSource[],textureName:string,flipY:boolean)
+    {
+        super(textureName,flipY,true);
+        this.ImageSource = source;
+    }
+
+    private imageSource: ImageSource[] = null;
+
+    public get ImageSource(): ImageSource[]
+    {
+        return this.imageSource;
+    }
+
+    public set ImageSource(img: ImageSource[])
+    {
+        this.imageSource = img;
+        this.each((v) => (<CubeTextureWrapper>v).init(true));
+        this.generateMipmapIfNeed();
+    }
+
+    protected getInstanceForRenderer(contextManager: ContextManagerBase): CubeTextureWrapper
+    {
+        var textureWrapper = new CubeTextureWrapper(contextManager, this);
+        return textureWrapper;
+    }
+}
+
+export =CubeTexture;

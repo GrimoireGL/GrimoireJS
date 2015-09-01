@@ -22,6 +22,8 @@ class StringAttributeConverter extends AttributeConverterBase
     if(typeof val === 'string')
     {
       return this.FromAttribute(val);
+    } else if (typeof val === "undefined") {
+        return "";
     }
     //we should implememnt something here?
     throw new Exceptions.InvalidArgumentException("val can't parse");

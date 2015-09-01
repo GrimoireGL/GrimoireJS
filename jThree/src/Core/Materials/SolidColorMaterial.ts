@@ -34,14 +34,19 @@ class SolidColorMaterial extends Material {
     super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
-    programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setUniformMatrix("matMVP", v);
-    programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-    programWrapper.setUniformVector("u_color", this.Color.toVector());
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer
+            },
+            uniforms: {
+                matMVP: { type: "matrix", value: v },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                u_color:{type:"vector",value:this.Color.toVector()}
+            }
+        });
+    geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
   }
 }
 

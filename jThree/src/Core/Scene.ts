@@ -7,20 +7,28 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates =require('../Base/Delegates')
 import LightRegister = require('./Light/LightRegister');
-import PointLight = require("./Light/PointLight"); //シーン
+import PointLight = require("./Light/PointLight");
+import DirectionalLight = require("./Light/DirectionalLight");
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
+        //TODO Remove parameter registration
         var pointParam = PointLight.TypeDefinition;
+        var dp = DirectionalLight.TypeDefinition;
         this.lightRegister.addLightType(pointParam.requiredParamCount, pointParam.shaderfuncName, pointParam.shaderfragmentCode, pointParam.typeName);
+        this.lightRegister.addLightType(dp.requiredParamCount,dp.shaderfuncName,dp.shaderfragmentCode,dp.typeName);
         console.log(this.lightRegister.ShaderCodeComposer.ShaderCode);
     }
 
     public enabled: boolean;
 
-    private lightRegister:LightRegister;
+    private lightRegister: LightRegister;
+
+    public get LightRegister() {
+        return this.lightRegister;
+    }
 
     public update(): void {
         if (!this.enabled) return;//enabled==falseならいらない。
@@ -29,7 +37,6 @@ class Scene extends jThreeObjectWithID {
 
     public render(): void {
         this.renderers.forEach((r) => {
-
             r.beforeRender();
             this.lightRegister.updateLightForRenderer();
             r.RenderStageManager.processRender(this,this.sceneObjects);
@@ -57,56 +64,14 @@ class Scene extends jThreeObjectWithID {
     }
 
     private sceneObjects: SceneObject[] = [];
-    
-    private lights:AssociativeArray<LightBase[]>=new AssociativeArray<LightBase[]>();
-    
-    private lightCount:number=0;
-    
-    public getLights(ns:string):LightBase[]
-    {
-        var lights= this.lights.get(ns);
-        if(!lights)return [];
-        return lights;
-    }
-    
-    public getLightByIndex(index:number):LightBase
-    {
-        var i=0;
-        var target:LightBase;
-        this.lights.forEach(
-            v=>
-            {
-                v.forEach(e=>{
-                   if(i==index)
-                   {
-                       target=e;
-                   }
-                   i++;
-                });
-            }
-        );
-        return target;
-    }
-    
-    public get LightCount():number
-    {
-        return this.lightCount;
-    }
+   
     
     public addLight(light:LightBase):void
     {
-        this.lightCount++;
         this.lightRegister.addLight(light);
-        if(!this.lights.has(light.LightType))
-        {
-            this.lights.set(light.LightType,[light]);
-            return;
-        }
-        this.lights.get(light.LightType).push(light);
     }
 
     public addObject(targetObject: SceneObject): void {
-        //TargetObjectに所属するマテリアルを分割して配列に登録します。
         this.sceneObjects.push(targetObject);
     }
 

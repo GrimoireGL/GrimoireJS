@@ -1,11 +1,12 @@
 ﻿import Shader = require("../Resources/Shader/Shader");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import LightBase = require("LightBase");
-import ThreeContext = require("../JThreeContext");
 import JThreeContextProxy = require("../JThreeContextProxy");
 import ResourceManager = require("../ResourceManager");
 import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
-import ShaderType = require("../../Wrapper/ShaderType"); /**
+import ShaderType = require("../../Wrapper/ShaderType");
+ 
+/**
  * Managing shader codes for extensible.
  */
 class LightShaderComposer extends JThreeObjectWithId
@@ -75,7 +76,8 @@ class LightShaderComposer extends JThreeObjectWithId
         }
         this.shaderFuncDefs.push(shaderFuncCode);
         this.shaderFuncNames.push(shaderFuncName);
-        this.shaderCache=this.generateLightShaderSource();
+        this.shaderCache = this.generateLightShaderSource();
+        this.updateShaderFromCache();
     }
 
     /**
@@ -109,10 +111,14 @@ class LightShaderComposer extends JThreeObjectWithId
     private generateLightFunctionCallers(): string {
         var result = "";
         for (var i = 0; i < this.shaderFuncNames.length; i++) {
-            result += `if(getLightType(i) == ${(i+1).toFixed(0)}.)gl_FragColor.rgb+=${this.shaderFuncNames
-            [i]}(position,normal,i);`;
+            result += `if(getLightType(int(i)) == ${(i+1).toFixed(0)}.)gl_FragColor.rgb+=${this.shaderFuncNames
+            [i]}(position,normal,int(i));`;
         }
         return result;
+    }
+
+    private updateShaderFromCache() {
+        this.Shader.update(this.ShaderCode);
     }
 }
 

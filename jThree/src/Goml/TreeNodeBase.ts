@@ -1,5 +1,8 @@
 import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Delegates = require("../Base/Delegates");
+/**
+ * The most base class for GOML Tree
+ */
 class TreeNodeBase extends JThreeObjectWithID
 {
 	constructor(elem:HTMLElement,parent?:TreeNodeBase)
@@ -14,6 +17,9 @@ class TreeNodeBase extends JThreeObjectWithID
 	 */
 	protected element:HTMLElement;
 	
+    /**
+     * HTMLElement related to this element.
+     */
 	public get Element():HTMLElement
 	{
 		return this.element;
@@ -36,7 +42,6 @@ class TreeNodeBase extends JThreeObjectWithID
 	{
 	    child.parent = this;
         this.children.push(child);
-		console.log(`children changed this:${this} child:${child}`);
 	}
 	
 	/**

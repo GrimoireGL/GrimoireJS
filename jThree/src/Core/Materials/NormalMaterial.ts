@@ -6,6 +6,8 @@ import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import GlFeatureType = require("../../Wrapper/GLFeatureType");
+
 declare function require(string): string;
 
 class NormalMaterial extends Material {
@@ -25,17 +27,28 @@ class NormalMaterial extends Material {
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
+    renderer.GLContext.Disable(GlFeatureType.Blend);
     var programWrapper = this.program.getForContext(renderer.ContextManager);
-    programWrapper.useProgram();
     var v = object.Transformer.calculateMVPMatrix(renderer);
-    programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-    programWrapper.setUniformMatrix("matMVP", v);
-    programWrapper.setUniformMatrix("matV", renderer.Camera.ViewMatrix);
-    programWrapper.setUniformMatrix("matMV", Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-    programWrapper.setUniformVector("u_DirectionalLight", new Vector3(0, 0, -1));
-    geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                uv:geometry.UVBuffer
+            },
+            uniforms: {
+                matMVP: { type: "matrix", value: v },
+                matV: {
+                    type: "matrix",
+                    value: renderer.Camera.ViewMatrix
+                },
+                matMV: {
+                    type: "matrix",
+                    value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal)
+                }
+            }
+        });
+    geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
   }
 }
 

@@ -4,13 +4,15 @@
     <ddebug name="depth" target="deffered.depth" viewport="viewport#main"/>
     <ddebug name="normal" target="deffered.rb1" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
-    <phong diffuse="darkgray" name="mat2" specular="#CCC" specularpower="15"/>
+    <phong diffuse="darkgray" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cylinder divide="30" name="cyl"/>
     <cube name="cube"/>
     <quad name="quad"/>
     <solid color="lightgray" name="bl"/>
+    <texture name ="gomlTexture" src="miku2.png" minFilter="LinearMipNearest"/>
+    <cubetexture name ="gomlCube" srcs="cube/cube_PX.png cube/cube_NX.png cube/cube_PY.png cube/cube_NY.png cube/cube_PZ.png cube/cube_NZ.png"/>
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
@@ -22,37 +24,43 @@
   </renderers>
   <scenes>
     <scene>
-      <camera aspect="1" far="2.0001" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,1)"/>
-      <object id="light-root">
-        <plight color="red" decay="1" distance="5" intensity="0.8" position="(0,0.5,0)"/>
-        <plight color="blue" decay="1" distance="5" intensity="0.8" position="(0.5,0.5,0)"/>
-        <plight color="lime" decay="1" distance="5" intensity="0.8" position="(-0.5,0.5,0)"/>
+      <object id="camera-origin">
+        <object>
+          <camera aspect="1" far="10" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
+        </object>
       </object>
-<pmx scale="0.1" src="/_debug/tune/Tune.pmx">
-  <vmd frame="0" src="melt.vmd"/>
-  <bones>
-    <bone name="右足ＩＫ">
-      <mesh geo="quad" mat="bl" scale="0.3"/>
-    </bone>
-    <bone name="左足ＩＫ">
-      <mesh geo="quad" mat="mat2" scale="0.3"/>
-    </bone>
-  </bones>
-</pmx>
+      <object id="light-root">
+        <dlight color="lime" intencity="0.8" />
+<!--
+        <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>
+-->
+      </object>
+      <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
+        <vmd frame="0" src="melt.vmd"/>
+        <bones>
+          <bone name="右足ＩＫ">
+            <mesh geo="quad" mat="bl" scale="0.3"/>
+          </bone>
+          <bone name="左足ＩＫ">
+            <mesh geo="quad" mat="mat2" scale="0.3"/>
+          </bone>
+        </bones>
+      </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
-      <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="0,0.5,-0.5" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="-0.5,0.5,0" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="-0.5,0.5,0.5" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="1,1.5,-1" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="0,1.5,-0.5" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="-0.5,1.5,0" scale="0.1"/>
-      <mesh geo="quad" mat="mat2" position="-0.5,1.5,0.5" scale="0.1"/>
-      <!--<mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,0.890"/>-->
-      <mesh geo="cube" mat="mat2" position="0,0,0.5" rotation="y(30d)" scale="0.1"/>
-      <mesh geo="cube" mat="mat2" position="-0.5,0,0" rotation="y(40d)" scale="0.1"/>
-      <mesh geo="cube" mat="mat2" position="0.5,0,-0.5" rotation="y(10d)" scale="0.1"/>
-      <mesh geo="cube" mat="mat2" position="1,0,0.3" rotation="y(60d)" scale="0.1"/>
+      <object id="quad-parent" rotation ="y(-160d)">
+        <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1"/>
+        <mesh geo="quad" mat="mat2" position="-0.5,0.5,0" scale="0.1"/>
+        <mesh geo="quad" mat="mat2" position="-0.5,0.5,0.5" scale="0.1"/>
+        <mesh geo="quad" mat="mat2" position="1,1.5,-1" scale="0.1"/>
+        <mesh geo="quad" mat="mat2" position="0,1.5,-0.5" scale="0.1"/>
+        <mesh geo="quad" mat="mat2" position="-0.5,1.5,0" scale="0.1"/>
+        <mesh geo="quad" mat="mat2" position="-0.5,1.5,0.5" scale="0.1"/>
+        <!--<mesh geo="quad" mat="mat2" scale="0.1"  position="0,0.5,0.890"/>-->
+        <mesh geo="cube" mat="mat2" position="0,0,0.5" rotation="y(30d)" scale="0.1"/>
+        <mesh geo="cube" mat="mat2" position="-0.5,0,0" rotation="y(40d)" scale="0.1"/>
+        <mesh geo="cube" mat="mat2" position="0.5,0,-0.5" rotation="y(10d)" scale="0.1"/>
+        <mesh geo="cube" mat="mat2" position="1,0,0.3" rotation="y(60d)" scale="0.1"/>
+      </object>
     </scene>
     <scene>
       <ocamera bottom="-1" far="1" left="-1" name="CAM2" near="0" right="1" top="1"/>

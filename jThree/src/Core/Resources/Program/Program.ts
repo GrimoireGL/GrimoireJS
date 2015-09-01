@@ -5,8 +5,8 @@ import ContextManagerBase = require("../../ContextManagerBase");
 import ProgramWrapper = require("./ProgramWrapper");
 
 class Program extends ContextSafeContainer<ProgramWrapper>{
-    constructor(context:JThreeContext) {
-        super(context);
+    constructor() {
+        super();
         this.initializeForFirst();
     }
 
@@ -19,10 +19,14 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
 
     public attachShader(shader: Shader) {
         this.attachedShaders.push(shader);
+        shader.onUpdate(() => {
+            this.relinkShader();
+        });
+
     }
 
-    public static CreateProgram(context:JThreeContext,attachShaders:Shader[]): Program {
-        var program: Program = new Program(context);
+    public static CreateProgram(attachShaders:Shader[]): Program {
+        var program: Program = new Program();
         program.attachedShaders = attachShaders;
         return program;
     }
@@ -33,6 +37,12 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
 
     protected getInstanceForRenderer(renderer: ContextManagerBase): ProgramWrapper {
         return new ProgramWrapper(this, renderer);
+    }
+
+    private relinkShader() {
+        this.each((v) => {
+            v.relink();
+        });
     }
 }
 

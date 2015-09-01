@@ -40,168 +40,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="bundle-notdoc.js" />
     <Content Include="packages.config" />
-    <Content Include="src\Base\Collections\ArrayEnumratorFactory.js" />
-    <Content Include="src\Base\Collections\AssociativeArray.js" />
-    <Content Include="src\Base\Collections\Collection.js" />
-    <Content Include="src\Base\Collections\IEnumerable.js" />
-    <Content Include="src\Base\Collections\IEnumrator.js" />
-    <Content Include="src\Base\Color\Color3.js" />
-    <Content Include="src\Base\Color\Color4.js" />
-    <Content Include="src\Base\IStringConvertable.js" />
-    <Content Include="src\Base\JsHack.js" />
-    <Content Include="src\Base\JThreeCollection.js" />
-    <Content Include="src\Base\JThreeEvent.js" />
-    <Content Include="src\Base\JThreeID.js" />
-    <Content Include="src\Base\JThreeObject.js" />
-    <Content Include="src\Base\JThreeObjectWithID.js" />
-    <Content Include="src\Core\Camera\Camera.js" />
-    <Content Include="src\Core\Camera\OrthoCamera.js" />
-    <Content Include="src\Core\Camera\PerspectiveCamera.js" />
-    <Content Include="src\Core\Camera\ViewCameraBase.js" />
-    <Content Include="src\Core\CanvasListChangedEventArgs.js" />
-    <Content Include="src\Core\CanvasManager.js" />
-    <Content Include="src\Core\ContextManagerBase.js" />
-    <Content Include="src\Core\ContextTimer.js" />
-    <Content Include="src\Core\Geometries\CircleGeometry.js" />
-    <Content Include="src\Core\Geometries\CubeGeometry.js" />
-    <Content Include="src\Core\Geometries\CylinderGeometry.js" />
-    <Content Include="src\Core\Geometries\Geometry.js" />
-    <Content Include="src\Core\Geometries\GridGeometry.js" />
-    <Content Include="src\Core\Geometries\QuadGeometry.js" />
-    <Content Include="src\Core\Geometries\TriangleGeometry.js" />
-    <Content Include="src\Core\GLExtensionManager.js" />
-    <Content Include="src\Core\JThreeContext.js" />
-    <Content Include="src\Core\JThreeContextProxy.js" />
-    <Content Include="src\Core\Light\PointLight.js" />
-    <Content Include="src\Core\ListStateChangedType.js" />
-    <Content Include="src\Core\Materials\DebugSpriteMaterial.js" />
-    <Content Include="src\Core\Materials\LambertMaterial.js" />
-    <Content Include="src\Core\Materials\Material.js" />
-    <Content Include="src\Core\Materials\PhongMaterial.js" />
-    <Content Include="src\Core\Materials\SolidColorMaterial.js" />
-    <Content Include="src\Core\Materials\SpriteMaterial.js" />
-    <Content Include="src\Core\Renderers\RendererBase.js" />
-    <Content Include="src\Core\Renderers\RenderStages\FowardShadingStage.js" />
-    <Content Include="src\Core\Renderers\RenderStages\RenderStageBase.js" />
-    <Content Include="src\Core\Renderers\TextureRenderer.js" />
-    <Content Include="src\Core\Renderers\ViewportRenderer.js" />
-    <Content Include="src\Core\RenderStageType.js" />
-    <Content Include="src\Core\ResourceManager.js" />
-    <Content Include="src\Core\Resources\Buffer\Buffer.js" />
-    <Content Include="src\Core\Resources\Buffer\BufferProxy.js" />
-    <Content Include="src\Core\Resources\Buffer\BufferWrapper.js" />
-    <Content Include="src\Core\Resources\ContextSafeResourceContainer.js" />
-    <Content Include="src\Core\Resources\FBO\FBO.js" />
-    <Content Include="src\Core\Resources\FBO\FBOWrapper.js" />
-    <Content Include="src\Core\Resources\Program\Program.js" />
-    <Content Include="src\Core\Resources\Program\ProgramWrapper.js" />
-    <Content Include="src\Core\Resources\RBO\RBO.js" />
-    <Content Include="src\Core\Resources\RBO\RBOWrapper.js" />
-    <Content Include="src\Core\Resources\ResourceArray.js" />
-    <Content Include="src\Core\Resources\Shader\Shader.js" />
-    <Content Include="src\Core\Resources\Shader\ShaderWrapper.js" />
-    <Content Include="src\Core\Resources\Texture\BufferTexture.js" />
-    <Content Include="src\Core\Resources\Texture\BufferTextureWrapper.js" />
-    <Content Include="src\Core\Resources\Texture\Texture.js" />
-    <Content Include="src\Core\Resources\Texture\TextureBase.js" />
-    <Content Include="src\Core\Resources\Texture\TextureWrapper.js" />
-    <Content Include="src\Core\Resources\Texture\TextureWrapperBase.js" />
-    <Content Include="src\Core\Scene.js" />
-    <Content Include="src\Core\SceneManager.js" />
-    <Content Include="src\Core\SceneObject.js" />
-    <Content Include="src\Core\TextureCanvasManager.js" />
-    <Content Include="src\Core\Timer.js" />
-    <Content Include="src\Core\Transform\Transformer.js" />
-    <Content Include="src\Exceptions.js" />
-    <Content Include="src\Goml\Animater\AnimaterBase.js" />
-    <Content Include="src\Goml\Animater\Color4Animater.js" />
-    <Content Include="src\Goml\Animater\IntegerAnimater.js" />
-    <Content Include="src\Goml\Animater\NumberAnimater.js" />
-    <Content Include="src\Goml\Animater\RotationAnimater.js" />
-    <Content Include="src\Goml\Animater\Vector3Animater.js" />
-    <Content Include="src\Goml\AttributeDeclaration.js" />
-    <Content Include="src\Goml\AttributeDictionary.js" />
-    <Content Include="src\Goml\AttributeParser.js" />
-    <Content Include="src\Goml\ComponentContainerNodeBase.js" />
-    <Content Include="src\Goml\Components\ComponentRegistry.js" />
-    <Content Include="src\Goml\Components\ComponentRunner.js" />
-    <Content Include="src\Goml\Components\GomlComponentDeclaration.js" />
-    <Content Include="src\Goml\Components\GomlComponentDeclarationBody.js" />
-    <Content Include="src\Goml\Converter\AngleAttributeConverter.js" />
-    <Content Include="src\Goml\Converter\AttributeConverterBase.js" />
-    <Content Include="src\Goml\Converter\BooleanAttributeConverter.js" />
-    <Content Include="src\Goml\Converter\Color3AttributeConverter.js" />
-    <Content Include="src\Goml\Converter\Color4AttributeConverter.js" />
-    <Content Include="src\Goml\Converter\IntegerAttributeConverter.js" />
-    <Content Include="src\Goml\Converter\NumberAttributeConverter.js" />
-    <Content Include="src\Goml\Converter\RotationAttributeConverter.js" />
-    <Content Include="src\Goml\Converter\StringAttributeConverter.js" />
-    <Content Include="src\Goml\Converter\Vector3AttributeConverter.js" />
-    <Content Include="src\Goml\EasingFunctionList.js" />
-    <Content Include="src\Goml\Easing\EasingFunctionBase.js" />
-    <Content Include="src\Goml\Easing\LinearEasingFunction.js" />
-    <Content Include="src\Goml\Easing\SwingEasingFunction.js" />
-    <Content Include="src\Goml\Factories\ComponentTagFactory.js" />
-    <Content Include="src\Goml\Factories\SceneObjectTagFactory.js" />
-    <Content Include="src\Goml\Factories\TagFactory.js" />
-    <Content Include="src\Goml\Factories\TemplateTagFactory.js" />
-    <Content Include="src\Goml\GomlAttribute.js" />
-    <Content Include="src\Goml\GomlConverterList.js" />
-    <Content Include="src\Goml\GomlLoader.js" />
-    <Content Include="src\Goml\GomlLoaderConfigurator.js" />
-    <Content Include="src\Goml\GomlNodeDictionary.js" />
-    <Content Include="src\Goml\GomlNodeList.js" />
-    <Content Include="src\Goml\GomlNodeListElement.js" />
-    <Content Include="src\Goml\GomlTreeNodeBase.js" />
-    <Content Include="src\Goml\Nodes\Components\ComponentNode.js" />
-    <Content Include="src\Goml\Nodes\Components\ComponentsNode.js" />
-    <Content Include="src\Goml\Nodes\Geometries\CircleGeometryNode.js" />
-    <Content Include="src\Goml\Nodes\Geometries\CubeGeometryNode.js" />
-    <Content Include="src\Goml\Nodes\Geometries\CylinderGeometryNode.js" />
-    <Content Include="src\Goml\Nodes\Geometries\GeometryNodeBase.js" />
-    <Content Include="src\Goml\Nodes\Geometries\GridGeometryNode.js" />
-    <Content Include="src\Goml\Nodes\Geometries\QuadGeometryNode.js" />
-    <Content Include="src\Goml\Nodes\Geometries\TriangleGeometryNode.js" />
-    <Content Include="src\Goml\Nodes\Materials\DefferedDebugNode.js" />
-    <Content Include="src\Goml\Nodes\Materials\LambertNode.js" />
-    <Content Include="src\Goml\Nodes\Materials\MaterialNodeBase.js" />
-    <Content Include="src\Goml\Nodes\Materials\PhongNode.js" />
-    <Content Include="src\Goml\Nodes\Materials\SolidColorNode.js" />
-    <Content Include="src\Goml\Nodes\Materials\SpriteNode.js" />
-    <Content Include="src\Goml\Nodes\Renderers\RendererNode.js" />
-    <Content Include="src\Goml\Nodes\Renderers\RendererNodeBase.js" />
-    <Content Include="src\Goml\Nodes\Renderers\TexRendererNode.js" />
-    <Content Include="src\Goml\Nodes\Renderers\ViewPortNode.js" />
-    <Content Include="src\Goml\Nodes\SceneNode.js" />
-    <Content Include="src\Goml\Nodes\SceneObjects\Cameras\CameraNode.js" />
-    <Content Include="src\Goml\Nodes\SceneObjects\Cameras\CameraNodeBase.js" />
-    <Content Include="src\Goml\Nodes\SceneObjects\Cameras\OrthoCameraNode.js" />
-    <Content Include="src\Goml\Nodes\SceneObjects\MeshNode.js" />
-    <Content Include="src\Goml\Nodes\SceneObjects\ObjectNode.js" />
-    <Content Include="src\Goml\Nodes\SceneObjects\SceneObjectNodeBase.js" />
-    <Content Include="src\Goml\Nodes\Templates\TemplateNode.js" />
-    <Content Include="src\Goml\TopNodeList.js" />
-    <Content Include="src\Goml\TreeNodeBase.js" />
-    <Content Include="src\Init.js" />
-    <Content Include="src\jThree.js" />
-    <Content Include="src\JThreeInterface.js" />
-    <Content Include="src\Math\Matrix.js" />
-    <Content Include="src\Math\MatrixBase.js" />
-    <Content Include="src\Math\Quaternion.js" />
-    <Content Include="src\Math\Rectangle.js" />
-    <Content Include="src\Math\Vector2.js" />
-    <Content Include="src\Math\Vector3.js" />
-    <Content Include="src\Math\Vector4.js" />
-    <Content Include="src\Math\VectorBase.js" />
-    <Content Include="src\Refs\bundle.js" />
-    <Content Include="src\Shapes\Mesh.js" />
     <Content Include="src\static\color.json" />
     <Content Include="src\Core\Shaders\Chunk\Common.glsl" />
     <Content Include="src\Core\Shaders\Deffered\Chunk\Directional_Head.glsl" />
     <Content Include="src\Core\Shaders\Deffered\Chunk\Point_Head.glsl" />
-    <Content Include="src\Core\Shaders\Deffered\LightAccumulation.glsl" />
     <Content Include="src\Core\Shaders\Deffered\NormalBuffer.glsl" />
     <Content Include="src\Core\Shaders\Deffered\RB1.glsl" />
     <Content Include="src\Core\Shaders\Deffered\RB2.glsl" />
@@ -215,9 +58,6 @@
     <Content Include="src\Core\Shaders\VertexShaders\BasicGeometries.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\DepthGeometries.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\PostEffectGeometries.glsl" />
-    <Content Include="src\Math\Math.js.map" />
-    <Content Include="src\Math\Matrix.js.map" />
-    <Content Include="src\Math\Vector.js.map" />
     <Content Include="src\PMX\Shader\PMXDepthFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXDepthVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXEdgeFragment.glsl" />
@@ -225,11 +65,11 @@
     <Content Include="src\PMX\Shader\PMXFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXNormalVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXVertex.glsl" />
-    <Content Include="src\tsconfig.json" />
     <Content Include="wwwroot\binaryReader.js" />
     <Content Include="wwwroot\cube\Example.html" />
     <Content Include="wwwroot\cube\Example.js" />
     <Content Include="wwwroot\ecl_array.js" />
+    <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\GUMI\readme_gumi.txt" />
     <Content Include="wwwroot\GUMI\readme_gumi_Eng.txt" />
     <Content Include="wwwroot\GUMI\TX\gumi1.png" />
@@ -270,6 +110,12 @@
     <Content Include="wwwroot\Tda\toon_defo.bmp" />
     <Content Include="wwwroot\Tda\toon_hair.bmp" />
     <Content Include="wwwroot\Tda\toon_skin.bmp" />
+    <Content Include="wwwroot\_debug\cube\cube_NX.png" />
+    <Content Include="wwwroot\_debug\cube\cube_NY.png" />
+    <Content Include="wwwroot\_debug\cube\cube_NZ.png" />
+    <Content Include="wwwroot\_debug\cube\cube_PX.png" />
+    <Content Include="wwwroot\_debug\cube\cube_PY.png" />
+    <Content Include="wwwroot\_debug\cube\cube_PZ.png" />
     <Content Include="wwwroot\_debug\Example.css" />
     <Content Include="wwwroot\_debug\Example.html" />
     <Content Include="wwwroot\_debug\Example.js" />
@@ -319,8 +165,11 @@
     <Content Include="wwwroot\_debug\tune\Toon\toon_a24.bmp" />
     <Content Include="wwwroot\_debug\tune\Toon\toon_a25.bmp" />
     <Content Include="npm-debug.log" />
-    <Content Include="tsconfig.json" />
     <Content Include="src\Core\Shaders\Light\LightAccumulation.glsl" />
+    <Content Include="src\Core\Shaders\Light\PointLightFragmentChunk.glsl" />
+    <Content Include="src\Core\Shaders\SkyBox.glsl" />
+    <Content Include="src\Core\Shaders\VertexShaders\SkyboxGeometries.glsl" />
+    <Content Include="src\Core\Shaders\Light\DirectionalLightFragmentChunk.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -356,32 +205,24 @@
     <Content Include="wwwroot\_debug\tune\RIMG.spa" />
     <Content Include="wwwroot\_debug\tune\Test.pmx" />
     <Content Include="wwwroot\_debug\tune\Tune.pmx" />
+    <Content Include="wwwroot\_debug\Index.hgoml" />
+    <Content Include="wwwroot\Index.hgoml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\Wrapper\BufferTargetType.js" />
-    <Content Include="src\Wrapper\BufferUsageType.js" />
-    <Content Include="src\Wrapper\ClearTargetType.js" />
-    <Content Include="src\Wrapper\ElementType.js" />
-    <Content Include="src\Wrapper\FrameBufferAttachmentType.js" />
-    <Content Include="src\Wrapper\GLContextWrapperBase.js" />
-    <Content Include="src\Wrapper\GLCullMode.js" />
-    <Content Include="src\Wrapper\GLFeatureType.js" />
-    <Content Include="src\Wrapper\PrimitiveTopology.js" />
-    <Content Include="src\Wrapper\RBO\RBOInternalFormat.js" />
-    <Content Include="src\Wrapper\ShaderType.js" />
-    <Content Include="src\Wrapper\TargetTextureType.js" />
-    <Content Include="src\Wrapper\TextureInternalFormatType.js" />
-    <Content Include="src\Wrapper\TextureType.js" />
-    <Content Include="src\Wrapper\Texture\PixelStoreParamType.js" />
-    <Content Include="src\Wrapper\Texture\TextureMagFilterType.js" />
-    <Content Include="src\Wrapper\Texture\TextureMinFilterType.js" />
-    <Content Include="src\Wrapper\Texture\TextureParameterType.js" />
-    <Content Include="src\Wrapper\Texture\TextureRegister.js" />
-    <Content Include="src\Wrapper\Texture\TextureWrapType.js" />
-    <Content Include="src\Wrapper\WebGLContextWrapper.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="refs\ammo\ammo.d.ts" />
+    <TypeScriptCompile Include="refs\bundle.ts" />
+    <TypeScriptCompile Include="refs\chai\chai.d.ts" />
+    <TypeScriptCompile Include="refs\gl-matrix\gl-matrix.d.ts" />
+    <TypeScriptCompile Include="refs\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="refs\jsdom\jsdom.d.ts" />
+    <TypeScriptCompile Include="refs\mocha\mocha.d.ts" />
+    <TypeScriptCompile Include="refs\node\node.d.ts" />
+    <TypeScriptCompile Include="refs\sinon-chai\sinon-chai.d.ts" />
+    <TypeScriptCompile Include="refs\sinon\sinon.d.ts" />
+    <TypeScriptCompile Include="refs\superagent\superagent.d.ts" />
     <TypeScriptCompile Include="src\Base\Collections\ArrayEnumratorFactory.ts" />
     <TypeScriptCompile Include="src\Base\Collections\AssociativeArray.ts" />
     <TypeScriptCompile Include="src\Base\Collections\Collection.ts" />
@@ -436,6 +277,8 @@
     <TypeScriptCompile Include="src\Core\Materials\SpriteMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\FBOBindData.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RendererBase.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RendererConfigurator\BasicRendererConfigurator.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RendererConfigurator\RendererConfiguratorBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageChain.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageConfig.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
@@ -447,24 +290,34 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RBDepthStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RenderStageBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\ShadowMaps\DirectionalShadowMapStage.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\SkyBoxStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\ResolvedChainInfo.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterInfo.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterInfoChunk.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterList.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\RendererFit.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\TextureRenderer.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\ViewportRenderer.ts" />
-    <TypeScriptCompile Include="src\Core\RenderStageType.ts" />
     <TypeScriptCompile Include="src\Core\ResourceManager.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Buffer\Buffer.ts" />
-    <TypeScriptCompile Include="src\Core\Resources\Buffer\BufferProxy.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Buffer\BufferWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\ContextSafeResourceContainer.ts" />
     <TypeScriptCompile Include="src\Core\Resources\FBO\FBO.ts" />
     <TypeScriptCompile Include="src\Core\Resources\FBO\FBOWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\Program.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Program\ProgramWrapper.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\AttributeRegisteringArgument.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\AttributeRegisteringConfigure.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\UniformRegisteringArgument.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\UniformRegisteringConfigure.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\MatrixFloatRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\ScalarIntegerRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\ScalarFloatRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\Texture2DRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\UniformTypeList.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\UniformVariableRegisterBase.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\VectorFloatArrayRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\Uniforms\VectorFloatRegister.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Program\VariableRegister\VariableRegisteringArgument.ts" />
     <TypeScriptCompile Include="src\Core\Resources\RBO\RBO.ts" />
     <TypeScriptCompile Include="src\Core\Resources\RBO\RBOWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\ResourceArray.ts" />
@@ -473,6 +326,8 @@
     <TypeScriptCompile Include="src\Core\Resources\Shader\ShaderWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\BufferTexture.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\BufferTextureWrapper.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Texture\CubeTexture.ts" />
+    <TypeScriptCompile Include="src\Core\Resources\Texture\CubeTextureWrapper.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\Texture.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\TextureBase.ts" />
     <TypeScriptCompile Include="src\Core\Resources\Texture\TextureWrapper.ts" />
@@ -493,11 +348,11 @@
     <TypeScriptCompile Include="src\Goml\AttributeDeclationBody.ts" />
     <TypeScriptCompile Include="src\Goml\AttributeDictionary.ts" />
     <TypeScriptCompile Include="src\Goml\AttributeParser.ts" />
-    <TypeScriptCompile Include="src\Goml\ComponentContainerNodeBase.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\ComponentRegistry.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\ComponentRunner.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\GomlComponentDeclaration.ts" />
-    <TypeScriptCompile Include="src\Goml\Components\GomlComponentDeclarationBody.ts" />
+    <TypeScriptCompile Include="src\Goml\BehaviorContainerNodeBase.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorRegistry.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorRunner.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorDeclaration.ts" />
+    <TypeScriptCompile Include="src\Goml\Behaviors\BehaviorDeclarationBody.ts" />
     <TypeScriptCompile Include="src\Goml\Converter\AngleAttributeConverter.ts" />
     <TypeScriptCompile Include="src\Goml\Converter\AttributeConverterBase.ts" />
     <TypeScriptCompile Include="src\Goml\Converter\BooleanAttributeConverter.ts" />
@@ -512,7 +367,7 @@
     <TypeScriptCompile Include="src\Goml\Easing\EasingFunctionBase.ts" />
     <TypeScriptCompile Include="src\Goml\Easing\LinearEasingFunction.ts" />
     <TypeScriptCompile Include="src\Goml\Easing\SwingEasingFunction.ts" />
-    <TypeScriptCompile Include="src\Goml\Factories\ComponentTagFactory.ts" />
+    <TypeScriptCompile Include="src\Goml\Factories\BehaviorTagFactory.ts" />
     <TypeScriptCompile Include="src\Goml\Factories\SceneObjectTagFactory.ts" />
     <TypeScriptCompile Include="src\Goml\Factories\TagFactory.ts" />
     <TypeScriptCompile Include="src\Goml\Factories\TemplateTagFactory.ts" />
@@ -524,8 +379,8 @@
     <TypeScriptCompile Include="src\Goml\GomlNodeList.ts" />
     <TypeScriptCompile Include="src\Goml\GomlNodeListElement.ts" />
     <TypeScriptCompile Include="src\Goml\GomlTreeNodeBase.ts" />
-    <TypeScriptCompile Include="src\Goml\Nodes\Components\ComponentNode.ts" />
-    <TypeScriptCompile Include="src\Goml\Nodes\Components\ComponentsNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Behaviors\BehaviorNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Behaviors\BehaviorsNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Geometries\CircleGeometryNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Geometries\CubeGeometryNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Geometries\CylinderGeometryNode.ts" />
@@ -555,6 +410,9 @@
     <TypeScriptCompile Include="src\Goml\Nodes\SceneObjects\ObjectNode.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\SceneObjects\SceneObjectNodeBase.ts" />
     <TypeScriptCompile Include="src\Goml\Nodes\Templates\TemplateNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Texture\CubeTextureNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Texture\TextureNode.ts" />
+    <TypeScriptCompile Include="src\Goml\Nodes\Texture\TextureNodeBase.ts" />
     <TypeScriptCompile Include="src\Goml\Plugins\PluginDeclaration.ts" />
     <TypeScriptCompile Include="src\Goml\Plugins\PluginLoader.ts" />
     <TypeScriptCompile Include="src\Goml\Plugins\PluginRequest.ts" />
@@ -607,11 +465,6 @@
     <TypeScriptCompile Include="src\PMX\PMXVertex.ts" />
     <TypeScriptCompile Include="src\PMX\PMXVerticies.ts" />
     <TypeScriptCompile Include="src\PMX\SDEF.ts" />
-    <TypeScriptCompile Include="src\Refs\bundle.ts" />
-    <TypeScriptCompile Include="src\Refs\gl-matrix\gl-matrix.d.ts" />
-    <TypeScriptCompile Include="src\Refs\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="src\Refs\node\node.d.ts" />
-    <TypeScriptCompile Include="src\Refs\superagent\superagent.d.ts" />
     <TypeScriptCompile Include="src\Shapes\BasicObjectMesh.ts" />
     <TypeScriptCompile Include="src\Shapes\Mesh.ts" />
     <TypeScriptCompile Include="src\VMD\Goml\VMDNode.ts" />
@@ -643,6 +496,7 @@
     <TypeScriptCompile Include="src\Wrapper\TextureInternalFormatType.ts" />
     <TypeScriptCompile Include="src\Wrapper\TextureType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\PixelStoreParamType.ts" />
+    <TypeScriptCompile Include="src\Wrapper\Texture\TexImageTargetType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureMagFilterType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureMinFilterType.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureParameterType.ts" />
@@ -656,6 +510,9 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -663,7 +520,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
-    <TypeScriptSourceRoot>C:\jThree\jThree\jThree</TypeScriptSourceRoot>
+    <TypeScriptSourceRoot>C:\jThree\jThree</TypeScriptSourceRoot>
     <TypeScriptMapRoot>C:\jThree\jThree\jThree\src</TypeScriptMapRoot>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />

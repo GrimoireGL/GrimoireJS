@@ -78,13 +78,6 @@ class RenderStageBase extends JThreeObject {
 		} else {
 			this.GLContext.CullFace(GLCullMode.Back);
 		}
-		if(typeof this.RenderStageConfig.texYFlip ==='undefined'||this.RenderStageConfig.texYFlip)
-		{
-			this.GLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);		}else
-		{
-	        this.GLContext.PixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 0);
-		}
-		//reset texture register
 		this.resetActiveTextures();
 	}
 
@@ -102,11 +95,7 @@ class RenderStageBase extends JThreeObject {
 
 	private resetActiveTextures()
 	{
-		for(var i=0;i<GLSpecManager.MaxTextureCount;i++)
-		{
-			this.GLContext.ActiveTexture(TextureRegister.Texture0+i);
-			this.GLContext.BindTexture(TargetTextureType.Texture2D,null);
-		}
+
 	}
 
 	public get RenderStageConfig(): RenderStageConfig {
@@ -131,7 +120,7 @@ class RenderStageBase extends JThreeObject {
 		var targetWrapper = fbo.getForContext(this.Renderer.ContextManager);
 		bindInfo.forEach(v=> {
 			v.target = v.target.toString().toLowerCase();
-			var attachmentType = FrameBufferAttachmentType.ColorAttachment0;
+		    var attachmentType;
 			//assign attachment type
 			if (v.target === "depth") {
 				attachmentType = FrameBufferAttachmentType.DepthAttachment;
@@ -158,9 +147,9 @@ class RenderStageBase extends JThreeObject {
 	}
 
 	private attachToWrapper(v: FboBindData, targetWrapper: FBOWrapper, targetAttachment: FrameBufferAttachmentType) {
-		if (!v.type || v.type == "texture") {
+		if (!v.type || v.type === "texture") {
 			targetWrapper.attachTexture(targetAttachment, <TextureBase>v.texture);
-		} else if (v.type = "rbo") {
+		} else if (v.type === "rbo") {
 			targetWrapper.attachRBO(targetAttachment, <RBO>v.texture);
 		} else {
 			console.error("unknown bind type!");

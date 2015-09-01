@@ -10,6 +10,7 @@ rename = require 'gulp-rename'
 watchify = require 'gulp-watchify'
 tsify = require 'tsify'
 shaderify = require '../shaderify/lib/shaderify'
+haml = require 'gulp-haml'
 fs = require 'fs'
 _ = require 'lodash'
 globArray = require 'glob-array'
@@ -115,6 +116,15 @@ build task
 ###
 gulp.task 'build', ['build:main']
 
+###
+HAML Task
+###
+gulp.task 'haml', ->
+    gulp
+      .src "jThree/wwwroot/**/*.hgoml"
+      .pipe haml
+        ext:".goml"
+      .pipe gulp.dest "jThree/wwwroot/**"
 
 ###
 webpack building task

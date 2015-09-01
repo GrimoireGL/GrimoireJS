@@ -3,6 +3,9 @@ import JThreeContextProxy = require("./Core/JThreeContextProxy");
 import JThreeContext = require("./Core/JThreeContext");
 import GomlTreeNodeBase = require("./Goml/GomlTreeNodeBase");
 import Delegate = require("./Base/Delegates");
+/**
+ * Provides jQuery like API for jThree.
+ */
 class JThreeInterface extends JThreeObject {
   constructor(jq: JQuery) {
     super();
@@ -41,24 +44,78 @@ class JThreeInterface extends JThreeObject {
 
   private target: JQuery;
 
-  public attr(attrTarget: { [key: string]: any }): JThreeInterface {
-    var f = (attrTarget:{[key:string]:any}) => {
-      var t = this;
-      this.target.each((n, e) => {
-        var gomlNode = JThreeInterface.getNode(<HTMLElement>e);
-        for (var attrName in attrTarget) {
-          var value=attrTarget[attrName];
-          if (gomlNode.attributes.isDefined(attrName)) {
-            gomlNode.attributes.setValue(attrName, value);
-          } else {
-            e.setAttribute(attrName, value);
+  public attr(attrName: string);
+  public attr(attrTargets: { [key: string]: any });
+  public attr(attrName: string, val: Delegate.Func2<number,string,any>);
+  public attr(attrName:string,val:any);
+  public attr(attrTarget: { [key: string]: any }|string,val?:Delegate.Func2<number,string,any>|any): JThreeInterface|any
+  {
+      if (typeof attrTarget === "string")
+      {
+          if (val) {
+              if (typeof val === "function") {
+                  var f1 = (attrName: string, func: Delegate.Func2<number, string, any>) =>
+                  {
+                      this.target.each((n, e) =>
+                      {
+                          var gomlNode = JThreeInterface.getNode(<HTMLElement>e);;
+                          this.setAttrValue(attrName,func(n,attrName), <HTMLElement>e, gomlNode);
+                      });
+                      this.dequeue();
+                  }
+                  this.queue(() => { f1(attrTarget,val); });
+                  return this; 
+              } else {
+                  var f2 = (attrName: string, value:any) =>
+                  {
+                      this.target.each((n, e) => {
+                          var gomlNode = JThreeInterface.getNode(<HTMLElement>e);;
+                          this.setAttrValue(attrName,  value, <HTMLElement>e, gomlNode);
+                      });
+                      this.dequeue();
+                  }
+                  this.queue(() => { f2(attrTarget, val); });
+                  return this; 
+              }
+          }else
+            return this.getAttr(<string>attrTarget);
+      }else if (typeof attrTarget === "object") {
+          var f = (attrTarget: { [key: string]: any }) => {
+              this.target.each((n, e) => {
+                  var gomlNode = JThreeInterface.getNode(<HTMLElement>e);
+                  for (var attrName in attrTarget) {
+                      var value = attrTarget[attrName];
+                      this.setAttrValue(attrName, value, <HTMLElement>e, gomlNode);
+                  }
+              });
+              this.dequeue();
           }
-        }
-      });
-      this.dequeue();
-    }
-    this.queue(() => { f(attrTarget); });
-    return this;
+          this.queue(() => { f(<{ [key: string]: any }>attrTarget); });
+          return this;
+      }
+  }
+
+  private getAttr(attrName:string):any {
+      if (this.target.length === 0) return undefined;
+      var target = this.target[0];
+      var targetGoml = JThreeInterface.getNode(target);
+      if (targetGoml.attributes.isDefined(attrName))
+      {
+          return targetGoml.attributes.getValue(attrName);
+      } else
+      {
+          return target.attributes.getNamedItem(attrName).value;
+      }
+  }
+
+  private setAttrValue(attrName: string, attrValue: any,e:HTMLElement,gomlNode:GomlTreeNodeBase){
+      if (gomlNode.attributes.isDefined(attrName))
+      {
+          gomlNode.attributes.setValue(attrName, attrValue);
+      } else
+      {
+          e.setAttribute(attrName, attrValue);
+      }
   }
 
   public animate(attrTarget: { [key: string]: any }, duration: number, easing?: string, onComplete?: Delegate.Action0): JThreeInterface {
@@ -85,11 +142,6 @@ class JThreeInterface extends JThreeObject {
   }
 
 
-  /**
-*
-*@param [object Object]
-*@returns
-*/
   public find(attrTarget: string): JThreeInterface {
     return new JThreeInterface(this.target.find(attrTarget));
   }

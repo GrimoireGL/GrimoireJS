@@ -50,13 +50,17 @@ class GrayScaleStage extends RenderStageBase {
 
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
 		var geometry = object.Geometry;
-		var programWrapper = this.program.getForContext(renderer.ContextManager);
-		programWrapper.useProgram();
-		var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
-		programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-		programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(renderer.ContextManager));
-		programWrapper.registerTexture(renderer, texs["SOURCE"], 0, "source");
-		geometry.IndexBuffer.getForRenderer(renderer.ContextManager).bindBuffer();
+        var programWrapper = this.program.getForContext(renderer.ContextManager);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                uv:geometry.UVBuffer
+            },
+            uniforms: {
+                source:{type:"texture",register:0,value:texs["SOURCE"]}
+            }
+        });
+		geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

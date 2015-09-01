@@ -46,16 +46,20 @@ class RB2RenderStage extends RenderStageBase {
 	private configureProgram(object: SceneObject) {
         var geometry = object.Geometry;
         var programWrapper = this.rb2Program.getForContext(this.Renderer.ContextManager);
-        programWrapper.useProgram();
         var v = object.Transformer.calculateMVPMatrix(this.Renderer);
-        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(this.Renderer.ContextManager));
-        programWrapper.setAttributeVerticies("normal", geometry.NormalBuffer.getForRenderer(this.Renderer.ContextManager));
-        programWrapper.setAttributeVerticies("uv", geometry.UVBuffer.getForRenderer(this.Renderer.ContextManager));
-        programWrapper.setUniformMatrix("matMVP", v);
-        programWrapper.setUniformMatrix("matV", this.Renderer.Camera.ViewMatrix);
-        programWrapper.setUniformMatrix("matMV", Matrix.multiply(this.Renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal));
-        programWrapper.setUniform1i("texture", 0);
-        geometry.IndexBuffer.getForRenderer(this.Renderer.ContextManager).bindBuffer();
+	    programWrapper.register({
+	        attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                uv:geometry.UVBuffer
+            },
+            uniforms: {
+                matMVP: { type: "matrix", value: v },
+                matMV: { type: "matrix", value: Matrix.multiply(this.Renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value: this.Renderer.Camera.ViewMatrix },
+            }
+	    });
+        geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

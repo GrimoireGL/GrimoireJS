@@ -64,6 +64,10 @@ class ResourceWrapper extends JThreeObject
     this.initialized=initialized;
     this.onInitializeChangedEvent.fire(this,initialized);
   }
+
+  public init() {
+      
+  }
 }
 
 export = ResourceWrapper;

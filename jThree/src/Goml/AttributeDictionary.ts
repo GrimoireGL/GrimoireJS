@@ -38,10 +38,16 @@ class AttributeDictionary extends JThreeObject {
       return attr.Converter.FromInterface(attr.Value);
   }
 
-  public setValue(attrName: string, value: any, needUpdate: boolean = true): void {
+  public setValue(attrName: string, value: any, needUpdate: boolean = true): void
+  {
     var attr = this.attributes.getById(attrName);
     if (attr == null) console.warn(`attribute \"${attrName}\" is not found.`);
-    else {
+    else
+    {
+        if (attr.Constant) {
+            console.error(`attribute: ${attrName} is constant attribute`);
+            return;
+        }
       var cacheNotifyConfigure = attr.NeedNotifyUpdate;
       attr.NeedNotifyUpdate = needUpdate;
       attr.Value = value;
@@ -74,7 +80,7 @@ class AttributeDictionary extends JThreeObject {
   public defineAttribute(attributes: AttributeDeclaration) {
     for (var key in attributes) {
       var attribute = attributes[key];
-      this.attributes.insert(new GomlAttribute(this.node, this.element, key, attribute.value, this.loader.Configurator.getConverter(attribute.converter), attribute.handler));
+      this.attributes.insert(new GomlAttribute(this.node, this.element, key, attribute.value, this.loader.Configurator.getConverter(attribute.converter), attribute.handler,attribute.constant));
     }
   }
   

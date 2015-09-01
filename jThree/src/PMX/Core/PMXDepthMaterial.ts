@@ -51,18 +51,20 @@ class PMXDepthMaterial extends Material {
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs);
         renderer.GLContext.Disable(GLFeatureType.Blend);
-        var id = renderer.ID;
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
-        programWrapper.useProgram();
-        var v = object.Transformer.calculateMVPMatrix(renderer);
-        programWrapper.registerTexture(renderer, this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, 4, "u_boneMatricies");
-        programWrapper.setAttributeVerticies("position", geometry.PositionBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("boneWeights", geometry.boneWeightBuffer.getForRenderer(renderer.ContextManager));
-        programWrapper.setAttributeVerticies("boneIndicies", geometry.boneIndexBuffer.getForRenderer(renderer.ContextManager));
-       // programWrapper.setUniformMatrix("matMVP", v);
-        programWrapper.setUniformMatrix("matVP", Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix));
-        programWrapper.setUniform1f("u_boneCount", this.associatedMaterial.ParentModel.Skeleton.BoneCount);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                boneWeights: geometry.boneWeightBuffer,
+                boneIndicies: geometry.boneIndexBuffer
+            },
+            uniforms: {
+                u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                matVP: { type: "matrix", value: Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix) },
+                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount}
+            }
+        });
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 

@@ -5,9 +5,9 @@ import ContextManagerBase = require("../../../Core/ContextManagerBase");
 import JThreeContext = require("../../../Core/JThreeContext")
 class RBO extends ContextSafeResourceContainer<RBOWrapper>
 {
-	constructor(context:JThreeContext,width:number,height:number,format:RBOInternalFormatType=RBOInternalFormatType.DepthComponent16)
+	constructor(width:number,height:number,format:RBOInternalFormatType=RBOInternalFormatType.DepthComponent16)
 	{
-		super(context);
+		super();
 		this.width=width;
 		this.height=height;
 		this.format=format;

@@ -2,6 +2,7 @@ import CanvasManagerBase = require('../../ContextManagerBase')
 import TargetTextureType = require('../../../Wrapper/TargetTextureType')
 import BufferTexture = require('./BufferTexture')
 import TextureWrapperBase = require('./TextureWrapperBase');
+import TexImage2DTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
 class BufferTextureWrapper extends TextureWrapperBase {
 	constructor(ownerCanvas: CanvasManagerBase, parent: BufferTexture) {
 		super(ownerCanvas, parent);
@@ -12,8 +13,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
 		var parent = <BufferTexture>this.Parent;
 		this.setTargetTexture(this.WebGLContext.CreateTexture());
 		this.bind();
-		this.WebGLContext.TexImage2D(TargetTextureType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
-		this.applyTextureParameter();
+		this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
 		this.setInitialized();
 	}
 
@@ -25,17 +25,20 @@ class BufferTextureWrapper extends TextureWrapperBase {
 	public resize(width: number, height: number) {
 		this.bind();
 		if (this.WebGLContext.IsTexture(this.TargetTexture)) {
-			var parent = <BufferTexture>this.Parent;
-			this.WebGLContext.TexImage2D(TargetTextureType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
+            var parent = <BufferTexture>this.Parent;
+            this.preTextureUpload();
+			this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
 		}
 	}
 
 	public updateTexture(buffer: ArrayBufferView) {
 		this.bind();
 		if (this.WebGLContext.IsTexture(this.TargetTexture)) {
-			var parent = <BufferTexture>this.Parent;
-			this.WebGLContext.TexImage2D(TargetTextureType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat,buffer);
-		}
+            var parent = <BufferTexture>this.Parent;
+            this.preTextureUpload();
+			this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat,buffer);
+        }
+        this.unbind();
 	}
 
 }
