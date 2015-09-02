@@ -49,7 +49,7 @@
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
       <object id="quad-parent" rotation ="y(-160d)">
         <behaviors>
-          <behavior name="rotation" ratio="0.1"/>
+          <behavior name="rotation" ratio="0.01"/>
         </behaviors>
         <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1">
           <behaviors>
