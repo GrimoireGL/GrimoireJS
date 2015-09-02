@@ -61,6 +61,19 @@ class PMXMaterial extends Material
         return this.diffuse;
     }
 
+    public get Texture() {
+        return this.texture;
+    }
+
+    public get Sphere() {
+        return this.sphere;
+    }
+
+
+    public get SphereMode() {
+        return this.sphereMode;
+    }
+
     private ambient: Color3;
 
     private diffuse: Color4;
