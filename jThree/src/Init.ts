@@ -17,6 +17,18 @@ class JThreeStatic
   public defineBehavior(nameOrDeclarations:string|BehaviorDeclaration,declaration?:BehaviorDeclarationBody|Delegates.Action0) {
     var context = JThreeContextProxy.getJThreeContext();
     context.GomlLoader.componentRegistry.defineBehavior(<string>nameOrDeclarations,declaration);//This is not string but it is for conviniesnce.
+    }
+
+  public get Math() {
+      return{
+          Quaternion: require("./Math/Quaternion"),
+          Vector2:
+              require("./Math/Vector2"),
+          Vector3:
+              require("./Math/Vector3"),
+          Vector4:
+              require("./Math/Vector4")
+      };
   }
 }
 

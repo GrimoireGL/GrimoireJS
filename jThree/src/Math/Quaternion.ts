@@ -1,6 +1,6 @@
 import JThreeObject = require("../Base/JThreeObject");
 import Vector3 = require("./Vector3");
-import glm = require("glm");
+import glm = require("gl-matrix");
 import Matrix = require("./Matrix");
 /**
 * The class to maniplate quaternion.

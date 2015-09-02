@@ -1,4 +1,4 @@
-import glm=require('glm');
+import glm=require('gl-matrix');
 class MatrixBase {
 
     protected static elementEqual(m1:MatrixBase,m2:MatrixBase):boolean
@@ -27,7 +27,7 @@ class MatrixBase {
     public getBySingleIndex(index: number): number {
         throw new Error("Not implemented");
     }
-    
+
     public get RawElements():glm.GLM.IArray{
         return null;
     }

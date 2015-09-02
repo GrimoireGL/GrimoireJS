@@ -1,0 +1,2 @@
+describe 'LightRegister', ->
+  describe 'lightUpdate', ->

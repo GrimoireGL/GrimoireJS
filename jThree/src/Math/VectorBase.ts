@@ -1,4 +1,4 @@
-import glm=require('glm');
+import glm=require('gl-matrix');
 class VectorBase {
 
     private magnitudeSquaredCache: number = -1;
@@ -15,7 +15,7 @@ class VectorBase {
         }
         return this.magnitudeSquaredCache;
     }
-    
+
     protected static elementEqual(v1:VectorBase,v2:VectorBase):boolean
     {
         if(v1.ElementCount!==v2.ElementCount)return false;
@@ -39,7 +39,7 @@ class VectorBase {
     {
         return 0;
     }
-    
+
     public get RawElements():glm.GLM.IArray
     {
         return null;

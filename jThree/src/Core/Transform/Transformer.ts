@@ -4,7 +4,7 @@ import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
 import Delegates = require("../../Base/Delegates");
-import glm = require("glm");
+import glm = require("gl-matrix");
 import RendererBase = require("./../Renderers/RendererBase");
 import JThreeEvent = require("./../../Base/JThreeEvent");
 /**
@@ -33,24 +33,24 @@ class Transformer extends JThreeObject
      * Scene oject reference this transformer related to.
      */
     private relatedTo: SceneObject;
-  
+
     /**
      * backing field of Rotation.
      */
     private rotation: Quaternion;
-  
+
     /**
      * backing field of Position.
      */
     private position: Vector3;
 
     private localOrigin: Vector3;
-  
+
     /**
      * backing field of Scale.
      */
     private scale: Vector3;
-  
+
     /**
      * backing filed of Foward.
      */
@@ -65,7 +65,7 @@ class Transformer extends JThreeObject
      * backing field of LocalToGlobal
      */
     private localToGlobal: Matrix;
-  
+
     /**
      * calculation cache
      */
@@ -78,7 +78,7 @@ class Transformer extends JThreeObject
     private fowardCache: glm.GLM.IArray = glm.vec3.create();
 
     private cacheVec: glm.GLM.IArray = glm.vec4.create();
-  
+
     /**
      * properties for storeing event handlers
      */
@@ -102,7 +102,7 @@ class Transformer extends JThreeObject
         //initialize localTransformCache & localToGlobalCache
         glm.mat4.identity(this.localTransformCache);
         glm.mat4.identity(this.localToGlobalCache);
-        glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformCache, this.rotation.targetQuat, this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformCache 
+        glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformCache, this.rotation.targetQuat, this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformCache
         this.localTransform = new Matrix(this.localTransformCache);//Generate Matrix instance and substitute the matrix for localTransform
         if (this.relatedTo != null && this.relatedTo.Parent != null) {
             //Use LocalToGlobal matrix of parents to multiply with localTransformCache
@@ -179,7 +179,7 @@ class Transformer extends JThreeObject
         this.position = vec;
         this.updateTransform();
     }
-  
+
     /**
      * Get Accessor for model scale.
      */
@@ -187,7 +187,7 @@ class Transformer extends JThreeObject
     {
         return this.scale;
     }
-  
+
     /**
      * Set Accessor for model scale.
      */

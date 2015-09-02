@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require('glm');
+import glm = require('gl-matrix');
 
 class Vector2 extends VectorBase{
 
@@ -18,7 +18,7 @@ class Vector2 extends VectorBase{
     public static get Zero(): Vector2 {
         return new Vector2(0, 0);
     }
-    
+
     constructor(x: number, y: number);
     constructor(x:glm.GLM.IArray);
     constructor(x: number|glm.GLM.IArray, y?: number) {
@@ -30,7 +30,7 @@ class Vector2 extends VectorBase{
         }
         this.targetVector=[<number>x,y];
     }
-    
+
     public targetVector: glm.GLM.IArray;
 
     public get normalized()

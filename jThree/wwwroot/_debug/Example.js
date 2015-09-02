@@ -1,11 +1,12 @@
+var j3m = j3.Math;
 var RotationBehavior = function () {
     
 }
 
 RotationBehavior.prototype.update = function(v) {
     var q = v.attributes.getValue("rotation");
-    var qd=q.constructor.AngleAxis(0.1,new (v.attributes.getValue("position").constructor)(0, 1, 0));
-    var q = q.constructor.Multiply(qd, q);
+    var qd=j3m.Quaternion.AngleAxis(new Number(this.ratio),new (j3m.Vector3)(0, 1, 0));
+    var q = j3m.Quaternion.Multiply(qd, q);
     v.attributes.setValue("rotation",q);
 }
 
