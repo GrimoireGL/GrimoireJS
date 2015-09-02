@@ -51,7 +51,11 @@
         <behaviors>
           <behavior name="rotation" test="argument"/>
         </behaviors>
-        <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1"/>
+        <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1">
+          <behaviors>
+            <behavior name="rotation" test="argument"/>
+          </behaviors>
+        </mesh>
         <mesh geo="quad" mat="mat2" position="-0.5,0.5,0" scale="0.1"/>
         <mesh geo="quad" mat="mat2" position="-0.5,0.5,0.5" scale="0.1"/>
         <mesh geo="quad" mat="mat2" position="1,1.5,-1" scale="0.1"/>
