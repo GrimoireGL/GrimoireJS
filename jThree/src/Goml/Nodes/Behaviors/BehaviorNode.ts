@@ -69,8 +69,26 @@ class BehaviorNode extends GomlTreeNodeBase
         }
       }else{
         console.warn("component name was not specified");
+     }
+      var attributes = this.Element.attributes;
+      for (var i = 0; i < attributes.length; i++) {
+          var attributeItem = attributes.item(i);
+          if(!(attributeItem.name in this))this.defineDefaultAccessor(attributeItem);
       }
   }
+
+  private defineDefaultAccessor(attr: Attr) {
+      Object.defineProperty(this, attr.name, {
+          get:
+          () =>
+          {
+              return attr.value;
+          },
+          set: (v) =>
+          {
+              attr.value = v;
+          }
+      });  }
 
   private defineAccessor(attrKey:string) {
       Object.defineProperty(this, attrKey, {

@@ -7,6 +7,7 @@ import ShadingStage = require("../RenderStages/FowardShadingStage");
 import RbDepthStage = require("../RenderStages/RBDepthStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
+import AlbedoStage = require("../RenderStages/AlbedoRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {
     public get TextureBuffers(): GeneraterInfo
@@ -42,6 +43,11 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     OUT: "default"
                 },
                 stage:new SkyBoxStage(target)
+            }, {
+                buffers: {
+                    OUT: "deffered.rb2"
+                },
+                stage: new AlbedoStage(target)
             }
            ,{
                 buffers: {

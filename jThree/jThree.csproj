@@ -170,6 +170,9 @@
     <Content Include="src\Core\Shaders\SkyBox.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\SkyboxGeometries.glsl" />
     <Content Include="src\Core\Shaders\Light\DirectionalLightFragmentChunk.glsl" />
+    <Content Include="test\Sample\SampleTest.coffee" />
+    <Content Include="src\Core\Shaders\Deffered\Albedo.glsl" />
+    <Content Include="src\PMX\Shader\PMXAlbedoFragment.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -266,6 +269,7 @@
     <TypeScriptCompile Include="src\Core\Light\LightTypeDeclaration.ts" />
     <TypeScriptCompile Include="src\Core\Light\PointLight.ts" />
     <TypeScriptCompile Include="src\Core\ListStateChangedType.ts" />
+    <TypeScriptCompile Include="src\Core\Materials\AlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DebugSpriteMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DepthMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DepthStage\DepthStageMaterial.ts" />
@@ -282,6 +286,7 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageChain.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageConfig.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\AlbedoRenderStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\FowardShadingStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GrayScaleStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\LightAccumulationStage.ts" />
@@ -429,6 +434,7 @@
     <TypeScriptCompile Include="src\Math\Vector3.ts" />
     <TypeScriptCompile Include="src\Math\Vector4.ts" />
     <TypeScriptCompile Include="src\Math\VectorBase.ts" />
+    <TypeScriptCompile Include="src\PMX\Core\PMXAlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXBone.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXBoneTransformer.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXDepthMaterial.ts" />
@@ -505,6 +511,7 @@
     <TypeScriptCompile Include="src\Wrapper\WebGLContextWrapper.ts" />
     <TypeScriptCompile Include="test\Core\Light\LightRegisterTest.ts" />
     <TypeScriptCompile Include="test\Goml\GomlLoaderTest.ts" />
+    <TypeScriptCompile Include="test\Sample\SampleTs.ts" />
     <TypeScriptCompile Include="test\Test.ts" />
   </ItemGroup>
   <ItemGroup>

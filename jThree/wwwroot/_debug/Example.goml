@@ -2,9 +2,9 @@
   <resources>
     <ddebug name="light" target="deffered.light" viewport="viewport#main"/>
     <ddebug name="depth" target="deffered.depth" viewport="viewport#main"/>
-    <ddebug name="normal" target="deffered.rb1" viewport="viewport#main"/>
+    <ddebug name="normal" target="deffered.rb2" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
-    <phong diffuse="darkgray" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
+    <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cylinder divide="30" name="cyl"/>
@@ -48,7 +48,11 @@
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
       <object id="quad-parent" rotation ="y(-160d)">
-        <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1"/>
+        <behaviors>
+          <behavior name="rotation" ratio="0.05"/>
+        </behaviors>
+        <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1">
+        </mesh>
         <mesh geo="quad" mat="mat2" position="-0.5,0.5,0" scale="0.1"/>
         <mesh geo="quad" mat="mat2" position="-0.5,0.5,0.5" scale="0.1"/>
         <mesh geo="quad" mat="mat2" position="1,1.5,-1" scale="0.1"/>

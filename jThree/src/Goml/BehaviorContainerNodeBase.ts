@@ -2,6 +2,7 @@ import TreeNodeBase = require('./TreeNodeBase');
 import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
 import GomlLoader = require('./GomlLoader');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
+
 class BehaviorContainerNodeBase extends TreeNodeBase
 {
 	constructor(elem:HTMLElement,parent?:TreeNodeBase,loader?:GomlLoader)
@@ -20,7 +21,6 @@ class BehaviorContainerNodeBase extends TreeNodeBase
      */
     protected behaviors:AssociativeArray<BehaviorNode[]>=new AssociativeArray<BehaviorNode[]>();
     
-        
     /**
      * Add component to this node.
      */
