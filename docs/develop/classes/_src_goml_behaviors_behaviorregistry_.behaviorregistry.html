@@ -73,7 +73,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The class for managing classes registered.</p>
+						<p>Provides feature to register behavior.</p>
 					</div>
 				</div>
 			</section>
@@ -115,8 +115,8 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#addbehavior" class="tsd-kind-icon">add<wbr>Behavior</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#copyobject" class="tsd-kind-icon">copy<wbr>Object</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#definebehavior" class="tsd-kind-icon">define<wbr>Behavior</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#generatebehaviorinstance" class="tsd-kind-icon">generate<wbr>Behavior<wbr>Instance</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#getbehavior" class="tsd-kind-icon">get<wbr>Behavior</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
@@ -161,29 +161,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="addbehavior" class="tsd-anchor"></a>
-					<h3>add<wbr>Behavior</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Behavior<span class="tsd-signature-symbol">(</span>components<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclaration_.behaviordeclaration.html" class="tsd-signature-type">BehaviorDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L18">src/Goml/Behaviors/BehaviorRegistry.ts:18</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>components: <a href="../interfaces/_src_goml_behaviors_behaviordeclaration_.behaviordeclaration.html" class="tsd-signature-type">BehaviorDeclaration</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
 					<a name="copyobject" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> copy<wbr>Object</h3>
@@ -194,7 +171,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L45">src/Goml/Behaviors/BehaviorRegistry.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L53">src/Goml/Behaviors/BehaviorRegistry.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -215,26 +192,64 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="generatebehaviorinstance" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> generate<wbr>Behavior<wbr>Instance</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">generate<wbr>Behavior<wbr>Instance<span class="tsd-signature-symbol">(</span>behaviorDecl<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclaration_.behaviordeclaration.html" class="tsd-signature-type">BehaviorDeclaration</a>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="definebehavior" class="tsd-anchor"></a>
+					<h3>define<wbr>Behavior</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">define<wbr>Behavior<span class="tsd-signature-symbol">(</span>behaviorName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, behaviorDeclaration<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_base_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">define<wbr>Behavior<span class="tsd-signature-symbol">(</span>behaviorDeclarations<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclaration_.behaviordeclaration.html" class="tsd-signature-type">BehaviorDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L31">src/Goml/Behaviors/BehaviorRegistry.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L18">src/Goml/Behaviors/BehaviorRegistry.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>behaviorDecl: <a href="../interfaces/_src_goml_behaviors_behaviordeclaration_.behaviordeclaration.html" class="tsd-signature-type">BehaviorDeclaration</a></h5>
+									<h5>behaviorName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<h5>behaviorDeclaration: <a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_base_delegates_.action0.html" class="tsd-signature-type">Action0</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L19">src/Goml/Behaviors/BehaviorRegistry.ts:19</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>behaviorDeclarations: <a href="../interfaces/_src_goml_behaviors_behaviordeclaration_.behaviordeclaration.html" class="tsd-signature-type">BehaviorDeclaration</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="generatebehaviorinstance" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> generate<wbr>Behavior<wbr>Instance</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Behavior<wbr>Instance<span class="tsd-signature-symbol">(</span>behaviorDecl<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_base_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L40">src/Goml/Behaviors/BehaviorRegistry.ts:40</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>behaviorDecl: <a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_base_delegates_.action0.html" class="tsd-signature-type">Action0</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a></h4>
@@ -245,19 +260,19 @@
 					<a name="getbehavior" class="tsd-anchor"></a>
 					<h3>get<wbr>Behavior</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Behavior<span class="tsd-signature-symbol">(</span>componentName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Behavior<span class="tsd-signature-symbol">(</span>behaviorName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L26">src/Goml/Behaviors/BehaviorRegistry.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Behaviors/BehaviorRegistry.ts#L35">src/Goml/Behaviors/BehaviorRegistry.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>componentName: <span class="tsd-signature-type">string</span></h5>
+									<h5>behaviorName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_src_goml_behaviors_behaviordeclarationbody_.behaviordeclarationbody.html" class="tsd-signature-type">BehaviorDeclarationBody</a></h4>
@@ -327,11 +342,11 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#behaviorinstances" class="tsd-kind-icon">behavior<wbr>Instances</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#addbehavior" class="tsd-kind-icon">add<wbr>Behavior</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#copyobject" class="tsd-kind-icon">copy<wbr>Object</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#definebehavior" class="tsd-kind-icon">define<wbr>Behavior</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_src_goml_behaviors_behaviorregistry_.behaviorregistry.html#generatebehaviorinstance" class="tsd-kind-icon">generate<wbr>Behavior<wbr>Instance</a>

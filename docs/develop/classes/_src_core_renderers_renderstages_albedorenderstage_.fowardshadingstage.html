@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>RenderStageBase | jThree</title>
+	<title>FowardShadingStage | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_src_core_renderers_renderstages_renderstagebase_.html">&quot;src/Core/Renderers/RenderStages/RenderStageBase&quot;</a>
+					<a href="../modules/_src_core_renderers_renderstages_albedorenderstage_.html">&quot;src/Core/Renderers/RenderStages/AlbedoRenderStage&quot;</a>
 				</li>
 				<li>
-					<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>
+					<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html">FowardShadingStage</a>
 				</li>
 			</ul>
-			<h1>Class RenderStageBase</h1>
+			<h1>Class FowardShadingStage</h1>
 		</div>
 	</div>
 </header>
@@ -74,39 +74,10 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_src_base_jthreeobject_.jthreeobject.html" class="tsd-signature-type">JThreeObject</a>
+						<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">RenderStageBase</span>
-								<ul class="tsd-hierarchy">
-									<li>
-										<a href="_src_core_renderers_renderstages_shadowmaps_directionalshadowmapstage_.directionallightdepthstage.html" class="tsd-signature-type">DirectionalLightDepthStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_rb1renderstage_.rb1renderstage.html" class="tsd-signature-type">RB1RenderStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_lightaccumulationstage_.litghtaccumulationstage.html" class="tsd-signature-type">LitghtAccumulationStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_fowardshadingstage_.fowardshadingstage.html" class="tsd-signature-type">FowardShadingStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_rbdepthstage_.rbdepthstage.html" class="tsd-signature-type">RBDepthStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_skyboxstage_.skyboxstage.html" class="tsd-signature-type">SkyBoxStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html" class="tsd-signature-type">FowardShadingStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_grayscalestage_.grayscalestage.html" class="tsd-signature-type">GrayScaleStage</a>
-									</li>
-									<li>
-										<a href="_src_core_renderers_renderstages_rb2renderstage_.rb2renderstage.html" class="tsd-signature-type">RB2RenderStage</a>
-									</li>
-								</ul>
+								<span class="target">FowardShadingStage</span>
 							</li>
 						</ul>
 					</li>
@@ -125,43 +96,34 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderer" class="tsd-kind-icon">renderer</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#context" class="tsd-kind-icon">Context</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#glcontext" class="tsd-kind-icon">GLContext</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderer-1" class="tsd-kind-icon">Renderer</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#context" class="tsd-kind-icon">Context</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#glcontext" class="tsd-kind-icon">GLContext</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#renderer" class="tsd-kind-icon">Renderer</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#applystageconfigtoglfeature" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config<wbr>ToGLFeature</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#attachtowrapper" class="tsd-kind-icon">attach<wbr>ToWrapper</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#needrender" class="tsd-kind-icon">need<wbr>Render</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#render" class="tsd-kind-icon">render</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#resetactivetextures" class="tsd-kind-icon">reset<wbr>Active<wbr>Textures</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#needrender" class="tsd-kind-icon">need<wbr>Render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -169,17 +131,18 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Render<wbr>Stage<wbr>Base<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Foward<wbr>Shading<wbr>Stage<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html" class="tsd-signature-type">FowardShadingStage</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L35">src/Core/Renderers/RenderStages/RenderStageBase.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/AlbedoRenderStage.ts#L9">src/Core/Renderers/RenderStages/AlbedoRenderStage.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -188,35 +151,23 @@
 									<h5>renderer: <a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html" class="tsd-signature-type">FowardShadingStage</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="renderer" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> renderer</h3>
-					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L25">src/Core/Renderers/RenderStages/RenderStageBase.ts:25</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="context" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> Context</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Context<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#context">Context</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L173">src/Core/Renderers/RenderStages/RenderStageBase.ts:173</a></li>
 								</ul>
@@ -225,15 +176,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="defaultfbo" class="tsd-anchor"></a>
 					<h3>DefaultFBO</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> DefaultFBO<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_resources_fbo_fbo_.fbo.html" class="tsd-signature-type">FBO</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultfbo">DefaultFBO</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L162">src/Core/Renderers/RenderStages/RenderStageBase.ts:162</a></li>
 								</ul>
@@ -247,15 +199,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="defaultrbo" class="tsd-anchor"></a>
 					<h3>DefaultRBO</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> DefaultRBO<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_resources_rbo_rbo_.rbo.html" class="tsd-signature-type">RBO</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultrbo">DefaultRBO</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L169">src/Core/Renderers/RenderStages/RenderStageBase.ts:169</a></li>
 								</ul>
@@ -269,15 +222,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="glcontext" class="tsd-anchor"></a>
 					<h3>GLContext</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> GLContext<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_wrapper_glcontextwrapperbase_.glcontextwrapperbase.html" class="tsd-signature-type">GLContextWrapperBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#glcontext">GLContext</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L33">src/Core/Renderers/RenderStages/RenderStageBase.ts:33</a></li>
 								</ul>
@@ -286,15 +240,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="renderstageconfig" class="tsd-anchor"></a>
 					<h3>Render<wbr>Stage<wbr>Config</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> RenderStageConfig<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_core_renderers_renderstageconfig_.renderstageconfig.html" class="tsd-signature-type">RenderStageConfig</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderstageconfig">RenderStageConfig</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L101">src/Core/Renderers/RenderStages/RenderStageBase.ts:101</a></li>
 								</ul>
@@ -303,15 +258,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="renderer-1" class="tsd-anchor"></a>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="renderer" class="tsd-anchor"></a>
 					<h3>Renderer</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Renderer<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderer-1">Renderer</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L29">src/Core/Renderers/RenderStages/RenderStageBase.ts:29</a></li>
 								</ul>
@@ -325,15 +281,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="targetgeometry" class="tsd-anchor"></a>
 					<h3>Target<wbr>Geometry</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> TargetGeometry<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#targetgeometry">TargetGeometry</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L67">src/Core/Renderers/RenderStages/RenderStageBase.ts:67</a></li>
 								</ul>
@@ -345,15 +302,16 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="applystageconfig" class="tsd-anchor"></a>
 					<h3>apply<wbr>Stage<wbr>Config</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">apply<wbr>Stage<wbr>Config<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#applystageconfig">applyStageConfig</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L71">src/Core/Renderers/RenderStages/RenderStageBase.ts:71</a></li>
 								</ul>
@@ -362,73 +320,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="applystageconfigtoglfeature" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> apply<wbr>Stage<wbr>Config<wbr>ToGLFeature</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">apply<wbr>Stage<wbr>Config<wbr>ToGLFeature<span class="tsd-signature-symbol">(</span>flag<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">GLFeature</span>, def<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L84">src/Core/Renderers/RenderStages/RenderStageBase.ts:84</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>flag: <span class="tsd-signature-type">boolean</span></h5>
-								</li>
-								<li>
-									<h5>target: <span class="tsd-signature-type">GLFeature</span></h5>
-								</li>
-								<li>
-									<h5>def: <span class="tsd-signature-type">boolean</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="attachtowrapper" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> attach<wbr>ToWrapper</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">attach<wbr>ToWrapper<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FboBindData</span>, targetWrapper<span class="tsd-signature-symbol">: </span><a href="_src_core_resources_fbo_fbowrapper_.fbowrapper.html" class="tsd-signature-type">FBOWrapper</a>, targetAttachment<span class="tsd-signature-symbol">: </span><a href="../enums/_src_wrapper_framebufferattachmenttype_.framebufferattachmenttype.html" class="tsd-signature-type">FrameBufferAttachmentType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L149">src/Core/Renderers/RenderStages/RenderStageBase.ts:149</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>v: <span class="tsd-signature-type">FboBindData</span></h5>
-								</li>
-								<li>
-									<h5>targetWrapper: <a href="_src_core_resources_fbo_fbowrapper_.fbowrapper.html" class="tsd-signature-type">FBOWrapper</a></h5>
-								</li>
-								<li>
-									<h5>targetAttachment: <a href="../enums/_src_wrapper_framebufferattachmenttype_.framebufferattachmenttype.html" class="tsd-signature-type">FrameBufferAttachmentType</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="bindasoutbuffer" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> bind<wbr>AsOut<wbr>Buffer</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer<span class="tsd-signature-symbol">(</span>fbo<span class="tsd-signature-symbol">: </span><a href="_src_core_resources_fbo_fbo_.fbo.html" class="tsd-signature-type">FBO</a>, bindInfo<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FboBindData</span><span class="tsd-signature-symbol">[]</span>, onBind<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_base_delegates_.action0.html" class="tsd-signature-type">Action0</a>, onDefaultBuffer<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_src_base_delegates_.action0.html" class="tsd-signature-type">Action0</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#bindasoutbuffer">bindAsOutBuffer</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L118">src/Core/Renderers/RenderStages/RenderStageBase.ts:118</a></li>
 								</ul>
@@ -452,15 +353,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="getpasscount" class="tsd-anchor"></a>
 					<h3>get<wbr>Pass<wbr>Count</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Pass<wbr>Count<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#getpasscount">getPassCount</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L63">src/Core/Renderers/RenderStages/RenderStageBase.ts:63</a></li>
 								</ul>
@@ -493,15 +395,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="loadprogram" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> load<wbr>Program</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon">load<wbr>Program<span class="tsd-signature-symbol">(</span>vsid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fsid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, pid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, vscode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fscode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#loadprogram">loadProgram</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L109">src/Core/Renderers/RenderStages/RenderStageBase.ts:109</a></li>
 								</ul>
@@ -528,17 +431,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="needrender" class="tsd-anchor"></a>
 					<h3>need<wbr>Render</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">need<wbr>Render<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, object<span class="tsd-signature-symbol">: </span><a href="_src_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a>, passCount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#needrender">needRender</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L59">src/Core/Renderers/RenderStages/RenderStageBase.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/AlbedoRenderStage.ts#L52">src/Core/Renderers/RenderStages/AlbedoRenderStage.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -557,15 +461,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="postendstage" class="tsd-anchor"></a>
 					<h3>post<wbr>End<wbr>Stage</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">post<wbr>End<wbr>Stage<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, passCount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postendstage">postEndStage</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L51">src/Core/Renderers/RenderStages/RenderStageBase.ts:51</a></li>
 								</ul>
@@ -591,24 +496,20 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="prebeginstage" class="tsd-anchor"></a>
 					<h3>pre<wbr>Begin<wbr>Stage</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">pre<wbr>Begin<wbr>Stage<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, passCount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#prebeginstage">preBeginStage</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L45">src/Core/Renderers/RenderStages/RenderStageBase.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/AlbedoRenderStage.ts#L15">src/Core/Renderers/RenderStages/AlbedoRenderStage.ts:15</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>This method will be called before process render in each pass</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -625,17 +526,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, object<span class="tsd-signature-symbol">: </span><a href="_src_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a>, passCount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L55">src/Core/Renderers/RenderStages/RenderStageBase.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/AlbedoRenderStage.ts#L35">src/Core/Renderers/RenderStages/AlbedoRenderStage.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -653,23 +555,6 @@
 									<h5>texs: <a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="resetactivetextures" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> reset<wbr>Active<wbr>Textures</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">reset<wbr>Active<wbr>Textures<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L96">src/Core/Renderers/RenderStages/RenderStageBase.ts:96</a></li>
-								</ul>
-							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -702,7 +587,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_src_core_renderers_renderstages_renderstagebase_.html">"src/<wbr>Core/<wbr>Renderers/<wbr>Render<wbr>Stages/<wbr>Render<wbr>Stage<wbr>Base"</a>
+						<a href="../modules/_src_core_renderers_renderstages_albedorenderstage_.html">"src/<wbr>Core/<wbr>Renderers/<wbr>Render<wbr>Stages/<wbr>Albedo<wbr>Render<wbr>Stage"</a>
 					</li>
 				</ul>
 			</nav>
@@ -711,73 +596,61 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-kind-icon">Render<wbr>Stage<wbr>Base</a>
+						<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html" class="tsd-kind-icon">Foward<wbr>Shading<wbr>Stage</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderer" class="tsd-kind-icon">renderer</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#context" class="tsd-kind-icon">Context</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#context" class="tsd-kind-icon">Context</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#glcontext" class="tsd-kind-icon">GLContext</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#glcontext" class="tsd-kind-icon">GLContext</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#renderer" class="tsd-kind-icon">Renderer</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderer-1" class="tsd-kind-icon">Renderer</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#applystageconfigtoglfeature" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config<wbr>ToGLFeature</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#attachtowrapper" class="tsd-kind-icon">attach<wbr>ToWrapper</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#needrender" class="tsd-kind-icon">need<wbr>Render</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#render" class="tsd-kind-icon">render</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#resetactivetextures" class="tsd-kind-icon">reset<wbr>Active<wbr>Textures</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#needrender" class="tsd-kind-icon">need<wbr>Render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_renderers_renderstages_albedorenderstage_.fowardshadingstage.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>
