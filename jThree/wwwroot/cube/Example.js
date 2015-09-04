@@ -6,12 +6,13 @@ cnt = 10;
 j3(function() {
   var i, j, k, ref, ref1, ref2, x, y, z;
   for (x = i = 0, ref = cnt; 0 <= ref ? i <= ref : i >= ref; x = 0 <= ref ? ++i : --i) {
-    for (y = j = 0, ref1 = cnt; 0 <= ref1 ? j <= ref1 : j >= ref1; y = 0 <= ref1 ? ++j : --j) {
-      for (z = k = 0, ref2 = cnt; 0 <= ref2 ? k <= ref2 : k >= ref2; z = 0 <= ref2 ? ++k : --k) {
-        j3('#container').append("<mesh geo='cube' scale='0.2' position='" + x + "," + y + "," + z + "' mat='mat2' />");
-      }
-    }
+          for (y = j = 0, ref1 = cnt; 0 <= ref1 ? j <= ref1 : j >= ref1; y = 0 <= ref1 ? ++j : --j) {
+              for (z = k = 0, ref2 = cnt; 0 <= ref2 ? k <= ref2 : k >= ref2; z = 0 <= ref2 ? ++k : --k) {
+                  j3('#container').append("<mesh geo='cube' scale='0.2' position='" + x + "," + y + "," + z + "' mat='mat2' />");
+              }
+          }
   }
+
   j3('#container').attr({
     position: (-cnt / 2) + ", " + (-cnt / 2) + ", " + (-cnt / 2)
   });

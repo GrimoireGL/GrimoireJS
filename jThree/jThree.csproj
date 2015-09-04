@@ -86,7 +86,6 @@
     <Content Include="wwwroot\GUMI\TX\toonG_1.bmp" />
     <Content Include="wwwroot\GUMI\TX\toonH_7.bmp" />
     <Content Include="wwwroot\GUMI\TX\toonw.bmp" />
-    <Content Include="wwwroot\j3.js" />
     <Content Include="wwwroot\jquery.js" />
     <Content Include="wwwroot\quad-animate\Example.html" />
     <Content Include="wwwroot\quad-animate\Example.js" />

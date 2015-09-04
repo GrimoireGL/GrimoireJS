@@ -5,7 +5,7 @@ import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import JThreeContextProxy = require('../../JThreeContextProxy')
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-class FowardShadingStage extends RenderStageBase
+class SpecularAlbedoStage extends RenderStageBase
 {
     constructor(renderer: RendererBase)
     {
@@ -15,7 +15,7 @@ class FowardShadingStage extends RenderStageBase
     public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo)
     {
         this.bindAsOutBuffer(this.DefaultFBO, [{
-            texture: null,
+            texture: this.DefaultRBO,
             target: "depth",
             type: "rbo"
         }, {
@@ -36,7 +36,7 @@ class FowardShadingStage extends RenderStageBase
     {
         var geometry = object.Geometry;
         if (!geometry) return;
-        var materials = object.getMaterials("jthree.materials.albedo");
+        var materials = object.getMaterials("jthree.materials.specular.albedo");
         for (var i = 0; i < materials.length; i++)
         {
             var material = materials[i];
@@ -55,4 +55,4 @@ class FowardShadingStage extends RenderStageBase
     }
 }
 
-export = FowardShadingStage;
+export = SpecularAlbedoStage;

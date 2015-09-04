@@ -50,7 +50,7 @@ class PMXAlbedoMaterial extends Material
         this.associatedMaterial = material;
         var vs = require('../Shader/PMXVertex.glsl');
         var fs = require('../Shader/PMXAlbedoFragment.glsl');
-        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.albedo", "jthree.programs.pmx.albedo", vs, fs);
+        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.pmx.fragment.albedo", "jthree.programs.pmx.albedo", vs, fs);
         this.setLoaded();
     }
 
@@ -58,11 +58,9 @@ class PMXAlbedoMaterial extends Material
     {
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs);
-        renderer.GLContext.Disable(GLFeatureType.Blend);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
-
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,

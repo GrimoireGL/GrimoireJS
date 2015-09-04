@@ -56,6 +56,7 @@ class LitghtAccumulationStage extends RenderStageBase
                 depth: { type: "texture", register: 1, value: texs["DEPTH"] },
                 lightParams: { type: "texture", register: 2, value: scene.LightRegister.ParameterTexture },
                 matIP: { type: "matrix", value: ip },
+                matV:{type:"matrix",value:renderer.Camera.ViewMatrix},
                 matTV: { type: "matrix", value: Matrix.inverse(renderer.Camera.ViewMatrix) },
                 lightParamSize: { type: "vector", value: new Vector2(scene.LightRegister.TextureWidth, scene.LightRegister.TextureHeight) },
                 c_pos: { type: "vector", value: renderer.Camera.Position },

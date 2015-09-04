@@ -1,7 +1,7 @@
 <goml>
   <resources>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
-    <phong diffuse="red" specular="#CCC" specularpower="15" name="mat3" texture="test" />
+    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2"/>
+    <phong diffuse="red" specular="#CCC" specularpower="15" name="mat3"/>
     <cube name="cube" />
   </resources>
   <renderers>

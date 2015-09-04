@@ -7,7 +7,7 @@ import ShadingStage = require("../RenderStages/FowardShadingStage");
 import RbDepthStage = require("../RenderStages/RBDepthStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
-import AlbedoStage = require("../RenderStages/AlbedoRenderStage");
+import AlbedoStage = require("../RenderStages/DiffuseAlbedoStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {
     public get TextureBuffers(): GeneraterInfo

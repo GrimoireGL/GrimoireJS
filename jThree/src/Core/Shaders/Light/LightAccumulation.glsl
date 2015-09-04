@@ -14,6 +14,7 @@ uniform float coef;
 uniform mat4 matIP;
 uniform mat4 matTV;
 uniform mat4 matLV;
+uniform mat4 matV;
 uniform vec3 posL;
 
 const vec4 byteMask=vec4(1.,1./255.,1./(255.*255.),1./(255.*255.*255.));

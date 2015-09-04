@@ -13,7 +13,7 @@ import GlFeatureType = require("../../Wrapper/GLFeatureType");
 
  declare function require(string): string;
 
-class AlbedoMaterial extends Material {
+class DiffuseAlbedoMaterial extends Material {
     public get MaterialGroup(): string {
     return "jthree.materials.albedo";
     }
@@ -79,4 +79,4 @@ class AlbedoMaterial extends Material {
   }
 }
 
-export =AlbedoMaterial;
+export =DiffuseAlbedoMaterial;

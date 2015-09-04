@@ -1,4 +1,4 @@
-
+﻿
 import Phong = require("../../../Core/Materials/PhongMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
@@ -28,7 +28,9 @@ class PhongNode extends MaterialNodeBase
           },
           "texture":
           {
-              value:"tex",converter:"string",handler:(v)=> {
+              value:null, converter: "string", handler: (v) =>
+              {
+                  if(v.Value)
                   this.material.Texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
               }
           }
