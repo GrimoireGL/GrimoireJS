@@ -222,7 +222,7 @@ gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'server', 'watch:rel
 gulp.task 'watch:reload', ->
   gulp.watch watchForReload, ['reload']
 
-gulp.task 'watch:templete', ['watch:haml', 'watch:jade']
+gulp.task 'watch:templete', ['watch:jade']
 
 gulp.task 'watch', ['watch:main', 'watch:templete']
 
