@@ -6,12 +6,8 @@ import Scene = require('../../Scene');
 import Program = require('../../Resources/Program/Program');
 import Mesh = require('../../../Shapes/Mesh');
 import Matrix = require('../../../Math/Matrix');
-import Vector3 = require('../../../Math/Vector3');
 import Vector2 = require('../../../Math/Vector2');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
-import PointLight = require('../../Light/PointLight');
-import DirectionalLight = require('../../Light/DirectionalLight');
-
 class LitghtAccumulationStage extends RenderStageBase
 {
 
@@ -86,7 +82,8 @@ class LitghtAccumulationStage extends RenderStageBase
     {
         return {
             depthTest: false,
-            cullFace: false
+            cullFace: false,
+            blend:false
         };
     }
 }

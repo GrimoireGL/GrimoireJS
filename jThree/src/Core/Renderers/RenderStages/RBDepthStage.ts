@@ -5,6 +5,7 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import Scene = require('../../Scene');
 import Program = require('../../Resources/Program/Program');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
+import RenderStageConfig = require("../RenderStageConfig");
 declare function require(target: string): any;
 class RBDepthStage extends RenderStageBase {
 
@@ -54,7 +55,17 @@ class RBDepthStage extends RenderStageBase {
 
 	public getPassCount(scene: Scene) {
 		return 1;
-	}
+    }
+
+    public get RenderStageConfig(): RenderStageConfig
+    {
+        return {
+            cullFace: true,
+            cullFront: false,
+            depthTest: true,
+            blend: false
+        };
+    }
 
 }
 export = RBDepthStage;

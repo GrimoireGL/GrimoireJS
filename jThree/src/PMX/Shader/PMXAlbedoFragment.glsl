@@ -34,7 +34,6 @@ vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
 
 void main(void){
   vec2 adjuv=v_uv;
-  adjuv.y=1.-adjuv.y;
   gl_FragColor.rgba=u_diffuse;
     if(u_textureUsed>0) gl_FragColor.rgba*=blendPMXTexture(u_texture,adjuv,u_addTexCoeff,u_mulTexCoeff);
     if(u_sphereMode==1)

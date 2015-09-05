@@ -1,7 +1,8 @@
 ﻿ interface RenderStageConfig {
 	cullFace?: boolean;
 	cullFront?: boolean;
-	depthTest?: boolean;
+    depthTest?: boolean;
+    blend?:boolean;
 }
 
  export = RenderStageConfig;

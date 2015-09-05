@@ -27,7 +27,6 @@ class NormalMaterial extends Material {
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
     super.configureMaterial(scene, renderer, object, texs);
     var geometry = object.Geometry;
-    renderer.GLContext.Disable(GlFeatureType.Blend);
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     var v = object.Transformer.calculateMVPMatrix(renderer);
         programWrapper.register({

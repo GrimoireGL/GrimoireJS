@@ -61,16 +61,19 @@ class PMXMaterial extends Material
         return this.diffuse;
     }
 
-    public get Texture() {
+    public get Texture()
+    {
         return this.texture;
     }
 
-    public get Sphere() {
+    public get Sphere()
+    {
         return this.sphere;
     }
 
 
-    public get SphereMode() {
+    public get SphereMode()
+    {
         return this.sphereMode;
     }
 
@@ -101,6 +104,8 @@ class PMXMaterial extends Material
     public addMorphParam: PmxMaterialMorphParamContainer;
 
     public mulMorphParam: PmxMaterialMorphParamContainer;
+
+    private textureCaches: HTMLImageElement[] = [];
 
     public get PassCount(): number
     {
@@ -154,8 +159,6 @@ class PMXMaterial extends Material
         }
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs);
-        renderer.GLContext.Enable(GLFeatureType.DepthTest);
-        renderer.GLContext.Enable(GLFeatureType.Blend);
         renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
@@ -280,14 +283,27 @@ class PMXMaterial extends Material
         } else
         {
             var texture = rm.createTextureWithSource(resourceName, null);
-            var img = new Image();
-            img.onload = () =>
+            this.loadImage(directory + this.pmxData.Textures[index]).then((t) =>
             {
-                texture.ImageSource = img;
-            };
-            img.src = directory + this.pmxData.Textures[index];
+                texture.ImageSource = t;
+            });
             return texture;
         }
+    }
+
+    private loadImage(src: string): Q.Promise<HTMLImageElement>
+    {
+        return Q.Promise<HTMLImageElement>((resolver, reject, notify) =>
+        {
+            var img = new Image();
+            this.textureCaches.push(img);
+            img.onload = () =>
+            {
+                resolver(img);
+            }
+            img.src = src;
+        }
+            );
     }
 
     public get Priorty(): number

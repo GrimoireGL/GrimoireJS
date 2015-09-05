@@ -8,3 +8,4 @@
 /// <reference path="sinon/sinon.d.ts" />
 /// <reference path="superagent/superagent.d.ts" />
 ///<reference path="ammo/ammo.d.ts"/>
+///<reference path="q/q.d.ts"/>

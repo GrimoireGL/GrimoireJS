@@ -5,7 +5,21 @@ import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import JThreeContextProxy = require('../../JThreeContextProxy')
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-class FowardShadingStage extends RenderStageBase {
+import RenderStageConfig = require("../RenderStageConfig");
+class FowardShadingStage extends RenderStageBase
+{
+
+    public get RenderStageConfig(): RenderStageConfig
+    {
+        return {
+            cullFace: true,
+            cullFront: false,
+            depthTest: true,
+            blend: true
+        };
+    }
+
+
 	constructor(renderer: RendererBase) {
 		super(renderer);
 	}

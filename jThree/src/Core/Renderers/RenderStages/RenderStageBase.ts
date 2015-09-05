@@ -6,7 +6,6 @@ import Program = require('../../Resources/Program/Program');
 import JThreeContextProxy = require('../../JThreeContextProxy');
 import ShaderType = require("../../../Wrapper/ShaderType");
 import ResolvedChainInfo = require('../ResolvedChainInfo');
-import TextureRegister = require('../../../Wrapper/Texture/TextureRegister');
 import TextureBase = require('../../Resources/Texture/TextureBase');
 import RBO = require('../../Resources/RBO/RBO');
 import FBO = require('../../Resources/FBO/FBO');
@@ -15,9 +14,6 @@ import Delegates = require('../../../Base/Delegates');
 import GLCullMode = require('../../../Wrapper/GLCullMode');
 import GLFeature = require('../../../Wrapper/GLFeatureType');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
-import TargetTextureType = require('../../../Wrapper/TargetTextureType');
-import GLSpecManager = require('../../GLSpecManager');
-import PixelStoreParamType = require('../../../Wrapper/Texture/PixelStoreParamType');
 import FboBindData = require("../FBOBindData");
 import RenderStageConfig = require("../RenderStageConfig");
 
@@ -71,7 +67,8 @@ class RenderStageBase extends JThreeObject {
 	public applyStageConfig() {
 		//cull enabled/disabled
 		this.applyStageConfigToGLFeature(this.RenderStageConfig.cullFace, GLFeature.CullFace, true);
-		this.applyStageConfigToGLFeature(this.RenderStageConfig.depthTest, GLFeature.DepthTest, true);
+        this.applyStageConfigToGLFeature(this.RenderStageConfig.depthTest, GLFeature.DepthTest, true);
+        this.applyStageConfigToGLFeature(this.RenderStageConfig.blend,GLFeature.Blend,true);
 		//cull face direction
 		if (!this.RenderStageConfig.cullFront) {
 			this.GLContext.CullFace(GLCullMode.Front);
@@ -102,7 +99,8 @@ class RenderStageBase extends JThreeObject {
 		return {
 			cullFace: true,
 			cullFront: false,
-			depthTest: true
+            depthTest: true,
+            blend:true
 		};
 	}
 

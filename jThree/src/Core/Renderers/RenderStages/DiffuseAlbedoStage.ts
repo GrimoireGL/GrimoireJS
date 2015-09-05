@@ -3,10 +3,20 @@ import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
-import JThreeContextProxy = require('../../JThreeContextProxy')
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
+import RenderStageConfig = require("../RenderStageConfig");
 class DiffuseAlbedoStage extends RenderStageBase
 {
+    public get RenderStageConfig(): RenderStageConfig
+    {
+        return {
+            cullFace: true,
+            cullFront: false,
+            depthTest: true,
+            blend: true
+        };
+    }
+
     constructor(renderer: RendererBase)
     {
         super(renderer);
