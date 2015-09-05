@@ -11,6 +11,7 @@ watchify = require 'gulp-watchify'
 tsify = require 'tsify'
 shaderify = require 'shaderify'
 haml = require 'gulp-haml'
+jade = require 'gulp-jade'
 fs = require 'fs'
 _ = require 'lodash'
 globArray = require 'glob-array'
@@ -118,18 +119,7 @@ gulp.task 'build', ['build:main']
 
 
 ###
-HAML Task
-###
-gulp.task 'haml', ->
-  gulp
-    .src 'jThree/wwwroot/**/*.hgoml'
-    .pipe haml
-      ext: '.goml'
-    .pipe gulp.dest 'jThree/wwwroot'
-
-
-###
-webpack building task
+building task
 ###
 
 Object.keys(config).forEach (suffix) ->
@@ -311,3 +301,27 @@ gulp.task 'update-tsconfig-files', ->
   fs.writeFileSync path.resolve(__dirname, tsbundlePath), (refs.join('\n') + '\n')
 
 gulp.task 'tscfg', ['update-tsconfig-files']
+
+
+###
+haml Task
+###
+gulp.task 'haml', ->
+  gulp
+    .src 'jThree/wwwroot/**/*.hgoml'
+    .pipe haml
+      ext: '.goml'
+    .pipe gulp.dest 'jThree/wwwroot'
+
+
+###
+jade Task
+###
+gulp.task 'jade', ->
+  gulp
+    .src 'jThree/wwwroot/**/*.jdgoml'
+    .pipe jade
+      pretty: true
+    .pipe rename
+      extname: ".goml"
+    .pipe gulp.dest 'jThree/wwwroot'
