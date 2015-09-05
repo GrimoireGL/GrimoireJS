@@ -69,6 +69,25 @@
     <Content Include="wwwroot\cube\Example.html" />
     <Content Include="wwwroot\cube\Example.js" />
     <Content Include="wwwroot\ecl_array.js" />
+    <Content Include="wwwroot\experiment\stage\ccl\cloud.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\clover.jpg" />
+    <Content Include="wwwroot\experiment\stage\ccl\floor.jpg" />
+    <Content Include="wwwroot\experiment\stage\ccl\floor2.jpg" />
+    <Content Include="wwwroot\experiment\stage\ccl\moon.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\night.jpg" />
+    <Content Include="wwwroot\experiment\stage\ccl\night2.jpg" />
+    <Content Include="wwwroot\experiment\stage\ccl\pole.jpg" />
+    <Content Include="wwwroot\experiment\stage\ccl\rope.jpg" />
+    <Content Include="wwwroot\experiment\stage\ccl\sky.bmp" />
+    <Content Include="wwwroot\experiment\stage\ccl\smallcloud.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\star.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\sun.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\sunflare.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\wood.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\wood2.png" />
+    <Content Include="wwwroot\experiment\stage\ccl\水車Oo.jpg" />
+    <Content Include="wwwroot\experiment\t1\Example.html" />
+    <Content Include="wwwroot\experiment\t1\Example.js" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\GUMI\readme_gumi.txt" />
     <Content Include="wwwroot\GUMI\readme_gumi_Eng.txt" />
@@ -87,6 +106,7 @@
     <Content Include="wwwroot\GUMI\TX\toonH_7.bmp" />
     <Content Include="wwwroot\GUMI\TX\toonw.bmp" />
     <Content Include="wwwroot\jquery.js" />
+    <Content Include="wwwroot\q.js" />
     <Content Include="wwwroot\quad-animate\Example.html" />
     <Content Include="wwwroot\quad-animate\Example.js" />
     <Content Include="wwwroot\quad\Example.html" />
@@ -208,7 +228,12 @@
     <Content Include="wwwroot\_debug\tune\Test.pmx" />
     <Content Include="wwwroot\_debug\tune\Tune.pmx" />
     <Content Include="wwwroot\_debug\Index.hgoml" />
-    <Content Include="wwwroot\Index.hgoml" />
+    <Content Include="wwwroot\experiment\t1\Example.coffee" />
+    <Content Include="wwwroot\experiment\t1\Example.goml" />
+    <Content Include="wwwroot\experiment\stage\ccl\CCLstage9.pmx" />
+    <Content Include="wwwroot\jdgoml\Example.goml" />
+    <Content Include="wwwroot\jdgoml\Example.jdgoml" />
+    <Content Include="wwwroot\jdgoml\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -222,6 +247,7 @@
     <TypeScriptCompile Include="refs\jsdom\jsdom.d.ts" />
     <TypeScriptCompile Include="refs\mocha\mocha.d.ts" />
     <TypeScriptCompile Include="refs\node\node.d.ts" />
+    <TypeScriptCompile Include="refs\q\q.d.ts" />
     <TypeScriptCompile Include="refs\sinon-chai\sinon-chai.d.ts" />
     <TypeScriptCompile Include="refs\sinon\sinon.d.ts" />
     <TypeScriptCompile Include="refs\superagent\superagent.d.ts" />
@@ -277,6 +303,7 @@
     <TypeScriptCompile Include="src\Core\Materials\NormalMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\PhongMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\SolidColorMaterial.ts" />
+    <TypeScriptCompile Include="src\Core\Materials\SpecularAlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\SpriteMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\FBOBindData.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RendererBase.ts" />
@@ -285,7 +312,7 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageChain.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageConfig.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\AlbedoRenderStage.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\DiffuseAlbedoStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\FowardShadingStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GrayScaleStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\LightAccumulationStage.ts" />
@@ -295,6 +322,7 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RenderStageBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\ShadowMaps\DirectionalShadowMapStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\SkyBoxStage.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\SpecularAlnedoStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\ResolvedChainInfo.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterInfo.ts" />
@@ -445,6 +473,7 @@
     <TypeScriptCompile Include="src\PMX\Core\PMXMorphManager.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXNormalMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXSkeleton.ts" />
+    <TypeScriptCompile Include="src\PMX\Core\PMXSpecularAlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\Factory\PMXBoneTagFactory.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\Factory\PMXMorphTagFactory.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\PMXBoneNode.ts" />
