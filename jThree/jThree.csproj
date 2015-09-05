@@ -192,6 +192,8 @@
     <Content Include="test\Sample\SampleTest.coffee" />
     <Content Include="src\Core\Shaders\Deffered\Albedo.glsl" />
     <Content Include="src\PMX\Shader\PMXAlbedoFragment.glsl" />
+    <Content Include="src\Core\Shaders\GBuffer\PrimaryFragment.glsl" />
+    <Content Include="src\Core\Shaders\GBuffer\Vertex.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -298,6 +300,7 @@
     <TypeScriptCompile Include="src\Core\Materials\DebugSpriteMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DepthMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DepthStage\DepthStageMaterial.ts" />
+    <TypeScriptCompile Include="src\Core\Materials\GBufferMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\LambertMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\Material.ts" />
     <TypeScriptCompile Include="src\Core\Materials\NormalMaterial.ts" />
@@ -314,6 +317,7 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\DiffuseAlbedoStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\FowardShadingStage.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GBuffer\PrimaryGBufferStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GrayScaleStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\LightAccumulationStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RB1RenderStage.ts" />

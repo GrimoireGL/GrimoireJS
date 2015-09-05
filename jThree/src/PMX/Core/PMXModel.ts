@@ -9,6 +9,7 @@ import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import PMXDepthMaterial = require("./PMXDepthMaterial");
 import PMXNormalMaterial = require("./PMXNormalMaterial");
 import PmxAlbedoMaterial = require("./PMXAlbedoMaterial");
+import PMXGBufferMaterial = require("./PMXGBufferMaterial");
 
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
@@ -74,6 +75,7 @@ class PMXModel extends SceneObject {
                         if(mat.SelfShadow)this.addMaterial(new PMXDepthMaterial(mat));
                         this.addMaterial(new PMXNormalMaterial(mat));
                         this.addMaterial(new PmxAlbedoMaterial(mat));
+                        this.addMaterial(new PMXGBufferMaterial(mat));
                         this.pmxMaterials[materialCount] = mat;
                         this.materialDictionary.set(currentMat.materialName, mat);
                         offset += currentMat.vertexCount;

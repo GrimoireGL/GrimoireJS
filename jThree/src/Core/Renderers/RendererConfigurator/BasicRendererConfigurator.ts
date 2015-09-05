@@ -8,6 +8,7 @@ import RbDepthStage = require("../RenderStages/RBDepthStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import AlbedoStage = require("../RenderStages/DiffuseAlbedoStage");
+import GBufferStage = require("../RenderStages/GBuffer/PrimaryGBufferStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {
     public get TextureBuffers(): GeneraterInfo
@@ -31,6 +32,12 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "UBYTE"
+            },
+            "gbuffer.primary":
+            {
+                generater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "FLOAT"
             }
         };
     }
@@ -42,20 +49,27 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 buffers: {
                     OUT: "default"
                 },
-                stage:new SkyBoxStage(target)
-            }, {
+                stage: new SkyBoxStage(target)
+            },
+            {
+                buffers: {
+                    OUT: "gbuffer.primary",
+                },
+                stage:new GBufferStage(target)
+            },
+            {
                 buffers: {
                     OUT: "deffered.rb2"
                 },
                 stage: new AlbedoStage(target)
             }
-           ,{
+            , {
                 buffers: {
                     OUT: "deffered.rb1"
                 },
                 stage: new Rb1RenderStage(target)
             },
-           {
+            {
                 buffers: {
                     OUT: "deffered.depth"
                 },

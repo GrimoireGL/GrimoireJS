@@ -4,6 +4,7 @@ import Mesh = require('./Mesh');
 import DepthMaterial = require('../Core/Materials/DepthStage/DepthStageMaterial');
 import NormalMaterial = require('../Core/Materials/NormalMaterial');
 import AlbedoMaterial = require("../Core/Materials/AlbedoMaterial");
+import GBufferMaterial = require("../Core/Materials/GBufferMaterial");
 class BasicObjectMesh extends Mesh
     {
         constructor(geometry:Geometry,mat:Material)
@@ -12,6 +13,7 @@ class BasicObjectMesh extends Mesh
             this.addMaterial(new DepthMaterial());
             this.addMaterial(new NormalMaterial());
             this.addMaterial(new AlbedoMaterial());
+            this.addMaterial(new GBufferMaterial());
         }
     }
 

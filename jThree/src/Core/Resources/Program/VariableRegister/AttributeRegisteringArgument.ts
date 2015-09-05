@@ -1,8 +1,6 @@
-﻿import AttributeRegisteringConfigure = require("./AttributeRegisteringConfigure");
-import Buffer = require("../../Buffer/Buffer");
+﻿import Buffer = require("../../Buffer/Buffer");
 
-interface
-    AttributeRegisteringArgument
+interface AttributeRegisteringArgument
 {
     [name:string]:Buffer;
 }
