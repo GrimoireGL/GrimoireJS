@@ -116,15 +116,17 @@ build task
 ###
 gulp.task 'build', ['build:main']
 
+
 ###
 HAML Task
 ###
 gulp.task 'haml', ->
-    gulp
-      .src "jThree/wwwroot/**/*.hgoml"
-      .pipe haml
-        ext:".goml"
-      .pipe gulp.dest "jThree/wwwroot/**"
+  gulp
+    .src 'jThree/wwwroot/**/*.hgoml'
+    .pipe haml
+      ext: '.goml'
+    .pipe gulp.dest 'jThree/wwwroot'
+
 
 ###
 webpack building task
