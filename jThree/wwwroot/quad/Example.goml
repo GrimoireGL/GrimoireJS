@@ -1,6 +1,7 @@
 <goml>
   <resources>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
+    <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture" />
+    <texture name ="gomlTexture" src="miku2.png" minFilter="LinearMipNearest" />
     <quad name="quad" />
   </resources>
   <renderers>
@@ -13,7 +14,7 @@
       <object rotation="y(30d)">
         <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,0,3)" rotation="euler(10d, 10d ,10d)"></camera>
       </object>
-      <mesh geo="quad" scale="1" position="0,0,0" mat="phong" rotation="euler(0d, 0d, 0d)" />
+      <mesh geo="quad" scale="1" position="0,0,0" mat="mat2" rotation="euler(0d, 0d, 0d)" />
     </scene>
   </scenes>
 </goml>

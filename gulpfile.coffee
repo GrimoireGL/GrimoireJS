@@ -10,7 +10,7 @@ rename = require 'gulp-rename'
 watchify = require 'gulp-watchify'
 tsify = require 'tsify'
 shaderify = require 'shaderify'
-haml = require 'gulp-haml'
+jade = require 'gulp-jade'
 fs = require 'fs'
 _ = require 'lodash'
 globArray = require 'glob-array'
@@ -49,7 +49,13 @@ tsdSrc = './jThree/refs/**/*.d.ts'
 testTarget = './jThree/test/build/test.js'
 
 # entries of ts files (same as tsconfig files)
-tsEntries = ["./jThree/**/*.ts", "./test/**/*.ts"]
+tsEntries = ['./jThree/**/*.ts', './test/**/*.ts']
+
+# templete convertion root (for entries of jade and haml)
+templeteRoot = 'jThree/wwwroot'
+
+# extention of jade
+jadeExtention = '.jdgoml'
 
 # path to tsconfig.json
 tsconfigPath = './tsconfig.json'
@@ -116,18 +122,9 @@ build task
 ###
 gulp.task 'build', ['build:main']
 
-###
-HAML Task
-###
-gulp.task 'haml', ->
-    gulp
-      .src "jThree/wwwroot/**/*.hgoml"
-      .pipe haml
-        ext:".goml"
-      .pipe gulp.dest "jThree/wwwroot/**"
 
 ###
-webpack building task
+building task
 ###
 
 Object.keys(config).forEach (suffix) ->
@@ -137,8 +134,8 @@ Object.keys(config).forEach (suffix) ->
     if bundler == 'webpack'
       return ->
         if watching && c.dest.length >= 2
-          gulp.watch "#{c.dest[0]}/#{c.name}", ->
-            copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+          gulp.watch path.join(c.dest[0], c.name), ->
+            copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
         gulp
           .src path.resolve __dirname, c.entry
           .pipe webpack
@@ -175,13 +172,10 @@ Object.keys(config).forEach (suffix) ->
           .pipe gulp.dest(c.dest[0])
           .on 'end', ->
             unless watching
-              copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+              copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
     else if bundler == 'browserify'
       # tsdBundlePath = JSON.parse(fs.readFileSync(tsdPath))?.bundle
       return watchify (watchify) ->
-        if watching && c.dest.length >= 2
-          gulp.watch "#{c.dest[0]}/#{c.name}", ->
-            copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
         gulp
           .src path.resolve(__dirname, c.entry)
           .pipe plumber()
@@ -198,8 +192,7 @@ Object.keys(config).forEach (suffix) ->
           .pipe rename(c.name)
           .pipe gulp.dest(c.dest[0])
           .on 'end', ->
-            unless watching
-              copyFiles("#{c.dest[0]}/#{c.name}", c.dest[1..])
+            copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
           .on 'error', ->
             gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
 
@@ -224,12 +217,14 @@ gulp.task 'enable-watch-mode', -> watching = true
 ###
 main watch task
 ###
-gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'server', 'watch-reload']
+gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'server', 'watch:reload']
 
-gulp.task 'watch-reload', ->
+gulp.task 'watch:reload', ->
   gulp.watch watchForReload, ['reload']
 
-gulp.task 'watch', ['watch:main']
+gulp.task 'watch:templete', ['watch:haml', 'watch:jade']
+
+gulp.task 'watch', ['watch:main', 'watch:templete']
 
 
 ###
@@ -265,9 +260,9 @@ gulp.task 'doc', (cb) ->
     .pipe typedoc
       module: 'commonjs'
       target: 'es5'
-      out: "#{typedocDest}/#{branch}"
+      out: path.join(typedocDest, branch)
       name: 'jThree'
-      json: "#{typedocDest}/#{branch}.json"
+      json: path.join(typedocDest, "#{branch}.json")
 
 
 ###
@@ -313,3 +308,24 @@ gulp.task 'update-tsconfig-files', ->
   fs.writeFileSync path.resolve(__dirname, tsbundlePath), (refs.join('\n') + '\n')
 
 gulp.task 'tscfg', ['update-tsconfig-files']
+
+
+###
+jade Task
+###
+jadeCompile = (src, dest) ->
+  gutil.log("Jade Compiling " + gutil.colors.magenta(src.toString()))
+  gulp
+    .src src
+    .pipe jade
+      pretty: true
+    .pipe rename
+      extname: ".goml"
+    .pipe gulp.dest dest
+
+gulp.task 'jade', ->
+  jadeCompile path.join(templeteRoot, '**', "*#{jadeExtention}"), templeteRoot
+
+gulp.task 'watch:jade', ['jade'], ->
+  gulp.watch path.join(templeteRoot, '**', "*#{jadeExtention}"), (e) ->
+    jadeCompile e.path, path.dirname(e.path)
