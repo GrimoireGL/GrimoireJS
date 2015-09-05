@@ -15,7 +15,7 @@ class SkyBoxStage extends RenderStageBase
     {
         super(renderer);
         var vs = require("../../Shaders/VertexShaders/SkyboxGeometries.glsl");
-        var fs = require("../../Shaders/Skybox.glsl");
+        var fs = require("../../Shaders/SkyBox.glsl");
         this.program = this.loadProgram("jthree.shaders.vertex.skybox", "jthree.shaders.fragment.skybox", "jthree.programs.skybox", vs, fs);
     }
 
@@ -78,4 +78,4 @@ class SkyBoxStage extends RenderStageBase
         };
     }
 }
-export = SkyBoxStage; 
+export = SkyBoxStage;
