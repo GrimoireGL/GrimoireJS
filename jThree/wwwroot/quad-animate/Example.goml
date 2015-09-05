@@ -1,6 +1,6 @@
 <goml>
   <resources>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2" texture="test" />
+    <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2"/>
     <quad name="quad" />
   </resources>
   <renderers>
