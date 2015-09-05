@@ -10,7 +10,6 @@ rename = require 'gulp-rename'
 watchify = require 'gulp-watchify'
 tsify = require 'tsify'
 shaderify = require 'shaderify'
-haml = require 'gulp-haml'
 jade = require 'gulp-jade'
 fs = require 'fs'
 _ = require 'lodash'
@@ -57,9 +56,6 @@ templeteRoot = 'jThree/wwwroot'
 
 # extention of jade
 jadeExtention = '.jdgoml'
-
-# extention of haml
-hamlExtention = '.hgoml'
 
 # path to tsconfig.json
 tsconfigPath = './tsconfig.json'
@@ -312,25 +308,6 @@ gulp.task 'update-tsconfig-files', ->
   fs.writeFileSync path.resolve(__dirname, tsbundlePath), (refs.join('\n') + '\n')
 
 gulp.task 'tscfg', ['update-tsconfig-files']
-
-
-###
-haml Task
-###
-hamlCompile = (src, dest) ->
-  gutil.log("Haml Compiling " + gutil.colors.magenta(src.toString()))
-  gulp
-    .src src
-    .pipe haml
-      ext: '.goml'
-    .pipe gulp.dest dest
-
-gulp.task 'haml', ->
-  hamlCompile path.join(templeteRoot, '**', "*#{hamlExtention}"), templeteRoot
-
-gulp.task 'watch:haml', ['haml'], ->
-  gulp.watch path.join(templeteRoot, '**', "*#{hamlExtention}"), (e) ->
-    hamlCompile e.path, path.dirname(e.path)
 
 
 ###
