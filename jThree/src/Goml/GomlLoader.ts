@@ -133,7 +133,7 @@ class GomlLoader extends jThreeObject {
    */
   private scriptLoaded(source: string): void {
     var catched = this.rootObj = $(source);
-    if (catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
+    if (catched[0] === undefined || catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
     //generate node tree
     var children = catched.find("plugins").children();
     this.rootNodes.set("plugins", []);
