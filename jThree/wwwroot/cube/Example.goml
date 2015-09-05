@@ -7,10 +7,6 @@
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" id="main" width="512" height="512" />
-      <viewport cam="CAM2" height="256" id="main" left="512" width="256"/>
-      <viewport cam="CAM3" height="256" id="main" left="768" width="256"/>
-      <viewport cam="CAM4" height="256" id="main" left="512" top="256" width="256"/>
-
     </renderer>
   </renderers>
   <scenes>
