@@ -42,12 +42,6 @@ class PMXGBufferMaterial extends Material
         return this.associatedMaterial.VerticiesOffset;
     }
 
-
-    public get PassCount(): number
-    {
-        return 1;
-    }
-
     constructor(material: PMXMaterial)
     {
         super();

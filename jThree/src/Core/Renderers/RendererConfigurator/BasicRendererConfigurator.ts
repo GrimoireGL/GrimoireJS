@@ -14,7 +14,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
     public get TextureBuffers(): GeneraterInfo
     {
         return {
-            "deffered.rb1": {
+/*            "deffered.rb1": {
                 generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "UBYTE"
@@ -32,7 +32,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "UBYTE"
-            },
+            },*/
             "gbuffer.primary":
             {
                 generater: "rendererfit",
@@ -72,7 +72,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     THIRD:"gbuffer.third"
                 },
                 stage:new GBufferStage(target)
-            },
+            },/*,
             {
                 buffers: {
                     OUT: "deffered.rb2"
@@ -90,7 +90,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     OUT: "deffered.depth"
                 },
                 stage: new RbDepthStage(target)
-            },
+            },*/
             {
                 buffers: {
                     RB1: "deffered.rb1",

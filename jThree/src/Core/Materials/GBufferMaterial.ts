@@ -11,6 +11,8 @@ import Color3 = require('../../Base/Color/Color3');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import Vector4 = require("../../Math/Vector4");
+import PhongMaterial = require("./PhongMaterial");
 declare function require(string): string;
 
 class GBufferMaterial extends Material
@@ -20,28 +22,47 @@ class GBufferMaterial extends Material
         return "jthree.materials.gbuffer";
     }
 
-    private program: Program;
+    private primaryProgram: Program;
+
+    private secoundaryProgram:Program;
 
     constructor()
     {
         super();
         var vs = require('../Shaders/GBuffer/Vertex.glsl');
         var fs = require('../Shaders/GBuffer/PrimaryFragment.glsl');
-        this.program = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
+        this.primaryProgram = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
+        var fs = require('../Shaders/GBuffer/SecoundaryFragment.glsl');
+        this.secoundaryProgram = this.loadProgram("jthree.shaders.gbuffer.secoundary.vs", "jthree.shaders.gbuffer.secoundary.fs", "jthree.programs.gbuffer.secoundary", vs, fs);
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,pass?:number): void
     {
-        if (!this.program) return;
+        if (!this.primaryProgram) return;
         super.configureMaterial(scene, renderer, object, texs);
+        switch (pass)
+        {
+            case 0:
+                this.configurePrimaryBuffer(scene, renderer, object, texs);
+                break;
+            case 1:
+                this.configureSecoundaryBuffer(scene, renderer, object, texs);
+                break;
+
+        }
+        object.Geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
+    }
+
+    private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
-        var pw = this.program.getForContext(renderer.ContextManager);
+        var pw = this.primaryProgram.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
         pw.register({
             attributes: {
                 position: geometry.PositionBuffer,
-                normal: geometry.NormalBuffer
+                normal: geometry.NormalBuffer,
+                uv:geometry.UVBuffer
             },
             uniforms: {
                 matMVP: { type: "matrix", value: v },
@@ -52,11 +73,51 @@ class GBufferMaterial extends Material
                 }
             }
         });
-        geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
+
     }
 
-    private configurePrimaryBuffer() {
-        
+    private configureSecoundaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
+        var geometry = object.Geometry;
+        var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
+        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
+        var albedo;
+        if (fm && fm.Diffuse)
+        {
+            albedo = fm.Diffuse.toVector();
+        } else {
+            albedo = new Vector4(1, 0, 0, 1);
+        }
+        var v = object.Transformer.calculateMVPMatrix(renderer);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                uv: geometry.UVBuffer
+            },
+            uniforms: {
+                matMVP: {
+                    type: "matrix",
+                    value: v
+                },
+                matMV: {
+                    type: "matrix",
+                    value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal)
+                },
+                albedo: {
+                    type: "vector",
+                    value: albedo
+                },
+                texture: {
+                    type: "texture",
+                    value: fm.Texture,
+                    register: 0
+                },
+                textureUsed: {
+                    type: "integer",
+                    value: (fm.Texture ? 1 : 0)
+                }
+            }
+        });
     }
 }
 
