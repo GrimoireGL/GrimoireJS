@@ -197,6 +197,9 @@
     <Content Include="src\PMX\Shader\PMXGBufferVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXSecoundaryGBufferFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXPrimaryGBufferFragment.glsl" />
+    <Content Include="src\Core\Shaders\GBuffer\SecoundaryFragment.glsl" />
+    <Content Include="src\Core\Shaders\GBuffer\ThirdFragment.glsl" />
+    <Content Include="src\PMX\Shader\PMXThirdGBufferFragment.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
