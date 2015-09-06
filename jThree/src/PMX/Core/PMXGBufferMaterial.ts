@@ -51,6 +51,8 @@ class PMXGBufferMaterial extends Material
         this.primaryProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer", "jthree.shaders.fragment.pmx.gbuffer", "jthree.programs.pmx.gbuffer", vs, fs);
         var fs = require('../Shader/PMXSecoundaryGBufferFragment.glsl');
         this.secoundaryProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer.s", "jthree.shaders.fragment.gbuffer.s", "jthree.programs.pmx.gbuffer.s", vs, fs);
+        fs = require('../Shader/PMXThirdGBufferFragment.glsl');
+        this.thirdProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer.t", "jthree.shaders.fragment.gbuffer.t", "jthree.programs.pmx.gbuffer.t", vs, fs);
         this.setLoaded();
     }
 
@@ -65,7 +67,9 @@ class PMXGBufferMaterial extends Material
             case 1:
                 this.configureSecoundaryBuffer(scene, renderer, object, texs, pass);
                 break;
-
+            case 2:
+                this.configureThirdBuffer(scene, renderer, object, texs, pass);
+                break;
         }
         object.Geometry.bindIndexBuffer(renderer.ContextManager);
     }
@@ -136,10 +140,34 @@ class PMXGBufferMaterial extends Material
                 mulTextureCoefficient: { type: "vector", value: new Vector4(this.associatedMaterial.mulMorphParam.textureCoeff) },
                 addSphereCoefficient: { type: "vector", value: new Vector4(this.associatedMaterial.addMorphParam.sphereCoeff) },
                 mulSphereCoefficient: { type: "vector", value: new Vector4(this.associatedMaterial.mulMorphParam.sphereCoeff) }
-
             }
         });
+    }
 
+
+    private configureThirdBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
+        var geometry = <PMXGeometry>object.Geometry;
+        var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
+        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                boneWeights: geometry.boneWeightBuffer,
+                boneIndicies: geometry.boneIndexBuffer,
+                uv: geometry.UVBuffer
+            },
+            uniforms: {
+                u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                matVP: { type: "matrix", value: v },
+                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
+                specular: {
+                    type: "vector",
+                    value: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Specular, this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.specular, 3)
+                }
+            }
+        });
     }
 
     public get Priorty(): number

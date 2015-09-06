@@ -75,7 +75,7 @@ class PrimaryGBufferStage extends RenderStageBase
 
     public getPassCount(scene: Scene)
     {
-        return 2;
+        return 3;
     }
 }
 

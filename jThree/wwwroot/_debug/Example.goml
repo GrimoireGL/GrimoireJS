@@ -2,7 +2,7 @@
   <resources>
     <ddebug name="light" target="gbuffer.primary" viewport="viewport#main"/>
     <ddebug name="depth" target="gbuffer.secoundary" viewport="viewport#main"/>
-    <ddebug name="normal" target="deffered.rb2" viewport="viewport#main"/>
+    <ddebug name="normal" target="gbuffer.third" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
     <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
     <grid hdiv="20" name="grid" vdiv="20"/>

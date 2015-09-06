@@ -24,7 +24,9 @@ class GBufferMaterial extends Material
 
     private primaryProgram: Program;
 
-    private secoundaryProgram:Program;
+    private secoundaryProgram: Program;
+
+    private thirdProgram:Program;
 
     constructor()
     {
@@ -34,6 +36,8 @@ class GBufferMaterial extends Material
         this.primaryProgram = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
         var fs = require('../Shaders/GBuffer/SecoundaryFragment.glsl');
         this.secoundaryProgram = this.loadProgram("jthree.shaders.gbuffer.secoundary.vs", "jthree.shaders.gbuffer.secoundary.fs", "jthree.programs.gbuffer.secoundary", vs, fs);
+        var fs = require('../Shaders/GBuffer/ThirdFragment.glsl');
+        this.thirdProgram = this.loadProgram("jthree.shaders.gbuffer.third.vs", "jthree.shaders.gbuffer.third.fs", "jthree.programs.gbuffer.third", vs, fs);
         this.setLoaded();
     }
 
@@ -49,7 +53,9 @@ class GBufferMaterial extends Material
             case 1:
                 this.configureSecoundaryBuffer(scene, renderer, object, texs);
                 break;
-
+            case 2:
+                this.configureThirdBuffer(scene, renderer, object, texs);
+                break;
         }
         object.Geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
@@ -81,8 +87,7 @@ class GBufferMaterial extends Material
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
         var albedo;
-        if (fm && fm.Diffuse)
-        {
+        if (fm && fm.Diffuse) {
             albedo = fm.Diffuse.toVector();
         } else {
             albedo = new Vector4(1, 0, 0, 1);
@@ -116,6 +121,42 @@ class GBufferMaterial extends Material
                     type: "integer",
                     value: (fm.Texture ? 1 : 0)
                 }
+            }
+        });
+    }
+
+    private configureThirdBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo)
+    {
+        var geometry = object.Geometry;
+        var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
+        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
+        var specular;
+        if (fm && fm.Diffuse) {
+            specular = fm.Specular.toVector();
+        } else
+        {
+            specular = new Vector3(1, 0, 0);
+        }
+        var v = object.Transformer.calculateMVPMatrix(renderer);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                uv: geometry.UVBuffer
+            },
+            uniforms: {
+                matMVP: {
+                    type: "matrix",
+                    value: v
+                },
+                matMV: {
+                    type: "matrix",
+                    value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal)
+                },
+                specular: {
+                    type: "vector",
+                    value: specular
+                },
             }
         });
     }
