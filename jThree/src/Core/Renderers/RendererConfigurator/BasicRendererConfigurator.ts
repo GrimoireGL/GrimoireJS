@@ -39,6 +39,20 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 internalFormat: "RGBA",
                 element: "FLOAT"
             }
+            ,
+            "gbuffer.secoundary":
+            {
+                generater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
+            }
+            ,
+            "gbuffer.third":
+            {
+                generater: "rendererfit",
+                internalFormat: "RGB",
+                element: "UBYTE"
+            }
         };
     }
 
@@ -53,7 +67,9 @@ class BasicRendererConfigurator extends ConfiguratorBase
             },
             {
                 buffers: {
-                    OUT: "gbuffer.primary",
+                    PRIMARY: "gbuffer.primary",
+                    SECOUNDARY: "gbuffer.secoundary",
+                    THIRD:"gbuffer.third"
                 },
                 stage:new GBufferStage(target)
             },

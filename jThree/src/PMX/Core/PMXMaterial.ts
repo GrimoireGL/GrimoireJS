@@ -77,6 +77,10 @@ class PMXMaterial extends Material
         return this.sphereMode;
     }
 
+    public get Specular() {
+        return this.specular;
+    }
+
     private ambient: Color3;
 
     private diffuse: Color4;
@@ -98,6 +102,8 @@ class PMXMaterial extends Material
     private sphereMode: number;
 
     private materialIndex: number;
+
+    private specular:Vector4;
 
     public Name: string;
 
@@ -133,6 +139,7 @@ class PMXMaterial extends Material
         this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
         this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
         if ((materialData.drawFlag & 0x10) > 0) this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);
+        this.specular = new Vector4(materialData.specular);
         this.edgeSize = materialData.edgeSize;
         this.sphereMode = materialData.sphereMode;
         var vs = require('../Shader/PMXVertex.glsl');

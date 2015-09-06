@@ -22,14 +22,26 @@ class PrimaryGBufferStage extends RenderStageBase
         super(renderer);
     }
 
-    public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo)
-    {
+    public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+        var outTexture;
+        switch (passCount)
+        {
+            case 0:
+                outTexture = texs["PRIMARY"];
+                break;
+            case 1:
+                outTexture = texs["SECOUNDARY"];
+                break;
+            case 2:
+                outTexture = texs["THIRD"];
+                break;
+        }
         this.bindAsOutBuffer(this.DefaultFBO, [{
             texture: this.DefaultRBO,
             target: "depth",
             type: "rbo"
         }, {
-                texture: texs["OUT"],
+                texture: outTexture,
                 target: 0,
                 isOptional: false
             }], () =>
@@ -49,9 +61,9 @@ class PrimaryGBufferStage extends RenderStageBase
         var materials = object.getMaterials("jthree.materials.gbuffer");
         for (var i = 0; i < materials.length; i++)
         {
-            var material = materials[i];
-            if (!material || !material.Loaded) return;
-                material.configureMaterial(scene, this.Renderer, object, texs, 0);
+                var material = materials[i];
+                if (!material || !material.Loaded) return;
+                material.configureMaterial(scene, this.Renderer, object, texs, passCount);
                 geometry.drawElements(this.Renderer.ContextManager, material);
         }
     }
@@ -59,6 +71,11 @@ class PrimaryGBufferStage extends RenderStageBase
     public needRender(scene: Scene, object: SceneObject, passCount: number): boolean
     {
         return typeof object.Geometry != "undefined" && object.Geometry != null;
+    }
+
+    public getPassCount(scene: Scene)
+    {
+        return 2;
     }
 }
 

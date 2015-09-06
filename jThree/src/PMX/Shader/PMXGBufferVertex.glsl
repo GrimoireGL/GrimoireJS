@@ -3,6 +3,7 @@ attribute vec3 position;
 attribute vec3 normal;
 attribute vec4 boneWeights;
 attribute vec4 boneIndicies;
+attribute vec2 uv;
 uniform mat4 matVP;
 uniform mat4 matV;
 
@@ -11,6 +12,8 @@ uniform float u_boneCount;
 
 varying vec4 vPosition;
 varying vec3 vNormal;
+varying vec2 vUV;
+varying vec2 vSphereUV;
 
 mat4 matFromIndex(float index)
 {
@@ -34,4 +37,6 @@ void main(void){
 mat4 boneTransform=getBoneTransform();
 vPosition=gl_Position = matVP*boneTransform*vec4(position,1.0);
 vNormal=normalize((matV*boneTransform*vec4(normal,0)).xyz);
+vSphereUV=vNormal.xy/2.+vec2(0.5,0.5);
+vUV=uv;
 }

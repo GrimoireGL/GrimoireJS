@@ -9,14 +9,20 @@ import Scene = require('../../Core/Scene');
 import PMXMaterial = require('./PMXMaterial');
 import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
 import PMXGeometry = require('./PMXGeometry');
+import Vector4 = require("../../Math/Vector4");
+import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
 
 declare function require(string): string;
 /**
  * the materials for PMX.
  */
-class PMXDepthMaterial extends Material
+class PMXGBufferMaterial extends Material
 {
-    protected program: Program;
+    protected primaryProgram: Program;
+
+    protected secoundaryProgram: Program;
+
+    protected thirdProgram: Program;
 
     protected associatedMaterial: PMXMaterial;
     
@@ -47,34 +53,99 @@ class PMXDepthMaterial extends Material
         super();
         this.associatedMaterial = material;
         var vs = require('../Shader/PMXGBufferVertex.glsl');
-        var fs = require('../../Core/Shaders/GBuffer/PrimaryFragment.glsl');
-        this.program = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer", "jthree.shaders.fragment.gbuffer", "jthree.programs.pmx.gbuffer", vs, fs);
+        var fs = require('../Shader/PMXPrimaryGBufferFragment.glsl');
+        this.primaryProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer", "jthree.shaders.fragment.pmx.gbuffer", "jthree.programs.pmx.gbuffer", vs, fs);
+        var fs = require('../Shader/PMXSecoundaryGBufferFragment.glsl');
+        this.secoundaryProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer.s", "jthree.shaders.fragment.gbuffer.s", "jthree.programs.pmx.gbuffer.s", vs, fs);
         this.setLoaded();
     }
 
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void
     {
-        if (!this.program) return;
+        if (!this.primaryProgram||this.associatedMaterial.Diffuse.A<1.0E-3) return;
         super.configureMaterial(scene, renderer, object, texs);
-        renderer.GLContext.Disable(GLFeatureType.Blend);
+        switch (pass) {
+            case 0:
+                this.configurePrimaryBuffer(scene, renderer, object, texs, pass);
+                break;
+            case 1:
+                this.configureSecoundaryBuffer(scene, renderer, object, texs, pass);
+                break;
+
+        }
+        object.Geometry.bindIndexBuffer(renderer.ContextManager);
+    }
+
+    private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
-        var programWrapper = this.program.getForContext(renderer.ContextManager);
+        var programWrapper = this.primaryProgram.getForContext(renderer.ContextManager);
         var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
                 normal: geometry.NormalBuffer,
                 boneWeights: geometry.boneWeightBuffer,
-                boneIndicies: geometry.boneIndexBuffer
+                boneIndicies: geometry.boneIndexBuffer,
+                uv:geometry.UVBuffer
             },
             uniforms: {
                 u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
-                specularCoefficient:{type:"float",value:1.0},//TODO fix this
-                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount }            }
+                specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
+                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount }
+            }
         });
-        geometry.bindIndexBuffer(renderer.ContextManager);
+    }
+
+    private configureSecoundaryBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
+        var geometry = <PMXGeometry>object.Geometry;
+        var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
+        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix);
+        programWrapper.register({
+            attributes: {
+                position: geometry.PositionBuffer,
+                normal: geometry.NormalBuffer,
+                boneWeights: geometry.boneWeightBuffer,
+                boneIndicies: geometry.boneIndexBuffer,
+                uv:geometry.UVBuffer
+            },
+            uniforms: {
+                u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                matVP: { type: "matrix", value: v },
+                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
+                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
+                diffuse: {
+                    type: "vector",
+                    value: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Diffuse.toVector(), this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.diffuse, 4)
+                },
+                texture: {
+                    type: "texture",
+                    value: this.associatedMaterial.Texture,
+                    register: 1
+                },
+                sphere: {
+                    type: "texture",
+                    value: this.associatedMaterial.Sphere,
+                    register: 2
+                },
+                textureUsed: {
+                    type: "integer",
+                    value: this.associatedMaterial.Texture == null || this.associatedMaterial.Texture.ImageSource == null ? 0 : 1
+                },
+                sphereMode: {
+                    type: "integer",
+                    value: this.associatedMaterial.Sphere == null || this.associatedMaterial.Sphere.ImageSource == null ? 0 : this.associatedMaterial.SphereMode
+                },
+                addTextureCoefficient: { type: "vector", value: new Vector4(this.associatedMaterial.addMorphParam.textureCoeff) },
+                mulTextureCoefficient: { type: "vector", value: new Vector4(this.associatedMaterial.mulMorphParam.textureCoeff) },
+                addSphereCoefficient: { type: "vector", value: new Vector4(this.associatedMaterial.addMorphParam.sphereCoeff) },
+                mulSphereCoefficient: { type: "vector", value: new Vector4(this.associatedMaterial.mulMorphParam.sphereCoeff) }
+
+            }
+        });
+
     }
 
     public get Priorty(): number
@@ -98,4 +169,4 @@ class PMXDepthMaterial extends Material
     }
 }
 
-export =PMXDepthMaterial;
+export =PMXGBufferMaterial;

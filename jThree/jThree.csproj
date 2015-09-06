@@ -194,6 +194,9 @@
     <Content Include="src\PMX\Shader\PMXAlbedoFragment.glsl" />
     <Content Include="src\Core\Shaders\GBuffer\PrimaryFragment.glsl" />
     <Content Include="src\Core\Shaders\GBuffer\Vertex.glsl" />
+    <Content Include="src\PMX\Shader\PMXGBufferVertex.glsl" />
+    <Content Include="src\PMX\Shader\PMXSecoundaryGBufferFragment.glsl" />
+    <Content Include="src\PMX\Shader\PMXPrimaryGBufferFragment.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -469,6 +472,7 @@
     <TypeScriptCompile Include="src\PMX\Core\PMXBone.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXBoneTransformer.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXDepthMaterial.ts" />
+    <TypeScriptCompile Include="src\PMX\Core\PMXGBufferMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXGeometry.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMaterialMorphParamContainer.ts" />
