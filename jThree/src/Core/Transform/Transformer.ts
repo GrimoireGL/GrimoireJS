@@ -149,6 +149,10 @@ class Transformer extends JThreeObject
     {
         return this.localToGlobal;
     }
+
+    public get LocalTransform(): Matrix {
+        return this.localTransform;
+    }
     /**
      * Get accessor for model rotation.
      */

@@ -5,8 +5,8 @@ Quaternion = require '../../../src/Math/Quaternion'
 Matrix = require '../../../src/Math/Matrix'
 Vector3 = require '../../../src/Math/Vector3'
 
-assertDifferentTransform = (obj1,obj2) ->
-    assert Matrix.equal obj1.Transformer.LocalToGlobal,obj2.Transformer.LocalToGlobal
+assertChildTransform = (o1,o2) ->
+    assert Matrix.equal o2.Transformer.LocalToGlobal,Matrix.multiply o2.Transformer.LocalTransform,o1.Transformer.LocalToGlobal
     undefined
     
 
@@ -22,14 +22,19 @@ describe 'Transformer',->
     describe 'Rotation',->
         it 'rotation should work for children', ->
             obj1.Rotation = Quaternion.Euler(10,20,30);
-            assertDifferentTransform obj1,obj2
-            assertDifferentTransform obj1,obj3
+            assertChildTransform obj1,obj2
+            assertChildTransform obj2,obj3
             undefined
     describe 'Position',->
         it 'position should work for children',->
             obj1.Position = new Vector3(10,30,50);
-            assertDifferentTransform obj1,obj2
-            assertDifferentTransform obj1,obj3
+            assertChildTransform obj1,obj2
+            assertChildTransform obj2,obj3
             undefined
-       
+    describe 'Scale',->
+        it 'scale should work for children',->
+            obj1.Scale = new Vector3(1,2,3);
+            assertChildTransform obj1,obj2
+            assertChildTransform obj2,obj3
+            undefined
             
