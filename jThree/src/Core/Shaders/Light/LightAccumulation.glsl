@@ -1,10 +1,9 @@
 precision mediump float;
 varying  vec2 v_uv;
 
-uniform mediump sampler2D rb1;
-uniform mediump sampler2D rb2;
-uniform mediump sampler2D depth;
-uniform mediump sampler2D u_ldepth;
+uniform mediump sampler2D primary;
+uniform mediump sampler2D diffuse;
+uniform mediump sampler2D specular;
 uniform mediump sampler2D lightParams;
 uniform vec2 lightParamSize;
 uniform vec3 c_pos;

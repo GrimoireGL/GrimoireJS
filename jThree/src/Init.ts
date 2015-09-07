@@ -57,7 +57,6 @@ class JThreeInit {
   * This method should be called when Jthree loaded.
   */
     public static Init(): void {
-        debugger;
     //register interfaces
     window["j3"] = JThreeInit.j3;//$(~~~)
     var pro = Object.getPrototypeOf(window["j3"]);

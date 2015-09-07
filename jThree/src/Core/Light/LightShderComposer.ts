@@ -15,7 +15,7 @@ class LightShaderComposer extends JThreeObjectWithId
 
     private lightTypeIdArray: AssociativeArray<number> = new AssociativeArray<number>();
 
-    private shaderSourceBase: string = require('../Shaders/Light/LightAccumulation.glsl');
+    private shaderSourceBase: string = require('../Shaders/Light/DiffuseLightFragment.glsl');
 
     private shaderCache:string;
 

@@ -52,6 +52,11 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 generater: "rendererfit",
                 internalFormat: "RGB",
                 element: "UBYTE"
+            },
+            "light.diffuse": {
+                generater: "rendererfit",
+                internalFormat: "RGB",
+                element:"UBYTE"
             }
         };
     }
@@ -93,10 +98,10 @@ class BasicRendererConfigurator extends ConfiguratorBase
             },*/
             {
                 buffers: {
-                    RB1: "deffered.rb1",
-                    DEPTH: "deffered.depth",
-                    DIR: "jthree.light.dir1",
-                    OUT: "deffered.light"
+                    PRIMARY: "gbuffer.primary",
+                    SECOUNDARY: "gbuffer.secoundary",
+                    THIRD: "gbuffer.third",
+                    OUT: "light.diffuse"
                 },
                 stage: new AccumulationStage(target)
             },

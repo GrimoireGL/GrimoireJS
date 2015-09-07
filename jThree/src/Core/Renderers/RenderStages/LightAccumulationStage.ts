@@ -48,15 +48,38 @@ class LitghtAccumulationStage extends RenderStageBase
                 uv: geometry.UVBuffer
             },
             uniforms: {
-                rb1: { type: "texture", register: 0, value: texs["RB1"] },
-                depth: { type: "texture", register: 1, value: texs["DEPTH"] },
-                lightParams: { type: "texture", register: 2, value: scene.LightRegister.ParameterTexture },
-                matIP: { type: "matrix", value: ip },
-                matV:{type:"matrix",value:renderer.Camera.ViewMatrix},
-                matTV: { type: "matrix", value: Matrix.inverse(renderer.Camera.ViewMatrix) },
-                lightParamSize: { type: "vector", value: new Vector2(scene.LightRegister.TextureWidth, scene.LightRegister.TextureHeight) },
-                c_pos: { type: "vector", value: renderer.Camera.Position },
-                c_dir: { type: "vector", value: renderer.Camera.LookAt.subtractWith(renderer.Camera.Position).normalizeThis() }
+                primary: {
+                    type: "texture",
+                    value: texs["PRIMARY"],
+                    register: 0
+                },
+                secoundary: {
+                    type: "texture",
+                    value: texs["SECOUNDARY"],
+                    register: 1
+                },
+                third: {
+                    type: "texture",
+                    value: texs["THIRD"],
+                    register: 2
+                },
+                lightParam: {
+                    type: "texture",
+                    value: scene.LightRegister.ParameterTexture,
+                    register: 3
+                },
+                lightParamSize: {
+                    type: "vector",
+                    value:scene.LightRegister.TextureSize
+                },
+                matV: {
+                    type: "matrix",
+                    value:renderer.Camera.ViewMatrix
+                },
+                matIP: {
+                    type: "matrix",
+                    value:ip
+                }
             }
         });
         geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
@@ -83,7 +106,7 @@ class LitghtAccumulationStage extends RenderStageBase
         return {
             depthTest: false,
             cullFace: false,
-            blend:false
+            blend: false
         };
     }
 }

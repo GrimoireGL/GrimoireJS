@@ -1,6 +1,7 @@
+
 <goml>
   <resources>
-    <phong name="material1" diffuse="red" specular="#CCC" specularpower="15"></phong>
+    <phong name="material1" diffuse="red"></phong>
     <cube name="cube"></cube>
   </resources>
   <renderers>
@@ -10,10 +11,8 @@
   </renderers>
   <scenes>
     <scene>
-      <object rotation="y(30d)">
-        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="MAIN" near="0.1" position="(0,6,10)" rotation="x(-30d)"></camera>
-      </object>
-      <mesh geo="cube" scale="0.1" position="0,0,0" mat="matertial1" rotation="y(60d)"/>
+      <camera name="MAIN" fovy="45d" znear="0.01" zfar="100" aspect="1"></camera>
+      <mesh geo="cube" mat="material1"></mesh>
     </scene>
   </scenes>
 </goml>

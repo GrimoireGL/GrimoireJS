@@ -7,7 +7,8 @@ import TextureType = require("../../Wrapper/TextureType");
 import Scene = require("../Scene");
 import ShaderComposer = require("./LightShderComposer");
 import Program = require("../Resources/Program/Program");
-import ShaderType = require("../../Wrapper/ShaderType"); 
+import ShaderType = require("../../Wrapper/ShaderType");
+import Vector2 = require("../../Math/Vector2");
 
 /**
  * Provides light management feature by renderer
@@ -25,9 +26,9 @@ class LightRegister
     private scene: Scene;
 
     /**
-     * Height of texture.
+     * Width of texture.
      */
-    private textureHeight: number = 4;
+    private textureWidth: number = 4;
     
     /**
      * Programs will be used for rendering this lights accumulation buffer.
@@ -55,21 +56,25 @@ class LightRegister
     private textureSourceBuffer: Float32Array;
 
     /**
-     * Getter for height of texture.
+     * Getter for width of texture.
      * This parameter is same as count of light parameter.
      */
     public get TextureWidth(): number
     {
-        return this.textureHeight;
+        return this.textureWidth;
     }
 
     /**
-     * Getter for width of texture.
+     * Getter for height of texture.
      * This parameter is same as count of lights.
      */
     public get TextureHeight(): number
     {
         return this.lights.length;
+    }
+
+    public get TextureSize(): Vector2 {
+        return new Vector2(this.TextureWidth, this.TextureHeight);
     }
 
     /**
@@ -128,8 +133,8 @@ class LightRegister
     public addLightType(paramVecCount: number, shaderFuncName: string, shaderFuncCode: string, lightTypeName: string)
     {
         this.shaderComposer.addLightType(shaderFuncName, shaderFuncCode, lightTypeName);
-        var newSize = Math.max(paramVecCount, this.textureHeight);
-        if (newSize !== this.textureHeight)
+        var newSize = Math.max(paramVecCount, this.TextureHeight);
+        if (newSize !== this.textureWidth)
         {
             //TODO apply new size of texture
         }
@@ -216,7 +221,7 @@ class LightRegister
      */
     private initializeProgram()
     {
-        var vs = require('../Shaders/VertexShaders/PostEffectGeometries.glsl');
+        var vs = require('../Shaders/Light/LightVertex.glsl');
         var jThreeContext = JThreeContextProxy.getJThreeContext();
         var rm = jThreeContext.ResourceManager;
         var vShader = rm.createShader("jthree.shaders.vertex.post", vs, ShaderType.VertexShader);
