@@ -5249,6 +5249,11 @@
 						},
 						{
 							"type": "reference",
+							"name": "GBufferStage",
+							"id": 4410
+						},
+						{
+							"type": "reference",
 							"name": "GLContextWrapperBase",
 							"id": 1860
 						},
@@ -5470,12 +5475,12 @@
 						{
 							"type": "reference",
 							"name": "PMXAlbedoMaterial",
-							"id": 10152
+							"id": 10988
 						},
 						{
 							"type": "reference",
 							"name": "PMXAlbedoMaterial",
-							"id": 10990
+							"id": 10152
 						},
 						{
 							"type": "reference",
@@ -5576,11 +5581,6 @@
 							"type": "reference",
 							"name": "PointLightNode",
 							"id": 8928
-						},
-						{
-							"type": "reference",
-							"name": "PrimaryGBufferStage",
-							"id": 4410
 						},
 						{
 							"type": "reference",
@@ -5745,7 +5745,7 @@
 						{
 							"type": "reference",
 							"name": "SpecularAlbedoStage",
-							"id": 11052
+							"id": 11050
 						},
 						{
 							"type": "reference",
@@ -38953,7 +38953,7 @@
 						{
 							"type": "reference",
 							"name": "PMXAlbedoMaterial",
-							"id": 10990
+							"id": 10988
 						}
 					],
 					"implementedTypes": [
@@ -42205,7 +42205,7 @@
 			]
 		},
 		{
-			"id": 10988,
+			"id": 10986,
 			"name": "\"src/Core/Materials/SpecularAlbedoMaterial\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -46307,22 +46307,25 @@
 		},
 		{
 			"id": 4409,
-			"name": "\"src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage\"",
+			"name": "\"src/Core/Renderers/RenderStages/GBuffer/GBufferStage\"",
 			"kind": 1,
 			"kindString": "External module",
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/travis/build/jThreeJS/jThree/jThree/src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts",
+			"originalName": "/home/travis/build/jThreeJS/jThree/jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts",
 			"children": [
 				{
 					"id": 4410,
-					"name": "PrimaryGBufferStage",
+					"name": "GBufferStage",
 					"kind": 128,
 					"kindString": "Class",
 					"flags": {
 						"isExported": true,
 						"hasExportAssignment": true
+					},
+					"comment": {
+						"shortText": "This stage draws 3 of G buffers.\nPrimary g-buffer Normal.X Normal.Y Depth SpecularCoefficent -> First pass\nSecoundary g-buffer DiffuseAlbedo.RGBA -> secound pass\nThird g-buffer SpecularAlbedo.RGB -> third pass"
 					},
 					"children": [
 						{
@@ -46336,7 +46339,7 @@
 							"signatures": [
 								{
 									"id": 4414,
-									"name": "new PrimaryGBufferStage",
+									"name": "new GBufferStage",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
@@ -46356,7 +46359,7 @@
 									],
 									"type": {
 										"type": "reference",
-										"name": "PrimaryGBufferStage",
+										"name": "GBufferStage",
 										"id": 4410
 									},
 									"overwrites": {
@@ -53843,7 +53846,7 @@
 						},
 						{
 							"type": "reference",
-							"name": "PrimaryGBufferStage",
+							"name": "GBufferStage",
 							"id": 4410
 						},
 						{
@@ -53859,7 +53862,7 @@
 						{
 							"type": "reference",
 							"name": "SpecularAlbedoStage",
-							"id": 11052
+							"id": 11050
 						}
 					],
 					"implementedTypes": [
@@ -56088,7 +56091,7 @@
 			]
 		},
 		{
-			"id": 11051,
+			"id": 11049,
 			"name": "\"src/Core/Renderers/RenderStages/SpecularAlnedoStage\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -56098,7 +56101,7 @@
 			"originalName": "/home/travis/build/jThreeJS/jThree/jThree/src/Core/Renderers/RenderStages/SpecularAlnedoStage.ts",
 			"children": [
 				{
-					"id": 11052,
+					"id": 11050,
 					"name": "SpecularAlbedoStage",
 					"kind": 128,
 					"kindString": "Class",
@@ -56108,7 +56111,7 @@
 					},
 					"children": [
 						{
-							"id": 11053,
+							"id": 11051,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -56117,14 +56120,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11054,
+									"id": 11052,
 									"name": "new SpecularAlbedoStage",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11055,
+											"id": 11053,
 											"name": "renderer",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56139,7 +56142,7 @@
 									"type": {
 										"type": "reference",
 										"name": "SpecularAlbedoStage",
-										"id": 11052
+										"id": 11050
 									},
 									"overwrites": {
 										"type": "reference",
@@ -56155,7 +56158,7 @@
 							}
 						},
 						{
-							"id": 11107,
+							"id": 11105,
 							"name": "Context",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -56165,7 +56168,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11108,
+									"id": 11106,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -56189,7 +56192,7 @@
 							}
 						},
 						{
-							"id": 11103,
+							"id": 11101,
 							"name": "DefaultFBO",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -56202,7 +56205,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11104,
+									"id": 11102,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -56229,7 +56232,7 @@
 							}
 						},
 						{
-							"id": 11105,
+							"id": 11103,
 							"name": "DefaultRBO",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -56242,7 +56245,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11106,
+									"id": 11104,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -56269,7 +56272,7 @@
 							}
 						},
 						{
-							"id": 11074,
+							"id": 11072,
 							"name": "GLContext",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -56279,7 +56282,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11075,
+									"id": 11073,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -56303,7 +56306,7 @@
 							}
 						},
 						{
-							"id": 11088,
+							"id": 11086,
 							"name": "RenderStageConfig",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -56313,7 +56316,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11089,
+									"id": 11087,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -56337,7 +56340,7 @@
 							}
 						},
 						{
-							"id": 11072,
+							"id": 11070,
 							"name": "Renderer",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -56350,7 +56353,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11073,
+									"id": 11071,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -56377,7 +56380,7 @@
 							}
 						},
 						{
-							"id": 11084,
+							"id": 11082,
 							"name": "TargetGeometry",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -56387,7 +56390,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11085,
+									"id": 11083,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -56410,7 +56413,7 @@
 							}
 						},
 						{
-							"id": 11086,
+							"id": 11084,
 							"name": "applyStageConfig",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56420,7 +56423,7 @@
 							},
 							"signatures": [
 								{
-									"id": 11087,
+									"id": 11085,
 									"name": "applyStageConfig",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -56443,7 +56446,7 @@
 							}
 						},
 						{
-							"id": 11097,
+							"id": 11095,
 							"name": "bindAsOutBuffer",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56453,14 +56456,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11098,
+									"id": 11096,
 									"name": "bindAsOutBuffer",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11099,
+											"id": 11097,
 											"name": "fbo",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56472,7 +56475,7 @@
 											}
 										},
 										{
-											"id": 11100,
+											"id": 11098,
 											"name": "bindInfo",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56484,7 +56487,7 @@
 											}
 										},
 										{
-											"id": 11101,
+											"id": 11099,
 											"name": "onBind",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56496,7 +56499,7 @@
 											}
 										},
 										{
-											"id": 11102,
+											"id": 11100,
 											"name": "onDefaultBuffer",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56528,7 +56531,7 @@
 							}
 						},
 						{
-							"id": 11081,
+							"id": 11079,
 							"name": "getPassCount",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56538,14 +56541,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11082,
+									"id": 11080,
 									"name": "getPassCount",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11083,
+											"id": 11081,
 											"name": "scene",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56575,7 +56578,7 @@
 							}
 						},
 						{
-							"id": 11111,
+							"id": 11109,
 							"name": "getTypeName",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56585,7 +56588,7 @@
 							},
 							"signatures": [
 								{
-									"id": 11112,
+									"id": 11110,
 									"name": "getTypeName",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -56608,7 +56611,7 @@
 							}
 						},
 						{
-							"id": 11090,
+							"id": 11088,
 							"name": "loadProgram",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56618,14 +56621,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11091,
+									"id": 11089,
 									"name": "loadProgram",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11092,
+											"id": 11090,
 											"name": "vsid",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56636,7 +56639,7 @@
 											}
 										},
 										{
-											"id": 11093,
+											"id": 11091,
 											"name": "fsid",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56647,7 +56650,7 @@
 											}
 										},
 										{
-											"id": 11094,
+											"id": 11092,
 											"name": "pid",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56658,7 +56661,7 @@
 											}
 										},
 										{
-											"id": 11095,
+											"id": 11093,
 											"name": "vscode",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56669,7 +56672,7 @@
 											}
 										},
 										{
-											"id": 11096,
+											"id": 11094,
 											"name": "fscode",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56699,7 +56702,7 @@
 							}
 						},
 						{
-							"id": 11067,
+							"id": 11065,
 							"name": "needRender",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56709,14 +56712,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11068,
+									"id": 11066,
 									"name": "needRender",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11069,
+											"id": 11067,
 											"name": "scene",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56728,7 +56731,7 @@
 											}
 										},
 										{
-											"id": 11070,
+											"id": 11068,
 											"name": "object",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56740,7 +56743,7 @@
 											}
 										},
 										{
-											"id": 11071,
+											"id": 11069,
 											"name": "passCount",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56769,7 +56772,7 @@
 							}
 						},
 						{
-							"id": 11076,
+							"id": 11074,
 							"name": "postEndStage",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56779,7 +56782,7 @@
 							},
 							"signatures": [
 								{
-									"id": 11077,
+									"id": 11075,
 									"name": "postEndStage",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -56789,7 +56792,7 @@
 									},
 									"parameters": [
 										{
-											"id": 11078,
+											"id": 11076,
 											"name": "scene",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56801,7 +56804,7 @@
 											}
 										},
 										{
-											"id": 11079,
+											"id": 11077,
 											"name": "passCount",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56812,7 +56815,7 @@
 											}
 										},
 										{
-											"id": 11080,
+											"id": 11078,
 											"name": "texs",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56842,7 +56845,7 @@
 							}
 						},
 						{
-							"id": 11056,
+							"id": 11054,
 							"name": "preBeginStage",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56852,14 +56855,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11057,
+									"id": 11055,
 									"name": "preBeginStage",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11058,
+											"id": 11056,
 											"name": "scene",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56871,7 +56874,7 @@
 											}
 										},
 										{
-											"id": 11059,
+											"id": 11057,
 											"name": "passCount",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56882,7 +56885,7 @@
 											}
 										},
 										{
-											"id": 11060,
+											"id": 11058,
 											"name": "texs",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56912,7 +56915,7 @@
 							}
 						},
 						{
-							"id": 11061,
+							"id": 11059,
 							"name": "render",
 							"kind": 2048,
 							"kindString": "Method",
@@ -56922,14 +56925,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11062,
+									"id": 11060,
 									"name": "render",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11063,
+											"id": 11061,
 											"name": "scene",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56941,7 +56944,7 @@
 											}
 										},
 										{
-											"id": 11064,
+											"id": 11062,
 											"name": "object",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56953,7 +56956,7 @@
 											}
 										},
 										{
-											"id": 11065,
+											"id": 11063,
 											"name": "passCount",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56964,7 +56967,7 @@
 											}
 										},
 										{
-											"id": 11066,
+											"id": 11064,
 											"name": "texs",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -56994,7 +56997,7 @@
 							}
 						},
 						{
-							"id": 11109,
+							"id": 11107,
 							"name": "toString",
 							"kind": 2048,
 							"kindString": "Method",
@@ -57004,7 +57007,7 @@
 							},
 							"signatures": [
 								{
-									"id": 11110,
+									"id": 11108,
 									"name": "toString",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -57042,36 +57045,36 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								11053
+								11051
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								11107,
-								11103,
 								11105,
-								11074,
-								11088,
+								11101,
+								11103,
 								11072,
-								11084
+								11086,
+								11070,
+								11082
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								11086,
-								11097,
-								11081,
-								11111,
-								11090,
-								11067,
-								11076,
-								11056,
-								11061,
-								11109
+								11084,
+								11095,
+								11079,
+								11109,
+								11088,
+								11065,
+								11074,
+								11054,
+								11059,
+								11107
 							]
 						}
 					],
@@ -57096,7 +57099,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						11052
+						11050
 					]
 				}
 			]
@@ -160023,7 +160026,7 @@
 			]
 		},
 		{
-			"id": 10989,
+			"id": 10987,
 			"name": "\"src/PMX/Core/PMXSpecularAlbedoMaterial\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -160033,7 +160036,7 @@
 			"originalName": "/home/travis/build/jThreeJS/jThree/jThree/src/PMX/Core/PMXSpecularAlbedoMaterial.ts",
 			"children": [
 				{
-					"id": 10990,
+					"id": 10988,
 					"name": "PMXAlbedoMaterial",
 					"kind": 128,
 					"kindString": "Class",
@@ -160046,7 +160049,7 @@
 					},
 					"children": [
 						{
-							"id": 10999,
+							"id": 10997,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -160055,14 +160058,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11000,
+									"id": 10998,
 									"name": "new PMXAlbedoMaterial",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11001,
+											"id": 10999,
 											"name": "material",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160077,7 +160080,7 @@
 									"type": {
 										"type": "reference",
 										"name": "PMXAlbedoMaterial",
-										"id": 10990
+										"id": 10988
 									},
 									"overwrites": {
 										"type": "reference",
@@ -160093,7 +160096,7 @@
 							}
 						},
 						{
-							"id": 10992,
+							"id": 10990,
 							"name": "associatedMaterial",
 							"kind": 1024,
 							"kindString": "Property",
@@ -160108,7 +160111,7 @@
 							}
 						},
 						{
-							"id": 10991,
+							"id": 10989,
 							"name": "program",
 							"kind": 1024,
 							"kindString": "Property",
@@ -160123,7 +160126,7 @@
 							}
 						},
 						{
-							"id": 11026,
+							"id": 11024,
 							"name": "CullEnabled",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160133,7 +160136,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11027,
+									"id": 11025,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160151,14 +160154,14 @@
 							],
 							"setSignature": [
 								{
-									"id": 11028,
+									"id": 11026,
 									"name": "__set",
 									"kind": 1048576,
 									"kindString": "Set signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11029,
+											"id": 11027,
 											"name": "val",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160187,7 +160190,7 @@
 							}
 						},
 						{
-							"id": 11024,
+							"id": 11022,
 							"name": "CullMode",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160197,7 +160200,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11025,
+									"id": 11023,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160221,7 +160224,7 @@
 							}
 						},
 						{
-							"id": 11042,
+							"id": 11040,
 							"name": "ID",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160234,7 +160237,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11043,
+									"id": 11041,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160260,7 +160263,7 @@
 							}
 						},
 						{
-							"id": 11022,
+							"id": 11020,
 							"name": "Loaded",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160273,7 +160276,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11023,
+									"id": 11021,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160299,7 +160302,7 @@
 							}
 						},
 						{
-							"id": 11017,
+							"id": 11015,
 							"name": "MaterialGroup",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160309,7 +160312,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11018,
+									"id": 11016,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160332,7 +160335,7 @@
 							}
 						},
 						{
-							"id": 11040,
+							"id": 11038,
 							"name": "NeedFoward",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160342,7 +160345,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11041,
+									"id": 11039,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160365,7 +160368,7 @@
 							}
 						},
 						{
-							"id": 10997,
+							"id": 10995,
 							"name": "PassCount",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160375,7 +160378,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 10998,
+									"id": 10996,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160398,7 +160401,7 @@
 							}
 						},
 						{
-							"id": 11009,
+							"id": 11007,
 							"name": "Priorty",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160408,7 +160411,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 11010,
+									"id": 11008,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160431,7 +160434,7 @@
 							}
 						},
 						{
-							"id": 10993,
+							"id": 10991,
 							"name": "VerticiesCount",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160444,7 +160447,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 10994,
+									"id": 10992,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160460,7 +160463,7 @@
 							]
 						},
 						{
-							"id": 10995,
+							"id": 10993,
 							"name": "VerticiesOffset",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -160473,7 +160476,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 10996,
+									"id": 10994,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -160489,7 +160492,7 @@
 							]
 						},
 						{
-							"id": 11037,
+							"id": 11035,
 							"name": "applyCullConfigure",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160499,14 +160502,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11038,
+									"id": 11036,
 									"name": "applyCullConfigure",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11039,
+											"id": 11037,
 											"name": "renderer",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160536,7 +160539,7 @@
 							}
 						},
 						{
-							"id": 11002,
+							"id": 11000,
 							"name": "configureMaterial",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160546,14 +160549,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11003,
+									"id": 11001,
 									"name": "configureMaterial",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11004,
+											"id": 11002,
 											"name": "scene",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160565,7 +160568,7 @@
 											}
 										},
 										{
-											"id": 11005,
+											"id": 11003,
 											"name": "renderer",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160577,7 +160580,7 @@
 											}
 										},
 										{
-											"id": 11006,
+											"id": 11004,
 											"name": "object",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160589,7 +160592,7 @@
 											}
 										},
 										{
-											"id": 11007,
+											"id": 11005,
 											"name": "texs",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160601,7 +160604,7 @@
 											}
 										},
 										{
-											"id": 11008,
+											"id": 11006,
 											"name": "pass",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160632,7 +160635,7 @@
 							}
 						},
 						{
-							"id": 11011,
+							"id": 11009,
 							"name": "getDrawGeometryLength",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160642,14 +160645,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11012,
+									"id": 11010,
 									"name": "getDrawGeometryLength",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11013,
+											"id": 11011,
 											"name": "geo",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160679,7 +160682,7 @@
 							}
 						},
 						{
-							"id": 11014,
+							"id": 11012,
 							"name": "getDrawGeometryOffset",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160689,14 +160692,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11015,
+									"id": 11013,
 									"name": "getDrawGeometryOffset",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11016,
+											"id": 11014,
 											"name": "geo",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160726,7 +160729,7 @@
 							}
 						},
 						{
-							"id": 11046,
+							"id": 11044,
 							"name": "getTypeName",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160736,7 +160739,7 @@
 							},
 							"signatures": [
 								{
-									"id": 11047,
+									"id": 11045,
 									"name": "getTypeName",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -160759,7 +160762,7 @@
 							}
 						},
 						{
-							"id": 11030,
+							"id": 11028,
 							"name": "loadProgram",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160769,14 +160772,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11031,
+									"id": 11029,
 									"name": "loadProgram",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11032,
+											"id": 11030,
 											"name": "vsid",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160787,7 +160790,7 @@
 											}
 										},
 										{
-											"id": 11033,
+											"id": 11031,
 											"name": "fsid",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160798,7 +160801,7 @@
 											}
 										},
 										{
-											"id": 11034,
+											"id": 11032,
 											"name": "pid",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160809,7 +160812,7 @@
 											}
 										},
 										{
-											"id": 11035,
+											"id": 11033,
 											"name": "vscode",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160820,7 +160823,7 @@
 											}
 										},
 										{
-											"id": 11036,
+											"id": 11034,
 											"name": "fscode",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160850,7 +160853,7 @@
 							}
 						},
 						{
-							"id": 11019,
+							"id": 11017,
 							"name": "setLoaded",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160860,14 +160863,14 @@
 							},
 							"signatures": [
 								{
-									"id": 11020,
+									"id": 11018,
 									"name": "setLoaded",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 11021,
+											"id": 11019,
 											"name": "flag",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -160898,7 +160901,7 @@
 							}
 						},
 						{
-							"id": 11044,
+							"id": 11042,
 							"name": "toString",
 							"kind": 2048,
 							"kindString": "Method",
@@ -160908,7 +160911,7 @@
 							},
 							"signatures": [
 								{
-									"id": 11045,
+									"id": 11043,
 									"name": "toString",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -160946,45 +160949,45 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								10999
+								10997
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								10992,
-								10991
+								10990,
+								10989
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								11026,
 								11024,
-								11042,
 								11022,
-								11017,
 								11040,
-								10997,
-								11009,
-								10993,
-								10995
+								11020,
+								11015,
+								11038,
+								10995,
+								11007,
+								10991,
+								10993
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								11037,
-								11002,
-								11011,
-								11014,
-								11046,
-								11030,
-								11019,
-								11044
+								11035,
+								11000,
+								11009,
+								11012,
+								11044,
+								11028,
+								11017,
+								11042
 							]
 						}
 					],
@@ -161004,21 +161007,21 @@
 					]
 				},
 				{
-					"id": 11048,
+					"id": 11046,
 					"name": "require",
 					"kind": 64,
 					"kindString": "Function",
 					"flags": {},
 					"signatures": [
 						{
-							"id": 11049,
+							"id": 11047,
 							"name": "require",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 11050,
+									"id": 11048,
 									"name": "string",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -161042,14 +161045,14 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						10990
+						10988
 					]
 				},
 				{
 					"title": "Functions",
 					"kind": 64,
 					"children": [
-						11048
+						11046
 					]
 				}
 			]
@@ -183575,7 +183578,7 @@
 			]
 		},
 		{
-			"id": 10987,
+			"id": 10985,
 			"name": "\"src/bundle\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -185065,42 +185068,6 @@
 		},
 		{
 			"id": 10976,
-			"name": "\"test/Core/Light/LightRegisterTest\"",
-			"kind": 1,
-			"kindString": "External module",
-			"flags": {
-				"isExported": true,
-				"isExternal": true
-			},
-			"originalName": "/home/travis/build/jThreeJS/jThree/jThree/test/Core/Light/LightRegisterTest.ts",
-			"children": [
-				{
-					"id": 10977,
-					"name": "expect",
-					"kind": 32,
-					"kindString": "Variable",
-					"flags": {
-						"isExternal": true
-					},
-					"type": {
-						"type": "reference",
-						"name": "ExpectStatic"
-					},
-					"defaultValue": " chai.expect"
-				}
-			],
-			"groups": [
-				{
-					"title": "Variables",
-					"kind": 32,
-					"children": [
-						10977
-					]
-				}
-			]
-		},
-		{
-			"id": 10978,
 			"name": "\"test/Sample/SampleTs\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -185111,7 +185078,7 @@
 			"originalName": "/home/travis/build/jThreeJS/jThree/jThree/test/Sample/SampleTs.ts",
 			"children": [
 				{
-					"id": 10979,
+					"id": 10977,
 					"name": "SampleClass",
 					"kind": 128,
 					"kindString": "Class",
@@ -185122,7 +185089,7 @@
 					},
 					"children": [
 						{
-							"id": 10980,
+							"id": 10978,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -185132,14 +185099,14 @@
 							},
 							"signatures": [
 								{
-									"id": 10981,
+									"id": 10979,
 									"name": "new SampleClass",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 10982,
+											"id": 10980,
 											"name": "a",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -185153,13 +185120,13 @@
 									"type": {
 										"type": "reference",
 										"name": "SampleClass",
-										"id": 10979
+										"id": 10977
 									}
 								}
 							]
 						},
 						{
-							"id": 10983,
+							"id": 10981,
 							"name": "_a",
 							"kind": 1024,
 							"kindString": "Property",
@@ -185174,7 +185141,7 @@
 							}
 						},
 						{
-							"id": 10984,
+							"id": 10982,
 							"name": "times",
 							"kind": 2048,
 							"kindString": "Method",
@@ -185185,14 +185152,14 @@
 							},
 							"signatures": [
 								{
-									"id": 10985,
+									"id": 10983,
 									"name": "times",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 10986,
+											"id": 10984,
 											"name": "b",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -185216,21 +185183,21 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								10980
+								10978
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								10983
+								10981
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								10984
+								10982
 							]
 						}
 					]
@@ -185241,7 +185208,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						10979
+						10977
 					]
 				}
 			]
@@ -185305,7 +185272,7 @@
 				6567,
 				6622,
 				6702,
-				10988,
+				10986,
 				6297,
 				3085,
 				3739,
@@ -185322,7 +185289,7 @@
 				3097,
 				3232,
 				4281,
-				11051,
+				11049,
 				4478,
 				4471,
 				4013,
@@ -185476,7 +185443,7 @@
 				10010,
 				10089,
 				10372,
-				10989,
+				10987,
 				10665,
 				10731,
 				10755,
@@ -185540,11 +185507,10 @@
 				1745,
 				1754,
 				5018,
-				10987,
+				10985,
 				5488,
 				10975,
-				10976,
-				10978
+				10976
 			]
 		}
 	]

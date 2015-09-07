@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PrimaryGBufferStage | jThree</title>
+	<title>GBufferStage | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,19 +57,29 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.html">&quot;src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage&quot;</a>
+					<a href="../modules/_src_core_renderers_renderstages_gbuffer_gbufferstage_.html">&quot;src/Core/Renderers/RenderStages/GBuffer/GBufferStage&quot;</a>
 				</li>
 				<li>
-					<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html">PrimaryGBufferStage</a>
+					<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html">GBufferStage</a>
 				</li>
 			</ul>
-			<h1>Class PrimaryGBufferStage</h1>
+			<h1>Class GBufferStage</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>This stage draws 3 of G buffers.
+							Primary g-buffer Normal.X Normal.Y Depth SpecularCoefficent -&gt; First pass
+							Secoundary g-buffer DiffuseAlbedo.RGBA -&gt; secound pass
+						Third g-buffer SpecularAlbedo.RGB -&gt; third pass</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -77,7 +87,7 @@
 						<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">PrimaryGBufferStage</span>
+								<span class="target">GBufferStage</span>
 							</li>
 						</ul>
 					</li>
@@ -96,34 +106,34 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#context" class="tsd-kind-icon">Context</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#glcontext" class="tsd-kind-icon">GLContext</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#renderer" class="tsd-kind-icon">Renderer</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#context" class="tsd-kind-icon">Context</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#glcontext" class="tsd-kind-icon">GLContext</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#renderer" class="tsd-kind-icon">Renderer</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#needrender" class="tsd-kind-icon">need<wbr>Render</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#render" class="tsd-kind-icon">render</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#needrender" class="tsd-kind-icon">need<wbr>Render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -135,14 +145,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>PrimaryGBuffer<wbr>Stage<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html" class="tsd-signature-type">PrimaryGBufferStage</a></li>
+						<li class="tsd-signature tsd-kind-icon">new GBuffer<wbr>Stage<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html" class="tsd-signature-type">GBufferStage</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts#L18">src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts#L24">src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,7 +161,7 @@
 									<h5>renderer: <a href="_src_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html" class="tsd-signature-type">PrimaryGBufferStage</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html" class="tsd-signature-type">GBufferStage</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -251,7 +261,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#renderstageconfig">RenderStageConfig</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts#L10">src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts#L16">src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_src_core_renderers_renderstageconfig_.renderstageconfig.html" class="tsd-signature-type">RenderStageConfig</a></h4>
@@ -364,7 +374,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#getpasscount">getPassCount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts#L76">src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts#L82">src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts:82</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -442,7 +452,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#needrender">needRender</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts#L71">src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts#L77">src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -507,7 +517,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#prebeginstage">preBeginStage</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts#L25">src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts#L31">src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -537,7 +547,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html">RenderStageBase</a>.<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts#L57">src/Core/Renderers/RenderStages/GBuffer/PrimaryGBufferStage.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts#L63">src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -587,7 +597,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.html">"src/<wbr>Core/<wbr>Renderers/<wbr>Render<wbr>Stages/GBuffer/<wbr>PrimaryGBuffer<wbr>Stage"</a>
+						<a href="../modules/_src_core_renderers_renderstages_gbuffer_gbufferstage_.html">"src/<wbr>Core/<wbr>Renderers/<wbr>Render<wbr>Stages/GBuffer/GBuffer<wbr>Stage"</a>
 					</li>
 				</ul>
 			</nav>
@@ -596,61 +606,61 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html" class="tsd-kind-icon">PrimaryGBuffer<wbr>Stage</a>
+						<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html" class="tsd-kind-icon">GBuffer<wbr>Stage</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#context" class="tsd-kind-icon">Context</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#context" class="tsd-kind-icon">Context</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#defaultfbo" class="tsd-kind-icon">DefaultFBO</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#defaultrbo" class="tsd-kind-icon">DefaultRBO</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#glcontext" class="tsd-kind-icon">GLContext</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#glcontext" class="tsd-kind-icon">GLContext</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#renderstageconfig" class="tsd-kind-icon">Render<wbr>Stage<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#renderer" class="tsd-kind-icon">Renderer</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#renderer" class="tsd-kind-icon">Renderer</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#targetgeometry" class="tsd-kind-icon">Target<wbr>Geometry</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#applystageconfig" class="tsd-kind-icon">apply<wbr>Stage<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#bindasoutbuffer" class="tsd-kind-icon">bind<wbr>AsOut<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#needrender" class="tsd-kind-icon">need<wbr>Render</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#needrender" class="tsd-kind-icon">need<wbr>Render</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#render" class="tsd-kind-icon">render</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#render" class="tsd-kind-icon">render</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_src_core_renderers_renderstages_gbuffer_primarygbufferstage_.primarygbufferstage.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>
