@@ -69,7 +69,7 @@ class PMXBoneTransformer extends Transformer {
 		}
 	}
 
-	private CCDIKOperation() {
+    private CCDIKOperation() {
 		var effector = this.PMXModelData.Bones[this.TargetBoneData.ikTargetBoneIndex];
 		var effectorTransformer = <PMXBoneTransformer> this.pmx.Skeleton.getBoneByIndex(this.TargetBoneData.ikTargetBoneIndex).Transformer;
 		var TargetGlobalPos =Matrix.transformPoint(this.LocalToGlobal,this.LocalOrigin);

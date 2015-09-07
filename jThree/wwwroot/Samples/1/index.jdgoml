@@ -1,0 +1,11 @@
+﻿goml
+	resources
+		phong(name='material1',diffuse='red')
+		cube(name='cube')
+	renderers
+		renderer(frame='.canvasContainer',clearColor='black',width='512',height='512')
+			viewport(cam='MAIN',width='512',height='512')
+	scenes
+		scene
+			camera(name='MAIN',fovy="45d",znear='0.01',zfar='100',aspect='1')
+			mesh(geo='cube',mat='material1')

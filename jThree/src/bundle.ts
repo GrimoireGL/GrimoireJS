@@ -289,5 +289,4 @@
 /// <reference path="Wrapper/WebGLContextWrapper.ts" />
 /// <reference path="bundle-notdoc.ts" />
 /// <reference path="jThree.ts" />
-/// <reference path="../test/Core/Light/LightRegisterTest.ts" />
 /// <reference path="../test/Sample/SampleTs.ts" />

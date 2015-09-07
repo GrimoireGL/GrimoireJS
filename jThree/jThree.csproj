@@ -111,6 +111,7 @@
     <Content Include="wwwroot\quad-animate\Example.js" />
     <Content Include="wwwroot\quad\Example.html" />
     <Content Include="wwwroot\quad\Example.js" />
+    <Content Include="wwwroot\Samples\1\index.html" />
     <Content Include="wwwroot\Tda\body00_s.bmp" />
     <Content Include="wwwroot\Tda\body01_s.bmp" />
     <Content Include="wwwroot\Tda\body02_MikuAp.png" />
@@ -242,6 +243,8 @@
     <Content Include="wwwroot\jdgoml\Example.goml" />
     <Content Include="wwwroot\jdgoml\Example.jdgoml" />
     <Content Include="wwwroot\jdgoml\README.md" />
+    <Content Include="wwwroot\Samples\1\index.jdgoml" />
+    <Content Include="wwwroot\Samples\1\index.goml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />

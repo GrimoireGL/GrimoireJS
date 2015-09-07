@@ -1,0 +1,19 @@
+<goml>
+  <resources>
+    <phong name="material1" diffuse="red" specular="#CCC" specularpower="15"></phong>
+    <cube name="cube"></cube>
+  </resources>
+  <renderers>
+    <renderer frame=".canvasContainer" clearColor="black" width="512" height="512">
+      <viewport cam="MAIN" width="512" height="512"></viewport>
+    </renderer>
+  </renderers>
+  <scenes>
+    <scene>
+      <object rotation="y(30d)">
+        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="MAIN" near="0.1" position="(0,6,10)" rotation="x(-30d)"></camera>
+      </object>
+      <mesh geo="cube" scale="0.1" position="0,0,0" mat="matertial1" rotation="y(60d)"/>
+    </scene>
+  </scenes>
+</goml>

@@ -8,7 +8,7 @@ import RbDepthStage = require("../RenderStages/RBDepthStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import AlbedoStage = require("../RenderStages/DiffuseAlbedoStage");
-import GBufferStage = require("../RenderStages/GBuffer/PrimaryGBufferStage");
+import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {
     public get TextureBuffers(): GeneraterInfo
@@ -59,12 +59,12 @@ class BasicRendererConfigurator extends ConfiguratorBase
     public getStageChain(target: RendererBase): RenderStageChain[]
     {
         return [
-            {
+/*            {
                 buffers: {
                     OUT: "default"
                 },
                 stage: new SkyBoxStage(target)
-            },
+            },*/
             {
                 buffers: {
                     PRIMARY: "gbuffer.primary",

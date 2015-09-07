@@ -5,7 +5,13 @@ import Scene = require('../../../Scene');
 import ResolvedChainInfo = require('../../ResolvedChainInfo');
 import ClearTargetType = require("../../../../Wrapper/ClearTargetType");
 import RenderStageConfig = require("../../RenderStageConfig");
-class PrimaryGBufferStage extends RenderStageBase
+/**
+ * This stage draws 3 of G buffers.
+ * Primary g-buffer Normal.X Normal.Y Depth SpecularCoefficent -> First pass
+ * Secoundary g-buffer DiffuseAlbedo.RGBA -> secound pass
+ * Third g-buffer SpecularAlbedo.RGB -> third pass
+ */
+class GBufferStage extends RenderStageBase
 {
     public get RenderStageConfig(): RenderStageConfig
     {
@@ -23,7 +29,7 @@ class PrimaryGBufferStage extends RenderStageBase
     }
 
     public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-        var outTexture;
+        var outTexture;//switch texture by passCount
         switch (passCount)
         {
             case 0:
@@ -79,4 +85,4 @@ class PrimaryGBufferStage extends RenderStageBase
     }
 }
 
-export = PrimaryGBufferStage;
+export = GBufferStage;
