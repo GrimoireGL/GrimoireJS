@@ -20,10 +20,8 @@ vec2 calcLightUV(vec4 projectionSpacePos)
 
 void main(void){
   vec2 adjuv=v_uv;
-  gl_FragColor.rgba=u_diffuse;
-  if(u_textureUsed==1)gl_FragColor *= texture2D(u_texture,adjuv);
-
-  gl_FragColor.rgb+=u_ambient.rgb;
+  gl_FragColor=vec4(0,0,0,1);
+  //gl_FragColor.rgb+=u_ambient.rgb;
   ////calculate light uv
   vec2 lightUV=calcLightUV(v_pos);
   gl_FragColor.rgb+=texture2D(u_light,lightUV).xyz;

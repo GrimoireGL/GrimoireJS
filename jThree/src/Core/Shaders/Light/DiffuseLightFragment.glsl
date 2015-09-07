@@ -25,8 +25,7 @@ vec3 getNormal()
 	highp vec2 compressed = texture2D(primary,vUV).xy;
 	highp vec3 result;
 	result.z = length(compressed)*2.-1.;
-	result.xy = normalize(compressed) *
-	 sqrt(1.-pow(result.z,2.));
+	result.xy = normalize(compressed) * sqrt(1.-pow(result.z,2.));
 	return result;
 }
 //Reconstruct position

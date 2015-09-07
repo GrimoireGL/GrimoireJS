@@ -70,31 +70,13 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 },
                 stage: new SkyBoxStage(target)
             },*/
-            {
+/*            {
                 buffers: {
                     PRIMARY: "gbuffer.primary",
                     SECOUNDARY: "gbuffer.secoundary",
                     THIRD:"gbuffer.third"
                 },
                 stage:new GBufferStage(target)
-            },/*,
-            {
-                buffers: {
-                    OUT: "deffered.rb2"
-                },
-                stage: new AlbedoStage(target)
-            }
-            , {
-                buffers: {
-                    OUT: "deffered.rb1"
-                },
-                stage: new Rb1RenderStage(target)
-            },
-            {
-                buffers: {
-                    OUT: "deffered.depth"
-                },
-                stage: new RbDepthStage(target)
             },*/
             {
                 buffers: {
@@ -107,7 +89,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
             },
             {
                 buffers: {
-                    LIGHT: "deffered.light",
+                    LIGHT: "light.diffuse",
                     OUT: "default"
                 },
                 stage: new ShadingStage(target)

@@ -37,9 +37,9 @@
         <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>
 -->
       </object>
-<!--      <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
+      <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
-      </pmx>-->
+      </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
       <object id="quad-parent" rotation ="y(-160d)">
         <behaviors>

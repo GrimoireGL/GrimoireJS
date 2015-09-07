@@ -65,6 +65,25 @@
     <Content Include="src\PMX\Shader\PMXFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXNormalVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXVertex.glsl" />
+    <Content Include="test\build\test.js" />
+    <Content Include="test\Core\Transformer\TransformerTest.js">
+      <DependentUpon>TransformerTest.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\Core\Transformer\TransformerTest.min.js">
+      <DependentUpon>TransformerTest.js</DependentUpon>
+    </Content>
+    <Content Include="test\Goml\GomlLoaderTest.js">
+      <DependentUpon>GomlLoaderTest.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\Goml\GomlLoaderTest.min.js">
+      <DependentUpon>GomlLoaderTest.js</DependentUpon>
+    </Content>
+    <Content Include="test\Test.js">
+      <DependentUpon>Test.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\Test.min.js">
+      <DependentUpon>Test.js</DependentUpon>
+    </Content>
     <Content Include="wwwroot\binaryReader.js" />
     <Content Include="wwwroot\cube\Example.html" />
     <Content Include="wwwroot\cube\Example.js" />
@@ -201,6 +220,29 @@
     <Content Include="src\Core\Shaders\GBuffer\SecoundaryFragment.glsl" />
     <Content Include="src\Core\Shaders\GBuffer\ThirdFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXThirdGBufferFragment.glsl" />
+    <Content Include="test\Core\Transformer\TransformerTest.coffee" />
+    <Content Include="test\Goml\GomlLoaderTest.coffee" />
+    <Content Include="test\Goml\GomlLoaderTest.js.map">
+      <DependentUpon>GomlLoaderTest.js</DependentUpon>
+    </Content>
+    <Content Include="test\Goml\GomlLoaderTest.min.js.map">
+      <DependentUpon>GomlLoaderTest.min.js</DependentUpon>
+    </Content>
+    <Content Include="test\Core\Transformer\TransformerTest.js.map">
+      <DependentUpon>TransformerTest.js</DependentUpon>
+    </Content>
+    <Content Include="test\Core\Transformer\TransformerTest.min.js.map">
+      <DependentUpon>TransformerTest.min.js</DependentUpon>
+    </Content>
+    <Content Include="test\Test.coffee" />
+    <Content Include="test\Test.js.map">
+      <DependentUpon>Test.js</DependentUpon>
+    </Content>
+    <Content Include="test\Test.min.js.map">
+      <DependentUpon>Test.min.js</DependentUpon>
+    </Content>
+    <Content Include="src\Core\Shaders\Light\DiffuseLightFragment.glsl" />
+    <Content Include="src\Core\Shaders\Light\LightVertex.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -223,9 +265,6 @@
     <Content Include="wwwroot\_debug\melt.vmd" />
     <Content Include="wwwroot\_debug\miku-ruler.ai" />
     <Content Include="wwwroot\_debug\sakura.vmd" />
-    <Content Include="wwwroot\_debug\test1-1.json" />
-    <Content Include="wwwroot\_debug\test1-2.json" />
-    <Content Include="wwwroot\_debug\test2-1.json" />
     <Content Include="wwwroot\_debug\tune\IMG_8679.spa" />
     <Content Include="wwwroot\_debug\tune\Miku.pmx" />
     <Content Include="wwwroot\_debug\tune\n10.spa" />
@@ -278,6 +317,7 @@
     <TypeScriptCompile Include="src\Base\JThreeObject.ts" />
     <TypeScriptCompile Include="src\Base\JThreeObjectWithID.ts" />
     <TypeScriptCompile Include="src\bundle-notdoc.ts" />
+    <TypeScriptCompile Include="src\bundle.ts" />
     <TypeScriptCompile Include="src\Core\Camera\Camera.ts" />
     <TypeScriptCompile Include="src\Core\Camera\OrthoCamera.ts" />
     <TypeScriptCompile Include="src\Core\Camera\PerspectiveCamera.ts" />
@@ -326,7 +366,7 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\DiffuseAlbedoStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\FowardShadingStage.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GBuffer\PrimaryGBufferStage.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GBuffer\GBufferStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GrayScaleStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\LightAccumulationStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RB1RenderStage.ts" />
@@ -551,7 +591,6 @@
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureRegister.ts" />
     <TypeScriptCompile Include="src\Wrapper\Texture\TextureWrapType.ts" />
     <TypeScriptCompile Include="src\Wrapper\WebGLContextWrapper.ts" />
-    <TypeScriptCompile Include="test\Core\Light\LightRegisterTest.ts" />
     <TypeScriptCompile Include="test\Goml\GomlLoaderTest.ts" />
     <TypeScriptCompile Include="test\Sample\SampleTs.ts" />
     <TypeScriptCompile Include="test\Test.ts" />

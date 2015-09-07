@@ -56,16 +56,15 @@ class PMXGBufferMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void
-    {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
         if (!this.primaryProgram||this.associatedMaterial.Diffuse.A<1.0E-3) return;
         super.configureMaterial(scene, renderer, object, texs);
         switch (pass) {
             case 0:
-                this.configurePrimaryBuffer(scene, renderer, object, texs, pass);
+                this.configureThirdBuffer(scene, renderer, object, texs, pass);
                 break;
             case 1:
-                this.configureSecoundaryBuffer(scene, renderer, object, texs, pass);
+                this.configureThirdBuffer(scene, renderer, object, texs, pass);
                 break;
             case 2:
                 this.configureThirdBuffer(scene, renderer, object, texs, pass);
@@ -87,11 +86,11 @@ class PMXGBufferMaterial extends Material
                 uv:geometry.UVBuffer
             },
             uniforms: {
-                u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
                 specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
-                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount }
+                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount }
             }
         });
     }
@@ -109,11 +108,11 @@ class PMXGBufferMaterial extends Material
                 uv:geometry.UVBuffer
             },
             uniforms: {
-                u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
                 specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
-                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
+                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
                 diffuse: {
                     type: "vector",
                     value: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Diffuse.toVector(), this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.diffuse, 4)
@@ -158,10 +157,10 @@ class PMXGBufferMaterial extends Material
                 uv: geometry.UVBuffer
             },
             uniforms: {
-                u_boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
-                u_boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
+                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
                 specular: {
                     type: "vector",
                     value: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Specular, this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.specular, 3)
