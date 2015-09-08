@@ -72,6 +72,7 @@ float getSpecularCoefficient()
 void main(void)
 {
 	float depth = getDepth();
+	if(abs(depth+1.0)<1.0E-3)discard;//Is this work correctly?
 	vec3 position = getPosition(depth);
 	vec3 normal = getNormal();
 	vec3 specular =getSpecularAlbedo();

@@ -3,6 +3,7 @@
     <ddebug name="light" target="gbuffer.primary" viewport="viewport#main"/>
     <ddebug name="depth" target="gbuffer.secoundary" viewport="viewport#main"/>
     <ddebug name="normal" target="gbuffer.third" viewport="viewport#main"/>
+    <ddebug name="dl" target="light.specular" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
     <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
@@ -20,6 +21,7 @@
       <viewport cam="CAM2" height="256"  left="512" width="256"/>
       <viewport cam="CAM3" height="256"  left="768" width="256"/>
       <viewport cam="CAM4" height="256" left="512" top="256" width="256"/>
+      <viewport cam="CAM5" height="256"  left="768" width="256" top="256"/>
     </renderer>
   </renderers>
   <scenes>
@@ -69,6 +71,10 @@
     <scene>
       <ocamera bottom="-1" far="1" left="-1" name="CAM4" near="0" right="1" top="1"/>
       <mesh geo="quad" mat="normal" scale="1"/>
+    </scene>
+    <scene>
+      <ocamera bottom="-1" far="1" left="-1" name="CAM5" near="0" right="1" top="1"/>
+      <mesh geo="quad" mat="dl" scale="1"/>
     </scene>
   </scenes>
 </goml>

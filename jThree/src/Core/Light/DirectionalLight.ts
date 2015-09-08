@@ -77,8 +77,8 @@ class DirectionalLight extends LightBase {
             typeName: "jthree.lights.directionallight",
             requiredParamCount: 3,
             shaderfuncName: "calcDirectionalLight",
-            diffuseFragmentCode: require('../Shaders/Light/DirectionalLightFragmentChunk.glsl'),
-            specularFragmentCode:""
+            diffuseFragmentCode: require('../Shaders/Light/DirectionalLightDiffuseFragmentChunk.glsl'),
+            specularFragmentCode: require('../Shaders/Light/DirectionalLightSpecularFragmentChunk.glsl')
         };
     }
 }

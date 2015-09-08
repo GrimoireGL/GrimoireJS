@@ -120,6 +120,10 @@ class LightRegister
         return this.diffuseLightProgram;
     }
 
+    public get SpecularLightProgram() {
+        return this.specularLightProgram;
+    }
+
     public getSpecularShaderCodeComposer()
     {
         return this.specularLightProgram;

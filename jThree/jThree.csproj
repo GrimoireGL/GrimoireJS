@@ -43,11 +43,6 @@
     <Content Include="packages.config" />
     <Content Include="src\static\color.json" />
     <Content Include="src\Core\Shaders\Chunk\Common.glsl" />
-    <Content Include="src\Core\Shaders\Deffered\Chunk\Directional_Head.glsl" />
-    <Content Include="src\Core\Shaders\Deffered\Chunk\Point_Head.glsl" />
-    <Content Include="src\Core\Shaders\Deffered\NormalBuffer.glsl" />
-    <Content Include="src\Core\Shaders\Deffered\RB1.glsl" />
-    <Content Include="src\Core\Shaders\Deffered\RB2.glsl" />
     <Content Include="src\Core\Shaders\Depth\AltDepth.glsl" />
     <Content Include="src\Core\Shaders\Depth\Depth.glsl" />
     <Content Include="src\Core\Shaders\Lambert.glsl" />
@@ -58,12 +53,9 @@
     <Content Include="src\Core\Shaders\VertexShaders\BasicGeometries.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\DepthGeometries.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\PostEffectGeometries.glsl" />
-    <Content Include="src\PMX\Shader\PMXDepthFragment.glsl" />
-    <Content Include="src\PMX\Shader\PMXDepthVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXEdgeFragment.glsl" />
     <Content Include="src\PMX\Shader\PMXEdgeVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXFragment.glsl" />
-    <Content Include="src\PMX\Shader\PMXNormalVertex.glsl" />
     <Content Include="src\PMX\Shader\PMXVertex.glsl" />
     <Content Include="test\build\test.js" />
     <Content Include="test\Core\Transformer\TransformerTest.js">
@@ -205,13 +197,11 @@
     <Content Include="wwwroot\_debug\tune\Toon\toon_a25.bmp" />
     <Content Include="npm-debug.log" />
     <Content Include="src\Core\Shaders\Light\LightAccumulation.glsl" />
-    <Content Include="src\Core\Shaders\Light\PointLightFragmentChunk.glsl" />
+    <Content Include="src\Core\Shaders\Light\PointLightDiffuseFragmentChunk.glsl" />
     <Content Include="src\Core\Shaders\SkyBox.glsl" />
     <Content Include="src\Core\Shaders\VertexShaders\SkyboxGeometries.glsl" />
-    <Content Include="src\Core\Shaders\Light\DirectionalLightFragmentChunk.glsl" />
+    <Content Include="src\Core\Shaders\Light\DirectionalLightDiffuseFragmentChunk.glsl" />
     <Content Include="test\Sample\SampleTest.coffee" />
-    <Content Include="src\Core\Shaders\Deffered\Albedo.glsl" />
-    <Content Include="src\PMX\Shader\PMXAlbedoFragment.glsl" />
     <Content Include="src\Core\Shaders\GBuffer\PrimaryFragment.glsl" />
     <Content Include="src\Core\Shaders\GBuffer\Vertex.glsl" />
     <Content Include="src\PMX\Shader\PMXGBufferVertex.glsl" />
@@ -243,6 +233,9 @@
     </Content>
     <Content Include="src\Core\Shaders\Light\DiffuseLightFragment.glsl" />
     <Content Include="src\Core\Shaders\Light\LightVertex.glsl" />
+    <Content Include="src\Core\Shaders\Light\SpecularLightFragment.glsl" />
+    <Content Include="src\Core\Shaders\Light\DirectionalLightSpecularFragmentChunk.glsl" />
+    <Content Include="src\Core\Shaders\Light\PointLightSpecularFragmentChunk.glsl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -345,17 +338,12 @@
     <TypeScriptCompile Include="src\Core\Light\LightTypeDeclaration.ts" />
     <TypeScriptCompile Include="src\Core\Light\PointLight.ts" />
     <TypeScriptCompile Include="src\Core\ListStateChangedType.ts" />
-    <TypeScriptCompile Include="src\Core\Materials\AlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\DebugSpriteMaterial.ts" />
-    <TypeScriptCompile Include="src\Core\Materials\DepthMaterial.ts" />
-    <TypeScriptCompile Include="src\Core\Materials\DepthStage\DepthStageMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\GBufferMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\LambertMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\Material.ts" />
-    <TypeScriptCompile Include="src\Core\Materials\NormalMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\PhongMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\SolidColorMaterial.ts" />
-    <TypeScriptCompile Include="src\Core\Materials\SpecularAlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\SpriteMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\FBOBindData.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RendererBase.ts" />
@@ -364,18 +352,12 @@
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageChain.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageConfig.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageManager.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\DiffuseAlbedoStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\FowardShadingStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GBuffer\GBufferStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\GrayScaleStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\LightAccumulationStage.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RB1RenderStage.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RB2RenderStage.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RBDepthStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\RenderStageBase.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\ShadowMaps\DirectionalShadowMapStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStages\SkyBoxStage.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RenderStages\SpecularAlnedoStage.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\ResolvedChainInfo.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\TextureGeneraters\GeneraterInfo.ts" />
@@ -514,10 +496,8 @@
     <TypeScriptCompile Include="src\Math\Vector3.ts" />
     <TypeScriptCompile Include="src\Math\Vector4.ts" />
     <TypeScriptCompile Include="src\Math\VectorBase.ts" />
-    <TypeScriptCompile Include="src\PMX\Core\PMXAlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXBone.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXBoneTransformer.ts" />
-    <TypeScriptCompile Include="src\PMX\Core\PMXDepthMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXGBufferMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXGeometry.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMaterial.ts" />
@@ -525,9 +505,7 @@
     <TypeScriptCompile Include="src\PMX\Core\PMXModel.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMorph.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXMorphManager.ts" />
-    <TypeScriptCompile Include="src\PMX\Core\PMXNormalMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Core\PMXSkeleton.ts" />
-    <TypeScriptCompile Include="src\PMX\Core\PMXSpecularAlbedoMaterial.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\Factory\PMXBoneTagFactory.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\Factory\PMXMorphTagFactory.ts" />
     <TypeScriptCompile Include="src\PMX\Goml\PMXBoneNode.ts" />

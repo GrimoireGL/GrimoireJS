@@ -18,10 +18,18 @@ class LitghtAccumulationStage extends RenderStageBase
     }
 
 
-    public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo)
-    {
+    public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+        var targetTetxture;
+        switch (techniqueIndex) {
+            case 0:
+                targetTetxture = texs["DIFFUSE"];
+                break;
+            case 1:
+                targetTetxture = texs["SPECULAR"];
+                break;
+        }
         this.bindAsOutBuffer(this.DefaultFBO, [
-            { texture: texs["OUT"], target: 0 }
+            { texture: targetTetxture, target: 0 }
         ], () =>
             {
                 this.GLContext.ClearColor(0, 0, 0, 0);
@@ -29,18 +37,18 @@ class LitghtAccumulationStage extends RenderStageBase
             });
     }
 
-    public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo)
+    public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo)
     {
         var geometry = object.Geometry;
         if (!geometry) return;
-        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs);
+        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs,techniqueIndex === 0?scene.LightRegister.DiffuseLightProgram:scene.LightRegister.SpecularLightProgram);
         geometry.drawElements(this.Renderer.ContextManager, null);
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,targetProgramWrapper:Program): void
     {
         var geometry = object.Geometry;
-        var programWrapper = scene.LightRegister.DiffuseLightProgram.getForContext(renderer.ContextManager);
+        var programWrapper = targetProgramWrapper.getForContext(renderer.ContextManager);
         var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
         programWrapper.register({
             attributes: {
@@ -92,7 +100,7 @@ class LitghtAccumulationStage extends RenderStageBase
 
     public getTechniqueCount(scene: Scene)
     {
-        return 1;
+        return 2;
     }
 
 

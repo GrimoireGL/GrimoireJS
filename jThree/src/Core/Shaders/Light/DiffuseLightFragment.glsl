@@ -72,6 +72,7 @@ float getSpecularCoefficient()
 void main(void)
 {
 	float depth = getDepth();
+	if(depth== -1.)discard;
 	vec3 position = getPosition(depth);
 	vec3 normal = getNormal();
 	vec4 diffuse = getDiffuseAlbedo();

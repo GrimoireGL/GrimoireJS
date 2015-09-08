@@ -55,6 +55,12 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 internalFormat: "RGB",
                 element:"UBYTE"
             }
+            ,
+            "light.specular": {
+                generater: "rendererfit",
+                internalFormat: "RGB",
+                element: "UBYTE"
+            }
         };
     }
 
@@ -80,7 +86,8 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     PRIMARY: "gbuffer.primary",
                     SECOUNDARY: "gbuffer.secoundary",
                     THIRD: "gbuffer.third",
-                    OUT: "light.diffuse"
+                    DIFFUSE: "light.diffuse",
+                    SPECULAR:"light.specular"
                 },
                 stage: new AccumulationStage(target)
             },
