@@ -11,8 +11,6 @@ import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 import Geometry = require('../Geometries/Geometry')
 declare function require(string): string;
 class Material extends JThreeObjectWithID {
-    private defferedRb1Program: Program;
-    private defferedRb2Program: Program;
     private loaded:boolean=false;
     
     protected setLoaded(flag?:boolean)
@@ -30,11 +28,6 @@ class Material extends JThreeObjectWithID {
 
     constructor() {
         super();
-        var jThreeContext = JThreeContextProxy.getJThreeContext();
-        var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-        var fs = require('../Shaders/Deffered/RB1.glsl');
-        this.defferedRb1Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb1","jthree.programs.rb1",vs,fs);
-        this.defferedRb2Program = this.loadProgram("jthree.shaders.vertex.basic","jthree.shaders.fragment.deffered.rb2","jthree.program.rb2",vs,require('../Shaders/Deffered/RB2.glsl'));
     }
 
     private priorty: number;

@@ -2,7 +2,6 @@ import Vector3 = require('../../Math/Vector3');
 import LightBase = require('./LightBase');
 import Scene = require('../Scene');
 import Matrix = require('../../Math/Matrix');
-import DepthRenderStage = require('../Renderers/RenderStages/ShadowMaps/DirectionalShadowMapStage');
 import LightTypeDeclaration = require("./LightTypeDeclaration");
 /**
  * Provides directional light feature.
@@ -47,8 +46,6 @@ class DirectionalLight extends LightBase {
     }
 
 	private intensity: number = 1.0;
-
-	private targetStages: DepthRenderStage[] = [];
 
 	private vp: Matrix;
 

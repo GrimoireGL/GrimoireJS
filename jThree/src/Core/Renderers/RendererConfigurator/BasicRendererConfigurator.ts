@@ -1,13 +1,10 @@
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
-import Rb1RenderStage = require("../RenderStages/RB1RenderStage");
 import RendererBase = require("../RendererBase");
 import AccumulationStage = require("../RenderStages/LightAccumulationStage");
 import ShadingStage = require("../RenderStages/FowardShadingStage");
-import RbDepthStage = require("../RenderStages/RBDepthStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
-import AlbedoStage = require("../RenderStages/DiffuseAlbedoStage");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {

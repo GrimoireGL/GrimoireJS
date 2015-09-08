@@ -6,9 +6,6 @@ import Delegates = require("../../Base/Delegates");
 import PMXSkeleton = require("./PMXSkeleton");
 import PMXMorphManager = require("./PMXMorphManager");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
-import PMXDepthMaterial = require("./PMXDepthMaterial");
-import PMXNormalMaterial = require("./PMXNormalMaterial");
-import PmxAlbedoMaterial = require("./PMXAlbedoMaterial");
 import PMXGBufferMaterial = require("./PMXGBufferMaterial");
 
 class PMXModel extends SceneObject {
@@ -72,9 +69,6 @@ class PMXModel extends SceneObject {
                         var currentMat = pmx.Materials[materialCount];
                         var mat = new PMXMaterial(this, materialCount, offset, resourceDirectory);
                         this.addMaterial(mat);
-                        if(mat.SelfShadow)this.addMaterial(new PMXDepthMaterial(mat));
-                        this.addMaterial(new PMXNormalMaterial(mat));
-                        this.addMaterial(new PmxAlbedoMaterial(mat));
                         this.addMaterial(new PMXGBufferMaterial(mat));
                         this.pmxMaterials[materialCount] = mat;
                         this.materialDictionary.set(currentMat.materialName, mat);
