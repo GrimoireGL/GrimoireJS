@@ -70,14 +70,14 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 },
                 stage: new SkyBoxStage(target)
             },*/
-/*            {
+            {
                 buffers: {
                     PRIMARY: "gbuffer.primary",
                     SECOUNDARY: "gbuffer.secoundary",
                     THIRD:"gbuffer.third"
                 },
                 stage:new GBufferStage(target)
-            },*/
+            },
             {
                 buffers: {
                     PRIMARY: "gbuffer.primary",

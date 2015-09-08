@@ -41,11 +41,11 @@ class GBufferMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,pass?:number): void
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex): void
     {
         if (!this.primaryProgram) return;
-        super.configureMaterial(scene, renderer, object, texs);
-        switch (pass)
+        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        switch (techniqueIndex)
         {
             case 0:
                 this.configurePrimaryBuffer(scene, renderer, object, texs);

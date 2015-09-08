@@ -28,9 +28,9 @@ class GBufferStage extends RenderStageBase
         super(renderer);
     }
 
-    public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+    public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
         var outTexture;//switch texture by passCount
-        switch (passCount)
+        switch (techniqueIndex)
         {
             case 0:
                 outTexture = texs["PRIMARY"];
@@ -60,26 +60,17 @@ class GBufferStage extends RenderStageBase
             });
     }
 
-    public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo)
-    {
-        var geometry = object.Geometry;
-        if (!geometry) return;
-        var materials = object.getMaterials("jthree.materials.gbuffer");
-        for (var i = 0; i < materials.length; i++)
-        {
-                var material = materials[i];
-                if (!material || !material.Loaded) return;
-                material.configureMaterial(scene, this.Renderer, object, texs, passCount);
-                geometry.drawElements(this.Renderer.ContextManager, material);
-        }
+    public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
+        debugger;
+        this.drawForMaterials(scene, object, techniqueIndex, texs, "jthree.materials.gbuffer");
     }
 
-    public needRender(scene: Scene, object: SceneObject, passCount: number): boolean
+    public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean
     {
         return typeof object.Geometry != "undefined" && object.Geometry != null;
     }
 
-    public getPassCount(scene: Scene)
+    public getTechniqueCount(scene: Scene)
     {
         return 3;
     }

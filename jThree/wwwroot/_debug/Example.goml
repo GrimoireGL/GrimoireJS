@@ -3,7 +3,6 @@
     <ddebug name="light" target="gbuffer.primary" viewport="viewport#main"/>
     <ddebug name="depth" target="gbuffer.secoundary" viewport="viewport#main"/>
     <ddebug name="normal" target="gbuffer.third" viewport="viewport#main"/>
-    <ddebug name="diffuse" target="light.diffuse" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
     <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
@@ -21,7 +20,6 @@
       <viewport cam="CAM2" height="256"  left="512" width="256"/>
       <viewport cam="CAM3" height="256"  left="768" width="256"/>
       <viewport cam="CAM4" height="256" left="512" top="256" width="256"/>
-      <viewport cam="CAM5" height="256" left="768" top="256" width="256"/>
     </renderer>
   </renderers>
   <scenes>
@@ -37,7 +35,7 @@
         <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>
 -->
       </object>
-      <pmx scale="0.1" src="/_debug/tune/Tune.pmx">
+      <pmx scale="0.1" src="/_debug/tune/Miku.pmx">
         <vmd frame="0" src="melt.vmd"/>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
@@ -71,10 +69,6 @@
     <scene>
       <ocamera bottom="-1" far="1" left="-1" name="CAM4" near="0" right="1" top="1"/>
       <mesh geo="quad" mat="normal" scale="1"/>
-    </scene>
-    <scene>
-      <ocamera bottom="-1" far="1" left="-1" name="CAM5" near="0" right="1" top="1"/>
-      <mesh geo="quad" mat="diffuse" scale="1"/>
     </scene>
   </scenes>
 </goml>

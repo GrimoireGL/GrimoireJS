@@ -39,7 +39,7 @@ class RB1RenderStage extends RenderStageBase {
 			var material = materials[i];
 			if (!material || !material.Loaded) return;
 			for (var pass = 0; pass < material.PassCount; pass++) {
-				material.configureMaterial(scene, this.Renderer, object,null,pass);
+				material.configureMaterial(scene, this.Renderer, object,null,passCount,pass);
 				geometry.drawElements(this.Renderer.ContextManager, material);
 			}
 		}
@@ -50,7 +50,7 @@ class RB1RenderStage extends RenderStageBase {
 		return typeof object.Geometry!="undefined"&&object.Geometry!=null;
 	}
 
-	public getPassCount(scene: Scene) {
+	public getTechniqueCount(scene: Scene) {
 		return 1;
     }
 

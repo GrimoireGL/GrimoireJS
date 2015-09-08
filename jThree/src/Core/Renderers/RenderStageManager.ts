@@ -111,7 +111,7 @@ class RenderStageManager
             this.stageName = "initialization of " + chain.stage.getTypeName();
             var texs = this.genChainTexture(chain);
             var stage = chain.stage;
-            var passCount = stage.getPassCount(scene);
+            var techniqueCount = stage.getTechniqueCount(scene);
             var targetObjects: SceneObject[];
             switch (stage.TargetGeometry)
             {
@@ -126,7 +126,7 @@ class RenderStageManager
                     targetObjects = sceneObjects;
             }
             stage.applyStageConfig();
-            for (var i = 0; i < passCount; i++)
+            for (var i = 0; i < techniqueCount; i++)
             {
                 this.stageName = "pass:" + i + " pre begin stage of" + chain.stage.getTypeName();
                 stage.preBeginStage(scene, i, texs);
@@ -134,7 +134,7 @@ class RenderStageManager
                 {
                     v.callRecursive(v=>
                     {
-                        if (stage.needRender(scene, v, i))
+                        if (v.Geometry&&stage.needRender(scene, v, i))
                         {
                             this.stageName = "pass:" + i + "render" + chain.stage.getTypeName() + "target:" + v.Geometry.getTypeName();
                             stage.render(scene, v, i, texs);

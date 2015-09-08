@@ -56,18 +56,18 @@ class PMXGBufferMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void {
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
         if (!this.primaryProgram||this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        super.configureMaterial(scene, renderer, object, texs);
-        switch (pass) {
+        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        switch (techniqueIndex) {
             case 0:
-                this.configureThirdBuffer(scene, renderer, object, texs, pass);
+                this.configurePrimaryBuffer(scene, renderer, object, texs, techniqueIndex);
                 break;
             case 1:
-                this.configureThirdBuffer(scene, renderer, object, texs, pass);
+                this.configureSecoundaryBuffer(scene, renderer, object, texs, techniqueIndex);
                 break;
             case 2:
-                this.configureThirdBuffer(scene, renderer, object, texs, pass);
+                this.configureThirdBuffer(scene, renderer, object, texs, techniqueIndex);
                 break;
         }
         object.Geometry.bindIndexBuffer(renderer.ContextManager);
@@ -146,7 +146,7 @@ class PMXGBufferMaterial extends Material
 
     private configureThirdBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
-        var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
+        var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
         var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix);
         programWrapper.register({
             attributes: {
@@ -176,7 +176,7 @@ class PMXGBufferMaterial extends Material
 
     public getDrawGeometryLength(geo: Geometry): number
     {
-        return this.VerticiesCount;
+        return this.associatedMaterial.Diffuse.A > 0 ? this.VerticiesCount : 0;
     }
 
     public getDrawGeometryOffset(geo: Geometry): number

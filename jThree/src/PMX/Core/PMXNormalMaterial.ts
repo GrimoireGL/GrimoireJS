@@ -52,10 +52,10 @@ class PMXDepthMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
     {
         if (!this.program) return;
-        super.configureMaterial(scene, renderer, object, texs);
+        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         renderer.GLContext.Disable(GLFeatureType.Blend);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);

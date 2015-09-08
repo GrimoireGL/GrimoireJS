@@ -24,8 +24,8 @@ class NormalMaterial extends Material {
     this.setLoaded();
   }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
-    super.configureMaterial(scene, renderer, object, texs);
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     var v = object.Transformer.calculateMVPMatrix(renderer);

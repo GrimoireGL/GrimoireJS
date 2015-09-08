@@ -66,7 +66,7 @@ class RB2RenderStage extends RenderStageBase {
 		return typeof object.Geometry!="undefined"&&object.Geometry!=null;
 	}
 
-	public getPassCount(scene: Scene) {
+	public getTechniqueCount(scene: Scene) {
 		return 1;
 	}
 

@@ -59,7 +59,7 @@ class SkyBoxStage extends RenderStageBase
         return true;
     }
 
-    public getPassCount(scene: Scene)
+    public getTechniqueCount(scene: Scene)
     {
         return 1;
     }

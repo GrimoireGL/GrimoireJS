@@ -53,7 +53,7 @@ class DiffuseAlbedoStage extends RenderStageBase
             if (!material || !material.Loaded) return;
             for (var pass = 0; pass < material.PassCount; pass++)
             {
-                material.configureMaterial(scene, this.Renderer, object, texs, pass);
+                material.configureMaterial(scene, this.Renderer, object, texs,passCount, pass);
                 geometry.drawElements(this.Renderer.ContextManager, material);
             }
         }

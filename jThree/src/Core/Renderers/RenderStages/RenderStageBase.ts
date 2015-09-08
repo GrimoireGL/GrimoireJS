@@ -38,25 +38,25 @@ class RenderStageBase extends JThreeObject {
 	/**
 	 * This method will be called before process render in each pass
 	 */
-	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+	public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
 
 	}
 	/**
 	 * This method will be called after process render in each pass.
 	 */
-	public postEndStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+	public postEndStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
 		this.Renderer.GLContext.Flush();
 	}
 
-	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
+	public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
 
 	}
 
-	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
+	public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
 		return false;
 	}
 
-	public getPassCount(scene: Scene) {
+	public getTechniqueCount(scene: Scene) {
 		return 1;
 	}
 
@@ -152,7 +152,21 @@ class RenderStageBase extends JThreeObject {
 		} else {
 			console.error("unknown bind type!");
 		}
-	}
+    }
+
+    protected drawForMaterials(scene:Scene,object:SceneObject,techniqueIndex:number,texs:ResolvedChainInfo,materialGroup:string) {
+        var materials = object.getMaterials(materialGroup);
+        for (var i = 0; i < materials.length; i++)
+        {
+            var material = materials[i];
+            if (!material || !material.Loaded||!material.Enabled) return;
+            for (var pass = 0; pass < material.PassCount; pass++)
+            {
+                material.configureMaterial(scene, this.Renderer, object, texs,techniqueIndex, pass);
+                object.Geometry.drawElements(this.Renderer.ContextManager, material);
+            }
+        }
+    }
 
 	/**
 	 * Get default fbo that is allocated for this renderer.

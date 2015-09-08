@@ -42,17 +42,7 @@ class FowardShadingStage extends RenderStageBase
 	}
 
 	public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
-		var geometry = object.Geometry;
-		if (!geometry) return;
-		var materials = object.getMaterials("jthree.materials.forematerial");
-		for (var i = 0; i < materials.length; i++) {
-			var material = materials[i];
-			if (!material || !material.Loaded) return;
-			for (var pass = 0; pass < material.PassCount; pass++) {
-				material.configureMaterial(scene, this.Renderer, object, texs,pass);
-				geometry.drawElements(this.Renderer.ContextManager, material);
-			}
-		}
+        this.drawForMaterials(scene, object, passCount, texs,"jthree.materials.forematerial");
 	}
 
 	public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

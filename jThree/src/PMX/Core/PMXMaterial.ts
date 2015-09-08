@@ -157,15 +157,15 @@ class PMXMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number): void
+    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
     {
-        if (pass == 1)
+        if (passIndex == 1)
         {
             this.configureEdgeMaterial(renderer, object);
             return;
         }
         if (!this.program) return;
-        super.configureMaterial(scene, renderer, object, texs);
+        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);

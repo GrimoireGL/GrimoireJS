@@ -78,7 +78,7 @@ class Material extends JThreeObjectWithID {
         return rm.createProgram(pid,[vShader,fShader]);
     }
 
-    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo,passCount?:number): void {
+    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
         this.applyCullConfigure(renderer);
         return;
     }
@@ -97,6 +97,10 @@ class Material extends JThreeObjectWithID {
     public get NeedFoward():boolean
     {
         return false;
+    }
+
+    public get Enabled(): boolean {
+        return true;
     }
     
     public getDrawGeometryLength(geo:Geometry):number
