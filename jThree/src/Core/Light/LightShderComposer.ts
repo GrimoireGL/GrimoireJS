@@ -5,7 +5,7 @@ import JThreeContextProxy = require("../JThreeContextProxy");
 import ResourceManager = require("../ResourceManager");
 import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
 import ShaderType = require("../../Wrapper/ShaderType");
- 
+import Delegates = require("../../Base/Delegates");
 /**
  * Managing shader codes for extensible.
  */
@@ -15,7 +15,7 @@ class LightShaderComposer extends JThreeObjectWithId
 
     private lightTypeIdArray: AssociativeArray<number> = new AssociativeArray<number>();
 
-    private shaderSourceBase: string = require('../Shaders/Light/DiffuseLightFragment.glsl');
+    private shaderSourceBase: string;
 
     private shaderCache:string;
 
@@ -23,13 +23,17 @@ class LightShaderComposer extends JThreeObjectWithId
 
     private shaderFuncDefs: string[] = [];
 
-    private resourceManager:ResourceManager;
+    private resourceManager: ResourceManager;
 
-    constructor() {
+    private callerComposer:Delegates.Func2<string,string,string>;
+
+    constructor(codeBase:string,idSuffix:string,callerComposer:Delegates.Func2<string,string,string>) {
         super();
+        this.shaderSourceBase = codeBase;
+        this.callerComposer = callerComposer;
         this.shaderCache = this.generateLightShaderSource();
         this.resourceManager = JThreeContextProxy.getJThreeContext().ResourceManager;
-        this.shader = this.resourceManager.createShader(this.ID + ".jthree.lightaccum", "", ShaderType.FragmentShader);
+        this.shader = this.resourceManager.createShader(this.ID + ".jthree.light."+idSuffix, "", ShaderType.FragmentShader);
     }
 
     /**
@@ -111,8 +115,10 @@ class LightShaderComposer extends JThreeObjectWithId
     private generateLightFunctionCallers(): string {
         var result = "";
         for (var i = 0; i < this.shaderFuncNames.length; i++) {
-            result += `if(getLightType(int(i)) == ${(i+1).toFixed(0)}.)gl_FragColor.rgb+=${this.shaderFuncNames
-            [i]}(position,normal,int(i));`;
+/*            result += `if(getLightType(int(i)) == ${(i+1).toFixed(0)}.)gl_FragColor.rgb+=${this.shaderFuncNames
+            [i]}(position,normal,int(i));`;*/
+            result += this.callerComposer((i + 1).toFixed(0), this.shaderFuncNames
+            [i]);
         }
         return result;
     }

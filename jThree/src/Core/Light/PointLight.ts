@@ -79,7 +79,8 @@ class PointLight extends LightBase
             typeName: "jthree.lights.pointlight",
             requiredParamCount: 3,
             shaderfuncName: "calcPointLight",
-            shaderfragmentCode: require('../Shaders/Light/PointLightFragmentChunk.glsl')
+            diffuseFragmentCode: require('../Shaders/Light/PointLightFragmentChunk.glsl'),
+            specularFragmentCode:""
         };
     }
 }

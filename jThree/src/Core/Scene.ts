@@ -17,9 +17,9 @@ class Scene extends jThreeObjectWithID {
         //TODO Remove parameter registration
         var pointParam = PointLight.TypeDefinition;
         var dp = DirectionalLight.TypeDefinition;
-        this.lightRegister.addLightType(pointParam.requiredParamCount, pointParam.shaderfuncName, pointParam.shaderfragmentCode, pointParam.typeName);
-        this.lightRegister.addLightType(dp.requiredParamCount,dp.shaderfuncName,dp.shaderfragmentCode,dp.typeName);
-        console.log(this.lightRegister.ShaderCodeComposer.ShaderCode);
+        this.lightRegister.addLightType(pointParam);
+        this.lightRegister.addLightType(dp);
+        console.log(this.lightRegister.DiffuseShaderCodeComposer.ShaderCode);
     }
 
     public enabled: boolean;

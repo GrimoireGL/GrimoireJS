@@ -57,8 +57,7 @@ class Material extends JThreeObjectWithID {
         return "jthree.materials.forematerial";
     }
     
-    public get PassCount():number
-    {
+    public getPassCount(techniqueIndex: number) {
         return 1;
     }
 

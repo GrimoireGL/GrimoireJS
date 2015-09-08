@@ -160,7 +160,7 @@ class RenderStageBase extends JThreeObject {
         {
             var material = materials[i];
             if (!material || !material.Loaded||!material.Enabled) return;
-            for (var pass = 0; pass < material.PassCount; pass++)
+            for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++)
             {
                 material.configureMaterial(scene, this.Renderer, object, texs,techniqueIndex, pass);
                 object.Geometry.drawElements(this.Renderer.ContextManager, material);

@@ -113,7 +113,7 @@ class PMXMaterial extends Material
 
     private textureCaches: HTMLImageElement[] = [];
 
-    public get PassCount(): number
+    public getPassCount(techniqueIndex:number): number
     {
         return this.edgeColor == null ? 1 : 2;
     }

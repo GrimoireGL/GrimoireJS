@@ -61,7 +61,6 @@ class GBufferStage extends RenderStageBase
     }
 
     public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
-        debugger;
         this.drawForMaterials(scene, object, techniqueIndex, texs, "jthree.materials.gbuffer");
     }
 

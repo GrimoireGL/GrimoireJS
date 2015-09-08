@@ -9,7 +9,7 @@ import ShaderComposer = require("./LightShderComposer");
 import Program = require("../Resources/Program/Program");
 import ShaderType = require("../../Wrapper/ShaderType");
 import Vector2 = require("../../Math/Vector2");
-
+import LightTypeDeclaration = require("./LightTypeDeclaration");
 /**
  * Provides light management feature by renderer
  */
@@ -33,7 +33,9 @@ class LightRegister
     /**
      * Programs will be used for rendering this lights accumulation buffer.
      */
-    private lightProgram: Program;
+    private diffuseLightProgram: Program;
+
+    private specularLightProgram: Program;
 
     /**
      * Lights subscribed to this register.
@@ -48,7 +50,11 @@ class LightRegister
     /**
      * Provides feature to generate shader source code.
      */
-    private shaderComposer: ShaderComposer = new ShaderComposer();
+    private diffuseShaderComposer: ShaderComposer = new ShaderComposer(require('../Shaders/Light/DiffuseLightFragment.glsl'), "diffuse", (index, funcName) => `if(getLightType(int(i)) == ${index}.)gl_FragColor.rgb+=${funcName}(position,normal,int(i),diffuse);`);
+    /**
+     * Provides feature to generate specular light buffer shader source code.
+     */
+    private specularShaderComposer: ShaderComposer = new ShaderComposer(require('../Shaders/Light/SpecularLightFragment.glsl'), "specular", (index, funcName) => `if(getLightType(int(i)) == ${index}.)gl_FragColor.rgb+=${funcName}(position,normal,int(i),specular,specularCoefficient);`);
     
     /**
      * Float values array for buffer of light parameter textures.
@@ -73,7 +79,8 @@ class LightRegister
         return this.lights.length;
     }
 
-    public get TextureSize(): Vector2 {
+    public get TextureSize(): Vector2
+    {
         return new Vector2(this.TextureWidth, this.TextureHeight);
     }
 
@@ -95,22 +102,34 @@ class LightRegister
     /**
      * Getter for shader composer that generates shader source to render light accumulation buffer.
      */
-    public get ShaderCodeComposer()
+    public get DiffuseShaderCodeComposer()
     {
-        return this.shaderComposer;
+        return this.diffuseShaderComposer;
+    }
+
+    public get SpecularShaderCodeComposer()
+    {
+        return this.specularShaderComposer;
     }
 
     /**
      * Getter for light program to use for rendering light accumulation buffer.
      */
-    public get LightProgram() {
-        return this.lightProgram;
+    public get DiffuseLightProgram()
+    {
+        return this.diffuseLightProgram;
     }
 
-    constructor(scene: Scene) {
+    public getSpecularShaderCodeComposer()
+    {
+        return this.specularLightProgram;
+    }
+
+    constructor(scene: Scene)
+    {
         this.scene = scene;
         this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID + ".jthree.light.params", 1, 1, InternalFormatType.RGBA, TextureType.Float));
-        this.parameterTexture.updateTexture(new Float32Array([1,0,1,0]));
+        this.parameterTexture.updateTexture(new Float32Array([1, 0, 1, 0]));
         this.initializeProgram();
     }
 
@@ -130,10 +149,11 @@ class LightRegister
      * @param shaderFuncCode fragment function shader code
      * @param lightTypeName light type name it should be same as LightBase.TypeName
      */
-    public addLightType(paramVecCount: number, shaderFuncName: string, shaderFuncCode: string, lightTypeName: string)
+    public addLightType(ld: LightTypeDeclaration)
     {
-        this.shaderComposer.addLightType(shaderFuncName, shaderFuncCode, lightTypeName);
-        var newSize = Math.max(paramVecCount, this.TextureHeight);
+        this.diffuseShaderComposer.addLightType(ld.shaderfuncName, ld.diffuseFragmentCode, ld.typeName);
+        this.specularShaderComposer.addLightType(ld.shaderfuncName, ld.specularFragmentCode, ld.typeName);
+        var newSize = Math.max(ld.requiredParamCount, this.TextureHeight);
         if (newSize !== this.textureWidth)
         {
             //TODO apply new size of texture
@@ -144,7 +164,7 @@ class LightRegister
      * Add light to this register.
      * @param light the light to add this register.
      */
-    public addLight(light: LightBase):void
+    public addLight(light: LightBase): void
     {
 
         this.lights.push(light);
@@ -156,7 +176,7 @@ class LightRegister
      * Update height of light parameter texture.
      * @param start starting line of x-coordinate to update texture variable.
      */
-    private heightUpdate(start: number):void
+    private heightUpdate(start: number): void
     {
         //allocating new buffer
         var newBuffer = new Float32Array(4 * this.TextureWidth * this.lights.length);
@@ -193,7 +213,7 @@ class LightRegister
         var parameters = light.getParameters();
         var baseIndex = index * 4 * this.TextureWidth + 1;
         var endIndex = baseIndex + parameters.length;
-        this.textureSourceBuffer[baseIndex - 1] = this.shaderComposer.getLightTypeId(light);
+        this.textureSourceBuffer[baseIndex - 1] = this.diffuseShaderComposer.getLightTypeId(light);
         for (var i = baseIndex; i < endIndex; i++)
         {
             this.textureSourceBuffer[i] = parameters[i - baseIndex];
@@ -226,7 +246,8 @@ class LightRegister
         var rm = jThreeContext.ResourceManager;
         var vShader = rm.createShader("jthree.shaders.vertex.post", vs, ShaderType.VertexShader);
         vShader.loadAll();
-        this.lightProgram = rm.createProgram(this.scene.ID+".jthree.programs.deffered.lights", [vShader, this.ShaderCodeComposer.Shader]);
+        this.diffuseLightProgram = rm.createProgram(this.scene.ID + ".jthree.programs.light.diffuse", [vShader, this.DiffuseShaderCodeComposer.Shader]);
+        this.specularLightProgram = rm.createProgram(this.scene.ID + ".jthree.programs.light.specular", [vShader, this.SpecularShaderCodeComposer.Shader]);
     }
 }
 

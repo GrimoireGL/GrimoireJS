@@ -40,7 +40,7 @@ class LitghtAccumulationStage extends RenderStageBase
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void
     {
         var geometry = object.Geometry;
-        var programWrapper = scene.LightRegister.LightProgram.getForContext(renderer.ContextManager);
+        var programWrapper = scene.LightRegister.DiffuseLightProgram.getForContext(renderer.ContextManager);
         var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
         programWrapper.register({
             attributes: {

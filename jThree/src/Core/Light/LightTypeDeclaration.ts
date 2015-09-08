@@ -1,7 +1,8 @@
 ﻿interface LightTypeDeclaration {
     typeName: string,
     shaderfuncName: string,
-    shaderfragmentCode: string,
+    diffuseFragmentCode: string,
+    specularFragmentCode:string,
     requiredParamCount?:number
 }
 
