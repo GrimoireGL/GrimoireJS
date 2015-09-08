@@ -180,10 +180,14 @@ class PMXMaterial extends Material
                     boneIndicies: geometry.boneIndexBuffer
                 },
                 uniforms: {
-                    u_light: {
+                    dlight: {
                         type: "texture",
-                        value: texs["LIGHT"],
+                        value: texs["DLIGHT"],
                         register: 0
+                    }, slight: {
+                        type: "texture",
+                        value: texs["SLIGHT"],
+                        register: 5
                     },
                     u_texture: {
                         type: "texture",

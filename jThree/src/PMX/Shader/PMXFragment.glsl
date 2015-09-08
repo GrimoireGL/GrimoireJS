@@ -10,7 +10,8 @@ uniform vec3 u_DirectionalLight;
 uniform mat4 matMVP;
 uniform mat4 matMV;
 uniform mat4 matV;
-uniform sampler2D u_light;
+uniform sampler2D dlight;
+uniform sampler2D slight;
 uniform sampler2D u_texture;
 uniform sampler2D u_sphere;
 uniform sampler2D u_toon;
@@ -42,24 +43,16 @@ void main(void){
   vec2 adjuv=v_uv;
   adjuv.y=1.-adjuv.y;
   vec2 lightUV=calcLightUV(v_pos);
-  gl_FragColor.rgba=u_diffuse;
-    if(u_textureUsed>0) gl_FragColor.rgba*=blendPMXTexture(u_texture,adjuv,u_addTexCoeff,u_mulTexCoeff);
-    if(u_sphereMode==1)
-    {
-      gl_FragColor.rgb*=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;
-    }else if(u_sphereMode==2)
-    {
-      gl_FragColor.rgb+=blendPMXTexture(u_sphere,v_spuv,u_addSphereCoeff,u_mulSphereCoeff).rgb;
-    }
-    vec3 lc=texture2D(u_light,lightUV).rgb;
-    float l=length(lc)/1.732;
+  vec3 dl = texture2D(dlight,lightUV).rgb;
     if(u_toonFlag==1)
     {
-          gl_FragColor.rgb*=blendPMXTexture(u_toon,vec2(0,1.-l),u_addToonCoeff  ,u_mulToonCoeff ).rgb*l;
+		float brightness = length(dl/u_diffuse.rgb)/1.732;
+          gl_FragColor.rgb+=blendPMXTexture(u_toon,vec2(0,1.-brightness),u_addToonCoeff  ,u_mulToonCoeff ).rgb*dl;
     }else
     {
-          gl_FragColor.rgb*=l;
+          gl_FragColor.rgb+=dl;
     }
+	gl_FragColor.a=u_diffuse.a;
     gl_FragColor.rgb+=u_ambient;
-    gl_FragColor.rgb+=texture2D(u_light,lightUV).rgb;
+    gl_FragColor.rgb+=texture2D(dlight,lightUV).rgb;
 }

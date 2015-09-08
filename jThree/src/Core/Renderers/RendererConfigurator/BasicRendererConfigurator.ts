@@ -93,7 +93,8 @@ class BasicRendererConfigurator extends ConfiguratorBase
             },
             {
                 buffers: {
-                    LIGHT: "light.diffuse",
+                    DLIGHT: "light.diffuse",
+                    SLIGHT:"light.specular",
                     OUT: "default"
                 },
                 stage: new ShadingStage(target)

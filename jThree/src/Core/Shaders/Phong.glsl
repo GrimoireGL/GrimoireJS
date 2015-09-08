@@ -11,7 +11,8 @@ uniform mat4 matMV;
 uniform mat4 matV;
 uniform int u_textureUsed;
 uniform sampler2D u_texture;
-uniform sampler2D u_light;
+uniform sampler2D dlight;
+uniform sampler2D slight;
 
 vec2 calcLightUV(vec4 projectionSpacePos)
 {
@@ -24,6 +25,6 @@ void main(void){
   //gl_FragColor.rgb+=u_ambient.rgb;
   ////calculate light uv
   vec2 lightUV=calcLightUV(v_pos);
-  gl_FragColor.rgb+=texture2D(u_light,lightUV).xyz;
+  gl_FragColor.rgb+=texture2D(dlight,lightUV).rgb+texture2D(slight,lightUV).rgb;
 }
 
