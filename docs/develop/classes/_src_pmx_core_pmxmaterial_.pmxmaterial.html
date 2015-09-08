@@ -143,7 +143,6 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#materialgroup" class="tsd-kind-icon">Material<wbr>Group</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#needfoward" class="tsd-kind-icon">Need<wbr>Foward</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#parentmodel-1" class="tsd-kind-icon">Parent<wbr>Model</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#passcount" class="tsd-kind-icon">Pass<wbr>Count</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#priorty" class="tsd-kind-icon">Priorty</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#selfshadow" class="tsd-kind-icon">Self<wbr>Shadow</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#specular-1" class="tsd-kind-icon">Specular</a></li>
@@ -162,6 +161,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#configurematerial" class="tsd-kind-icon">configure<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#getdrawgeometrylength" class="tsd-kind-icon">get<wbr>Draw<wbr>Geometry<wbr>Length</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#getdrawgeometryoffset" class="tsd-kind-icon">get<wbr>Draw<wbr>Geometry<wbr>Offset</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#loadimage" class="tsd-kind-icon">load<wbr>Image</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#loadpmxtexture" class="tsd-kind-icon">loadPMXTexture</a></li>
@@ -494,7 +494,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#enabled">Enabled</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L95">src/Core/Materials/Material.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L94">src/Core/Materials/Material.ts:94</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -576,7 +576,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#needfoward">NeedFoward</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L90">src/Core/Materials/Material.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L89">src/Core/Materials/Material.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -601,24 +601,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-					<a name="passcount" class="tsd-anchor"></a>
-					<h3>Pass<wbr>Count</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> PassCount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overwrites <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#passcount">PassCount</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L116">src/PMX/Core/PMXMaterial.ts:116</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 					<a name="priorty" class="tsd-anchor"></a>
 					<h3>Priorty</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
@@ -629,7 +611,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#priorty-1">Priorty</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L316">src/PMX/Core/PMXMaterial.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L320">src/PMX/Core/PMXMaterial.ts:320</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -779,7 +761,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#applycullconfigure">applyCullConfigure</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L79">src/Core/Materials/Material.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L78">src/Core/Materials/Material.ts:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -802,7 +784,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L245">src/PMX/Core/PMXMaterial.ts:245</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L249">src/PMX/Core/PMXMaterial.ts:249</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -868,7 +850,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#getdrawgeometrylength">getDrawGeometryLength</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L321">src/PMX/Core/PMXMaterial.ts:321</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L325">src/PMX/Core/PMXMaterial.ts:325</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -892,13 +874,37 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#getdrawgeometryoffset">getDrawGeometryOffset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L326">src/PMX/Core/PMXMaterial.ts:326</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L330">src/PMX/Core/PMXMaterial.ts:330</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>geo: <a href="_src_core_geometries_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="getpasscount" class="tsd-anchor"></a>
+					<h3>get<wbr>Pass<wbr>Count</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Pass<wbr>Count<span class="tsd-signature-symbol">(</span>techniqueIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#getpasscount">getPassCount</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L116">src/PMX/Core/PMXMaterial.ts:116</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>techniqueIndex: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -933,7 +939,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L301">src/PMX/Core/PMXMaterial.ts:301</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L305">src/PMX/Core/PMXMaterial.ts:305</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -956,7 +962,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L282">src/PMX/Core/PMXMaterial.ts:282</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXMaterial.ts#L286">src/PMX/Core/PMXMaterial.ts:286</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -986,7 +992,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_core_materials_material_.material.html">Material</a>.<a href="_src_core_materials_material_.material.html#loadprogram">loadProgram</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L65">src/Core/Materials/Material.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Material.ts#L64">src/Core/Materials/Material.ts:64</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1165,9 +1171,6 @@
 								<a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#parentmodel-1" class="tsd-kind-icon">Parent<wbr>Model</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#passcount" class="tsd-kind-icon">Pass<wbr>Count</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#priorty" class="tsd-kind-icon">Priorty</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
@@ -1205,6 +1208,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#getdrawgeometryoffset" class="tsd-kind-icon">get<wbr>Draw<wbr>Geometry<wbr>Offset</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#getpasscount" class="tsd-kind-icon">get<wbr>Pass<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_pmx_core_pmxmaterial_.pmxmaterial.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
