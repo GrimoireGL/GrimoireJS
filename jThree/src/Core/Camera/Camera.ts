@@ -1,54 +1,85 @@
 ﻿import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
-import Exceptions = require("../../Exceptions"); //カメラ関係のクラスの基底クラス
+import Exceptions = require("../../Exceptions");
+import glm = require("gl-matrix");
+/**
+ * Basement class of Camera. These class related to camera are one of SceneObject in jThree.
+ */
 class Camera extends SceneObject
 {
-	constructor()
-	{
-		super();
-	}
-	//カメラ位置
+	private viewProjectionMatrixCache = new Float32Array(16);
+
+	private viewProjectionMatrix:Matrix = new Matrix(this.viewProjectionMatrixCache);
+	/**
+	 * Getter for position of this camera.
+	 */
     public get Position():Vector3
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
-
+	/**
+	 * Setter for position of this camera.
+	 * By assign this setter, invokes updating camera matrix.
+	 */
     public set Position(pos:Vector3)
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
 
-	//カメラ視線方向
+	/**
+	 * Getter for the position camera being looking at.
+	 */
     public get LookAt():Vector3
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
-
+	/**
+	 * Setter for the position camera being looking at.
+	 * By assign this setter, invokes updating camera matrix.
+	 */
     public set LookAt(vec:Vector3)
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
 
-	//カメラ上方向
+	/**
+	 * Getter for the upper direction of camera.
+	 */
     public get UpDirection():Vector3
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
-
+	/**
+	 * Setter for the upper direction of camera.
+	 * By assign this setter, invokes updating camera matrix.
+	 */
     public set UpDirection(vec:Vector3)
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
-
-    public get ViewMatrix():Matrix
+	/**
+	 * Getter for view transform matrix of this camera.
+	 */
+  public get ViewMatrix():Matrix
+	{
+		throw new Exceptions.AbstractClassMethodCalledException();
+	}
+	/**
+ 	* Getter for projection transform matrix of this camera.
+ 	*/
+    public get ProjectionMatrix():Matrix
 	{
 		throw new Exceptions.AbstractClassMethodCalledException();
 	}
 
-    public get ProjectionMatrix():Matrix
+	public get ViewProjectionMatrix():Matrix{
+		return this.viewProjectionMatrix;
+	}
+
+	protected updateViewProjectionMatrix()
 	{
-		throw new Exceptions.AbstractClassMethodCalledException();
+		glm.mat4.mul(this.viewProjectionMatrixCache,this.ProjectionMatrix.rawElements,this.ViewMatrix.rawElements);
 	}
 
     public get Far():number

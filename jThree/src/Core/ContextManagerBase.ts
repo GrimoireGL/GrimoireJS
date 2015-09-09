@@ -10,23 +10,23 @@ class ContextManagerBase extends jThreeObjectId {
     constructor() {
         super();
     }
-    
+
     /**
     * backing field for ClearColor
     */
     private clearColor: Color4;
-    
+
     /**
      * backing field for GLContext
      */
     private glContext: GLContextWrapperBase;
 
     private glExtensionManager: GLExtensionManager = new GLExtensionManager();
-    
+
     public get GLExtensionManager() {
         return this.glExtensionManager;
     }
-    
+
     /**
     * WebGL raw RenderingContext
     */
@@ -41,7 +41,7 @@ class ContextManagerBase extends jThreeObjectId {
     public set ClearColor(col: Color4) {
         this.clearColor = col || new Color4(1, 1, 1, 1);
     }
-    
+
     /**
      * apply gl context after webglrendering context initiated.
      */
@@ -49,7 +49,7 @@ class ContextManagerBase extends jThreeObjectId {
         this.glContext = glContext;
         this.glExtensionManager.checkExtensions(glContext);
     }
-    
+
 
 
     /**

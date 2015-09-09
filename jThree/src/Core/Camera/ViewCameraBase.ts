@@ -61,6 +61,7 @@ class ViewCameraBase extends Camera
   {
       var cam: Camera = <Camera>obj || this;
     this.viewMatrix = Matrix.multiply(Matrix.inverse(this.transformer.LocalToGlobal),Matrix.lookAt(cam.Position, cam.LookAt, cam.UpDirection));
+    this.updateViewProjectionMatrix();
   }
 }
 

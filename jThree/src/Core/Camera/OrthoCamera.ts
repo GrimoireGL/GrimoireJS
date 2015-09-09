@@ -18,6 +18,7 @@ class OrthoCamera extends ViewCamera
   private updateProjection()
   {
     this.projection=Matrix.ortho(this.Left,this.Right,this.Bottom,this.Top,this.Near,this.Far);
+    this.updateViewProjectionMatrix();
   }
 
     public get Left():number
