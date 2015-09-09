@@ -90,13 +90,13 @@ class PhongMaterial extends Material {
                 matMVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: renderer.Camera.ViewMatrix },
                 matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
-                u_texture: { type: "texture", register: 1, value: this.Texture },
+                texture: { type: "texture", register: 1, value: this.Texture },
                 dlight: { type: "texture", register: 0, value: texs["DLIGHT"] },
                 slight: { type: "texture", register: 2, value: texs["SLIGHT"] },
-                u_ambient: { type: "vector", value: this.Ambient.toVector() },
-                u_diffuse: { type: "vector", value: this.Diffuse.toVector() },
-                u_specular: { type: "vector", value: this.Specular.toVector4(this.SpecularCoefficient) },
-                u_textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 }
+                ambient: { type: "vector", value: this.Ambient.toVector() },
+                diffuse: { type: "vector", value: this.Diffuse.toVector() },
+                specular: { type: "vector", value: this.Specular.toVector4(this.SpecularCoefficient) },
+                textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 }
             }
         });
     geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();

@@ -7,12 +7,12 @@ uniform mat4 matMVP;
 uniform mat4 matMV;
 
 
-varying vec3 v_normal;
-varying vec2 v_uv;
-varying vec4 v_pos;
+varying vec3 vNormal;
+varying vec2 vUv;
+varying vec4 vPosition;
 
 void main(void){
-v_pos=gl_Position = matMVP*vec4(position,1.0);
-v_normal=normalize((matMV*vec4(normal,0)).xyz);
-v_uv=uv;
+vPosition=gl_Position = matMVP*vec4(position,1.0);
+vNormal=normalize((matMV*vec4(normal,0)).xyz);
+vUv=uv;
 }
