@@ -25,7 +25,6 @@ var gomlList = [
     require("./Factories/TagFactory"),
     {
       "SOLID": require("./Nodes/Materials/SolidColorNode"),
-      "LAMBERT": require("./Nodes/Materials/LambertNode"),
       "PHONG": require("./Nodes/Materials/PhongNode"),
       "SPRITE": require("./Nodes/Materials/SpriteNode"),
       "DDEBUG": require("./Nodes/Materials/DefferedDebugNode"),
