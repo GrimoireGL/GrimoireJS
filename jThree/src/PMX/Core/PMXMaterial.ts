@@ -135,7 +135,7 @@ class PMXMaterial extends Material
         this.verticiesCount = materialData.vertexCount;
         this.verticiesOffset = offset;
         this.Name = materialData.materialName;
-        this.CullEnabled = !((materialData.drawFlag & 0x01) > 0);//each side draw flag
+        this.cullEnabled = !((materialData.drawFlag & 0x01) > 0);//each side draw flag
         this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
         this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
         if ((materialData.drawFlag & 0x10) > 0) this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);

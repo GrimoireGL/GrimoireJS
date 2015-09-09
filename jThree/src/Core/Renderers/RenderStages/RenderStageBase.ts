@@ -75,7 +75,6 @@ class RenderStageBase extends JThreeObject {
 		} else {
 			this.GLContext.CullFace(GLCullMode.Back);
 		}
-		this.resetActiveTextures();
 	}
 
 	private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
@@ -88,11 +87,6 @@ class RenderStageBase extends JThreeObject {
 		else {
 			this.GLContext.Disable(target);
 		}
-	}
-
-	private resetActiveTextures()
-	{
-
 	}
 
 	public get RenderStageConfig(): RenderStageConfig {
@@ -159,7 +153,7 @@ class RenderStageBase extends JThreeObject {
         for (var i = 0; i < materials.length; i++)
         {
             var material = materials[i];
-            if (!material || !material.Loaded||!material.Enabled) return;
+            if (!material || !material.Initialized||!material.Enabled) return;
             for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++)
             {
                 material.configureMaterial(scene, this.Renderer, object, texs,techniqueIndex, pass);

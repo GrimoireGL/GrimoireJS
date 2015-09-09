@@ -51,7 +51,6 @@
 /// <reference path="Core/Light/LightTypeDeclaration.ts" />
 /// <reference path="Core/Light/PointLight.ts" />
 /// <reference path="Core/ListStateChangedType.ts" />
-/// <reference path="Core/Materials/DebugSpriteMaterial.ts" />
 /// <reference path="Core/Materials/LambertMaterial.ts" />
 /// <reference path="Core/Materials/Material.ts" />
 /// <reference path="Core/Materials/PhongMaterial.ts" />

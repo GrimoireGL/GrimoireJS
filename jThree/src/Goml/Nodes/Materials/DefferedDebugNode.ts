@@ -1,4 +1,4 @@
-import DebugSprite = require("../../../Core/Materials/DebugSpriteMaterial");
+import DebugSprite = require("../../../Core/Materials/SpriteMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import MaterialNodeBase = require('./MaterialNodeBase');

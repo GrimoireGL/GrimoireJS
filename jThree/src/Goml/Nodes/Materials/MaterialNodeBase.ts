@@ -14,12 +14,6 @@ class MaterialNodeBase extends GomlTreeNodeBase
     constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
         super(elem,loader,parent);
         this.attributes.defineAttribute({
-          "cull":
-          {
-            value:true,
-            converter:"boolean",
-            handler:(v)=>{this.targetMaterial.CullEnabled=v.Value;}
-          }
         });
     }
 
@@ -27,7 +21,6 @@ class MaterialNodeBase extends GomlTreeNodeBase
     {
       this.targetMaterial=this.ConstructMaterial();
       this.loader.nodeRegister.addObject("jthree.materials",this.Name,this);
-      this.targetMaterial.CullEnabled=this.attributes.getValue("cull");
     }
 
     private name:string;
