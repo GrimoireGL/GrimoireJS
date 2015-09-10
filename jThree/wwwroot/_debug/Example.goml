@@ -6,7 +6,7 @@
     <ddebug name="sl" target="light.specular" viewport="viewport#main"/>
     <ddebug name="dl" target="light.diffuse" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
-    <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture"/>
+    <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="100" texture="gomlTexture"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cylinder divide="30" name="cyl"/>
