@@ -9,7 +9,7 @@ import Matrix = require("./Matrix");
 * Each element will be represented as (w;x,y,z)
 * (1,i,j,k) is base axis for quaternion. (i,j,k is pure imaginary number)
 * (w;x,y,z) means w*1+x*i+y*j+z*k
-* 
+*
 */
 class Quaternion extends JThreeObject
 {
@@ -166,12 +166,56 @@ class Quaternion extends JThreeObject
      * Returns the angle in degrees between two rotations q1 and q2.
      * @param q1 the quaternion represents begin angle.
      * @param q2 the quaternion represents end angle.
-     * @returns {number} angle represented in radians. 
+     * @returns {number} angle represented in radians.
      */
     public static Angle(q1: Quaternion, q2: Quaternion): number
     {
         var delta = Quaternion.Multiply(q2, q1.Inverse());
         return 2 * Math.acos(delta.W);
+    }
+
+    public static FromToRotation(from:Vector3,to:Vector3)
+    {
+      var crossed = Vector3.cross(from.normalized,to.normalized);
+      var angle = Vector3.dot(from.normalized,to.normalized);
+      return Quaternion.AngleAxis(angle,crossed);
+    }
+
+    public static LookRotation(forward:Vector3,upVec?:Vector3)
+    {
+      upVec = upVec || Vector3.YUnit;
+      var normalizedForward = forward.normalized;
+      var upForwardCross = Vector3.cross(upVec,normalizedForward).normalized;
+      var thirdAxis = Vector3.cross(normalizedForward,upForwardCross);
+      var m00 = upForwardCross.X;
+      var m01 = upForwardCross.Y;
+      var m02 = upForwardCross.Z;
+      var m10 = thirdAxis.X;
+      var m11 = thirdAxis.Y;
+      var m12 = thirdAxis.Z;
+      var m20 = normalizedForward.X;
+      var m21 = normalizedForward.Y;
+      var m22 = normalizedForward.Z;
+
+      var num8 = m00 + m11 + m22;
+
+      if(num8 > 0)
+      {
+        var num = Math.sqrt(1 + num8);
+        return new Quaternion([(m12-m21)*0.5/num,(m20-m02)*0.5/num,(m01-m10)*0.5/num,num/2]);
+      }
+      if(m00>=m11 && m00>=m22)
+      {
+        var num7 =Math.sqrt(1+m00-m11-m22);
+        return new Quaternion([(m01+m10)*0.5/num7,(m02+m20)*0.5/num7,(m12-m21)*0.5/num7,num7/2]);
+      }
+      if(m11>m22)
+      {
+        var num6 = Math.sqrt(1+m11-m00-m22);
+        return new Quaternion([(m10+m01)*0,5/num6,0.5*num6,(m21+m12)*0.5/num6,(m20-m02)*0.5/num6]);
+      }
+      var num5 = Math.sqrt(1+m22-m00-m11);
+      return new Quaternion([(m20+m02)*0.5/num5,(m21+m12)*0.5/num5,0.5*num5,(m01-m10)*0.5/num5]);
     }
 
     public toAngleAxisString()
