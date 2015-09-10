@@ -6,6 +6,7 @@ varying vec4 vPosition;
 uniform vec4 diffuse;
 uniform vec4 specular;
 uniform vec4 ambient;
+uniform vec3 ambientCoefficient;
 uniform mat4 matMVP;
 uniform mat4 matMV;
 uniform mat4 matV;
@@ -26,4 +27,5 @@ void main(void){
   ////calculate light uv
   vec2 lightUV=calcLightUV(vPosition);
   gl_FragColor.rgb+=texture2D(dlight,lightUV).rgb+texture2D(slight,lightUV).rgb;
+  gl_FragColor.rgb +=ambient.rgb;
 }
