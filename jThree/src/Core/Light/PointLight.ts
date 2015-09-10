@@ -3,6 +3,7 @@ import LightBase = require('./LightBase');
 import LightTypeDeclaration = require("./LightTypeDeclaration");
 import RendererBase = require("../Renderers/RendererBase");
 import Matrix = require("../../Math/Matrix");
+import Vector3 = require("../../Math/Vector3");
 /**
  * Point Light
  * Parameter order

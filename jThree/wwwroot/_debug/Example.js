@@ -1,6 +1,6 @@
 var j3m = j3.Math;
 var RotationBehavior = function () {
-    
+
 }
 
 RotationBehavior.prototype.update = function(v) {
@@ -21,14 +21,15 @@ RotationBehavior.prototype.attributes =
 j3.defineBehavior("rotation", RotationBehavior);
 
 j3(function () {
-   j3("behavior").animate({ ratio: "1" }, 90000);
-  //j3("pmx").animate({rotation:"y(120d)",scale:"0.1"},10000).animate({rotation:"y(240d)",scale:"0.1"},10000).animate({rotation:"y(360d)",scale:"0.1"},10000);
-  j3("vmd").animate({frame:7200},240000);
-  j3("#morphTest").animate({ value: 1 }, 30000);
-  j3("#light-root").animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
-  .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
-  .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
-  .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000);
+  j3("plight").animate({position:"-1,0.1,1",distance:"0.2",color:"green"},90000);
+  //  j3("behavior").animate({ ratio: "1" }, 90000);
+  // //j3("pmx").animate({rotation:"y(120d)",scale:"0.1"},10000).animate({rotation:"y(240d)",scale:"0.1"},10000).animate({rotation:"y(360d)",scale:"0.1"},10000);
+  // j3("vmd").animate({frame:7200},240000);
+  // j3("#morphTest").animate({ value: 1 }, 30000);
+  // j3("#light-root").animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
+  // .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
+  // .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000)
+  // .animate({rotation:"y(120d)"},3000).animate({rotation:"y(240d)"},3000).animate({rotation:"y(0d)"},3000);
   // j3("#floor").animate({rotation:"y(120d)"},10000);
   // j3("viewport#main").attr({width:256});
   // j3("mesh#tri").animate({rotation:"axis(270d,1,1,1)"},10000);
