@@ -240,6 +240,11 @@ class PMXMaterial extends Material
                     u_boneCount: {
                         type: "float",
                         value: this.parentModel.Skeleton.BoneCount
+                    },
+                    ambientCoefficient:
+                    {
+                      type:"vector",
+                      value:scene.sceneAmbient.toVector()
                     }
                 }
             });
