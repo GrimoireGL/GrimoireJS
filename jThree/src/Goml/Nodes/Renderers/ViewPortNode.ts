@@ -16,7 +16,7 @@ class ViewPortNode extends GomlTreeNodeBase {
   private parentRendererNode:RendererNodeBase;
 
   private targetRenderer:RendererBase;
-  
+
   public get TargetViewport():RendererBase
   {
     return this.targetRenderer;
@@ -71,6 +71,29 @@ class ViewPortNode extends GomlTreeNodeBase {
             this.top=v.Value;
             this.updateViewportArea();
           }
+        },
+        "backgroundType":
+        {
+          value:"color",
+          converter:"string",
+          handler:v =>{
+
+          }
+        },
+        "skybox":
+        {
+          value:null,
+          converter:"string",
+          handler:v=>{
+            if(this.attributes.getValue("backgroundType")==="skybox")
+            {
+              var cubeTexture = this.loader.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
+              if(cubeTexture)
+              {
+                //TODO I need to update stage chain class in renderstage
+              }
+            }
+          }
         }
       });
       this.attributes.applyDefaultValue();
@@ -91,7 +114,7 @@ class ViewPortNode extends GomlTreeNodeBase {
             var height = this.height > 1 ? this.height : H * this.height;
             this.targetRenderer.ViewPortArea = new Rectangle(left, top, width, height);
 
-            if ("Aspect" in this.targetRenderer.Camera) {//todo Camera‚©‚çƒnƒ“ƒhƒ‰“o˜^‚µ‚½‚¢ 
+            if ("Aspect" in this.targetRenderer.Camera) {//todo Cameraï¿½ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;
                 castedCam.Aspect = width / height;
             }

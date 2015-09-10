@@ -10,7 +10,7 @@ import ResolvedChainInfo = require('./ResolvedChainInfo');
 import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
 import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
 import CubeGeometry = require("../Geometries/CubeGeometry");
-
+import RenderStageChainManager = require("./RenderStageChainManager");
 class RenderStageManager
 {
     private parentRenderer: RendererBase;
@@ -44,7 +44,7 @@ class RenderStageManager
         }
     }
 
-    private stageChains: RenderStageChain[] = [];
+    private stageChainManager = new RenderStageChainManager();
 
     private textureBuffers: GeneraterInfo = {};
 
@@ -59,7 +59,7 @@ class RenderStageManager
     }
 
     private generaters: AssociativeArray<GeneraterBase> = new AssociativeArray<GeneraterBase>();
-	
+
 	/**
 	 * Provides the list of texture generaters
 	 */
@@ -67,7 +67,7 @@ class RenderStageManager
     {
         return this.generaters;
     }
-	
+
 	/**
 	 * Generate all textures subscribed to TextureBuffers
 	 */
@@ -101,12 +101,12 @@ class RenderStageManager
 
     public get StageChains(): RenderStageChain[]
     {
-        return this.stageChains;
+        return this.stageChainManager.stageChains;
     }
 
     public processRender(scene: Scene, sceneObjects: SceneObject[])
     {
-        this.stageChains.forEach(chain=>
+        this.stageChainManager.stageChains.forEach(chain=>
         {
             this.stageName = "initialization of " + chain.stage.getTypeName();
             var texs = this.genChainTexture(chain);
