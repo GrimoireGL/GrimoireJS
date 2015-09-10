@@ -2,6 +2,7 @@ import Scene = require('../Scene');
 import LightBase = require('./LightBase');
 import LightTypeDeclaration = require("./LightTypeDeclaration");
 import RendererBase = require("../Renderers/RendererBase");
+import Matrix = require("../../Math/Matrix");
 /**
  * Point Light
  * Parameter order
@@ -71,8 +72,10 @@ class PointLight extends LightBase
 
     public getParameters(renderer:RendererBase): number[]
     {
+			　var pos = this.Position;
+			  pos = Matrix.transformPoint(renderer.Camera.ViewMatrix,pos);
         return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
-            this.Position.X, this.Position.Y, this.Position.Z, 0,
+            pos.X,pos.Y,pos.Z, 0,
         this.Distance,this.Decay];
     }
 
