@@ -3,6 +3,7 @@ import LightBase = require('./LightBase');
 import Scene = require('../Scene');
 import Matrix = require('../../Math/Matrix');
 import LightTypeDeclaration = require("./LightTypeDeclaration");
+import RendererBase = require("../Renderers/RendererBase");
 /**
  * Provides directional light feature.
  * Parameters:
@@ -39,7 +40,7 @@ class DirectionalLight extends LightBase {
 		});*/
     }
 
-    public getParameters(): number[] {
+    public getParameters(renderer:RendererBase): number[] {
         var dir = this.transformer.Foward;
         return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
             dir.X,dir.Y,dir.Z];
@@ -52,14 +53,14 @@ class DirectionalLight extends LightBase {
 	public get VP(): Matrix {
 		return this.vp;
 	}
-	
+
 	/**
 	 * Light's intensity
 	 */
 	public get Intensity(): number {
 		return this.intensity;
 	}
-	
+
 	/**
 	 * Light's intensity
 	 */

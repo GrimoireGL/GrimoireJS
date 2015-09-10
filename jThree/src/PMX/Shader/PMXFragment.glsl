@@ -55,5 +55,4 @@ void main(void){
     }
 	gl_FragColor.a=u_diffuse.a;
     gl_FragColor.rgb+=u_ambient*ambientCoefficient;
-    gl_FragColor.rgb+=texture2D(dlight,lightUV).rgb;
 }

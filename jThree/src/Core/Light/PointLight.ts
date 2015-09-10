@@ -1,6 +1,8 @@
 import Scene = require('../Scene');
 import LightBase = require('./LightBase');
-import LightTypeDeclaration = require("LightTypeDeclaration"); /**
+import LightTypeDeclaration = require("./LightTypeDeclaration");
+import RendererBase = require("../Renderers/RendererBase");
+/**
  * Point Light
  * Parameter order
  * 0:X:TypeID YZW:Color.RGB*Intencity
@@ -15,25 +17,25 @@ class PointLight extends LightBase
 	}
 
 	private distance:number=0.0;
-	
+
 	/**
-	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless. 
+	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless.
 	 */
 	public get Distance():number
 	{
 		return this.distance;
 	}
-	
+
 	/**
-	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless. 
+	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless.
 	 */
 	public set Distance(num:number)
 	{
 		this.distance=num;
 	}
-	
+
 	private intensity:number=1.0;
-	
+
 	/**
 	 * Light's intensity
 	 */
@@ -41,7 +43,7 @@ class PointLight extends LightBase
 	{
 		return this.intensity;
 	}
-	
+
 	/**
 	 * Light's intensity
 	 */
@@ -49,25 +51,25 @@ class PointLight extends LightBase
 	{
 		this.intensity=intensity;
 	}
-	
+
 	private decay:number=1;
-	
+
 	public get Decay():number
 	{
 		return this.decay;
 	}
-	
+
 	public set Decay(d:number)
 	{
 		this.decay=d;
 	}
-	
+
 	public get LightType():string
 	{
 		return "jthree.lights.pointlight";
     }
 
-    public getParameters(): number[]
+    public getParameters(renderer:RendererBase): number[]
     {
         return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
             this.Position.X, this.Position.Y, this.Position.Z, 0,

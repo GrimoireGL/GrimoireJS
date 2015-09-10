@@ -27,7 +27,7 @@
     </renderer>
   </renderers>
   <scenes>
-    <scene ambient="yellow">
+    <scene ambient="dimgray">
       <object id="camera-origin">
         <object>
           <camera aspect="1" far="10" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
@@ -39,7 +39,7 @@
         <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>
 -->
       </object>
-      <pmx scale="0.1" src="/Tda/Miku.pmx">
+      <pmx scale="0.1" src="/_debug/Tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>

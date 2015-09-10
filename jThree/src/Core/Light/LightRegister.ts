@@ -1,5 +1,5 @@
 ﻿import BufferTexture = require("../Resources/Texture/BufferTexture");
-import LightBase = require("LightBase");
+import LightBase = require("./LightBase");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import InternalFormatType = require("../../Wrapper/TextureInternalFormatType");
@@ -10,6 +10,7 @@ import Program = require("../Resources/Program/Program");
 import ShaderType = require("../../Wrapper/ShaderType");
 import Vector2 = require("../../Math/Vector2");
 import LightTypeDeclaration = require("./LightTypeDeclaration");
+import RendererBase = require("../Renderers/RendererBase");
 /**
  * Provides light management feature by renderer
  */
@@ -29,7 +30,7 @@ class LightRegister
      * Width of texture.
      */
     private textureWidth: number = 4;
-    
+
     /**
      * Programs will be used for rendering this lights accumulation buffer.
      */
@@ -55,7 +56,7 @@ class LightRegister
      * Provides feature to generate specular light buffer shader source code.
      */
     private specularShaderComposer: ShaderComposer = new ShaderComposer(require('../Shaders/Light/SpecularLightFragment.glsl'), "specular", (index, funcName) => `if(getLightType(int(i)) == ${index}.)gl_FragColor.rgb+=${funcName}(position,normal,int(i),specular,specularCoefficient);`);
-    
+
     /**
      * Float values array for buffer of light parameter textures.
      */
@@ -173,7 +174,6 @@ class LightRegister
 
         this.lights.push(light);
         this.lightIdDictionary.set(light.ID, this.lights.length - 1);
-        light.onParameterChanged((o, l) => this.lightUpdate(l));
         this.heightUpdate(0);
     }
     /**
@@ -186,13 +186,7 @@ class LightRegister
         var newBuffer = new Float32Array(4 * this.TextureWidth * this.lights.length);
         for (var i = 0; i < start * 4 * this.TextureWidth; i++)
         {
-            newBuffer[i] = this.textureSourceBuffer[i];
-        }
-        this.textureSourceBuffer = newBuffer;
-        //update variables here
-        for (var i = start; i < this.Lights.length; i++)
-        {
-            this.lightUpdate(this.Lights[i]);
+            newBuffer[i] = 0;
         }
         //update texture
         this.parameterTexture.resize(this.TextureWidth, this.TextureHeight);
@@ -211,10 +205,10 @@ class LightRegister
      * Update light parameter.
      * @param light the light you want to update
      */
-    private lightUpdate(light: LightBase)
+    private lightUpdate(light: LightBase,renderer:RendererBase)
     {
         var index = this.lightIdDictionary.get(light.ID);
-        var parameters = light.getParameters();
+        var parameters = light.getParameters(renderer);
         var baseIndex = index * 4 * this.TextureWidth + 1;
         var endIndex = baseIndex + parameters.length;
         this.textureSourceBuffer[baseIndex - 1] = this.diffuseShaderComposer.getLightTypeId(light);
@@ -231,11 +225,11 @@ class LightRegister
     /**
      * Update light parameter texture.
      */
-    public updateLightForRenderer()
+    public updateLightForRenderer(renderer:RendererBase)
     {
         for (var i = 0; i < this.Lights.length; i++)
         {
-            this.lightUpdate(this.Lights[i]);
+            this.lightUpdate(this.Lights[i],renderer);
         }
         this.parameterTexture.updateTexture(this.textureSourceBuffer);
     }
