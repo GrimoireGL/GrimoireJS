@@ -34,17 +34,37 @@
         </object>
       </object>
       <object id="light-root">
-        <!-- <dlight color="azure" intencity="0.8" /> -->
+        <dlight color="darkgray" />
         <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
+        <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
+        <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0.3,0.1,0)"/>
+        <plight color="grey" decay="0.1" distance="1" intensity="1" position="(-0.3,0.1,0)"/>
+        <plight color="purple" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.2)"/>
+        <plight color="green" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
+        <plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.2)"/>
+        <plight color="pink" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
+        <plight color="azure" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.5)"/>
+        <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,-0.5)"/>
+        <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.8,0.1,0)"/>
+        <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.8,0.1,-0.7)"/>
+        <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0,0.1,0)"/>
+        <plight color="grey" decay="0.1" distance="1" intensity="1" position="(-1,0.1,0.7)"/>
+        <plight color="purple" decay="0.1" distance="1" intensity="1" position="(1,0.1,0.2)"/>
+        <plight color="green" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.8)"/>
+        <plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.8)"/>
+        <plight color="pink" decay="0.1" distance="1" intensity="1" position="(-0.7,0.1,0.3)"/>
+        <plight color="azure" decay="0.1" distance="1" intensity="1" position="(0.7,0.1,0.3)"/>
+        <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/>
+
       </object>
-      <pmx scale="0.1" src="/_debug/Tune/Tune.pmx">
-        <vmd frame="0" src="melt.vmd"/>
+      <pmx scale="0.1" src="/GUMI/GUMI.pmx">
+        <vmd frame="1500" src="melt.vmd"/>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
       <object id="quad-parent" rotation="y(-160d)">
-        <!-- <behaviors>
+        <behaviors>
           <behavior name="rotation" ratio="0.05"/>
-        </behaviors> -->
+        </behaviors>
         <mesh geo="quad" mat="mat2" position="1,0.5,-1" scale="0.1">
         </mesh>
         <mesh geo="quad" mat="mat2" position="-0.5,0.5,0" scale="0.1"/>
