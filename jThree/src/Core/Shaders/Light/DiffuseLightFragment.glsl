@@ -24,14 +24,14 @@ vec3 getNormal()
 {
 	highp vec2 compressed = texture2D(primary,vUV).xy;
 	highp vec3 result;
-	result.z = length(compressed)*2.-1.;
-	result.xy = normalize(compressed) * sqrt(1.-pow(result.z,2.));
-	return result;
+	result.z = 2. * (length(compressed)*length(compressed)-0.5);
+	result.xy = compressed * sqrt(1./(result.z*result.z)-1.);
+	return normalize(result);
 }
 //Reconstruct position
 vec3 getPosition(float depth)
 {
-	vec4 reconstructed = vec4(vUV * 2. - vec2(1.,1.),depth,1.);
+	vec4 reconstructed = matIP*vec4(vUV * 2. - vec2(1.,1.),depth,1.);
 	return reconstructed.xyz / reconstructed.w;
 }
 //Get light parameter from uv

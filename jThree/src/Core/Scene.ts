@@ -39,7 +39,7 @@ class Scene extends jThreeObjectWithID {
     public render(): void {
         this.renderers.forEach((r) => {
             r.beforeRender();
-            this.lightRegister.updateLightForRenderer();
+            this.lightRegister.updateLightForRenderer(r);
             r.RenderStageManager.processRender(this,this.sceneObjects);
             r.afterRender();
         });

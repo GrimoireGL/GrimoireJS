@@ -16,9 +16,9 @@ class RendererBase extends jThreeObjectWithID
 {
     /**
      * Constructor of RenderBase
-     * @param contextManager 
-     * @param viewportArea 
-     * @returns {} 
+     * @param contextManager
+     * @param viewportArea
+     * @returns {}
      */
     constructor(contextManager: ContextManagerBase, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
     {
@@ -63,7 +63,7 @@ class RendererBase extends jThreeObjectWithID
      * ContextManager managing this renderer.
      */
     private contextManager: ContextManagerBase;
-    
+
     /**
      * ContextManager managing this renderer.
      */
@@ -71,7 +71,7 @@ class RendererBase extends jThreeObjectWithID
     {
         return this.contextManager;
     }
-    
+
     /**
      * Obtain the reference for wrapper of WebGLRenderingContext
      */
@@ -79,10 +79,10 @@ class RendererBase extends jThreeObjectWithID
     {
         return this.contextManager.GLContext;
     }
-    
+
     /**
      * It will be called before processing renderer.
-     * If you need to override this method, you need to call same method of super class first. 
+     * If you need to override this method, you need to call same method of super class first.
      */
     public beforeRender()
     {
@@ -92,7 +92,7 @@ class RendererBase extends jThreeObjectWithID
 
     /**
      * It will be called after processing renderer.
-     * If you need to override this method, you need to call same method of super class first. 
+     * If you need to override this method, you need to call same method of super class first.
      */
     public afterRender()
     {
@@ -104,7 +104,7 @@ class RendererBase extends jThreeObjectWithID
     * Provides render stage abstraction
     */
     private renderStageManager: RenderStageManager;
-    
+
     /**
      * Provides render stage abstraction
      */
@@ -114,11 +114,11 @@ class RendererBase extends jThreeObjectWithID
     }
 
     private onViewportChangedHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
-    
+
     /**
      * Register event handler to handle changing of viewport configure.
      * @param act the handler to recieve viewport changing.
-     * @returns {} 
+     * @returns {}
      */
     public onViewPortChanged(act: Delegates.Action2<RendererBase, Rectangle>)
     {
@@ -129,7 +129,7 @@ class RendererBase extends jThreeObjectWithID
 
     /**
      * Getter for viewport area. Viewport area is the area to render.
-     * @returns {Rectangle} the rectangle region to render. 
+     * @returns {Rectangle} the rectangle region to render.
      */
     public get ViewPortArea(): Rectangle
     {

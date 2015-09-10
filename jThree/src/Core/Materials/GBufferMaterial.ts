@@ -64,6 +64,9 @@ class GBufferMaterial extends Material
         var geometry = object.Geometry;
         var pw = this.primaryProgram.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
+        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
+        var coefficient = 0;
+        if(fm.SpecularCoefficient)coefficient = fm.SpecularCoefficient;
         pw.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -75,7 +78,7 @@ class GBufferMaterial extends Material
                 matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
                 specularCoefficient: {
                     type: "float",
-                    value: 1.0 //TODO Should be changed           }
+                    value: coefficient         
                 }
             }
         });
