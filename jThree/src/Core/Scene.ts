@@ -9,6 +9,7 @@ import Delegates =require('../Base/Delegates')
 import LightRegister = require('./Light/LightRegister');
 import PointLight = require("./Light/PointLight");
 import DirectionalLight = require("./Light/DirectionalLight");
+import Color3 = require("../Base/Color/Color3");
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
@@ -43,7 +44,7 @@ class Scene extends jThreeObjectWithID {
             r.afterRender();
         });
     }
-    
+
     private rendererChanged:JThreeEvent<RendererBase>=new JThreeEvent<RendererBase>();
 
     private renderers: RendererBase[] = [];
@@ -52,20 +53,20 @@ class Scene extends jThreeObjectWithID {
         this.renderers.push(renderer);
         this.rendererChanged.fire(this,renderer);
     }
-    
+
     public rendererAdded(act:Delegates.Action2<Scene,RendererBase>)
     {
         this.rendererChanged.addListerner(act);
     }
-    
+
     public get Renderers():RendererBase[]
     {
         return this.renderers;
     }
 
     private sceneObjects: SceneObject[] = [];
-   
-    
+
+
     public addLight(light:LightBase):void
     {
         this.lightRegister.addLight(light);
@@ -76,14 +77,14 @@ class Scene extends jThreeObjectWithID {
     }
 
     private cameras: AssociativeArray<Camera>=new AssociativeArray<Camera>();
-    
+
     /**
      * Append the camera to this scene as managed
      */
     public addCamera(camera: Camera) {
         this.cameras.set(camera.ID, camera);
     }
-    
+
     /**
      * Get the camera managed in this scene.
      */
@@ -95,6 +96,11 @@ class Scene extends jThreeObjectWithID {
         console.log(this);
         return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.sceneObjects.length}\n`;
     }
+
+    /**
+     * Scene ambient coefficients
+     */
+    public sceneAmbient:Color3 = new Color3(0.1,0.1,0.1);
 }
 
 export =Scene;

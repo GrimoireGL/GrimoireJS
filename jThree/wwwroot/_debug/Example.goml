@@ -27,7 +27,7 @@
     </renderer>
   </renderers>
   <scenes>
-    <scene>
+    <scene ambient="yellow">
       <object id="camera-origin">
         <object>
           <camera aspect="1" far="10" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>

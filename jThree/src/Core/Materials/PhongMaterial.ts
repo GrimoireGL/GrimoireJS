@@ -96,7 +96,8 @@ class PhongMaterial extends Material {
                 ambient: { type: "vector", value: this.Ambient.toVector() },
                 diffuse: { type: "vector", value: this.Diffuse.toVector() },
                 specular: { type: "vector", value: this.Specular.toVector4(this.SpecularCoefficient) },
-                textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 }
+                textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 },
+                ambientCoefficient:{type:"vector",value:scene.sceneAmbient.toVector()}
             }
         });
     geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();

@@ -25,6 +25,7 @@ uniform vec4 u_addSphereCoeff;
 uniform vec4 u_mulSphereCoeff;
 uniform vec4 u_addToonCoeff;
 uniform vec4 u_mulToonCoeff;
+uniform vec3 ambientCoefficient;
 
 vec2 calcLightUV(vec4 projectionSpacePos)
 {
@@ -53,6 +54,6 @@ void main(void){
           gl_FragColor.rgb+=dl;
     }
 	gl_FragColor.a=u_diffuse.a;
-    gl_FragColor.rgb+=u_ambient;
+    gl_FragColor.rgb+=u_ambient*ambientCoefficient;
     gl_FragColor.rgb+=texture2D(dlight,lightUV).rgb;
 }
