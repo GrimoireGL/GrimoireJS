@@ -188,6 +188,7 @@ class LightRegister
         {
             newBuffer[i] = 0;
         }
+        this.textureSourceBuffer = newBuffer;
         //update texture
         this.parameterTexture.resize(this.TextureWidth, this.TextureHeight);
         this.parameterTexture.updateTexture(this.textureSourceBuffer);
