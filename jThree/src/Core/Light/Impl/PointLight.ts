@@ -1,9 +1,9 @@
-import Scene = require('../Scene');
-import LightBase = require('./LightBase');
-import LightTypeDeclaration = require("./LightTypeDeclaration");
-import RendererBase = require("../Renderers/RendererBase");
-import Matrix = require("../../Math/Matrix");
-import Vector3 = require("../../Math/Vector3");
+import Scene = require('../../Scene');
+import LightBase = require('./../LightBase');
+import LightTypeDeclaration = require("./../LightTypeDeclaration");
+import RendererBase = require("../../Renderers/RendererBase");
+import Matrix = require("../../../Math/Matrix");
+import Vector3 = require("../../../Math/Vector3");
 /**
  * Point Light
  * Parameter order
@@ -85,8 +85,8 @@ class PointLight extends LightBase
             typeName: "jthree.lights.pointlight",
             requiredParamCount: 3,
             shaderfuncName: "calcPointLight",
-            diffuseFragmentCode: require('../Shaders/Light/PointLightDiffuseFragmentChunk.glsl'),
-            specularFragmentCode:require("../Shaders/Light/PointLightSpecularFragmentChunk.glsl")
+            diffuseFragmentCode: require('../../Shaders/Light/Point/DiffuseChunk.glsl'),
+            specularFragmentCode:require("../../Shaders/Light/Point/SpecularChunk.glsl")
         };
     }
 }

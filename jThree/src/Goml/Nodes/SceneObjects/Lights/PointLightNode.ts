@@ -3,12 +3,12 @@ import GomlLoader = require("../../../GomlLoader");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import LightNodeBase = require('./LightNodeBase');
-import PointLight = require('../../../../Core/Light/PointLight');
+import PointLight = require('../../../../Core/Light/Impl/PointLight');
 import LightBase =require('../../../../Core/Light/LightBase');
 class PointLightNode extends LightNodeBase
 {
 	private targetLight:PointLight;
-	
+
 		constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
 		super(elem, loader, parent, parentSceneNode, parentObject);
 		this.attributes.defineAttribute({
@@ -23,10 +23,10 @@ class PointLightNode extends LightNodeBase
 			{
 				value:1,converter:"number",handler:(v)=>{this.targetLight.Distance=v.Value;}
 			}
-			
+
 		});
 	}
-	
+
 	protected constructLight():LightBase
 	{
 		this.targetLight= new PointLight(this.ContainedSceneNode.targetScene);

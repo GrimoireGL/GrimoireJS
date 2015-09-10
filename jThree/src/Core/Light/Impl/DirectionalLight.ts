@@ -1,9 +1,9 @@
-import Vector3 = require('../../Math/Vector3');
-import LightBase = require('./LightBase');
-import Scene = require('../Scene');
-import Matrix = require('../../Math/Matrix');
-import LightTypeDeclaration = require("./LightTypeDeclaration");
-import RendererBase = require("../Renderers/RendererBase");
+import Vector3 = require('../../../Math/Vector3');
+import LightBase = require('./../LightBase');
+import Scene = require('../../Scene');
+import Matrix = require('../../../Math/Matrix');
+import LightTypeDeclaration = require("./../LightTypeDeclaration");
+import RendererBase = require("../../Renderers/RendererBase");
 /**
  * Provides directional light feature.
  * Parameters:
@@ -53,8 +53,8 @@ class DirectionalLight extends LightBase {
             typeName: "jthree.lights.directionallight",
             requiredParamCount: 3,
             shaderfuncName: "calcDirectionalLight",
-            diffuseFragmentCode: require('../Shaders/Light/DirectionalLightDiffuseFragmentChunk.glsl'),
-            specularFragmentCode: require('../Shaders/Light/DirectionalLightSpecularFragmentChunk.glsl')
+            diffuseFragmentCode: require('../../Shaders/Light/Directional/DiffuseChunk.glsl'),
+            specularFragmentCode: require('../../Shaders/Light/Directional/SpecularChunk.glsl')
         };
     }
 }

@@ -7,8 +7,8 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates =require('../Base/Delegates')
 import LightRegister = require('./Light/LightRegister');
-import PointLight = require("./Light/PointLight");
-import DirectionalLight = require("./Light/DirectionalLight");
+import PointLight = require("./Light/Impl/PointLight");
+import DirectionalLight = require("./Light/Impl/DirectionalLight");
 import Color3 = require("../Base/Color/Color3");
 class Scene extends jThreeObjectWithID {
     constructor() {
