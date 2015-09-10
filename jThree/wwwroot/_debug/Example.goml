@@ -35,9 +35,7 @@
       </object>
       <object id="light-root">
         <dlight color="azure" intencity="0.8" />
-<!--
-        <plight color="blue" decay="0.1" distance="3" intensity="1" position="(0.5,0.01,0)"/>
--->
+        <plight color="blue" decay="0.1" distance="1" intensity="1" position="(0.5,0.01,0)"/>
       </object>
       <pmx scale="0.1" src="/_debug/Tune/Tune.pmx">
         <vmd frame="0" src="melt.vmd"/>

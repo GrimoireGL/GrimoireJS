@@ -31,7 +31,7 @@ vec3 getNormal()
 //Reconstruct position
 vec3 getPosition(float depth)
 {
-	vec4 reconstructed = vec4(vUV * 2. - vec2(1.,1.),depth,1.);
+	vec4 reconstructed = matIP*vec4(vUV * 2. - vec2(1.,1.),depth,1.);
 	return reconstructed.xyz / reconstructed.w;
 }
 //Get light parameter from uv
