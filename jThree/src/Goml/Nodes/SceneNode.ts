@@ -17,6 +17,15 @@ class SceneNode extends GomlTreeNodeBase
     this.targetScene=new Scene();
     var context:JThreeContext=JThreeContextProxy.getJThreeContext();
     context.SceneManager.addScene(this.targetScene);
+    this.attributes.defineAttribute({
+      "ambient":{
+        value:"#111",
+        converter:"color3",
+        handler:(v)=>{
+          this.targetScene.sceneAmbient = v.Value;
+        }
+      }
+    });
   }
 
 }
