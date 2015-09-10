@@ -10,7 +10,7 @@ import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
 import RendererNode = require("./RendererNode");
 import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
-
+import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage");
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNodeBase;
@@ -91,6 +91,12 @@ class ViewPortNode extends GomlTreeNodeBase {
               if(cubeTexture)
               {
                 //TODO I need to update stage chain class in renderstage
+                this.targetRenderer.RenderStageManager.StageChainManager.insertWithIndex(0,{
+                  buffers:{
+                    OUT:"DEFAULT"
+                  },
+                  stage:new SkyboxStage(this.targetRenderer)
+                });
               }
             }
           }

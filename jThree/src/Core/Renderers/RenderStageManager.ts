@@ -104,6 +104,11 @@ class RenderStageManager
         return this.stageChainManager.stageChains;
     }
 
+    public get StageChainManager()
+    {
+      return this.stageChainManager;
+    }
+
     public processRender(scene: Scene, sceneObjects: SceneObject[])
     {
         this.stageChainManager.stageChains.forEach(chain=>
