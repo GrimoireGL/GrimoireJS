@@ -14,11 +14,11 @@
     <quad name="quad"/>
     <solid color="lightgray" name="bl"/>
     <texture name ="gomlTexture" src="miku2.png" minFilter="LinearMipNearest"/>
-    <cubetexture name ="gomlCube" srcs="cube/cube_PX.png cube/cube_NX.png cube/cube_PY.png cube/cube_NY.png cube/cube_PZ.png cube/cube_NZ.png"/>
+    <cubetexture name ="gomlCube1" srcs="cube/cube_PX.png cube/cube_NX.png cube/cube_PY.png cube/cube_NY.png cube/cube_PZ.png cube/cube_NZ.png"/>
   </resources>
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
-      <viewport cam="CAM1" height="512" id="main" left="0" width="512" backgroundType="skybox" skybox="gomlCube"/>
+      <viewport cam="CAM1" height="512" id="main" left="0" width="512" backgroundType="skybox" skybox="gomlCube1"/>
       <viewport cam="CAM2" height="256"  left="512" width="256"/>
       <viewport cam="CAM3" height="256"  left="768" width="256"/>
       <viewport cam="CAM4" height="256" left="512" top="256" width="256"/>

@@ -11,11 +11,15 @@ import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
 import RendererNode = require("./RendererNode");
 import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
 import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage");
+import CubeTextureTag = require("../Texture/CubeTextureNode");
+import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNodeBase;
 
   private targetRenderer:RendererBase;
+
+  private skyBoxStage:SkyboxStage;
 
   public get TargetViewport():RendererBase
   {
@@ -87,16 +91,20 @@ class ViewPortNode extends GomlTreeNodeBase {
           handler:v=>{
             if(this.attributes.getValue("backgroundType")==="skybox")
             {
-              var cubeTexture = this.loader.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
+              var cubeTexture = <CubeTextureTag>this.loader.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
               if(cubeTexture)
               {
-                //TODO I need to update stage chain class in renderstage
-                this.targetRenderer.RenderStageManager.StageChainManager.insertWithIndex(0,{
-                  buffers:{
-                    OUT:"DEFAULT"
-                  },
-                  stage:new SkyboxStage(this.targetRenderer)
-                });
+                if(!this.skyBoxStage)
+                {
+                  this.skyBoxStage = new SkyboxStage(this.targetRenderer);
+                  this.targetRenderer.RenderStageManager.StageChainManager.insertWithIndex(0,{
+                    buffers:{
+                      OUT:"DEFAULT"
+                    },
+                    stage:this.skyBoxStage
+                  });
+                }
+                this.skyBoxStage.skyBoxTexture = <CubeTexture>cubeTexture.TargetTexture;
               }
             }
           }
