@@ -7,9 +7,11 @@ import ResolvedChainInfo = require('../ResolvedChainInfo');
 import Program = require("../../Resources/Program/Program");
 import JThreeContext = require("../../JThreeContextProxy")
 import Matrix = require("../../../Math/Matrix");
-
+import CubeTexture = require("../../Resources/Texture/CubeTexture");
 class SkyBoxStage extends RenderStageBase
 {
+    public skyBoxTexture:CubeTexture;
+
     private program:Program;
     constructor(renderer: RendererBase)
     {
@@ -37,16 +39,14 @@ class SkyBoxStage extends RenderStageBase
 
     public render(scene: Scene, object: SceneObject, passCount: number) {
         var geometry = object.Geometry;
-        if (!geometry) return;
         var pw = this.program.getForContext(this.Renderer.ContextManager);
-        var st = JThreeContext.getJThreeContext().ResourceManager.getTexture("jthree.goml.cubetexture.gomlCube");
         pw.register({
             attributes: {
                 position: geometry.PositionBuffer,
                 uv:geometry.UVBuffer
             },
             uniforms: {
-                skyTex: { type: "texture", register: 0, value: st },
+                skyTex: { type: "texture", register: 0, value: this.skyBoxTexture},
                 matVP:{type:"matrix",value:this.Renderer.Camera.ViewMatrix}
             }
         });
@@ -56,7 +56,7 @@ class SkyBoxStage extends RenderStageBase
 
 
     public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
-        return true;
+        return !!this.skyBoxTexture;
     }
 
     public getTechniqueCount(scene: Scene)

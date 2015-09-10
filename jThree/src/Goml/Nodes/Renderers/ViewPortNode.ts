@@ -10,13 +10,18 @@ import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
 import RendererNode = require("./RendererNode");
 import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
-
+import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage");
+import CubeTextureTag = require("../Texture/CubeTextureNode");
+import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
+import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNodeBase;
 
   private targetRenderer:RendererBase;
-  
+
+  private skyBoxStageChain:RenderStageChain;
+
   public get TargetViewport():RendererBase
   {
     return this.targetRenderer;
@@ -71,6 +76,43 @@ class ViewPortNode extends GomlTreeNodeBase {
             this.top=v.Value;
             this.updateViewportArea();
           }
+        },
+        "backgroundType":
+        {
+          value:"color",
+          converter:"string",
+          handler:v =>{
+            if(v.Value !== "skybox" && this.skyBoxStageChain)
+            {
+              this.targetRenderer.RenderStageManager.StageChainManager.deleteStage(this.skyBoxStageChain);
+              this.skyBoxStageChain = null;
+            }
+          }
+        },
+        "skybox":
+        {
+          value:null,
+          converter:"string",
+          handler:v=>{
+            if(this.attributes.getValue("backgroundType")==="skybox")
+            {
+              var cubeTexture = <CubeTextureTag>this.loader.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
+              if(cubeTexture)
+              {
+                if(!this.skyBoxStageChain)
+                {
+                  this.skyBoxStageChain ={
+                    buffers:{
+                      OUT:"default"
+                    },
+                    stage:new SkyboxStage(this.targetRenderer)
+                  };
+                  this.targetRenderer.RenderStageManager.StageChainManager.insertWithIndex(0,this.skyBoxStageChain);
+                }
+                (<SkyboxStage>this.skyBoxStageChain.stage).skyBoxTexture = <CubeTexture>cubeTexture.TargetTexture;
+              }
+            }
+          }
         }
       });
       this.attributes.applyDefaultValue();
@@ -91,7 +133,7 @@ class ViewPortNode extends GomlTreeNodeBase {
             var height = this.height > 1 ? this.height : H * this.height;
             this.targetRenderer.ViewPortArea = new Rectangle(left, top, width, height);
 
-            if ("Aspect" in this.targetRenderer.Camera) {//todo Camera‚©‚çƒnƒ“ƒhƒ‰“o˜^‚µ‚½‚¢ 
+            if ("Aspect" in this.targetRenderer.Camera) {//todo Cameraï¿½ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;
                 castedCam.Aspect = width / height;
             }
