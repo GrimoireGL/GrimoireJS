@@ -13,13 +13,14 @@ import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
 import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage");
 import CubeTextureTag = require("../Texture/CubeTextureNode");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
+import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNodeBase;
 
   private targetRenderer:RendererBase;
 
-  private skyBoxStage:SkyboxStage;
+  private skyBoxStageChain:RenderStageChain;
 
   public get TargetViewport():RendererBase
   {
@@ -81,7 +82,11 @@ class ViewPortNode extends GomlTreeNodeBase {
           value:"color",
           converter:"string",
           handler:v =>{
-
+            if(v.Value !== "skybox" && this.skyBoxStageChain)
+            {
+              this.targetRenderer.RenderStageManager.StageChainManager.deleteStage(this.skyBoxStageChain);
+              this.skyBoxStageChain = null;
+            }
           }
         },
         "skybox":
@@ -94,17 +99,17 @@ class ViewPortNode extends GomlTreeNodeBase {
               var cubeTexture = <CubeTextureTag>this.loader.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
               if(cubeTexture)
               {
-                if(!this.skyBoxStage)
+                if(!this.skyBoxStageChain)
                 {
-                  this.skyBoxStage = new SkyboxStage(this.targetRenderer);
-                  this.targetRenderer.RenderStageManager.StageChainManager.insertWithIndex(0,{
+                  this.skyBoxStageChain ={
                     buffers:{
-                      OUT:"DEFAULT"
+                      OUT:"default"
                     },
-                    stage:this.skyBoxStage
-                  });
+                    stage:new SkyboxStage(this.targetRenderer)
+                  };
+                  this.targetRenderer.RenderStageManager.StageChainManager.insertWithIndex(0,this.skyBoxStageChain);
                 }
-                this.skyBoxStage.skyBoxTexture = <CubeTexture>cubeTexture.TargetTexture;
+                (<SkyboxStage>this.skyBoxStageChain.stage).skyBoxTexture = <CubeTexture>cubeTexture.TargetTexture;
               }
             }
           }
