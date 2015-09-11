@@ -29,7 +29,7 @@ class LightRegister
     /**
      * Width of texture.
      */
-    private textureWidth: number = 4;
+    private textureWidth: number = 5;
 
     /**
      * Programs will be used for rendering this lights accumulation buffer.
