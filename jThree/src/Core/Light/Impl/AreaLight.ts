@@ -5,11 +5,26 @@ import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
 import RendererBase = require("../../Renderers/RendererBase");
 import glm = require("gl-matrix");
+
 /**
- * Provides directional light feature.
+ * Provides area light feature.
  * Parameters:
- * X:TYPE ID ,YZW:COLOR
- * XYZ:DIRECTION
+ * X:TYPE ID ,XYZ:COLOR
+ * XYZ:BASE VECTOR W:NON USED
+ * XYZ:Mat3[0-2]
+ * XYZ:Mat3[3-5] The matrix "M"
+ * XYZ:Mat3[6-8]
+ * B: base vector
+ * R: right vector
+ * T: top vector
+ * F: far vector
+ *
+ * For area light test, find k,l,m for arbitary vector V
+ * (V-B)=(R-B)k+(T-B)l+(F-B)m
+ * If k,l,m ∈ [0,1]　→　the position vector V is inside of range of area light.
+ * The matrix M fulfill the rule below.
+ * M(V-B) = (k,l,m)^t
+ * t is transpose mark.
  */
 class AreaLight extends LightBase {
 	constructor(scene: Scene) {

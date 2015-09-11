@@ -64,6 +64,7 @@
         "./jThree/src/Core/Light/Impl/AreaLight.ts",
         "./jThree/src/Core/Light/Impl/DirectionalLight.ts",
         "./jThree/src/Core/Light/Impl/PointLight.ts",
+        "./jThree/src/Core/Light/Impl/SpotLight.ts",
         "./jThree/src/Core/Light/LightBase.ts",
         "./jThree/src/Core/Light/LightRegister.ts",
         "./jThree/src/Core/Light/LightShderComposer.ts",
