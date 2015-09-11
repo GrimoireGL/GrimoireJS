@@ -4,6 +4,7 @@ import Scene = require('../../Scene');
 import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
 import RendererBase = require("../../Renderers/RendererBase");
+import glm = require("gl-matrix");
 /**
  * Provides directional light feature.
  * Parameters:
@@ -18,14 +19,16 @@ class AreaLight extends LightBase {
     public getParameters(renderer:RendererBase): number[] {
         var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.Foward);
         var b = Matrix.transformPoint(renderer.Camera.ViewMatrix,this.basePoint);
-        var r = Matrix.transformPoint(renderer.Camera.ViewMatrix,this.rightPoint);
-        var t = Matrix.transformPoint(renderer.Camera.ViewMatrix,this.topPoint);
-        var f = Matrix.transformPoint(renderer.Camera.ViewMatrix,this.farPoint);
+        var r = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.rightPoint),b);
+        var t = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.topPoint),b);
+        var f = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.farPoint),b);
+        var factor =[r.X,r.Y,r.Z,t.X,t.Y,t.Z,f.X,f.Y,f.Z];
+        var inverted = glm.mat3.invert(factor,factor);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             b.X,b.Y,b.Z,0,
-            r.X,r.Y,r.Z,0,
-            t.X,t.Y,t.Z,0,
-            f.X,f.Y,f.Z];
+            factor[0],factor[1],factor[2],0,
+            factor[3],factor[4],factor[5],0,
+            factor[6],factor[7],factor[8]];
     }
 
 	public intensity: number = 1.0;
