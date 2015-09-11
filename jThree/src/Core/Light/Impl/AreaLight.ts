@@ -23,7 +23,7 @@ class AreaLight extends LightBase {
         var t = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.topPoint),b);
         var f = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.farPoint),b);
         var factor =[r.X,r.Y,r.Z,t.X,t.Y,t.Z,f.X,f.Y,f.Z];
-        var inverted = glm.mat3.invert(factor,factor);
+        glm.mat3.invert(factor,factor);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             b.X,b.Y,b.Z,0,
             factor[0],factor[1],factor[2],0,
@@ -35,11 +35,11 @@ class AreaLight extends LightBase {
 
   public basePoint = Vector3.Zero;
 
-  public rightPoint = Vector3.Zero;
+  public rightPoint = Vector3.XUnit;
 
-  public farPoint = Vector3.Zero;
+  public farPoint = Vector3.ZUnit;
 
-  public topPoint = Vector3.Zero;
+  public topPoint = Vector3.YUnit;
 
 	public get LightType(): string {
 		return "jthree.lights.arealight";

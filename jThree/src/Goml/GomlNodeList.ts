@@ -40,6 +40,7 @@ var gomlList = [
       "OBJECT": require("./Nodes/SceneObjects/ObjectNode"),
       "PLIGHT": require("./Nodes/SceneObjects/Lights/PointLightNode"),
       "DLIGHT": require("./Nodes/SceneObjects/Lights/DirectionalLightNode"),
+      "ALIGHT" : require("./Nodes/SceneObjects/Lights/AreaLightNode"),
       "PMX": require("../PMX/Goml/PMXNode")
     }),
   new GomlNodeListElement(
