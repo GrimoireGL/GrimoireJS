@@ -61,12 +61,12 @@ class VMDNode extends GomlTreeNodeBase
 							}
 						}
 					}
-				},
-				"enabled":
-				{
-					value:false,
-					converter:"boolean"
 				}
+			},
+			"enabled":
+			{
+				value:false,
+				converter:"boolean"
 			}
 		});
 	}
