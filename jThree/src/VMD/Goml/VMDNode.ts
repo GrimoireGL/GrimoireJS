@@ -39,6 +39,7 @@ class VMDNode extends GomlTreeNodeBase
 				value: 0,
 				converter: "number",
 				handler: (v) => {
+					if(!this.attributes.getValue("enabled"))return;
 					if (this.targetPMX.PMXModelReady&&this.targetVMD) {
 						for(var boneName in this.targetVMD.Motions)
 						{
@@ -61,6 +62,11 @@ class VMDNode extends GomlTreeNodeBase
 						}
 					}
 				}
+			},
+			"enabled":
+			{
+				value:false,
+				converter:"boolean"
 			}
 		});
 	}

@@ -20,6 +20,7 @@ jThree/test/**/*.js.map
 *.suo
 *.user
 *.sln.docstates
+.vs/
 
 # Build results
 [Dd]ebug/
