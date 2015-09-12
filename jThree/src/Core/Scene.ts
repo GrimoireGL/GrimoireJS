@@ -11,6 +11,7 @@ import PointLight = require("./Light/Impl/PointLight");
 import DirectionalLight = require("./Light/Impl/DirectionalLight");
 import Color3 = require("../Base/Color/Color3");
 import AreaLight = require("./Light/Impl/AreaLight");
+import SpotLight = require("./Light/Impl/SpotLight");
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
@@ -22,6 +23,7 @@ class Scene extends jThreeObjectWithID {
         this.lightRegister.addLightType(pointParam);
         this.lightRegister.addLightType(dp);
         this.lightRegister.addLightType(AreaLight.TypeDefinition);
+        this.lightRegister.addLightType(SpotLight.TypeDefinition);
         console.log(this.lightRegister.DiffuseShaderCodeComposer.ShaderCode);
     }
 

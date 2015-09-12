@@ -19,10 +19,6 @@ class SpotLightNode extends LightNodeBase
 			{
 				value:1,converter:"number",handler:(v)=>{this.targetLight.decay=v.Value;}
 			},
-			"distance":
-			{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.distance=v.Value;}
-			},
       "inner":
       {
         value:"10d",converter:"angle",handler:(v)=>{

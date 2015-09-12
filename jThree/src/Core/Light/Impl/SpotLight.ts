@@ -18,9 +18,6 @@ class SpotLight extends LightBase
 	{
 		super(scene);
 	}
-
-	public distance:number=0.0;
-
 	public intensity:number=1.0;
 
 	public decay:number=1;
@@ -36,14 +33,15 @@ class SpotLight extends LightBase
 
     public getParameters(renderer:RendererBase): number[]
     {
-			　var pos = this.Position;
-			  pos = Matrix.transformPoint(renderer.Camera.ViewMatrix,pos);
+			　var pos;
+			 var matVM =Matrix.multiply(renderer.Camera.ViewMatrix,this.Transformer.LocalToGlobal);
+			  pos = Matrix.transformPoint(matVM,Vector3.Zero);
 				var dir = new Vector3(0,-1,0);
-				dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,dir);
+				dir = Matrix.transformNormal(matVM,dir);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             pos.X,pos.Y,pos.Z, 0,
 						dir.X,dir.Y,dir.Z,0,
-        this.distance,this.decay];
+        Math.cos(this.inner),Math.cos(this.outer),this.decay];
     }
 
     public static get TypeDefinition(): LightTypeDeclaration {
