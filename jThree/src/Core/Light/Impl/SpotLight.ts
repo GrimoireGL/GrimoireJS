@@ -8,8 +8,9 @@ import Vector3 = require("../../../Math/Vector3");
  * Point Light
  * Parameter order
  * 0:X:TypeID YZW:Color.RGB*Intencity
- * 1:XYZ:POSITION.XYZ W: UNUSED (0)
- * 2:X:Distance Y:Decay
+ * 1:XYZ:Position
+ * 2:XYZ:Direction
+ * 3:X:Innner Cone,Y:Outer Cone,Z:Decay
  */
 class SpotLight extends LightBase
 {
@@ -18,53 +19,15 @@ class SpotLight extends LightBase
 		super(scene);
 	}
 
-	private distance:number=0.0;
+	public distance:number=0.0;
 
-	/**
-	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless.
-	 */
-	public get Distance():number
-	{
-		return this.distance;
-	}
+	public intensity:number=1.0;
 
-	/**
-	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless.
-	 */
-	public set Distance(num:number)
-	{
-		this.distance=num;
-	}
+	public decay:number=1;
 
-	private intensity:number=1.0;
+	public inner:number=0.3;
 
-	/**
-	 * Light's intensity
-	 */
-	public get Intensity():number
-	{
-		return this.intensity;
-	}
-
-	/**
-	 * Light's intensity
-	 */
-	public set Intensity(intensity:number)
-	{
-		this.intensity=intensity;
-	}
-
-	private decay:number=1;
-
-	public get Decay():number
-	{
-		return this.decay;
-	}
-
-	public set Decay(d:number)
-	{
-		this.decay=d;
-	}
+	public outer:number=0.7;
 
 	public get LightType():string
 	{
@@ -75,9 +38,12 @@ class SpotLight extends LightBase
     {
 			　var pos = this.Position;
 			  pos = Matrix.transformPoint(renderer.Camera.ViewMatrix,pos);
-        return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
+				var dir = new Vector3(0,-1,0);
+				dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,dir);
+        return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             pos.X,pos.Y,pos.Z, 0,
-        this.Distance,this.Decay];
+						dir.X,dir.Y,dir.Z,0,
+        this.distance,this.decay];
     }
 
     public static get TypeDefinition(): LightTypeDeclaration {

@@ -30,7 +30,7 @@
     <scene ambient="dimgray">
       <object id="camera-origin">
         <object>
-          <camera aspect="1" far="3" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
+          <camera aspect="1" far="5" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
         </object>
       </object>
       <object id="light-root">

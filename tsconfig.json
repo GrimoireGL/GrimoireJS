@@ -204,6 +204,7 @@
         "./jThree/src/Goml/Nodes/SceneObjects/Lights/DirectionalLightNode.ts",
         "./jThree/src/Goml/Nodes/SceneObjects/Lights/LightNodeBase.ts",
         "./jThree/src/Goml/Nodes/SceneObjects/Lights/PointLightNode.ts",
+        "./jThree/src/Goml/Nodes/SceneObjects/Lights/SpotLightNode.ts",
         "./jThree/src/Goml/Nodes/SceneObjects/MeshNode.ts",
         "./jThree/src/Goml/Nodes/SceneObjects/ObjectNode.ts",
         "./jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts",
