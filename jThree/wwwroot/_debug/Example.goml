@@ -59,7 +59,7 @@
 
       </object>
       <pmx scale="0.1" src="/GUMI/GUMI.pmx">
-        <vmd id="melt" frame="1500" src="melt.vmd" enabled="true"/>
+        <vmd id="melt" frame="1500" src="melt.vmd" enabled="true" autoSpeed="3.0"/>
         <vmd id="sakura" frame="0" src="sakura.vmd" enabled="false"/>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>

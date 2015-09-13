@@ -6,6 +6,7 @@ import VMDData = require("../Parser/VMDData");
 import Vector3 = require("../../Math/Vector3");
 import Quaternion = require("../../Math/Quaternion");
 import PMXMorph = require("../../PMX/Core/PMXMorph");
+import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 class VMDNode extends GomlTreeNodeBase
 {
 	private targetPMX: PMXNode;
@@ -15,6 +16,12 @@ class VMDNode extends GomlTreeNodeBase
 	private lastURL:string;
 
 	private enabled:boolean;
+
+	private autoSpeed:number=0;
+
+	private lastTime:number=null;
+
+	private frame:number =0;
 
 	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
 		super(elem, loader, parent);
@@ -41,6 +48,7 @@ class VMDNode extends GomlTreeNodeBase
 				value: 0,
 				converter: "number",
 				handler: (v) => {
+					this.frame = v.Value;
 					if(!this.attributes.getValue("enabled"))return;
 					if (this.targetPMX.PMXModelReady&&this.targetVMD) {
 						for(var boneName in this.targetVMD.Motions)
@@ -72,13 +80,34 @@ class VMDNode extends GomlTreeNodeBase
 				handler:(v)=>{
 					this.enabled = v.Value;
 				}
+			},
+			"autoSpeed":
+			{
+				value:"0",
+				converter:"number",
+				handler:(v)=>{
+					this.autoSpeed = v.Value;
+				}
 			}
 		});
 	}
 
 	public update()
 	{
-		console.log("hello update");
+		if(this.enabled&&this.autoSpeed!==0)
+		{
+			var timer = JThreeContextProxy.getJThreeContext().Timer;
+			if(this.lastTime===null)
+			{
+				this.lastTime = timer.Time;
+				return;
+			}else
+			{
+				var dt = timer.Time -this.lastTime;
+				this.lastTime = timer.Time;
+				this.attributes.setValue("frame",this.frame+dt/1000*20*this.autoSpeed);
+			}
+		}
 	}
 }
 
