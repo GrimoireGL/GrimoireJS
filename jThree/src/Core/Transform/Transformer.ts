@@ -21,18 +21,35 @@ class Transformer extends JThreeObject
     constructor(sceneObj: SceneObject)
     {
         super();
-        this.relatedTo = sceneObj;
+        this.linkedObject = sceneObj;
         this.position = Vector3.Zero;
         this.rotation = Quaternion.Identity;
         this.scale = new Vector3(1, 1, 1);
         this.localOrigin = new Vector3(0, 0, 0);
-        this.foward = new Vector3(0, 0, -1);
         this.updateTransform();
     }
+
+    public get hasParent()
+    {
+      return !!this.linkedObject.Parent;
+    }
+
+    public get parent()
+    {
+      return this.hasParent?this.linkedObject.Parent.Transformer:null;
+    }
+
+    public get children()
+    {
+      return this.linkedObject.Children;
+    }
+
+    public hasChanged:boolean=false;
+
     /**
      * Scene oject reference this transformer related to.
      */
-    private relatedTo: SceneObject;
+    private linkedObject: SceneObject;
 
     /**
      * backing field of Rotation.
@@ -52,9 +69,19 @@ class Transformer extends JThreeObject
     private scale: Vector3;
 
     /**
-     * backing filed of Foward.
+     * forward direction of transform in world space
      */
-    private foward: Vector3;
+     public forward: Vector3=Vector3.ZUnit.negateThis();
+
+     /**
+     * up direction of transform in world space
+     */
+     public up:Vector3=Vector3.YUnit;
+
+     /**
+     * right direction of transform in world space
+     */
+     public right:Vector3=Vector3.XUnit;
 
     /**
      * backing field of LocalTransform.
@@ -74,8 +101,6 @@ class Transformer extends JThreeObject
     private localToGlobalCache: glm.GLM.IArray = glm.mat4.create();
 
     private modelViewProjectionCaluculationCache = glm.mat4.create();
-
-    private fowardCache: glm.GLM.IArray = glm.vec3.create();
 
     private cacheVec: glm.GLM.IArray = glm.vec4.create();
 
@@ -99,14 +124,15 @@ class Transformer extends JThreeObject
      */
     public updateTransform(): void
     {
+        this.hasChanged =true;
         //initialize localTransformCache & localToGlobalCache
         glm.mat4.identity(this.localTransformCache);
         glm.mat4.identity(this.localToGlobalCache);
         glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformCache, this.rotation.targetQuat, this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformCache
         this.localTransform = new Matrix(this.localTransformCache);//Generate Matrix instance and substitute the matrix for localTransform
-        if (this.relatedTo != null && this.relatedTo.Parent != null) {
+        if (this.linkedObject != null && this.linkedObject.Parent != null) {
             //Use LocalToGlobal matrix of parents to multiply with localTransformCache
-            glm.mat4.copy(this.localToGlobalCache, this.relatedTo.Parent.Transformer.LocalToGlobal.rawElements);
+            glm.mat4.copy(this.localToGlobalCache, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
         } else
         {
             //If this transformer have no parent transformer,localToGlobalCache,GlobalTransform will be same as localTransformCache
@@ -114,16 +140,23 @@ class Transformer extends JThreeObject
         }
         //Multiply parent transform
         this.localToGlobal = new Matrix(glm.mat4.multiply(this.localToGlobalCache, this.localToGlobalCache, this.localTransform.rawElements));
-        //Calculate forward direction vector
-        glm.vec4.transformMat4(this.cacheVec, this.localToGlobalCache, [0, 0, 1, 0]);
-        glm.vec3.normalize(this.fowardCache, this.cacheVec);
+        //Calculate direction vectors
+        this.updateDirection(this.right,[1,0,0,0]);
+        this.updateDirection(this.up,[0,1,0,0]);
+        this.updateDirection(this.forward,[0,0,-1,0]);
         //notify update to childrens
-        if (this.relatedTo.Children) this.relatedTo.Children.each((v) =>
+        if (this.linkedObject.Children) this.linkedObject.Children.each((v) =>
         {
             v.Transformer.updateTransform();
         });
         //fire updated event
-        this.onUpdateTransformHandler.fire(this, this.relatedTo);
+        this.onUpdateTransformHandler.fire(this, this.linkedObject);
+    }
+
+    private updateDirection(targetVector:Vector3,sourceVector4:number[])
+    {
+      glm.vec4.transformMat4(targetVector.targetVector,this.localToGlobalCache,sourceVector4);
+      glm.vec3.normalize(targetVector.targetVector,targetVector.targetVector)
     }
 
     /**
@@ -135,13 +168,7 @@ class Transformer extends JThreeObject
         glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.ProjectionMatrix.RawElements, this.modelViewProjectionCaluculationCache);
         return new Matrix(this.modelViewProjectionCaluculationCache);
     }
-    /**
-     * Get accessor for the direction of foward of this model.
-     */
-    public get Foward(): Vector3
-    {
-        return this.foward;
-    }
+
     /**
      * Get accessor for the matrix providing the transform Local space into Global space.
      */

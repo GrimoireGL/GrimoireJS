@@ -32,7 +32,7 @@ class AreaLight extends LightBase {
     }
 
     public getParameters(renderer:RendererBase): number[] {
-        var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.Foward);
+        var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
         var b = Matrix.transformPoint(renderer.Camera.ViewMatrix,this.basePoint);
         var r = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.rightPoint),b);
         var t = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.topPoint),b);

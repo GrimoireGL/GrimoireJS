@@ -16,7 +16,7 @@ class DirectionalLight extends LightBase {
     }
 
     public getParameters(renderer:RendererBase): number[] {
-        var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.Foward);
+        var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
         return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
             dir.X,dir.Y,dir.Z];
     }
