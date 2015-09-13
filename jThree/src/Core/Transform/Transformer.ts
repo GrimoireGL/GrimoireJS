@@ -7,6 +7,7 @@ import Delegates = require("../../Base/Delegates");
 import glm = require("gl-matrix");
 import RendererBase = require("./../Renderers/RendererBase");
 import JThreeEvent = require("./../../Base/JThreeEvent");
+import Vector4 = require("../../Math/Vector4");
 /**
  * Position,rotation and scale of scene object.
  * Every scene object in a scene has Toransformer.It's used to store and manipulate the position,rotation and scale ob the object.
@@ -104,6 +105,20 @@ class Transformer extends JThreeObject
 
     private cacheVec: glm.GLM.IArray = glm.vec4.create();
 
+    private globalToLocalCache:Matrix = Matrix.identity();
+
+    private g2lupdated:boolean =false;
+
+    public get globalToLocal()
+    {
+      if(this.g2lupdated)
+      {
+        return this.globalToLocalCache;
+      }
+      glm.mat4.invert(this.globalToLocalCache.rawElements,this.localToGlobalCache);
+      this.g2lupdated = true;
+    }
+
     /**
      * properties for storeing event handlers
      */
@@ -149,6 +164,7 @@ class Transformer extends JThreeObject
         {
             v.Transformer.updateTransform();
         });
+        this.g2lupdated = false;
         //fire updated event
         this.onUpdateTransformHandler.fire(this, this.linkedObject);
     }
@@ -237,6 +253,36 @@ class Transformer extends JThreeObject
     {
         this.localOrigin = origin;
         this.updateTransform();
+    }
+
+    public transformDirection(direction:Vector3)
+    {
+      return Matrix.transformNormal(this.LocalToGlobal,direction);
+    }
+
+    public transformPoint(point:Vector3)
+    {
+      return Matrix.transformPoint(this.localToGlobal,point);
+    }
+
+    public transformVector(vector:Vector4)
+    {
+      return Matrix.transform(this.localToGlobal,vector);
+    }
+
+    public inverseTransformDirection(direction:Vector3)
+    {
+      return Matrix.transformNormal(this.globalToLocal,direction);
+    }
+
+    public inverseTransformPoint(point:Vector3)
+    {
+      return Matrix.transformPoint(this.globalToLocal,point);
+    }
+
+    public inverseTransformVector(vector:Vector4)
+    {
+      return Matrix.transform(this.globalToLocal,vector);
     }
 }
 
