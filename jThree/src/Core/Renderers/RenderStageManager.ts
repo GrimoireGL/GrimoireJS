@@ -71,7 +71,7 @@ class RenderStageManager
                 texInfo[targetName] = null;//default buffer
                 continue;
             }
-            var tex = context.ResourceManager.getTexture(this.parentRenderer.ID + "." + bufferName);
+            var tex = TextureGenerater.getTexture(this.parentRenderer,bufferName);
             texInfo[targetName] = tex;
         }
         return texInfo;

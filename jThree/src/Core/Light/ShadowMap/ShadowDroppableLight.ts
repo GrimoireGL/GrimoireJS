@@ -6,6 +6,8 @@ import LightTypeDeclaration = require("./../LightTypeDeclaration");
 import RendererBase = require("../../Renderers/RendererBase");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
 import JThreeContextProxy = require("../../JThreeContextProxy");
+import TextureGenerater = require("../../Renderers/TextureGenerater");
+import GeneraterInfoChunk = require("../../Renderers/TextureGeneraters/GeneraterInfoChunk");
 class ShadowDroppableLight extends LightBase {
 	constructor(scene: Scene) {
 		super(scene);
@@ -13,8 +15,7 @@ class ShadowDroppableLight extends LightBase {
 
     public initializeLight()
     {
-      var context = JThreeContextProxy.getJThreeContext();
-      this.shadowMap = context.ResourceManager.createTexture()
+      this.shadowMap = TextureGenerater.generateTexture()
     }
 
     /**

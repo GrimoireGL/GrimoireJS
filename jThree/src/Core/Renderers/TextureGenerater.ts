@@ -2,6 +2,7 @@ import GeneraterInfoChunk = require("./TextureGeneraters/GeneraterInfoChunk");
 import RendererBase = require("./RendererBase");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import GeneraterBase = require("./TextureGeneraters/GeneraterBase");
+import JThreeContextProxy = require("../JThreeContextProxy");
 class TextureGenerater{
 
   private static generaters:{[key:string]:AssociativeArray<GeneraterBase>}={};
@@ -33,6 +34,11 @@ class TextureGenerater{
         }
         TextureGenerater.generaters[renderer.ID]=targetArray;
         return targetArray;
+  }
+
+  public static getTexture(renderer:RendererBase,bufferName:string)
+  {
+    return JThreeContextProxy.getJThreeContext().ResourceManager.getTexture(renderer.ID + "." + bufferName);;
   }
 }
 

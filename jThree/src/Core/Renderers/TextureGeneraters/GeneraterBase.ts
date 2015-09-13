@@ -7,11 +7,11 @@ import JThreeContextProxy = require("../../JThreeContextProxy");
  */
 class GeneraterBase {
 	protected parentRenderer: RendererBase;
-	
+
 	constructor(parent: RendererBase) {
 		this.parentRenderer = parent;
 	}
-	
+
 	/**
 	 * Generate texture with provided arguments.
 	 * This method is intended for being overriden.
@@ -19,7 +19,7 @@ class GeneraterBase {
 	public generate(name:string,texInfo: GeneraterInfoChunk) {
 
 	}
-	
+
 	public get Context(){
 		return JThreeContextProxy.getJThreeContext();
 	}
