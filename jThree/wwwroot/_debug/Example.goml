@@ -34,8 +34,8 @@
         </object>
       </object>
       <object id="light-root">
-        <alight color="darkgray" intencity="0.1" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/>
-        <slight color="yellow" intencity="1" position="0,2,2" rotation="x(30d)"/>
+        <alight color="darkgray" intencity="0.01" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/>
+        <slight color="yellow" intencity="1" position="0,0.8,1" rotation="x(45d)"/>
         <!-- <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
         <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
         <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0.3,0.1,0)"/>
@@ -43,8 +43,8 @@
         <plight color="purple" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.2)"/>
         <plight color="green" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
         <plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.2)"/>
-        <plight color="pink" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
-        <plight color="azure" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.5)"/>
+        <plight color="pink" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/> -->
+        <!-- <plight color="azure" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.5)"/>
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,-0.5)"/>
         <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.8,0.1,0)"/>
         <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.8,0.1,-0.7)"/>
