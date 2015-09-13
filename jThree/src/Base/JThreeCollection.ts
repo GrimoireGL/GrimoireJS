@@ -45,6 +45,11 @@ class JThreeCollection<T extends JThreeObjectWithID>
   {
     return this.collection.asArray;
   }
+
+  public get length()
+  {
+    return this.collection.length;
+  }
 }
 
 export=JThreeCollection;

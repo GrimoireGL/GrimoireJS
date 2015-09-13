@@ -45,6 +45,11 @@ class AssociativeArray<T> implements Map<string, T>
     return array;
   }
 
+  public get length()
+  {
+    return this.target.size;
+  }
+
 }
 
 export =AssociativeArray;

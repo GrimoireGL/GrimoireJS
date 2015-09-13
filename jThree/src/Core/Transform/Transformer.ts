@@ -39,9 +39,9 @@ class Transformer extends JThreeObject
       return this.hasParent?this.linkedObject.Parent.Transformer:null;
     }
 
-    public get children()
+    public get childrenCount()
     {
-      return this.linkedObject.Children;
+      return this.linkedObject.Children.length;
     }
 
     public hasChanged:boolean=false;
