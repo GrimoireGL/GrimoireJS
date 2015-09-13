@@ -48,7 +48,7 @@ class VMDNode extends GomlTreeNodeBase
 				value: 0,
 				converter: "number",
 				handler: (v) => {
-					this.frame = v.Value;
+					this.frame = Math.max(0,v.Value);
 					if(!this.attributes.getValue("enabled"))return;
 					if (this.targetPMX.PMXModelReady&&this.targetVMD) {
 						for(var boneName in this.targetVMD.Motions)
@@ -56,7 +56,7 @@ class VMDNode extends GomlTreeNodeBase
 							var bone:PMXBone;
 							if(bone = this.targetPMX.PMXModel.Skeleton.getBoneByName(boneName))
 							{
-								var current = this.targetVMD.getBoneFrame(v.Value, boneName);
+								var current = this.targetVMD.getBoneFrame(this.frame, boneName);
 								bone.Transformer.Position = new Vector3(current.position);
 								bone.Transformer.Rotation = new Quaternion(current.rotation);
 							}
@@ -66,7 +66,7 @@ class VMDNode extends GomlTreeNodeBase
 							var morph:PMXMorph;
 							if(morph = this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName))
 							{
-								var morphCurrent = this.targetVMD.getMorphFrame(v.Value, morphName);
+								var morphCurrent = this.targetVMD.getMorphFrame(this.frame, morphName);
 								if(morph)morph.Progress = morphCurrent.value;
 							}
 						}
