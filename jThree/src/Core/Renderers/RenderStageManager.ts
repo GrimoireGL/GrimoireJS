@@ -11,6 +11,7 @@ import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
 import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
 import CubeGeometry = require("../Geometries/CubeGeometry");
 import RenderStageChainManager = require("./RenderStageChainManager");
+import TextureGenerater = require("./TextureGenerater");
 class RenderStageManager
 {
     private parentRenderer: RendererBase;
@@ -28,21 +29,9 @@ class RenderStageManager
         });
         this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
         this.defaultCube = new CubeGeometry("jthree.renderstage.default.cube");
-        this.initializeGeneraters();
     }
 
-    private initializeGeneraters()
-    {
-        var generaters = require('./TextureGeneraters/GeneraterList');
-        for (var key in generaters)
-        {
-            if (generaters.hasOwnProperty(key))
-            {
-                var element = generaters[key];
-                this.generaters.set(key, new element(this.parentRenderer));
-            }
-        }
-    }
+
 
     private stageChainManager = new RenderStageChainManager();
 
@@ -58,15 +47,6 @@ class RenderStageManager
         this.textureBuffers = val;
     }
 
-    private generaters: AssociativeArray<GeneraterBase> = new AssociativeArray<GeneraterBase>();
-
-	/**
-	 * Provides the list of texture generaters
-	 */
-    public get Generaters()
-    {
-        return this.generaters;
-    }
 
 	/**
 	 * Generate all textures subscribed to TextureBuffers
@@ -75,9 +55,7 @@ class RenderStageManager
     {
         for (var name in this.textureBuffers)
         {
-            var textureAllocationInfo = this.textureBuffers[name];
-            var generater = this.Generaters.get(textureAllocationInfo.generater);
-            generater.generate(name, textureAllocationInfo);
+          TextureGenerater.generateTexture(this.parentRenderer,name,this.textureBuffers[name]);
         }
     }
 

@@ -61,6 +61,11 @@ class LightBase extends SceneObject
     public getParameters(renderer:RendererBase): number[] {
         return [];
     }
+
+    public initializeLight()
+    {
+
+    }
 }
 
 export = LightBase;

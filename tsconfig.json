@@ -92,6 +92,7 @@
         "./jThree/src/Core/Renderers/RendererConfigurator/BasicRendererConfigurator.ts",
         "./jThree/src/Core/Renderers/RendererConfigurator/RendererConfiguratorBase.ts",
         "./jThree/src/Core/Renderers/ResolvedChainInfo.ts",
+        "./jThree/src/Core/Renderers/TextureGenerater.ts",
         "./jThree/src/Core/Renderers/TextureGeneraters/GeneraterBase.ts",
         "./jThree/src/Core/Renderers/TextureGeneraters/GeneraterInfo.ts",
         "./jThree/src/Core/Renderers/TextureGeneraters/GeneraterInfoChunk.ts",
