@@ -11,6 +11,7 @@ import ShaderType = require("../../Wrapper/ShaderType");
 import Vector2 = require("../../Math/Vector2");
 import LightTypeDeclaration = require("./LightTypeDeclaration");
 import RendererBase = require("../Renderers/RendererBase");
+import DefaultLightTypeList = require("./DefaultLightTypeList");
 /**
  * Provides light management feature by renderer
  */
@@ -136,6 +137,10 @@ class LightRegister
         this.parameterTexture = <BufferTexture>(this.ResourceManager.createTexture(scene.ID + ".jthree.light.params", 1, 1, InternalFormatType.RGBA, TextureType.Float));
         this.parameterTexture.updateTexture(new Float32Array([1, 0, 1, 0]));
         this.initializeProgram();
+        for (let i = 0; i < DefaultLightTypeList.length; i++) {
+            var type=DefaultLightTypeList[i];
+            this.addLightType(type.TypeDefinition);
+        }
     }
 
     /**
