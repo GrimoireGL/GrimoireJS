@@ -69,6 +69,7 @@
         "./jThree/src/Core/Light/LightRegister.ts",
         "./jThree/src/Core/Light/LightShderComposer.ts",
         "./jThree/src/Core/Light/LightTypeDeclaration.ts",
+        "./jThree/src/Core/Light/ShadowMap/ShadowDroppableLight.ts",
         "./jThree/src/Core/ListStateChangedType.ts",
         "./jThree/src/Core/Materials/GBufferMaterial.ts",
         "./jThree/src/Core/Materials/Material.ts",
