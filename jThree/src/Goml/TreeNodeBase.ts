@@ -11,12 +11,12 @@ class TreeNodeBase extends JThreeObjectWithID
 		this.element=elem;
 		if(parent!=null)parent.addChild(this);
 	}
-	
+
 	/**
 	 * The HTMLElement related to this element.
 	 */
 	protected element:HTMLElement;
-	
+
     /**
      * HTMLElement related to this element.
      */
@@ -24,17 +24,17 @@ class TreeNodeBase extends JThreeObjectWithID
 	{
 		return this.element;
 	}
-	
+
 	/**
 	 * the parent node of this node
 	 */
 	protected parent:TreeNodeBase;
-	
+
 	/**
 	 * the node array of this node
 	 */
 	protected children:TreeNodeBase[]=[];
-	
+
 	/**
 	 * Add child to this node
 	 */
@@ -43,7 +43,7 @@ class TreeNodeBase extends JThreeObjectWithID
 	    child.parent = this;
         this.children.push(child);
 	}
-	
+
 	/**
 	 * Execute delegate in each nodes recursively.
 	 */
@@ -51,6 +51,11 @@ class TreeNodeBase extends JThreeObjectWithID
 	{
 		act(this);
 		this.children.forEach(v=>v.callRecursive(act));
+	}
+
+	public update()
+	{
+		
 	}
 }
 

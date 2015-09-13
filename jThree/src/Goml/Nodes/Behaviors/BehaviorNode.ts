@@ -61,7 +61,7 @@ class BehaviorNode extends GomlTreeNodeBase
              var attributeContainer:AttributeDeclaration={};
              attributeContainer[attrKey]=attr;
             this.attributes.defineAttribute(attributeContainer);
-          } 
+          }
           componentTarget.addBehavior(this);
           this.attributes.applyDefaultValue();
         }else{
@@ -107,44 +107,44 @@ class BehaviorNode extends GomlTreeNodeBase
    * The node contains this module.
    */
 	private componentTarget:GomlTreeNodeBase;
-  
+
   private componentName:string;
-  
+
   public get  BehaviorName():string
   {
     return this.componentName;
   }
   private awakenCache:boolean=false;
-  
+
   public get awaken():boolean
   {
     return this.awakenCache;
   }
-  
+
 	private cachedOrder:number=1000;
 	public get order():number
 	{
 		return this.cachedOrder;
 	}
-	
+
 	private cachedEnabled:boolean=undefined;
 	public get enabled():boolean
 	{
 		return this.cachedEnabled;
 	}
-	
+
 	public set enabled(en:boolean)
 	{
 		this.cachedEnabled=en;
 	}
-  
+
   private updateDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
-  public update(target:GomlTreeNodeBase)
+  public updateBehavior(target:GomlTreeNodeBase)
   {
     if(!this.startCalled)this.start(target);
     this.updateDelegate(target);
   }
-  
+
   private startCalled:boolean=false;
   private startDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
   public start(target:GomlTreeNodeBase)
@@ -152,21 +152,21 @@ class BehaviorNode extends GomlTreeNodeBase
     this.startDelegate(target);
     this.startCalled=true;
   }
-  
+
   private awakeDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
   public awake(target:GomlTreeNodeBase)
   {
     this.awakeDelegate(target);
     this.awakenCache=true;
   }
-  
-  
+
+
 	private onEnabledDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
   public onEnabled(target:GomlTreeNodeBase)
   {
     this.onEnabledDelegate(target);
   }
-  
+
   private onDisabledDelegate:Delegates.Action1<GomlTreeNodeBase>=()=>{};
   public onDisabled(target:GomlTreeNodeBase)
   {

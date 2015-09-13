@@ -14,6 +14,8 @@ class VMDNode extends GomlTreeNodeBase
 
 	private lastURL:string;
 
+	private enabled:boolean;
+
 	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
 		super(elem, loader, parent);
 		this.targetPMX = <PMXNode>this.parent;
@@ -66,9 +68,17 @@ class VMDNode extends GomlTreeNodeBase
 			"enabled":
 			{
 				value:false,
-				converter:"boolean"
+				converter:"boolean",
+				handler:(v)=>{
+					this.enabled = v.Value;
+				}
 			}
 		});
+	}
+
+	public update()
+	{
+		console.log("hello update");
 	}
 }
 
