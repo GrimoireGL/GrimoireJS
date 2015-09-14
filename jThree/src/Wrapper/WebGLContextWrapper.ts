@@ -29,12 +29,12 @@ import BlendFuncParamType = require("./BlendFuncParamType");
 
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
-  
+
     public get Context():WebGLRenderingContext
     {
       return this.gl;
     }
-    
+
 
   constructor(gl: WebGLRenderingContext) {
     super();
@@ -100,8 +100,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
       //TODO 適切なエラー処理
       console.error(this.gl.getShaderInfoLog(shader));
-    } else {
-      console.log("compile success");
     }
   }
 
@@ -120,8 +118,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.linkProgram(program);
     if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
       console.error(this.gl.getProgramInfoLog(program));
-    } else {
-      console.log("link success");
     }
   }
 
@@ -286,7 +282,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     public FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer) {
         this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, attachment, this.gl.RENDERBUFFER, buffer);
     }
-  
+
       /**
   * Pass vector as uniform variable
   * @param webGlUniformLocation uniform variable location
@@ -361,7 +357,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
     public DepthFunc(func:DepthFuncType)
   {
-    this.gl.depthFunc(func); 
+    this.gl.depthFunc(func);
   }
 
     public BlendEquation(eq:BlendEquationType)
@@ -371,7 +367,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
     public GetParameter(type:GetParameterType)
   {
-    return this.gl.getParameter(type);  
+    return this.gl.getParameter(type);
   }
 }
 

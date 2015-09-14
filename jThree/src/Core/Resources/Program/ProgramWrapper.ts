@@ -3,7 +3,7 @@ import ContextManagerBase = require("../../ContextManagerBase");
 import ResourceWrapper = require('../ResourceWrapper');
 import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import VariableRegisteringArgument = require("./VariableRegister/VariableRegisteringArgument");
-import VariableRegisterBase = require("VariableRegister/Uniforms/UniformVariableRegisterBase");
+import VariableRegisterBase = require("./VariableRegister/Uniforms/UniformVariableRegisterBase");
 
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, contextManager: ContextManagerBase) {
@@ -53,16 +53,14 @@ class ProgramWrapper extends ResourceWrapper {
 
     public useProgram(): void {
         if (!this.Initialized) {
-            console.log("useProgram was called, but program was not initialized.");
             this.init();
         }
         if (!this.isLinked) {
-            console.log("useProgram was called, but program was not linked.");
             this.linkProgram();
         }
         this.WebGLContext.UseProgram(this.targetProgram);
     }
-    
+
     private fetchUniformLocation(valName:string):WebGLUniformLocation
     {
         if(!this.uniformLocations.has(valName))
@@ -71,7 +69,7 @@ class ProgramWrapper extends ResourceWrapper {
         }
         return this.uniformLocations.get(valName);
     }
-    
+
     /**
      * Relink shader for shader source changing
      */
@@ -86,8 +84,8 @@ class ProgramWrapper extends ResourceWrapper {
 
     /**
      * Pass the variables into shader
-     * @param variables 
-     * @returns {} 
+     * @param variables
+     * @returns {}
      */
     public register(variables: VariableRegisteringArgument) {
         this.useProgram();

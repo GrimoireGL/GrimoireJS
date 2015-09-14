@@ -17,14 +17,6 @@ class Scene extends jThreeObjectWithID {
         super();
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
-        // //TODO Remove parameter registration
-        // var pointParam = PointLight.TypeDefinition;
-        // var dp = DirectionalLight.TypeDefinition;
-        // this.lightRegister.addLightType(pointParam);
-        // this.lightRegister.addLightType(dp);
-        // this.lightRegister.addLightType(AreaLight.TypeDefinition);
-        // this.lightRegister.addLightType(SpotLight.TypeDefinition);
-        console.log(this.lightRegister.DiffuseShaderCodeComposer.ShaderCode);
     }
 
     public enabled: boolean;
