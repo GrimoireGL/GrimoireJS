@@ -22,8 +22,8 @@ class ShadowDroppableLight extends LightBase {
     {
       return {
         generater:"rendererfit",
-        internalFormat:"RGBA",
-        element:"FLOAT"
+        internalFormat:"RGB",
+        element:"UBYTE"
       };
     }
 

@@ -48,11 +48,15 @@ class JThreeContext extends JThreeObject
         if(v.update(time))this.animaters.del(v);
       });
     }
-
+    /**
+     * Getter for reference to manage entire scenes.
+     */
     public get SceneManager(): SceneManager {
         return this.sceneManager;
     }
-
+    /**
+     * Getter for reference to manage gomls.
+     */
     public get GomlLoader(): GomlLoader {
         return this.gomlLoader;
     }
@@ -102,7 +106,7 @@ class JThreeContext extends JThreeObject
       //update timer it will be referenced by scenes.
       this.timer.updateTimer();
       this.updateAnimation();
-      this.gomlLoader.update();
+      this.gomlLoader.update();// this should be removed for loose coupling GOML and Core.
       this.sceneManager.renderAll();
       this.registerNextLoop();
     }

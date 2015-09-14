@@ -74,13 +74,13 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 },
                 stage: new SkyBoxStage(target)
             },*/
-            // {
-            //   buffers:
-            //   {
-            //
-            //   },
-            //   stage:new ShadowMapGenerationStage(target)
-            // },
+            {
+              buffers:
+              {
+
+              },
+              stage:new ShadowMapGenerationStage(target)
+            },
             {
                 buffers: {
                     PRIMARY: "gbuffer.primary",
