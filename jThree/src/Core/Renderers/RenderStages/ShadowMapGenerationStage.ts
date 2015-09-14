@@ -65,7 +65,7 @@ class ShadowMapGenerationStage extends RenderStageBase
     public get RenderStageConfig()
     {
         return {
-            depthTest: false,
+            depthTest: true,
             cullFace: false,
             blend:false
         };

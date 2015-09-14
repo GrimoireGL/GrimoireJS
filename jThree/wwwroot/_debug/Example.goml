@@ -2,7 +2,7 @@
   <resources>
     <ddebug name="light" target="gbuffer.primary" viewport="viewport#main"/>
     <ddebug name="depth" target="gbuffer.secoundary" viewport="viewport#main"/>
-    <ddebug name="normal" target="gbuffer.third" viewport="viewport#main"/>
+    <ddebug name="normal" target="shadowmap" viewport="viewport#main"/>
     <ddebug name="sl" target="light.specular" viewport="viewport#main"/>
     <ddebug name="dl" target="light.diffuse" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
@@ -35,7 +35,7 @@
       </object>
       <object id="light-root">
         <alight color="darkgray" intencity="0.01" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/>
-        <dlight color="white" intencity="1"/>
+        <dlight color="white" intencity="1" position="0,1,2"/>
         <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
         <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
         <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0.3,0.1,0)"/>

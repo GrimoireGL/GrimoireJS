@@ -16,6 +16,7 @@ class DirectionalLight extends ShadowDroppableLight {
     }
 
     public getParameters(renderer:RendererBase): number[] {
+			this.matLightProjection = Matrix.multiply(Matrix.perspective(0.7,1,0.1,3),Matrix.lookAt(new Vector3(0,1,2),Vector3.Zero,Vector3.YUnit));
         var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
         return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
             dir.X,dir.Y,dir.Z];

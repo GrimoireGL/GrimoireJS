@@ -15,7 +15,7 @@ class ShadowDroppableLight extends LightBase {
 
     public get bufferId()
     {
-      return "shadowmap."+this.ID;
+      return "shadowmap";
     }
 
     public get textureGenerateConfiguration():GeneraterInfoChunk
