@@ -5,6 +5,7 @@ import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import ResourceManager = require("../../../Core/ResourceManager");
 import MinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
 import MagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
+import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
 class TextureNodeBase extends GomlTreeNodeBase
 {
     private targetTexture: TextureBase;
@@ -43,6 +44,21 @@ class TextureNodeBase extends GomlTreeNodeBase
                 {
                     this.targetTexture.MagFilter = this.toMagFilterParameter(v.Value);
                 }
+            },
+            twrap:{
+              converter:"string",
+              value:"clamp",
+              handler:(v)=>{
+                this.targetTexture.TWrap = this.toWrapParameter(v.Value);
+              }
+            },
+            swrap:
+            {
+              converter:"string",
+              value:"clamp",
+              handler:(v)=>{
+                this.targetTexture.SWrap = this.toWrapParameter(v.Value);
+              }
             }
         });
     }
@@ -98,6 +114,21 @@ class TextureNodeBase extends GomlTreeNodeBase
             default:
                 return MagFilterType.Linear;
         }
+    }
+
+    private toWrapParameter(attr:string)
+    {
+      attr = attr.toUpperCase();
+      switch(attr)
+      {
+        case "REPEAT":
+          return TextureWrapType.Repeat;
+        case "MIRRORED_REPEAT":
+          return TextureWrapType.MirroredRepeat;
+          default:
+          case "CLAMP":
+            return TextureWrapType.ClampToEdge;
+      }
     }
 }
 
