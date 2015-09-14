@@ -117,7 +117,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.CheckErrorAsFatal();
     this.gl.linkProgram(program);
     if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
-      console.error(this.gl.getProgramInfoLog(program));
+      JThreeLogger.sectionError("Link program",this.gl.getProgramInfoLog(program));
     }
   }
 
