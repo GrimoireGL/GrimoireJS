@@ -5,12 +5,15 @@ import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import ResourceManager = require("../../../Core/ResourceManager")
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase")
 import TextureNodeBase = require("./TextureNodeBase");
+/**
+ * Basic 2d texture resource node.
+ */
 class TextureNode extends TextureNodeBase
 {
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
     {
         super(elem, loader, parent);
-        this.attributes.defineAttribute({//TODO add min/mag filter
+        this.attributes.defineAttribute({
             src: {
                 converter: "string",
                 src:""

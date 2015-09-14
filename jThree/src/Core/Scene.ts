@@ -12,6 +12,9 @@ import DirectionalLight = require("./Light/Impl/DirectionalLight");
 import Color3 = require("../Base/Color/Color3");
 import AreaLight = require("./Light/Impl/AreaLight");
 import SpotLight = require("./Light/Impl/SpotLight");
+/**
+ * Provides scene feature.
+ */
 class Scene extends jThreeObjectWithID {
     constructor() {
         super();
@@ -19,19 +22,40 @@ class Scene extends jThreeObjectWithID {
         this.lightRegister = new LightRegister(this);
     }
 
+    /**
+     * Whether this scene needs update or not.
+     * @type {boolean}
+     */
     public enabled: boolean;
 
+    /**
+     * The class managing lights of this scene.
+     * @type {LightRegister}
+     */
     private lightRegister: LightRegister;
 
+    /**
+     * The class managing lights of this scene.
+     */
     public get LightRegister() {
         return this.lightRegister;
     }
 
+    /**
+     * Scene will be updated by this method.
+     * This method is intended to be called by jThree system.
+     * You don't need to call this method manually in most of use case.
+     */
     public update(): void {
-        if (!this.enabled) return;//enabled==falseならいらない。
+        if (!this.enabled) return;
         this.sceneObjects.forEach(v=> v.update());
     }
 
+    /**
+     * Scene will be rendererd by this method.
+     * This method is intended to be called by jThree system.
+     * You don't need to call this method manually in most of use case.
+     */
     public render(): void {
         this.renderers.forEach((r) => {
             r.beforeRender();

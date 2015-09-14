@@ -5,21 +5,26 @@ import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import TextureNodeBase = require("./TextureNodeBase");
 import ResourceManager = require("../../../Core/ResourceManager");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
-
+/**
+ * Cube texture resource node.
+ */
 class CubeTextureNode extends TextureNodeBase
 {
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
     {
         super(elem, loader, parent);
-        this.attributes.defineAttribute({//TODO add min/mag filter
+        this.attributes.defineAttribute({
             srcs: {
+              // this src should be passed by splitted with ' '(space).
+              // src urls should be arranged in the layout below.
+              // PositiveX NegativeX PositiveY NegativeY PositiveZ NegativeZ
                 converter: "string",
                 src:""
             }
         });
     }
-    
+
     protected generateTexture(name: string, rm: ResourceManager): TextureBase
     {
         var texture=rm.createCubeTextureWithSource("jthree.goml.cubetexture." + name, null, false);

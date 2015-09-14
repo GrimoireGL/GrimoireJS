@@ -6,12 +6,19 @@ import ResourceManager = require("../../../Core/ResourceManager");
 import MinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
 import MagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
 import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
+/**
+ * All texture resource node class inherit this class.
+ */
 class TextureNodeBase extends GomlTreeNodeBase
 {
+    /**
+     * Texture reference being managed by this node.
+     * @type {TextureBase}
+     */
     private targetTexture: TextureBase;
 
     /**
-     * Texture that is managed by this node.
+     * Texture reference being managed by this node.
      */
     public get TargetTexture()
     {
@@ -21,7 +28,7 @@ class TextureNodeBase extends GomlTreeNodeBase
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
     {
         super(elem, loader, parent);
-        this.attributes.defineAttribute({//TODO add min/mag filter
+        this.attributes.defineAttribute({
             name: {
                 converter: "string",
                 value: "",
@@ -81,7 +88,11 @@ class TextureNodeBase extends GomlTreeNodeBase
     {
         return "";
     }
-
+    /**
+     * Min filter attribute string is changed into enum by this method.
+     * @param  {string}        Attribute string
+     * @return {MinFilterType} Enum value being passed into gl context.
+     */
     private toMinFilterParameter(attr: string): MinFilterType
     {
         attr = attr.toUpperCase();
@@ -102,7 +113,11 @@ class TextureNodeBase extends GomlTreeNodeBase
                 return MinFilterType.Linear;
         }
     }
-
+    /**
+     * Mag filter attribute string is changed into enum by this method.
+     * @param  {string}        attr Attribute string
+     * @return {MagFilterType}      Enum value being passed into gl context.
+     */
     private toMagFilterParameter(attr: string): MagFilterType
     {
         attr = attr.toUpperCase();
@@ -115,7 +130,11 @@ class TextureNodeBase extends GomlTreeNodeBase
                 return MagFilterType.Linear;
         }
     }
-
+    /**
+     * Wrap attribute string is changed into enum by this method.
+     * @param  {string} attr Attribute string
+     * @return {[type]}      Enum value being passed into gl context.
+     */
     private toWrapParameter(attr:string)
     {
       attr = attr.toUpperCase();
