@@ -87,6 +87,7 @@
         "./jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts",
         "./jThree/src/Core/Renderers/RenderStages/LightAccumulationStage.ts",
         "./jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts",
+        "./jThree/src/Core/Renderers/RenderStages/ShadowMapGenerationStage.ts",
         "./jThree/src/Core/Renderers/RenderStages/SkyBoxStage.ts",
         "./jThree/src/Core/Renderers/RendererBase.ts",
         "./jThree/src/Core/Renderers/RendererConfigurator/BasicRendererConfigurator.ts",

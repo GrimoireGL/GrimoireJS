@@ -1,5 +1,5 @@
 import Vector3 = require('../../../Math/Vector3');
-import LightBase = require('./../LightBase');
+import ShadowDroppableLight = require("../ShadowMap/ShadowDroppableLight");
 import Scene = require('../../Scene');
 import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
@@ -10,7 +10,7 @@ import RendererBase = require("../../Renderers/RendererBase");
  * X:TYPE ID ,YZW:COLOR
  * XYZ:DIRECTION
  */
-class DirectionalLight extends LightBase {
+class DirectionalLight extends ShadowDroppableLight {
 	constructor(scene: Scene) {
 		super(scene);
     }
@@ -23,11 +23,6 @@ class DirectionalLight extends LightBase {
 
 	private intensity: number = 1.0;
 
-	private vp: Matrix;
-
-	public get VP(): Matrix {
-		return this.vp;
-	}
 
 	/**
 	 * Light's intensity

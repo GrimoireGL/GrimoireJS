@@ -13,25 +13,36 @@ class ShadowDroppableLight extends LightBase {
 		super(scene);
     }
 
-    public initializeLight()
+    public get bufferId()
     {
-      this.shadowMap = TextureGenerater.generateTexture()
+      return "shadowmap."+this.ID;
     }
 
-    /**
+    public get textureGenerateConfiguration():GeneraterInfoChunk
+    {
+      return {
+        generater:"rendererfit",
+        internalFormat:"R",
+        element:"FLOAT"
+      };
+    }
+
+ public getLightBuffer(renderer:RendererBase)
+ {
+   var tex = TextureGenerater.getTexture(renderer,this.bufferId);
+   if(tex)return tex;
+   tex = TextureGenerater.generateTexture(renderer,this.bufferId,this.textureGenerateConfiguration);
+   return tex;
+ }
+ /**
      * The matrix that projects world space to light projection space.
      */
-  public matWorldLightProjection:Matrix;
+  public matWorldLightProjection:Matrix = Matrix.identity();
 
   /**
    * The matrix that projects light projection space to view space.
    */
-  public matViewInverseWorldLightProjection:Matrix;
-
-  /**
-   * Depth texture for shadow mapping
-   */
-  public shadowMap:BufferTexture;
+  public matViewInverseWorldLightProjection:Matrix=Matrix.identity();
 
   /**
    * Parameter for identify whether shadow droppable light or not.

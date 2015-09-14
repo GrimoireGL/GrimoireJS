@@ -12,6 +12,7 @@ class TextureGenerater{
     var generaters = TextureGenerater.getGeneraters(renderer);
     var generater = generaters.get(generaterInfo.generater);
     generater.generate(name, generaterInfo);
+    return TextureGenerater.getTexture(renderer,name);
   }
 
   private static getGeneraters(renderer:RendererBase)

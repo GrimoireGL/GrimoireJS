@@ -12,6 +12,7 @@ import Vector2 = require("../../Math/Vector2");
 import LightTypeDeclaration = require("./LightTypeDeclaration");
 import RendererBase = require("../Renderers/RendererBase");
 import DefaultLightTypeList = require("./DefaultLightTypeList");
+import ShadowDroppableLight = require("./ShadowMap/ShadowDroppableLight");
 /**
  * Provides light management feature by renderer
  */
@@ -44,6 +45,9 @@ class LightRegister
      */
     private lights: LightBase[] = [];
 
+    public shadowDroppableLights:ShadowDroppableLight[] =[];
+
+
     /**
      * Light dictionary being sorted with id used in shaders.
      */
@@ -62,6 +66,13 @@ class LightRegister
      * Float values array for buffer of light parameter textures.
      */
     private textureSourceBuffer: Float32Array;
+
+    private shadowDroppableLightCount:number=0;
+
+    public get ShadowDroppableLightCount()
+    {
+      return this.shadowDroppableLightCount;
+    }
 
     /**
      * Getter for width of texture.
@@ -233,9 +244,15 @@ class LightRegister
      */
     public updateLightForRenderer(renderer:RendererBase)
     {
+        this.shadowDroppableLightCount=0;
         for (var i = 0; i < this.Lights.length; i++)
         {
             this.lightUpdate(this.Lights[i],renderer);
+            if((<ShadowDroppableLight>this.Lights[i]).isShadowDroppable)
+            {
+              this.shadowDroppableLights[this.shadowDroppableLightCount]=<ShadowDroppableLight>this.Lights[i];
+              this.shadowDroppableLightCount++;
+            }
         }
         this.parameterTexture.updateTexture(this.textureSourceBuffer);
     }

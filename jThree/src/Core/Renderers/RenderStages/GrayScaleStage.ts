@@ -13,7 +13,7 @@ declare function require(name: string): any;
 class GrayScaleStage extends RenderStageBase {
 
 	private program: Program;
-
+//
 
 	constructor(renderer: RendererBase) {
 		super(renderer);
