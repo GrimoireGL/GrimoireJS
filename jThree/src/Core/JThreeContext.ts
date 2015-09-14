@@ -14,7 +14,7 @@ import JThreeEvent = require("../Base/JThreeEvent");
 class JThreeContext extends JThreeObject
 {
     private static instance:JThreeContext=new JThreeContext();
-    
+
     /**
     * Every user of this library should not call this method.
     * You should use JThreeContextProxy.getInstance() instead of this function.

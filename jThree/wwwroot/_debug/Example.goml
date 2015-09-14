@@ -35,7 +35,7 @@
       </object>
       <object id="light-root">
         <alight color="darkgray" intencity="0.01" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/>
-        <slight color="yellow" intencity="1" position="0,0.8,1" rotation="x(45d)"/>
+        <!-- <dlight color="yellow" intencity="1"/> -->
         <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
         <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
         <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0.3,0.1,0)"/>

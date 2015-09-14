@@ -10,7 +10,7 @@ import BehaviorRegistry = require("./Behaviors/BehaviorRegistry");
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
 import BehaviorRunner = require('./Behaviors/BehaviorRunner');
 import PluginLoader = require('./Plugins/PluginLoader');
-
+import JThreeLogger = require("../Base/JThreeLogger");
 declare function require(string): any;
 
 /**
@@ -81,6 +81,8 @@ class GomlLoader extends jThreeObject {
    * Attempt to load GOMLs that placed in HTML file.
    */
   public initForPage(): void {
+    JThreeLogger.sectionLog("Goml loader","Goml initialization was started.");
+    console.time("goml-loading");
     // to load <script src="j3.js" x-goml="HERE"/>
     this.attemptToLoadGomlInScriptAttr();
     // to load the script that is type of text/goml
@@ -158,6 +160,7 @@ class GomlLoader extends jThreeObject {
       this.eachNode(v=> v.Load());
       this.eachNode(v=> v.afterLoad());
       this.eachNode(v=> v.attributes.applyDefaultValue());
+      JThreeLogger.sectionLog("Goml loader",`Goml loading was completed`);
       this.onLoadEvent.fire(this, source);
       this.ready = true;
     });

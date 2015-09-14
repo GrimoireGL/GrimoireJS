@@ -6,6 +6,7 @@ import ShadingStage = require("../RenderStages/FowardShadingStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
+import ShadowMapGenerationStage = require("../RenderStages/ShadowMapGenerationStage");
 class BasicRendererConfigurator extends ConfiguratorBase
 {
     public get TextureBuffers(): GeneraterInfo
@@ -73,6 +74,13 @@ class BasicRendererConfigurator extends ConfiguratorBase
                 },
                 stage: new SkyBoxStage(target)
             },*/
+            // {
+            //   buffers:
+            //   {
+            //
+            //   },
+            //   stage:new ShadowMapGenerationStage(target)
+            // },
             {
                 buffers: {
                     PRIMARY: "gbuffer.primary",

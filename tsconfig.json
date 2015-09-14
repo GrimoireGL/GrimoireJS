@@ -38,6 +38,7 @@
         "./jThree/src/Base/JThreeCollection.ts",
         "./jThree/src/Base/JThreeEvent.ts",
         "./jThree/src/Base/JThreeID.ts",
+        "./jThree/src/Base/JThreeLogger.ts",
         "./jThree/src/Base/JThreeObject.ts",
         "./jThree/src/Base/JThreeObjectWithID.ts",
         "./jThree/src/Base/JsHack.ts",

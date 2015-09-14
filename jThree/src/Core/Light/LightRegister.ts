@@ -34,10 +34,13 @@ class LightRegister
     private textureWidth: number = 5;
 
     /**
-     * Programs will be used for rendering this lights accumulation buffer.
+     * Programs will be used for rendering diffuse light accumulation buffer.
      */
     private diffuseLightProgram: Program;
 
+    /**
+     * Programs will be used for rendering specular light accumulation buffer.
+     */
     private specularLightProgram: Program;
 
     /**
@@ -45,8 +48,10 @@ class LightRegister
      */
     private lights: LightBase[] = [];
 
+    /**
+     * All light references that drops shadow to other objects.
+     */
     public shadowDroppableLights:ShadowDroppableLight[] =[];
-
 
     /**
      * Light dictionary being sorted with id used in shaders.
@@ -67,8 +72,16 @@ class LightRegister
      */
     private textureSourceBuffer: Float32Array;
 
+    /**
+     * Number of shadow droppable lights.
+     * @type {number}
+     */
     private shadowDroppableLightCount:number=0;
 
+    /**
+     * Getter for number of shadow droppable lights.
+     * @return {number} [description]
+     */
     public get ShadowDroppableLightCount()
     {
       return this.shadowDroppableLightCount;
@@ -113,13 +126,16 @@ class LightRegister
         return JThreeContextProxy.getJThreeContext().ResourceManager;
     }
     /**
-     * Getter for shader composer that generates shader source to render light accumulation buffer.
+     * Getter for shader composer that generates shader source to render diffuse light accumulation buffer.
      */
     public get DiffuseShaderCodeComposer()
     {
         return this.diffuseShaderComposer;
     }
 
+    /**
+     * Getter for shader composer that generates shader source to render specular light accumulation buffer.
+     */
     public get SpecularShaderCodeComposer()
     {
         return this.specularShaderComposer;

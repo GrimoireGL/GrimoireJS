@@ -26,7 +26,7 @@ import BlendFuncParamType = require("./BlendFuncParamType");
  import DepthFuncType = require("./DepthFuncType");
  import GetParameterType = require("./GetParameterType");
  import TexImageTargetType = require("./Texture/TexImageTargetType");
-
+import JThreeLogger = require("../Base/JThreeLogger");
 class WebGLContextWrapper extends GLContextWrapperBase {
   private gl: WebGLRenderingContext;
 
@@ -99,7 +99,7 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.compileShader(shader);
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
       //TODO 適切なエラー処理
-      console.error(this.gl.getShaderInfoLog(shader));
+      JThreeLogger.sectionError("Compiling shader",this.gl.getShaderInfoLog(shader));
     }
   }
 

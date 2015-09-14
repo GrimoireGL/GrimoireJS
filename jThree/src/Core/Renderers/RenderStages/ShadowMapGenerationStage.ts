@@ -67,7 +67,7 @@ class ShadowMapGenerationStage extends RenderStageBase
         return {
             depthTest: false,
             cullFace: false,
-            blend:true
+            blend:false
         };
     }
 }
