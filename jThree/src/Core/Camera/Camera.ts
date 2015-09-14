@@ -3,6 +3,7 @@ import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import Exceptions = require("../../Exceptions");
 import glm = require("gl-matrix");
+
 /**
  * Basement class of Camera. These class related to camera are one of SceneObject in jThree.
  */

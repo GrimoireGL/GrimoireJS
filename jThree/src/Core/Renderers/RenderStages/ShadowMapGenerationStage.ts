@@ -41,10 +41,10 @@ class ShadowMapGenerationStage extends RenderStageBase
         );
     }
 
-    public render(scene: Scene, object: SceneObject, techniqueCount: number) {
+    public render(scene: Scene, object: SceneObject, techniqueCount: number,texs) {
         var geometry = object.Geometry;
         var targetLight = this.getShadowDroppableLight(scene,techniqueCount);
-        debugger;
+        this.drawForMaterials(scene,object,techniqueCount,texs,"jthree.materials.shadowmap");
     }
 
 

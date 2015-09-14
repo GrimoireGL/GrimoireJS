@@ -75,6 +75,7 @@
         "./jThree/src/Core/Materials/GBufferMaterial.ts",
         "./jThree/src/Core/Materials/Material.ts",
         "./jThree/src/Core/Materials/PhongMaterial.ts",
+        "./jThree/src/Core/Materials/ShadowMapMaterial.ts",
         "./jThree/src/Core/Materials/SolidColorMaterial.ts",
         "./jThree/src/Core/Materials/SpriteMaterial.ts",
         "./jThree/src/Core/Renderers/FBOBindData.ts",
