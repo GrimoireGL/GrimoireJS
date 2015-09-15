@@ -13,11 +13,26 @@ import LightTypeDeclaration = require("./LightTypeDeclaration");
 import RendererBase = require("../Renderers/RendererBase");
 import DefaultLightTypeList = require("./DefaultLightTypeList");
 import ShadowDroppableLight = require("./ShadowMap/ShadowDroppableLight");
+import GLSpec = require("../GLSpecManager");
+import JThreeLogger = require("../../Base/JThreeLogger");
 /**
  * Provides light management feature by renderer
  */
 class LightRegister
 {
+    /**
+     * Texture input count for light accumulation stage except shadow maps.
+     */
+    private basicTextureinput:number = 4;
+
+    /**
+     * Maximum count of shadow map textures for once drawing.
+     */
+    public get shadowMapMax()
+    {
+      return GLSpec.MaxTextureCount - this.basicTextureinput;
+    }
+
     /**
      * BufferTexture containing light parameters.
      */
@@ -58,14 +73,20 @@ class LightRegister
      */
     private lightIdDictionary: AssociativeArray<number> = new AssociativeArray<number>();
 
+    private get shaderHeader()
+    {
+      return `precision mediump float;
+      #define SHADOW_MAP_LENGTH ${this.shadowMapMax}`;
+    }
+
     /**
      * Provides feature to generate shader source code.
      */
-    private diffuseShaderComposer: ShaderComposer = new ShaderComposer(require('../Shaders/Light/DiffuseLightFragment.glsl'), "diffuse", (index, funcName) => `if(getLightType(int(i)) == ${index}.)gl_FragColor.rgb+=${funcName}(position,normal,int(i),diffuse);`);
+    private diffuseShaderComposer: ShaderComposer = new ShaderComposer(this.shaderHeader+require('../Shaders/Light/DiffuseLightFragment.glsl'), "diffuse", (index, funcName) => `if(getLightType(int(i)) == ${index}.)gl_FragColor.rgb+=${funcName}(position,normal,int(i),diffuse);\n`);
     /**
      * Provides feature to generate specular light buffer shader source code.
      */
-    private specularShaderComposer: ShaderComposer = new ShaderComposer(require('../Shaders/Light/SpecularLightFragment.glsl'), "specular", (index, funcName) => `if(getLightType(int(i)) == ${index}.)gl_FragColor.rgb+=${funcName}(position,normal,int(i),specular,specularCoefficient);`);
+    private specularShaderComposer: ShaderComposer = new ShaderComposer(this.shaderHeader+require('../Shaders/Light/SpecularLightFragment.glsl'), "specular", (index, funcName) => `if(getLightType(int(i)) == ${index}.)gl_FragColor.rgb+=${funcName}(position,normal,int(i),specular,specularCoefficient);\n`);
 
     /**
      * Float values array for buffer of light parameter textures.
@@ -168,6 +189,7 @@ class LightRegister
             var type=DefaultLightTypeList[i];
             this.addLightType(type.TypeDefinition);
         }
+        JThreeLogger.sectionLongLog("Light diffuse shader",this.DiffuseShaderCodeComposer.ShaderCode);
     }
 
     /**

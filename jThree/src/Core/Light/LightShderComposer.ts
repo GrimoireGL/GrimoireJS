@@ -1,6 +1,6 @@
-﻿import Shader = require("../Resources/Shader/Shader");
+import Shader = require("../Resources/Shader/Shader");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
-import LightBase = require("LightBase");
+import LightBase = require("./LightBase");
 import JThreeContextProxy = require("../JThreeContextProxy");
 import ResourceManager = require("../ResourceManager");
 import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
@@ -38,7 +38,7 @@ class LightShaderComposer extends JThreeObjectWithId
 
     /**
      * Constructed shader instance
-     * @returns {Shader} Constructed shader 
+     * @returns {Shader} Constructed shader
      */
     public get Shader() :Shader {
         return this.shader;
@@ -46,7 +46,7 @@ class LightShaderComposer extends JThreeObjectWithId
 
     /**
      * Constructed shader code
-     * @returns {string} Constructed shader code 
+     * @returns {string} Constructed shader code
      */
     public get ShaderCode(): string {
         return this.shaderCache;
@@ -57,7 +57,7 @@ class LightShaderComposer extends JThreeObjectWithId
      * If passed light are unregistered one, this method should return 0.
      * If passed light are registeredb one, this method should return 0 to N.
      * @param light light instance that you want to find id.
-     * @returns {number} id 
+     * @returns {number} id
      */
     public getLightTypeId(light: LightBase) {
         return this.lightTypeIdArray.has(light.LightType) ?
@@ -86,7 +86,7 @@ class LightShaderComposer extends JThreeObjectWithId
 
     /**
      * Generate whole source shader code.
-     * @returns {string} generated source code of light fragment code. 
+     * @returns {string} generated source code of light fragment code.
      */
     private generateLightShaderSource(): string {
         var result = this.shaderSourceBase;
@@ -110,7 +110,7 @@ class LightShaderComposer extends JThreeObjectWithId
 
     /**
      * Generate chunk of light shader callers;
-     * @returns {string} concatted light fragment functions callers. 
+     * @returns {string} concatted light fragment functions callers.
      */
     private generateLightFunctionCallers(): string {
         var result = "";

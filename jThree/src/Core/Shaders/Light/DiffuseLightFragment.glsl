@@ -1,5 +1,6 @@
-precision mediump float;
-
+//Header should be inserted above like below
+//precision mediump float
+//#define SHADOW_MAP_LENGTH <<Max count of shadow map>>
 //uniform variables
 uniform highp   sampler2D primary;
 uniform mediump sampler2D secoundary;
@@ -10,6 +11,8 @@ uniform vec2 lightParamSize;
 
 uniform mat4 matIP;
 uniform mat4 matV;
+uniform mat4 matLWs[SHADOW_MAP_LENGTH];
+uniform mat4 matVILs[SHADOW_MAP_LENGTH];
 
 //varying variables
 varying vec2 vUV;

@@ -34,9 +34,16 @@ class ShadowDroppableLight extends LightBase {
    tex = TextureGenerater.generateTexture(renderer,this.bufferId,this.textureGenerateConfiguration);
    return tex;
  }
+
+ protected updateLightProjection(renderer:RendererBase,lightProjection:Matrix)
+ {
+	 this.matLightProjection = lightProjection;
+	 this.matInverseLightProjection = Matrix.multiply(renderer.Camera.ViewMatrix,Matrix.inverse(lightProjection));
+ }
+
  /**
-     * The matrix that projects world space to light projection space.
-     */
+　* The matrix that projects world space to light projection space.
+  */
   public matLightProjection:Matrix = Matrix.identity();
 
   /**

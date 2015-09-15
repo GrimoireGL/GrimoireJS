@@ -52,7 +52,7 @@ class LightBase extends SceneObject
 	public afterRender(target:ContextManagerBase)
 	{
 
-    }
+  }
 
     public onParameterChanged(handler:Delegates.Action2<Object,LightBase>) {
         this.parameterChanged.addListerner(handler);

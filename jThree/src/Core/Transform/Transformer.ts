@@ -171,7 +171,7 @@ class Transformer extends JThreeObject
 
     private updateDirection(targetVector:Vector3,sourceVector4:number[])
     {
-      glm.vec4.transformMat4(targetVector.targetVector,this.localToGlobalCache,sourceVector4);
+      glm.vec4.transformMat4(targetVector.targetVector,sourceVector4,this.localToGlobalCache);
       glm.vec3.normalize(targetVector.targetVector,targetVector.targetVector)
     }
 
