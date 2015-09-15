@@ -18,53 +18,11 @@ class PointLight extends LightBase
 		super(scene);
 	}
 
-	private distance:number=0.0;
+	public distance:number=0.0;
 
-	/**
-	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless.
-	 */
-	public get Distance():number
-	{
-		return this.distance;
-	}
+	public intensity:number=1.0;
 
-	/**
-	 * The distance of the light where the intensity is 0. When distance is 0, then the distance is endless.
-	 */
-	public set Distance(num:number)
-	{
-		this.distance=num;
-	}
-
-	private intensity:number=1.0;
-
-	/**
-	 * Light's intensity
-	 */
-	public get Intensity():number
-	{
-		return this.intensity;
-	}
-
-	/**
-	 * Light's intensity
-	 */
-	public set Intensity(intensity:number)
-	{
-		this.intensity=intensity;
-	}
-
-	private decay:number=1;
-
-	public get Decay():number
-	{
-		return this.decay;
-	}
-
-	public set Decay(d:number)
-	{
-		this.decay=d;
-	}
+	public decay:number=1;
 
 	public get LightType():string
 	{
@@ -75,9 +33,9 @@ class PointLight extends LightBase
     {
 			　var pos = this.Position;
 			  pos = Matrix.transformPoint(renderer.Camera.ViewMatrix,pos);
-        return [this.Color.R * this.Intensity, this.Color.G * this.Intensity, this.Color.B * this.Intensity,
+        return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             pos.X,pos.Y,pos.Z, 0,
-        this.Distance,this.Decay];
+        this.distance,this.decay];
     }
 
     public static get TypeDefinition(): LightTypeDeclaration {

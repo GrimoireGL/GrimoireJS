@@ -13,7 +13,7 @@ class DirectionalLightNode extends LightNodeBase
 		super(elem, loader, parent, parentSceneNode, parentObject);
 		this.attributes.defineAttribute({
 			"intensity":{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.Intensity=v.Value;}
+				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
 			}
 		});
 	}

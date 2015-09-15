@@ -13,15 +13,15 @@ class PointLightNode extends LightNodeBase
 		super(elem, loader, parent, parentSceneNode, parentObject);
 		this.attributes.defineAttribute({
 			"intensity":{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.Intensity=v.Value;}
+				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
 			},
 			"decay":
 			{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.Decay=v.Value;}
+				value:1,converter:"number",handler:(v)=>{this.targetLight.decay=v.Value;}
 			},
 			"distance":
 			{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.Distance=v.Value;}
+				value:1,converter:"number",handler:(v)=>{this.targetLight.distance=v.Value;}
 			}
 
 		});

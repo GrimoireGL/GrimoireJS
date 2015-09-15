@@ -23,14 +23,14 @@ class LightRegister
     /**
      * Texture input count for light accumulation stage except shadow maps.
      */
-    private basicTextureinput:number = 4;
+    public textureInputCount:number = 4;
 
     /**
      * Maximum count of shadow map textures for once drawing.
      */
     public get shadowMapMax()
     {
-      return GLSpec.MaxTextureCount - this.basicTextureinput;
+      return GLSpec.MaxTextureCount - this.textureInputCount;
     }
 
     /**
