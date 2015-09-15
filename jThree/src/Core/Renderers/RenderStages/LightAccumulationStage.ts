@@ -8,7 +8,7 @@ import Mesh = require('../../../Shapes/Mesh');
 import Matrix = require('../../../Math/Matrix');
 import Vector2 = require('../../../Math/Vector2');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
-class LitghtAccumulationStage extends RenderStageBase
+class LightAccumulationStage extends RenderStageBase
 {
 
     private program: Program;
@@ -128,4 +128,4 @@ class LitghtAccumulationStage extends RenderStageBase
         };
     }
 }
-export = LitghtAccumulationStage;
+export = LightAccumulationStage;
