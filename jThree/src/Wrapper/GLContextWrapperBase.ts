@@ -58,7 +58,7 @@ class GLContextWrapperBase extends JThreeObject
     {
         return null;
     }
-    
+
     /**
      * Check gl error, and abort if error has been occured.
      */
@@ -318,7 +318,7 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-  
+
     /**
   * Pass vector as uniform variable
   * @param webGlUniformLocation uniform variable location
@@ -419,6 +419,11 @@ class GLContextWrapperBase extends JThreeObject
     public Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void
     {
         throw new Exceptions.AbstractClassMethodCalledException();
+    }
+
+    public UniformMatrixArray(webGlUniformLocation:WebGLUniformLocation,matricies:number[])
+    {
+      throw new Exceptions.AbstractClassMethodCalledException();
     }
 
     public CreateRenderBuffer(): WebGLRenderbuffer

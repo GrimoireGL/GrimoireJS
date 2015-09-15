@@ -33,6 +33,10 @@ class LightRegister
       return GLSpec.MaxTextureCount - this.textureInputCount;
     }
 
+    public lightWorldMatricis = new Float32Array(this.shadowMapMax * 16);
+
+    public viewInvertedLightMatricis = new Float32Array(this.shadowMapMax * 16);
+
     /**
      * BufferTexture containing light parameters.
      */
@@ -286,10 +290,19 @@ class LightRegister
         for (var i = 0; i < this.Lights.length; i++)
         {
             this.lightUpdate(this.Lights[i],renderer);
+            //Arrange shadow droppable lights
             if((<ShadowDroppableLight>this.Lights[i]).isShadowDroppable)
             {
               this.shadowDroppableLights[this.shadowDroppableLightCount]=<ShadowDroppableLight>this.Lights[i];
               this.shadowDroppableLightCount++;
+            }
+            //Cache matrix values frpm shadow droppable Lights
+            for (let i = 0; i < this.shadowDroppableLights.length; i++) {
+                let shadowDroppable = this.shadowDroppableLights[i];
+                for (let j = 0; j < 16; j++) {
+                    this.lightWorldMatricis[i * 16 + j] = shadowDroppable.matLightProjection.rawElements[j];
+                    this.viewInvertedLightMatricis[i*16 +j] = shadowDroppable.matInverseLightProjection.rawElements[j];
+                 }
             }
         }
         this.parameterTexture.updateTexture(this.textureSourceBuffer);

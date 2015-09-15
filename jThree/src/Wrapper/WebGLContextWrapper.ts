@@ -369,6 +369,11 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   {
     return this.gl.getParameter(type);
   }
+
+  public UniformMatrixArray(webGlUniformLocation:WebGLUniformLocation,matricies:number[])
+  {
+    this.gl.uniformMatrix4fv(webGlUniformLocation,false,matricies);
+  }
 }
 
 export =WebGLContextWrapper;

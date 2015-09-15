@@ -1,4 +1,4 @@
-﻿import VariableRegisterBase = require("UniformVariableRegisterBase");
+﻿import VariableRegisterBase = require("./UniformVariableRegisterBase");
 var UniformTypeList:{[name:string]:VariableRegisterBase}=
 {
     "float":new (require("./ScalarFloatRegister"))(),
@@ -6,7 +6,8 @@ var UniformTypeList:{[name:string]:VariableRegisterBase}=
     "matrix":new (require("./MatrixFloatRegister"))(),
     "vector": new (require("./VectorFloatRegister"))(),
     "texture": new (require("./Texture2DRegister"))(),
-    "vectorarray":new (require("./VectorFloatArrayRegister"))()
+    "vectorarray":new (require("./VectorFloatArrayRegister"))(),
+    "matrixarray":new (require("./MatrixFloatArrayRegister"))()
 };
 
 export = UniformTypeList;

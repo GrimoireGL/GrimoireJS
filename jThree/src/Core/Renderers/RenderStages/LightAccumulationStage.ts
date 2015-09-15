@@ -87,6 +87,16 @@ class LitghtAccumulationStage extends RenderStageBase
                 matIP: {
                     type: "matrix",
                     value:ip
+                },
+                matLWs:
+                {
+                  type:"matrixarray",
+                  value:scene.LightRegister.lightWorldMatricis
+                },
+                matVILs:
+                {
+                  type:"matrixarray",
+                  value:scene.LightRegister.viewInvertedLightMatricis
                 }
             }
         });
