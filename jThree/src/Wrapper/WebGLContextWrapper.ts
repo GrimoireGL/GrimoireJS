@@ -234,7 +234,6 @@ class WebGLContextWrapper extends GLContextWrapperBase {
 
     public PixelStorei(pname:PixelStoreParamType,value:number)
   {
-    this.CheckErrorAsFatal();
     this.gl.pixelStorei(pname,value);
   }
 
