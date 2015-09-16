@@ -35,6 +35,11 @@ class ShadowDroppableLight extends LightBase {
    return tex;
  }
 
+ public updateLightMatricis(renderer:RendererBase)
+ {
+	 
+ }
+
  protected updateLightProjection(renderer:RendererBase,lightProjection:Matrix)
  {
 	 this.matLightProjection = lightProjection;

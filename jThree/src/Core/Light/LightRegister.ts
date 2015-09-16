@@ -303,17 +303,14 @@ class LightRegister
               this.shadowDroppableLights[this.shadowDroppableLightCount]=<ShadowDroppableLight>this.Lights[i];
               this.shadowDroppableLightCount++;
             }
-            //Cache matrix values frpm shadow droppable Lights
-            for (let i = 0; i < this.shadowDroppableLights.length; i++) {
-                let shadowDroppable = this.shadowDroppableLights[i];
-                for (let j = 0; j < 16; j++) {
-                    this.lightWorldMatricis[i * 16 + j] = shadowDroppable.matLightProjection.rawElements[j];
-                    this.viewInvertedLightMatricis[i*16 +j] = shadowDroppable.matInverseLightProjection.rawElements[j];
-                 }
-                 this.shadowMaps[i]= shadowDroppable.getLightBuffer(renderer);
-            }
+        }
+        //Extra shadow map array is filled with null here
+        for (var i = this.shadowDroppableLightCount;i<this.shadowDroppableLights.length;i++)
+        {
+          this.shadowDroppableLights[i]=null;
         }
         this.parameterTexture.updateTexture(this.textureSourceBuffer);
+        this.shadowMapResourceManager.updateLightMatricis(renderer,this.shadowDroppableLights);
     }
 
     /**

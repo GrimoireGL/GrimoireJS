@@ -4,18 +4,27 @@ import JThreeContextProxy = require("../../JThreeContextProxy");
 import TextureInternalFormatType = require("../../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../../Wrapper/TextureType");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
+import ShadowDroppableLight = require("./ShadowDroppableLight");
+import Matrix = require("../../../Math/Matrix");
 class ShadowMapResourceManager
 {
   constructor(register:LightRegister)
   {
     this.shadowMapTileTexture=<BufferTexture>JThreeContextProxy.getJThreeContext().ResourceManager.createTexture("shadowmap."+register.scene.ID,this.shadowMapTileTextureSize,this.shadowMapTileTextureSize,TextureInternalFormatType.RGB,TextureType.UnsignedByte);
+    this.shadowMatrixTextureSource = new Float32Array(this.maximumShadowMapCount * 2 * 16);
+    this.shadowMatrixTexture = <BufferTexture> JThreeContextProxy.getJThreeContext().ResourceManager.createTexture("shadowmat."+register.scene.ID,8,this.maximumShadowMapCount,TextureInternalFormatType.RGBA,TextureType.Float);
   }
+
   public shadowMapTileTexture:BufferTexture;
   /**
    * Size of shadow map for one of shadow map.
    * @type {number}
    */
   private shadowMapSizeCache:number = 512;
+
+  private shadowMatrixTextureSource:Float32Array;
+
+  private shadowMatrixTexture:BufferTexture;
 
   public get shadowMapSize()
   {
@@ -30,6 +39,11 @@ class ShadowMapResourceManager
   public set maximumShadowMapCount(count:number)
   {
     this.shadowMapTileHeight = Math.ceil(Math.sqrt(count));
+  }
+
+  public get maximumShadowMapCount()
+  {
+    return this.shadowMapTileHeight*this.shadowMapTileHeight;
   }
 
   /**
@@ -54,6 +68,26 @@ class ShadowMapResourceManager
     var x = shadowMapIndex % this.shadowMapTileHeight;
     var y = (shadowMapIndex - x)/this.shadowMapTileHeight;
     renderer.GLContext.ViewPort(x,y,this.shadowMapSizeCache,this.shadowMapSizeCache);
+  }
+
+  public updateLightMatricis(renderer:RendererBase,lights:ShadowDroppableLight[])
+  {
+    for (let i = 0; i < Math.min(lights.length,this.maximumShadowMapCount); i++)
+    {
+      var light = lights[i];
+      if(!light)return;
+      light.updateLightMatricis(renderer);
+      this.copyMatrixToLightMatrixTextureSource(light.matLightProjection,32*i);
+      this.copyMatrixToLightMatrixTextureSource(light.matInverseLightProjection,32*i+16);
+    }
+    this.shadowMatrixTexture.updateTexture(this.shadowMatrixTextureSource);
+  }
+
+  private copyMatrixToLightMatrixTextureSource(data:Matrix,offset:number)
+  {
+    for (let i = 0; i < 16; i++) {
+        this.shadowMatrixTextureSource[offset+i] = data.rawElements[i];
+    }
   }
 }
 
