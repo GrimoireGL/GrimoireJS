@@ -68,12 +68,12 @@ class BasicRendererConfigurator extends ConfiguratorBase
     public getStageChain(target: RendererBase): RenderStageChain[]
     {
         return [
-/*            {
+            {
                 buffers: {
                     OUT: "default"
                 },
                 stage: new SkyBoxStage(target)
-            },*/
+            },
             {
               buffers:
               {

@@ -9,6 +9,7 @@ import RendererBase = require("../../Renderers/RendererBase");
  * Parameters:
  * X:TYPE ID ,YZW:COLOR
  * XYZ:DIRECTION
+ * X:Shadow map flag,Y:sampler index ,Z: bias
  */
 class DirectionalLight extends ShadowDroppableLight {
 	constructor(scene: Scene) {
@@ -19,7 +20,8 @@ class DirectionalLight extends ShadowDroppableLight {
 			this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(0.7,1,0.1,3),Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit)));
         var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
-            dir.X,dir.Y,dir.Z];
+            dir.X,dir.Y,dir.Z,0,
+					1,0,0.05];
     }
 
 	public intensity:number;
