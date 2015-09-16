@@ -20,11 +20,11 @@
   <renderers>
     <renderer clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" height="512" id="main" left="0" width="512" backgroundType="skybox" skybox="gomlCube2"/>
-      <viewport cam="CAM2" height="256"  left="512" width="256"/>
-      <viewport cam="CAM3" height="256"  left="768" width="256"/>
-      <viewport cam="CAM4" height="256" left="512" top="256" width="256"/>
-      <viewport cam="CAM5" height="256"  left="768" width="256" top="256"/>
-      <viewport cam="CAM6" height="256"  left="1024" width="256" top="256"/>
+      <viewport cam="CAM2" height="256"  left="512" width="256" config="sprite"/>
+      <viewport cam="CAM3" height="256"  left="768" width="256" config="sprite"/>
+      <viewport cam="CAM4" height="256" left="512" top="256" width="256" config="sprite"/>
+      <viewport cam="CAM5" height="256"  left="768" width="256" top="256" config="sprite"/>
+      <viewport cam="CAM6" height="256"  left="1024" width="256" top="256" config="sprite"/>
     </renderer>
   </renderers>
   <scenes>

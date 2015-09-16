@@ -14,6 +14,7 @@ import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage")
 import CubeTextureTag = require("../Texture/CubeTextureNode");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
 import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
+import RendererFactory = require("../../../Core/Renderers/RendererFactory");
 class ViewPortNode extends GomlTreeNodeBase {
 
   private parentRendererNode:RendererNodeBase;
@@ -35,7 +36,7 @@ class ViewPortNode extends GomlTreeNodeBase {
     public afterLoad(){
       var rdr:RendererNodeBase=this.parentRendererNode=<RendererNodeBase>this.parent;
       var defaultRect = rdr.CanvasManager.getDefaultRectangle();
-      this.targetRenderer=new RendererBase(rdr.CanvasManager,defaultRect);
+      this.targetRenderer=RendererFactory.generateRenderer(rdr.CanvasManager,defaultRect,this.attributes.getValue("config"));
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
@@ -113,6 +114,10 @@ class ViewPortNode extends GomlTreeNodeBase {
               }
             }
           }
+        },
+        "config":{
+          converter:"string",
+          value:"default"
         }
       });
       this.attributes.applyDefaultValue();

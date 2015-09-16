@@ -16,6 +16,7 @@ import ShadowDroppableLight = require("./ShadowMap/ShadowDroppableLight");
 import GLSpec = require("../GLSpecManager");
 import JThreeLogger = require("../../Base/JThreeLogger");
 import TextureBase = require("../Resources/Texture/TextureBase");
+import ShadowMapResourceManager = require("./ShadowMap/ShadowMapResourceManager");
 /**
  * Provides light management feature by renderer
  */
@@ -40,6 +41,8 @@ class LightRegister
 
     public shadowMaps:TextureBase[] = new Array(this.shadowMapMax);
 
+    public shadowMapResourceManager:ShadowMapResourceManager;
+
     /**
      * BufferTexture containing light parameters.
      */
@@ -48,7 +51,7 @@ class LightRegister
     /**
      * Renderer using this class.
      */
-    private scene: Scene;
+    public scene: Scene;
 
     /**
      * Width of texture.
@@ -196,6 +199,7 @@ class LightRegister
             var type=DefaultLightTypeList[i];
             this.addLightType(type.TypeDefinition);
         }
+        this.shadowMapResourceManager = new ShadowMapResourceManager(this);
         JThreeLogger.sectionLongLog("Light diffuse shader",this.DiffuseShaderCodeComposer.ShaderCode);
     }
 
