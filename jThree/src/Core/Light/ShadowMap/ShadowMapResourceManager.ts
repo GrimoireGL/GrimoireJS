@@ -6,6 +6,7 @@ import TextureType = require("../../../Wrapper/TextureType");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
 import ShadowDroppableLight = require("./ShadowDroppableLight");
 import Matrix = require("../../../Math/Matrix");
+import RBO = require("../../Resources/RBO/RBO");
 class ShadowMapResourceManager
 {
   constructor(register:LightRegister)
@@ -13,6 +14,7 @@ class ShadowMapResourceManager
     this.shadowMapTileTexture=<BufferTexture>JThreeContextProxy.getJThreeContext().ResourceManager.createTexture("shadowmap."+register.scene.ID,this.shadowMapTileTextureSize,this.shadowMapTileTextureSize,TextureInternalFormatType.RGB,TextureType.UnsignedByte);
     this.shadowMatrixTextureSource = new Float32Array(this.maximumShadowMapCount * 2 * 16);
     this.shadowMatrixTexture = <BufferTexture> JThreeContextProxy.getJThreeContext().ResourceManager.createTexture("shadowmat."+register.scene.ID,8,this.maximumShadowMapCount,TextureInternalFormatType.RGBA,TextureType.Float);
+    this.shadowMapRenderBuffer = JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("shadowmap."+register.scene.ID,this.shadowMapTileTextureSize,this.shadowMapTileTextureSize);
   }
 
   public shadowMapTileTexture:BufferTexture;
@@ -25,6 +27,8 @@ class ShadowMapResourceManager
   private shadowMatrixTextureSource:Float32Array;
 
   private shadowMatrixTexture:BufferTexture;
+
+  public shadowMapRenderBuffer:RBO;
 
   public get shadowMapSize()
   {
@@ -67,7 +71,7 @@ class ShadowMapResourceManager
   {
     var x = shadowMapIndex % this.shadowMapTileHeight;
     var y = (shadowMapIndex - x)/this.shadowMapTileHeight;
-    renderer.GLContext.ViewPort(x,y,this.shadowMapSizeCache,this.shadowMapSizeCache);
+    renderer.GLContext.ViewPort(x*this.shadowMapSizeCache,y*this.shadowMapSizeCache,this.shadowMapSizeCache,this.shadowMapSizeCache);
   }
 
   public updateLightMatricis(renderer:RendererBase,lights:ShadowDroppableLight[])

@@ -16,8 +16,8 @@ import SpotLight = require("./Light/Impl/SpotLight");
  * Provides scene feature.
  */
 class Scene extends jThreeObjectWithID {
-    constructor() {
-        super();
+    constructor(id?:string) {
+        super(id);
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
     }

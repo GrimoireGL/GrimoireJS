@@ -2,7 +2,7 @@
   <resources>
     <ddebug name="light" target="gbuffer.primary" viewport="viewport#main"/>
     <ddebug name="depth" target="gbuffer.secoundary" viewport="viewport#main"/>
-    <ddebug name="normal" target="shadowmap" viewport="viewport#main"/>
+    <tdebug name="normal" target="shadowmap.main" viewport="viewport#main"/>
     <ddebug name="sl" target="light.specular" viewport="viewport#main"/>
     <ddebug name="dl" target="light.diffuse" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
@@ -28,7 +28,7 @@
     </renderer>
   </renderers>
   <scenes>
-    <scene ambient="black">
+    <scene ambient="black" name="main">
       <object id="camera-origin">
         <object>
           <camera aspect="1" far="5" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
@@ -37,6 +37,7 @@
       <object id="light-root">
         <!-- <alight color="darkgray" intencity="0.01" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/> -->
         <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-15d)"/>
+        <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-30d)"/>
         <!-- <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
         <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
         <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0.3,0.1,0)"/>

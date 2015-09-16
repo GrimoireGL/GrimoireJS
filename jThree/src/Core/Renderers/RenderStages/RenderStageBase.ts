@@ -35,6 +35,16 @@ class RenderStageBase extends JThreeObject {
 		this.renderer = renderer;
 	}
 
+	public preAllStage(scene: Scene,texs: ResolvedChainInfo)
+	{
+
+	}
+
+	public postAllStage(scene:Scene,texs:ResolvedChainInfo)
+	{
+		
+	}
+
 	/**
 	 * This method will be called before process render in each pass
 	 */

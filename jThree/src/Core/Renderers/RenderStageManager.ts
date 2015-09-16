@@ -108,6 +108,7 @@ class RenderStageManager
                 default:
                     targetObjects = sceneObjects;
             }
+            stage.preAllStage(scene,texs);
             stage.applyStageConfig();
             for (var i = 0; i < techniqueCount; i++)
             {
@@ -128,6 +129,7 @@ class RenderStageManager
                 this.stageName = "pass:" + i + "post begin stage of" + chain.stage.getTypeName();
                 stage.postEndStage(scene, i, texs);
             }
+            stage.postAllStage(scene,texs);
         });
     }
 }

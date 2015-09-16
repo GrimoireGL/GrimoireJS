@@ -13,31 +13,9 @@ class ShadowDroppableLight extends LightBase {
 		super(scene);
     }
 
-    public get bufferId()
-    {
-      return "shadowmap";
-    }
-
-    public get textureGenerateConfiguration():GeneraterInfoChunk
-    {
-      return {
-        generater:"rendererfit",
-        internalFormat:"RGB",
-        element:"UBYTE"
-      };
-    }
-
- public getLightBuffer(renderer:RendererBase)
- {
-   var tex = TextureGenerater.getTexture(renderer,this.bufferId);
-   if(tex)return tex;
-   tex = TextureGenerater.generateTexture(renderer,this.bufferId,this.textureGenerateConfiguration);
-   return tex;
- }
-
  public updateLightMatricis(renderer:RendererBase)
  {
-	 
+
  }
 
  protected updateLightProjection(renderer:RendererBase,lightProjection:Matrix)

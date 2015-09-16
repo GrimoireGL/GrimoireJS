@@ -20,30 +20,39 @@ class ShadowMapGenerationStage extends RenderStageBase
       return scene.LightRegister.shadowDroppableLights[techniqueIndex];
     }
 
+    public preAllStage(scene:Scene,chainInfo:ResolvedChainInfo)
+    {
+      this.bindAsOutBuffer(
+        this.DefaultFBO,
+        [
+          {
+            texture: scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture,
+            target: 0
+          }, {
+              texture: scene.LightRegister.shadowMapResourceManager.shadowMapRenderBuffer,
+              type: "rbo",
+              target: "depth"
+            }
+        ],()=>{
+          this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
+          this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
+        },()=>{}
+      );
+    }
+
+    public postAllStage(scene:Scene,chainInfo:ResolvedChainInfo)
+    {
+      this.Renderer.applyViewportConfigure();
+    }
+
 
     public preBeginStage(scene: Scene, techniqueCount: number, chainInfo: ResolvedChainInfo) {
-        var targetLight = this.getShadowDroppableLight(scene,techniqueCount);
-        this.bindAsOutBuffer(
-          this.DefaultFBO,
-          [
-            {
-        			texture: targetLight.getLightBuffer(this.Renderer),
-        			target: 0
-        		}, {
-        				texture: this.DefaultRBO,
-        				type: "rbo",
-        				target: "depth"
-        			}
-          ],()=>{
-            this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
-            this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
-          },()=>{}
-        );
     }
 
     public render(scene: Scene, object: SceneObject, techniqueCount: number,texs) {
         var geometry = object.Geometry;
         var targetLight = this.getShadowDroppableLight(scene,techniqueCount);
+        scene.LightRegister.shadowMapResourceManager.setShadowMapViewport(this.Renderer,techniqueCount);
         this.drawForMaterials(scene,object,techniqueCount,texs,"jthree.materials.shadowmap");
     }
 
