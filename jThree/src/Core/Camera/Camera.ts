@@ -83,16 +83,6 @@ class Camera extends SceneObject
 		glm.mat4.mul(this.viewProjectionMatrixCache,this.ProjectionMatrix.rawElements,this.ViewMatrix.rawElements);
 	}
 
-    public get Far():number
-	{
-		return undefined;
-	}
-
-    public get Near():number
-	{
-		return undefined;
-	}
-
     public update():void
 	{
 		super.update();

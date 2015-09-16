@@ -5,7 +5,9 @@ import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilter
 import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
 import ContextManagerBase = require('../../ContextManagerBase');
 import TextureBase = require('./TextureBase');
-
+/**
+ * Buffer texture is a texture created from array programatically.
+ */
 class BufferTexture extends TextureBase {
 	private width: number;
 
@@ -48,7 +50,7 @@ class BufferTexture extends TextureBase {
 		var textureWrapper = new BufferTextureWrapper(contextManager, this);
 		return textureWrapper;
 	}
-	
+
 	public resize(width:number,height:number)
 	{
 		if(this.width!==width||this.height!==height)

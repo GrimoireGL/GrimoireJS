@@ -336,6 +336,11 @@ class WebGLContextWrapper extends GLContextWrapperBase {
     this.gl.uniform1f(webglUniformLocation,num);
   }
 
+  public Uniform1iArray(webglUniformLocation:WebGLUniformLocation,nums:Int32Array)
+  {
+    this.gl.uniform1iv(webglUniformLocation,nums);
+  }
+
     public IsTexture(tex: WebGLTexture): boolean {
     return this.gl.isTexture(tex);
   }

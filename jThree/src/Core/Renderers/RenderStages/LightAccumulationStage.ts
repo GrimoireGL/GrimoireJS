@@ -12,9 +12,19 @@ class LightAccumulationStage extends RenderStageBase
 {
 
     private program: Program;
+
+    private matTextureTransform:Matrix;
     constructor(renderer: RendererBase)
     {
         super(renderer);
+        this.matTextureTransform = new Matrix(
+          [
+            0.5,0,0,0,
+            0,0.5,0,0,
+            0,0,1,0,
+            0.5,0.5,0,1
+          ]
+        );
     }
 
 
@@ -97,6 +107,22 @@ class LightAccumulationStage extends RenderStageBase
                 {
                   type:"matrixarray",
                   value:scene.LightRegister.viewInvertedLightMatricis
+                },
+                shadowMaps:
+                {
+                  type:"texturearray",
+                  value:scene.LightRegister.shadowMaps,
+                  registerBegin:4
+                },
+                matIV:
+                {
+                  type:"matrix",
+                  value:Matrix.inverse(renderer.Camera.ViewMatrix)
+                },
+                matTT:
+                {
+                  type:"matrix",
+                  value:this.matTextureTransform
                 }
             }
         });

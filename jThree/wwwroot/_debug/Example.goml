@@ -6,7 +6,8 @@
     <ddebug name="sl" target="light.specular" viewport="viewport#main"/>
     <ddebug name="dl" target="light.diffuse" viewport="viewport#main"/>
     <tdebug name="dli" target="directional.test"/>
-    <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="100" texture="gomlTexture"/>
+    <phong diffuse="blue" name="mat2" specular="#CCC" specularpower="100" texture="gomlTexture"/>
+    <phong diffuse="black" name="mat" specular="#CCC" specularpower="100"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cylinder divide="30" name="cyl"/>
@@ -27,16 +28,16 @@
     </renderer>
   </renderers>
   <scenes>
-    <scene ambient="dimgray">
+    <scene ambient="black">
       <object id="camera-origin">
         <object>
           <camera aspect="1" far="5" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
         </object>
       </object>
       <object id="light-root">
-        <alight color="darkgray" intencity="0.01" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/>
-        <dlight color="white" intencity="1" position="0,1,2" rotation="x(-15d)"/>
-        <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
+        <!-- <alight color="darkgray" intencity="0.01" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/> -->
+        <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-15d)"/>
+        <!-- <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
         <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
         <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0.3,0.1,0)"/>
         <plight color="grey" decay="0.1" distance="1" intensity="1" position="(-0.3,0.1,0)"/>
@@ -55,7 +56,7 @@
         <plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.8)"/>
         <plight color="pink" decay="0.1" distance="1" intensity="1" position="(-0.7,0.1,0.3)"/>
         <plight color="azure" decay="0.1" distance="1" intensity="1" position="(0.7,0.1,0.3)"/>
-        <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/>
+        <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/> -->
 
       </object>
       <pmx scale="0.1" src="/GUMI/GUMI.pmx">

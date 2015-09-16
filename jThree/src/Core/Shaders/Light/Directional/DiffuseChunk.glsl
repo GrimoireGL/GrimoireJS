@@ -4,5 +4,9 @@ vec3 calcDirectionalLight(vec3 position,vec3 normal,int i,vec4 diffuse)
   vec3 color = getLightParameter(i,0).yzw*diffuse.rgb*diffuse.a;
   vec3 dir = (vec4(getLightParameter(i,1).xyz,0)).xyz;
   accum += max(0.,-dot(dir,normal)) * color *diffuse.rgb;
+  vec4 shadowMapCoord = matLWs[0] *matIV * vec4(position,1.0);//Works fine here
+  vec3 lightSpaceRawDepthShadowMap = texture2DProj(shadowMaps[0],matTT*shadowMapCoord).rgb;
+  float lightSpaceDepth = unpackFloat(lightSpaceRawDepthShadowMap);
+   if(lightSpaceDepth+0.005 < shadowMapCoord.z/shadowMapCoord.w)accum = vec3(0,0,0);
   return accum;
 }

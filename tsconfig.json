@@ -118,6 +118,7 @@
         "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/ScalarFloatRegister.ts",
         "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/ScalarIntegerRegister.ts",
         "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/Texture2DRegister.ts",
+        "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/TextureArrayRegister.ts",
         "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/UniformTypeList.ts",
         "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/UniformVariableRegisterBase.ts",
         "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/VectorFloatArrayRegister.ts",

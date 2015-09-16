@@ -15,6 +15,7 @@ import DefaultLightTypeList = require("./DefaultLightTypeList");
 import ShadowDroppableLight = require("./ShadowMap/ShadowDroppableLight");
 import GLSpec = require("../GLSpecManager");
 import JThreeLogger = require("../../Base/JThreeLogger");
+import TextureBase = require("../Resources/Texture/TextureBase");
 /**
  * Provides light management feature by renderer
  */
@@ -36,6 +37,8 @@ class LightRegister
     public lightWorldMatricis = new Float32Array(this.shadowMapMax * 16);
 
     public viewInvertedLightMatricis = new Float32Array(this.shadowMapMax * 16);
+
+    public shadowMaps:TextureBase[] = new Array(this.shadowMapMax);
 
     /**
      * BufferTexture containing light parameters.
@@ -303,6 +306,7 @@ class LightRegister
                     this.lightWorldMatricis[i * 16 + j] = shadowDroppable.matLightProjection.rawElements[j];
                     this.viewInvertedLightMatricis[i*16 +j] = shadowDroppable.matInverseLightProjection.rawElements[j];
                  }
+                 this.shadowMaps[i]= shadowDroppable.getLightBuffer(renderer);
             }
         }
         this.parameterTexture.updateTexture(this.textureSourceBuffer);

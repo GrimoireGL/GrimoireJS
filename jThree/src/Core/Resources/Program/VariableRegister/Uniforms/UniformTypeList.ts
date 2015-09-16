@@ -7,7 +7,8 @@ var UniformTypeList:{[name:string]:VariableRegisterBase}=
     "vector": new (require("./VectorFloatRegister"))(),
     "texture": new (require("./Texture2DRegister"))(),
     "vectorarray":new (require("./VectorFloatArrayRegister"))(),
-    "matrixarray":new (require("./MatrixFloatArrayRegister"))()
+    "matrixarray":new (require("./MatrixFloatArrayRegister"))(),
+    "texturearray":new(require("./TextureArrayRegister"))()
 };
 
 export = UniformTypeList;

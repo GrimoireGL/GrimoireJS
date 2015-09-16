@@ -10,13 +10,13 @@ class ViewCameraBase extends Camera
     this.position=new Vector3(0,0,0);
     this.lookAt=new Vector3(0,0,-1);
     this.updir=new Vector3(0,1,0);
-    this.UpdateViewMatrix();
+    this.viewMatrix = Matrix.multiply(Matrix.inverse(this.transformer.LocalToGlobal),Matrix.lookAt(this.Position, this.LookAt, this.UpDirection));
     this.transformer.onUpdateTransform((t,o)=>this.UpdateViewMatrix(o));
   }
   //ViewMatix paramaters
-    public position:Vector3;
-    public lookAt:Vector3;
-    public updir:Vector3;
+    private position:Vector3;
+    private lookAt:Vector3;
+    private updir:Vector3;
     public viewMatrix:Matrix;
 
     public get Position():Vector3

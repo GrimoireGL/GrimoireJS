@@ -10,8 +10,11 @@ uniform vec2 lightParamSize;
 
 uniform mat4 matIP;
 uniform mat4 matV;
+uniform mat4 matIV;
+uniform mat4 matTT;
 uniform mat4 matLWs[SHADOW_MAP_LENGTH];
 uniform mat4 matVILs[SHADOW_MAP_LENGTH];
+uniform sampler2D	shadowMaps[SHADOW_MAP_LENGTH];
 
 //varying variables
 varying vec2 vUV;
@@ -68,6 +71,12 @@ float getSpecularCoefficient()
 {
 	return texture2D(primary,vUV).a;
 }
+
+float unpackFloat(vec3 rgb){
+       const vec3 bit_shift = vec3( 1.0/(256.0*256.0), 1.0/256.0, 1.0);
+       float res = dot(rgb, bit_shift);
+       return res;
+    }
 
 ///<<< LIGHT FUNCTION DEFINITIONS
 

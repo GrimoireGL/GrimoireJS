@@ -490,5 +490,9 @@ class GLContextWrapperBase extends JThreeObject
     {
 
     }
+
+    public Uniform1iArray(webglUniformLocation:WebGLUniformLocation,nums:Int32Array)
+    {
+    }
 }
 export =GLContextWrapperBase;
