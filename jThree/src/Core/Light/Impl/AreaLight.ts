@@ -34,9 +34,9 @@ class AreaLight extends LightBase {
     public getParameters(renderer:RendererBase): number[] {
         var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
         var b = Matrix.transformPoint(renderer.Camera.ViewMatrix,this.basePoint);
-        var r = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.rightPoint),b);
-        var t = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.topPoint),b);
-        var f = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.farPoint),b);
+        var r = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.calcAxis(this.rightLength,0,0)),b);
+        var t = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.calcAxis(0,this.topLength,0)),b);
+        var f = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.calcAxis(0,0,this.farLength)),b);
         var factor =[r.X,r.Y,r.Z,t.X,t.Y,t.Z,f.X,f.Y,f.Z];
         glm.mat3.invert(factor,factor);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
@@ -46,15 +46,20 @@ class AreaLight extends LightBase {
             factor[6],factor[7],factor[8]];
     }
 
+		private calcAxis(x:number,y:number,z:number)
+		{
+			return new Vector3(x + this.basePoint.X , y + this.basePoint.Y, -z + this.basePoint.Z);
+		}
+
 	public intensity: number = 1.0;
 
   public basePoint = Vector3.Zero;
 
-  public rightPoint = Vector3.XUnit;
+  public rightLength:number =1;
 
-  public farPoint = Vector3.ZUnit;
+  public farLength:number =1;
 
-  public topPoint = Vector3.YUnit;
+  public topLength:number = 1;
 
 	public get LightType(): string {
 		return "jthree.lights.arealight";

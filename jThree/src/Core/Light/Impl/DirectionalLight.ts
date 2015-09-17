@@ -20,7 +20,7 @@ class DirectionalLight extends ShadowDroppableLight {
         var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             dir.X,dir.Y,dir.Z,0,
-					1,shadowMapIndex,0.05];
+					this.isShadowDroppable?1:0,shadowMapIndex,this.bias];
     }
 
 		public updateLightMatricis(renderer:RendererBase)
@@ -29,6 +29,8 @@ class DirectionalLight extends ShadowDroppableLight {
 		}
 
 	public intensity:number;
+
+	public bias:number = 0.001;
 
 	public get LightType(): string {
 		return "jthree.lights.directionallight";

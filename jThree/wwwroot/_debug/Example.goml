@@ -35,17 +35,17 @@
         </object>
       </object>
       <object id="light-root" rotation="x(-15d)">
-         <alight color="#404040" intencity="0.01" base="-1,-0.1,-1" right="1,-0.1,-1" top="-1,100,-1" far="-1,-0.1,1"/>
-        <dlight color="red" intencity="1" position="1,1,2" rotation="y(15d)"/>
+         <alight color="#FFF" intensity="0.3" base="-1,-0.1,1" top="10"  far="2" right="2"/>
+        <dlight color="red" intencity="1" position="1,1,2" rotation="y(15d)" shadow="true"/>
         <dlight color="blue" intencity="1" position="-1,1,2" rotation="y(-15d)"/>
         <!-- <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-30d)"/> -->
-        <!-- <plight color="red" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0)"/>
-        <plight color="blue" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
-        <plight color="yellow" decay="0.1" distance="1" intensity="1" position="(0.3,0.1,0)"/>
-        <plight color="grey" decay="0.1" distance="1" intensity="1" position="(-0.3,0.1,0)"/>
-        <plight color="purple" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.2)"/>
-        <plight color="green" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
-        <plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.2)"/>
+         <plight color="red" decay="0.5" distance="1" intensity="1" position="(0.5,0.1,0)"/>
+        <plight color="blue" decay="0.5" distance="1" intensity="1" position="(-0.5,0.1,0)"/>
+        <plight color="yellow" decay="0.5" distance="1" intensity="1" position="(0.3,0.1,0)"/>
+        <plight color="grey" decay="0.5" distance="1" intensity="1" position="(-0.3,0.1,0)"/>
+        <plight color="purple" decay="0.5" distance="1" intensity="1" position="(0.5,0.1,0.2)"/>
+        <plight color="green" decay="0.5" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
+        <!--<plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.2)"/>
         <plight color="pink" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
         <plight color="azure" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.5)"/>
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,-0.5)"/>
@@ -62,7 +62,7 @@
 
       </object>
       <pmx scale="0.1" src="/GUMI/GUMI.pmx">
-        <vmd id="melt" frame="7200" src="melt.vmd" enabled="true" autoSpeed="-10"/>
+        <vmd id="melt" frame="0" src="melt.vmd" enabled="true" autoSpeed="1"/>
         <vmd id="sakura" frame="0" src="sakura.vmd" enabled="false"/>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>

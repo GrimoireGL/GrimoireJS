@@ -105,7 +105,7 @@ class VMDNode extends GomlTreeNodeBase
 			{
 				var dt = timer.Time -this.lastTime;
 				this.lastTime = timer.Time;
-				this.attributes.setValue("frame",this.frame+dt/1000*20*this.autoSpeed);
+				this.attributes.setValue("frame",this.frame+dt/1000*30*this.autoSpeed);
 			}
 		}
 	}

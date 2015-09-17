@@ -24,26 +24,26 @@ class AreaLightNode extends LightNodeBase
 				}
 			},
 			"right":{
-				value: Vector3.XUnit,
-				converter:"vector3",
+				value:1,
+				converter:"number",
 				handler:(v)=>{
-					this.targetLight.rightPoint = v.Value;
+					this.targetLight.rightLength = v.Value;
 				}
 			}
 			,
 			"top":{
-				value: Vector3.YUnit,
-				converter:"vector3",
+				value: 1,
+				converter:"number",
 				handler:(v)=>{
-					this.targetLight.topPoint = v.Value;
+					this.targetLight.topLength = v.Value;
 				}
 			}
 			,
 			"far":{
-				value: Vector3.ZUnit,
-				converter:"vector3",
+				value: 1,
+				converter:"number",
 				handler:(v)=>{
-					this.targetLight.farPoint = v.Value;
+					this.targetLight.farLength = v.Value;
 				}
 			}
 		});

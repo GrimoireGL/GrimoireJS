@@ -14,8 +14,29 @@ class DirectionalLightNode extends LightNodeBase
 		this.attributes.defineAttribute({
 			"intensity":{
 				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
+			},
+			"shadow":{
+				value:false,
+				converter:"boolean",
+				handler:(v)=>{
+					this.targetLight.isShadowDroppable = v.Value;
+				}
+			},
+			"bias":
+			{
+				value:0.001,
+				converter:"number",
+				handler:(v)=>{
+					this.targetLight.bias = v.Value;
+				}
 			}
-		});
+		}
+	);
+	}
+
+	public afterLoad()
+	{
+		this.attributes.applyDefaultValue();
 	}
 
 	protected constructLight():LightBase
