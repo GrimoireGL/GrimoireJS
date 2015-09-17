@@ -26,7 +26,7 @@ class ShadowMapResourceManager
 
   private shadowMatrixTextureSource:Float32Array;
 
-  private shadowMatrixTexture:BufferTexture;
+  public shadowMatrixTexture:BufferTexture;
 
   public shadowMapRenderBuffer:RBO;
 

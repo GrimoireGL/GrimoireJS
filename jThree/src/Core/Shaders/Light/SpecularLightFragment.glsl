@@ -2,8 +2,8 @@
 //precision mediump float
 //#define SHADOW_MAP_LENGTH <<Max count of shadow map>>
 uniform highp   sampler2D primary;
-uniform mediump sampler2D secoundary;
-uniform mediump sampler2D third;
+uniform lowp sampler2D secoundary;
+uniform lowp sampler2D third;
 uniform highp   sampler2D lightParam;
 
 uniform vec2 lightParamSize;
@@ -11,10 +11,10 @@ uniform vec2 lightParamSize;
 uniform mat4 matIP;
 uniform mat4 matV;
 uniform mat4 matIV;
-uniform mat4 matTT;
-uniform mat4 matLWs[SHADOW_MAP_LENGTH];
-uniform mat4 matVILs[SHADOW_MAP_LENGTH];
-uniform sampler2D	shadowMaps[SHADOW_MAP_LENGTH];
+
+uniform highp sampler2D shadowParam;
+uniform lowp sampler2D shadowMap;
+
 
 //varying variables
 varying vec2 vUV;
