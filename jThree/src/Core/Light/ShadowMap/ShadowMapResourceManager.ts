@@ -12,8 +12,8 @@ class ShadowMapResourceManager
   constructor(register:LightRegister)
   {
     this.shadowMapTileTexture=<BufferTexture>JThreeContextProxy.getJThreeContext().ResourceManager.createTexture("shadowmap."+register.scene.ID,this.shadowMapTileTextureSize,this.shadowMapTileTextureSize,TextureInternalFormatType.RGB,TextureType.UnsignedByte);
-    this.shadowMatrixTextureSource = new Float32Array(this.maximumShadowMapCount * 2 * 16);
-    this.shadowMatrixTexture = <BufferTexture> JThreeContextProxy.getJThreeContext().ResourceManager.createTexture("shadowmat."+register.scene.ID,8,this.maximumShadowMapCount,TextureInternalFormatType.RGBA,TextureType.Float);
+    this.shadowMatrixTextureSource = new Float32Array(this.maximumShadowMapCount * 3 * 16);
+    this.shadowMatrixTexture = <BufferTexture> JThreeContextProxy.getJThreeContext().ResourceManager.createTexture("shadowmat."+register.scene.ID,12,this.maximumShadowMapCount,TextureInternalFormatType.RGBA,TextureType.Float);
     this.shadowMapRenderBuffer = JThreeContextProxy.getJThreeContext().ResourceManager.createRBO("shadowmap."+register.scene.ID,this.shadowMapTileTextureSize,this.shadowMapTileTextureSize);
   }
 
@@ -81,8 +81,9 @@ class ShadowMapResourceManager
       var light = lights[i];
       if(!light)return;
       light.updateLightMatricis(renderer);
-      this.copyMatrixToLightMatrixTextureSource(light.matLightProjection,32*i);
-      this.copyMatrixToLightMatrixTextureSource(light.matInverseLightProjection,32*i+16);
+      this.copyMatrixToLightMatrixTextureSource(light.matLightProjection,48*i);
+      this.copyMatrixToLightMatrixTextureSource(light.matInverseLightProjection,48*i+16);
+      this.generateTextureTransformMatrix(48*i+32,i);
     }
     this.shadowMatrixTexture.updateTexture(this.shadowMatrixTextureSource);
   }
@@ -92,6 +93,35 @@ class ShadowMapResourceManager
     for (let i = 0; i < 16; i++) {
         this.shadowMatrixTextureSource[offset+i] = data.rawElements[i];
     }
+  }
+
+  private generateTextureTransformMatrix(offset:number,index:number)
+  {
+    var x = index % this.shadowMapTileHeight;
+    var y = (index - x)/this.shadowMapTileHeight;
+    var sizeTransform = 1/(2*this.shadowMapTileHeight);
+
+
+    this.shadowMatrixTextureSource[offset + 0] = sizeTransform;
+    this.shadowMatrixTextureSource[offset + 1] = 0;
+    this.shadowMatrixTextureSource[offset + 2] = 0;
+    this.shadowMatrixTextureSource[offset + 3] = 0;
+
+    this.shadowMatrixTextureSource[offset + 4] = 0;
+    this.shadowMatrixTextureSource[offset + 5] = sizeTransform;
+    this.shadowMatrixTextureSource[offset + 6] = 0;
+    this.shadowMatrixTextureSource[offset + 7] = 0;
+
+    this.shadowMatrixTextureSource[offset + 8] =  0;
+    this.shadowMatrixTextureSource[offset + 9] =  0;
+    this.shadowMatrixTextureSource[offset + 10] = 1;
+    this.shadowMatrixTextureSource[offset + 11] = 0;
+
+    this.shadowMatrixTextureSource[offset + 12] = sizeTransform*(2*x+1);
+    this.shadowMatrixTextureSource[offset + 13] = sizeTransform*(2*y+1);
+    this.shadowMatrixTextureSource[offset + 14] = 0;
+    this.shadowMatrixTextureSource[offset + 15] = 1;
+
   }
 }
 
