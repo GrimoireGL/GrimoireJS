@@ -22,7 +22,7 @@ class ShadowMapResourceManager
    * Size of shadow map for one of shadow map.
    * @type {number}
    */
-  private shadowMapSizeCache:number = 512;
+  private shadowMapSizeCache:number = 256;
 
   private shadowMatrixTextureSource:Float32Array;
 

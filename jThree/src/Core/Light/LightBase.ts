@@ -58,7 +58,7 @@ class LightBase extends SceneObject
         this.parameterChanged.addListerner(handler);
     }
 
-    public getParameters(renderer:RendererBase): number[] {
+    public getParameters(renderer:RendererBase,shadowMapIndex?:number): number[] {
         return [];
     }
 

@@ -274,7 +274,7 @@ class LightRegister
     private lightUpdate(light: LightBase,renderer:RendererBase)
     {
         var index = this.lightIdDictionary.get(light.ID);
-        var parameters = light.getParameters(renderer);
+        var parameters = light.getParameters(renderer,this.shadowDroppableLightCount);
         var baseIndex = index * 4 * this.TextureWidth + 1;
         var endIndex = baseIndex + parameters.length;
         this.textureSourceBuffer[baseIndex - 1] = this.diffuseShaderComposer.getLightTypeId(light);
