@@ -14,55 +14,15 @@ import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 declare function require(string): string;
 
 class PhongMaterial extends Material {
-  private diffuse = Color4.parseColor('#F0F');
+  public diffuse = Color4.parseColor('#F0F');
 
-    public get Diffuse(): Color4 {
-    return this.diffuse;
-  }
+  public ambient = Color4.parseColor('#F0F');
 
-    public set Diffuse(col: Color4) {
-    this.diffuse = col;
-  }
+  public specular = Color3.parseColor('#F0F');
 
-  private ambient = Color4.parseColor('#F0F');
+  public specularCoefficient = 10;
 
-    public get Ambient(): Color4 {
-    return this.ambient;
-  }
-
-    public set Ambient(col: Color4) {
-    this.ambient = col;
-  }
-
-  private specular = Color3.parseColor('#F0F');
-
-    public get Specular(): Color3 {
-    return this.specular;
-  }
-
-    public set Specular(col: Color3) {
-    this.specular = col;
-  }
-
-  private specularCoefficient = 10;
-
-    public get SpecularCoefficient(): number {
-    return this.specularCoefficient;
-  }
-
-    public set SpecularCoefficient(val: number) {
-    this.specularCoefficient = val;
-  }
-
-  private texture: TextureBase=null;
-
-    public get Texture(): TextureBase {
-    return this.texture;
-  }
-
-    public set Texture(tex: TextureBase) {
-    this.texture = tex;
-  }
+  public texture: TextureBase=null;
 
   protected program: Program;
   constructor() {
@@ -90,13 +50,13 @@ class PhongMaterial extends Material {
                 matMVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: renderer.Camera.ViewMatrix },
                 matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
-                texture: { type: "texture", register: 1, value: this.Texture },
+                texture: { type: "texture", register: 1, value: this.texture },
                 dlight: { type: "texture", register: 0, value: texs["DLIGHT"] },
                 slight: { type: "texture", register: 2, value: texs["SLIGHT"] },
-                ambient: { type: "vector", value: this.Ambient.toVector() },
-                diffuse: { type: "vector", value: this.Diffuse.toVector() },
-                specular: { type: "vector", value: this.Specular.toVector4(this.SpecularCoefficient) },
-                textureUsed: { type: "integer", value: (this.Texture != null) ? 1 : 0 },
+                ambient: { type: "vector", value: this.ambient.toVector() },
+                diffuse: { type: "vector", value: this.diffuse.toVector() },
+                specular: { type: "vector", value: this.specular.toVector4(this.specularCoefficient) },
+                textureUsed: { type: "integer", value: (this.texture != null) ? 1 : 0 },
                 ambientCoefficient:{type:"vector",value:scene.sceneAmbient.toVector()}
             }
         });

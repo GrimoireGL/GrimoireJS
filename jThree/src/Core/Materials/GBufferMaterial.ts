@@ -66,7 +66,7 @@ class GBufferMaterial extends Material
         var v = object.Transformer.calculateMVPMatrix(renderer);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
         var coefficient = 0;
-        if(fm.SpecularCoefficient)coefficient = fm.SpecularCoefficient;
+        if(fm.specularCoefficient)coefficient = fm.specularCoefficient;
         pw.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -78,7 +78,7 @@ class GBufferMaterial extends Material
                 matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
                 specularCoefficient: {
                     type: "float",
-                    value: coefficient         
+                    value: coefficient
                 }
             }
         });
@@ -90,8 +90,8 @@ class GBufferMaterial extends Material
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
         var albedo;
-        if (fm && fm.Diffuse) {
-            albedo = fm.Diffuse.toVector();
+        if (fm && fm.diffuse) {//TODO there should be good implementation
+            albedo = fm.diffuse.toVector();
         } else {
             albedo = new Vector4(1, 0, 0, 1);
         }
@@ -117,12 +117,12 @@ class GBufferMaterial extends Material
                 },
                 texture: {
                     type: "texture",
-                    value: fm.Texture,
+                    value: fm.texture,
                     register: 0
                 },
                 textureUsed: {
                     type: "integer",
-                    value: (fm.Texture ? 1 : 0)
+                    value: (fm.texture ? 1 : 0)
                 }
             }
         });
@@ -134,8 +134,8 @@ class GBufferMaterial extends Material
         var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
         var specular;
-        if (fm && fm.Diffuse) {
-            specular = fm.Specular.toVector();
+        if (fm && fm.diffuse) {
+            specular = fm.specular.toVector();
         } else
         {
             specular = new Vector3(1, 0, 0);

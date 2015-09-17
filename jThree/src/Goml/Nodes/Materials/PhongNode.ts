@@ -13,25 +13,25 @@ class PhongNode extends MaterialNodeBase
         super(elem,loader,parent);
         this.attributes.defineAttribute({
           "diffuse":{
-            value:"#f0C",converter:"color4",handler:(v)=>{this.material.Diffuse=v.Value}
+            value:"#f0C",converter:"color4",handler:(v)=>{this.material.diffuse=v.Value}
           },
           "ambient":{
-            value:"#222",converter:"color4",handler:(v)=>{this.material.Ambient=v.Value}
+            value:"#222",converter:"color4",handler:(v)=>{this.material.ambient=v.Value}
           },
           "specular":
           {
-            value:"#CCC",converter:"color3",handler:(v)=>{this.material.Specular=v.Value;}
+            value:"#CCC",converter:"color3",handler:(v)=>{this.material.specular=v.Value;}
           },
           "specularpower":
           {
-            value:10,converter:"number",handler:(v)=>{this.material.SpecularCoefficient=v.Value;}
+            value:10,converter:"number",handler:(v)=>{this.material.specularCoefficient=v.Value;}
           },
           "texture":
           {
               value:null, converter: "string", handler: (v) =>
               {
                   if(v.Value)
-                  this.material.Texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
+                  this.material.texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
               }
           }
         });
