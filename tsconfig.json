@@ -247,6 +247,7 @@
         "./jThree/src/PMX/Core/PMXModel.ts",
         "./jThree/src/PMX/Core/PMXMorph.ts",
         "./jThree/src/PMX/Core/PMXMorphManager.ts",
+        "./jThree/src/PMX/Core/PMXShadowMapMaterial.ts",
         "./jThree/src/PMX/Core/PMXSkeleton.ts",
         "./jThree/src/PMX/Goml/Factory/PMXBoneTagFactory.ts",
         "./jThree/src/PMX/Goml/Factory/PMXMorphTagFactory.ts",

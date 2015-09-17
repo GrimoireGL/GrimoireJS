@@ -79,7 +79,7 @@ class ShadowMapResourceManager
     for (let i = 0; i < Math.min(lights.length,this.maximumShadowMapCount); i++)
     {
       var light = lights[i];
-      if(!light)return;
+      if(!light)break;
       light.updateLightMatricis(renderer);
       this.copyMatrixToLightMatrixTextureSource(light.matLightProjection,48*i);
       this.copyMatrixToLightMatrixTextureSource(light.matInverseLightProjection,48*i+16);

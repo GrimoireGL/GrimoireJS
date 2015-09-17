@@ -81,7 +81,7 @@ float unpackFloat(vec3 rgb){
 
 mat4 getShadowMatrix(float shadowIndex,float paramIndex)
 {
-	float y = 1./(2.*shadowMapMax) + 1./shadowMapMax;
+	float y = 1./(2.*shadowMapMax) + 1./shadowMapMax*shadowIndex;
 	return mat4(
 	texture2D(shadowParam,vec2(1./24.+1./3.*paramIndex,y)),
 	texture2D(shadowParam,vec2(3./24.+1./3.*paramIndex,y)),
