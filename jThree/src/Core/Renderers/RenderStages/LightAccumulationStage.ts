@@ -115,7 +115,11 @@ class LightAccumulationStage extends RenderStageBase
                   type:"matrix",
                   value:Matrix.inverse(renderer.Camera.ViewMatrix)
                 },
-
+                shadowMapMax:
+                {
+                  type:"float",
+                  value:scene.LightRegister.shadowMapResourceManager.maximumShadowMapCount
+                }
             }
         });
         geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();

@@ -15,6 +15,7 @@ uniform mat4 matIV;
 
 uniform highp sampler2D shadowParam;
 uniform lowp sampler2D shadowMap;
+uniform float shadowMapMax;
 
 //varying variables
 varying vec2 vUV;
@@ -76,6 +77,16 @@ float unpackFloat(vec3 rgb){
        const vec3 bit_shift = vec3( 1.0/(256.0*256.0), 1.0/256.0, 1.0);
        float res = dot(rgb, bit_shift);
        return res;
+}
+
+mat4 getShadowMatrix(float shadowIndex,float paramIndex)
+{
+	float y = 1./(2.*shadowMapMax) + 1./shadowMapMax;
+	return mat4(
+	texture2D(shadowParam,vec2(1./24.+1./3.*paramIndex,y)),
+	texture2D(shadowParam,vec2(3./24.+1./3.*paramIndex,y)),
+	texture2D(shadowParam,vec2(5./24.+1./3.*paramIndex,y)),
+	texture2D(shadowParam,vec2(7./24.+1./3.*paramIndex,y)));
 }
 
 ///<<< LIGHT FUNCTION DEFINITIONS
