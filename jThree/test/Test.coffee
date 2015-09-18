@@ -1,3 +1,4 @@
+require('source-map-support').install()
 require './LoadBundle'
 require './spec-helper'
 require './Sample/SampleTest'
