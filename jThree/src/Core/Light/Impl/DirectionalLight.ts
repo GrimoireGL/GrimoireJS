@@ -16,8 +16,10 @@ class DirectionalLight extends ShadowDroppableLight {
 		super(scene);
     }
 
+		private directionCache:Vector3;
+
     public getParameters(renderer:RendererBase,shadowMapIndex?:number): number[] {
-        var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
+        var dir = this.directionCache = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             dir.X,dir.Y,dir.Z,0,
 					this.isShadowDroppable?1:0,shadowMapIndex,this.bias];
@@ -26,6 +28,12 @@ class DirectionalLight extends ShadowDroppableLight {
 		public updateLightMatricis(renderer:RendererBase)
 		{
 			this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(1.0,1,0.1,5),Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit)));
+		}
+
+		private LiSPSM()
+		{
+			var smY = this.directionCache.negateThis();
+			
 		}
 
 	public intensity:number;
