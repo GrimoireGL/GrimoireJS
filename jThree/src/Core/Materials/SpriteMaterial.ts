@@ -10,62 +10,11 @@ declare function require(string): string;
 
 class SpriteMaterial extends Material
 {
-    private texture: TextureBase;
-
-    public get Texture(): TextureBase
-    {
-        return this.texture;
-    }
-
-    public set Texture(tex: TextureBase)
-    {
-        this.texture = tex;
-    }
-
-    private ctR: number = 0;
-    private ctG: number = 1;
-    private ctB: number = 2;
-    private ctA: number = 3;
-    public get CTR(): number
-    {
-        return this.ctR;
-    }
-
-    public set CTR(ctr: number)
-    {
-        this.ctR = ctr;
-    }
-
-    public get CTG(): number
-    {
-        return this.ctG;
-    }
-
-    public set CTG(ctg: number)
-    {
-        this.ctG = ctg;
-    }
-
-    public get CTB(): number
-    {
-        return this.ctB;
-    }
-
-    public set CTB(ctb: number)
-    {
-        this.ctB = ctb;
-    }
-
-    public get CTA(): number
-    {
-        return this.ctA;
-    }
-
-    public set CTA(cta: number)
-    {
-        this.ctA = cta;
-    }
-
+    public texture: TextureBase;
+    public ctR: number = 0;
+    public ctG: number = 1;
+    public ctB: number = 2;
+    public ctA: number = 3;
 
     protected program: Program;
     constructor()
@@ -85,10 +34,10 @@ class SpriteMaterial extends Material
         var v = object.Transformer.calculateMVPMatrix(renderer);
         //gen ct matrix
         var ctM: Matrix = Matrix.zero();
-        if (this.CTR < 4) ctM.setAt(this.CTR, 0, 1);
-        if (this.CTG < 4) ctM.setAt(this.CTG, 1, 1);
-        if (this.CTB < 4) ctM.setAt(this.CTB, 2, 1);
-        if (this.CTA < 4) ctM.setAt(this.CTA, 3, 1);
+        if (this.ctR < 4) ctM.setAt(this.ctR, 0, 1);
+        if (this.ctG < 4) ctM.setAt(this.ctG, 1, 1);
+        if (this.ctB < 4) ctM.setAt(this.ctB, 2, 1);
+        if (this.ctA < 4) ctM.setAt(this.ctA, 3, 1);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -98,8 +47,8 @@ class SpriteMaterial extends Material
                 matMVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: renderer.Camera.ViewMatrix },
                 matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
-                u_sampler: { type: "texture", register: 0, value: this.Texture },
-                additionA: { type: "integer", value: this.CTA < 4 ? 0 : 1 },
+                u_sampler: { type: "texture", register: 0, value: this.texture },
+                additionA: { type: "integer", value: this.ctA < 4 ? 0 : 1 },
                 ctM: { type: "matrix", value: ctM }
             }
         });

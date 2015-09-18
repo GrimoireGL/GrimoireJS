@@ -16,7 +16,7 @@ class SpriteNode extends MaterialNodeBase {
                 value: "tex", converter: "string", handler: (v) => {
                     var context = JThreeContextProxy.getJThreeContext();
                     context.ResourceManager.getTextureHandler(v.Value, (v) => {
-                        this.material.Texture = v;
+                        this.material.texture = v;
                     });
                 }
             }

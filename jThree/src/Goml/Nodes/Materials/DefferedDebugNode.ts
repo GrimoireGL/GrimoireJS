@@ -15,36 +15,36 @@ class DefferedDebugNode extends MaterialNodeBase {
                 value: "rb1", converter: "string"
             },
             "viewport":
-            {//TODO implement texture node
+            {
                 value: "viewport", converter: "string", handler: (v) => {
                     var context = JThreeContextProxy.getJThreeContext();
                     var viewportTargets = loader.getNodeByQuery(v.Value);
                     if (viewportTargets.length > 0) {
                         var viewport = <ViewportNode>viewportTargets[0];
                         context.ResourceManager.getTextureHandler(viewport.TargetViewport.ID + "." + this.attributes.getValue("target"), (v) => {
-                            this.material.Texture = v;
+                            this.material.texture = v;
                         });
                     }
                 }
             },
             "R":
             {
-                value: "0", converter: "number", handler: (v) => { this.material.CTR = v.Value; }
+                value: "0", converter: "number", handler: (v) => { this.material.ctR = v.Value; }
             },
 
             "G":
             {
-                value: "1", converter: "number", handler: (v) => { this.material.CTG = v.Value; }
+                value: "1", converter: "number", handler: (v) => { this.material.ctG = v.Value; }
             },
 
             "B":
             {
-                value: "2", converter: "number", handler: (v) => { this.material.CTB = v.Value; }
+                value: "2", converter: "number", handler: (v) => { this.material.ctB = v.Value; }
             },
 
             "A":
             {
-                value: "3", converter: "number", handler: (v) => { this.material.CTA = v.Value; }
+                value: "3", converter: "number", handler: (v) => { this.material.ctA = v.Value; }
             }
         });
 
