@@ -5,8 +5,7 @@ import JThreeLogger = require("../Base/JThreeLogger");
 class GLExtensionManager extends JThreeObject
 {
     private requiredExtensions =
-    ["WEBGL_draw_buffers",
-     "WEBGL_depth_texture",
+    [
      "OES_element_index_uint",
       "OES_texture_float",
     "EXT_texture_filter_anisotropic"];
