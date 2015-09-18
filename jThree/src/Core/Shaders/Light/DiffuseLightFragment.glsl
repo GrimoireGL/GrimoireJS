@@ -89,6 +89,11 @@ mat4 getShadowMatrix(float shadowIndex,float paramIndex)
 	texture2D(shadowParam,vec2(7./24.+1./3.*paramIndex,y)));
 }
 
+bool isInTextureUVRange(vec2 uv)
+{
+	return uv.x >= 0. && uv.x <= 1. && uv.y >= 0. && uv.y <=1.;
+}
+
 ///<<< LIGHT FUNCTION DEFINITIONS
 
 void main(void)
