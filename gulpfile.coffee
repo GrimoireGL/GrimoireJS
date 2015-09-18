@@ -8,6 +8,10 @@ gutil = require 'gulp-util'
 plumber = require 'gulp-plumber'
 rename = require 'gulp-rename'
 watchify = require 'gulp-watchify'
+sourcemaps = require 'gulp-sourcemaps'
+buffer = require 'vinyl-buffer'
+uglify = require 'gulp-uglify'
+gulpif = require 'gulp-if'
 tsify = require 'tsify'
 shaderify = require 'shaderify'
 jade = require 'gulp-jade'
@@ -103,6 +107,7 @@ config =
     name: 'j3.js'
     dest: ['./jThree/bin/product', './jThree/wwwroot']
     target: 'web'
+    minify: false
 
   test:
     bundler: 'browserify'
@@ -110,6 +115,7 @@ config =
     name: 'test.js'
     dest: ['./jThree/test/build']
     target: 'node'
+    minify: false
 
 ###
 default task
@@ -182,17 +188,23 @@ Object.keys(config).forEach (suffix) ->
           .pipe watchify
             watch: watching
             extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
-            # debug: true
+            debug: true
             transform: ['coffeeify']
             detectGlobals: c.target == 'node'
             bundleExternal: c.target == 'web'
             setup: (b) ->
               b.transform shaderify
               b.plugin tsify, {target: "es5"}
+          .pipe buffer()
+          .pipe sourcemaps.init
+            loadMaps: true
+          .pipe gulpif(!watching, gulpif(c.minify, uglify()))
           .pipe rename(c.name)
+          .pipe sourcemaps.write('./')
           .pipe gulp.dest(c.dest[0])
           .on 'end', ->
             copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
+            copyFiles(path.join(c.dest[0], c.name + '.map'), c.dest[1..])
           .on 'error', ->
             gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
 
