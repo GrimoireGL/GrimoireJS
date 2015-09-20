@@ -7,6 +7,7 @@ docs/
 jThree/wwwroot/_debug/GUMI/
 jThree/wwwroot/_debug/Tda/
 jThree/wwwroot/j3.js
+jThree/wwwroot/j3.js.map
 jThree/src/*.js
 jThree/src/*.js.map
 jThree/src/**/*.js
