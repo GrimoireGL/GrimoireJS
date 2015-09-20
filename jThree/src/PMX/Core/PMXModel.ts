@@ -8,6 +8,7 @@ import PMXMorphManager = require("./PMXMorphManager");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import PMXGBufferMaterial = require("./PMXGBufferMaterial");
 import PMXShadowMapMaterial = require("./PMXShadowMapMaterial");
+import JThreeEvent = require("../../Base/JThreeEvent");
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
                 var targetUrl = url;
@@ -34,6 +35,10 @@ class PMXModel extends SceneObject {
 
         private pmxMaterials: PMXMaterial[];
 
+        public loadingTextureCount:number=0;
+
+        public loadedTextureCount:number =0;
+
         public getPMXMaterialByName(name: string) {
                 return this.materialDictionary.get(name);
         }
@@ -57,6 +62,8 @@ class PMXModel extends SceneObject {
         public get MorphManager(): PMXMorphManager {
                 return this.morphManager;
         }
+
+        public onload:JThreeEvent<PMXModel> = new JThreeEvent<PMXModel>();
 
         constructor(pmx: PMXModelData, resourceDirectory: string) {
                 super();

@@ -14,7 +14,13 @@ import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 import Vector4 = require("../../Math/Vector4");
 import PhongMaterial = require("./PhongMaterial");
 declare function require(string): string;
-
+/**
+ * Provides how to write g-buffers.
+ * This material have 3 pass for darawing g-buffers.
+ * 1-st pass Normal.XY Depth Shiningness
+ * 2-nd pass Diffuse.RGBA
+ * 3-rd pass Specular.RGB
+ */
 class GBufferMaterial extends Material
 {
     public get MaterialGroup(): string
@@ -59,12 +65,15 @@ class GBufferMaterial extends Material
         }
         object.Geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
-
+    /**
+     * Configure shader for 1-st pass.
+     * @return {[type]}                     [description]
+     */
     private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
         var pw = this.primaryProgram.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
-        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
+        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");//shiningness
         var coefficient = 0;
         if(fm.specularCoefficient)coefficient = fm.specularCoefficient;
         pw.register({
@@ -84,7 +93,10 @@ class GBufferMaterial extends Material
         });
 
     }
-
+    /**
+     * Configure shader for 2nd pass.
+     * @return {[type]}                     [description]
+     */
     private configureSecoundaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
@@ -128,6 +140,10 @@ class GBufferMaterial extends Material
         });
     }
 
+    /**
+     * Configure shader for 3rd pass.
+     * @return {[type]}                     [description]
+     */
     private configureThirdBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo)
     {
         var geometry = object.Geometry;

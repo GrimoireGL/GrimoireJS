@@ -19,6 +19,11 @@ class Vector2 extends VectorBase{
         return new Vector2(0, 0);
     }
 
+    public static copy(vec:Vector2)
+    {
+      return new Vector2(vec.X,vec.Y);
+    }
+
     constructor(x: number, y: number);
     constructor(x:glm.GLM.IArray);
     constructor(x: number|glm.GLM.IArray, y?: number) {

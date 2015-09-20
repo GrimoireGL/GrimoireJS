@@ -18,6 +18,7 @@ import BlendFuncParamType = require("../../Wrapper/BlendFuncParamType");
 import PMXGeometry = require('./PMXGeometry');
 import PMXModel = require('./PMXModel');
 import PmxMaterialMorphParamContainer = require('./PMXMaterialMorphParamContainer');
+import JThreeLogger = require("../../Base/JThreeLogger");
 
 declare function require(string): string;
 
@@ -316,8 +317,12 @@ class PMXMaterial extends Material
             img.onload = () =>
             {
                 resolver(img);
+                this.ParentModel.loadedTextureCount++;
+                JThreeLogger.sectionLog("pmx texture",`loaded texture ${this.ParentModel.loadedTextureCount} / ${this.parentModel.loadingTextureCount}`);
+                if(this.ParentModel.loadingTextureCount == this.ParentModel.loadedTextureCount)this.ParentModel.onload.fire(this.ParentModel,this.ParentModel);
             }
             img.src = src;
+            this.ParentModel.loadingTextureCount++;
         }
             );
     }

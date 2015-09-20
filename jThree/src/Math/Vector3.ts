@@ -22,6 +22,11 @@ class Vector3 extends VectorBase{
         return new Vector3(1, 1, 1);
     }
 
+    public static copy(source:Vector3)
+    {
+      return new Vector3(source.X,source.Y,source.Z);
+    }
+
     constructor(x: number, y: number, z: number);
     constructor(x:glm.GLM.IArray);
     constructor(x: number|glm.GLM.IArray, y?: number, z?: number) {

@@ -31,6 +31,11 @@ class Vector4 extends VectorBase
         return new Vector4(0, 0, 0, 0);
     }
 
+    public static copy(vec:Vector4):Vector4
+    {
+      return new Vector4(vec.X,vec.Y,vec.Z,vec.W);
+    }
+
     constructor(x: glm.GLM.IArray);
     constructor(x:number,y:number,z:number,w:number);
     constructor(x: number|glm.GLM.IArray, y?: number, z?: number, w?: number)
