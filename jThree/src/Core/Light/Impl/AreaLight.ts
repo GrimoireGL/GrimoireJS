@@ -33,10 +33,11 @@ class AreaLight extends LightBase {
 
     public getParameters(renderer:RendererBase): number[] {
         var dir = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
-        var b = Matrix.transformPoint(renderer.Camera.ViewMatrix.multiplyWith(this.transformer.LocalToGlobal),Vector3.Zero);
-        var r = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.calcAxis(this.rightLength,0,0,b)),b);
-        var t = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.calcAxis(0,this.topLength,0,b)),b);
-        var f = Vector3.subtract(Matrix.transformPoint(renderer.Camera.ViewMatrix,this.calcAxis(0,0,this.farLength,b)),b);
+				var vm = renderer.Camera.ViewMatrix;
+        var b = Matrix.transformPoint(vm,Vector3.Zero);
+        var r = Vector3.subtract(Matrix.transformPoint(vm,this.calcAxis(this.rightLength,0,0,b)),b);
+        var t = Vector3.subtract(Matrix.transformPoint(vm,this.calcAxis(0,this.topLength,0,b)),b);
+        var f = Vector3.subtract(Matrix.transformPoint(vm,this.calcAxis(0,0,this.farLength,b)),b);
         var factor =[r.X,r.Y,r.Z,t.X,t.Y,t.Z,f.X,f.Y,f.Z];
         glm.mat3.invert(factor,factor);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,

@@ -16,13 +16,6 @@ class AreaLightNode extends LightNodeBase
 			"intensity":{
 				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
 			},
-			"base":{
-				value:Vector3.Zero,
-				converter:"vector3",
-				handler:(v)=>{
-					this.targetLight.basePoint = v.Value;
-				}
-			},
 			"right":{
 				value:1,
 				converter:"number",

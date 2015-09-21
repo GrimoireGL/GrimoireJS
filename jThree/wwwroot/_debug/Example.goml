@@ -29,13 +29,13 @@
   </renderers>
   <scenes>
     <scene ambient="gray" name="main">
+      <alight color="#FFF" intensity="0.3" position="-1,-0.1,1" top="10"  far="2" right="2"/>
       <object id="camera-origin">
         <object>
           <camera aspect="1" far="5" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
         </object>
       </object>
       <object id="light-root" rotation="x(-15d)">
-         <alight color="#FFF" intensity="0.3" base="-1,-0.1,1" top="10"  far="2" right="2"/>
         <dlight color="red" intencity="1" position="1,1,2" rotation="y(15d)" shadow="true"/>
         <dlight color="blue" intencity="1" position="-1,1,2" rotation="y(-15d)"/>
         <!-- <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-30d)"/> -->
