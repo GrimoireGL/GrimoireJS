@@ -149,6 +149,7 @@
         "./jThree/src/Core/Transform/Transformer.ts",
         "./jThree/src/Exceptions.ts",
         "./jThree/src/Goml/Animater/AnimaterBase.ts",
+        "./jThree/src/Goml/Animater/Color3Animater.ts",
         "./jThree/src/Goml/Animater/Color4Animater.ts",
         "./jThree/src/Goml/Animater/IntegerAnimater.ts",
         "./jThree/src/Goml/Animater/NumberAnimater.ts",
