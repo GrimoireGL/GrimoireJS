@@ -143,6 +143,8 @@
         "./jThree/src/Core/Resources/Texture/TextureBase.ts",
         "./jThree/src/Core/Resources/Texture/TextureWrapper.ts",
         "./jThree/src/Core/Resources/Texture/TextureWrapperBase.ts",
+        "./jThree/src/Core/Resources/VAO/VAO.ts",
+        "./jThree/src/Core/Resources/VAO/VAOWrapper.ts",
         "./jThree/src/Core/Scene.ts",
         "./jThree/src/Core/SceneManager.ts",
         "./jThree/src/Core/SceneObject.ts",

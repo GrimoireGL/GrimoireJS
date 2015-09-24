@@ -1,0 +1,48 @@
+import ResourceWrapper = require("../ResourceWrapper");
+import ContextManagerBase = require("../../ContextManagerBase");
+import VAO = require("./VAO");
+import JThreeContextProxy = require("../../JThreeContextProxy");
+import GLExtensionList = require("../../GLExtensionList");
+/**
+ * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.
+ * Most of user may have no reason to modify by themselves.
+ */
+class VAOWrapper extends ResourceWrapper
+{
+	/**
+	 *	Reference to the WebGLRenderbuffer this class managing.
+	  */
+	private targetVAO:WebGLVertexArrayObject;
+
+	public get Target():WebGLVertexArrayObject
+	{
+		return this.targetVAO;
+	}
+
+  private vaoInterface:WebGLVertexArrayObjectExtension;
+	/**
+	 * The parent VAOWrapper container class.
+	 */
+	private parent:VAO;
+
+	constructor(contextManager:ContextManagerBase,parentVAO:VAO)
+	{
+		super(contextManager);
+		this.parent=parentVAO;
+		this.vaoInterface = contextManager.GLExtensionManager.getExtension(GLExtensionList.VertexArrayObject);
+	}
+
+    public init()
+	{
+		if(this.Initialized)return;
+		this.targetVAO = this.vaoInterface.createVertexArrayOES();
+		this.setInitialized();
+	}
+
+	public bind()
+	{
+		this.WebGLContext.BindRenderBuffer(this.targetVAO);
+		this.vaoInterface.bindVertexArrayOES(this.targetVAO);
+	}
+}
+export = VAOWrapper;

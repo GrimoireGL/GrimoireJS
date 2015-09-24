@@ -37,7 +37,7 @@ class GLExtensionManager extends JThreeObject
 		        }
 		    }
 		    if(!ext) {
-			    console.error(`WebGL Extension:${element} was requested,but your browser is not supporting this feature.`);
+			    JThreeLogger.sectionError('GL Extension',`WebGL Extension:${element} was requested,but your browser is not supporting this feature.`);
 			}else{
                 JThreeLogger.sectionLog("GL Extension",`${element} was instanciated successfully`);
                 this.extensions.set(element, ext);

@@ -275,3 +275,18 @@
 /// <reference path="bundle-notdoc.ts" />
 /// <reference path="jThree.ts" />
 /// <reference path="../test/Sample/SampleTs.ts" />
+
+
+interface WebGLVertexArrayObjectExtension
+{
+  createVertexArrayOES();
+  bindVertexArrayOES(vao:WebGLVertexArrayObject);
+}
+
+interface WebGLVertexArrayObject extends WebGLObject {
+}
+
+declare var WebGLVertexArrayObject: {
+    prototype: WebGLVertexArrayObject;
+    new(): WebGLVertexArrayObject;
+}
