@@ -9,7 +9,6 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import BehaviorRegistry = require("./Behaviors/BehaviorRegistry");
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
 import BehaviorRunner = require('./Behaviors/BehaviorRunner');
-import PluginLoader = require('./Plugins/PluginLoader');
 import JThreeLogger = require("../Base/JThreeLogger");
 declare function require(string): any;
 
@@ -17,9 +16,6 @@ declare function require(string): any;
  * The class for loading goml.
  */
 class GomlLoader extends jThreeObject {
-
-  private pluginLoader: PluginLoader = new PluginLoader();
-
   public update() {
     if (!this.ready) return;
     this.eachNode(v=>v.update());
@@ -137,33 +133,20 @@ class GomlLoader extends jThreeObject {
   private scriptLoaded(source: string): void {
     var catched = this.rootObj = $(source);
     if (catched[0] === undefined || catched[0].tagName !== "GOML") throw new Exceptions.InvalidArgumentException("Root should be goml");
-    //generate node tree
-    var children = catched.find("plugins").children();
-    this.rootNodes.set("plugins", []);
-    var pluginRequest = [];
-    children.each((i,e)=>{
-      if(e.tagName!=="PLUGIN")return;
-      pluginRequest.push({
-        id:e.getAttribute("id"),
-        versionId:e.getAttribute("version")
-      });
+    this.configurator.GomlRootNodes.forEach(v=> {
+      var children = catched.find(v).children();
+      this.rootNodes.set(v, []);
+      this.parseChildren(null, children, (e) => {
+        this.rootNodes.get(v).push(e);
+      })
     });
-    this.pluginLoader.resolvePlugins(pluginRequest, () => {
-      this.configurator.GomlRootNodes.forEach(v=> {
-        var children = catched.find(v).children();
-        this.rootNodes.set(v, []);
-        this.parseChildren(null, children, (e) => {
-          this.rootNodes.get(v).push(e);
-        })
-      });
-      this.eachNode(v=> v.beforeLoad());
-      this.eachNode(v=> v.Load());
-      this.eachNode(v=> v.afterLoad());
-      this.eachNode(v=> v.attributes.applyDefaultValue());
-      JThreeLogger.sectionLog("Goml loader",`Goml loading was completed`);
-      this.onLoadEvent.fire(this, source);
-      this.ready = true;
-    });
+    this.eachNode(v=> v.beforeLoad());
+    this.eachNode(v=> v.Load());
+    this.eachNode(v=> v.afterLoad());
+    this.eachNode(v=> v.attributes.applyDefaultValue());
+    JThreeLogger.sectionLog("Goml loader",`Goml loading was completed`);
+    this.onLoadEvent.fire(this, source);
+    this.ready = true;
   }
 
   private eachNode(act: Delegates.Action1<GomlTreeNodeBase>, targets?: GomlTreeNodeBase[]) {
