@@ -5,7 +5,7 @@ import Delegates = require("../../Base/Delegates");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import AnimaterBase = require("../Animater/AnimaterBase");
 import Color3 = require("../../Base/Color/Color3");
-
+import Color3Animater = require("../Animater/Color3Animater");
 class Color3AttributeConverter extends AttributeConverterBase
 {
   constructor()
@@ -38,7 +38,7 @@ class Color3AttributeConverter extends AttributeConverterBase
 
   public GetAnimater(attr:GomlAttribute,beginVal:any,endVal:any,beginTime:number,duration:number,easing:EasingFunctionBase,onComplete?:Delegates.Action0):AnimaterBase
   {
-    return null;
+    return new Color3Animater(attr,beginTime,duration,beginVal,endVal,easing,onComplete);
   }
 }
 

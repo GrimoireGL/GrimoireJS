@@ -39,6 +39,5 @@ class GomlTreeNodeBase extends BehaviorContainerNode
       // this method should be overriden by the class extends this class.
     }
 
-
 }
 export=GomlTreeNodeBase;

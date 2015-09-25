@@ -141,16 +141,25 @@ class JThreeInterface extends JThreeObject {
     return this;
   }
 
+  public on(eventName:string,eventHandler:Delegate.Action1<any>)
+  {
+    for (let i = 0; i < this.target.length; i++) {
+      var e = <HTMLElement>this.target[i];
+      var node = JThreeInterface.getNode(e);
+      if(!node.events[eventName])node.events[eventName]=[];
+      node.events[eventName].push(eventHandler);
+    }
+  }
 
   // public find(attrTarget: string): JThreeInterface {
   //   return new JThreeInterface(this.target.querySelectorAll(attrTarget));
   // }
 
   // public append(target: string): JThreeInterface {
-  //   var newTarget: HTMLElement = (new DOMParser()).parseFromString(target, 'text/html');
-  //   this.target.forEach((e, n) => {
-  //     JThreeInterface.Context.GomlLoader.append(newTarget, <HTMLElement>e);
-  //   });
+  //   var newTarget: HTMLElement = (new DOMParser()).parseFromString(target, 'text/xml').documentElement;
+  //   for (let i = 0; i < this.target.length; i++) {
+  //     JThreeInterface.Context.GomlLoader.append(newTarget, <HTMLElement>this.target[i]);
+  //   }
   //   return new JThreeInterface(newTarget);
   // }
 

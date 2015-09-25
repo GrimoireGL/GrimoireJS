@@ -8,7 +8,6 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import BehaviorRegistry = require("./Behaviors/BehaviorRegistry");
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
 import BehaviorRunner = require('./Behaviors/BehaviorRunner');
-import PluginLoader = require('./Plugins/PluginLoader');
 import JThreeLogger = require("../Base/JThreeLogger");
 declare function require(string): any;
 
@@ -16,9 +15,6 @@ declare function require(string): any;
  * The class for loading goml.
  */
 class GomlLoader extends jThreeObject {
-
-  private pluginLoader: PluginLoader = new PluginLoader();
-
   public update() {
     if (!this.ready) return;
     this.eachNode(v=>v.update());
@@ -143,7 +139,6 @@ class GomlLoader extends jThreeObject {
   private scriptLoaded(source: HTMLElement): void {
     var catched = this.rootObj = source;
     if (catched === undefined || catched.tagName.toUpperCase() !== 'GOML') throw new Exceptions.InvalidArgumentException('Root should be goml');
-    //generate node tree
     this.configurator.GomlRootNodes.forEach((v) => {
       this.rootNodes.set(v, []);
       var found_items: NodeList = catched.querySelectorAll(v);

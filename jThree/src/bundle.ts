@@ -187,9 +187,6 @@
 /// <reference path="Goml/Nodes/Texture/CubeTextureNode.ts" />
 /// <reference path="Goml/Nodes/Texture/TextureNode.ts" />
 /// <reference path="Goml/Nodes/Texture/TextureNodeBase.ts" />
-/// <reference path="Goml/Plugins/PluginDeclaration.ts" />
-/// <reference path="Goml/Plugins/PluginLoader.ts" />
-/// <reference path="Goml/Plugins/PluginRequest.ts" />
 /// <reference path="Goml/TopNodeList.ts" />
 /// <reference path="Goml/TreeNodeBase.ts" />
 /// <reference path="Init.ts" />
@@ -277,3 +274,18 @@
 /// <reference path="bundle-notdoc.ts" />
 /// <reference path="jThree.ts" />
 /// <reference path="../test/Sample/SampleTs.ts" />
+
+
+interface WebGLVertexArrayObjectExtension
+{
+  createVertexArrayOES();
+  bindVertexArrayOES(vao:WebGLVertexArrayObject);
+}
+
+interface WebGLVertexArrayObject extends WebGLObject {
+}
+
+declare var WebGLVertexArrayObject: {
+    prototype: WebGLVertexArrayObject;
+    new(): WebGLVertexArrayObject;
+}
