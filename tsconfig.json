@@ -18,7 +18,6 @@
         "./jThree/refs/bundle.ts",
         "./jThree/refs/chai/chai.d.ts",
         "./jThree/refs/gl-matrix/gl-matrix.d.ts",
-        "./jThree/refs/jquery/jquery.d.ts",
         "./jThree/refs/jsdom/jsdom.d.ts",
         "./jThree/refs/mocha/mocha.d.ts",
         "./jThree/refs/node/node.d.ts",

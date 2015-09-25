@@ -24,7 +24,7 @@ class TagFactory extends jThreeObject {
         return false;
     }
 
-    public CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
+    public CreateNodeForThis(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase): GomlTreeNodeBase {
         return new this.nodeType(elem,loader,parent);
     }
 
