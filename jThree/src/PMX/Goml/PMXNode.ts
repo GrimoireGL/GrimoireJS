@@ -52,6 +52,7 @@ class PMXNode extends SceneObjectNodeBase
       this.pmxModel=m;
       this.targetUpdated();
       this.pmxTargetUpdated.fire(this,m);
+      this.bubbleEvent("loaded",{target:this});
     });
   }
 

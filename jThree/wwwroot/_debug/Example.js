@@ -47,4 +47,12 @@ j3(function () {
   // });
     //j3("#camera-origin").animate({position:new j3m.Vector3(0,0,2)},100000);
   j3("#camera-origin").animate({rotation:"y(-120d)"},30000);
+  j3("pmx").on("loaded",function(e){
+    console.warn("on pmx loaded");
+    e.stopPropagation();
+  });
+  j3("scene").on("loaded",function(e)
+{
+  console.warn("on pmx loaded by scene");
+})
 });

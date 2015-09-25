@@ -190,6 +190,7 @@
         "./jThree/src/Goml/GomlLoader.ts",
         "./jThree/src/Goml/GomlLoaderConfigurator.ts",
         "./jThree/src/Goml/GomlNodeDictionary.ts",
+        "./jThree/src/Goml/GomlNodeEventList.ts",
         "./jThree/src/Goml/GomlNodeList.ts",
         "./jThree/src/Goml/GomlNodeListElement.ts",
         "./jThree/src/Goml/GomlTreeNodeBase.ts",

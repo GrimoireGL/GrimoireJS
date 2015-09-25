@@ -64,7 +64,7 @@ class JThreeInterface extends JThreeObject {
                       this.dequeue();
                   }
                   this.queue(() => { f1(attrTarget,val); });
-                  return this; 
+                  return this;
               } else {
                   var f2 = (attrName: string, value:any) =>
                   {
@@ -75,7 +75,7 @@ class JThreeInterface extends JThreeObject {
                       this.dequeue();
                   }
                   this.queue(() => { f2(attrTarget, val); });
-                  return this; 
+                  return this;
               }
           }else
             return this.getAttr(<string>attrTarget);
@@ -139,6 +139,16 @@ class JThreeInterface extends JThreeObject {
     }
     this.queue(() => f(attrTarget, duration, easing, onComplete));
     return this;
+  }
+
+  public on(eventName:string,eventHandler:Delegate.Action1<any>)
+  {
+    for (var i = 0; i < this.target.length; i++) {
+      var e = this.target[i];
+      var node = JThreeInterface.getNode(e);
+      if(!node.events[eventName])node.events[eventName]=[];
+      node.events[eventName].push(eventHandler);
+    }
   }
 
 
