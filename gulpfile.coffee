@@ -18,12 +18,14 @@ jade = require 'gulp-jade'
 fs = require 'fs'
 _ = require 'lodash'
 globArray = require 'glob-array'
+del = require 'del'
 args = require('yargs').argv
 
 
 ###
 TASK SUMMARY
 
+* clean     clean directories
 * build     build product
 * server    start simple server
 * watch     watch file tree and build, and start simple server with liveReload
@@ -95,10 +97,6 @@ defaultStatsOptions =
   source: false
   errorDetails: false
 
-# alias for resolving require
-requireAliases =
-  'glm': 'gl-matrix'
-
 # individual config for build
 config =
   main:
@@ -116,6 +114,10 @@ config =
     dest: ['./jThree/test/build']
     target: 'node'
     minify: false
+
+# files for clean task
+cleaner_files = ['./jThree/src/**/*.js']
+
 
 ###
 default task
@@ -341,3 +343,19 @@ gulp.task 'jade', ->
 gulp.task 'watch:jade', ['jade'], ->
   gulp.watch path.join(templeteRoot, '**', "*#{jadeExtention}"), (e) ->
     jadeCompile e.path, path.dirname(e.path)
+
+
+###
+clean directories task
+###
+
+gulp.task 'clean', ->
+  del_entries = []
+  Object.keys(config).forEach (k) ->
+    c = config[k]
+    c.dest.forEach (d) ->
+      del_entries.push path.resolve(__dirname, d, c.name)
+      del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
+  del_entries = del_entries.concat cleaner_files
+  del(del_entries).then (paths) ->
+    paths.forEach (p) -> gutil.log "deleted: \"#{p}\""

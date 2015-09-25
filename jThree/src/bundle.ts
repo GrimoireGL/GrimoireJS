@@ -2,7 +2,6 @@
 /// <reference path="../refs/bundle.ts" />
 /// <reference path="../refs/chai/chai.d.ts" />
 /// <reference path="../refs/gl-matrix/gl-matrix.d.ts" />
-/// <reference path="../refs/jquery/jquery.d.ts" />
 /// <reference path="../refs/jsdom/jsdom.d.ts" />
 /// <reference path="../refs/mocha/mocha.d.ts" />
 /// <reference path="../refs/node/node.d.ts" />
