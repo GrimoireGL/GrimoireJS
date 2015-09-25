@@ -51,7 +51,7 @@ class GLContextWrapperBase extends JThreeObject
     }
 
     public glError(listener:Delegates.Action2<GLContextWrapperBase,string>) {
-        this.glErrorHandler.addListerner(listener);
+        this.glErrorHandler.addListener(listener);
     }
 
     public get Context(): WebGLRenderingContext

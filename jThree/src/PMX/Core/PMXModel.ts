@@ -19,8 +19,7 @@ class PMXModel extends SceneObject {
                 oReq.responseType = "arraybuffer";
                 oReq.onload = () => {
                         var pmx = new PMXModelData(oReq.response);
-                        var model = new PMXModel(pmx, targetDirectory);
-                        onComplete(model);
+                        var model = new PMXModel(pmx, targetDirectory,onComplete);
                 };
                 oReq.send(null);
         }
@@ -65,12 +64,13 @@ class PMXModel extends SceneObject {
 
         public onload:JThreeEvent<PMXModel> = new JThreeEvent<PMXModel>();
 
-        constructor(pmx: PMXModelData, resourceDirectory: string) {
+        constructor(pmx: PMXModelData, resourceDirectory: string,onComplete?:Delegates.Action1<PMXModel>) {
                 super();
                 this.modelData = pmx;
                 this.geometry = new PMXGeometry(pmx);
                 this.skeleton = new PMXSkeleton(this);
                 this.pmxMaterials = new Array(pmx.Materials.length);
+                this.onload.addListener(onComplete);
                 var offset = 0;
                 for (var materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
                         var currentMat = pmx.Materials[materialCount];

@@ -24,7 +24,7 @@ class PMXNode extends SceneObjectNodeBase
 
   public onPMXTargetUpdate(handler:Delegates.Action2<PMXNode,PMXModel>)
   {
-    this.pmxTargetUpdated.addListerner(handler);
+    this.pmxTargetUpdated.addListener(handler);
   }
 
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)

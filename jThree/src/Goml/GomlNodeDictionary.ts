@@ -57,7 +57,7 @@ class GomlNodeDictionary extends jThreeObject
   {
     if(this.hasAlias(alias))
     {
-      this.onAliasMemberChanged.get(alias).addListerner(handler);
+      this.onAliasMemberChanged.get(alias).addListener(handler);
     }else
     {
       console.warn("there is no such alias");

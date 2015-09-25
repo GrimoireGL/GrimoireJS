@@ -161,7 +161,7 @@ class JThreeContext extends JThreeObject
      * add function as renderer changed event handler.
      */
     public onRendererChanged(func:Delegates.Action2<any,CanvasListChangedEventArgs>): void {
-        this.canvasChangedEvent.addListerner(func);
+        this.canvasChangedEvent.addListener(func);
     }
 }
 

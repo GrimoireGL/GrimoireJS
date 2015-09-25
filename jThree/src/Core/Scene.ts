@@ -76,7 +76,7 @@ class Scene extends jThreeObjectWithID {
 
     public rendererAdded(act:Delegates.Action2<Scene,RendererBase>)
     {
-        this.rendererChanged.addListerner(act);
+        this.rendererChanged.addListener(act);
     }
 
     public get Renderers():RendererBase[]

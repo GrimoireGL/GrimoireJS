@@ -73,7 +73,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
      * @param handler the handler for shader changing
      */
     public onUpdate(handler: Delegates.Action2<Shader, string>) {
-        this.onUpdateEvent.addListerner(handler);
+        this.onUpdateEvent.addListener(handler);
     }
 
     protected disposeResource(resource: ShaderWrapper): void {

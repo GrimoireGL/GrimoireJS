@@ -122,7 +122,7 @@ class RendererBase extends jThreeObjectWithID
      */
     public onViewPortChanged(act: Delegates.Action2<RendererBase, Rectangle>)
     {
-        this.onViewportChangedHandler.addListerner(act);
+        this.onViewportChangedHandler.addListener(act);
     }
 
     private viewportArea: Rectangle = new Rectangle(0, 0, 256, 256);

@@ -46,7 +46,7 @@ class ResourceWrapper extends JThreeObject
    */
   public onInitializeChanged(handler:Delegates.Action2<ResourceWrapper,boolean>)
   {
-    this.onInitializeChangedEvent.addListerner(handler);
+    this.onInitializeChangedEvent.addListener(handler);
   }
   
    /**

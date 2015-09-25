@@ -59,7 +59,7 @@ class GomlAttribute extends JThreeObjectWithID
         this.converter = converter;
         this.value = converter.FromInterface(value);
         this.managedClass = node;
-        if (handler) this.onchangedHandlers.addListerner(handler);
+        if (handler) this.onchangedHandlers.addListener(handler);
     }
 
     public get Name(): string
@@ -109,7 +109,7 @@ class GomlAttribute extends JThreeObjectWithID
 
     public onValueChanged(handler: Delegates.Action1<GomlAttribute>)
     {
-        this.onchangedHandlers.addListerner(handler);
+        this.onchangedHandlers.addListener(handler);
     }
 }
 

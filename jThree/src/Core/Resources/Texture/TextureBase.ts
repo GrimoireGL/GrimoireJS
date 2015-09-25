@@ -97,7 +97,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
 
     public onFilterParameterChanged(handler: Delegates.Action2<TextureBase, TextureParameterType>): void
     {
-        this.onFilterParameterChangedHandler.addListerner(handler);
+        this.onFilterParameterChangedHandler.addListener(handler);
     }
 
     public generateMipmapIfNeed()

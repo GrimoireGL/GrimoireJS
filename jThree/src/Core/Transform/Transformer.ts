@@ -130,7 +130,7 @@ class Transformer extends JThreeObject
      */
     public onUpdateTransform(action: Delegates.Action2<Transformer, SceneObject>): void
     {
-        this.onUpdateTransformHandler.addListerner(action);
+        this.onUpdateTransformHandler.addListener(action);
     }
 
     /**

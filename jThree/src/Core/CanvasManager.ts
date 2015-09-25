@@ -103,7 +103,7 @@ class CanvasManager extends ContextManagerBase {
      * add event handler that will be called when canvas size was changed.
      */
     public onResize(act: Delegates.Action2<CanvasManager, CanvasSizeChangedEventArgs>) {
-        this.onResizeEventHandler.addListerner(act);
+        this.onResizeEventHandler.addListener(act);
     }
 
     public afterRenderAll(): void {

@@ -28,7 +28,7 @@ class JThreeEvent<T> extends JThreeObject
   *Add the handler you pass.
   *@param handler the handler you want to add.
   */
-  public addListerner(handler:Delegates.Action2<any,T>):void
+  public addListener(handler:Delegates.Action2<any,T>):void
   {
     if(typeof handler === "undefined")throw new Exceptions.InvalidArgumentException("you can not add undefined as event handler");
     this.eventHandlers.push(handler);
