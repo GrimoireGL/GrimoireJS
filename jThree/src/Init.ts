@@ -1,10 +1,9 @@
 import JThreeContext = require("./Core/JThreeContext");
 import JThreeContextProxy = require("./Core/JThreeContextProxy");
-import $ = require('jquery');
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
-import BehaviorDeclaration = require("Goml/Behaviors/BehaviorDeclaration");
-import BehaviorDeclarationBody = require("Goml/Behaviors/BehaviorDeclarationBody");
+import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
+import BehaviorDeclarationBody = require("./Goml/Behaviors/BehaviorDeclarationBody");
 import agent = require("superagent");
 import JThreeLogger = require("./Base/JThreeLogger");
 /**
@@ -44,20 +43,20 @@ class JThreeInit {
   * 1, to use for select elements like jQuery in GOML.
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
-    public static j3(query: string|Delegates.Action0): JThreeInterface {
+  public static j3(query: string|Delegates.Action0): JThreeInterface {
     var context = JThreeContextProxy.getJThreeContext();
     if (typeof query === 'function') {//check whether this is function or not.
       context.GomlLoader.onload(query);
       return undefined;//when function was subscribed, it is no need to return JThreeInterface.
     }
-    var targetObject = context.GomlLoader.rootObj.find(<string>query);//call as query
+    var targetObject: NodeList = context.GomlLoader.rootObj.querySelectorAll(<string>query); //call as query
     return new JThreeInterface(targetObject);
   }
 
   /**
   * This method should be called when Jthree loaded.
   */
-    public static Init(): void {
+   public static Init(): void {
     //register interfaces
     window["j3"] = JThreeInit.j3;//$(~~~)
     var pro = Object.getPrototypeOf(window["j3"]);
@@ -65,13 +64,12 @@ class JThreeInit {
       pro[key] = JThreeStatic.prototype[key];
     }
 
-    $(() => {//TODO we should remove jQuery dependencies
-        var j3 = JThreeContext.getInstanceForProxy();
-        JThreeInit.j3(() => {
-        });
-        j3.init();
+    window.addEventListener('DOMContentLoaded', () => {
+      var j3 = JThreeContext.getInstanceForProxy();
+      JThreeInit.j3(() => {
+      });
+      j3.init();
     });
-    }
-
+  }
 }
-export =JThreeInit;
+export = JThreeInit;
