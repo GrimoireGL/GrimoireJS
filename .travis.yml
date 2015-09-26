@@ -25,7 +25,6 @@ before_install:
 - echo "                                                                                                                                     " >> .travis.sh
 - echo "                                                                                                                                     " >> .travis.sh
 - cat .travis.sh
-- npm install -global npm
 - rm ci -r -f
 - mkdir ci
 - cd ci
@@ -38,6 +37,7 @@ before_install:
 - ls
 - cd ..
 - ls
+- npm -v
 install:
 - npm install
 script:
