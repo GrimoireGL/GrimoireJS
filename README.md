@@ -22,7 +22,6 @@ This library depend on these below library, we appriciate these all of the contr
 
 |Name|Purpose|URL|Memo|
 |:-:|:-:|:-:|:-:|
-|jQuery|Use for search goml tag.|https://jquery.com/| **This dependency will be removed soon** |
 |superagent|Use for ajax to resolve plugins|https://visionmedia.github.io/superagent/||
 |gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
 
