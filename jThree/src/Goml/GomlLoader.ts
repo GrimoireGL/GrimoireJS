@@ -48,7 +48,7 @@ class GomlLoader extends jThreeObject {
    *
    * @param {Delegates.Action2<any, HTMLElement>} act [description]
    */
-  public onload(act: Delegates.Action2<any, string>): void {
+  public onload(act: Delegates.Action2<any, HTMLElement>): void {
     this.onLoadEvent.addListener(act);
   }
 
