@@ -1,6 +1,6 @@
 ﻿import IEnumrator = require("./IEnumrator");
 import IEnumerable = require("./IEnumerable");
-import Delegates=require("Delegates");
+import Delegates=require("../Delegates");
 
 /**
  * Containing some of methods use for IEnumerable generic interfaces.
