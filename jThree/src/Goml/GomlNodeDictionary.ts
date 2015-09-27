@@ -3,6 +3,7 @@ import GomlTreeNodeBase = require("./GomlTreeNodeBase");
 import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import JThreeEvent = require("../Base/JThreeEvent");
 import Delegates = require("../Base/Delegates");
+import JThreeLogger = require("../Base/JThreeLogger");
 /**
  * Dictionary class to cache GOML node objects.
  */
@@ -27,12 +28,12 @@ class GomlNodeDictionary extends jThreeObject
     this.dictionary.get(alias).set(name,obj);
     this.onAliasMemberChanged.get(alias).fire(this,obj);
   }
-  
+
   public hasAlias(alias:string):boolean
   {
     return this.dictionary.has(alias);
   }
-  
+
   /**
    * Get node object by alias and name.
    */
@@ -40,19 +41,19 @@ class GomlNodeDictionary extends jThreeObject
   {
     if(!this.dictionary.has(alias))
     {
-      console.error("there is no such alias");
+      JThreeLogger.sectionError("GOML loader",`Unknown group name '${alias}' was requested.`);
       return null;
     }else
     {
       return <T>this.dictionary.get(alias).get(name);
     }
   }
-  
+
   public getAliasMap<T extends GomlTreeNodeBase>(alias:string):AssociativeArray<T>
   {
     return <AssociativeArray<T>>this.dictionary.get(alias);
   }
-  
+
   public onAliasObjectChanged(alias:string,handler:Delegates.Action1<GomlTreeNodeBase>)
   {
     if(this.hasAlias(alias))
