@@ -171,7 +171,6 @@
 /// <reference path="Goml/Nodes/Materials/TextureDebugNode.ts" />
 /// <reference path="Goml/Nodes/Renderers/RendererNode.ts" />
 /// <reference path="Goml/Nodes/Renderers/RendererNodeBase.ts" />
-/// <reference path="Goml/Nodes/Renderers/TexRendererNode.ts" />
 /// <reference path="Goml/Nodes/Renderers/ViewPortNode.ts" />
 /// <reference path="Goml/Nodes/SceneNode.ts" />
 /// <reference path="Goml/Nodes/SceneObjects/Cameras/CameraNode.ts" />

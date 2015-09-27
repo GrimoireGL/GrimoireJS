@@ -210,7 +210,6 @@
         "./jThree/src/Goml/Nodes/Materials/TextureDebugNode.ts",
         "./jThree/src/Goml/Nodes/Renderers/RendererNode.ts",
         "./jThree/src/Goml/Nodes/Renderers/RendererNodeBase.ts",
-        "./jThree/src/Goml/Nodes/Renderers/TexRendererNode.ts",
         "./jThree/src/Goml/Nodes/Renderers/ViewPortNode.ts",
         "./jThree/src/Goml/Nodes/SceneNode.ts",
         "./jThree/src/Goml/Nodes/SceneObjects/Cameras/CameraNode.ts",
