@@ -9,6 +9,7 @@ import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import PMXGBufferMaterial = require("./PMXGBufferMaterial");
 import PMXShadowMapMaterial = require("./PMXShadowMapMaterial");
 import JThreeEvent = require("../../Base/JThreeEvent");
+import PMXTextureManager = require("./PMXTextureManager");
 class PMXModel extends SceneObject {
         public static LoadFromUrl(url: string, onComplete: Delegates.Action1<PMXModel>) {
                 var targetUrl = url;
@@ -37,6 +38,10 @@ class PMXModel extends SceneObject {
         public loadingTextureCount:number=0;
 
         public loadedTextureCount:number =0;
+
+        public pmxTextureManager:PMXTextureManager;
+
+        public modelDirectory:string;
 
         public getPMXMaterialByName(name: string) {
                 return this.materialDictionary.get(name);
@@ -67,6 +72,8 @@ class PMXModel extends SceneObject {
         constructor(pmx: PMXModelData, resourceDirectory: string,onComplete?:Delegates.Action1<PMXModel>) {
                 super();
                 this.modelData = pmx;
+                this.modelDirectory = resourceDirectory;
+                this.pmxTextureManager = new PMXTextureManager(this);
                 this.geometry = new PMXGeometry(pmx);
                 this.skeleton = new PMXSkeleton(this);
                 this.pmxMaterials = new Array(pmx.Materials.length);
@@ -74,7 +81,7 @@ class PMXModel extends SceneObject {
                 var offset = 0;
                 for (var materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
                         var currentMat = pmx.Materials[materialCount];
-                        var mat = new PMXMaterial(this, materialCount, offset, resourceDirectory);
+                        var mat = new PMXMaterial(this, materialCount, offset);
                         this.addMaterial(mat);
                         this.addMaterial(new PMXGBufferMaterial(mat));
                         this.addMaterial(new PMXShadowMapMaterial(mat));

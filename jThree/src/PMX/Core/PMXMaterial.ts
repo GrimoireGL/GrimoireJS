@@ -124,7 +124,7 @@ class PMXMaterial extends Material
         return (this.pmxData.Materials[this.materialIndex].drawFlag & 0x04) > 0;
     }
 
-    constructor(pmx: PMXModel, index: number, offset: number, directory: string)
+    constructor(pmx: PMXModel, index: number, offset: number)
     {
         super();
         this.addMorphParam = new PmxMaterialMorphParamContainer(1);
@@ -149,11 +149,11 @@ class PMXMaterial extends Material
         var vs = require('../Shader/PMXEdgeVertex.glsl');
         var fs = require('../Shader/PMXEdgeFragment.glsl');
         this.edgeProgram = this.loadProgram("jthree.shaders.vertex.pmx.edge", "jthree.shaders.fragment.pmx.edge", "jthree.programs.pmx.edge", vs, fs);
-        this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere", directory);
-        this.texture = this.loadPMXTexture(materialData.textureIndex, "texture", directory);
+        this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere");
+        this.texture = this.loadPMXTexture(materialData.textureIndex, "texture");
         if (materialData.sharedToonFlag == 0)
         {// not shared texture
-            this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon", directory);
+            this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon");
         }
         this.setLoaded();
     }
@@ -289,7 +289,7 @@ class PMXMaterial extends Material
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
-    private loadPMXTexture(index: number, prefix: string, directory: string): Texture
+    private loadPMXTexture(index: number, prefix: string): Texture
     {
         if (index < 0) return null;
         var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
@@ -300,7 +300,7 @@ class PMXMaterial extends Material
         } else
         {
             var texture = rm.createTextureWithSource(resourceName, null);
-            this.loadImage(directory + this.pmxData.Textures[index]).then((t) =>
+            this.loadImage(index).then((t) =>
             {
                 texture.ImageSource = t;
             });
@@ -308,23 +308,9 @@ class PMXMaterial extends Material
         }
     }
 
-    private loadImage(src: string): Q.Promise<HTMLImageElement>
+    private loadImage(index:number): Q.Promise<HTMLImageElement>
     {
-        return Q.Promise<HTMLImageElement>((resolver, reject, notify) =>
-        {
-            var img = new Image();
-            this.textureCaches.push(img);
-            img.onload = () =>
-            {
-                resolver(img);
-                this.ParentModel.loadedTextureCount++;
-                JThreeLogger.sectionLog("pmx texture",`loaded texture ${this.ParentModel.loadedTextureCount} / ${this.parentModel.loadingTextureCount}`);
-                if(this.ParentModel.loadingTextureCount == this.ParentModel.loadedTextureCount)this.ParentModel.onload.fire(this.ParentModel,this.ParentModel);
-            }
-            img.src = src;
-            this.ParentModel.loadingTextureCount++;
-        }
-            );
+        return this.parentModel.pmxTextureManager.loadTexture(index);
     }
 
     public get Priorty(): number
