@@ -29,7 +29,7 @@
   </renderers>
   <scenes>
     <scene ambient="gray" name="main">
-      <alight color="#FFF" intensity="0.3"  top="1"  far="1" right="1" position="0,-0.5,0"/>
+      <alight color="#FFF" intensity="0.1"  top="4"  far="2" right="2" position="-1,-0.5,1"/>
       <object id="camera-origin">
         <object>
           <camera aspect="1" far="5" fovy="90d" id="maincam" name="CAM1" near="0.1" position="(0,1,2)"/>
