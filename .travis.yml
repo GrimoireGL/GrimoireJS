@@ -37,7 +37,6 @@ before_install:
 - ls
 - cd ..
 - ls
-- npm -v
 install:
 - npm install
 script:
