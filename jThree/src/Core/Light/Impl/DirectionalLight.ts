@@ -32,8 +32,7 @@ class DirectionalLight extends ShadowDroppableLight {
 
 		private LiSPSM()
 		{
-			var smY = this.directionCache.negateThis();
-			
+
 		}
 
 	public intensity:number;

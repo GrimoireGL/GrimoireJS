@@ -71,3 +71,5 @@ class AABB
     this.pointRTN=null;
   }
 }
+
+export = AABB;

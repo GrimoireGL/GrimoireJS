@@ -3,6 +3,7 @@ import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import Exceptions = require("../../Exceptions");
 import glm = require("gl-matrix");
+import PointList = require("../../Math/PointList");
 
 /**
  * Basement class of Camera. These class related to camera are one of SceneObject in jThree.
@@ -11,7 +12,14 @@ class Camera extends SceneObject
 {
 	private viewProjectionMatrixCache = new Float32Array(16);
 
+	private viewProjectionInvMatrixCache = new Float32Array(16);
+
 	private viewProjectionMatrix:Matrix = new Matrix(this.viewProjectionMatrixCache);
+
+	private viewProjectionInvMatrix:Matrix = new Matrix(this.viewProjectionInvMatrixCache);
+
+	public frustumPoints:PointList = new PointList();
+
 	/**
 	 * Getter for position of this camera.
 	 */
@@ -81,9 +89,12 @@ class Camera extends SceneObject
 	protected updateViewProjectionMatrix()
 	{
 		glm.mat4.mul(this.viewProjectionMatrixCache,this.ProjectionMatrix.rawElements,this.ViewMatrix.rawElements);
+		glm.mat4.invert(this.viewProjectionInvMatrixCache,this.viewProjectionMatrixCache);
+		PointList.initializeWithCube(this.frustumPoints);
+		this.frustumPoints.transform(this.viewProjectionInvMatrix);
 	}
 
-    public update():void
+	public update():void
 	{
 		super.update();
 	}　　　
