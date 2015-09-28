@@ -41,6 +41,7 @@ vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
 }
 
 void main(void){
+  gl_FragColor = vec4(0,0,0,0);
   vec2 adjuv=v_uv;
   adjuv.y=1.-adjuv.y;
   vec2 lightUV=calcLightUV(v_pos);
