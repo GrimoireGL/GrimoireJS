@@ -13,7 +13,6 @@ class PMXTextureManager
 
   public loadTexture(index:number):Q.Promise<HTMLImageElement>
   {
-    debugger;
     if(this.textures[index] && typeof this.textures[index] === "object")return Q.Promise<HTMLImageElement>((resolver,reject,notify)=>{resolver(this.textures[index])});//Assume texture was loaded
     if(this.textures[index]&& typeof this.textures[index] ==="function")return <Q.Promise<HTMLImageElement>>this.textures[index];//Assume texture is loading
     var loadingPromise =  Q.Promise<HTMLImageElement>((resolver, reject, notify) =>
