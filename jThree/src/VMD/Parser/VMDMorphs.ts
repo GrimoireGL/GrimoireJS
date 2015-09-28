@@ -1,4 +1,4 @@
-﻿import VmdMorph = require("VMDMorph");
+﻿import VmdMorph = require("./VMDMorph");
 
 interface VMDMorphs
 {

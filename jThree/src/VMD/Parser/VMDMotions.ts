@@ -1,4 +1,4 @@
-import VmdMotion = require("VMDMotion");
+import VmdMotion = require("./VMDMotion");
 
 interface VMDMotions
 {

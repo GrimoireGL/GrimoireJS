@@ -1,4 +1,4 @@
-import SpringJoint = require("Joints/SpringJoint");
+import SpringJoint = require("./Joints/SpringJoint");
 
 interface PMXJoint
 {

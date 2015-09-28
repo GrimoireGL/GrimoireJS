@@ -46,7 +46,7 @@ class JThreeInterface extends JThreeObject {
 
   public attr(attrName: string);
   public attr(attrTargets: { [key: string]: any });
-  public attr(attrName: string, val: Delegate.Func2<number, string, any>);
+  public attr(attrName: string, val: Delegate.Func2<number,　string,　any>);
   public attr(attrName: string, val: any);
   public attr(attrTarget: { [key: string]: any } | string, val?: Delegate.Func2<number, string, any> | any): JThreeInterface | any {
     if (typeof attrTarget === "string") {

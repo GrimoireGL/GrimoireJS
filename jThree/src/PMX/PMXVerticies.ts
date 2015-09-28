@@ -1,4 +1,4 @@
-import PmxVertex = require("PMXVertex");
+import PmxVertex = require("./PMXVertex");
 
 interface PMXVerticies
 {

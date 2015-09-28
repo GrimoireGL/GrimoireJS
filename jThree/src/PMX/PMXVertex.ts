@@ -1,4 +1,4 @@
-﻿import Sdef = require("SDEF");
+﻿import Sdef = require("./SDEF");
 
 interface PMXVertex
 {
