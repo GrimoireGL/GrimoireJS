@@ -106,6 +106,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#behaviors" class="tsd-kind-icon">behaviors</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#children" class="tsd-kind-icon">children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#element" class="tsd-kind-icon">element</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#events" class="tsd-kind-icon">events</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#loader" class="tsd-kind-icon">loader</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#parent" class="tsd-kind-icon">parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#pmxmodel" class="tsd-kind-icon">pmx<wbr>Model</a></li>
@@ -137,6 +138,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#afterload" class="tsd-kind-icon">after<wbr>Load</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#beforeload" class="tsd-kind-icon">before<wbr>Load</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#bubbleevent" class="tsd-kind-icon">bubble<wbr>Event</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#getbehaviors" class="tsd-kind-icon">get<wbr>Behaviors</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
@@ -144,6 +146,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#parentchanged" class="tsd-kind-icon">parent<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#targetupdated" class="tsd-kind-icon">target<wbr>Updated</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_goml_pmxnode_.pmxnode.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -229,7 +232,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#children">children</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L36">src/Goml/TreeNodeBase.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L37">src/Goml/TreeNodeBase.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -245,7 +248,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#element">element</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L18">src/Goml/TreeNodeBase.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L19">src/Goml/TreeNodeBase.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -253,6 +256,17 @@
 							<p>The HTMLElement related to this element.</p>
 						</div>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="events" class="tsd-anchor"></a>
+					<h3>events</h3>
+					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_goml_gomlnodeeventlist_.gomlnodeeventlist.html" class="tsd-signature-type">GomlNodeEventList</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#events">events</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L39">src/Goml/TreeNodeBase.ts:39</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="loader" class="tsd-anchor"></a>
@@ -277,7 +291,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#parent">parent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L31">src/Goml/TreeNodeBase.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L32">src/Goml/TreeNodeBase.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -349,7 +363,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#element-1">Element</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L23">src/Goml/TreeNodeBase.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L24">src/Goml/TreeNodeBase.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -540,7 +554,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#load">Load</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Goml/PMXNode.ts#L63">src/PMX/Goml/PMXNode.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Goml/PMXNode.ts#L64">src/PMX/Goml/PMXNode.ts:64</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -587,7 +601,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#addchild">addChild</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L41">src/Goml/TreeNodeBase.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L44">src/Goml/TreeNodeBase.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -642,6 +656,33 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="bubbleevent" class="tsd-anchor"></a>
+					<h3>bubble<wbr>Event</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">bubble<wbr>Event<span class="tsd-signature-symbol">(</span>eventName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, eventParam<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#bubbleevent">bubbleEvent</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L64">src/Goml/TreeNodeBase.ts:64</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>eventName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>eventParam: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="callrecursive" class="tsd-anchor"></a>
 					<h3>call<wbr>Recursive</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -652,7 +693,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#callrecursive">callRecursive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L50">src/Goml/TreeNodeBase.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L53">src/Goml/TreeNodeBase.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -764,7 +805,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html">SceneObjectNodeBase</a>.<a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#targetupdated">targetUpdated</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Goml/PMXNode.ts#L58">src/PMX/Goml/PMXNode.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Goml/PMXNode.ts#L59">src/PMX/Goml/PMXNode.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -787,6 +828,24 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#update">update</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L59">src/Goml/TreeNodeBase.ts:59</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -824,6 +883,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#element" class="tsd-kind-icon">element</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#events" class="tsd-kind-icon">events</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#loader" class="tsd-kind-icon">loader</a>
@@ -889,6 +951,9 @@
 								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#beforeload" class="tsd-kind-icon">before<wbr>Load</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#bubbleevent" class="tsd-kind-icon">bubble<wbr>Event</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -908,6 +973,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_pmx_goml_pmxnode_.pmxnode.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>

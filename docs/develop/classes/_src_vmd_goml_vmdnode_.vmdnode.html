@@ -103,9 +103,14 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#attributes" class="tsd-kind-icon">attributes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#autospeed" class="tsd-kind-icon">auto<wbr>Speed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#behaviors" class="tsd-kind-icon">behaviors</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#children" class="tsd-kind-icon">children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#element" class="tsd-kind-icon">element</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#enabled" class="tsd-kind-icon">enabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#events" class="tsd-kind-icon">events</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#frame" class="tsd-kind-icon">frame</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#lasttime" class="tsd-kind-icon">last<wbr>Time</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#lasturl" class="tsd-kind-icon">lastURL</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#loader" class="tsd-kind-icon">loader</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#parent" class="tsd-kind-icon">parent</a></li>
@@ -120,7 +125,7 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#id" class="tsd-kind-icon">ID</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#load" class="tsd-kind-icon">Load</a></li>
@@ -128,10 +133,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#afterload" class="tsd-kind-icon">after<wbr>Load</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#beforeload" class="tsd-kind-icon">before<wbr>Load</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#bubbleevent" class="tsd-kind-icon">bubble<wbr>Event</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#getbehaviors" class="tsd-kind-icon">get<wbr>Behaviors</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_vmd_goml_vmdnode_.vmdnode.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -150,7 +157,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L15">src/VMD/Goml/VMDNode.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L24">src/VMD/Goml/VMDNode.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -188,6 +195,16 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="autospeed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> auto<wbr>Speed</h3>
+					<div class="tsd-signature tsd-kind-icon">auto<wbr>Speed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L20">src/VMD/Goml/VMDNode.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="behaviors" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> behaviors</h3>
@@ -211,7 +228,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#children">children</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L36">src/Goml/TreeNodeBase.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L37">src/Goml/TreeNodeBase.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -227,7 +244,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#element">element</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L18">src/Goml/TreeNodeBase.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L19">src/Goml/TreeNodeBase.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -237,12 +254,53 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="enabled" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> enabled</h3>
+					<div class="tsd-signature tsd-kind-icon">enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L18">src/VMD/Goml/VMDNode.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="events" class="tsd-anchor"></a>
+					<h3>events</h3>
+					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_goml_gomlnodeeventlist_.gomlnodeeventlist.html" class="tsd-signature-type">GomlNodeEventList</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#events">events</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L39">src/Goml/TreeNodeBase.ts:39</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="frame" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> frame</h3>
+					<div class="tsd-signature tsd-kind-icon">frame<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L24">src/VMD/Goml/VMDNode.ts:24</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="lasttime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> last<wbr>Time</h3>
+					<div class="tsd-signature tsd-kind-icon">last<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L22">src/VMD/Goml/VMDNode.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="lasturl" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> lastURL</h3>
 					<div class="tsd-signature tsd-kind-icon">lastURL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L15">src/VMD/Goml/VMDNode.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L16">src/VMD/Goml/VMDNode.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -269,7 +327,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#parent">parent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L31">src/Goml/TreeNodeBase.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L32">src/Goml/TreeNodeBase.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -284,7 +342,7 @@
 					<div class="tsd-signature tsd-kind-icon">targetPMX<span class="tsd-signature-symbol">:</span> <a href="_src_pmx_goml_pmxnode_.pmxnode.html" class="tsd-signature-type">PMXNode</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L11">src/VMD/Goml/VMDNode.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L12">src/VMD/Goml/VMDNode.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -294,7 +352,7 @@
 					<div class="tsd-signature tsd-kind-icon">targetVMD<span class="tsd-signature-symbol">:</span> <a href="_src_vmd_parser_vmddata_.vmddata.html" class="tsd-signature-type">VMDData</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L13">src/VMD/Goml/VMDNode.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L14">src/VMD/Goml/VMDNode.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -312,7 +370,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#element-1">Element</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L23">src/Goml/TreeNodeBase.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L24">src/Goml/TreeNodeBase.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -348,7 +406,7 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="load" class="tsd-anchor"></a>
@@ -408,7 +466,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#addchild">addChild</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L41">src/Goml/TreeNodeBase.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L44">src/Goml/TreeNodeBase.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -463,6 +521,33 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="bubbleevent" class="tsd-anchor"></a>
+					<h3>bubble<wbr>Event</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">bubble<wbr>Event<span class="tsd-signature-symbol">(</span>eventName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, eventParam<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#bubbleevent">bubbleEvent</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L64">src/Goml/TreeNodeBase.ts:64</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>eventName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>eventParam: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="callrecursive" class="tsd-anchor"></a>
 					<h3>call<wbr>Recursive</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -473,7 +558,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#callrecursive">callRecursive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L50">src/Goml/TreeNodeBase.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L53">src/Goml/TreeNodeBase.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -552,6 +637,24 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#update">update</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/VMD/Goml/VMDNode.ts#L95">src/VMD/Goml/VMDNode.ts:95</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -578,6 +681,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#attributes" class="tsd-kind-icon">attributes</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#autospeed" class="tsd-kind-icon">auto<wbr>Speed</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#behaviors" class="tsd-kind-icon">behaviors</a>
 							</li>
@@ -586,6 +692,18 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#element" class="tsd-kind-icon">element</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#enabled" class="tsd-kind-icon">enabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#events" class="tsd-kind-icon">events</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#frame" class="tsd-kind-icon">frame</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#lasttime" class="tsd-kind-icon">last<wbr>Time</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#lasturl" class="tsd-kind-icon">lastURL</a>
@@ -624,6 +742,9 @@
 								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#beforeload" class="tsd-kind-icon">before<wbr>Load</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#bubbleevent" class="tsd-kind-icon">bubble<wbr>Event</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -634,6 +755,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_vmd_goml_vmdnode_.vmdnode.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>

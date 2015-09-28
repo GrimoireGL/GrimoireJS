@@ -80,7 +80,7 @@
 								<span class="target">RenderStageBase</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="_src_core_renderers_renderstages_lightaccumulationstage_.litghtaccumulationstage.html" class="tsd-signature-type">LitghtAccumulationStage</a>
+										<a href="_src_core_renderers_renderstages_lightaccumulationstage_.lightaccumulationstage.html" class="tsd-signature-type">LightAccumulationStage</a>
 									</li>
 									<li>
 										<a href="_src_core_renderers_renderstages_fowardshadingstage_.fowardshadingstage.html" class="tsd-signature-type">FowardShadingStage</a>
@@ -90,6 +90,9 @@
 									</li>
 									<li>
 										<a href="_src_core_renderers_renderstages_gbuffer_gbufferstage_.gbufferstage.html" class="tsd-signature-type">GBufferStage</a>
+									</li>
+									<li>
+										<a href="_src_core_renderers_renderstages_shadowmapgenerationstage_.shadowmapgenerationstage.html" class="tsd-signature-type">ShadowMapGenerationStage</a>
 									</li>
 									<li>
 										<a href="_src_core_renderers_renderstages_grayscalestage_.grayscalestage.html" class="tsd-signature-type">GrayScaleStage</a>
@@ -146,10 +149,11 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#loadprogram" class="tsd-kind-icon">load<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#needrender" class="tsd-kind-icon">need<wbr>Render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postallstage" class="tsd-kind-icon">post<wbr>All<wbr>Stage</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#preallstage" class="tsd-kind-icon">pre<wbr>All<wbr>Stage</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#render" class="tsd-kind-icon">render</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#resetactivetextures" class="tsd-kind-icon">reset<wbr>Active<wbr>Textures</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
@@ -207,7 +211,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L185">src/Core/Renderers/RenderStages/RenderStageBase.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L189">src/Core/Renderers/RenderStages/RenderStageBase.ts:189</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_core_jthreecontext_.jthreecontext.html" class="tsd-signature-type">JThreeContext</a></h4>
@@ -224,7 +228,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L174">src/Core/Renderers/RenderStages/RenderStageBase.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L178">src/Core/Renderers/RenderStages/RenderStageBase.ts:178</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -246,7 +250,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L181">src/Core/Renderers/RenderStages/RenderStageBase.ts:181</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L185">src/Core/Renderers/RenderStages/RenderStageBase.ts:185</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -285,7 +289,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L98">src/Core/Renderers/RenderStages/RenderStageBase.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L102">src/Core/Renderers/RenderStages/RenderStageBase.ts:102</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_src_core_renderers_renderstageconfig_.renderstageconfig.html" class="tsd-signature-type">RenderStageConfig</a></h4>
@@ -324,7 +328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L63">src/Core/Renderers/RenderStages/RenderStageBase.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L73">src/Core/Renderers/RenderStages/RenderStageBase.ts:73</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -344,7 +348,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L67">src/Core/Renderers/RenderStages/RenderStageBase.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L77">src/Core/Renderers/RenderStages/RenderStageBase.ts:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -361,7 +365,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L81">src/Core/Renderers/RenderStages/RenderStageBase.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L90">src/Core/Renderers/RenderStages/RenderStageBase.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -390,7 +394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L147">src/Core/Renderers/RenderStages/RenderStageBase.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L151">src/Core/Renderers/RenderStages/RenderStageBase.ts:151</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -419,7 +423,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L116">src/Core/Renderers/RenderStages/RenderStageBase.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L120">src/Core/Renderers/RenderStages/RenderStageBase.ts:120</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -451,7 +455,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L157">src/Core/Renderers/RenderStages/RenderStageBase.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L161">src/Core/Renderers/RenderStages/RenderStageBase.ts:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -486,7 +490,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L59">src/Core/Renderers/RenderStages/RenderStageBase.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L69">src/Core/Renderers/RenderStages/RenderStageBase.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -527,7 +531,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L107">src/Core/Renderers/RenderStages/RenderStageBase.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L111">src/Core/Renderers/RenderStages/RenderStageBase.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -562,7 +566,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L55">src/Core/Renderers/RenderStages/RenderStageBase.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L65">src/Core/Renderers/RenderStages/RenderStageBase.ts:65</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -582,6 +586,32 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="postallstage" class="tsd-anchor"></a>
+					<h3>post<wbr>All<wbr>Stage</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">post<wbr>All<wbr>Stage<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L43">src/Core/Renderers/RenderStages/RenderStageBase.ts:43</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>scene: <a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a></h5>
+								</li>
+								<li>
+									<h5>texs: <a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="postendstage" class="tsd-anchor"></a>
 					<h3>post<wbr>End<wbr>Stage</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -591,7 +621,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L47">src/Core/Renderers/RenderStages/RenderStageBase.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L57">src/Core/Renderers/RenderStages/RenderStageBase.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -616,6 +646,32 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="preallstage" class="tsd-anchor"></a>
+					<h3>pre<wbr>All<wbr>Stage</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">pre<wbr>All<wbr>Stage<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L38">src/Core/Renderers/RenderStages/RenderStageBase.ts:38</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>scene: <a href="_src_core_scene_.scene.html" class="tsd-signature-type">Scene</a></h5>
+								</li>
+								<li>
+									<h5>texs: <a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="prebeginstage" class="tsd-anchor"></a>
 					<h3>pre<wbr>Begin<wbr>Stage</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -625,7 +681,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L41">src/Core/Renderers/RenderStages/RenderStageBase.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L51">src/Core/Renderers/RenderStages/RenderStageBase.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -659,7 +715,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L51">src/Core/Renderers/RenderStages/RenderStageBase.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L61">src/Core/Renderers/RenderStages/RenderStageBase.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -677,23 +733,6 @@
 									<h5>texs: <a href="../interfaces/_src_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="resetactivetextures" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> reset<wbr>Active<wbr>Textures</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">reset<wbr>Active<wbr>Textures<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts#L93">src/Core/Renderers/RenderStages/RenderStageBase.ts:93</a></li>
-								</ul>
-							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -792,16 +831,19 @@
 								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#needrender" class="tsd-kind-icon">need<wbr>Render</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postallstage" class="tsd-kind-icon">post<wbr>All<wbr>Stage</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#postendstage" class="tsd-kind-icon">post<wbr>End<wbr>Stage</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#preallstage" class="tsd-kind-icon">pre<wbr>All<wbr>Stage</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#prebeginstage" class="tsd-kind-icon">pre<wbr>Begin<wbr>Stage</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#render" class="tsd-kind-icon">render</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#resetactivetextures" class="tsd-kind-icon">reset<wbr>Active<wbr>Textures</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_renderers_renderstages_renderstagebase_.renderstagebase.html#tostring" class="tsd-kind-icon">to<wbr>String</a>

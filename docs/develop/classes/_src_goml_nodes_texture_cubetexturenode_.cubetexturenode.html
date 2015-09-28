@@ -70,6 +70,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Cube texture resource node.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -106,6 +113,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#behaviors" class="tsd-kind-icon">behaviors</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#children" class="tsd-kind-icon">children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#element" class="tsd-kind-icon">element</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#events" class="tsd-kind-icon">events</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#loadedflags" class="tsd-kind-icon">loaded<wbr>Flags</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#loadedimages" class="tsd-kind-icon">loaded<wbr>Images</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#loader" class="tsd-kind-icon">loader</a></li>
@@ -129,12 +137,14 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#afterload" class="tsd-kind-icon">after<wbr>Load</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#beforeload" class="tsd-kind-icon">before<wbr>Load</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#bubbleevent" class="tsd-kind-icon">bubble<wbr>Event</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#generatetexture" class="tsd-kind-icon">generate<wbr>Texture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#getbehaviors" class="tsd-kind-icon">get<wbr>Behaviors</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#loadimg" class="tsd-kind-icon">load<wbr>Img</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -153,7 +163,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html">TextureNodeBase</a>.<a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L10">src/Goml/Nodes/Texture/CubeTextureNode.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L12">src/Goml/Nodes/Texture/CubeTextureNode.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -214,7 +224,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#children">children</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L36">src/Goml/TreeNodeBase.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L37">src/Goml/TreeNodeBase.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -230,7 +240,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#element">element</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L18">src/Goml/TreeNodeBase.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L19">src/Goml/TreeNodeBase.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -239,13 +249,24 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="events" class="tsd-anchor"></a>
+					<h3>events</h3>
+					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_goml_gomlnodeeventlist_.gomlnodeeventlist.html" class="tsd-signature-type">GomlNodeEventList</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#events">events</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L39">src/Goml/TreeNodeBase.ts:39</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="loadedflags" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> loaded<wbr>Flags</h3>
 					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Flags<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L43">src/Goml/Nodes/Texture/CubeTextureNode.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L48">src/Goml/Nodes/Texture/CubeTextureNode.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -255,7 +276,7 @@
 					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Images<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L45">src/Goml/Nodes/Texture/CubeTextureNode.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L50">src/Goml/Nodes/Texture/CubeTextureNode.ts:50</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -282,7 +303,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#parent">parent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L31">src/Goml/TreeNodeBase.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L32">src/Goml/TreeNodeBase.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -305,7 +326,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#element-1">Element</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L23">src/Goml/TreeNodeBase.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L24">src/Goml/TreeNodeBase.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -351,12 +372,12 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html">TextureNodeBase</a>.<a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html#targettexture-1">TargetTexture</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/TextureNodeBase.ts#L15">src/Goml/Nodes/Texture/TextureNodeBase.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/TextureNodeBase.ts#L23">src/Goml/Nodes/Texture/TextureNodeBase.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Texture that is managed by this node.</p>
+									<p>Texture reference being managed by this node.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></h4>
@@ -374,7 +395,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html">TextureNodeBase</a>.<a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html#texturegroupname">TextureGroupName</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L38">src/Goml/Nodes/Texture/CubeTextureNode.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L43">src/Goml/Nodes/Texture/CubeTextureNode.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -442,7 +463,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#addchild">addChild</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L41">src/Goml/TreeNodeBase.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L44">src/Goml/TreeNodeBase.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -490,9 +511,36 @@
 								<p>Inherited from <a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html">TextureNodeBase</a>.<a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html#beforeload">beforeLoad</a></p>
 								<p>Overwrites <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#beforeload">beforeLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/TextureNodeBase.ts#L50">src/Goml/Nodes/Texture/TextureNodeBase.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/TextureNodeBase.ts#L73">src/Goml/Nodes/Texture/TextureNodeBase.ts:73</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="bubbleevent" class="tsd-anchor"></a>
+					<h3>bubble<wbr>Event</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">bubble<wbr>Event<span class="tsd-signature-symbol">(</span>eventName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, eventParam<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#bubbleevent">bubbleEvent</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L64">src/Goml/TreeNodeBase.ts:64</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>eventName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>eventParam: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -508,7 +556,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#callrecursive">callRecursive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L50">src/Goml/TreeNodeBase.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L53">src/Goml/TreeNodeBase.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -537,7 +585,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html">TextureNodeBase</a>.<a href="_src_goml_nodes_texture_texturenodebase_.texturenodebase.html#generatetexture">generateTexture</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L23">src/Goml/Nodes/Texture/CubeTextureNode.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L28">src/Goml/Nodes/Texture/CubeTextureNode.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -605,7 +653,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L47">src/Goml/Nodes/Texture/CubeTextureNode.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Texture/CubeTextureNode.ts#L52">src/Goml/Nodes/Texture/CubeTextureNode.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -637,6 +685,24 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_goml_treenodebase_.treenodebase.html">TreeNodeBase</a>.<a href="_src_goml_treenodebase_.treenodebase.html#update">update</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/TreeNodeBase.ts#L59">src/Goml/TreeNodeBase.ts:59</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -674,6 +740,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#element" class="tsd-kind-icon">element</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#events" class="tsd-kind-icon">events</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#loadedflags" class="tsd-kind-icon">loaded<wbr>Flags</a>
@@ -715,6 +784,9 @@
 								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#beforeload" class="tsd-kind-icon">before<wbr>Load</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#bubbleevent" class="tsd-kind-icon">bubble<wbr>Event</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
@@ -731,6 +803,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_goml_nodes_texture_cubetexturenode_.cubetexturenode.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>

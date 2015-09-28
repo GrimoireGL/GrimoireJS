@@ -70,6 +70,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Basement class of Camera. These class related to camera are one of SceneObject in jThree.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -98,28 +105,31 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_camera_camera_.camera.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#frustumpoints" class="tsd-kind-icon">frustum<wbr>Points</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_camera_camera_.camera.html#geometry" class="tsd-kind-icon">geometry</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_core_camera_camera_.camera.html#transformer" class="tsd-kind-icon">transformer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_core_camera_camera_.camera.html#viewprojectioninvmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_core_camera_camera_.camera.html#viewprojectioninvmatrixcache" class="tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix<wbr>Cache</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_core_camera_camera_.camera.html#viewprojectionmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Matrix</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_core_camera_camera_.camera.html#viewprojectionmatrixcache" class="tsd-kind-icon">view<wbr>Projection<wbr>Matrix<wbr>Cache</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#children" class="tsd-kind-icon">Children</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#far" class="tsd-kind-icon">Far</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#geometry-1" class="tsd-kind-icon">Geometry</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#id" class="tsd-kind-icon">ID</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#lookat" class="tsd-kind-icon">Look<wbr>At</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#near" class="tsd-kind-icon">Near</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#parent" class="tsd-kind-icon">Parent</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#position" class="tsd-kind-icon">Position</a></li>
@@ -127,6 +137,7 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#transformer-1" class="tsd-kind-icon">Transformer</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#updirection" class="tsd-kind-icon">Up<wbr>Direction</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#viewmatrix" class="tsd-kind-icon">View<wbr>Matrix</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_camera_camera_.camera.html#viewprojectionmatrix-1" class="tsd-kind-icon">View<wbr>Projection<wbr>Matrix</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -142,34 +153,52 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_camera_camera_.camera.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_camera_camera_.camera.html#update" class="tsd-kind-icon">update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_src_core_camera_camera_.camera.html#updateviewprojectionmatrix" class="tsd-kind-icon">update<wbr>View<wbr>Projection<wbr>Matrix</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Camera<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Camera<span class="tsd-signature-symbol">(</span>transformer<span class="tsd-signature-symbol">?: </span><a href="_src_core_transform_transformer_.transformer.html" class="tsd-signature-type">Transformer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overwrites <a href="_src_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_src_core_sceneobject_.sceneobject.html#constructor">constructor</a></p>
+								<p>Inherited from <a href="_src_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_src_core_sceneobject_.sceneobject.html#constructor">constructor</a></p>
+								<p>Overwrites <a href="_src_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_src_base_jthreeobjectwithid_.jthreeobjectwithid.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L6">src/Core/Camera/Camera.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L14">src/Core/SceneObject.ts:14</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> transformer: <a href="_src_core_transform_transformer_.transformer.html" class="tsd-signature-type">Transformer</a></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="frustumpoints" class="tsd-anchor"></a>
+					<h3>frustum<wbr>Points</h3>
+					<div class="tsd-signature tsd-kind-icon">frustum<wbr>Points<span class="tsd-signature-symbol">:</span> <a href="_src_math_pointlist_.pointlist.html" class="tsd-signature-type">PointList</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L21">src/Core/Camera/Camera.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="geometry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> geometry</h3>
@@ -189,6 +218,46 @@
 						<p>Inherited from <a href="_src_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_src_core_sceneobject_.sceneobject.html#transformer">transformer</a></p>
 						<ul>
 							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L151">src/Core/SceneObject.ts:151</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="viewprojectioninvmatrix" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> view<wbr>Projection<wbr>Inv<wbr>Matrix</h3>
+					<div class="tsd-signature tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix<span class="tsd-signature-symbol">:</span> <a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L19">src/Core/Camera/Camera.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="viewprojectioninvmatrixcache" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> view<wbr>Projection<wbr>Inv<wbr>Matrix<wbr>Cache</h3>
+					<div class="tsd-signature tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L15">src/Core/Camera/Camera.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="viewprojectionmatrix" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> view<wbr>Projection<wbr>Matrix</h3>
+					<div class="tsd-signature tsd-kind-icon">view<wbr>Projection<wbr>Matrix<span class="tsd-signature-symbol">:</span> <a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L17">src/Core/Camera/Camera.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="viewprojectionmatrixcache" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> view<wbr>Projection<wbr>Matrix<wbr>Cache</h3>
+					<div class="tsd-signature tsd-kind-icon">view<wbr>Projection<wbr>Matrix<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L13">src/Core/Camera/Camera.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -215,23 +284,6 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_base_jthreecollection_.jthreecollection.html" class="tsd-signature-type">JThreeCollection</a><span class="tsd-signature-symbol">&lt;</span><a href="_src_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="far" class="tsd-anchor"></a>
-					<h3>Far</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Far<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L54">src/Core/Camera/Camera.ts:54</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -303,17 +355,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L23">src/Core/Camera/Camera.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L42">src/Core/Camera/Camera.ts:42</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for the position camera being looking at.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L28">src/Core/Camera/Camera.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L50">src/Core/Camera/Camera.ts:50</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Setter for the position camera being looking at.
+									By assign this setter, invokes updating camera matrix.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -321,23 +384,6 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="near" class="tsd-anchor"></a>
-					<h3>Near</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Near<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L59">src/Core/Camera/Camera.ts:59</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -414,17 +460,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L12">src/Core/Camera/Camera.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L26">src/Core/Camera/Camera.ts:26</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for position of this camera.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L17">src/Core/Camera/Camera.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L34">src/Core/Camera/Camera.ts:34</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Setter for position of this camera.
+									By assign this setter, invokes updating camera matrix.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -445,9 +502,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L49">src/Core/Camera/Camera.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L80">src/Core/Camera/Camera.ts:80</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for projection transform matrix of this camera.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
 						</li>
 					</ul>
@@ -481,17 +543,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L34">src/Core/Camera/Camera.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L58">src/Core/Camera/Camera.ts:58</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for the upper direction of camera.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L39">src/Core/Camera/Camera.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L66">src/Core/Camera/Camera.ts:66</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Setter for the upper direction of camera.
+									By assign this setter, invokes updating camera matrix.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -512,7 +585,29 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L44">src/Core/Camera/Camera.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L73">src/Core/Camera/Camera.ts:73</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for view transform matrix of this camera.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="viewprojectionmatrix-1" class="tsd-anchor"></a>
+					<h3>View<wbr>Projection<wbr>Matrix</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ViewProjectionMatrix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L85">src/Core/Camera/Camera.ts:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
@@ -743,7 +838,24 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_src_core_sceneobject_.sceneobject.html#update">update</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L64">src/Core/Camera/Camera.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L97">src/Core/Camera/Camera.ts:97</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="updateviewprojectionmatrix" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> update<wbr>View<wbr>Projection<wbr>Matrix</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>View<wbr>Projection<wbr>Matrix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L89">src/Core/Camera/Camera.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -770,8 +882,11 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_src_core_camera_camera_.camera.html" class="tsd-kind-icon">Camera</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="_src_core_camera_camera_.camera.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_core_camera_camera_.camera.html#frustumpoints" class="tsd-kind-icon">frustum<wbr>Points</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_core_camera_camera_.camera.html#geometry" class="tsd-kind-icon">geometry</a>
@@ -779,11 +894,20 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_core_camera_camera_.camera.html#transformer" class="tsd-kind-icon">transformer</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_core_camera_camera_.camera.html#viewprojectioninvmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_core_camera_camera_.camera.html#viewprojectioninvmatrixcache" class="tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix<wbr>Cache</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_core_camera_camera_.camera.html#viewprojectionmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Matrix</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_core_camera_camera_.camera.html#viewprojectionmatrixcache" class="tsd-kind-icon">view<wbr>Projection<wbr>Matrix<wbr>Cache</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_camera_camera_.camera.html#children" class="tsd-kind-icon">Children</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_camera_camera_.camera.html#far" class="tsd-kind-icon">Far</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_camera_camera_.camera.html#geometry-1" class="tsd-kind-icon">Geometry</a>
@@ -793,9 +917,6 @@
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="_src_core_camera_camera_.camera.html#lookat" class="tsd-kind-icon">Look<wbr>At</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_core_camera_camera_.camera.html#near" class="tsd-kind-icon">Near</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_camera_camera_.camera.html#parent" class="tsd-kind-icon">Parent</a>
@@ -817,6 +938,9 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_core_camera_camera_.camera.html#viewmatrix" class="tsd-kind-icon">View<wbr>Matrix</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_src_core_camera_camera_.camera.html#viewprojectionmatrix-1" class="tsd-kind-icon">View<wbr>Projection<wbr>Matrix</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_camera_camera_.camera.html#addchild" class="tsd-kind-icon">add<wbr>Child</a>
@@ -847,6 +971,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_src_core_camera_camera_.camera.html#update" class="tsd-kind-icon">update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="_src_core_camera_camera_.camera.html#updateviewprojectionmatrix" class="tsd-kind-icon">update<wbr>View<wbr>Projection<wbr>Matrix</a>
 							</li>
 						</ul>
 					</li>
