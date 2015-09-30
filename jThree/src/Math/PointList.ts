@@ -5,10 +5,21 @@ import JThreeLogger = require("../Base/JThreeLogger");
 import AABB = require("./AABB");
 class PointList
 {
-  public points:Vector3[] = [];
+  public points:Vector3[];
 
-  constructor()
+  constructor(pointList?:PointList)
   {
+    if(pointList)
+    {
+      this.points = new Array(pointList.points.length);
+      for(let i = 0; i < pointList.points.length; i++)
+      {
+        this.points[i] = Vector3.copy(pointList.points[i]);
+      }
+    }else
+    {
+      this.points = [];
+    }
   }
 
   public addPoint(point:Vector3)
@@ -62,6 +73,11 @@ class PointList
     list.addPoint(new Vector3( +1.0, -1.0, +1.0 ));
     list.addPoint(new Vector3( +1.0, +1.0, +1.0 ));
     return list;
+  }
+
+  public static copy(list:PointList)
+  {
+
   }
 }
 

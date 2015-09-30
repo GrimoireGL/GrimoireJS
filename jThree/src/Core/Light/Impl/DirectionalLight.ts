@@ -4,6 +4,8 @@ import Scene = require('../../Scene');
 import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
 import RendererBase = require("../../Renderers/RendererBase");
+import glm = require("gl-matrix");
+import PointList = require("../../../Math/PointList");
 /**
  * Provides directional light feature.
  * Parameters:
@@ -25,9 +27,24 @@ class DirectionalLight extends ShadowDroppableLight {
 					this.isShadowDroppable?1:0,shadowMapIndex,this.bias];
     }
 
+		private lightMatrixCache:Matrix = Matrix.zero();
+
 		public updateLightMatricis(renderer:RendererBase)
 		{
-			this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(1.0,1,0.1,5),Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit)));
+			this.USM(renderer);
+			this.updateLightProjection(renderer,this.lightMatrixCache);
+		}
+
+		private USM(renderer:RendererBase)//Uniform shadow map
+		{
+			var cam = renderer.Camera;
+			//initialize light matrix cache with light view
+			glm.mat4.lookAt(this.lightMatrixCache.rawElements,cam.Position.targetVector,Vector3.add(cam.Position,this.Transformer.forward).targetVector,Vector3.YUnit.targetVector);
+			var lightSpaceFrustum = (new PointList(cam.frustumPoints));
+			lightSpaceFrustum.transform(this.lightMatrixCache);
+			var frustumAABBinLightSpace = lightSpaceFrustum.getBoundingBox();
+			var lightProjection = Matrix.ortho(frustumAABBinLightSpace.pointLBF.X,frustumAABBinLightSpace.pointRTN.X,frustumAABBinLightSpace.pointLBF.Y,frustumAABBinLightSpace.pointRTN.Y,frustumAABBinLightSpace.pointLBF.Z,frustumAABBinLightSpace.pointRTN.Z);
+			glm.mat4.mul(this.lightMatrixCache.rawElements,this.lightMatrixCache.rawElements,lightProjection.rawElements);
 		}
 
 		private LiSPSM()
