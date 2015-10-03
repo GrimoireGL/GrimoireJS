@@ -38,8 +38,9 @@ class DirectionalLight extends ShadowDroppableLight {
 		private USM(renderer:RendererBase)//Uniform shadow map
 		{
 			var cam = renderer.Camera;
+			debugger;
 			//initialize light matrix cache with light view
-			glm.mat4.lookAt(this.lightMatrixCache.rawElements,cam.Position.targetVector,Vector3.add(cam.Position,this.Transformer.forward).targetVector,Vector3.YUnit.targetVector);
+			glm.mat4.lookAt(this.lightMatrixCache.rawElements,cam.Transformer.GlobalPosition.rawElements,Vector3.add(cam.Transformer.GlobalPosition,this.Transformer.forward).rawElements,Vector3.YUnit.rawElements);
 			var lightSpaceFrustum = (new PointList(cam.frustumPoints));
 			lightSpaceFrustum.transform(this.lightMatrixCache);
 			var frustumAABBinLightSpace = lightSpaceFrustum.getBoundingBox();

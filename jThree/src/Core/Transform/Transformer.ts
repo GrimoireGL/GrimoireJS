@@ -143,7 +143,7 @@ class Transformer extends JThreeObject
         //initialize localTransformCache & localToGlobalCache
         glm.mat4.identity(this.localTransformCache);
         glm.mat4.identity(this.localToGlobalCache);
-        glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformCache, this.rotation.targetQuat, this.position.targetVector, this.Scale.targetVector, this.localOrigin.targetVector);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformCache
+        glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformCache, this.rotation.targetQuat, this.position.rawElements, this.Scale.rawElements, this.localOrigin.rawElements);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformCache
         this.localTransform = new Matrix(this.localTransformCache);//Generate Matrix instance and substitute the matrix for localTransform
         if (this.linkedObject != null && this.linkedObject.Parent != null) {
             //Use LocalToGlobal matrix of parents to multiply with localTransformCache
@@ -169,10 +169,10 @@ class Transformer extends JThreeObject
         this.onUpdateTransformHandler.fire(this, this.linkedObject);
     }
 
-    private updateDirection(targetVector:Vector3,sourceVector4:number[])
+    private updateDirection(rawElements:Vector3,sourceVector4:number[])
     {
-      glm.vec4.transformMat4(targetVector.targetVector,sourceVector4,this.localToGlobalCache);
-      glm.vec3.normalize(targetVector.targetVector,targetVector.targetVector)
+      glm.vec4.transformMat4(rawElements.rawElements,sourceVector4,this.localToGlobalCache);
+      glm.vec3.normalize(rawElements.rawElements,rawElements.rawElements)
     }
 
     /**
@@ -183,6 +183,11 @@ class Transformer extends JThreeObject
         glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.ViewMatrix.RawElements, this.LocalToGlobal.RawElements);
         glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.ProjectionMatrix.RawElements, this.modelViewProjectionCaluculationCache);
         return new Matrix(this.modelViewProjectionCaluculationCache);
+    }
+
+    public get GlobalPosition()
+    {
+      return Matrix.transformPoint(this.localToGlobal,Vector3.Zero);
     }
 
     /**

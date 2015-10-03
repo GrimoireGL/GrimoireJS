@@ -31,7 +31,7 @@ class PointList
   {
     for(let i = 0;i < this.points.length; i++)
     {
-      glm.vec3.transformMat4(this.points[i].targetVector,this.points[i].targetVector,transformMatrix.rawElements);
+      glm.vec3.transformMat4(this.points[i].rawElements,this.points[i].rawElements,transformMatrix.rawElements);
     }
   }
 

@@ -99,8 +99,8 @@ class Matrix extends MatrixBase{
     public static TRS(t:Vector3,rot:Quaternion,s:Vector3):Matrix
     {
        var newMat =glm.mat4.create();var cacheMat=glm.mat4.create();
-       glm.mat4.mul(newMat,glm.mat4.translate(newMat,glm.mat4.create(),t.targetVector),glm.mat4.fromQuat(cacheMat,rot.targetQuat));
-       glm.mat4.scale(newMat,newMat,s.targetVector);
+       glm.mat4.mul(newMat,glm.mat4.translate(newMat,glm.mat4.create(),t.rawElements),glm.mat4.fromQuat(cacheMat,rot.targetQuat));
+       glm.mat4.scale(newMat,newMat,s.rawElements);
       return new Matrix(newMat);
     }
 
@@ -115,7 +115,7 @@ class Matrix extends MatrixBase{
 
     public static transformPoint(m: Matrix, t: Vector3): Vector3 {
         var newVec=glm.vec3.create();
-        glm.vec3.transformMat4(newVec,t.targetVector,m.targetMatrix);
+        glm.vec3.transformMat4(newVec,t.rawElements,m.targetMatrix);
         return new Vector3(newVec);
     }
 
@@ -155,7 +155,7 @@ class Matrix extends MatrixBase{
      */
     public static translate(v: Vector3): Matrix {
         var newMat=glm.mat4.create();
-        glm.mat4.translate(newMat,newMat,v.targetVector);
+        glm.mat4.translate(newMat,newMat,v.rawElements);
         return new Matrix(newMat);
     }
 
@@ -164,7 +164,7 @@ class Matrix extends MatrixBase{
      */
     public static scale(v: Vector3): Matrix {
         var newMat =glm.mat4.create();
-        glm.mat4.scale(newMat,newMat,v.targetVector);
+        glm.mat4.scale(newMat,newMat,v.rawElements);
         return new Matrix(newMat);
     }
 
@@ -216,7 +216,7 @@ class Matrix extends MatrixBase{
 
     public static lookAt(eye: Vector3, lookAt: Vector3, up: Vector3): Matrix {
         var newMat = glm.mat4.create();
-        glm.mat4.lookAt(newMat,eye.targetVector,lookAt.targetVector,up.targetVector);
+        glm.mat4.lookAt(newMat,eye.rawElements,lookAt.rawElements,up.rawElements);
         return new Matrix(newMat);
     }
 

@@ -30,13 +30,13 @@ class Vector2 extends VectorBase{
         super();
         if(typeof y ==='undefined')
         {
-            this.targetVector=<glm.GLM.IArray>x;
+            this.rawElements=<glm.GLM.IArray>x;
             return;
         }
-        this.targetVector=[<number>x,y];
+        this.rawElements=[<number>x,y];
     }
 
-    public targetVector: glm.GLM.IArray;
+    public rawElements: glm.GLM.IArray;
 
     public get normalized()
     {
@@ -44,40 +44,40 @@ class Vector2 extends VectorBase{
     }
 
     public get X(): number {
-        return this.targetVector[0];
+        return this.rawElements[0];
     }
 
     public get Y(): number {
-        return this.targetVector[1];
+        return this.rawElements[1];
     }
 
     public set X(x: number)
     {
-        this.targetVector[0] = x;
+        this.rawElements[0] = x;
     }
 
     public set Y(y: number)
     {
-        this.targetVector[1] = y;
+        this.rawElements[1] = y;
     }
 
     public static dot(v1: Vector2, v2: Vector2): number {
-        return glm.vec2.dot(v1.targetVector,v2.targetVector);
+        return glm.vec2.dot(v1.rawElements,v2.rawElements);
     }
 
     public static add(v1: Vector2, v2: Vector2): Vector2 {
         var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.add(newVec,v1.targetVector,v2.targetVector));
+        return new Vector2(glm.vec2.add(newVec,v1.rawElements,v2.rawElements));
     }
 
     public static subtract(v1: Vector2, v2: Vector2): Vector2 {
         var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.sub(newVec,v1.targetVector,v2.targetVector));
+        return new Vector2(glm.vec2.sub(newVec,v1.rawElements,v2.rawElements));
     }
 
     public static multiply(s: number, v: Vector2): Vector2 {
         var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.scale(newVec,v.targetVector,s));
+        return new Vector2(glm.vec2.scale(newVec,v.rawElements,s));
     }
 
     public static negate(v1: Vector2): Vector2 {
@@ -90,7 +90,7 @@ class Vector2 extends VectorBase{
 
     public static normalize(v1: Vector2): Vector2 {
         var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.normalize(newVec,v1.targetVector));
+        return new Vector2(glm.vec2.normalize(newVec,v1.rawElements));
     }
 
     public dotWith(v: Vector2): number {

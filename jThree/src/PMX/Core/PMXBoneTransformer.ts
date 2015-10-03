@@ -73,7 +73,7 @@ class PMXBoneTransformer extends Transformer {
 		var effector = this.PMXModelData.Bones[this.TargetBoneData.ikTargetBoneIndex];
 		var effectorTransformer = <PMXBoneTransformer> this.pmx.Skeleton.getBoneByIndex(this.TargetBoneData.ikTargetBoneIndex).Transformer;
 		var TargetGlobalPos =Matrix.transformPoint(this.LocalToGlobal,this.LocalOrigin);
-		// glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.targetVector, this.LocalToGlobal.rawElements);
+		// glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
 		for (var i = 0; i < this.TargetBoneData.ikLinkCount; i++) {
 			var ikLinkData = this.TargetBoneData.ikLinks[i];
 			var ikLinkTransform = <PMXBoneTransformer>this.pmx.Skeleton.getBoneByIndex(ikLinkData.ikLinkBoneIndex).Transformer;

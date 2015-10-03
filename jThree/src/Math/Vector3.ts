@@ -33,13 +33,13 @@ class Vector3 extends VectorBase{
         super();
         if(typeof y ==='undefined')
         {
-            this.targetVector=<glm.GLM.IArray>x;
+            this.rawElements=<glm.GLM.IArray>x;
             return;
         }
-        this.targetVector=[<number>x,y,z];
+        this.rawElements=[<number>x,y,z];
     }
 
-    public targetVector: glm.GLM.IArray;
+    public rawElements: glm.GLM.IArray;
 
     public get normalized()
     {
@@ -47,49 +47,49 @@ class Vector3 extends VectorBase{
     }
 
     public get X(): number {
-        return this.targetVector[0];
+        return this.rawElements[0];
     }
 
     public get Y(): number {
-        return this.targetVector[1];
+        return this.rawElements[1];
     }
 
     public get Z(): number {
-        return this.targetVector[2];
+        return this.rawElements[2];
     }
 
     public set X(x: number)
     {
-        this.targetVector[0] = x;
+        this.rawElements[0] = x;
     }
 
     public set Y(y: number)
     {
-        this.targetVector[1] = y;
+        this.rawElements[1] = y;
     }
 
     public set Z(z: number)
     {
-        this.targetVector[2] = z;
+        this.rawElements[2] = z;
     }
 
     public static dot(v1: Vector3, v2: Vector3): number {
-        return glm.vec2.dot(v1.targetVector,v2.targetVector);
+        return glm.vec2.dot(v1.rawElements,v2.rawElements);
     }
 
     public static add(v1: Vector3, v2: Vector3): Vector3 {
         var newVec=glm.vec3.create();
-        return new Vector3(glm.vec3.add(newVec,v1.targetVector,v2.targetVector));
+        return new Vector3(glm.vec3.add(newVec,v1.rawElements,v2.rawElements));
     }
 
     public static subtract(v1: Vector3, v2: Vector3): Vector3 {
         var newVec=glm.vec3.create();
-        return new Vector3(glm.vec3.sub(newVec,v1.targetVector,v2.targetVector));
+        return new Vector3(glm.vec3.sub(newVec,v1.rawElements,v2.rawElements));
     }
 
     public static multiply(s: number, v: Vector3): Vector3 {
         var newVec=glm.vec3.create();
-        return new Vector3(glm.vec3.scale(newVec,v.targetVector,s));
+        return new Vector3(glm.vec3.scale(newVec,v.rawElements,s));
     }
 
     public static negate(v1: Vector3): Vector3 {
@@ -102,12 +102,12 @@ class Vector3 extends VectorBase{
 
     public static normalize(v1: Vector3): Vector3 {
         var newVec=glm.vec3.create();
-        return new Vector3(glm.vec3.normalize(newVec,v1.targetVector));
+        return new Vector3(glm.vec3.normalize(newVec,v1.rawElements));
     }
 
     public static cross(v1: Vector3, v2: Vector3): Vector3 {
         var newVec=glm.vec3.create();
-        return new Vector3(glm.vec3.cross(newVec,v1.targetVector,v2.targetVector));
+        return new Vector3(glm.vec3.cross(newVec,v1.rawElements,v2.rawElements));
     }
 
     public normalizeThis(): Vector3 {
