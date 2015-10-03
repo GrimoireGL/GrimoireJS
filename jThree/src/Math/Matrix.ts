@@ -22,16 +22,7 @@ class Matrix extends MatrixBase{
        return new Matrix([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]);
     }
 
-    private targetMatrix = glm.mat4.create();
-
-    public get rawElements(): Float32Array {
-        return <Float32Array>this.targetMatrix;
-    }
-
-    public get RawElements():glm.GLM.IArray
-    {
-        return this.targetMatrix;
-    }
+    public rawElements = glm.mat4.create();
 
     private isValidArray(arr: Float32Array): boolean {
         if (arr.length !== 16) return false;
@@ -41,23 +32,23 @@ class Matrix extends MatrixBase{
     constructor(arr:glm.GLM.IArray) {
         super();
        // if (!this.isValidArray(arr)) throw new Exceptions.InvalidArgumentException("Invalid matrix source was passed.");
-        this.targetMatrix=arr;
+        this.rawElements=arr;
     }
 
     public getAt(row: number, colmun: number): number {
-        return this.targetMatrix[colmun * 4 + row];
+        return this.rawElements[colmun * 4 + row];
     }
 
     public setAt(colmun: number, row: number, val: number) {
-        this.targetMatrix[colmun * 4 + row] = val;
+        this.rawElements[colmun * 4 + row] = val;
     }
 
     public getBySingleIndex(index: number): number {
-        return this.targetMatrix[index];
+        return this.rawElements[index];
     }
 
     public getColmun(col: number): Vector4 {
-        return new Vector4(this.targetMatrix[col * 4], this.targetMatrix[col * 4 + 1], this.targetMatrix[col * 4 + 2], this.targetMatrix[col * 4 + 3]);
+        return new Vector4(this.rawElements[col * 4], this.rawElements[col * 4 + 1], this.rawElements[col * 4 + 2], this.rawElements[col * 4 + 3]);
     }
 
 /**
@@ -65,7 +56,7 @@ class Matrix extends MatrixBase{
 * @params row [0-3]
 */
     public getRow(row: number):Vector4 {
-        return new Vector4(this.targetMatrix[row], this.targetMatrix[row + 4], this.targetMatrix[row + 8], this.targetMatrix[row + 12]);
+        return new Vector4(this.rawElements[row], this.rawElements[row + 4], this.rawElements[row + 8], this.rawElements[row + 12]);
     }
 
     public static equal(m1: Matrix, m2: Matrix): boolean {
@@ -76,7 +67,7 @@ class Matrix extends MatrixBase{
         var mat=glm.mat4.create();
         for(var i=0;i<16;i++)
         {
-            mat[i]=m1.targetMatrix[i]+m2.targetMatrix[i];
+            mat[i]=m1.rawElements[i]+m2.rawElements[i];
         }
         return new Matrix(mat);
     }
@@ -87,13 +78,13 @@ class Matrix extends MatrixBase{
 
     public static scalarMultiply(s: number, m: Matrix): Matrix {
         var newMat=glm.mat4.create();
-        glm.mat4.multiply(newMat,[s,0,0,0,  0,s,0,0,  0,0,s,0 , 0,0,0,s],m.targetMatrix);
+        glm.mat4.multiply(newMat,[s,0,0,0,  0,s,0,0,  0,0,s,0 , 0,0,0,s],m.rawElements);
         return new Matrix(newMat);
     }
 
     public static multiply(m1: Matrix, m2: Matrix): Matrix {
         var newMat=glm.mat4.create();
-        return new Matrix(glm.mat4.mul(newMat,m1.targetMatrix,m2.targetMatrix));
+        return new Matrix(glm.mat4.mul(newMat,m1.rawElements,m2.rawElements));
     }
 
     public static TRS(t:Vector3,rot:Quaternion,s:Vector3):Matrix
@@ -110,12 +101,12 @@ class Matrix extends MatrixBase{
 
     public static transpose(m: Matrix): Matrix {
         var newMat = glm.mat4.create();
-        return new Matrix(glm.mat4.transpose(newMat,m.targetMatrix));
+        return new Matrix(glm.mat4.transpose(newMat,m.rawElements));
     }
 
     public static transformPoint(m: Matrix, t: Vector3): Vector3 {
         var newVec=glm.vec3.create();
-        glm.vec3.transformMat4(newVec,t.rawElements,m.targetMatrix);
+        glm.vec3.transformMat4(newVec,t.rawElements,m.rawElements);
         return new Vector3(newVec);
     }
 
@@ -123,7 +114,7 @@ class Matrix extends MatrixBase{
         var newVec=glm.vec4.create();
         var trans=glm.vec4.create();
        trans[0]=t.X;trans[1]=t.Y;trans[2]=t.Z;trans[3]=0;
-        glm.vec4.transformMat4(newVec,trans,m.targetMatrix)
+        glm.vec4.transformMat4(newVec,trans,m.rawElements)
         return new Vector3(newVec[0],newVec[1],newVec[2]);
     }
 
@@ -131,7 +122,7 @@ class Matrix extends MatrixBase{
         var newVec=glm.vec4.create();
         var trans=glm.vec4.create();
        trans[0]=t.X;trans[1]=t.Y;trans[2]=t.Z;trans[3]=t.W;
-        glm.vec4.transformMat4(newVec,trans,m.targetMatrix)
+        glm.vec4.transformMat4(newVec,trans,m.rawElements)
         return new Vector4(newVec[0],newVec[1],newVec[2],newVec[3]);
     }
 
@@ -139,7 +130,7 @@ class Matrix extends MatrixBase{
      * Retrieve determinant of passed matrix
      */
     public static determinant(m: Matrix): number {
-        return glm.mat4.determinant(m.targetMatrix);
+        return glm.mat4.determinant(m.rawElements);
     }
 
     /**
@@ -147,7 +138,7 @@ class Matrix extends MatrixBase{
      */
     public static inverse(m: Matrix): Matrix {
       var newMat=glm.mat4.create();
-      return new Matrix(glm.mat4.invert(newMat,m.targetMatrix));
+      return new Matrix(glm.mat4.invert(newMat,m.rawElements));
     }
 
     /**
