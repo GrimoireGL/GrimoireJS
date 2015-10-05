@@ -14,9 +14,9 @@ class Camera extends SceneObject
 
 	private viewProjectionInvMatrixCache = new Float32Array(16);
 
-	private viewProjectionMatrix:Matrix = new Matrix(this.viewProjectionMatrixCache);
+	public viewProjectionMatrix:Matrix = new Matrix(this.viewProjectionMatrixCache);
 
-	private viewProjectionInvMatrix:Matrix = new Matrix(this.viewProjectionInvMatrixCache);
+	public viewProjectionInvMatrix:Matrix = new Matrix(this.viewProjectionInvMatrixCache);
 
 	/**
 	 * View frustum vertex points in World space
@@ -26,10 +26,6 @@ class Camera extends SceneObject
 	public viewMatrix:Matrix;
 
 	public projectionMatrix:Matrix;
-
-	public get ViewProjectionMatrix():Matrix{
-		return this.viewProjectionMatrix;
-	}
 
 	protected updateViewProjectionMatrix()
 	{
