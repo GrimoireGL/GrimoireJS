@@ -10,27 +10,23 @@ import PointList = require("../../Math/PointList");
  */
 class Camera extends SceneObject
 {
-	private viewProjectionMatrixCache = new Float32Array(16);
+	public viewProjectionMatrix:Matrix = new Matrix();
 
-	private viewProjectionInvMatrixCache = new Float32Array(16);
-
-	public viewProjectionMatrix:Matrix = new Matrix(this.viewProjectionMatrixCache);
-
-	public viewProjectionInvMatrix:Matrix = new Matrix(this.viewProjectionInvMatrixCache);
+	public viewProjectionInvMatrix:Matrix = new Matrix();
 
 	/**
 	 * View frustum vertex points in World space
 	 */
 	public frustumPoints:PointList = new PointList();
 
-	public viewMatrix:Matrix;
+	public viewMatrix:Matrix = new Matrix();
 
-	public projectionMatrix:Matrix;
+	public projectionMatrix:Matrix = new Matrix();
 
 	protected updateViewProjectionMatrix()
 	{
-		glm.mat4.mul(this.viewProjectionMatrixCache,this.projectionMatrix.rawElements,this.viewMatrix.rawElements);
-		glm.mat4.invert(this.viewProjectionInvMatrixCache,this.viewProjectionMatrixCache);
+		glm.mat4.mul(this.viewProjectionMatrix.rawElements,this.projectionMatrix.rawElements,this.viewMatrix.rawElements);
+		glm.mat4.invert(this.viewProjectionInvMatrix.rawElements,this.viewProjectionMatrix.rawElements);
 		PointList.initializeWithCube(this.frustumPoints);
 		this.frustumPoints.transform(this.viewProjectionInvMatrix);
 	}

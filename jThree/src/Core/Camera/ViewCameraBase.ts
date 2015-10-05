@@ -2,24 +2,25 @@ import Camera = require("./Camera");
 import Vector3 = require("../../Math/Vector3");
 import Matrix = require("../../Math/Matrix");
 import SceneObject = require("../SceneObject");
+import glm = require("gl-matrix");
 class ViewCameraBase extends Camera
 {
   constructor()
   {
     super();
-    this.viewMatrix = this.generateviewMatrix(this);
+    this.generateviewMatrix(this);
     this.transformer.onUpdateTransform((t,o)=>this.UpdateviewMatrix(<Camera>o));
   }
 
   private UpdateviewMatrix(cam:Camera):void
   {
-    this.viewMatrix = this.generateviewMatrix(cam);
+    this.generateviewMatrix(cam);
     this.updateViewProjectionMatrix();
   }
 
   private generateviewMatrix(cam:Camera)
   {
-    return Matrix.lookAt(cam.Transformer.GlobalPosition, Vector3.add(cam.Transformer.forward,cam.Transformer.GlobalPosition),cam.Transformer.up);
+    glm.mat4.lookAt(this.viewMatrix.rawElements,cam.Transformer.GlobalPosition.rawElements, Vector3.add(cam.Transformer.forward,cam.Transformer.GlobalPosition).rawElements,cam.Transformer.up.rawElements);
   }
 }
 
