@@ -36,8 +36,6 @@ class Vector2 extends VectorBase{
         this.rawElements=[<number>x,y];
     }
 
-    public rawElements: glm.GLM.IArray;
-
     public get normalized()
     {
         return this.multiplyWith(1 / this.magnitude);

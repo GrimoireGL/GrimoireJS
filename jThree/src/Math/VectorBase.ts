@@ -6,7 +6,7 @@ class VectorBase {
     public get sqrMagnitude(): number {
         if (this.magnitudeSquaredCache < 0) {
             var sum: number = 0;
-            var r=this.RawElements;
+            var r=this.rawElements;
             for(var i=0;i<this.ElementCount;i++)
             {
                 sum+=r[i]*r[i];
@@ -21,7 +21,7 @@ class VectorBase {
         if(v1.ElementCount!==v2.ElementCount)return false;
         for(var i=0;i<v1.ElementCount;i++)
         {
-            if(v1.RawElements[i]!==v2.RawElements[i])return false;
+            if(v1.rawElements[i]!==v2.rawElements[i])return false;
         }
         return true;
     }
@@ -40,10 +40,7 @@ class VectorBase {
         return 0;
     }
 
-    public get RawElements():glm.GLM.IArray
-    {
-        return null;
-    }
+    public rawElements:glm.GLM.IArray;
 
 }
 

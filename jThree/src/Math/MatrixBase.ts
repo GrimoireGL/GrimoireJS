@@ -28,8 +28,6 @@ class MatrixBase {
         throw new Error("Not implemented");
     }
 
-    public get RawElements():glm.GLM.IArray{
-        return null;
-    }
+    public rawElements:glm.GLM.IArray;
 }
 export=MatrixBase;

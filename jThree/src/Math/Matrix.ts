@@ -22,17 +22,16 @@ class Matrix extends MatrixBase{
        return new Matrix([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]);
     }
 
-    public rawElements = glm.mat4.create();
-
     private isValidArray(arr: Float32Array): boolean {
         if (arr.length !== 16) return false;
         return true;
     }
 
-    constructor(arr:glm.GLM.IArray) {
+    constructor(arr?:glm.GLM.IArray) {
         super();
        // if (!this.isValidArray(arr)) throw new Exceptions.InvalidArgumentException("Invalid matrix source was passed.");
-        this.rawElements=arr;
+        if(arr)this.rawElements=arr;
+        else this.rawElements = glm.mat4.create();
     }
 
     public getAt(row: number, colmun: number): number {
