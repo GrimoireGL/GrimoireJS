@@ -29,7 +29,6 @@ class Matrix extends MatrixBase{
 
     constructor(arr?:glm.GLM.IArray) {
         super();
-       // if (!this.isValidArray(arr)) throw new Exceptions.InvalidArgumentException("Invalid matrix source was passed.");
         if(arr)this.rawElements=arr;
         else this.rawElements = glm.mat4.create();
     }
