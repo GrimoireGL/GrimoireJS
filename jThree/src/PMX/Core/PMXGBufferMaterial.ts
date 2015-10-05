@@ -25,7 +25,7 @@ class PMXGBufferMaterial extends Material
     protected thirdProgram: Program;
 
     protected associatedMaterial: PMXMaterial;
-    
+
     /**
      * Count of verticies
      */
@@ -33,7 +33,7 @@ class PMXGBufferMaterial extends Material
     {
         return this.associatedMaterial.VerticiesCount;
     }
-    
+
     /**
      * Offset of verticies in index buffer
      */
@@ -76,7 +76,7 @@ class PMXGBufferMaterial extends Material
     private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.primaryProgram.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix);
+        var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -98,7 +98,7 @@ class PMXGBufferMaterial extends Material
     private configureSecoundaryBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix);
+        var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -147,7 +147,7 @@ class PMXGBufferMaterial extends Material
     private configureThirdBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix);
+        var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,

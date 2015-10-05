@@ -8,7 +8,7 @@ class OrthoCamera extends ViewCamera
   private bottom:number;
   private near:number;
   private far:number;
-  private projection:Matrix;
+  
   constructor()
   {
     super();
@@ -17,7 +17,7 @@ class OrthoCamera extends ViewCamera
 
   private updateProjection()
   {
-    this.projection=Matrix.ortho(this.Left,this.Right,this.Bottom,this.Top,this.Near,this.Far);
+    this.projectionMatrix=Matrix.ortho(this.Left,this.Right,this.Bottom,this.Top,this.Near,this.Far);
     this.updateViewProjectionMatrix();
   }
 
@@ -87,10 +87,6 @@ class OrthoCamera extends ViewCamera
     this.updateProjection();
   }
 
-    public get ProjectionMatrix():Matrix
-  {
-    return this.projection;
-  }
 }
 
 export=OrthoCamera;

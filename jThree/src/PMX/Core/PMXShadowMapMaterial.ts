@@ -53,7 +53,7 @@ class PMXShadowMapMaterial extends Material
         super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix);
+        var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,

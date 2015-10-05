@@ -24,13 +24,8 @@ class Camera extends SceneObject
 	public frustumPoints:PointList = new PointList();
 
 	public viewMatrix:Matrix;
-	/**
- 	* Getter for projection transform matrix of this camera.
- 	*/
-    public get ProjectionMatrix():Matrix
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
+
+	public projectionMatrix:Matrix;
 
 	public get ViewProjectionMatrix():Matrix{
 		return this.viewProjectionMatrix;
@@ -38,7 +33,7 @@ class Camera extends SceneObject
 
 	protected updateViewProjectionMatrix()
 	{
-		glm.mat4.mul(this.viewProjectionMatrixCache,this.ProjectionMatrix.rawElements,this.viewMatrix.rawElements);
+		glm.mat4.mul(this.viewProjectionMatrixCache,this.projectionMatrix.rawElements,this.viewMatrix.rawElements);
 		glm.mat4.invert(this.viewProjectionInvMatrixCache,this.viewProjectionMatrixCache);
 		PointList.initializeWithCube(this.frustumPoints);
 		this.frustumPoints.transform(this.viewProjectionInvMatrix);

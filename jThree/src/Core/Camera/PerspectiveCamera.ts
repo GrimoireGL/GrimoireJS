@@ -6,10 +6,9 @@ class PerspectiveCamera extends ViewCamera
   private aspect:number=1;
   private near:number=0.1;
   private far:number=10;
-    public projection:Matrix;
 
   private updateProjection() {
-    this.projection=Matrix.perspective(this.fovy,this.aspect,this.near,this.far);
+    this.projectionMatrix=Matrix.perspective(this.fovy,this.aspect,this.near,this.far);
     this.updateViewProjectionMatrix();
   }
 
@@ -55,11 +54,6 @@ class PerspectiveCamera extends ViewCamera
   {
     this.far=far;
     this.updateProjection();
-  }
-
-    public get ProjectionMatrix():Matrix
-  {
-    return this.projection;
   }
 }
 

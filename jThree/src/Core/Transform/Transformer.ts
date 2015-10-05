@@ -181,7 +181,7 @@ class Transformer extends JThreeObject
     public calculateMVPMatrix(renderer: RendererBase): Matrix
     {
         glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
-        glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.ProjectionMatrix.rawElements, this.modelViewProjectionCaluculationCache);
+        glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this.modelViewProjectionCaluculationCache);
         return new Matrix(this.modelViewProjectionCaluculationCache);
     }
 

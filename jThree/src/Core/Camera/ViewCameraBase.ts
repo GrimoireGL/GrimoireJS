@@ -10,7 +10,7 @@ class ViewCameraBase extends Camera
     this.viewMatrix = this.generateviewMatrix(this);
     this.transformer.onUpdateTransform((t,o)=>this.UpdateviewMatrix(<Camera>o));
   }
-  
+
   private UpdateviewMatrix(cam:Camera):void
   {
     this.viewMatrix = this.generateviewMatrix(cam);

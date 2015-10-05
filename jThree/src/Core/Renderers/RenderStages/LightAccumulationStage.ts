@@ -50,7 +50,7 @@ class LightAccumulationStage extends RenderStageBase
     {
         var geometry = object.Geometry;
         var programWrapper = targetProgramWrapper.getForContext(renderer.ContextManager);
-        var ip = Matrix.inverse(renderer.Camera.ProjectionMatrix);
+        var ip = Matrix.inverse(renderer.Camera.projectionMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
