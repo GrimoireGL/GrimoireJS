@@ -84,7 +84,7 @@ class GBufferMaterial extends Material
             },
             uniforms: {
                 matMVP: { type: "matrix", value: v },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 specularCoefficient: {
                     type: "float",
                     value: coefficient
@@ -121,7 +121,7 @@ class GBufferMaterial extends Material
                 },
                 matMV: {
                     type: "matrix",
-                    value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal)
+                    value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal)
                 },
                 albedo: {
                     type: "vector",
@@ -170,7 +170,7 @@ class GBufferMaterial extends Material
                 },
                 matMV: {
                     type: "matrix",
-                    value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal)
+                    value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal)
                 },
                 specular: {
                     type: "vector",

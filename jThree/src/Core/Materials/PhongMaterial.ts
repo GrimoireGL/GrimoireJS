@@ -48,8 +48,8 @@ class PhongMaterial extends Material {
             },
             uniforms: {
                 matMVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: renderer.Camera.ViewMatrix },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value: renderer.Camera.viewMatrix },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 texture: { type: "texture", register: 0, value: this.texture },
                 dlight: { type: "texture", register: 1, value: texs["DLIGHT"] },
                 slight: { type: "texture", register: 2, value: texs["SLIGHT"] },

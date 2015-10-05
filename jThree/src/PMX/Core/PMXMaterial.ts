@@ -237,7 +237,7 @@ class PMXMaterial extends Material
                     u_addToonCoeff: { type: "vector", value: new Vector4(this.addMorphParam.toonCoeff) },
                     u_mulToonCoeff: { type: "vector", value: new Vector4(this.mulMorphParam.toonCoeff) },
                     matMVP: { type: "matrix", value: v },
-                    matVP: { type: "matrix", value: Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix) },
+                    matVP: { type: "matrix", value: Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix) },
                     u_boneCount: {
                         type: "float",
                         value: this.parentModel.Skeleton.BoneCount
@@ -271,7 +271,7 @@ class PMXMaterial extends Material
                     type: "texture", register: 0, value: this.ParentModel.Skeleton.MatrixTexture
                 },
                 matVP: {
-                    type: "matrix", value: Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix)
+                    type: "matrix", value: Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix)
                 },
                 u_edgeSize: {
                     type: "float", value: PmxMaterialMorphParamContainer.calcMorphedSingleValue(this.edgeSize, this.addMorphParam, this.mulMorphParam, (t) => t.edgeSize)

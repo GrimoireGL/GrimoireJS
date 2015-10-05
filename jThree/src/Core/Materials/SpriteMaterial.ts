@@ -45,8 +45,8 @@ class SpriteMaterial extends Material
                 uv: geometry.UVBuffer
             }, uniforms: {
                 matMVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: renderer.Camera.ViewMatrix },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value: renderer.Camera.viewMatrix },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 u_sampler: { type: "texture", register: 0, value: this.texture },
                 additionA: { type: "integer", value: this.ctA < 4 ? 0 : 1 },
                 ctM: { type: "matrix", value: ctM }

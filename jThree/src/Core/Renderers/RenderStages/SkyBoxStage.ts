@@ -47,7 +47,7 @@ class SkyBoxStage extends RenderStageBase
             },
             uniforms: {
                 skyTex: { type: "texture", register: 0, value: this.skyBoxTexture},
-                matVP:{type:"matrix",value:this.Renderer.Camera.ViewMatrix}
+                matVP:{type:"matrix",value:this.Renderer.Camera.viewMatrix}
             }
         });
         geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();

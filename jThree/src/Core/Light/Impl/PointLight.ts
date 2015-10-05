@@ -32,7 +32,7 @@ class PointLight extends LightBase
     public getParameters(renderer:RendererBase): number[]
     {
 			　var pos = this.Position;
-			  pos = Matrix.transformPoint(renderer.Camera.ViewMatrix,pos);
+			  pos = Matrix.transformPoint(renderer.Camera.viewMatrix,pos);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             pos.X,pos.Y,pos.Z, 0,
         this.distance,this.decay];

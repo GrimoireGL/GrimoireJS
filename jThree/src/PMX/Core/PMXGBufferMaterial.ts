@@ -76,7 +76,7 @@ class PMXGBufferMaterial extends Material
     private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.primaryProgram.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix);
+        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -88,7 +88,7 @@ class PMXGBufferMaterial extends Material
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount }
             }
@@ -98,7 +98,7 @@ class PMXGBufferMaterial extends Material
     private configureSecoundaryBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix);
+        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -110,7 +110,7 @@ class PMXGBufferMaterial extends Material
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
                 diffuse: {
@@ -147,7 +147,7 @@ class PMXGBufferMaterial extends Material
     private configureThirdBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.ViewMatrix);
+        var v = Matrix.multiply(renderer.Camera.ProjectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -159,7 +159,7 @@ class PMXGBufferMaterial extends Material
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount },
                 specular: {
                     type: "vector",

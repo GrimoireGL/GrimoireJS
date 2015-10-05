@@ -6,6 +6,7 @@ import LightTypeDeclaration = require("./../LightTypeDeclaration");
 import RendererBase = require("../../Renderers/RendererBase");
 import glm = require("gl-matrix");
 import PointList = require("../../../Math/PointList");
+import Camera = require("../../Camera/Camera");
 /**
  * Provides directional light feature.
  * Parameters:
@@ -21,7 +22,7 @@ class DirectionalLight extends ShadowDroppableLight {
 		private directionCache:Vector3;
 
     public getParameters(renderer:RendererBase,shadowMapIndex?:number): number[] {
-        var dir = this.directionCache = Matrix.transformNormal(renderer.Camera.ViewMatrix,this.transformer.forward);
+        var dir = this.directionCache = Matrix.transformNormal(renderer.Camera.viewMatrix,this.transformer.forward);
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             dir.X,dir.Y,dir.Z,0,
 					this.isShadowDroppable?1:0,shadowMapIndex,this.bias];
@@ -34,6 +35,11 @@ class DirectionalLight extends ShadowDroppableLight {
 			//this.USM(renderer);
 			this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(1.0,1,0.1,5),Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit)));
 			//this.updateLightProjection(renderer,this.lightMatrixCache);
+		}
+
+		private generateLightviewMatrix(mat:Matrix,cam:Camera)
+		{
+			//glm.mat4.lookAt(mat.rawElements,cam.)
 		}
 
 		private USM(renderer:RendererBase)//Uniform shadow map

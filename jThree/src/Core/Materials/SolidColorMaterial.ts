@@ -42,7 +42,7 @@ class SolidColorMaterial extends Material {
             },
             uniforms: {
                 matMVP: { type: "matrix", value: v },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.ViewMatrix, object.Transformer.LocalToGlobal) },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 u_color:{type:"vector",value:this.Color.toVector()}
             }
         });

@@ -21,7 +21,7 @@ class ShadowDroppableLight extends LightBase {
  protected updateLightProjection(renderer:RendererBase,lightProjection:Matrix)
  {
 	 this.matLightProjection = lightProjection;
-	 this.matInverseLightProjection = Matrix.multiply(renderer.Camera.ViewMatrix,Matrix.inverse(lightProjection));
+	 this.matInverseLightProjection = Matrix.multiply(renderer.Camera.viewMatrix,Matrix.inverse(lightProjection));
  }
 
  /**

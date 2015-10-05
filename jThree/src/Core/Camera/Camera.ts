@@ -17,66 +17,13 @@ class Camera extends SceneObject
 	private viewProjectionMatrix:Matrix = new Matrix(this.viewProjectionMatrixCache);
 
 	private viewProjectionInvMatrix:Matrix = new Matrix(this.viewProjectionInvMatrixCache);
-	
+
 	/**
 	 * View frustum vertex points in World space
 	 */
 	public frustumPoints:PointList = new PointList();
 
-	/**
-	 * Getter for position of this camera.
-	 */
-    public get Position():Vector3
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
-	/**
-	 * Setter for position of this camera.
-	 * By assign this setter, invokes updating camera matrix.
-	 */
-    public set Position(pos:Vector3)
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
-
-	/**
-	 * Getter for the position camera being looking at.
-	 */
-    public get LookAt():Vector3
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
-	/**
-	 * Setter for the position camera being looking at.
-	 * By assign this setter, invokes updating camera matrix.
-	 */
-    public set LookAt(vec:Vector3)
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
-
-	/**
-	 * Getter for the upper direction of camera.
-	 */
-    public get UpDirection():Vector3
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
-	/**
-	 * Setter for the upper direction of camera.
-	 * By assign this setter, invokes updating camera matrix.
-	 */
-    public set UpDirection(vec:Vector3)
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
-	/**
-	 * Getter for view transform matrix of this camera.
-	 */
-  public get ViewMatrix():Matrix
-	{
-		throw new Exceptions.AbstractClassMethodCalledException();
-	}
+	public viewMatrix:Matrix;
 	/**
  	* Getter for projection transform matrix of this camera.
  	*/
@@ -91,7 +38,7 @@ class Camera extends SceneObject
 
 	protected updateViewProjectionMatrix()
 	{
-		glm.mat4.mul(this.viewProjectionMatrixCache,this.ProjectionMatrix.rawElements,this.ViewMatrix.rawElements);
+		glm.mat4.mul(this.viewProjectionMatrixCache,this.ProjectionMatrix.rawElements,this.viewMatrix.rawElements);
 		glm.mat4.invert(this.viewProjectionInvMatrixCache,this.viewProjectionMatrixCache);
 		PointList.initializeWithCube(this.frustumPoints);
 		this.frustumPoints.transform(this.viewProjectionInvMatrix);

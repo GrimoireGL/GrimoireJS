@@ -7,61 +7,19 @@ class ViewCameraBase extends Camera
   constructor()
   {
     super();
-    this.position=new Vector3(0,0,0);
-    this.lookAt=new Vector3(0,0,-1);
-    this.updir=new Vector3(0,1,0);
-    this.viewMatrix = Matrix.multiply(Matrix.inverse(this.transformer.LocalToGlobal),Matrix.lookAt(this.Position, this.LookAt, this.UpDirection));
-    this.transformer.onUpdateTransform((t,o)=>this.UpdateViewMatrix(o));
+    this.viewMatrix = this.generateviewMatrix(this);
+    this.transformer.onUpdateTransform((t,o)=>this.UpdateviewMatrix(<Camera>o));
   }
-  //ViewMatix paramaters
-    private position:Vector3;
-    private lookAt:Vector3;
-    private updir:Vector3;
-    public viewMatrix:Matrix;
-
-    public get Position():Vector3
+  
+  private UpdateviewMatrix(cam:Camera):void
   {
-    return this.position;
-  }
-
-    public set Position(vec:Vector3)
-  {
-    this.position=vec;
-    this.UpdateViewMatrix();
-  }
-
-    public get LookAt():Vector3
-  {
-    return this.lookAt;
-  }
-
-    public set LookAt(vec:Vector3)
-  {
-    this.lookAt=vec;
-    this.UpdateViewMatrix();
-  }
-
-    public get UpDirection():Vector3
-  {
-    return this.updir;
-  }
-
-    public set UpDirection(vec:Vector3)
-  {
-    this.updir=vec;
-    this.UpdateViewMatrix();
-  }
-
-    public get ViewMatrix():Matrix
-  {
-    return this.viewMatrix;
-  }
-
-  private UpdateViewMatrix(obj?:SceneObject):void
-  {
-      var cam: Camera = <Camera>obj || this;
-    this.viewMatrix = Matrix.multiply(Matrix.inverse(this.transformer.LocalToGlobal),Matrix.lookAt(cam.Position, cam.LookAt, cam.UpDirection));
+    this.viewMatrix = this.generateviewMatrix(cam);
     this.updateViewProjectionMatrix();
+  }
+
+  private generateviewMatrix(cam:Camera)
+  {
+    return Matrix.lookAt(cam.Transformer.GlobalPosition, Vector3.add(cam.Transformer.forward,cam.Transformer.GlobalPosition),cam.Transformer.up);
   }
 }
 

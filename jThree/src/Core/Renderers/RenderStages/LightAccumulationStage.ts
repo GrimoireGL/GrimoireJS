@@ -83,7 +83,7 @@ class LightAccumulationStage extends RenderStageBase
                 },
                 matV: {
                     type: "matrix",
-                    value:renderer.Camera.ViewMatrix
+                    value:renderer.Camera.viewMatrix
                 },
                 matIP: {
                     type: "matrix",
@@ -113,7 +113,7 @@ class LightAccumulationStage extends RenderStageBase
                 matIV:
                 {
                   type:"matrix",
-                  value:Matrix.inverse(renderer.Camera.ViewMatrix)
+                  value:Matrix.inverse(renderer.Camera.viewMatrix)
                 },
                 shadowMapMax:
                 {

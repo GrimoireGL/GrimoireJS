@@ -34,7 +34,7 @@ class SpotLight extends LightBase
     public getParameters(renderer:RendererBase): number[]
     {
 			　var pos;
-			 var matVM =Matrix.multiply(renderer.Camera.ViewMatrix,this.Transformer.LocalToGlobal);
+			 var matVM =Matrix.multiply(renderer.Camera.viewMatrix,this.Transformer.LocalToGlobal);
 			  pos = Matrix.transformPoint(matVM,Vector3.Zero);
 				var dir = new Vector3(0,-1,0);
 				dir = Matrix.transformNormal(matVM,dir);
