@@ -35,7 +35,7 @@
           <camera aspect="1" far="3" fovy="90d" id="maincam" name="CAM1" near="1" position="(0,1,2)"/>
         </object>
       </object>
-      <dlight color="red" intencity="1" position="0,1,2" rotation="x(-15d)" shadow="true"/>
+      <dlight color="red" intencity="1" position="0,1,2" shadow="true"/>
       <object id="light-root" rotation="x(-15d)">
         <!-- <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-30d)"/> -->
          <plight color="red" decay="0.5" distance="1" intensity="1" position="(0.5,0.1,0)"/>
@@ -44,7 +44,7 @@
         <plight color="grey" decay="0.5" distance="1" intensity="1" position="(-0.3,0.1,0)"/>
         <plight color="purple" decay="0.5" distance="1" intensity="1" position="(0.5,0.1,0.2)"/>
         <plight color="green" decay="0.5" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
-        <!--<plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.2)"/>
+        <!-- <plight color="brown" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,-0.2)"/>
         <plight color="pink" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,0.2)"/>
         <plight color="azure" decay="0.1" distance="1" intensity="1" position="(0.5,0.1,0.5)"/>
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-0.5,0.1,-0.5)"/>
@@ -60,7 +60,7 @@
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/> -->
 
       </object>
-      <pmx scale="0.1" src="/Tda/Miku.pmx">
+      <pmx scale="0.1" src="/GUMI/GUMI.pmx">
         <vmd id="melt" frame="0" src="melt.vmd" enabled="true" autoSpeed="1"/>
         <vmd id="sakura" frame="0" src="sakura.vmd" enabled="false"/>
       </pmx>

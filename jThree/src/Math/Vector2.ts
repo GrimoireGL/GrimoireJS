@@ -1,7 +1,6 @@
 import VectorBase = require("./VectorBase");
 import glm = require('gl-matrix');
-
-class Vector2 extends VectorBase{
+class Vector2 extends VectorBase {
 
     public static get XUnit(): Vector2 {
         return new Vector2(1, 0);
@@ -19,25 +18,22 @@ class Vector2 extends VectorBase{
         return new Vector2(0, 0);
     }
 
-    public static copy(vec:Vector2)
-    {
-      return new Vector2(vec.X,vec.Y);
+    public static copy(vec: Vector2) {
+        return new Vector2(vec.X, vec.Y);
     }
 
     constructor(x: number, y: number);
-    constructor(x:glm.GLM.IArray);
-    constructor(x: number|glm.GLM.IArray, y?: number) {
+    constructor(x: glm.GLM.IArray);
+    constructor(x: number | glm.GLM.IArray, y?: number) {
         super();
-        if(typeof y ==='undefined')
-        {
-            this.rawElements=<glm.GLM.IArray>x;
+        if (typeof y === 'undefined') {
+            this.rawElements = <glm.GLM.IArray>x;
             return;
         }
-        this.rawElements=[<number>x,y];
+        this.rawElements = [<number>x, y];
     }
 
-    public get normalized()
-    {
+    public get normalized() {
         return this.multiplyWith(1 / this.magnitude);
     }
 
@@ -49,37 +45,35 @@ class Vector2 extends VectorBase{
         return this.rawElements[1];
     }
 
-    public set X(x: number)
-    {
+    public set X(x: number) {
         this.rawElements[0] = x;
     }
 
-    public set Y(y: number)
-    {
+    public set Y(y: number) {
         this.rawElements[1] = y;
     }
 
     public static dot(v1: Vector2, v2: Vector2): number {
-        return glm.vec2.dot(v1.rawElements,v2.rawElements);
+        return glm.vec2.dot(v1.rawElements, v2.rawElements);
     }
 
     public static add(v1: Vector2, v2: Vector2): Vector2 {
-        var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.add(newVec,v1.rawElements,v2.rawElements));
+        var newVec = glm.vec2.create();
+        return new Vector2(glm.vec2.add(newVec, v1.rawElements, v2.rawElements));
     }
 
     public static subtract(v1: Vector2, v2: Vector2): Vector2 {
-        var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.sub(newVec,v1.rawElements,v2.rawElements));
+        var newVec = glm.vec2.create();
+        return new Vector2(glm.vec2.sub(newVec, v1.rawElements, v2.rawElements));
     }
 
     public static multiply(s: number, v: Vector2): Vector2 {
-        var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.scale(newVec,v.rawElements,s));
+        var newVec = glm.vec2.create();
+        return new Vector2(glm.vec2.scale(newVec, v.rawElements, s));
     }
 
     public static negate(v1: Vector2): Vector2 {
-        return Vector2.multiply(-1,v1);
+        return Vector2.multiply(-1, v1);
     }
 
     public static equal(v1: Vector2, v2: Vector2): boolean {
@@ -87,8 +81,20 @@ class Vector2 extends VectorBase{
     }
 
     public static normalize(v1: Vector2): Vector2 {
-        var newVec=glm.vec2.create();
-        return new Vector2(glm.vec2.normalize(newVec,v1.rawElements));
+        var newVec = glm.vec2.create();
+        return new Vector2(glm.vec2.normalize(newVec, v1.rawElements));
+    }
+
+    public static min(v1: Vector2, v2: Vector2): Vector2 {
+        return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.min(v1.rawElements[i], v2.rawElements[i])));
+    }
+
+    public static max(v1: Vector2, v2: Vector2): Vector2 {
+        return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.max(v1.rawElements[i], v2.rawElements[i])));
+    }
+
+    public static angle(v1: Vector2, v2: Vector2): number {
+        return Math.acos(Vector2.dot(v1.normalized, v2.normalized));
     }
 
     public dotWith(v: Vector2): number {
@@ -127,4 +133,4 @@ class Vector2 extends VectorBase{
 
 }
 
-export=Vector2;
+export =Vector2;

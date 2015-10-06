@@ -1,4 +1,5 @@
 import glm=require('gl-matrix');
+import Delegates = require("../Base/Delegates");
 class VectorBase {
 
     private magnitudeSquaredCache: number = -1;
@@ -24,6 +25,16 @@ class VectorBase {
             if(v1.rawElements[i]!==v2.rawElements[i])return false;
         }
         return true;
+    }
+
+    protected static fromGenerationFunction<T extends VectorBase>(v1:T,v2:T,gen:Delegates.Func3<number,T,T,number>):glm.GLM.IArray
+    {
+      var f = new Float32Array(v1.ElementCount);
+      for(let i = 0; i < f.length; i++)
+      {
+        f[i] = gen(i,v1,v2);
+      }
+      return f;
     }
 
     private magnitudeCache: number = -1;

@@ -1,8 +1,7 @@
 import VectorBase = require("./VectorBase");
 import glm = require('gl-matrix');
 
-class Vector4 extends VectorBase
-{
+class Vector4 extends VectorBase {
     /*
      * Static properties
      */
@@ -31,22 +30,19 @@ class Vector4 extends VectorBase
         return new Vector4(0, 0, 0, 0);
     }
 
-    public static copy(vec:Vector4):Vector4
-    {
-      return new Vector4(vec.X,vec.Y,vec.Z,vec.W);
+    public static copy(vec: Vector4): Vector4 {
+        return new Vector4(vec.X, vec.Y, vec.Z, vec.W);
     }
 
     constructor(x: glm.GLM.IArray);
-    constructor(x:number,y:number,z:number,w:number);
-    constructor(x: number|glm.GLM.IArray, y?: number, z?: number, w?: number)
-    {
+    constructor(x: number, y: number, z: number, w: number);
+    constructor(x: number | glm.GLM.IArray, y?: number, z?: number, w?: number) {
         super();
-        if(typeof y === 'undefined')
-        {
-            this.rawElements=<glm.GLM.IArray>x;
+        if (typeof y === 'undefined') {
+            this.rawElements = <glm.GLM.IArray>x;
             return;
         }
-        this.rawElements=[<number>x,y,z,w];
+        this.rawElements = [<number>x, y, z, w];
     }
 
     public get normalized() {
@@ -69,46 +65,43 @@ class Vector4 extends VectorBase
         return this.rawElements[3];
     }
 
-    public set X(x:number) {
+    public set X(x: number) {
         this.rawElements[0] = x;
     }
 
-    public set Y(y: number)
-    {
+    public set Y(y: number) {
         this.rawElements[1] = y;
     }
 
-    public set Z(z: number)
-    {
+    public set Z(z: number) {
         this.rawElements[2] = z;
     }
 
-    public set W(w: number)
-    {
+    public set W(w: number) {
         this.rawElements[3] = w;
     }
 
     public static dot(v1: Vector4, v2: Vector4) {
-        return glm.vec4.dot(v1.rawElements,v2.rawElements);
+        return glm.vec4.dot(v1.rawElements, v2.rawElements);
     }
 
     public static add(v1: Vector4, v2: Vector4): Vector4 {
-        var newVec=glm.vec4.create();
-        return new Vector4(glm.vec4.add(newVec,v1.rawElements,v2.rawElements));
+        var newVec = glm.vec4.create();
+        return new Vector4(glm.vec4.add(newVec, v1.rawElements, v2.rawElements));
     }
 
     public static subtract(v1: Vector4, v2: Vector4): Vector4 {
-        var newVec=glm.vec4.create();
-        return new Vector4(glm.vec4.sub(newVec,v1.rawElements,v2.rawElements));
+        var newVec = glm.vec4.create();
+        return new Vector4(glm.vec4.sub(newVec, v1.rawElements, v2.rawElements));
     }
 
     public static multiply(s: number, v: Vector4): Vector4 {
-        var newVec=glm.vec4.create();
-        return new Vector4(glm.vec4.scale(newVec,v.rawElements,s));
+        var newVec = glm.vec4.create();
+        return new Vector4(glm.vec4.scale(newVec, v.rawElements, s));
     }
 
     public static negate(v1: Vector4): Vector4 {
-        return Vector4.multiply(-1,v1);
+        return Vector4.multiply(-1, v1);
     }
 
     public static equal(v1: Vector4, v2: Vector4): boolean {
@@ -116,8 +109,21 @@ class Vector4 extends VectorBase
     }
 
     public static normalize(v1: Vector4): Vector4 {
-        var newVec=glm.vec4.create();
-        return new Vector4(glm.vec4.normalize(newVec,v1.rawElements));
+        var newVec = glm.vec4.create();
+        return new Vector4(glm.vec4.normalize(newVec, v1.rawElements));
+    }
+
+
+    public static min(v1: Vector4, v2: Vector4): Vector4 {
+        return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.min(v1.rawElements[i], v2.rawElements[i])));
+    }
+
+    public static max(v1: Vector4, v2: Vector4): Vector4 {
+        return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.max(v1.rawElements[i], v2.rawElements[i])));
+    }
+
+    public static angle(v1: Vector4, v2: Vector4): number {
+        return Math.acos(Vector4.dot(v1.normalized, v2.normalized));
     }
 
     public normalizeThis(): Vector4 {
@@ -157,4 +163,4 @@ class Vector4 extends VectorBase
 }
 
 
-export=Vector4;
+export =Vector4;
