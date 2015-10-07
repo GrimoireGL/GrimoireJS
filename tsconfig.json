@@ -241,7 +241,6 @@
         "./jThree/src/Math/Vector3.ts",
         "./jThree/src/Math/Vector4.ts",
         "./jThree/src/Math/VectorBase.ts",
-        "./jThree/src/Math/VectorTemplateBase.ts",
         "./jThree/src/PMX/Core/PMXBone.ts",
         "./jThree/src/PMX/Core/PMXBoneTransformer.ts",
         "./jThree/src/PMX/Core/PMXGBufferMaterial.ts",
