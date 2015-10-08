@@ -35,7 +35,7 @@
           <camera aspect="1" far="3" fovy="90d" id="maincam" name="CAM1" near="1" position="(0,1,2)"/>
         </object>
       </object>
-      <dlight color="red" intencity="1" position="0,1,2" shadow="true"/>
+      <dlight color="red" intencity="1" position="0,1,-2" shadow="true"/>
       <object id="light-root" rotation="x(-15d)">
         <!-- <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-30d)"/> -->
          <plight color="red" decay="0.5" distance="1" intensity="1" position="(0.5,0.1,0)"/>
