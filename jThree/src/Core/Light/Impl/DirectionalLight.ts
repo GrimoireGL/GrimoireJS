@@ -58,44 +58,52 @@ class DirectionalLight extends ShadowDroppableLight {
 			//cam.Transformer.forward -> viewDirection
 			//this.Transformer.forward -> lightDirection
 			var cam:Camera = renderer.Camera;
-			// var angle:number = Vector3.angle(cam.Transformer.forward,this.transformer.forward);
-			// //check whether needs USM or LiSPSM here.
-			//
-			// var sinGamma:number = Math.sqrt(1 - angle * angle);
-			//
-			// //Computing light view matrix
-			// var up:Vector3 = this.computeUpVector(cam.Transformer.forward	,this.Transformer.forward);
-			// var lv:Matrix = Matrix.lookAt(cam.Transformer.GlobalPosition,Vector3.add(cam.Transformer.GlobalPosition,this.Transformer.forward),up);
-			//
-			// //Compute AABB of camera frusutum in light view space
-			// var pl = new PointList(cam.frustumPoints);
-			// pl.transform(lv);
-			// var vfAABB = pl.getBoundingBox();
-			// //Compute new frustum
-			// var factor = 1 / sinGamma;
-			// var n_z = this.nearClip * factor;
-			// var d = Math.abs(vfAABB.pointRTN.Y - vfAABB.pointLBF.Y);
-			// var n = d /(Math.sqrt((n_z + d * sinGamma)/n_z)-1);
-			// var f = n + d;
-			//
-			// //Compute new light view
-			// var newPos = cam.Transformer.GlobalPosition.subtractWith(up.multiplyWith(n - this.nearClip));
-			// lv = Matrix.lookAt(newPos,Vector3.add(newPos,this.Transformer.forward),up);
-			// var lp = this.computePerspective(n,f);
-			// //Compute light matrix
-			// glm.mat4.mul(this.lightMatrixCache.rawElements,lv.rawElements,lp.rawElements);
-			//
-			// pl = new PointList(cam.frustumPoints);
-			// pl.transform(this.lightMatrixCache);
-			// var unitCube = this.generateUnitCubeMatrix(pl.getBoundingBox());
-			//
-
 			this.generateLightviewMatrix(this.lightMatrixCache,renderer.Camera);
-			this.USM(renderer);
-			
-			glm.mat4.multiply(this.lightMatrixCache.rawElements,this.lightMatrixCache.rawElements,Matrix.scale(new Vector3(1,1,-1)).rawElements);
+			this.LiSPSM(renderer);
+		  //glm.mat4.multiply(this.lightMatrixCache.rawElements,this.lightMatrixCache.rawElements,Matrix.scale(new Vector3(1,1,-1)).rawElements);
 			//this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(1.0,1,0.1,5),Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit)));
 			this.updateLightProjection(renderer,this.lightMatrixCache);
+		}
+
+		private LiSPSM(renderer:RendererBase)
+		{
+			var cam = renderer.Camera;
+			var angle:number = Vector3.angle(cam.Transformer.forward,this.transformer.forward);
+			//check whether needs USM or LiSPSM here.
+			if(angle == 0 || angle == Math.PI)
+			{
+				this.USM(renderer);
+				return;
+			}
+			var sinGamma:number = Math.abs(Math.sin(angle));
+
+			//Computing light view matrix
+			var up:Vector3 = this.computeUpVector(cam.Transformer.forward	,this.Transformer.forward);
+			var lv:Matrix = Matrix.lookAt(cam.Transformer.GlobalPosition,Vector3.add(cam.Transformer.GlobalPosition,this.Transformer.forward),up);
+
+			//Compute AABB of camera frusutum in light view space
+			var pl = new PointList(cam.frustumPoints);
+			pl.transform(lv);
+			var vfAABB = pl.getBoundingBox();
+			//Compute new frustum
+			var factor = 1 / sinGamma;
+			var n_z = this.nearClip * factor;
+			var d = Math.abs(vfAABB.pointRTN.Y - vfAABB.pointLBF.Y);
+			var n = d /(Math.sqrt((n_z + d * sinGamma)/n_z)-1);
+			var f = n + d;
+
+			//Compute new light view
+			var newPos = cam.Transformer.GlobalPosition.subtractWith(up.multiplyWith(n - this.nearClip));
+			lv = Matrix.lookAt(newPos,Vector3.add(newPos,this.Transformer.forward),up);
+			var lp = this.computePerspective(n,f);
+			//Compute light matrix
+			var lVP = Matrix.multiply(lp,lv);
+
+			pl = new PointList(cam.frustumPoints);
+			pl.transform(lVP);
+			var unitCube = this.generateUnitCubeMatrix(pl.getBoundingBox());
+			glm.mat4.mul(this.lightMatrixCache.rawElements,unitCube.rawElements,this.lightMatrixCache.rawElements);
+			glm.mat4.mul(this.lightMatrixCache.rawElements,lp.rawElements,this.lightMatrixCache.rawElements);
 		}
 
 		private generateLightviewMatrix(mat:Matrix,cam:Camera)
@@ -111,7 +119,8 @@ class DirectionalLight extends ShadowDroppableLight {
 			lightSpaceFrustum.transform(this.lightMatrixCache);
 			var frustumAABBinLightSpace = lightSpaceFrustum.getBoundingBox();
 			var lightProjection = this.generateUnitCubeMatrix(frustumAABBinLightSpace);
-			glm.mat4.mul(this.lightMatrixCache.rawElements,this.lightMatrixCache.rawElements,lightProjection.rawElements);
+
+			glm.mat4.mul(this.lightMatrixCache.rawElements,lightProjection.rawElements,this.lightMatrixCache.rawElements);
 		}
 
 		private generateUnitCubeMatrix(align:AABB)
@@ -138,16 +147,11 @@ class DirectionalLight extends ShadowDroppableLight {
 				result._44 = 1.0f;
 			 */
 			return Matrix.fromElements(
-				2.0/(align.pointRTN.X-align.pointLBF.X), 0, 0, 0,
-				0,2.0/(align.pointRTN.Y - align.pointLBF.Y),0,0,
-				0,0,1.0/(align.pointRTN.Z - align.pointLBF.Z),0,
-				-(align.pointRTN.X + align.pointLBF.X)/(align.pointRTN.X-align.pointLBF.X),-(align.pointRTN.Y + align.pointLBF.Y)/(align.pointRTN.Y-align.pointLBF.Y),-align.pointLBF.Z/(align.pointRTN.Z-align.pointLBF.Z),1.0
+				2.0/(align.pointRTN.X-align.pointLBF.X), 0, 0, -(align.pointRTN.X + align.pointLBF.X)/(align.pointRTN.X-align.pointLBF.X),
+				0,2.0/(align.pointRTN.Y - align.pointLBF.Y),0,-(align.pointRTN.Y + align.pointLBF.Y)/(align.pointRTN.Y-align.pointLBF.Y),
+				0,0,2.0/(align.pointRTN.Z - align.pointLBF.Z),-(align.pointLBF.Z+align.pointRTN.Z)/(align.pointRTN.Z-align.pointLBF.Z),
+				0,0,0,1.0
 			);
-		}
-
-		private LiSPSM()
-		{
-
 		}
 
 	public intensity:number;

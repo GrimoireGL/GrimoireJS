@@ -34,10 +34,10 @@ class SpriteMaterial extends Material
         var v = object.Transformer.calculateMVPMatrix(renderer);
         //gen ct matrix
         var ctM: Matrix = Matrix.zero();
-        if (this.ctR < 4) ctM.setAt(this.ctR, 0, 1);
-        if (this.ctG < 4) ctM.setAt(this.ctG, 1, 1);
-        if (this.ctB < 4) ctM.setAt(this.ctB, 2, 1);
-        if (this.ctA < 4) ctM.setAt(this.ctA, 3, 1);
+        if (this.ctR < 4) ctM.setAt(0,this.ctR, 1);
+        if (this.ctG < 4) ctM.setAt(1,this.ctG, 1);
+        if (this.ctB < 4) ctM.setAt(2,this.ctB, 1);
+        if (this.ctA < 4) ctM.setAt(3,this.ctA, 1);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,

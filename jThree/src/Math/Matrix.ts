@@ -37,7 +37,7 @@ class Matrix extends MatrixBase{
         return this.rawElements[colmun * 4 + row];
     }
 
-    public setAt(colmun: number, row: number, val: number) {
+    public setAt(row: number, colmun: number,  val: number) {
         this.rawElements[colmun * 4 + row] = val;
     }
 

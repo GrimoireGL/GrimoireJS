@@ -65,7 +65,7 @@ class Vector3 extends VectorBase {
     }
 
     public static dot(v1: Vector3, v2: Vector3): number {
-        return glm.vec2.dot(v1.rawElements, v2.rawElements);
+        return glm.vec3.dot(v1.rawElements, v2.rawElements);
     }
 
     public static add(v1: Vector3, v2: Vector3): Vector3 {

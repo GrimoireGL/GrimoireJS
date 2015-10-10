@@ -1,4 +1,4 @@
-\var j3m = j3.Math;
+var j3m = j3.Math;
 var RotationBehavior = function () {
 
 }
@@ -46,7 +46,7 @@ j3(function () {
   //   j3("#modTest").attr({enabled:false});
   // });
     //j3("#camera-origin").animate({position:new j3m.Vector3(0,0,2)},100000);
-//  j3("#camera-origin").animate({rotation:"y(-120d)"},30000);
+  //j3("#camera-origin").animate({rotation:"y(-120d)"},30000);
   j3("pmx").on("loaded",function(e){
     console.warn("on pmx loaded");
     e.stopPropagation();

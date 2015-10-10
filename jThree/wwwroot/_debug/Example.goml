@@ -60,7 +60,7 @@
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/> -->
 
       </object>
-      <pmx scale="0.1" src="/GUMI/GUMI.pmx">
+      <pmx scale="0.1" src="/Tda/Miku.pmx">
         <vmd id="melt" frame="0" src="melt.vmd" enabled="true" autoSpeed="1"/>
         <vmd id="sakura" frame="0" src="sakura.vmd" enabled="false"/>
       </pmx>
