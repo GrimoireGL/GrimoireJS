@@ -8,17 +8,17 @@ jThree is an innovative game engine. jThree may seem to be just only javascript 
 However, jThree enable browser to use most of feature the other game engine do in local envirnoment, plugin feature,hierarchy,template,module system.
 
 
-### Puropse
+### Purpose
 
 * Provide good learning resource for the beginners to know how programming is awesome via this library.
-* Easy shareing feature it will be achived because of this library being implemented in javascript.
-* Redefine the legacy of 3DCG in Web.
-* Keep  Enjoinable contribution :heart:
+* Easy sharing feature that will be achieved because of this library implemented with javascript.
+* Redefine legacies of 3DCG in Web.
+* Keep Enjoyable contributions :heart:
 
 
 ### Dependencies
 
-This library depend on these below library, we appriciate these all of the contributors :heart:
+This library depends on these library. We appriciate these all of the contributors :heart:
 
 |Name|Purpose|URL|Memo|
 |:-:|:-:|:-:|:-:|
@@ -66,7 +66,7 @@ npm run build
 
 Almost every code in this project is witten with Typescript.
 For writing Typescript, we use these coding style below.
-There is too much code in this project that is not forrowing this coding style, but It will follow these coding style in future by refactoring.
+There is too much code in this project that is not following this coding style, but It will follow these coding style in future by refactoring.
 https://github.com/jThreeJS/jThree/edit/develop/README.md#
 
 
