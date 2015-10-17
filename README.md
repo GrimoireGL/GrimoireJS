@@ -18,7 +18,7 @@ However, jThree enable browser to use most of feature the other game engine do i
 
 ### Dependencies
 
-This library depends on these library, we appriciate these all of the contributors :heart:
+This library depends on these library. We appriciate these all of the contributors :heart:
 
 |Name|Purpose|URL|Memo|
 |:-:|:-:|:-:|:-:|
