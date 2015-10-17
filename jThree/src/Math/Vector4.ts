@@ -160,6 +160,11 @@ class Vector4 extends VectorBase {
         return `Vector4(${this.X}, ${this.Y}, ${this.Z},${this.W})`;
     }
 
+    public toMathematicaString()
+    {
+      return `{${this.X},${this.Y},${this.Z},${this.W}}`;
+    }
+
 }
 
 

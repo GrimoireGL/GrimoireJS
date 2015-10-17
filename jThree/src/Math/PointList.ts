@@ -54,7 +54,7 @@ class PointList
   public getBoundingBox()
   {
     var aabb = new AABB();
-    for(let i = 0; i < this.points.length; i++)
+    for(let i = 0; i <this.points.length; i++)
     {
       aabb.expandAABB(this.points[i]);
     }
@@ -75,9 +75,15 @@ class PointList
     return list;
   }
 
-  public static copy(list:PointList)
+  public toMathematicaPoints()
   {
-
+    var points = "";
+    for(let i = 0; i < this.points.length; i++)
+    {
+      if(i != 0)points += `,`;
+      points += this.points[i].toMathematicaString();
+    }
+    return `Point[{${points}}]`;
   }
 }
 

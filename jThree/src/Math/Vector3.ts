@@ -186,6 +186,11 @@ class Vector3 extends VectorBase {
         if (needNegate) resultVec = resultVec.negateThis();
         return resultVec;
     }
+
+    public toMathematicaString()
+    {
+      return `{${this.X},${this.Y},${this.Z}}`;
+    }
 }
 
 export =Vector3;

@@ -22,13 +22,13 @@ class Quaternion extends JThreeObject
     /**
     * Constructor by specifing each elements.
     */
-    constructor(targetQuat: glm.GLM.IArray)
+    constructor(rawElements: glm.GLM.IArray)
     {
         super();
-        this.targetQuat = targetQuat;
+        this.rawElements = rawElements;
     }
 
-    public targetQuat: glm.GLM.IArray;
+    public rawElements: glm.GLM.IArray;
 
     public get eularAngles()
     {
@@ -38,7 +38,7 @@ class Quaternion extends JThreeObject
 
     public set eularAngles(v: Vector3)
     {
-        this.targetQuat = Quaternion.Euler(v.X, v.Y, v.Z).targetQuat;
+        this.rawElements = Quaternion.Euler(v.X, v.Y, v.Z).rawElements;
     }
 
     /**
@@ -46,7 +46,7 @@ class Quaternion extends JThreeObject
     */
     public get X(): number
     {
-        return this.targetQuat[0];
+        return this.rawElements[0];
     }
 
     /**
@@ -54,7 +54,7 @@ class Quaternion extends JThreeObject
     */
     public get Y(): number
     {
-        return this.targetQuat[1];
+        return this.rawElements[1];
     }
 
     /**
@@ -62,7 +62,7 @@ class Quaternion extends JThreeObject
     */
     public get Z(): number
     {
-        return this.targetQuat[2];
+        return this.rawElements[2];
     }
 
     /**
@@ -70,7 +70,7 @@ class Quaternion extends JThreeObject
     */
     public get W(): number
     {
-        return this.targetQuat[3];
+        return this.rawElements[3];
     }
 
     /**
@@ -88,7 +88,7 @@ class Quaternion extends JThreeObject
     public get Conjugate(): Quaternion
     {
         var newQuat = glm.quat.create();
-        return new Quaternion(glm.quat.conjugate(newQuat, this.targetQuat));
+        return new Quaternion(glm.quat.conjugate(newQuat, this.rawElements));
     }
 
     /**
@@ -96,7 +96,7 @@ class Quaternion extends JThreeObject
     */
     public get Length(): number
     {
-        return glm.quat.len(this.targetQuat);
+        return glm.quat.len(this.rawElements);
     }
     /**
     * Get normalized quaternion
@@ -104,13 +104,13 @@ class Quaternion extends JThreeObject
     public Normalize(): Quaternion
     {
         var newQuat = glm.quat.create();
-        return new Quaternion(glm.quat.normalize(newQuat, this.targetQuat));
+        return new Quaternion(glm.quat.normalize(newQuat, this.rawElements));
     }
 
     public Inverse(): Quaternion
     {
         var newQuat = glm.quat.create();
-        return new Quaternion(glm.quat.invert(newQuat, this.targetQuat));
+        return new Quaternion(glm.quat.invert(newQuat, this.rawElements));
     }
 
     /**
@@ -120,7 +120,7 @@ class Quaternion extends JThreeObject
     {
         var newQuat = glm.quat.create();
 
-        return new Quaternion(glm.quat.add(newQuat, q1.targetQuat, q2.targetQuat));
+        return new Quaternion(glm.quat.add(newQuat, q1.rawElements, q2.rawElements));
     }
 
     /**
@@ -129,7 +129,7 @@ class Quaternion extends JThreeObject
     public static Multiply(q1: Quaternion, q2: Quaternion): Quaternion
     {
         var newQuat = glm.quat.create();
-        return new Quaternion(glm.quat.mul(newQuat, q1.targetQuat, q2.targetQuat));
+        return new Quaternion(glm.quat.mul(newQuat, q1.rawElements, q2.rawElements));
     }
 
     /**
@@ -159,7 +159,7 @@ class Quaternion extends JThreeObject
     public static Slerp(q1: Quaternion, q2: Quaternion, t: number): Quaternion
     {
         var newQuat = glm.quat.create();
-        return new Quaternion(glm.quat.slerp(newQuat, q1.targetQuat, q2.targetQuat, t));
+        return new Quaternion(glm.quat.slerp(newQuat, q1.rawElements, q2.rawElements, t));
     }
 
     /**

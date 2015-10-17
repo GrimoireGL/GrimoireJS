@@ -88,7 +88,7 @@ class Matrix extends MatrixBase{
     public static TRS(t:Vector3,rot:Quaternion,s:Vector3):Matrix
     {
        var newMat =glm.mat4.create();var cacheMat=glm.mat4.create();
-       glm.mat4.mul(newMat,glm.mat4.translate(newMat,glm.mat4.create(),t.rawElements),glm.mat4.fromQuat(cacheMat,rot.targetQuat));
+       glm.mat4.mul(newMat,glm.mat4.translate(newMat,glm.mat4.create(),t.rawElements),glm.mat4.fromQuat(cacheMat,rot.rawElements));
        glm.mat4.scale(newMat,newMat,s.rawElements);
       return new Matrix(newMat);
     }
@@ -179,7 +179,7 @@ class Matrix extends MatrixBase{
     {
       var quaternion= glm.quat.create();
       var newMat = glm.mat4.create();
-      glm.quat.normalize(quaternion,quat.targetQuat);
+      glm.quat.normalize(quaternion,quat.rawElements);
       glm.mat4.fromQuat(newMat,quaternion);
       return new Matrix(newMat);
     }

@@ -131,6 +131,10 @@ class Vector2 extends VectorBase {
 
     public get ElementCount(): number { return 2; }
 
+    public toMathematicaString()
+    {
+      return `{${this.X},${this.Y}}`;
+    }
 }
 
 export =Vector2;

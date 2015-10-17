@@ -54,7 +54,7 @@ class ShadowMapResourceManager
    * Shadow map tile size. This property contain how many shadow map is placed one of edge.
    * @type {number}
    */
-  private shadowMapTileHeight:number=2;
+  private shadowMapTileHeight:number=1;
 
   /**
    * Shadow map tile texture size.

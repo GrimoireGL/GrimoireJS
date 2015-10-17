@@ -29,7 +29,9 @@ class DirectionalLight extends ShadowDroppableLight {
 					this.isShadowDroppable?1:0,shadowMapIndex,this.bias];
     }
 
-		private lightMatrixCache:Matrix = Matrix.zero();
+		private shadowProjectionMatrixCache:Matrix = Matrix.zero();
+
+		private shadowViewMatrixCache:Matrix = Matrix.zero();
 
 		private nearClip:number = 0.1;
 
@@ -48,7 +50,7 @@ class DirectionalLight extends ShadowDroppableLight {
 			var m = Matrix.identity();
 			m.setAt(1,1,f/(f-n));
 			m.setAt(3,1,1);
-			m.setAt(1,3,-f*n/(f-n));
+			m.setAt(1,3,-2*f*n/(f-n));
 			m.setAt(3,3,0);
 			return m;
 		}
@@ -58,11 +60,12 @@ class DirectionalLight extends ShadowDroppableLight {
 			//cam.Transformer.forward -> viewDirection
 			//this.Transformer.forward -> lightDirection
 			var cam:Camera = renderer.Camera;
-			this.generateLightviewMatrix(this.lightMatrixCache,renderer.Camera);
-			this.LiSPSM(renderer);
+			this.generateLightviewMatrix(renderer.Camera);
+			this.USM(renderer);
 		  //glm.mat4.multiply(this.lightMatrixCache.rawElements,this.lightMatrixCache.rawElements,Matrix.scale(new Vector3(1,1,-1)).rawElements);
-			//this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(1.0,1,0.1,5),Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit)));
-			this.updateLightProjection(renderer,this.lightMatrixCache);
+			this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(1.0,1,0.1,5),Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit)));
+			var m = Matrix.multiply(this.shadowProjectionMatrixCache,this.shadowViewMatrixCache);
+			//this.updateLightProjection(renderer,m);
 		}
 
 		private LiSPSM(renderer:RendererBase)
@@ -88,7 +91,7 @@ class DirectionalLight extends ShadowDroppableLight {
 			//Compute new frustum
 			var factor = 1 / sinGamma;
 			var n_z = this.nearClip * factor;
-			var d = Math.abs(vfAABB.pointRTN.Y - vfAABB.pointLBF.Y);
+			var d = Math.abs(vfAABB.pointRTN.Z - vfAABB.pointLBF.Z);
 			var n = d /(Math.sqrt((n_z + d * sinGamma)/n_z)-1);
 			var f = n + d;
 
@@ -97,18 +100,18 @@ class DirectionalLight extends ShadowDroppableLight {
 			lv = Matrix.lookAt(newPos,Vector3.add(newPos,this.Transformer.forward),up);
 			var lp = this.computePerspective(n,f);
 			//Compute light matrix
-			var lVP = Matrix.multiply(lp,lv);
+			var lVP = Matrix.multiply(lp,this.shadowViewMatrixCache);
 
 			pl = new PointList(cam.frustumPoints);
 			pl.transform(lVP);
-			var unitCube = this.generateUnitCubeMatrix(pl.getBoundingBox());
-			glm.mat4.mul(this.lightMatrixCache.rawElements,unitCube.rawElements,this.lightMatrixCache.rawElements);
-			glm.mat4.mul(this.lightMatrixCache.rawElements,lp.rawElements,this.lightMatrixCache.rawElements);
+			var unitAABB = pl.getBoundingBox();
+			var unitCube = this.generateUnitCubeMatrix(unitAABB);
+			glm.mat4.mul(this.shadowProjectionMatrixCache.rawElements,unitCube.rawElements,lp.rawElements);
 		}
 
-		private generateLightviewMatrix(mat:Matrix,cam:Camera)
+		private generateLightviewMatrix(cam:Camera)
 		{
-			glm.mat4.lookAt(mat.rawElements,cam.Transformer.GlobalPosition.rawElements,Vector3.add(cam.Transformer.GlobalPosition,this.transformer.forward).rawElements,Vector3.YUnit.rawElements);
+			glm.mat4.lookAt(this.shadowViewMatrixCache.rawElements,cam.Transformer.GlobalPosition.rawElements,Vector3.add(cam.Transformer.GlobalPosition,this.transformer.forward).rawElements,Vector3.YUnit.rawElements);
 		}
 
 		private USM(renderer:RendererBase)//Uniform shadow map
@@ -116,11 +119,9 @@ class DirectionalLight extends ShadowDroppableLight {
 			var cam = renderer.Camera;
 			//initialize light matrix cache with light view
 			var lightSpaceFrustum = (new PointList(cam.frustumPoints));
-			lightSpaceFrustum.transform(this.lightMatrixCache);
+			lightSpaceFrustum.transform(this.shadowViewMatrixCache);
 			var frustumAABBinLightSpace = lightSpaceFrustum.getBoundingBox();
-			var lightProjection = this.generateUnitCubeMatrix(frustumAABBinLightSpace);
-
-			glm.mat4.mul(this.lightMatrixCache.rawElements,lightProjection.rawElements,this.lightMatrixCache.rawElements);
+			this.shadowProjectionMatrixCache = this.generateUnitCubeMatrix(frustumAABBinLightSpace);
 		}
 
 		private generateUnitCubeMatrix(align:AABB)

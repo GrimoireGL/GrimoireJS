@@ -32,11 +32,13 @@
       <alight color="#FFF" intensity="0.1"  top="4"  far="2" right="2" position="-1,-0.5,1"/>
       <object id="camera-origin">
         <object>
-          <camera aspect="1" far="3" fovy="90d" id="maincam" name="CAM1" near="1" position="(0,1,2)"/>
+          <camera aspect="1" far="3" fovy="90d" id="maincam" name="CAM1" near="1" rotation="y(30d)" position="(0,1,2)"/>
         </object>
       </object>
-      <dlight color="red" intencity="1" position="0,1,-2" shadow="true"/>
-      <object id="light-root" rotation="x(-15d)">
+      <object id="light-root">
+        <object >
+          <dlight color="red" intencity="1" position="0,1,-2" shadow="true" bias="0.03"/>
+        </object>
         <!-- <dlight color="blue" intencity="1" position="0,1,2" rotation="x(-30d)"/> -->
          <plight color="red" decay="0.5" distance="1" intensity="1" position="(0.5,0.1,0)"/>
         <plight color="blue" decay="0.5" distance="1" intensity="1" position="(-0.5,0.1,0)"/>

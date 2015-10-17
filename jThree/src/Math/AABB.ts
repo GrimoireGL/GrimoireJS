@@ -53,13 +53,9 @@ class AABB
       this.pointLBF = Vector3.copy(newPoint);
       this.pointRTN = Vector3.copy(newPoint);
     }
-    this.pointLBF.X = Math.min(newPoint.X,this.pointLBF.X);
-    this.pointLBF.Y = Math.min(newPoint.Y,this.pointLBF.Y);
-    this.pointLBF.Z = Math.min(newPoint.Z,this.pointLBF.Z);
-
-    this.pointRTN.X = Math.max(newPoint.X,this.pointRTN.X);
-    this.pointRTN.Y = Math.max(newPoint.Y,this.pointRTN.Y);
-    this.pointRTN.Z = Math.max(newPoint.Z,this.pointRTN.Z);
+    
+    this.pointLBF = Vector3.min(newPoint,this.pointLBF);
+    this.pointRTN = Vector3.max(newPoint,this.pointRTN);
   }
 
   /**
@@ -69,6 +65,11 @@ class AABB
   {
     this.pointLBF=null;
     this.pointRTN=null;
+  }
+
+  public toMathematicaCuboid()
+  {
+    return `Cuboid[${this.pointLBF.toMathematicaString()},${this.pointRTN.toMathematicaString()}]`;
   }
 }
 
