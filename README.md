@@ -66,7 +66,7 @@ npm run build
 
 Almost every code in this project is witten with Typescript.
 For writing Typescript, we use these coding style below.
-There is too much code in this project that is not forrowing this coding style, but It will follow these coding style in future by refactoring.
+There is too much code in this project that is not following this coding style, but It will follow these coding style in future by refactoring.
 https://github.com/jThreeJS/jThree/edit/develop/README.md#
 
 
