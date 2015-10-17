@@ -13,7 +13,7 @@ However, jThree enable browser to use most of feature the other game engine do i
 * Provide good learning resource for the beginners to know how programming is awesome via this library.
 * Easy shareing feature it will be achived because of this library being implemented in javascript.
 * Redefine the legacy of 3DCG in Web.
-* Keep  Enjoinable contribution :heart:
+* Keep  Enjoyable contribution :heart:
 
 
 ### Dependencies
