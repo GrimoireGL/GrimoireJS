@@ -8,7 +8,7 @@ jThree is an innovative game engine. jThree may seem to be just only javascript 
 However, jThree enable browser to use most of feature the other game engine do in local envirnoment, plugin feature,hierarchy,template,module system.
 
 
-### Puropse
+### Purpose
 
 * Provide good learning resource for the beginners to know how programming is awesome via this library.
 * Easy shareing feature it will be achived because of this library being implemented in javascript.
