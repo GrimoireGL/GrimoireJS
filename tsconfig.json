@@ -33,6 +33,7 @@
         "jThree/src/Base/Color/Color3.ts",
         "jThree/src/Base/Color/Color4.ts",
         "jThree/src/Base/Delegates.ts",
+        "jThree/src/Base/HTMLHelper.ts",
         "jThree/src/Base/IStringConvertable.ts",
         "jThree/src/Base/JsHack.ts",
         "jThree/src/Base/JThreeCollection.ts",

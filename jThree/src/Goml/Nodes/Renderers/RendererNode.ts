@@ -57,14 +57,14 @@ class RendererNode extends RendererNodeBase {
         this.setCanvasManager(CanvasManager.fromCanvasElement(this.targetCanvas));
         var context = JThreeContextProxy.getJThreeContext();
         context.addCanvasManager(this.CanvasManager);
-        this.attributes.defineAttribute({
-            "fullscreen":
-            {
-                value: false, converter: "boolean", handler: (v) => {
-                    this.CanvasManager.FullScreen = v.Value;
-                }
-            }
-        });
+        // this.attributes.defineAttribute({
+        //     "fullscreen":
+        //     {
+        //         value: false, converter: "boolean", handler: (v) => {
+        //             this.CanvasManager.FullScreen = v.Value;
+        //         }
+        //     }
+        // });
         this.attributes.applyDefaultValue();
     }
 
@@ -73,13 +73,13 @@ class RendererNode extends RendererNodeBase {
     }
 
     /**
-     * 
-     ƒCƒxƒ“ƒg”­‰Î‚·‚é*/
+     *
+     ï¿½Cï¿½xï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Î‚ï¿½ï¿½ï¿½*/
     public resize();
     /**
-     * ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰‚Ì“o˜^
-     * @param func 
-     * @returns {} 
+     * ï¿½Cï¿½xï¿½ï¿½ï¿½gï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Ì“oï¿½^
+     * @param func
+     * @returns {}
      */
     public resize(func: Delegates.Action1<RendererNode>);
     public resize( func?:Delegates.Action1<RendererNode>) {
@@ -92,7 +92,7 @@ class RendererNode extends RendererNodeBase {
                 f(this);
             }.bind(this));
         }
-        
+
     }
 
     protected get DefaultWidth(): number {
@@ -102,13 +102,13 @@ class RendererNode extends RendererNodeBase {
     protected get DefaultHeight(): number {
         return this.targetFrame.clientHeight;
     }
-    
+
     protected sizeChanged(width:number,height:number)
     {
         this.targetCanvas.width=width;
         this.targetCanvas.height=height;
     }
-    
+
 
 
 }

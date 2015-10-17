@@ -7,6 +7,7 @@ import ClearTargetType = require("../Wrapper/ClearTargetType");
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
 import Delegates = require('../Base/Delegates');
+
 /**
  * Provides some of feature managing canvas.
  */
@@ -18,14 +19,19 @@ class CanvasManager extends ContextManagerBase {
         var gl: WebGLRenderingContext;
         try {
             gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
-            var renderer: CanvasManager = new CanvasManager(gl);
+            var canvasManager: CanvasManager = new CanvasManager(gl);
+            //register handlers here
+            canvas.onmousemove = canvasManager.onMouseMove.bind(canvasManager);
+            canvas.onmouseenter = canvasManager.onMouseEnter.bind(canvasManager);
+            canvas.onmouseleave = canvasManager.onMouseLeave.bind(canvasManager);
+
             var instance = JThreeContextProxy.getJThreeContext();
-            renderer.targetCanvas = canvas;
-            renderer.lastHeight = canvas.height;
-            renderer.lastWidth = canvas.width;
-            instance.addCanvasManager(renderer);
+            canvasManager.targetCanvas = canvas;
+            canvasManager.lastHeight = canvas.height;
+            canvasManager.lastWidth = canvas.width;
+            instance.addCanvasManager(canvasManager);
             //add div for monitoring size changing in canvas
-            return renderer;
+            return canvasManager;
         } catch (e) {
             console.error("Web GL context Generation failed");
             if (!gl) {
@@ -42,14 +48,9 @@ class CanvasManager extends ContextManagerBase {
     }
 
     /**
-     * backing field of FullScreen.
-     */
-    private fullscreen: boolean = false;
-
-    /**
      * target canvas this class managing.
      */
-    private targetCanvas: HTMLCanvasElement;
+    public targetCanvas: HTMLCanvasElement;
 
     /**
      * cache for the last height.
@@ -71,30 +72,6 @@ class CanvasManager extends ContextManagerBase {
      * event cache for resize event.
      */
     private onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
-
-    /**
-     * Get accessor for the reference of canvas element this object managing.
-     */
-    public get TargetCanvas(): HTMLCanvasElement {
-        return this.targetCanvas;
-    }
-
-    /**
-     * Get accessor whether this canvas is fullscreen or not.
-     */
-    public get FullScreen(): boolean {
-        return this.fullscreen;
-    }
-
-    /**
-     * Set accessor whether this canvas is fullscreen or not.
-     */
-    public set FullScreen(val: boolean) {
-        if (val === this.fullscreen) return;
-        this.fullscreen = val;
-        //if (val) this.targetCanvas.webkitRequestFullScreen();//TODO fix it
-    }
-
 
     public get IsDirty(): boolean {
         return this.isDirty;
@@ -139,6 +116,28 @@ class CanvasManager extends ContextManagerBase {
      */
     public getDefaultRectangle(): Rectangle {
         return new Rectangle(0, 0, this.targetCanvas.width, this.targetCanvas.height);
+    }
+
+    public mouseOver:boolean=false;
+
+    public lastMouseInfo;
+
+    private onMouseMove(e)
+    {
+      e.canvasX = e.clientX - this.targetCanvas.clientLeft;
+      e.canvasY = e.clientY - this.targetCanvas.clientTop;
+      this.lastMouseInfo = e;
+      this.mouseOver = true;
+    }
+
+    private onMouseEnter(e)
+    {
+      this.mouseOver = true;
+    }
+
+    private onMouseLeave(e)
+    {
+      this.mouseOver = false;
     }
 }
 
