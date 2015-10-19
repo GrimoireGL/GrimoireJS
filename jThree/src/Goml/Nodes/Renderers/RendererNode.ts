@@ -32,7 +32,6 @@ class RendererNode extends RendererNodeBase {
         resizeIframe.style.verticalAlign = "bottom";
         resizeIframe.setAttribute("frameborder", "0");
         resizeIframe.setAttribute("scrolling", "no");
-
         resizeIframe.setAttribute("name", "jThreeResizeIframe");
         resizeElement.appendChild(resizeIframe);
         this.targetFrame.insertBefore(resizeElement, this.targetFrame.firstChild);

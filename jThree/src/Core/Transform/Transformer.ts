@@ -102,9 +102,7 @@ class Transformer extends JThreeObject
     private localToGlobalCache: glm.GLM.IArray = glm.mat4.create();
 
     private modelViewProjectionCaluculationCache = glm.mat4.create();
-
-    private cacheVec: glm.GLM.IArray = glm.vec4.create();
-
+    
     private globalToLocalCache:Matrix = Matrix.identity();
 
     private g2lupdated:boolean =false;
