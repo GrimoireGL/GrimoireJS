@@ -11,16 +11,6 @@ class PMXBoneTransformer extends Transformer {
 
 	private boneIndex: number;
 
-	private pmxCalcCacheVec = glm.vec3.create();
-
-	private pmxCalcCacheVec2 = glm.vec3.create();
-
-	private pmxCalcCacheQuat = glm.quat.create();
-
-	private pmxCalcCacheQuat2 = glm.quat.create();
-
-	private pmxCalcCahceMat = glm.mat4.create();
-
 	public get PMXModelData() {
 		return this.pmx.ModelData;
 	}
@@ -98,28 +88,27 @@ class PMXBoneTransformer extends Transformer {
 	}
 
 	private ikLinkCalc(link: PMXBoneTransformer, effector: Vector3, target: Vector3, rotationLimit: number,ikLink:PMXIKLink) {
-		//回転角度を求める
+		//Calculate rotation angle
 		var dot = Vector3.dot(effector,target);
 		if (dot > 1.0) dot = 1.0;
 		var rotationAngle = this.clampFloat(Math.acos(dot), rotationLimit);
 		if (isNaN(rotationAngle)) return;
 		if (rotationAngle <= 1.0e-3) return;
-		//回転軸を求める
+		//Calculate rotation axis of rotation
 		var rotationAxis = Vector3.cross(effector,target);
-		//軸を中心として回転する行列を作成する。
+		//Generate the rotation matrix rotating along the axis
 		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
 		link.Rotation=this.RestrictRotation(ikLink,Quaternion.Multiply(rotation,link.Rotation));
 	}
 
-	    private RestrictRotation(link:PMXIKLink,rot:Quaternion):Quaternion
-        {
-            if (!link.isLimitedRotation) return rot;
-            var decomposed = rot.FactoringQuaternionXYZ();
-            var xRotation = Math.max(link.limitedRotation[0],Math.min(link.limitedRotation[3],-decomposed.x));
-            var yRotation = Math.max(link.limitedRotation[1],Math.min(link.limitedRotation[4],-decomposed.y));
-            var zRotation = Math.max(link.limitedRotation[2],Math.min(link.limitedRotation[5],decomposed.z));
-            return Quaternion.EulerXYZ(-xRotation,-yRotation,zRotation);
-
+	private RestrictRotation(link:PMXIKLink,rot:Quaternion):Quaternion
+{
+  if (!link.isLimitedRotation) return rot;
+  var decomposed = rot.FactoringQuaternionXYZ();
+  var xRotation = Math.max(link.limitedRotation[0],Math.min(link.limitedRotation[3],-decomposed.x));
+  var yRotation = Math.max(link.limitedRotation[1],Math.min(link.limitedRotation[4],-decomposed.y));
+  var zRotation = Math.max(link.limitedRotation[2],Math.min(link.limitedRotation[5],decomposed.z));
+  return Quaternion.EulerXYZ(-xRotation,-yRotation,zRotation);
 }
 
 	private clampFloat(f: number, limit: number) {
