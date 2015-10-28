@@ -85,21 +85,11 @@ class Transformer extends JThreeObject
      public right:Vector3=Vector3.XUnit;
 
     /**
-     * backing field of LocalTransform.
-     */
-    private localTransform: Matrix;
-
-    /**
-     * backing field of LocalToGlobal
-     */
-    private localToGlobal: Matrix;
-
-    /**
      * calculation cache
      */
-    private localTransformCache: glm.GLM.IArray = glm.mat4.create();
+    private localTransformMatrix:Matrix = Matrix.identity();
 
-    private localToGlobalCache: glm.GLM.IArray = glm.mat4.create();
+    private localToGlobalMatrix:Matrix = Matrix.identity();
 
     private modelViewProjectionCaluculationCache = glm.mat4.create();
 
@@ -118,7 +108,7 @@ class Transformer extends JThreeObject
       {
         return this.globalToLocalCache;
       }
-      glm.mat4.invert(this.globalToLocalCache.rawElements,this.localToGlobalCache);
+      glm.mat4.invert(this.globalToLocalCache.rawElements,this.localToGlobalMatrix.rawElements);
       this.g2lupdated = true;
     }
 
@@ -143,25 +133,22 @@ class Transformer extends JThreeObject
     public updateTransform(): void
     {
         this.hasChanged =true;
-        //initialize localTransformCache & localToGlobalCache
-        glm.mat4.identity(this.localTransformCache);
-        glm.mat4.identity(this.localToGlobalCache);
-        glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformCache, this.rotation.rawElements, this.position.rawElements, this.Scale.rawElements, this.localOrigin.rawElements);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformCache
-        this.localTransform = new Matrix(this.localTransformCache);//Generate Matrix instance and substitute the matrix for localTransform
+        //initialize localTransformCache & localToGlobalMatrix.rawElements
+        glm.mat4.identity(this.localTransformMatrix.rawElements);
+        glm.mat4.identity(this.localToGlobalMatrix.rawElements);
+        //generate local transofrm matrix
+        glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.Scale.rawElements, this.localOrigin.rawElements);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
         if (this.linkedObject != null && this.linkedObject.Parent != null) {
             //Use LocalToGlobal matrix of parents to multiply with localTransformCache
-            glm.mat4.copy(this.localToGlobalCache, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
+            glm.mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
         } else
         {
-            //If this transformer have no parent transformer,localToGlobalCache,GlobalTransform will be same as localTransformCache
-            glm.mat4.identity(this.localToGlobalCache);
+            //If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
+            glm.mat4.identity(this.localToGlobalMatrix.rawElements);
         }
         //Multiply parent transform
-        this.localToGlobal = new Matrix(glm.mat4.multiply(this.localToGlobalCache, this.localToGlobalCache, this.localTransform.rawElements));
-        //Calculate direction vectors
-        this.updateDirection(this.right,[1,0,0,0]);
-        this.updateDirection(this.up,[0,1,0,0]);
-        this.updateDirection(this.forward,[0,0,-1,0]);
+        glm.mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
+        this.updateDirections();
         //notify update to childrens
         if (this.linkedObject.Children&&this.NeedUpdateChildren) this.linkedObject.Children.each((v) =>
         {
@@ -172,9 +159,25 @@ class Transformer extends JThreeObject
         this.onUpdateTransformHandler.fire(this, this.linkedObject);
     }
 
+    protected updateTransformMatricies()
+    {
+
+    }
+
+    /**
+     * Update directions by this transform
+     */
+    protected updateDirections()
+    {
+      //Calculate direction vectors
+      this.updateDirection(this.right,[1,0,0,0]);//need to reduce memory allocation
+      this.updateDirection(this.up,[0,1,0,0]);
+      this.updateDirection(this.forward,[0,0,-1,0]);
+    }
+
     private updateDirection(rawElements:Vector3,sourceVector4:number[])
     {
-      glm.vec4.transformMat4(rawElements.rawElements,sourceVector4,this.localToGlobalCache);
+      glm.vec4.transformMat4(rawElements.rawElements,sourceVector4,this.localToGlobalMatrix.rawElements);
       glm.vec3.normalize(rawElements.rawElements,rawElements.rawElements)
     }
 
@@ -190,7 +193,7 @@ class Transformer extends JThreeObject
 
     public get GlobalPosition()
     {
-      return Matrix.transformPoint(this.localToGlobal,Vector3.Zero);
+      return Matrix.transformPoint(this.localToGlobalMatrix,Vector3.Zero);
     }
 
     /**
@@ -198,11 +201,11 @@ class Transformer extends JThreeObject
      */
     public get LocalToGlobal(): Matrix
     {
-        return this.localToGlobal;
+        return this.localToGlobalMatrix;
     }
 
     public get LocalTransform(): Matrix {
-        return this.localTransform;
+        return this.localTransformMatrix;
     }
     /**
      * Get accessor for model rotation.
@@ -270,12 +273,12 @@ class Transformer extends JThreeObject
 
     public transformPoint(point:Vector3)
     {
-      return Matrix.transformPoint(this.localToGlobal,point);
+      return Matrix.transformPoint(this.localToGlobalMatrix,point);
     }
 
     public transformVector(vector:Vector4)
     {
-      return Matrix.transform(this.localToGlobal,vector);
+      return Matrix.transform(this.localToGlobalMatrix,vector);
     }
 
     public inverseTransformDirection(direction:Vector3)
