@@ -3,6 +3,7 @@ import PMXSkeleton = require("./PMXSkeleton");
 import PMXModel = require("./PMXModel");
 import PMXBoneTransformer = require("./PMXBoneTransformer");
 import Vector3 = require("../../Math/Vector3");
+import Delegates = require("../../Base/Delegates");
 class PMXBone extends SceneObject {
 	private targetModel: PMXModel;
 
@@ -19,7 +20,8 @@ class PMXBone extends SceneObject {
 	}
 
 	public get OrderCriteria() {
-		return this.boneIndex + this.TargetBoneData.transformLayer * this.targetModel.ModelData.Bones.length;
+		var latex = this.targetModel.ModelData.Bones.length;
+		return this.boneIndex + this.TargetBoneData.transformLayer * latex+ (this.AfterPhysics?latex*latex :0);
 	}
 
 	public get AfterPhysics() {
@@ -44,6 +46,18 @@ class PMXBone extends SceneObject {
 			this.targetSkeleton.getBoneByIndex(this.TargetBoneData.parentBoneIndex).addChild(this);
 		}
 		this.Transformer.LocalOrigin = new Vector3(this.TargetBoneData.position);
+		var transformer =<PMXBoneTransformer>this.transformer;
+		if(transformer.IsIKBone)
+			for(var i = 0; i < this.TargetBoneData.ikLinkCount; i ++)
+				(<PMXBoneTransformer>this.targetSkeleton.getBoneByIndex(this.TargetBoneData.ikLinks[i].ikLinkBoneIndex).transformer).isIKLink = true;
+	}
+
+	public updateBoneTransform()
+	{
+		var t = <PMXBoneTransformer>this.transformer;
+		t.needUpdateChildren = false;
+		t.updateTransformForPMX();
+		t.needUpdateChildren = true;
 	}
 
 	public structureToString(layer: number) {
@@ -62,11 +76,11 @@ class PMXBone extends SceneObject {
 	}
 
 	public applyMatrixToBuffer(buffer: Float32Array) {
-		if (!(<PMXBoneTransformer>this.Transformer).transformUpdated) return;
+		//if (!(<PMXBoneTransformer>this.Transformer).transformUpdated) return;
 		for (var i = 0; i < 16; i++) {
 			buffer[16 * this.boneIndex + i] = this.Transformer.LocalToGlobal.rawElements[i];
 		}
-		(<PMXBoneTransformer>this.Transformer).transformUpdated = false;
+	//(<PMXBoneTransformer>this.Transformer).transformUpdated = false;
 	}
 }
 

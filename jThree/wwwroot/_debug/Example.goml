@@ -32,7 +32,7 @@
       <alight color="#FFF" intensity="0.1"  top="4"  far="2" right="2" position="-1,-0.5,1"/>
       <object id="camera-origin">
         <object>
-          <camera aspect="1" far="3" fovy="90d" id="maincam" name="CAM1" near="1" rotation="y(30d)" position="(0,1,2)"/>
+          <camera aspect="1" far="3" fovy="90d" id="maincam" name="CAM1" near="1" rotation="y(30d)" position="(1,1,2)"/>
         </object>
       </object>
       <object id="light-root">
@@ -62,9 +62,13 @@
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/> -->
 
       </object>
-      <pmx scale="0.1" src="/Tda/Miku.pmx">
-        <vmd id="melt" frame="0" src="melt.vmd" enabled="true" autoSpeed="1"/>
-        <vmd id="sakura" frame="0" src="sakura.vmd" enabled="false"/>
+      <pmx scale="0.1" src="/GUMI/GUMI.pmx">
+        <vmd id="melt" frame="0" src="tell.vmd" enabled="true" autoSpeed="1"/>
+        <bones>
+          <bone name="右足ＩＫ">
+            <mesh geo="cube" mat="mat2" scale="1"/>
+          </bone>
+        </bones>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>
       <object id="quad-parent" rotation="y(-160d)">

@@ -61,9 +61,9 @@ class PMXShadowMapMaterial extends Material
                 boneIndicies: geometry.boneIndexBuffer,
             },
             uniforms: {
-                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.Skeleton.MatrixTexture, register: 0 },
+                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
                 matLW:{type:"matrix",value:scene.LightRegister.shadowDroppableLights[techniqueIndex].matLightProjection},
-                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.Skeleton.BoneCount }
+                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount }
             }
         });
         object.Geometry.bindIndexBuffer(renderer.ContextManager);

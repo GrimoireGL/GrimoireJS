@@ -7,6 +7,7 @@ import Vector3 = require("../../Math/Vector3");
 import Quaternion = require("../../Math/Quaternion");
 import PMXMorph = require("../../PMX/Core/PMXMorph");
 import JThreeContextProxy = require("../../Core/JThreeContextProxy");
+import PMXBoneTransformer = require("../../PMX/Core/PMXBoneTransformer");
 class VMDNode extends GomlTreeNodeBase
 {
 	private targetPMX: PMXNode;
@@ -54,11 +55,11 @@ class VMDNode extends GomlTreeNodeBase
 						for(var boneName in this.targetVMD.Motions)
 						{
 							var bone:PMXBone;
-							if(bone = this.targetPMX.PMXModel.Skeleton.getBoneByName(boneName))
+							if(bone = this.targetPMX.PMXModel.skeleton.getBoneByName(boneName))
 							{
 								var current = this.targetVMD.getBoneFrame(this.frame, boneName);
 								bone.Transformer.Position = new Vector3(current.position);
-								bone.Transformer.Rotation = new Quaternion(current.rotation);
+								(<PMXBoneTransformer>bone.Transformer).userRotation = new Quaternion(current.rotation);
 							}
 						}
 						for(var morphName in this.targetVMD	.Morphs)

@@ -207,7 +207,7 @@ class PMXMaterial extends Material
                     },
                     u_boneMatricies: {
                         type: "texture",
-                        value: this.parentModel.Skeleton.MatrixTexture,
+                        value: this.parentModel.skeleton.MatrixTexture,
                         register: 4
                     },
                     u_textureUsed: {
@@ -240,7 +240,7 @@ class PMXMaterial extends Material
                     matVP: { type: "matrix", value:renderer.Camera.viewProjectionMatrix },
                     u_boneCount: {
                         type: "float",
-                        value: this.parentModel.Skeleton.BoneCount
+                        value: this.parentModel.skeleton.BoneCount
                     },
                     ambientCoefficient:
                     {
@@ -268,7 +268,7 @@ class PMXMaterial extends Material
             },
             uniforms: {
                 u_boneMatricies: {
-                    type: "texture", register: 0, value: this.ParentModel.Skeleton.MatrixTexture
+                    type: "texture", register: 0, value: this.ParentModel.skeleton.MatrixTexture
                 },
                 matVP: {
                     type: "matrix", value: renderer.Camera.viewProjectionMatrix
@@ -282,7 +282,7 @@ class PMXMaterial extends Material
                 }
                 ,
                 u_boneCount: {
-                    type: "float", value: this.parentModel.Skeleton.BoneCount
+                    type: "float", value: this.parentModel.skeleton.BoneCount
                 }
             }
         });

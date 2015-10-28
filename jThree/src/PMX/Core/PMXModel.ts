@@ -27,7 +27,7 @@ class PMXModel extends SceneObject {
 
         private modelData: PMXModelData;
 
-        private skeleton: PMXSkeleton;
+        public skeleton: PMXSkeleton;
 
         private morphManager: PMXMorphManager;
 
@@ -55,9 +55,6 @@ class PMXModel extends SceneObject {
                 return this.modelData;
         }
 
-        public get Skeleton(): PMXSkeleton {
-                return this.skeleton;
-        }
 
         public get Materials(): PMXMaterial[] {
                 return this.pmxMaterials;

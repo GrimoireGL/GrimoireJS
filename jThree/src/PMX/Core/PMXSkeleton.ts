@@ -5,9 +5,10 @@ import TextureBuffer = require('../../Core/Resources/Texture/BufferTexture');
 import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../Wrapper/TextureType');
-
+import PMXBoneTransformer = require("./PMXBoneTransformer");
 class PMXSkeleton {
 	constructor(model: PMXModel) {
+		model.skeleton = this;
 		var bones = model.ModelData.Bones;
 		this.bones = new Array(model.ModelData.Bones.length);
 		this.bonesInTransformOrder = new Array(model.ModelData.Bones.length);
@@ -23,6 +24,9 @@ class PMXSkeleton {
 		}
 		this.bones.forEach((v) => v.boneDictionaryConstructed());
 		this.bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
+		for (let i = 0; i < this.bonesInTransformOrder.length; i++) {
+		    console.log(this.bonesInTransformOrder[i].OrderCriteria);
+		}
 		var j3 = JThreeContextProxy.getJThreeContext();
 		this.matrixTexture=<TextureBuffer>j3.ResourceManager.createTexture("jthree.pmx.bonetransform" + model.ID, 4,this.bones.length, TextureFormat.RGBA, ElementFormat.Float);
 	}
@@ -58,10 +62,19 @@ class PMXSkeleton {
 	}
 
 	public updateMatricies() {
+		this.updateBoneTransforms();
 		for (var i = 0; i < this.bones.length; i++) {
 			this.bones[i].applyMatrixToBuffer(this.matricies);
 		}
 		this.matrixTexture.updateTexture(this.matricies);
+	}
+
+	public updateBoneTransforms()
+	{
+		this.rootBones.forEach(v=>v.callRecursive(l=>{
+			if(l["updateBoneTransform"])(<PMXBone>l).updateBoneTransform();
+		}));
+		//this.bonesInTransformOrder.forEach(v=>(<PMXBoneTransformer>v.Transformer).updateTransformForPMX());
 	}
 
 	public structureToString() {

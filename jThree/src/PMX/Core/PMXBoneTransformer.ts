@@ -11,12 +11,36 @@ class PMXBoneTransformer extends Transformer {
 
 	private boneIndex: number;
 
+	private ikLinkRotation:Quaternion = Quaternion.Identity;
+
+	public userRotation:Quaternion = Quaternion.Identity;
+
+	public userTranslation:Vector3 = Vector3.Zero;
+
+	private morphRotation:Quaternion = Quaternion.Identity;
+
+	private morphTranslation:Vector3 = Vector3.Zero;
+
+	private providingRotation:Quaternion = Quaternion.Identity;
+
+	private providingTranslation:Vector3 = Vector3.Zero;
+
 	public get PMXModelData() {
 		return this.pmx.ModelData;
 	}
 
 	public get TargetBoneData() {
 		return this.PMXModelData.Bones[this.boneIndex];
+	}
+
+	public get ProvidingBone()
+	{
+		return this.pmx.skeleton.getBoneByIndex(this.TargetBoneData.providingBoneIndex);
+	}
+
+	public get ProvidingBoneTransformer()
+	{
+		return <PMXBoneTransformer>this.ProvidingBone.Transformer;
 	}
 
 	public get IsLocalProvidingBone() {
@@ -35,6 +59,20 @@ class PMXBoneTransformer extends Transformer {
 		return (this.TargetBoneData.boneFlag & 0x0020) > 0;
 	}
 
+	public needUpdateChildren = true;
+
+	public get NeedUpdateChildren()
+	{
+		return this.needUpdateChildren;
+	}
+
+	/**
+	 * Whether this bone transformer is IKLink or not.
+	 * This variable will be assigned by PMXSkeleton after loading all bones.
+	 * @type {boolean}
+	 */
+	public isIKLink:boolean=false;
+
 	constructor(sceneObj: SceneObject, pmx: PMXModel, index: number) {
 		super(sceneObj);
 		this.pmx = pmx;
@@ -45,11 +83,67 @@ class PMXBoneTransformer extends Transformer {
 
 	public updateTransform(): void {
 		super.updateTransform();
+	}
+
+	public updateTransformForPMX()
+	{
 		if (this.pmx == null) return;
-		if (this.IsIKBone&&this.pmx.Skeleton) {
+		this.updateLocalTranslation();
+		if (this.IsIKBone&&this.pmx.skeleton) {
 			this.applyCCDIK();
+		}else{
+			this.updateLocalRotation();
+			super.updateTransform();
 		}
-		this.transformUpdated = true;
+	}
+
+	private updateLocalRotation()
+	{
+		glm.quat.identity(this.Rotation.rawElements);
+		if(this.IsRotationProvidingBone)
+		{
+			if(this.IsLocalProvidingBone)
+			{
+				//Do something when this bone is local providing bone
+				console.error("Local providing is not implemented yet!");
+			}
+			if(this.ProvidingBoneTransformer.isIKLink)
+			{
+				//Interpolate ikLink rotation with providing rate
+				glm.quat.slerp(this.Rotation.rawElements,this.Rotation.rawElements,this.ProvidingBoneTransformer.ikLinkRotation.rawElements,this.TargetBoneData.providingRate);
+			}
+		}
+		//Multiply local rotations of this bone
+		glm.quat.mul(this.Rotation.rawElements,this.Rotation.rawElements,this.userRotation.rawElements);
+		glm.quat.mul(this.Rotation.rawElements,this.Rotation.rawElements,this.morphRotation.rawElements);
+		if(this.IsRotationProvidingBone)
+		{ //Memorize providing rotation of this bone
+			glm.quat.copy(this.providingRotation.rawElements,this.Rotation.rawElements);
+		}
+		//Calculate IkLink rotation of this bone
+		glm.quat.mul(this.Rotation.rawElements,this.Rotation.rawElements,this.ikLinkRotation.rawElements);
+	}
+
+	private updateLocalTranslation()
+	{
+		this.Position.rawElements[0] = 0;
+		this.Position.rawElements[1] = 0;
+		this.Position.rawElements[2] = 0;
+		if(this.IsTranslationProvidingBone)
+		{
+			if(this.IsLocalProvidingBone)
+			{
+				//Do something when this bone is local providing bone
+				console.error("Local providing is not implemented yet!");
+			}
+			glm.vec3.lerp(this.Position.rawElements,this.Position.rawElements,this.ProvidingBone.Transformer.Position.rawElements,this.TargetBoneData.providingRate);
+		}
+		glm.vec3.add(this.Position.rawElements,this.Position.rawElements,this.userTranslation.rawElements);
+		glm.vec3.add(this.Position.rawElements,this.Position.rawElements,this.morphTranslation.rawElements);
+		if(this.IsTranslationProvidingBone)
+		{
+			glm.vec3.copy(this.providingTranslation.rawElements,this.Position.rawElements);
+		}
 	}
 
 	private applyCCDIK() {
@@ -61,12 +155,12 @@ class PMXBoneTransformer extends Transformer {
 
     private CCDIKOperation() {
 		var effector = this.PMXModelData.Bones[this.TargetBoneData.ikTargetBoneIndex];
-		var effectorTransformer = <PMXBoneTransformer> this.pmx.Skeleton.getBoneByIndex(this.TargetBoneData.ikTargetBoneIndex).Transformer;
+		var effectorTransformer = <PMXBoneTransformer> this.pmx.skeleton.getBoneByIndex(this.TargetBoneData.ikTargetBoneIndex).Transformer;
 		var TargetGlobalPos =Matrix.transformPoint(this.LocalToGlobal,this.LocalOrigin);
 		// glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
 		for (var i = 0; i < this.TargetBoneData.ikLinkCount; i++) {
 			var ikLinkData = this.TargetBoneData.ikLinks[i];
-			var ikLinkTransform = <PMXBoneTransformer>this.pmx.Skeleton.getBoneByIndex(ikLinkData.ikLinkBoneIndex).Transformer;
+			var ikLinkTransform = <PMXBoneTransformer>this.pmx.skeleton.getBoneByIndex(ikLinkData.ikLinkBoneIndex).Transformer;
 			var link2Effector = this.getLink2Effector(ikLinkTransform, effectorTransformer);
 			var link2Target = this.getLink2Target(ikLinkTransform, TargetGlobalPos);
 			this.ikLinkCalc(ikLinkTransform, link2Effector, link2Target, this.TargetBoneData.ikLimitedRotation,ikLinkData);
@@ -98,11 +192,13 @@ class PMXBoneTransformer extends Transformer {
 		var rotationAxis = Vector3.cross(effector,target);
 		//Generate the rotation matrix rotating along the axis
 		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
-		link.Rotation=this.RestrictRotation(ikLink,Quaternion.Multiply(rotation,link.Rotation));
+		this.ikLinkRotation=this.RestrictRotation(ikLink,Quaternion.Multiply(rotation,link.Rotation));
+		super.updateTransform();
 	}
 
 	private RestrictRotation(link:PMXIKLink,rot:Quaternion):Quaternion
 {
+	return rot;
   if (!link.isLimitedRotation) return rot;
   var decomposed = rot.FactoringQuaternionXYZ();
   var xRotation = Math.max(link.limitedRotation[0],Math.min(link.limitedRotation[3],-decomposed.x));

@@ -102,10 +102,15 @@ class Transformer extends JThreeObject
     private localToGlobalCache: glm.GLM.IArray = glm.mat4.create();
 
     private modelViewProjectionCaluculationCache = glm.mat4.create();
-    
+
     private globalToLocalCache:Matrix = Matrix.identity();
 
     private g2lupdated:boolean =false;
+
+    public get NeedUpdateChildren():boolean
+    {
+      return true;
+    }
 
     public get globalToLocal()
     {
@@ -158,7 +163,7 @@ class Transformer extends JThreeObject
         this.updateDirection(this.up,[0,1,0,0]);
         this.updateDirection(this.forward,[0,0,-1,0]);
         //notify update to childrens
-        if (this.linkedObject.Children) this.linkedObject.Children.each((v) =>
+        if (this.linkedObject.Children&&this.NeedUpdateChildren) this.linkedObject.Children.each((v) =>
         {
             v.Transformer.updateTransform();
         });

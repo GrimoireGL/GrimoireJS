@@ -22,7 +22,7 @@ class PMXBoneNode extends SceneObjectNodeBase {
 				converter: "string",
 				handler: (v) => {
 					if (!this.targetPMX.PMXModelReady) return;
-					var bone = this.targetPMX.PMXModel.Skeleton.getBoneByName(v.Value);
+					var bone = this.targetPMX.PMXModel.skeleton.getBoneByName(v.Value);
 					if (bone != null && bone != this.targetSceneObject) {
 						this.targetSceneObject = bone;
 						if (this.children) {
