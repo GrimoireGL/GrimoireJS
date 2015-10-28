@@ -142,6 +142,7 @@
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_src_core_transform_transformer_.transformer.html#localorigin-1" class="tsd-kind-icon">Local<wbr>Origin</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_transform_transformer_.transformer.html#localtoglobal-1" class="tsd-kind-icon">Local<wbr>ToGlobal</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_transform_transformer_.transformer.html#localtransform-1" class="tsd-kind-icon">Local<wbr>Transform</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_core_transform_transformer_.transformer.html#needupdatechildren" class="tsd-kind-icon">Need<wbr>Update<wbr>Children</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_src_core_transform_transformer_.transformer.html#position-1" class="tsd-kind-icon">Position</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_src_core_transform_transformer_.transformer.html#rotation-1" class="tsd-kind-icon">Rotation</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_src_core_transform_transformer_.transformer.html#scale-1" class="tsd-kind-icon">Scale</a></li>
@@ -350,7 +351,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Update<wbr>Transform<wbr>Handler<span class="tsd-signature-symbol">:</span> <a href="_src_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="_src_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L123">src/Core/Transform/Transformer.ts:123</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L128">src/Core/Transform/Transformer.ts:128</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -447,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L186">src/Core/Transform/Transformer.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L191">src/Core/Transform/Transformer.ts:191</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -465,7 +466,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L250">src/Core/Transform/Transformer.ts:250</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L255">src/Core/Transform/Transformer.ts:255</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -473,7 +474,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L255">src/Core/Transform/Transformer.ts:255</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L260">src/Core/Transform/Transformer.ts:260</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -496,7 +497,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L194">src/Core/Transform/Transformer.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L199">src/Core/Transform/Transformer.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -518,10 +519,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L199">src/Core/Transform/Transformer.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L204">src/Core/Transform/Transformer.ts:204</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="needupdatechildren" class="tsd-anchor"></a>
+					<h3>Need<wbr>Update<wbr>Children</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> NeedUpdateChildren<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L110">src/Core/Transform/Transformer.ts:110</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -536,7 +554,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L220">src/Core/Transform/Transformer.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L225">src/Core/Transform/Transformer.ts:225</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -549,7 +567,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L227">src/Core/Transform/Transformer.ts:227</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L232">src/Core/Transform/Transformer.ts:232</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -578,7 +596,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L205">src/Core/Transform/Transformer.ts:205</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L210">src/Core/Transform/Transformer.ts:210</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -591,7 +609,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L212">src/Core/Transform/Transformer.ts:212</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L217">src/Core/Transform/Transformer.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -620,7 +638,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L236">src/Core/Transform/Transformer.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L241">src/Core/Transform/Transformer.ts:241</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -633,7 +651,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L244">src/Core/Transform/Transformer.ts:244</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L249">src/Core/Transform/Transformer.ts:249</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -678,7 +696,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L110">src/Core/Transform/Transformer.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L115">src/Core/Transform/Transformer.ts:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
@@ -732,7 +750,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L179">src/Core/Transform/Transformer.ts:179</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L184">src/Core/Transform/Transformer.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -778,7 +796,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L276">src/Core/Transform/Transformer.ts:276</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L281">src/Core/Transform/Transformer.ts:281</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -801,7 +819,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L281">src/Core/Transform/Transformer.ts:281</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L286">src/Core/Transform/Transformer.ts:286</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -824,7 +842,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L286">src/Core/Transform/Transformer.ts:286</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L291">src/Core/Transform/Transformer.ts:291</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -847,7 +865,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L129">src/Core/Transform/Transformer.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L134">src/Core/Transform/Transformer.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -897,7 +915,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L261">src/Core/Transform/Transformer.ts:261</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L266">src/Core/Transform/Transformer.ts:266</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -920,7 +938,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L266">src/Core/Transform/Transformer.ts:266</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L271">src/Core/Transform/Transformer.ts:271</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -943,7 +961,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L271">src/Core/Transform/Transformer.ts:271</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L276">src/Core/Transform/Transformer.ts:276</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -966,7 +984,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L170">src/Core/Transform/Transformer.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L175">src/Core/Transform/Transformer.ts:175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -992,7 +1010,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L138">src/Core/Transform/Transformer.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L143">src/Core/Transform/Transformer.ts:143</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1090,6 +1108,9 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_core_transform_transformer_.transformer.html#localtransform-1" class="tsd-kind-icon">Local<wbr>Transform</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_src_core_transform_transformer_.transformer.html#needupdatechildren" class="tsd-kind-icon">Need<wbr>Update<wbr>Children</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="_src_core_transform_transformer_.transformer.html#position-1" class="tsd-kind-icon">Position</a>
