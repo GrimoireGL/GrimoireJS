@@ -63,7 +63,7 @@
 
       </object>
       <pmx scale="0.1" src="/GUMI/GUMI.pmx">
-        <vmd id="melt" frame="0" src="tell.vmd" enabled="true" autoSpeed="1"/>
+        <vmd id="melt" frame="0" src="melt.vmd" enabled="true" autoSpeed="1"/>
         <bones>
           <bone name="右足ＩＫ">
             <mesh geo="cube" mat="mat2" scale="1"/>

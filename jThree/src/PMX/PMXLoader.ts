@@ -291,7 +291,7 @@ class PMX {
 			this.surfaces[3 * i + 1] = this.readVertexIndex();
 		}
 	}
-	
+
 	private loadTextures() {
 		var r = this.reader;
 		var count = r.getInt32();
@@ -364,6 +364,12 @@ class PMX {
 						limitedRotation: ikLimitedCache > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined
 					}
 				}
+		}
+		for(var i = 0; i < count; i++)
+		{
+			var bone = this.bones[i];
+			if(bone.providingBoneIndex)
+				console.error(`${bone.boneName}→${this.bones[bone.providingBoneIndex].boneName}`);
 		}
 	}
 	private loadMorphs() {

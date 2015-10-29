@@ -71,10 +71,10 @@ class PMXSkeleton {
 
 	public updateBoneTransforms()
 	{
-		this.rootBones.forEach(v=>v.callRecursive(l=>{
-			if(l["updateBoneTransform"])(<PMXBone>l).updateBoneTransform();
-		}));
-		//this.bonesInTransformOrder.forEach(v=>(<PMXBoneTransformer>v.Transformer).updateTransformForPMX());
+		// this.rootBones.forEach(v=>v.callRecursive(l=>{
+		// 	if(l["updateBoneTransform"])(<PMXBone>l).updateBoneTransform();
+		// }));
+		this.bonesInTransformOrder.forEach(v=>(v.updateBoneTransform()));
 	}
 
 	public structureToString() {

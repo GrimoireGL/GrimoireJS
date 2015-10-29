@@ -100,7 +100,7 @@ class PMXBoneTransformer extends Transformer {
 	private updateLocalRotation()
 	{
 		glm.quat.identity(this.Rotation.rawElements);
-		if(this.IsRotationProvidingBone)
+		if(false&&this.IsRotationProvidingBone)
 		{
 			if(this.IsLocalProvidingBone)
 			{
@@ -192,13 +192,14 @@ class PMXBoneTransformer extends Transformer {
 		var rotationAxis = Vector3.cross(effector,target);
 		//Generate the rotation matrix rotating along the axis
 		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
-		this.ikLinkRotation=this.RestrictRotation(ikLink,Quaternion.Multiply(rotation,link.Rotation));
-		super.updateTransform();
+		link.ikLinkRotation = rotation;
+		link.updateTransformMatricies();
+
+		//link.ikLinkRotation=this.RestrictRotation(ikLink,Quaternion.Multiply(rotation,link.Rotation));
 	}
 
 	private RestrictRotation(link:PMXIKLink,rot:Quaternion):Quaternion
 {
-	return rot;
   if (!link.isLimitedRotation) return rot;
   var decomposed = rot.FactoringQuaternionXYZ();
   var xRotation = Math.max(link.limitedRotation[0],Math.min(link.limitedRotation[3],-decomposed.x));
@@ -210,8 +211,6 @@ class PMXBoneTransformer extends Transformer {
 	private clampFloat(f: number, limit: number) {
 		return Math.max(Math.min(f, limit), -limit);
 	}
-
-
 }
 
 export = PMXBoneTransformer;

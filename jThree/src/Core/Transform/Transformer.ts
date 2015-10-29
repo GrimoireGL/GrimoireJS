@@ -133,22 +133,7 @@ class Transformer extends JThreeObject
     public updateTransform(): void
     {
         this.hasChanged =true;
-        //initialize localTransformCache & localToGlobalMatrix.rawElements
-        glm.mat4.identity(this.localTransformMatrix.rawElements);
-        glm.mat4.identity(this.localToGlobalMatrix.rawElements);
-        //generate local transofrm matrix
-        glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.Scale.rawElements, this.localOrigin.rawElements);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
-        if (this.linkedObject != null && this.linkedObject.Parent != null) {
-            //Use LocalToGlobal matrix of parents to multiply with localTransformCache
-            glm.mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
-        } else
-        {
-            //If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
-            glm.mat4.identity(this.localToGlobalMatrix.rawElements);
-        }
-        //Multiply parent transform
-        glm.mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
-        this.updateDirections();
+        this.updateTransformMatricies();
         //notify update to childrens
         if (this.linkedObject.Children&&this.NeedUpdateChildren) this.linkedObject.Children.each((v) =>
         {
@@ -159,9 +144,28 @@ class Transformer extends JThreeObject
         this.onUpdateTransformHandler.fire(this, this.linkedObject);
     }
 
+    /**
+     * Update transform matricies
+     * @return {[type]} [description]
+     */
     protected updateTransformMatricies()
     {
-
+      //initialize localTransformCache & localToGlobalMatrix.rawElements
+      glm.mat4.identity(this.localTransformMatrix.rawElements);
+      glm.mat4.identity(this.localToGlobalMatrix.rawElements);
+      //generate local transofrm matrix
+      glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.Scale.rawElements, this.localOrigin.rawElements);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+      if (this.linkedObject != null && this.linkedObject.Parent != null) {
+          //Use LocalToGlobal matrix of parents to multiply with localTransformCache
+          glm.mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
+      } else
+      {
+          //If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
+          glm.mat4.identity(this.localToGlobalMatrix.rawElements);
+      }
+      //Multiply parent transform
+      glm.mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
+      this.updateDirections();
     }
 
     /**
