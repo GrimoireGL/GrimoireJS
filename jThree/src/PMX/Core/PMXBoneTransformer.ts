@@ -147,20 +147,24 @@ class PMXBoneTransformer extends Transformer {
 	}
 
 	private applyCCDIK() {
+		for(var i = 0; i < this.TargetBoneData.ikLinkCount; i ++)
+		{
+			this.getIkLinkTransformerByIndex(i).ikLinkRotation= Quaternion.Identity;
+		}
 		for (var i = 0; i < this.TargetBoneData.ikLoopCount;i++)
 		{
 			this.CCDIKOperation();
 		}
 	}
 
-    private CCDIKOperation() {
+  private CCDIKOperation() {
 		var effector = this.PMXModelData.Bones[this.TargetBoneData.ikTargetBoneIndex];
 		var effectorTransformer = <PMXBoneTransformer> this.pmx.skeleton.getBoneByIndex(this.TargetBoneData.ikTargetBoneIndex).Transformer;
 		var TargetGlobalPos =Matrix.transformPoint(this.LocalToGlobal,this.LocalOrigin);
 		// glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
 		for (var i = 0; i < this.TargetBoneData.ikLinkCount; i++) {
 			var ikLinkData = this.TargetBoneData.ikLinks[i];
-			var ikLinkTransform = <PMXBoneTransformer>this.pmx.skeleton.getBoneByIndex(ikLinkData.ikLinkBoneIndex).Transformer;
+			var ikLinkTransform = this.getIkLinkTransformerByIndex(i);
 			var link2Effector = this.getLink2Effector(ikLinkTransform, effectorTransformer);
 			var link2Target = this.getLink2Target(ikLinkTransform, TargetGlobalPos);
 			this.ikLinkCalc(ikLinkTransform, link2Effector, link2Target, this.TargetBoneData.ikLimitedRotation,ikLinkData);
@@ -193,9 +197,21 @@ class PMXBoneTransformer extends Transformer {
 		//Generate the rotation matrix rotating along the axis
 		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
 		link.ikLinkRotation = rotation;
+		link.updateLocalRotation();
 		link.updateTransformMatricies();
+		//Rotation = (providingRotation) * userRotation * morphRotation * ikLinkRotation
+		//RestrictedRotation = Rotation * ikLinkAdjust
+		//ikLinkAdust = (Rotation) ^ -1 * RestrictedRotation
+		var restrictedRotation = this.RestrictRotation(ikLink,link.Rotation);
+		var ikLinkAdust = Quaternion.Multiply(link.Rotation.Inverse(),restrictedRotation);
+	  link.ikLinkRotation = Quaternion.Multiply(link.ikLinkRotation,ikLinkAdust);
+		link.updateTransform();
+		// link.updateTransformMatricies();
+	}
 
-		//link.ikLinkRotation=this.RestrictRotation(ikLink,Quaternion.Multiply(rotation,link.Rotation));
+	private getIkLinkTransformerByIndex(index:number):PMXBoneTransformer
+	{
+		return <PMXBoneTransformer>this.pmx.skeleton.getBoneByIndex(this.TargetBoneData.ikLinks[index].ikLinkBoneIndex).Transformer;
 	}
 
 	private RestrictRotation(link:PMXIKLink,rot:Quaternion):Quaternion

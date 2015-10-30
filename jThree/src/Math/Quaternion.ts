@@ -107,6 +107,7 @@ class Quaternion extends JThreeObject
         return new Quaternion(glm.quat.normalize(newQuat, this.rawElements));
     }
 
+    
     public Inverse(): Quaternion
     {
         var newQuat = glm.quat.create();
