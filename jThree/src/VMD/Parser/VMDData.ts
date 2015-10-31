@@ -72,7 +72,10 @@ class VMDData {
 				this.motions[frameName] = [];
 			}
 			this.motions[frameName].push(data);
-
+		}
+		for(var motion in this.motions)
+		{//sort each bone frames
+			this.motions[motion].sort((i1,i2)=>i1.frameNumber-i2.frameNumber);
 		}
 	}
 
@@ -91,7 +94,10 @@ class VMDData {
 				this.morphs[frameName] = [];
 			}
 			this.morphs[frameName].push(data);
-
+		}
+		for(var morph in this.morphs)
+		{
+			this.morphs[morph].sort((i1,i2)=>i1.frameNumber - i2.frameNumber);
 		}
 	}
 

@@ -149,7 +149,9 @@ class PMXBoneTransformer extends Transformer {
 	private applyCCDIK() {
 		for(var i = 0; i < this.TargetBoneData.ikLinkCount; i ++)
 		{
-			this.getIkLinkTransformerByIndex(i).ikLinkRotation= Quaternion.Identity;
+			var link = this.getIkLinkTransformerByIndex(i);
+			link.ikLinkRotation = Quaternion.Identity;
+			link.updateTransform();
 		}
 		for (var i = 0; i < this.TargetBoneData.ikLoopCount;i++)
 		{
