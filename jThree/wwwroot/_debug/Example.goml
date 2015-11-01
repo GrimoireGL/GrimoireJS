@@ -10,6 +10,8 @@
     <phong diffuse="black" name="mat" specular="#CCC" specularpower="100"/>
     <phong diffuse="blue" name="右足" specularpower="100000"/>
     <phong diffuse="red" name="左足" specularpower="1000000"/>
+    <phong diffuse="yellow" name="右つま先" specularpower="100000"/>
+    <phong diffuse="green" name="左つま先" specularpower="1000000"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
     <tri name="triangle"/>
     <cylinder divide="30" name="cyl"/>
@@ -65,14 +67,20 @@
 
       </object>
       <pmx scale="0.1" src="/GUMI/GUMI.pmx">
-        <vmd id="melt" frame="0" src="/walk/menf.vmd" enabled="true" autoSpeed="1"/>
+        <vmd id="melt" frame="0" src="/walk/womenf.vmd" enabled="true" autoSpeed="1"/>
         <bones>
-          <bone name="右足ＩＫ">
+          <!-- <bone name="右足ＩＫ">
             <mesh geo="cube" mat="右足" scale="0.5"/>
           </bone>
           <bone name="左足ＩＫ">
             <mesh geo="cube" mat="左足" scale="0.5"/>
           </bone>
+          <bone name="右つま先ＩＫ">
+            <mesh geo="cube" mat="右つま先" scale="0.5"/>
+          </bone>
+          <bone name="左つま先ＩＫ">
+            <mesh geo="cube" mat="左つま先" scale="0.5"/>
+          </bone> -->
         </bones>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>

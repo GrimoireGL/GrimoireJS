@@ -370,6 +370,8 @@ class PMX {
 			var bone = this.bones[i];
 			if(bone.providingBoneIndex)
 				console.error(`${bone.boneName}→${this.bones[bone.providingBoneIndex].boneName}`);
+			if((bone.boneFlag & 0x0020)>0)
+				console.error(`${bone.boneName} is IKBone`);
 		}
 	}
 	private loadMorphs() {
