@@ -66,10 +66,10 @@
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/> -->
 
       </object>
-      <pmx scale="0.1" src="/GUMI/GUMI.pmx">
-        <vmd id="melt" frame="0" src="/walk/womenf.vmd" enabled="true" autoSpeed="1"/>
+      <pmx scale="0.1" src="/Tda/Miku.pmx">
+        <vmd id="melt" frame="0" src="/walk/menf.vmd" enabled="true" autoSpeed="0.3"/>
         <bones>
-          <!-- <bone name="右足ＩＫ">
+          <bone name="右足ＩＫ">
             <mesh geo="cube" mat="右足" scale="0.5"/>
           </bone>
           <bone name="左足ＩＫ">
@@ -80,7 +80,7 @@
           </bone>
           <bone name="左つま先ＩＫ">
             <mesh geo="cube" mat="左つま先" scale="0.5"/>
-          </bone> -->
+          </bone>
         </bones>
       </pmx>
       <mesh geo="quad" id="floor" mat="mat2" rotation="x(-90d)" scale="1"/>

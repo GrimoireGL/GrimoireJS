@@ -25,7 +25,7 @@ class PMXSkeleton {
 		this.bones.forEach((v) => v.boneDictionaryConstructed());
 		this.bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
 		for (let i = 0; i < this.bonesInTransformOrder.length; i++) {
-		    console.log(this.bonesInTransformOrder[i].OrderCriteria);
+		    console.log((<PMXBoneTransformer>this.bonesInTransformOrder[i].Transformer).BoneData.boneName);
 		}
 		var j3 = JThreeContextProxy.getJThreeContext();
 		this.matrixTexture=<TextureBuffer>j3.ResourceManager.createTexture("jthree.pmx.bonetransform" + model.ID, 4,this.bones.length, TextureFormat.RGBA, ElementFormat.Float);

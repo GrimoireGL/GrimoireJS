@@ -50,7 +50,7 @@ class Transformer extends JThreeObject
     /**
      * Scene oject reference this transformer related to.
      */
-    private linkedObject: SceneObject;
+    public linkedObject: SceneObject;
 
     /**
      * backing field of Rotation.

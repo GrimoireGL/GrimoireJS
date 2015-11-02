@@ -357,7 +357,7 @@ class PMX {
 				ikLinks: (boneFlagCache & 0x0020) > 0 ? new Array(ikLinkCountCache) : undefined
 			};
 			if (ikLinkCountCache)
-				for (var j = 0; j < ikLinkCountCache; j++) {
+				for (var j = ikLinkCountCache-1; j >= 0; j--) {
 					this.bones[i].ikLinks[j] = {
 						ikLinkBoneIndex: this.readBoneIndex(),
 						isLimitedRotation: ikLimitedCache = r.getUint8(),
@@ -371,7 +371,11 @@ class PMX {
 			if(bone.providingBoneIndex)
 				console.error(`${bone.boneName}→${this.bones[bone.providingBoneIndex].boneName}`);
 			if((bone.boneFlag & 0x0020)>0)
-				console.error(`${bone.boneName} is IKBone`);
+			{
+				console.error(`${bone.boneName} is IKBone. this bone has ${bone.ikLinks.length} ikLinks.`);
+				for(var j = 0; j < bone.ikLinks.length; j++)
+					console.error(`->${this.bones[bone.ikLinks[j].ikLinkBoneIndex].boneName}`)
+			}
 		}
 	}
 	private loadMorphs() {
