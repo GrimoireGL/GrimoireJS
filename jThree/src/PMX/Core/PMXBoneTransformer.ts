@@ -154,7 +154,7 @@ class PMXBoneTransformer extends Transformer {
 	private procedure:number =0;
 
 	private applyCCDIK() {
-		if(this.BoneData.boneName !== "左足ＩＫ")return;
+		//if(this.BoneData.boneName !== "左足ＩＫ")return;
 		for (var i = 0; i < this.BoneData.ikLinkCount; i ++)
 		{
 			var link = this.getIkLinkTransformerByIndex(i);
@@ -213,9 +213,10 @@ class PMXBoneTransformer extends Transformer {
 		var rotationAxis = Vector3.cross(effector,target);
 
 		//DEBUG CODES
-
+		//console.log(`${it}:${rotationAngle}/effector${effector},target${target}`)
 		//Generate the rotation matrix rotating along the axis
 		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
+	  console.log(`${it}:${Quaternion.Angle(rotation,Quaternion.Identity)}`);
 		link.ikLinkRotation = rotation;
 		link.updateTransformForPMX();
 		//link.updateTransform();

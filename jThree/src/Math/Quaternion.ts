@@ -107,7 +107,7 @@ class Quaternion extends JThreeObject
         return new Quaternion(glm.quat.normalize(newQuat, this.rawElements));
     }
 
-    
+
     public Inverse(): Quaternion
     {
         var newQuat = glm.quat.create();
@@ -172,6 +172,7 @@ class Quaternion extends JThreeObject
     public static Angle(q1: Quaternion, q2: Quaternion): number
     {
         var delta = Quaternion.Multiply(q2, q1.Inverse());
+        delta = delta.Normalize();
         return 2 * Math.acos(delta.W);
     }
 
