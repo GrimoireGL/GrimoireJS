@@ -357,7 +357,7 @@ class PMX {
 				ikLinks: (boneFlagCache & 0x0020) > 0 ? new Array(ikLinkCountCache) : undefined
 			};
 			if (ikLinkCountCache)
-				for (var j = ikLinkCountCache-1; j >= 0; j--) {
+				for (var j = 0 ; j < ikLinkCountCache; j++) {
 					this.bones[i].ikLinks[j] = {
 						ikLinkBoneIndex: this.readBoneIndex(),
 						isLimitedRotation: ikLimitedCache = r.getUint8(),

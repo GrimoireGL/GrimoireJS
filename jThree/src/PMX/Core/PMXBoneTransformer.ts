@@ -154,7 +154,6 @@ class PMXBoneTransformer extends Transformer {
 	private procedure:number =0;
 
 	private applyCCDIK() {
-		//if(this.BoneData.boneName !== "左足ＩＫ")return;
 		for (var i = 0; i < this.BoneData.ikLinkCount; i ++)
 		{
 			var link = this.getIkLinkTransformerByIndex(i);
@@ -210,23 +209,20 @@ class PMXBoneTransformer extends Transformer {
 			return;
 		}
 		//Calculate rotation axis of rotation
-		var rotationAxis = Vector3.cross(effector,target);
+		var rotationAxis = Vector3.cross(effector,target).normalizeThis();
 
-		//DEBUG CODES
-		//console.log(`${it}:${rotationAngle}/effector${effector},target${target}`)
 		//Generate the rotation matrix rotating along the axis
-		var rotation =Quaternion.AngleAxis(rotationAngle, rotationAxis);
-	  console.log(`${it}:${Quaternion.Angle(rotation,Quaternion.Identity)}`);
+		var rotation = Quaternion.AngleAxis(rotationAngle, rotationAxis);
 		link.ikLinkRotation = rotation;
 		link.updateTransformForPMX();
 		//link.updateTransform();
 		//Rotation = (providingRotation) * userRotation * morphRotation * ikLinkRotation
 		//RestrictedRotation = Rotation * ikLinkAdjust
 		//ikLinkAdust = (Rotation) ^ -1 * RestrictedRotation
-		//  var restrictedRotation = this.RestrictRotation(ikLink,link.Rotation);
-		// var ikLinkAdust = Quaternion.Multiply(link.Rotation.Inverse(),restrictedRotation);
-	  // link.ikLinkRotation = Quaternion.Multiply(link.ikLinkRotation,ikLinkAdust);
-		// link.updateTransformForPMX();
+		var restrictedRotation = this.RestrictRotation(ikLink,link.Rotation);
+		var ikLinkAdust = Quaternion.Multiply(link.Rotation.Inverse(),restrictedRotation);
+	  link.ikLinkRotation = Quaternion.Multiply(link.ikLinkRotation,ikLinkAdust);
+		link.updateTransformForPMX();
 		// link.updateTransformMatricies();
 	}
 

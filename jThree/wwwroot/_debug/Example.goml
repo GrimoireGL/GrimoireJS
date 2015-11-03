@@ -66,8 +66,8 @@
         <plight color="orange" decay="0.1" distance="1" intensity="1" position="(-1,0.1,-0.2)"/> -->
 
       </object>
-      <pmx scale="0.1" src="/Tda/Miku.pmx">
-        <vmd id="melt" frame="0" src="/walk/menf.vmd" enabled="true" autoSpeed="0.3"/>
+      <pmx scale="0.1" src="/GUMI/GUMI.pmx">
+        <vmd id="melt" frame="0" src="melt.vmd" enabled="true" autoSpeed="1"/>
         <bones>
           <bone name="右足ＩＫ">
             <mesh geo="cube" mat="右足" scale="0.5"/>
