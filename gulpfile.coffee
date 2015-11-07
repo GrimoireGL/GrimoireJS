@@ -20,6 +20,7 @@ _ = require 'lodash'
 globArray = require 'glob-array'
 del = require 'del'
 args = require('yargs').argv
+reactify = require 'coffee-reactify'
 
 
 ###
@@ -106,7 +107,15 @@ config =
     dest: ['./jThree/bin/product', './jThree/wwwroot']
     target: 'web'
     minify: false
-
+    transform:'coffeeify'
+  debug:
+    bundler: "browserify"
+    entry: './jThree/debug/debug.coffee'
+    name: 'j3-debug.js'
+    dest:['./jThree/wwwroot/debug']
+    target:"web"
+    minify:false
+    transform:'coffee-reactify'
   test:
     bundler: 'browserify'
     entry: './jThree/test/Test.coffee'
@@ -114,6 +123,7 @@ config =
     dest: ['./jThree/test/build']
     target: 'node'
     minify: false
+    transform:'coffeeify'
 
 # files for clean task
 cleaner_files = ['./jThree/src/**/*.js']
@@ -191,7 +201,7 @@ Object.keys(config).forEach (suffix) ->
             watch: watching
             extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
             debug: true
-            transform: ['coffeeify']
+            transform: [config.transform]
             detectGlobals: c.target == 'node'
             bundleExternal: c.target == 'web'
             setup: (b) ->
@@ -231,7 +241,7 @@ gulp.task 'enable-watch-mode', -> watching = true
 ###
 main watch task
 ###
-gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'server', 'watch:reload']
+gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'build:debug','server', 'watch:reload']
 
 gulp.task 'watch:reload', ->
   gulp.watch watchForReload, ['reload']

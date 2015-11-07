@@ -12,24 +12,63 @@ import PMXIKLink= require('../PMXIKLink');
  * Bone transformer for pmx
  */
 class PMXBoneTransformer extends Transformer {
+	/**
+	 * Reference to PMXModel managing all dynamic features.
+	 * @type {PMXModel}
+	 */
 	private pmx: PMXModel;
 
+/**
+ * Bone index for bone array of skeleton.
+ * @type {number}
+ */
 	private boneIndex: number;
 
+/**
+ * Quaternion produced from rotation of IK link.
+ * @type {Quaternion}
+ */
 	private ikLinkRotation:Quaternion = Quaternion.Identity;
 
+	/**
+	 * Quaternion produced from manual operation,bone animation.(except bone morphs)
+	 * @type {Quaternion}
+	 */
 	public userRotation:Quaternion = Quaternion.Identity;
 
+	/**
+	 * Translation vector produced from manual operation,bone animation.
+	 * @type {Vector3}
+	 */
 	public userTranslation:Vector3 = Vector3.Zero;
 
+	/**
+	 * Quaternion produced from bone morphs.
+	 * @type {Quaternion}
+	 */
 	private morphRotation:Quaternion = Quaternion.Identity;
 
+	/**
+	 * Translation vector produced from bone morphs.
+	 * @type {Vector3}
+	 */
 	private morphTranslation:Vector3 = Vector3.Zero;
 
+	/**
+	 * Quaternion that will be used for calculating rotation providing for child bones.
+	 * @type {Quaternion}
+	 */
 	private providingRotation:Quaternion = Quaternion.Identity;
 
+	/**
+	 * Translation vector that will be used for calculating translation providing for child bones.
+	 * @type {Vector3}
+	 */
 	private providingTranslation:Vector3 = Vector3.Zero;
 
+	/**
+	 * Reference to static model data.
+	 */
 	public get PMXModelData() {
 		return this.pmx.ModelData;
 	}
@@ -64,13 +103,6 @@ class PMXBoneTransformer extends Transformer {
 		return (this.BoneData.boneFlag & 0x0020) > 0;
 	}
 
-	public needUpdateChildren = true;
-
-	public get NeedUpdateChildren()
-	{
-		return this.needUpdateChildren;
-	}
-
 	/**
 	 * Whether this bone transformer is IKLink or not.
 	 * This variable will be assigned by PMXSkeleton after loading all bones.
@@ -101,7 +133,11 @@ class PMXBoneTransformer extends Transformer {
 			super.updateTransform();
 		}
 	}
-
+	/**
+	 * Calculate actual rotation quaternion.
+	 * This operation not affects any other bones.(Even if the bone was child bone)
+	 * @return {[type]} [description]
+	 */
 	private updateLocalRotation()
 	{
 		glm.quat.identity(this.Rotation.rawElements);
@@ -109,7 +145,7 @@ class PMXBoneTransformer extends Transformer {
 		{
 			if(this.IsLocalProvidingBone)
 			{
-				//Do something when this bone is local providing bone
+				//TODO Do something when this bone is local providing bone
 				console.error("Local providing is not implemented yet!");
 			}
 			if(this.ProvidingBoneTransformer.isIKLink)
@@ -129,6 +165,11 @@ class PMXBoneTransformer extends Transformer {
 		glm.quat.mul(this.Rotation.rawElements,this.Rotation.rawElements,this.ikLinkRotation.rawElements);
 	}
 
+	/**
+	 * Calculate actual translation vector.
+	 * This operation not affects any other bones.(Even if the bone was child bone)
+	 * @return {[type]} [description]
+	 */
 	private updateLocalTranslation()
 	{
 		this.Position.rawElements[0] = 0;
@@ -151,8 +192,6 @@ class PMXBoneTransformer extends Transformer {
 		}
 	}
 
-	private procedure:number =0;
-
 	private applyCCDIK() {
 		for (var i = 0; i < this.BoneData.ikLinkCount; i ++)
 		{
@@ -160,7 +199,6 @@ class PMXBoneTransformer extends Transformer {
 			link.ikLinkRotation = Quaternion.Identity;
 			link.updateTransformForPMX();
 		}
-		this.procedure = 0;
 		for (var i = 0; i < this.BoneData.ikLoopCount;i++)
 		{
 			this.CCDIKOperation(i);
@@ -172,7 +210,7 @@ class PMXBoneTransformer extends Transformer {
 		var effectorTransformer = <PMXBoneTransformer> this.pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;
 		var TargetGlobalPos =Matrix.transformPoint(this.LocalToGlobal,this.LocalOrigin);
 		// glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
-		for (var i = 0; i < this.BoneData.ikLinkCount&&this.procedure < DebugForm.X; i++,this.procedure++) {
+		for (var i = 0; i < this.BoneData.ikLinkCount; i++) {
 			var ikLinkData = this.BoneData.ikLinks[i];
 			var ikLinkTransform = this.getIkLinkTransformerByIndex(i);
 			var link2Effector = this.getLink2Effector(ikLinkTransform, effectorTransformer);
@@ -201,11 +239,9 @@ class PMXBoneTransformer extends Transformer {
 		if (dot > 1.0) dot = 1.0;//adjust error (if dot was over 1.0, acos(dot) will be NaN. Then, it cause some of bug)
 		var rotationAngle = this.clampFloat(Math.acos(dot), rotationLimit);
 		if (isNaN(rotationAngle)) {
-			console.error("NaN was produced");
 			return;
 		}
 		if (rotationAngle <= 1.0e-3){
-			console.log("rotation stopped");
 			return;
 		}
 		//Calculate rotation axis of rotation
