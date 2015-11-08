@@ -107,10 +107,10 @@ config =
     minify: false
     transform:'coffeeify'
   debug:
-    entry: './jThree/debug/debug.coffee'
+    entry: './jThree/wwwroot/debug/debug.coffee'
     name: 'j3-debug.js'
     dest:['./jThree/wwwroot/debug']
-    target:"web"
+    target: 'web'
     minify:false
     transform:'coffee-reactify'
   test:
@@ -154,7 +154,7 @@ Object.keys(config).forEach (suffix) ->
             watch: watching
             extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
             debug: true
-            transform: [config.transform]
+            transform: [c.transform]
             detectGlobals: c.target == 'node'
             bundleExternal: c.target == 'web'
             setup: (b) ->
@@ -194,12 +194,14 @@ gulp.task 'enable-watch-mode', -> watching = true
 ###
 main watch task
 ###
-gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'build:debug','server', 'watch:reload']
+gulp.task 'watch:main', ['enable-watch-mode','build:debug', 'build:main','server', 'watch:reload']
 
 gulp.task 'watch:reload', ->
   gulp.watch watchForReload, ['reload']
 
 gulp.task 'watch:templete', ['watch:jade']
+
+gulp.task 'watch:debug'
 
 gulp.task 'watch', ['watch:main', 'watch:templete']
 
