@@ -117,9 +117,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#linkedobject" class="tsd-kind-icon">linked<wbr>Object</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#morphrotation" class="tsd-kind-icon">morph<wbr>Rotation</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#morphtranslation" class="tsd-kind-icon">morph<wbr>Translation</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#needupdatechildren" class="tsd-kind-icon">need<wbr>Update<wbr>Children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmx" class="tsd-kind-icon">pmx</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#procedure" class="tsd-kind-icon">procedure</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#providingrotation" class="tsd-kind-icon">providing<wbr>Rotation</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#providingtranslation" class="tsd-kind-icon">providing<wbr>Translation</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#right" class="tsd-kind-icon">right</a></li>
@@ -141,7 +139,7 @@
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#localorigin" class="tsd-kind-icon">Local<wbr>Origin</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#localtoglobal" class="tsd-kind-icon">Local<wbr>ToGlobal</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#localtransform" class="tsd-kind-icon">Local<wbr>Transform</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#needupdatechildren-1" class="tsd-kind-icon">Need<wbr>Update<wbr>Children</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#needupdatechildren" class="tsd-kind-icon">Need<wbr>Update<wbr>Children</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmxmodeldata" class="tsd-kind-icon">PMXModel<wbr>Data</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#position" class="tsd-kind-icon">Position</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#providingbone" class="tsd-kind-icon">Providing<wbr>Bone</a></li>
@@ -199,7 +197,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_transform_transformer_.transformer.html">Transformer</a>.<a href="_src_core_transform_transformer_.transformer.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L79">src/PMX/Core/PMXBoneTransformer.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L111">src/PMX/Core/PMXBoneTransformer.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -227,9 +225,19 @@
 					<div class="tsd-signature tsd-kind-icon">bone<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L17">src/PMX/Core/PMXBoneTransformer.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L25">src/PMX/Core/PMXBoneTransformer.ts:25</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Bone index for bone array of skeleton.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{number}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="forward" class="tsd-anchor"></a>
@@ -264,9 +272,19 @@
 					<div class="tsd-signature tsd-kind-icon">ik<wbr>Link<wbr>Rotation<span class="tsd-signature-symbol">:</span> <a href="_src_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L19">src/PMX/Core/PMXBoneTransformer.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L31">src/PMX/Core/PMXBoneTransformer.ts:31</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Quaternion produced from rotation of IK link.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Quaternion}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="isiklink" class="tsd-anchor"></a>
@@ -274,7 +292,7 @@
 					<div class="tsd-signature tsd-kind-icon">isIKLink<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L79">src/PMX/Core/PMXBoneTransformer.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L111">src/PMX/Core/PMXBoneTransformer.ts:111</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -311,9 +329,19 @@
 					<div class="tsd-signature tsd-kind-icon">morph<wbr>Rotation<span class="tsd-signature-symbol">:</span> <a href="_src_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L25">src/PMX/Core/PMXBoneTransformer.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L49">src/PMX/Core/PMXBoneTransformer.ts:49</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Quaternion produced from bone morphs.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Quaternion}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="morphtranslation" class="tsd-anchor"></a>
@@ -321,19 +349,19 @@
 					<div class="tsd-signature tsd-kind-icon">morph<wbr>Translation<span class="tsd-signature-symbol">:</span> <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L27">src/PMX/Core/PMXBoneTransformer.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L55">src/PMX/Core/PMXBoneTransformer.ts:55</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="needupdatechildren" class="tsd-anchor"></a>
-					<h3>need<wbr>Update<wbr>Children</h3>
-					<div class="tsd-signature tsd-kind-icon">need<wbr>Update<wbr>Children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L67">src/PMX/Core/PMXBoneTransformer.ts:67</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Translation vector produced from bone morphs.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Vector3}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="pmx" class="tsd-anchor"></a>
@@ -341,19 +369,19 @@
 					<div class="tsd-signature tsd-kind-icon">pmx<span class="tsd-signature-symbol">:</span> <a href="_src_pmx_core_pmxmodel_.pmxmodel.html" class="tsd-signature-type">PMXModel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L15">src/PMX/Core/PMXBoneTransformer.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L19">src/PMX/Core/PMXBoneTransformer.ts:19</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="procedure" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> procedure</h3>
-					<div class="tsd-signature tsd-kind-icon">procedure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L154">src/PMX/Core/PMXBoneTransformer.ts:154</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Reference to PMXModel managing all dynamic features.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{PMXModel}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="providingrotation" class="tsd-anchor"></a>
@@ -361,9 +389,19 @@
 					<div class="tsd-signature tsd-kind-icon">providing<wbr>Rotation<span class="tsd-signature-symbol">:</span> <a href="_src_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L29">src/PMX/Core/PMXBoneTransformer.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L61">src/PMX/Core/PMXBoneTransformer.ts:61</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Quaternion that will be used for calculating rotation providing for child bones.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Quaternion}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="providingtranslation" class="tsd-anchor"></a>
@@ -371,9 +409,19 @@
 					<div class="tsd-signature tsd-kind-icon">providing<wbr>Translation<span class="tsd-signature-symbol">:</span> <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L31">src/PMX/Core/PMXBoneTransformer.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L67">src/PMX/Core/PMXBoneTransformer.ts:67</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Translation vector that will be used for calculating translation providing for child bones.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Vector3}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="right" class="tsd-anchor"></a>
@@ -397,7 +445,7 @@
 					<div class="tsd-signature tsd-kind-icon">transform<wbr>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L87">src/PMX/Core/PMXBoneTransformer.ts:87</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L119">src/PMX/Core/PMXBoneTransformer.ts:119</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -423,9 +471,19 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Rotation<span class="tsd-signature-symbol">:</span> <a href="_src_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L21">src/PMX/Core/PMXBoneTransformer.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L37">src/PMX/Core/PMXBoneTransformer.ts:37</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Quaternion produced from manual operation,bone animation.(except bone morphs)</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Quaternion}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="usertranslation" class="tsd-anchor"></a>
@@ -433,9 +491,19 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Translation<span class="tsd-signature-symbol">:</span> <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L23">src/PMX/Core/PMXBoneTransformer.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L43">src/PMX/Core/PMXBoneTransformer.ts:43</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Translation vector produced from manual operation,bone animation.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Vector3}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -450,7 +518,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L37">src/PMX/Core/PMXBoneTransformer.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L76">src/PMX/Core/PMXBoneTransformer.ts:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_src_pmx_pmxbone_.pmxbone.html" class="tsd-signature-type">PMXBone</a></h4>
@@ -485,7 +553,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L63">src/PMX/Core/PMXBoneTransformer.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L102">src/PMX/Core/PMXBoneTransformer.ts:102</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -502,7 +570,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L51">src/PMX/Core/PMXBoneTransformer.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L90">src/PMX/Core/PMXBoneTransformer.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -519,7 +587,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L55">src/PMX/Core/PMXBoneTransformer.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L94">src/PMX/Core/PMXBoneTransformer.ts:94</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -536,7 +604,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L59">src/PMX/Core/PMXBoneTransformer.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L98">src/PMX/Core/PMXBoneTransformer.ts:98</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -618,18 +686,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-					<a name="needupdatechildren-1" class="tsd-anchor"></a>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="needupdatechildren" class="tsd-anchor"></a>
 					<h3>Need<wbr>Update<wbr>Children</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> NeedUpdateChildren<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overwrites <a href="_src_core_transform_transformer_.transformer.html">Transformer</a>.<a href="_src_core_transform_transformer_.transformer.html#needupdatechildren">NeedUpdateChildren</a></p>
+								<p>Inherited from <a href="_src_core_transform_transformer_.transformer.html">Transformer</a>.<a href="_src_core_transform_transformer_.transformer.html#needupdatechildren">NeedUpdateChildren</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L69">src/PMX/Core/PMXBoneTransformer.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Transform/Transformer.ts#L100">src/Core/Transform/Transformer.ts:100</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -646,9 +714,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L33">src/PMX/Core/PMXBoneTransformer.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L72">src/PMX/Core/PMXBoneTransformer.ts:72</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reference to static model data.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_src_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></h4>
 						</li>
 					</ul>
@@ -707,7 +780,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L41">src/PMX/Core/PMXBoneTransformer.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L80">src/PMX/Core/PMXBoneTransformer.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_pmx_core_pmxbone_.pmxbone.html" class="tsd-signature-type">PMXBone</a></h4>
@@ -724,7 +797,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L46">src/PMX/Core/PMXBoneTransformer.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L85">src/PMX/Core/PMXBoneTransformer.ts:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html" class="tsd-signature-type">PMXBoneTransformer</a></h4>
@@ -904,7 +977,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L170">src/PMX/Core/PMXBoneTransformer.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L208">src/PMX/Core/PMXBoneTransformer.ts:208</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -927,7 +1000,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L234">src/PMX/Core/PMXBoneTransformer.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L270">src/PMX/Core/PMXBoneTransformer.ts:270</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -953,7 +1026,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L156">src/PMX/Core/PMXBoneTransformer.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L195">src/PMX/Core/PMXBoneTransformer.ts:195</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -999,7 +1072,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L244">src/PMX/Core/PMXBoneTransformer.ts:244</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L280">src/PMX/Core/PMXBoneTransformer.ts:280</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1025,7 +1098,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L229">src/PMX/Core/PMXBoneTransformer.ts:229</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L265">src/PMX/Core/PMXBoneTransformer.ts:265</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1048,7 +1121,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L184">src/PMX/Core/PMXBoneTransformer.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L222">src/PMX/Core/PMXBoneTransformer.ts:222</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1074,7 +1147,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L192">src/PMX/Core/PMXBoneTransformer.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L230">src/PMX/Core/PMXBoneTransformer.ts:230</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1118,7 +1191,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L198">src/PMX/Core/PMXBoneTransformer.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L236">src/PMX/Core/PMXBoneTransformer.ts:236</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1374,10 +1447,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L105">src/PMX/Core/PMXBoneTransformer.ts:105</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L141">src/PMX/Core/PMXBoneTransformer.ts:141</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculate actual rotation quaternion.
+									This operation not affects any other bones.(Even if the bone was child bone)</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<p>[description]</p>
 						</li>
 					</ul>
 				</section>
@@ -1391,10 +1471,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L132">src/PMX/Core/PMXBoneTransformer.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L173">src/PMX/Core/PMXBoneTransformer.ts:173</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculate actual translation vector.
+									This operation not affects any other bones.(Even if the bone was child bone)</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<p>[description]</p>
 						</li>
 					</ul>
 				</section>
@@ -1409,7 +1496,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_transform_transformer_.transformer.html">Transformer</a>.<a href="_src_core_transform_transformer_.transformer.html#updatetransform">updateTransform</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L89">src/PMX/Core/PMXBoneTransformer.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L121">src/PMX/Core/PMXBoneTransformer.ts:121</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1426,7 +1513,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L93">src/PMX/Core/PMXBoneTransformer.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/Core/PMXBoneTransformer.ts#L125">src/PMX/Core/PMXBoneTransformer.ts:125</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1504,14 +1591,8 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#morphtranslation" class="tsd-kind-icon">morph<wbr>Translation</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#needupdatechildren" class="tsd-kind-icon">need<wbr>Update<wbr>Children</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmx" class="tsd-kind-icon">pmx</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#procedure" class="tsd-kind-icon">procedure</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#providingrotation" class="tsd-kind-icon">providing<wbr>Rotation</a>
@@ -1561,8 +1642,8 @@
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#localtransform" class="tsd-kind-icon">Local<wbr>Transform</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#needupdatechildren-1" class="tsd-kind-icon">Need<wbr>Update<wbr>Children</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#needupdatechildren" class="tsd-kind-icon">Need<wbr>Update<wbr>Children</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_pmx_core_pmxbonetransformer_.pmxbonetransformer.html#pmxmodeldata" class="tsd-kind-icon">PMXModel<wbr>Data</a>
