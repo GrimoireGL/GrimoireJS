@@ -1,6 +1,5 @@
 path = require 'path'
 gulp = require 'gulp'
-webpack = require 'webpack-stream'
 connect = require 'gulp-connect'
 typedoc = require 'gulp-typedoc'
 mocha = require 'gulp-mocha'
@@ -101,7 +100,6 @@ defaultStatsOptions =
 # individual config for build
 config =
   main:
-    bundler: 'browserify'
     entry: './jThree/src/jThree.ts'
     name: 'j3.js'
     dest: ['./jThree/bin/product', './jThree/wwwroot']
@@ -109,7 +107,6 @@ config =
     minify: false
     transform:'coffeeify'
   debug:
-    bundler: "browserify"
     entry: './jThree/debug/debug.coffee'
     name: 'j3-debug.js'
     dest:['./jThree/wwwroot/debug']
@@ -117,7 +114,6 @@ config =
     minify:false
     transform:'coffee-reactify'
   test:
-    bundler: 'browserify'
     entry: './jThree/test/Test.coffee'
     name: 'test.js'
     dest: ['./jThree/test/build']
@@ -149,49 +145,6 @@ Object.keys(config).forEach (suffix) ->
   c = config[suffix]
   bundler = forceBundler || c.bundler
   gulp.task "build:#{suffix}", do ->
-    if bundler == 'webpack'
-      return ->
-        if watching && c.dest.length >= 2
-          gulp.watch path.join(c.dest[0], c.name), ->
-            copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
-        gulp
-          .src path.resolve __dirname, c.entry
-          .pipe webpack
-            watch: watching
-            output:
-              filename: c.name
-            resolve:
-              alias:
-                'glm': 'gl-matrix'
-              extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
-              root: requireRoot
-            module:
-              loaders: [
-                  test: /\.json$/
-                  loader: 'json-loader'
-                ,
-                  test: /\.ts$/
-                  loader: 'ts-loader'
-                  configFileName: tsconfigPath
-                ,
-                  test: /\.coffee$/
-                  loader: 'coffee-loader'
-                ,
-                  test: /\.glsl$/
-                  loader: 'shader-loader'
-              ]
-            target: c.target
-            glsl:
-              chunkPath: "./Chunk"
-          , null, (err, stats) ->
-            gutil.log stats.toString defaultStatsOptions
-            if stats.compilation.errors.length != 0
-              gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
-          .pipe gulp.dest(c.dest[0])
-          .on 'end', ->
-            unless watching
-              copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
-    else if bundler == 'browserify'
       # tsdBundlePath = JSON.parse(fs.readFileSync(tsdPath))?.bundle
       return watchify (watchify) ->
         gulp
