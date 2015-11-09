@@ -114,6 +114,8 @@ class JThreeContext extends JThreeObject
       //update timer it will be referenced by scenes.
       this.timer.updateTimer();
       DebugInfo.setInfo("frame",this.timer.CurrentFrame.toString());
+      DebugInfo.setInfo("timediff",this.timer.Time.toString());
+
       this.updateAnimation();
       this.gomlLoader.update();// this should be removed for loose coupling GOML and Core.
       this.sceneManager.renderAll();

@@ -5,8 +5,8 @@ class DebuggerInfomationList extends React.Component
   constructor:(props)->
     super props
     @state = {};
-    @state.infomation = window.j3d.info.infomation;
     window.j3d.info.onListChanged = @onListChanged;
+    @state.infomation = window.j3d.info.infomation;
 
   render:->
       elements =[];
@@ -26,11 +26,13 @@ class DebuggerInformationListAPI
   @setInfo:(key,info)->
     if window.j3d.info.infomation[key]?
       window.j3d.info.infomation[key].text = info
-      window.j3d.info.infomation[key].handler.call(window.j3d.info.infomation[key].owner,info);
+      if window.j3d.info.infomation[key].handler?
+        window.j3d.info.infomation[key].handler.call(window.j3d.info.infomation[key].owner,info);
     else
       window.j3d.info.infomation[key] =
         text:info
-      window.j3d.info.onListChanged();
+      if window.j3d.info.onListChanged?
+        window.j3d.info.onListChanged();
 
 window.j3d.info = DebuggerInformationListAPI;
 module.exports = DebuggerInfomationList;
