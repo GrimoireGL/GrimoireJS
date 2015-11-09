@@ -1,6 +1,7 @@
 React = require 'react'
 Radium = require 'radium'
 Tabs = require 'react-simpletabs'
+InformationList = require './debugger-infomation-list'
 
 class DebuggerTools extends React.Component
   constructor:(props)->
@@ -8,7 +9,7 @@ class DebuggerTools extends React.Component
   render:->
     <Tabs tabActive={1}>
       <Tabs.Panel title="Infomation">
-        <h2>Content 1 here</h2>
+        <InformationList/>
       </Tabs.Panel>
       <Tabs.Panel title="Resources">
         <h2>Content 2 here</h2>

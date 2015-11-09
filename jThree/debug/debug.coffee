@@ -1,3 +1,4 @@
+window.j3d={}
 ReactDom = require 'react-dom'
 React = require 'react'
 radium = require 'radium'
