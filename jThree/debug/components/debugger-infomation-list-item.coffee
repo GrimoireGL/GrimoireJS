@@ -6,7 +6,8 @@ class DebuggerInfomationListItem extends React.Component
     super props
     @state={}
     @state.text = props.text;
-  #  global.j3d.info.infomation[props.key].handler = @updateText;
+    global.j3d.info.infomation[props.title].handler = @updateText.bind(this);
+    global.j3d.info.infomation[props.title].owner = this;
 
   render:->
     <div style={styles.itemContainer}>
@@ -15,9 +16,13 @@ class DebuggerInfomationListItem extends React.Component
         {@props.title}
         </span>
       </div>
-      <div style={styles.textContainer} dangerouslySetInnerHTML={__html:@props.text}>
+      <div style={styles.textContainer} dangerouslySetInnerHTML={__html:@state.text}>
       </div>
     </div>
+
+  updateText:(text)=>
+    @setState
+      text:text
 
 styles =
   itemContainer:
