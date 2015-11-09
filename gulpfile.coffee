@@ -20,7 +20,7 @@ globArray = require 'glob-array'
 del = require 'del'
 args = require('yargs').argv
 reactify = require 'coffee-reactify'
-
+envify = require 'envify/custom'
 
 ###
 TASK SUMMARY
@@ -78,9 +78,6 @@ serverRoot = './jThree/wwwroot'
 # watch src for liveReload
 watchForReload = ['./jThree/wwwroot/**/*.js', './jThree/wwwroot/**/*.html', './jThree/wwwroot/**/*.goml']
 
-# pathes for webpack building
-requireRoot = './jThree/src'
-
 # webpack output stats config
 defaultStatsOptions =
   colors: gutil.colors.supportsColor
@@ -106,13 +103,15 @@ config =
     target: 'web'
     minify: false
     transform:'coffeeify'
+    detectGlobals:false
   debug:
-    entry: './jThree/wwwroot/debug/debug.coffee'
+    entry: './jThree/debug/debug.coffee'
     name: 'j3-debug.js'
     dest:['./jThree/wwwroot/debug']
     target: 'web'
     minify:false
     transform:'coffee-reactify'
+    detectGlobals:true
   test:
     entry: './jThree/test/Test.coffee'
     name: 'test.js'
@@ -120,10 +119,12 @@ config =
     target: 'node'
     minify: false
     transform:'coffeeify'
+    detectGlobals:false
 
 # files for clean task
 cleaner_files = ['./jThree/src/**/*.js']
 
+env_production = false
 
 ###
 default task
@@ -155,11 +156,13 @@ Object.keys(config).forEach (suffix) ->
             extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
             debug: true
             transform: [c.transform]
-            detectGlobals: c.target == 'node'
+            detectGlobals: c.detectGlobals
             bundleExternal: c.target == 'web'
             setup: (b) ->
               b.transform shaderify
               b.plugin tsify, {target: "es5"}
+              b.transform envify
+                NODE_ENV: if env_production then 'production' else 'development'
           .pipe buffer()
           .pipe sourcemaps.init
             loadMaps: true

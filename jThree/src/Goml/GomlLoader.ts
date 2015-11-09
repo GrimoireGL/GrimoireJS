@@ -77,7 +77,6 @@ class GomlLoader extends jThreeObject {
    */
   public initForPage(): void {
     JThreeLogger.sectionLog("Goml loader","Goml initialization was started.");
-    console.time("goml-loading");
     // to load <script src="j3.js" x-goml="HERE"/>
     this.attemptToLoadGomlInScriptAttr();
     // to load the script that is type of text/goml
@@ -94,8 +93,9 @@ class GomlLoader extends jThreeObject {
    * <script x-goml='path/to/goml'></script>
    */
   private attemptToLoadGomlInScriptAttr(): void {
-    var url: string = this.selfTag.getAttribute('x-goml'),
-      xhr = new XMLHttpRequest();
+    var url: string = this.selfTag.getAttribute('x-goml');
+    if(!url)return;
+    var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => {
       this.scriptLoaded((new DOMParser()).parseFromString(xhr.response, 'text/xml').documentElement);
     });
