@@ -5,7 +5,7 @@ class DebuggerPreview extends React.Component
   constructor:(props)->
     super props
   render:->
-    <div style={styles.container}>
+    <div style={styles.container} className="canvasContainer">
     </div>
 
 styles =

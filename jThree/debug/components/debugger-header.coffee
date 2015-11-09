@@ -15,6 +15,7 @@ class DebuggerHeader extends React.Component
         <span style={styles.subtitle}>-with our all gratitude for your contribution-</span>
       </div>
       <nav style={styles.nav}>
+        <img src="https://travis-ci.org/jThreeJS/jThree.svg?branch=develop"/>
         <HeaderLink text="Official Site" leftSeparator="false" href="http://jthree.io"/>
         <HeaderLink text="Github" leftSeparator="true" href="http://github.com/jThreeJS/jThree"/>
       </nav>

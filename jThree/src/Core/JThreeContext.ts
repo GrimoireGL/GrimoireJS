@@ -28,12 +28,19 @@ class JThreeContext extends JThreeObject
     }
 
     private canvasManagers: CanvasManager[] = [];
+
     private resourceManager: ResourceManager;
+
     private timer: ContextTimer;
+
     private sceneManager: SceneManager;
+
     private gomlLoader:GomlLoader;
+
     private registerNextLoop:Delegates.Action0;
+
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
+    
     private canvasChangedEvent:JThreeEvent<CanvasListChangedEventArgs>=new JThreeEvent<CanvasListChangedEventArgs>();
 
     public addAnimater(animater:AnimaterBase):void

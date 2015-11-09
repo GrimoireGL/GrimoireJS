@@ -1,7 +1,7 @@
 <goml>
   <resources>
     <phong diffuse="pink" name="mat2" specular="#CCC" specularpower="15" texture="gomlTexture" />
-    <texture name ="gomlTexture" src="miku2.png" minFilter="LinearMipNearest" />
+    <texture name="gomlTexture" src="miku2.png" minFilter="LinearMipNearest" />
     <quad name="quad" />
   </resources>
   <renderers>
