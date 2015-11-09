@@ -21,8 +21,6 @@ class DebuggerInfomationList extends React.Component
 
 class DebuggerInformationListAPI
   @infomation = {
-      "test":{text:"hello world</br>Hello2"},
-      "test2":{text:"helloworld2"}
     };
 
   @setInfo:(key,info)->

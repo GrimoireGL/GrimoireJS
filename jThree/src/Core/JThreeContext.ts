@@ -11,6 +11,7 @@ import ListStateChangedType = require("./ListStateChangedType");
 import AnimaterBase = require("../Goml/Animater/AnimaterBase");
 import JThreeCollection = require("../Base/JThreeCollection");
 import JThreeEvent = require("../Base/JThreeEvent");
+import DebugInfo = require("../Debug/DebugInfo")
 class JThreeContext extends JThreeObject
 {
     private static instance:JThreeContext=new JThreeContext();
@@ -40,7 +41,7 @@ class JThreeContext extends JThreeObject
     private registerNextLoop:Delegates.Action0;
 
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
-    
+
     private canvasChangedEvent:JThreeEvent<CanvasListChangedEventArgs>=new JThreeEvent<CanvasListChangedEventArgs>();
 
     public addAnimater(animater:AnimaterBase):void
@@ -112,6 +113,7 @@ class JThreeContext extends JThreeObject
     public loop(): void {
       //update timer it will be referenced by scenes.
       this.timer.updateTimer();
+      DebugInfo.setInfo("frame",this.timer.CurrentFrame.toString());
       this.updateAnimation();
       this.gomlLoader.update();// this should be removed for loose coupling GOML and Core.
       this.sceneManager.renderAll();
