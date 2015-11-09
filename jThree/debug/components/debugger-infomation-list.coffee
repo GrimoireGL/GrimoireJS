@@ -7,15 +7,15 @@ class DebuggerInfomationList extends React.Component
 
   render:->
       elements =[];
-      for k,v of global.j3d.info.infomation
-        elements.push(<InfomationListItem key={k} text={v.text}/>)
+      for k of global.j3d.info.infomation
+        elements.push(<InfomationListItem　key={k} title={k} text={global.j3d.info.infomation[k].text}/>)
       <div>
         {elements}
       </div>
 
 class DebuggerInformationListAPI
   @infomation = {
-      "test":{text:"hello world"},
+      "test":{text:"hello world</br>Hello2"},
       "test2":{text:"helloworld2"}
     };
 window.j3d.info = DebuggerInformationListAPI;
