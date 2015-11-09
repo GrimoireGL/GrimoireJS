@@ -1,3 +1,36 @@
 body{
   margin: 0;
+  background-color:#4D6B98;
 }
+
+.tabs-menu {
+  display: table;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tabs-menu-item {
+  float: left;
+  text-align: center;
+}
+
+.tabs-navigation{
+  background-color:#344F6F;
+}
+
+.tabs-menu-item a {
+  cursor: pointer;
+  display: block;
+  color: #A9A9A9;
+  padding: 5px 10px;
+}
+
+.tabs-menu-item:not(.is-active) a:hover,
+.tabs-menu-item.is-active a {
+  color: #4D6B98;
+  background-color: #D5DDE9;
+}
+
+.tab-panel {
+  padding: 10px 50px;
