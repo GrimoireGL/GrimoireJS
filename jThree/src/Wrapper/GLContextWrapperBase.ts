@@ -486,9 +486,9 @@ class GLContextWrapperBase extends JThreeObject
 
     }
 
-    public GetParameter(type: GetParameterType)
+    public GetParameter(type: GetParameterType):number
     {
-
+      return undefined;
     }
 
     public Uniform1iArray(webglUniformLocation:WebGLUniformLocation,nums:Int32Array)

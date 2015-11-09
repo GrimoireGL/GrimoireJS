@@ -152,6 +152,8 @@
         "./jThree/src/Core/Timer.ts",
         "./jThree/src/Core/Transform/Transformer.ts",
         "./jThree/src/Debug/DebugForm.ts",
+        "./jThree/src/Debug/DebugInfo.ts",
+        "./jThree/src/Debug/DebugWindow.ts",
         "./jThree/src/Exceptions.ts",
         "./jThree/src/Goml/Animater/AnimaterBase.ts",
         "./jThree/src/Goml/Animater/Color3Animater.ts",

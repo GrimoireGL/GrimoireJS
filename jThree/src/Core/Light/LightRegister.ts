@@ -32,7 +32,7 @@ class LightRegister
      */
     public get shadowMapMax()
     {
-      return GLSpec.MaxTextureCount - this.textureInputCount;
+      return GLSpec.MaxCombinedTextureUnits - this.textureInputCount;
     }
 
     public lightWorldMatricis = new Float32Array(this.shadowMapMax * 16);

@@ -1,3 +1,4 @@
+import GLSpecManager = require("./GLSpecManager");
 ﻿import ContextTimer = require("./ContextTimer");
 import Timer = require("./Timer");
 import GomlLoader = require("../Goml/GomlLoader");
@@ -149,6 +150,7 @@ class JThreeContext extends JThreeObject
         if (this.canvasManagers.indexOf(renderer) === -1) {
             this.canvasManagers.push(renderer);
             this.canvasChangedEvent.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Add,renderer));
+            GLSpecManager.debugDisplayGLSpecs();
         }
     }
 
