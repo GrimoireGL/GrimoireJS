@@ -2,7 +2,7 @@ React = require 'react'
 Radium = require 'radium'
 Colors = require './colors/definition'
 Tab = require 'react-simpletabs'
-
+SceneContent = require './debugger-scene-content'
 class DebuggerScenesPanel extends React.Component
   constructor:(props)->
     super props
@@ -24,15 +24,13 @@ class DebuggerScenesPanel extends React.Component
      </Tab.Panel>
     else
      <Tab.Panel title={k} key={k}>
-       <div>
-        scene!
-       </div>
+       <SceneContent/>
      </Tab.Panel>
 
 class DebuggerScenesAPI
   @scenes={
     "NoScene":{
-      isNoScene:true
+      isNoScene:false
     }
   }
 
