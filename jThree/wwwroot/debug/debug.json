@@ -1,0 +1,14 @@
+{
+  "config":
+  {
+    "root":"/debug/debugCodes/"
+  },
+  "codes":
+  {
+    "PMXModel":
+    {
+      "goml":"PMXModel/index.goml",
+      "js":[]
+    }
+  }
+}

@@ -2,7 +2,7 @@ React = require 'react'
 Radium = require 'radium'
 Colors = require './colors/definition'
 HeaderLink = require './debugger-header-link'
-
+ContentSelector = require './debugger-content-selector'
 class DebuggerHeader extends React.Component
   constructor:(props)->
     super props
@@ -13,6 +13,7 @@ class DebuggerHeader extends React.Component
         <span style={styles.title}>jThreeDebugger</span>
         <span style={styles.titleDivider}></span>
         <span style={styles.subtitle}>-with our all gratitude for your contribution-</span>
+        <ContentSelector/>
       </div>
       <nav style={styles.nav}>
         <img src="https://travis-ci.org/jThreeJS/jThree.svg?branch=develop"/>

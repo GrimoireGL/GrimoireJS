@@ -4,11 +4,11 @@ SceneTree = require './debugger-scene-tree'
 class DebuggerSceneContent extends React.Component
   constructor:(props)->
     super props
-    debugger;
     @state={};
-    @state.api = new DebuggerSceneContentAPI(this,'(Root)');
-    @state.api.updateHandler = @updateStructure;
-    window.j3d.scenes.scenes[props.sceneName].api = @state.api;
+    if props.api?
+      @state.api = props.api;
+      @state.api.sceneContentPanel = this;
+      @state.api.updateHandler = @updateStructure;
 
   render:->
     <div>
@@ -31,17 +31,6 @@ styles =
     background:Colors.main.n.default;
     height:300;
     marginLeft:300;
-
-class DebuggerSceneContentAPI
-  constructor:(panel,name)->
-    @sceneContentPanel = panel;
-    @children =[]
-    @name = name
-
-  setChild:(childName)->
-    @children.push(new DebuggerSceneContentAPI(@sceneContentPanel,childName))
-    if updateHandler?
-      updateHandler();
 
 
 module.exports = DebuggerSceneContent;
