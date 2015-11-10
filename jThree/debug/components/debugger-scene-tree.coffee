@@ -1,6 +1,6 @@
 React = require 'react'
 Colors = require './colors/definition'
-TreeView = require 'react-treeview'
+SceneTreeNode = require './debugger-scene-tree-node';
 class DebuggerSceneTree extends React.Component
   constructor:(props)->
     super props
@@ -8,10 +8,7 @@ class DebuggerSceneTree extends React.Component
 
   render:->
     <div>
-      <TreeView nodeLabel="(root)">
-        <TreeView nodeLabel="Cube">
-        </TreeView>
-      </TreeView>
+    <SceneTreeNode/>
     </div>
 
 class DebuggerSceneTreeAPI

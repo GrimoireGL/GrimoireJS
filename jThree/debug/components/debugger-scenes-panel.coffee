@@ -11,6 +11,7 @@ class DebuggerScenesPanel extends React.Component
     DebuggerScenesAPI.scenesPanel = this;
 
   render:->
+    debugger;
     tabs = [];
     for k,v of @state.scenes
       tabs.push(@generateTab(k,v))
@@ -26,8 +27,9 @@ class DebuggerScenesPanel extends React.Component
        </div>
      </Tab.Panel>
     else
+      console.log(k);
      <Tab.Panel title={k} key={k}>
-       <SceneContent/>
+       <SceneContent sceneName={k}/>
      </Tab.Panel>
 
 class DebuggerScenesAPI
@@ -45,6 +47,7 @@ class DebuggerScenesAPI
       delete DebuggerScenesAPI.scenes["NoScene"];
     DebuggerScenesAPI.scenes[sceneName] = {};
     DebuggerScenesAPI.scenesPanel.setState({scenes:DebuggerScenesAPI.scenes})
+
 
 styles =
   noSceneText:
