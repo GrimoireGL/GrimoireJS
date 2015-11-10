@@ -2,8 +2,8 @@ class JThreePreviewController
   @loadedScriptCount = 0;
 
   @initJThree:(config,codeKey)->
-   if JThreePreviewController.loadedScriptCount > 0
-     return;
+   window.j3 =
+     lateLoad:true
    JThreePreviewController.loadj3Script config,codeKey,()->
      JThreePreviewController.checkFinalize config,codeKey
      for v in config.codes[codeKey].js

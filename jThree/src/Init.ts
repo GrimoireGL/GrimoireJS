@@ -58,8 +58,7 @@ class JThreeInit {
   */
    public static Init(): void {
      var lateLoad=false;
-     if(window["j3"]&&window["j3"].lateLoad)
-      lateLoad = true;
+     if(window["j3"]&&window["j3"].lateLoad)lateLoad = true;
     //register interfaces
     window["j3"] = JThreeInit.j3;//$(~~~)
     var pro = Object.getPrototypeOf(window["j3"]);
@@ -69,7 +68,6 @@ class JThreeInit {
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
 
   if(!lateLoad)window.addEventListener('DOMContentLoaded', () => {
-      console.error("DOMContentLoaded")
       JThreeInit.startInitialize();
     });
   }
