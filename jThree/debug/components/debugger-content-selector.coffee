@@ -1,10 +1,11 @@
 React = require 'react'
 Colors = require './colors/definition'
 Agent = require 'superagent'
+Cookie = require 'js-cookie'
 class DebuggerContentSelector extends React.Component
   constructor:(props)->
     super props
-    @state={inputs:[]}
+    @state={inputs:[],selected:Cookie.get('debugTarget')}
     Agent.get './debug.json'
       .end (e,r) =>
         inputs=[]
@@ -16,12 +17,19 @@ class DebuggerContentSelector extends React.Component
   render:()->
     inputs = [];
     for k in @state.inputs
-      inputs.push(<option value={k}>{k}</option>)
+      if @state.selected == k
+        inputs.push(<option key={k} value={k} selected>{k}</option>)
+      else
+        inputs.push(<option key={k} value={k}>{k}</option>)
     <span>
-      <select style={styles.selectStyle}>
+      <select id="debugTargetSelector" style={styles.selectStyle} onChange={@selectChanged}>
         {inputs}
       </select>
     </span>
+
+  selectChanged:()->
+    Cookie.set 'debugTarget',document.getElementById('debugTargetSelector').value
+    location.reload()
 
 styles =
   selectStyle:

@@ -9,6 +9,11 @@
     {
       "goml":"PMXModel/index.goml",
       "js":[]
+    },
+    "PMXModel2":
+    {
+      "goml":"PMXModel/index.goml",
+      "js":[]
     }
   }
 }
