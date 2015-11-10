@@ -12,6 +12,7 @@ import DirectionalLight = require("./Light/Impl/DirectionalLight");
 import Color3 = require("../Base/Color/Color3");
 import AreaLight = require("./Light/Impl/AreaLight");
 import SpotLight = require("./Light/Impl/SpotLight");
+import DebugScene = require("../Debug/DebugScene");
 /**
  * Provides scene feature.
  */
@@ -20,6 +21,7 @@ class Scene extends jThreeObjectWithID {
         super(id);
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
+        DebugScene.setScene(this.ID);
     }
 
     /**

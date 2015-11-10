@@ -6,10 +6,13 @@ SceneContent = require './debugger-scene-content'
 class DebuggerScenesPanel extends React.Component
   constructor:(props)->
     super props
+    @state ={}
+    @state.scenes = DebuggerScenesAPI.scenes;
+    DebuggerScenesAPI.scenesPanel = this;
 
   render:->
     tabs = [];
-    for k,v of DebuggerScenesAPI.scenes
+    for k,v of @state.scenes
       tabs.push(@generateTab(k,v))
     <Tab>
       {tabs}
@@ -28,11 +31,20 @@ class DebuggerScenesPanel extends React.Component
      </Tab.Panel>
 
 class DebuggerScenesAPI
+  #reference for DebuggerScenesPanel
+  @scenesPanel
+
   @scenes={
     "NoScene":{
       isNoScene:false
     }
   }
+
+  @setScene:(sceneName)->
+    if DebuggerScenesAPI.scenes["NoScene"]?
+      delete DebuggerScenesAPI.scenes["NoScene"];
+    DebuggerScenesAPI.scenes[sceneName] = {};
+    DebuggerScenesAPI.scenesPanel.setState({scenes:DebuggerScenesAPI.scenes})
 
 styles =
   noSceneText:

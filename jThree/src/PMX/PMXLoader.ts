@@ -365,18 +365,6 @@ class PMX {
 					}
 				}
 		}
-		for(var i = 0; i < count; i++)
-		{
-			var bone = this.bones[i];
-			if(bone.providingBoneIndex)
-				console.error(`${bone.boneName}→${this.bones[bone.providingBoneIndex].boneName}`);
-			if((bone.boneFlag & 0x0020)>0)
-			{
-				console.error(`${bone.boneName} is IKBone. this bone has ${bone.ikLinks.length} ikLinks.`);
-				for(var j = 0; j < bone.ikLinks.length; j++)
-					console.error(`->${this.bones[bone.ikLinks[j].ikLinkBoneIndex].boneName}`)
-			}
-		}
 	}
 	private loadMorphs() {
 		var r = this.reader;

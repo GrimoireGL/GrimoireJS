@@ -1,6 +1,6 @@
 React = require 'react'
 Colors = require './colors/definition'
-
+SceneTree = require './debugger-scene-tree'
 class DebuggerSceneContent extends React.Component
   constructor:(props)->
     super props
@@ -8,6 +8,7 @@ class DebuggerSceneContent extends React.Component
   render:->
     <div>
       <div style={styles.treeContainer}>
+        <SceneTree/>
       </div>
       <div style={styles.infoContainer}>
       </div>
