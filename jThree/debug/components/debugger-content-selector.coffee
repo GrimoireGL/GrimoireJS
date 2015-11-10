@@ -21,7 +21,7 @@ class DebuggerContentSelector extends React.Component
     for k in @state.inputs
       inputs.push(<option key={k} value={k}>{k}</option>)
     <span>
-      <select id="debugTargetSelector" style={styles.selectStyle} onChange={@selectChanged} defaultValue={@state.selected}>
+      <select id="debugTargetSelector" style={styles.selectStyle} onChange={@selectChanged} value={@state.selected}>
         {inputs}
       </select>
     </span>

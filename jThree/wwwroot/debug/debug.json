@@ -8,12 +8,12 @@
   {
     "PMXModel":
     {
-      "goml":"PMXModel/index.goml",
+      "goml":"PMXModel/PMXModel.goml",
       "js":[]
     },
-    "PMXModel2":
+    "CubeDisplay":
     {
-      "goml":"PMXModel/index.goml",
+      "goml":"CubeDisplay/CubeDisplay.goml",
       "js":[]
     }
   }
