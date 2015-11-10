@@ -15,7 +15,7 @@ import JThreeEvent = require("../Base/JThreeEvent");
 import DebugInfo = require("../Debug/DebugInfo")
 class JThreeContext extends JThreeObject
 {
-    private static instance:JThreeContext=new JThreeContext();
+    private static instance:JThreeContext;
 
     /**
     * Every user of this library should not call this method.
@@ -72,6 +72,7 @@ class JThreeContext extends JThreeObject
 
     constructor() {
         super();
+        debugger;
         this.resourceManager = new ResourceManager();
         this.timer = new ContextTimer();
         this.sceneManager = new SceneManager();

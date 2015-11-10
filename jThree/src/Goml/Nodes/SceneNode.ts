@@ -13,7 +13,8 @@ class SceneNode extends GomlTreeNodeBase
   }
 
     public beforeLoad()
-  {    this.attributes.defineAttribute({
+  {
+    this.attributes.defineAttribute({
         "ambient":{
           value:"#111",
           converter:"color3",

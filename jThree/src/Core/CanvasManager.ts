@@ -18,6 +18,7 @@ class CanvasManager extends ContextManagerBase {
     public static fromCanvasElement(canvas: HTMLCanvasElement): CanvasManager {//TODO need refactoring
         var gl: WebGLRenderingContext;
         try {
+          debugger;
             gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
             var canvasManager: CanvasManager = new CanvasManager(gl);
             //register handlers here

@@ -63,13 +63,19 @@ class JThreeInit {
     for (var key in JThreeStatic.prototype) {
       pro[key] = JThreeStatic.prototype[key];
     }
+    window["j3"]["lateStart"] = JThreeInit.startInitialize;
 
     window.addEventListener('DOMContentLoaded', () => {
-      var j3 = JThreeContext.getInstanceForProxy();
-      JThreeInit.j3(() => {
-      });
-      j3.init();
+      JThreeInit.startInitialize();
     });
+  }
+
+  private static startInitialize()
+  {
+    var j3 = JThreeContextProxy.getJThreeContext();
+    JThreeInit.j3(() => {
+    });
+    j3.init();
   }
 }
 export = JThreeInit;

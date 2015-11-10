@@ -8,6 +8,8 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray')
 class SceneManager extends jThreeObject {
     constructor() {
         super();
+        debugger;
+        console.error("scene manager was instanciated!");
     }
 
     /**

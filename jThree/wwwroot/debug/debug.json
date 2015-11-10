@@ -1,7 +1,8 @@
 {
   "config":
   {
-    "root":"/debug/debugCodes/"
+    "root":"/debug/debugCodes/",
+    "j3":"/j3.js"
   },
   "codes":
   {

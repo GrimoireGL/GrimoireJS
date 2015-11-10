@@ -2,12 +2,14 @@ React = require 'react'
 Colors = require './colors/definition'
 Agent = require 'superagent'
 Cookie = require 'js-cookie'
+JThree = require './jthree/jthree-preview-controller'
 class DebuggerContentSelector extends React.Component
   constructor:(props)->
     super props
     @state={inputs:[],selected:Cookie.get('debugTarget')}
     Agent.get './debug.json'
       .end (e,r) =>
+        JThree.initJThree r.body,@state.selected
         inputs=[]
         for k,v of r.body.codes
           inputs.push k
@@ -17,12 +19,9 @@ class DebuggerContentSelector extends React.Component
   render:()->
     inputs = [];
     for k in @state.inputs
-      if @state.selected == k
-        inputs.push(<option key={k} value={k} selected>{k}</option>)
-      else
-        inputs.push(<option key={k} value={k}>{k}</option>)
+      inputs.push(<option key={k} value={k}>{k}</option>)
     <span>
-      <select id="debugTargetSelector" style={styles.selectStyle} onChange={@selectChanged}>
+      <select id="debugTargetSelector" style={styles.selectStyle} onChange={@selectChanged} defaultValue={@state.selected}>
         {inputs}
       </select>
     </span>

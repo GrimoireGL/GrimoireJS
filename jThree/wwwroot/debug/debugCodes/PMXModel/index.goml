@@ -1,0 +1,26 @@
+<goml>
+  <resources>
+    <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
+    <phong diffuse="red" specular="#CCC" specularpower="15" name="red"/>
+    <phong diffuse="green" specular="#CCC" specularposer="15" name="green"/>
+    <cube name="cube" />
+    <grid hdiv="20" name="grid" vdiv="20"/>
+  </resources>
+  <renderers>
+    <renderer clearColor="purple" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main" width="640" height="480" />
+    </renderer>
+  </renderers>
+  <scenes>
+    <scene name="mainScene">
+      <object rotation="y(30d)">
+        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
+      </object>
+      <mesh geo="grid" mat="red" scale="10"/>
+      <mesh geo="grid" mat="green" scale="10" rotation="z(90d)"/>
+      <mesh geo="grid" mat="blue" scale="10" rotation="x(90d)"/>
+      <alight color="#FFF" intensity="1"  top="40"  far="50" right="50" position="-10,-10,10"/>
+
+    </scene>
+  </scenes>
+</goml>
