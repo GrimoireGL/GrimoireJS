@@ -17,7 +17,10 @@ class SceneObject extends JThreeObjectWithID
   {
     super();
     this.transformer=transformer||new Transformer(this);
+    this.name = this.ID;
   }
+    public name:string;
+
     private materialChanagedHandler:Delegates.Action2<Material,SceneObject>[]=[];
 
     private materials:AssociativeArray<JThreeCollection<Material>>=new AssociativeArray<JThreeCollection<Material>>();
@@ -80,7 +83,7 @@ class SceneObject extends JThreeObjectWithID
      /**
      * The Getter for the parent scene containing this SceneObject.
      */
-    
+
     public set ParentScene(scene:Scene)
     {
         this.parentScene=scene;
@@ -106,8 +109,8 @@ class SceneObject extends JThreeObjectWithID
     {
         if(!this.materials.has(mat.MaterialGroup))
         {
-            this.materials.set(mat.MaterialGroup,new JThreeCollection<Material>());    
-        }        
+            this.materials.set(mat.MaterialGroup,new JThreeCollection<Material>());
+        }
         this.materials.get(mat.MaterialGroup).insert(mat);
     }
 
@@ -142,7 +145,7 @@ class SceneObject extends JThreeObjectWithID
     {
       return this.geometry;
     }
-    
+
     public set Geometry(geo:Geometry)
     {
         this.geometry=geo;

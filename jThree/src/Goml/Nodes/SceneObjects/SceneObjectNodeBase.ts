@@ -27,6 +27,15 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
           if (this.targetSceneObject != null)
             this.targetSceneObject.Transformer.Rotation = v.Value;
         }
+      },
+      "name":
+      {
+        value:undefined,
+        converter:"string",
+        handler:(v)=>
+        {
+          this.targetSceneObject.name = v.Value;
+        }
       }
     });
   }

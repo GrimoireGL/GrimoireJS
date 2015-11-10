@@ -15,6 +15,11 @@ class JThreeObjectWithID extends JThreeObject
   {
       return this.id;
   }
+
+  public set ID(id:string)
+  {
+    this.id = id;
+  }
 }
 
 export=JThreeObjectWithID;
