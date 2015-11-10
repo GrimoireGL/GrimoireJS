@@ -28,7 +28,7 @@ class GomlLoader extends jThreeObject {
     super();
     //obtain the script tag that is refering this source code.
     var scriptTags = document.getElementsByTagName('script');
-    this.selfTag = scriptTags[scriptTags.length - 1];
+    this.selfTag = <HTMLScriptElement>document.getElementById('j3core')||scriptTags[scriptTags.length - 1];
   }
 
   /**

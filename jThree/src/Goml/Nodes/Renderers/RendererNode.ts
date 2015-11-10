@@ -13,7 +13,6 @@ class RendererNode extends RendererNodeBase {
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
-        debugger;
         //generate canvas
         this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
 

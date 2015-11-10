@@ -72,7 +72,6 @@ class JThreeContext extends JThreeObject
 
     constructor() {
         super();
-        debugger;
         this.resourceManager = new ResourceManager();
         this.timer = new ContextTimer();
         this.sceneManager = new SceneManager();

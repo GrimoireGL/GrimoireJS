@@ -9,7 +9,7 @@
     "PMXModel":
     {
       "goml":"PMXModel/PMXModel.goml",
-      "js":[]
+      "js":["PMXModel/Sample.js"]
     },
     "CubeDisplay":
     {
