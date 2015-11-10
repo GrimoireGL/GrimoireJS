@@ -11,7 +11,6 @@ class DebuggerScenesPanel extends React.Component
     DebuggerScenesAPI.scenesPanel = this;
 
   render:->
-    debugger;
     tabs = [];
     for k,v of @state.scenes
       tabs.push(@generateTab(k,v))

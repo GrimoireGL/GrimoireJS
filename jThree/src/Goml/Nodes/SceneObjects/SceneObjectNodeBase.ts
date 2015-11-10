@@ -34,7 +34,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         converter:"string",
         handler:(v)=>
         {
-          this.targetSceneObject.name = v.Value;
+          if(this.targetSceneObject)this.targetSceneObject.name = v.Value;
         }
       }
     });
