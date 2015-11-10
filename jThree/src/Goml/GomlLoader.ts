@@ -9,6 +9,7 @@ import BehaviorRegistry = require("./Behaviors/BehaviorRegistry");
 import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
 import BehaviorRunner = require('./Behaviors/BehaviorRunner');
 import JThreeLogger = require("../Base/JThreeLogger");
+import JThreeInit = require("../Init");
 declare function require(string): any;
 
 /**
@@ -28,7 +29,7 @@ class GomlLoader extends jThreeObject {
     super();
     //obtain the script tag that is refering this source code.
     var scriptTags = document.getElementsByTagName('script');
-    this.selfTag = <HTMLScriptElement>document.getElementById('j3core')||scriptTags[scriptTags.length - 1];
+    this.selfTag = JThreeInit.SelfTag;
   }
 
   /**

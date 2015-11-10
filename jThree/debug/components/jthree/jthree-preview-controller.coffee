@@ -2,8 +2,6 @@ class JThreePreviewController
   @loadedScriptCount = 0;
 
   @initJThree:(config,codeKey)->
-   window.j3 =
-     lateLoad:true
    JThreePreviewController.loadj3Script config,codeKey,()->
      JThreePreviewController.checkFinalize config,codeKey
      for v in config.codes[codeKey].js
@@ -21,6 +19,7 @@ class JThreePreviewController
     j3Tag.setAttribute('type','text/javascript');
     j3Tag.setAttribute 'src',config.config.j3
     j3Tag.setAttribute 'id','j3core'
+    j3Tag.setAttribute 'lateLoad','true'
     j3Tag.onload = ()->
       finished();
     document.body.appendChild j3Tag

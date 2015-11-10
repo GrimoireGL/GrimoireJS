@@ -37,6 +37,9 @@ class JThreeStatic
 * You don't need to call this class directly, jThreeInit will be called automatically when jThree.js is loaded.
 */
 class JThreeInit {
+
+  public static SelfTag:HTMLScriptElement;
+
   /**
   * Actual definition of j3("selector") syntax.
   * This method have two roles.
@@ -57,8 +60,8 @@ class JThreeInit {
   * This method should be called when Jthree loaded.
   */
    public static Init(): void {
-     var lateLoad=false;
-     if(window["j3"]&&window["j3"].lateLoad)lateLoad = true;
+    var scripts=document.getElementsByTagName('script');
+    JThreeInit.SelfTag = scripts[scripts.length - 1];
     //register interfaces
     window["j3"] = JThreeInit.j3;//$(~~~)
     var pro = Object.getPrototypeOf(window["j3"]);
@@ -67,7 +70,7 @@ class JThreeInit {
     }
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
 
-  if(!lateLoad)window.addEventListener('DOMContentLoaded', () => {
+  if(JThreeInit.SelfTag.getAttribute('lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });
   }
