@@ -18,8 +18,7 @@ class JThreePreviewController
         break
     j3Tag.setAttribute('type','text/javascript');
     j3Tag.setAttribute 'src',config.config.j3
-    j3Tag.setAttribute 'id','j3core'
-    j3Tag.setAttribute 'lateLoad','true'
+    j3Tag.setAttribute 'x-lateLoad','true'
     j3Tag.onload = ()->
       finished();
     document.body.appendChild j3Tag

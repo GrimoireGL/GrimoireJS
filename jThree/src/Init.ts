@@ -70,7 +70,7 @@ class JThreeInit {
     }
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
 
-  if(JThreeInit.SelfTag.getAttribute('lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
+  if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });
   }
