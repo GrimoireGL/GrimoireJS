@@ -4,23 +4,15 @@ SceneTree = require './debugger-scene-tree'
 class DebuggerSceneContent extends React.Component
   constructor:(props)->
     super props
-    @state={};
-    if props.api?
-      @state.api = props.api;
-      @state.api.sceneContentPanel = this;
-      @state.api.updateHandler = @updateStructure;
 
   render:->
     <div>
       <div style={styles.treeContainer}>
-        <SceneTree api={@state.api}/>
+        <SceneTree rootAPI={@props.rootAPI}/>
       </div>
       <div style={styles.infoContainer}>
       </div>
     </div>
-
-  updateStructure:=>
-    @setState({api:@state.api})
 
 styles =
   treeContainer:

@@ -4,18 +4,10 @@ SceneTreeNode = require './debugger-scene-tree-node';
 class DebuggerSceneTree extends React.Component
   constructor:(props)->
     super props
-    @api = new DebuggerSceneTreeAPI(this);
 
   render:->
     <div>
-    <SceneTreeNode/>
+      <SceneTreeNode api={@props.rootAPI}/>
     </div>
-
-class DebuggerSceneTreeAPI
-  constructor:(targetTree)->
-    @targetTree = targetTree
-
-
-
 
 module.exports = DebuggerSceneTree;

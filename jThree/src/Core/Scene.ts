@@ -21,7 +21,8 @@ class Scene extends jThreeObjectWithID {
         super(id);
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
-        DebugScene.setScene(this.ID);
+        var sceneTree = DebugScene.setScene(this.ID);
+        //sceneTree.setChild("hello");
     }
 
     /**

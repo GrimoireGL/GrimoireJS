@@ -5,12 +5,10 @@ class DebuggerSceneTreeNode extends React.Component
     super props
 
   render:()->
-    itemName = if @props.api? then @props.api.name else '(Root)';
     children = [];
-    if @props.api?
-      for v in @props.api.children
-        children.push(<DebuggerSceneTreeNode api={v}/>)
-    <TreeNode nodeLabel={itemName}>
+    for v in @props.api.children
+      children.push(<DebuggerSceneTreeNode api={v}/>)
+    <TreeNode nodeLabel={@props.api.name}>
       {children}
     </TreeNode>
 

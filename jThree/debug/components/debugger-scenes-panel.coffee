@@ -26,9 +26,8 @@ class DebuggerScenesPanel extends React.Component
        </div>
      </Tab.Panel>
     else
-      console.log(k);
      <Tab.Panel title={k} key={k}>
-       <SceneContent sceneName={k} api={v.api}/>
+       <SceneContent sceneName={k} rootAPI={v.rootAPI}/>
      </Tab.Panel>
 
 class DebuggerScenesAPI
@@ -37,26 +36,46 @@ class DebuggerScenesAPI
 
   @scenes={
     "NoScene":{
-      isNoScene:false
+      isNoScene:true
     }
   }
 
   @setScene:(sceneName)->
+    #if there was NoScene, delete this
     if DebuggerScenesAPI.scenes["NoScene"]?
       delete DebuggerScenesAPI.scenes["NoScene"];
-    DebuggerScenesAPI.scenes[sceneName] = {api:new DebuggerSceneContentAPI(sceneName)};
-    DebuggerScenesAPI.scenesPanel.setState({scenes:DebuggerScenesAPI.scenes})
+    #Initialize root api
+    scenes = DebuggerScenesAPI.scenes;
+    api = new DebuggerSceneContentAPI(sceneName);
+    api.onUpdate (api)->
+      DebuggerScenesAPI.scenesPanel.setState({scenes:DebuggerScenesAPI.scenes})
+    scenes[sceneName] = {rootAPI:api}
+    api.notifyUpdate()
 
 class DebuggerSceneContentAPI
   constructor:(name)->
-    @children =[]
+    @children = []
     @name = name
+    @handlers = []
 
   setChild:(childName)->
-    @children.push(new DebuggerSceneContentAPI(@sceneContentPanel,childName))
-    if updateHandler?
-      updateHandler();
+    childApi = new DebuggerSceneContentAPI(childName);
+    @children.push(childApi)
+    @notifyUpdate()
+    childApi
 
+  getChild:(childName)->
+    for v in @children
+      if v.name == childName
+        return v
+    null;
+
+  onUpdate:(handler)->
+    @handlers.push handler
+
+  notifyUpdate:->
+    for v in @handlers
+      v(this)
 
 styles =
   noSceneText:

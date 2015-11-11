@@ -200,7 +200,7 @@ class LightRegister
             this.addLightType(type.TypeDefinition);
         }
         this.shadowMapResourceManager = new ShadowMapResourceManager(this);
-        JThreeLogger.sectionLongLog("Light diffuse shader",this.DiffuseShaderCodeComposer.ShaderCode);
+        //JThreeLogger.sectionLongLog("Light diffuse shader",this.DiffuseShaderCodeComposer.ShaderCode);
     }
 
     /**

@@ -34,7 +34,6 @@ class JThreePreviewController
   @checkFinalize:(config,codeKey)->
     JThreePreviewController.loadedScriptCount++
     if JThreePreviewController.loadedScriptCount == config.codes[codeKey].js.length+1
-      console.error "start!"
       window.j3.lateStart();
 
 module.exports = JThreePreviewController;
