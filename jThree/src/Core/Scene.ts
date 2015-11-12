@@ -22,7 +22,6 @@ class Scene extends jThreeObjectWithID {
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
         var sceneTree = DebugScene.setScene(this.ID);
-        //sceneTree.setChild("hello");
     }
 
     /**
@@ -124,6 +123,8 @@ class Scene extends jThreeObjectWithID {
      * Scene ambient coefficients
      */
     public sceneAmbient:Color3 = new Color3(0.1,0.1,0.1);
+
+    
 }
 
 export =Scene;

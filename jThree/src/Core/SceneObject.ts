@@ -6,6 +6,7 @@ import Scene=require('./Scene');
 import JThreeCollection = require("../Base/JThreeCollection");
 import Transformer = require("./Transform/Transformer");
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
+import JThreeEvent = require("../Base/JThreeEvent");
 /**
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
@@ -19,6 +20,14 @@ class SceneObject extends JThreeObjectWithID
     this.transformer=transformer||new Transformer(this);
     this.name = this.ID;
   }
+
+    private onStructureChangedEvent:JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
+
+    public onStructureChanged(handler:Delegates.Action1<SceneObject>)
+    {
+      this.onStructureChangedEvent.addListener(handler);
+    }
+
     public name:string;
 
     private materialChanagedHandler:Delegates.Action2<Material,SceneObject>[]=[];

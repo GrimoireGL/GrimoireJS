@@ -1,11 +1,19 @@
 class DebugScene{
+
+  private static sceneDebugAPIs = {};
   public static setScene(sceneName:string)
   {
     if(window["j3d"])
     {
-      window["j3d"].scenes.setScene(sceneName);
-      return window["j3d"].scenes.scenes[sceneName].api;
+      var debugApi = window["j3d"].scenes.setScene(sceneName);
+      DebugScene.sceneDebugAPIs[sceneName] = debugApi;
+      return debugApi;
     }
+  }
+
+  public static getSceneApi(sceneName:string)
+  {
+    return DebugScene.sceneDebugAPIs[sceneName];
   }
 }
 

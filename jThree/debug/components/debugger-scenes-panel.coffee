@@ -51,6 +51,7 @@ class DebuggerScenesAPI
       DebuggerScenesAPI.scenesPanel.setState({scenes:DebuggerScenesAPI.scenes})
     scenes[sceneName] = {rootAPI:api}
     api.notifyUpdate()
+    api
 
 class DebuggerSceneContentAPI
   constructor:(name)->
