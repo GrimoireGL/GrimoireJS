@@ -1,5 +1,5 @@
 interface IContextComponent
 {
-  contextComponentIndex:number
+  getContextComponentIndex():number;
 }
 export =  IContextComponent;

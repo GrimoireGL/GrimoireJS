@@ -29,8 +29,8 @@ class JThreeContext
      */
     public static registerContextComponent(contextComponent:IContextComponent):void
     {
-      if(JThreeContext.contextComponents[contextComponent.contextComponentIndex])console.warn("Reregisteration of context component");
-      JThreeContext.contextComponents[contextComponent.contextComponentIndex] = contextComponent;
+      if(JThreeContext.contextComponents[contextComponent.getContextComponentIndex()])console.warn("Reregisteration of context component");
+      JThreeContext.contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
     }
 
     /**

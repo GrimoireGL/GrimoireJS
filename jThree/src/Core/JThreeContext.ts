@@ -12,7 +12,9 @@ import ListStateChangedType = require("./ListStateChangedType");
 import AnimaterBase = require("../Goml/Animater/AnimaterBase");
 import JThreeCollection = require("../Base/JThreeCollection");
 import JThreeEvent = require("../Base/JThreeEvent");
-import DebugInfo = require("../Debug/DebugInfo")
+import DebugInfo = require("../Debug/DebugInfo");
+import ContextComponent = require("../ContextComponents");
+import NewJThreeContext = require("../NJThreeContext");
 class JThreeContext extends JThreeObject
 {
     private static instance:JThreeContext;
@@ -34,8 +36,6 @@ class JThreeContext extends JThreeObject
     private resourceManager: ResourceManager;
 
     private timer: ContextTimer;
-
-    private sceneManager: SceneManager;
 
     private gomlLoader:GomlLoader;
 
@@ -61,7 +61,7 @@ class JThreeContext extends JThreeObject
      * Getter for reference to manage entire scenes.
      */
     public get SceneManager(): SceneManager {
-        return this.sceneManager;
+        return <SceneManager>NewJThreeContext.getContextComponent(ContextComponent.SceneManager);
     }
     /**
      * Getter for reference to manage gomls.
@@ -74,7 +74,6 @@ class JThreeContext extends JThreeObject
         super();
         this.resourceManager = new ResourceManager();
         this.timer = new ContextTimer();
-        this.sceneManager = new SceneManager();
         this.gomlLoader = new GomlLoader();
     }
 
@@ -119,7 +118,7 @@ class JThreeContext extends JThreeObject
 
       this.updateAnimation();
       this.gomlLoader.update();// this should be removed for loose coupling GOML and Core.
-      this.sceneManager.renderAll();
+      this.SceneManager.renderAll();
       this.registerNextLoop();
     }
 

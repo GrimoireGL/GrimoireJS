@@ -2,12 +2,20 @@ import jThreeObject = require("../Base/JThreeObject");
 import JThreeContextProxy = require("./JThreeContextProxy");
 import Scene = require("./Scene");
 import AssociativeArray = require('../Base/Collections/AssociativeArray')
+import IContextComponent = require("../IContextComponent");
+import ContextComponents = require("../ContextComponents");
 /**
 * The class for managing entire scenes.
 */
-class SceneManager extends jThreeObject {
+class SceneManager extends jThreeObject implements IContextComponent
+{
     constructor() {
         super();
+    }
+
+    public getContextComponentIndex():number
+    {
+      return ContextComponents.SceneManager;
     }
 
     /**
