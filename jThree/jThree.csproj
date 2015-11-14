@@ -316,7 +316,6 @@
     <TypeScriptCompile Include="src\Core\Camera\PerspectiveCamera.ts" />
     <TypeScriptCompile Include="src\Core\Camera\ViewCameraBase.ts" />
     <TypeScriptCompile Include="src\Core\CanvasListChangedEventArgs.ts" />
-    <TypeScriptCompile Include="src\Core\CanvasManager.ts" />
     <TypeScriptCompile Include="src\Core\CanvasSizeChangedEventArgs.ts" />
     <TypeScriptCompile Include="src\Core\ContextManagerBase.ts" />
     <TypeScriptCompile Include="src\Core\ContextTimer.ts" />
@@ -611,7 +610,7 @@
       <UserProperties src_2static_2color_1json__JSONSchema="http://json.schemastore.org/grunt-watch-task" />
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
