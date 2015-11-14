@@ -1,41 +1,41 @@
-import CanvasManager = require("./CanvasManager");
+import Canvas = require("./Canvas");
 
 class CanvasSizeChangedEventArg
 {
-	private targetCanvasManager:CanvasManager;
+	private canvas:Canvas;
 	private lastWidth:number;
 	private lastHeight:number;
 	private newWidth:number;
 	private newHeight:number;
-	constructor(target:CanvasManager,lastWidth:number,lastHeight:number,newWidth:number,newHeight:number)
+	constructor(target:Canvas,lastWidth:number,lastHeight:number,newWidth:number,newHeight:number)
 	{
-		this.targetCanvasManager=target;
+		this.canvas=target;
 		this.lastWidth=lastWidth;
 		this.lastHeight=lastHeight;
 		this.newWidth=newWidth;
 		this.newHeight=newHeight;
 	}
-	
-	public get TargetCanvas():CanvasManager
+
+	public get Canvas():Canvas
 	{
-		return this.targetCanvasManager;
+		return this.canvas;
 	}
-	
+
 	public get LastWidth():number
 	{
 		return this.lastWidth;
 	}
-	
+
 	public get LastHeight():number
 	{
 		return this.lastHeight;
 	}
-	
+
 	public get NewWidth():number
 	{
 		return this.newWidth;
 	}
-	
+
 	public get NewHeight():number
 	{
 		return this.newHeight;

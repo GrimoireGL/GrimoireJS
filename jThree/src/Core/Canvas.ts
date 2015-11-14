@@ -11,27 +11,27 @@ import Delegates = require('../Base/Delegates');
 /**
  * Provides some of feature managing canvas.
  */
-class CanvasManager extends ContextManagerBase {
+class Canvas extends ContextManagerBase {
     /**
      * Generate instance from HtmlCanvasElement
      */
-    public static fromCanvasElement(canvas: HTMLCanvasElement): CanvasManager {//TODO need refactoring
+    public static fromCanvasElement(canvasElement: HTMLCanvasElement): Canvas {//TODO need refactoring
         var gl: WebGLRenderingContext;
         try {
-            gl = <WebGLRenderingContext>(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
-            var canvasManager: CanvasManager = new CanvasManager(gl);
+            gl = <WebGLRenderingContext>(canvasElement.getContext("webgl") || canvasElement.getContext("experimental-webgl"));
+            var canvas: Canvas = new Canvas(gl);
             //register handlers here
-            canvas.onmousemove = canvasManager.onMouseMove.bind(canvasManager);
-            canvas.onmouseenter = canvasManager.onMouseEnter.bind(canvasManager);
-            canvas.onmouseleave = canvasManager.onMouseLeave.bind(canvasManager);
+            canvasElement.onmousemove = canvas.onMouseMove.bind(canvas);
+            canvasElement.onmouseenter = canvas.onMouseEnter.bind(canvas);
+            canvasElement.onmouseleave = canvas.onMouseLeave.bind(canvas);
 
             var instance = JThreeContextProxy.getJThreeContext();
-            canvasManager.targetCanvas = canvas;
-            canvasManager.lastHeight = canvas.height;
-            canvasManager.lastWidth = canvas.width;
-            instance.addCanvasManager(canvasManager);
+            canvas.canvasElement = canvasElement;
+            canvas.lastHeight = canvasElement.height;
+            canvas.lastWidth = canvasElement.width;
+            instance.addCanvas(canvas);
             //add div for monitoring size changing in canvas
-            return canvasManager;
+            return canvas;
         } catch (e) {
             console.error("Web GL context Generation failed");
             if (!gl) {
@@ -50,7 +50,7 @@ class CanvasManager extends ContextManagerBase {
     /**
      * target canvas this class managing.
      */
-    public targetCanvas: HTMLCanvasElement;
+    public canvasElement: HTMLCanvasElement;
 
     /**
      * cache for the last height.
@@ -79,7 +79,7 @@ class CanvasManager extends ContextManagerBase {
     /**
      * add event handler that will be called when canvas size was changed.
      */
-    public onResize(act: Delegates.Action2<CanvasManager, CanvasSizeChangedEventArgs>) {
+    public onResize(act: Delegates.Action2<Canvas, CanvasSizeChangedEventArgs>) {
         this.onResizeEventHandler.addListener(act);
     }
 
@@ -96,9 +96,9 @@ class CanvasManager extends ContextManagerBase {
 
     public beforeRenderAll(): void {
         //check size changed or not.
-        if (this.targetCanvas.height !== this.lastHeight || this.targetCanvas.width !== this.lastWidth) {
-            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.targetCanvas.width, this.targetCanvas.height));
-            this.lastHeight = this.targetCanvas.height; this.lastWidth = this.targetCanvas.width;
+        if (this.canvasElement.height !== this.lastHeight || this.canvasElement.width !== this.lastWidth) {
+            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.canvasElement.width, this.canvasElement.height));
+            this.lastHeight = this.canvasElement.height; this.lastWidth = this.canvasElement.width;
         }
     }
 
@@ -115,7 +115,7 @@ class CanvasManager extends ContextManagerBase {
      * Get default rectangle it fills this canvas.
      */
     public getDefaultRectangle(): Rectangle {
-        return new Rectangle(0, 0, this.targetCanvas.width, this.targetCanvas.height);
+        return new Rectangle(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
 
     public mouseOver:boolean=false;
@@ -124,8 +124,8 @@ class CanvasManager extends ContextManagerBase {
 
     private onMouseMove(e)
     {
-      e.canvasX = e.clientX - this.targetCanvas.clientLeft;
-      e.canvasY = e.clientY - this.targetCanvas.clientTop;
+      e.canvasX = e.clientX - this.canvasElement.clientLeft;
+      e.canvasY = e.clientY - this.canvasElement.clientTop;
       this.lastMouseInfo = e;
       this.mouseOver = true;
     }
@@ -142,4 +142,4 @@ class CanvasManager extends ContextManagerBase {
 }
 
 
-export =CanvasManager;
+export =Canvas;

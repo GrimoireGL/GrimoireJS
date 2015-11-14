@@ -1,6 +1,6 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import CanvasManager = require("../../../Core/CanvasManager");
+import Canvas = require("../../../Core/Canvas");
 class RendererNodeBase extends GomlTreeNodeBase {
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
@@ -12,7 +12,7 @@ class RendererNodeBase extends GomlTreeNodeBase {
                 value: 128, converter: "number", handler: (v) => { this.sizeChanged(this.attributes.getValue("width"),v.Value)}
             },
             "clearColor": {
-                value: "#0FF", converter: "color4", handler: (v) => { this.canvasManager.ClearColor = v.Value; }
+                value: "#0FF", converter: "color4", handler: (v) => { this.canvas.ClearColor = v.Value; }
             },
         });
     }
@@ -22,23 +22,23 @@ class RendererNodeBase extends GomlTreeNodeBase {
         this.attributes.setValue("width",this.DefaultWidth);
         this.attributes.setValue("height",this.DefaultHeight);
     }
-    
-    private canvasManager:CanvasManager;
-    
-    protected setCanvasManager(canvasManager:CanvasManager)
+
+    private canvas:Canvas;
+
+    protected setCanvas(canvas:Canvas)
     {
-        this.canvasManager=canvasManager;
+        this.canvas=canvas;
         this.sizeChanged(this.DefaultWidth,this.DefaultHeight);
     }
-    
-    public get CanvasManager():CanvasManager
+
+    public get Canvas():Canvas
     {
-        return this.canvasManager;
+        return this.canvas;
     }
-    
+
     protected sizeChanged(width:number,height:number)
     {
-        
+
     }
 
     protected get DefaultWidth(): number {

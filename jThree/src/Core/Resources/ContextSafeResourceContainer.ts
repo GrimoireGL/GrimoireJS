@@ -14,7 +14,7 @@ import JThreeContextProxy = require("../JThreeContextProxy");
 class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject
 {
     private context: JThreeContext = null;
-    
+
     public get Context():JThreeContext
     {
         return this.context;
@@ -27,7 +27,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     }
 
     protected initializeForFirst() {
-        this.context.CanvasManagers.forEach((v) => {
+        this.context.Canvases.forEach((v) => {
             this.cachedObject.set(v.ID, this.getInstanceForRenderer(v));
         });
     }

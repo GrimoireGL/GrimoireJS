@@ -35,8 +35,8 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     public afterLoad(){
       var rdr:RendererNodeBase=this.parentRendererNode=<RendererNodeBase>this.parent;
-      var defaultRect = rdr.CanvasManager.getDefaultRectangle();
-      this.targetRenderer=RendererFactory.generateRenderer(rdr.CanvasManager,defaultRect,this.attributes.getValue("config"));
+      var defaultRect = rdr.Canvas.getDefaultRectangle();
+      this.targetRenderer=RendererFactory.generateRenderer(rdr.Canvas,defaultRect,this.attributes.getValue("config"));
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;

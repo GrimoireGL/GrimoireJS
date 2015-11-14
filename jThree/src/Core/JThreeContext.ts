@@ -4,7 +4,7 @@ import Timer = require("./Timer");
 import GomlLoader = require("../Goml/GomlLoader");
 import Delegates = require("../Base/Delegates");
 import ResourceManager = require("./ResourceManager");
-import CanvasManager = require("./CanvasManager");
+import Canvas = require("./Canvas");
 import JThreeObject = require("../Base/JThreeObject");
 import CanvasListChangedEventArgs = require("./CanvasListChangedEventArgs");
 import SceneManager = require("./SceneManager");
@@ -31,7 +31,7 @@ class JThreeContext extends JThreeObject
       return JThreeContext.instance;
     }
 
-    private canvasManagers: CanvasManager[] = [];
+    private canvasManagers: Canvas[] = [];
 
     private resourceManager: ResourceManager;
 
@@ -125,7 +125,7 @@ class JThreeContext extends JThreeObject
     /**
      * Getter of canvas renderer.
      */
-    public get CanvasManagers(): CanvasManager[] {
+    public get Canvases(): Canvas[] {
         return this.canvasManagers;
     }
     /**
@@ -145,7 +145,7 @@ class JThreeContext extends JThreeObject
     /**
      * Add renderers to be managed by jThree
      */
-    public addCanvasManager(renderer: CanvasManager):void {
+    public addCanvas(renderer: Canvas):void {
         if (this.canvasManagers.indexOf(renderer) === -1) {
             this.canvasManagers.push(renderer);
             this.canvasChangedEvent.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Add,renderer));
@@ -156,7 +156,7 @@ class JThreeContext extends JThreeObject
     /**
      * Remove renderer
      */
-    public removeCanvasManager(renderer: CanvasManager): void {
+    public removeCanvas(renderer: Canvas): void {
         if (this.canvasManagers.indexOf(renderer) !== -1) {
             for (var i = 0; i < this.canvasManagers.length; i++) {
                 if (this.canvasManagers[i] === renderer)

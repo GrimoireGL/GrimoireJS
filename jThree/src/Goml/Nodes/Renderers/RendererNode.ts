@@ -1,4 +1,4 @@
-import CanvasManager = require("../../../Core/CanvasManager");
+import Canvas = require("../../../Core/Canvas");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import GomlLoader = require("../../GomlLoader");
@@ -6,7 +6,7 @@ import RendererNodeBase = require('./RendererNodeBase');
 import Delegates = require("../../../Base/Delegates");
 
 class RendererNode extends RendererNodeBase {
-    public targetCanvas: HTMLCanvasElement;
+    public canvasElement: HTMLCanvasElement;
     public targetFrame: HTMLElement;
     public resizeIframeWindow: Window;
     private resizedFunctions: Delegates.Action1<RendererNode>[] = [];
@@ -47,20 +47,20 @@ class RendererNode extends RendererNodeBase {
 
         this.resizeIframeWindow.addEventListener("resize", this.resize.bind(this), false);
 
-        this.targetCanvas = document.createElement("canvas");
-        this.targetCanvas.style.position = "relative";
+        this.canvasElement = document.createElement("canvas");
+        this.canvasElement.style.position = "relative";
 
-        if (this.targetFrame) resizeElement.appendChild(this.targetCanvas);
-        this.targetCanvas.classList.add("x-j3-c-" + this.ID);
+        if (this.targetFrame) resizeElement.appendChild(this.canvasElement);
+        this.canvasElement.classList.add("x-j3-c-" + this.ID);
         //initialize contexts
-        this.setCanvasManager(CanvasManager.fromCanvasElement(this.targetCanvas));
+        this.setCanvas(Canvas.fromCanvasElement(this.canvasElement));
         var context = JThreeContextProxy.getJThreeContext();
-        context.addCanvasManager(this.CanvasManager);
+        context.addCanvas(this.Canvas);
         // this.attributes.defineAttribute({
         //     "fullscreen":
         //     {
         //         value: false, converter: "boolean", handler: (v) => {
-        //             this.CanvasManager.FullScreen = v.Value;
+        //             this.Canvas.FullScreen = v.Value;
         //         }
         //     }
         // });
@@ -104,8 +104,8 @@ class RendererNode extends RendererNodeBase {
 
     protected sizeChanged(width:number,height:number)
     {
-        this.targetCanvas.width=width;
-        this.targetCanvas.height=height;
+        this.canvasElement.width=width;
+        this.canvasElement.height=height;
     }
 
 

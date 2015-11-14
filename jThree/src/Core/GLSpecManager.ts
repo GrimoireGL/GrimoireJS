@@ -10,9 +10,9 @@ class GLSpecManager
 
 	private static get GLContext()
 	{
-		if(this.Context.CanvasManagers.length>0)
+		if(this.Context.Canvases.length>0)
 		{
-			return this.Context.CanvasManagers[0].GLContext;
+			return this.Context.Canvases[0].GLContext;
 		}else{
 			console.error("can't obtain the gl context to check gl spec");
 		}

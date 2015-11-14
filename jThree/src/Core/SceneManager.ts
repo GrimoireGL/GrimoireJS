@@ -54,12 +54,12 @@ class SceneManager extends jThreeObject implements IContextComponent
      * You don't need to call this method maually in most case.
      */
     public renderAll(): void {
-        JThreeContextProxy.getJThreeContext().CanvasManagers.forEach((c)=>{c.beforeRenderAll()});
+        JThreeContextProxy.getJThreeContext().Canvases.forEach((c)=>{c.beforeRenderAll()});
         this.scenes.forEach((v) => {
             v.update();
             v.render();
         });
-        JThreeContextProxy.getJThreeContext().CanvasManagers.forEach((c)=>{c.afterRenderAll()});
+        JThreeContextProxy.getJThreeContext().Canvases.forEach((c)=>{c.afterRenderAll()});
     }
 
     public toString():string
