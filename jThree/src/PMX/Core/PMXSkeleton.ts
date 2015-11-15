@@ -2,10 +2,12 @@ import PMXModel = require('./PMXModel');
 import PMXBone = require('./PMXBone');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray')
 import TextureBuffer = require('../../Core/Resources/Texture/BufferTexture');
-import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../Wrapper/TextureType');
 import PMXBoneTransformer = require("./PMXBoneTransformer");
+import ContextComponents = require("../../ContextComponents");
+import JThreeContext = require("../../NJThreeContext");
+import ResourceManager = require("../../Core/ResourceManager");
 class PMXSkeleton {
 	constructor(model: PMXModel) {
 		model.skeleton = this;
@@ -24,8 +26,7 @@ class PMXSkeleton {
 		}
 		this.bones.forEach((v) => v.boneDictionaryConstructed());
 		this.bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
-		var j3 = JThreeContextProxy.getJThreeContext();
-		this.matrixTexture=<TextureBuffer>j3.ResourceManager.createTexture("jthree.pmx.bonetransform" + model.ID, 4,this.bones.length, TextureFormat.RGBA, ElementFormat.Float);
+		this.matrixTexture=<TextureBuffer>JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).createTexture("jthree.pmx.bonetransform" + model.ID, 4,this.bones.length, TextureFormat.RGBA, ElementFormat.Float);
 	}
 
 	private rootBones: PMXBone[] = [];

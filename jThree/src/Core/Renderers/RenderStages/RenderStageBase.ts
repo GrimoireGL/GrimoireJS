@@ -16,7 +16,9 @@ import GLFeature = require('../../../Wrapper/GLFeatureType');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import FboBindData = require("../FBOBindData");
 import RenderStageConfig = require("../RenderStageConfig");
-
+import ContextComponents = require("../../../ContextComponents");
+import JThreeContext = require("../../../NJThreeContext");
+import ResourceManager = require("../../ResourceManager");
 class RenderStageBase extends JThreeObject {
 	private renderer: RendererBase;
 	/**
@@ -28,6 +30,11 @@ class RenderStageBase extends JThreeObject {
 
 	public get GLContext() {
 		return this.Renderer.GLContext;
+	}
+
+	private get ResourceManager()
+	{
+		return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
 	}
 
 	constructor(renderer: RendererBase) {
@@ -42,7 +49,7 @@ class RenderStageBase extends JThreeObject {
 
 	public postAllStage(scene:Scene,texs:ResolvedChainInfo)
 	{
-		
+
 	}
 
 	/**
@@ -109,8 +116,7 @@ class RenderStageBase extends JThreeObject {
 	}
 
 	protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
-        var jThreeContext = JThreeContextProxy.getJThreeContext();
-        var rm = jThreeContext.ResourceManager;
+        var rm = this.ResourceManager;
         var vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
         var fShader = rm.createShader(fsid, fscode, ShaderType.FragmentShader);
         vShader.loadAll(); fShader.loadAll();
@@ -176,14 +182,14 @@ class RenderStageBase extends JThreeObject {
 	 * Get default fbo that is allocated for this renderer.
 	 */
 	public get DefaultFBO(): FBO {
-		return JThreeContextProxy.getJThreeContext().ResourceManager.getFBO(this.Renderer.ID + ".fbo.default");
+		return this.ResourceManager.getFBO(this.Renderer.ID + ".fbo.default");
 	}
 
 	/**
 	 * Get default rbo that is allocated for this renderer.
 	 */
 	public get DefaultRBO(): RBO {
-		return JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
+		return this.ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
 	}
 
 	protected get Context()

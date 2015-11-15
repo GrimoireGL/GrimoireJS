@@ -9,6 +9,9 @@ import Program = require('../Resources/Program/Program');
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 import Geometry = require('../Geometries/Geometry')
+import ResourceManager = require("../ResourceManager");
+import JThreeContext = require("../../NJThreeContext");
+import ContextComponents = require("../../ContextComponents");
 declare function require(string): string;
 /**
 * Basement class for any Materials.
@@ -97,8 +100,7 @@ class Material extends JThreeObjectWithID {
     * @param fscode the fragment shader source code
     */
     protected loadProgram(vsid: string, fsid: string, pid: string,vscode:string,fscode:string): Program {
-        var jThreeContext = JThreeContextProxy.getJThreeContext();
-        var rm = jThreeContext.ResourceManager;
+        var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         var vShader = rm.createShader(vsid,vscode,ShaderType.VertexShader);
         var fShader = rm.createShader(fsid,fscode,ShaderType.FragmentShader);
         vShader.loadAll();fShader.loadAll();

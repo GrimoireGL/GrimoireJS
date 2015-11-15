@@ -4,7 +4,9 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
-import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
+import ResourceManager = require("../../../Core/ResourceManager");
+import JThreeContext = require("../../../NJThreeContext");
+import ContextComponents = require("../../../ContextComponents");
 class SpriteNode extends MaterialNodeBase {
     public material: Sprite;
 
@@ -14,8 +16,7 @@ class SpriteNode extends MaterialNodeBase {
             "texture":
             {//TODO implement texture node
                 value: "tex", converter: "string", handler: (v) => {
-                    var context = JThreeContextProxy.getJThreeContext();
-                    context.ResourceManager.getTextureHandler(v.Value, (v) => {
+                    JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTextureHandler(v.Value, (v) => {
                         this.material.texture = v;
                     });
                 }

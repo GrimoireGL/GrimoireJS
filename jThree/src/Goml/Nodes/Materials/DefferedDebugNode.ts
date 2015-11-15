@@ -3,8 +3,10 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
-import JThreeContextProxy = require('../../../Core/JThreeContextProxy');
 import ViewportNode = require('../Renderers/ViewPortNode');
+import ResourceManager = require("../../../Core/ResourceManager");
+import JThreeContext = require("../../../NJThreeContext");
+import ContextComponents = require("../../../ContextComponents");
 class DefferedDebugNode extends MaterialNodeBase {
     public material: DebugSprite;
 
@@ -17,11 +19,11 @@ class DefferedDebugNode extends MaterialNodeBase {
             "viewport":
             {
                 value: "viewport", converter: "string", handler: (v) => {
-                    var context = JThreeContextProxy.getJThreeContext();
                     var viewportTargets = loader.getNodeByQuery(v.Value);
                     if (viewportTargets.length > 0) {
                         var viewport = <ViewportNode>viewportTargets[0];
-                        context.ResourceManager.getTextureHandler(viewport.TargetViewport.ID + "." + this.attributes.getValue("target"), (v) => {
+                        JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).
+                          getTextureHandler(viewport.TargetViewport.ID + "." + this.attributes.getValue("target"), (v) => {
                             this.material.texture = v;
                         });
                     }

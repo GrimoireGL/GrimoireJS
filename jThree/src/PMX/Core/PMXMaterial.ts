@@ -1,6 +1,5 @@
 import Material = require('../../Core/Materials/Material');
 import Program = require("../../Core/Resources/Program/Program");
-import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import RendererBase = require("../../Core/Renderers/RendererBase");
 import Geometry = require("../../Core/Geometries/Geometry");
 import SceneObject = require("../../Core/SceneObject");
@@ -19,6 +18,9 @@ import PMXGeometry = require('./PMXGeometry');
 import PMXModel = require('./PMXModel');
 import PmxMaterialMorphParamContainer = require('./PMXMaterialMorphParamContainer');
 import JThreeLogger = require("../../Base/JThreeLogger");
+import ResourceManager = require("../../Core/ResourceManager");
+import ContextComponents = require("../../ContextComponents");
+import JThreeContext = require("../../NJThreeContext");
 
 declare function require(string): string;
 
@@ -292,7 +294,7 @@ class PMXMaterial extends Material
     private loadPMXTexture(index: number, prefix: string): Texture
     {
         if (index < 0) return null;
-        var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
+        var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         var resourceName = "jthree.pmx." + prefix + "." + index;
         if (rm.getTexture(resourceName))
         {

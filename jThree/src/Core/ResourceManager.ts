@@ -18,13 +18,19 @@ import TextureFormat = require('../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../Wrapper/TextureType');
 import TextureBase = require('./Resources/Texture/TextureBase');
 import CubeTexture = require("./Resources/Texture/CubeTexture");
+import IContextComponent = require("../IContextComponent");
+import ContextComponents = require("../ContextComponents");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 /**
  * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
  */
-class ResourceManager extends jThreeObject
+class ResourceManager extends jThreeObject implements IContextComponent
 {
+    public getContextComponentIndex():number
+    {
+      return ContextComponents.ResourceManager;
+    }
 
     constructor()
     {

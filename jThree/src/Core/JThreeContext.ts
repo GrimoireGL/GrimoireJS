@@ -33,9 +33,6 @@ class JThreeContext extends JThreeObject
       JThreeContext.instance=JThreeContext.instance||new JThreeContext();
       return JThreeContext.instance;
     }
-
-    private resourceManager: ResourceManager;
-
     private timer: ContextTimer;
 
     private gomlLoader:GomlLoader;
@@ -43,8 +40,6 @@ class JThreeContext extends JThreeObject
     private registerNextLoop:Delegates.Action0;
 
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
-
-    private canvasChangedEvent:JThreeEvent<CanvasListChangedEventArgs>=new JThreeEvent<CanvasListChangedEventArgs>();
 
     private canvasManager:CanvasManager;
 
@@ -75,7 +70,6 @@ class JThreeContext extends JThreeObject
 
     constructor() {
         super();
-        this.resourceManager = new ResourceManager();
         this.timer = new ContextTimer();
         this.gomlLoader = new GomlLoader();
         this.canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
@@ -93,13 +87,6 @@ class JThreeContext extends JThreeObject
     */
     public get Timer(): Timer {
         return this.timer;
-    }
-
-    /**
-     * The class managing resources over multiple canvas(Buffer,Shader,Program,Texture)
-     */
-    public get ResourceManager(): ResourceManager {
-        return this.resourceManager;
     }
 }
 

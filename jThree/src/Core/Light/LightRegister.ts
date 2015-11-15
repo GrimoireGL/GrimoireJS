@@ -17,6 +17,9 @@ import GLSpec = require("../GLSpecManager");
 import JThreeLogger = require("../../Base/JThreeLogger");
 import TextureBase = require("../Resources/Texture/TextureBase");
 import ShadowMapResourceManager = require("./ShadowMap/ShadowMapResourceManager");
+import JThreeContext = require("../../NJThreeContext");
+import ResourceManager = require("../ResourceManager");
+import ContextComponents = require("../../ContextComponents");
 /**
  * Provides light management feature by renderer
  */
@@ -154,7 +157,7 @@ class LightRegister
      */
     private get ResourceManager()
     {
-        return JThreeContextProxy.getJThreeContext().ResourceManager;
+        return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     }
     /**
      * Getter for shader composer that generates shader source to render diffuse light accumulation buffer.
@@ -319,12 +322,10 @@ class LightRegister
     private initializeProgram()
     {
         var vs = require('../Shaders/Light/LightVertex.glsl');
-        var jThreeContext = JThreeContextProxy.getJThreeContext();
-        var rm = jThreeContext.ResourceManager;
-        var vShader = rm.createShader("jthree.shaders.vertex.post", vs, ShaderType.VertexShader);
+        var vShader = this.ResourceManager.createShader("jthree.shaders.vertex.post", vs, ShaderType.VertexShader);
         vShader.loadAll();
-        this.diffuseLightProgram = rm.createProgram(this.scene.ID + ".jthree.programs.light.diffuse", [vShader, this.DiffuseShaderCodeComposer.Shader]);
-        this.specularLightProgram = rm.createProgram(this.scene.ID + ".jthree.programs.light.specular", [vShader, this.SpecularShaderCodeComposer.Shader]);
+        this.diffuseLightProgram = this.ResourceManager.createProgram(this.scene.ID + ".jthree.programs.light.diffuse", [vShader, this.DiffuseShaderCodeComposer.Shader]);
+        this.specularLightProgram = this.ResourceManager.createProgram(this.scene.ID + ".jthree.programs.light.specular", [vShader, this.SpecularShaderCodeComposer.Shader]);
     }
 }
 

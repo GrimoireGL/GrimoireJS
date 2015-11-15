@@ -5,6 +5,9 @@ import TextureInternalFormatType = require("../../../Wrapper/TextureInternalForm
 import TextureType = require("../../../Wrapper/TextureType");
 import Rectangle = require("../../../Math/Rectangle");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
+import ContextComponents = require("../../../ContextComponents");
+import ResourceManager = require("../../ResourceManager");
+import JThreeContext = require("../../../NJThreeContext");
 class RendererFit extends GeneraterBase {
 	constructor(parent: RendererBase) {
 		super(parent);
@@ -78,7 +81,8 @@ class RendererFit extends GeneraterBase {
 			default:
 				console.error("the given parameter was invalid : element format " + texInfo["element"]);
 		}
-		var resource=this.Context.ResourceManager.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
+		var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+		var resource=rm.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
 			this.parentRenderer.onViewPortChanged((r,s:Rectangle)=> {
                 var bufTex = <BufferTexture>resource;
 			    if (s.Width!==bufTex.Width||s.Height!==bufTex.Height) {

@@ -1,11 +1,12 @@
 ﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import ResourceManager = require("../../../Core/ResourceManager");
 import MinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
 import MagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
 import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
+import JThreeContext = require("../../../NJThreeContext");
+import ContextComponents = require("../../../ContextComponents");
 /**
  * All texture resource node class inherit this class.
  */
@@ -73,7 +74,7 @@ class TextureNodeBase extends GomlTreeNodeBase
     public beforeLoad()
     {
         super.beforeLoad();
-        var rm = JThreeContextProxy.getJThreeContext().ResourceManager;
+        var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         var name = this.attributes.getValue("name");
         this.targetTexture = this.generateTexture(name, rm);
         this.loader.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);

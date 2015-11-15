@@ -7,9 +7,12 @@ import Camera = require("./../Camera/Camera");
 import RenderStageManager = require('./RenderStageManager');
 import JThreeEvent = require('../../Base/JThreeEvent');
 import Rectangle = require('../../Math/Rectangle');
-import JThreeContextProxy = require('../JThreeContextProxy');
 import RendererConfiguratorBase = require("./RendererConfigurator/RendererConfiguratorBase");
-import RendererConfigurator = require("./RendererConfigurator/BasicRendererConfigurator"); /**
+import RendererConfigurator = require("./RendererConfigurator/BasicRendererConfigurator");
+import JThreeContext = require("../../NJThreeContext");
+import ContextComponents = require("../../ContextComponents");
+import ResourceManager = require("../ResourceManager");
+ /**
  * Provides base class feature for renderer classes.
  */
 class RendererBase extends jThreeObjectWithID
@@ -27,8 +30,9 @@ class RendererBase extends jThreeObjectWithID
         this.contextManager = contextManager;
         this.renderStageManager =new RenderStageManager(this);
         this.viewportArea = viewportArea;
-        if (this.viewportArea) JThreeContextProxy.getJThreeContext().ResourceManager.createRBO(this.ID + ".rbo.default", this.viewportArea.Width, this.viewportArea.Height);
-        JThreeContextProxy.getJThreeContext().ResourceManager.createFBO(this.ID + ".fbo.default");
+        var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+        if (this.viewportArea) rm.createRBO(this.ID + ".rbo.default", this.viewportArea.Width, this.viewportArea.Height);
+        rm.createFBO(this.ID + ".fbo.default");
         this.RenderStageManager.StageChains.push.apply(this.RenderStageManager.StageChains,configurator.getStageChain(this));
         this.RenderStageManager.TextureBuffers = configurator.TextureBuffers;
         this.RenderStageManager.generateAllTextures();
@@ -145,7 +149,7 @@ class RendererBase extends jThreeObjectWithID
         {
             if (isNaN(area.Height + area.Width)) return;
             this.viewportArea = area;
-            JThreeContextProxy.getJThreeContext().ResourceManager.getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
+            JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
             this.onViewportChangedHandler.fire(this, area);
         }
 
