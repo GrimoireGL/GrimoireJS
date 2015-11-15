@@ -38,8 +38,6 @@ class JThreeContext extends JThreeObject
 
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
 
-    private canvasManager:CanvasManager;
-
     public addAnimater(animater:AnimaterBase):void
     {
       this.animaters.insert(animater);
@@ -56,7 +54,7 @@ class JThreeContext extends JThreeObject
      * Getter for reference to manage entire scenes.
      */
     public get SceneManager(): SceneManager {
-        return NewJThreeContext.getContextComponent<SceneManager>(ContextComponent.SceneManager);
+        return ;
     }
     /**
      * Getter for reference to manage gomls.
@@ -68,15 +66,16 @@ class JThreeContext extends JThreeObject
     constructor() {
         super();
         this.gomlLoader = new GomlLoader();
-        this.canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
-        var lm = NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager);
+        var canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+        var loopManager = NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager);
         var timer = NewJThreeContext.getContextComponent<ContextTimer>(ContextComponent.Timer);
-        lm.addAction(1000,()=>timer.updateTimer());
-        lm.addAction(2000,()=>this.updateAnimation());
-        lm.addAction(3000,()=>this.gomlLoader.update());
-        lm.addAction(4000,()=>this.canvasManager.beforeRenderAll());
-        lm.addAction(5000,()=>this.SceneManager.renderAll());
-        lm.addAction(6000,()=>this.canvasManager.afterRenderAll());
+        var sceneManager = NewJThreeContext.getContextComponent<SceneManager>(ContextComponent.SceneManager);
+        loopManager.addAction(1000,()=>timer.updateTimer());
+        loopManager.addAction(2000,()=>this.updateAnimation());
+        loopManager.addAction(3000,()=>this.gomlLoader.update());
+        loopManager.addAction(4000,()=>canvasManager.beforeRenderAll());
+        loopManager.addAction(5000,()=>sceneManager.renderAll());
+        loopManager.addAction(6000,()=>canvasManager.afterRenderAll());
     }
 }
 
