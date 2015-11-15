@@ -12,6 +12,7 @@ import CanvasManager = require("./Core/CanvasManager");
 import LoopManager = require("./Core/LoopManager");
 import ContextComponent = require("./ContextComponents");
 import ResourceManager = require("./Core/ResourceManager");
+import ContextTimer = require("./Core/ContextTimer");
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -53,6 +54,7 @@ class JThreeInit {
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
   public static j3(query: string|Delegates.Action0): JThreeInterface {
+    debugger;
     var context = JThreeContextProxy.getJThreeContext();
     if (typeof query === 'function') {//check whether this is function or not.
       context.GomlLoader.onload(query);
@@ -76,10 +78,12 @@ class JThreeInit {
     }
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
     NewJThreeContext.init();
+    NewJThreeContext.registerContextComponent(new ContextTimer());
     NewJThreeContext.registerContextComponent(new LoopManager());
     NewJThreeContext.registerContextComponent(new SceneManager());
     NewJThreeContext.registerContextComponent(new CanvasManager());
     NewJThreeContext.registerContextComponent(new ResourceManager());
+    debugger;
   if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });

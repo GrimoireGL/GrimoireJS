@@ -15,13 +15,18 @@ class JThreeContext
    */
     public static init()
     {
-      if(!window.j3)window.j3.context = JThreeContext;
+      if(!window.j3.context)window.j3.context = new JThreeContext();
+    }
+
+    private static get context():JThreeContext
+    {
+      return window.j3.context;
     }
 
     /**
      * Registered context component references
      */
-    private static contextComponents:{[index:number]:any} = {};
+    private contextComponents:{[index:number]:any} = {};
 
     /**
      * Register context component
@@ -29,8 +34,8 @@ class JThreeContext
      */
     public static registerContextComponent(contextComponent:IContextComponent):void
     {
-      if(JThreeContext.contextComponents[contextComponent.getContextComponentIndex()])console.warn("Reregisteration of context component");
-      JThreeContext.contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
+      if(JThreeContext.context.contextComponents[contextComponent.getContextComponentIndex()])console.warn("Reregisteration of context component");
+      JThreeContext.context.contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
     }
 
     /**
@@ -40,7 +45,7 @@ class JThreeContext
      */
     public static getContextComponent<T>(index:number):T
     {
-      return JThreeContext.contextComponents[index];
+      return JThreeContext.context.contextComponents[index];
     }
 }
 

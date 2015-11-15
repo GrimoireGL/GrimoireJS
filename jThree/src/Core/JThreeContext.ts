@@ -33,11 +33,8 @@ class JThreeContext extends JThreeObject
       JThreeContext.instance=JThreeContext.instance||new JThreeContext();
       return JThreeContext.instance;
     }
-    private timer: ContextTimer;
 
     private gomlLoader:GomlLoader;
-
-    private registerNextLoop:Delegates.Action0;
 
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
 
@@ -50,7 +47,7 @@ class JThreeContext extends JThreeObject
 
     private updateAnimation():void
     {
-      var time=this.timer.Time;
+      var time=NewJThreeContext.getContextComponent<Timer>(ContextComponent.Timer).Time;
       this.animaters.each(v=>{
         if(v.update(time))this.animaters.del(v);
       });
@@ -70,23 +67,16 @@ class JThreeContext extends JThreeObject
 
     constructor() {
         super();
-        this.timer = new ContextTimer();
         this.gomlLoader = new GomlLoader();
         this.canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         var lm = NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager);
-        lm.addAction(1000,()=>this.timer.updateTimer());
+        var timer = NewJThreeContext.getContextComponent<ContextTimer>(ContextComponent.Timer);
+        lm.addAction(1000,()=>timer.updateTimer());
         lm.addAction(2000,()=>this.updateAnimation());
         lm.addAction(3000,()=>this.gomlLoader.update());
         lm.addAction(4000,()=>this.canvasManager.beforeRenderAll());
         lm.addAction(5000,()=>this.SceneManager.renderAll());
         lm.addAction(6000,()=>this.canvasManager.afterRenderAll());
-    }
-
-    /**
-    * Getter of Timer
-    */
-    public get Timer(): Timer {
-        return this.timer;
     }
 }
 

@@ -1,8 +1,12 @@
 import JThreeObject = require("./Base/JThreeObject");
 import JThreeContextProxy = require("./Core/JThreeContextProxy");
 import JThreeContext = require("./Core/JThreeContext");
+import NewJThreeContext = require("./NJThreeContext");
+import ContextComponents = require("./ContextComponents");
+import Timer = require("./Core/Timer");
 import GomlTreeNodeBase = require("./Goml/GomlTreeNodeBase");
 import Delegate = require("./Base/Delegates");
+
 /**
  * Provides jQuery like API for jThree.
  */
@@ -129,7 +133,8 @@ class JThreeInterface extends JThreeObject {
           var gomlNode = JThreeInterface.getNode(<HTMLElement>e);
           if (gomlNode.attributes.isDefined(attrName)) {
             var easingFunc = JThreeInterface.Context.GomlLoader.Configurator.getEasingFunction(easing);
-            JThreeInterface.Context.addAnimater(gomlNode.attributes.getAnimater(attrName, JThreeInterface.Context.Timer.Time, duration, gomlNode.attributes.getValue(attrName), value, easingFunc, () => {
+            var timer = NewJThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
+            JThreeInterface.Context.addAnimater(gomlNode.attributes.getAnimater(attrName, timer.Time, duration, gomlNode.attributes.getValue(attrName), value, easingFunc, () => {
               if (onComplete) onComplete();
               t.dequeue();
             }));

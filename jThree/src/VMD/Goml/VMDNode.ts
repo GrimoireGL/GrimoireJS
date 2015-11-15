@@ -8,6 +8,9 @@ import Quaternion = require("../../Math/Quaternion");
 import PMXMorph = require("../../PMX/Core/PMXMorph");
 import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import PMXBoneTransformer = require("../../PMX/Core/PMXBoneTransformer");
+import JThreeContext = require("../../NJThreeContext");
+import ContextComponents = require("../../ContextComponents");
+import Timer = require("../../Core/Timer");
 class VMDNode extends GomlTreeNodeBase
 {
 	private targetPMX: PMXNode;
@@ -97,7 +100,7 @@ class VMDNode extends GomlTreeNodeBase
 	{
 		if(this.enabled&&this.autoSpeed!==0)
 		{
-			var timer = JThreeContextProxy.getJThreeContext().Timer;
+			var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
 			if(this.lastTime===null)
 			{
 				this.lastTime = timer.Time;

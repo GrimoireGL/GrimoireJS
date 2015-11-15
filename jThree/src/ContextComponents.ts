@@ -24,6 +24,11 @@ class ContextComponents
   {
     return 4;
   }
+
+  public static get Timer():number
+  {
+    return 5;
+  }
 }
 
 export = ContextComponents;
