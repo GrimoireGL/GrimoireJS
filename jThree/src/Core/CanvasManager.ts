@@ -7,20 +7,30 @@ import CanvasListChangedEventArgs = require("./CanvasListChangedEventArgs");
 import ListStateChangedType = require("./ListStateChangedType");
 class CanvasManager implements IContextComponent
 {
+  /**
+   * Implementation for IContextComponent
+   */
   public getContextComponentIndex():number
   {
     return ContextComponents.CanvasManager;
   }
 
-  constructor()
-  {
-
-  }
-
+  /**
+   * All canvas managed by jThree
+   * @type {Canvas[]}
+   */
   public canvases:Canvas[] = [];
 
+  /**
+   * Event object notifying when canvas list is changed
+   * @type {JThreeEvent<CanvasListChangedEventArgs>}
+   */
   public canvasListChanged:JThreeEvent<CanvasListChangedEventArgs> = new JThreeEvent<CanvasListChangedEventArgs>();
 
+  /**
+   * Add canvas to be managed.
+   * @param {Canvas} canvas [description]
+   */
   public addCanvas(canvas:Canvas):void
   {
     if (this.canvases.indexOf(canvas) === -1)
@@ -32,7 +42,7 @@ class CanvasManager implements IContextComponent
   }
 
   /**
-   * Remove renderer
+   * Remove canvas from managed canvas list.
    */
   public removeCanvas(canvas: Canvas): void {
       if (this.canvases.indexOf(canvas) !== -1) {

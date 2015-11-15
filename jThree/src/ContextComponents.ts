@@ -19,6 +19,11 @@ class ContextComponents
   {
     return 3;
   }
+
+  public static get LoopManager():number
+  {
+    return 4;
+  }
 }
 
 export = ContextComponents;
