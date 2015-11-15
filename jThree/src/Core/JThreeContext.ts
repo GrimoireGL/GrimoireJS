@@ -50,12 +50,7 @@ class JThreeContext extends JThreeObject
         if(v.update(time))this.animaters.del(v);
       });
     }
-    /**
-     * Getter for reference to manage entire scenes.
-     */
-    public get SceneManager(): SceneManager {
-        return ;
-    }
+
     /**
      * Getter for reference to manage gomls.
      */
