@@ -13,6 +13,9 @@ import Color3 = require("../Base/Color/Color3");
 import AreaLight = require("./Light/Impl/AreaLight");
 import SpotLight = require("./Light/Impl/SpotLight");
 import DebugScene = require("../Debug/DebugScene");
+import ISceneObjectChangedEventArgs = require("./ISceneObjectChangedEventArgs");
+
+
 /**
  * Provides scene feature.
  */
@@ -23,6 +26,8 @@ class Scene extends jThreeObjectWithID {
         this.lightRegister = new LightRegister(this);
         var sceneTree = DebugScene.setScene(this.ID);
     }
+
+    public sceneObjectStructureChanged:JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
 
     /**
      * Whether this scene needs update or not.
@@ -124,7 +129,11 @@ class Scene extends jThreeObjectWithID {
      */
     public sceneAmbient:Color3 = new Color3(0.1,0.1,0.1);
 
-    
+    public notifySceneObjectChanged(eventArg:ISceneObjectChangedEventArgs)
+    {
+      this.sceneObjectStructureChanged.fire(this,eventArg);
+      console.log("scene structure changed!")
+    }
 }
 
 export =Scene;

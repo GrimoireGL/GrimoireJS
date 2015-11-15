@@ -7,6 +7,7 @@ import JThreeCollection = require("../Base/JThreeCollection");
 import Transformer = require("./Transform/Transformer");
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import JThreeEvent = require("../Base/JThreeEvent");
+import ISceneObjectStructureChangedEventArgs = require("./ISceneObjectChangedEventArgs");
 /**
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
@@ -21,12 +22,7 @@ class SceneObject extends JThreeObjectWithID
     this.name = this.ID;
   }
 
-    private onStructureChangedEvent:JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
-
-    public onStructureChanged(handler:Delegates.Action1<SceneObject>)
-    {
-      this.onStructureChangedEvent.addListener(handler);
-    }
+    private onStructureChangedEvent:JThreeEvent<ISceneObjectStructureChangedEventArgs> = new JThreeEvent<ISceneObjectStructureChangedEventArgs>();
 
     public name:string;
 
@@ -39,9 +35,9 @@ class SceneObject extends JThreeObjectWithID
      */
     private children:JThreeCollection<SceneObject>=new JThreeCollection<SceneObject>();
 
-/**
-* Getter for children
-*/
+    /**
+    * Getter for children
+    */
     public get Children():JThreeCollection<SceneObject>{
       return this.children;
     }
@@ -51,6 +47,15 @@ class SceneObject extends JThreeObjectWithID
       this.children.insert(obj);
       obj.parent=this;
       obj.Transformer.updateTransform();
+      var eventArg = {
+        owner:this,
+        scene:this.ParentScene,
+        isAdditionalChange:true,
+        changedSceneObject:obj,
+        changedSceneObjectID:obj.ID
+      };
+      this.onStructureChangedEvent.fire(this,eventArg);
+      if(this.ParentScene)this.ParentScene.notifySceneObjectChanged(eventArg);
     }
 
     /**

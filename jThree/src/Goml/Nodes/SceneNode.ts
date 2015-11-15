@@ -1,8 +1,9 @@
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import GomlLoader = require("../GomlLoader");
 import Scene = require("../../Core/Scene");
-import JThreeContextProxy=require('../../Core/JThreeContextProxy');
-import JThreeContext=require('../../Core/JThreeContext');
+import JThreeContext = require('../../NJThreeContext');
+import SceneManager = require("../../Core/SceneManager");
+import ContextComponents = require("../../ContextComponents");
 class SceneNode extends GomlTreeNodeBase
 {
     public targetScene:Scene;
@@ -31,8 +32,7 @@ class SceneNode extends GomlTreeNodeBase
     var sceneName = this.attributes.getValue("name");
     if(sceneName == "") sceneName =null;
     this.targetScene=new Scene(sceneName);
-    var context:JThreeContext=JThreeContextProxy.getJThreeContext();
-    context.SceneManager.addScene(this.targetScene);
+    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.targetScene);
   }
 
 }
