@@ -54,7 +54,6 @@ class JThreeInit {
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
   public static j3(query: string|Delegates.Action0): JThreeInterface {
-    debugger;
     var context = JThreeContextProxy.getJThreeContext();
     if (typeof query === 'function') {//check whether this is function or not.
       context.GomlLoader.onload(query);
@@ -83,7 +82,6 @@ class JThreeInit {
     NewJThreeContext.registerContextComponent(new SceneManager());
     NewJThreeContext.registerContextComponent(new CanvasManager());
     NewJThreeContext.registerContextComponent(new ResourceManager());
-    debugger;
   if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });

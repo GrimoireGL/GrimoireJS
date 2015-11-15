@@ -150,7 +150,11 @@ Object.keys(config).forEach (suffix) ->
       return watchify (watchify) ->
         gulp
           .src path.resolve(__dirname, c.entry)
-          .pipe plumber()
+          .pipe plumber
+            errorHandler:(err)->
+              gutil.log gutil.colors.black.bgRed '【FAILED】 Compilation failed!!'
+              gutil.log err
+              @emit "end"
           .pipe watchify
             watch: watching
             extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
@@ -173,6 +177,7 @@ Object.keys(config).forEach (suffix) ->
           .on 'end', ->
             copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
             copyFiles(path.join(c.dest[0], c.name + '.map'), c.dest[1..])
+            gutil.log gutil.colors.black.bgWhite '【END OF BUILD TASK】  ' + (new Date()).toString()
           .on 'error', ->
             gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
 
