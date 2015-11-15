@@ -101,6 +101,14 @@ class Scene extends jThreeObjectWithID {
 
     public addObject(targetObject: SceneObject): void {
         this.sceneObjects.push(targetObject);
+        targetObject.ParentScene = this;
+        this.notifySceneObjectChanged({
+          owner:null,
+          scene:this,
+          isAdditionalChange:true,
+          changedSceneObject:targetObject,
+          changedSceneObjectID:targetObject.ID
+        });
     }
 
     private cameras: AssociativeArray<Camera>=new AssociativeArray<Camera>();

@@ -82,7 +82,6 @@ class SceneObject extends JThreeObjectWithID
         {
             if(!this.parent)
             {
-                console.warn("Cant't retrieve the scene contain this SceneObject.This SceneObject is not belonging to any Scene.");
                 return null;
             }else{
                 this.parentScene=this.parent.ParentScene;//Retrieve and cache parent scene
@@ -101,8 +100,8 @@ class SceneObject extends JThreeObjectWithID
     public set ParentScene(scene:Scene)
     {
         this.parentScene=scene;
-        if(this.parent.ParentScene.ID!=scene.ID)
-            console.error("The is something wrong in Scene structure.");
+        // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
+        //     console.error("There is something wrong in Scene structure.");
         //insert recursively to the children this SceneObject contains.
         this.children.each((v)=>{
             v.ParentScene=scene;
