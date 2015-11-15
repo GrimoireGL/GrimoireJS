@@ -31,11 +31,6 @@ class ResourceManager extends jThreeObject
         super();
     }
 
-    private get context(): JThreeContext
-    {
-        return JThreeContextProxy.getJThreeContext();
-    }
-
     private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
 
     public createBuffer(id: string, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType): Buffer
@@ -93,7 +88,7 @@ class ResourceManager extends jThreeObject
         return <Texture>this.textures.create(id, () =>
         {
             var tex = new Texture(source, id);
-            //tex.each(v=> v.init());//TODO I wonder tmdhere is no need to initialize all context exisiting.
+            //tex.each(v=> v.init());//TODO no need?
             return tex;
         });
     }
