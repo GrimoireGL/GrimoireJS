@@ -17,6 +17,7 @@ import ContextComponent = require("../ContextComponents");
 import NewJThreeContext = require("../NJThreeContext");
 import CanvasManager = require("./CanvasManager");
 import ContextComponents = require("../ContextComponents");
+import LoopManager = require("./LoopManager");
 class JThreeContext extends JThreeObject
 {
     private static instance:JThreeContext;
@@ -44,6 +45,8 @@ class JThreeContext extends JThreeObject
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
 
     private canvasChangedEvent:JThreeEvent<CanvasListChangedEventArgs>=new JThreeEvent<CanvasListChangedEventArgs>();
+
+    private canvasManager:CanvasManager;
 
     public addAnimater(animater:AnimaterBase):void
     {
@@ -75,53 +78,14 @@ class JThreeContext extends JThreeObject
         this.resourceManager = new ResourceManager();
         this.timer = new ContextTimer();
         this.gomlLoader = new GomlLoader();
-    }
-
-    /**
-     * Begin render loop.
-     * In most of case, you no need to call this function by your self.
-     */
-    public init() {
-      //By calling this method,Gomlloader will start to load the content related to GOML.
-      this.gomlLoader.initForPage();
-      //register the render loop.
-      //In this step, it decide how to call next frame.
-      //If the device is supporting requestAnimationFrame,
-      // render loop should be managed by requestAnimationFrame.
-      //It is rare case but, if the device is not supporting requestAnimationFrame,
-      // render loop should be managed by setTimeout.
-      //This is link to the table that shows us which browser and device can use this feature or not.
-      //http://caniuse.com/#feat=requestanimationframe
-      this.registerNextLoop=
-        window.requestAnimationFrame //if window.requestAnimationFrame is defined or undefined
-          ?
-        　()=>{//When window.requestAnimationFrame is supported
-        　window.requestAnimationFrame(this.loop.bind(this));
-        　}
-        　:
-        　()=>{//When window.requestAnimationFrame is not supported.
-        　  window.setTimeout(this.loop.bind(this),1000/60);
-        　  };
-      //starts the first loop.
-      this.loop();
-    }
-
-    /**
-    * The main loop for rendering and updating scenes managed by jThree.
-    * In most of case you no need to call this function by yourself.
-    */
-    public loop(): void {
-      //update timer it will be referenced by scenes.
-      this.timer.updateTimer();
-      DebugInfo.setInfo("frame",this.timer.CurrentFrame.toString());
-      DebugInfo.setInfo("timediff",this.timer.Time.toString());
-
-      this.updateAnimation();
-      this.gomlLoader.update();// this should be removed for loose coupling GOML and Core.
-      NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).beforeRenderAll();
-      this.SceneManager.renderAll();
-      NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).afterRenderAll();
-      this.registerNextLoop();
+        this.canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+        var lm = NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager);
+        lm.addAction(1000,()=>this.timer.updateTimer());
+        lm.addAction(2000,()=>this.updateAnimation());
+        lm.addAction(3000,()=>this.gomlLoader.update());
+        lm.addAction(4000,()=>this.canvasManager.beforeRenderAll());
+        lm.addAction(5000,()=>this.SceneManager.renderAll());
+        lm.addAction(6000,()=>this.canvasManager.afterRenderAll());
     }
 
     /**
