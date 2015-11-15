@@ -50,6 +50,7 @@
         "./jThree/src/Core/Camera/ViewCameraBase.ts",
         "./jThree/src/Core/Canvas.ts",
         "./jThree/src/Core/CanvasListChangedEventArgs.ts",
+        "./jThree/src/Core/CanvasManager.ts",
         "./jThree/src/Core/CanvasSizeChangedEventArgs.ts",
         "./jThree/src/Core/ContextManagerBase.ts",
         "./jThree/src/Core/ContextTimer.ts",

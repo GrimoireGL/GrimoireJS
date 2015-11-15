@@ -1,6 +1,8 @@
 import Canvas = require("../../../Core/Canvas");
+import JThreeContext = require("../../../NJThreeContext");
+import ContextComponents = require("../../../ContextComponents");
+import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import GomlLoader = require("../../GomlLoader");
 import RendererNodeBase = require('./RendererNodeBase');
 import Delegates = require("../../../Base/Delegates");
@@ -54,8 +56,7 @@ class RendererNode extends RendererNodeBase {
         this.canvasElement.classList.add("x-j3-c-" + this.ID);
         //initialize contexts
         this.setCanvas(Canvas.fromCanvasElement(this.canvasElement));
-        var context = JThreeContextProxy.getJThreeContext();
-        context.addCanvas(this.Canvas);
+        JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);
         // this.attributes.defineAttribute({
         //     "fullscreen":
         //     {

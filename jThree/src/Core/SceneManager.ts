@@ -4,6 +4,8 @@ import Scene = require("./Scene");
 import AssociativeArray = require('../Base/Collections/AssociativeArray')
 import IContextComponent = require("../IContextComponent");
 import ContextComponents = require("../ContextComponents");
+import CanvasManager = require("./CanvasManager");
+
 /**
 * The class for managing entire scenes.
 */
@@ -54,12 +56,10 @@ class SceneManager extends jThreeObject implements IContextComponent
      * You don't need to call this method maually in most case.
      */
     public renderAll(): void {
-        JThreeContextProxy.getJThreeContext().Canvases.forEach((c)=>{c.beforeRenderAll()});
         this.scenes.forEach((v) => {
             v.update();
             v.render();
         });
-        JThreeContextProxy.getJThreeContext().Canvases.forEach((c)=>{c.afterRenderAll()});
     }
 
     public toString():string

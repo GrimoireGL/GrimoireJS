@@ -8,6 +8,9 @@ import ListStateChangedType = require("../ListStateChangedType");
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ResourceWrapper = require('./ResourceWrapper');
 import JThreeContextProxy = require("../JThreeContextProxy");
+import NJThreeContext = require("../../NJThreeContext");
+import CanvasManager = require("../CanvasManager");
+import ContextComponents = require("../../ContextComponents");
 /**
  * Provides context difference abstraction.
  */
@@ -22,12 +25,14 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     constructor() {
         super();
         this.context = JThreeContextProxy.getJThreeContext();
+        var canvasManager = NJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         //Initialize resources for the renderers already subscribed.
-        this.context.onRendererChanged(this.rendererChanged.bind(this));
+        canvasManager.canvasListChanged.addListener(this.rendererChanged.bind(this));
     }
 
     protected initializeForFirst() {
-        this.context.Canvases.forEach((v) => {
+      var canvasManager = NJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+        canvasManager.canvases.forEach((v) => {
             this.cachedObject.set(v.ID, this.getInstanceForRenderer(v));
         });
     }

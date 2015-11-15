@@ -15,6 +15,8 @@ import JThreeEvent = require("../Base/JThreeEvent");
 import DebugInfo = require("../Debug/DebugInfo");
 import ContextComponent = require("../ContextComponents");
 import NewJThreeContext = require("../NJThreeContext");
+import CanvasManager = require("./CanvasManager");
+import ContextComponents = require("../ContextComponents");
 class JThreeContext extends JThreeObject
 {
     private static instance:JThreeContext;
@@ -30,8 +32,6 @@ class JThreeContext extends JThreeObject
       JThreeContext.instance=JThreeContext.instance||new JThreeContext();
       return JThreeContext.instance;
     }
-
-    private canvasManagers: Canvas[] = [];
 
     private resourceManager: ResourceManager;
 
@@ -61,7 +61,7 @@ class JThreeContext extends JThreeObject
      * Getter for reference to manage entire scenes.
      */
     public get SceneManager(): SceneManager {
-        return <SceneManager>NewJThreeContext.getContextComponent(ContextComponent.SceneManager);
+        return NewJThreeContext.getContextComponent<SceneManager>(ContextComponent.SceneManager);
     }
     /**
      * Getter for reference to manage gomls.
@@ -118,16 +118,12 @@ class JThreeContext extends JThreeObject
 
       this.updateAnimation();
       this.gomlLoader.update();// this should be removed for loose coupling GOML and Core.
+      NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).beforeRenderAll();
       this.SceneManager.renderAll();
+      NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).afterRenderAll();
       this.registerNextLoop();
     }
 
-    /**
-     * Getter of canvas renderer.
-     */
-    public get Canvases(): Canvas[] {
-        return this.canvasManagers;
-    }
     /**
     * Getter of Timer
     */
@@ -140,40 +136,6 @@ class JThreeContext extends JThreeObject
      */
     public get ResourceManager(): ResourceManager {
         return this.resourceManager;
-    }
-
-    /**
-     * Add renderers to be managed by jThree
-     */
-    public addCanvas(renderer: Canvas):void {
-        if (this.canvasManagers.indexOf(renderer) === -1) {
-            this.canvasManagers.push(renderer);
-            this.canvasChangedEvent.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Add,renderer));
-            GLSpecManager.debugDisplayGLSpecs();
-        }
-    }
-
-    /**
-     * Remove renderer
-     */
-    public removeCanvas(renderer: Canvas): void {
-        if (this.canvasManagers.indexOf(renderer) !== -1) {
-            for (var i = 0; i < this.canvasManagers.length; i++) {
-                if (this.canvasManagers[i] === renderer)
-                {
-                    this.canvasManagers.splice(i, 1);
-                    break;
-                }
-            }
-            this.canvasChangedEvent.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Delete,renderer));
-        }
-    }
-
-    /**
-     * add function as renderer changed event handler.
-     */
-    public onRendererChanged(func:Delegates.Action2<any,CanvasListChangedEventArgs>): void {
-        this.canvasChangedEvent.addListener(func);
     }
 }
 

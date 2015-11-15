@@ -8,7 +8,7 @@ import agent = require("superagent");
 import JThreeLogger = require("./Base/JThreeLogger");
 import NewJThreeContext = require("./NJThreeContext");
 import SceneManager = require("./Core/SceneManager");
-
+import CanvasManager = require("./Core/CanvasManager");
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -74,7 +74,7 @@ class JThreeInit {
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
     NewJThreeContext.init();
     NewJThreeContext.registerContextComponent(new SceneManager());
-
+    NewJThreeContext.registerContextComponent(new CanvasManager());
   if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });

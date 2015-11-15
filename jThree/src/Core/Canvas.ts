@@ -1,13 +1,14 @@
 import ContextManagerBase = require("./ContextManagerBase");
 import WebGLContextWrapper = require("../Wrapper/WebGLContextWrapper");
 import Rectangle = require("../Math/Rectangle");
-import JThreeContextProxy = require("./JThreeContextProxy");
+import JThreeContext = require("../NJThreeContext");
 import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
 import Delegates = require('../Base/Delegates');
-
+import ContextComponents = require("../ContextComponents");
+import CanvasManager = require("./CanvasManager");
 /**
  * Provides some of feature managing canvas.
  */
@@ -24,12 +25,10 @@ class Canvas extends ContextManagerBase {
             canvasElement.onmousemove = canvas.onMouseMove.bind(canvas);
             canvasElement.onmouseenter = canvas.onMouseEnter.bind(canvas);
             canvasElement.onmouseleave = canvas.onMouseLeave.bind(canvas);
-
-            var instance = JThreeContextProxy.getJThreeContext();
             canvas.canvasElement = canvasElement;
             canvas.lastHeight = canvasElement.height;
             canvas.lastWidth = canvasElement.width;
-            instance.addCanvas(canvas);
+            JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(canvas);
             //add div for monitoring size changing in canvas
             return canvas;
         } catch (e) {

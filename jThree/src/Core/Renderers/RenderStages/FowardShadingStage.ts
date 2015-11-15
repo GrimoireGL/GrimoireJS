@@ -36,7 +36,6 @@ class FowardShadingStage extends RenderStageBase
 		}], () => {
 		    this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 		},()=>{
-				this.Renderer.ContextManager.applyClearColor();
 				this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
 			});
 	}

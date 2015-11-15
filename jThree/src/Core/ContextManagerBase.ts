@@ -82,6 +82,7 @@ class ContextManagerBase extends jThreeObjectId {
 
 
     public applyClearColor() {
+      debugger;
         this.glContext.ClearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
     }
 }

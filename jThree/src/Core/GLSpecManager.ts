@@ -1,18 +1,16 @@
-import JThreeContextProxy = require("./JThreeContextProxy");
 import GetParameterType = require("../Wrapper/GetParameterType");
 import DebugInfo = require('../Debug/DebugInfo');
+import JThreeContext = require("../NJThreeContext");
+import CanvasManager = require("./CanvasManager");
+import ContextComponents = require("../ContextComponents");
 class GLSpecManager
 {
-	private static get Context()
-	{
-		return JThreeContextProxy.getJThreeContext();
-	}
-
 	private static get GLContext()
 	{
-		if(this.Context.Canvases.length>0)
+		var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+		if(canvasManager.canvases.length>0)
 		{
-			return this.Context.Canvases[0].GLContext;
+			return canvasManager.canvases[0].GLContext;
 		}else{
 			console.error("can't obtain the gl context to check gl spec");
 		}

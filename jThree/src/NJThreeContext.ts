@@ -38,7 +38,7 @@ class JThreeContext
      * @param  {number}            index context component index of a context component you want to obtain.
      * @return {IContextComponent}      context component related to the argument
      */
-    public static getContextComponent(index:number):IContextComponent
+    public static getContextComponent<T>(index:number):T
     {
       return JThreeContext.contextComponents[index];
     }
