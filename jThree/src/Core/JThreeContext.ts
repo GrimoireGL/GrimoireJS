@@ -1,4 +1,3 @@
-import GLSpecManager = require("./GLSpecManager");
 ﻿import ContextTimer = require("./ContextTimer");
 import Timer = require("./Timer");
 import GomlLoader = require("../Goml/GomlLoader");
@@ -12,7 +11,6 @@ import ListStateChangedType = require("./ListStateChangedType");
 import AnimaterBase = require("../Goml/Animater/AnimaterBase");
 import JThreeCollection = require("../Base/JThreeCollection");
 import JThreeEvent = require("../Base/JThreeEvent");
-import DebugInfo = require("../Debug/DebugInfo");
 import ContextComponent = require("../ContextComponents");
 import NewJThreeContext = require("../NJThreeContext");
 import CanvasManager = require("./CanvasManager");

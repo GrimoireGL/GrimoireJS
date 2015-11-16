@@ -1,5 +1,4 @@
 import GetParameterType = require("../Wrapper/GetParameterType");
-import DebugInfo = require('../Debug/DebugInfo');
 import JThreeContext = require("../NJThreeContext");
 import CanvasManager = require("./CanvasManager");
 import ContextComponents = require("../ContextComponents");
@@ -96,21 +95,6 @@ class GLSpecManager
 	public static get MaxViewportDims()
 	{
 		return GLSpecManager.maxViewportDims = GLSpecManager.getParameterOrCached(GLSpecManager.maxViewportDims,GetParameterType.MaxViewportDims);
-	}
-
-	public static debugDisplayGLSpecs()
-	{
-		DebugInfo.setInfo("Maximum combined texture unit",GLSpecManager.MaxCombinedTextureUnits);
-		DebugInfo.setInfo("Maximum cubemap texture size",GLSpecManager.MaxCubeMapTextureSize)
-		DebugInfo.setInfo("Maximum fragment uniform vectors",GLSpecManager.MaxFragmentUniformVectors);
-		DebugInfo.setInfo("Maximum rederbuffer size",GLSpecManager.MaxRenderbufferSize);
-		DebugInfo.setInfo("Maximum texture image units",GLSpecManager.MaxTextureImageUnits);
-		DebugInfo.setInfo("Maximum texture size",GLSpecManager.MaxTextureSize);
-		DebugInfo.setInfo("Maximum varying vectors",GLSpecManager.MaxVaryingVectors);
-		DebugInfo.setInfo("Maximum vertex attribute",GLSpecManager.MaxVertexAttribs);
-		DebugInfo.setInfo("Maximum VTF units",GLSpecManager.MaxVertexTextureImageUnits);
-		DebugInfo.setInfo("Maximum vertex uniform vectors",GLSpecManager.MaxVertexUniformVectors);
-		DebugInfo.setInfo("Maximum viewport dimension",GLSpecManager.MaxViewportDims);
 	}
 }
 

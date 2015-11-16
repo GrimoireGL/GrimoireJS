@@ -37,7 +37,6 @@ class CanvasManager implements IContextComponent
     {
         this.canvases.push(canvas);
         this.canvasListChanged.fire(this,new CanvasListChangedEventArgs(ListStateChangedType.Add,canvas));
-        GLSpecManager.debugDisplayGLSpecs();//TODO remove this
     }
   }
 

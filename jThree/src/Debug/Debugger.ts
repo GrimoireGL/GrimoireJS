@@ -2,6 +2,7 @@ import IContextComponent = require("../IContextComponent");
 import ContextComponents = require("../ContextComponents");
 import DebuggerModuleBase = require("./Modules/DebuggerModuleBase");
 import SceneStructureDebugger = require("./Modules/SceneStructureDebugger");
+import GLSpecDebugger = require("./Modules/GLSpecDebugger");
 import DebuggerAPI = require("./DebuggerAPI");
 class Debugger implements IContextComponent
 {
@@ -10,7 +11,7 @@ class Debugger implements IContextComponent
     return ContextComponents.Debugger;
   }
 
-  private debuggerModules:DebuggerModuleBase[] = [new SceneStructureDebugger()];
+  private debuggerModules:DebuggerModuleBase[] = [new SceneStructureDebugger(),new GLSpecDebugger()];
 
   private debuggerAPI:DebuggerAPI;
 
@@ -30,6 +31,11 @@ class Debugger implements IContextComponent
       this.debuggerModules.forEach(m=>m.attach(this))
       console.warn("Debugger API was attached.");
     };
+  }
+
+  public setInfo(key:string,val:number|string)
+  {
+    this.debuggerAPI.info.setInfo(key,val);
   }
 }
 

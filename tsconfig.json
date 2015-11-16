@@ -160,6 +160,7 @@
         "./jThree/src/Debug/DebugInfo.ts",
         "./jThree/src/Debug/DebugScene.ts",
         "./jThree/src/Debug/Modules/DebuggerModuleBase.ts",
+        "./jThree/src/Debug/Modules/GLSpecDebugger.ts",
         "./jThree/src/Debug/Modules/SceneStructureDebugger.ts",
         "./jThree/src/Exceptions.ts",
         "./jThree/src/Goml/Animater/AnimaterBase.ts",
