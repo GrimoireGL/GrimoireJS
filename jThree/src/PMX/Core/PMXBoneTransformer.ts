@@ -1,4 +1,3 @@
-import DebugForm = require("../../Debug/DebugForm");
 import Transformer = require('../../Core/Transform/Transformer');
 import SceneObject = require('../../Core/SceneObject');
 import PMXModel = require('./PMXModel');

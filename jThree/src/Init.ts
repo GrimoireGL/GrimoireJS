@@ -13,6 +13,7 @@ import LoopManager = require("./Core/LoopManager");
 import ContextComponent = require("./ContextComponents");
 import ResourceManager = require("./Core/ResourceManager");
 import ContextTimer = require("./Core/ContextTimer");
+import Debugger = require("./Debug/Debugger");
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -82,6 +83,7 @@ class JThreeInit {
     NewJThreeContext.registerContextComponent(new SceneManager());
     NewJThreeContext.registerContextComponent(new CanvasManager());
     NewJThreeContext.registerContextComponent(new ResourceManager());
+    NewJThreeContext.registerContextComponent(new Debugger());
   if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });
@@ -94,6 +96,7 @@ class JThreeInit {
     });
     j3.GomlLoader.initForPage();
     NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager).begin();
+    NewJThreeContext.getContextComponent<Debugger>(ContextComponent.Debugger).attach();
   }
 }
 export = JThreeInit;

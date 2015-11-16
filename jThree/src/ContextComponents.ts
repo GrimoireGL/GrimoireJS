@@ -29,6 +29,11 @@ class ContextComponents
   {
     return 5;
   }
+
+  public static get Debugger():number
+  {
+    return 6;
+  }
 }
 
 export = ContextComponents;
