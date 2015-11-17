@@ -22,7 +22,7 @@
       <pmx scale="0.5" src="/GUMI/GUMI.pmx">
         <vmd id="melt" frame="0" src="/_debug/melt.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
-      <mesh geo="grid" mat="red" scale="10"/>
+      <mesh geo="grid" mat="red" scale="10" position="1.1,0,0"/>
       <mesh geo="grid" mat="green" scale="10" rotation="z(90d)"/>
       <mesh geo="grid" mat="blue" scale="10" rotation="x(90d)"/>
       <mesh geo="cube" scale="1" position="0,0,0" mat="red" rotation="y(60d)"/>

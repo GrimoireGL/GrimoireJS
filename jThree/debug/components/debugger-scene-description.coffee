@@ -11,7 +11,7 @@ class DebuggerSceneDescription extends React.Component
       return <h1>There is no selected scene object</h1>
     return <div>
              <Title object={@props.object}/>
-             <Transform/>
+             <Transform object={@props.object}/>
            </div>
 
 
