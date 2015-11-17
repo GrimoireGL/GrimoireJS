@@ -5,6 +5,8 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray')
 import IContextComponent = require("../IContextComponent");
 import ContextComponents = require("../ContextComponents");
 import CanvasManager = require("./CanvasManager");
+import JThreeEvent = require("../Base/JThreeEvent");
+import ISceneListChangedEventArgs = require("./ISceneListChangedEventArgs");
 
 /**
 * The class for managing entire scenes.
@@ -26,13 +28,25 @@ class SceneManager extends jThreeObject implements IContextComponent
     private scenes:AssociativeArray<Scene> = new AssociativeArray<Scene>();
 
     /**
+     * Event object notifying when scene list was changed.
+     * @type {JThreeEvent<ISceneListChangedEventArgs>}
+     */
+    public sceneListChanged:JThreeEvent<ISceneListChangedEventArgs> = new JThreeEvent<ISceneListChangedEventArgs>();
+
+    /**
     * Add new scene to be managed.
     */
     public addScene(scene: Scene): void {
         if (!this.scenes.has(scene.ID)) {
             this.scenes.set(scene.ID, scene);
+            this.sceneListChanged.fire(this,{
+              owner:this,
+              isAdditionalChange:true,
+              changedScene:scene
+            });
         }
     }
+
     /**
      * All scene list this class is managing.
      */
@@ -47,6 +61,11 @@ class SceneManager extends jThreeObject implements IContextComponent
     public removeScene(scene: Scene): void {
         if (this.scenes.has(scene.ID)) {
             this.scenes.delete(scene.ID);
+            this.sceneListChanged.fire(this,{
+              owner:this,
+              isAdditionalChange:false,
+              changedScene:scene
+            });
         }
     }
 

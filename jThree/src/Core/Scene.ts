@@ -12,7 +12,6 @@ import DirectionalLight = require("./Light/Impl/DirectionalLight");
 import Color3 = require("../Base/Color/Color3");
 import AreaLight = require("./Light/Impl/AreaLight");
 import SpotLight = require("./Light/Impl/SpotLight");
-import DebugScene = require("../Debug/DebugScene");
 import ISceneObjectChangedEventArgs = require("./ISceneObjectChangedEventArgs");
 
 
@@ -24,7 +23,6 @@ class Scene extends jThreeObjectWithID {
         super(id);
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
-        var sceneTree = DebugScene.setScene(this.ID);
     }
 
     public sceneObjectStructureChanged:JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
@@ -140,7 +138,6 @@ class Scene extends jThreeObjectWithID {
     public notifySceneObjectChanged(eventArg:ISceneObjectChangedEventArgs)
     {
       this.sceneObjectStructureChanged.fire(this,eventArg);
-      console.log("scene structure changed!")
     }
 }
 

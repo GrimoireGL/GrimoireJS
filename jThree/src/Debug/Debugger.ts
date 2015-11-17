@@ -13,7 +13,7 @@ class Debugger implements IContextComponent
 
   private debuggerModules:DebuggerModuleBase[] = [new SceneStructureDebugger(),new GLSpecDebugger()];
 
-  private debuggerAPI:DebuggerAPI;
+  public debuggerAPI:DebuggerAPI;
 
   constructor()
   {
