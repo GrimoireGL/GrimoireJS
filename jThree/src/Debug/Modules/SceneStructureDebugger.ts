@@ -14,7 +14,7 @@ class SceneStructureDebugger extends DebuggerModuleBase
         var scenesAPI = debug.debuggerAPI.scenes.setScene(v.changedScene.ID,v.changedScene);
         v.changedScene.sceneObjectStructureChanged.addListener((o2,v2)=>
         {
-
+          debug.debuggerAPI.scenes.setScene(v.changedScene.ID,v.changedScene);
         });
       }else
       {

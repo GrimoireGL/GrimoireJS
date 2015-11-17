@@ -294,7 +294,7 @@
         "./jThree/src/PMX/PMXVertex.ts",
         "./jThree/src/PMX/PMXVerticies.ts",
         "./jThree/src/PMX/SDEF.ts",
-        "./jThree/src/Shapes/BasicObjectMesh.ts",
+        "./jThree/src/Shapes/BasicMeshObject.ts",
         "./jThree/src/Shapes/Mesh.ts",
         "./jThree/src/VMD/Goml/VMDNode.ts",
         "./jThree/src/VMD/Parser/VMDBoneStatus.ts",

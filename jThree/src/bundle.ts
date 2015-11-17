@@ -232,7 +232,7 @@
 /// <reference path="PMX/PMXVertex.ts" />
 /// <reference path="PMX/PMXVerticies.ts" />
 /// <reference path="PMX/SDEF.ts" />
-/// <reference path="Shapes/BasicObjectMesh.ts" />
+/// <reference path="./Shapes/BasicMeshObject.ts"/>
 /// <reference path="Shapes/Mesh.ts" />
 /// <reference path="VMD/Goml/VMDNode.ts" />
 /// <reference path="VMD/Parser/VMDBoneStatus.ts" />

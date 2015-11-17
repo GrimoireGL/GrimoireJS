@@ -8,10 +8,10 @@ import TemplateNode = require("../Templates/TemplateNode");
 
 class ObjectNode extends SceneObjectNodeBase
 {
-  private targetMesh:Mesh;
-  
-  private targetTemplate:TemplateNode;  
-  
+  private targetMesh:SceneObject;
+
+  private targetTemplate:TemplateNode;
+
   constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
       super(elem,loader,parent,parentSceneNode,parentObject);
@@ -25,7 +25,7 @@ class ObjectNode extends SceneObjectNodeBase
 
   protected ConstructTarget():SceneObject
   {
-    this.targetMesh=new Mesh(null,null);
+    this.targetMesh=new SceneObject();
     return this.targetMesh;
   }
 

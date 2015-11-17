@@ -3,7 +3,7 @@ import Material = require("../Core/Materials/Material");
 import Mesh = require('./Mesh');
 import GBufferMaterial = require("../Core/Materials/GBufferMaterial");
 import ShadowMapMaterial = require("../Core/Materials/ShadowMapMaterial");
-class BasicObjectMesh extends Mesh
+class BasicMeshObject extends Mesh
     {
         constructor(geometry:Geometry,mat:Material)
         {
@@ -13,4 +13,4 @@ class BasicObjectMesh extends Mesh
         }
     }
 
-export=BasicObjectMesh;
+export=BasicMeshObject;

@@ -33,6 +33,7 @@ class PMXBone extends SceneObject {
 		this.targetModel = model;
 		this.targetSkeleton = skeleton;
 		this.boneIndex = boneIndex;
+		this.name = this.TargetBoneData.boneName;
 	}
 
 	/**
