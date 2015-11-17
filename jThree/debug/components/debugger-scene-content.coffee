@@ -8,7 +8,7 @@ class DebuggerSceneContent extends React.Component
   render:->
     <div>
       <div style={styles.treeContainer}>
-        <SceneTree rootAPI={@props.rootAPI}/>
+        <SceneTree structure={@props.structure}/>
       </div>
       <div style={styles.infoContainer}>
       </div>

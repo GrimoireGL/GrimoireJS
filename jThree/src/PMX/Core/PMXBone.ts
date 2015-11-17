@@ -62,7 +62,7 @@ class PMXBone extends SceneObject {
 		var result = "";
 		for (var i = 0; i < layer; i++)result += "  ";
 		result += this.toString() + "\n";
-		var arr = this.Children.asArray();
+		var arr = this.Children;
 		for (var index = 0; index < arr.length; index++) {
 			if (typeof arr[index] !== "undefined") result += (<PMXBone>arr[index]).structureToString(layer + 1);
 		}

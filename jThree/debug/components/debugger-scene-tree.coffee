@@ -6,8 +6,12 @@ class DebuggerSceneTree extends React.Component
     super props
 
   render:->
+    debugger;
+    children = [];
+    for v in @props.structure
+      children.push(<SceneTreeNode children={v.children} nodeLabel={v.name} key={v.ID}/>)
     <div>
-      <SceneTreeNode api={@props.rootAPI}/>
+      {children}
     </div>
 
 module.exports = DebuggerSceneTree;

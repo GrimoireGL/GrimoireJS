@@ -33,18 +33,18 @@ class SceneObject extends JThreeObjectWithID
     /**
      * Contains the children.
      */
-    private children:JThreeCollection<SceneObject>=new JThreeCollection<SceneObject>();
+    private children:SceneObject[] =[];
 
     /**
     * Getter for children
     */
-    public get Children():JThreeCollection<SceneObject>{
+    public get Children():SceneObject[]{
       return this.children;
     }
 
     public addChild(obj:SceneObject):void
     {
-      this.children.insert(obj);
+      this.children.push(obj);
       obj.parent=this;
       obj.Transformer.updateTransform();
       var eventArg = {
@@ -103,7 +103,7 @@ class SceneObject extends JThreeObjectWithID
         // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
         //     console.error("There is something wrong in Scene structure.");
         //insert recursively to the children this SceneObject contains.
-        this.children.each((v)=>{
+        this.children.forEach((v)=>{
             v.ParentScene=scene;
         });
     }
@@ -175,7 +175,7 @@ class SceneObject extends JThreeObjectWithID
     {
       if(this.children)
       {
-      this.children.each(t=> t.callRecursive(action));
+      this.children.forEach(t=> t.callRecursive(action));
       }
       action(this);
     }

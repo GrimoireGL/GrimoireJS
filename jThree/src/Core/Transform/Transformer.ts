@@ -135,7 +135,7 @@ class Transformer extends JThreeObject
         this.hasChanged =true;
         this.updateTransformMatricies();
         //notify update to childrens
-        if (this.linkedObject.Children&&this.NeedUpdateChildren) this.linkedObject.Children.each((v) =>
+        if (this.linkedObject.Children&&this.NeedUpdateChildren) this.linkedObject.Children.forEach((v) =>
         {
             v.Transformer.updateTransform();
         });

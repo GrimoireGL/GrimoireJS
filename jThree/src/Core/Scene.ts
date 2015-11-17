@@ -53,7 +53,7 @@ class Scene extends jThreeObjectWithID {
      */
     public update(): void {
         if (!this.enabled) return;
-        this.sceneObjects.forEach(v=> v.update());
+        this.children.forEach(v=> v.update());
     }
 
     /**
@@ -65,7 +65,7 @@ class Scene extends jThreeObjectWithID {
         this.renderers.forEach((r) => {
             r.beforeRender();
             this.lightRegister.updateLightForRenderer(r);
-            r.RenderStageManager.processRender(this,this.sceneObjects);
+            r.RenderStageManager.processRender(this,this.children);
             r.afterRender();
         });
     }
@@ -89,7 +89,7 @@ class Scene extends jThreeObjectWithID {
         return this.renderers;
     }
 
-    private sceneObjects: SceneObject[] = [];
+    private children: SceneObject[] = [];
 
 
     public addLight(light:LightBase):void
@@ -98,7 +98,7 @@ class Scene extends jThreeObjectWithID {
     }
 
     public addObject(targetObject: SceneObject): void {
-        this.sceneObjects.push(targetObject);
+        this.children.push(targetObject);
         targetObject.ParentScene = this;
         this.notifySceneObjectChanged({
           owner:null,
@@ -127,7 +127,7 @@ class Scene extends jThreeObjectWithID {
 
     public toString(): string {
         console.log(this);
-        return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.sceneObjects.length}\n`;
+        return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.children.length}\n`;
     }
 
     /**

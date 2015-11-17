@@ -1,3 +1,4 @@
+import Scene = require("../Core/Scene");
 interface DebuggerInfomationAPI
 {
   setInfo(key:string,data:number|string);
@@ -5,7 +6,7 @@ interface DebuggerInfomationAPI
 
 interface DebuggerSceneStructureAPI
 {
-  setScene(sceneName:string);
+  setScene(sceneName:string,scene:Scene);
 }
 interface DebuggerAPI
 {

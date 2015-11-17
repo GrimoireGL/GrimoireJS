@@ -4,16 +4,14 @@ class DebuggerSceneTreeNode extends React.Component
   constructor:(props)->
     super props
     @state =
-      api:@props.api
+      children:@props.children
+      nodeLabel:@props.nodeLabel
 
   render:()->
     children = [];
-    for v in @state.api.children
-      children.push(<DebuggerSceneTreeNode api={v}/>)
-    @props.api.onUpdate ()=>
-      @setState
-        api:@props.api
-    <TreeNode nodeLabel={@state.api.name}>
+    for v in @state.children
+      children.push(<DebuggerSceneTreeNode children={v.children} nodeLabel={v.name} key={v.ID}/>)
+    <TreeNode nodeLabel={@state.nodeLabel}>
       {children}
     </TreeNode>
 

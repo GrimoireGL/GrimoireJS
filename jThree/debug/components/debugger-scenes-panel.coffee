@@ -27,7 +27,7 @@ class DebuggerScenesPanel extends React.Component
      </Tab.Panel>
     else
      <Tab.Panel title={k} key={k}>
-       <SceneContent sceneName={k} rootAPI={v.rootAPI}/>
+       <SceneContent sceneName={k} structure={v.structure}/>
      </Tab.Panel>
 
 class DebuggerScenesAPI
@@ -40,18 +40,14 @@ class DebuggerScenesAPI
     }
   }
 
-  @setScene:(sceneName)->
+  @setScene:(sceneName,sceneStructure)->
     #if there was NoScene, delete this
     if DebuggerScenesAPI.scenes["NoScene"]?
       delete DebuggerScenesAPI.scenes["NoScene"];
     #Initialize root api
     scenes = DebuggerScenesAPI.scenes;
-    api = new DebuggerSceneContentAPI(sceneName);
-    api.onUpdate (api)->
-      DebuggerScenesAPI.scenesPanel.setState({scenes:DebuggerScenesAPI.scenes})
-    scenes[sceneName] = {rootAPI:api}
-    api.notifyUpdate()
-    api
+    scenes[sceneName] = {structure:sceneStructure.children}
+    DebuggerScenesAPI.scenesPanel.setState({scenes:DebuggerScenesAPI.scenes})
 
 class DebuggerSceneContentAPI
   constructor:(name)->
