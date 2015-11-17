@@ -9,6 +9,7 @@ class DebuggerSceneDescriptionTransform extends React.Component
       rotation:@obtainEular(@lastObject.transformer.rotation)
       scale:@lastObject.transformer.scale
   render:->
+    console.log @state.rotation
     <div>
       <Vector3 title="position" value={@state.position} onValueChanged={@onPositionChange}/>
       <Vector3 title="rotation" value={@state.rotation} onValueChanged={@onRotationChange}/>
@@ -39,9 +40,6 @@ class DebuggerSceneDescriptionTransform extends React.Component
     @updateObjectState @props.object
 
   onTransformUpdate:()=>
-    if @isRotationChange
-      @isRotationChange = false
-      return
     @updateObjectState @props.object
 
   componentWillReceiveProps:(prop)=>
@@ -61,6 +59,10 @@ class DebuggerSceneDescriptionTransform extends React.Component
     eul = quat.FactoringQuaternionZXY()
     {X:@toDegree(eul.x),Y:@toDegree(eul.y),Z:@toDegree(eul.z)}
 
+  copyXYZ:(s)=>
+    X:s.X
+    Y:s.Y
+    Z:s.Z
 
   toDegree:(n)=>
     360 * n / (2 * Math.PI)
