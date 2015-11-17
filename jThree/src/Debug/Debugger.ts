@@ -3,6 +3,7 @@ import ContextComponents = require("../ContextComponents");
 import DebuggerModuleBase = require("./Modules/DebuggerModuleBase");
 import SceneStructureDebugger = require("./Modules/SceneStructureDebugger");
 import GLSpecDebugger = require("./Modules/GLSpecDebugger");
+import RendererDebugger = require("./Modules/RendererDebugger");
 import DebuggerAPI = require("./DebuggerAPI");
 class Debugger implements IContextComponent
 {
