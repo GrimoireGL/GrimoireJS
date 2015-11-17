@@ -53,15 +53,15 @@ class Vector3 extends VectorBase {
     }
 
     public set X(x: number) {
-        this.rawElements[0] = x;
+        this.rawElements[0] = +x;
     }
 
     public set Y(y: number) {
-        this.rawElements[1] = y;
+        this.rawElements[1] = +y;
     }
 
     public set Z(z: number) {
-        this.rawElements[2] = z;
+        this.rawElements[2] = +z;
     }
 
     public static dot(v1: Vector3, v2: Vector3): number {

@@ -143,7 +143,7 @@ class Quaternion extends JThreeObject
         axisVec[1] = axis.Y;
         axisVec[2] = axis.Z;
         var newQuat = glm.quat.create();
-        return new Quaternion(glm.quat.setAxisAngle(newQuat, axisVec, angle));
+        return new Quaternion(glm.quat.setAxisAngle(newQuat, axisVec, +angle));
     }
 
     public static Euler(x: number, y: number, z: number): Quaternion
@@ -160,7 +160,7 @@ class Quaternion extends JThreeObject
     public static Slerp(q1: Quaternion, q2: Quaternion, t: number): Quaternion
     {
         var newQuat = glm.quat.create();
-        return new Quaternion(glm.quat.slerp(newQuat, q1.rawElements, q2.rawElements, t));
+        return new Quaternion(glm.quat.slerp(newQuat, q1.rawElements, q2.rawElements, +t));
     }
 
     /**
