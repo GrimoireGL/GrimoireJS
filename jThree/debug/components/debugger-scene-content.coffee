@@ -8,11 +8,14 @@ class DebuggerSceneContent extends React.Component
   render:->
     <div>
       <div style={styles.treeContainer}>
-        <SceneTree structure={@props.structure}/>
+        <SceneTree structure={@props.structure} selectionChanged={@selectionChanged}/>
       </div>
       <div style={styles.infoContainer}>
       </div>
     </div>
+
+  selectionChanged:(scene)->
+    console.log scene.name
 
 styles =
   treeContainer:

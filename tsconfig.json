@@ -158,7 +158,6 @@
         "./jThree/src/Core/Transform/Transformer.ts",
         "./jThree/src/Debug/Debugger.ts",
         "./jThree/src/Debug/DebuggerAPI.ts",
-        "./jThree/src/Debug/DebugScene.ts",
         "./jThree/src/Debug/Modules/DebuggerModuleBase.ts",
         "./jThree/src/Debug/Modules/GLSpecDebugger.ts",
         "./jThree/src/Debug/Modules/SceneStructureDebugger.ts",
