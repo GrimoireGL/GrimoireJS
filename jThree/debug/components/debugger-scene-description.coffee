@@ -1,4 +1,5 @@
 React = require 'react'
+Title = require './debugger-scene-description-title'
 
 class DebuggerSceneDescription extends React.Component
 
@@ -8,8 +9,9 @@ class DebuggerSceneDescription extends React.Component
   render:->
     if !@props.object
       return <h1>There is no selected scene object</h1>
-    <div>
-      <h1>{@props.object.name}</h1>
-    </div>
+    return <div>
+             <Title object={@props.object}/>
+           </div>
+
 
 module.exports = DebuggerSceneDescription;
