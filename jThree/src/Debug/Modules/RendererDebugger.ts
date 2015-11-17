@@ -4,6 +4,7 @@ import SceneManager = require("../../Core/SceneManager");
 import JThreeContext = require("../../NJThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import Scene = require("../../Core/Scene");
+import RendererBase = require("../../Core/Renderers/RendererBase");
 class RendererDebugger extends DebuggerModuleBase
 {
   public attach(debug:Debugger)
@@ -27,16 +28,25 @@ class RendererDebugger extends DebuggerModuleBase
 
   private attachToScene(scene:Scene,debug:Debugger)
   {
+    scene.Renderers.forEach(r=>
+    {
+      this.attachToRenderer(r,debug);
+    });
     scene.rendererListChanged.addListener((o,h)=>
     {
       if(h.isAdditionalChange)
       {
-
+        this.attachToRenderer(h.renderer,debug);
       }else
       {
         //TODO add code for delete
       }
     });
+  }
+
+  private attachToRenderer(renderer:RendererBase,debug:Debugger)
+  {
+    debug.debuggerAPI.renderers.addRenderer(renderer);
   }
 }
 
