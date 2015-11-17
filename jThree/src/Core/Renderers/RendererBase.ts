@@ -36,9 +36,10 @@ class RendererBase extends jThreeObjectWithID
         this.RenderStageManager.StageChains.push.apply(this.RenderStageManager.StageChains,configurator.getStageChain(this));
         this.RenderStageManager.TextureBuffers = configurator.TextureBuffers;
         this.RenderStageManager.generateAllTextures();
+        this.name = this.ID;
     }
 
-
+    public name:string;
     /**
      * The camera reference this renderer using for draw.
      */

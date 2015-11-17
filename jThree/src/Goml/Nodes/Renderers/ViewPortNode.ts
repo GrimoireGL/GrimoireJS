@@ -118,6 +118,15 @@ class ViewPortNode extends GomlTreeNodeBase {
         "config":{
           converter:"string",
           value:"default"
+        },
+        "name":
+        {
+          converter:"string",
+          value:undefined,
+          handler:(v)=>
+          {
+            if(v.Value)this.targetRenderer.name = v.Value;
+          }
         }
       });
       this.attributes.applyDefaultValue();
