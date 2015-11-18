@@ -11,6 +11,7 @@ class RendererPanelTitle extends React.Component
         <span style={styles.name}>{@props.renderer.name}</span>
         <span style={styles.typeName}>{@props.renderer.getTypeName()}</span>
       </p>
+      <p style={styles.id}>{@props.renderer.Camera.ParentScene.ID + "(" + @props.renderer.Camera.name + ")"}</p>
       <p style={styles.id}>{"ID " + @props.renderer.ID}</p>
     </div>
 
