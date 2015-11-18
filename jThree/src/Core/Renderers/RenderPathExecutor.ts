@@ -31,10 +31,6 @@ class RenderPathExecutor
         this.defaultCube = new CubeGeometry("jthree.renderstage.default.cube");
     }
 
-
-
-    public renderPath = new RenderPath();
-
     private textureBuffers: GeneraterInfo = {};
 
     public get TextureBuffers()
@@ -77,9 +73,9 @@ class RenderPathExecutor
         return texInfo;
     }
 
-    public processRender(scene: Scene)
+    public processRender(scene: Scene,renderPath:RenderPath)
     {
-        this.renderPath.path.forEach(chain=>
+        renderPath.path.forEach(chain=>
         {
             this.stageName = "initialization of " + chain.stage.getTypeName();
             var texs = this.genChainTexture(chain);

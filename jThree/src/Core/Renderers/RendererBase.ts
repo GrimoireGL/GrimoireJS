@@ -13,6 +13,7 @@ import JThreeContext = require("../../NJThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 import Scene = require("../Scene");
+import RenderPath = require("./RenderPath");
  /**
  * Provides base class feature for renderer classes.
  */
@@ -34,11 +35,13 @@ class RendererBase extends jThreeObjectWithID
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         if (this.viewportArea) rm.createRBO(this.ID + ".rbo.default", this.viewportArea.Width, this.viewportArea.Height);
         rm.createFBO(this.ID + ".fbo.default");
-        this.RenderPathExecutor.renderPath.path.push.apply(this.RenderPathExecutor.renderPath.path,configurator.getStageChain(this));
+        this.renderPath.path.push.apply(this.renderPath.path,configurator.getStageChain(this));
         this.RenderPathExecutor.TextureBuffers = configurator.TextureBuffers;
         this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
     }
+
+    public renderPath:RenderPath = new RenderPath();
 
     public name:string;
     /**
@@ -62,7 +65,7 @@ class RendererBase extends jThreeObjectWithID
 
     public render(scene:Scene): void
     {
-      this.renderPathExecutor.processRender(scene)
+      this.renderPathExecutor.processRender(scene,this.renderPath)
     }
 
     /**
