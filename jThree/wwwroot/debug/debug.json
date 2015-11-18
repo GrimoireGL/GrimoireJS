@@ -20,6 +20,11 @@
     {
       "goml":"Stage/Stage.goml",
       "js":[]
+    },
+    "PointLight":
+    {
+      "goml":"PointLight/PointLight.goml",
+      "js":[]
     }
   }
 }
