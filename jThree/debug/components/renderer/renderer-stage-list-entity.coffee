@@ -16,6 +16,10 @@ class RendererStageListEntity extends React.Component
       <div>
         {chain}
       </div>
+      <div>
+        <span>Technique count : </span>
+        <span>{@props.stage.stage.getTechniqueCount(@props.renderer.Camera.ParentScene)}</span>
+      </div>
     </div>
 
   styles =

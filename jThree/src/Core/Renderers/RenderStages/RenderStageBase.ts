@@ -110,8 +110,8 @@ class RenderStageBase extends JThreeObject {
 		return {
 			cullFace: true,
 			cullFront: false,
-            depthTest: true,
-            blend:true
+      depthTest: true,
+      blend:true
 		};
 	}
 
