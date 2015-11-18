@@ -6,6 +6,7 @@ import VMDBoneStatus= require("./VMDBoneStatus");
 import Delegates = require("../../Base/Delegates");
 import VMDMorphStatus = require("./VMDMorphStatus");
 import glm = require("gl-matrix");
+import BezierCurve = require("./BezierCurve");
 class VMDData {
 
 	public static LoadFromUrl(url: string, onComplete: Delegates.Action1<VMDData>) {
@@ -120,9 +121,23 @@ class VMDData {
 	}
 
 	private loadInterpolation() {
-		var result = new Uint8Array(64);
-		for (var i = 0; i < 64; i++) {
-			result[i] = this.reader.getUint8();
+		var interpolation = new Array(4);
+		for(var i = 0; i < 4; i++)
+		{
+			interpolation[i] = new Array(4);
+			for(var j = 0; j < 4; j++)
+			{
+				interpolation[i][j]=new Array(4);
+			}
+		}
+		for(var i = 0; i < 4; i++)
+			for(var j = 0; j < 4; j++)
+				for(var k = 0; k < 4; k++)
+					interpolation[i][j][k] = this.reader.getUint8();
+		var result = new Array(4);
+		for(var i = 0; i < 4; i++)
+		{
+      result[i] = new BezierCurve(interpolation[0][0][i] / 128.0,interpolation[0][1][i] / 128.0,interpolation[0][2][i] / 128.0,interpolation[0][3][i] / 128);
 		}
 		return result;
 	}
@@ -172,9 +187,8 @@ class VMDData {
 				var progress = (frame-currentFrame.frameNumber)/(nextFrame.frameNumber-currentFrame.frameNumber);
 				return {
 					frameNumber:frame,
-					position:<number[]>glm.vec3.lerp([0,0,0],currentFrame.position,nextFrame.position,progress),
-					rotation:<number[]>glm.quat.slerp([0,0,0,0],currentFrame.rotation,nextFrame.rotation,progress)
-
+					position:this.complementBoneTranslation(currentFrame.position,nextFrame.position,progress,currentFrame.interpolation),
+					rotation:<number[]>glm.quat.slerp([0,0,0,0],currentFrame.rotation,nextFrame.rotation,currentFrame.interpolation[3].evaluate(progress))
 				}
 			}else
 			{
@@ -185,6 +199,14 @@ class VMDData {
 				};
 			}
 		}
+	}
+
+	private complementBoneTranslation(begin:number[],end:number[],progress:number,bezierCurves:BezierCurve[])
+	{
+		var result = [0,0,0];//TODO optimize this
+		for(var i = 0; i < 3; i++)
+			result[i] = begin[i] + (end[i] - begin[i]) * bezierCurves[i].evaluate(progress);
+		return result;
 	}
 
 	public getMorphFrame(frame:number,morphName:string):VMDMorphStatus

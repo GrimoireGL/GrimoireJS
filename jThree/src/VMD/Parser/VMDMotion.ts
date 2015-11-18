@@ -1,11 +1,11 @@
 ﻿import VMDFrameData = require("./VMDFrameData");
-
+import BezierCurve = require("./BezierCurve");
 interface VMDMotion extends VMDFrameData
 {
     frameNumber: number;
     position: number[];
     rotation: number[];
-    interpolation: Uint8Array;
+    interpolation: BezierCurve[];
 }
 
-export =VMDMotion; 
+export =VMDMotion;
