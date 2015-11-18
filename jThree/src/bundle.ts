@@ -57,7 +57,7 @@
 /// <reference path="Core/Renderers/FBOBindData.ts" />
 /// <reference path="Core/Renderers/RenderStageChain.ts" />
 /// <reference path="Core/Renderers/RenderStageConfig.ts" />
-/// <reference path="Core/Renderers/RenderStageManager.ts" />
+/// <reference path="./Core/Renderers/RenderPathExecutor.ts"/>
 /// <reference path="Core/Renderers/RenderStages/FowardShadingStage.ts" />
 /// <reference path="Core/Renderers/RenderStages/GrayScaleStage.ts" />
 /// <reference path="Core/Renderers/RenderStages/LightAccumulationStage.ts" />

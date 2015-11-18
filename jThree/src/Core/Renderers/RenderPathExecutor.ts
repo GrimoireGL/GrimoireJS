@@ -10,9 +10,9 @@ import ResolvedChainInfo = require('./ResolvedChainInfo');
 import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
 import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
 import CubeGeometry = require("../Geometries/CubeGeometry");
-import RenderStageChainManager = require("./RenderStageChainManager");
+import RenderPath = require("./RenderPath");
 import TextureGenerater = require("./TextureGenerater");
-class RenderStageManager
+class RenderPathExecutor
 {
     private parentRenderer: RendererBase;
     private defaultQuad: QuadGeometry;
@@ -33,7 +33,7 @@ class RenderStageManager
 
 
 
-    private stageChainManager = new RenderStageChainManager();
+    public renderPath = new RenderPath();
 
     private textureBuffers: GeneraterInfo = {};
 
@@ -77,19 +77,9 @@ class RenderStageManager
         return texInfo;
     }
 
-    public get StageChains(): RenderStageChain[]
+    public processRender(scene: Scene)
     {
-        return this.stageChainManager.stageChains;
-    }
-
-    public get StageChainManager()
-    {
-      return this.stageChainManager;
-    }
-
-    public processRender(scene: Scene, sceneObjects: SceneObject[])
-    {
-        this.stageChainManager.stageChains.forEach(chain=>
+        this.renderPath.path.forEach(chain=>
         {
             this.stageName = "initialization of " + chain.stage.getTypeName();
             var texs = this.genChainTexture(chain);
@@ -106,7 +96,7 @@ class RenderStageManager
                     break;
                 case "scene":
                 default:
-                    targetObjects = sceneObjects;
+                    targetObjects = scene.children;
             }
             stage.preAllStage(scene,texs);
             stage.applyStageConfig();
@@ -134,4 +124,4 @@ class RenderStageManager
     }
 }
 
-export =RenderStageManager;
+export =RenderPathExecutor;

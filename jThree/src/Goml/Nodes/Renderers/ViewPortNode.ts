@@ -85,7 +85,7 @@ class ViewPortNode extends GomlTreeNodeBase {
           handler:v =>{
             if(v.Value !== "skybox" && this.skyBoxStageChain)
             {
-              this.targetRenderer.RenderStageManager.StageChainManager.deleteStage(this.skyBoxStageChain);
+              this.targetRenderer.RenderPathExecutor.renderPath.deleteStage(this.skyBoxStageChain);
               this.skyBoxStageChain = null;
             }
           }
@@ -108,7 +108,7 @@ class ViewPortNode extends GomlTreeNodeBase {
                     },
                     stage:new SkyboxStage(this.targetRenderer)
                   };
-                  this.targetRenderer.RenderStageManager.StageChainManager.insertWithIndex(0,this.skyBoxStageChain);
+                  this.targetRenderer.RenderPathExecutor.renderPath.insertWithIndex(0,this.skyBoxStageChain);
                 }
                 (<SkyboxStage>this.skyBoxStageChain.stage).skyBoxTexture = <CubeTexture>cubeTexture.TargetTexture;
               }

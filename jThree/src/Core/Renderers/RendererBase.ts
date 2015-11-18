@@ -4,7 +4,7 @@ import Exceptions = require("../../Exceptions");
 import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import Camera = require("./../Camera/Camera");
-import RenderStageManager = require('./RenderStageManager');
+import RenderPathExecutor = require('./RenderPathExecutor');
 import JThreeEvent = require('../../Base/JThreeEvent');
 import Rectangle = require('../../Math/Rectangle');
 import RendererConfiguratorBase = require("./RendererConfigurator/RendererConfiguratorBase");
@@ -12,6 +12,7 @@ import RendererConfigurator = require("./RendererConfigurator/BasicRendererConfi
 import JThreeContext = require("../../NJThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
+import Scene = require("../Scene");
  /**
  * Provides base class feature for renderer classes.
  */
@@ -28,14 +29,14 @@ class RendererBase extends jThreeObjectWithID
         super();
         configurator = configurator || new RendererConfigurator();
         this.contextManager = contextManager;
-        this.renderStageManager =new RenderStageManager(this);
+        this.renderPathExecutor =new RenderPathExecutor(this);
         this.viewportArea = viewportArea;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         if (this.viewportArea) rm.createRBO(this.ID + ".rbo.default", this.viewportArea.Width, this.viewportArea.Height);
         rm.createFBO(this.ID + ".fbo.default");
-        this.RenderStageManager.StageChains.push.apply(this.RenderStageManager.StageChains,configurator.getStageChain(this));
-        this.RenderStageManager.TextureBuffers = configurator.TextureBuffers;
-        this.RenderStageManager.generateAllTextures();
+        this.RenderPathExecutor.renderPath.path.push.apply(this.RenderPathExecutor.renderPath.path,configurator.getStageChain(this));
+        this.RenderPathExecutor.TextureBuffers = configurator.TextureBuffers;
+        this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
     }
 
@@ -59,9 +60,9 @@ class RendererBase extends jThreeObjectWithID
         this.camera = camera;
     }
 
-    public render(drawAct: Delegates.Action0): void
+    public render(scene:Scene): void
     {
-        throw new Exceptions.AbstractClassMethodCalledException();
+      this.renderPathExecutor.processRender(scene)
     }
 
     /**
@@ -108,14 +109,14 @@ class RendererBase extends jThreeObjectWithID
     /**
     * Provides render stage abstraction
     */
-    private renderStageManager: RenderStageManager;
+    private renderPathExecutor: RenderPathExecutor;
 
     /**
      * Provides render stage abstraction
      */
-    public get RenderStageManager(): RenderStageManager
+    public get RenderPathExecutor(): RenderPathExecutor
     {
-        return this.renderStageManager;
+        return this.renderPathExecutor;
     }
 
     private onViewportChangedHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.

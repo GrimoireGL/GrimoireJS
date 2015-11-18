@@ -1,54 +1,54 @@
 import RenderStageChain = require("./RenderStageChain");
-class RenderStageChainManager
+class RenderPath
 {
-  public stageChains:RenderStageChain[] = [];
+  public path:RenderStageChain[] = [];
 
   public pushStage(stage:RenderStageChain)
   {
-    this.stageChains.push(stage);
+    this.path.push(stage);
   }
 
   public insertWithIndex(index:number,stage:RenderStageChain)
   {
-    if(index >= 0 && index <= this.stageChains.length)
+    if(index >= 0 && index <= this.path.length)
     {
-    var newStageChain = new Array(this.stageChains.length+1);
+    var newStageChain = new Array(this.path.length+1);
     for (let i = 0; i < index; i++) {
-        newStageChain[i]=this.stageChains[i];
+        newStageChain[i]=this.path[i];
     }
     newStageChain[index]=stage;
     for(let i =index+1; i < newStageChain.length;i++)
     {
-      newStageChain[i] = this.stageChains[i-1];
+      newStageChain[i] = this.path[i-1];
     }
-    this.stageChains = newStageChain;
+    this.path = newStageChain;
   }else{
-    console.error(`Invalid render stage index : ${index}, Current length of stage chain is $${this.stageChains.length}`);
+    console.error(`Invalid render stage index : ${index}, Current length of stage chain is $${this.path.length}`);
   }
   }
 
   public deleteWithIndex(index:number)
   {
-    if(index >= 0 && index < this.stageChains.length&& this.stageChains.length >0)
+    if(index >= 0 && index < this.path.length&& this.path.length >0)
     {
-      var newStageChain = new Array(this.stageChains.length -1);
+      var newStageChain = new Array(this.path.length -1);
       for (let i = 0; i < index; i++) {
-          newStageChain[i]=this.stageChains[i];
+          newStageChain[i]=this.path[i];
       }
       for (let i = index; i < newStageChain.length; i++)
       {
-          newStageChain[i]=this.stageChains[i+1];
+          newStageChain[i]=this.path[i+1];
       }
-      this.stageChains = newStageChain;
+      this.path = newStageChain;
     }else{
-      console.error(`Invalid render stage index:${index}, Current length of stage chain is ${this.stageChains.length}`);
+      console.error(`Invalid render stage index:${index}, Current length of stage chain is ${this.path.length}`);
     }
   }
 
   public deleteStage(stage:RenderStageChain)
   {
-    for (let i = 0; i < this.stageChains.length; i++) {
-        if(this.stageChains[i] === stage){
+    for (let i = 0; i < this.path.length; i++) {
+        if(this.path[i] === stage){
           this.deleteWithIndex(i);
           return;
         }
@@ -58,8 +58,8 @@ class RenderStageChainManager
 
   public insertAfter(targetStage:RenderStageChain,stage:RenderStageChain)
   {
-    for (let i = 0; i < this.stageChains.length; i++) {
-        if(this.stageChains[i] === stage){
+    for (let i = 0; i < this.path.length; i++) {
+        if(this.path[i] === stage){
           this.insertWithIndex(i+1,stage);
           return;
         }
@@ -69,8 +69,8 @@ class RenderStageChainManager
 
   public insertBefore(targetStage:RenderStageChain,stage:RenderStageChain)
   {
-    for (let i = 0; i < this.stageChains.length; i++) {
-        if(this.stageChains[i] === stage){
+    for (let i = 0; i < this.path.length; i++) {
+        if(this.path[i] === stage){
           this.insertWithIndex(i,stage);
           return;
         }
@@ -79,4 +79,4 @@ class RenderStageChainManager
   }
 }
 
-export = RenderStageChainManager;
+export = RenderPath;

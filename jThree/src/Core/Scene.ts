@@ -65,7 +65,7 @@ class Scene extends jThreeObjectWithID {
         this.renderers.forEach((r) => {
             r.beforeRender();
             this.lightRegister.updateLightForRenderer(r);
-            r.RenderStageManager.processRender(this,this.children);
+            r.render(this);
             r.afterRender();
         });
     }
@@ -88,7 +88,7 @@ class Scene extends jThreeObjectWithID {
         return this.renderers;
     }
 
-    private children: SceneObject[] = [];
+    public children: SceneObject[] = [];
 
 
     public addLight(light:LightBase):void
