@@ -4,14 +4,14 @@ import ContextComponents = require("../../../ContextComponents");
 import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
-import RendererNodeBase = require('./RendererNodeBase');
+import CanvasNodeBase = require('./CanvasNodeBase');
 import Delegates = require("../../../Base/Delegates");
 
-class RendererNode extends RendererNodeBase {
+class CanvasNode extends CanvasNodeBase {
     public canvasElement: HTMLCanvasElement;
     public targetFrame: HTMLElement;
     public resizeIframeWindow: Window;
-    private resizedFunctions: Delegates.Action1<RendererNode>[] = [];
+    private resizedFunctions: Delegates.Action1<CanvasNode>[] = [];
 
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
@@ -81,8 +81,8 @@ class RendererNode extends RendererNodeBase {
      * @param func
      * @returns {}
      */
-    public resize(func: Delegates.Action1<RendererNode>);
-    public resize( func?:Delegates.Action1<RendererNode>) {
+    public resize(func: Delegates.Action1<CanvasNode>);
+    public resize( func?:Delegates.Action1<CanvasNode>) {
 
         if ( typeof arguments[0]==="function") {
             this.resizedFunctions.indexOf(arguments[0]) === -1 && this.resizedFunctions.push(arguments[0]);
@@ -113,4 +113,4 @@ class RendererNode extends RendererNodeBase {
 
 }
 
-export =RendererNode;
+export =CanvasNode;

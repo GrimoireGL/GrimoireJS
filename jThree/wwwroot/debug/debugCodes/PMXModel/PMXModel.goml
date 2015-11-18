@@ -6,11 +6,11 @@
     <cube name="cube" />
     <grid hdiv="20" name="grid" vdiv="20"/>
   </resources>
-  <renderers>
-    <renderer clearColor="purple" frame=".canvasContainer">
+  <canvases>
+    <canvas clearColor="purple" frame=".canvasContainer">
       <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
-    </renderer>
-  </renderers>
+    </canvas>
+  </canvases>
   <scenes>
     <scene name="mainScene">
       <object rotation="y(30d)">

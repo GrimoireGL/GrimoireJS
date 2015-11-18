@@ -16,7 +16,7 @@ var gomlList = [
   new GomlNodeListElement("jthree.basic",
     require("./Factories/TagFactory"),
     {
-      "RENDERER": require("./Nodes/Renderers/RendererNode"),
+      "CANVAS": require("./Nodes/Canvases/CanvasNode"),
       "VIEWPORT": require("./Nodes/Renderers/ViewPortNode"),
       "SCENE": require("./Nodes/SceneNode"),
     }),

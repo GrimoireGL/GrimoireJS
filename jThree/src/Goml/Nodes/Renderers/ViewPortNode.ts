@@ -1,6 +1,6 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import RendererBase = require("../../../Core/Renderers/RendererBase");
-import RendererNodeBase = require("./RendererNodeBase");
+import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
 import GomlLoader = require("../../GomlLoader");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
@@ -8,7 +8,7 @@ import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
-import RendererNode = require("./RendererNode");
+import CanvasNode = require("../Canvases/CanvasNode");
 import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
 import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage");
 import CubeTextureTag = require("../Texture/CubeTextureNode");
@@ -17,7 +17,7 @@ import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
 import RendererFactory = require("../../../Core/Renderers/RendererFactory");
 class ViewPortNode extends GomlTreeNodeBase {
 
-  private parentRendererNode:RendererNodeBase;
+  private parentCanvas:CanvasNode;
 
   private targetRenderer:RendererBase;
 
@@ -34,7 +34,7 @@ class ViewPortNode extends GomlTreeNodeBase {
     }
 
     public afterLoad(){
-      var rdr:RendererNodeBase=this.parentRendererNode=<RendererNodeBase>this.parent;
+      var rdr:CanvasNode=this.parentCanvas=<CanvasNode>this.parent;
       var defaultRect = rdr.Canvas.getDefaultRectangle();
       this.targetRenderer=RendererFactory.generateRenderer(rdr.Canvas,defaultRect,this.attributes.getValue("config"));
       var context:JThreeContext=JThreeContextProxy.getJThreeContext();
@@ -44,7 +44,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       scene.addRenderer(this.targetRenderer);
 
       if ("resize" in rdr ) {
-          var castedRdr = <RendererNode>rdr;
+          var castedRdr = <CanvasNode>rdr;
           castedRdr.resize(this.updateViewportArea.bind(this));
       }
 
@@ -134,8 +134,8 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     private updateViewportArea() {
 
-        if ("targetFrame" in this.parentRendererNode) {
-            var castedRdr = <RendererNode>this.parentRendererNode;
+        if ("targetFrame" in this.parentCanvas) {
+            var castedRdr = <CanvasNode>this.parentCanvas;
             var frame = castedRdr.targetFrame;
 
             castedRdr.resize(this.updateViewportArea.bind(this));

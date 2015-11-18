@@ -21,16 +21,16 @@
     <texture name="gomlTexture" src="miku2.png" minFilter="LinearMipNearest"/>
     <cubetexture name="gomlCube2" srcs="cube/cube_PX.png cube/cube_NX.png cube/cube_PY.png cube/cube_NY.png cube/cube_PZ.png cube/cube_NZ.png"/>
   </resources>
-  <renderers>
-    <renderer clearColor="#324D7C" frame=".canvasContainer">
+  <canvases>
+    <canvas clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" height="512" id="main" left="0" width="512" backgroundType="skybox" skybox="gomlCube2"/>
       <viewport cam="CAM2" height="256"  left="512" width="256" config="sprite"/>
       <viewport cam="CAM3" height="256"  left="768" width="256" config="sprite"/>
       <viewport cam="CAM4" height="256" left="512" top="256" width="256" config="sprite"/>
       <viewport cam="CAM5" height="256"  left="768" width="256" top="256" config="sprite"/>
       <viewport cam="CAM6" height="256"  left="1024" width="256" top="256" config="sprite"/>
-    </renderer>
-  </renderers>
+    </canvas>
+  </canvases>
   <scenes>
     <scene ambient="gray" name="main">
       <alight color="#FFF" intensity="0.1"  top="4"  far="2" right="2" position="-1,-0.5,1"/>

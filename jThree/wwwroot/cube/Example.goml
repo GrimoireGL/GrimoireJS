@@ -4,11 +4,11 @@
     <phong diffuse="red" specular="#CCC" specularpower="15" name="mat3"/>
     <cube name="cube" />
   </resources>
-  <renderers>
-    <renderer clearColor="#324D7C" frame=".canvasContainer">
+  <canvases>
+    <canvas clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" id="main" width="512" height="512" />
-    </renderer>
-  </renderers>
+    </canvas>
+  </canvases>
   <scenes>
     <scene>
       <object rotation="y(30d)">
@@ -19,6 +19,6 @@
       </object>
       <mesh geo="cube" scale="0.1" position="0,0,0" mat="mat3" rotation="y(60d)"/>
     </scene>
-    
+
   </scenes>
 </goml>

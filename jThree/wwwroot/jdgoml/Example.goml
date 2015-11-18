@@ -7,11 +7,11 @@
       </texture>
     </phong>
   </resources>
-  <renderers>
-    <renderer clearcolor="#324D7C" frame=".canvasContainer">
+  <canvases>
+    <canvas clearcolor="#324D7C" frame=".canvasContainer">
       <viewport id="main" cam="CAM1" width="512" height="512"></viewport>
-    </renderer>
-  </renderers>
+    </canvas>
+  </canvases>
   <scenes>
     <scene>
       <object rotation="y(30d)">

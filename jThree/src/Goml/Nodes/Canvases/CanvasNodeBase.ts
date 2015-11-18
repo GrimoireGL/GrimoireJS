@@ -1,7 +1,7 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlLoader = require("../../GomlLoader");
 import Canvas = require("../../../Core/Canvas");
-class RendererNodeBase extends GomlTreeNodeBase {
+class CanvasNodeBase extends GomlTreeNodeBase {
     constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
         super(elem, loader, parent);
         this.attributes.defineAttribute({
@@ -50,4 +50,4 @@ class RendererNodeBase extends GomlTreeNodeBase {
     }
 }
 
-export = RendererNodeBase;
+export = CanvasNodeBase;

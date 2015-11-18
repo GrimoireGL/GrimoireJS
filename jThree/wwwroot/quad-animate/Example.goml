@@ -3,11 +3,11 @@
     <phong diffuse="blue" specular="#CCC" specularpower="15" name="mat2"/>
     <quad name="quad" />
   </resources>
-  <renderers>
-    <renderer clearColor="#324D7C" frame=".canvasContainer">
+  <canvases>
+    <canvas clearColor="#324D7C" frame=".canvasContainer">
       <viewport cam="CAM1" id="main" width="512" height="512" />
-    </renderer>
-  </renderers>
+    </canvas>
+  </canvases>
   <scenes>
     <scene>
       <object>
