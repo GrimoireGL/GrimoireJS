@@ -24,7 +24,8 @@
     "build": "./node_modules/.bin/gulp --require coffee-script/register build",
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "./node_modules/.bin/gulp --require coffee-script/register test",
-    "doc": "./node_modules/.bin/gulp --require coffee-script/register doc"
+    "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
+    "clean":"./node_modules/.bin/gulp --require coffee-script/register clean"
   },
   "devDependencies": {
     "browserify": "^9.0.7",
