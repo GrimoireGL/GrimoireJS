@@ -11,7 +11,7 @@ class RendererContent extends React.Component
   render:->
     children = []
     for v in @api.renderers
-      children.push <Tab.Panel title={v.name} key={v.ID}><Renderer/></Tab.Panel>
+      children.push <Tab.Panel title={v.name} key={v.ID}><Renderer renderer={v}/></Tab.Panel>
     <div>
       <Tab>
         {children}
