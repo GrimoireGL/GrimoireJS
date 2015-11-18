@@ -75,6 +75,7 @@ class PMXModel extends SceneObject {
                 this.skeleton = new PMXSkeleton(this);
                 this.pmxMaterials = new Array(pmx.Materials.length);
                 this.onload.addListener(onComplete);
+                this.name = pmx.Header.modelName;
                 var offset = 0;
                 for (var materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
                         var currentMat = pmx.Materials[materialCount];

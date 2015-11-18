@@ -29,6 +29,11 @@ class PMX {
 
 	private joints: PMXJoint[];
 
+	public get Header()
+	{
+		return this.header;
+	}
+
 	public get Verticies() {
 		return this.verticies;
 	}
