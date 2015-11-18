@@ -15,6 +15,11 @@
     {
       "goml":"CubeDisplay/CubeDisplay.goml",
       "js":[]
+    },
+    "Stage":
+    {
+      "goml":"Stage/Stage.goml",
+      "js":[]
     }
   }
 }

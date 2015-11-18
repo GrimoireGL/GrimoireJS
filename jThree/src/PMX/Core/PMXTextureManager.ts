@@ -26,6 +26,14 @@ class PMXTextureManager
             JThreeLogger.sectionLog("pmx texture",`loaded texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount}`);
             if(this.model.loadingTextureCount == this.model.loadedTextureCount)this.model.onload.fire(this.model,this.model);
         }
+        img.onerror = () =>
+        {
+          this.textures[index] = img;
+          resolver(img);
+          this.model.loadedTextureCount++;
+          JThreeLogger.sectionError("pmx texture",`load failure texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount} ${img.src}`);
+          if(this.model.loadingTextureCount == this.model.loadedTextureCount)this.model.onload.fire(this.model,this.model);
+        }
         img.src = this.model.modelDirectory + this.model.ModelData.Textures[index];
         this.model.loadingTextureCount++;
     });

@@ -157,13 +157,10 @@ class PMX {
 		switch (this.header.vertexIndexSize) {
 			case 1:
 				return this.reader.getUint8();
-				break;
 			case 2:
 				return this.reader.getUint16();
-				break;
 			case 4:
 				return this.reader.getInt32();
-				break;
 		}
 	}
 
@@ -171,13 +168,10 @@ class PMX {
 		switch (byte) {
 			case 1:
 				return this.reader.getInt8();
-				break;
 			case 2:
 				return this.reader.getInt16();
-				break;
 			case 4:
 				return this.reader.getInt32();
-				break;
 		}
 	}
 
