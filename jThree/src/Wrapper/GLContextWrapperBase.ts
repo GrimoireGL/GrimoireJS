@@ -121,15 +121,7 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-    /**
-     * Create new Shader
-     * @param flag the shader type you want to create
-     * @returns {new shader}
-     */
-    public CreateShader(flag: ShaderType): WebGLShader
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
+    
     /**
      * Delete passed shader
      * @param shader the shader you want to delete
@@ -220,16 +212,6 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    /**
-     * Draw without index
-     * @param drawType primitive topology type
-     * @param offset vertex array offset
-     * @param length count of the vertex you want to draw.
-     */
-    public DrawArrays(drawType: PrimitiveTopology, offset: number, length: number): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
     /**
      * Flush drawing
      */
