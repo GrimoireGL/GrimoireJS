@@ -21,15 +21,15 @@ class ShaderWrapper extends ResourceWrapper
     public init(): void {
         if (!this.Initialized) {
             this.targetShader = this.GL.createShader(this.parentShader.ShaderType);
-            this.WebGLContext.ShaderSource(this.targetShader, this.parentShader.ShaderSource);
-            this.WebGLContext.CompileShader(this.targetShader);
+            this.GL.shaderSource(this.targetShader, this.parentShader.ShaderSource);
+            this.GL.compileShader(this.targetShader);
             this.setInitialized(true);
         }
     }
 
     public dispose() {
         if (this.Initialized) {
-            this.WebGLContext.DeleteShader(this.targetShader);
+            this.GL.deleteShader(this.targetShader);
             this.targetShader = null;
             this.setInitialized(false);
         }
@@ -39,11 +39,10 @@ class ShaderWrapper extends ResourceWrapper
      * Update shader source from Shader class.
      */
     public update() {
-        var gl=this.WebGLContext;
-        gl.DeleteShader(this.targetShader);
+        this.GL.deleteShader(this.targetShader);
         this.targetShader = this.GL.createShader(this.parentShader.ShaderType);
-        gl.ShaderSource(this.TargetShader, this.parentShader.ShaderSource);
-        gl.CompileShader(this.TargetShader);
+        this.GL.shaderSource(this.TargetShader, this.parentShader.ShaderSource);
+        this.GL.compileShader(this.TargetShader);
     }
 }
 

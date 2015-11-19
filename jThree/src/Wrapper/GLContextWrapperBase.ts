@@ -121,32 +121,7 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-    
-    /**
-     * Delete passed shader
-     * @param shader the shader you want to delete
-     */
-    public DeleteShader(shader: WebGLShader): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Store shader source
-     * @param shader reference you want to be stored
-     * @param src shader source code
-     */
-    public ShaderSource(shader: WebGLShader, src: string): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Compile shader source
-     * @param shader shader reference you want to be compiled
-     */
-    public CompileShader(shader: WebGLShader): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
+  
     /**
      * Create new program
      * @returns {created program}
