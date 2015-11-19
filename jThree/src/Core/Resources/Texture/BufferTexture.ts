@@ -21,18 +21,6 @@ class BufferTexture extends TextureBase {
 		return this.height;
 	}
 
-	private textureFormat: TextureFormat;
-
-    public get TextureFormat(): TextureFormat {
-		return this.textureFormat;
-	}
-
-	private elementFormat: ElementFormat;
-
-    public get ElementFormat(): ElementFormat {
-		return this.elementFormat;
-	}
-
 	constructor(width: number, height: number, textureFormat: TextureFormat, elementFormat: ElementFormat,textureName:string) {
 		super(textureName);
 		this.width = width;

@@ -49,7 +49,7 @@ class RendererDebugger extends DebuggerModuleBase
     debug.debuggerAPI.renderers.addRenderer(renderer);
     renderer.RenderPathExecutor.renderStageCompleted.addListener((o,v)=>
     {
-      
+      //debugger;
     });
   }
 }

@@ -5,6 +5,7 @@ import TextureWrapperBase = require('./TextureWrapperBase');
 import TexImage2DTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
 import FramebufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
 import ElementType = require("../../../Wrapper/ElementType");
+import Delegates = require("../../../Base/Delegates");
 class BufferTextureWrapper extends TextureWrapperBase {
     constructor(ownerCanvas: ContextManagerBase, parent: BufferTexture) {
         super(ownerCanvas, parent);
@@ -43,30 +44,10 @@ class BufferTextureWrapper extends TextureWrapperBase {
         this.unbind();
     }
 
-    public createImg()
+    public generateHtmlImage(encoder?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>)
     {
-      var frameBuffer = this.GL.createFramebuffer();
-      this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,frameBuffer);
-      this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER,this.GL.COLOR_ATTACHMENT0,this.GL.TEXTURE_2D,this.TargetTexture,0);
-      var width = (<any>this.Parent).Width,height = (<any>this.Parent).Height;
-      var data = new Uint8Array( width * height *4);
       var parent = <BufferTexture>this.Parent;
-      this.GL.readPixels(0,0,width,height,parent.TextureFormat,ElementType.UnsignedByte,data);
-      this.GL.deleteFramebuffer(frameBuffer);
-      // Create a 2D canvas to store the result
-      var canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      var context = canvas.getContext('2d');
-
-      // Copy the pixels to a 2D canvas
-      var imageData = context.createImageData(width, height);
-      (<any>imageData.data).set(<any>data);
-      context.putImageData(imageData, 0, 0);
-      var img = new Image();
-      img.src = canvas.toDataURL();
-      document.body.appendChild(img);
-      return img;
+      this.encodeHtmlImage(parent.Width,parent.Height,encoder);
     }
 }
 
