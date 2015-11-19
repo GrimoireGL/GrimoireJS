@@ -390,13 +390,8 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-    
-    public GenerateMipmap(targetTexture: TargetTextureType): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
 
-    public TexParameteri(targetTexture: TargetTextureType, param: TextureParameterType, value: TextureMagType|TextureMinType|TextureWrapType): void
+    public GenerateMipmap(targetTexture: TargetTextureType): void
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }

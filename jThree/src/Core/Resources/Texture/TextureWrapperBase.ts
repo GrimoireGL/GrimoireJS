@@ -41,10 +41,10 @@ class TextureWrapperBase extends ResourceWrapper
   private applyTextureParameter() {
       if (this.targetTexture == null) return;
       this.bind();
-    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.MinFilter,this.parent.MinFilter);
-    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.MagFilter,this.parent.MagFilter);
-    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapS,this.parent.SWrap);
-    this.WebGLContext.TexParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapT,this.parent.TWrap);
+    this.GL.texParameteri(this.Parent.TargetTextureType,TextureParameterType.MinFilter,this.parent.MinFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType,TextureParameterType.MagFilter,this.parent.MagFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapS,this.parent.SWrap);
+    this.GL.texParameteri(this.Parent.TargetTextureType,TextureParameterType.WrapT,this.parent.TWrap);
   }
 
     public bind() {
