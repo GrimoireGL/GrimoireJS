@@ -14,7 +14,7 @@ class CubeTextureWrapper extends TextureWrapperBase {
     public init(isChanged?: boolean) {
         var parent = <CubeTexture>this.Parent;
         if (this.Initialized && !isChanged) return;
-        if (this.TargetTexture == null) this.setTargetTexture(this.WebGLContext.CreateTexture());
+        if (this.TargetTexture == null) this.setTargetTexture(this.GL.createTexture());
         this.GL.bindTexture(TextureTargetType.CubeTexture, this.TargetTexture);
         if (parent.ImageSource == null) {
             for (var i = 0; i < 6; i++) {

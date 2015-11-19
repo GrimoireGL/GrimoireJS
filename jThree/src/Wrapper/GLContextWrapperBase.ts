@@ -386,11 +386,6 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public CreateTexture(): WebGLTexture
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
     public GenerateMipmap(targetTexture: TargetTextureType): void
     {
         throw new Exceptions.AbstractClassMethodCalledException();
@@ -441,10 +436,6 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public DeleteTexture(tex: WebGLTexture)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
 
     public ClearDepth(depth: number)
     {
