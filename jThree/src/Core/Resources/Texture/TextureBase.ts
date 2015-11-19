@@ -9,7 +9,7 @@ import Delegates = require("../../../Base/Delegates");
 import JThreeContext = require("../../JThreeContext");
 import TextureTargetType = require("../../../Wrapper/TargetTextureType");
 /**
- * 
+ *
  */
 class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
 {
@@ -111,7 +111,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
                 this.each((v) =>
                 {
                     v.bind();
-                    v.OwnerCanvas.GLContext.GenerateMipmap(this.TargetTextureType);
+                    v.GL.generateMipmap(this.TargetTextureType);
                 });
             default:
         }

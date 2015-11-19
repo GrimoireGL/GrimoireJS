@@ -34,7 +34,7 @@ class ResourceWrapper extends JThreeObject
     return this.ownerCanvas.GLContext;
   }
 
-  protected get GL()
+  public get GL()
   {
     return this.ownerCanvas.GLContext.Context;
   }
