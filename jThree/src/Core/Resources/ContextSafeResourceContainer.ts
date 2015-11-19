@@ -1,4 +1,4 @@
-import JThreeObject = require("../../Base/JThreeObject");
+import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import ContextManagerBase = require("../ContextManagerBase");
 import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
@@ -14,8 +14,10 @@ import ContextComponents = require("../../ContextComponents");
 /**
  * Provides context difference abstraction.
  */
-class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObject
+class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObjectWithID
 {
+    public name:string;
+
     private context: JThreeContext = null;
 
     public get Context():JThreeContext

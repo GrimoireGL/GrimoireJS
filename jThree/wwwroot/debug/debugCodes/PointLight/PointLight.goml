@@ -24,7 +24,7 @@
       <plight color="#00FFFF" position="-5,2,-6" distance="7" decay="0.1"/>
       <pmx scale="0.5" src="/resource/model/Tda/Miku.pmx">
       </pmx>
-      <pmx scale="0.2" src="/resource/model/stage/stage.pmx" position="0,3,0"/>
+      <pmx scale="0.5" src="/resource/model/stage/stage.pmx" position="0,3,0"/>
 
     </scene>
   </scenes>

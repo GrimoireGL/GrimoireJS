@@ -101,7 +101,6 @@ class ProgramWrapper extends ResourceWrapper {
                 registerer.registerVariable(this.WebGLContext, index, uniform.value,uniform);
             }
         }
-
         //register attribute variables
         if (typeof variables.attributes !== "undefined") {
             for (var attributeKey in variables.attributes) {

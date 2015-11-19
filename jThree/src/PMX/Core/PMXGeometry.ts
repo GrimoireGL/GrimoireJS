@@ -23,7 +23,7 @@ class PMXGeometry extends Geometry {
 
     constructor(pmx: PMX) {
         super();
-        var name = "pmxtest";
+        var name = pmx.Header.modelName;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology = PrimitiveTopology.Triangles;
         this.indexBuffer = rm.createBuffer(name + "-index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedInt);
