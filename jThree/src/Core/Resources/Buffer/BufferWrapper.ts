@@ -68,7 +68,7 @@ class BufferWrapper extends ResourceWrapper
     {
         if (this.targetBuffer == null)
         {
-            this.targetBuffer = this.glContext.CreateBuffer();
+            this.targetBuffer = this.GL.createBuffer();
             this.setInitialized();
         }
     }
@@ -77,10 +77,10 @@ class BufferWrapper extends ResourceWrapper
     {
         if (this.Initialized)
         {
-            this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
+            this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);
         } else {
             this.init();
-            this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
+            this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);
             this.update(this.parentBuffer.ElementCache,this.parentBuffer.Length);
         }
     }
@@ -89,7 +89,7 @@ class BufferWrapper extends ResourceWrapper
     {
         if (this.Initialized)
         {
-            this.glContext.UnbindBuffer(this.parentBuffer.Target);
+            this.GL.bindBuffer(this.parentBuffer.Target,null);
         }
     }
 }

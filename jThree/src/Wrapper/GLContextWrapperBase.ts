@@ -66,23 +66,7 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-    /**
-     * Create WebGLBuffer
-     * @returns {The new buffer reference that has been created.}
-     */
-    public CreateBuffer(): WebGLBuffer
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Bind the WebGLBuffer
-     * @param target target buffer you want to bind
-     * @param buffer the buffer you want to bind
-     */
-    public BindBuffer(target: BufferTargetType, buffer: WebGLBuffer): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
+    
     /**
      * Store data to buffer
      * @param target target type you want to store data
