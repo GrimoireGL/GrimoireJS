@@ -54,7 +54,8 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     super.beforeLoad();
     this.targetSceneObject = this.ConstructTarget();
     if (this.targetSceneObject == null) return;
-    if(!this.targetSceneObject.name)this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
+    if(!this.targetSceneObject.name||this.targetSceneObject.ID == this.targetSceneObject.name)
+      this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
     //append targetObject to parent
     this.applyHierarchy();
     this.attributes.applyDefaultValue();

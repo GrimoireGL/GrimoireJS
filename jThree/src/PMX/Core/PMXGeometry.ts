@@ -23,7 +23,7 @@ class PMXGeometry extends Geometry {
 
     constructor(pmx: PMX) {
         super();
-        var name = pmx.Header.modelName;
+        var name = `${pmx.Header.modelName}(${pmx.Header.modelNameEn})`;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology = PrimitiveTopology.Triangles;
         this.indexBuffer = rm.createBuffer(name + "-index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedInt);
@@ -39,7 +39,7 @@ class PMXGeometry extends Geometry {
     /**
      * apply pmx geometries to buffer.
      */
-    protected updateBuffers(pmx: PMX): void {//TODO use unsigned short
+    protected updateBuffers(pmx: PMX): void {
         var surfaceBuffer = new Uint32Array(pmx.Surfaces);
         var verticies = pmx.Verticies;
         this.positionBuferSource = new Float32Array(verticies.positions);
