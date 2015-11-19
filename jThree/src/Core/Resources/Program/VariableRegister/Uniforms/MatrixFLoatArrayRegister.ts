@@ -1,5 +1,4 @@
 import UniformVariableRegisterBase = require("./UniformVariableRegisterBase");
-import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
 import Matrix = require("../../../../../Math/Matrix");
 class MatrixFloatArrayRegister extends UniformVariableRegisterBase
 {

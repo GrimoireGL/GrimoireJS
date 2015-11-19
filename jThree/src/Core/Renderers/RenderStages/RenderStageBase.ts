@@ -27,11 +27,7 @@ class RenderStageBase extends JThreeObject {
 	public get Renderer(): RendererBase {
 		return this.renderer;
 	}
-
-	public get GLContext() {
-		return this.Renderer.GLContext;
-	}
-
+	
 	public get GL()
 	{
 		return this.Renderer.GL;

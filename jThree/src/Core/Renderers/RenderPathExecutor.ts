@@ -23,10 +23,6 @@ class RenderPathExecutor
     {
         this.stageName = "<<<RenderStage Initialization>>>";
         this.parentRenderer = parent;
-        this.parentRenderer.GLContext.glError((o, s) =>
-        {
-            console.error(`GL ERROR OCCURED:STAGE INFO:${this.stageName} ERROR INFO:${s}`);
-        });
         this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
         this.defaultCube = new CubeGeometry("jthree.renderstage.default.cube");
     }

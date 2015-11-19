@@ -1,5 +1,4 @@
 import ContextManagerBase = require("./ContextManagerBase");
-import WebGLContextWrapper = require("../Wrapper/WebGLContextWrapper");
 import Rectangle = require("../Math/Rectangle");
 import JThreeContext = require("../NJThreeContext");
 import RendererBase = require("./Renderers/RendererBase");
@@ -43,7 +42,7 @@ class Canvas extends ContextManagerBase {
     constructor(glContext: WebGLRenderingContext) {
         super();
         // this.enabled = true;
-        this.setGLContext(new WebGLContextWrapper(glContext));
+        this.setGLContext(glContext);
     }
 
     /**

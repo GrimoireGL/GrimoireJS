@@ -1,4 +1,3 @@
-﻿import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import Buffer = require("./Buffer");
 import ElementType = require("../../../Wrapper/ElementType");
 import ResourceWrapper = require("../ResourceWrapper");
@@ -8,8 +7,6 @@ import ContextManagerBase = require("../../ContextManagerBase");
  */
 class BufferWrapper extends ResourceWrapper
 {
-    private glContext: GLContextWrapperBase;
-
     private targetBuffer: WebGLBuffer = null;
 
     private length: number = 0;
@@ -19,7 +16,6 @@ class BufferWrapper extends ResourceWrapper
     constructor(parentBuffer: Buffer,contextManager:ContextManagerBase)
     {
         super(contextManager);
-        this.glContext = contextManager.GLContext;
         this.parentBuffer = parentBuffer;
 
     }

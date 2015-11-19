@@ -1,5 +1,4 @@
 import ContextManagerBase = require("../../ContextManagerBase");
-import WebGLWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import ResourceWrapper = require('../ResourceWrapper');
 import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
 import ClearTargetType = require('../../../Wrapper/ClearTargetType');

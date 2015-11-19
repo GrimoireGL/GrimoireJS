@@ -1,5 +1,4 @@
 ﻿import ProgramWrapper = require("../../ProgramWrapper");
-import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
 import TextureRegister = require("../../../../../Wrapper/Texture/TextureRegister");
 import TextureBase = require("../../../Texture/TextureBase");
 import TargetTextureType = require("../../../../../Wrapper/TargetTextureType");

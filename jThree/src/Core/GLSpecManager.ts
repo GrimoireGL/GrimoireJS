@@ -9,7 +9,7 @@ class GLSpecManager
 		var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
 		if(canvasManager.canvases.length>0)
 		{
-			return canvasManager.canvases[0].GLContext.Context;
+			return canvasManager.canvases[0].GL;
 		}else{
 			console.error("can't obtain the gl context to check gl spec");
 		}

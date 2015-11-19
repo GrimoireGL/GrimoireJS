@@ -2,7 +2,6 @@
 import Vector2 = require("../../../../../Math/Vector2");
 import Vector3 = require("../../../../../Math/Vector3");
 import Vector4 = require("../../../../../Math/Vector4");
-import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
 import VectorBase = require("../../../../../Math/VectorBase");
 
 class VectorFloatRegister extends UniformVariableRegisterBase {

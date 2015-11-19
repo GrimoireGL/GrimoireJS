@@ -1,7 +1,6 @@
 import ContextManagerBase = require("./../ContextManagerBase");
 import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
-import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import Camera = require("./../Camera/Camera");
 import RenderPathExecutor = require('./RenderPathExecutor');
@@ -81,17 +80,9 @@ class RendererBase extends jThreeObjectWithID
         return this.contextManager;
     }
 
-    /**
-     * Obtain the reference for wrapper of WebGLRenderingContext
-     */
-    public get GLContext(): GLContextWrapperBase
-    {
-        return this.contextManager.GLContext;
-    }
-
     public get GL():WebGLRenderingContext
     {
-      return this.contextManager.GLContext.Context;
+      return this.contextManager.GL;
     }
 
     /**

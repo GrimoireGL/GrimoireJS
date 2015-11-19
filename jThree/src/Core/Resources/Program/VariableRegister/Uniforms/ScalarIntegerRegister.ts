@@ -1,5 +1,4 @@
 ﻿import ProgramWrapper = require("../../ProgramWrapper");
-import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
 
 class ScalarIntegerRegister
 {

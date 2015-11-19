@@ -1,4 +1,3 @@
-import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import JThreeObject = require('../../Base/JThreeObject');
 import ContextManager = require('../ContextManagerBase');
 import JThreeEvent = require('../../Base/JThreeEvent');
@@ -29,14 +28,9 @@ class ResourceWrapper extends JThreeObject
     return this.ownerCanvas.ID;
   }
 
-  protected get WebGLContext():GLContextWrapperBase
-  {
-    return this.ownerCanvas.GLContext;
-  }
-
   public get GL()
   {
-    return this.ownerCanvas.GLContext.Context;
+    return this.ownerCanvas.GL;
   }
 
   /**
