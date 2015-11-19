@@ -193,75 +193,6 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-    /**
-     * Pass matrix as uniform variable
-     * @param webGlUniformLocation uniform variable location
-     * @param matrix matrix you want to pass
-     */
-    public UniformMatrix(webGlUniformLocation: WebGLUniformLocation, matrix: Matrix)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    /**
-    * Pass vector as uniform variable
-    * @param webGlUniformLocation uniform variable location
-    * @param vector vector you want to pass
-    */
-    public UniformVector2(webGlUniformLocation: WebGLUniformLocation, vector: Vector2)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    /**
-    * Pass vector as uniform variable
-    * @param webGlUniformLocation uniform variable location
-    * @param vector vector you want to pass
-    */
-    public UniformVector3(webGlUniformLocation: WebGLUniformLocation, vector: Vector3)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    /**
-    * Pass vector as uniform variable
-    * @param webGlUniformLocation uniform variable location
-    * @param vector vector you want to pass
-    */
-    public UniformVector4(webGlUniformLocation: WebGLUniformLocation, vector: Vector4)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    /**
-  * Pass vector as uniform variable
-  * @param webGlUniformLocation uniform variable location
-  * @param vector vector you want to pass
-  */
-    public UniformVector2Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector2[])
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    /**
-    * Pass vector as uniform variable
-    * @param webGlUniformLocation uniform variable location
-    * @param vector vector you want to pass
-    */
-    public UniformVector3Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector3[])
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    /**
-    * Pass vector as uniform variable
-    * @param webGlUniformLocation uniform variable location
-    * @param vector vector you want to pass
-    */
-    public UniformVector4Array(webGlUniformLocation: WebGLUniformLocation, vector: Vector4[])
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
 
 
     public CullFace(cullMode: GLCullMode): void
@@ -343,10 +274,6 @@ class GLContextWrapperBase extends JThreeObject
     public GetParameter(type: GetParameterType):number
     {
       return undefined;
-    }
-
-    public Uniform1iArray(webglUniformLocation:WebGLUniformLocation,nums:Int32Array)
-    {
     }
 }
 export =GLContextWrapperBase;
