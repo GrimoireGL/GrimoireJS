@@ -105,7 +105,7 @@ class Canvas extends ContextManagerBase {
      * clear the default buffer of this canvas with ClearColor.
      */
     public clearCanvas(): void {
-        this.GLContext.BindFrameBuffer(null);//binds to default buffer.
+        this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,null);//binds to default buffer.
         this.applyClearColor();
         this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
     }

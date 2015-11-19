@@ -19,7 +19,7 @@ class Geometry extends jThreeObject {
    }
 
     public get NormalBuffer(): Buffer {
-       return this.normalBuffer; 
+       return this.normalBuffer;
    }
 
     public get UVBuffer(): Buffer {
@@ -30,7 +30,7 @@ class Geometry extends jThreeObject {
    {
      return this.indexBuffer;
    }
-   
+
    /**
     * 3 times of surface count.
     */
@@ -48,15 +48,15 @@ class Geometry extends jThreeObject {
    {
      return this.primitiveTopology;
    }
-   
+
    public drawElements(contextManager:ContextManagerBase,material:Material)
    {
      if(material)
      {
-       contextManager.GLContext.DrawElements(this.PrimitiveTopology,material.getDrawGeometryLength(this),this.IndexBuffer.ElementType,material.getDrawGeometryOffset(this));
+       contextManager.GL.drawElements(this.PrimitiveTopology,material.getDrawGeometryLength(this),this.IndexBuffer.ElementType,material.getDrawGeometryOffset(this));
        return;
      }
-     contextManager.GLContext.DrawElements(this.PrimitiveTopology,this.IndexCount,this.IndexBuffer.ElementType,this.GeometryOffset);
+     contextManager.GL.drawElements(this.PrimitiveTopology,this.IndexCount,this.IndexBuffer.ElementType,this.GeometryOffset);
    }
 
    protected addQuad(pos:number[],normal:number[],uv:number[],index:number[],points:Vector3[]):void
@@ -145,7 +145,7 @@ class Geometry extends jThreeObject {
        index.push(startIndex,startIndex+1,startIndex+2,startIndex,startIndex+2,startIndex+3);
      }
    }
-   
+
    public bindIndexBuffer(contextManager:ContextManagerBase)
    {
      this.IndexBuffer.getForContext(contextManager).bindBuffer();

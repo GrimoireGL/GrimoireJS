@@ -146,7 +146,7 @@ class RenderStageBase extends JThreeObject {
 			}
 			if (shouldBeDefault || (typeof v.isOptional !== 'undefined' && !v.isOptional && v.texture === null)) {//use default buffer
 				this.attachToWrapper(v, targetWrapper, attachmentType);
-				this.Renderer.GLContext.BindFrameBuffer(null);
+				this.Renderer.GL.bindFramebuffer(this.Renderer.GL.FRAMEBUFFER,null);
 				shouldBeDefault = true;
 			} else {
 				this.attachToWrapper(v, targetWrapper, attachmentType);

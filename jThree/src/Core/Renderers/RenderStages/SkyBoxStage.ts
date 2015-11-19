@@ -23,7 +23,7 @@ class SkyBoxStage extends RenderStageBase
 
 
     public preBeginStage(scene: Scene, passCount: number, chainInfo: ResolvedChainInfo) {
-        this.Renderer.GLContext.BindFrameBuffer(null);
+        this.Renderer.GL.bindFramebuffer(this.Renderer.GL.FRAMEBUFFER,null);
 
       /*  this.bindAsOutBuffer(this.DefaultFBO, [
             {
