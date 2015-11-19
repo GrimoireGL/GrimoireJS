@@ -48,16 +48,16 @@ class TextureWrapperBase extends ResourceWrapper
   }
 
     public bind() {
-        if (this.targetTexture!=null) this.WebGLContext.BindTexture(this.Parent.TargetTextureType, this.targetTexture);
+        if (this.targetTexture!=null) this.GL.bindTexture(this.Parent.TargetTextureType, this.targetTexture);
         else {
-            this.WebGLContext.BindTexture(this.Parent.TargetTextureType, null);
+            this.GL.bindTexture(this.Parent.TargetTextureType, null);
         }
   }
 
     public registerTexture(registerIndex: number):boolean {
         if (this.TargetTexture== null) {
             this.WebGLContext.ActiveTexture(TextureRegister.Texture0+registerIndex);
-            this.WebGLContext.BindTexture(this.parent.TargetTextureType, null);
+            this.GL.bindTexture(this.parent.TargetTextureType, null);
             return false;
         }
         this.WebGLContext.ActiveTexture(TextureRegister.Texture0 +registerIndex);

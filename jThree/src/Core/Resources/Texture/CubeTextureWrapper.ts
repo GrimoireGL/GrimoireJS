@@ -15,7 +15,7 @@ class CubeTextureWrapper extends TextureWrapperBase {
         var parent = <CubeTexture>this.Parent;
         if (this.Initialized && !isChanged) return;
         if (this.TargetTexture == null) this.setTargetTexture(this.WebGLContext.CreateTexture());
-        this.WebGLContext.BindTexture(TextureTargetType.CubeTexture, this.TargetTexture);
+        this.GL.bindTexture(TextureTargetType.CubeTexture, this.TargetTexture);
         if (parent.ImageSource == null) {
             for (var i = 0; i < 6; i++) {
                 this.GL.texImage2D(TexImageTargetType.CubePositiveX + i, 0, TextureInternalFormat.RGBA, 1, 1, 0,TextureInternalFormat.RGBA, TextureType.UnsignedByte, TextureWrapperBase.altTextureBuffer);
@@ -28,7 +28,7 @@ class CubeTextureWrapper extends TextureWrapperBase {
                     this.GL.texImage2D(TexImageTargetType.CubePositiveX + i, 0, TextureInternalFormat.RGBA, TextureInternalFormat.RGBA, TextureType.UnsignedByte, <ImageData>parent.ImageSource[i]);
             }
         }
-        this.WebGLContext.BindTexture(TextureTargetType.CubeTexture, null);
+        this.GL.bindTexture(TextureTargetType.CubeTexture, null);
         this.setInitialized();
     }
 

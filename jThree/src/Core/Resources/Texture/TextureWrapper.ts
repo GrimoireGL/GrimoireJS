@@ -18,7 +18,7 @@ class TextureWrapper extends TextureWrapperBase
     var parent=<Texture>this.Parent;
     if(this.Initialized&&!isChanged)return;
     if(this.TargetTexture==null)this.setTargetTexture(this.WebGLContext.CreateTexture());
-    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,this.TargetTexture);
+    this.GL.bindTexture(TextureTargetType.Texture2D,this.TargetTexture);
     if(parent.ImageSource==null) {
         this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, TextureInternalFormat.RGBA, 1, 1, 0,TextureInternalFormat.RGBA, TextureType.UnsignedByte,TextureWrapperBase.altTextureBuffer);
     } else
@@ -26,7 +26,7 @@ class TextureWrapper extends TextureWrapperBase
         this.preTextureUpload();
       this.GL.texImage2D(TexImage2DTargetType.Texture2D,0,TextureInternalFormat.RGBA,TextureInternalFormat.RGBA,TextureType.UnsignedByte,<ImageData>parent.ImageSource);
     }
-    this.WebGLContext.BindTexture(TextureTargetType.Texture2D,null);
+    this.GL.bindTexture(TextureTargetType.Texture2D,null);
     this.setInitialized();}
 
   }
