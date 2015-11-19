@@ -12,16 +12,19 @@ import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
 import CubeGeometry = require("../Geometries/CubeGeometry");
 import RenderPath = require("./RenderPath");
 import TextureGenerater = require("./TextureGenerater");
+import JThreeEvent = require("../../Base/JThreeEvent");
+import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
+
 class RenderPathExecutor
 {
+    public renderStageCompleted:JThreeEvent<IRenderStageCompletedEventArgs> = new JThreeEvent<IRenderStageCompletedEventArgs>();
+
     private parentRenderer: RendererBase;
     private defaultQuad: QuadGeometry;
     private defaultCube:CubeGeometry;
-    private stageName: string;
 
     constructor(parent: RendererBase)
     {
-        this.stageName = "<<<RenderStage Initialization>>>";
         this.parentRenderer = parent;
         this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
         this.defaultCube = new CubeGeometry("jthree.renderstage.default.cube");
@@ -71,9 +74,9 @@ class RenderPathExecutor
 
     public processRender(scene: Scene,renderPath:RenderPath)
     {
+        var stageIndex = 0;
         renderPath.path.forEach(chain=>
         {
-            this.stageName = "initialization of " + chain.stage.getTypeName();
             var texs = this.genChainTexture(chain);
             var stage = chain.stage;
             var techniqueCount = stage.getTechniqueCount(scene);
@@ -94,7 +97,6 @@ class RenderPathExecutor
             stage.applyStageConfig();
             for (var i = 0; i < techniqueCount; i++)
             {
-                this.stageName = "pass:" + i + " pre begin stage of" + chain.stage.getTypeName();
                 stage.preBeginStage(scene, i, texs);
                 targetObjects.forEach(v=>
                 {
@@ -102,16 +104,21 @@ class RenderPathExecutor
                     {
                         if (v.Geometry&&stage.needRender(scene, v, i))
                         {
-                            this.stageName = "pass:" + i + "render" + chain.stage.getTypeName() + "target:" + v.Geometry.getTypeName();
                             stage.render(scene, v, i, texs);
 
                         }
                     });
                 });
-                this.stageName = "pass:" + i + "post begin stage of" + chain.stage.getTypeName();
                 stage.postEndStage(scene, i, texs);
             }
             stage.postAllStage(scene,texs);
+            this.renderStageCompleted.fire(this,{
+              owner:this,
+              completedChain:chain,
+              bufferTextures:texs,
+              index:stageIndex
+            });
+            stageIndex++;
         });
     }
 }

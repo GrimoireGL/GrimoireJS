@@ -47,6 +47,10 @@ class RendererDebugger extends DebuggerModuleBase
   private attachToRenderer(renderer:RendererBase,debug:Debugger)
   {
     debug.debuggerAPI.renderers.addRenderer(renderer);
+    renderer.RenderPathExecutor.renderStageCompleted.addListener((o,v)=>
+    {
+      
+    });
   }
 }
 

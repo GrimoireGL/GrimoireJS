@@ -22,6 +22,7 @@
       <plight color="#FF00FF" position="5,2,-6" distance="7" decay="0.1"/>
       <plight color="#0000FF" position="-3,2,-6" distance="7" decay="0.1"/>
       <plight color="#00FFFF" position="-5,2,-6" distance="7" decay="0.1"/>
+      <dlight color="#FFFFFF" position="0,0,5"/>
       <pmx scale="0.2" src="/resource/model/Tda/Miku.pmx">
         <vmd id="melt" frame="0" src="/resource/motion/menf.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
