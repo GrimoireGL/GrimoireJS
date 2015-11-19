@@ -28,19 +28,24 @@ class ResourceWrapper extends JThreeObject
   {
     return this.ownerCanvas.ID;
   }
-  
+
   protected get WebGLContext():GLContextWrapperBase
   {
     return this.ownerCanvas.GLContext;
   }
-  
+
+  protected get GL()
+  {
+    return this.ownerCanvas.GLContext.Context;
+  }
+
   /**
    * Whether this resource was initialized for this context or not.
    */
   private initialized:boolean;
-  
+
   protected onInitializeChangedEvent:JThreeEvent<boolean> = new JThreeEvent<boolean>();
-  
+
   /**
    * add event handler for changing initialized state changed.
    */
@@ -48,7 +53,7 @@ class ResourceWrapper extends JThreeObject
   {
     this.onInitializeChangedEvent.addListener(handler);
   }
-  
+
    /**
    * Getter for whether this resource was initialized for this context or not.
    */
@@ -56,7 +61,7 @@ class ResourceWrapper extends JThreeObject
   {
     return this.initialized;
   }
-  
+
   protected setInitialized(initialized?:boolean):void
   {
     if(typeof initialized === "undefined")initialized=true;
@@ -66,7 +71,7 @@ class ResourceWrapper extends JThreeObject
   }
 
   public init() {
-      
+
   }
 }
 

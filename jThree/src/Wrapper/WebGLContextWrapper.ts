@@ -378,6 +378,11 @@ class WebGLContextWrapper extends GLContextWrapperBase {
   {
     this.gl.uniformMatrix4fv(webGlUniformLocation,false,matricies);
   }
+
+  public ReadPixels(left:number,top:number,width:number,height:number,internalFormat:TextureInternalFormatType,type:ElementType,buffer:ArrayBufferView)
+  {
+    this.gl.readPixels(left,top,width,height,internalFormat,type,buffer);
+  }
 }
 
 export =WebGLContextWrapper;
