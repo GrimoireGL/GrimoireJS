@@ -204,10 +204,5 @@ class GLContextWrapperBase extends JThreeObject
     {
 
     }
-
-    public GetParameter(type: GetParameterType):number
-    {
-      return undefined;
-    }
 }
 export =GLContextWrapperBase;

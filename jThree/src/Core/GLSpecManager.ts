@@ -9,7 +9,7 @@ class GLSpecManager
 		var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
 		if(canvasManager.canvases.length>0)
 		{
-			return canvasManager.canvases[0].GLContext;
+			return canvasManager.canvases[0].GLContext.Context;
 		}else{
 			console.error("can't obtain the gl context to check gl spec");
 		}
@@ -17,7 +17,7 @@ class GLSpecManager
 
 	private static getParameterOrCached(cached:number,parameterType:GetParameterType)
 	{
-		return cached || GLSpecManager.GLContext.GetParameter(parameterType);
+		return cached || GLSpecManager.GLContext.getParameter(parameterType);
 	}
 
 	private static maxCombinedTextureUnits;
