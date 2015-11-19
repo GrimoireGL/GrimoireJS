@@ -59,7 +59,7 @@ class BufferWrapper extends ResourceWrapper
             this.init();
         }
         this.bindBuffer();
-        this.glContext.BufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
+        this.GL.bufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
         this.unbindBuffer();
         this.length = length;
     }

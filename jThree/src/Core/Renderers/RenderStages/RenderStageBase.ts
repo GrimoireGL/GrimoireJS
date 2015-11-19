@@ -67,7 +67,7 @@ class RenderStageBase extends JThreeObject {
 	 * This method will be called after process render in each pass.
 	 */
 	public postEndStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
-		this.Renderer.GLContext.Flush();
+		this.Renderer.GL.flush();
 	}
 
 	public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
@@ -93,9 +93,9 @@ class RenderStageBase extends JThreeObject {
         this.applyStageConfigToGLFeature(this.RenderStageConfig.blend,GLFeature.Blend,true);
 		//cull face direction
 		if (!this.RenderStageConfig.cullFront) {
-			this.GLContext.CullFace(GLCullMode.Front);
+			this.GL.cullFace(GLCullMode.Front);
 		} else {
-			this.GLContext.CullFace(GLCullMode.Back);
+			this.GL.cullFace(GLCullMode.Back);
 		}
 	}
 

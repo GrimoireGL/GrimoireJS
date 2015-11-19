@@ -110,7 +110,7 @@ class RendererBase extends jThreeObjectWithID
      */
     public afterRender()
     {
-        this.GLContext.Flush();
+        this.GL.flush();
         this.ContextManager.afterRender(this);
     }
 
@@ -170,7 +170,7 @@ class RendererBase extends jThreeObjectWithID
      */
     public applyViewportConfigure(): void
     {
-        this.ContextManager.GLContext.ViewPort(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
+        this.GL.viewport(this.viewportArea.Left, this.viewportArea.Top, this.viewportArea.Width, this.viewportArea.Height);
     }
 }
 

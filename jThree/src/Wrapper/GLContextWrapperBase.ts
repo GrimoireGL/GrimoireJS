@@ -66,25 +66,6 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-    
-    /**
-     * Store data to buffer
-     * @param target target type you want to store data
-     * @param array data source array
-     * @param usage type how to use data source
-     */
-    public BufferData(target: BufferTargetType, array: ArrayBuffer, usage: number): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Unbind buffer
-     * @param target the buffer type you want to unbind
-     */
-    public UnbindBuffer(target: BufferTargetType): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
 
     /**
      * Set the clear color it will be used when you call Clear()
@@ -139,20 +120,6 @@ class GLContextWrapperBase extends JThreeObject
     }
 
     /**
-     * Flush drawing
-     */
-    public Flush(): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Finish drawing
-     */
-    public Finish()
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
      * Delete buffer
      * @param target the buffer you want to delete
      */
@@ -174,23 +141,6 @@ class GLContextWrapperBase extends JThreeObject
      * @param name the name of uniform variable
      */
     public GetUniformLocation(target: WebGLProgram, name: string): WebGLUniformLocation
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-
-    public CullFace(cullMode: GLCullMode): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Set viewport configure
-     * @param x X of left-bottom screen coordinate
-     * @param y Y of left-bottom screen coordinate
-     * @param width width of viewport
-     * @param height height of viewport
-     */
-    public ViewPort(x: number, y: number, width: number, height: number): void
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
