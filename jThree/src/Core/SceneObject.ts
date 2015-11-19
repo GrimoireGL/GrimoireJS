@@ -55,6 +55,8 @@ class SceneObject extends JThreeObjectWithID
         changedSceneObjectID:obj.ID
       };
       this.onStructureChangedEvent.fire(this,eventArg);
+      this.onChildrenChanged();
+      obj.onParentChanged();
       if(this.ParentScene)this.ParentScene.notifySceneObjectChanged(eventArg);
     }
 
@@ -84,7 +86,7 @@ class SceneObject extends JThreeObjectWithID
             {
                 return null;
             }else{
-                this.parentScene=this.parent.ParentScene;//Retrieve and cache parent scene
+                this.ParentScene=this.parent.ParentScene;//Retrieve and cache parent scene
                 return this.parentScene;
             }
         }else{
@@ -106,6 +108,7 @@ class SceneObject extends JThreeObjectWithID
         this.children.forEach((v)=>{
             v.ParentScene=scene;
         });
+        this.onParentSceneChanged();
     }
 
     public onMaterialChanged(func:Delegates.Action2<Material,SceneObject>): void {
@@ -178,6 +181,21 @@ class SceneObject extends JThreeObjectWithID
       this.children.forEach(t=> t.callRecursive(action));
       }
       action(this);
+    }
+
+    public onChildrenChanged()
+    {
+
+    }
+
+    public onParentChanged()
+    {
+
+    }
+
+    public onParentSceneChanged()
+    {
+
     }
 
     public update() {

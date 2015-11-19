@@ -66,6 +66,11 @@ class LightBase extends SceneObject
     {
 
     }
+
+    public onParentSceneChanged()
+    {
+      this.ParentScene.addLight(this);
+    }
 }
 
 export = LightBase;

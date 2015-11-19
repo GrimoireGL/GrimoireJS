@@ -40,8 +40,6 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
     public Load()
   {
     super.Load();
-    this.ContainedSceneNode.targetScene.addCamera(this.targetCamera);
-
   }
 
   private name:string;

@@ -34,6 +34,11 @@ class Camera extends SceneObject
 	public update():void
 	{
 		super.update();
+	}
+
+	public onParentSceneChanged()
+	{
+		this.ParentScene.addCamera(this);
 	}　　　
 }
 
