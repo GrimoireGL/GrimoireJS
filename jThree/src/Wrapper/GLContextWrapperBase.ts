@@ -121,40 +121,7 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-  
-    /**
-     * Create new program
-     * @returns {created program}
-     */
-    public CreateProgram(): WebGLProgram
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Attach shader to program
-     * @param program the program you want to be attached
-     * @param shader the shader you want to attach
-     */
-    public AttachShader(program: WebGLProgram, shader: WebGLShader): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Link program
-     * @param program the program you want to link
-     */
-    public LinkProgram(program: WebGLProgram): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Use program
-     * @param program the program you want to use
-     */
-    public UseProgram(program: WebGLProgram): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
+
     /**
      * Get attribute variable location from program
      * @param program the program you want to locate attribute variable
@@ -333,16 +300,6 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    public UniformMatrixArray(webGlUniformLocation:WebGLUniformLocation,matricies:number[])
-    {
-      throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
     public CreateRenderBuffer(): WebGLRenderbuffer
     {
         throw new Exceptions.AbstractClassMethodCalledException();
@@ -362,13 +319,6 @@ class GLContextWrapperBase extends JThreeObject
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
-
-
-    public Uniform1f(webglUniformLocation: WebGLUniformLocation, num: number)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
 
     public ClearDepth(depth: number)
     {

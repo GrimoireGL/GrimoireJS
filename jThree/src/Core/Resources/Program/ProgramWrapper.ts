@@ -27,9 +27,9 @@ class ProgramWrapper extends ResourceWrapper {
 
     public init(): void {
         if (!this.Initialized) {
-            this.targetProgram = this.WebGLContext.CreateProgram();
+            this.targetProgram = this.GL.createProgram();
             this.parentProgram.AttachedShaders.forEach((v, i, a) => {
-                this.WebGLContext.AttachShader(this.targetProgram, v.getForContextID(this.OwnerID).TargetShader);
+                this.GL.attachShader(this.targetProgram, v.getForContextID(this.OwnerID).TargetShader);
             });
             this.setInitialized();
         }
@@ -37,7 +37,7 @@ class ProgramWrapper extends ResourceWrapper {
 
     public dispose() {
         if (this.Initialized) {
-            this.WebGLContext.DeleteProgram(this.targetProgram);
+            this.GL.deleteProgram(this.targetProgram);
             this.setInitialized(false);
             this.targetProgram = null;
             this.isLinked = false;
@@ -46,7 +46,7 @@ class ProgramWrapper extends ResourceWrapper {
 
     public linkProgram(): void {
         if (!this.isLinked) {
-            this.WebGLContext.LinkProgram(this.targetProgram);
+            this.GL.linkProgram(this.targetProgram);
             this.isLinked = true;
         }
     }
@@ -58,14 +58,14 @@ class ProgramWrapper extends ResourceWrapper {
         if (!this.isLinked) {
             this.linkProgram();
         }
-        this.WebGLContext.UseProgram(this.targetProgram);
+        this.GL.useProgram(this.targetProgram);
     }
 
     private fetchUniformLocation(valName:string):WebGLUniformLocation
     {
         if(!this.uniformLocations.has(valName))
         {
-            this.uniformLocations.set(valName,this.WebGLContext.GetUniformLocation(this.TargetProgram,valName));
+            this.uniformLocations.set(valName,this.GL.getUniformLocation(this.TargetProgram,valName));
         }
         return this.uniformLocations.get(valName);
     }
@@ -74,11 +74,11 @@ class ProgramWrapper extends ResourceWrapper {
      * Relink shader for shader source changing
      */
     public relink() {
-        this.WebGLContext.DeleteProgram(this.TargetProgram);
-        this.targetProgram = this.WebGLContext.CreateProgram();
+        this.GL.deleteProgram(this.TargetProgram);
+        this.targetProgram = this.GL.createProgram();
         this.parentProgram.AttachedShaders.forEach((v, i, a) =>
         {
-            this.WebGLContext.AttachShader(this.targetProgram, v.getForContextID(this.OwnerID).TargetShader);
+            this.GL.attachShader(this.targetProgram, v.getForContextID(this.OwnerID).TargetShader);
         });
     }
 
@@ -98,7 +98,7 @@ class ProgramWrapper extends ResourceWrapper {
                 uniform['context'] = this.OwnerCanvas;
                 var index = this.fetchUniformLocation(uniformKey);
                 var registerer = uniformRegisterTypeList[uniform.type];
-                registerer.registerVariable(this.WebGLContext, index, uniform.value,uniform);
+                registerer.registerVariable(this.GL, index, uniform.value,uniform);
             }
         }
         //register attribute variables
@@ -109,11 +109,11 @@ class ProgramWrapper extends ResourceWrapper {
                 buffer.bindBuffer();
                 if (!this.attributeLocations.has(attributeKey))
                 {
-                    this.attributeLocations.set(attributeKey, this.WebGLContext.GetAttribLocation(this.TargetProgram, attributeKey));
+                    this.attributeLocations.set(attributeKey, this.GL.getAttribLocation(this.TargetProgram, attributeKey));
                 }
                 var attribIndex: number = this.attributeLocations.get(attributeKey);
-                this.WebGLContext.EnableVertexAttribArray(attribIndex);
-                this.WebGLContext.VertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
+                this.GL.enableVertexAttribArray(attribIndex);
+                this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
 
             }
         }

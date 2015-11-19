@@ -1,7 +1,5 @@
-﻿import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
-
 class UniformVariableRegisterBase {
-    public registerVariable(gl: GlContextWrapperBase, index: WebGLUniformLocation, value: any, configure: any) {
+    public registerVariable(gl: WebGLRenderingContext, index: WebGLUniformLocation, value: any, configure: any) {
 
     }
 }
@@ -9,7 +7,7 @@ class UniformVariableRegisterBase {
 export = UniformVariableRegisterBase;
 /*
  * Overridden registers
- * 
+ *
  * * float vector X
  * * float X
  * * integer X

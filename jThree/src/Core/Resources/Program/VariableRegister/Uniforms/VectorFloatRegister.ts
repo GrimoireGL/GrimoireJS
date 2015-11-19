@@ -6,18 +6,21 @@ import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBa
 import VectorBase = require("../../../../../Math/VectorBase");
 
 class VectorFloatRegister extends UniformVariableRegisterBase {
-    public registerVariable(gl: GlContextWrapperBase, index: WebGLUniformLocation, value: any, configure: any) {
+    public registerVariable(gl: WebGLRenderingContext, index: WebGLUniformLocation, value: any, configure: any) {
         var vec = <VectorBase>value;
         switch (vec.ElementCount)
         {
             case 2:
-                gl.UniformVector2(index, <Vector2>vec);
+              var vec2 = (<Vector2>vec);
+                gl.uniform2f(index, vec2.X,vec2.Y);
                 break;
             case 3:
-                gl.UniformVector3(index, <Vector3>vec);
+            var vec3 = (<Vector3>vec);
+                gl.uniform3f(index, vec3.X,vec3.Y,vec3.Z);
                 break;
             case 4:
-                gl.UniformVector4(index, <Vector4>vec);
+              var vec4 =(<Vector4>vec);
+                gl.uniform4f(index, vec4.X,vec4.Y,vec4.Z,vec4.W);
                 break;
         }
     }

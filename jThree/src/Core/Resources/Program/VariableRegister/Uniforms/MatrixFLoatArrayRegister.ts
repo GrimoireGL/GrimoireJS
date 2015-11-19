@@ -3,10 +3,10 @@ import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBa
 import Matrix = require("../../../../../Math/Matrix");
 class MatrixFloatArrayRegister extends UniformVariableRegisterBase
 {
-  public registerVariable(gl: GlContextWrapperBase, index: WebGLUniformLocation, value: any, configure: any)
+  public registerVariable(gl: WebGLRenderingContext, index: WebGLUniformLocation, value: any, configure: any)
   {
     var matrix = <number[]>value;
-    gl.UniformMatrixArray(index,matrix);
+    gl.uniform4fv(index,matrix);
   }
 }
 export = MatrixFloatArrayRegister;
