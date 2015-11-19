@@ -416,17 +416,8 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public PixelStorei(pname: PixelStoreParamType, value: number)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
 
     public Uniform1f(webglUniformLocation: WebGLUniformLocation, num: number)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    public IsTexture(tex: WebGLTexture): boolean
     {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
