@@ -220,16 +220,6 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public Enable(feature: GLFeatureType): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    public Disable(feature: GLFeatureType): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
     /**
      * Draw without index
      * @param drawType primitive topology type

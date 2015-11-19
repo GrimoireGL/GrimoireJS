@@ -257,8 +257,8 @@ class PMXMaterial extends Material
     private configureEdgeMaterial(renderer: RendererBase, object: SceneObject): void
     {
         if (!this.program) return;
-        renderer.GLContext.Enable(GLFeatureType.CullFace);
-        renderer.GLContext.CullFace(GLCullMode.Front);
+        renderer.GL.enable(GLFeatureType.CullFace);
+        renderer.GL.cullFace(GLCullMode.Front);//TODO remove this direct change
         var geometry = <PMXGeometry> object.Geometry;
         var programWrapper = this.edgeProgram.getForContext(renderer.ContextManager);
         programWrapper.register({

@@ -32,6 +32,11 @@ class RenderStageBase extends JThreeObject {
 		return this.Renderer.GLContext;
 	}
 
+	public get GL()
+	{
+		return this.Renderer.GL;
+	}
+
 	private get ResourceManager()
 	{
 		return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
@@ -99,10 +104,10 @@ class RenderStageBase extends JThreeObject {
 			flag = def;
 		}
 		if (flag) {
-			this.GLContext.Enable(target);
+			this.GL.enable(target);
 		}
 		else {
-			this.GLContext.Disable(target);
+			this.GL.disable(target);
 		}
 	}
 

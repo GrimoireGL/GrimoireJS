@@ -89,6 +89,11 @@ class RendererBase extends jThreeObjectWithID
         return this.contextManager.GLContext;
     }
 
+    public get GL():WebGLRenderingContext
+    {
+      return this.contextManager.GLContext.Context;
+    }
+
     /**
      * It will be called before processing renderer.
      * If you need to override this method, you need to call same method of super class first.
