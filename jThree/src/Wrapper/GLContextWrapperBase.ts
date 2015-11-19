@@ -396,11 +396,6 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public ActiveTexture(textureRegister: TextureRegister)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
     public Uniform1i(webGlUniformLocation: WebGLUniformLocation, num: number): void
     {
         throw new Exceptions.AbstractClassMethodCalledException();

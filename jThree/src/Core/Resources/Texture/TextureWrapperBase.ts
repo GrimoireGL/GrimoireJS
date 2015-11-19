@@ -56,11 +56,11 @@ class TextureWrapperBase extends ResourceWrapper
 
     public registerTexture(registerIndex: number):boolean {
         if (this.TargetTexture== null) {
-            this.WebGLContext.ActiveTexture(TextureRegister.Texture0+registerIndex);
+            this.GL.activeTexture(TextureRegister.Texture0+registerIndex);
             this.GL.bindTexture(this.parent.TargetTextureType, null);
             return false;
         }
-        this.WebGLContext.ActiveTexture(TextureRegister.Texture0 +registerIndex);
+        this.GL.activeTexture(TextureRegister.Texture0 +registerIndex);
         this.applyTextureParameter();
         return true;
     }
