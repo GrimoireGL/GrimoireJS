@@ -391,11 +391,6 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public TexImage2D(targetTexture: TexImageTargetType, level: number, internalFormat: TextureInternalFormatType, targetFormatOrWidth: TextureInternalFormatType|number, typeOrHeight: TextureType|number, pixelsOrBorder: HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView|number, type?: TextureType, bufferObj?: ArrayBufferView): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
     public BindTexture(targetTexture: TargetTextureType, texture: WebGLTexture): void
     {
         throw new Exceptions.AbstractClassMethodCalledException();
@@ -493,11 +488,6 @@ class GLContextWrapperBase extends JThreeObject
 
     public Uniform1iArray(webglUniformLocation:WebGLUniformLocation,nums:Int32Array)
     {
-    }
-
-    public ReadPixels(left:number,top:number,width:number,height:number,internalFormat:TextureInternalFormatType,type:ElementType,buffer:ArrayBufferView)
-    {
-
     }
 }
 export =GLContextWrapperBase;
