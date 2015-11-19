@@ -33,10 +33,10 @@ class GrayScaleStage extends RenderStageBase {
 				type: "rbo",
 				target: "depth"
 			}], () => {
-				this.Renderer.GLContext.ClearColor(0, 0, 0, 1);
-				this.Renderer.GLContext.Clear(ClearTargetType.ColorBits);
+				this.Renderer.GL.clearColor(0, 0, 0, 1);
+				this.Renderer.GL.clear(ClearTargetType.ColorBits);
 			});
-		this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
+		this.Renderer.GL.clear(ClearTargetType.DepthBits);
 	}
 
 

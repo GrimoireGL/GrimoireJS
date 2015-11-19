@@ -68,26 +68,6 @@ class GLContextWrapperBase extends JThreeObject
     }
 
     /**
-     * Set the clear color it will be used when you call Clear()
-     * @param red red color value [0,1]
-     * @param green green color value [0,1]
-     * @param blue blue color value [0,1]
-     * @param alpha alpha color value [0,1]
-     */
-    public ClearColor(red: number, green: number, blue: number, alpha: number): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-    /**
-     * Clear buffers
-     * @param mask type of buffer you want to clear
-     */
-    public Clear(mask: ClearTargetType): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    /**
      * Get attribute variable location from program
      * @param program the program you want to locate attribute variable
      * @param name attribute variable name
@@ -165,44 +145,9 @@ class GLContextWrapperBase extends JThreeObject
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 
-    public CreateRenderBuffer(): WebGLRenderbuffer
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    public BindRenderBuffer(bindTarget: WebGLRenderbuffer): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    public RenderBufferStorage(internalFormat: RenderBufferInternalFormats, width: number, height: number): void
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
     public FrameBufferRenderBuffer(attachment: FrameBufferAttachmentType, buffer: WebGLRenderbuffer)
     {
         throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    public ClearDepth(depth: number)
-    {
-        throw new Exceptions.AbstractClassMethodCalledException();
-    }
-
-    public BlendFunc(b1: BlendFuncParamType, b2: BlendFuncParamType)
-    {
-
-    }
-
-    public BlendEquation(eq: BlendEquationType)
-    {
-
-    }
-
-    public DepthFunc(func: DepthFuncType)
-    {
-
     }
 }
 export =GLContextWrapperBase;

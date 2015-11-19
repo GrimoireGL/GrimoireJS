@@ -34,8 +34,8 @@ class ShadowMapGenerationStage extends RenderStageBase
               target: "depth"
             }
         ],()=>{
-          this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
-          this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
+          this.Renderer.GL.clearColor(0, 0, 0, 0);
+          this.Renderer.GL.clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
         },()=>{}
       );
     }

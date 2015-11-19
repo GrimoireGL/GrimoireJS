@@ -10,8 +10,8 @@ class RBOWrapper extends ResourceWrapper
 	/**
 	 *	Reference to the WebGLRenderbuffer this class managing.
 	  */
-	private targetRBO:WebGLRenderbuffer;	
-	
+	private targetRBO:WebGLRenderbuffer;
+
 	public get Target():WebGLRenderbuffer
 	{
 		return this.targetRBO;
@@ -20,7 +20,7 @@ class RBOWrapper extends ResourceWrapper
 	 * The parent RBOWrapper container class.
 	 */
 	private parent:RBO;
-	
+
 	constructor(contextManager:ContextManagerBase,parentRBO:RBO)
 	{
 		super(contextManager);
@@ -30,21 +30,21 @@ class RBOWrapper extends ResourceWrapper
     public init()
 	{
 		if(this.Initialized)return;
-		this.targetRBO=this.WebGLContext.CreateRenderBuffer();
+		this.targetRBO=this.GL.createRenderbuffer();
 		this.bind();
-		this.WebGLContext.RenderBufferStorage(this.parent.Format,this.parent.Width,this.parent.Height);
+		this.GL.renderbufferStorage(this.GL.RENDERBUFFER,this.parent.Format,this.parent.Width,this.parent.Height);
 		this.setInitialized();
 	}
 
 	public bind()
 	{
-		this.WebGLContext.BindRenderBuffer(this.targetRBO);
+		this.GL.bindRenderbuffer(this.GL.RENDERBUFFER,this.targetRBO);
 	}
 
 	public resize(width: number, height: number) {
 		if (this.Initialized) {
 			this.bind();
-			this.WebGLContext.RenderBufferStorage(this.parent.Format,this.parent.Width,this.parent.Height);
+			this.GL.renderbufferStorage(this.GL.RENDERBUFFER,this.parent.Format,this.parent.Width,this.parent.Height);
 		}
 	}
 }

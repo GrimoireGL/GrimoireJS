@@ -85,14 +85,14 @@ class FBOWrapper extends ResourceWrapper {
         var clearFlag = 0;
         if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined' && typeof a !== 'undefined') {
             clearFlag = clearFlag | ClearTargetType.ColorBits;
-            this.glContext.ClearColor(r, g, b, a);
+            this.GL.clearColor(r, g, b, a);
         }
         if (typeof d !== 'undefined') {
             clearFlag = clearFlag | ClearTargetType.DepthBits;
-            this.glContext.ClearDepth(d);
+            this.GL.clearDepth(d);
         }
         //TODO add stencil
-        this.glContext.Clear(clearFlag);
+        this.GL.clear(clearFlag);
     }
 }
 

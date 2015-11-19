@@ -33,8 +33,8 @@ class LightAccumulationStage extends RenderStageBase
             { texture: targetTetxture, target: 0 }
         ], () =>
             {
-                this.GLContext.ClearColor(0, 0, 0, 0);
-                this.GLContext.Clear(ClearTargetType.ColorBits);
+                this.GL.clearColor(0, 0, 0, 0);
+                this.GL.clear(ClearTargetType.ColorBits);
             });
     }
 

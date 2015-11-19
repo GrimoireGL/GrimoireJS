@@ -52,11 +52,11 @@ class GBufferStage extends RenderStageBase
                 isOptional: false
             }], () =>
             {
-                this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+                this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
             }, () =>
             {
                 this.Renderer.ContextManager.applyClearColor();
-                this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
+                this.Renderer.GL.clear(ClearTargetType.DepthBits);
             });
     }
 

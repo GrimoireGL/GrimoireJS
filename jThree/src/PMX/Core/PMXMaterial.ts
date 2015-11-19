@@ -169,7 +169,7 @@ class PMXMaterial extends Material
         }
         if (!this.program) return;
         super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
-        renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
+        renderer.GL.blendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);

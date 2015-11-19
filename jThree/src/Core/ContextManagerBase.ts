@@ -21,6 +21,8 @@ class ContextManagerBase extends jThreeObjectId {
      */
     private glContext: GLContextWrapperBase;
 
+    public GL:WebGLRenderingContext;
+
     private glExtensionManager: GLExtensionManager = new GLExtensionManager();
 
     public get GLExtensionManager() {
@@ -47,6 +49,7 @@ class ContextManagerBase extends jThreeObjectId {
      */
     protected setGLContext(glContext: GLContextWrapperBase) {
         this.glContext = glContext;
+        this.GL = glContext.Context;
         this.glExtensionManager.checkExtensions(glContext);
     }
 
@@ -82,7 +85,7 @@ class ContextManagerBase extends jThreeObjectId {
 
 
     public applyClearColor() {
-        this.glContext.ClearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
+        this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
     }
 }
 
