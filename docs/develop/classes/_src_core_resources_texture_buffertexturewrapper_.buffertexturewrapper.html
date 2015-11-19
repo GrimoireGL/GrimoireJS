@@ -109,6 +109,7 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#gl" class="tsd-kind-icon">GL</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#initialized" class="tsd-kind-icon">Initialized</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#ownercanvas" class="tsd-kind-icon">Owner<wbr>Canvas</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#ownerid" class="tsd-kind-icon">OwnerID</a></li>
@@ -121,6 +122,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#bind" class="tsd-kind-icon">bind</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#createimg" class="tsd-kind-icon">create<wbr>Img</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#init" class="tsd-kind-icon">init</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#oninitializechanged" class="tsd-kind-icon">on<wbr>Initialize<wbr>Changed</a></li>
@@ -150,7 +152,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_resources_texture_texturewrapperbase_.texturewrapperbase.html">TextureWrapperBase</a>.<a href="_src_core_resources_texture_texturewrapperbase_.texturewrapperbase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L6">src/Core/Resources/Texture/BufferTextureWrapper.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L8">src/Core/Resources/Texture/BufferTextureWrapper.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -176,7 +178,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_core_resources_resourcewrapper_.resourcewrapper.html">ResourceWrapper</a>.<a href="_src_core_resources_resourcewrapper_.resourcewrapper.html#oninitializechangedevent">onInitializeChangedEvent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L42">src/Core/Resources/ResourceWrapper.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L47">src/Core/Resources/ResourceWrapper.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,6 +197,24 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="gl" class="tsd-anchor"></a>
+					<h3>GL</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> GL<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_src_core_resources_resourcewrapper_.resourcewrapper.html">ResourceWrapper</a>.<a href="_src_core_resources_resourcewrapper_.resourcewrapper.html#gl">GL</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L37">src/Core/Resources/ResourceWrapper.ts:37</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLRenderingContext</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="initialized" class="tsd-anchor"></a>
 					<h3>Initialized</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
@@ -205,7 +225,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_core_resources_resourcewrapper_.resourcewrapper.html">ResourceWrapper</a>.<a href="_src_core_resources_resourcewrapper_.resourcewrapper.html#initialized-1">Initialized</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L55">src/Core/Resources/ResourceWrapper.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L60">src/Core/Resources/ResourceWrapper.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -338,6 +358,23 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="createimg" class="tsd-anchor"></a>
+					<h3>create<wbr>Img</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Img<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLImageElement</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L46">src/Core/Resources/Texture/BufferTextureWrapper.ts:46</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">HTMLImageElement</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="gettypename" class="tsd-anchor"></a>
 					<h3>get<wbr>Type<wbr>Name</h3>
@@ -367,7 +404,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_core_resources_texture_texturewrapperbase_.texturewrapperbase.html">TextureWrapperBase</a>.<a href="_src_core_resources_texture_texturewrapperbase_.texturewrapperbase.html#init">init</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L11">src/Core/Resources/Texture/BufferTextureWrapper.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L13">src/Core/Resources/Texture/BufferTextureWrapper.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -385,7 +422,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_core_resources_resourcewrapper_.resourcewrapper.html">ResourceWrapper</a>.<a href="_src_core_resources_resourcewrapper_.resourcewrapper.html#oninitializechanged">onInitializeChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L47">src/Core/Resources/ResourceWrapper.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L52">src/Core/Resources/ResourceWrapper.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -455,7 +492,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L25">src/Core/Resources/Texture/BufferTextureWrapper.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L27">src/Core/Resources/Texture/BufferTextureWrapper.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -482,7 +519,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_core_resources_resourcewrapper_.resourcewrapper.html">ResourceWrapper</a>.<a href="_src_core_resources_resourcewrapper_.resourcewrapper.html#setinitialized">setInitialized</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L60">src/Core/Resources/ResourceWrapper.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/ResourceWrapper.ts#L65">src/Core/Resources/ResourceWrapper.ts:65</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -548,7 +585,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L20">src/Core/Resources/Texture/BufferTextureWrapper.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L22">src/Core/Resources/Texture/BufferTextureWrapper.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -565,7 +602,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L34">src/Core/Resources/Texture/BufferTextureWrapper.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Texture/BufferTextureWrapper.ts#L36">src/Core/Resources/Texture/BufferTextureWrapper.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -608,6 +645,9 @@
 								<a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#alttexturebuffer" class="tsd-kind-icon">alt<wbr>Texture<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#gl" class="tsd-kind-icon">GL</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#initialized" class="tsd-kind-icon">Initialized</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
@@ -627,6 +667,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#bind" class="tsd-kind-icon">bind</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#createimg" class="tsd-kind-icon">create<wbr>Img</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_core_resources_texture_buffertexturewrapper_.buffertexturewrapper.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
