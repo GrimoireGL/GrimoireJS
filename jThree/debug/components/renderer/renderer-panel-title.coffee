@@ -1,5 +1,5 @@
 React = require 'react'
-
+ReactDOM = require 'react-dom'
 class RendererPanelTitle extends React.Component
 
   constructor:(props)->
@@ -13,7 +13,15 @@ class RendererPanelTitle extends React.Component
       </p>
       <p style={styles.id}>{@props.renderer.Camera.ParentScene.ID + "(" + @props.renderer.Camera.name + ")"}</p>
       <p style={styles.id}>{"ID " + @props.renderer.ID}</p>
+      <a onClick={@getShadowMap}>Get shadow map</a>
+      <div ref="container"></div>
     </div>
+
+  getShadowMap:=>
+    @props.rdrDebugger.getShadowMapImage(@props.renderer.ID).then (image)=>
+      container = ReactDOM.findDOMNode @refs.container
+      container.innerHTML = ''
+      container.appendChild image
 
 styles =
   container:

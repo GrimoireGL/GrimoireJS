@@ -91,6 +91,7 @@
         "./jThree/src/Core/Materials/SpriteMaterial.ts",
         "./jThree/src/Core/RendererListChangedEventArgs.ts",
         "./jThree/src/Core/Renderers/FBOBindData.ts",
+        "./jThree/src/Core/Renderers/IRenderPathCompletedEventArgs.ts",
         "./jThree/src/Core/Renderers/IRenderStageCompletedEventArgs.ts",
         "./jThree/src/Core/Renderers/RendererBase.ts",
         "./jThree/src/Core/Renderers/RendererConfigurator/BasicRendererConfigurator.ts",

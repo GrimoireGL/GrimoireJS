@@ -17,6 +17,12 @@ class RendererDebugger extends DebuggerModuleBase
 
   private generator;
 
+  private captureShadowmap:boolean = false;
+
+  private shadowMapRendererID:string;
+
+  private defferForShadowmap;
+
   public attach(debug:Debugger)
   {
     var sm = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
@@ -70,6 +76,23 @@ class RendererDebugger extends DebuggerModuleBase
         this.captureStageID = null;
       }
     });
+    renderer.RenderPathExecutor.renderPathCompleted.addListener((o,v)=>
+    {
+      if(v.owner.renderer.ID === this.shadowMapRendererID)
+      {
+        this.shadowMapRendererID = null;
+        this.defferForShadowmap.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage());
+      }
+    });
+  }
+
+  public getShadowMapImage(rendererID:string):Q.IPromise<HTMLImageElement>
+  {
+    var d = Q.defer<HTMLImageElement>();
+    this.captureShadowmap = true;
+    this.shadowMapRendererID = rendererID;
+    this.defferForShadowmap = d;
+    return d.promise;
   }
 
   public getTextureHtmlImage(stageID:string,textureArgName:string,generator?:any):Q.IPromise<HTMLImageElement>

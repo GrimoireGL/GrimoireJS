@@ -14,18 +14,20 @@ import RenderPath = require("./RenderPath");
 import TextureGenerater = require("./TextureGenerater");
 import JThreeEvent = require("../../Base/JThreeEvent");
 import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
-
+import IRenderPathCompletedEventArgs = require("./IRenderPathCompletedEventArgs");
 class RenderPathExecutor
 {
     public renderStageCompleted:JThreeEvent<IRenderStageCompletedEventArgs> = new JThreeEvent<IRenderStageCompletedEventArgs>();
 
-    private parentRenderer: RendererBase;
+    public renderPathCompleted:JThreeEvent<IRenderPathCompletedEventArgs> = new JThreeEvent<IRenderPathCompletedEventArgs>();
+
+    public renderer: RendererBase;
     private defaultQuad: QuadGeometry;
     private defaultCube:CubeGeometry;
 
     constructor(parent: RendererBase)
     {
-        this.parentRenderer = parent;
+        this.renderer = parent;
         this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
         this.defaultCube = new CubeGeometry("jthree.renderstage.default.cube");
     }
@@ -50,7 +52,7 @@ class RenderPathExecutor
     {
         for (var name in this.textureBuffers)
         {
-          TextureGenerater.generateTexture(this.parentRenderer,name,this.textureBuffers[name]);
+          TextureGenerater.generateTexture(this.renderer,name,this.textureBuffers[name]);
         }
     }
 
@@ -66,7 +68,7 @@ class RenderPathExecutor
                 texInfo[targetName] = null;//default buffer
                 continue;
             }
-            var tex = TextureGenerater.getTexture(this.parentRenderer,bufferName);
+            var tex = TextureGenerater.getTexture(this.renderer,bufferName);
             texInfo[targetName] = tex;
         }
         return texInfo;
@@ -120,6 +122,10 @@ class RenderPathExecutor
             });
             stageIndex++;
         });
+        this.renderPathCompleted.fire(this,{
+          owner:this,
+          scene:scene
+        })
     }
 }
 
