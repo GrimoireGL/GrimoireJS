@@ -10,8 +10,10 @@ class RendererContent extends React.Component
 
   render:->
     children = []
+    i = 0;
     for v in @api.renderers
-      children.push <Tab.Panel title={v.name} key={v.ID}><Renderer renderer={v}/></Tab.Panel>
+      children.push <Tab.Panel title={v.name} key={v.ID}><Renderer renderer={v} rdrDebugger={@api.debuggers[i]}/></Tab.Panel>
+      i++
     <div>
       <Tab>
         {children}
@@ -22,9 +24,11 @@ class RendererContent extends React.Component
 class RendererContentAPI
   constructor:()->
 
-  @addRenderer:(renderer)=>
+  @addRenderer:(renderer,debug)=>
     if !RendererContentAPI.renderers
       RendererContentAPI.renderers = []
+      RendererContentAPI.debuggers = []
+    RendererContentAPI.debuggers.push debug
     RendererContentAPI.renderers.push renderer
     if RendererContentAPI.tabs && RendererContentAPI.tabs.isMounted()
       RendererContentAPI.tabs.setState

@@ -7,7 +7,7 @@ class RendererStageListEntity extends React.Component
   render:->
     chain = []
     for k,v of @props.stage.buffers
-      chain.push <ChainResource texKey={k} texVal={v} key={k}/>
+      chain.push <ChainResource texKey={k} texVal={v} key={k} stage={@props.stage} rdrDebugger={@props.rdrDebugger}/>
     <div style={styles.container}>
       <p>
         <span style={styles.index}>{@props.index + " : "}</span>

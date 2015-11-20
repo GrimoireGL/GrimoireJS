@@ -1,4 +1,4 @@
-import JThreeObject = require('./../../../Base/JThreeObject');
+import JThreeObjectWithID = require('../../../Base/JThreeObjectWithID');
 import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
 import Scene = require('../../Scene')
@@ -19,7 +19,7 @@ import RenderStageConfig = require("../RenderStageConfig");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../NJThreeContext");
 import ResourceManager = require("../../ResourceManager");
-class RenderStageBase extends JThreeObject {
+class RenderStageBase extends JThreeObjectWithID {
 	private renderer: RendererBase;
 	/**
 	 * Getter for renderer having this renderstage
@@ -27,7 +27,7 @@ class RenderStageBase extends JThreeObject {
 	public get Renderer(): RendererBase {
 		return this.renderer;
 	}
-	
+
 	public get GL()
 	{
 		return this.Renderer.GL;

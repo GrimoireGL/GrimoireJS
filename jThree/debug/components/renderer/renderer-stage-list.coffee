@@ -8,7 +8,7 @@ class RendererStageList extends React.Component
     children = []
     key = 0
     for v in @props.renderer.renderPath.path
-      children.push <Entity key={key} index={key} stage={v} renderer={@props.renderer}/>
+      children.push <Entity key={key} index={key} stage={v} renderer={@props.renderer} rdrDebugger={@props.rdrDebugger}/>
       key++;
     <div>
       <p>RenderStages</p>

@@ -44,10 +44,10 @@ class BufferTextureWrapper extends TextureWrapperBase {
         this.unbind();
     }
 
-    public generateHtmlImage(encoder?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>)
+    public generateHtmlImage(encoder?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>):HTMLImageElement
     {
       var parent = <BufferTexture>this.Parent;
-      this.encodeHtmlImage(parent.Width,parent.Height,encoder);
+      return this.encodeHtmlImage(parent.Width,parent.Height,encoder);
     }
 }
 

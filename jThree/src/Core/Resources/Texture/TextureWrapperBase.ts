@@ -80,9 +80,9 @@ class TextureWrapperBase extends ResourceWrapper
       }
   }
 
-  public generateHtmlImage(encoder?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>)
+  public generateHtmlImage(encoder?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>):HTMLImageElement
   {
-
+    return null;
   }
 
   protected encodeHtmlImage(width:number,height:number,encode?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>)

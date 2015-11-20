@@ -25,7 +25,7 @@
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "./node_modules/.bin/gulp --require coffee-script/register test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
-    "clean":"./node_modules/.bin/gulp --require coffee-script/register clean"
+    "clean": "./node_modules/.bin/gulp --require coffee-script/register clean"
   },
   "devDependencies": {
     "browserify": "^9.0.7",
@@ -53,10 +53,13 @@
     "jsdom": "^3.1.2",
     "json-loader": "^0.5.1",
     "lodash": "^3.10.1",
+    "q": "^1.4.1",
     "radium": "^0.14.3",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-simpletabs": "^0.7.0",
+    "react-tap-event-plugin": "^0.2.1",
+    "react-tooltip": "^0.8.6",
     "react-treeview": "^0.4.2",
     "shader-loader": "^1.1.3",
     "shaderify": "pnlybubbles/shaderify#0fcdf2aa0140253170cbbc608ade68d34f78e448",

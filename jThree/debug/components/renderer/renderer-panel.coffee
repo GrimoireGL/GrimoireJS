@@ -8,7 +8,7 @@ class RendererPanel extends React.Component
   render:->
     <div>
       <Title renderer={@props.renderer}/>
-      <Stages renderer={@props.renderer}/>
+      <Stages renderer={@props.renderer} rdrDebugger={@props.rdrDebugger}/>
     </div>
 
 module.exports = RendererPanel;

@@ -35,23 +35,28 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     protected initializeForFirst() {
       var canvasManager = NJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         canvasManager.canvases.forEach((v) => {
-            this.cachedObject.set(v.ID, this.getInstanceForRenderer(v));
+            this.childWrapper.set(v.ID, this.getInstanceForRenderer(v));
         });
     }
 
-    private cachedObject: AssociativeArray<T> = new AssociativeArray<T>();
+    public get wrappers():T[]
+    {
+      return this.childWrapper.asArray;
+    }
+
+    private childWrapper: AssociativeArray<T> = new AssociativeArray<T>();
 
     public getForContext(contextManager: ContextManagerBase): T {
         return this.getForContextID(contextManager.ID);
     }
 
     public getForContextID(id: string): T {
-        if (!this.cachedObject.has(id)) console.log("There is no matching object with the ID:" + id);
-        return this.cachedObject.get(id);
+        if (!this.childWrapper.has(id)) console.log("There is no matching object with the ID:" + id);
+        return this.childWrapper.get(id);
     }
 
     public each(act: Delegates.Action1<T>): void {
-        this.cachedObject.forEach(((v, i, a) => {
+        this.childWrapper.forEach(((v, i, a) => {
             act(v);
         }));
     }
@@ -59,11 +64,11 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     private rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
         switch (arg.ChangeType) {
             case ListStateChangedType.Add:
-                this.cachedObject.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
+                this.childWrapper.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
                 break;
             case ListStateChangedType.Delete:
-                var delTarget: T = this.cachedObject.get(arg.AffectedRenderer.ID);
-                this.cachedObject.delete(arg.AffectedRenderer.ID);
+                var delTarget: T = this.childWrapper.get(arg.AffectedRenderer.ID);
+                this.childWrapper.delete(arg.AffectedRenderer.ID);
                 this.disposeResource(delTarget);
                 break;
         }
