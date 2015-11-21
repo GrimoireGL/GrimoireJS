@@ -88,6 +88,7 @@
         "./jThree/src/Core/Materials/ShadowMapMaterial.ts",
         "./jThree/src/Core/Materials/SolidColorMaterial.ts",
         "./jThree/src/Core/Materials/SpriteMaterial.ts",
+        "./jThree/src/Core/NodeManager.ts",
         "./jThree/src/Core/Renderers/FBOBindData.ts",
         "./jThree/src/Core/Renderers/RendererBase.ts",
         "./jThree/src/Core/Renderers/RendererConfigurator/BasicRendererConfigurator.ts",

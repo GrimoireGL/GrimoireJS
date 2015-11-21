@@ -145,19 +145,19 @@ class GomlLoader extends jThreeObject {
       JThreeLogger.sectionLongLog('Goml loader',catched.innerHTML);
     }
     if (catched === undefined || catched.tagName.toUpperCase() !== 'GOML') throw new Exceptions.InvalidArgumentException('Root should be goml');
-    this.configurator.GomlRootNodes.forEach((v) => {
-      this.rootNodes.set(v, []);
-      var found_items: NodeList = catched.querySelectorAll(v);
-      for (let i = 0; i < found_items.length; i++) {
-        this.parseChildren(null, found_items[i].childNodes, (e) => {
-          this.rootNodes.get(v).push(e);
-        });
-      }
-    });
-    this.eachNode((v) => v.beforeLoad());
-    this.eachNode((v) => v.Load());
-    this.eachNode((v) => v.afterLoad());
-    this.eachNode((v) => v.attributes.applyDefaultValue());
+    // this.configurator.GomlRootNodes.forEach((v) => {
+    //   this.rootNodes.set(v, []);
+    //   var found_items: NodeList = catched.querySelectorAll(v);
+    //   for (let i = 0; i < found_items.length; i++) {
+    //     this.parseChildren(null, found_items[i].childNodes, (e) => {
+    //       this.rootNodes.get(v).push(e);
+    //     });
+    //   }
+    // });
+    // this.eachNode((v) => v.beforeLoad());
+    // this.eachNode((v) => v.Load());
+    // this.eachNode((v) => v.afterLoad());
+    // this.eachNode((v) => v.attributes.applyDefaultValue());
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.onLoadEvent.fire(this, source);
     this.ready = true;
