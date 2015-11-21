@@ -283,6 +283,7 @@ update tsconfig files (if your editor does not adapt to 'filesGlob')
 gulp.task 'update-tsconfig-files', ->
   json = JSON.parse fs.readFileSync path.resolve(__dirname, tsconfigPath)
   files = _(globArray.sync(json.filesGlob)).uniq(true)
+  json.files = files
   fs.writeFileSync path.resolve(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
   refs = _(files)
     .map (v) ->
