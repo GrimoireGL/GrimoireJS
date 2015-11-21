@@ -25,6 +25,11 @@
     {
       "goml":"PointLight/PointLight.goml",
       "js":[]
+    },
+    "BehavorLight":
+    {
+      "goml":"BehavorLight/BehavorLight.goml",
+      "js":["BehavorLight/BehavorLight.js"]
     }
   }
 }
