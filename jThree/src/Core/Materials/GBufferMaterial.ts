@@ -181,15 +181,16 @@ class GBufferMaterial extends Material
         });
     }
 
-    public  getMaterialConfig(pass:number):IMaterialConfig
+    public  getMaterialConfig(pass:number,technique:number):IMaterialConfig
     {
-      if(pass == 0)
+      if(technique == 0)
       {
         return {
           blend:false,
           cull:"ccw"
         }
-      }else if(pass == 1)
+      }
+      if(technique == 1)
       {
         return {
           cull:"ccw",

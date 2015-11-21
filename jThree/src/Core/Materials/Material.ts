@@ -65,7 +65,7 @@ class Material extends JThreeObjectWithID {
         return this.priorty;
     }
 
-    public  getMaterialConfig(pass:number):IMaterialConfig
+    public getMaterialConfig(pass:number,technique:number):IMaterialConfig
     {
       return {
         cull:"ccw",
@@ -109,13 +109,13 @@ class Material extends JThreeObjectWithID {
     * This is used for passing variables,using programs,binding index buffer.
     */
     public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
-        this.applyMaterialConfig(passIndex,renderer);
+        this.applyMaterialConfig(passIndex,techniqueIndex,renderer);
         return;
     }
 
-    protected applyMaterialConfig(passIndex:number,renderer:RendererBase)
+    protected applyMaterialConfig(passIndex:number,techniqueIndex:number,renderer:RendererBase)
     {
-      var config = this.getMaterialConfig(passIndex);
+      var config = this.getMaterialConfig(passIndex,techniqueIndex);
       if(config.cull)
       {
         renderer.GL.enable(renderer.GL.CULL_FACE);

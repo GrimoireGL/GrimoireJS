@@ -19,16 +19,15 @@ uniform vec4 mulSphereCoefficient;
 
 vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
 {
-    vec4 result=texture2D(source,abs(fract(vUV)));
+    vec4 result=texture2D(source,abs(fract(uv)));
     result.rgb=mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);
     result.rgb=result.rgb*mulCoeff.rgb+addCoeff.rgb;
     return result;
 }
 
 void main(void){
-  vec2 adjuv=vUV;
   gl_FragColor.rgba=diffuse;
-    if(textureUsed>0) gl_FragColor.rgba*=blendPMXTexture(texture,adjuv,addTextureCoefficient,mulTextureCoefficient);
+    if(textureUsed>0) gl_FragColor.rgba=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
     if(sphereMode==1)
     {
       gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;

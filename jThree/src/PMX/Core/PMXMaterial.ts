@@ -39,7 +39,7 @@ class PMXMaterial extends Material
 
     private verticiesOffset;
 
-    public  getMaterialConfig(pass:number):IMaterialConfig
+    public  getMaterialConfig(pass:number,technique:number):IMaterialConfig
     {
       if(pass == 0)
       {
@@ -123,7 +123,7 @@ class PMXMaterial extends Material
 
     private materialIndex: number;
 
-    private cullEnabled:boolean;
+    public cullEnabled:boolean;
 
     private specular:Vector4;
 
@@ -181,13 +181,13 @@ class PMXMaterial extends Material
 
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
     {
+      super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         if (passIndex == 1)
         {
             this.configureEdgeMaterial(renderer, object);
             return;
         }
         if (!this.program) return;
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         renderer.GL.blendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
