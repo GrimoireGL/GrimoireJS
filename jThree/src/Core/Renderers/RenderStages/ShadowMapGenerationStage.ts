@@ -47,6 +47,7 @@ class ShadowMapGenerationStage extends RenderStageBase
 
 
     public preBeginStage(scene: Scene, techniqueCount: number, chainInfo: ResolvedChainInfo) {
+
     }
 
     public render(scene: Scene, object: SceneObject, techniqueCount: number,texs) {
@@ -75,7 +76,7 @@ class ShadowMapGenerationStage extends RenderStageBase
     {
         return {
             depthTest: true,
-            cullFace: false,
+            cullFace: true,
             blend:false
         };
     }

@@ -38,6 +38,7 @@ class RendererChainResourceEntity extends React.Component
         result[4*(y * width + x) + 3] = 255
     result
 
+
 styles =
   container:
     background:"gray"

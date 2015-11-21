@@ -83,12 +83,13 @@ class RenderStageBase extends JThreeObjectWithID {
 	}
 
 	public applyStageConfig() {
+		var config = this.RenderStageConfig;
 		//cull enabled/disabled
-		this.applyStageConfigToGLFeature(this.RenderStageConfig.cullFace, GLFeature.CullFace, true);
-        this.applyStageConfigToGLFeature(this.RenderStageConfig.depthTest, GLFeature.DepthTest, true);
-        this.applyStageConfigToGLFeature(this.RenderStageConfig.blend,GLFeature.Blend,true);
+		this.applyStageConfigToGLFeature(config.cullFace, GLFeature.CullFace, true);
+        this.applyStageConfigToGLFeature(config.depthTest, GLFeature.DepthTest, true);
+        this.applyStageConfigToGLFeature(config.blend,GLFeature.Blend,true);
 		//cull face direction
-		if (!this.RenderStageConfig.cullFront) {
+		if (!config.cullFace) {
 			this.GL.cullFace(GLCullMode.Front);
 		} else {
 			this.GL.cullFace(GLCullMode.Back);

@@ -45,7 +45,7 @@ void main(void){
   vec2 adjuv=v_uv;
   adjuv.y=1.-adjuv.y;
   vec2 lightUV=calcLightUV(v_pos);
-  vec3 dl = texture2D(dlight,lightUV).rgb + texture2D(slight,lightUV).rgb;
+  vec3 dl = texture2D(dlight,lightUV).rgb * u_diffuse.rgb + texture2D(slight,lightUV).rgb;
     if(u_toonFlag==1)
     {
 		float brightness = length(dl/u_diffuse.rgb)/1.732;

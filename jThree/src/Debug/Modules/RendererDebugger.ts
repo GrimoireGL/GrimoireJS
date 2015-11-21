@@ -23,6 +23,8 @@ class RendererDebugger extends DebuggerModuleBase
 
   private defferForShadowmap;
 
+  private shadowMapGenerator;
+
   public attach(debug:Debugger)
   {
     var sm = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
@@ -81,17 +83,19 @@ class RendererDebugger extends DebuggerModuleBase
       if(v.owner.renderer.ID === this.shadowMapRendererID)
       {
         this.shadowMapRendererID = null;
-        this.defferForShadowmap.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage());
+        this.defferForShadowmap.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapGenerator));
+        this.shadowMapGenerator = null;
       }
     });
   }
 
-  public getShadowMapImage(rendererID:string):Q.IPromise<HTMLImageElement>
+  public getShadowMapImage(rendererID:string,generator?:any):Q.IPromise<HTMLImageElement>
   {
     var d = Q.defer<HTMLImageElement>();
     this.captureShadowmap = true;
     this.shadowMapRendererID = rendererID;
     this.defferForShadowmap = d;
+    this.shadowMapGenerator = generator;
     return d.promise;
   }
 
