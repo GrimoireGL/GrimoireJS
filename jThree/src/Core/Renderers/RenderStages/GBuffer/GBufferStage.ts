@@ -16,10 +16,7 @@ class GBufferStage extends RenderStageBase
     public get RenderStageConfig(): RenderStageConfig
     {
         return {
-            cullFace: true,
-            cullFront: false,
-            depthTest: true,
-            blend: false
+            depthTest: true
         };
     }
 

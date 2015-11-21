@@ -12,10 +12,7 @@ class FowardShadingStage extends RenderStageBase
     public get RenderStageConfig(): RenderStageConfig
     {
         return {
-            cullFace: true,
-            cullFront: false,
-            depthTest: true,
-            blend: true
+            depthTest: true
         };
     }
 

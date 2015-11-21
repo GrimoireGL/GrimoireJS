@@ -14,9 +14,9 @@
   <scenes>
     <scene name="mainScene">
       <object rotation="y(30d)">
-        <camera id="maincam" aspect="1" far="10" fovy="1/2p" name="CAM1" near="0.1" position="(0,3,3)" rotation="x(-30d)"></camera>
+        <camera id="maincam" aspect="1" far="30" fovy="1/2p" name="CAM1" near="0.1" position="(0,3,3)" rotation="x(-30d)"></camera>
       </object>
-      <scenelight color="white" intensity="0.1"/>
+      <scenelight color="white" intensity="0.3"/>
       <plight color="#FF0000" position="0,2,-6" distance="7" decay="0.1"/>
       <plight color="#00FF00" position="3,2,-6" distance="7" decay="0.1"/>
       <plight color="#FF00FF" position="5,2,-6" distance="7" decay="0.1"/>

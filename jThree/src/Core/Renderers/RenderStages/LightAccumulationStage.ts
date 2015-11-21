@@ -144,9 +144,7 @@ class LightAccumulationStage extends RenderStageBase
     public get RenderStageConfig()
     {
         return {
-            depthTest: false,
-            cullFace: false,
-            blend: false
+            depthTest: false
         };
     }
 }

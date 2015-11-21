@@ -11,6 +11,7 @@ import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
 import PMXGeometry = require('./PMXGeometry');
 import Vector4 = require("../../Math/Vector4");
 import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
+import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
 
 declare function require(string): string;
 /**
@@ -187,6 +188,29 @@ class PMXGBufferMaterial extends Material
     public get MaterialGroup(): string
     {
         return "jthree.materials.gbuffer";
+    }
+
+    public  getMaterialConfig(pass:number):IMaterialConfig
+    {
+      if(pass == 0)
+      {
+        return {
+          blend:false,
+          cull:"ccw"
+        }
+      }else if(pass == 1)
+      {
+        return {
+          cull:"ccw",
+          blend:true
+        }
+      }else
+      {
+        return {
+          cull:"ccw",
+          blend:false
+        }
+      }
     }
 }
 

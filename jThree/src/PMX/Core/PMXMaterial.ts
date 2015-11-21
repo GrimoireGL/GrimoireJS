@@ -21,6 +21,7 @@ import JThreeLogger = require("../../Base/JThreeLogger");
 import ResourceManager = require("../../Core/ResourceManager");
 import ContextComponents = require("../../ContextComponents");
 import JThreeContext = require("../../NJThreeContext");
+import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
 
 declare function require(string): string;
 
@@ -37,6 +38,22 @@ class PMXMaterial extends Material
     private verticiesCount;
 
     private verticiesOffset;
+
+    public  getMaterialConfig(pass:number):IMaterialConfig
+    {
+      if(pass == 0)
+      {
+        return {
+          cull:this.cullEnabled ? "ccw" : undefined,
+          blend:true
+        }
+      }else
+      {
+        return {
+          cull:"cw"
+        }
+      }
+    }
 
     /**
      * Count of verticies
@@ -105,6 +122,8 @@ class PMXMaterial extends Material
     private sphereMode: number;
 
     private materialIndex: number;
+
+    private cullEnabled:boolean;
 
     private specular:Vector4;
 
@@ -257,8 +276,6 @@ class PMXMaterial extends Material
     private configureEdgeMaterial(renderer: RendererBase, object: SceneObject): void
     {
         if (!this.program) return;
-        renderer.GL.enable(GLFeatureType.CullFace);
-        renderer.GL.cullFace(GLCullMode.Front);//TODO remove this direct change
         var geometry = <PMXGeometry> object.Geometry;
         var programWrapper = this.edgeProgram.getForContext(renderer.ContextManager);
         programWrapper.register({

@@ -84,6 +84,7 @@
         "./jThree/src/Core/ListStateChangedType.ts",
         "./jThree/src/Core/LoopManager.ts",
         "./jThree/src/Core/Materials/GBufferMaterial.ts",
+        "./jThree/src/Core/Materials/IMaterialConfig.ts",
         "./jThree/src/Core/Materials/Material.ts",
         "./jThree/src/Core/Materials/PhongMaterial.ts",
         "./jThree/src/Core/Materials/ShadowMapMaterial.ts",
