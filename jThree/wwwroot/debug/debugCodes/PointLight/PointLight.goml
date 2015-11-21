@@ -23,11 +23,11 @@
       <plight color="#0000FF" position="-3,2,-6" distance="7" decay="1"/>
       <plight color="#00FFFF" position="-5,2,-6" distance="7" decay="1"/>
       <dlight color="#FFFFFF" position="0,2,3" shadow="true" rotation="euler(-30d,30d,0)"/>
-      <pmx scale="0.2" src="/resource/model/Tune/Tune.pmx" position="0,0,0">
+      <pmx scale="0.2" src="/resource/model/GUMI/GUMI.pmx" position="0,0,0">
         <behaviors>
             <behavior name="rotation" ratio="0.02"/>
         </behaviors>
-        <vmd id="melt" frame="0" src="/resource/motion/menf.vmd" enabled="true" autoSpeed="1"/>
+        <vmd id="melt" frame="0" src="/resource/motion/hero.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
       <pmx scale="0.2" src="/resource/model/stage/stage.pmx" position="0,0,0">
       </pmx>

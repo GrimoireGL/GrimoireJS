@@ -52,6 +52,7 @@ class PMXSkeleton {
 	}
 
 	public getBoneByName(name: string): PMXBone {
+		debugger;
 		return this.boneDictionary.get(name);
 	}
 

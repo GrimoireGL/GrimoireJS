@@ -6,6 +6,6 @@ vec3 calcPointLight(vec3 position,vec3 normal,int i,vec3 specular,float specular
   vec2 param = getLightParameter(i,2).xy;
   vec3 hv = normalize(normalize(lpos-position)+normalize(-position));
   float l = distance(position,lpos);
-  accum += pow(max(0.,dot(hv,normal)),specularCoefficient)*pow(max(0.,1.-l/param.x),param.y)*color;
+  accum += pow(max(0.,dot(hv,normal)),specularCoefficient)*pow(max(0.,1.-l/param.x),param.y)*color*specular;
   return accum;
 }
