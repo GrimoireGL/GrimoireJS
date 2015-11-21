@@ -204,7 +204,7 @@ class PMXGBufferMaterial extends Material
       {
         return {
           cull:"ccw",
-          blend:false
+          blend:true
         }
       }else
       {

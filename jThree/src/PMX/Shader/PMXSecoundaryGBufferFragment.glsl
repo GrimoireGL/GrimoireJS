@@ -27,7 +27,9 @@ vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
 
 void main(void){
   gl_FragColor.rgba=diffuse;
-    if(textureUsed>0) gl_FragColor.rgba=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
+    if(textureUsed > 0){
+       gl_FragColor=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
+  }
     if(sphereMode==1)
     {
       gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;

@@ -312,7 +312,7 @@ class PMXMaterial extends Material
     {
         if (index < 0) return null;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        var resourceName = "jthree.pmx." + prefix + "." + index;
+        var resourceName = this.pmxData.Header.modelName+"jthree.pmx." + prefix + "." + index;
         if (rm.getTexture(resourceName))
         {
             return rm.getTexture(resourceName);
