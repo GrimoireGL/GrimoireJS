@@ -7,9 +7,9 @@ import Geometry = require("../../../Core/Geometries/Geometry");
 */
 class GomlTreeGeometryNode extends GomlTreeNodeBase
 {
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
   {
-      super(elem,loader,parent);
+      super(elem,parent);
   }
 
   private name:string;

@@ -7,9 +7,9 @@ class CircleGeometryNode extends GeometryNodeBase
 {
   private gridGeometry:CircleGeometry;
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
   {
-      super(elem,loader,parent);
+      super(elem,parent);
       this.attributes.defineAttribute
       (
         {

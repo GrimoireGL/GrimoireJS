@@ -7,7 +7,7 @@ import SceneObjectNodeBase = require("../Nodes/SceneObjects/SceneObjectNodeBase"
 */
 class SceneObjectTagFactory extends TagFactory
 {
-    public CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
+    public CreateNodeForThis(elem: Element,parent:GomlTreeNodeBase): GomlTreeNodeBase {
     var sceneNode:SceneNode=null;
     var sceneObjectNode:SceneObjectNodeBase=null;
     if(parent.getTypeName()=="SceneNode")//This parent node is scene node. TODO: I wonder there is better way
@@ -25,12 +25,12 @@ class SceneObjectTagFactory extends TagFactory
         sceneNode=sceneObjectNode.ContainedSceneNode;
       }
     }
-    return this.CreateSceneObjectNodeForThis(elem,loader,parent,sceneNode,sceneObjectNode);
+    return this.CreateSceneObjectNodeForThis(elem,parent,sceneNode,sceneObjectNode);
   }
 
-    public CreateSceneObjectNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase,containedSceneNode:SceneNode,parentSceneObjectNode:SceneObjectNodeBase):SceneObjectNodeBase
+    public CreateSceneObjectNodeForThis(elem: Element, parent:GomlTreeNodeBase,containedSceneNode:SceneNode,parentSceneObjectNode:SceneObjectNodeBase):SceneObjectNodeBase
   {
-    return new this.nodeType(elem,loader,parent,containedSceneNode,parentSceneObjectNode);
+    return new this.nodeType(elem,parent,containedSceneNode,parentSceneObjectNode);
   }
 
 }

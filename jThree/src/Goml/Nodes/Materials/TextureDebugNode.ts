@@ -9,8 +9,8 @@ import ResourceManager = require("../../../Core/ResourceManager");
 class TextureDebugNode extends MaterialNodeBase {
     public material: DebugSprite;
 
-    constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
-        super(elem, loader, parent);
+    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
+        super(elem, parent);
         this.attributes.defineAttribute({
             "target": {
                 value: "rb1", converter: "string",

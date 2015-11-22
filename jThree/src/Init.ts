@@ -10,8 +10,9 @@ import NewJThreeContext = require("./NJThreeContext");
 import SceneManager = require("./Core/SceneManager");
 import CanvasManager = require("./Core/CanvasManager");
 import LoopManager = require("./Core/LoopManager");
-import ContextComponent = require("./ContextComponents");
+import ContextComponents = require("./ContextComponents");
 import ResourceManager = require("./Core/ResourceManager");
+import NodeManager = require("./Goml/NodeManager");
 import ContextTimer = require("./Core/ContextTimer");
 import Debugger = require("./Debug/Debugger");
 /**
@@ -23,8 +24,7 @@ class JThreeStatic
     public defineBehavior(behaviorName: string, decl: BehaviorDeclarationBody|Delegates.Action0);
     public defineBehavior(declarations:BehaviorDeclaration);
   public defineBehavior(nameOrDeclarations:string|BehaviorDeclaration,declaration?:BehaviorDeclarationBody|Delegates.Action0) {
-    var context = JThreeContextProxy.getJThreeContext();
-    context.GomlLoader.componentRegistry.defineBehavior(<string>nameOrDeclarations,declaration);//This is not string but it is for conviniesnce.
+    NewJThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager).behaviorRegistry.defineBehavior(<string>nameOrDeclarations,declaration);//This is not string but it is for conviniesnce.
     }
 
   public get Math() {
@@ -83,6 +83,7 @@ class JThreeInit {
     NewJThreeContext.registerContextComponent(new SceneManager());
     NewJThreeContext.registerContextComponent(new CanvasManager());
     NewJThreeContext.registerContextComponent(new ResourceManager());
+    NewJThreeContext.registerContextComponent(new NodeManager());
     NewJThreeContext.registerContextComponent(new Debugger());
   if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
@@ -95,8 +96,8 @@ class JThreeInit {
     JThreeInit.j3(() => {
     });
     j3.GomlLoader.initForPage();
-    NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager).begin();
-    NewJThreeContext.getContextComponent<Debugger>(ContextComponent.Debugger).attach();
+    NewJThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
+    NewJThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger).attach();
   }
 }
 export = JThreeInit;

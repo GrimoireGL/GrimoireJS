@@ -5,16 +5,16 @@ import GomlAttribute = require("../../GomlAttribute");
 import AttributeDeclaration = require("../../AttributeDeclaration");
 class BehaviorNode extends GomlTreeNodeBase
 {
-  private static ignoreNode:string[]=["name","cachedOrder","cachedEnabled","children","parent","loader","element"];
+  private static ignoreNode:string[]=["name","cachedOrder","cachedEnabled","children","parent","element"];
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,componentTarget:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,componentTarget:GomlTreeNodeBase)
   {
-      super(elem,loader,parent);
+      super(elem,parent);
       this.componentTarget=componentTarget;
      this.componentName=elem.getAttribute("name");
       if(this.componentName)
       {
-        var component=loader.componentRegistry.getBehavior(this.componentName);
+        var component=this.nodeManager.behaviorRegistry.getBehavior(this.componentName);
         if(component)
         {
           //load d`efault value of component

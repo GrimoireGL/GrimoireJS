@@ -4,6 +4,8 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import GomlTreeNodeBase = require('../Goml/GomlTreeNodeBase');
 import IContextComponent = require('../IContextComponent');
 import ContextComponents = require('../ContextComponents');
+import GomlConfigurator = require('./GomlConfigurator');
+import BehaviorRegistry = require('./Behaviors/BehaviorRegistry');
 
 class NodeManager extends JThreeObject implements IContextComponent {
 
@@ -19,6 +21,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
   public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
   public rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
   public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
+  public behaviorRegistry: BehaviorRegistry = new BehaviorRegistry();
 
   public getNode(id: string): GomlTreeNodeBase {
     return this.NodesById.get(id);
@@ -33,4 +36,11 @@ class NodeManager extends JThreeObject implements IContextComponent {
     }
     return result;
   }
+
+  /**
+   * this configurator will load any tag information by require.
+   */
+  public configurator: GomlConfigurator = new GomlConfigurator();
 }
+
+export = NodeManager;

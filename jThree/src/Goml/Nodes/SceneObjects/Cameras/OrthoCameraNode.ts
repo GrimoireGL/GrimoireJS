@@ -8,8 +8,8 @@ import GomlTreeCameraNodeBase = require("./CameraNodeBase");
 
 class OrthoCameraNode extends GomlTreeCameraNodeBase {
 
-  constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-    super(elem, loader, parent, parentSceneNode, parentObject);
+  constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
+    super(elem, parent, parentSceneNode, parentObject);
     this.attributes.defineAttribute(
       {
         "left": {
@@ -32,7 +32,7 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
           handler: (v) => {
             this.targetOrtho.Bottom = v.Value;
           }
-        }, 
+        },
         "top": {
           value: 100,
           converter: "number",

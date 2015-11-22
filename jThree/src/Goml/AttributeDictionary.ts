@@ -2,10 +2,10 @@ import JThreeObject = require("../Base/JThreeObject");
 import JThreeCollection = require("../Base/JThreeCollection");
 import GomlAttribute = require("./GomlAttribute");
 import Delegates = require("../Base/Delegates");
-import GomlLoader = require("./GomlLoader");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
 import AttributeDeclaration = require('./AttributeDeclaration');
+
 /**
  * The class managing attributes of a node.
  */
@@ -13,19 +13,15 @@ class AttributeDictionary extends JThreeObject {
 
   /**
    * @param {node} the node this attribute dictionary has.
-   * @param {loader} the loader loaded this node.
    * @param {element} the element bound to this node.
    */
-  constructor(node: GomlTreeNodeBase, loader: GomlLoader, element: HTMLElement) {
+  constructor(node: GomlTreeNodeBase, element: HTMLElement) {
     super();
-    this.loader = loader;
     this.element = element;
     this.node = node;
   }
 
   private node: GomlTreeNodeBase;
-
-  private loader: GomlLoader;
 
   private element: HTMLElement;
 
@@ -66,24 +62,24 @@ class AttributeDictionary extends JThreeObject {
     else
       return attr.Converter.GetAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete);
   }
-  
+
   /**
    * Check the attribute passed is defined or not.
    */
   public isDefined(attrName: string): boolean {
     return this.attributes.getById(attrName) != null;
   }
-  
+
   /**
    * Define attributes to the node.
    */
   public defineAttribute(attributes: AttributeDeclaration) {
     for (var key in attributes) {
       var attribute = attributes[key];
-      this.attributes.insert(new GomlAttribute(this.node, this.element, key, attribute.value, this.loader.Configurator.getConverter(attribute.converter), attribute.handler,attribute.constant));
+      this.attributes.insert(new GomlAttribute(this.node, this.element, key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.handler,attribute.constant));
     }
   }
-  
+
   /**
    * Apply default values to all attributes.
    */

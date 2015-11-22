@@ -9,8 +9,8 @@ class PhongNode extends MaterialNodeBase
 {
     public material:Phong;
 
-    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
-        super(elem,loader,parent);
+    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
+        super(elem,parent);
         this.attributes.defineAttribute({
           "diffuse":{
             value:"#f0C",converter:"color4",handler:(v)=>{this.material.diffuse=v.Value}

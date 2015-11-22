@@ -9,9 +9,9 @@ class CubeGeometryNode extends GeometryNodeBase
 {
   private gridGeometry:CubeGeometry;
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
   {
-      super(elem,loader,parent);
+      super(elem,parent);
   }
 
   protected ConstructGeometry():Geometry

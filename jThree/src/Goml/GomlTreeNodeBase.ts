@@ -2,22 +2,30 @@ import GomlLoader = require("./GomlLoader");
 import AttributeDictionary = require("./AttributeDictionary");
 import BehaviorContainerNode = require("./BehaviorContainerNodeBase");
 import TreeNodeBase = require('./TreeNodeBase');
+import JThreeContext = require("../NJThreeContext");
+import NodeManager = require('./NodeManager');
+import ContextComponents = require('../ContextComponents');
 
 /**
  * This is the most base class in all GomlNode
  */
 class GomlTreeNodeBase extends BehaviorContainerNode
 {
-    constructor(elem:HTMLElement,loader:GomlLoader,parent?:TreeNodeBase) {
-        super(elem, parent, loader);
+    constructor(elem:HTMLElement, parent?:TreeNodeBase) {
+        super(elem, parent);
+
+        //load node manager
+        this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
         //configure class name and attribute to HTMLElement to make it easy to find this node in next time.
         elem.classList.add("x-j3-" + this.ID);
         elem.setAttribute('x-j3-id', this.ID);
         //after configuration, this node is going to add to NodesById
-        loader.NodesById.set(this.ID, this);
-        this.attributes=new AttributeDictionary(this,loader,elem);
+        this.nodeManager.NodesById.set(this.ID, this);
+        this.attributes=new AttributeDictionary(this, elem);
     }
+
+    public nodeManager: NodeManager;
 
     /**
      * Attributes this node have.

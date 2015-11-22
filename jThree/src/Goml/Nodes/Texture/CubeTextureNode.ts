@@ -11,9 +11,9 @@ import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 class CubeTextureNode extends TextureNodeBase
 {
 
-    constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
+    constructor(elem: HTMLElement, parent: GomlTreeNodeBase)
     {
-        super(elem, loader, parent);
+        super(elem, parent);
         this.attributes.defineAttribute({
             srcs: {
               // this src should be passed by splitted with ' '(space).

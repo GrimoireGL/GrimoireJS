@@ -1,11 +1,11 @@
 import JThreeObject = require("./Base/JThreeObject");
 import JThreeContextProxy = require("./Core/JThreeContextProxy");
-import JThreeContext = require("./Core/JThreeContext");
-import NewJThreeContext = require("./NJThreeContext");
+import JThreeContext = require("./NJThreeContext");
 import ContextComponents = require("./ContextComponents");
 import Timer = require("./Core/Timer");
 import GomlTreeNodeBase = require("./Goml/GomlTreeNodeBase");
 import Delegate = require("./Base/Delegates");
+import NodeManager = require("./Goml/NodeManager");
 
 /**
  * Provides jQuery like API for jThree.
@@ -132,8 +132,9 @@ class JThreeInterface extends JThreeObject {
           var value = attrTarget[attrName];
           var gomlNode = JThreeInterface.getNode(<HTMLElement>e);
           if (gomlNode.attributes.isDefined(attrName)) {
-            var easingFunc = JThreeInterface.Context.GomlLoader.Configurator.getEasingFunction(easing);
-            var timer = NewJThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
+            var easingFunc = JThreeInterface.NodeManager.configurator.getEasingFunction(easing);
+            var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
+            // TODO: pnly
             JThreeInterface.Context.addAnimater(gomlNode.attributes.getAnimater(attrName, timer.Time, duration, gomlNode.attributes.getValue(attrName), value, easingFunc, () => {
               if (onComplete) onComplete();
               t.dequeue();
@@ -163,18 +164,18 @@ class JThreeInterface extends JThreeObject {
   // public append(target: string): JThreeInterface {
   //   var newTarget: HTMLElement = (new DOMParser()).parseFromString(target, 'text/xml').documentElement;
   //   for (let i = 0; i < this.target.length; i++) {
-  //     JThreeInterface.Context.GomlLoader.append(newTarget, <HTMLElement>this.target[i]);
+  //     JThreeInterface.NodeManager.append(newTarget, <HTMLElement>this.target[i]);
   //   }
   //   return new JThreeInterface(newTarget);
   // }
 
   private static getNode(elem: HTMLElement): GomlTreeNodeBase {
     var id = elem.getAttribute("x-j3-id");
-    return JThreeInterface.Context.GomlLoader.getNode(id);
+    return JThreeInterface.NodeManager.getNode(id);
   }
 
-  private static get Context(): JThreeContext {
-    return JThreeContextProxy.getJThreeContext();
+  public static get NodeManager():NodeManager {
+     return JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
   }
 }
 

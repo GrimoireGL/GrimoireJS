@@ -1,7 +1,6 @@
 import JThreeObject = require('../Base/JThreeObject');
 import Delegates = require('../Base/Delegates');
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 
 class GomlParser {
@@ -12,8 +11,6 @@ class GomlParser {
    */
   constructor() {
   }
-
-  private static configurator: GomlLoaderConfigurator = new GomlLoaderConfigurator();
 
   /**
    * Parse Goml to Node

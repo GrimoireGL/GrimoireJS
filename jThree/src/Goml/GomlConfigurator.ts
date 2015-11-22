@@ -9,7 +9,7 @@ declare function require(string): any;
  * Provides configurations that will be used when parse GOML.
  * These properties is intended to be used for extending by plugin feature.
  */
-class GomlLoaderConigurator extends JThreeObject
+class GomlConfigurator extends JThreeObject
 {
     /**
      * List to be parsed as root elements in GOML.
@@ -74,7 +74,7 @@ class GomlLoaderConigurator extends JThreeObject
         this.loadIntoAssociativeArray(this.easingFunctions, require("./EasingFunctionList"));
     }
     /**
-     * Initialize converters from list. 
+     * Initialize converters from list.
      */
     private initializeConverters()
     {
@@ -109,4 +109,4 @@ class GomlLoaderConigurator extends JThreeObject
         }
     }
 }
-export = GomlLoaderConigurator;
+export = GomlConfigurator;

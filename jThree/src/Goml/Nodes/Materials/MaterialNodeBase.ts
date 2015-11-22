@@ -11,8 +11,8 @@ class MaterialNodeBase extends GomlTreeNodeBase
       return null;
     }
 
-    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
-        super(elem,loader,parent);
+    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
+        super(elem,parent);
         this.attributes.defineAttribute({
         });
     }

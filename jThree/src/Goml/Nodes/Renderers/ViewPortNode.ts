@@ -28,9 +28,9 @@ class ViewPortNode extends GomlTreeNodeBase {
     return this.targetRenderer;
   }
 
-    constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+    constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
     {
-        super(elem,loader,parent);
+        super(elem,parent);
     }
 
     public afterLoad(){

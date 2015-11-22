@@ -6,7 +6,7 @@ import GomlNodeDictionary = require("./GomlNodeDictionary");
 import JThreeEvent = require('../Base/JThreeEvent');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import BehaviorRegistry = require("./Behaviors/BehaviorRegistry");
-import GomlLoaderConfigurator = require('./GomlLoaderConfigurator');
+import GomlConfigurator = require('./GomlConfigurator');
 import BehaviorRunner = require('./Behaviors/BehaviorRunner');
 import JThreeLogger = require("../Base/JThreeLogger");
 import JThreeInit = require("../Init");
@@ -56,12 +56,12 @@ class GomlLoader extends jThreeObject {
   /**
    * this configurator will load any tag information by require.
    */
-  private configurator: GomlLoaderConfigurator = new GomlLoaderConfigurator();
+  private configurator: GomlConfigurator = new GomlConfigurator();
 
   /**
    * The configurator for new tag, converter, easingfunctions.
    */
-  public get Configurator(): GomlLoaderConfigurator {
+  public get Configurator(): GomlConfigurator {
     return this.configurator;
   }
 
@@ -192,7 +192,7 @@ class GomlLoader extends jThreeObject {
     var tagFactory = this.configurator.getGomlTagFactory(elem.tagName.toUpperCase());
     //if factory was not defined, there is nothing to do.
     if (tagFactory) {
-      var newNode = tagFactory.CreateNodeForThis(elem, this, parent);
+      var newNode = tagFactory.CreateNodeForThis(elem, parent);
       if (newNode == null) {
         //the factory was obtained, but newNnode is null.
         //It is seem to have something wrong to create instance.

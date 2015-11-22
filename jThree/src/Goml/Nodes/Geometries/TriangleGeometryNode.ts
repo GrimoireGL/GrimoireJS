@@ -9,9 +9,9 @@ class GomlTreeTriNode extends GeometryNodeBase
 {
   private TriGeometry:TriangleGeometry;
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
   {
-      super(elem,loader,parent);
+      super(elem,parent);
   }
 
   protected ConstructGeometry():Geometry
