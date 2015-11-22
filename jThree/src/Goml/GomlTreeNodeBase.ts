@@ -1,5 +1,4 @@
 import AttributeDictionary = require("./AttributeDictionary");
-import BehaviorContainerNode = require("./BehaviorContainerNodeBase");
 import TreeNodeBase = require('./TreeNodeBase');
 import JThreeContext = require("../NJThreeContext");
 import NodeManager = require('./NodeManager');
