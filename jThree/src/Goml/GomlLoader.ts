@@ -27,11 +27,11 @@ class GomlLoader extends jThreeObject {
   /**
    * Constructor. User no need to call this constructor by yourself.
    */
-  constructor(nodeManager:NodeManager) {
+  constructor(nodeManager:NodeManager,selfTag:HTMLScriptElement) {
     super();
     //obtain the script tag that is refering this source code.
     var scriptTags = document.getElementsByTagName('script');
-    this.selfTag = JThreeInit.SelfTag;
+    this.selfTag = selfTag;
     this.nodeManager = nodeManager;
   }
 

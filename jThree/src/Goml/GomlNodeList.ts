@@ -8,7 +8,8 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
       "CANVASES": require("./Nodes/TopLevel/CanvasesNode"),
       "RESOURCES": require("./Nodes/TopLevel/ResourcesNode"),
       "SCENES": require("./Nodes/TopLevel/ScenesNode"),
-      "TEMPLATES": require("./Nodes/TopLevel/TemplatesNode")
+      "TEMPLATES": require("./Nodes/TopLevel/TemplatesNode"),
+      "GOML":require("./Nodes/TopLevel/GomlNode")
     }),
   new GomlNodeListElement("jthree.geometries",
     require("./Factories/TagFactory"),

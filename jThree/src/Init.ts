@@ -95,7 +95,7 @@ class JThreeInit {
   private static startInitialize()
   {
     var nodeManager = NewJThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
-    var loader = new GomlLoader(nodeManager)
+    var loader = new GomlLoader(nodeManager,JThreeInit.SelfTag)
     loader.initForPage();
     NewJThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
     NewJThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger).attach();
