@@ -4,11 +4,12 @@ import TreeNodeBase = require('./TreeNodeBase');
 import JThreeContext = require("../NJThreeContext");
 import NodeManager = require('./NodeManager');
 import ContextComponents = require('../ContextComponents');
-
+import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
+import AssociativeArray = require("../Base/Collections/AssociativeArray");
 /**
  * This is the most base class in all GomlNode
  */
-class GomlTreeNodeBase extends BehaviorContainerNode
+class GomlTreeNodeBase extends TreeNodeBase
 {
     constructor(elem:HTMLElement, parent?:TreeNodeBase) {
         super(elem, parent);
@@ -45,6 +46,26 @@ class GomlTreeNodeBase extends BehaviorContainerNode
     {
       // this method should be overriden by the class extends this class.
     }
+
+    /**
+      * components that is attached to this node.
+      */
+     protected behaviors:AssociativeArray<BehaviorNode[]>=new AssociativeArray<BehaviorNode[]>();
+
+     /**
+      * Add component to this node.
+      */
+     public addBehavior(behaviors:BehaviorNode):void {
+         this.nodeManager.componentRunner.addBehavior(behaviors,this);
+         if(!this.behaviors.has(behaviors.BehaviorName))this.behaviors.set(behaviors.BehaviorName,[]);
+         this.behaviors.get(behaviors.BehaviorName).push(behaviors);
+     }
+
+     public getBehaviors(behaviorName:string):BehaviorNode[]
+     {
+         return this.behaviors.get(behaviorName);
+     }
+
 
 }
 export=GomlTreeNodeBase;
