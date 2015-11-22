@@ -65,8 +65,8 @@ class DirectionalLight extends ShadowDroppableLight {
 		  //glm.mat4.multiply(this.lightMatrixCache.rawElements,this.lightMatrixCache.rawElements,Matrix.scale(new Vector3(1,1,-1)).rawElements);
 		  //Matrix.lookAt(this.Transformer.Position,Vector3.add(this.Transformer.Position,this.Transformer.forward),Vector3.YUnit))
 			this.updateLightProjection(renderer,Matrix.multiply(Matrix.perspective(1.0,1,0.1,30),Matrix.lookAt(new Vector3(0,0,5),new Vector3(0,0,0),new Vector3(0,1,0))));
-			// var m = Matrix.multiply(this.shadowProjectionMatrixCache,this.shadowViewMatrixCache);
-			// this.updateLightProjection(renderer,m);
+			 var m = Matrix.multiply(this.shadowProjectionMatrixCache,this.shadowViewMatrixCache);
+			 this.updateLightProjection(renderer,m);
 		}
 
 		private LiSPSM(renderer:RendererBase)

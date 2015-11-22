@@ -22,7 +22,11 @@
       <plight color="#FF00FF" position="5,2,-6" distance="7" decay="1"/>
       <plight color="#0000FF" position="-3,2,-6" distance="7" decay="1"/>
       <plight color="#00FFFF" position="-5,2,-6" distance="7" decay="1"/>
-      <slight color="#FF0000" position="0,3,-5" rotation="x(-30d)" decay="0.3"/>
+      <slight color="#FF0000" position="0,3,-5" rotation="x(-30d)" decay="0.3">
+        <behaviors>
+            <behavior name="rotation" ratio="0.02"/>
+        </behaviors>
+      </slight>
       <slight color="#FFFF00" position="5,3,-5" rotation="x(-30d)" decay="0.3"/>
       <slight color="#FF00FF" position="-5,3,-5" rotation="x(-30d)" decay="0.3"/>
       <dlight color="#FFFFFF" shadow="true"/>
