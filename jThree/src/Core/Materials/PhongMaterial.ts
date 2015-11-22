@@ -1,7 +1,5 @@
 import Material = require("./Material");
 import Program = require("../Resources/Program/Program");
-import JThreeContextProxy = require("../JThreeContextProxy");
-import JThreeContext = require("../JThreeContext");
 import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");
@@ -27,7 +25,6 @@ class PhongMaterial extends Material {
   protected program: Program;
   constructor() {
     super();
-    var jThreeContext: JThreeContext = JThreeContextProxy.getJThreeContext();
     var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
     var fs = require('../Shaders/Phong.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, fs);

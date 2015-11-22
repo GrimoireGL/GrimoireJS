@@ -3,7 +3,6 @@ import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
 import Scene = require('../../Scene')
 import Program = require('../../Resources/Program/Program');
-import JThreeContextProxy = require('../../JThreeContextProxy');
 import ShaderType = require("../../../Wrapper/ShaderType");
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import TextureBase = require('../../Resources/Texture/TextureBase');

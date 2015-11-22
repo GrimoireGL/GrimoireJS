@@ -1,7 +1,6 @@
 ﻿import BufferTexture = require("../Resources/Texture/BufferTexture");
 import LightBase = require("./LightBase");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
-import JThreeContextProxy = require('../../Core/JThreeContextProxy');
 import InternalFormatType = require("../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../Wrapper/TextureType");
 import Scene = require("../Scene");

@@ -1,6 +1,5 @@
 import GeneraterInfoChunk = require("./GeneraterInfoChunk");
 import RendererBase = require("../RendererBase");
-import JThreeContextProxy = require("../../JThreeContextProxy");
 /**
  * Provides abstraction for texture generation.
  * By overriding, it is able to manage texture buffer in your way.

@@ -1,6 +1,4 @@
-﻿import JThreeContext = require("./JThreeContext");
-import JThreeContextProxy = require("./JThreeContextProxy");
-import BufferTargetType = require("../Wrapper/BufferTargetType");
+﻿import BufferTargetType = require("../Wrapper/BufferTargetType");
 import BufferUsageType = require("../Wrapper/BufferUsageType");
 import ElementType = require("../Wrapper/ElementType");
 import ShaderType = require("../Wrapper/ShaderType");

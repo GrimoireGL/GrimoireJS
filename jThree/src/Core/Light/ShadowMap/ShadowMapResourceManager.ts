@@ -1,6 +1,5 @@
 import LightRegister = require("../LightRegister");
 import RendererBase = require("../../Renderers/RendererBase");
-import JThreeContextProxy = require("../../JThreeContextProxy");
 import TextureInternalFormatType = require("../../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../../Wrapper/TextureType");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");

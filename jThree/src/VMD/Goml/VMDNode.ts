@@ -5,7 +5,6 @@ import VMDData = require("../Parser/VMDData");
 import Vector3 = require("../../Math/Vector3");
 import Quaternion = require("../../Math/Quaternion");
 import PMXMorph = require("../../PMX/Core/PMXMorph");
-import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import PMXBoneTransformer = require("../../PMX/Core/PMXBoneTransformer");
 import JThreeContext = require("../../NJThreeContext");
 import ContextComponents = require("../../ContextComponents");

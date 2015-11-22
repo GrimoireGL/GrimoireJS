@@ -1,5 +1,4 @@
 import JThreeContext = require("./Core/JThreeContext");
-import JThreeContextProxy = require("./Core/JThreeContextProxy");
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");

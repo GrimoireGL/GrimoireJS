@@ -6,7 +6,6 @@ import TextureMagFilterType = require("../../../Wrapper/Texture/TextureMagFilter
 import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
 import JThreeEvent = require("../../../Base/JThreeEvent");
 import Delegates = require("../../../Base/Delegates");
-import JThreeContext = require("../../JThreeContext");
 import TextureTargetType = require("../../../Wrapper/TargetTextureType");
 import ElementFormat = require("../../../Wrapper/TextureType");
 import TextureFormat = require("../../../Wrapper/TextureInternalFormatType");

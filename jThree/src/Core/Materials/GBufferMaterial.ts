@@ -1,7 +1,5 @@
 ﻿import Material = require("./Material");
 import Program = require("../Resources/Program/Program");
-import JThreeContextProxy = require("../JThreeContextProxy");
-import JThreeContext = require("../JThreeContext");
 import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import Vector3 = require("../../Math/Vector3");

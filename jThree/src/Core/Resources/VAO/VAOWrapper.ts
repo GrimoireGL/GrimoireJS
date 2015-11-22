@@ -1,7 +1,6 @@
 import ResourceWrapper = require("../ResourceWrapper");
 import ContextManagerBase = require("../../ContextManagerBase");
 import VAO = require("./VAO");
-import JThreeContextProxy = require("../../JThreeContextProxy");
 import GLExtensionList = require("../../GLExtensionList");
 /**
  * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.

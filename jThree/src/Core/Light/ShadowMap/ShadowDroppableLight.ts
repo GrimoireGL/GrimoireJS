@@ -5,7 +5,6 @@ import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
 import RendererBase = require("../../Renderers/RendererBase");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
-import JThreeContextProxy = require("../../JThreeContextProxy");
 import TextureGenerater = require("../../Renderers/TextureGenerater");
 import GeneraterInfoChunk = require("../../Renderers/TextureGeneraters/GeneraterInfoChunk");
 class ShadowDroppableLight extends LightBase {

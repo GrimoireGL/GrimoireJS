@@ -1,5 +1,4 @@
 import JThreeObject = require("./Base/JThreeObject");
-import JThreeContextProxy = require("./Core/JThreeContextProxy");
 import JThreeContext = require("./NJThreeContext");
 import ContextComponents = require("./ContextComponents");
 import Timer = require("./Core/Timer");

@@ -2,8 +2,6 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import RendererBase = require("../../../Core/Renderers/RendererBase");
 import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
-import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
@@ -36,7 +34,6 @@ class ViewPortNode extends GomlTreeNodeBase {
       var rdr:CanvasNode=this.parentCanvas=<CanvasNode>this.parent;
       var defaultRect = rdr.Canvas.getDefaultRectangle();
       this.targetRenderer=RendererFactory.generateRenderer(rdr.Canvas,defaultRect,this.attributes.getValue("config"));
-      var context:JThreeContext=JThreeContextProxy.getJThreeContext();
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
