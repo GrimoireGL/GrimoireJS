@@ -7,6 +7,7 @@ uniform float specularCoefficient;
 varying vec3 vNormal;
 varying vec4 vPosition;
 varying vec2 vUV;
+
 vec2 compressNormal()
 {
 	return normalize(vNormal.xy) * sqrt(vNormal.z * 0.5 +0.5);
