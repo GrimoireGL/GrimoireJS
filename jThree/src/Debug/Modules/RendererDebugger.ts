@@ -10,11 +10,17 @@ import Delegate = require('../../Base/Delegates');
 import Canvas = require("../../Core/Canvas");
 import IRequestBufferTexture = require("./Renderer/IRequestBufferTexture");
 import IRequestShadowMapTexture = require('./Renderer/IRequestShadowMapTexture');
+import IRequestBufferTextureProgress = require("./Renderer/IRequestBufferTextureProgress");
+import IRequestShadowMapProgress = require("./Renderer/IRequestShadowMapProgress");
 class RendererDebugger extends DebuggerModuleBase
 {
   private bufferTextureRequest:IRequestBufferTexture;
 
   private shadowMapRequest:IRequestShadowMapTexture;
+
+  private bufferTextureProgressRequest:IRequestBufferTextureProgress;
+
+  private shadowMapProgressRequest:IRequestShadowMapProgress;
 
   public attach(debug:Debugger)
   {
@@ -53,6 +59,14 @@ class RendererDebugger extends DebuggerModuleBase
     });
   }
 
+  private canvasToimg(renderer:RendererBase)
+  {
+    var canvas = <Canvas>renderer.ContextManager;
+    var img = new Image(canvas.canvasElement.width,canvas.canvasElement.height);
+    img.src = canvas.canvasElement.toDataURL();
+    return img;
+  }
+
   private attachToRenderer(renderer:RendererBase,debug:Debugger)
   {
     debug.debuggerAPI.renderers.addRenderer(renderer,this);
@@ -62,10 +76,7 @@ class RendererDebugger extends DebuggerModuleBase
       {
         if(v.bufferTextures[this.bufferTextureRequest.bufferTextureID] == null)
         {
-          var canvas = <Canvas>v.owner.renderer.ContextManager;
-          var img = new Image(canvas.canvasElement.width,canvas.canvasElement.height);
-          img.src = canvas.canvasElement.toDataURL();
-          this.bufferTextureRequest.deffered.resolve(img);
+          this.bufferTextureRequest.deffered.resolve(this.canvasToimg(v.owner.renderer));
           this.bufferTextureRequest = null;
           return;
         }
@@ -79,6 +90,54 @@ class RendererDebugger extends DebuggerModuleBase
       {
         this.shadowMapRequest.deffered.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapRequest.generator));
         this.shadowMapRequest = null;
+      }
+      if(this.bufferTextureProgressRequest&&this.bufferTextureProgressRequest.begin)
+      {
+        this.bufferTextureProgressRequest.deffered.resolve(null);
+        this.bufferTextureProgressRequest = null;
+      }
+      if(this.shadowMapProgressRequest && this.shadowMapProgressRequest.begin)
+      {
+        this.shadowMapProgressRequest.deffered.resolve(null);
+        this.shadowMapProgressRequest = null;
+      }
+    });
+    renderer.RenderPathExecutor.renderObjectCompleted.addListener((o,v)=>
+    {
+      if(this.bufferTextureProgressRequest && v.stage.ID === this.bufferTextureProgressRequest.stageID)
+      {
+        this.bufferTextureProgressRequest.begin = true;
+        v.owner.renderer.GL.flush();
+        var img;
+        if(v.bufferTextures[this.bufferTextureProgressRequest.bufferTextureID]==null)
+        {
+          //for default buffer
+          img = this.canvasToimg(v.owner.renderer);
+        }else{
+         img = v.bufferTextures[this.bufferTextureProgressRequest.bufferTextureID].wrappers[0].generateHtmlImage(this.bufferTextureProgressRequest.generator);
+       }
+        img.title = `object:${v.renderedObject.name} technique:${v.technique}`;
+        this.bufferTextureProgressRequest.deffered.notify(
+          {
+            image:img,
+            object:v.renderedObject,
+            technique:v.technique
+          }
+        )
+      }
+      if(this.shadowMapProgressRequest &&v.stage.getTypeName() === "ShadowMapGenerationStage"&& v.stage.Renderer.ID === this.shadowMapProgressRequest.rendererID)
+      {
+        this.shadowMapProgressRequest.begin = true;
+        v.owner.renderer.GL.flush();
+        img =v.renderedObject.ParentScene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapProgressRequest.generator);
+        img.title = `object:${v.renderedObject.name} technique:${v.technique}`;
+        this.shadowMapProgressRequest.deffered.notify(
+          {
+            image:img,
+            object:v.renderedObject,
+            technique:v.technique
+          }
+        )
       }
     });
   }
@@ -95,6 +154,19 @@ class RendererDebugger extends DebuggerModuleBase
     return d.promise;
   }
 
+  public getShadowMapProgressImage(rendererID:string,generator?:any):Q.IPromise<HTMLImageElement>
+  {
+    var d = Q.defer<HTMLImageElement>();
+    this.shadowMapProgressRequest =
+    {
+      deffered:d,
+      rendererID:rendererID,
+      generator:generator,
+      begin:false
+    }
+    return d.promise;
+  }
+
   public getTextureHtmlImage(stageID:string,bufferTextureID:string,generator?:any):Q.IPromise<HTMLImageElement>
   {
     var d = Q.defer<HTMLImageElement>();
@@ -104,6 +176,20 @@ class RendererDebugger extends DebuggerModuleBase
         stageID:stageID,
         bufferTextureID:bufferTextureID,
         generator:generator
+    };
+    return d.promise;
+  }
+
+  public getTextureProgressHtmlImage(stageID:string,bufferTextureID:string,generator?:any):Q.IPromise<HTMLImageElement>
+  {
+    var d = Q.defer<HTMLImageElement>();
+    this.bufferTextureProgressRequest =
+    {
+      deffered:d,
+      stageID:stageID,
+      bufferTextureID:bufferTextureID,
+      generator:generator,
+      begin:false
     };
     return d.promise;
   }

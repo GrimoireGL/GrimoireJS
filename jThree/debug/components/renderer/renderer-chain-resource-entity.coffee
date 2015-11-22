@@ -18,7 +18,14 @@ class RendererChainResourceEntity extends React.Component
     </div>
 
   onResourceAllDisplay:()=>
-    
+    container = ReactDOM.findDOMNode(this.refs.container)
+    container.innerHTML = ''
+    @props.rdrDebugger.getTextureProgressHtmlImage(@props.stage.stage.ID,@props.texKey).then(->,
+    ->,
+    (notice)=>
+      container.appendChild notice.image
+    )
+
 
   onResourceSelected:()=>
     @props.rdrDebugger.getTextureHtmlImage(@props.stage.stage.ID,@props.texKey).then (image)=>

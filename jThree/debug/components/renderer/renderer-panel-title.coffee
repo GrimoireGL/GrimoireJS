@@ -14,6 +14,7 @@ class RendererPanelTitle extends React.Component
       <p style={styles.id}>{@props.renderer.Camera.ParentScene.ID + "(" + @props.renderer.Camera.name + ")"}</p>
       <p style={styles.id}>{"ID " + @props.renderer.ID}</p>
       <a onClick={@getShadowMap}>Get shadow map</a>
+      <a onClick={@getShadowMapProgress}>Get all shadow map</a>
       <div ref="container"></div>
     </div>
 
@@ -22,6 +23,15 @@ class RendererPanelTitle extends React.Component
       container = ReactDOM.findDOMNode @refs.container
       container.innerHTML = ''
       container.appendChild image
+
+  getShadowMapProgress:=>
+    container = ReactDOM.findDOMNode @refs.container
+    container.innerHTML = ''
+    @props.rdrDebugger.getShadowMapProgressImage(@props.renderer.ID,@alphaRemove).then(->,
+    ->,
+    (image)=>
+      container.appendChild image.image
+    )
 
   shadowMapGenerator:(width,height,arr)=>
     result = new Uint8Array width * height * 4

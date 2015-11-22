@@ -113,7 +113,10 @@ class RenderPathExecutor
                             this.renderObjectCompleted.fire(this,{
                               owner:this,
                               renderedObject:v,
-                              stage:stage
+                              stage:stage,
+                              stageChain:chain,
+                              bufferTextures:texs,
+                              technique:i
                             });
                         }
                     });

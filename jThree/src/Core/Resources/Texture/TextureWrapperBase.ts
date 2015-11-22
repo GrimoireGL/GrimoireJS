@@ -87,6 +87,7 @@ class TextureWrapperBase extends ResourceWrapper
 
   protected encodeHtmlImage(width:number,height:number,encode?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>)
   {
+    var lastFBO = this.GL.getParameter(this.GL.FRAMEBUFFER_BINDING);
     //Create framebuffer to transfer texture data
     var framebuffer = this.GL.createFramebuffer();
     this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,framebuffer);
@@ -173,7 +174,7 @@ class TextureWrapperBase extends ResourceWrapper
     //read pixels from framebuffer
     this.GL.readPixels(0,0,width,height,TextureFormat.RGBA,this.Parent.ElementFormat,data);
     this.GL.deleteFramebuffer(framebuffer);
-
+    this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,lastFBO);
     //generate canvas for result
     var canvas = document.createElement('canvas');
     canvas.width = width;
