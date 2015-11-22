@@ -1,6 +1,5 @@
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import jThreeObject = require("../../Base/JThreeObject");
-import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import JThreeContext = require("../../NJThreeContext");
 import NodeManager = require('./../NodeManager');
 import ContextComponents = require('../../ContextComponents');

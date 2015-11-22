@@ -1,7 +1,6 @@
 import RendererBase = require('./RendererBase');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import RenderStageChain = require('./RenderStageChain');
-import JThreeContextProxy = require('./../JThreeContextProxy');
 import SceneObject = require('../SceneObject');
 import Mesh = require('../../Shapes/Mesh')
 import Scene = require('../Scene');

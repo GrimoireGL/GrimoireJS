@@ -1,5 +1,4 @@
 import jThreeObject = require("../Base/JThreeObject");
-import JThreeContextProxy = require("./JThreeContextProxy");
 import Scene = require("./Scene");
 import AssociativeArray = require('../Base/Collections/AssociativeArray')
 import IContextComponent = require("../IContextComponent");

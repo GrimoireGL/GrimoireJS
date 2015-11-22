@@ -2,12 +2,10 @@ import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import ContextManagerBase = require("../ContextManagerBase");
 import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
-import JThreeContext = require("../JThreeContext");
 import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
 import ListStateChangedType = require("../ListStateChangedType");
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ResourceWrapper = require('./ResourceWrapper');
-import JThreeContextProxy = require("../JThreeContextProxy");
 import NJThreeContext = require("../../NJThreeContext");
 import CanvasManager = require("../CanvasManager");
 import ContextComponents = require("../../ContextComponents");
@@ -18,15 +16,8 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
 {
     public name:string;
 
-    private context: JThreeContext = null;
-
-    public get Context():JThreeContext
-    {
-        return this.context;
-    }
     constructor() {
         super();
-        this.context = JThreeContextProxy.getJThreeContext();
         var canvasManager = NJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         //Initialize resources for the renderers already subscribed.
         canvasManager.canvasListChanged.addListener(this.rendererChanged.bind(this));

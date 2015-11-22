@@ -1,5 +1,4 @@
 import ContextSafeContainer = require("../ContextSafeResourceContainer");
-import JThreeContext = require("../../JThreeContext");
 import Shader = require("../Shader/Shader");
 import ContextManagerBase = require("../../ContextManagerBase");
 import ProgramWrapper = require("./ProgramWrapper");
