@@ -20,7 +20,7 @@ class ShadowMapGenerationStage extends RenderStageBase
       return scene.LightRegister.shadowDroppableLights[techniqueIndex];
     }
 
-    public preAllStage(scene:Scene,chainInfo:ResolvedChainInfo)
+    public preStage(scene:Scene,chainInfo:ResolvedChainInfo)
     {
       this.bindAsOutBuffer(
         this.DefaultFBO,
@@ -40,13 +40,13 @@ class ShadowMapGenerationStage extends RenderStageBase
       );
     }
 
-    public postAllStage(scene:Scene,chainInfo:ResolvedChainInfo)
+    public postStage(scene:Scene,chainInfo:ResolvedChainInfo)
     {
       this.Renderer.applyViewportConfigure();
     }
 
 
-    public preBeginStage(scene: Scene, techniqueCount: number, chainInfo: ResolvedChainInfo) {
+    public preTechnique(scene: Scene, techniqueCount: number, chainInfo: ResolvedChainInfo) {
 
     }
 

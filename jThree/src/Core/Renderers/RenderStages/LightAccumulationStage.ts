@@ -19,7 +19,7 @@ class LightAccumulationStage extends RenderStageBase
     }
 
 
-    public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+    public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
         var targetTetxture;
         switch (techniqueIndex) {
             case 0:

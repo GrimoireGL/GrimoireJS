@@ -24,7 +24,7 @@ class GrayScaleStage extends RenderStageBase {
 	}
 
 
-	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+	public preTechnique(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
 		this.bindAsOutBuffer(this.DefaultFBO, [{
 			texture: texs["OUT"],
 			target: 0, isOptional: false

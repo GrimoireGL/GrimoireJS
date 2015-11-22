@@ -95,11 +95,11 @@ class RenderPathExecutor
                 default:
                     targetObjects = scene.children;
             }
-            stage.preAllStage(scene,texs);
+            stage.preStage(scene,texs);
             stage.applyStageConfig();
             for (var i = 0; i < techniqueCount; i++)
             {
-                stage.preBeginStage(scene, i, texs);
+                stage.preTechnique(scene, i, texs);
                 targetObjects.forEach(v=>
                 {
                     v.callRecursive(v=>
@@ -111,9 +111,9 @@ class RenderPathExecutor
                         }
                     });
                 });
-                stage.postEndStage(scene, i, texs);
+                stage.postTechnique(scene, i, texs);
             }
-            stage.postAllStage(scene,texs);
+            stage.postStage(scene,texs);
             this.renderStageCompleted.fire(this,{
               owner:this,
               completedChain:chain,

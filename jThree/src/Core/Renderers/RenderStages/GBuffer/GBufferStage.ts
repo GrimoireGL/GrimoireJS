@@ -25,7 +25,7 @@ class GBufferStage extends RenderStageBase
         super(renderer);
     }
 
-    public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+    public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
         var outTexture;//switch texture by passCount
         switch (techniqueIndex)
         {

@@ -18,7 +18,7 @@ class RendererPanelTitle extends React.Component
     </div>
 
   getShadowMap:=>
-    @props.rdrDebugger.getShadowMapImage(@props.renderer.ID,@shadowMapGenerator).then (image)=>
+    @props.rdrDebugger.getShadowMapImage(@props.renderer.ID,@alphaRemove).then (image)=>
       container = ReactDOM.findDOMNode @refs.container
       container.innerHTML = ''
       container.appendChild image
@@ -27,12 +27,20 @@ class RendererPanelTitle extends React.Component
     result = new Uint8Array width * height * 4
     for x in [0..width]
       for y in [0..height]
-        depth = arr[4 * ((height - y) * width + x) + 0]/(256*256*256) + arr[4 * ((height - y) * width + x) + 1]/(256*256)+ arr[4 * ((height - y) * width + x) + 2]/256;
-        depth = 1 - depth
-        depth = (depth + 1) / 2;
-        result[4*(y * width + x) + 0] = 0
-        result[4*(y * width + x) + 1] = depth * 255
-        result[4*(y * width + x) + 2] = 0
+        depth =  arr[4 * ((height - y) * width + x) + 2]/256;
+        result[4*(y * width + x) + 0] = isNaN(depth)?255:0
+        result[4*(y * width + x) + 1] = depth == 0 ? 0:255;
+        result[4*(y * width + x) + 2] = depth == 0 ? 255 : 0;
+        result[4*(y * width + x) + 3] = 255
+    arr
+
+  alphaRemove:(width,height,arr)=>
+    result = new Uint8Array width * height * 4
+    for x in [0..width]
+      for y in [0..height]
+        result[4*(y * width + x) + 0] = arr[4 * ((height - y) * width + x) + 0]*255
+        result[4*(y * width + x) + 1] = arr[4 * ((height - y) * width + x) + 1]*255
+        result[4*(y * width + x) + 2] = arr[4 * ((height - y) * width + x) + 2]*255
         result[4*(y * width + x) + 3] = 255
     result
 

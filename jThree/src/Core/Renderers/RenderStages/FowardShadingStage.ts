@@ -21,7 +21,7 @@ class FowardShadingStage extends RenderStageBase
 		super(renderer);
 	}
 
-	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+	public preTechnique(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
 		this.bindAsOutBuffer(this.DefaultFBO, [{
 				texture: null,
 				target: "depth",

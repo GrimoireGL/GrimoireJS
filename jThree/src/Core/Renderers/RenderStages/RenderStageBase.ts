@@ -43,12 +43,12 @@ class RenderStageBase extends JThreeObjectWithID {
 		this.renderer = renderer;
 	}
 
-	public preAllStage(scene: Scene,texs: ResolvedChainInfo)
+	public preStage(scene: Scene,texs: ResolvedChainInfo)
 	{
 
 	}
 
-	public postAllStage(scene:Scene,texs:ResolvedChainInfo)
+	public postStage(scene:Scene,texs:ResolvedChainInfo)
 	{
 
 	}
@@ -56,13 +56,13 @@ class RenderStageBase extends JThreeObjectWithID {
 	/**
 	 * This method will be called before process render in each pass
 	 */
-	public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+	public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
 
 	}
 	/**
 	 * This method will be called after process render in each pass.
 	 */
-	public postEndStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+	public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
 		this.Renderer.GL.flush();
 	}
 
