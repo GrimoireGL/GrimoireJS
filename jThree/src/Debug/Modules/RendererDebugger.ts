@@ -8,23 +8,13 @@ import RendererBase = require("../../Core/Renderers/RendererBase");
 import Q = require('q');
 import Delegate = require('../../Base/Delegates');
 import Canvas = require("../../Core/Canvas");
+import IRequestBufferTexture = require("./Renderer/IRequestBufferTexture");
+import IRequestShadowMapTexture = require('./Renderer/IRequestShadowMapTexture');
 class RendererDebugger extends DebuggerModuleBase
 {
-  private captureStageID:string;
+  private bufferTextureRequest:IRequestBufferTexture;
 
-  private captureTexture:string;
-
-  private deffer;
-
-  private generator;
-
-  private captureShadowmap:boolean = false;
-
-  private shadowMapRendererID:string;
-
-  private defferForShadowmap;
-
-  private shadowMapGenerator;
+  private shadowMapRequest:IRequestShadowMapTexture;
 
   public attach(debug:Debugger)
   {
@@ -68,28 +58,27 @@ class RendererDebugger extends DebuggerModuleBase
     debug.debuggerAPI.renderers.addRenderer(renderer,this);
     renderer.RenderPathExecutor.renderStageCompleted.addListener((o,v)=>
     {
-      if(v.completedChain.stage.ID === this.captureStageID)
+      if(this.bufferTextureRequest && v.completedChain.stage.ID === this.bufferTextureRequest.stageID)
       {
-        if(v.bufferTextures[this.captureTexture] == null)
+        if(v.bufferTextures[this.bufferTextureRequest.bufferTextureID] == null)
         {
           var canvas = <Canvas>v.owner.renderer.ContextManager;
           var img = new Image(canvas.canvasElement.width,canvas.canvasElement.height);
           img.src = canvas.canvasElement.toDataURL();
-          this.deffer.resolve(img);
-          this.captureStageID = null;
+          this.bufferTextureRequest.deffered.resolve(img);
+          this.bufferTextureRequest = null;
           return;
         }
-        this.deffer.resolve(v.bufferTextures[this.captureTexture].wrappers[0].generateHtmlImage(this.generator));
-        this.captureStageID = null;
+        this.bufferTextureRequest.deffered.resolve(v.bufferTextures[this.bufferTextureRequest.bufferTextureID].wrappers[0].generateHtmlImage(this.bufferTextureRequest.generator));
+        this.bufferTextureRequest = null;
       }
     });
     renderer.RenderPathExecutor.renderPathCompleted.addListener((o,v)=>
     {
-      if(v.owner.renderer.ID === this.shadowMapRendererID)
+      if(this.shadowMapRequest && v.owner.renderer.ID === this.shadowMapRequest.rendererID)
       {
-        this.shadowMapRendererID = null;
-        this.defferForShadowmap.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapGenerator));
-        this.shadowMapGenerator = null;
+        this.shadowMapRequest.deffered.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapRequest.generator));
+        this.shadowMapRequest = null;
       }
     });
   }
@@ -97,20 +86,25 @@ class RendererDebugger extends DebuggerModuleBase
   public getShadowMapImage(rendererID:string,generator?:any):Q.IPromise<HTMLImageElement>
   {
     var d = Q.defer<HTMLImageElement>();
-    this.captureShadowmap = true;
-    this.shadowMapRendererID = rendererID;
-    this.defferForShadowmap = d;
-    this.shadowMapGenerator = generator;
+    this.shadowMapRequest =
+    {
+      deffered:d,
+      rendererID:rendererID,
+      generator:generator
+    };
     return d.promise;
   }
 
-  public getTextureHtmlImage(stageID:string,textureArgName:string,generator?:any):Q.IPromise<HTMLImageElement>
+  public getTextureHtmlImage(stageID:string,bufferTextureID:string,generator?:any):Q.IPromise<HTMLImageElement>
   {
     var d = Q.defer<HTMLImageElement>();
-    this.captureStageID = stageID;
-    this.captureTexture = textureArgName;
-    this.deffer = d;
-    this.generator = generator;
+    this.bufferTextureRequest =
+    {
+        deffered:d,
+        stageID:stageID,
+        bufferTextureID:bufferTextureID,
+        generator:generator
+    };
     return d.promise;
   }
 }

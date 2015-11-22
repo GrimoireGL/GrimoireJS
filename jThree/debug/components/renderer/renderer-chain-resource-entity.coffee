@@ -12,9 +12,13 @@ class RendererChainResourceEntity extends React.Component
         <span>{@props.texVal} </span>
       </a>
       <a onClick={@onResourceSelectedWithoutAlpha}>255 multiplied no alpha</a>
+      <a onClick={@onResourceAllDisplay}>All</a>
       <div ref="container">
       </div>
     </div>
+
+  onResourceAllDisplay:()=>
+    
 
   onResourceSelected:()=>
     @props.rdrDebugger.getTextureHtmlImage(@props.stage.stage.ID,@props.texKey).then (image)=>

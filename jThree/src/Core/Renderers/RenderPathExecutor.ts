@@ -15,11 +15,14 @@ import TextureGenerater = require("./TextureGenerater");
 import JThreeEvent = require("../../Base/JThreeEvent");
 import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
 import IRenderPathCompletedEventArgs = require("./IRenderPathCompletedEventArgs");
+import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventArgs");
 class RenderPathExecutor
 {
     public renderStageCompleted:JThreeEvent<IRenderStageCompletedEventArgs> = new JThreeEvent<IRenderStageCompletedEventArgs>();
 
     public renderPathCompleted:JThreeEvent<IRenderPathCompletedEventArgs> = new JThreeEvent<IRenderPathCompletedEventArgs>();
+
+    public renderObjectCompleted:JThreeEvent<IRenderObjectCompletedEventArgs> = new JThreeEvent<IRenderObjectCompletedEventArgs>();
 
     public renderer: RendererBase;
     private defaultQuad: QuadGeometry;
@@ -107,7 +110,11 @@ class RenderPathExecutor
                         if (v.Geometry&&stage.needRender(scene, v, i))
                         {
                             stage.render(scene, v, i, texs);
-
+                            this.renderObjectCompleted.fire(this,{
+                              owner:this,
+                              renderedObject:v,
+                              stage:stage
+                            });
                         }
                     });
                 });
