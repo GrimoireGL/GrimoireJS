@@ -69,8 +69,6 @@
     "./jThree/src/Core/GLSpecManager.ts",
     "./jThree/src/Core/ISceneListChangedEventArgs.ts",
     "./jThree/src/Core/ISceneObjectChangedEventArgs.ts",
-    "./jThree/src/Core/JThreeContext.ts",
-    "./jThree/src/Core/JThreeContextProxy.ts",
     "./jThree/src/Core/Light/DefaultLightTypeList.ts",
     "./jThree/src/Core/Light/Impl/AreaLight.ts",
     "./jThree/src/Core/Light/Impl/DirectionalLight.ts",
