@@ -331,3 +331,18 @@
 /// <reference path="Wrapper/TextureType.ts" />
 /// <reference path="bundle-notdoc.ts" />
 /// <reference path="jThree.ts" />
+
+
+interface WebGLVertexArrayObjectExtension
+{
+  createVertexArrayOES();
+  bindVertexArrayOES(vao:WebGLVertexArrayObject);
+}
+
+interface WebGLVertexArrayObject extends WebGLObject {
+}
+
+declare var WebGLVertexArrayObject: {
+    prototype: WebGLVertexArrayObject;
+    new(): WebGLVertexArrayObject;
+}

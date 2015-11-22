@@ -41,7 +41,7 @@ class VAOWrapper extends ResourceWrapper
 
 	public bind()
 	{
-		this.WebGLContext.BindRenderBuffer(this.targetVAO);
+		//this.GL.bindRenderbuffer(this.targetVAO);
 		this.vaoInterface.bindVertexArrayOES(this.targetVAO);
 	}
 }
