@@ -150,11 +150,11 @@ Object.keys(config).forEach (suffix) ->
       return watchify (watchify) ->
         gulp
           .src path.resolve(__dirname, c.entry)
-          .pipe plumber
-            errorHandler:(err)->
+          .pipe gulpif(watching, plumber(
+            errorHandler: (err)->
               gutil.log gutil.colors.black.bgRed '【FAILED】 Compilation failed!!'
               gutil.log err
-              @emit "end"
+              @emit "end"))
           .pipe watchify
             watch: watching
             extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
@@ -283,6 +283,7 @@ update tsconfig files (if your editor does not adapt to 'filesGlob')
 gulp.task 'update-tsconfig-files', ->
   json = JSON.parse fs.readFileSync path.resolve(__dirname, tsconfigPath)
   files = _(globArray.sync(json.filesGlob)).uniq(true)
+  json.files = files
   fs.writeFileSync path.resolve(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
   refs = _(files)
     .map (v) ->

@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import SceneObjectNodeBase = require("./SceneObjectNodeBase");
 import SceneNode = require("../SceneNode");
 import SceneObject = require("../../../Core/SceneObject");
@@ -11,15 +10,15 @@ class GomlTreeMeshNode extends SceneObjectNodeBase
 {
   private targetMesh:BasicMeshObject;
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
-      super(elem,loader,parent,parentSceneNode,parentObject);
+      super(elem,parent,parentSceneNode,parentObject);
   }
 
   protected ConstructTarget():SceneObject
   {
-    var geo=<GeometryNodeBase>this.loader.nodeRegister.getObject("jthree.geometries",this.Geo);
-    var mat=<MaterialNode>this.loader.nodeRegister.getObject("jthree.materials",this.Mat);
+    var geo=<GeometryNodeBase>this.nodeManager.nodeRegister.getObject("jthree.geometries",this.Geo);
+    var mat=<MaterialNode>this.nodeManager.nodeRegister.getObject("jthree.materials",this.Mat);
     this.targetMesh=new BasicMeshObject(geo.TargetGeometry,mat?mat.targetMaterial:new SolidColor());
     return this.targetMesh;
   }

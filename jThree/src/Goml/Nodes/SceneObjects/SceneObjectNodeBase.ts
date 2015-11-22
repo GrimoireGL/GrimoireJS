@@ -1,13 +1,12 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import SceneNode = require("../SceneNode");
 import SceneObject = require("../../../Core/SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
 import AttributeParser = require("../../AttributeParser");
 class SceneObjectNodeBase extends GomlTreeNodeBase {
-  constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase, parentSceneNode: SceneNode, parentObject: SceneObjectNodeBase) {
-    super(elem, loader, parent);
+  constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: SceneNode, parentObject: SceneObjectNodeBase) {
+    super(elem, parent);
     this.containedSceneNode = parentSceneNode;
     this.parentSceneObjectNode = parentObject;
     this.attributes.defineAttribute({

@@ -3,7 +3,6 @@ import RendererBase = require("../Renderers/RendererBase");
 import SceneObject = require("../SceneObject");
 import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
-import JThreeContextProxy = require('./../JThreeContextProxy');
 import ShaderType = require("../../Wrapper/ShaderType");
 import Program = require('../Resources/Program/Program');
 import Scene = require('../Scene');

@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import JThreeID = require("../../../Base/JThreeID");
 import Geometry = require("../../../Core/Geometries/Geometry");
 /**
@@ -7,9 +6,9 @@ import Geometry = require("../../../Core/Geometries/Geometry");
 */
 class GomlTreeGeometryNode extends GomlTreeNodeBase
 {
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
   {
-      super(elem,loader,parent);
+      super(elem,parent);
   }
 
   private name:string;
@@ -55,7 +54,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
   {
     super.beforeLoad();
     this.targetGeometry=this.ConstructGeometry();
-    this.loader.nodeRegister.addObject("jthree.geometries",this.Name,this);
+    this.nodeManager.nodeRegister.addObject("jthree.geometries",this.Name,this);
   }
 }
 export=GomlTreeGeometryNode;

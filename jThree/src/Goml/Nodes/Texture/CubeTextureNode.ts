@@ -1,7 +1,5 @@
 ﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture")
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import TextureNodeBase = require("./TextureNodeBase");
 import ResourceManager = require("../../../Core/ResourceManager");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
@@ -11,9 +9,9 @@ import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 class CubeTextureNode extends TextureNodeBase
 {
 
-    constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
+    constructor(elem: HTMLElement, parent: GomlTreeNodeBase)
     {
-        super(elem, loader, parent);
+        super(elem, parent);
         this.attributes.defineAttribute({
             srcs: {
               // this src should be passed by splitted with ' '(space).

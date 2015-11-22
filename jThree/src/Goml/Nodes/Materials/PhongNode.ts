@@ -1,7 +1,6 @@
 ﻿
 import Phong = require("../../../Core/Materials/PhongMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import TextureNode = require("../Texture/TextureNode")
@@ -9,8 +8,8 @@ class PhongNode extends MaterialNodeBase
 {
     public material:Phong;
 
-    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
-        super(elem,loader,parent);
+    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
+        super(elem,parent);
         this.attributes.defineAttribute({
           "diffuse":{
             value:"#f0C",converter:"color4",handler:(v)=>{this.material.diffuse=v.Value}
@@ -31,7 +30,7 @@ class PhongNode extends MaterialNodeBase
               value:null, converter: "string", handler: (v) =>
               {
                   if(v.Value)
-                  this.material.texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
+                  this.material.texture = (<TextureNode>this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
               }
           }
         });

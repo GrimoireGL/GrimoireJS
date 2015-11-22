@@ -5,7 +5,6 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import Program = require("../../Resources/Program/Program");
-import JThreeContext = require("../../JThreeContextProxy")
 import Matrix = require("../../../Math/Matrix");
 import CubeTexture = require("../../Resources/Texture/CubeTexture");
 class SkyBoxStage extends RenderStageBase

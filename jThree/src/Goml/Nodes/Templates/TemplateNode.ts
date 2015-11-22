@@ -1,32 +1,31 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 
 class TemplateNode extends GomlTreeNodeBase
 {
   private static parentIgnore:string[]=["template"];
-  
+
   private static templateIgnore:string[]=["name"];
-  
+
   private templateGoml:string="";
-  
+
   public get TemplateGoml():string
   {
     return this.templateGoml;
   }
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
   {
-      super(elem,loader,parent);
+      super(elem,parent);
       var name=elem.getAttribute("name");
       if(name)
       {
-        loader.nodeRegister.addObject("jthree.template",name,this);
+        this.nodeManager.nodeRegister.addObject("jthree.template",name,this);
         this.templateGoml=elem.innerHTML;
       }else{
         console.error("template tag should be specified name.")
       }
   }
-  
+
   public GetGomlToInstanciate(instanciateParent:HTMLElement):string
   {
     var valueMap:{[key:string]:string}={};
@@ -54,7 +53,7 @@ class TemplateNode extends GomlTreeNodeBase
     }
     return replaceTarget;
   }
-  
+
 }
 
 export=TemplateNode;

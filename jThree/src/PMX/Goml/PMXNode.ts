@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import GomlLoader = require("../../Goml/GomlLoader");
 import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
 import SceneNode = require("../../Goml/Nodes/SceneNode");
 import SceneObject = require("../../Core/SceneObject");
@@ -27,9 +26,9 @@ class PMXNode extends SceneObjectNodeBase
     this.pmxTargetUpdated.addListener(handler);
   }
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
-      super(elem,loader,parent,parentSceneNode,parentObject);
+      super(elem,parent,parentSceneNode,parentObject);
       this.attributes.defineAttribute(
         {
           "src":

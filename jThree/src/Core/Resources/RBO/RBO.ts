@@ -2,7 +2,6 @@ import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer
 import RBOWrapper = require("./RBOWrapper");
 import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat");
 import ContextManagerBase = require("../../../Core/ContextManagerBase");
-import JThreeContext = require("../../../Core/JThreeContext")
 class RBO extends ContextSafeResourceContainer<RBOWrapper>
 {
 	constructor(width:number,height:number,format:RBOInternalFormatType=RBOInternalFormatType.DepthComponent16)
@@ -13,7 +12,7 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper>
 		this.format=format;
 		this.initializeForFirst();
 	}
-	
+
 	private width:number;
 	private height:number;
 	private format:RBOInternalFormatType;
@@ -21,17 +20,17 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper>
 	{
 		return this.width;
 	}
-	
+
 	public get Height():number
 	{
 		return this.height;
 	}
-	
+
 	public get Format():RBOInternalFormatType
 	{
 		return this.format;
 	}
-	
+
 	protected getInstanceForRenderer(renderer:ContextManagerBase): RBOWrapper {
 		return new RBOWrapper(renderer,this);
     }

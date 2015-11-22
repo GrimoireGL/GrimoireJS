@@ -2,7 +2,6 @@
 import BufferUsageType = require("../../../Wrapper/BufferUsageType");
 import ContextManagerBase = require("../../ContextManagerBase");
 import ElementType = require("../../../Wrapper/ElementType");
-import JThreeContext = require('../../JThreeContext');
 import ContextSafeResourceContainer = require("../ContextSafeResourceContainer")
 import BufferWrapper = require("./BufferWrapper");
 /**

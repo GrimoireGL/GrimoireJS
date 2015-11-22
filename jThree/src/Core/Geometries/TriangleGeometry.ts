@@ -1,5 +1,4 @@
 import Geometry = require("./Geometry");
-import JThreeContextProxy = require("../JThreeContextProxy");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
 import ElementType = require("../../Wrapper/ElementType");

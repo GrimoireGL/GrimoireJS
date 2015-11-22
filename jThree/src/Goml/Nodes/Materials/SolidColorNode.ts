@@ -2,14 +2,13 @@
 import SolidColor = require("../../../Core/Materials/SolidColorMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
-import GomlLoader = require("../../GomlLoader");
 import Material = require('../../../Core/Materials/Material');
 class SolidColorNode extends MaterialNodeBase
 {
     public material:SolidColor;
 
-    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
-        super(elem,loader,parent);
+    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
+        super(elem,parent);
         this.attributes.defineAttribute({
           "color":{
             value:"#0FC",converter:"color4",handler:(v)=>{this.material.Color=v.Value}

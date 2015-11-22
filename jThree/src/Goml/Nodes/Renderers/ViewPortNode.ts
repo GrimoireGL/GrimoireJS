@@ -2,9 +2,6 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import RendererBase = require("../../../Core/Renderers/RendererBase");
 import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
-import GomlLoader = require("../../GomlLoader");
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
-import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");
 import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
@@ -28,16 +25,15 @@ class ViewPortNode extends GomlTreeNodeBase {
     return this.targetRenderer;
   }
 
-    constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase)
+    constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
     {
-        super(elem,loader,parent);
+        super(elem,parent);
     }
 
     public afterLoad(){
       var rdr:CanvasNode=this.parentCanvas=<CanvasNode>this.parent;
       var defaultRect = rdr.Canvas.getDefaultRectangle();
       this.targetRenderer=RendererFactory.generateRenderer(rdr.Canvas,defaultRect,this.attributes.getValue("config"));
-      var context:JThreeContext=JThreeContextProxy.getJThreeContext();
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
       var scene:Scene=cameraNode.ContainedSceneNode.targetScene;
@@ -97,7 +93,7 @@ class ViewPortNode extends GomlTreeNodeBase {
           handler:v=>{
             if(this.attributes.getValue("backgroundType")==="skybox")
             {
-              var cubeTexture = <CubeTextureTag>this.loader.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
+              var cubeTexture = <CubeTextureTag>this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
               if(cubeTexture)
               {
                 if(!this.skyBoxStageChain)
@@ -164,7 +160,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     private resolveCamera():CameraNodeBase
     {
-      var camTags=this.loader.nodeRegister.getAliasMap<SceneObjectNodeBase>("jthree.camera");
+      var camTags=this.nodeManager.nodeRegister.getAliasMap<SceneObjectNodeBase>("jthree.camera");
       if(!camTags.has(this.Cam))//if there was no specified camera
       {
         console.error("can not find camera");

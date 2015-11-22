@@ -2,7 +2,15 @@ import GomlNodeListElement = require("./GomlNodeListElement");
 
 declare function require(string): any;
 
-var gomlList = [
+var gomlList = [  new GomlNodeListElement("jthree.toplevel",
+    require("./Factories/TagFactory"),
+    {
+      "CANVASES": require("./Nodes/TopLevel/CanvasesNode"),
+      "RESOURCES": require("./Nodes/TopLevel/ResourcesNode"),
+      "SCENES": require("./Nodes/TopLevel/ScenesNode"),
+      "TEMPLATES": require("./Nodes/TopLevel/TemplatesNode"),
+      "GOML":require("./Nodes/TopLevel/GomlNode")
+    }),
   new GomlNodeListElement("jthree.geometries",
     require("./Factories/TagFactory"),
     {

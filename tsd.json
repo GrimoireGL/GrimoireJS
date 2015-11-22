@@ -15,7 +15,7 @@
       "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "mocha/mocha.d.ts": {
-      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+      "commit": "16134c168d021351acb1673ee9659644fc58c424"
     },
     "chai/chai.d.ts": {
       "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
@@ -24,10 +24,19 @@
       "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
     "sinon/sinon.d.ts": {
-      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+      "commit": "16134c168d021351acb1673ee9659644fc58c424"
     },
     "jsdom/jsdom.d.ts": {
       "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+    },
+    "empower/empower.d.ts": {
+      "commit": "16134c168d021351acb1673ee9659644fc58c424"
+    },
+    "power-assert/power-assert.d.ts": {
+      "commit": "16134c168d021351acb1673ee9659644fc58c424"
+    },
+    "power-assert-formatter/power-assert-formatter.d.ts": {
+      "commit": "16134c168d021351acb1673ee9659644fc58c424"
     }
   }
 }

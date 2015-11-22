@@ -1,4 +1,3 @@
-import GomlLoader = require("../GomlLoader");
 import TagFactory = require("./TagFactory");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import BehaviorsNode = require("../Nodes/Behaviors/BehaviorsNode");
@@ -7,11 +6,11 @@ import BehaviorsNode = require("../Nodes/Behaviors/BehaviorsNode");
 */
 class ComponentTagFactory extends TagFactory
 {
-    public CreateNodeForThis(elem: Element,loader:GomlLoader,parent:GomlTreeNodeBase): GomlTreeNodeBase {
+    public CreateNodeForThis(elem: Element,parent:GomlTreeNodeBase): GomlTreeNodeBase {
     if(parent.getTypeName()==="BehaviorsNode")
     {
       var castedParent=<BehaviorsNode>parent;
-      return new this.nodeType(elem,loader,parent,castedParent.ComponentTarget);
+      return new this.nodeType(elem,parent,castedParent.ComponentTarget);
     }
   }
 }

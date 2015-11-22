@@ -1,7 +1,5 @@
 ﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import Texture = require("../../../Core/Resources/Texture/Texture");
-import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import ResourceManager = require("../../../Core/ResourceManager")
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase")
 import TextureNodeBase = require("./TextureNodeBase");
@@ -10,9 +8,9 @@ import TextureNodeBase = require("./TextureNodeBase");
  */
 class TextureNode extends TextureNodeBase
 {
-    constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
+    constructor(elem: HTMLElement, parent: GomlTreeNodeBase)
     {
-        super(elem, loader, parent);
+        super(elem, parent);
         this.attributes.defineAttribute({
             src: {
                 converter: "string",

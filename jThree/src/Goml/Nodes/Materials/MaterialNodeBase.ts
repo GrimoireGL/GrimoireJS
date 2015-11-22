@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import Material = require('../../../Core/Materials/Material');
 import JThreeID = require("../../../Base/JThreeID");
 class MaterialNodeBase extends GomlTreeNodeBase
@@ -11,8 +10,8 @@ class MaterialNodeBase extends GomlTreeNodeBase
       return null;
     }
 
-    constructor(elem:HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase) {
-        super(elem,loader,parent);
+    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
+        super(elem,parent);
         this.attributes.defineAttribute({
         });
     }
@@ -20,7 +19,7 @@ class MaterialNodeBase extends GomlTreeNodeBase
     public beforeLoad()
     {
       this.targetMaterial=this.ConstructMaterial();
-      this.loader.nodeRegister.addObject("jthree.materials",this.Name,this);
+      this.nodeManager.nodeRegister.addObject("jthree.materials",this.Name,this);
     }
 
     private name:string;

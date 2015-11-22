@@ -1,12 +1,10 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import GomlLoader = require("../../Goml/GomlLoader");
 import PMXNode = require("../../PMX/Goml/PMXNode");
 import PMXBone = require("../../PMX/Core/PMXBone");
 import VMDData = require("../Parser/VMDData");
 import Vector3 = require("../../Math/Vector3");
 import Quaternion = require("../../Math/Quaternion");
 import PMXMorph = require("../../PMX/Core/PMXMorph");
-import JThreeContextProxy = require("../../Core/JThreeContextProxy");
 import PMXBoneTransformer = require("../../PMX/Core/PMXBoneTransformer");
 import JThreeContext = require("../../NJThreeContext");
 import ContextComponents = require("../../ContextComponents");
@@ -27,8 +25,8 @@ class VMDNode extends GomlTreeNodeBase
 
 	private frame:number =0;
 
-	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
-		super(elem, loader, parent);
+	constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
+		super(elem, parent);
 		this.targetPMX = <PMXNode>this.parent;
 		this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
 		this.attributes.defineAttribute({

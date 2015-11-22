@@ -1,12 +1,11 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import GomlLoader = require("../../Goml/GomlLoader");
 import PMXNode = require("./PMXNode");
 class PMXMorphNode extends GomlTreeNodeBase {
 
 	private targetPMX: PMXNode;
 
-	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase, pmx: PMXNode) {
-		super(elem, loader, parent);
+	constructor(elem: HTMLElement, parent: GomlTreeNodeBase, pmx: PMXNode) {
+		super(elem, parent);
 		this.targetPMX = pmx;
 		this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
 		this.attributes.defineAttribute({

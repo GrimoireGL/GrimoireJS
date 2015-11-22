@@ -1,5 +1,4 @@
 ﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 import ResourceManager = require("../../../Core/ResourceManager");
 import MinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
@@ -26,9 +25,9 @@ class TextureNodeBase extends GomlTreeNodeBase
         return this.targetTexture;
     }
 
-    constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase)
+    constructor(elem: HTMLElement, parent: GomlTreeNodeBase)
     {
-        super(elem, loader, parent);
+        super(elem, parent);
         this.attributes.defineAttribute({
             name: {
                 converter: "string",
@@ -77,7 +76,7 @@ class TextureNodeBase extends GomlTreeNodeBase
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         var name = this.attributes.getValue("name");
         this.targetTexture = this.generateTexture(name, rm);
-        this.loader.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);
+        this.nodeManager.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);
     }
 
     protected generateTexture(name: string, rm: ResourceManager): TextureBase

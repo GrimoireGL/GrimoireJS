@@ -3,7 +3,6 @@ import JThreeContext = require("../../../NJThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import CanvasNodeBase = require('./CanvasNodeBase');
 import Delegates = require("../../../Base/Delegates");
 
@@ -13,8 +12,8 @@ class CanvasNode extends CanvasNodeBase {
     public resizeIframeWindow: Window;
     private resizedFunctions: Delegates.Action1<CanvasNode>[] = [];
 
-    constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
-        super(elem, loader, parent);
+    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
+        super(elem, parent);
         //generate canvas
         this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
 

@@ -2,7 +2,6 @@ import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer
 import VAOWrapper = require("./VAOWrapper");
 import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat");
 import ContextManagerBase = require("../../../Core/ContextManagerBase");
-import JThreeContext = require("../../../Core/JThreeContext")
 class VAO extends ContextSafeResourceContainer<VAOWrapper>
 {
 	constructor()

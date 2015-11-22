@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import GomlLoader = require("../../../GomlLoader");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
@@ -9,9 +8,9 @@ import GomlTreeCameraNodeBase = require("./CameraNodeBase");
 class GomlTreeCameraNode extends GomlTreeCameraNodeBase
 {
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
   {
-      super(elem,loader,parent,parentSceneNode,parentObject);
+      super(elem,parent,parentSceneNode,parentObject);
       this.attributes.defineAttribute(
         {
           "fovy":{

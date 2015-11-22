@@ -1,5 +1,3 @@
-import JThreeContext = require("./Core/JThreeContext");
-import JThreeContextProxy = require("./Core/JThreeContextProxy");
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
@@ -10,10 +8,13 @@ import NewJThreeContext = require("./NJThreeContext");
 import SceneManager = require("./Core/SceneManager");
 import CanvasManager = require("./Core/CanvasManager");
 import LoopManager = require("./Core/LoopManager");
-import ContextComponent = require("./ContextComponents");
+import ContextComponents = require("./ContextComponents");
 import ResourceManager = require("./Core/ResourceManager");
+import NodeManager = require("./Goml/NodeManager");
 import ContextTimer = require("./Core/ContextTimer");
 import Debugger = require("./Debug/Debugger");
+import GomlLoader = require("./Goml/GomlLoader");
+
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -23,8 +24,7 @@ class JThreeStatic
     public defineBehavior(behaviorName: string, decl: BehaviorDeclarationBody|Delegates.Action0);
     public defineBehavior(declarations:BehaviorDeclaration);
   public defineBehavior(nameOrDeclarations:string|BehaviorDeclaration,declaration?:BehaviorDeclarationBody|Delegates.Action0) {
-    var context = JThreeContextProxy.getJThreeContext();
-    context.GomlLoader.componentRegistry.defineBehavior(<string>nameOrDeclarations,declaration);//This is not string but it is for conviniesnce.
+    NewJThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager).behaviorRegistry.defineBehavior(<string>nameOrDeclarations,declaration);//This is not string but it is for conviniesnce.
     }
 
   public get Math() {
@@ -55,12 +55,12 @@ class JThreeInit {
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
   public static j3(query: string|Delegates.Action0): JThreeInterface {
-    var context = JThreeContextProxy.getJThreeContext();
+    var nodeManager = NewJThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
     if (typeof query === 'function') {//check whether this is function or not.
-      context.GomlLoader.onload(query);
+      nodeManager.loadedHandler.addListener(query);
       return undefined;//when function was subscribed, it is no need to return JThreeInterface.
     }
-    var targetObject: NodeList = context.GomlLoader.rootObj.querySelectorAll(<string>query); //call as query
+    var targetObject: NodeList = nodeManager.htmlRoot.querySelectorAll(<string>query); //call as query
     return new JThreeInterface(targetObject);
   }
 
@@ -83,7 +83,18 @@ class JThreeInit {
     NewJThreeContext.registerContextComponent(new SceneManager());
     NewJThreeContext.registerContextComponent(new CanvasManager());
     NewJThreeContext.registerContextComponent(new ResourceManager());
+    NewJThreeContext.registerContextComponent(new NodeManager());
     NewJThreeContext.registerContextComponent(new Debugger());
+    var canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    var loopManager = NewJThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    var timer = NewJThreeContext.getContextComponent<ContextTimer>(ContextComponents.Timer);
+    var sceneManager = NewJThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
+    loopManager.addAction(1000,()=>timer.updateTimer());
+    //loopManager.addAction(2000,()=>this.updateAnimation());
+    //loopManager.addAction(3000,()=>this.gomlLoader.update());
+    loopManager.addAction(4000,()=>canvasManager.beforeRenderAll());
+    loopManager.addAction(5000,()=>sceneManager.renderAll());
+    loopManager.addAction(6000,()=>canvasManager.afterRenderAll());
   if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });
@@ -91,12 +102,11 @@ class JThreeInit {
 
   private static startInitialize()
   {
-    var j3 = JThreeContextProxy.getJThreeContext();
-    JThreeInit.j3(() => {
-    });
-    j3.GomlLoader.initForPage();
-    NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager).begin();
-    NewJThreeContext.getContextComponent<Debugger>(ContextComponent.Debugger).attach();
+    var nodeManager = NewJThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
+    var loader = new GomlLoader(nodeManager,JThreeInit.SelfTag)
+    loader.initForPage();
+    NewJThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
+    NewJThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger).attach();
   }
 }
 export = JThreeInit;

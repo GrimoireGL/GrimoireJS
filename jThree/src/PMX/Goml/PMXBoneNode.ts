@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import GomlLoader = require("../../Goml/GomlLoader");
 import PMXNode = require("./PMXNode");
 import SceneObjectNodeBase = require("../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
 
@@ -11,8 +10,8 @@ class PMXBoneNode extends SceneObjectNodeBase {
 		return this.targetSceneObject || null;
 	}
 
-	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase, pmx: PMXNode) {
-		super(elem, loader, parent, pmx.ContainedSceneNode, pmx);
+	constructor(elem: HTMLElement, parent: GomlTreeNodeBase, pmx: PMXNode) {
+		super(elem, parent, pmx.ContainedSceneNode, pmx);
 		this.targetPMX = pmx;
 		this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
 		this.attributes.defineAttribute({

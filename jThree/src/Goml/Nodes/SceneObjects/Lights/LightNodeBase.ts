@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import GomlLoader = require("../../../GomlLoader");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import SceneObject = require("../../../../Core/SceneObject");
@@ -8,8 +7,8 @@ class LightNodeBase extends SceneObjectNodeBase {
 
 	private targetLightBase:LightBase;
 
-	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-		super(elem, loader, parent, parentSceneNode, parentObject);
+	constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
+		super(elem, parent, parentSceneNode, parentObject);
 		this.attributes.defineAttribute({
 			"color":{
 				value:"white",converter:"color4",handler:(v)=>{
