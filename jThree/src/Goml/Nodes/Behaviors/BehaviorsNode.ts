@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 
 
 class BehaviorsNode extends GomlTreeNodeBase

@@ -1,4 +1,3 @@
-import GomlLoader = require("../GomlLoader");
 import TagFactory = require("./TagFactory");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import BehaviorsNode = require("../Nodes/Behaviors/BehaviorsNode");

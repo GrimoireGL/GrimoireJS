@@ -1,20 +1,13 @@
 import TreeNodeBase = require('./TreeNodeBase');
 import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
-import GomlLoader = require('./GomlLoader');
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 
 class BehaviorContainerNodeBase extends TreeNodeBase
 {
-	constructor(elem:HTMLElement,parent?:TreeNodeBase,loader?:GomlLoader)
+	constructor(elem:HTMLElement,parent?:TreeNodeBase)
 	{
 		super(elem,parent);
-        this.loader=loader;
 	}
-
-     /**
-     * The GomlLoader instanciate this class
-     */
-    protected loader:GomlLoader;
 
 	 /**
      * components that is attached to this node.

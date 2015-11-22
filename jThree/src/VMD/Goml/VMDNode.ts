@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import GomlLoader = require("../../Goml/GomlLoader");
 import PMXNode = require("../../PMX/Goml/PMXNode");
 import PMXBone = require("../../PMX/Core/PMXBone");
 import VMDData = require("../Parser/VMDData");

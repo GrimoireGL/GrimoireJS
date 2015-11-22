@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import GomlLoader = require("../../../GomlLoader");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import LightNodeBase = require('./LightNodeBase');

@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import GomlLoader = require("../../Goml/GomlLoader");
 import PMXNode = require("./PMXNode");
 class PMXMorphNode extends GomlTreeNodeBase {
 

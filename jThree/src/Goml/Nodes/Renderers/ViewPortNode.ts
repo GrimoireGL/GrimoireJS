@@ -2,7 +2,6 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import RendererBase = require("../../../Core/Renderers/RendererBase");
 import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
-import GomlLoader = require("../../GomlLoader");
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import JThreeContext = require("../../../Core/JThreeContext");
 import Scene = require("../../../Core/Scene");

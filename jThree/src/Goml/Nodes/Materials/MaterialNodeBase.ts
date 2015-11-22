@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import Material = require('../../../Core/Materials/Material');
 import JThreeID = require("../../../Base/JThreeID");
 class MaterialNodeBase extends GomlTreeNodeBase

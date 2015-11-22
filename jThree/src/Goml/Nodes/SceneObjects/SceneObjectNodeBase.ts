@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import SceneNode = require("../SceneNode");
 import SceneObject = require("../../../Core/SceneObject");
 import Vector3 = require("../../../Math/Vector3");

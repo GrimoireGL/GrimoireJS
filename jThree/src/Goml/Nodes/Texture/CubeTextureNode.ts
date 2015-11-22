@@ -1,5 +1,4 @@
 ﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture")
 import JThreeContextProxy = require("../../../Core/JThreeContextProxy");
 import TextureNodeBase = require("./TextureNodeBase");

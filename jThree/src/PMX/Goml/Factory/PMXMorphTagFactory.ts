@@ -1,4 +1,3 @@
-import GomlLoader = require("../../../Goml/GomlLoader");
 import TagFactory = require("../../../Goml/Factories/TagFactory");
 import GomlTreeNodeBase = require("../../../Goml/GomlTreeNodeBase");
 import PMXMorphsNode = require("../PMXMorphsNode"); /**

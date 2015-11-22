@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import Canvas = require("../../../Core/Canvas");
 class CanvasNodeBase extends GomlTreeNodeBase {
     constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {

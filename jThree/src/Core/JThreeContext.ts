@@ -1,6 +1,5 @@
 ﻿import ContextTimer = require("./ContextTimer");
 import Timer = require("./Timer");
-import GomlLoader = require("../Goml/GomlLoader");
 import Delegates = require("../Base/Delegates");
 import ResourceManager = require("./ResourceManager");
 import Canvas = require("./Canvas");

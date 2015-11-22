@@ -1,5 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import JThreeID = require("../../../Base/JThreeID");
 import Geometry = require("../../../Core/Geometries/Geometry");
 /**

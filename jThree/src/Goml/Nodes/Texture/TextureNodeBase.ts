@@ -1,5 +1,4 @@
 ﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 import ResourceManager = require("../../../Core/ResourceManager");
 import MinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");

@@ -1,4 +1,3 @@
-import GomlLoader = require("./GomlLoader");
 import AttributeDictionary = require("./AttributeDictionary");
 import BehaviorContainerNode = require("./BehaviorContainerNodeBase");
 import TreeNodeBase = require('./TreeNodeBase');

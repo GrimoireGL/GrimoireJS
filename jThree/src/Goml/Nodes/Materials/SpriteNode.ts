@@ -1,7 +1,6 @@
 
 import Sprite = require("../../../Core/Materials/SpriteMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import ResourceManager = require("../../../Core/ResourceManager");

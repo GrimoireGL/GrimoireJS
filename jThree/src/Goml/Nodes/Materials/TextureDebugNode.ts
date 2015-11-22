@@ -1,6 +1,5 @@
 import DebugSprite = require("../../../Core/Materials/SpriteMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlLoader = require("../../GomlLoader");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import ContextComponents = require("../../../ContextComponents");
