@@ -7,6 +7,7 @@ import ContextComponents = require('../ContextComponents');
 import BehaviorRegistry = require('./Behaviors/BehaviorRegistry');
 import GomlConfigurator = require('./GomlConfigurator');
 import GomlParser = require("./GomlParser");
+import BehaviorRunner = require("./Behaviors/BehaviorRunner");
 class NodeManager extends JThreeObject implements IContextComponent {
 
   constructor() {
@@ -23,6 +24,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
   public htmlRoot:HTMLElement;
   public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
   public behaviorRegistry: BehaviorRegistry = new BehaviorRegistry();
+  public behaviorRunner:BehaviorRunner = new BehaviorRunner();
 
   public getNode(id: string): GomlTreeNodeBase {
     return this.NodesById.get(id);

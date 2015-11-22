@@ -188,7 +188,6 @@
     "./jThree/src/Goml/AttributeDeclationBody.ts",
     "./jThree/src/Goml/AttributeDictionary.ts",
     "./jThree/src/Goml/AttributeParser.ts",
-    "./jThree/src/Goml/BehaviorContainerNodeBase.ts",
     "./jThree/src/Goml/Behaviors/BehaviorDeclaration.ts",
     "./jThree/src/Goml/Behaviors/BehaviorDeclarationBody.ts",
     "./jThree/src/Goml/Behaviors/BehaviorRegistry.ts",

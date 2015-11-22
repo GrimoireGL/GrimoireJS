@@ -56,7 +56,7 @@ class GomlTreeNodeBase extends TreeNodeBase
       * Add component to this node.
       */
      public addBehavior(behaviors:BehaviorNode):void {
-         this.nodeManager.componentRunner.addBehavior(behaviors,this);
+         this.nodeManager.behaviorRunner.addBehavior(behaviors,this);
          if(!this.behaviors.has(behaviors.BehaviorName))this.behaviors.set(behaviors.BehaviorName,[]);
          this.behaviors.get(behaviors.BehaviorName).push(behaviors);
      }
