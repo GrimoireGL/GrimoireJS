@@ -112,7 +112,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#componenttarget" class="tsd-kind-icon">component<wbr>Target</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#element" class="tsd-kind-icon">element</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#events" class="tsd-kind-icon">events</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#loader" class="tsd-kind-icon">loader</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#nodemanager" class="tsd-kind-icon">node<wbr>Manager</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#parent" class="tsd-kind-icon">parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#startcalled" class="tsd-kind-icon">start<wbr>Called</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#ignorenode" class="tsd-kind-icon">ignore<wbr>Node</a></li>
@@ -166,23 +166,20 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Behavior<wbr>Node<span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span>, loader<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a>, parent<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a>, componentTarget<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html" class="tsd-signature-type">BehaviorNode</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Behavior<wbr>Node<span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span>, parent<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a>, componentTarget<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html" class="tsd-signature-type">BehaviorNode</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L8">src/Goml/Nodes/Behaviors/BehaviorNode.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L7">src/Goml/Nodes/Behaviors/BehaviorNode.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>elem: <span class="tsd-signature-type">HTMLElement</span></h5>
-								</li>
-								<li>
-									<h5>loader: <a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></h5>
 								</li>
 								<li>
 									<h5>parent: <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h5>
@@ -205,7 +202,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#attributes">attributes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L25">src/Goml/GomlTreeNodeBase.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L32">src/Goml/GomlTreeNodeBase.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">awaken<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L117">src/Goml/Nodes/Behaviors/BehaviorNode.ts:117</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L116">src/Goml/Nodes/Behaviors/BehaviorNode.ts:116</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -229,9 +226,9 @@
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> behaviors</h3>
 					<div class="tsd-signature tsd-kind-icon">behaviors<span class="tsd-signature-symbol">:</span> <a href="_src_base_collections_associativearray_.associativearray.html" class="tsd-signature-type">AssociativeArray</a><span class="tsd-signature-symbol">&lt;</span><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html" class="tsd-signature-type">BehaviorNode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#behaviors">behaviors</a></p>
+						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#behaviors">behaviors</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L22">src/Goml/BehaviorContainerNodeBase.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L52">src/Goml/GomlTreeNodeBase.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -246,7 +243,7 @@
 					<div class="tsd-signature tsd-kind-icon">cached<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L130">src/Goml/Nodes/Behaviors/BehaviorNode.ts:130</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L129">src/Goml/Nodes/Behaviors/BehaviorNode.ts:129</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,7 +253,7 @@
 					<div class="tsd-signature tsd-kind-icon">cached<wbr>Order<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L124">src/Goml/Nodes/Behaviors/BehaviorNode.ts:124</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L123">src/Goml/Nodes/Behaviors/BehaviorNode.ts:123</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -282,7 +279,7 @@
 					<div class="tsd-signature tsd-kind-icon">component<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L111">src/Goml/Nodes/Behaviors/BehaviorNode.ts:111</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L110">src/Goml/Nodes/Behaviors/BehaviorNode.ts:110</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -292,7 +289,7 @@
 					<div class="tsd-signature tsd-kind-icon">component<wbr>Target<span class="tsd-signature-symbol">:</span> <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L109">src/Goml/Nodes/Behaviors/BehaviorNode.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L108">src/Goml/Nodes/Behaviors/BehaviorNode.ts:108</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -328,21 +325,16 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="loader" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> loader</h3>
-					<div class="tsd-signature tsd-kind-icon">loader<span class="tsd-signature-symbol">:</span> <a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="nodemanager" class="tsd-anchor"></a>
+					<h3>node<wbr>Manager</h3>
+					<div class="tsd-signature tsd-kind-icon">node<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_src_goml_nodemanager_.nodemanager.html" class="tsd-signature-type">NodeManager</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#loader">loader</a></p>
+						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#nodemanager">nodeManager</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L17">src/Goml/BehaviorContainerNodeBase.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L27">src/Goml/GomlTreeNodeBase.ts:27</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The GomlLoader instanciate this class</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="parent" class="tsd-anchor"></a>
@@ -366,7 +358,7 @@
 					<div class="tsd-signature tsd-kind-icon">start<wbr>Called<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L148">src/Goml/Nodes/Behaviors/BehaviorNode.ts:148</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L147">src/Goml/Nodes/Behaviors/BehaviorNode.ts:147</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -376,7 +368,7 @@
 					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L8">src/Goml/Nodes/Behaviors/BehaviorNode.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L7">src/Goml/Nodes/Behaviors/BehaviorNode.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -393,7 +385,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L113">src/Goml/Nodes/Behaviors/BehaviorNode.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L112">src/Goml/Nodes/Behaviors/BehaviorNode.ts:112</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -477,7 +469,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L119">src/Goml/Nodes/Behaviors/BehaviorNode.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L118">src/Goml/Nodes/Behaviors/BehaviorNode.ts:118</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -495,7 +487,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L131">src/Goml/Nodes/Behaviors/BehaviorNode.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L130">src/Goml/Nodes/Behaviors/BehaviorNode.ts:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -503,7 +495,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L136">src/Goml/Nodes/Behaviors/BehaviorNode.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L135">src/Goml/Nodes/Behaviors/BehaviorNode.ts:135</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -526,7 +518,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L125">src/Goml/Nodes/Behaviors/BehaviorNode.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L124">src/Goml/Nodes/Behaviors/BehaviorNode.ts:124</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -547,7 +539,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#load">Load</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L32">src/Goml/GomlTreeNodeBase.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L39">src/Goml/GomlTreeNodeBase.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -563,9 +555,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#addbehavior">addBehavior</a></p>
+								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#addbehavior">addBehavior</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L27">src/Goml/BehaviorContainerNodeBase.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L57">src/Goml/GomlTreeNodeBase.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -623,7 +615,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#afterload">afterLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L37">src/Goml/GomlTreeNodeBase.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L44">src/Goml/GomlTreeNodeBase.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -640,7 +632,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L157">src/Goml/Nodes/Behaviors/BehaviorNode.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L156">src/Goml/Nodes/Behaviors/BehaviorNode.ts:156</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -663,7 +655,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L156">src/Goml/Nodes/Behaviors/BehaviorNode.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L155">src/Goml/Nodes/Behaviors/BehaviorNode.ts:155</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -681,7 +673,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#beforeload">beforeLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L27">src/Goml/GomlTreeNodeBase.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L34">src/Goml/GomlTreeNodeBase.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -754,7 +746,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L93">src/Goml/Nodes/Behaviors/BehaviorNode.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L92">src/Goml/Nodes/Behaviors/BehaviorNode.ts:92</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -777,7 +769,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L80">src/Goml/Nodes/Behaviors/BehaviorNode.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L79">src/Goml/Nodes/Behaviors/BehaviorNode.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -799,9 +791,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#getbehaviors">getBehaviors</a></p>
+								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#getbehaviors">getBehaviors</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L33">src/Goml/BehaviorContainerNodeBase.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L63">src/Goml/GomlTreeNodeBase.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -842,7 +834,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L171">src/Goml/Nodes/Behaviors/BehaviorNode.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L170">src/Goml/Nodes/Behaviors/BehaviorNode.ts:170</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -865,7 +857,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L170">src/Goml/Nodes/Behaviors/BehaviorNode.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L169">src/Goml/Nodes/Behaviors/BehaviorNode.ts:169</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -882,7 +874,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L165">src/Goml/Nodes/Behaviors/BehaviorNode.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L164">src/Goml/Nodes/Behaviors/BehaviorNode.ts:164</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -905,7 +897,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L164">src/Goml/Nodes/Behaviors/BehaviorNode.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L163">src/Goml/Nodes/Behaviors/BehaviorNode.ts:163</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -922,7 +914,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L150">src/Goml/Nodes/Behaviors/BehaviorNode.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L149">src/Goml/Nodes/Behaviors/BehaviorNode.ts:149</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -945,7 +937,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L149">src/Goml/Nodes/Behaviors/BehaviorNode.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L148">src/Goml/Nodes/Behaviors/BehaviorNode.ts:148</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -999,7 +991,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L142">src/Goml/Nodes/Behaviors/BehaviorNode.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L141">src/Goml/Nodes/Behaviors/BehaviorNode.ts:141</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1022,7 +1014,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L141">src/Goml/Nodes/Behaviors/BehaviorNode.ts:141</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Behaviors/BehaviorNode.ts#L140">src/Goml/Nodes/Behaviors/BehaviorNode.ts:140</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1082,8 +1074,8 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#events" class="tsd-kind-icon">events</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#loader" class="tsd-kind-icon">loader</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#nodemanager" class="tsd-kind-icon">node<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html#parent" class="tsd-kind-icon">parent</a>

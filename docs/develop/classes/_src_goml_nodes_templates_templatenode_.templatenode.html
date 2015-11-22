@@ -107,7 +107,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#children" class="tsd-kind-icon">children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#element" class="tsd-kind-icon">element</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#events" class="tsd-kind-icon">events</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#loader" class="tsd-kind-icon">loader</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#nodemanager" class="tsd-kind-icon">node<wbr>Manager</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#parent" class="tsd-kind-icon">parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#templategoml" class="tsd-kind-icon">template<wbr>Goml</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_src_goml_nodes_templates_templatenode_.templatenode.html#parentignore" class="tsd-kind-icon">parent<wbr>Ignore</a></li>
@@ -148,23 +148,20 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Template<wbr>Node<span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span>, loader<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a>, parent<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_templates_templatenode_.templatenode.html" class="tsd-signature-type">TemplateNode</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Template<wbr>Node<span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span>, parent<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_templates_templatenode_.templatenode.html" class="tsd-signature-type">TemplateNode</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L15">src/Goml/Nodes/Templates/TemplateNode.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L14">src/Goml/Nodes/Templates/TemplateNode.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>elem: <span class="tsd-signature-type">HTMLElement</span></h5>
-								</li>
-								<li>
-									<h5>loader: <a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></h5>
 								</li>
 								<li>
 									<h5>parent: <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h5>
@@ -184,7 +181,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#attributes">attributes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L25">src/Goml/GomlTreeNodeBase.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L32">src/Goml/GomlTreeNodeBase.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -198,9 +195,9 @@
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> behaviors</h3>
 					<div class="tsd-signature tsd-kind-icon">behaviors<span class="tsd-signature-symbol">:</span> <a href="_src_base_collections_associativearray_.associativearray.html" class="tsd-signature-type">AssociativeArray</a><span class="tsd-signature-symbol">&lt;</span><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html" class="tsd-signature-type">BehaviorNode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#behaviors">behaviors</a></p>
+						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#behaviors">behaviors</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L22">src/Goml/BehaviorContainerNodeBase.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L52">src/Goml/GomlTreeNodeBase.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -252,21 +249,16 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="loader" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> loader</h3>
-					<div class="tsd-signature tsd-kind-icon">loader<span class="tsd-signature-symbol">:</span> <a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="nodemanager" class="tsd-anchor"></a>
+					<h3>node<wbr>Manager</h3>
+					<div class="tsd-signature tsd-kind-icon">node<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_src_goml_nodemanager_.nodemanager.html" class="tsd-signature-type">NodeManager</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#loader">loader</a></p>
+						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#nodemanager">nodeManager</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L17">src/Goml/BehaviorContainerNodeBase.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L27">src/Goml/GomlTreeNodeBase.ts:27</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The GomlLoader instanciate this class</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="parent" class="tsd-anchor"></a>
@@ -290,7 +282,7 @@
 					<div class="tsd-signature tsd-kind-icon">template<wbr>Goml<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L10">src/Goml/Nodes/Templates/TemplateNode.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L9">src/Goml/Nodes/Templates/TemplateNode.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -300,7 +292,7 @@
 					<div class="tsd-signature tsd-kind-icon">parent<wbr>Ignore<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L6">src/Goml/Nodes/Templates/TemplateNode.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L5">src/Goml/Nodes/Templates/TemplateNode.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -310,7 +302,7 @@
 					<div class="tsd-signature tsd-kind-icon">template<wbr>Ignore<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L8">src/Goml/Nodes/Templates/TemplateNode.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L7">src/Goml/Nodes/Templates/TemplateNode.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -394,7 +386,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L12">src/Goml/Nodes/Templates/TemplateNode.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L11">src/Goml/Nodes/Templates/TemplateNode.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -414,7 +406,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L30">src/Goml/Nodes/Templates/TemplateNode.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Templates/TemplateNode.ts#L29">src/Goml/Nodes/Templates/TemplateNode.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -438,7 +430,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#load">Load</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L32">src/Goml/GomlTreeNodeBase.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L39">src/Goml/GomlTreeNodeBase.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -454,9 +446,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#addbehavior">addBehavior</a></p>
+								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#addbehavior">addBehavior</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L27">src/Goml/BehaviorContainerNodeBase.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L57">src/Goml/GomlTreeNodeBase.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -514,7 +506,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#afterload">afterLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L37">src/Goml/GomlTreeNodeBase.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L44">src/Goml/GomlTreeNodeBase.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -532,7 +524,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#beforeload">beforeLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L27">src/Goml/GomlTreeNodeBase.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L34">src/Goml/GomlTreeNodeBase.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -604,9 +596,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#getbehaviors">getBehaviors</a></p>
+								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#getbehaviors">getBehaviors</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L33">src/Goml/BehaviorContainerNodeBase.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L63">src/Goml/GomlTreeNodeBase.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -712,8 +704,8 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_goml_nodes_templates_templatenode_.templatenode.html#events" class="tsd-kind-icon">events</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_goml_nodes_templates_templatenode_.templatenode.html#loader" class="tsd-kind-icon">loader</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_goml_nodes_templates_templatenode_.templatenode.html#nodemanager" class="tsd-kind-icon">node<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_goml_nodes_templates_templatenode_.templatenode.html#parent" class="tsd-kind-icon">parent</a>

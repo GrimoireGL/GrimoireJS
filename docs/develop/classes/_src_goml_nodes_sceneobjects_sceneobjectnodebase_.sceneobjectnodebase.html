@@ -128,7 +128,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#containedscenenode" class="tsd-kind-icon">contained<wbr>Scene<wbr>Node</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#element" class="tsd-kind-icon">element</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#events" class="tsd-kind-icon">events</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#loader" class="tsd-kind-icon">loader</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#nodemanager" class="tsd-kind-icon">node<wbr>Manager</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#parent" class="tsd-kind-icon">parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#parentsceneobjectnode" class="tsd-kind-icon">parent<wbr>Scene<wbr>Object<wbr>Node</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#position" class="tsd-kind-icon">position</a></li>
@@ -179,23 +179,20 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Scene<wbr>Object<wbr>Node<wbr>Base<span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span>, loader<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a>, parent<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a>, parentSceneNode<span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_scenenode_.scenenode.html" class="tsd-signature-type">SceneNode</a>, parentObject<span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html" class="tsd-signature-type">SceneObjectNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html" class="tsd-signature-type">SceneObjectNodeBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Scene<wbr>Object<wbr>Node<wbr>Base<span class="tsd-signature-symbol">(</span>elem<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span>, parent<span class="tsd-signature-symbol">: </span><a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a>, parentSceneNode<span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_scenenode_.scenenode.html" class="tsd-signature-type">SceneNode</a>, parentObject<span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html" class="tsd-signature-type">SceneObjectNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html" class="tsd-signature-type">SceneObjectNodeBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L8">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L7">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>elem: <span class="tsd-signature-type">HTMLElement</span></h5>
-								</li>
-								<li>
-									<h5>loader: <a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></h5>
 								</li>
 								<li>
 									<h5>parent: <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h5>
@@ -221,7 +218,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#attributes">attributes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L25">src/Goml/GomlTreeNodeBase.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L32">src/Goml/GomlTreeNodeBase.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -235,9 +232,9 @@
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> behaviors</h3>
 					<div class="tsd-signature tsd-kind-icon">behaviors<span class="tsd-signature-symbol">:</span> <a href="_src_base_collections_associativearray_.associativearray.html" class="tsd-signature-type">AssociativeArray</a><span class="tsd-signature-symbol">&lt;</span><a href="_src_goml_nodes_behaviors_behaviornode_.behaviornode.html" class="tsd-signature-type">BehaviorNode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#behaviors">behaviors</a></p>
+						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#behaviors">behaviors</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L22">src/Goml/BehaviorContainerNodeBase.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L52">src/Goml/GomlTreeNodeBase.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -268,7 +265,7 @@
 					<div class="tsd-signature tsd-kind-icon">contained<wbr>Scene<wbr>Node<span class="tsd-signature-symbol">:</span> <a href="_src_goml_nodes_scenenode_.scenenode.html" class="tsd-signature-type">SceneNode</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L91">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:91</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L90">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:90</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -304,21 +301,16 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="loader" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> loader</h3>
-					<div class="tsd-signature tsd-kind-icon">loader<span class="tsd-signature-symbol">:</span> <a href="_src_goml_gomlloader_.gomlloader.html" class="tsd-signature-type">GomlLoader</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="nodemanager" class="tsd-anchor"></a>
+					<h3>node<wbr>Manager</h3>
+					<div class="tsd-signature tsd-kind-icon">node<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_src_goml_nodemanager_.nodemanager.html" class="tsd-signature-type">NodeManager</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#loader">loader</a></p>
+						<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#nodemanager">nodeManager</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L17">src/Goml/BehaviorContainerNodeBase.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L27">src/Goml/GomlTreeNodeBase.ts:27</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The GomlLoader instanciate this class</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="parent" class="tsd-anchor"></a>
@@ -342,7 +334,7 @@
 					<div class="tsd-signature tsd-kind-icon">parent<wbr>Scene<wbr>Object<wbr>Node<span class="tsd-signature-symbol">:</span> <a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html" class="tsd-signature-type">SceneObjectNodeBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L100">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L99">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:99</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -357,7 +349,7 @@
 					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L106">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:106</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L105">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:105</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -367,7 +359,7 @@
 					<div class="tsd-signature tsd-kind-icon">rotation<span class="tsd-signature-symbol">:</span> <a href="_src_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L112">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L111">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:111</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -377,7 +369,7 @@
 					<div class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">:</span> <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L118">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:118</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L117">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:117</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -387,7 +379,7 @@
 					<div class="tsd-signature tsd-kind-icon">target<wbr>Scene<wbr>Object<span class="tsd-signature-symbol">:</span> <a href="_src_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L82">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L81">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:81</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -404,7 +396,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L93">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L92">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:92</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_goml_nodes_scenenode_.scenenode.html" class="tsd-signature-type">SceneNode</a></h4>
@@ -488,7 +480,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L102">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L101">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:101</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html" class="tsd-signature-type">SceneObjectNodeBase</a></h4>
@@ -505,7 +497,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L108">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L107">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:107</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -522,7 +514,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L114">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L113">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:113</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
@@ -539,7 +531,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L120">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L119">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -556,7 +548,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L84">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L83">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h4>
@@ -576,7 +568,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L44">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L43">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h4>
@@ -594,7 +586,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#load">Load</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L32">src/Goml/GomlTreeNodeBase.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L39">src/Goml/GomlTreeNodeBase.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -610,9 +602,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#addbehavior">addBehavior</a></p>
+								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#addbehavior">addBehavior</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L27">src/Goml/BehaviorContainerNodeBase.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L57">src/Goml/GomlTreeNodeBase.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -670,7 +662,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#afterload">afterLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L37">src/Goml/GomlTreeNodeBase.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L44">src/Goml/GomlTreeNodeBase.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -687,7 +679,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L64">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L63">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -705,7 +697,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#beforeload">beforeLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L53">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L52">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -777,9 +769,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html">BehaviorContainerNodeBase</a>.<a href="_src_goml_behaviorcontainernodebase_.behaviorcontainernodebase.html#getbehaviors">getBehaviors</a></p>
+								<p>Inherited from <a href="_src_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_src_goml_gomltreenodebase_.gomltreenodebase.html#getbehaviors">getBehaviors</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/BehaviorContainerNodeBase.ts#L33">src/Goml/BehaviorContainerNodeBase.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/GomlTreeNodeBase.ts#L63">src/Goml/GomlTreeNodeBase.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -820,7 +812,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L78">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L77">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -837,7 +829,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L48">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts#L47">src/Goml/Nodes/SceneObjects/SceneObjectNodeBase.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -922,8 +914,8 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#events" class="tsd-kind-icon">events</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#loader" class="tsd-kind-icon">loader</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#nodemanager" class="tsd-kind-icon">node<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_goml_nodes_sceneobjects_sceneobjectnodebase_.sceneobjectnodebase.html#parent" class="tsd-kind-icon">parent</a>
