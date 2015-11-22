@@ -181,11 +181,6 @@ class RenderStageBase extends JThreeObjectWithID {
 	public get DefaultRBO(): RBO {
 		return this.ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
 	}
-
-	protected get Context()
-	{
-		return JThreeContextProxy.getJThreeContext();
-	}
 }
 
 export = RenderStageBase;

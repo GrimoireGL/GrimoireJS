@@ -18,10 +18,6 @@ class GeneraterBase {
 	public generate(name:string,texInfo: GeneraterInfoChunk) {
 
 	}
-
-	public get Context(){
-		return JThreeContextProxy.getJThreeContext();
-	}
 }
 
 export = GeneraterBase;
