@@ -9,15 +9,26 @@ import GomlConfigurator = require('./GomlConfigurator');
 import GomlParser = require("./GomlParser");
 import BehaviorRunner = require("./Behaviors/BehaviorRunner");
 import JThreeEvent = require("../Base/JThreeEvent");
+import JThreeContext = require("../NJThreeContext");
+import LoopManager = require("../Core/LoopManager");
 class NodeManager extends JThreeObject implements IContextComponent {
 
   constructor() {
     super();
+    var loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    loopManager.addAction(3000,()=>this.update());
   }
 
   public getContextComponentIndex():number
   {
     return ContextComponents.NodeManager;
+  }
+
+  public update()
+  {
+    if (!this.ready) return;
+    this.gomlRoot.callRecursive(v=>v.update());
+    this.behaviorRunner.executeForAllBehaviors("updateBehavior");
   }
 
   /**
@@ -34,7 +45,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
   public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
   public behaviorRegistry: BehaviorRegistry = new BehaviorRegistry();
   public behaviorRunner:BehaviorRunner = new BehaviorRunner();
-
+  public ready:boolean = false;
 
 
   public getNode(id: string): GomlTreeNodeBase {

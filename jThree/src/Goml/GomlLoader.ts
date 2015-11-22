@@ -42,8 +42,6 @@ class GomlLoader extends jThreeObject {
    */
   private selfTag: HTMLScriptElement;
 
-  public ready: boolean = false;
-
   /**
    * Attempt to load GOMLs that placed in HTML file.
    */
@@ -128,8 +126,8 @@ class GomlLoader extends jThreeObject {
     this.nodeManager.gomlRoot =GomlParser.parse(source,this.nodeManager.configurator)
     this.loadTags(this.nodeManager.gomlRoot);
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
+    this.nodeManager.ready = true;
     this.nodeManager.loadedHandler.fire(this, source);
-    this.ready = true;
   }
 
 
