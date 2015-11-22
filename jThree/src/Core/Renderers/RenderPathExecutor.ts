@@ -61,7 +61,6 @@ class RenderPathExecutor
     private genChainTexture(chain: RenderStageChain): ResolvedChainInfo
     {
         var texInfo: ResolvedChainInfo = {};
-        var context = JThreeContextProxy.getJThreeContext();
         for (var targetName in chain.buffers)
         {
             var bufferName = chain.buffers[targetName];
