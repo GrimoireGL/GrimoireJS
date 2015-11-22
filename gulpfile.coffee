@@ -150,11 +150,11 @@ Object.keys(config).forEach (suffix) ->
       return watchify (watchify) ->
         gulp
           .src path.resolve(__dirname, c.entry)
-          .pipe plumber
-            errorHandler:(err)->
+          .pipe gulpif(watching, plumber(
+            errorHandler: (err)->
               gutil.log gutil.colors.black.bgRed '【FAILED】 Compilation failed!!'
               gutil.log err
-              @emit "end"
+              @emit "end"))
           .pipe watchify
             watch: watching
             extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
