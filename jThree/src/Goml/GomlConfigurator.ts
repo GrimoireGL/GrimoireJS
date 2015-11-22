@@ -12,11 +12,6 @@ declare function require(string): any;
 class GomlConfigurator extends JThreeObject
 {
     /**
-     * List to be parsed as root elements in GOML.
-     * Root elements will be parsed in an order of this array.
-     */
-    private rootNodes: string[] = [];
-    /**
      * List of easing function to indicate how animation will be.
      */
     private easingFunctions: AssociativeArray<EasingFunction> = new AssociativeArray<EasingFunction>();
@@ -44,29 +39,15 @@ class GomlConfigurator extends JThreeObject
         return this.gomlTagFactories.get(tagName);
     }
 
-    public get GomlRootNodes(): string[]
-    {
-        return this.rootNodes;
-    }
-
     constructor()
     {
         super();
-        this.initializeRootObjectNames();
         this.initializeEasingFunctions();
         this.initializeConverters();
         this.initializeGomlTags();
     }
 
-    /**
-    * Initialize the array of names for root object in goml.
-    */
-    private initializeRootObjectNames()
-    {
-        this.rootNodes = require("./TopNodeList");
-    }
-
-    /**
+    /*
     * Initialize associative array for easing functions that will be used for animation in goml.
     */
     private initializeEasingFunctions()
