@@ -31,8 +31,6 @@ class JThreeContext extends JThreeObject
       return JThreeContext.instance;
     }
 
-    private gomlLoader:GomlLoader;
-
     private animaters:JThreeCollection<AnimaterBase>=new JThreeCollection<AnimaterBase>();
 
     public addAnimater(animater:AnimaterBase):void
@@ -48,23 +46,16 @@ class JThreeContext extends JThreeObject
       });
     }
 
-    /**
-     * Getter for reference to manage gomls.
-     */
-    public get GomlLoader(): GomlLoader {
-        return this.gomlLoader;
-    }
 
     constructor() {
         super();
-        this.gomlLoader = new GomlLoader();
         var canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         var loopManager = NewJThreeContext.getContextComponent<LoopManager>(ContextComponent.LoopManager);
         var timer = NewJThreeContext.getContextComponent<ContextTimer>(ContextComponent.Timer);
         var sceneManager = NewJThreeContext.getContextComponent<SceneManager>(ContextComponent.SceneManager);
         loopManager.addAction(1000,()=>timer.updateTimer());
         loopManager.addAction(2000,()=>this.updateAnimation());
-        loopManager.addAction(3000,()=>this.gomlLoader.update());
+        //loopManager.addAction(3000,()=>this.gomlLoader.update());
         loopManager.addAction(4000,()=>canvasManager.beforeRenderAll());
         loopManager.addAction(5000,()=>sceneManager.renderAll());
         loopManager.addAction(6000,()=>canvasManager.afterRenderAll());
