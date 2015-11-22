@@ -11,27 +11,31 @@ import BehaviorRunner = require('./Behaviors/BehaviorRunner');
 import JThreeLogger = require("../Base/JThreeLogger");
 import JThreeInit = require("../Init");
 import GomlParser = require("./GomlParser");
+import NodeManager = require("./NodeManager");
 declare function require(string): any;
 
 /**
  * The class for loading goml.
  */
 class GomlLoader extends jThreeObject {
-  public update() {
-    if (!this.ready) return;
-    if(this.gomlRoot)this.gomlRoot.callRecursive(v=>v.update());
-    this.componentRunner.executeForAllBehaviors("updateBehavior");
-  }
+  // public update() {
+  //   if (!this.ready) return;
+  //   if(this.gomlRoot)this.gomlRoot.callRecursive(v=>v.update());
+  //   this.componentRunner.executeForAllBehaviors("updateBehavior");
+  // }
 
   /**
    * Constructor. User no need to call this constructor by yourself.
    */
-  constructor() {
+  constructor(nodeManager:NodeManager) {
     super();
     //obtain the script tag that is refering this source code.
     var scriptTags = document.getElementsByTagName('script');
     this.selfTag = JThreeInit.SelfTag;
+    this.nodeManager = nodeManager;
   }
+
+  private nodeManager:NodeManager;
 
   /**
    * The script tag that is refering this source code.
@@ -54,24 +58,7 @@ class GomlLoader extends jThreeObject {
     this.onLoadEvent.addListener(act);
   }
 
-  /**
-   * this configurator will load any tag information by require.
-   */
-  private configurator: GomlConfigurator = new GomlConfigurator();
-
-  /**
-   * The configurator for new tag, converter, easingfunctions.
-   */
-  public get Configurator(): GomlConfigurator {
-    return this.configurator;
-  }
-
-  public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
-  public componentRegistry: BehaviorRegistry = new BehaviorRegistry();
   public componentRunner: BehaviorRunner = new BehaviorRunner();
-  public rootObj: HTMLElement;
-  public gomlRoot: GomlTreeNodeBase;
-  public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
   public ready: boolean = false;
 
   /**
@@ -147,7 +134,7 @@ class GomlLoader extends jThreeObject {
    * @param {HTMLElement} source goml source
    */
   private scriptLoaded(source: HTMLElement): void {
-    var catched = this.rootObj = source;
+    var catched = this.nodeManager.htmlRoot = source;
     if(catched.children[0].tagName.toUpperCase() === "PARSERERROR")
     {
       JThreeLogger.sectionError('Goml loader',`Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
@@ -155,45 +142,14 @@ class GomlLoader extends jThreeObject {
     }
     if (catched === undefined || catched.tagName.toUpperCase() !== 'GOML') throw new Exceptions.InvalidArgumentException('Root should be goml');
 
-    this.gomlRoot =GomlParser.parse(source,this.configurator)
-    this.loadTags(this.gomlRoot);
+    this.nodeManager.gomlRoot =GomlParser.parse(source,this.nodeManager.configurator)
+    this.loadTags(this.nodeManager.gomlRoot);
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.onLoadEvent.fire(this, source);
     this.ready = true;
   }
 
-  public instanciateTemplate(template: string, parentNode: GomlTreeNodeBase) {
-    var templateInElems = (new DOMParser()).parseFromString(template, 'text/xml').documentElement;
-    this.append(templateInElems, parentNode.Element, false);
-  }
 
-  public append(source: HTMLElement, parent: HTMLElement, needLoad?: boolean) {
-    if (typeof needLoad === 'undefined') needLoad = true;
-    var id = parent.getAttribute("x-j3-id");
-    var parentOfGoml = this.NodesById.get(id);
-    var loadedGomls=GomlParser.parseChild(parentOfGoml,source,this.configurator)
-    this.loadTags(loadedGomls);
-    // var loadedGomls = [];
-    // this.parseChild(parentOfGoml, source, (v) => { loadedGomls.push(v) });
-    // if (!needLoad) return;
-    // this.eachNode(v=> v.beforeLoad(), loadedGomls);
-    // this.eachNode(v=> v.Load(), loadedGomls);
-    // this.eachNode(v=> v.afterLoad(), loadedGomls);
-    // this.eachNode(v=> v.attributes.applyDefaultValue(), loadedGomls);
-  }
 
-  public getNode(id: string): GomlTreeNodeBase {
-    return this.NodesById.get(id);
-  }
-
-  public getNodeByQuery(query: string): GomlTreeNodeBase[] {
-    var result = [];
-    var found = this.rootObj.querySelectorAll(query);
-    for (var index = 0; index < found.length; index++) {
-      var id = (<HTMLElement>found[index]).getAttribute("x-j3-id");
-      result.push(this.getNode(id));
-    }
-    return result;
-  }
 }
 export = GomlLoader;
