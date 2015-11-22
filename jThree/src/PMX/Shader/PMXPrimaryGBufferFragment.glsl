@@ -16,7 +16,7 @@ vec2 compressNormal()
 
 float calcDepth()
 {
-	return (vPosition.z/vPosition.w +1.)/2.;
+	return vPosition.z/vPosition.w;
 }
 
 void main(void)
