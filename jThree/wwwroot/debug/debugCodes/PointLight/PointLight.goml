@@ -16,20 +16,20 @@
       <object rotation="y(30d)">
         <camera id="maincam" aspect="1" far="30" fovy="1/2p" name="CAM1" near="0.1" position="(0,3,5)" rotation="x(-30d)"></camera>
       </object>
-      <!-- <scenelight color="white" intensity="0.3"/>
+      <scenelight color="white" intensity="0.3"/>
       <plight color="#FF0000" position="0,2,-6" distance="7" decay="1"/>
       <plight color="#00FF00" position="3,2,-6" distance="7" decay="1"/>
       <plight color="#FF00FF" position="5,2,-6" distance="7" decay="1"/>
       <plight color="#0000FF" position="-3,2,-6" distance="7" decay="1"/>
       <plight color="#00FFFF" position="-5,2,-6" distance="7" decay="1"/>
-      <slight color="#FF0000" position="0,3,-5" rotation="x(-30d)" decay="0.3">
+      <slight color="#FF0000" position="0,3,0" rotation="x(-30d)" decay="0.3">
         <behaviors>
             <behavior name="rotation" ratio="0.02"/>
         </behaviors>
       </slight>
       <slight color="#FFFF00" position="5,3,-5" rotation="x(-30d)" decay="0.3"/>
-      <slight color="#FF00FF" position="-5,3,-5" rotation="x(-30d)" decay="0.3"/> -->
-      <dlight color="#FFFFFF" shadow="true"/>
+      <slight color="#FF00FF" position="-5,3,-5" rotation="x(-30d)" decay="0.3"/>
+      <dlight color="#FFFFFF" intensity="0.1" shadow="true"/>
       <mesh geo="cube" mat="red">
         <behaviors>
             <behavior name="rotation" ratio="0.02"/>

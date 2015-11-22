@@ -40,20 +40,22 @@ vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
     return result;
 }
 
+
+
 void main(void){
   gl_FragColor = vec4(0,0,0,0);
-  vec2 adjuv=v_uv;
-  adjuv.y=1.-adjuv.y;
   vec2 lightUV=calcLightUV(v_pos);
-  vec3 dl = texture2D(dlight,lightUV).rgb * u_diffuse.rgb + texture2D(slight,lightUV).rgb;
-    if(u_toonFlag==1)
-    {
-		float brightness = length(dl/u_diffuse.rgb)/1.732;
-          gl_FragColor.rgb+=blendPMXTexture(u_toon,vec2(0,1.-brightness),u_addToonCoeff  ,u_mulToonCoeff ).rgb*dl;
-    }else
-    {
-          gl_FragColor.rgb+=dl;
-    }
+  vec3 dlc = texture2D(dlight,lightUV).rgb;
+  vec3 slc = texture2D(slight,lightUV).rgb;
+  vec3 alc = u_ambient * ambientCoefficient;
+  if(u_toonFlag==1)
+  {
+		  float brightness = max(max(dlc.r,dlc.g),dlc.b);
+      gl_FragColor.rgb+=blendPMXTexture(u_toon,vec2(0,1.-brightness),u_addToonCoeff  ,u_mulToonCoeff ).rgb * dlc;
+  }else
+  {
+      gl_FragColor.rgb+=dlc;
+  }
 	gl_FragColor.a=u_diffuse.a;
-  gl_FragColor.rgb+=u_ambient*ambientCoefficient;
+  gl_FragColor.rgb += slc + alc;
 }
