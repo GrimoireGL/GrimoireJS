@@ -1,11 +1,10 @@
 import ProgramWrapper = require("../../ProgramWrapper");
-import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
 import TextureRegister = require("../../../../../Wrapper/Texture/TextureRegister");
 import TextureBase = require("../../../Texture/TextureBase");
 import TargetTextureType = require("../../../../../Wrapper/TargetTextureType");
 class TextureArrayRegister
 {
-    public registerVariable(gl: GlContextWrapperBase, index: WebGLUniformLocation, value: any, configure: any)
+    public registerVariable(gl: WebGLRenderingContext, index: WebGLUniformLocation, value: any, configure: any)
     {
         if (value != null)
         {
@@ -14,7 +13,7 @@ class TextureArrayRegister
           var texEnd = configure.registerEnd || texBegin+textures.length;
           var texIndicies = new Int32Array(texEnd-texBegin);
           for (let i = texBegin; i < texEnd; i++) {
-          
+
             if(textures[i-texBegin])
             {
                 var tex = (<TextureBase[]>value)[i-texBegin].getForContext(configure.context);
@@ -26,7 +25,7 @@ class TextureArrayRegister
             }
             texIndicies[i-texBegin]=0;
           }
-          gl.Uniform1iArray(index,texIndicies);
+          gl.uniform1iv(index,texIndicies);
         }
     }
 }

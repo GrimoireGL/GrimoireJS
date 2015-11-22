@@ -6,6 +6,6 @@ vec3 calcPointLight(vec3 position,vec3 normal,int i,vec4 diffuse)
   vec2 param = getLightParameter(i,2).xy;
     float l=distance(lpos,position);//calc distance between light and fragment in view space
     vec3 p2l=normalize(lpos-position);//calc direction vector from fragment to light in view space
-    accum+=max(dot(normal,p2l),0.)*pow(max(0.,1.-l/param.x),param.y)*color*diffuse.xyz;
+    accum+=max(dot(normal,p2l),0.)*pow(max(0.,1.-l/param.x),param.y)*color;
   return accum;
 }

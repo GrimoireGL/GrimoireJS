@@ -12,10 +12,7 @@ class FowardShadingStage extends RenderStageBase
     public get RenderStageConfig(): RenderStageConfig
     {
         return {
-            cullFace: true,
-            cullFront: false,
-            depthTest: true,
-            blend: true
+            depthTest: true
         };
     }
 
@@ -24,7 +21,7 @@ class FowardShadingStage extends RenderStageBase
 		super(renderer);
 	}
 
-	public preBeginStage(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
+	public preTechnique(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
 		this.bindAsOutBuffer(this.DefaultFBO, [{
 				texture: null,
 				target: "depth",
@@ -34,9 +31,9 @@ class FowardShadingStage extends RenderStageBase
 			target: 0,
 			isOptional: false
 		}], () => {
-		    this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+		    this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 		},()=>{
-				this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
+				this.Renderer.GL.clear(ClearTargetType.DepthBits);
 			});
 	}
 

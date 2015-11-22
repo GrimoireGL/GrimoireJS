@@ -16,7 +16,7 @@ var gomlList = [
   new GomlNodeListElement("jthree.basic",
     require("./Factories/TagFactory"),
     {
-      "RENDERER": require("./Nodes/Renderers/RendererNode"),
+      "CANVAS": require("./Nodes/Canvases/CanvasNode"),
       "VIEWPORT": require("./Nodes/Renderers/ViewPortNode"),
       "SCENE": require("./Nodes/SceneNode"),
     }),
@@ -42,6 +42,7 @@ var gomlList = [
       "DLIGHT": require("./Nodes/SceneObjects/Lights/DirectionalLightNode"),
       "ALIGHT" : require("./Nodes/SceneObjects/Lights/AreaLightNode"),
       "SLIGHT" :require("./Nodes/SceneObjects/Lights/SpotLightNode"),
+      "SCENELIGHT" : require('./Nodes/SceneObjects/Lights/SceneLightNode'),
       "PMX": require("../PMX/Goml/PMXNode")
     }),
   new GomlNodeListElement(

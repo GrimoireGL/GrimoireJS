@@ -8,7 +8,7 @@ import TemplateNode = require("../Templates/TemplateNode");
 
 class ObjectNode extends SceneObjectNodeBase
 {
-  private targetMesh:SceneObject;
+  private targetObject:SceneObject;
 
   private targetTemplate:TemplateNode;
 
@@ -25,8 +25,8 @@ class ObjectNode extends SceneObjectNodeBase
 
   protected ConstructTarget():SceneObject
   {
-    this.targetMesh=new SceneObject();
-    return this.targetMesh;
+    this.targetObject=new SceneObject();
+    return this.targetObject;
   }
 
     public beforeLoad()

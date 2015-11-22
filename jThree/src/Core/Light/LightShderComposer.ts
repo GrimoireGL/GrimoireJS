@@ -7,6 +7,7 @@ import ShaderType = require("../../Wrapper/ShaderType");
 import Delegates = require("../../Base/Delegates");
 import ContextComponents = require("../../ContextComponents");
 import JThreeContext = require("../../NJThreeContext");
+import JThreeLogger = require("../../Base/JThreeLogger");
 /**
  * Managing shader codes for extensible.
  */
@@ -83,6 +84,7 @@ class LightShaderComposer extends JThreeObjectWithId
         this.shaderFuncNames.push(shaderFuncName);
         this.shaderCache = this.generateLightShaderSource();
         this.updateShaderFromCache();
+        JThreeLogger.sectionLongLog("Generated source",this.shaderCache);
     }
 
     /**

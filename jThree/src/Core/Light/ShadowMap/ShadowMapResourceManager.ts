@@ -76,7 +76,7 @@ class ShadowMapResourceManager
   {
     var x = shadowMapIndex % this.shadowMapTileHeight;
     var y = (shadowMapIndex - x)/this.shadowMapTileHeight;
-    renderer.GLContext.ViewPort(x*this.shadowMapSizeCache,y*this.shadowMapSizeCache,this.shadowMapSizeCache,this.shadowMapSizeCache);
+    renderer.GL.viewport(x*this.shadowMapSizeCache,y*this.shadowMapSizeCache,this.shadowMapSizeCache,this.shadowMapSizeCache);
   }
 
   public updateLightMatricis(renderer:RendererBase,lights:ShadowDroppableLight[])

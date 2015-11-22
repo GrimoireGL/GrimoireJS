@@ -1,4 +1,3 @@
-﻿import GLContextWrapperBase = require("../../../Wrapper/GLContextWrapperBase");
 import Buffer = require("./Buffer");
 import ElementType = require("../../../Wrapper/ElementType");
 import ResourceWrapper = require("../ResourceWrapper");
@@ -8,8 +7,6 @@ import ContextManagerBase = require("../../ContextManagerBase");
  */
 class BufferWrapper extends ResourceWrapper
 {
-    private glContext: GLContextWrapperBase;
-
     private targetBuffer: WebGLBuffer = null;
 
     private length: number = 0;
@@ -19,7 +16,6 @@ class BufferWrapper extends ResourceWrapper
     constructor(parentBuffer: Buffer,contextManager:ContextManagerBase)
     {
         super(contextManager);
-        this.glContext = contextManager.GLContext;
         this.parentBuffer = parentBuffer;
 
     }
@@ -59,7 +55,7 @@ class BufferWrapper extends ResourceWrapper
             this.init();
         }
         this.bindBuffer();
-        this.glContext.BufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
+        this.GL.bufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
         this.unbindBuffer();
         this.length = length;
     }
@@ -68,7 +64,7 @@ class BufferWrapper extends ResourceWrapper
     {
         if (this.targetBuffer == null)
         {
-            this.targetBuffer = this.glContext.CreateBuffer();
+            this.targetBuffer = this.GL.createBuffer();
             this.setInitialized();
         }
     }
@@ -77,10 +73,10 @@ class BufferWrapper extends ResourceWrapper
     {
         if (this.Initialized)
         {
-            this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
+            this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);
         } else {
             this.init();
-            this.glContext.BindBuffer(this.parentBuffer.Target, this.targetBuffer);
+            this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);
             this.update(this.parentBuffer.ElementCache,this.parentBuffer.Length);
         }
     }
@@ -89,7 +85,7 @@ class BufferWrapper extends ResourceWrapper
     {
         if (this.Initialized)
         {
-            this.glContext.UnbindBuffer(this.parentBuffer.Target);
+            this.GL.bindBuffer(this.parentBuffer.Target,null);
         }
     }
 }

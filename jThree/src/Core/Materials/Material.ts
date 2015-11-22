@@ -12,6 +12,7 @@ import Geometry = require('../Geometries/Geometry')
 import ResourceManager = require("../ResourceManager");
 import JThreeContext = require("../../NJThreeContext");
 import ContextComponents = require("../../ContextComponents");
+import IMaterialConfig = require("./IMaterialConfig");
 declare function require(string): string;
 /**
 * Basement class for any Materials.
@@ -64,16 +65,13 @@ class Material extends JThreeObjectWithID {
         return this.priorty;
     }
 
-    /**
-    * Culling configuration to be used for this material.
-    */
-    public cullMode: GLCullMode = GLCullMode.Back;
-
-    /**
-    * The flag whether culling mode is enabled or not.
-    */
-    public cullEnabled: boolean = true;
-
+    public getMaterialConfig(pass:number,technique:number):IMaterialConfig
+    {
+      return {
+        cull:"ccw",
+        blend:true
+      }
+    }
     /**
     * Group name of this material.
     * This main purpose is mainly intended to be used in RenderStage for filtering materials by puropse of material.
@@ -111,22 +109,56 @@ class Material extends JThreeObjectWithID {
     * This is used for passing variables,using programs,binding index buffer.
     */
     public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
-        this.applyCullConfigure(renderer);
+        this.applyMaterialConfig(passIndex,techniqueIndex,renderer);
         return;
     }
 
-    /**
-    * Apply culling configuration to renderer.
-    */
-    protected applyCullConfigure(renderer: RendererBase) {
-        if (this.cullEnabled) {//default = Cull.Front
-            renderer.GLContext.Enable(
-                GLFeatureType.CullFace);
-            renderer.GLContext.CullFace(this.cullMode);
+    protected applyMaterialConfig(passIndex:number,techniqueIndex:number,renderer:RendererBase)
+    {
+      var config = this.getMaterialConfig(passIndex,techniqueIndex);
+      if(config.cull)
+      {
+        renderer.GL.enable(renderer.GL.CULL_FACE);
+        if(config.cull == "cw")
+        {
+          renderer.GL.cullFace(renderer.GL.FRONT);
+        }else
+        {
+          renderer.GL.cullFace(renderer.GL.BACK);
         }
-        else {
-            renderer.GLContext.Disable(GLFeatureType.CullFace);
+      }else
+      {
+        renderer.GL.disable(renderer.GL.CULL_FACE);
+      }
+      if(config.blend)
+      {
+        renderer.GL.enable(renderer.GL.BLEND);
+        if(!config.blendArg1)
+        {
+          //If blendFunc was not specified, jThree will select linear blending
+          config.blendArg1 = "srcAlpha"
+          config.blendArg2 = "oneMinusSrcAlpha"
         }
+        renderer.GL.blendFunc(this.parseBlendVariable(config.blendArg1,renderer),this.parseBlendVariable(config.blendArg2,renderer));
+      }else
+      {
+        renderer.GL.disable(renderer.GL.BLEND);
+      }
+    }
+
+    private parseBlendVariable(blendConfig:string,renderer:RendererBase):number
+    {
+      if(blendConfig == "1")return renderer.GL.ONE;
+      if(blendConfig == "0")return renderer.GL.ZERO;
+      if(blendConfig == "srcAlpha")return renderer.GL.SRC_ALPHA;
+      if(blendConfig == "srcColor")return renderer.GL.SRC_COLOR;
+      if(blendConfig == "oneMinusSrcAlpha")return renderer.GL.ONE_MINUS_SRC_ALPHA;
+      if(blendConfig == "oneMinusSrcColor")return renderer.GL.ONE_MINUS_SRC_COLOR;
+      if(blendConfig == "oneMinusDstAlpha")return renderer.GL.ONE_MINUS_DST_ALPHA;
+      if(blendConfig == "oneMinusDstColor")return renderer.GL.ONE_MINUS_DST_COLOR;
+      if(blendConfig == "destAlpha")return renderer.GL.DST_ALPHA;
+      if(blendConfig == "destColor")return renderer.GL.DST_COLOR;
+      console.error("Unsupported blend config!");
     }
 
     /**

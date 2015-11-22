@@ -21,6 +21,7 @@ import JThreeLogger = require("../../Base/JThreeLogger");
 import ResourceManager = require("../../Core/ResourceManager");
 import ContextComponents = require("../../ContextComponents");
 import JThreeContext = require("../../NJThreeContext");
+import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
 
 declare function require(string): string;
 
@@ -37,6 +38,22 @@ class PMXMaterial extends Material
     private verticiesCount;
 
     private verticiesOffset;
+
+    public  getMaterialConfig(pass:number,technique:number):IMaterialConfig
+    {
+      if(pass == 0)
+      {
+        return {
+          cull:this.cullEnabled ? "ccw" : undefined,
+          blend:true
+        }
+      }else
+      {
+        return {
+          cull:"cw"
+        }
+      }
+    }
 
     /**
      * Count of verticies
@@ -106,6 +123,8 @@ class PMXMaterial extends Material
 
     private materialIndex: number;
 
+    public cullEnabled:boolean;
+
     private specular:Vector4;
 
     public Name: string;
@@ -162,14 +181,14 @@ class PMXMaterial extends Material
 
     public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
     {
+      super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         if (passIndex == 1)
         {
             this.configureEdgeMaterial(renderer, object);
             return;
         }
         if (!this.program) return;
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
-        renderer.GLContext.BlendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
+        renderer.GL.blendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
@@ -257,8 +276,6 @@ class PMXMaterial extends Material
     private configureEdgeMaterial(renderer: RendererBase, object: SceneObject): void
     {
         if (!this.program) return;
-        renderer.GLContext.Enable(GLFeatureType.CullFace);
-        renderer.GLContext.CullFace(GLCullMode.Front);
         var geometry = <PMXGeometry> object.Geometry;
         var programWrapper = this.edgeProgram.getForContext(renderer.ContextManager);
         programWrapper.register({
@@ -295,7 +312,7 @@ class PMXMaterial extends Material
     {
         if (index < 0) return null;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        var resourceName = "jthree.pmx." + prefix + "." + index;
+        var resourceName = this.pmxData.Header.modelName+"jthree.pmx." + prefix + "." + index;
         if (rm.getTexture(resourceName))
         {
             return rm.getTexture(resourceName);

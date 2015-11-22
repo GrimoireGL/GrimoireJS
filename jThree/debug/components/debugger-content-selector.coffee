@@ -9,9 +9,12 @@ class DebuggerContentSelector extends React.Component
     @state={inputs:[],selected:Cookie.get('debugTarget')}
     Agent.get './debug.json'
       .end (e,r) =>
-        JThree.initJThree r.body,@state.selected
+        if e
+          throw new Error e
+        resObj = JSON.parse(r.text)
+        JThree.initJThree resObj,@state.selected
         inputs=[]
-        for k,v of r.body.codes
+        for k,v of resObj.codes
           inputs.push k
         @setState
           inputs:inputs

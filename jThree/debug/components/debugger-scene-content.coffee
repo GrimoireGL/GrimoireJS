@@ -23,13 +23,11 @@ class DebuggerSceneContent extends React.Component
 
 styles =
   treeContainer:
-    width:250;
     float:'left';
     height:300;
   infoContainer:
     background:Colors.main.n.default;
-    height:300;
-    marginLeft:300;
+    float:"left"
 
 
 module.exports = DebuggerSceneContent;

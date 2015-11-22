@@ -6,11 +6,11 @@
     <cube name="cube" />
     <grid hdiv="20" name="grid" vdiv="20"/>
   </resources>
-  <renderers>
-    <renderer clearColor="purple" frame=".canvasContainer">
-      <viewport cam="CAM1" id="main" width="640" height="480" />
-    </renderer>
-  </renderers>
+  <canvases>
+    <canvas clearColor="purple" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+    </canvas>
+  </canvases>
   <scenes>
     <scene name="mainScene">
       <object rotation="y(30d)">
@@ -19,9 +19,10 @@
       <mesh geo="grid" mat="red" scale="10" position="1,0,0"/>
       <mesh geo="grid" mat="green" scale="10" rotation="z(90d)" position="1,0,0"/>
       <mesh geo="grid" mat="blue" scale="10" rotation="x(90d)"/>
-      <alight color="#FFF" intensity="1"  top="40"  far="50" right="50" position="-10,-10,10"/>
-      <pmx scale="0.5" src="/GUMI/GUMI.pmx">
-        <vmd id="melt" frame="0" src="/_debug/melt.vmd" enabled="true" autoSpeed="1"/>
+      <!-- <alight color="#FFF" intensity="1"  top="40"  far="50" right="50" position="-10,-10,10"/> -->
+      <scenelight color="white" intencity="0.8"/>
+      <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx">
+        <vmd id="melt" frame="0" src="/resource/motion/menf.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
     </scene>
   </scenes>

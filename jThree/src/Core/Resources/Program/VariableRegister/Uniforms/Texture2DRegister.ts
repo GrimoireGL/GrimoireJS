@@ -1,11 +1,10 @@
 ﻿import ProgramWrapper = require("../../ProgramWrapper");
-import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
 import TextureRegister = require("../../../../../Wrapper/Texture/TextureRegister");
 import TextureBase = require("../../../Texture/TextureBase");
 import TargetTextureType = require("../../../../../Wrapper/TargetTextureType");
 class Texture2DRegister
 {
-    public registerVariable(gl: GlContextWrapperBase, index: WebGLUniformLocation, value: any, configure: any)
+    public registerVariable(gl: WebGLRenderingContext, index: WebGLUniformLocation, value: any, configure: any)
     {
         var texNumber = configure.register;
         if (value != null)
@@ -13,11 +12,11 @@ class Texture2DRegister
             var tex = (<TextureBase>value).getForContext(configure.context);
             if (tex.Initialized) {
                 if(tex.registerTexture(texNumber))
-                    gl.Uniform1i(index, texNumber);
+                    gl.uniform1i(index, texNumber);
                 return;
             }
         }
     }
 }
 
-export = Texture2DRegister; 
+export = Texture2DRegister;

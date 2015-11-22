@@ -15,6 +15,21 @@
     {
       "goml":"CubeDisplay/CubeDisplay.goml",
       "js":[]
+    },
+    "Stage":
+    {
+      "goml":"Stage/Stage.goml",
+      "js":[]
+    },
+    "PointLight":
+    {
+      "goml":"PointLight/PointLight.goml",
+      "js":["BehavorLight/BehavorLight.js"]
+    },
+    "BehavorLight":
+    {
+      "goml":"BehavorLight/BehavorLight.goml",
+      "js":["BehavorLight/BehavorLight.js"]
     }
   }
 }

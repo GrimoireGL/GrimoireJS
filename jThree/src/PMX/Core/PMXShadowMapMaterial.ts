@@ -11,7 +11,7 @@ import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
 import PMXGeometry = require('./PMXGeometry');
 import Vector4 = require("../../Math/Vector4");
 import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
-
+import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
 declare function require(string): string;
 /**
  * the materials for PMX.
@@ -36,6 +36,13 @@ class PMXShadowMapMaterial extends Material
     public get VerticiesOffset()
     {
         return this.associatedMaterial.VerticiesOffset;
+    }
+
+    public getMaterialConfig(pass:number,technique:number):IMaterialConfig
+    {
+      return {
+        blend:false
+      }
     }
 
     constructor(material: PMXMaterial)

@@ -1,6 +1,5 @@
 import JThreeObject = require("../Base/JThreeObject");
 import AssociativeArray = require("../Base/Collections/AssociativeArray");
-import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 import JThreeLogger = require("../Base/JThreeLogger");
 import GLExtensionList = require("./GLExtensionList");
 /**
@@ -22,17 +21,17 @@ class GLExtensionManager extends JThreeObject
 		super();
 	}
 
-	public checkExtensions(context:GLContextWrapperBase)
+	public checkExtensions(context:WebGLRenderingContext)
 	{
 		for (var i = 0; i < this.requiredExtensions.length; i++) {
             var element = this.requiredExtensions[i];
 		    var ext;
 		    if (typeof element === "string") {
-		        ext = context.Context.getExtension(element);
+		        ext = context.getExtension(element);
 		    } else {
 		        //Assume type of element is array
 		        for (var j = 0; j < element.length; j++) {
-                    ext = context.Context.getExtension(element[j]);
+                    ext = context.getExtension(element[j]);
                     if(ext)break;
 		        }
 		    }

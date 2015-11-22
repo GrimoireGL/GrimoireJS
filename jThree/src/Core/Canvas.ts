@@ -1,5 +1,4 @@
 import ContextManagerBase = require("./ContextManagerBase");
-import WebGLContextWrapper = require("../Wrapper/WebGLContextWrapper");
 import Rectangle = require("../Math/Rectangle");
 import JThreeContext = require("../NJThreeContext");
 import RendererBase = require("./Renderers/RendererBase");
@@ -43,7 +42,7 @@ class Canvas extends ContextManagerBase {
     constructor(glContext: WebGLRenderingContext) {
         super();
         // this.enabled = true;
-        this.setGLContext(new WebGLContextWrapper(glContext));
+        this.setGLContext(glContext);
     }
 
     /**
@@ -105,9 +104,9 @@ class Canvas extends ContextManagerBase {
      * clear the default buffer of this canvas with ClearColor.
      */
     public clearCanvas(): void {
-        this.GLContext.BindFrameBuffer(null);//binds to default buffer.
+        this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,null);//binds to default buffer.
         this.applyClearColor();
-        this.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+        this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
     }
 
     /**

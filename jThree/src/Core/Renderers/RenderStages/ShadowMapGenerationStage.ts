@@ -20,7 +20,7 @@ class ShadowMapGenerationStage extends RenderStageBase
       return scene.LightRegister.shadowDroppableLights[techniqueIndex];
     }
 
-    public preAllStage(scene:Scene,chainInfo:ResolvedChainInfo)
+    public preStage(scene:Scene,chainInfo:ResolvedChainInfo)
     {
       this.bindAsOutBuffer(
         this.DefaultFBO,
@@ -34,19 +34,20 @@ class ShadowMapGenerationStage extends RenderStageBase
               target: "depth"
             }
         ],()=>{
-          this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
-          this.Renderer.GLContext.Clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
+          this.Renderer.GL.clearColor(0, 0, 0, 0);
+          this.Renderer.GL.clear(ClearTargetType.ColorBits|ClearTargetType.DepthBits);
         },()=>{}
       );
     }
 
-    public postAllStage(scene:Scene,chainInfo:ResolvedChainInfo)
+    public postStage(scene:Scene,chainInfo:ResolvedChainInfo)
     {
       this.Renderer.applyViewportConfigure();
     }
 
 
-    public preBeginStage(scene: Scene, techniqueCount: number, chainInfo: ResolvedChainInfo) {
+    public preTechnique(scene: Scene, techniqueCount: number, chainInfo: ResolvedChainInfo) {
+
     }
 
     public render(scene: Scene, object: SceneObject, techniqueCount: number,texs) {
@@ -74,9 +75,7 @@ class ShadowMapGenerationStage extends RenderStageBase
     public get RenderStageConfig()
     {
         return {
-            depthTest: true,
-            cullFace: false,
-            blend:false
+            depthTest: true
         };
     }
 }

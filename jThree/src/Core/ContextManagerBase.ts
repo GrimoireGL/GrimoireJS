@@ -1,4 +1,3 @@
-import GLContextWrapperBase = require("../Wrapper/GLContextWrapperBase");
 import jThreeObjectId = require("../Base/JThreeObjectWithID");
 import RendererBase = require("./Renderers/RendererBase");
 import GLExtensionManager = require("./GLExtensionManager");
@@ -16,22 +15,12 @@ class ContextManagerBase extends jThreeObjectId {
     */
     private clearColor: Color4;
 
-    /**
-     * backing field for GLContext
-     */
-    private glContext: GLContextWrapperBase;
+    public GL:WebGLRenderingContext;
 
     private glExtensionManager: GLExtensionManager = new GLExtensionManager();
 
     public get GLExtensionManager() {
         return this.glExtensionManager;
-    }
-
-    /**
-    * WebGL raw RenderingContext
-    */
-    public get GLContext(): GLContextWrapperBase {
-        return this.glContext;
     }
 
     public get ClearColor(): Color4 {
@@ -45,8 +34,8 @@ class ContextManagerBase extends jThreeObjectId {
     /**
      * apply gl context after webglrendering context initiated.
      */
-    protected setGLContext(glContext: GLContextWrapperBase) {
-        this.glContext = glContext;
+    protected setGLContext(glContext: WebGLRenderingContext) {
+        this.GL = glContext;
         this.glExtensionManager.checkExtensions(glContext);
     }
 
@@ -82,7 +71,7 @@ class ContextManagerBase extends jThreeObjectId {
 
 
     public applyClearColor() {
-        this.glContext.ClearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
+        this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
     }
 }
 

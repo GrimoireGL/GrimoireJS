@@ -1,5 +1,5 @@
 var topNodes=[
-"renderers",
+"canvases",
 "resources",
 "templates",
   "scenes"

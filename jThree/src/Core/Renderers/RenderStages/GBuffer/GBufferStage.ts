@@ -16,10 +16,7 @@ class GBufferStage extends RenderStageBase
     public get RenderStageConfig(): RenderStageConfig
     {
         return {
-            cullFace: true,
-            cullFront: false,
-            depthTest: true,
-            blend: false
+            depthTest: true
         };
     }
 
@@ -28,7 +25,7 @@ class GBufferStage extends RenderStageBase
         super(renderer);
     }
 
-    public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+    public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
         var outTexture;//switch texture by passCount
         switch (techniqueIndex)
         {
@@ -52,11 +49,11 @@ class GBufferStage extends RenderStageBase
                 isOptional: false
             }], () =>
             {
-                this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+                this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
             }, () =>
             {
                 this.Renderer.ContextManager.applyClearColor();
-                this.Renderer.GLContext.Clear(ClearTargetType.DepthBits);
+                this.Renderer.GL.clear(ClearTargetType.DepthBits);
             });
     }
 

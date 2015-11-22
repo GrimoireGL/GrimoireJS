@@ -1,4 +1,3 @@
-import GLContextWrapperBase = require("../../Wrapper/GLContextWrapperBase");
 import JThreeObject = require('../../Base/JThreeObject');
 import ContextManager = require('../ContextManagerBase');
 import JThreeEvent = require('../../Base/JThreeEvent');
@@ -28,19 +27,19 @@ class ResourceWrapper extends JThreeObject
   {
     return this.ownerCanvas.ID;
   }
-  
-  protected get WebGLContext():GLContextWrapperBase
+
+  public get GL()
   {
-    return this.ownerCanvas.GLContext;
+    return this.ownerCanvas.GL;
   }
-  
+
   /**
    * Whether this resource was initialized for this context or not.
    */
   private initialized:boolean;
-  
+
   protected onInitializeChangedEvent:JThreeEvent<boolean> = new JThreeEvent<boolean>();
-  
+
   /**
    * add event handler for changing initialized state changed.
    */
@@ -48,7 +47,7 @@ class ResourceWrapper extends JThreeObject
   {
     this.onInitializeChangedEvent.addListener(handler);
   }
-  
+
    /**
    * Getter for whether this resource was initialized for this context or not.
    */
@@ -56,7 +55,7 @@ class ResourceWrapper extends JThreeObject
   {
     return this.initialized;
   }
-  
+
   protected setInitialized(initialized?:boolean):void
   {
     if(typeof initialized === "undefined")initialized=true;
@@ -66,7 +65,7 @@ class ResourceWrapper extends JThreeObject
   }
 
   public init() {
-      
+
   }
 }
 

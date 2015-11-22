@@ -22,8 +22,8 @@ class SkyBoxStage extends RenderStageBase
     }
 
 
-    public preBeginStage(scene: Scene, passCount: number, chainInfo: ResolvedChainInfo) {
-        this.Renderer.GLContext.BindFrameBuffer(null);
+    public preTechnique(scene: Scene, passCount: number, chainInfo: ResolvedChainInfo) {
+        this.Renderer.GL.bindFramebuffer(this.Renderer.GL.FRAMEBUFFER,null);
 
       /*  this.bindAsOutBuffer(this.DefaultFBO, [
             {
@@ -72,9 +72,7 @@ class SkyBoxStage extends RenderStageBase
     public get RenderStageConfig()
     {
         return {
-            depthTest: false,
-            cullFace: false,
-            blend:true
+            depthTest: false
         };
     }
 }

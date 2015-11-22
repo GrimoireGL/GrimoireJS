@@ -3,6 +3,7 @@ Radium = require 'radium'
 Tabs = require 'react-simpletabs'
 InformationList = require './debugger-infomation-list'
 Scenes = require './debugger-scenes-panel'
+Renderers = require './renderer/renderer-content'
 class DebuggerTools extends React.Component
   constructor:(props)->
     super props
@@ -13,6 +14,9 @@ class DebuggerTools extends React.Component
       </Tabs.Panel>
       <Tabs.Panel title="Scene">
         <Scenes/>
+      </Tabs.Panel>
+      <Tabs.Panel title="Renderer">
+        <Renderers/>
       </Tabs.Panel>
     </Tabs>
 

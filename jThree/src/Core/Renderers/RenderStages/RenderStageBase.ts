@@ -1,4 +1,4 @@
-import JThreeObject = require('./../../../Base/JThreeObject');
+import JThreeObjectWithID = require('../../../Base/JThreeObjectWithID');
 import RendererBase = require('../RendererBase');
 import SceneObject = require('../../SceneObject');
 import Scene = require('../../Scene')
@@ -19,7 +19,7 @@ import RenderStageConfig = require("../RenderStageConfig");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../NJThreeContext");
 import ResourceManager = require("../../ResourceManager");
-class RenderStageBase extends JThreeObject {
+class RenderStageBase extends JThreeObjectWithID {
 	private renderer: RendererBase;
 	/**
 	 * Getter for renderer having this renderstage
@@ -28,8 +28,9 @@ class RenderStageBase extends JThreeObject {
 		return this.renderer;
 	}
 
-	public get GLContext() {
-		return this.Renderer.GLContext;
+	public get GL()
+	{
+		return this.Renderer.GL;
 	}
 
 	private get ResourceManager()
@@ -42,12 +43,12 @@ class RenderStageBase extends JThreeObject {
 		this.renderer = renderer;
 	}
 
-	public preAllStage(scene: Scene,texs: ResolvedChainInfo)
+	public preStage(scene: Scene,texs: ResolvedChainInfo)
 	{
 
 	}
 
-	public postAllStage(scene:Scene,texs:ResolvedChainInfo)
+	public postStage(scene:Scene,texs:ResolvedChainInfo)
 	{
 
 	}
@@ -55,14 +56,14 @@ class RenderStageBase extends JThreeObject {
 	/**
 	 * This method will be called before process render in each pass
 	 */
-	public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+	public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
 
 	}
 	/**
 	 * This method will be called after process render in each pass.
 	 */
-	public postEndStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
-		this.Renderer.GLContext.Flush();
+	public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+		this.Renderer.GL.flush();
 	}
 
 	public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
@@ -82,16 +83,9 @@ class RenderStageBase extends JThreeObject {
 	}
 
 	public applyStageConfig() {
+		var config = this.RenderStageConfig;
 		//cull enabled/disabled
-		this.applyStageConfigToGLFeature(this.RenderStageConfig.cullFace, GLFeature.CullFace, true);
-        this.applyStageConfigToGLFeature(this.RenderStageConfig.depthTest, GLFeature.DepthTest, true);
-        this.applyStageConfigToGLFeature(this.RenderStageConfig.blend,GLFeature.Blend,true);
-		//cull face direction
-		if (!this.RenderStageConfig.cullFront) {
-			this.GLContext.CullFace(GLCullMode.Front);
-		} else {
-			this.GLContext.CullFace(GLCullMode.Back);
-		}
+    this.applyStageConfigToGLFeature(config.depthTest, GLFeature.DepthTest, true);
 	}
 
 	private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
@@ -99,19 +93,16 @@ class RenderStageBase extends JThreeObject {
 			flag = def;
 		}
 		if (flag) {
-			this.GLContext.Enable(target);
+			this.GL.enable(target);
 		}
 		else {
-			this.GLContext.Disable(target);
+			this.GL.disable(target);
 		}
 	}
 
 	public get RenderStageConfig(): RenderStageConfig {
 		return {
-			cullFace: true,
-			cullFront: false,
-            depthTest: true,
-            blend:true
+      depthTest: true
 		};
 	}
 
@@ -141,7 +132,7 @@ class RenderStageBase extends JThreeObject {
 			}
 			if (shouldBeDefault || (typeof v.isOptional !== 'undefined' && !v.isOptional && v.texture === null)) {//use default buffer
 				this.attachToWrapper(v, targetWrapper, attachmentType);
-				this.Renderer.GLContext.BindFrameBuffer(null);
+				this.Renderer.GL.bindFramebuffer(this.Renderer.GL.FRAMEBUFFER,null);
 				shouldBeDefault = true;
 			} else {
 				this.attachToWrapper(v, targetWrapper, attachmentType);

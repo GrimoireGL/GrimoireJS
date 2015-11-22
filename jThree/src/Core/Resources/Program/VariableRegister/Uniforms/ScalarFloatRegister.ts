@@ -1,11 +1,10 @@
 ﻿import ProgramWrapper = require("../../ProgramWrapper");
-import GlContextWrapperBase = require("../../../../../Wrapper/GLContextWrapperBase");
 
 class ScalarFloatRegister
 {
-    public registerVariable(gl: GlContextWrapperBase, index: WebGLUniformLocation, value: any, configure: any) {
-        gl.Uniform1f(index, <number>value);
+    public registerVariable(gl: WebGLRenderingContext, index: WebGLUniformLocation, value: any, configure: any) {
+        gl.uniform1f(index, <number>value);
     }
 }
 
-export = ScalarFloatRegister; 
+export = ScalarFloatRegister;

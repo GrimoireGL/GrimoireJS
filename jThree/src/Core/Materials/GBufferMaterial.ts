@@ -13,6 +13,7 @@ import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 import Vector4 = require("../../Math/Vector4");
 import PhongMaterial = require("./PhongMaterial");
+import IMaterialConfig = require("./IMaterialConfig");
 declare function require(string): string;
 /**
  * Provides how to write g-buffers.
@@ -178,6 +179,30 @@ class GBufferMaterial extends Material
                 },
             }
         });
+    }
+
+    public  getMaterialConfig(pass:number,technique:number):IMaterialConfig
+    {
+      if(technique == 0)
+      {
+        return {
+          blend:false,
+          cull:"ccw"
+        }
+      }
+      if(technique == 1)
+      {
+        return {
+          cull:"ccw",
+          blend:true
+        }
+      }else
+      {
+        return {
+          cull:"ccw",
+          blend:false
+        }
+      }
     }
 }
 

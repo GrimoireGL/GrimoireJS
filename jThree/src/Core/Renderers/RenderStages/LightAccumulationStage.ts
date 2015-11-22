@@ -19,7 +19,7 @@ class LightAccumulationStage extends RenderStageBase
     }
 
 
-    public preBeginStage(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+    public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
         var targetTetxture;
         switch (techniqueIndex) {
             case 0:
@@ -33,8 +33,8 @@ class LightAccumulationStage extends RenderStageBase
             { texture: targetTetxture, target: 0 }
         ], () =>
             {
-                this.GLContext.ClearColor(0, 0, 0, 0);
-                this.GLContext.Clear(ClearTargetType.ColorBits);
+                this.GL.clearColor(0, 0, 0, 0);
+                this.GL.clear(ClearTargetType.ColorBits);
             });
     }
 
@@ -144,9 +144,7 @@ class LightAccumulationStage extends RenderStageBase
     public get RenderStageConfig()
     {
         return {
-            depthTest: false,
-            cullFace: false,
-            blend: false
+            depthTest: false
         };
     }
 }

@@ -3,6 +3,9 @@ import TargetTextureType = require('../../../Wrapper/TargetTextureType')
 import BufferTexture = require('./BufferTexture')
 import TextureWrapperBase = require('./TextureWrapperBase');
 import TexImage2DTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
+import FramebufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
+import ElementType = require("../../../Wrapper/ElementType");
+import Delegates = require("../../../Base/Delegates");
 class BufferTextureWrapper extends TextureWrapperBase {
     constructor(ownerCanvas: ContextManagerBase, parent: BufferTexture) {
         super(ownerCanvas, parent);
@@ -11,15 +14,15 @@ class BufferTextureWrapper extends TextureWrapperBase {
     public init() {
         if (this.Initialized) return;
         var parent = <BufferTexture>this.Parent;
-        this.setTargetTexture(this.WebGLContext.CreateTexture());
+        this.setTargetTexture(this.GL.createTexture());
         this.bind();
-        this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
+        this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0,parent.TextureFormat, parent.ElementFormat, null);
         this.setInitialized();
     }
 
     public unbind() {
         //TODO consider is it really need to implement unbind
-        this.WebGLContext.BindTexture(TargetTextureType.Texture2D, null);
+        this.GL.bindTexture(TargetTextureType.Texture2D, null);
     }
 
     public resize(width: number, height: number) {
@@ -27,7 +30,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
         if (this.Initialized) {
             var parent = <BufferTexture>this.Parent;
             this.preTextureUpload();
-            this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, null);
+            this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0,parent.TextureFormat, parent.ElementFormat, null);
         }
     }
 
@@ -36,11 +39,16 @@ class BufferTextureWrapper extends TextureWrapperBase {
         if (this.Initialized) {
             var parent = <BufferTexture>this.Parent;
             this.preTextureUpload();
-            this.WebGLContext.TexImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.ElementFormat, buffer);
+            this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0,parent.TextureFormat, parent.ElementFormat, buffer);
         }
         this.unbind();
     }
 
+    public generateHtmlImage(encoder?:Delegates.Func3<number,number,ArrayBufferView,Uint8Array>):HTMLImageElement
+    {
+      var parent = <BufferTexture>this.Parent;
+      return this.encodeHtmlImage(parent.Width,parent.Height,encoder);
+    }
 }
 
 export = BufferTextureWrapper;

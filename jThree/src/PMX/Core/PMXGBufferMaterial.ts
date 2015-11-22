@@ -11,6 +11,8 @@ import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
 import PMXGeometry = require('./PMXGeometry');
 import Vector4 = require("../../Math/Vector4");
 import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
+import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
+import Vector3 = require("../../Math/Vector3");
 
 declare function require(string): string;
 /**
@@ -163,7 +165,7 @@ class PMXGBufferMaterial extends Material
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount },
                 specular: {
                     type: "vector",
-                    value: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Specular, this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.specular, 3)
+                    value:PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Specular, this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.specular, 3)
                 }
             }
         });
@@ -187,6 +189,30 @@ class PMXGBufferMaterial extends Material
     public get MaterialGroup(): string
     {
         return "jthree.materials.gbuffer";
+    }
+
+    public getMaterialConfig(pass:number,technique:number):IMaterialConfig
+    {
+      if(technique == 0)
+      {
+        return {
+          blend:false,
+          cull:"ccw"
+        }
+      }
+      if(technique == 1)
+      {
+        return {
+          cull:"ccw",
+          blend:true
+        }
+      }else
+      {
+        return {
+          cull:"ccw",
+          blend:false
+        }
+      }
     }
 }
 

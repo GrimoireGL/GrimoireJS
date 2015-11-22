@@ -5,9 +5,9 @@ import GomlTreeSceneNode = require("../../SceneNode");
 import SceneObject = require("../../../../Core/SceneObject");
 import LightBase =require('../../../../Core/Light/LightBase');
 class LightNodeBase extends SceneObjectNodeBase {
-	
+
 	private targetLightBase:LightBase;
-	
+
 	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
 		super(elem, loader, parent, parentSceneNode, parentObject);
 		this.attributes.defineAttribute({
@@ -25,11 +25,10 @@ class LightNodeBase extends SceneObjectNodeBase {
 	{
 		return null;
 	}
-	
+
 	protected ConstructTarget():SceneObject
 	{
 		this.targetLightBase=this.constructLight();
-		this.ContainedSceneNode.targetScene.addLight(this.targetLightBase);
 		return this.targetLightBase;
 	}
 

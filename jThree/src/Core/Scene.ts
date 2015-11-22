@@ -13,7 +13,7 @@ import Color3 = require("../Base/Color/Color3");
 import AreaLight = require("./Light/Impl/AreaLight");
 import SpotLight = require("./Light/Impl/SpotLight");
 import ISceneObjectChangedEventArgs = require("./ISceneObjectChangedEventArgs");
-
+import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
 
 /**
  * Provides scene feature.
@@ -65,23 +65,22 @@ class Scene extends jThreeObjectWithID {
         this.renderers.forEach((r) => {
             r.beforeRender();
             this.lightRegister.updateLightForRenderer(r);
-            r.RenderStageManager.processRender(this,this.children);
+            r.render(this);
             r.afterRender();
         });
     }
 
-    private rendererChanged:JThreeEvent<RendererBase>=new JThreeEvent<RendererBase>();
+    public rendererListChanged:JThreeEvent<RendererListChangedEventArgs>=new JThreeEvent<RendererListChangedEventArgs>();
 
     private renderers: RendererBase[] = [];
 
     public addRenderer(renderer: RendererBase): void {
         this.renderers.push(renderer);
-        this.rendererChanged.fire(this,renderer);
-    }
-
-    public rendererAdded(act:Delegates.Action2<Scene,RendererBase>)
-    {
-        this.rendererChanged.addListener(act);
+        this.rendererListChanged.fire(this,{
+          owner:this,
+          renderer:renderer,
+          isAdditionalChange:true
+        });
     }
 
     public get Renderers():RendererBase[]
@@ -89,7 +88,7 @@ class Scene extends jThreeObjectWithID {
         return this.renderers;
     }
 
-    private children: SceneObject[] = [];
+    public children: SceneObject[] = [];
 
 
     public addLight(light:LightBase):void
