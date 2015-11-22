@@ -1,4 +1,3 @@
-import JThreeContext = require("./Core/JThreeContext");
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
@@ -86,6 +85,16 @@ class JThreeInit {
     NewJThreeContext.registerContextComponent(new ResourceManager());
     NewJThreeContext.registerContextComponent(new NodeManager());
     NewJThreeContext.registerContextComponent(new Debugger());
+    var canvasManager = NewJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    var loopManager = NewJThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    var timer = NewJThreeContext.getContextComponent<ContextTimer>(ContextComponents.Timer);
+    var sceneManager = NewJThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
+    loopManager.addAction(1000,()=>timer.updateTimer());
+    //loopManager.addAction(2000,()=>this.updateAnimation());
+    //loopManager.addAction(3000,()=>this.gomlLoader.update());
+    loopManager.addAction(4000,()=>canvasManager.beforeRenderAll());
+    loopManager.addAction(5000,()=>sceneManager.renderAll());
+    loopManager.addAction(6000,()=>canvasManager.afterRenderAll());
   if(JThreeInit.SelfTag.getAttribute('x-lateLoad')!=="true")window.addEventListener('DOMContentLoaded', () => {
       JThreeInit.startInitialize();
     });
