@@ -135,10 +135,10 @@ class JThreeInterface extends JThreeObject {
             var easingFunc = JThreeInterface.NodeManager.configurator.getEasingFunction(easing);
             var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
             // TODO: pnly
-            JThreeInterface.Context.addAnimater(gomlNode.attributes.getAnimater(attrName, timer.Time, duration, gomlNode.attributes.getValue(attrName), value, easingFunc, () => {
-              if (onComplete) onComplete();
-              t.dequeue();
-            }));
+            // JThreeInterface.Context.addAnimater(gomlNode.attributes.getAnimater(attrName, timer.Time, duration, gomlNode.attributes.getValue(attrName), value, easingFunc, () => {
+            //   if (onComplete) onComplete();
+            //   t.dequeue();
+            // }));
           }
         }
       }

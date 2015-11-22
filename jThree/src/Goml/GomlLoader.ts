@@ -42,23 +42,6 @@ class GomlLoader extends jThreeObject {
    */
   private selfTag: HTMLScriptElement;
 
-  /**
-   * The event it will be called when GomlLoader complete loading
-   *
-   * @type {JThreeEvent<HTMLElement>}
-   */
-  private onLoadEvent: JThreeEvent<HTMLElement> = new JThreeEvent<HTMLElement>();
-
-  /**
-   * Call passed function if loaded GOML Document.
-   *
-   * @param {Delegates.Action2<any, HTMLElement>} act [description]
-   */
-  public onload(act: Delegates.Action2<any, HTMLElement>): void {
-    this.onLoadEvent.addListener(act);
-  }
-
-  public componentRunner: BehaviorRunner = new BehaviorRunner();
   public ready: boolean = false;
 
   /**
@@ -145,7 +128,7 @@ class GomlLoader extends jThreeObject {
     this.nodeManager.gomlRoot =GomlParser.parse(source,this.nodeManager.configurator)
     this.loadTags(this.nodeManager.gomlRoot);
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
-    this.onLoadEvent.fire(this, source);
+    this.nodeManager.loadedHandler.fire(this, source);
     this.ready = true;
   }
 

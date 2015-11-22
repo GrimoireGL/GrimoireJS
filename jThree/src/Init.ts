@@ -15,6 +15,8 @@ import ResourceManager = require("./Core/ResourceManager");
 import NodeManager = require("./Goml/NodeManager");
 import ContextTimer = require("./Core/ContextTimer");
 import Debugger = require("./Debug/Debugger");
+import GomlLoader = require("./Goml/GomlLoader");
+
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -55,12 +57,12 @@ class JThreeInit {
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
   public static j3(query: string|Delegates.Action0): JThreeInterface {
-    var context = JThreeContextProxy.getJThreeContext();
+    var nodeManager = NewJThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
     if (typeof query === 'function') {//check whether this is function or not.
-      context.GomlLoader.onload(query);
+      nodeManager.loadedHandler.addListener(query);
       return undefined;//when function was subscribed, it is no need to return JThreeInterface.
     }
-    var targetObject: NodeList = context.GomlLoader.rootObj.querySelectorAll(<string>query); //call as query
+    var targetObject: NodeList = nodeManager.htmlRoot.querySelectorAll(<string>query); //call as query
     return new JThreeInterface(targetObject);
   }
 
@@ -92,10 +94,9 @@ class JThreeInit {
 
   private static startInitialize()
   {
-    var j3 = JThreeContextProxy.getJThreeContext();
-    JThreeInit.j3(() => {
-    });
-    j3.GomlLoader.initForPage();
+    var nodeManager = NewJThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
+    var loader = new GomlLoader(nodeManager)
+    loader.initForPage();
     NewJThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
     NewJThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger).attach();
   }

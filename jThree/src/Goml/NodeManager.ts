@@ -8,6 +8,7 @@ import BehaviorRegistry = require('./Behaviors/BehaviorRegistry');
 import GomlConfigurator = require('./GomlConfigurator');
 import GomlParser = require("./GomlParser");
 import BehaviorRunner = require("./Behaviors/BehaviorRunner");
+import JThreeEvent = require("../Base/JThreeEvent");
 class NodeManager extends JThreeObject implements IContextComponent {
 
   constructor() {
@@ -19,12 +20,22 @@ class NodeManager extends JThreeObject implements IContextComponent {
     return ContextComponents.NodeManager;
   }
 
+  /**
+   * The event it will be called when GomlLoader complete loading
+   *
+   * @type {JThreeEvent<HTMLElement>}
+   */
+  public loadedHandler: JThreeEvent<HTMLElement> = new JThreeEvent<HTMLElement>();
+
+
   public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
   public gomlRoot:GomlTreeNodeBase;
   public htmlRoot:HTMLElement;
   public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
   public behaviorRegistry: BehaviorRegistry = new BehaviorRegistry();
   public behaviorRunner:BehaviorRunner = new BehaviorRunner();
+
+
 
   public getNode(id: string): GomlTreeNodeBase {
     return this.NodesById.get(id);
