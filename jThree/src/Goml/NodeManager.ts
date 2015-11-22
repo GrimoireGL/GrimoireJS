@@ -4,8 +4,8 @@ import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import GomlTreeNodeBase = require('../Goml/GomlTreeNodeBase');
 import IContextComponent = require('../IContextComponent');
 import ContextComponents = require('../ContextComponents');
-import GomlConfigurator = require('./GomlConfigurator');
 import BehaviorRegistry = require('./Behaviors/BehaviorRegistry');
+import GomlConfigurator = require('./GomlConfigurator');
 
 class NodeManager extends JThreeObject implements IContextComponent {
 
