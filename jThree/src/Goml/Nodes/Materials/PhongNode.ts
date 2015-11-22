@@ -31,7 +31,7 @@ class PhongNode extends MaterialNodeBase
               value:null, converter: "string", handler: (v) =>
               {
                   if(v.Value)
-                  this.material.texture = (<TextureNode>this.loader.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
+                  this.material.texture = (<TextureNode>this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", v.Value)).TargetTexture;
               }
           }
         });

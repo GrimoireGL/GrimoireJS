@@ -20,7 +20,7 @@ class TemplateNode extends GomlTreeNodeBase
       var name=elem.getAttribute("name");
       if(name)
       {
-        loader.nodeRegister.addObject("jthree.template",name,this);
+        this.nodeManager.nodeRegister.addObject("jthree.template",name,this);
         this.templateGoml=elem.innerHTML;
       }else{
         console.error("template tag should be specified name.")

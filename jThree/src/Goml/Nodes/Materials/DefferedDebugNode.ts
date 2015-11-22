@@ -19,7 +19,7 @@ class DefferedDebugNode extends MaterialNodeBase {
             "viewport":
             {
                 value: "viewport", converter: "string", handler: (v) => {
-                    var viewportTargets = loader.getNodeByQuery(v.Value);
+                    var viewportTargets = this.nodeManager.getNodeByQuery(v.Value);
                     if (viewportTargets.length > 0) {
                         var viewport = <ViewportNode>viewportTargets[0];
                         JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).

@@ -27,9 +27,9 @@ class PMXNode extends SceneObjectNodeBase
     this.pmxTargetUpdated.addListener(handler);
   }
 
-  constructor(elem: HTMLElement,loader:GomlLoader,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
+  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
-      super(elem,loader,parent,parentSceneNode,parentObject);
+      super(elem,parent,parentSceneNode,parentObject);
       this.attributes.defineAttribute(
         {
           "src":

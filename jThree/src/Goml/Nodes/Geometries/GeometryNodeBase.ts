@@ -55,7 +55,7 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
   {
     super.beforeLoad();
     this.targetGeometry=this.ConstructGeometry();
-    this.loader.nodeRegister.addObject("jthree.geometries",this.Name,this);
+    this.nodeManager.nodeRegister.addObject("jthree.geometries",this.Name,this);
   }
 }
 export=GomlTreeGeometryNode;

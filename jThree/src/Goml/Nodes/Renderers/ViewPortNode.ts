@@ -97,7 +97,7 @@ class ViewPortNode extends GomlTreeNodeBase {
           handler:v=>{
             if(this.attributes.getValue("backgroundType")==="skybox")
             {
-              var cubeTexture = <CubeTextureTag>this.loader.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
+              var cubeTexture = <CubeTextureTag>this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture",v.Value);
               if(cubeTexture)
               {
                 if(!this.skyBoxStageChain)
@@ -164,7 +164,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     private resolveCamera():CameraNodeBase
     {
-      var camTags=this.loader.nodeRegister.getAliasMap<SceneObjectNodeBase>("jthree.camera");
+      var camTags=this.nodeManager.nodeRegister.getAliasMap<SceneObjectNodeBase>("jthree.camera");
       if(!camTags.has(this.Cam))//if there was no specified camera
       {
         console.error("can not find camera");

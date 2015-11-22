@@ -77,7 +77,7 @@ class TextureNodeBase extends GomlTreeNodeBase
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         var name = this.attributes.getValue("name");
         this.targetTexture = this.generateTexture(name, rm);
-        this.loader.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);
+        this.nodeManager.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);
     }
 
     protected generateTexture(name: string, rm: ResourceManager): TextureBase

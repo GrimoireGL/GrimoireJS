@@ -20,7 +20,7 @@ class MaterialNodeBase extends GomlTreeNodeBase
     public beforeLoad()
     {
       this.targetMaterial=this.ConstructMaterial();
-      this.loader.nodeRegister.addObject("jthree.materials",this.Name,this);
+      this.nodeManager.nodeRegister.addObject("jthree.materials",this.Name,this);
     }
 
     private name:string;

@@ -27,8 +27,8 @@ class VMDNode extends GomlTreeNodeBase
 
 	private frame:number =0;
 
-	constructor(elem: HTMLElement, loader: GomlLoader, parent: GomlTreeNodeBase) {
-		super(elem, loader, parent);
+	constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
+		super(elem, parent);
 		this.targetPMX = <PMXNode>this.parent;
 		this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
 		this.attributes.defineAttribute({
