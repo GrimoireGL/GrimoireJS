@@ -7,6 +7,7 @@ import Scene = require("../../Core/Scene");
 import RendererBase = require("../../Core/Renderers/RendererBase");
 import Q = require('q');
 import Delegate = require('../../Base/Delegates');
+import Canvas = require("../../Core/Canvas");
 class RendererDebugger extends DebuggerModuleBase
 {
   private captureStageID:string;
@@ -71,7 +72,11 @@ class RendererDebugger extends DebuggerModuleBase
       {
         if(v.bufferTextures[this.captureTexture] == null)
         {
-          console.error('It is not supported to fetch default buffer data.');
+          var canvas = <Canvas>v.owner.renderer.ContextManager;
+          var img = new Image(canvas.canvasElement.width,canvas.canvasElement.height);
+          img.src = canvas.canvasElement.toDataURL();
+          this.deffer.resolve(img);
+          this.captureStageID = null;
           return;
         }
         this.deffer.resolve(v.bufferTextures[this.captureTexture].wrappers[0].generateHtmlImage(this.generator));

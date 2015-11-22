@@ -186,7 +186,6 @@ class TextureWrapperBase extends ResourceWrapper
     context.putImageData(imageData, 0, 0);
     var img = new Image();
     img.src = canvas.toDataURL();
-    document.body.appendChild(img);
     return img;
   }
 }
