@@ -10,6 +10,7 @@ import GomlConfigurator = require('./GomlConfigurator');
 import BehaviorRunner = require('./Behaviors/BehaviorRunner');
 import JThreeLogger = require("../Base/JThreeLogger");
 import JThreeInit = require("../Init");
+import GomlParser = require("./GomlParser");
 declare function require(string): any;
 
 /**
@@ -18,7 +19,7 @@ declare function require(string): any;
 class GomlLoader extends jThreeObject {
   public update() {
     if (!this.ready) return;
-    this.eachNode(v=>v.update());
+    if(this.gomlRoot)this.gomlRoot.callRecursive(v=>v.update());
     this.componentRunner.executeForAllBehaviors("updateBehavior");
   }
 
@@ -69,7 +70,7 @@ class GomlLoader extends jThreeObject {
   public componentRegistry: BehaviorRegistry = new BehaviorRegistry();
   public componentRunner: BehaviorRunner = new BehaviorRunner();
   public rootObj: HTMLElement;
-  public rootNodes: AssociativeArray<GomlTreeNodeBase[]> = new AssociativeArray<GomlTreeNodeBase[]>();
+  public gomlRoot: GomlTreeNodeBase;
   public NodesById: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
   public ready: boolean = false;
 
@@ -132,6 +133,14 @@ class GomlLoader extends jThreeObject {
     }
   }
 
+  private loadTags(top:GomlTreeNodeBase)
+  {
+    top.callRecursive((v) => (<GomlTreeNodeBase>v).beforeLoad());
+    top.callRecursive((v) => (<GomlTreeNodeBase>v).Load());
+    top.callRecursive((v) => (<GomlTreeNodeBase>v).afterLoad());
+    top.callRecursive((v) => (<GomlTreeNodeBase>v).attributes.applyDefaultValue());
+  }
+
   /**
    * parse goml source to node tree and load each node
    *
@@ -145,70 +154,12 @@ class GomlLoader extends jThreeObject {
       JThreeLogger.sectionLongLog('Goml loader',catched.innerHTML);
     }
     if (catched === undefined || catched.tagName.toUpperCase() !== 'GOML') throw new Exceptions.InvalidArgumentException('Root should be goml');
-    // this.configurator.GomlRootNodes.forEach((v) => {
-    //   this.rootNodes.set(v, []);
-    //   var found_items: NodeList = catched.querySelectorAll(v);
-    //   for (let i = 0; i < found_items.length; i++) {
-    //     this.parseChildren(null, found_items[i].childNodes, (e) => {
-    //       this.rootNodes.get(v).push(e);
-    //     });
-    //   }
-    // });
-    // this.eachNode((v) => v.beforeLoad());
-    // this.eachNode((v) => v.Load());
-    // this.eachNode((v) => v.afterLoad());
-    // this.eachNode((v) => v.attributes.applyDefaultValue());
+
+    this.gomlRoot =GomlParser.parse(source,this.configurator)
+    this.loadTags(this.gomlRoot);
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.onLoadEvent.fire(this, source);
     this.ready = true;
-  }
-
-  private eachNode(act: Delegates.Action1<GomlTreeNodeBase>, targets?: GomlTreeNodeBase[]) {
-    if (targets) {
-      targets.forEach(v=> {
-        v.callRecursive(act);
-      });
-      return;
-    }
-    this.configurator.GomlRootNodes.forEach(v=> {
-      this.rootNodes.get(v).forEach(e=> e.callRecursive(act));
-    });
-  }
-
-  private parseChildren(parent: GomlTreeNodeBase, children: NodeList, actionForChildren: Delegates.Action1<GomlTreeNodeBase>): void {
-    if (!children) return; //if there children is null, parent is end of branch
-    if (children.length == 0) return; //if there children is empty, parent is end of branch
-    for (var i = 0; i < children.length; i++) {
-      if (!(< HTMLElement>children[i]).tagName) continue;
-      // generate instances for every children nodes
-      var e = <HTMLElement>children[i];
-      this.parseChild(parent, e, actionForChildren);
-    }
-  }
-
-  private parseChild(parent: GomlTreeNodeBase, child: HTMLElement, actionForChildren: Delegates.Action1<GomlTreeNodeBase>): void {
-    //obtain factory class for the node
-    var elem: HTMLElement = <HTMLElement>child;
-    var tagFactory = this.configurator.getGomlTagFactory(elem.tagName.toUpperCase());
-    //if factory was not defined, there is nothing to do.
-    if (tagFactory) {
-      var newNode = tagFactory.CreateNodeForThis(elem, parent);
-      if (newNode == null) {
-        //the factory was obtained, but newNnode is null.
-        //It is seem to have something wrong to create instance.
-        //It can be occured, the node is written as the form being not desired for the factory.
-        console.warn(`${elem.tagName} tag was parsed,but failed to create instance. Skipped.`);
-        return;
-      }
-      //in first call, it is use for adding into the array for containing root nodes.
-      //after first call, it is no used, so this code have no effect after first call.
-      actionForChildren(newNode);
-      //call this function recursive
-      if (!tagFactory.NoNeedParseChildren) this.parseChildren(newNode, elem.childNodes, (e) => { });
-    } else {
-      //when specified node could not be found
-      console.warn(`${elem.tagName} was not parsed.'`);
-    }
   }
 
   public instanciateTemplate(template: string, parentNode: GomlTreeNodeBase) {
@@ -220,13 +171,15 @@ class GomlLoader extends jThreeObject {
     if (typeof needLoad === 'undefined') needLoad = true;
     var id = parent.getAttribute("x-j3-id");
     var parentOfGoml = this.NodesById.get(id);
-    var loadedGomls = [];
-    this.parseChild(parentOfGoml, source, (v) => { loadedGomls.push(v) });
-    if (!needLoad) return;
-    this.eachNode(v=> v.beforeLoad(), loadedGomls);
-    this.eachNode(v=> v.Load(), loadedGomls);
-    this.eachNode(v=> v.afterLoad(), loadedGomls);
-    this.eachNode(v=> v.attributes.applyDefaultValue(), loadedGomls);
+    var loadedGomls=GomlParser.parseChild(parentOfGoml,source,this.configurator)
+    this.loadTags(loadedGomls);
+    // var loadedGomls = [];
+    // this.parseChild(parentOfGoml, source, (v) => { loadedGomls.push(v) });
+    // if (!needLoad) return;
+    // this.eachNode(v=> v.beforeLoad(), loadedGomls);
+    // this.eachNode(v=> v.Load(), loadedGomls);
+    // this.eachNode(v=> v.afterLoad(), loadedGomls);
+    // this.eachNode(v=> v.attributes.applyDefaultValue(), loadedGomls);
   }
 
   public getNode(id: string): GomlTreeNodeBase {

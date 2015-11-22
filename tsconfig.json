@@ -263,7 +263,6 @@
     "./jThree/src/Goml/Nodes/TopLevel/ResourcesNode.ts",
     "./jThree/src/Goml/Nodes/TopLevel/ScenesNode.ts",
     "./jThree/src/Goml/Nodes/TopLevel/TemplatesNode.ts",
-    "./jThree/src/Goml/TopNodeList.ts",
     "./jThree/src/Goml/TreeNodeBase.ts",
     "./jThree/src/IContextComponent.ts",
     "./jThree/src/Init.ts",

@@ -21,7 +21,7 @@ class GomlParser {
     return GomlParser.parseChild(null, soruce, configurator);
   }
 
-  private static parseChild(parent: GomlTreeNodeBase, child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
+  public static parseChild(parent: GomlTreeNodeBase, child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     //obtain factory class for the node
     var elem: HTMLElement = <HTMLElement>child;
     var tagFactory = configurator.getGomlTagFactory(elem.tagName.toUpperCase());
