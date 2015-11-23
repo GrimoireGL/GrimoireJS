@@ -1,5 +1,5 @@
 import Delegates = require('./Base/Delegates');
-import JThreeInterface = require('./JThreeInterface');
+import JThreeInterface = require('./Interface/JThreeInterface');
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
 import BehaviorDeclarationBody = require("./Goml/Behaviors/BehaviorDeclarationBody");
 import agent = require("superagent");
@@ -60,8 +60,7 @@ class JThreeInit {
       nodeManager.loadedHandler.addListener(query);
       return undefined;//when function was subscribed, it is no need to return JThreeInterface.
     }
-    var targetObject: NodeList = nodeManager.htmlRoot.querySelectorAll(<string>query); //call as query
-    return new JThreeInterface(targetObject);
+    return new JThreeInterface(<string>query);
   }
 
   /**

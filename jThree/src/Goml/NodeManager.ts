@@ -47,9 +47,13 @@ class NodeManager extends JThreeObject implements IContextComponent {
   public behaviorRunner:BehaviorRunner = new BehaviorRunner();
   public ready:boolean = false;
 
-
   public getNode(id: string): GomlTreeNodeBase {
     return this.NodesById.get(id);
+  }
+
+  public getNodeByElement(elem: HTMLElement): GomlTreeNodeBase {
+    var id = elem.getAttribute("x-j3-id");
+    return this.getNode(id);
   }
 
   public getNodeByQuery(query: string): GomlTreeNodeBase[] {
