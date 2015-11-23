@@ -36,7 +36,7 @@ mat4 getBoneTransform()
 void main(void){
 mat4 boneTransform=getBoneTransform();
 vPosition=gl_Position = matVP*boneTransform*position;
-vNormal=normalize((matV*boneTransform*vec4(normal,0)).xyz);
+vNormal=normalize((boneTransform*vec4(normal,0)).xyz);
 vSphereUV=vNormal.xy/2.+vec2(0.5,0.5);
 vUV=uv;
 }
