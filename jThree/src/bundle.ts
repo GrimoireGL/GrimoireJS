@@ -73,7 +73,6 @@
 /// <reference path="Core/Materials/ShadowMapMaterial.ts" />
 /// <reference path="Core/Materials/SolidColorMaterial.ts" />
 /// <reference path="Core/Materials/SpriteMaterial.ts" />
-/// <reference path="Goml/NodeManager.ts" />
 /// <reference path="Core/RendererListChangedEventArgs.ts" />
 /// <reference path="Core/Renderers/FBOBindData.ts" />
 /// <reference path="Core/Renderers/IRenderObjectCompletedEventArgs.ts" />
@@ -192,15 +191,16 @@
 /// <reference path="Goml/Factories/TagFactory.ts" />
 /// <reference path="Goml/Factories/TemplateTagFactory.ts" />
 /// <reference path="Goml/GomlAttribute.ts" />
+/// <reference path="Goml/GomlConfigurator.ts" />
 /// <reference path="Goml/GomlConverterList.ts" />
 /// <reference path="Goml/GomlLoader.ts" />
-/// <reference path="Goml/GomlConfigurator.ts" />
 /// <reference path="Goml/GomlNodeDictionary.ts" />
 /// <reference path="Goml/GomlNodeEventList.ts" />
 /// <reference path="Goml/GomlNodeList.ts" />
 /// <reference path="Goml/GomlNodeListElement.ts" />
 /// <reference path="Goml/GomlParser.ts" />
 /// <reference path="Goml/GomlTreeNodeBase.ts" />
+/// <reference path="Goml/NodeManager.ts" />
 /// <reference path="Goml/Nodes/Behaviors/BehaviorNode.ts" />
 /// <reference path="Goml/Nodes/Behaviors/BehaviorsNode.ts" />
 /// <reference path="Goml/Nodes/Canvases/CanvasNode.ts" />
@@ -236,9 +236,16 @@
 /// <reference path="Goml/Nodes/Texture/CubeTextureNode.ts" />
 /// <reference path="Goml/Nodes/Texture/TextureNode.ts" />
 /// <reference path="Goml/Nodes/Texture/TextureNodeBase.ts" />
+/// <reference path="Goml/Nodes/TopLevel/CanvasesNode.ts" />
+/// <reference path="Goml/Nodes/TopLevel/GomlNode.ts" />
+/// <reference path="Goml/Nodes/TopLevel/OrderedTopLevelNodeBase.ts" />
+/// <reference path="Goml/Nodes/TopLevel/ResourcesNode.ts" />
+/// <reference path="Goml/Nodes/TopLevel/ScenesNode.ts" />
+/// <reference path="Goml/Nodes/TopLevel/TemplatesNode.ts" />
 /// <reference path="Goml/TreeNodeBase.ts" />
 /// <reference path="IContextComponent.ts" />
 /// <reference path="Init.ts" />
+/// <reference path="JThreeContext.ts" />
 /// <reference path="JThreeInterface.ts" />
 /// <reference path="Math/AABB.ts" />
 /// <reference path="Math/Matrix.ts" />
@@ -250,7 +257,6 @@
 /// <reference path="Math/Vector3.ts" />
 /// <reference path="Math/Vector4.ts" />
 /// <reference path="Math/VectorBase.ts" />
-/// <reference path="NJThreeContext.ts" />
 /// <reference path="PMX/Core/PMXBone.ts" />
 /// <reference path="PMX/Core/PMXBoneTransformer.ts" />
 /// <reference path="PMX/Core/PMXGBufferMaterial.ts" />
@@ -327,18 +333,3 @@
 /// <reference path="Wrapper/TextureType.ts" />
 /// <reference path="bundle-notdoc.ts" />
 /// <reference path="jThree.ts" />
-
-
-interface WebGLVertexArrayObjectExtension
-{
-  createVertexArrayOES();
-  bindVertexArrayOES(vao:WebGLVertexArrayObject);
-}
-
-interface WebGLVertexArrayObject extends WebGLObject {
-}
-
-declare var WebGLVertexArrayObject: {
-    prototype: WebGLVertexArrayObject;
-    new(): WebGLVertexArrayObject;
-}

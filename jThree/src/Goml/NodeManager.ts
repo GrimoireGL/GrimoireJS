@@ -9,7 +9,7 @@ import GomlConfigurator = require('./GomlConfigurator');
 import GomlParser = require("./GomlParser");
 import BehaviorRunner = require("./Behaviors/BehaviorRunner");
 import JThreeEvent = require("../Base/JThreeEvent");
-import JThreeContext = require("../NJThreeContext");
+import JThreeContext = require("../JThreeContext");
 import LoopManager = require("../Core/LoopManager");
 class NodeManager extends JThreeObject implements IContextComponent {
 

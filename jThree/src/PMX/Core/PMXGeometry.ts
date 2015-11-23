@@ -6,7 +6,7 @@ import ElementType = require('../../Wrapper/ElementType');
 import PMX = require('../PMXLoader');
 import Buffer = require('../../Core/Resources/Buffer/Buffer');
 import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ResourceManager = require("../../Core/ResourceManager");
 
 class PMXGeometry extends Geometry {

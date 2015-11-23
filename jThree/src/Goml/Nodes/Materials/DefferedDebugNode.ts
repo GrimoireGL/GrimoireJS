@@ -4,7 +4,7 @@ import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import ViewportNode = require('../Renderers/ViewPortNode');
 import ResourceManager = require("../../../Core/ResourceManager");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 class DefferedDebugNode extends MaterialNodeBase {
     public material: DebugSprite;

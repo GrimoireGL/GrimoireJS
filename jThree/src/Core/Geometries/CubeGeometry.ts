@@ -5,7 +5,7 @@ import ElementType = require("../../Wrapper/ElementType");
 import Vector3 = require("../../Math/Vector3");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import ResourceManager = require("../ResourceManager");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 class CubeGeometry extends Geometry {
     constructor(name: string) {

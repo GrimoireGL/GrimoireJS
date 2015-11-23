@@ -1,6 +1,6 @@
 import ContextManagerBase = require("./ContextManagerBase");
 import Rectangle = require("../Math/Rectangle");
-import JThreeContext = require("../NJThreeContext");
+import JThreeContext = require("../JThreeContext");
 import RendererBase = require("./Renderers/RendererBase");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import JThreeEvent = require('../Base/JThreeEvent');

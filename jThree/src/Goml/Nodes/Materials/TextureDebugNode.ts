@@ -3,7 +3,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../../Core/ResourceManager");
 class TextureDebugNode extends MaterialNodeBase {
     public material: DebugSprite;

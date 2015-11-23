@@ -2,7 +2,7 @@ import DebuggerModuleBase = require("./DebuggerModuleBase");
 import Debugger = require("../Debugger");
 import GLSpecManager = require("../../Core/GLSpecManager");
 import CanvasManager = require("../../Core/CanvasManager");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 class GLSpecDebugger extends DebuggerModuleBase
 {
