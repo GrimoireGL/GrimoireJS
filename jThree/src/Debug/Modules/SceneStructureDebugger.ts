@@ -2,7 +2,7 @@ import DebuggerModuleBase = require("./DebuggerModuleBase");
 import Debugger = require("../Debugger");
 import SceneManager = require("../../Core/SceneManager");
 import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 
 class SceneStructureDebugger extends DebuggerModuleBase
 {

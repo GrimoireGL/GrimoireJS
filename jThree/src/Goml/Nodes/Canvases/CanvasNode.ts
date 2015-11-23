@@ -1,5 +1,5 @@
 import Canvas = require("../../../Core/Canvas");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");

@@ -6,7 +6,7 @@ import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
 import ShaderType = require("../../Wrapper/ShaderType");
 import Delegates = require("../../Base/Delegates");
 import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import JThreeLogger = require("../../Base/JThreeLogger");
 /**
  * Managing shader codes for extensible.

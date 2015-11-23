@@ -1,6 +1,6 @@
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
 import Scene = require("../../Core/Scene");
-import JThreeContext = require('../../NJThreeContext');
+import JThreeContext = require('../../JThreeContext');
 import SceneManager = require("../../Core/SceneManager");
 import ContextComponents = require("../../ContextComponents");
 class SceneNode extends GomlTreeNodeBase

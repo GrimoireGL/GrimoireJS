@@ -1,5 +1,5 @@
 import JThreeObject = require("./Base/JThreeObject");
-import JThreeContext = require("./NJThreeContext");
+import JThreeContext = require("./JThreeContext");
 import ContextComponents = require("./ContextComponents");
 import Timer = require("./Core/Timer");
 import GomlTreeNodeBase = require("./Goml/GomlTreeNodeBase");

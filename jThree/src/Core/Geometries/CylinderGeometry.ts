@@ -4,7 +4,7 @@ import BufferUsageType = require("../../Wrapper/BufferUsageType");
 import ElementType = require("../../Wrapper/ElementType");
 import Vector3 = require("../../Math/Vector3");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 class CylinderGeometry extends Geometry {

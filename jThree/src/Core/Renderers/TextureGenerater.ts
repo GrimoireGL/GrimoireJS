@@ -2,7 +2,7 @@ import GeneraterInfoChunk = require("./TextureGeneraters/GeneraterInfoChunk");
 import RendererBase = require("./RendererBase");
 import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import GeneraterBase = require("./TextureGeneraters/GeneraterBase");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 

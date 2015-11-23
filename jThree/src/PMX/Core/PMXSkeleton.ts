@@ -6,7 +6,7 @@ import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../Wrapper/TextureType');
 import PMXBoneTransformer = require("./PMXBoneTransformer");
 import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ResourceManager = require("../../Core/ResourceManager");
 class PMXSkeleton {
 	constructor(model: PMXModel) {
