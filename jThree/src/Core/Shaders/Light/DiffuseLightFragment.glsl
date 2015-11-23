@@ -15,7 +15,7 @@ uniform mat4 matIV;
 
 uniform highp sampler2D shadowParam;
 uniform lowp sampler2D shadowMap;
-uniform float shadowMapMax;
+uniform float shadowMapMax; //sqrt(maximum shadow map count)<- because this is count of edge for shadow matrix texture
 
 //varying variables
 varying vec2 vUV;
