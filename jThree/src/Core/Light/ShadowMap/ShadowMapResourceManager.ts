@@ -85,8 +85,8 @@ class ShadowMapResourceManager
       var light = lights[i];
       if(!light)break;
       light.updateLightMatricis(renderer);
-      this.copyMatrixToLightMatrixTextureSource(light.matLightProjection,48*i);
-      this.copyMatrixToLightMatrixTextureSource(light.matInverseLightProjection,48*i+16);
+      this.copyMatrixToLightMatrixTextureSource(light.matLightViewProjection,48*i);
+      this.copyMatrixToLightMatrixTextureSource(light.matLightView,48*i+16);
       this.generateTextureTransformMatrix(48*i+32,i);
     }
     this.shadowMatrixTexture.updateTexture(this.shadowMatrixTextureSource);
