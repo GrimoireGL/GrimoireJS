@@ -100,6 +100,9 @@ class JThreeInit {
     });
   }
 
+  /**
+   * This method should be called when DOMContentLoaded
+   */
   private static startInitialize()
   {
     var nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.

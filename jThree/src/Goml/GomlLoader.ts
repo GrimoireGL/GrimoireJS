@@ -93,6 +93,10 @@ class GomlLoader extends jThreeObject {
     }
   }
 
+  /**
+   * Initialize nodes
+   * @param {GomlTreeNodeBase} top target of nodetree to be called recursively
+   */
   private loadTags(top:GomlTreeNodeBase)
   {
     top.callRecursive((v) => (<GomlTreeNodeBase>v).beforeLoad());
