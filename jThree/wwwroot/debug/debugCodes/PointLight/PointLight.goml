@@ -5,19 +5,20 @@
     <phong diffuse="green" specular="#CCC" specularposer="15" name="green"/>
     <cube name="cube" />
     <grid hdiv="20" name="grid" vdiv="20"/>
+    <cubetexture name="cubemap" srcs="/resource/cube/cube_PX.png /resource/cube/cube_NX.png /resource/cube/cube_PY.png /resource/cube/cube_NY.png /resource/cube/cube_PZ.png /resource/cube/cube_NZ.png"/>
   </resources>
   <canvases>
     <canvas clearColor="purple" frame=".canvasContainer">
-      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" skybox="cubemap" backgroundType="skybox"/>
     </canvas>
   </canvases>
   <scenes>
     <scene name="mainScene">
-      <object rotation="y(30d)">
-        <camera id="maincam" aspect="1" far="30" fovy="1/2p" name="CAM1" near="0.1" position="(0,3,5)" rotation="x(-30d)"></camera>
+      <object rotation="y(45d)">
+        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,3,5)"></camera>
       </object>
       <scenelight color="white" intensity="0.3"/>
-      <plight color="#FF0000" position="0,2,-6" distance="7" decay="1"/>
+      <!-- <plight color="#FF0000" position="0,2,-6" distance="7" decay="1"/>
       <plight color="#00FF00" position="3,2,-6" distance="7" decay="1"/>
       <plight color="#FF00FF" position="5,2,-6" distance="7" decay="1"/>
       <plight color="#0000FF" position="-3,2,-6" distance="7" decay="1"/>
@@ -25,8 +26,8 @@
       <slight color="#FF0000" position="0,2,-3" rotation="euler(-50d,0,0)" decay="0.3">
       </slight>
       <slight color="#FFFF00" position="5,2,-3" rotation="euler(-50d,0,-50d)" decay="0.3"/>
-      <slight color="#FF00FF" position="-5,2,-3" rotation="euler(-50d,0,50d)" decay="0.3"/>
-      <dlight color="#FFFFFF" intensity="0.1" shadow="true"/>
+      <slight color="#FF00FF" position="-5,2,-3" rotation="euler(-50d,0,50d)" decay="0.3"/> -->
+      <dlight color="#FFFFFF" intensity="0.6" shadow="true"/>
       <mesh geo="cube" mat="red" position="6,0,0">
         <behaviors>
             <behavior name="rotation" ratio="0.02"/>
@@ -43,7 +44,7 @@
         </behaviors>
         <vmd id="melt" frame="0" src="/resource/motion/mens.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
-      <pmx scale="0.2" src="/resource/model/stage/stage.pmx" position="0,0,0">
+      <pmx scale="0.1" src="/resource/model/stage/stage.pmx" position="0,0,0">
       </pmx>
     </scene>
   </scenes>

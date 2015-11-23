@@ -69,12 +69,6 @@ class BasicRendererConfigurator extends ConfiguratorBase
     {
         return [
             {
-                buffers: {
-                    OUT: "default"
-                },
-                stage: new SkyBoxStage(target)
-            },
-            {
               buffers:
               {
 

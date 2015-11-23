@@ -90,7 +90,7 @@ class PMXGBufferMaterial extends Material
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: renderer.Camera.viewMatrix },
+                matV: { type: "matrix", value:renderer.Camera.viewMatrix },
                 specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount }
             }
@@ -112,7 +112,7 @@ class PMXGBufferMaterial extends Material
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value:renderer.Camera.viewMatrix },
                 specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount },
                 diffuse: {
@@ -161,7 +161,7 @@ class PMXGBufferMaterial extends Material
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
                 matVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
+                matV: { type: "matrix", value: renderer.Camera.viewMatrix},
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount },
                 specular: {
                     type: "vector",

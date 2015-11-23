@@ -15,8 +15,7 @@ varying vec2 vUV;
 
 void main(void)
 {
-	gl_Position = matMVP * position;
-	vPosition = matMVP*position;
+	gl_Position = vPosition =matMVP * position;
 	vNormal =normalize(( matMV * vec4(normal,0)).xyz);
 	vUV = uv;
 }
