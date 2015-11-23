@@ -4,7 +4,7 @@ import ResourceManager = require("../../../Core/ResourceManager");
 import MinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
 import MagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
 import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 /**
  * All texture resource node class inherit this class.

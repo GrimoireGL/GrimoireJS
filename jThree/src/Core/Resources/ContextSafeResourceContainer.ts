@@ -6,7 +6,7 @@ import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
 import ListStateChangedType = require("../ListStateChangedType");
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ResourceWrapper = require('./ResourceWrapper');
-import NJThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import CanvasManager = require("../CanvasManager");
 import ContextComponents = require("../../ContextComponents");
 /**
@@ -18,13 +18,13 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
 
     constructor() {
         super();
-        var canvasManager = NJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+        var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         //Initialize resources for the renderers already subscribed.
         canvasManager.canvasListChanged.addListener(this.rendererChanged.bind(this));
     }
 
     protected initializeForFirst() {
-      var canvasManager = NJThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+      var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         canvasManager.canvases.forEach((v) => {
             this.childWrapper.set(v.ID, this.getInstanceForRenderer(v));
         });

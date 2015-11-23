@@ -9,7 +9,7 @@ import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 import Geometry = require('../Geometries/Geometry')
 import ResourceManager = require("../ResourceManager");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import IMaterialConfig = require("./IMaterialConfig");
 declare function require(string): string;

@@ -6,7 +6,7 @@ import BufferTexture = require("../../Resources/Texture/BufferTexture");
 import ShadowDroppableLight = require("./ShadowDroppableLight");
 import Matrix = require("../../../Math/Matrix");
 import RBO = require("../../Resources/RBO/RBO");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 import ResourceManager = require("../../ResourceManager");
 

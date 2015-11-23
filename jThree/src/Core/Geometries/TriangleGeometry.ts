@@ -5,7 +5,7 @@ import ElementType = require("../../Wrapper/ElementType");
 import Vector3 = require("../../Math/Vector3");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ResourceManager = require("../ResourceManager");
 class TriangleGeometry extends Geometry {
     constructor(name:string) {

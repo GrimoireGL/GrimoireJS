@@ -4,7 +4,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')
 import ResourceManager = require("../../../Core/ResourceManager");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 class SpriteNode extends MaterialNodeBase {
     public material: Sprite;

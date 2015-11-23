@@ -1,5 +1,5 @@
 import GetParameterType = require("../Wrapper/GetParameterType");
-import JThreeContext = require("../NJThreeContext");
+import JThreeContext = require("../JThreeContext");
 import CanvasManager = require("./CanvasManager");
 import ContextComponents = require("../ContextComponents");
 class GLSpecManager

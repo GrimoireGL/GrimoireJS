@@ -16,7 +16,7 @@ import GLSpec = require("../GLSpecManager");
 import JThreeLogger = require("../../Base/JThreeLogger");
 import TextureBase = require("../Resources/Texture/TextureBase");
 import ShadowMapResourceManager = require("./ShadowMap/ShadowMapResourceManager");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ResourceManager = require("../ResourceManager");
 import ContextComponents = require("../../ContextComponents");
 /**

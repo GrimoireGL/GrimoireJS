@@ -7,7 +7,7 @@ import Rectangle = require("../../../Math/Rectangle");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
 import ContextComponents = require("../../../ContextComponents");
 import ResourceManager = require("../../ResourceManager");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 class RendererFit extends GeneraterBase {
 	constructor(parent: RendererBase) {
 		super(parent);

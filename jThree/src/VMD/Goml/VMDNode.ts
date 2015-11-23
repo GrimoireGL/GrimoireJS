@@ -6,7 +6,7 @@ import Vector3 = require("../../Math/Vector3");
 import Quaternion = require("../../Math/Quaternion");
 import PMXMorph = require("../../PMX/Core/PMXMorph");
 import PMXBoneTransformer = require("../../PMX/Core/PMXBoneTransformer");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import Timer = require("../../Core/Timer");
 class VMDNode extends GomlTreeNodeBase

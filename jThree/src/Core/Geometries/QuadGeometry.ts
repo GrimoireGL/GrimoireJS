@@ -5,7 +5,7 @@ import ElementType = require("../../Wrapper/ElementType");
 import Vector3 = require("../../Math/Vector3");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 class QuadGeometry extends Geometry {
     constructor(name:string) {
         super();

@@ -57,3 +57,14 @@ declare var TextDecoder: {
 interface TextDecoder{
     decode(buf:Uint8Array);
 }
+
+declare var WebGLVertexArrayObject: {
+    prototype: WebGLVertexArrayObject;
+    new(): WebGLVertexArrayObject;
+}
+interface WebGLVertexArrayObjectExtension　{
+    createVertexArrayOES();
+    bindVertexArrayOES(vao:WebGLVertexArrayObject);
+}
+interface WebGLVertexArrayObject extends WebGLObject {
+}

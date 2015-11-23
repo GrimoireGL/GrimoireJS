@@ -16,7 +16,7 @@ import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachme
 import FboBindData = require("../FBOBindData");
 import RenderStageConfig = require("../RenderStageConfig");
 import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../NJThreeContext");
+import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 class RenderStageBase extends JThreeObjectWithID {
 	private renderer: RendererBase;

@@ -20,7 +20,7 @@ import PmxMaterialMorphParamContainer = require('./PMXMaterialMorphParamContaine
 import JThreeLogger = require("../../Base/JThreeLogger");
 import ResourceManager = require("../../Core/ResourceManager");
 import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
 
 declare function require(string): string;

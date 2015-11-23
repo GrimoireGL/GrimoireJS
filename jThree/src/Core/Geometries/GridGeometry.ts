@@ -3,7 +3,7 @@ import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
 import ElementType = require("../../Wrapper/ElementType");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import JThreeContext = require("../../NJThreeContext");
+import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 class GridGeometry extends Geometry {
