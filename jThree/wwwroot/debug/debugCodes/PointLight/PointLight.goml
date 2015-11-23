@@ -22,15 +22,17 @@
       <plight color="#FF00FF" position="5,2,-6" distance="7" decay="1"/>
       <plight color="#0000FF" position="-3,2,-6" distance="7" decay="1"/>
       <plight color="#00FFFF" position="-5,2,-6" distance="7" decay="1"/>
-      <slight color="#FF0000" position="0,3,0" rotation="x(-30d)" decay="0.3">
+      <slight color="#FF0000" position="0,2,-3" rotation="euler(-50d,0,0)" decay="0.3">
+      </slight>
+      <slight color="#FFFF00" position="5,2,-3" rotation="euler(-50d,0,-50d)" decay="0.3"/>
+      <slight color="#FF00FF" position="-5,2,-3" rotation="euler(-50d,0,50d)" decay="0.3"/>
+      <dlight color="#FFFFFF" intensity="0.1" shadow="true"/>
+      <mesh geo="cube" mat="red" position="6,0,0">
         <behaviors>
             <behavior name="rotation" ratio="0.02"/>
         </behaviors>
-      </slight>
-      <slight color="#FFFF00" position="5,3,-5" rotation="x(-30d)" decay="0.3"/>
-      <slight color="#FF00FF" position="-5,3,-5" rotation="x(-30d)" decay="0.3"/>
-      <dlight color="#FFFFFF" intensity="0.1" shadow="true"/>
-      <mesh geo="cube" mat="red">
+      </mesh>
+      <mesh geo="cube" mat="red" position="-6,0,0">
         <behaviors>
             <behavior name="rotation" ratio="0.02"/>
         </behaviors>
