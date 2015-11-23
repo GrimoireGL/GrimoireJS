@@ -129,7 +129,7 @@
     "./jThree/src/Core/Resources/Program/VariableRegister/AttributeRegisteringConfigure.ts",
     "./jThree/src/Core/Resources/Program/VariableRegister/UniformRegisteringArgument.ts",
     "./jThree/src/Core/Resources/Program/VariableRegister/UniformRegisteringConfigure.ts",
-    "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/MatrixFLoatArrayRegister.ts",
+    "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/MatrixFloatArrayRegister.ts",
     "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/MatrixFloatRegister.ts",
     "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/ScalarFloatRegister.ts",
     "./jThree/src/Core/Resources/Program/VariableRegister/Uniforms/ScalarIntegerRegister.ts",
