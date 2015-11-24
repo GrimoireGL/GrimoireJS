@@ -17,21 +17,21 @@ class ShadowDroppableLight extends LightBase {
 
  }
 
- protected updateLightProjection(renderer:RendererBase,lightProjection:Matrix)
+ protected updateLightProjection(renderer:RendererBase,lightView:Matrix,lightProjection:Matrix)
  {
-	 this.matLightProjection = lightProjection;
-	 this.matInverseLightProjection = Matrix.multiply(renderer.Camera.viewMatrix,Matrix.inverse(lightProjection));
+	 this.matLightViewProjection = Matrix.multiply(lightView,lightProjection);
+	 this.matLightView = lightView;
  }
 
  /**
 　* The matrix that projects world space to light projection space.
   */
-  public matLightProjection:Matrix = Matrix.identity();
+  public matLightViewProjection:Matrix = Matrix.identity();
 
   /**
    * The matrix that projects light projection space to view space.
    */
-  public matInverseLightProjection:Matrix=Matrix.identity();
+  public matLightView:Matrix=Matrix.identity();
 
   /**
    * Parameter for identify whether shadow droppable light or not.

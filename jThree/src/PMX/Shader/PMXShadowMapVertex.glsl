@@ -3,7 +3,8 @@ attribute vec4 position;
 attribute vec4 boneWeights;
 attribute vec4 boneIndicies;
 
-uniform mat4 matLW;
+uniform mat4 matLVP;
+uniform mat4 matLV;
 uniform mediump sampler2D boneMatricies;
 uniform float boneCount;
 
@@ -29,5 +30,7 @@ mat4 getBoneTransform()
 
 void main(void){
 mat4 boneTransform=getBoneTransform();
-vPosition = gl_Position = matLW * boneTransform * position;
+vec4 tPos = boneTransform * position;
+ gl_Position = matLVP * tPos;
+ vPosition = matLVP * tPos;
 }

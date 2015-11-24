@@ -2,7 +2,7 @@ class JThreePreviewController
   @loadedScriptCount = 0;
 
   @initJThree:(config,codeKey)->
-   JThreePreviewController.loadj3Script config,codeKey,()->
+   JThreePreviewController.loadj3Script config,codeKey,(codeKey)->
      JThreePreviewController.checkFinalize config,codeKey
      for v in config.codes[codeKey].js
        JThreePreviewController.loadjsScript config,config.config.root+v,()->
@@ -14,14 +14,16 @@ class JThreePreviewController
         j3Tag.setAttribute('x-goml',config.config.root+config.codes[codeKey].goml);
     else
       for k,v of config.codes
-        j3Tag.setAttribute('x-goml',v.goml)
+        codeKey = k
+        j3Tag.setAttribute('x-goml',config.config.root+v.goml)
         break
     j3Tag.setAttribute('type','text/javascript');
     j3Tag.setAttribute 'src',config.config.j3
     j3Tag.setAttribute 'x-lateLoad','true'
     j3Tag.onload = ()->
-      finished();
+      finished(codeKey);
     document.body.appendChild j3Tag
+    codeKey
 
   @loadjsScript:(config,url,finished)->
     jsTag = document.createElement 'script'

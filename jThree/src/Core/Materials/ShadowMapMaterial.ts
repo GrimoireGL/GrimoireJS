@@ -36,7 +36,7 @@ class ShadowMapMaterial extends Material
         super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         var light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
         var geometry = object.Geometry;
-        var matPLW = Matrix.multiply(light.matLightProjection,object.Transformer.LocalToGlobal);
+        var matPLW = Matrix.multiply(light.matLightViewProjection,object.Transformer.LocalToGlobal);
         this.program.getForContext(renderer.ContextManager).register({
           attributes:
           {
@@ -44,7 +44,8 @@ class ShadowMapMaterial extends Material
           },
           uniforms:
           {
-            matPLW:{type:"matrix",value:matPLW}
+            matPLW:{type:"matrix",value:matPLW},
+            matLV:{type:"matrix",value:light.matLightView}
           }
         });
         geometry.bindIndexBuffer(renderer.ContextManager);
