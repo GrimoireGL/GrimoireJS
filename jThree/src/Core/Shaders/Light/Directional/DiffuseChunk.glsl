@@ -8,8 +8,8 @@ vec3 calcDirectionalLight(vec3 position,vec3 normal,int i,vec4 diffuse)
   if(shadowParamVec.x < 0.5)return accum; // check this light needs to project shadows
   vec4 wPosition = matIV * vec4(position,1.0);
    vec4 shadowMapCoord = getShadowMatrix(shadowParamVec.y,0.) * wPosition;
-   vec4 shadowMapTextureCoord = getShadowMatrix(shadowParamVec.y,2.)*shadowMapCoord;
-  // if(!isInTextureUVRange(shadowMapTextureCoord.xy/shadowMapTextureCoord.w))return accum;//If this point was out of range in shadow map, this code will not care about shadow in this point
+   vec4 shadowMapTextureCoord = getShadowMatrix(shadowParamVec.y,1.)*shadowMapCoord;
+   if(!isInTextureUVRange(shadowMapTextureCoord.xy/shadowMapTextureCoord.w))return accum;//If this point was out of range in shadow map, this code will not care about shadow in this point
    vec3 lightSpaceRawDepthShadowMap = texture2DProj(shadowMap,shadowMapTextureCoord).rgb;
    highp float lightSpaceDepth = unpackFloat(lightSpaceRawDepthShadowMap);
    if((shadowMapCoord.z/shadowMapCoord.w - lightSpaceDepth) > shadowParamVec.z)

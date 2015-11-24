@@ -44,8 +44,7 @@ class ShadowMapMaterial extends Material
           },
           uniforms:
           {
-            matPLW:{type:"matrix",value:matPLW},
-            matLV:{type:"matrix",value:light.matLightView}
+            matPLW:{type:"matrix",value:matPLW}
           }
         });
         geometry.bindIndexBuffer(renderer.ContextManager);

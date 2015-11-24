@@ -71,7 +71,6 @@ class PMXShadowMapMaterial extends Material
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
                 matLVP:{type:"matrix",value:light.matLightViewProjection},
-                matLV:{type:"matrix",value:light.matLightView},
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount }
             }
         });
