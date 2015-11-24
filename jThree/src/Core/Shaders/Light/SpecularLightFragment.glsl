@@ -73,6 +73,11 @@ float getSpecularCoefficient()
 	return texture2D(primary,vUV).a;
 }
 
+bool isInTextureUVRange(vec2 uv)
+{
+	return uv.x >= 0. && uv.x <= 1. && uv.y >= 0. && uv.y <=1.;
+}
+
 float unpackFloat(vec3 rgb){
   const vec3 bit_shift = vec3( 1.0/(256.0*256.0), 1.0/256.0, 1.0);
   float res = dot(rgb, bit_shift);
