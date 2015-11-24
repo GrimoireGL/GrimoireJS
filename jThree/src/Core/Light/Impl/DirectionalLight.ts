@@ -159,7 +159,7 @@ class DirectionalLight extends ShadowDroppableLight {
 
 	public intensity:number;
 
-	public bias:number = 0.001;
+	public bias:number = 0.01;
 
 	public get LightType(): string {
 		return "jthree.lights.directionallight";

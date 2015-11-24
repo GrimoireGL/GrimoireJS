@@ -23,7 +23,7 @@ class DirectionalLightNode extends LightNodeBase
 			},
 			"bias":
 			{
-				value:0.001,
+				value:0.01,
 				converter:"number",
 				handler:(v)=>{
 					this.targetLight.bias = v.Value;
