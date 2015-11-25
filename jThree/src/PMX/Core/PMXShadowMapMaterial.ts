@@ -41,7 +41,8 @@ class PMXShadowMapMaterial extends Material
     public getMaterialConfig(pass:number,technique:number):IMaterialConfig
     {
       return {
-        blend:false
+        blend:false,
+        cull:this.associatedMaterial.cullEnabled ? "ccw":undefined
       }
     }
 
@@ -59,8 +60,8 @@ class PMXShadowMapMaterial extends Material
         if (!this.program||this.associatedMaterial.Diffuse.A<1.0E-3) return;
         super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
         var geometry = <PMXGeometry>object.Geometry;
+        var light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
         var programWrapper = this.program.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -69,7 +70,7 @@ class PMXShadowMapMaterial extends Material
             },
             uniforms: {
                 boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
-                matLW:{type:"matrix",value:scene.LightRegister.shadowDroppableLights[techniqueIndex].matLightProjection},
+                matLVP:{type:"matrix",value:light.matLightViewProjection},
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount }
             }
         });

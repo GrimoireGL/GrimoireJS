@@ -30,6 +30,11 @@
     {
       "goml":"BehavorLight/BehavorLight.goml",
       "js":["BehavorLight/BehavorLight.js"]
+    },
+    "DirectionalLight":
+    {
+      "goml":"DirectionalLight/DirectionalLight.goml",
+      "js":[]
     }
   }
 }

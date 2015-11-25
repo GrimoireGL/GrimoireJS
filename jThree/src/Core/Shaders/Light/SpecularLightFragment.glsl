@@ -73,21 +73,28 @@ float getSpecularCoefficient()
 	return texture2D(primary,vUV).a;
 }
 
-float unpackFloat(vec3 rgb){
-       const vec3 bit_shift = vec3( 1.0/(256.0*256.0), 1.0/256.0, 1.0);
-       float res = dot(rgb, bit_shift);
-       return res;
-    }
+bool isInTextureUVRange(vec2 uv)
+{
+	return uv.x >= 0. && uv.x <= 1. && uv.y >= 0. && uv.y <=1.;
+}
 
-		mat4 getShadowMatrix(float shadowIndex,float paramIndex)
-		{
-			float y = 1./(2.*shadowMapMax) + 1./shadowMapMax;
-			return mat4(
-			texture2D(shadowParam,vec2(1./24.+1./3.*paramIndex,y)),
-			texture2D(shadowParam,vec2(3./24.+1./3.*paramIndex,y)),
-			texture2D(shadowParam,vec2(5./24.+1./3.*paramIndex,y)),
-			texture2D(shadowParam,vec2(7./24.+1./3.*paramIndex,y)));
-		}
+float unpackFloat(vec3 rgb){
+  const vec3 bit_shift = vec3( 1.0/(256.0*256.0), 1.0/256.0, 1.0);
+  float res = dot(rgb, bit_shift);
+  return res;
+}
+
+mat4 getShadowMatrix(float shadowIndex,float paramIndex)
+{
+	const float matrixCount = 2.;
+	const float textureWidth = matrixCount * 8.;
+	float y = 1./(2.*shadowMapMax) + 1./shadowMapMax*shadowIndex;
+	return mat4(
+	texture2D(shadowParam,vec2(1./textureWidth+1./matrixCount*paramIndex,y)),
+	texture2D(shadowParam,vec2(3./textureWidth+1./matrixCount*paramIndex,y)),
+	texture2D(shadowParam,vec2(5./textureWidth+1./matrixCount*paramIndex,y)),
+	texture2D(shadowParam,vec2(7./textureWidth+1./matrixCount*paramIndex,y)));
+}
 
 ///<<< LIGHT FUNCTION DEFINITIONS
 

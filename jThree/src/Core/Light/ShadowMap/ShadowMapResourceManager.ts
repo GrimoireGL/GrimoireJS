@@ -16,8 +16,8 @@ class ShadowMapResourceManager
   {
     var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.shadowMapTileTexture=<BufferTexture>rm.createTexture("shadowmap."+register.scene.ID,this.shadowMapTileTextureSize,this.shadowMapTileTextureSize,TextureInternalFormatType.RGB,TextureType.UnsignedByte);
-    this.shadowMatrixTextureSource = new Float32Array(this.maximumShadowMapCount * 3 * 16);
-    this.shadowMatrixTexture = <BufferTexture> rm.createTexture("shadowmat."+register.scene.ID,12,this.maximumShadowMapCount,TextureInternalFormatType.RGBA,TextureType.Float);
+    this.shadowMatrixTextureSource = new Float32Array(this.maximumShadowMapCount * 2 * 16);
+    this.shadowMatrixTexture = <BufferTexture> rm.createTexture("shadowmat."+register.scene.ID,8,this.maximumShadowMapCount,TextureInternalFormatType.RGBA,TextureType.Float);
     this.shadowMapRenderBuffer = rm.createRBO("shadowmap."+register.scene.ID,this.shadowMapTileTextureSize,this.shadowMapTileTextureSize);
   }
 
@@ -85,9 +85,8 @@ class ShadowMapResourceManager
       var light = lights[i];
       if(!light)break;
       light.updateLightMatricis(renderer);
-      this.copyMatrixToLightMatrixTextureSource(light.matLightProjection,48*i);
-      this.copyMatrixToLightMatrixTextureSource(light.matInverseLightProjection,48*i+16);
-      this.generateTextureTransformMatrix(48*i+32,i);
+      this.copyMatrixToLightMatrixTextureSource(light.matLightViewProjection,48*i);
+      this.generateTextureTransformMatrix(48*i+16,i);
     }
     this.shadowMatrixTexture.updateTexture(this.shadowMatrixTextureSource);
   }
