@@ -72,7 +72,8 @@ class ResourceLoader implements IContextComponent {
                 erroredResource: this.erroredResourceCount,
                 loadedResource: this.loadedResourceCount,
                 completedResource: this.completedResourceCount,
-                lastLoadMessage:this.currentLoadingMessage
+                lastLoadMessage:this.currentLoadingMessage,
+                resourceCount:this.resourceCount
             });
             this.resourceLoadingDeferred = null;
         }else{
@@ -82,7 +83,8 @@ class ResourceLoader implements IContextComponent {
               erroredResource: this.erroredResourceCount,
               loadedResource: this.loadedResourceCount,
               completedResource: this.completedResourceCount,
-              lastLoadMessage:this.currentLoadingMessage
+              lastLoadMessage:this.currentLoadingMessage,
+              resourceCount:this.resourceCount
             }
           );
         }

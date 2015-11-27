@@ -5,6 +5,7 @@ interface IResourceLoaderEventArgs
   loadedResource:number;
   completedResource:number;
   lastLoadMessage:string;
+  resourceCount:number;
 }
 
 export = IResourceLoaderEventArgs;

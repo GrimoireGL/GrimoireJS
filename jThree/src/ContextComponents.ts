@@ -34,6 +34,11 @@ class ContextComponents
   {
     return 6;
   }
+
+  public static get ResourceLoader():number
+  {
+    return 7;
+  }
 }
 
 export = ContextComponents;
