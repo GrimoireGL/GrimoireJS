@@ -52,7 +52,6 @@ class CanvasNode extends CanvasNodeBase {
           loader.remove();
         }
       },()=>{},(p)=>{
-        debugger;
         for(var i = 0; i < progressLoaders.length;i++)
         {
           var progress = <HTMLDivElement>progressLoaders.item(i);
