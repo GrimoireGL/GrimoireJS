@@ -16,6 +16,12 @@ class CanvasNode extends CanvasNodeBase {
         super(elem, parent);
         //generate canvas
         this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
+        var defaultLoader;
+        if(this.attributes.getValue("loader") !=="undefined")
+        {
+          defaultLoader = (this.nodeManager.nodeRegister.getObject("jthree.loader",this.attributes.getValue("loader")) as any).loaderHTML;
+        }
+        if(!defaultLoader)defaultLoader = require('../../../static/defaultLoader.html');
 
         //frame resize
         var resizeElement = document.createElement("div");
@@ -39,7 +45,7 @@ class CanvasNode extends CanvasNodeBase {
         loaderContainer.style.width = this.canvasElement.width + "px";
         loaderContainer.style.height = this.canvasElement.height + "px";
         loaderContainer.classList.add("x-j3-loader-container");
-        loaderContainer.innerHTML = require('../../../static/defaultLoader.html');
+        loaderContainer.innerHTML = defaultLoader;
         resizeElement.appendChild(loaderContainer);
         this.attributes.applyDefaultValue();
         var progressLoaders = loaderContainer.querySelectorAll(".x-j3-loader-progress");

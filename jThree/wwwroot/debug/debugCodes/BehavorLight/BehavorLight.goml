@@ -1,4 +1,17 @@
 <goml>
+  <loaders>
+    <loader name="custom">
+      <div style="background:rgb(51,78,255);height:100%;">
+        <div>
+          <p>This is custom loader</p>
+          <p>You can replace loader for jThree canvas</p>
+          <div style="height:2px;background:black;width:30%;margin-left:auto;margin-right:auto;">
+            <div class="x-j3-loader-progress" style="background:green;height:2px;width:0%;"/>
+          </div>
+        </div>
+      </div>
+    </loader>
+  </loaders>
     <resources>
         <ddebug name="light" target="gbuffer.primary" viewport="viewport#main"/>
         <ddebug name="depth" target="gbuffer.secoundary" viewport="viewport#main"/>
@@ -14,7 +27,7 @@
 
     </resources>
     <canvases>
-        <canvas clearColor="#324D7C" frame=".canvasContainer">
+        <canvas clearColor="#324D7C" frame=".canvasContainer" loader="custom">
             <viewport cam="CAM1" id="main" left="0" width="512" height="512"  config="sprite"/>
             <viewport cam="CAM2" height="256"  left="512" width="256" config="sprite"/>
             <viewport cam="CAM3" height="256"  left="768" width="256" config="sprite"/>
