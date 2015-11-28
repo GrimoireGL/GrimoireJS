@@ -9,6 +9,7 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
       "RESOURCES": require("./Nodes/TopLevel/ResourcesNode"),
       "SCENES": require("./Nodes/TopLevel/ScenesNode"),
       "TEMPLATES": require("./Nodes/TopLevel/TemplatesNode"),
+      "LOADERS":require("./Nodes/TopLevel/LoadersNode"),
       "GOML":require("./Nodes/TopLevel/GomlNode")
     }),
   new GomlNodeListElement("jthree.geometries",
@@ -68,10 +69,14 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
     {
       "BEHAVIOR": require("./Nodes/Behaviors/BehaviorNode")
     }),
-  new GomlNodeListElement("jthree.template", require("./Factories/TemplateTagFactory"),
+  new GomlNodeListElement("jthree.template", require("./Factories/ChildrenParseSkipFactory"),
     {
       "TEMPLATE": require("./Nodes/Templates/TemplateNode")
     }),
+    new GomlNodeListElement("jthree.loader",require("./Factories/ChildrenParseSkipFactory"),
+  {
+    "LOADER":require("./Nodes/Loaders/LoaderNode")
+  }),
   new GomlNodeListElement("jthree.pmx.morph", require("../PMX/Goml/Factory/PMXMorphTagFactory"),
     {
       "MORPH": require("../PMX/Goml/PMXMorphNode"),

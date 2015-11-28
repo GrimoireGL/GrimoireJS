@@ -7,7 +7,7 @@ class ScenesNode extends OrderedTopLevelNodeBase {
 
   public get loadPriorty():number
   {
-    return 4000;
+    return 5000;
   }
 
 }

@@ -7,7 +7,7 @@ class ResourcesNode extends OrderedTopLevelNodeBase {
 
   public get loadPriorty():number
   {
-    return 2000;
+    return 3000;
   }
 
 }
