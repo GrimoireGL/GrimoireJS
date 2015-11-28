@@ -39,13 +39,12 @@ class CanvasNode extends CanvasNodeBase {
         loaderContainer.style.width = this.canvasElement.width + "px";
         loaderContainer.style.height = this.canvasElement.height + "px";
         loaderContainer.classList.add("x-j3-loader-container");
-        loaderContainer.innerHTML = '<div style="background:rgba(255,0,0,0.3);height:100%;"></div>';
+        loaderContainer.innerHTML = require('../../../static/defaultLoader.html');
         resizeElement.appendChild(loaderContainer);
         this.attributes.applyDefaultValue();
         JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).promise.then(()=>
       {
         var loaders = resizeElement.querySelectorAll(".x-j3-loader-container");
-        debugger;
         for(var i = 0; i < loaders.length;i++)
         {
           var loader = loaders.item(i);
