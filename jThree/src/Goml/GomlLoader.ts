@@ -4,6 +4,9 @@ import Exceptions = require("../Exceptions");
 import JThreeLogger = require("../Base/JThreeLogger");
 import GomlParser = require("./GomlParser");
 import NodeManager = require("./NodeManager");
+import JThreeContext = require("../JThreeContext");
+import ResourceLoader = require("../Core/ResourceLoader");
+import ContextComponent = require("../ContextComponents");
 declare function require(string): any;
 
 /**
@@ -25,6 +28,16 @@ class GomlLoader extends jThreeObject {
     var scriptTags = document.getElementsByTagName('script');
     this.selfTag = selfTag;
     this.nodeManager = nodeManager;
+    var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponent.ResourceLoader);
+    this.gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered();
+    resourceLoader.promise.then(()=>
+  {
+    console.log("load finished!!");
+  },undefined,
+  (v)=>
+  {
+    console.log(`loading resource...${v.completedResource/v.resourceCount*100}%`);
+  });
   }
 
   private nodeManager:NodeManager;
@@ -33,6 +46,8 @@ class GomlLoader extends jThreeObject {
    * The script tag that is refering this source code.
    */
   private selfTag: HTMLScriptElement;
+
+  private gomlLoadingDeferred:Q.Deferred<void>;
 
   /**
    * Attempt to load GOMLs that placed in HTML file.

@@ -33,6 +33,8 @@ class DirectionalLight extends ShadowDroppableLight {
 
 		private shadowViewMatrixCache:Matrix = Matrix.zero();
 
+		private shadowMatrixCache:Matrix = Matrix.zero();
+
 		private nearClip:number = 0.1;
 
 		/**
@@ -48,10 +50,10 @@ class DirectionalLight extends ShadowDroppableLight {
 		private computePerspective(n:number,f:number)
 		{
 			var m = Matrix.identity();
-			m.setAt(1,1,f/(f-n));
-			m.setAt(3,1,1);
-			m.setAt(1,3,-2*f*n/(f-n));
-			m.setAt(3,3,0);
+			m.rawElements[ 5] = (f+n)/(f-n);		// [ 1 0 0 0]
+			m.rawElements[13] = -2*f*n/(f-n);		// [ 0 a 0 b]
+			m.rawElements[ 7] = 1;				// [ 0 0 1 0]
+			m.rawElements[15] = 0;
 			return m;
 		}
 
@@ -62,15 +64,18 @@ class DirectionalLight extends ShadowDroppableLight {
 			var cam:Camera = renderer.Camera;
 			this.generateLightviewMatrix(renderer.Camera);
 			this.USM(renderer);
-			glm.mat4.scale(this.shadowProjectionMatrixCache.rawElements,this.shadowProjectionMatrixCache.rawElements,[1,1,-1]);
 			//this.updateLightProjection(renderer,Matrix.ortho(-10,10,-10,10,0.1,30),Matrix.lookAt(new Vector3(0,0,20),new Vector3(0,0,0),new Vector3(0,1,0)));
-			 this.updateLightProjection(renderer,this.shadowProjectionMatrixCache,this.shadowViewMatrixCache);
+			glm.mat4.mul(this.shadowMatrixCache.rawElements,Matrix.scale(new Vector3(1,1,-1)).rawElements,this.shadowMatrixCache.rawElements);
+			 this.updateLightProjection(renderer,this.shadowMatrixCache);
 		}
 
 		private LiSPSM(renderer:RendererBase)
 		{
 			var cam = renderer.Camera;
-			var angle:number = Vector3.angle(cam.Transformer.forward,this.transformer.forward);
+			var viewDirection = cam.Transformer.forward;
+			var lightDirection = this.transformer.forward;
+			var eyePosition = cam.Transformer.GlobalPosition;
+			var angle:number = Vector3.angle(viewDirection,lightDirection);
 			//check whether needs USM or LiSPSM here.
 			if(angle == 0 || angle == Math.PI)
 			{
@@ -80,8 +85,8 @@ class DirectionalLight extends ShadowDroppableLight {
 			var sinGamma:number = Math.abs(Math.sin(angle));
 
 			//Computing light view matrix
-			var up:Vector3 = this.computeUpVector(cam.Transformer.forward	,this.Transformer.forward);
-			var lv:Matrix = Matrix.lookAt(cam.Transformer.GlobalPosition,Vector3.add(cam.Transformer.GlobalPosition,this.Transformer.forward),up);
+			var up:Vector3 = this.computeUpVector(viewDirection,lightDirection);
+			var lv:Matrix = Matrix.lookAt(eyePosition,Vector3.add(eyePosition,lightDirection),up);
 
 			//Compute AABB of camera frusutum in light view space
 			var pl = new PointList(cam.frustumPoints);
@@ -89,23 +94,23 @@ class DirectionalLight extends ShadowDroppableLight {
 			var vfAABB = pl.getBoundingBox();
 			//Compute new frustum
 			var factor = 1 / sinGamma;
-			var n_z = this.nearClip * factor;
-			var d = Math.abs(vfAABB.pointRTN.Z - vfAABB.pointLBF.Z);
-			var n = d /(Math.sqrt((n_z + d * sinGamma)/n_z)-1);
+			var z_n = this.nearClip * factor;
+			var d = Math.abs(vfAABB.pointRTN.Y - vfAABB.pointLBF.Y);
+			var z_f = z_n * d * sinGamma;
+			var n = (z_n + Math.sqrt(z_f * z_n))/sinGamma;
 			var f = n + d;
-
 			//Compute new light view
-			var newPos = cam.Transformer.GlobalPosition.subtractWith(up.multiplyWith(n - this.nearClip));
-			lv = Matrix.lookAt(newPos,Vector3.add(newPos,this.Transformer.forward),up);
+			var newPos = eyePosition.subtractWith(up.multiplyWith(n - this.nearClip));
+			lv = Matrix.lookAt(newPos,Vector3.add(newPos,lightDirection),up);
 			var lp = this.computePerspective(n,f);
 			//Compute light matrix
 			var lVP = Matrix.multiply(lp,this.shadowViewMatrixCache);
 
-			pl = new PointList(cam.frustumPoints);
-			pl.transform(lVP);
-			var unitAABB = pl.getBoundingBox();
+			var pl2 = new PointList(cam.frustumPoints);
+			pl2.transform(lVP);
+			var unitAABB = pl2.getBoundingBox();
 			var unitCube = this.generateUnitCubeMatrix(unitAABB);
-			glm.mat4.mul(this.shadowProjectionMatrixCache.rawElements,unitCube.rawElements,lp.rawElements);
+			glm.mat4.mul(this.shadowMatrixCache.rawElements,unitCube.rawElements,lp.rawElements);
 		}
 
 		private generateLightviewMatrix(cam:Camera)
@@ -121,6 +126,7 @@ class DirectionalLight extends ShadowDroppableLight {
 			lightSpaceFrustum.transform(this.shadowViewMatrixCache);
 			var frustumAABBinLightSpace = lightSpaceFrustum.getBoundingBox();
 			this.shadowProjectionMatrixCache = this.generateUnitCubeMatrix(frustumAABBinLightSpace);
+			glm.mat4.mul(this.shadowMatrixCache.rawElements,this.shadowProjectionMatrixCache.rawElements,this.shadowViewMatrixCache.rawElements);
 		}
 
 		private generateUnitCubeMatrix(align:AABB)

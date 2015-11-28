@@ -9,6 +9,9 @@ import PMXBoneTransformer = require("../../PMX/Core/PMXBoneTransformer");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import Timer = require("../../Core/Timer");
+import Q = require("q");
+import ResourceLoader = require("../../Core/ResourceLoader");
+
 class VMDNode extends GomlTreeNodeBase
 {
 	private targetPMX: PMXNode;
@@ -25,6 +28,8 @@ class VMDNode extends GomlTreeNodeBase
 
 	private frame:number =0;
 
+	private vmdLoadingDeferred:Q.Deferred<void>;
+
 	constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
 		super(elem, parent);
 		this.targetPMX = <PMXNode>this.parent;
@@ -37,11 +42,13 @@ class VMDNode extends GomlTreeNodeBase
 				handler:(v)=>
 				{
 					if (!v.Value||v.Value==this.lastURL) return;
+					this.vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered();
 					VMDData.LoadFromUrl(v.Value,(data)=>
 					{
 						this.lastURL=v.Value;
 						this.targetVMD = data;
 						this.attributes.applyDefaultValue();
+						this.vmdLoadingDeferred.resolve(null);
 					});
 				}
 			},
