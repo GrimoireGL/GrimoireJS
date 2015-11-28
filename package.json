@@ -65,7 +65,7 @@
     "react-treeview": "^0.4.2",
     "shader-loader": "^1.1.3",
     "shaderify": "pnlybubbles/shaderify#0fcdf2aa0140253170cbbc608ade68d34f78e448",
-    "textify":"pnlybubbles/txtify#074ff0ecffbd394274d3401c524172e49c6fcee7",
+    "txtify":"pnlybubbles/txtify#074ff0ecffbd394274d3401c524172e49c6fcee7",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "source-map-support": "^0.3.2",
