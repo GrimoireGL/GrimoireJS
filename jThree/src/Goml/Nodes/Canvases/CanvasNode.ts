@@ -42,6 +42,7 @@ class CanvasNode extends CanvasNodeBase {
         loaderContainer.innerHTML = require('../../../static/defaultLoader.html');
         resizeElement.appendChild(loaderContainer);
         this.attributes.applyDefaultValue();
+        var progressLoaders = loaderContainer.querySelectorAll(".x-j3-loader-progress");
         JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).promise.then(()=>
       {
         var loaders = resizeElement.querySelectorAll(".x-j3-loader-container");
@@ -49,6 +50,13 @@ class CanvasNode extends CanvasNodeBase {
         {
           var loader = loaders.item(i);
           loader.remove();
+        }
+      },()=>{},(p)=>{
+        debugger;
+        for(var i = 0; i < progressLoaders.length;i++)
+        {
+          var progress = <HTMLDivElement>progressLoaders.item(i);
+          progress.style.width = p.completedResource/p.resourceCount*100+"%";
         }
       });
     }
