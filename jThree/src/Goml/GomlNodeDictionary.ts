@@ -14,54 +14,54 @@ class GomlNodeDictionary extends jThreeObject
    */
   private dictionary:AssociativeArray<AssociativeArray<GomlTreeNodeBase>>=new AssociativeArray<AssociativeArray<GomlTreeNodeBase>>();
 
-  private onAliasMemberChanged:AssociativeArray<JThreeEvent<GomlTreeNodeBase>>=new AssociativeArray<JThreeEvent<GomlTreeNodeBase>>();
+  private onGroupMemberChanged:AssociativeArray<JThreeEvent<GomlTreeNodeBase>>=new AssociativeArray<JThreeEvent<GomlTreeNodeBase>>();
   /**
-   * Add node object with alias and name.
+   * Add node object with group and name.
    */
-  public addObject(alias:string,name:string,obj:GomlTreeNodeBase):void
+  public addObject(group:string,name:string,obj:GomlTreeNodeBase):void
   {
-    if(!this.dictionary.has(alias))//If there was no such alias
+    if(!this.dictionary.has(group))//If there was no such group
     {
-      this.dictionary.set(alias,new AssociativeArray<GomlTreeNodeBase>());
-      this.onAliasMemberChanged.set(alias,new JThreeEvent<GomlTreeNodeBase>());
+      this.dictionary.set(group,new AssociativeArray<GomlTreeNodeBase>());
+      this.onGroupMemberChanged.set(group,new JThreeEvent<GomlTreeNodeBase>());
     }
-    this.dictionary.get(alias).set(name,obj);
-    this.onAliasMemberChanged.get(alias).fire(this,obj);
+    this.dictionary.get(group).set(name,obj);
+    this.onGroupMemberChanged.get(group).fire(this,obj);
   }
 
-  public hasAlias(alias:string):boolean
+  public hasGroup(group:string):boolean
   {
-    return this.dictionary.has(alias);
+    return this.dictionary.has(group);
   }
 
   /**
-   * Get node object by alias and name.
+   * Get node object by group and name.
    */
-  public getObject<T extends GomlTreeNodeBase>(alias:string,name:string):T
+  public getObject<T extends GomlTreeNodeBase>(group:string,name:string):T
   {
-    if(!this.dictionary.has(alias))
+    if(!this.dictionary.has(group))
     {
-      JThreeLogger.sectionError("GOML loader",`Unknown group name '${alias}' was requested.`);
+      JThreeLogger.sectionError("GOML loader",`Unknown group name '${group}' was requested.`);
       return null;
     }else
     {
-      return <T>this.dictionary.get(alias).get(name);
+      return <T>this.dictionary.get(group).get(name);
     }
   }
 
-  public getAliasMap<T extends GomlTreeNodeBase>(alias:string):AssociativeArray<T>
+  public getGroupMap<T extends GomlTreeNodeBase>(group:string):AssociativeArray<T>
   {
-    return <AssociativeArray<T>>this.dictionary.get(alias);
+    return <AssociativeArray<T>>this.dictionary.get(group);
   }
 
-  public onAliasObjectChanged(alias:string,handler:Delegates.Action1<GomlTreeNodeBase>)
+  public onGroupObjectChanged(group:string,handler:Delegates.Action1<GomlTreeNodeBase>)
   {
-    if(this.hasAlias(alias))
+    if(this.hasGroup(group))
     {
-      this.onAliasMemberChanged.get(alias).addListener(handler);
+      this.onGroupMemberChanged.get(group).addListener(handler);
     }else
     {
-      console.warn("there is no such alias");
+      console.warn("there is no such group");
     }
   }
 }

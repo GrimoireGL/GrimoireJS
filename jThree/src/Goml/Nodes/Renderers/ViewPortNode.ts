@@ -160,7 +160,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     private resolveCamera():CameraNodeBase
     {
-      var camTags=this.nodeManager.nodeRegister.getAliasMap<SceneObjectNodeBase>("jthree.camera");
+      var camTags=this.nodeManager.nodeRegister.getGroupMap<SceneObjectNodeBase>("jthree.camera");
       if(!camTags.has(this.Cam))//if there was no specified camera
       {
         console.error("can not find camera");
