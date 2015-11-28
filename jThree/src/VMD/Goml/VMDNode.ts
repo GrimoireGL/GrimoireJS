@@ -42,6 +42,7 @@ class VMDNode extends GomlTreeNodeBase
 				handler:(v)=>
 				{
 					if (!v.Value||v.Value==this.lastURL) return;
+					if(this.vmdLoadingDeferred)this.vmdLoadingDeferred.resolve(null);
 					this.vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered();
 					VMDData.LoadFromUrl(v.Value,(data)=>
 					{
