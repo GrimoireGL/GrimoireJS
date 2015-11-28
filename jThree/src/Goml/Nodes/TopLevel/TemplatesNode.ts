@@ -7,7 +7,7 @@ class TemplatesNode extends OrderedTopLevelNodeBase {
 
   public get loadPriorty():number
   {
-    return 3000;
+    return 4000;
   }
 
 }
