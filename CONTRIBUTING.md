@@ -13,6 +13,31 @@ We don't demands users to know any 3D graphics skills. All of the work requirein
 
 We are going to import some of features affected by 3DCG technologies(like plugin feature,object hierarchies...),but we really believe they makes usage of this library easier.
 
+## Build envirnoment
+### Required softwares to build
+* Node.js (v4.2.2LTS is recommended,v4.xx and v5.xx may work well)
+* npm
+
+### Build steps
+1 . Clone this repository.
+
+2 . Run this code to install packages in jThree folder (root folder of this repository)
+```shell
+npm install
+```
+3 . Run this code to build job and this build envirnoment will build automatically when you change codes.
+```shell
+npm run watch
+```
+4 . Go to http://localhhost:8080/debug/ in your own browser to see debug page for jThree.
+
+### Change build systems and packages
+When you need to change this build system or add some of packages for your contribution. Please read below.
+
+* All of the packages should works on Mac and Windows.
+* Don't change required Node.js version (If you need, please rise an issue)
+* Don't change required software. We don't want complex build envirnoment for new contributors.
+
 ## Git usage
 We don't demand you to do rebase when you push to our repository,provided you comments well to your commits.
 We
