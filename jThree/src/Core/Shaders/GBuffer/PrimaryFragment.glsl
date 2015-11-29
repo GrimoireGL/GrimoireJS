@@ -10,7 +10,8 @@ varying vec2 vUV;
 
 vec2 compressNormal()
 {
-	return normalize(vNormal.xy) * sqrt(vNormal.z * 0.5 +0.5);
+	float p = sqrt(vNormal.z * 8. + 8.);
+	return vNormal.xy/p + 0.5;
 }
 
 float calcDepth()

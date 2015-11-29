@@ -8,6 +8,9 @@ import glm = require("gl-matrix");
 import PointList = require("../../../Math/PointList");
 import Camera = require("../../Camera/Camera");
 import AABB = require("../../../Math/AABB");
+import ContextComponents = require("../../../ContextComponents");
+import JThreeContext = require("../../../JThreeContext");
+import Debugger = require("../../../Debug/Debugger");
 /**
  * Provides directional light feature.
  * Parameters:
@@ -20,10 +23,11 @@ class DirectionalLight extends ShadowDroppableLight {
 		super(scene);
     }
 
-		private directionInViewSpace:Vector3;
 
     public getParameters(renderer:RendererBase,shadowMapIndex?:number): number[] {
-        var dir = this.directionInViewSpace = Matrix.transformNormal(renderer.Camera.viewMatrix,this.transformer.forward);
+        var dir = Vector3.normalize(Matrix.transformNormal(renderer.Camera.viewMatrix,this.transformer.forward));
+				var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+				debug.setInfo("lDir",dir.toString());
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
             dir.X,dir.Y,dir.Z,0,
 					this.isShadowDroppable?1:0,shadowMapIndex,this.bias];
@@ -125,6 +129,9 @@ class DirectionalLight extends ShadowDroppableLight {
 			var lightSpaceFrustum = (new PointList(cam.frustumPoints));
 			lightSpaceFrustum.transform(this.shadowViewMatrixCache);
 			var frustumAABBinLightSpace = lightSpaceFrustum.getBoundingBox();
+			var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+			debug.setInfo("RTN",frustumAABBinLightSpace.pointRTN.toString());
+			debug.setInfo("LBF",frustumAABBinLightSpace.pointLBF.toString());
 			this.shadowProjectionMatrixCache = this.generateUnitCubeMatrix(frustumAABBinLightSpace);
 			glm.mat4.mul(this.shadowMatrixCache.rawElements,this.shadowProjectionMatrixCache.rawElements,this.shadowViewMatrixCache.rawElements);
 		}
@@ -156,14 +163,14 @@ class DirectionalLight extends ShadowDroppableLight {
 			return Matrix.fromElements(
 				2.0/(align.pointRTN.X-align.pointLBF.X), 0, 0, -(align.pointRTN.X + align.pointLBF.X)/(align.pointRTN.X-align.pointLBF.X),
 				0,2.0/(align.pointRTN.Y - align.pointLBF.Y),0,-(align.pointRTN.Y + align.pointLBF.Y)/(align.pointRTN.Y-align.pointLBF.Y),
-				0,0,1.0/(align.pointRTN.Z - align.pointLBF.Z),-align.pointRTN.Z/(align.pointLBF.Z-align.pointRTN.Z),
+				0,0,2.0/(align.pointRTN.Z - align.pointLBF.Z),(align.pointRTN.Z + align.pointLBF.Z)/(align.pointLBF.Z-align.pointRTN.Z),
 				0,0,0,1.0
 			);
 		}
 
 	public intensity:number;
 
-	public bias:number = 0.01;
+	public bias:number = 0.2;
 
 	public get LightType(): string {
 		return "jthree.lights.directionallight";

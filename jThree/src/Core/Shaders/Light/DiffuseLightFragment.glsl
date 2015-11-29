@@ -28,10 +28,12 @@ float getDepth()
 //Get normal from texture
 vec3 getNormal()
 {
-	highp vec2 compressed = texture2D(primary,vUV).xy;
+	highp vec2 compressed = texture2D(primary,vUV).xy * 4. - vec2(2.,2.);
 	highp vec3 result;
-	result.z = 2. * (length(compressed)*length(compressed)-0.5);
-	result.xy = compressed * sqrt(1./(result.z*result.z)-1.);
+	float f = dot(compressed,compressed);
+	float g = sqrt(1. - f/4.);
+	result.z = 1. - f/2.;
+	result.xy = compressed * g;
 	return normalize(result);
 }
 //Reconstruct position
@@ -76,7 +78,7 @@ float getSpecularCoefficient()
 highp float unpackFloat(vec3 rgb){
        const vec3 bit_shift = vec3( 1.0/(256.0*256.0), 1.0/256.0, 1.0);
        highp float res = dot(rgb, bit_shift);
-       return res;
+       return res*2.0 -1.0;
 }
 
 mat4 getShadowMatrix(float shadowIndex,float paramIndex)
