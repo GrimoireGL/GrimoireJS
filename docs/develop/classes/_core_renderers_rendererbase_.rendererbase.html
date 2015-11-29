@@ -90,12 +90,6 @@
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/_base_istringconvertable_.istringconvertable.html" class="tsd-signature-type">IStringConvertable</a></li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -363,28 +357,28 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#id-1">ID</a></p>
+								<p>Inherited from <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#id">ID</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectWithID.ts#L14">Base/JThreeObjectWithID.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectWithID.ts#L23">Base/JThreeObjectWithID.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>このオブジェクトを識別するID</p>
+									<p>Provides an ID related to this instance to identify.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#id-1">ID</a></p>
+								<p>Inherited from <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#id">ID</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectWithID.ts#L19">Base/JThreeObjectWithID.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectWithID.ts#L28">Base/JThreeObjectWithID.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>このオブジェクトを識別するID</p>
+									<p>Provides an ID related to this instance to identify.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -550,10 +544,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#gettypename">getTypeName</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L9">Base/JThreeObject.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L21">Base/JThreeObject.ts:21</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Obtain class name</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>Class name of the instance.</p>
 						</li>
 					</ul>
 				</section>
@@ -620,13 +620,19 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/_base_istringconvertable_.istringconvertable.html">IStringConvertable</a>.<a href="../interfaces/_base_istringconvertable_.istringconvertable.html#tostring">toString</a></p>
 								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L5">Base/JThreeObject.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L13">Base/JThreeObject.ts:13</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Obtain stringfied object.
+									If this method was not overridden, this method return class name.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>stringfied object</p>
 						</li>
 					</ul>
 				</section>
