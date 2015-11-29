@@ -1,7 +1,7 @@
 <goml>
   <loaders>
     <loader name="custom">
-      <div style="background:rgb(51,78,255);height:100%;">
+      <!-- <div style="background:rgb(51,78,255);height:100%;">
         <div>
           <p>This is custom loader</p>
           <p>You can replace loader for jThree canvas</p>
@@ -9,7 +9,7 @@
             <div class="x-j3-loader-progress" style="background:green;height:2px;width:0%;"/>
           </div>
         </div>
-      </div>
+      </div> -->
     </loader>
   </loaders>
     <resources>
