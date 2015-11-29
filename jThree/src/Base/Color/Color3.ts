@@ -7,25 +7,25 @@ declare function require(string): { [key: string]: string };
 class Color3 extends JThreeObject {
     constructor(r: number, g: number, b: number) {
         super();
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this._r = r;
+        this._g = g;
+        this._b = b;
     }
 
-    private r: number;
-    private g: number;
-    private b: number;
+    private _r: number;
+    private _g: number;
+    private _b: number;
 
     public get R(): number {
-        return this.r;
+        return this._r;
     }
 
     public get G(): number {
-        return this.g;
+        return this._g;
     }
 
     public get B(): number {
-        return this.b;
+        return this._b;
     }
 
     public static FromColor4(col:Color4):Color3

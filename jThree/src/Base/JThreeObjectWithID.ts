@@ -1,24 +1,33 @@
 ﻿import JThreeObject = require("./JThreeObject");
 import JThreeID = require("./JThreeID");
 
+/**
+ * JThree object with unique ID to identify object instancies.
+ * @type {[type]}
+ */
 class JThreeObjectWithID extends JThreeObject
 {
   constructor(id?:string) {
       super();
-      this.id =id|| JThreeID.getUniqueRandom(10);
+      this._id =id|| JThreeID.getUniqueRandom(10);
   }
-  private id: string;
+
   /**
-   * このオブジェクトを識別するID
+   * ID related to this instance to identify.
    */
+  private _id: string;
+
+/**
+ * Provides an ID related to this instance to identify.
+ */
   public get ID(): string
   {
-      return this.id;
+      return this._id;
   }
 
   public set ID(id:string)
   {
-    this.id = id;
+    this._id = id;
   }
 }
 

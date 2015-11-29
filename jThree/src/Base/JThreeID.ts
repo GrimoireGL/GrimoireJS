@@ -1,13 +1,25 @@
 import JThreeObject = require("./JThreeObject");
-
+/**
+ * Unique ID generator for jThree objects.
+ * @type {[type]}
+ */
 class JThreeID extends JThreeObject
 {
-  private static randomChars:string="abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ1234567890-";
+  /**
+   * Random characters being used for generating unique id.
+   * @type {string}
+   */
+  private static _randomChars:string="abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ1234567890-";
 
+  /**
+   * Generate random string
+   * @param  {number} length length of random string
+   * @return {string}        generated string
+   */
   public static getUniqueRandom(length: number): string {
       var random: string = "";
       for (var i = 0; i < length; i++) {
-          random += JThreeID.randomChars.charAt(Math.random() * JThreeID.randomChars.length);
+          random += JThreeID._randomChars.charAt(Math.random() * JThreeID._randomChars.length);
       }
       return random;
   }

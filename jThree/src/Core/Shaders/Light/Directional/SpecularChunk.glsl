@@ -11,7 +11,7 @@ vec3 calcDirectionalLight(vec3 position,vec3 normal,int i,vec3 specular,float sp
    if(!isInTextureUVRange(shadowMapTextureCoord.xy/shadowMapTextureCoord.w))return accum;//If this point was out of range in shadow map, this code will not care about shadow in this point
    vec3 lightSpaceRawDepthShadowMap = texture2DProj(shadowMap,shadowMapTextureCoord).rgb;
    highp float lightSpaceDepth = unpackFloat(lightSpaceRawDepthShadowMap);
-   if((shadowMapCoord.z/shadowMapCoord.w - lightSpaceDepth) > shadowParamVec.z)
+   if(lightSpaceDepth < shadowMapCoord.z/shadowMapCoord.w - shadowParamVec.z)
    {
      return vec3(0,0,0);
    }else
