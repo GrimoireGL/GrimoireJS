@@ -51,7 +51,6 @@
     "gulp-util": "^3.0.6",
     "gulp-watchify": "^0.5.0",
     "js-cookie": "^2.0.4",
-    "jsdom": "^3.1.2",
     "json-loader": "^0.5.1",
     "lodash": "^3.10.1",
     "mocha": "^2.3.4",
