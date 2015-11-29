@@ -13,6 +13,7 @@ uglify = require 'gulp-uglify'
 gulpif = require 'gulp-if'
 tsify = require 'tsify'
 shaderify = require 'shaderify'
+txtify = require 'txtify'
 jade = require 'gulp-jade'
 fs = require 'fs'
 _ = require 'lodash'
@@ -164,6 +165,7 @@ Object.keys(config).forEach (suffix) ->
             bundleExternal: c.target == 'web'
             setup: (b) ->
               b.transform shaderify
+              b.transform txtify
               b.plugin tsify, {target: "es5"}
               b.transform envify
                 NODE_ENV: if env_production then 'production' else 'development'

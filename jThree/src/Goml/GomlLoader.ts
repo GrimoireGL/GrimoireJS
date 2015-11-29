@@ -139,6 +139,7 @@ class GomlLoader extends jThreeObject {
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.nodeManager.ready = true;
     this.nodeManager.loadedHandler.fire(this, source);
+    this.gomlLoadingDeferred.resolve(null);
   }
 
 

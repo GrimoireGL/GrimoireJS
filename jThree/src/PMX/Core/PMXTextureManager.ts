@@ -1,5 +1,6 @@
 import PMXModel = require("./PMXModel");
 import JThreeLogger = require("../../Base/JThreeLogger");
+import Q = require("q");
 class PMXTextureManager
 {
   private model:PMXModel;

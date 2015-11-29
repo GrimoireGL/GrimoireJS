@@ -5,17 +5,23 @@ import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import CanvasNodeBase = require('./CanvasNodeBase');
 import Delegates = require("../../../Base/Delegates");
+import ResourceLoader = require("../../../Core/ResourceLoader");
 
 class CanvasNode extends CanvasNodeBase {
     public canvasElement: HTMLCanvasElement;
     public targetFrame: HTMLElement;
-    public resizeIframeWindow: Window;
     private resizedFunctions: Delegates.Action1<CanvasNode>[] = [];
 
     constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
         super(elem, parent);
         //generate canvas
         this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
+        var defaultLoader;
+        if(this.attributes.getValue("loader") !=="undefined" && this.nodeManager.nodeRegister.hasAlias("jthree.loader"))
+        {
+          defaultLoader = (this.nodeManager.nodeRegister.getObject("jthree.loader",this.attributes.getValue("loader")) as any).loaderHTML;
+        }
+        if(!defaultLoader)defaultLoader = require('../../../static/defaultLoader.html');
 
         //frame resize
         var resizeElement = document.createElement("div");
@@ -23,48 +29,41 @@ class CanvasNode extends CanvasNodeBase {
         resizeElement.style.margin = "0";
         resizeElement.style.padding = "0";
         resizeElement.style.height = "100%";
-
-        var resizeIframe = document.createElement("iframe");
-        resizeIframe.style.position = "absolute";
-        resizeIframe.style.width = "100%";
-        resizeIframe.style.height = "100%";
-        resizeIframe.style.margin = "0";
-        resizeIframe.style.padding = "0";
-        resizeIframe.style.verticalAlign = "bottom";
-        resizeIframe.setAttribute("frameborder", "0");
-        resizeIframe.setAttribute("scrolling", "no");
-        resizeIframe.setAttribute("name", "jThreeResizeIframe");
-        resizeElement.appendChild(resizeIframe);
-        this.targetFrame.insertBefore(resizeElement, this.targetFrame.firstChild);
-
-        var frameList = window.frames;
-        for (var i = 0, l = frameList.length; i < l; i++) {
-            if (frameList[ i ].name === "jThreeResizeIframe") {
-                this.resizeIframeWindow = frameList[i];
-                break;
-            }
-        }
-        resizeIframe.setAttribute("name", "");
-
-        this.resizeIframeWindow.addEventListener("resize", this.resize.bind(this), false);
+        this.targetFrame.appendChild(resizeElement);
 
         this.canvasElement = document.createElement("canvas");
-        this.canvasElement.style.position = "relative";
+        this.canvasElement.style.position = "absolute";
 
         if (this.targetFrame) resizeElement.appendChild(this.canvasElement);
         this.canvasElement.classList.add("x-j3-c-" + this.ID);
         //initialize contexts
         this.setCanvas(Canvas.fromCanvasElement(this.canvasElement));
         JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);
-        // this.attributes.defineAttribute({
-        //     "fullscreen":
-        //     {
-        //         value: false, converter: "boolean", handler: (v) => {
-        //             this.Canvas.FullScreen = v.Value;
-        //         }
-        //     }
-        // });
+
+        var loaderContainer = document.createElement('div');
+        loaderContainer.style.position = 'absolute';
+        loaderContainer.style.width = this.canvasElement.width + "px";
+        loaderContainer.style.height = this.canvasElement.height + "px";
+        loaderContainer.classList.add("x-j3-loader-container");
+        loaderContainer.innerHTML = defaultLoader;
+        resizeElement.appendChild(loaderContainer);
         this.attributes.applyDefaultValue();
+        var progressLoaders = loaderContainer.querySelectorAll(".x-j3-loader-progress");
+        JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).promise.then(()=>
+      {
+        var loaders = resizeElement.querySelectorAll(".x-j3-loader-container");
+        for(var i = 0; i < loaders.length;i++)
+        {
+          var loader = loaders.item(i);
+          loader.remove();
+        }
+      },()=>{},(p)=>{
+        for(var i = 0; i < progressLoaders.length;i++)
+        {
+          var progress = <HTMLDivElement>progressLoaders.item(i);
+          progress.style.width = p.completedResource/p.resourceCount*100+"%";
+        }
+      });
     }
 
     public get Frame(): string {

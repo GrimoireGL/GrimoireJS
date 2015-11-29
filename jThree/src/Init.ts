@@ -14,6 +14,7 @@ import NodeManager = require("./Goml/NodeManager");
 import ContextTimer = require("./Core/ContextTimer");
 import Debugger = require("./Debug/Debugger");
 import GomlLoader = require("./Goml/GomlLoader");
+import ResourceLoader = require("./Core/ResourceLoader");
 
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
@@ -79,6 +80,7 @@ class JThreeInit {
     JThreeContext.init();
     JThreeContext.registerContextComponent(new ContextTimer());
     JThreeContext.registerContextComponent(new LoopManager());
+    JThreeContext.registerContextComponent(new ResourceLoader());
     JThreeContext.registerContextComponent(new SceneManager());
     JThreeContext.registerContextComponent(new CanvasManager());
     JThreeContext.registerContextComponent(new ResourceManager());
