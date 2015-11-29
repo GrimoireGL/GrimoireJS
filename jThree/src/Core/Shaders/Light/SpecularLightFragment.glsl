@@ -30,6 +30,7 @@ vec3 getNormal()
 {
 	highp vec2 compressed = texture2D(primary,vUV).xy;
 	highp vec3 result;
+	if(length(compressed)==0.)return vec3(0,0,-1);
 	result.z = 2. * (length(compressed)*length(compressed)-0.5);
 	result.xy = compressed * sqrt(1./(result.z*result.z)-1.);
 	return normalize(result);

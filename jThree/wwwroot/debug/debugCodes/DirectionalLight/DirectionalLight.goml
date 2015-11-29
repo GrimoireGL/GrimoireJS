@@ -35,7 +35,7 @@
       </mesh>
       <mesh geo="cube" mat="red" position="6,0,0">
       </mesh>
-      <mesh geo="quad" mat="red" scale="10" position="0,0,-4" rotation="y(10d)"/>
+      <mesh geo="quad" mat="red" scale="10" position="0,0,-4"/>
       <mesh geo="cube" mat="red" position="-6,0,0">
       </mesh>
       <pmx scale="0.2" src="/resource/model/GUMI/GUMI.pmx" position="0,0,0">
