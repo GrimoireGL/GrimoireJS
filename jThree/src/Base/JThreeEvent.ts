@@ -9,19 +9,14 @@ class JThreeEvent<T> extends JThreeObject
   /**
   * The variable to contain handlers references.
   */
-  private eventHandlers:Delegates.Action2<any,T>[]=[];
-
-  constructor()
-  {
-    super();
-  }
+  private _eventHandlers:Delegates.Action2<any,T>[]=[];
 
   /**
   * Call all of handler you subscribed.
   */
   public fire(object:any,eventArg:T):void
   {
-    this.eventHandlers.forEach((h)=>h(object,eventArg));
+    this._eventHandlers.forEach((h)=>h(object,eventArg));
   }
 
   /**
@@ -31,7 +26,7 @@ class JThreeEvent<T> extends JThreeObject
   public addListener(handler:Delegates.Action2<any,T>):void
   {
     if(typeof handler === "undefined")throw new Exceptions.InvalidArgumentException("you can not add undefined as event handler");
-    this.eventHandlers.push(handler);
+    this._eventHandlers.push(handler);
   }
 
   /**
@@ -40,11 +35,11 @@ class JThreeEvent<T> extends JThreeObject
   */
   public removeListener(handler:Delegates.Action2<any,T>):void
   {
-    for (var i = 0;i <this.eventHandlers.length;i++) {
-        var val = this.eventHandlers[i];
+    for (var i = 0;i <this._eventHandlers.length;i++) {
+        var val = this._eventHandlers[i];
         if(val ===handler)
         {
-          this.eventHandlers.splice(i,1);
+          this._eventHandlers.splice(i,1);
           break;
         }
     }

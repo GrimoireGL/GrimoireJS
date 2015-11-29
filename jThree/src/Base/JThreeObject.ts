@@ -1,12 +1,24 @@
 import JsHack = require("./JsHack");
-import IStringConvertable = require("./IStringConvertable");
-class JThreeObject implements IStringConvertable
+/**
+ * Most based object for any jthree related classes.
+ * @type {[type]}
+ */
+class JThreeObject
 {
-    public toString(): string {
+  /**
+   * Obtain stringfied object.
+   * If this method was not overridden, this method return class name.
+   * @return {string} stringfied object
+   */
+  public toString(): string {
       return JsHack.getObjectName(this);
   }
 
-    public getTypeName(): string {
+  /**
+   * Obtain class name
+   * @return {string} Class name of the instance.
+   */
+  public getTypeName(): string {
       return JsHack.getObjectName(this);
   }
 }

@@ -11,6 +11,7 @@ import AABB = require("../../../Math/AABB");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import Debugger = require("../../../Debug/Debugger");
+
 /**
  * Provides directional light feature.
  * Parameters:
