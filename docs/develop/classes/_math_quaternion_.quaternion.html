@@ -1,0 +1,1006 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Quaternion | jThree</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script src="../assets/js/modernizr.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">jThree</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_math_quaternion_.html">&quot;Math/Quaternion&quot;</a>
+				</li>
+				<li>
+					<a href="_math_quaternion_.quaternion.html">Quaternion</a>
+				</li>
+			</ul>
+			<h1>Class Quaternion</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The class to maniplate quaternion.
+							Basically,you don&#39;t need to operate raw element.
+							You consider to use some of useful methods without editing raw element forcelly.
+							Each element will be represented as (w;x,y,z)
+							(1,i,j,k) is base axis for quaternion. (i,j,k is pure imaginary number)
+						(w;x,y,z) means w<em>1+x</em>i+y<em>j+z</em>k</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="_base_jthreeobject_.jthreeobject.html" class="tsd-signature-type">JThreeObject</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Quaternion</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_base_istringconvertable_.istringconvertable.html" class="tsd-signature-type">IStringConvertable</a></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#rawelements" class="tsd-kind-icon">raw<wbr>Elements</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#conjugate" class="tsd-kind-icon">Conjugate</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#imaginarypart" class="tsd-kind-icon">Imaginary<wbr>Part</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#length" class="tsd-kind-icon">Length</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#w" class="tsd-kind-icon">W</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#x" class="tsd-kind-icon">X</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#y" class="tsd-kind-icon">Y</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#z" class="tsd-kind-icon">Z</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#eularangles" class="tsd-kind-icon">eular<wbr>Angles</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#identity" class="tsd-kind-icon">Identity</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#factoringquaternionxyz" class="tsd-kind-icon">Factoring<wbr>QuaternionXYZ</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#factoringquaternionzxy" class="tsd-kind-icon">Factoring<wbr>QuaternionZXY</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#inverse" class="tsd-kind-icon">Inverse</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#normalize" class="tsd-kind-icon">Normalize</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_math_quaternion_.quaternion.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_math_quaternion_.quaternion.html#toangleaxisstring" class="tsd-kind-icon">to<wbr>Angle<wbr>Axis<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_math_quaternion_.quaternion.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#add" class="tsd-kind-icon">Add</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#angle" class="tsd-kind-icon">Angle</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#angleaxis" class="tsd-kind-icon">Angle<wbr>Axis</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#euler" class="tsd-kind-icon">Euler</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#eulerxyz" class="tsd-kind-icon">EulerXYZ</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#fromtorotation" class="tsd-kind-icon">From<wbr>ToRotation</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#lookrotation" class="tsd-kind-icon">Look<wbr>Rotation</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#multiply" class="tsd-kind-icon">Multiply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_math_quaternion_.quaternion.html#slerp" class="tsd-kind-icon">Slerp</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Quaternion<span class="tsd-signature-symbol">(</span>rawElements<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IArray</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L19">Math/Quaternion.ts:19</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructor by specifing each elements.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>rawElements: <span class="tsd-signature-type">IArray</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="rawelements" class="tsd-anchor"></a>
+					<h3>raw<wbr>Elements</h3>
+					<div class="tsd-signature tsd-kind-icon">raw<wbr>Elements<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IArray</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L31">Math/Quaternion.ts:31</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="conjugate" class="tsd-anchor"></a>
+					<h3>Conjugate</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Conjugate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L88">Math/Quaternion.ts:88</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the conjugate of this quaternion</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="imaginarypart" class="tsd-anchor"></a>
+					<h3>Imaginary<wbr>Part</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ImaginaryPart<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L80">Math/Quaternion.ts:80</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for imaginary part vector.
+									It returns the vector (x,y,z)</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="length" class="tsd-anchor"></a>
+					<h3>Length</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Length<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L97">Math/Quaternion.ts:97</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the length</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="w" class="tsd-anchor"></a>
+					<h3>W</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> W<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L71">Math/Quaternion.ts:71</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for W.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="x" class="tsd-anchor"></a>
+					<h3>X</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> X<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L47">Math/Quaternion.ts:47</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for X.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="y" class="tsd-anchor"></a>
+					<h3>Y</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Y<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L55">Math/Quaternion.ts:55</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for Y.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="z" class="tsd-anchor"></a>
+					<h3>Z</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Z<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L63">Math/Quaternion.ts:63</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Getter for Z.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="eularangles" class="tsd-anchor"></a>
+					<h3>eular<wbr>Angles</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> eularAngles<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> eularAngles<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L33">Math/Quaternion.ts:33</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L39">Math/Quaternion.ts:39</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>v: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+					<a name="identity" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Identity</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Identity<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L16">Math/Quaternion.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="factoringquaternionxyz" class="tsd-anchor"></a>
+					<h3>Factoring<wbr>QuaternionXYZ</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Factoring<wbr>QuaternionXYZ<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L259">Math/Quaternion.ts:259</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="factoringquaternionzxy" class="tsd-anchor"></a>
+					<h3>Factoring<wbr>QuaternionZXY</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Factoring<wbr>QuaternionZXY<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L239">Math/Quaternion.ts:239</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="inverse" class="tsd-anchor"></a>
+					<h3>Inverse</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Inverse<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L111">Math/Quaternion.ts:111</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="normalize" class="tsd-anchor"></a>
+					<h3>Normalize</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Normalize<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L104">Math/Quaternion.ts:104</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get normalized quaternion</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="gettypename" class="tsd-anchor"></a>
+					<h3>get<wbr>Type<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Type<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#gettypename">getTypeName</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L9">Base/JThreeObject.ts:9</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="toangleaxisstring" class="tsd-anchor"></a>
+					<h3>to<wbr>Angle<wbr>Axis<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Angle<wbr>Axis<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L223">Math/Quaternion.ts:223</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_istringconvertable_.istringconvertable.html">IStringConvertable</a>.<a href="../interfaces/_base_istringconvertable_.istringconvertable.html#tostring">toString</a></p>
+								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L5">Base/JThreeObject.ts:5</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="add" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Add</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Add<span class="tsd-signature-symbol">(</span>q1<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, q2<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L120">Math/Quaternion.ts:120</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculate add result of two quaternion</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>q1: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+								<li>
+									<h5>q2: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="angle" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Angle</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Angle<span class="tsd-signature-symbol">(</span>q1<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, q2<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L172">Math/Quaternion.ts:172</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the angle in degrees between two rotations q1 and q2.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>q1: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the quaternion represents begin angle.</p>
+									</div>
+								</li>
+								<li>
+									<h5>q2: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the quaternion represents end angle.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>angle represented in radians.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="angleaxis" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Angle<wbr>Axis</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Angle<wbr>Axis<span class="tsd-signature-symbol">(</span>angle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, axis<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L139">Math/Quaternion.ts:139</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculate the rotation quaternion represented as pair of angle and axis.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>angle: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>axis: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="euler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Euler</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Euler<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L149">Math/Quaternion.ts:149</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>z: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="eulerxyz" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> EulerXYZ</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">EulerXYZ<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L154">Math/Quaternion.ts:154</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>z: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="fromtorotation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> From<wbr>ToRotation</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">From<wbr>ToRotation<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a>, to<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L179">Math/Quaternion.ts:179</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>from: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+								<li>
+									<h5>to: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="lookrotation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Look<wbr>Rotation</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Look<wbr>Rotation<span class="tsd-signature-symbol">(</span>forward<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a>, upVec<span class="tsd-signature-symbol">?: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L186">Math/Quaternion.ts:186</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>forward: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> upVec: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="multiply" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Multiply</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Multiply<span class="tsd-signature-symbol">(</span>q1<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, q2<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L130">Math/Quaternion.ts:130</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Calculate Multiply result of two quaternion</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>q1: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+								<li>
+									<h5>q2: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="slerp" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Slerp</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">Slerp<span class="tsd-signature-symbol">(</span>q1<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, q2<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, t<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/Quaternion.ts#L160">Math/Quaternion.ts:160</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>q1: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+								<li>
+									<h5>q2: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+								<li>
+									<h5>t: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_math_quaternion_.html">"<wbr>Math/<wbr>Quaternion"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_math_quaternion_.quaternion.html" class="tsd-kind-icon">Quaternion</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#rawelements" class="tsd-kind-icon">raw<wbr>Elements</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#conjugate" class="tsd-kind-icon">Conjugate</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#imaginarypart" class="tsd-kind-icon">Imaginary<wbr>Part</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#length" class="tsd-kind-icon">Length</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#w" class="tsd-kind-icon">W</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#x" class="tsd-kind-icon">X</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#y" class="tsd-kind-icon">Y</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#z" class="tsd-kind-icon">Z</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#eularangles" class="tsd-kind-icon">eular<wbr>Angles</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#identity" class="tsd-kind-icon">Identity</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#factoringquaternionxyz" class="tsd-kind-icon">Factoring<wbr>QuaternionXYZ</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#factoringquaternionzxy" class="tsd-kind-icon">Factoring<wbr>QuaternionZXY</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#inverse" class="tsd-kind-icon">Inverse</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#normalize" class="tsd-kind-icon">Normalize</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_math_quaternion_.quaternion.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_math_quaternion_.quaternion.html#toangleaxisstring" class="tsd-kind-icon">to<wbr>Angle<wbr>Axis<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_math_quaternion_.quaternion.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#add" class="tsd-kind-icon">Add</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#angle" class="tsd-kind-icon">Angle</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#angleaxis" class="tsd-kind-icon">Angle<wbr>Axis</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#euler" class="tsd-kind-icon">Euler</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#eulerxyz" class="tsd-kind-icon">EulerXYZ</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#fromtorotation" class="tsd-kind-icon">From<wbr>ToRotation</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#lookrotation" class="tsd-kind-icon">Look<wbr>Rotation</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#multiply" class="tsd-kind-icon">Multiply</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="_math_quaternion_.quaternion.html#slerp" class="tsd-kind-icon">Slerp</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.io" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
