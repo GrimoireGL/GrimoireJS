@@ -6,24 +6,10 @@ import GomlNodeEventList = require("./GomlNodeEventList");
  */
 class TreeNodeBase extends JThreeObjectWithID
 {
-	constructor(elem:HTMLElement,parent?:TreeNodeBase)
+	constructor(parent?:TreeNodeBase)
 	{
 		super();
-		this.element=elem;
 		if(parent!=null)parent.addChild(this);
-	}
-
-	/**
-	 * The HTMLElement related to this element.
-	 */
-	protected element:HTMLElement;
-
-    /**
-     * HTMLElement related to this element.
-     */
-	public get Element():HTMLElement
-	{
-		return this.element;
 	}
 
 	/**

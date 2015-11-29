@@ -8,6 +8,11 @@ class BehaviorsNode extends GomlTreeNodeBase
   {
       super(elem,parent);
       this.componentTarget=parent;
+      this.attributes.defineAttribute({
+          "name": {
+              value: 128, converter: "number", handler: (v) => { this.sizeChanged(v.Value,this.attributes.getValue("height")) }
+          },
+      });
   }
 
   private componentTarget:GomlTreeNodeBase;

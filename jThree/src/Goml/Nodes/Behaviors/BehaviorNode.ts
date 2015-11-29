@@ -6,9 +6,9 @@ class BehaviorNode extends GomlTreeNodeBase
 {
   private static ignoreNode:string[]=["name","cachedOrder","cachedEnabled","children","parent","element"];
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,componentTarget:GomlTreeNodeBase)
+  constructor(parent:GomlTreeNodeBase,componentTarget:GomlTreeNodeBase)
   {
-      super(elem,parent);
+      super(parent);
       this.componentTarget=componentTarget;
      this.componentName=elem.getAttribute("name");
       if(this.componentName)

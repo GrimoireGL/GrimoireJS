@@ -13,17 +13,13 @@ class AttributeDictionary extends JThreeObject {
 
   /**
    * @param {node} the node this attribute dictionary has.
-   * @param {element} the element bound to this node.
    */
-  constructor(node: GomlTreeNodeBase, element: HTMLElement) {
+  constructor(node: GomlTreeNodeBase) {
     super();
-    this.element = element;
     this.node = node;
   }
 
   private node: GomlTreeNodeBase;
-
-  private element: HTMLElement;
 
   private attributes: JThreeCollection<GomlAttribute> = new JThreeCollection<GomlAttribute>();
 
@@ -76,7 +72,7 @@ class AttributeDictionary extends JThreeObject {
   public defineAttribute(attributes: AttributeDeclaration) {
     for (var key in attributes) {
       var attribute = attributes[key];
-      this.attributes.insert(new GomlAttribute(this.node, this.element, key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.handler,attribute.constant));
+      this.attributes.insert(new GomlAttribute(this.node, key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.handler,attribute.constant));
     }
   }
 

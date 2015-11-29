@@ -9,18 +9,9 @@ import JThreeEvent = require('../Base/JThreeEvent');
 class GomlAttribute extends JThreeObjectWithID
 {
     /**
-     * Reference to HTMLElement that whose attribute is managed by this class.
-     */
-    protected element: HTMLElement;
-    /**
-     * Whether this attribute was cached already or not.
-     */
-    protected cached: boolean = false;
-    /**
      * The cache value for attribute.
-     * If this.cached was false, this value can be undefined.
      */
-    protected value: any = undefined;
+    protected value: any;
     /**
      * Reference to converter class that will manage to parse,cast to string and animation.
      */
@@ -32,7 +23,7 @@ class GomlAttribute extends JThreeObjectWithID
     /**
      * Reference to GomlTreeNodeBase that contains this attribute.
      */
-    protected managedClass: GomlTreeNodeBase;
+    protected node: GomlTreeNodeBase;
     /**
      * Whether it is need or not when update.
      */
@@ -50,15 +41,14 @@ class GomlAttribute extends JThreeObjectWithID
         this.needNotifyUpdate = val;
     }
 
-    constructor(node: GomlTreeNodeBase, element: HTMLElement, name: string, value: any, converter: AttributeConverterBase, handler?: Delegates.Action1<GomlAttribute>,constant?:boolean)
+    constructor(node: GomlTreeNodeBase, name: string, value: any, converter: AttributeConverterBase, handler?: Delegates.Action1<GomlAttribute>,constant?:boolean)
     {
         super(name);
         if (typeof constant === "undefined") constant = false;
         this.constant = constant;
-        this.element = element;
         this.converter = converter;
         this.value = converter.FromInterface(value);
-        this.managedClass = node;
+        this.node = node;
         if (handler) this.onchangedHandlers.addListener(handler);
     }
 
@@ -69,19 +59,7 @@ class GomlAttribute extends JThreeObjectWithID
 
     public get Value(): any
     {
-        if (this.cached)
-        {
-            return this.value;
-        } else
-        {
-            var attr = this.element.getAttribute(this.Name);
-            if (attr)
-            {//if attribute was specified, cache this attribute.
-                this.value = this.Converter.FromAttribute(this.element.getAttribute(this.Name));
-                this.cached = true;
-            }//if attribute was not specified, it will return default value of this attribute.
-            return this.value;
-        }
+        return this.value;
     }
 
     public get Constant(): boolean {
@@ -91,8 +69,6 @@ class GomlAttribute extends JThreeObjectWithID
     public set Value(val: any) {
         if (this.Constant)return;
         this.value = this.Converter.FromInterface(val);
-        this.element.setAttribute(this.Name, this.Converter.ToAttribute(val));
-        this.cached = true;
         if (this.NeedNotifyUpdate) this.notifyValueChanged();
     }
 

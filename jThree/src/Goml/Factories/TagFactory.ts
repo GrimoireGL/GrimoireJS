@@ -28,8 +28,8 @@ class TagFactory extends jThreeObject {
         return false;
     }
 
-    public CreateNodeForThis(elem: HTMLElement, parent: GomlTreeNodeBase): GomlTreeNodeBase {
-        return new this.nodeType(elem,parent);
+    public CreateNodeForThis(parent: GomlTreeNodeBase): GomlTreeNodeBase {
+        return new this.nodeType(parent);
     }
 
     protected getTag(name:string): TagFactory {

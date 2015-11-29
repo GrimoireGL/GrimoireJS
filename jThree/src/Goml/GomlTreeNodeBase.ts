@@ -10,18 +10,15 @@ import AssociativeArray = require("../Base/Collections/AssociativeArray");
  */
 class GomlTreeNodeBase extends TreeNodeBase
 {
-    constructor(elem:HTMLElement, parent?:TreeNodeBase) {
-        super(elem, parent);
+    constructor(parent?:TreeNodeBase) {
+        super(parent);
 
         //load node manager
         this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
-        //configure class name and attribute to HTMLElement to make it easy to find this node in next time.
-        elem.classList.add("x-j3-" + this.ID);
-        elem.setAttribute('x-j3-id', this.ID);
         //after configuration, this node is going to add to NodesById
         this.nodeManager.NodesById.set(this.ID, this);
-        this.attributes=new AttributeDictionary(this, elem);
+        this.attributes=new AttributeDictionary(this);
     }
 
     public nodeManager: NodeManager;
