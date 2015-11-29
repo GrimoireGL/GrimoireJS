@@ -12,8 +12,16 @@ class CanvasNode extends CanvasNodeBase {
     public targetFrame: HTMLElement;
     private resizedFunctions: Delegates.Action1<CanvasNode>[] = [];
 
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-        super(elem, parent);
+    constructor(parent: GomlTreeNodeBase) {
+        super(parent);
+        this.attributes.defineAttribute({
+          'frame': {
+            value: undefined,
+            converter: 'string',
+            handler: (v) => {
+            },
+          }
+        });
         //generate canvas
         this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
         var defaultLoader;
@@ -67,7 +75,7 @@ class CanvasNode extends CanvasNodeBase {
     }
 
     public get Frame(): string {
-        return this.element.getAttribute("frame") || "body";
+      return this.attributes.getValue("frame") || "body";
     }
 
     /**

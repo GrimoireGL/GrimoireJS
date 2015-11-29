@@ -3,8 +3,8 @@ import Delegates = require("../../../Base/Delegates");
 import TreeNodeBase = require("../../TreeNodeBase");
 import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
 class GomlNode extends GomlTreeNodeBase {
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-    super(elem, parent);
+  constructor(parent: GomlTreeNodeBase) {
+    super(parent);
   }
 
   /**

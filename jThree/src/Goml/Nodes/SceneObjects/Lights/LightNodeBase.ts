@@ -7,8 +7,8 @@ class LightNodeBase extends SceneObjectNodeBase {
 
 	private targetLightBase:LightBase;
 
-	constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-		super(elem, parent, parentSceneNode, parentObject);
+	constructor(parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
+		super(parent, parentSceneNode, parentObject);
 		this.attributes.defineAttribute({
 			"color":{
 				value:"white",converter:"color4",handler:(v)=>{

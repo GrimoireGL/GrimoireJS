@@ -4,9 +4,10 @@ import TreeNodeBase = require("../../TreeNodeBase");
 class LoaderNode extends GomlTreeNodeBase {
   public loaderHTML:string;
 
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-    super(elem, parent);
-    this.loaderHTML = elem.innerHTML;
+  constructor(parent: GomlTreeNodeBase) {
+    super(parent);
+    // this.loaderHTML = elem.innerHTML;
+    this.loaderHTML = ''; // TODO: pnly
     this.attributes.defineAttribute(
       {
         "name":{

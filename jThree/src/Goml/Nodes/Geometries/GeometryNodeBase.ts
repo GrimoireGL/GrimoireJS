@@ -6,9 +6,18 @@ import Geometry = require("../../../Core/Geometries/Geometry");
 */
 class GomlTreeGeometryNode extends GomlTreeNodeBase
 {
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
+  constructor(parent:GomlTreeNodeBase)
   {
-      super(elem,parent);
+      super(parent);
+      this.attributes.defineAttribute({
+        'name': {
+          value: undefined,
+          converter: 'string',
+          handler: (v) => {
+            this.name = v.Value
+          },
+        }
+      });
   }
 
   private name:string;
@@ -17,19 +26,8 @@ class GomlTreeGeometryNode extends GomlTreeNodeBase
   * Identical Name for geometry
   */
     public get Name():string{
-    this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
+    this.name = this.name || JThreeID.getUniqueRandom(10);
     return this.name;
-  }
-
-  private lazy:boolean=undefined;
-  /**
-  * GOML Attribute
-  * If this Attribute was true, this resource will be loaded when be used first.
-  */
-    public get Lazy():boolean
-  {
-    this.lazy=typeof this.lazy === 'undefined'?this.element.getAttribute('lazy').toLowerCase()=='true':this.lazy;
-    return this.lazy;
   }
 
   private targetGeometry:Geometry;

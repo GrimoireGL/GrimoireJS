@@ -10,9 +10,16 @@ class MaterialNodeBase extends GomlTreeNodeBase
       return null;
     }
 
-    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
-        super(elem,parent);
+    constructor(parent:GomlTreeNodeBase) {
+        super(parent);
         this.attributes.defineAttribute({
+          'name': {
+            value: undefined,
+            converter: 'string',
+            handler: (v) => {
+              this.name = v.Value;
+            }
+          }
         });
     }
 
@@ -28,7 +35,7 @@ class MaterialNodeBase extends GomlTreeNodeBase
     * Identical Name for camera
     */
     public get Name():string{
-      this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
+      this.name=this.name || JThreeID.getUniqueRandom(10);
       return this.name;
     }
 

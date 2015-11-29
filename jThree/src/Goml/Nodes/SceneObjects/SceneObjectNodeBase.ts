@@ -5,19 +5,21 @@ import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
 import AttributeParser = require("../../AttributeParser");
 class SceneObjectNodeBase extends GomlTreeNodeBase {
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: SceneNode, parentObject: SceneObjectNodeBase) {
-    super(elem, parent);
+  constructor(parent: GomlTreeNodeBase, parentSceneNode: SceneNode, parentObject: SceneObjectNodeBase) {
+    super(parent);
     this.containedSceneNode = parentSceneNode;
     this.parentSceneObjectNode = parentObject;
     this.attributes.defineAttribute({
       "position": {
         value: new Vector3(0, 0, 0),
-        converter: "vector3", handler: (v) => {
+        converter: "vector3",
+        handler: (v) => {
           if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Position = <Vector3>v.Value; }
       },
       "scale": {
         value: new Vector3(1, 1, 1),
-        converter: "vector3", handler: (v) => { if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Scale = <Vector3>v.Value; }
+        converter: "vector3",
+        handler: (v) => { if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Scale = <Vector3>v.Value; }
       },
       "rotation":
       {
@@ -102,22 +104,19 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     return this.parentSceneObjectNode;
   }
 
-  private position: Vector3;
-
-  public get Position(): Vector3 {
-    return this.position || Vector3.parse(this.element.getAttribute('position') || "0");
+  public get Position(): Vector3
+  {
+    return this.attributes.getValue('position');
   }
 
-  private rotation: Quaternion;
-
-  public get Rotation(): Quaternion {
-    return this.rotation || AttributeParser.ParseRotation3D(this.element.getAttribute('rotation') || "x(0)");
+  public get Rotation(): Quaternion
+  {
+    return this.attributes.getValue('rotation');
   }
 
-  private scale: Vector3;
-
-  public get Scale(): Vector3 {
-    return this.scale || Vector3.parse(this.element.getAttribute('scale') || "1");
+  public get Scale(): Vector3
+  {
+    return this.attributes.getValue('scale');
   }
 
 }

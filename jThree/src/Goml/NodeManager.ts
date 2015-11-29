@@ -66,10 +66,10 @@ class NodeManager extends JThreeObject implements IContextComponent {
     return result;
   }
 
-  public instanciateTemplate(template: string, parentNode: GomlTreeNodeBase) {
-    var templateInElems = (new DOMParser()).parseFromString(template, 'text/xml').documentElement;
-    this.append(templateInElems, parentNode.Element, false);
-  }
+  // public instanciateTemplate(template: string, parentNode: GomlTreeNodeBase) {
+  //   var templateInElems = (new DOMParser()).parseFromString(template, 'text/xml').documentElement;
+  //   this.append(templateInElems, parentNode.Element, false);
+  // }
 
 
   private loadTags(top:GomlTreeNodeBase)
@@ -80,12 +80,12 @@ class NodeManager extends JThreeObject implements IContextComponent {
     top.callRecursive((v) => (<GomlTreeNodeBase>v).attributes.applyDefaultValue());
   }
 
-  public append(source: HTMLElement, parent: HTMLElement, needLoad?: boolean) {
-    if (typeof needLoad === 'undefined') needLoad = true;
-    var id = parent.getAttribute("x-j3-id");
-    var parentOfGoml = this.NodesById.get(id);
-    var loadedGomls=GomlParser.parseChild(parentOfGoml,source,this.configurator)
-    this.loadTags(loadedGomls);
+  // public append(source: HTMLElement, parent: HTMLElement, needLoad?: boolean) {
+  //   if (typeof needLoad === 'undefined') needLoad = true;
+  //   var id = parent.getAttribute("x-j3-id");
+  //   var parentOfGoml = this.NodesById.get(id);
+  //   var loadedGomls=GomlParser.parseChild(parentOfGoml,source,this.configurator)
+  //   this.loadTags(loadedGomls);
     // var loadedGomls = [];
     // this.parseChild(parentOfGoml, source, (v) => { loadedGomls.push(v) });
     // if (!needLoad) return;
@@ -93,7 +93,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
     // this.eachNode(v=> v.Load(), loadedGomls);
     // this.eachNode(v=> v.afterLoad(), loadedGomls);
     // this.eachNode(v=> v.attributes.applyDefaultValue(), loadedGomls);
-  }
+  // }
 
   /**
    * this configurator will load any tag information by require.

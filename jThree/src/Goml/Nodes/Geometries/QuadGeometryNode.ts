@@ -7,9 +7,9 @@ class QuadGeometryNode extends GeometryNodeBase
 {
   private TriGeometry:QuadGeometry;
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
+  constructor(parent:GomlTreeNodeBase)
   {
-      super(elem,parent);
+      super(parent);
   }
 
   protected ConstructGeometry():Geometry

@@ -8,9 +8,9 @@ import TextureNodeBase = require("./TextureNodeBase");
  */
 class TextureNode extends TextureNodeBase
 {
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase)
+    constructor(parent: GomlTreeNodeBase)
     {
-        super(elem, parent);
+        super(parent);
         this.attributes.defineAttribute({
             src: {
                 converter: "string",

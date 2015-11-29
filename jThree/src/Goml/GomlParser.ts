@@ -27,7 +27,7 @@ class GomlParser {
     var tagFactory = configurator.getGomlTagFactory(elem.tagName.toUpperCase());
     //if factory was not defined, there is nothing to do.
     if (tagFactory) {
-      var newNode = tagFactory.CreateNodeForThis(elem, parent);
+      var newNode = tagFactory.CreateNodeForThis(parent);
       if (newNode == null) {
         //the factory was obtained, but newNnode is null.
         //It is seem to have something wrong to create instance.

@@ -9,8 +9,8 @@ import ContextComponents = require("../../../ContextComponents");
 class DefferedDebugNode extends MaterialNodeBase {
     public material: DebugSprite;
 
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-        super(elem, parent);
+    constructor(parent: GomlTreeNodeBase) {
+        super(parent);
         this.attributes.defineAttribute({
             "target": {
                 value: "rb1", converter: "string"

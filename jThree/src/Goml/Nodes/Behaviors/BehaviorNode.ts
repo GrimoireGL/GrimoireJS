@@ -9,8 +9,16 @@ class BehaviorNode extends GomlTreeNodeBase
   constructor(parent:GomlTreeNodeBase,componentTarget:GomlTreeNodeBase)
   {
       super(parent);
+      this.attributes.defineAttribute({
+        'name': {
+          value: undefined,
+          converter: 'string',
+          handler: (v) => {
+            this.componentName = v.Value;
+          }
+        }
+      });
       this.componentTarget=componentTarget;
-     this.componentName=elem.getAttribute("name");
       if(this.componentName)
       {
         var component=this.nodeManager.behaviorRegistry.getBehavior(this.componentName);
@@ -64,16 +72,16 @@ class BehaviorNode extends GomlTreeNodeBase
           componentTarget.addBehavior(this);
           this.attributes.applyDefaultValue();
         }else{
-          console.warn(`component"${elem.getAttribute("name")}" is not found.`);
+          console.warn(`component"${this.componentName}" is not found.`);
         }
       }else{
         console.warn("component name was not specified");
      }
-      var attributes = this.Element.attributes;
-      for (var i = 0; i < attributes.length; i++) {
-          var attributeItem = attributes.item(i);
-          if(!(attributeItem.name in this))this.defineDefaultAccessor(attributeItem);
-      }
+      // var attributes = this.Element.attributes;
+      // for (var i = 0; i < attributes.length; i++) {
+      //     var attributeItem = attributes.item(i);
+      //     if(!(attributeItem.name in this))this.defineDefaultAccessor(attributeItem);
+      // }
   }
 
   private defineDefaultAccessor(attr: Attr) {

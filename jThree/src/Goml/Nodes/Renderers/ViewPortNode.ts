@@ -25,9 +25,19 @@ class ViewPortNode extends GomlTreeNodeBase {
     return this.targetRenderer;
   }
 
-    constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
+    constructor(parent:GomlTreeNodeBase)
     {
-        super(elem,parent);
+        super(parent);
+        this.attributes.defineAttribute({
+          'cam': {
+            value: undefined,
+            converter: 'string',
+            handler: (v) => {
+              this.cam = v.Value;
+              this.resolveCamera();
+            }
+          }
+        });
     }
 
     public afterLoad(){
@@ -190,7 +200,6 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     public get Cam():string
     {
-      this.cam=this.cam||this.element.getAttribute('cam');
       return this.cam;
     }
 

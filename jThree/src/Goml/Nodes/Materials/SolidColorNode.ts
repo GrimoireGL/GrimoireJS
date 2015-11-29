@@ -7,8 +7,8 @@ class SolidColorNode extends MaterialNodeBase
 {
     public material:SolidColor;
 
-    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
-        super(elem,parent);
+    constructor(parent:GomlTreeNodeBase) {
+        super(parent);
         this.attributes.defineAttribute({
           "color":{
             value:"#0FC",converter:"color4",handler:(v)=>{this.material.Color=v.Value}

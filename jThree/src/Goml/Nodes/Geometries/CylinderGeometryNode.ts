@@ -6,9 +6,9 @@ class CylinderGeometryNode extends GeometryNodeBase
 {
   private gridGeometry:CylinderGeometry;
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
+  constructor(parent:GomlTreeNodeBase)
   {
-      super(elem,parent);
+      super(parent);
       this.attributes.defineAttribute
       (
         {

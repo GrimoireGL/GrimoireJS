@@ -7,8 +7,8 @@ import GomlTreeCameraNodeBase = require("./CameraNodeBase");
 
 class OrthoCameraNode extends GomlTreeCameraNodeBase {
 
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-    super(elem, parent, parentSceneNode, parentObject);
+  constructor(parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
+    super(parent, parentSceneNode, parentObject);
     this.attributes.defineAttribute(
       {
         "left": {

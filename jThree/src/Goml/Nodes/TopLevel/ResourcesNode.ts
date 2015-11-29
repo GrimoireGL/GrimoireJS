@@ -1,8 +1,8 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
 class ResourcesNode extends OrderedTopLevelNodeBase {
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-    super(elem, parent);
+  constructor(parent: GomlTreeNodeBase) {
+    super(parent);
   }
 
   public get loadPriorty():number

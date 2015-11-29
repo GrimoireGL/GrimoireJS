@@ -1,8 +1,8 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Canvas = require("../../../Core/Canvas");
 class CanvasNodeBase extends GomlTreeNodeBase {
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-        super(elem, parent);
+    constructor(parent: GomlTreeNodeBase) {
+        super(parent);
         this.attributes.defineAttribute({
             "width": {
                 value: 128, converter: "number", handler: (v) => { this.sizeChanged(v.Value,this.attributes.getValue("height")) }

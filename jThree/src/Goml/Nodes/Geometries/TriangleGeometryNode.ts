@@ -8,9 +8,32 @@ class GomlTreeTriNode extends GeometryNodeBase
 {
   private TriGeometry:TriangleGeometry;
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
+  constructor(parent:GomlTreeNodeBase)
   {
-      super(elem,parent);
+      super(parent);
+      this.attributes.defineAttribute({
+        'first': {
+          value: new Vector3(-1, 0, 0),
+          converter: 'vector3',
+          handler: (v) => {
+            this.TriGeometry.First = v.Value;
+          },
+        },
+        'second': {
+          value: new Vector3(0, 1, 0),
+          converter: 'vector3',
+          handler: (v) => {
+            this.TriGeometry.Second = v.Value;
+          },
+        },
+        'third': {
+          value: new Vector3(1, 0, 0),
+          converter: 'vector3',
+          handler: (v) => {
+            this.TriGeometry.Third = v.Value;
+          },
+        },
+      });
   }
 
   protected ConstructGeometry():Geometry
@@ -21,32 +44,6 @@ class GomlTreeTriNode extends GeometryNodeBase
     public beforeLoad()
   {
     super.beforeLoad();
-    this.TriGeometry.First=this.First;
-    this.TriGeometry.Second=this.Second;
-    this.TriGeometry.Third=this.Third;
-  }
-
-  private first:Vector3;
-
-    public get First():Vector3{
-    this.first=this.first||Vector3.parse(this.element.getAttribute('first')||"(-1,0,0)");
-    return this.first;
-  }
-
-  private second:Vector3;
-
-    public get Second():Vector3
-  {
-    this.second=this.second||Vector3.parse(this.element.getAttribute('second')||"(0,1,0)");
-    return this.second;
-  }
-
-  private third:Vector3;
-
-    public get Third():Vector3
-  {
-    this.third=this.third||Vector3.parse(this.element.getAttribute('third')||"(1,0,0)");
-    return this.third;
   }
 }
 

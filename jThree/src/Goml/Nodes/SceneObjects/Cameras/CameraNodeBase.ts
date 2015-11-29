@@ -14,9 +14,9 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
     return this.targetCamera;
   }
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
+  constructor(parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
   {
-      super(elem,parent,parentSceneNode,parentObject);
+      super(parent,parentSceneNode,parentObject);
       this.nodeManager.nodeRegister.addObject("jthree.camera",this.Name,this);
   }
 
@@ -46,9 +46,8 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
   * GOML Attribute
   * Identical Name for camera
   */
-    public get Name():string{
-    this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
-    return this.name;
+  public get Name():string{
+    return this.attributes.getValue('name');
   }
 }
 

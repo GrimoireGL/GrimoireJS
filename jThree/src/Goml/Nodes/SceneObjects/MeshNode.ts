@@ -10,9 +10,27 @@ class GomlTreeMeshNode extends SceneObjectNodeBase
 {
   private targetMesh:BasicMeshObject;
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
+  constructor(parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
   {
-      super(elem,parent,parentSceneNode,parentObject);
+      super(parent,parentSceneNode,parentObject);
+      this.attributes.defineAttribute({
+        'geo': {
+          value: undefined,
+          converter: 'string',
+          handler: (v) => {
+            this.geo = v.Value;
+            this.ConstructTarget();
+          }
+        },
+        'mat': {
+          value: undefined,
+          converter: 'string',
+          handler: (v) => {
+            this.mat = v.Value;
+            this.ConstructTarget();
+          },
+        }
+      });
   }
 
   protected ConstructTarget():SceneObject
@@ -36,15 +54,12 @@ class GomlTreeMeshNode extends SceneObjectNodeBase
   private geo:string;
   public get Geo():string
   {
-    this.geo=this.geo||this.element.getAttribute("geo");
     return this.geo;
   }
 
   private mat:string;
-    public JThreeObject
   public get Mat():string
   {
-    this.mat=this.mat||this.element.getAttribute("mat");
     return this.mat;
   }
 

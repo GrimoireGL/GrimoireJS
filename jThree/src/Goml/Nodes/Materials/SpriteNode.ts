@@ -9,8 +9,8 @@ import ContextComponents = require("../../../ContextComponents");
 class SpriteNode extends MaterialNodeBase {
     public material: Sprite;
 
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-        super(elem, parent);
+    constructor(parent: GomlTreeNodeBase) {
+        super(parent);
         this.attributes.defineAttribute({
             "texture":
             {//TODO implement texture node

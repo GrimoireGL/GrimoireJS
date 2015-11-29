@@ -25,9 +25,9 @@ class TextureNodeBase extends GomlTreeNodeBase
         return this.targetTexture;
     }
 
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase)
+    constructor(parent: GomlTreeNodeBase)
     {
-        super(elem, parent);
+        super(parent);
         this.attributes.defineAttribute({
             name: {
                 converter: "string",

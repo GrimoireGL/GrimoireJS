@@ -8,8 +8,8 @@ class SceneLightNode extends LightNodeBase
 {
 	private targetLight:SceneLight;
 
-	constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-		super(elem, parent, parentSceneNode, parentObject);
+	constructor(parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
+		super(parent, parentSceneNode, parentObject);
 		this.attributes.defineAttribute({
 			"intensity":{
 				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
