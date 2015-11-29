@@ -78,7 +78,7 @@ float getSpecularCoefficient()
 highp float unpackFloat(vec3 rgb){
        const vec3 bit_shift = vec3( 1.0/(256.0*256.0), 1.0/256.0, 1.0);
        highp float res = dot(rgb, bit_shift);
-       return res;
+       return res*2.0 -1.0;
 }
 
 mat4 getShadowMatrix(float shadowIndex,float paramIndex)
