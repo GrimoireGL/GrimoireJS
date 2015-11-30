@@ -37,12 +37,12 @@ class GBufferMaterial extends Material
     constructor()
     {
         super();
-        var vs = require('../Shaders/GBuffer/Vertex.glsl');
-        var fs = require('../Shaders/GBuffer/PrimaryFragment.glsl');
+        var vs = require('../../Shaders/GBuffer/Vertex.glsl');
+        var fs = require('../../Shaders/GBuffer/PrimaryFragment.glsl');
         this.primaryProgram = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
-        var fs = require('../Shaders/GBuffer/SecoundaryFragment.glsl');
+        var fs = require('../../Shaders/GBuffer/SecoundaryFragment.glsl');
         this.secoundaryProgram = this.loadProgram("jthree.shaders.gbuffer.secoundary.vs", "jthree.shaders.gbuffer.secoundary.fs", "jthree.programs.gbuffer.secoundary", vs, fs);
-        var fs = require('../Shaders/GBuffer/ThirdFragment.glsl');
+        var fs = require('../../Shaders/GBuffer/ThirdFragment.glsl');
         this.thirdProgram = this.loadProgram("jthree.shaders.gbuffer.third.vs", "jthree.shaders.gbuffer.third.fs", "jthree.programs.gbuffer.third", vs, fs);
         this.setLoaded();
     }

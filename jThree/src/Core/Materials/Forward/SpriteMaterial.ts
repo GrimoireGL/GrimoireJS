@@ -21,8 +21,8 @@ class SpriteMaterial extends Material
     constructor()
     {
         super();
-        var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-        var fs = require('../Shaders/Sprite.glsl');
+        var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
+        var fs = require('../../Shaders/Sprite.glsl');
         this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.sprite", "jthree.programs.sprite", vs, fs);
         this.setLoaded();
     }

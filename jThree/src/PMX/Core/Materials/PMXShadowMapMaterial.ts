@@ -1,18 +1,18 @@
-import Material = require('../../Core/Materials/Material');
-import Program = require("../../Core/Resources/Program/Program");
-import RendererBase = require("../../Core/Renderers/RendererBase");
-import Geometry = require("../../Core/Geometries/Geometry");
-import SceneObject = require("../../Core/SceneObject");
-import Matrix = require("../../Math/Matrix");
-import GLFeatureType = require("../../Wrapper/GLFeatureType");
-import Scene = require('../../Core/Scene');
+import Material = require('../../../Core/Materials/Material');
+import Program = require("../../../Core/Resources/Program/Program");
+import RendererBase = require("../../../Core/Renderers/RendererBase");
+import Geometry = require("../../../Core/Geometries/Geometry");
+import SceneObject = require("../../../Core/SceneObject");
+import Matrix = require("../../../Math/Matrix");
+import GLFeatureType = require("../../../Wrapper/GLFeatureType");
+import Scene = require('../../../Core/Scene');
 import PMXMaterial = require('./PMXMaterial');
-import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
-import PMXGeometry = require('./PMXGeometry');
-import Vector4 = require("../../Math/Vector4");
-import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
-import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
-import RenderStageBase = require("../../Core/Renderers/RenderStages/RenderStageBase");
+import ResolvedChainInfo = require('../../../Core/Renderers/ResolvedChainInfo');
+import PMXGeometry = require('./../PMXGeometry');
+import Vector4 = require("../../../Math/Vector4");
+import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
+import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
+import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 /**
  * the materials for PMX.
@@ -51,8 +51,8 @@ class PMXShadowMapMaterial extends Material
     {
         super();
         this.associatedMaterial = material;
-        var vs = require('../Shader/PMXShadowMapVertex.glsl');
-        var fs = require('../Shader/PMXShadowMapFragment.glsl');
+        var vs = require('../../Shader/PMXShadowMapVertex.glsl');
+        var fs = require('../../Shader/PMXShadowMapFragment.glsl');
         this.program = this.loadProgram("jthree.shaders.vertex.pmx.shadowmap", "jthree.shaders.fragment.pmx.shadowmap", "jthree.programs.pmx.shadowmap", vs, fs);
         this.setLoaded();
     }

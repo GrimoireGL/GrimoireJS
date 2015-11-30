@@ -26,8 +26,8 @@ class ShadowMapMaterial extends Material
     constructor()
     {
         super();
-        var vs = require('../Shaders/Shadow/ShadowMapVertex.glsl');
-        var fs = require('../Shaders/Shadow/ShadowMapFragment.glsl');
+        var vs = require('../../Shaders/Shadow/ShadowMapVertex.glsl');
+        var fs = require('../../Shaders/Shadow/ShadowMapFragment.glsl');
         this.program = this.loadProgram("jthree.shaders.vertex.shadowmap", "jthree.shaders.fragment.shadowmap", "jthree.programs.shadowmap", vs, fs);
         this.setLoaded();
     }

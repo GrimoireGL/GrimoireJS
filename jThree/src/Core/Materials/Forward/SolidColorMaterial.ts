@@ -22,8 +22,8 @@ class SolidColorMaterial extends Material {
   protected program: Program;
   constructor() {
     super();
-    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-    var fs = require('../Shaders/SolidColor.glsl');
+    var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
+    var fs = require('../../Shaders/SolidColor.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.solidcolor", "jthree.programs.solidcolor", vs, fs);
     this.setLoaded();
   }

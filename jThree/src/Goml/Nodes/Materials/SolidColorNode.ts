@@ -1,5 +1,5 @@
 
-import SolidColor = require("../../../Core/Materials/SolidColorMaterial");
+import SolidColor = require("../../../Core/Materials/Forward/SolidColorMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material');

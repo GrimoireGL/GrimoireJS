@@ -26,8 +26,8 @@ class PhongMaterial extends Material {
   protected program: Program;
   constructor() {
     super();
-    var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-    var fs = require('../Shaders/Phong.glsl');
+    var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
+    var fs = require('../../Shaders/Phong.glsl');
     this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.phong", "jthree.programs.phong", vs, fs);
     this.setLoaded();
   }
