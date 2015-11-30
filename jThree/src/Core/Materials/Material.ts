@@ -12,6 +12,7 @@ import ResourceManager = require("../ResourceManager");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import IMaterialConfig = require("./IMaterialConfig");
+import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 /**
 * Basement class for any Materials.
@@ -107,8 +108,8 @@ class Material extends JThreeObjectWithID {
     * Apply configuration of program.
     * This is used for passing variables,using programs,binding index buffer.
     */
-    public configureMaterial(scene:Scene,renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
-        this.applyMaterialConfig(passIndex,techniqueIndex,renderer);
+    public configureMaterial(scene:Scene,renderStage: RenderStageBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+        this.applyMaterialConfig(passIndex,techniqueIndex,renderStage.Renderer);
         return;
     }
 

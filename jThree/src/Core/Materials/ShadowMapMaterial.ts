@@ -7,6 +7,7 @@ import TextureBase = require('../Resources/Texture/TextureBase');
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 import IMaterialConfig = require("./IMaterialConfig");
+import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 /**
  * Provides shadow map rendering materials.
@@ -31,9 +32,10 @@ class ShadowMapMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
     {
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+      var renderer = renderStage.Renderer;
+        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         var light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
         var geometry = object.Geometry;
         var matPLW = Matrix.multiply(light.matLightViewProjection,object.Transformer.LocalToGlobal);

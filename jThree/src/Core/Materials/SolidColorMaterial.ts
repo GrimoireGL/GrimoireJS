@@ -6,6 +6,7 @@ import Matrix = require("../../Math/Matrix");
 import Color4 = require("../../Base/Color/Color4");
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 
 class SolidColorMaterial extends Material {
@@ -27,8 +28,9 @@ class SolidColorMaterial extends Material {
     this.setLoaded();
   }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
-    super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    var renderer = renderStage.Renderer;
+    super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
     var geometry = object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     var v = object.Transformer.calculateMVPMatrix(renderer);

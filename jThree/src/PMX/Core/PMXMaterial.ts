@@ -22,6 +22,7 @@ import ResourceManager = require("../../Core/ResourceManager");
 import ContextComponents = require("../../ContextComponents");
 import JThreeContext = require("../../JThreeContext");
 import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
+import RenderStageBase = require("../../Core/Renderers/RenderStages/RenderStageBase");
 
 declare function require(string): string;
 
@@ -179,9 +180,10 @@ class PMXMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
     {
-      super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+      var renderer = renderStage.Renderer;
+      super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         if (passIndex == 1)
         {
             this.configureEdgeMaterial(renderer, object);

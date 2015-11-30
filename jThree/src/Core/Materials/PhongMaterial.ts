@@ -9,6 +9,7 @@ import Color3 = require('../../Base/Color/Color3');
 import TextureBase = require('../Resources/Texture/TextureBase');
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 
 class PhongMaterial extends Material {
@@ -31,9 +32,10 @@ class PhongMaterial extends Material {
     this.setLoaded();
   }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
     if (!this.program) return;
-    super.configureMaterial(scene, renderer, object,texs,techniqueIndex,passIndex);
+    super.configureMaterial(scene, renderStage, object,texs,techniqueIndex,passIndex);
+    var renderer = renderStage.Renderer;
     var geometry = object.Geometry;
     var pw = this.program.getForContext(renderer.ContextManager);
     var v = object.Transformer.calculateMVPMatrix(renderer);

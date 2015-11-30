@@ -12,6 +12,7 @@ import PMXGeometry = require('./PMXGeometry');
 import Vector4 = require("../../Math/Vector4");
 import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
 import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
+import RenderStageBase = require("../../Core/Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 /**
  * the materials for PMX.
@@ -56,9 +57,10 @@ class PMXShadowMapMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
         if (!this.program||this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
+        var renderer = renderStage.Renderer;
         var geometry = <PMXGeometry>object.Geometry;
         var light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
         var programWrapper = this.program.getForContext(renderer.ContextManager);

@@ -13,6 +13,7 @@ import Vector4 = require("../../Math/Vector4");
 import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
 import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
 import Vector3 = require("../../Math/Vector3");
+import RenderStageBase = require("../../Core/Renderers/RenderStages/RenderStageBase");
 
 declare function require(string): string;
 /**
@@ -58,9 +59,10 @@ class PMXGBufferMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
         if (!this.primaryProgram||this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        var renderer = renderStage.Renderer;
+        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         switch (techniqueIndex) {
             case 0:
                 this.configurePrimaryBuffer(scene, renderer, object, texs, techniqueIndex);

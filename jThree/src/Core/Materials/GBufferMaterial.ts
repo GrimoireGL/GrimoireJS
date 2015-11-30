@@ -12,6 +12,7 @@ import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
 import Vector4 = require("../../Math/Vector4");
 import PhongMaterial = require("./PhongMaterial");
 import IMaterialConfig = require("./IMaterialConfig");
+import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 /**
  * Provides how to write g-buffers.
@@ -46,10 +47,11 @@ class GBufferMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex): void
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex): void
     {
         if (!this.primaryProgram) return;
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        var renderer = renderStage.Renderer;
+        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         switch (techniqueIndex)
         {
             case 0:

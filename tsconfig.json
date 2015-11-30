@@ -90,6 +90,7 @@
     "./jThree/src/Core/Renderers/RenderStages/FowardShadingStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/GBuffer/GBufferStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/GrayScaleStage.ts",
+    "./jThree/src/Core/Renderers/RenderStages/HitAreaRenderStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/LightAccumulationStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts",
     "./jThree/src/Core/Renderers/RenderStages/ShadowMapGenerationStage.ts",
