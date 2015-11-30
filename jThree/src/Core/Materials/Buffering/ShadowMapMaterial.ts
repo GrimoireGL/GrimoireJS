@@ -1,13 +1,13 @@
-import Material = require("./Material");
-import Program = require("../Resources/Program/Program");
-import RendererBase = require("../Renderers/RendererBase");
-import SceneObject = require("../SceneObject");
-import Matrix = require("../../Math/Matrix");
-import TextureBase = require('../Resources/Texture/TextureBase');
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
-import IMaterialConfig = require("./IMaterialConfig");
-import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
+import Material = require("./../Material");
+import Program = require("../../Resources/Program/Program");
+import RendererBase = require("../../Renderers/RendererBase");
+import SceneObject = require("../../SceneObject");
+import Matrix = require("../../../Math/Matrix");
+import TextureBase = require('../../Resources/Texture/TextureBase');
+import Scene = require('../../Scene');
+import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
+import IMaterialConfig = require("./../IMaterialConfig");
+import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 /**
  * Provides shadow map rendering materials.

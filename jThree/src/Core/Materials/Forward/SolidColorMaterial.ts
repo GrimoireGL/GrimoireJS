@@ -1,12 +1,12 @@
-import Material = require("./Material");
-import Program = require("../Resources/Program/Program");
-import RendererBase = require("../Renderers/RendererBase");
-import SceneObject = require("../SceneObject");
-import Matrix = require("../../Math/Matrix");
-import Color4 = require("../../Base/Color/Color4");
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
-import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
+import Material = require("./../Material");
+import Program = require("../../Resources/Program/Program");
+import RendererBase = require("../../Renderers/RendererBase");
+import SceneObject = require("../../SceneObject");
+import Matrix = require("../../../Math/Matrix");
+import Color4 = require("../../../Base/Color/Color4");
+import Scene = require('../../Scene');
+import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
+import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 
 class SolidColorMaterial extends Material {
