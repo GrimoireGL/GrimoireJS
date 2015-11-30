@@ -1,27 +1,28 @@
-import Material = require('../../Core/Materials/Material');
-import Program = require("../../Core/Resources/Program/Program");
-import RendererBase = require("../../Core/Renderers/RendererBase");
-import Geometry = require("../../Core/Geometries/Geometry");
-import SceneObject = require("../../Core/SceneObject");
-import Vector4 = require('../../Math/Vector4');
-import Matrix = require("../../Math/Matrix");
-import Color4 = require("../../Base/Color/Color4");
-import Color3 = require('../../Base/Color/Color3');
-import GLCullMode = require("../../Wrapper/GLCullMode");
-import GLFeatureType = require("../../Wrapper/GLFeatureType");
-import Scene = require('../../Core/Scene');
-import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
-import PMX = require('../PMXLoader');
-import Texture = require('../../Core/Resources/Texture/Texture');
-import BlendFuncParamType = require("../../Wrapper/BlendFuncParamType");
-import PMXGeometry = require('./PMXGeometry');
-import PMXModel = require('./PMXModel');
-import PmxMaterialMorphParamContainer = require('./PMXMaterialMorphParamContainer');
-import JThreeLogger = require("../../Base/JThreeLogger");
-import ResourceManager = require("../../Core/ResourceManager");
-import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../JThreeContext");
-import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
+import Material = require('../../../Core/Materials/Material');
+import Program = require("../../../Core/Resources/Program/Program");
+import RendererBase = require("../../../Core/Renderers/RendererBase");
+import Geometry = require("../../../Core/Geometries/Geometry");
+import SceneObject = require("../../../Core/SceneObject");
+import Vector4 = require('../../../Math/Vector4');
+import Matrix = require("../../../Math/Matrix");
+import Color4 = require("../../../Base/Color/Color4");
+import Color3 = require('../../../Base/Color/Color3');
+import GLCullMode = require("../../../Wrapper/GLCullMode");
+import GLFeatureType = require("../../../Wrapper/GLFeatureType");
+import Scene = require('../../../Core/Scene');
+import ResolvedChainInfo = require('../../../Core/Renderers/ResolvedChainInfo');
+import PMX = require('../../PMXLoader');
+import Texture = require('../../../Core/Resources/Texture/Texture');
+import BlendFuncParamType = require("../../../Wrapper/BlendFuncParamType");
+import PMXGeometry = require('./../PMXGeometry');
+import PMXModel = require('./../PMXModel');
+import PmxMaterialMorphParamContainer = require('./../PMXMaterialMorphParamContainer');
+import JThreeLogger = require("../../../Base/JThreeLogger");
+import ResourceManager = require("../../../Core/ResourceManager");
+import ContextComponents = require("../../../ContextComponents");
+import JThreeContext = require("../../../JThreeContext");
+import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
+import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 
 declare function require(string): string;
 
@@ -164,11 +165,11 @@ class PMXMaterial extends Material
         this.specular = new Vector4(materialData.specular);
         this.edgeSize = materialData.edgeSize;
         this.sphereMode = materialData.sphereMode;
-        var vs = require('../Shader/PMXVertex.glsl');
-        var fs = require('../Shader/PMXFragment.glsl');
+        var vs = require('../../Shader/PMXVertex.glsl');
+        var fs = require('../../Shader/PMXFragment.glsl');
         this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
-        var vs = require('../Shader/PMXEdgeVertex.glsl');
-        var fs = require('../Shader/PMXEdgeFragment.glsl');
+        var vs = require('../../Shader/PMXEdgeVertex.glsl');
+        var fs = require('../../Shader/PMXEdgeFragment.glsl');
         this.edgeProgram = this.loadProgram("jthree.shaders.vertex.pmx.edge", "jthree.shaders.fragment.pmx.edge", "jthree.programs.pmx.edge", vs, fs);
         this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere");
         this.texture = this.loadPMXTexture(materialData.textureIndex, "texture");
@@ -179,9 +180,10 @@ class PMXMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
     {
-      super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+      var renderer = renderStage.Renderer;
+      super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         if (passIndex == 1)
         {
             this.configureEdgeMaterial(renderer, object);

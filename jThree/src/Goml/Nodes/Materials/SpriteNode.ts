@@ -1,5 +1,5 @@
 
-import Sprite = require("../../../Core/Materials/SpriteMaterial");
+import Sprite = require("../../../Core/Materials/Forward/SpriteMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')

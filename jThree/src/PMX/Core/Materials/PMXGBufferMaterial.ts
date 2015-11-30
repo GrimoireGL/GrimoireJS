@@ -1,18 +1,19 @@
-﻿import Material = require('../../Core/Materials/Material');
-import Program = require("../../Core/Resources/Program/Program");
-import RendererBase = require("../../Core/Renderers/RendererBase");
-import Geometry = require("../../Core/Geometries/Geometry");
-import SceneObject = require("../../Core/SceneObject");
-import Matrix = require("../../Math/Matrix");
-import GLFeatureType = require("../../Wrapper/GLFeatureType");
-import Scene = require('../../Core/Scene');
+﻿import Material = require('../../../Core/Materials/Material');
+import Program = require("../../../Core/Resources/Program/Program");
+import RendererBase = require("../../../Core/Renderers/RendererBase");
+import Geometry = require("../../../Core/Geometries/Geometry");
+import SceneObject = require("../../../Core/SceneObject");
+import Matrix = require("../../../Math/Matrix");
+import GLFeatureType = require("../../../Wrapper/GLFeatureType");
+import Scene = require('../../../Core/Scene');
 import PMXMaterial = require('./PMXMaterial');
-import ResolvedChainInfo = require('../../Core/Renderers/ResolvedChainInfo');
-import PMXGeometry = require('./PMXGeometry');
-import Vector4 = require("../../Math/Vector4");
-import PMXMaterialParamContainer = require("./PMXMaterialMorphParamContainer");
-import IMaterialConfig = require("../../Core/Materials/IMaterialConfig");
-import Vector3 = require("../../Math/Vector3");
+import ResolvedChainInfo = require('../../../Core/Renderers/ResolvedChainInfo');
+import PMXGeometry = require('./../PMXGeometry');
+import Vector4 = require("../../../Math/Vector4");
+import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
+import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
+import Vector3 = require("../../../Math/Vector3");
+import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 
 declare function require(string): string;
 /**
@@ -48,19 +49,20 @@ class PMXGBufferMaterial extends Material
     {
         super();
         this.associatedMaterial = material;
-        var vs = require('../Shader/PMXGBufferVertex.glsl');
-        var fs = require('../Shader/PMXPrimaryGBufferFragment.glsl');
+        var vs = require('../../Shader/PMXGBufferVertex.glsl');
+        var fs = require('../../Shader/PMXPrimaryGBufferFragment.glsl');
         this.primaryProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer", "jthree.shaders.fragment.pmx.gbuffer", "jthree.programs.pmx.gbuffer", vs, fs);
-        var fs = require('../Shader/PMXSecoundaryGBufferFragment.glsl');
+        var fs = require('../../Shader/PMXSecoundaryGBufferFragment.glsl');
         this.secoundaryProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer.s", "jthree.shaders.fragment.gbuffer.s", "jthree.programs.pmx.gbuffer.s", vs, fs);
-        fs = require('../Shader/PMXThirdGBufferFragment.glsl');
+        fs = require('../../Shader/PMXThirdGBufferFragment.glsl');
         this.thirdProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer.t", "jthree.shaders.fragment.gbuffer.t", "jthree.programs.pmx.gbuffer.t", vs, fs);
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
         if (!this.primaryProgram||this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        var renderer = renderStage.Renderer;
+        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         switch (techniqueIndex) {
             case 0:
                 this.configurePrimaryBuffer(scene, renderer, object, texs, techniqueIndex);

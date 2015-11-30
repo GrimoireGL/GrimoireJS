@@ -1,11 +1,12 @@
-import Material = require("./Material");
-import Program = require("../Resources/Program/Program");
-import RendererBase = require("../Renderers/RendererBase");
-import SceneObject = require("../SceneObject");
-import Matrix = require("../../Math/Matrix");
-import TextureBase = require('../Resources/Texture/TextureBase');
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
+import Material = require("./../Material");
+import Program = require("../../Resources/Program/Program");
+import RendererBase = require("../../Renderers/RendererBase");
+import SceneObject = require("../../SceneObject");
+import Matrix = require("../../../Math/Matrix");
+import TextureBase = require('../../Resources/Texture/TextureBase');
+import Scene = require('../../Scene');
+import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
+import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 
 class SpriteMaterial extends Material
@@ -20,15 +21,16 @@ class SpriteMaterial extends Material
     constructor()
     {
         super();
-        var vs = require('../Shaders/VertexShaders/BasicGeometries.glsl');
-        var fs = require('../Shaders/Sprite.glsl');
+        var vs = require('../../Shaders/VertexShaders/BasicGeometries.glsl');
+        var fs = require('../../Shaders/Sprite.glsl');
         this.program = this.loadProgram("jthree.shaders.vertex.basic", "jthree.shaders.fragment.sprite", "jthree.programs.sprite", vs, fs);
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
     {
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        var renderer = renderStage.Renderer;
+        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         var geometry = object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);

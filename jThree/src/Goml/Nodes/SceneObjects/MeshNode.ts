@@ -5,7 +5,7 @@ import SceneObject = require("../../../Core/SceneObject");
 import BasicMeshObject = require("../../../Shapes/BasicMeshObject");
 import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
 import MaterialNode = require("../Materials/MaterialNodeBase");
-import SolidColor = require("../../../Core/Materials/SolidColorMaterial");
+import SolidColor = require("../../../Core/Materials/Forward/SolidColorMaterial");
 class GomlTreeMeshNode extends SceneObjectNodeBase
 {
   private targetMesh:BasicMeshObject;
