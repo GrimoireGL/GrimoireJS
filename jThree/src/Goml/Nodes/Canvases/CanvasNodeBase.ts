@@ -11,7 +11,7 @@ class CanvasNodeBase extends GomlTreeNodeBase {
                 value: 128, converter: "number", handler: (v) => { this.sizeChanged(this.attributes.getValue("width"),v.Value)}
             },
             "clearColor": {
-                value: "#0FF", converter: "color4", handler: (v) => { this.canvas.ClearColor = v.Value; }
+                value: "#0FF", converter: "color4", handler: (v) => { this.canvas.clearColor = v.Value; }
             },
             "loader":
             {
