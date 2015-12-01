@@ -38,7 +38,7 @@ class CanvasNode extends CanvasNodeBase {
         if (this.targetFrame) resizeElement.appendChild(this.canvasElement);
         this.canvasElement.classList.add("x-j3-c-" + this.ID);
         //initialize contexts
-        this.setCanvas(Canvas.fromCanvasElement(this.canvasElement));
+        this.setCanvas(new Canvas(this.canvasElement));
         JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);
 
         var loaderContainer = document.createElement('div');

@@ -1,3 +1,4 @@
+import Timer = require("./Core/Timer");
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
@@ -11,7 +12,6 @@ import LoopManager = require("./Core/LoopManager");
 import ContextComponents = require("./ContextComponents");
 import ResourceManager = require("./Core/ResourceManager");
 import NodeManager = require("./Goml/NodeManager");
-import ContextTimer = require("./Core/ContextTimer");
 import Debugger = require("./Debug/Debugger");
 import GomlLoader = require("./Goml/GomlLoader");
 import ResourceLoader = require("./Core/ResourceLoader");
@@ -78,7 +78,7 @@ class JThreeInit {
         }
         window["j3"]["lateStart"] = JThreeInit.startInitialize;
         JThreeContext.init();
-        JThreeContext.registerContextComponent(new ContextTimer());
+        JThreeContext.registerContextComponent(new Timer());
         JThreeContext.registerContextComponent(new LoopManager());
         JThreeContext.registerContextComponent(new ResourceLoader());
         JThreeContext.registerContextComponent(new SceneManager());
@@ -88,7 +88,7 @@ class JThreeInit {
         JThreeContext.registerContextComponent(new Debugger());
         var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         var loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
-        var timer = JThreeContext.getContextComponent<ContextTimer>(ContextComponents.Timer);
+        var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
         var sceneManager = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
         loopManager.addAction(1000, () => timer.updateTimer());
         //loopManager.addAction(2000,()=>this.updateAnimation());

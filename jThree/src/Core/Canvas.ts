@@ -13,24 +13,29 @@ import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Color4 = require("../Base/Color/Color4");
 import CanvasRegion = require("./CanvasRegion");
 /**
- * Provides some of feature managing canvas.
+ * The class to manage HTMLCanvasElement.
+ * Provides most of interfaces related to GLContext except the features resource manager providing.
+ *
+ * HTMLCanvasElementを管理するクラス
+ * リソースマネージャーが提供する機能以外のGLContextが関連する機能のほとんどを内包します。
  */
 class Canvas extends CanvasRegion {
-    /**
-     * Generate instance from HtmlCanvasElement
-     */
-    public static fromCanvasElement(canvasElement: HTMLCanvasElement): Canvas {//TODO need refactoring
-        var canvas: Canvas = new Canvas(canvasElement);
-        return canvas;
-    }
 
+    /**
+     * Constructor
+     * @param  {HTMLCanvasElement} canvasElement the HTMLCanvasElement that is managed by this class.
+     */
     constructor(canvasElement: HTMLCanvasElement) {
         super(canvasElement);
         this._lastWidth = canvasElement.width;
         this._lastHeight = canvasElement.height;
-        this.setGLContext(this._tryGetGLContext());
+        this.__setGLContext(this._tryGetGLContext());
     }
 
+    /**
+     * Attempts to try getting GLContext from canvas.
+     * @return {WebGLRenderingContext} [description]
+     */
     private _tryGetGLContext(): WebGLRenderingContext {
         try {
             return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
@@ -40,36 +45,38 @@ class Canvas extends CanvasRegion {
     }
 
     /**
-     * cache for the last height.
+     * canvas height of last time
      */
     private _lastHeight: number;
 
     /**
-     * cache for the last width.
+     * canvas width of last time
      */
     private _lastWidth: number;
 
     /**
      * event cache for resize event.
      */
-    public onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
+    public canvasResized: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
 
+    /**
+     * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
+     */
+    public afterRender(renderer: BasicRenderer): void {
+    }
 
     public afterRenderAll(): void {
     }
-
     public beforeRender(renderer: BasicRenderer): void {
-            this.clearCanvas();
+        this.clearCanvas();
     }
-
     public beforeRenderAll(): void {
         //check size changed or not.
         if (this.canvasElement.height !== this._lastHeight || this.canvasElement.width !== this._lastWidth) {
-            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
+            this.canvasResized.fire(this, new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
             this._lastHeight = this.canvasElement.height; this._lastWidth = this.canvasElement.width;
         }
     }
-
     /**
      * clear the default buffer of this canvas with ClearColor.
      */
@@ -78,38 +85,22 @@ class Canvas extends CanvasRegion {
         this.applyClearColor();
         this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
     }
-
+    
     public get region(): Rectangle {
         return new Rectangle(0, 0, this._lastWidth, this._lastHeight);
     }
-
     /**
     * backing field for ClearColor
     */
-    public clearColor: Color4 = new Color4(1,1,1,1);
-
+    public clearColor: Color4 = new Color4(1, 1, 1, 1);
     public GL: WebGLRenderingContext;
-
-    private glExtensionManager: GLExtensionManager = new GLExtensionManager();
-
-    public get GLExtensionManager() {
-        return this.glExtensionManager;
-    }
-
+    public glExtensionManager: GLExtensionManager = new GLExtensionManager();
     /**
      * apply gl context after webglrendering context initiated.
      */
-    protected setGLContext(glContext: WebGLRenderingContext) {
+    protected __setGLContext(glContext: WebGLRenderingContext) {
         this.GL = glContext;
         this.glExtensionManager.checkExtensions(glContext);
-    }
-
-
-    /**
-     * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
-     */
-    public afterRender(renderer: BasicRenderer): void {
-
     }
 
     public applyClearColor() {
