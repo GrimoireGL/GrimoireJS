@@ -19,6 +19,7 @@ import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 class RenderStageBase extends JThreeObjectWithID {
+    public ____objectIndexany
     private renderer: RendererBase;
 	/**
 	 * Getter for renderer having this renderstage

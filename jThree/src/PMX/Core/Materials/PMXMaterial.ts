@@ -122,7 +122,7 @@ class PMXMaterial extends Material
 
     private sphereMode: number;
 
-    private materialIndex: number;
+    public materialIndex: number;
 
     public cullEnabled:boolean;
 

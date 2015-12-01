@@ -1,3 +1,4 @@
+import PMXHitAreaMaterial = require("./Materials/PMXHitAreaMaterial");
 import SceneObject = require("../../Core/SceneObject");
 import PMXModelData = require("../PMXLoader");
 import PMXGeometry = require("./PMXGeometry");
@@ -96,6 +97,7 @@ class PMXModel extends SceneObject {
             this.addMaterial(mat);
             this.addMaterial(new PMXGBufferMaterial(mat));
             this.addMaterial(new PMXShadowMapMaterial(mat));
+            this.addMaterial(new PMXHitAreaMaterial(mat));
             this.pmxMaterials[materialCount] = mat;
             this.materialDictionary.set(currentMat.materialName, mat);
             offset += currentMat.vertexCount;

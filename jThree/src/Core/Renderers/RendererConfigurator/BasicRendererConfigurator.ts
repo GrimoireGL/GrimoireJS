@@ -7,30 +7,29 @@ import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
 import ShadowMapGenerationStage = require("../RenderStages/ShadowMapGenerationStage");
-class BasicRendererConfigurator extends ConfiguratorBase
-{
-    public get TextureBuffers(): GeneraterInfo
-    {
+import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
+class BasicRendererConfigurator extends ConfiguratorBase {
+    public get TextureBuffers(): GeneraterInfo {
         return {
-/*            "deffered.rb1": {
-                generater: "rendererfit",
-                internalFormat: "RGBA",
-                element: "UBYTE"
-            },
-            "deffered.rb2": {
-                generater: "rendererfit",
-                internalFormat: "RGBA",
-                element: "UBYTE"
-            }, "deffered.depth": {
-                generater: "rendererfit",
-                internalFormat: "RGBA",
-                element: "UBYTE"
-            }
-            , "deffered.light": {
-                generater: "rendererfit",
-                internalFormat: "RGBA",
-                element: "UBYTE"
-            },*/
+            /*            "deffered.rb1": {
+                            generater: "rendererfit",
+                            internalFormat: "RGBA",
+                            element: "UBYTE"
+                        },
+                        "deffered.rb2": {
+                            generater: "rendererfit",
+                            internalFormat: "RGBA",
+                            element: "UBYTE"
+                        }, "deffered.depth": {
+                            generater: "rendererfit",
+                            internalFormat: "RGBA",
+                            element: "UBYTE"
+                        }
+                        , "deffered.light": {
+                            generater: "rendererfit",
+                            internalFormat: "RGBA",
+                            element: "UBYTE"
+                        },*/
             "gbuffer.primary":
             {
                 generater: "rendererfit",
@@ -54,34 +53,46 @@ class BasicRendererConfigurator extends ConfiguratorBase
             "light.diffuse": {
                 generater: "rendererfit",
                 internalFormat: "RGB",
-                element:"UBYTE"
+                element: "UBYTE"
             }
             ,
             "light.specular": {
                 generater: "rendererfit",
                 internalFormat: "RGB",
                 element: "UBYTE"
+            },
+            "hitarea":
+            {
+                generater: "rendererfit",
+                internalFormat: "RGBA",
+                element: "UBYTE"
             }
         };
     }
 
-    public getStageChain(target: RendererBase): RenderStageChain[]
-    {
+    public getStageChain(target: RendererBase): RenderStageChain[] {
         return [
             {
-              buffers:
-              {
+                buffers:
+                {
 
-              },
-              stage:new ShadowMapGenerationStage(target)
+                },
+                stage: new ShadowMapGenerationStage(target)
+            },
+            {
+                buffers:
+                {
+                    OUT: "hitarea"
+                },
+                stage: new HitAreaRenderStage(target)
             },
             {
                 buffers: {
                     PRIMARY: "gbuffer.primary",
                     SECOUNDARY: "gbuffer.secoundary",
-                    THIRD:"gbuffer.third"
+                    THIRD: "gbuffer.third"
                 },
-                stage:new GBufferStage(target)
+                stage: new GBufferStage(target)
             },
             {
                 buffers: {
@@ -89,14 +100,14 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     SECOUNDARY: "gbuffer.secoundary",
                     THIRD: "gbuffer.third",
                     DIFFUSE: "light.diffuse",
-                    SPECULAR:"light.specular"
+                    SPECULAR: "light.specular"
                 },
                 stage: new AccumulationStage(target)
             },
             {
                 buffers: {
                     DLIGHT: "light.diffuse",
-                    SLIGHT:"light.specular",
+                    SLIGHT: "light.specular",
                     OUT: "default"
                 },
                 stage: new ShadingStage(target)
