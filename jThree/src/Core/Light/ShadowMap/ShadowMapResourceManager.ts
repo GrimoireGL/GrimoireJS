@@ -1,5 +1,5 @@
 import LightRegister = require("../LightRegister");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import TextureInternalFormatType = require("../../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../../Wrapper/TextureType");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
@@ -71,14 +71,14 @@ class ShadowMapResourceManager
   /**
    * Set shadow map viewport when rendering shadow map.
    */
-  public setShadowMapViewport(renderer:RendererBase,shadowMapIndex:number)
+  public setShadowMapViewport(renderer:BasicRenderer,shadowMapIndex:number)
   {
     var x = shadowMapIndex % this.shadowMapTileHeight;
     var y = (shadowMapIndex - x)/this.shadowMapTileHeight;
     renderer.GL.viewport(x*this.shadowMapSizeCache,y*this.shadowMapSizeCache,this.shadowMapSizeCache,this.shadowMapSizeCache);
   }
 
-  public updateLightMatricis(renderer:RendererBase,lights:ShadowDroppableLight[])
+  public updateLightMatricis(renderer:BasicRenderer,lights:ShadowDroppableLight[])
   {
     for (let i = 0; i < Math.min(lights.length,this.maximumShadowMapCount); i++)
     {

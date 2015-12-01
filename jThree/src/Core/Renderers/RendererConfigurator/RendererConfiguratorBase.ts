@@ -1,6 +1,6 @@
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
-import RendererBase = require("../RendererBase");
+import BasicRenderer = require("../BasicRenderer");
 
 class RendererConfiguratorBase
 {
@@ -8,7 +8,7 @@ class RendererConfiguratorBase
         return null;
     }
 
-    public getStageChain(target:RendererBase):RenderStageChain[] {
+    public getStageChain(target:BasicRenderer):RenderStageChain[] {
         return null;
     }
 }

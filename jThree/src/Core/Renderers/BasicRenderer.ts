@@ -18,7 +18,7 @@ import CanvasRegion = require("../CanvasRegion");
  /**
  * Provides base class feature for renderer classes.
  */
-class RendererBase extends CanvasRegion
+class BasicRenderer extends CanvasRegion
 {
     /**
      * Constructor of RenderBase
@@ -41,7 +41,7 @@ class RendererBase extends CanvasRegion
         this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
     }
-    
+
     public renderPath:RenderPath = new RenderPath();
 
     /**
@@ -119,17 +119,8 @@ class RendererBase extends CanvasRegion
         return this.renderPathExecutor;
     }
 
-    private onViewportChangedHandler: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
+    public viewportChanged: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>();//TODO argument should be optimized.
 
-    /**
-     * Register event handler to handle changing of viewport configure.
-     * @param act the handler to recieve viewport changing.
-     * @returns {}
-     */
-    public onViewPortChanged(act: Delegates.Action2<RendererBase, Rectangle>)
-    {
-        this.onViewportChangedHandler.addListener(act);
-    }
 
     private _viewport: Rectangle = new Rectangle(0, 0, 256, 256);
 
@@ -152,7 +143,7 @@ class RendererBase extends CanvasRegion
             if (isNaN(area.Height + area.Width)) return;
             this._viewport = area;
             JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
-            this.onViewportChangedHandler.fire(this, area);
+            this.viewportChanged.fire(this, area);
         }
 
     }
@@ -167,4 +158,4 @@ class RendererBase extends CanvasRegion
 }
 
 
-export =RendererBase;
+export =BasicRenderer;

@@ -1,7 +1,7 @@
 import GLExtensionManager = require("./GLExtensionManager");
 import Rectangle = require("../Math/Rectangle");
 import JThreeContext = require("../JThreeContext");
-import RendererBase = require("./Renderers/RendererBase");
+import BasicRenderer = require("./Renderers/BasicRenderer");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
@@ -73,7 +73,7 @@ class Canvas extends CanvasRegion {
         this.isDirty = true;
     }
 
-    public beforeRender(renderer: RendererBase): void {
+    public beforeRender(renderer: BasicRenderer): void {
         if (this.isDirty) {//check it needs clear default buffer or not.
             this.clearCanvas();
             this.isDirty = false;
@@ -135,7 +135,7 @@ class Canvas extends CanvasRegion {
     /**
      * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
      */
-    public afterRender(renderer: RendererBase): void {
+    public afterRender(renderer: BasicRenderer): void {
 
     }
 

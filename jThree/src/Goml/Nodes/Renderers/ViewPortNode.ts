@@ -1,5 +1,5 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import RendererBase = require("../../../Core/Renderers/RendererBase");
+import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
 import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
 import Scene = require("../../../Core/Scene");
@@ -16,11 +16,11 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private parentCanvas:CanvasNode;
 
-  private targetRenderer:RendererBase;
+  private targetRenderer:BasicRenderer;
 
   private skyBoxStageChain:RenderStageChain;
 
-  public get TargetViewport():RendererBase
+  public get TargetViewport():BasicRenderer
   {
     return this.targetRenderer;
   }

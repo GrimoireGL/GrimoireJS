@@ -1,5 +1,5 @@
 import JThreeObjectWithID = require('../../../Base/JThreeObjectWithID');
-import RendererBase = require('../RendererBase');
+import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import Scene = require('../../Scene')
 import Program = require('../../Resources/Program/Program');
@@ -20,11 +20,11 @@ import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 class RenderStageBase extends JThreeObjectWithID {
     public ____objectIndexany
-    private renderer: RendererBase;
+    private renderer: BasicRenderer;
 	/**
 	 * Getter for renderer having this renderstage
 	 */
-    public get Renderer(): RendererBase {
+    public get Renderer(): BasicRenderer {
         return this.renderer;
     }
 
@@ -36,7 +36,7 @@ class RenderStageBase extends JThreeObjectWithID {
         return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     }
 
-    constructor(renderer: RendererBase) {
+    constructor(renderer: BasicRenderer) {
         super();
         this.renderer = renderer;
     }

@@ -1,5 +1,5 @@
 import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
-import RendererBase = require("../Renderers/RendererBase");
+import BasicRenderer = require("../Renderers/BasicRenderer");
 import SceneObject = require("../SceneObject");
 import GLCullMode = require("../../Wrapper/GLCullMode");
 import GLFeatureType = require("../../Wrapper/GLFeatureType");
@@ -113,7 +113,7 @@ class Material extends JThreeObjectWithID {
         return;
     }
 
-    protected applyMaterialConfig(passIndex:number,techniqueIndex:number,renderer:RendererBase)
+    protected applyMaterialConfig(passIndex:number,techniqueIndex:number,renderer:BasicRenderer)
     {
       var config = this.getMaterialConfig(passIndex,techniqueIndex);
       if(config.cull)
@@ -146,7 +146,7 @@ class Material extends JThreeObjectWithID {
       }
     }
 
-    private parseBlendVariable(blendConfig:string,renderer:RendererBase):number
+    private parseBlendVariable(blendConfig:string,renderer:BasicRenderer):number
     {
       if(blendConfig == "1")return renderer.GL.ONE;
       if(blendConfig == "0")return renderer.GL.ZERO;

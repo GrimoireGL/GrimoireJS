@@ -1,6 +1,6 @@
 import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
-import RendererBase = require("../../../Core/Renderers/RendererBase");
+import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
 import Geometry = require("../../../Core/Geometries/Geometry");
 import SceneObject = require("../../../Core/SceneObject");
 import Vector4 = require('../../../Math/Vector4');
@@ -275,7 +275,7 @@ class PMXMaterial extends Material
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
-    private configureEdgeMaterial(renderer: RendererBase, object: SceneObject): void
+    private configureEdgeMaterial(renderer: BasicRenderer, object: SceneObject): void
     {
         if (!this.program) return;
         var geometry = <PMXGeometry> object.Geometry;

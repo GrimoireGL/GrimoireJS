@@ -1,6 +1,6 @@
 import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import SceneObject = require("../../SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Matrix = require("../../../Math/Matrix");

@@ -4,7 +4,7 @@ import SceneManager = require("../../Core/SceneManager");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import Scene = require("../../Core/Scene");
-import RendererBase = require("../../Core/Renderers/RendererBase");
+import BasicRenderer = require("../../Core/Renderers/BasicRenderer");
 import Q = require('q');
 import Delegate = require('../../Base/Delegates');
 import Canvas = require("../../Core/Canvas");
@@ -59,7 +59,7 @@ class RendererDebugger extends DebuggerModuleBase
     });
   }
 
-  private canvasToimg(renderer:RendererBase)
+  private canvasToimg(renderer:BasicRenderer)
   {
     var canvas = <Canvas>renderer.ContextManager;
     var img = new Image(canvas.canvasElement.width,canvas.canvasElement.height);
@@ -67,7 +67,7 @@ class RendererDebugger extends DebuggerModuleBase
     return img;
   }
 
-  private attachToRenderer(renderer:RendererBase,debug:Debugger)
+  private attachToRenderer(renderer:BasicRenderer,debug:Debugger)
   {
     debug.debuggerAPI.renderers.addRenderer(renderer,this);
     renderer.RenderPathExecutor.renderStageCompleted.addListener((o,v)=>

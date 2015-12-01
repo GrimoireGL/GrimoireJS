@@ -1,6 +1,6 @@
 ﻿import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import SceneObject = require("../../SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Matrix = require("../../../Math/Matrix");
@@ -70,7 +70,7 @@ class GBufferMaterial extends Material
      * Configure shader for 1-st pass.
      * @return {[type]}                     [description]
      */
-    private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
+    private configurePrimaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
         var pw = this.primaryProgram.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
@@ -98,7 +98,7 @@ class GBufferMaterial extends Material
      * Configure shader for 2nd pass.
      * @return {[type]}                     [description]
      */
-    private configureSecoundaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
+    private configureSecoundaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
@@ -145,7 +145,7 @@ class GBufferMaterial extends Material
      * Configure shader for 3rd pass.
      * @return {[type]}                     [description]
      */
-    private configureThirdBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo)
+    private configureThirdBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo)
     {
         var geometry = object.Geometry;
         var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
