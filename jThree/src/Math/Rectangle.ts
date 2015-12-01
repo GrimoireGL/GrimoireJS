@@ -36,10 +36,15 @@ class Rectangle extends jThreeObject {
         return this.height;
     }
 
+    public contains(x:number,y:number):boolean
+    {
+      return this.Left <= x && this.Right >=x && this.Top <= y && this.Bottom >= y;
+    }
+
     public toString():string{
       return `Rectangle(${this.left},${this.top}-${this.Right},${this.Bottom})`;
     }
-    
+
     public static Equals(r1:Rectangle,r2:Rectangle):boolean
     {
         return r1.Left===r2.Left&&r1.Right===r2.Right&&r1.Top===r2.Top&&r1.Bottom===r2.Bottom;

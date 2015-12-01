@@ -9,7 +9,7 @@ import Program = require("../Resources/Program/Program");
 import ShaderType = require("../../Wrapper/ShaderType");
 import Vector2 = require("../../Math/Vector2");
 import LightTypeDeclaration = require("./LightTypeDeclaration");
-import RendererBase = require("../Renderers/RendererBase");
+import BasicRenderer = require("../Renderers/BasicRenderer");
 import DefaultLightTypeList = require("./DefaultLightTypeList");
 import ShadowDroppableLight = require("./ShadowMap/ShadowDroppableLight");
 import GLSpec = require("../GLSpecManager");
@@ -273,7 +273,7 @@ class LightRegister
      * Update light parameter.
      * @param light the light you want to update
      */
-    private lightUpdate(light: LightBase,renderer:RendererBase)
+    private lightUpdate(light: LightBase,renderer:BasicRenderer)
     {
         var index = this.lightIdDictionary.get(light.ID);
         var parameters = light.getParameters(renderer,this.shadowDroppableLightCount);
@@ -293,7 +293,7 @@ class LightRegister
     /**
      * Update light parameter texture.
      */
-    public updateLightForRenderer(renderer:RendererBase)
+    public updateLightForRenderer(renderer:BasicRenderer)
     {
         this.shadowDroppableLightCount=0;
         for (var i = 0; i < this.Lights.length; i++)

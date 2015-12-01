@@ -1,5 +1,5 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import RendererBase = require("../../../Core/Renderers/RendererBase");
+import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
 import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
 import Scene = require("../../../Core/Scene");
@@ -16,11 +16,11 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private parentCanvas:CanvasNode;
 
-  private targetRenderer:RendererBase;
+  private targetRenderer:BasicRenderer;
 
   private skyBoxStageChain:RenderStageChain;
 
-  public get TargetViewport():RendererBase
+  public get TargetViewport():BasicRenderer
   {
     return this.targetRenderer;
   }
@@ -42,7 +42,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
     public afterLoad(){
       var rdr:CanvasNode=this.parentCanvas=<CanvasNode>this.parent;
-      var defaultRect = rdr.Canvas.getDefaultRectangle();
+      var defaultRect = rdr.Canvas.region;
       this.targetRenderer=RendererFactory.generateRenderer(rdr.Canvas,defaultRect,this.attributes.getValue("config"));
       var cameraNode=this.resolveCamera();
       this.targetRenderer.Camera=cameraNode.TargetCamera;
@@ -151,14 +151,14 @@ class ViewPortNode extends GomlTreeNodeBase {
             var top = this.top > 1 ? this.top : H * this.top;
             var width = this.width > 1 ? this.width : W * this.width;
             var height = this.height > 1 ? this.height : H * this.height;
-            this.targetRenderer.ViewPortArea = new Rectangle(left, top, width, height);
+            this.targetRenderer.region = new Rectangle(left, top, width, height);
 
             if ("Aspect" in this.targetRenderer.Camera) {//todo Camera�����n���h���o�^������
                 var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;
                 castedCam.Aspect = width / height;
             }
         } else {
-            this.targetRenderer.ViewPortArea = new Rectangle(this.left, this.top, this.width, this.height);
+            this.targetRenderer.region = new Rectangle(this.left, this.top, this.width, this.height);
 
             if ("Aspect" in this.targetRenderer.Camera) {
                 var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;

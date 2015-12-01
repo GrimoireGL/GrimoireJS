@@ -1,4 +1,4 @@
-﻿import RendererBase = require('../../RendererBase');
+﻿import BasicRenderer = require('../../BasicRenderer');
 import SceneObject = require('../../../SceneObject');
 import RenderStageBase = require('../RenderStageBase');
 import Scene = require('../../../Scene');
@@ -20,7 +20,7 @@ class GBufferStage extends RenderStageBase
         };
     }
 
-    constructor(renderer: RendererBase)
+    constructor(renderer: BasicRenderer)
     {
         super(renderer);
     }

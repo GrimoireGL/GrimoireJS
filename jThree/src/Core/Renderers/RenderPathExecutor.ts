@@ -1,4 +1,4 @@
-import RendererBase = require('./RendererBase');
+import BasicRenderer = require('./BasicRenderer');
 import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import RenderStageChain = require('./RenderStageChain');
 import SceneObject = require('../SceneObject');
@@ -23,11 +23,11 @@ class RenderPathExecutor
 
     public renderObjectCompleted:JThreeEvent<IRenderObjectCompletedEventArgs> = new JThreeEvent<IRenderObjectCompletedEventArgs>();
 
-    public renderer: RendererBase;
+    public renderer: BasicRenderer;
     private defaultQuad: QuadGeometry;
     private defaultCube:CubeGeometry;
 
-    constructor(parent: RendererBase)
+    constructor(parent: BasicRenderer)
     {
         this.renderer = parent;
         this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");

@@ -1,17 +1,18 @@
-﻿import Material = require("./Material");
-import Program = require("../Resources/Program/Program");
-import RendererBase = require("../Renderers/RendererBase");
-import SceneObject = require("../SceneObject");
-import Vector3 = require("../../Math/Vector3");
-import Matrix = require("../../Math/Matrix");
-import Color4 = require("../../Base/Color/Color4");
-import Color3 = require('../../Base/Color/Color3');
-import TextureBase = require('../Resources/Texture/TextureBase');
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
-import Vector4 = require("../../Math/Vector4");
-import PhongMaterial = require("./PhongMaterial");
-import IMaterialConfig = require("./IMaterialConfig");
+﻿import Material = require("./../Material");
+import Program = require("../../Resources/Program/Program");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
+import SceneObject = require("../../SceneObject");
+import Vector3 = require("../../../Math/Vector3");
+import Matrix = require("../../../Math/Matrix");
+import Color4 = require("../../../Base/Color/Color4");
+import Color3 = require('../../../Base/Color/Color3');
+import TextureBase = require('../../Resources/Texture/TextureBase');
+import Scene = require('../../Scene');
+import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
+import Vector4 = require("../../../Math/Vector4");
+import PhongMaterial = require("./../Forward/PhongMaterial");
+import IMaterialConfig = require("./../IMaterialConfig");
+import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 declare function require(string): string;
 /**
  * Provides how to write g-buffers.
@@ -36,20 +37,21 @@ class GBufferMaterial extends Material
     constructor()
     {
         super();
-        var vs = require('../Shaders/GBuffer/Vertex.glsl');
-        var fs = require('../Shaders/GBuffer/PrimaryFragment.glsl');
+        var vs = require('../../Shaders/GBuffer/Vertex.glsl');
+        var fs = require('../../Shaders/GBuffer/PrimaryFragment.glsl');
         this.primaryProgram = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
-        var fs = require('../Shaders/GBuffer/SecoundaryFragment.glsl');
+        var fs = require('../../Shaders/GBuffer/SecoundaryFragment.glsl');
         this.secoundaryProgram = this.loadProgram("jthree.shaders.gbuffer.secoundary.vs", "jthree.shaders.gbuffer.secoundary.fs", "jthree.programs.gbuffer.secoundary", vs, fs);
-        var fs = require('../Shaders/GBuffer/ThirdFragment.glsl');
+        var fs = require('../../Shaders/GBuffer/ThirdFragment.glsl');
         this.thirdProgram = this.loadProgram("jthree.shaders.gbuffer.third.vs", "jthree.shaders.gbuffer.third.fs", "jthree.programs.gbuffer.third", vs, fs);
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex): void
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex): void
     {
         if (!this.primaryProgram) return;
-        super.configureMaterial(scene, renderer, object, texs,techniqueIndex,passIndex);
+        var renderer = renderStage.Renderer;
+        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         switch (techniqueIndex)
         {
             case 0:
@@ -68,7 +70,7 @@ class GBufferMaterial extends Material
      * Configure shader for 1-st pass.
      * @return {[type]}                     [description]
      */
-    private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
+    private configurePrimaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
         var pw = this.primaryProgram.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
@@ -96,7 +98,7 @@ class GBufferMaterial extends Material
      * Configure shader for 2nd pass.
      * @return {[type]}                     [description]
      */
-    private configureSecoundaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo) {
+    private configureSecoundaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
@@ -143,7 +145,7 @@ class GBufferMaterial extends Material
      * Configure shader for 3rd pass.
      * @return {[type]}                     [description]
      */
-    private configureThirdBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo)
+    private configureThirdBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo)
     {
         var geometry = object.Geometry;
         var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);

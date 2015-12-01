@@ -1,6 +1,6 @@
 ﻿import BufferTargetType = require("../../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../../Wrapper/BufferUsageType");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import ElementType = require("../../../Wrapper/ElementType");
 import ContextSafeResourceContainer = require("../ContextSafeResourceContainer")
 import BufferWrapper = require("./BufferWrapper");
@@ -142,7 +142,7 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper>
         this.each((a) => a.update(array, length));
     }
 
-    protected getInstanceForRenderer(renderer: ContextManagerBase): BufferWrapper
+    protected getInstanceForRenderer(renderer: Canvas): BufferWrapper
     {
         return new BufferWrapper(this, renderer);
     }

@@ -1,5 +1,5 @@
 import GeneraterInfoChunk = require("./GeneraterInfoChunk");
-import RendererBase = require("../RendererBase");
+import BasicRenderer = require("../BasicRenderer");
 import GeneraterBase = require("./GeneraterBase");
 import TextureInternalFormatType = require("../../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../../Wrapper/TextureType");
@@ -9,7 +9,7 @@ import ContextComponents = require("../../../ContextComponents");
 import ResourceManager = require("../../ResourceManager");
 import JThreeContext = require("../../../JThreeContext");
 class RendererFit extends GeneraterBase {
-	constructor(parent: RendererBase) {
+	constructor(parent: BasicRenderer) {
 		super(parent);
 	}
 
@@ -83,7 +83,7 @@ class RendererFit extends GeneraterBase {
 		}
 		var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
 		var resource=rm.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
-			this.parentRenderer.onViewPortChanged((r,s:Rectangle)=> {
+			this.parentRenderer.viewportChanged.addListener((r,s:Rectangle)=> {
                 var bufTex = <BufferTexture>resource;
 			    if (s.Width!==bufTex.Width||s.Height!==bufTex.Height) {
 			        (<BufferTexture>resource).resize(s.Width, s.Height);

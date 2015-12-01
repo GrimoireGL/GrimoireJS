@@ -7,9 +7,11 @@ import Delegates = require("../../Base/Delegates");
 import VMDMorphStatus = require("./VMDMorphStatus");
 import glm = require("gl-matrix");
 import BezierCurve = require("./BezierCurve");
+import Q = require("q");
 class VMDData {
 
-	public static LoadFromUrl(url: string, onComplete: Delegates.Action1<VMDData>) {
+	public static LoadFromUrl(url: string):Q.Promise<VMDData> {
+		var d = Q.defer<VMDData>();
 		var targetUrl = url;
 		var oReq = new XMLHttpRequest();
 		oReq.open("GET", targetUrl, true);
@@ -17,9 +19,10 @@ class VMDData {
 		oReq.responseType = "arraybuffer";
 		oReq.onload = () => {
 			var data = new VMDData(oReq.response);
-			onComplete(data);
+			d.resolve(data);
 		};
 		oReq.send(null);
+		return d.promise;
 	}
 
 	private reader: jDataView;

@@ -1,5 +1,5 @@
 ﻿
-import Phong = require("../../../Core/Materials/PhongMaterial");
+import Phong = require("../../../Core/Materials/Forward/PhongMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material')

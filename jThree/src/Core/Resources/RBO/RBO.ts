@@ -1,7 +1,7 @@
 import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer");
 import RBOWrapper = require("./RBOWrapper");
 import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat");
-import ContextManagerBase = require("../../../Core/ContextManagerBase");
+import Canvas = require("../../../Core/Canvas");
 class RBO extends ContextSafeResourceContainer<RBOWrapper>
 {
 	constructor(width:number,height:number,format:RBOInternalFormatType=RBOInternalFormatType.DepthComponent16)
@@ -31,7 +31,7 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper>
 		return this.format;
 	}
 
-	protected getInstanceForRenderer(renderer:ContextManagerBase): RBOWrapper {
+	protected getInstanceForRenderer(renderer:Canvas): RBOWrapper {
 		return new RBOWrapper(renderer,this);
     }
 

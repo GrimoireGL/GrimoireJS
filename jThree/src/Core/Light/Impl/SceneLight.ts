@@ -3,7 +3,7 @@ import LightBase = require('./../LightBase');
 import Scene = require('../../Scene');
 import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import glm = require("gl-matrix");
 
 /**
@@ -16,7 +16,7 @@ class SceneLight extends LightBase {
 		super(scene);
     }
 
-    public getParameters(renderer:RendererBase): number[] {
+    public getParameters(renderer:BasicRenderer): number[] {
         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity];
 		}
 

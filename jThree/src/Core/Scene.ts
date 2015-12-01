@@ -1,6 +1,6 @@
 ﻿import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import JThreeEvent = require('../Base/JThreeEvent');
-import RendererBase = require("./Renderers/RendererBase");
+import BasicRenderer = require("./Renderers/BasicRenderer");
 import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
@@ -72,9 +72,9 @@ class Scene extends jThreeObjectWithID {
 
     public rendererListChanged:JThreeEvent<RendererListChangedEventArgs>=new JThreeEvent<RendererListChangedEventArgs>();
 
-    private renderers: RendererBase[] = [];
+    private renderers: BasicRenderer[] = [];
 
-    public addRenderer(renderer: RendererBase): void {
+    public addRenderer(renderer: BasicRenderer): void {
         this.renderers.push(renderer);
         this.rendererListChanged.fire(this,{
           owner:this,
@@ -83,7 +83,7 @@ class Scene extends jThreeObjectWithID {
         });
     }
 
-    public get Renderers():RendererBase[]
+    public get Renderers():BasicRenderer[]
     {
         return this.renderers;
     }

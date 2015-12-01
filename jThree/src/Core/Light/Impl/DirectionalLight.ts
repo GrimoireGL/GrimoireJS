@@ -3,7 +3,7 @@ import ShadowDroppableLight = require("../ShadowMap/ShadowDroppableLight");
 import Scene = require('../../Scene');
 import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import glm = require("gl-matrix");
 import PointList = require("../../../Math/PointList");
 import Camera = require("../../Camera/Camera");
@@ -25,7 +25,7 @@ class DirectionalLight extends ShadowDroppableLight {
     }
 
 
-    public getParameters(renderer:RendererBase,shadowMapIndex?:number): number[] {
+    public getParameters(renderer:BasicRenderer,shadowMapIndex?:number): number[] {
         var dir = Vector3.normalize(Matrix.transformNormal(renderer.Camera.viewMatrix,this.transformer.forward));
 				var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
 				debug.setInfo("lDir",dir.toString());
@@ -62,7 +62,7 @@ class DirectionalLight extends ShadowDroppableLight {
 			return m;
 		}
 
-		public updateLightMatricis(renderer:RendererBase)
+		public updateLightMatricis(renderer:BasicRenderer)
 		{
 			//cam.Transformer.forward -> viewDirection
 			//this.Transformer.forward -> lightDirection
@@ -74,7 +74,7 @@ class DirectionalLight extends ShadowDroppableLight {
 			 this.updateLightProjection(renderer,this.shadowMatrixCache);
 		}
 
-		private LiSPSM(renderer:RendererBase)
+		private LiSPSM(renderer:BasicRenderer)
 		{
 			var cam = renderer.Camera;
 			var viewDirection = cam.Transformer.forward;
@@ -123,7 +123,7 @@ class DirectionalLight extends ShadowDroppableLight {
 			glm.mat4.lookAt(this.shadowViewMatrixCache.rawElements,cam.Transformer.GlobalPosition.rawElements,Vector3.add(cam.Transformer.GlobalPosition,this.transformer.forward).rawElements,Vector3.YUnit.rawElements);
 		}
 
-		private USM(renderer:RendererBase)//Uniform shadow map
+		private USM(renderer:BasicRenderer)//Uniform shadow map
 		{
 			var cam = renderer.Camera;
 			//initialize light matrix cache with light view

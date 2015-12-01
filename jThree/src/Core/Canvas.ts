@@ -1,17 +1,21 @@
-import ContextManagerBase = require("./ContextManagerBase");
+import GLExtensionManager = require("./GLExtensionManager");
 import Rectangle = require("../Math/Rectangle");
 import JThreeContext = require("../JThreeContext");
-import RendererBase = require("./Renderers/RendererBase");
+import BasicRenderer = require("./Renderers/BasicRenderer");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
 import Delegates = require('../Base/Delegates');
 import ContextComponents = require("../ContextComponents");
 import CanvasManager = require("./CanvasManager");
+import Debugger = require("../Debug/Debugger");
+import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
+import Color4 = require("../Base/Color/Color4");
+import CanvasRegion = require("./CanvasRegion");
 /**
  * Provides some of feature managing canvas.
  */
-class Canvas extends ContextManagerBase {
+class Canvas extends CanvasRegion {
     /**
      * Generate instance from HtmlCanvasElement
      */
@@ -19,15 +23,10 @@ class Canvas extends ContextManagerBase {
         var gl: WebGLRenderingContext;
         try {
             gl = <WebGLRenderingContext>(canvasElement.getContext("webgl") || canvasElement.getContext("experimental-webgl"));
-            var canvas: Canvas = new Canvas(gl);
+            var canvas: Canvas = new Canvas(gl,canvasElement);
             //register handlers here
-            canvasElement.onmousemove = canvas.onMouseMove.bind(canvas);
-            canvasElement.onmouseenter = canvas.onMouseEnter.bind(canvas);
-            canvasElement.onmouseleave = canvas.onMouseLeave.bind(canvas);
-            canvas.canvasElement = canvasElement;
             canvas.lastHeight = canvasElement.height;
             canvas.lastWidth = canvasElement.width;
-            JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(canvas);
             //add div for monitoring size changing in canvas
             return canvas;
         } catch (e) {
@@ -39,16 +38,11 @@ class Canvas extends ContextManagerBase {
         }
     }
 
-    constructor(glContext: WebGLRenderingContext) {
-        super();
+    constructor(glContext: WebGLRenderingContext,canvasElement:HTMLCanvasElement) {
+        super(canvasElement);
         // this.enabled = true;
         this.setGLContext(glContext);
     }
-
-    /**
-     * target canvas this class managing.
-     */
-    public canvasElement: HTMLCanvasElement;
 
     /**
      * cache for the last height.
@@ -69,23 +63,17 @@ class Canvas extends ContextManagerBase {
     /**
      * event cache for resize event.
      */
-    private onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
+    public onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
 
     public get IsDirty(): boolean {
         return this.isDirty;
-    }
-    /**
-     * add event handler that will be called when canvas size was changed.
-     */
-    public onResize(act: Delegates.Action2<Canvas, CanvasSizeChangedEventArgs>) {
-        this.onResizeEventHandler.addListener(act);
     }
 
     public afterRenderAll(): void {
         this.isDirty = true;
     }
 
-    public beforeRender(renderer: RendererBase): void {
+    public beforeRender(renderer: BasicRenderer): void {
         if (this.isDirty) {//check it needs clear default buffer or not.
             this.clearCanvas();
             this.isDirty = false;
@@ -109,33 +97,50 @@ class Canvas extends ContextManagerBase {
         this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
     }
 
+    public get region():Rectangle
+    {
+      return new Rectangle(0,0,this.lastWidth,this.lastHeight);
+    }
+
     /**
-     * Get default rectangle it fills this canvas.
+    * backing field for ClearColor
+    */
+    private clearColor: Color4;
+
+    public GL:WebGLRenderingContext;
+
+    private glExtensionManager: GLExtensionManager = new GLExtensionManager();
+
+    public get GLExtensionManager() {
+        return this.glExtensionManager;
+    }
+
+    public get ClearColor(): Color4 {
+        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
+        return this.clearColor;
+    }
+    public set ClearColor(col: Color4) {
+        this.clearColor = col || new Color4(1, 1, 1, 1);
+    }
+
+    /**
+     * apply gl context after webglrendering context initiated.
      */
-    public getDefaultRectangle(): Rectangle {
-        return new Rectangle(0, 0, this.canvasElement.width, this.canvasElement.height);
+    protected setGLContext(glContext: WebGLRenderingContext) {
+        this.GL = glContext;
+        this.glExtensionManager.checkExtensions(glContext);
     }
 
-    public mouseOver:boolean=false;
 
-    public lastMouseInfo;
+    /**
+     * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
+     */
+    public afterRender(renderer: BasicRenderer): void {
 
-    private onMouseMove(e)
-    {
-      e.canvasX = e.clientX - this.canvasElement.clientLeft;
-      e.canvasY = e.clientY - this.canvasElement.clientTop;
-      this.lastMouseInfo = e;
-      this.mouseOver = true;
     }
 
-    private onMouseEnter(e)
-    {
-      this.mouseOver = true;
-    }
-
-    private onMouseLeave(e)
-    {
-      this.mouseOver = false;
+    public applyClearColor() {
+        this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
     }
 }
 

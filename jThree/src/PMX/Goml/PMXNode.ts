@@ -54,7 +54,8 @@ class PMXNode extends SceneObjectNodeBase
     public beforeLoad()
   {
     super.beforeLoad();
-    PMXModel.LoadFromUrl(this.attributes.getValue("src"),(m)=>{
+    PMXModel.LoadFromUrl(this.attributes.getValue("src"))
+      .then((m)=>{
       this.pmxModel=m;
       this.targetUpdated();
       this.pmxTargetUpdated.fire(this,m);

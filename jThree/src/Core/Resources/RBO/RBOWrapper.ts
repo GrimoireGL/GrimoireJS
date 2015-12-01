@@ -1,5 +1,5 @@
 import ResourceWrapper = require("../ResourceWrapper");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import RBO = require("./RBO");
 /**
  * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.
@@ -21,9 +21,9 @@ class RBOWrapper extends ResourceWrapper
 	 */
 	private parent:RBO;
 
-	constructor(contextManager:ContextManagerBase,parentRBO:RBO)
+	constructor(canvas:Canvas,parentRBO:RBO)
 	{
-		super(contextManager);
+		super(canvas);
 		this.parent=parentRBO;
 	}
 

@@ -1,7 +1,7 @@
 import Scene = require('../../Scene');
 import LightBase = require('./../LightBase');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import Matrix = require("../../../Math/Matrix");
 import Vector3 = require("../../../Math/Vector3");
 /**
@@ -29,7 +29,7 @@ class PointLight extends LightBase
 		return "jthree.lights.pointlight";
     }
 
-    public getParameters(renderer:RendererBase): number[]
+    public getParameters(renderer:BasicRenderer): number[]
     {
 			　var pos = this.Position;
 			  pos = Matrix.transformPoint(renderer.Camera.viewMatrix,pos);

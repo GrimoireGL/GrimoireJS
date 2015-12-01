@@ -1,4 +1,4 @@
-import ContextManagerBase = require('../../ContextManagerBase')
+import Canvas = require('../../Canvas')
 import TargetTextureType = require('../../../Wrapper/TargetTextureType')
 import BufferTexture = require('./BufferTexture')
 import TextureWrapperBase = require('./TextureWrapperBase');
@@ -7,7 +7,7 @@ import FramebufferAttachmentType = require("../../../Wrapper/FrameBufferAttachme
 import ElementType = require("../../../Wrapper/ElementType");
 import Delegates = require("../../../Base/Delegates");
 class BufferTextureWrapper extends TextureWrapperBase {
-    constructor(ownerCanvas: ContextManagerBase, parent: BufferTexture) {
+    constructor(ownerCanvas: Canvas, parent: BufferTexture) {
         super(ownerCanvas, parent);
     }
 

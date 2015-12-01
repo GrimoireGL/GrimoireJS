@@ -1,4 +1,4 @@
-﻿import RendererBase = require('../RendererBase');
+﻿import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
@@ -12,7 +12,7 @@ class SkyBoxStage extends RenderStageBase
     public skyBoxTexture:CubeTexture;
 
     private program:Program;
-    constructor(renderer: RendererBase)
+    constructor(renderer: BasicRenderer)
     {
         super(renderer);
         var vs = require("../../Shaders/VertexShaders/SkyboxGeometries.glsl");

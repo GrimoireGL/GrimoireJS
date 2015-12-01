@@ -1,6 +1,6 @@
 import ContextSafeContainer = require("../ContextSafeResourceContainer");
 import Shader = require("../Shader/Shader");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import ProgramWrapper = require("./ProgramWrapper");
 
 class Program extends ContextSafeContainer<ProgramWrapper>{
@@ -34,7 +34,7 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
         resource.dispose();
     }
 
-    protected getInstanceForRenderer(renderer: ContextManagerBase): ProgramWrapper {
+    protected getInstanceForRenderer(renderer: Canvas): ProgramWrapper {
         return new ProgramWrapper(this, renderer);
     }
 

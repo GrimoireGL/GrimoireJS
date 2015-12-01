@@ -1,4 +1,4 @@
-import RendererBase = require('../RendererBase');
+import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
@@ -9,7 +9,7 @@ import Matrix = require("../../../Math/Matrix");
 import CubeTexture = require("../../Resources/Texture/CubeTexture");
 class ShadowMapGenerationStage extends RenderStageBase
 {
-    constructor(renderer: RendererBase)
+    constructor(renderer: BasicRenderer)
     {
         super(renderer);
     }

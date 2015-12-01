@@ -317,7 +317,7 @@
     <TypeScriptCompile Include="src\Core\Camera\ViewCameraBase.ts" />
     <TypeScriptCompile Include="src\Core\CanvasListChangedEventArgs.ts" />
     <TypeScriptCompile Include="src\Core\CanvasSizeChangedEventArgs.ts" />
-    <TypeScriptCompile Include="src\Core\ContextManagerBase.ts" />
+    <TypeScriptCompile Include="src\Core\Canvas.ts" />
     <TypeScriptCompile Include="src\Core\ContextTimer.ts" />
     <TypeScriptCompile Include="src\Core\Geometries\CircleGeometry.ts" />
     <TypeScriptCompile Include="src\Core\Geometries\CubeGeometry.ts" />
@@ -345,7 +345,7 @@
     <TypeScriptCompile Include="src\Core\Materials\SolidColorMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Materials\SpriteMaterial.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\FBOBindData.ts" />
-    <TypeScriptCompile Include="src\Core\Renderers\RendererBase.ts" />
+    <TypeScriptCompile Include="src\Core\Renderers\BasicRenderer.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RendererConfigurator\BasicRendererConfigurator.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RendererConfigurator\RendererConfiguratorBase.ts" />
     <TypeScriptCompile Include="src\Core\Renderers\RenderStageChain.ts" />

@@ -1,9 +1,9 @@
 import Color4 = require('../../Base/Color/Color4');
 import Vector3 = require('../../Math/Vector3');
 import SceneObject = require('../SceneObject');
-import ContextManagerBase = require('../ContextManagerBase');
+import Canvas = require('../Canvas');
 import Scene = require('../Scene');
-import RendererBase = require('../Renderers/RendererBase');
+import BasicRenderer = require('../Renderers/BasicRenderer');
 import JThreeEvent = require("../../Base/JThreeEvent");
 import Delegates = require("../../Base/Delegates");
 import Material = require("../Materials/Material");
@@ -41,15 +41,15 @@ class LightBase extends SceneObject
 		return null;
 	}
 
-	public drawBuffer(renderer:RendererBase,scene:Scene,object: SceneObject, material: Material,passCount:number) {
+	public drawBuffer(renderer:BasicRenderer,scene:Scene,object: SceneObject, material: Material,passCount:number) {
 	}
 
-	public beforeRender(target:ContextManagerBase)
+	public beforeRender(target:Canvas)
 	{
 
 	}
 
-	public afterRender(target:ContextManagerBase)
+	public afterRender(target:Canvas)
 	{
 
   }
@@ -58,7 +58,7 @@ class LightBase extends SceneObject
         this.parameterChanged.addListener(handler);
     }
 
-    public getParameters(renderer:RendererBase,shadowMapIndex?:number): number[] {
+    public getParameters(renderer:BasicRenderer,shadowMapIndex?:number): number[] {
         return [];
     }
 

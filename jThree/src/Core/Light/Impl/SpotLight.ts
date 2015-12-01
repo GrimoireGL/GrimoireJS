@@ -1,7 +1,7 @@
 import Scene = require('../../Scene');
 import LightBase = require('./../LightBase');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import Matrix = require("../../../Math/Matrix");
 import Vector3 = require("../../../Math/Vector3");
 /**
@@ -31,7 +31,7 @@ class SpotLight extends LightBase
 		return "jthree.lights.spotlight";
     }
 
-    public getParameters(renderer:RendererBase): number[]
+    public getParameters(renderer:BasicRenderer): number[]
     {
 			　var pos;
 			 var matVM =Matrix.multiply(renderer.Camera.viewMatrix,this.Transformer.LocalToGlobal);

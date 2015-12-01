@@ -1,10 +1,10 @@
 import Scene = require("./Scene");
-import RendererBase = require("./Renderers/RendererBase");
+import BasicRenderer = require("./Renderers/BasicRenderer");
 
 interface RendererListChangedEventArgs
 {
   owner:Scene;
-  renderer:RendererBase;
+  renderer:BasicRenderer;
   isAdditionalChange:boolean;
 }
 

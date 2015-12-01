@@ -1,7 +1,7 @@
 import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer");
 import VAOWrapper = require("./VAOWrapper");
 import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat");
-import ContextManagerBase = require("../../../Core/ContextManagerBase");
+import Canvas = require("../../../Core/Canvas");
 class VAO extends ContextSafeResourceContainer<VAOWrapper>
 {
 	constructor()
@@ -10,7 +10,7 @@ class VAO extends ContextSafeResourceContainer<VAOWrapper>
 		this.initializeForFirst();
 	}
 
-	protected getInstanceForRenderer(renderer:ContextManagerBase): VAOWrapper {
+	protected getInstanceForRenderer(renderer:Canvas): VAOWrapper {
 		return new VAOWrapper(renderer,this);
     }
 

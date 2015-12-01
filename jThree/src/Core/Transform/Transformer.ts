@@ -5,7 +5,7 @@ import SceneObject = require("../SceneObject");
 import JThreeObject = require("../../Base/JThreeObject");
 import Delegates = require("../../Base/Delegates");
 import glm = require("gl-matrix");
-import RendererBase = require("./../Renderers/RendererBase");
+import BasicRenderer = require("./../Renderers/BasicRenderer");
 import JThreeEvent = require("./../../Base/JThreeEvent");
 import Vector4 = require("../../Math/Vector4");
 /**
@@ -188,7 +188,7 @@ class Transformer extends JThreeObject
     /**
      * Calculate Projection-View-Model matrix with renderer camera.
      */
-    public calculateMVPMatrix(renderer: RendererBase): Matrix
+    public calculateMVPMatrix(renderer: BasicRenderer): Matrix
     {
         glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
         glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this.modelViewProjectionCaluculationCache);

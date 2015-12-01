@@ -1,5 +1,5 @@
 import Scene = require("../Core/Scene");
-import RendererBase = require("../Core/Renderers/RendererBase");
+import BasicRenderer = require("../Core/Renderers/BasicRenderer");
 import RendererDebugger = require("./Modules/RendererDebugger");
 interface DebuggerInfomationAPI
 {
@@ -7,7 +7,7 @@ interface DebuggerInfomationAPI
 }
 interface DebuggerRendererAPI
 {
-  addRenderer(renderer:RendererBase,debug:RendererDebugger);
+  addRenderer(renderer:BasicRenderer,debug:RendererDebugger);
 }
 
 interface DebuggerSceneStructureAPI
