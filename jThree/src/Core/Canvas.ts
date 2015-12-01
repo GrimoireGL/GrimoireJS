@@ -8,6 +8,7 @@ import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
 import Delegates = require('../Base/Delegates');
 import ContextComponents = require("../ContextComponents");
 import CanvasManager = require("./CanvasManager");
+import Debugger = require("../Debug/Debugger");
 /**
  * Provides some of feature managing canvas.
  */
@@ -21,13 +22,13 @@ class Canvas extends ContextManagerBase {
             gl = <WebGLRenderingContext>(canvasElement.getContext("webgl") || canvasElement.getContext("experimental-webgl"));
             var canvas: Canvas = new Canvas(gl);
             //register handlers here
-            canvasElement.onmousemove = canvas.onMouseMove.bind(canvas);
+            canvasElement.addEventListener('mousemove',canvas.onMouseMove.bind(canvas),false);
             canvasElement.onmouseenter = canvas.onMouseEnter.bind(canvas);
             canvasElement.onmouseleave = canvas.onMouseLeave.bind(canvas);
+            canvasElement.addEventListener('click',()=>console.log("clicked!"),false);
             canvas.canvasElement = canvasElement;
             canvas.lastHeight = canvasElement.height;
             canvas.lastWidth = canvasElement.width;
-            JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(canvas);
             //add div for monitoring size changing in canvas
             return canvas;
         } catch (e) {
@@ -122,20 +123,27 @@ class Canvas extends ContextManagerBase {
 
     private onMouseMove(e)
     {
-      e.canvasX = e.clientX - this.canvasElement.clientLeft;
-      e.canvasY = e.clientY - this.canvasElement.clientTop;
+      e.canvasX = e.layerX / this.lastWidth;
+      e.canvasY = e.layerY / this.lastHeight;
       this.lastMouseInfo = e;
       this.mouseOver = true;
+      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+      debug.setInfo("MouseOver",this.mouseOver.toString());
+      debug.setInfo("MousePos",e);
     }
 
     private onMouseEnter(e)
     {
       this.mouseOver = true;
+      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+      debug.setInfo("MouseOver",this.mouseOver.toString());
     }
 
     private onMouseLeave(e)
     {
       this.mouseOver = false;
+      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+      debug.setInfo("MouseOver",this.mouseOver.toString());
     }
 }
 

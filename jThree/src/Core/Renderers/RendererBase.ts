@@ -13,6 +13,8 @@ import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 import Scene = require("../Scene");
 import RenderPath = require("./RenderPath");
+import Canvas = require("../Canvas");
+import Debugger = require("../../Debug/Debugger");
  /**
  * Provides base class feature for renderer classes.
  */
@@ -38,7 +40,44 @@ class RendererBase extends jThreeObjectWithID
         this.RenderPathExecutor.TextureBuffers = configurator.TextureBuffers;
         this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
+        var canvas = contextManager as Canvas;
+        canvas.canvasElement.addEventListener('mouseenter',this._mouseEnter.bind(this),false);
+        canvas.canvasElement.addEventListener('mouseleave',this._mouseLeave.bind(this),false);
+        canvas.canvasElement.addEventListener('mousemove',this._mouseMove.bind(this),false);
+
     }
+
+    private _mouseEnter(e:MouseEvent)
+    {
+      this._checkMouseOver(e);
+      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+      debug.setInfo("MouseOver"+ this.name,this.mouseOver.toString());
+    }
+
+    private _mouseLeave(e:MouseEvent)
+    {
+      this.mouseOver = false;
+      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+      debug.setInfo("MouseOver"+ this.name,this.mouseOver.toString());
+    }
+
+    private _mouseMove(e:MouseEvent)
+    {
+      if(this._checkMouseOver(e))
+      {
+
+      }
+    }
+
+    private _checkMouseOver(e:MouseEvent):boolean
+    {
+      this.mouseOver = this.viewportArea.contains(e.layerX,e.layerY);
+      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+      debug.setInfo("MouseOver"+ this.name,this.mouseOver.toString());
+      return this.mouseOver;
+    }
+
+    public mouseOver:boolean =false;
 
     public renderPath:RenderPath = new RenderPath();
 

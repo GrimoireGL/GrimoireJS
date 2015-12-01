@@ -34,8 +34,18 @@ class Debugger implements IContextComponent
     };
   }
 
-  public setInfo(key:string,val:number|string)
+  public setInfo(key:string,val:any)
   {
+    if(typeof val === 'object')
+    {
+      var stringfied = "";
+      for(var k in val)
+      {
+        var v = val[k];
+        stringfied += `${k}:${v}<br/>`;
+      }
+      val = stringfied;
+    }
     this.debuggerAPI.info.setInfo(key,val);
   }
 }
