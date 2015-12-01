@@ -1,4 +1,3 @@
-import ContextManagerBase = require("./../ContextManagerBase");
 import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
@@ -26,7 +25,7 @@ class RendererBase extends jThreeObjectWithID
      * @param viewportArea
      * @returns {}
      */
-    constructor(contextManager: ContextManagerBase, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
+    constructor(contextManager: Canvas, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
     {
         super();
         configurator = configurator || new RendererConfigurator();
@@ -40,10 +39,9 @@ class RendererBase extends jThreeObjectWithID
         this.RenderPathExecutor.TextureBuffers = configurator.TextureBuffers;
         this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
-        var canvas = contextManager as Canvas;
-        canvas.canvasElement.addEventListener('mouseenter',this._mouseEnter.bind(this),false);
-        canvas.canvasElement.addEventListener('mouseleave',this._mouseLeave.bind(this),false);
-        canvas.canvasElement.addEventListener('mousemove',this._mouseMove.bind(this),false);
+        contextManager.canvasElement.addEventListener('mouseenter',this._mouseEnter.bind(this),false);
+        contextManager.canvasElement.addEventListener('mouseleave',this._mouseLeave.bind(this),false);
+        contextManager.canvasElement.addEventListener('mousemove',this._mouseMove.bind(this),false);
 
     }
 
@@ -109,12 +107,12 @@ class RendererBase extends jThreeObjectWithID
     /**
      * ContextManager managing this renderer.
      */
-    private contextManager: ContextManagerBase;
+    private contextManager: Canvas;
 
     /**
      * ContextManager managing this renderer.
      */
-    public get ContextManager(): ContextManagerBase
+    public get ContextManager(): Canvas
     {
         return this.contextManager;
     }

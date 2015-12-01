@@ -1,7 +1,7 @@
 import ResourceWrapper = require('../ResourceWrapper');
 import TextureParameterType = require('../../../Wrapper/Texture/TextureParameterType');
 import TextureBase = require('./TextureBase');
-import ContextManagerBase = require('../../ContextManagerBase');
+import Canvas = require('../../Canvas');
 import TextureRegister = require("../../../Wrapper/Texture/TextureRegister");
 import PixelStoreParamType = require("../../../Wrapper/Texture/PixelStoreParamType");
 import Delegates = require("../../../Base/Delegates");
@@ -12,7 +12,7 @@ class TextureWrapperBase extends ResourceWrapper
 
     protected static altTextureBuffer: Float32Array = new Uint8Array([255, 0, 255, 255]);
 
-  constructor(owner:ContextManagerBase,parent:TextureBase)
+  constructor(owner:Canvas,parent:TextureBase)
   {
     super(owner);
     this.parent=parent;

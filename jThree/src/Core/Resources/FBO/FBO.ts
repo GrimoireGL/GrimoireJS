@@ -1,6 +1,6 @@
 import FBOWrapper = require("./FBOWrapper");
 import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 class FBO extends ContextSafeResourceContainer<FBOWrapper>
 {
 	constructor() {
@@ -8,7 +8,7 @@ class FBO extends ContextSafeResourceContainer<FBOWrapper>
 		this.initializeForFirst();
 	}
 
-	protected getInstanceForRenderer(renderer: ContextManagerBase): FBOWrapper {
+	protected getInstanceForRenderer(renderer: Canvas): FBOWrapper {
 		return new FBOWrapper(renderer);
     }
 

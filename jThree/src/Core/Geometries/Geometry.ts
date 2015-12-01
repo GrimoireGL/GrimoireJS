@@ -2,7 +2,7 @@ import jThreeObject = require("../../Base/JThreeObject");
 import Buffer = require("./../Resources/Buffer/Buffer");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import Vector3 = require("../../Math/Vector3");
-import ContextManagerBase = require("./../ContextManagerBase");
+import Canvas = require("./../Canvas");
 import Material = require("./../Materials/Material");
 /**
  * Base abstraction for geometry.
@@ -49,7 +49,7 @@ class Geometry extends jThreeObject {
      return this.primitiveTopology;
    }
 
-   public drawElements(contextManager:ContextManagerBase,material:Material)
+   public drawElements(contextManager:Canvas,material:Material)
    {
      if(material)
      {
@@ -146,7 +146,7 @@ class Geometry extends jThreeObject {
      }
    }
 
-   public bindIndexBuffer(contextManager:ContextManagerBase)
+   public bindIndexBuffer(contextManager:Canvas)
    {
      this.IndexBuffer.getForContext(contextManager).bindBuffer();
    }

@@ -3,7 +3,7 @@ import TextureFormat = require('../../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../../Wrapper/TextureType');
 import TextureMinFilterType = require('../../../Wrapper/Texture/TextureMinFilterType');
 import TextureMagFilterType = require('../../../Wrapper/Texture/TextureMagFilterType');
-import ContextManagerBase = require('../../ContextManagerBase');
+import Canvas = require('../../Canvas');
 import TextureBase = require('./TextureBase');
 /**
  * Buffer texture is a texture created from array programatically.
@@ -34,7 +34,7 @@ class BufferTexture extends TextureBase {
 		}
 	}
 
-	protected getInstanceForRenderer(contextManager: ContextManagerBase): BufferTextureWrapper {
+	protected getInstanceForRenderer(contextManager: Canvas): BufferTextureWrapper {
 		var textureWrapper = new BufferTextureWrapper(contextManager, this);
 		return textureWrapper;
 	}

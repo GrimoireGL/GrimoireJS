@@ -1,5 +1,5 @@
 import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
-import ContextManagerBase = require("../ContextManagerBase");
+import Canvas = require("../Canvas");
 import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
 import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
@@ -37,7 +37,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
 
     private childWrapper: AssociativeArray<T> = new AssociativeArray<T>();
 
-    public getForContext(contextManager: ContextManagerBase): T {
+    public getForContext(contextManager: Canvas): T {
         return this.getForContextID(contextManager.ID);
     }
 
@@ -65,7 +65,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
         }
     }
 
-    protected getInstanceForRenderer(renderer: ContextManagerBase): T {
+    protected getInstanceForRenderer(renderer: Canvas): T {
         throw new Exceptions.AbstractClassMethodCalledException();
     }
 

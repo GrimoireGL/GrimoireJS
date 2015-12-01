@@ -1,4 +1,4 @@
-import ContextManagerBase = require("./ContextManagerBase");
+import GLExtensionManager = require("./GLExtensionManager");
 import Rectangle = require("../Math/Rectangle");
 import JThreeContext = require("../JThreeContext");
 import RendererBase = require("./Renderers/RendererBase");
@@ -9,10 +9,13 @@ import Delegates = require('../Base/Delegates');
 import ContextComponents = require("../ContextComponents");
 import CanvasManager = require("./CanvasManager");
 import Debugger = require("../Debug/Debugger");
+import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
+import Color4 = require("../Base/Color/Color4");
+
 /**
  * Provides some of feature managing canvas.
  */
-class Canvas extends ContextManagerBase {
+class Canvas extends JThreeObjectWithID {
     /**
      * Generate instance from HtmlCanvasElement
      */
@@ -144,6 +147,47 @@ class Canvas extends ContextManagerBase {
       this.mouseOver = false;
       var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
       debug.setInfo("MouseOver",this.mouseOver.toString());
+    }
+
+    /**
+    * backing field for ClearColor
+    */
+    private clearColor: Color4;
+
+    public GL:WebGLRenderingContext;
+
+    private glExtensionManager: GLExtensionManager = new GLExtensionManager();
+
+    public get GLExtensionManager() {
+        return this.glExtensionManager;
+    }
+
+    public get ClearColor(): Color4 {
+        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
+        return this.clearColor;
+    }
+    public set ClearColor(col: Color4) {
+        this.clearColor = col || new Color4(1, 1, 1, 1);
+    }
+
+    /**
+     * apply gl context after webglrendering context initiated.
+     */
+    protected setGLContext(glContext: WebGLRenderingContext) {
+        this.GL = glContext;
+        this.glExtensionManager.checkExtensions(glContext);
+    }
+
+
+    /**
+     * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
+     */
+    public afterRender(renderer: RendererBase): void {
+
+    }
+
+    public applyClearColor() {
+        this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
     }
 }
 

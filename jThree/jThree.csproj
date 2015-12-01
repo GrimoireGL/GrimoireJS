@@ -317,7 +317,7 @@
     <TypeScriptCompile Include="src\Core\Camera\ViewCameraBase.ts" />
     <TypeScriptCompile Include="src\Core\CanvasListChangedEventArgs.ts" />
     <TypeScriptCompile Include="src\Core\CanvasSizeChangedEventArgs.ts" />
-    <TypeScriptCompile Include="src\Core\ContextManagerBase.ts" />
+    <TypeScriptCompile Include="src\Core\Canvas.ts" />
     <TypeScriptCompile Include="src\Core\ContextTimer.ts" />
     <TypeScriptCompile Include="src\Core\Geometries\CircleGeometry.ts" />
     <TypeScriptCompile Include="src\Core\Geometries\CubeGeometry.ts" />

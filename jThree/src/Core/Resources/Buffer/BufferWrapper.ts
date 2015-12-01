@@ -1,7 +1,7 @@
 import Buffer = require("./Buffer");
 import ElementType = require("../../../Wrapper/ElementType");
 import ResourceWrapper = require("../ResourceWrapper");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 /**
  * Buffer wrapper based on context.
  */
@@ -13,7 +13,7 @@ class BufferWrapper extends ResourceWrapper
 
     private parentBuffer:Buffer;
 
-    constructor(parentBuffer: Buffer,contextManager:ContextManagerBase)
+    constructor(parentBuffer: Buffer,contextManager:Canvas)
     {
         super(contextManager);
         this.parentBuffer = parentBuffer;

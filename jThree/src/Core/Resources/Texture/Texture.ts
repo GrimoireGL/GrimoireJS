@@ -1,5 +1,5 @@
 import TextureWrapper = require('./TextureWrapper');
-import ContextManagerBase = require('../../ContextManagerBase');
+import Canvas = require('../../Canvas');
 import TextureBase =require('./TextureBase');
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
@@ -25,7 +25,7 @@ class Texture extends TextureBase
     this.generateMipmapIfNeed();
   }
 
-  protected getInstanceForRenderer(contextManager: ContextManagerBase):TextureWrapper {
+  protected getInstanceForRenderer(contextManager: Canvas):TextureWrapper {
       var textureWrapper=new TextureWrapper(contextManager,this);
       return textureWrapper;
   }

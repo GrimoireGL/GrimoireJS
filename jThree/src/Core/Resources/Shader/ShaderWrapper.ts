@@ -1,10 +1,10 @@
 import Shader = require("./Shader");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import ResourceWrapper = require('../ResourceWrapper');
 class ShaderWrapper extends ResourceWrapper
 {
 
-    constructor(parent: Shader,contextManager:ContextManagerBase) {
+    constructor(parent: Shader,contextManager:Canvas) {
         super(contextManager);
         this.parentShader = parent;
     }
