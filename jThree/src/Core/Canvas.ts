@@ -11,11 +11,11 @@ import CanvasManager = require("./CanvasManager");
 import Debugger = require("../Debug/Debugger");
 import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Color4 = require("../Base/Color/Color4");
-
+import CanvasRegion = require("./CanvasRegion");
 /**
  * Provides some of feature managing canvas.
  */
-class Canvas extends JThreeObjectWithID {
+class Canvas extends CanvasRegion {
     /**
      * Generate instance from HtmlCanvasElement
      */
@@ -23,13 +23,8 @@ class Canvas extends JThreeObjectWithID {
         var gl: WebGLRenderingContext;
         try {
             gl = <WebGLRenderingContext>(canvasElement.getContext("webgl") || canvasElement.getContext("experimental-webgl"));
-            var canvas: Canvas = new Canvas(gl);
+            var canvas: Canvas = new Canvas(gl,canvasElement);
             //register handlers here
-            canvasElement.addEventListener('mousemove',canvas.onMouseMove.bind(canvas),false);
-            canvasElement.onmouseenter = canvas.onMouseEnter.bind(canvas);
-            canvasElement.onmouseleave = canvas.onMouseLeave.bind(canvas);
-            canvasElement.addEventListener('click',()=>console.log("clicked!"),false);
-            canvas.canvasElement = canvasElement;
             canvas.lastHeight = canvasElement.height;
             canvas.lastWidth = canvasElement.width;
             //add div for monitoring size changing in canvas
@@ -43,16 +38,11 @@ class Canvas extends JThreeObjectWithID {
         }
     }
 
-    constructor(glContext: WebGLRenderingContext) {
-        super();
+    constructor(glContext: WebGLRenderingContext,canvasElement:HTMLCanvasElement) {
+        super(canvasElement);
         // this.enabled = true;
         this.setGLContext(glContext);
     }
-
-    /**
-     * target canvas this class managing.
-     */
-    public canvasElement: HTMLCanvasElement;
 
     /**
      * cache for the last height.
@@ -120,33 +110,9 @@ class Canvas extends JThreeObjectWithID {
         return new Rectangle(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
 
-    public mouseOver:boolean=false;
-
-    public lastMouseInfo;
-
-    private onMouseMove(e)
+    public get region():Rectangle
     {
-      e.canvasX = e.layerX / this.lastWidth;
-      e.canvasY = e.layerY / this.lastHeight;
-      this.lastMouseInfo = e;
-      this.mouseOver = true;
-      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
-      debug.setInfo("MouseOver",this.mouseOver.toString());
-      debug.setInfo("MousePos",e);
-    }
-
-    private onMouseEnter(e)
-    {
-      this.mouseOver = true;
-      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
-      debug.setInfo("MouseOver",this.mouseOver.toString());
-    }
-
-    private onMouseLeave(e)
-    {
-      this.mouseOver = false;
-      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
-      debug.setInfo("MouseOver",this.mouseOver.toString());
+      return new Rectangle(0,0,this.lastWidth,this.lastHeight);
     }
 
     /**

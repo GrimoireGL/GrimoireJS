@@ -14,10 +14,11 @@ import Scene = require("../Scene");
 import RenderPath = require("./RenderPath");
 import Canvas = require("../Canvas");
 import Debugger = require("../../Debug/Debugger");
+import CanvasRegion = require("../CanvasRegion");
  /**
  * Provides base class feature for renderer classes.
  */
-class RendererBase extends jThreeObjectWithID
+class RendererBase extends CanvasRegion
 {
     /**
      * Constructor of RenderBase
@@ -27,7 +28,7 @@ class RendererBase extends jThreeObjectWithID
      */
     constructor(canvas: Canvas, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
     {
-        super();
+        super(canvas.canvasElement);
         configurator = configurator || new RendererConfigurator();
         this.canvas = canvas;
         this.renderPathExecutor =new RenderPathExecutor(this);
@@ -39,47 +40,15 @@ class RendererBase extends jThreeObjectWithID
         this.RenderPathExecutor.TextureBuffers = configurator.TextureBuffers;
         this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
-        canvas.canvasElement.addEventListener('mouseenter',this._mouseEnter.bind(this),false);
-        canvas.canvasElement.addEventListener('mouseleave',this._mouseLeave.bind(this),false);
-        canvas.canvasElement.addEventListener('mousemove',this._mouseMove.bind(this),false);
-
     }
 
-    private _mouseEnter(e:MouseEvent)
+    public get region():Rectangle
     {
-      this._checkMouseOver(e);
-      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
-      debug.setInfo("MouseOver"+ this.name,this.mouseOver.toString());
+      return this.ViewPortArea;
     }
-
-    private _mouseLeave(e:MouseEvent)
-    {
-      this.mouseOver = false;
-      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
-      debug.setInfo("MouseOver"+ this.name,this.mouseOver.toString());
-    }
-
-    private _mouseMove(e:MouseEvent)
-    {
-      if(this._checkMouseOver(e))
-      {
-
-      }
-    }
-
-    private _checkMouseOver(e:MouseEvent):boolean
-    {
-      this.mouseOver = this.viewportArea.contains(e.layerX,e.layerY);
-      var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
-      debug.setInfo("MouseOver"+ this.name,this.mouseOver.toString());
-      return this.mouseOver;
-    }
-
-    public mouseOver:boolean =false;
 
     public renderPath:RenderPath = new RenderPath();
 
-    public name:string;
     /**
      * The camera reference this renderer using for draw.
      */
