@@ -37,8 +37,8 @@ class CubeGeometry extends Geometry {
     this.positionBuffer.update(new Float32Array(pos), pos.length);
     }
 
-  public drawElements(contextManager, material) {
-    super.drawElements(contextManager, material);
+  public drawElements(canvas, material) {
+    super.drawElements(canvas, material);
   }
 
 }

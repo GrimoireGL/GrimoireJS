@@ -1,7 +1,7 @@
 import Color4 = require('../../Base/Color/Color4');
 import Vector3 = require('../../Math/Vector3');
 import SceneObject = require('../SceneObject');
-import ContextManagerBase = require('../ContextManagerBase');
+import Canvas = require('../Canvas');
 import Scene = require('../Scene');
 import RendererBase = require('../Renderers/RendererBase');
 import JThreeEvent = require("../../Base/JThreeEvent");
@@ -44,12 +44,12 @@ class LightBase extends SceneObject
 	public drawBuffer(renderer:RendererBase,scene:Scene,object: SceneObject, material: Material,passCount:number) {
 	}
 
-	public beforeRender(target:ContextManagerBase)
+	public beforeRender(target:Canvas)
 	{
 
 	}
 
-	public afterRender(target:ContextManagerBase)
+	public afterRender(target:Canvas)
 	{
 
   }

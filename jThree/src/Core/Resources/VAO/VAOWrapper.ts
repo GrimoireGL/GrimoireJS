@@ -1,5 +1,5 @@
 import ResourceWrapper = require("../ResourceWrapper");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import VAO = require("./VAO");
 import GLExtensionList = require("../../GLExtensionList");
 /**
@@ -24,11 +24,11 @@ class VAOWrapper extends ResourceWrapper
 	 */
 	private parent:VAO;
 
-	constructor(contextManager:ContextManagerBase,parentVAO:VAO)
+	constructor(canvas:Canvas,parentVAO:VAO)
 	{
-		super(contextManager);
+		super(canvas);
 		this.parent=parentVAO;
-		this.vaoInterface = contextManager.GLExtensionManager.getExtension(GLExtensionList.VertexArrayObject);
+		this.vaoInterface = canvas.GLExtensionManager.getExtension(GLExtensionList.VertexArrayObject);
 	}
 
     public init()

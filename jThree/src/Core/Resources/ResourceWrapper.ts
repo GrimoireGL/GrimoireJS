@@ -1,5 +1,5 @@
 import JThreeObject = require('../../Base/JThreeObject');
-import ContextManager = require('../ContextManagerBase');
+import ContextManager = require('../Canvas');
 import JThreeEvent = require('../../Base/JThreeEvent');
 import Delegates = require('../../Base/Delegates');
 class ResourceWrapper extends JThreeObject

@@ -1,4 +1,3 @@
-import ContextManagerBase = require("./../ContextManagerBase");
 import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
@@ -13,22 +12,25 @@ import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 import Scene = require("../Scene");
 import RenderPath = require("./RenderPath");
+import Canvas = require("../Canvas");
+import Debugger = require("../../Debug/Debugger");
+import CanvasRegion = require("../CanvasRegion");
  /**
  * Provides base class feature for renderer classes.
  */
-class RendererBase extends jThreeObjectWithID
+class RendererBase extends CanvasRegion
 {
     /**
      * Constructor of RenderBase
-     * @param contextManager
+     * @param canvas
      * @param viewportArea
      * @returns {}
      */
-    constructor(contextManager: ContextManagerBase, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
+    constructor(canvas: Canvas, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
     {
-        super();
+        super(canvas.canvasElement);
         configurator = configurator || new RendererConfigurator();
-        this.contextManager = contextManager;
+        this.canvas = canvas;
         this.renderPathExecutor =new RenderPathExecutor(this);
         this.viewportArea = viewportArea;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
@@ -40,9 +42,13 @@ class RendererBase extends jThreeObjectWithID
         this.name = this.ID;
     }
 
+    public get region():Rectangle
+    {
+      return this.ViewPortArea;
+    }
+
     public renderPath:RenderPath = new RenderPath();
 
-    public name:string;
     /**
      * The camera reference this renderer using for draw.
      */
@@ -70,19 +76,19 @@ class RendererBase extends jThreeObjectWithID
     /**
      * ContextManager managing this renderer.
      */
-    private contextManager: ContextManagerBase;
+    private canvas: Canvas;
 
     /**
      * ContextManager managing this renderer.
      */
-    public get ContextManager(): ContextManagerBase
+    public get ContextManager(): Canvas
     {
-        return this.contextManager;
+        return this.canvas;
     }
 
     public get GL():WebGLRenderingContext
     {
-      return this.contextManager.GL;
+      return this.canvas.GL;
     }
 
     /**

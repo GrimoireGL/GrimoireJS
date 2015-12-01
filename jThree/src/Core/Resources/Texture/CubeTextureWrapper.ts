@@ -1,5 +1,5 @@
 ﻿import TextureWrapperBase = require("./TextureWrapperBase");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import CubeTexture = require("./CubeTexture");
 import TextureTargetType = require("../../../Wrapper/TargetTextureType");
 import TexImageTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
@@ -7,8 +7,8 @@ import TextureInternalFormat = require("../../../Wrapper/TextureInternalFormatTy
 import TextureType = require("../../../Wrapper/TextureType");
 
 class CubeTextureWrapper extends TextureWrapperBase {
-    constructor(contextManager: ContextManagerBase, parent: CubeTexture) {
-        super(contextManager, parent);
+    constructor(canvas: Canvas, parent: CubeTexture) {
+        super(canvas, parent);
     }
 
     public init(isChanged?: boolean) {

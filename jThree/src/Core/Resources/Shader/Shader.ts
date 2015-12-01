@@ -1,6 +1,6 @@
 ﻿import ContextSafeContainer = require("../ContextSafeResourceContainer");
 import ShaderType = require("../../../Wrapper/ShaderType");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import ShaderWrapper = require("./ShaderWrapper");
 import Delegates = require("../../../Base/Delegates");
 import JThreeEvent = require("../../../Base/JThreeEvent");
@@ -50,7 +50,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
         });
     }
 
-    protected getInstanceForRenderer(renderer:ContextManagerBase): ShaderWrapper {
+    protected getInstanceForRenderer(renderer:Canvas): ShaderWrapper {
         return new ShaderWrapper(this, renderer);
     }
 

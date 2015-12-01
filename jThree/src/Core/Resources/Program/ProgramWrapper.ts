@@ -1,13 +1,13 @@
 import Program = require("./Program");
-import ContextManagerBase = require("../../ContextManagerBase");
+import Canvas = require("../../Canvas");
 import ResourceWrapper = require('../ResourceWrapper');
 import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import VariableRegisteringArgument = require("./VariableRegister/VariableRegisteringArgument");
 import VariableRegisterBase = require("./VariableRegister/Uniforms/UniformVariableRegisterBase");
 
 class ProgramWrapper extends ResourceWrapper {
-    constructor(parent: Program, contextManager: ContextManagerBase) {
-        super(contextManager);
+    constructor(parent: Program, canvas: Canvas) {
+        super(canvas);
         this.parentProgram = parent;
     }
 
