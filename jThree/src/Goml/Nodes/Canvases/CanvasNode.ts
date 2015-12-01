@@ -25,7 +25,7 @@ class CanvasNode extends CanvasNodeBase {
         //generate canvas
         this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
         var defaultLoader;
-        if(this.attributes.getValue("loader") !=="undefined" && this.nodeManager.nodeRegister.hasAlias("jthree.loader"))
+        if(this.attributes.getValue("loader") !=="undefined" && this.nodeManager.nodeRegister.hasGroup("jthree.loader"))
         {
           defaultLoader = (this.nodeManager.nodeRegister.getObject("jthree.loader",this.attributes.getValue("loader")) as any).loaderHTML;
         }

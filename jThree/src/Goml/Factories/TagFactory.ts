@@ -28,6 +28,14 @@ class TagFactory extends jThreeObject {
         return false;
     }
 
+    /**
+     * Nodeを生成します
+     *
+     * `nodeType`に指定されたNodeの種類より、対応するNodeを生成して返します。
+     * `nodeType`は`TagFactory`を継承するクラスで指定されます。
+     * @param  {GomlTreeNodeBase} parent 親のNode
+     * @return {GomlTreeNodeBase}
+     */
     public CreateNodeForThis(parent: GomlTreeNodeBase): GomlTreeNodeBase {
         return new this.nodeType(parent);
     }

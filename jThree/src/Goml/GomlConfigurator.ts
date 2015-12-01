@@ -34,11 +34,22 @@ class GomlConfigurator extends JThreeObject
         return this.easingFunctions.get(name);
     }
 
+    /**
+     * タグ名から`TagFactory`を取得します
+     *
+     * @param  {string} tagName タグ名
+     * @return {TagFactory}
+     */
     public getGomlTagFactory(tagName: string): TagFactory
     {
         return this.gomlTagFactories.get(tagName);
     }
 
+    /**
+     * `TagFactory`, `Converter`の定義を行っています
+     *
+     * `TagFactory`はNodeを生成するために必要です。ここではタグ名とTagFactoryの関連付けを行っております。
+     */
     constructor()
     {
         super();
@@ -62,6 +73,9 @@ class GomlConfigurator extends JThreeObject
         this.loadIntoAssociativeArray(this.converters, require("./GomlConverterList"));
     }
 
+    /**
+     * タグ名とTagFactoryの関連付けの初期化を行っています
+     */
     private initializeGomlTags()
     {
         var newList: GomlNodeListElement[] = require("./GomlNodeList");
