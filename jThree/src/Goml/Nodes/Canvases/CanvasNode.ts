@@ -19,7 +19,8 @@ class CanvasNode extends CanvasNodeBase {
         var defaultLoader;
         if(this.attributes.getValue("loader") !=="undefined" && this.nodeManager.nodeRegister.hasAlias("jthree.loader"))
         {
-          defaultLoader = (this.nodeManager.nodeRegister.getObject("jthree.loader",this.attributes.getValue("loader")) as any).loaderHTML;
+          var loaderNode = (this.nodeManager.nodeRegister.getObject("jthree.loader",this.attributes.getValue("loader")) as any);
+          if(loaderNode)defaultLoader = loaderNode.loaderHTML;
         }
         if(!defaultLoader)defaultLoader = require('../../../static/defaultLoader.html');
 
