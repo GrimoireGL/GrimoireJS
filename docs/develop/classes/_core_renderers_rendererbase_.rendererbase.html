@@ -81,7 +81,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html" class="tsd-signature-type">JThreeObjectWithID</a>
+						<a href="_core_canvasregion_.canvasregion.html" class="tsd-signature-type">CanvasRegion</a>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">RendererBase</span>
@@ -104,8 +104,11 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_rendererbase_.rendererbase.html#camera" class="tsd-kind-icon">camera</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_rendererbase_.rendererbase.html#contextmanager" class="tsd-kind-icon">context<wbr>Manager</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_rendererbase_.rendererbase.html#canvas" class="tsd-kind-icon">canvas</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_rendererbase_.rendererbase.html#canvaselement" class="tsd-kind-icon">canvas<wbr>Element</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_rendererbase_.rendererbase.html#lastmouseposition" class="tsd-kind-icon">last<wbr>Mouse<wbr>Position</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_rendererbase_.rendererbase.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_rendererbase_.rendererbase.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_rendererbase_.rendererbase.html#onviewportchangedhandler" class="tsd-kind-icon">on<wbr>Viewport<wbr>Changed<wbr>Handler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#renderpath" class="tsd-kind-icon">render<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_rendererbase_.rendererbase.html#renderpathexecutor" class="tsd-kind-icon">render<wbr>Path<wbr>Executor</a></li>
@@ -116,11 +119,12 @@
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#camera-1" class="tsd-kind-icon">Camera</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#contextmanager-1" class="tsd-kind-icon">Context<wbr>Manager</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#contextmanager" class="tsd-kind-icon">Context<wbr>Manager</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#gl" class="tsd-kind-icon">GL</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_rendererbase_.rendererbase.html#id" class="tsd-kind-icon">ID</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#renderpathexecutor-1" class="tsd-kind-icon">Render<wbr>Path<wbr>Executor</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_renderers_rendererbase_.rendererbase.html#viewportarea-1" class="tsd-kind-icon">View<wbr>Port<wbr>Area</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_core_renderers_rendererbase_.rendererbase.html#region" class="tsd-kind-icon">region</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -144,14 +148,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Renderer<wbr>Base<span class="tsd-signature-symbol">(</span>contextManager<span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a>, viewportArea<span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a>, configurator<span class="tsd-signature-symbol">?: </span><a href="_core_renderers_rendererconfigurator_rendererconfiguratorbase_.rendererconfiguratorbase.html" class="tsd-signature-type">RendererConfiguratorBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Renderer<wbr>Base<span class="tsd-signature-symbol">(</span>canvas<span class="tsd-signature-symbol">: </span><a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a>, viewportArea<span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a>, configurator<span class="tsd-signature-symbol">?: </span><a href="_core_renderers_rendererconfigurator_rendererconfiguratorbase_.rendererconfiguratorbase.html" class="tsd-signature-type">RendererConfiguratorBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overwrites <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#constructor">constructor</a></p>
+								<p>Overwrites <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L20">Core/Renderers/RendererBase.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L22">Core/Renderers/RendererBase.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -162,7 +166,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>contextManager: <a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></h5>
+									<h5>canvas: <a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a></h5>
 								</li>
 								<li>
 									<h5>viewportArea: <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h5>
@@ -184,7 +188,7 @@
 					<div class="tsd-signature tsd-kind-icon">camera<span class="tsd-signature-symbol">:</span> <a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L49">Core/Renderers/RendererBase.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L55">Core/Renderers/RendererBase.ts:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -194,12 +198,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="contextmanager" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> context<wbr>Manager</h3>
-					<div class="tsd-signature tsd-kind-icon">context<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></div>
+					<a name="canvas" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> canvas</h3>
+					<div class="tsd-signature tsd-kind-icon">canvas<span class="tsd-signature-symbol">:</span> <a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L73">Core/Renderers/RendererBase.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L79">Core/Renderers/RendererBase.ts:79</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -208,13 +212,47 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="canvaselement" class="tsd-anchor"></a>
+					<h3>canvas<wbr>Element</h3>
+					<div class="tsd-signature tsd-kind-icon">canvas<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLCanvasElement</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#canvaselement">canvasElement</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L19">Core/CanvasRegion.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="lastmouseposition" class="tsd-anchor"></a>
+					<h3>last<wbr>Mouse<wbr>Position</h3>
+					<div class="tsd-signature tsd-kind-icon">last<wbr>Mouse<wbr>Position<span class="tsd-signature-symbol">:</span> <a href="_math_vector2_.vector2.html" class="tsd-signature-type">Vector2</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#lastmouseposition">lastMousePosition</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L23">Core/CanvasRegion.ts:23</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="mouseover" class="tsd-anchor"></a>
+					<h3>mouse<wbr>Over</h3>
+					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Over<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#mouseover">mouseOver</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L21">Core/CanvasRegion.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="name" class="tsd-anchor"></a>
 					<h3>name</h3>
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L45">Core/Renderers/RendererBase.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L17">Core/CanvasRegion.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -224,7 +262,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Viewport<wbr>Changed<wbr>Handler<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L121">Core/Renderers/RendererBase.ts:121</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L127">Core/Renderers/RendererBase.ts:127</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -234,7 +272,7 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Path<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_renderpath_.renderpath.html" class="tsd-signature-type">RenderPath</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L43">Core/Renderers/RendererBase.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L50">Core/Renderers/RendererBase.ts:50</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -244,7 +282,7 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Path<wbr>Executor<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_renderpathexecutor_.renderpathexecutor.html" class="tsd-signature-type">RenderPathExecutor</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L111">Core/Renderers/RendererBase.ts:111</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L117">Core/Renderers/RendererBase.ts:117</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -259,7 +297,7 @@
 					<div class="tsd-signature tsd-kind-icon">viewport<wbr>Area<span class="tsd-signature-symbol">:</span> <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L133">Core/Renderers/RendererBase.ts:133</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L139">Core/Renderers/RendererBase.ts:139</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -277,7 +315,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L53">Core/Renderers/RendererBase.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L59">Core/Renderers/RendererBase.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -290,7 +328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L60">Core/Renderers/RendererBase.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L66">Core/Renderers/RendererBase.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,16 +347,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="contextmanager-1" class="tsd-anchor"></a>
+					<a name="contextmanager" class="tsd-anchor"></a>
 					<h3>Context<wbr>Manager</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ContextManager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ContextManager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L78">Core/Renderers/RendererBase.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L84">Core/Renderers/RendererBase.ts:84</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -326,7 +364,7 @@
 									<p>ContextManager managing this renderer.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="_core_contextmanagerbase_.contextmanagerbase.html" class="tsd-signature-type">ContextManagerBase</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -340,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L83">Core/Renderers/RendererBase.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L89">Core/Renderers/RendererBase.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLRenderingContext</span></h4>
@@ -401,7 +439,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L116">Core/Renderers/RendererBase.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L122">Core/Renderers/RendererBase.ts:122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -424,7 +462,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L139">Core/Renderers/RendererBase.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L145">Core/Renderers/RendererBase.ts:145</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -438,7 +476,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L147">Core/Renderers/RendererBase.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L153">Core/Renderers/RendererBase.ts:153</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -462,6 +500,24 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<a name="region" class="tsd-anchor"></a>
+					<h3>region</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> region<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#region">region</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L45">Core/Renderers/RendererBase.ts:45</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
@@ -475,7 +531,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L102">Core/Renderers/RendererBase.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L108">Core/Renderers/RendererBase.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -498,7 +554,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L162">Core/Renderers/RendererBase.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L168">Core/Renderers/RendererBase.ts:168</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -520,7 +576,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L92">Core/Renderers/RendererBase.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L98">Core/Renderers/RendererBase.ts:98</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -567,7 +623,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L128">Core/Renderers/RendererBase.ts:128</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L134">Core/Renderers/RendererBase.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -598,7 +654,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L65">Core/Renderers/RendererBase.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RendererBase.ts#L71">Core/Renderers/RendererBase.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -663,9 +719,18 @@
 								<a href="_core_renderers_rendererbase_.rendererbase.html#camera" class="tsd-kind-icon">camera</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_renderers_rendererbase_.rendererbase.html#contextmanager" class="tsd-kind-icon">context<wbr>Manager</a>
+								<a href="_core_renderers_rendererbase_.rendererbase.html#canvas" class="tsd-kind-icon">canvas</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_rendererbase_.rendererbase.html#canvaselement" class="tsd-kind-icon">canvas<wbr>Element</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_rendererbase_.rendererbase.html#lastmouseposition" class="tsd-kind-icon">last<wbr>Mouse<wbr>Position</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_renderers_rendererbase_.rendererbase.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_renderers_rendererbase_.rendererbase.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -684,7 +749,7 @@
 								<a href="_core_renderers_rendererbase_.rendererbase.html#camera-1" class="tsd-kind-icon">Camera</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_core_renderers_rendererbase_.rendererbase.html#contextmanager-1" class="tsd-kind-icon">Context<wbr>Manager</a>
+								<a href="_core_renderers_rendererbase_.rendererbase.html#contextmanager" class="tsd-kind-icon">Context<wbr>Manager</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_core_renderers_rendererbase_.rendererbase.html#gl" class="tsd-kind-icon">GL</a>
@@ -697,6 +762,9 @@
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="_core_renderers_rendererbase_.rendererbase.html#viewportarea-1" class="tsd-kind-icon">View<wbr>Port<wbr>Area</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_core_renderers_rendererbase_.rendererbase.html#region" class="tsd-kind-icon">region</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_renderers_rendererbase_.rendererbase.html#afterrender" class="tsd-kind-icon">after<wbr>Render</a>
