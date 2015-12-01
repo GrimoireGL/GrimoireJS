@@ -90,6 +90,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_base_idisposable_.idisposable.html" class="tsd-signature-type">IDisposable</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -109,11 +115,12 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvas_.canvas.html#glextensionmanager" class="tsd-kind-icon">gl<wbr>Extension<wbr>Manager</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvas_.canvas.html#isdirty" class="tsd-kind-icon">is<wbr>Dirty</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvas_.canvas.html#lastheight" class="tsd-kind-icon">last<wbr>Height</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#lastmouseposition" class="tsd-kind-icon">last<wbr>Mouse<wbr>Position</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvas_.canvas.html#lastwidth" class="tsd-kind-icon">last<wbr>Width</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#mouseevent" class="tsd-kind-icon">mouse<wbr>Event</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#mouseposition" class="tsd-kind-icon">mouse<wbr>Position</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvas_.canvas.html#onresizeeventhandler" class="tsd-kind-icon">on<wbr>Resize<wbr>Event<wbr>Handler</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_canvas_.canvas.html#onresizeeventhandler" class="tsd-kind-icon">on<wbr>Resize<wbr>Event<wbr>Handler</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -135,9 +142,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_canvas_.canvas.html#beforerender" class="tsd-kind-icon">before<wbr>Render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_canvas_.canvas.html#beforerenderall" class="tsd-kind-icon">before<wbr>Render<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_canvas_.canvas.html#clearcanvas" class="tsd-kind-icon">clear<wbr>Canvas</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_canvas_.canvas.html#getdefaultrectangle" class="tsd-kind-icon">get<wbr>Default<wbr>Rectangle</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#dispose" class="tsd-kind-icon">dispose</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_canvas_.canvas.html#onresize" class="tsd-kind-icon">on<wbr>Resize</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_core_canvas_.canvas.html#setglcontext" class="tsd-kind-icon">setGLContext</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvas_.canvas.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_core_canvas_.canvas.html#fromcanvaselement" class="tsd-kind-icon">from<wbr>Canvas<wbr>Element</a></li>
@@ -184,7 +190,7 @@
 					<div class="tsd-signature tsd-kind-icon">GL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WebGLRenderingContext</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L123">Core/Canvas.ts:123</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L110">Core/Canvas.ts:110</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,9 +201,15 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#canvaselement">canvasElement</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L19">Core/CanvasRegion.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L56">Core/CanvasRegion.ts:56</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The html canvas element containing this renderable region.</p>
+						</div>
+						<p>このクラスの管理するレンダリング可能領域が属するキャンバスのHTMLCanvasElement</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="clearcolor" class="tsd-anchor"></a>
@@ -205,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">clear<wbr>Color<span class="tsd-signature-symbol">:</span> <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L121">Core/Canvas.ts:121</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L108">Core/Canvas.ts:108</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,7 +232,7 @@
 					<div class="tsd-signature tsd-kind-icon">gl<wbr>Extension<wbr>Manager<span class="tsd-signature-symbol">:</span> <a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L125">Core/Canvas.ts:125</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L112">Core/Canvas.ts:112</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -254,17 +266,6 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="lastmouseposition" class="tsd-anchor"></a>
-					<h3>last<wbr>Mouse<wbr>Position</h3>
-					<div class="tsd-signature tsd-kind-icon">last<wbr>Mouse<wbr>Position<span class="tsd-signature-symbol">:</span> <a href="_math_vector2_.vector2.html" class="tsd-signature-type">Vector2</a></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#lastmouseposition">lastMousePosition</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L23">Core/CanvasRegion.ts:23</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="lastwidth" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> last<wbr>Width</h3>
@@ -281,15 +282,51 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="mouseevent" class="tsd-anchor"></a>
+					<h3>mouse<wbr>Event</h3>
+					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Event<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_imouseeventargs_.imouseeventargs.html" class="tsd-signature-type">IMouseEventArgs</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#mouseevent">mouseEvent</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L74">Core/CanvasRegion.ts:74</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="mouseover" class="tsd-anchor"></a>
 					<h3>mouse<wbr>Over</h3>
 					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Over<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#mouseover">mouseOver</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L21">Core/CanvasRegion.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L63">Core/CanvasRegion.ts:63</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether mouse is on the region or not.</p>
+						</div>
+						<p>マウスが現在このクラスが管理する領域の上に乗っているかどうか。</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="mouseposition" class="tsd-anchor"></a>
+					<h3>mouse<wbr>Position</h3>
+					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Position<span class="tsd-signature-symbol">:</span> <a href="_math_vector2_.vector2.html" class="tsd-signature-type">Vector2</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#mouseposition">mousePosition</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L72">Core/CanvasRegion.ts:72</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Mouse position in this region.
+							This position value is normalized in [0,1]</p>
+						</div>
+						<p>この領域内におけるマウスの座標。
+						この値のX及びYは閉区間[0,1]に正規化されている。</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="name" class="tsd-anchor"></a>
@@ -298,13 +335,21 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L17">Core/CanvasRegion.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L49">Core/CanvasRegion.ts:49</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name for identifying this instance.
+							Random generated unique ID will be used as default.</p>
+						</div>
+						<p>このクラスのインスタンスを識別するための名前
+						デフォルトではランダムに生成されたユニークな文字列が用いられる。</p>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="onresizeeventhandler" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> on<wbr>Resize<wbr>Event<wbr>Handler</h3>
+					<h3>on<wbr>Resize<wbr>Event<wbr>Handler</h3>
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Resize<wbr>Event<wbr>Handler<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CanvasSizeChangedEventArgs</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
@@ -331,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L131">Core/Canvas.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L118">Core/Canvas.ts:118</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_base_color_color4_.color4.html" class="tsd-signature-type">Color4</a></h4>
@@ -339,7 +384,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L135">Core/Canvas.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L122">Core/Canvas.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -362,7 +407,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L127">Core/Canvas.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L114">Core/Canvas.ts:114</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></h4>
@@ -441,7 +486,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#region">region</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L113">Core/Canvas.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L100">Core/Canvas.ts:100</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h4>
@@ -455,13 +500,13 @@
 					<a name="afterrender" class="tsd-anchor"></a>
 					<h3>after<wbr>Render</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">after<wbr>Render<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">after<wbr>Render<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L151">Core/Canvas.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L138">Core/Canvas.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -472,7 +517,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>renderer: <a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
+									<h5>renderer: <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -489,7 +534,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L78">Core/Canvas.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L72">Core/Canvas.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -506,7 +551,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L155">Core/Canvas.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L142">Core/Canvas.ts:142</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -517,19 +562,19 @@
 					<a name="beforerender" class="tsd-anchor"></a>
 					<h3>before<wbr>Render</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">before<wbr>Render<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">before<wbr>Render<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L82">Core/Canvas.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L76">Core/Canvas.ts:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>renderer: <a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a></h5>
+									<h5>renderer: <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -546,7 +591,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L89">Core/Canvas.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L83">Core/Canvas.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -563,7 +608,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L100">Core/Canvas.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L94">Core/Canvas.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -575,25 +620,27 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getdefaultrectangle" class="tsd-anchor"></a>
-					<h3>get<wbr>Default<wbr>Rectangle</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Default<wbr>Rectangle<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_idisposable_.idisposable.html">IDisposable</a>.<a href="../interfaces/_base_idisposable_.idisposable.html#dispose">dispose</a></p>
+								<p>Inherited from <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#dispose">dispose</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L109">Core/Canvas.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L36">Core/CanvasRegion.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get default rectangle it fills this canvas.</p>
+									<p>Dispose used objects and event handlers.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -621,34 +668,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="onresize" class="tsd-anchor"></a>
-					<h3>on<wbr>Resize</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Resize<span class="tsd-signature-symbol">(</span>act<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action2.html" class="tsd-signature-type">Action2</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">CanvasSizeChangedEventArgs</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L74">Core/Canvas.ts:74</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>add event handler that will be called when canvas size was changed.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>act: <a href="../interfaces/_base_delegates_.action2.html" class="tsd-signature-type">Action2</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">CanvasSizeChangedEventArgs</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a name="setglcontext" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> setGLContext</h3>
@@ -659,7 +678,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L142">Core/Canvas.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas.ts#L129">Core/Canvas.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -771,19 +790,22 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_canvas_.canvas.html#lastheight" class="tsd-kind-icon">last<wbr>Height</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_canvas_.canvas.html#lastmouseposition" class="tsd-kind-icon">last<wbr>Mouse<wbr>Position</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_canvas_.canvas.html#lastwidth" class="tsd-kind-icon">last<wbr>Width</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_canvas_.canvas.html#mouseevent" class="tsd-kind-icon">mouse<wbr>Event</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_canvas_.canvas.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_canvas_.canvas.html#mouseposition" class="tsd-kind-icon">mouse<wbr>Position</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_canvas_.canvas.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_canvas_.canvas.html#onresizeeventhandler" class="tsd-kind-icon">on<wbr>Resize<wbr>Event<wbr>Handler</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
@@ -819,14 +841,11 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_canvas_.canvas.html#clearcanvas" class="tsd-kind-icon">clear<wbr>Canvas</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_canvas_.canvas.html#getdefaultrectangle" class="tsd-kind-icon">get<wbr>Default<wbr>Rectangle</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_canvas_.canvas.html#dispose" class="tsd-kind-icon">dispose</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_canvas_.canvas.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_canvas_.canvas.html#onresize" class="tsd-kind-icon">on<wbr>Resize</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="_core_canvas_.canvas.html#setglcontext" class="tsd-kind-icon">setGLContext</a>

@@ -70,6 +70,16 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Abstract class to provide mouse tracking feature on a part of region on canvas.
+						This class is intended to be used in Canvas and viewport renderer.</p>
+					</div>
+					<p>キャンバス内の特定領域におけるマウスイベントを管理するためのクラス。
+					主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。</p>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -83,12 +93,18 @@
 										<a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a>
 									</li>
 									<li>
-										<a href="_core_renderers_rendererbase_.rendererbase.html" class="tsd-signature-type">RendererBase</a>
+										<a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a>
 									</li>
 								</ul>
 							</li>
 						</ul>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_base_idisposable_.idisposable.html" class="tsd-signature-type">IDisposable</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -104,9 +120,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvasregion_.canvasregion.html#_mouseenterhandler" class="tsd-kind-icon">_mouse<wbr>Enter<wbr>Handler</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvasregion_.canvasregion.html#_mouseleavehandler" class="tsd-kind-icon">_mouse<wbr>Leave<wbr>Handler</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_canvasregion_.canvasregion.html#_mousemovehandler" class="tsd-kind-icon">_mouse<wbr>Move<wbr>Handler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_canvasregion_.canvasregion.html#canvaselement" class="tsd-kind-icon">canvas<wbr>Element</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_canvasregion_.canvasregion.html#lastmouseposition" class="tsd-kind-icon">last<wbr>Mouse<wbr>Position</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_canvasregion_.canvasregion.html#mouseevent" class="tsd-kind-icon">mouse<wbr>Event</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_canvasregion_.canvasregion.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_canvasregion_.canvasregion.html#mouseposition" class="tsd-kind-icon">mouse<wbr>Position</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_canvasregion_.canvasregion.html#name" class="tsd-kind-icon">name</a></li>
 							</ul>
 						</section>
@@ -121,9 +141,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_canvasregion_.canvasregion.html#_checkmouseinside" class="tsd-kind-icon">_check<wbr>Mouse<wbr>Inside</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_canvasregion_.canvasregion.html#_mouseenterhandler" class="tsd-kind-icon">_mouse<wbr>Enter<wbr>Handler</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_canvasregion_.canvasregion.html#_mouseleavehandler" class="tsd-kind-icon">_mouse<wbr>Leave<wbr>Handler</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_canvasregion_.canvasregion.html#_mousemovehandler" class="tsd-kind-icon">_mouse<wbr>Move<wbr>Handler</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_canvasregion_.canvasregion.html#dispose" class="tsd-kind-icon">dispose</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvasregion_.canvasregion.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_canvasregion_.canvasregion.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
@@ -144,13 +162,23 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L8">Core/CanvasRegion.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L17">Core/CanvasRegion.ts:17</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructor</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>canvasElement: <span class="tsd-signature-type">HTMLCanvasElement</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>the canvas element which contains this region</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_core_canvasregion_.canvasregion.html" class="tsd-signature-type">CanvasRegion</a></h4>
@@ -160,23 +188,59 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_mouseenterhandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _mouse<wbr>Enter<wbr>Handler</h3>
+					<div class="tsd-signature tsd-kind-icon">_mouse<wbr>Enter<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L108">Core/CanvasRegion.ts:108</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_mouseleavehandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _mouse<wbr>Leave<wbr>Handler</h3>
+					<div class="tsd-signature tsd-kind-icon">_mouse<wbr>Leave<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L97">Core/CanvasRegion.ts:97</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_mousemovehandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _mouse<wbr>Move<wbr>Handler</h3>
+					<div class="tsd-signature tsd-kind-icon">_mouse<wbr>Move<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L86">Core/CanvasRegion.ts:86</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="canvaselement" class="tsd-anchor"></a>
 					<h3>canvas<wbr>Element</h3>
 					<div class="tsd-signature tsd-kind-icon">canvas<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLCanvasElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L19">Core/CanvasRegion.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L56">Core/CanvasRegion.ts:56</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The html canvas element containing this renderable region.</p>
+						</div>
+						<p>このクラスの管理するレンダリング可能領域が属するキャンバスのHTMLCanvasElement</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="lastmouseposition" class="tsd-anchor"></a>
-					<h3>last<wbr>Mouse<wbr>Position</h3>
-					<div class="tsd-signature tsd-kind-icon">last<wbr>Mouse<wbr>Position<span class="tsd-signature-symbol">:</span> <a href="_math_vector2_.vector2.html" class="tsd-signature-type">Vector2</a></div>
+					<a name="mouseevent" class="tsd-anchor"></a>
+					<h3>mouse<wbr>Event</h3>
+					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Event<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_core_imouseeventargs_.imouseeventargs.html" class="tsd-signature-type">IMouseEventArgs</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L23">Core/CanvasRegion.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L74">Core/CanvasRegion.ts:74</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,9 +250,33 @@
 					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Over<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L21">Core/CanvasRegion.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L63">Core/CanvasRegion.ts:63</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether mouse is on the region or not.</p>
+						</div>
+						<p>マウスが現在このクラスが管理する領域の上に乗っているかどうか。</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="mouseposition" class="tsd-anchor"></a>
+					<h3>mouse<wbr>Position</h3>
+					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Position<span class="tsd-signature-symbol">:</span> <a href="_math_vector2_.vector2.html" class="tsd-signature-type">Vector2</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L72">Core/CanvasRegion.ts:72</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Mouse position in this region.
+							This position value is normalized in [0,1]</p>
+						</div>
+						<p>この領域内におけるマウスの座標。
+						この値のX及びYは閉区間[0,1]に正規化されている。</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="name" class="tsd-anchor"></a>
@@ -196,9 +284,17 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L17">Core/CanvasRegion.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L49">Core/CanvasRegion.ts:49</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name for identifying this instance.
+							Random generated unique ID will be used as default.</p>
+						</div>
+						<p>このクラスのインスタンスを識別するための名前
+						デフォルトではランダムに生成されたユニークな文字列が用いられる。</p>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -257,9 +353,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L25">Core/CanvasRegion.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L82">Core/CanvasRegion.ts:82</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The region managed by this class.(This getter should be overridden)</p>
+								</div>
+								<p>このクラスによって管理されている領域(このgetterはオーバーライドされるべきものです。)</p>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></h4>
 						</li>
 					</ul>
@@ -271,90 +373,47 @@
 					<a name="_checkmouseinside" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _check<wbr>Mouse<wbr>Inside</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_check<wbr>Mouse<wbr>Inside<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">_check<wbr>Mouse<wbr>Inside<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span>, mouseState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L41">Core/CanvasRegion.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L119">Core/CanvasRegion.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>e: <span class="tsd-signature-type">MouseEvent</span></h5>
+								</li>
+								<li>
+									<h5>mouseState: <span class="tsd-signature-type">boolean</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_mouseenterhandler" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _mouse<wbr>Enter<wbr>Handler</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_mouse<wbr>Enter<wbr>Handler<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_idisposable_.idisposable.html">IDisposable</a>.<a href="../interfaces/_base_idisposable_.idisposable.html#dispose">dispose</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L37">Core/CanvasRegion.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L36">Core/CanvasRegion.ts:36</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>e: <span class="tsd-signature-type">MouseEvent</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_mouseleavehandler" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _mouse<wbr>Leave<wbr>Handler</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_mouse<wbr>Leave<wbr>Handler<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L33">Core/CanvasRegion.ts:33</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>e: <span class="tsd-signature-type">MouseEvent</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_mousemovehandler" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _mouse<wbr>Move<wbr>Handler</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_mouse<wbr>Move<wbr>Handler<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/CanvasRegion.ts#L29">Core/CanvasRegion.ts:29</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>e: <span class="tsd-signature-type">MouseEvent</span></h5>
-								</li>
-							</ul>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispose used objects and event handlers.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -431,14 +490,26 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_core_canvasregion_.canvasregion.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_canvasregion_.canvasregion.html#_mouseenterhandler" class="tsd-kind-icon">_mouse<wbr>Enter<wbr>Handler</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_canvasregion_.canvasregion.html#_mouseleavehandler" class="tsd-kind-icon">_mouse<wbr>Leave<wbr>Handler</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_canvasregion_.canvasregion.html#_mousemovehandler" class="tsd-kind-icon">_mouse<wbr>Move<wbr>Handler</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_canvasregion_.canvasregion.html#canvaselement" class="tsd-kind-icon">canvas<wbr>Element</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_core_canvasregion_.canvasregion.html#lastmouseposition" class="tsd-kind-icon">last<wbr>Mouse<wbr>Position</a>
+								<a href="_core_canvasregion_.canvasregion.html#mouseevent" class="tsd-kind-icon">mouse<wbr>Event</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_canvasregion_.canvasregion.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_canvasregion_.canvasregion.html#mouseposition" class="tsd-kind-icon">mouse<wbr>Position</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_canvasregion_.canvasregion.html#name" class="tsd-kind-icon">name</a>
@@ -452,14 +523,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_core_canvasregion_.canvasregion.html#_checkmouseinside" class="tsd-kind-icon">_check<wbr>Mouse<wbr>Inside</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_core_canvasregion_.canvasregion.html#_mouseenterhandler" class="tsd-kind-icon">_mouse<wbr>Enter<wbr>Handler</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_core_canvasregion_.canvasregion.html#_mouseleavehandler" class="tsd-kind-icon">_mouse<wbr>Leave<wbr>Handler</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_core_canvasregion_.canvasregion.html#_mousemovehandler" class="tsd-kind-icon">_mouse<wbr>Move<wbr>Handler</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_canvasregion_.canvasregion.html#dispose" class="tsd-kind-icon">dispose</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_canvasregion_.canvasregion.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
