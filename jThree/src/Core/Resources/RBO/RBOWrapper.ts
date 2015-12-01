@@ -21,9 +21,9 @@ class RBOWrapper extends ResourceWrapper
 	 */
 	private parent:RBO;
 
-	constructor(contextManager:Canvas,parentRBO:RBO)
+	constructor(canvas:Canvas,parentRBO:RBO)
 	{
-		super(contextManager);
+		super(canvas);
 		this.parent=parentRBO;
 	}
 

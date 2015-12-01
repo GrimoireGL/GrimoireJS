@@ -34,8 +34,8 @@ class BufferTexture extends TextureBase {
 		}
 	}
 
-	protected getInstanceForRenderer(contextManager: Canvas): BufferTextureWrapper {
-		var textureWrapper = new BufferTextureWrapper(contextManager, this);
+	protected getInstanceForRenderer(canvas: Canvas): BufferTextureWrapper {
+		var textureWrapper = new BufferTextureWrapper(canvas, this);
 		return textureWrapper;
 	}
 

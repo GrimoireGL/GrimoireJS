@@ -25,8 +25,8 @@ class Texture extends TextureBase
     this.generateMipmapIfNeed();
   }
 
-  protected getInstanceForRenderer(contextManager: Canvas):TextureWrapper {
-      var textureWrapper=new TextureWrapper(contextManager,this);
+  protected getInstanceForRenderer(canvas: Canvas):TextureWrapper {
+      var textureWrapper=new TextureWrapper(canvas,this);
       return textureWrapper;
   }
   

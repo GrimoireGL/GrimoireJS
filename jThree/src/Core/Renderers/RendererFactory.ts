@@ -8,10 +8,10 @@ class RendererFactory
     "sprite":require("./RendererConfigurator/SpriteRendererConfigurator")
   };
 
-  public static generateRenderer(contextManager:Canvas,drawRect:Rectangle,configureName:string)
+  public static generateRenderer(canvas:Canvas,drawRect:Rectangle,configureName:string)
   {
     configureName = configureName || "default";
-    return new RendererBase(contextManager,drawRect,new RendererFactory.rendererConfigurations[configureName]());
+    return new RendererBase(canvas,drawRect,new RendererFactory.rendererConfigurations[configureName]());
   }
 }
 

@@ -21,15 +21,15 @@ class RendererBase extends jThreeObjectWithID
 {
     /**
      * Constructor of RenderBase
-     * @param contextManager
+     * @param canvas
      * @param viewportArea
      * @returns {}
      */
-    constructor(contextManager: Canvas, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
+    constructor(canvas: Canvas, viewportArea: Rectangle, configurator?: RendererConfiguratorBase)
     {
         super();
         configurator = configurator || new RendererConfigurator();
-        this.contextManager = contextManager;
+        this.canvas = canvas;
         this.renderPathExecutor =new RenderPathExecutor(this);
         this.viewportArea = viewportArea;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
@@ -39,9 +39,9 @@ class RendererBase extends jThreeObjectWithID
         this.RenderPathExecutor.TextureBuffers = configurator.TextureBuffers;
         this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
-        contextManager.canvasElement.addEventListener('mouseenter',this._mouseEnter.bind(this),false);
-        contextManager.canvasElement.addEventListener('mouseleave',this._mouseLeave.bind(this),false);
-        contextManager.canvasElement.addEventListener('mousemove',this._mouseMove.bind(this),false);
+        canvas.canvasElement.addEventListener('mouseenter',this._mouseEnter.bind(this),false);
+        canvas.canvasElement.addEventListener('mouseleave',this._mouseLeave.bind(this),false);
+        canvas.canvasElement.addEventListener('mousemove',this._mouseMove.bind(this),false);
 
     }
 
@@ -107,19 +107,19 @@ class RendererBase extends jThreeObjectWithID
     /**
      * ContextManager managing this renderer.
      */
-    private contextManager: Canvas;
+    private canvas: Canvas;
 
     /**
      * ContextManager managing this renderer.
      */
     public get ContextManager(): Canvas
     {
-        return this.contextManager;
+        return this.canvas;
     }
 
     public get GL():WebGLRenderingContext
     {
-      return this.contextManager.GL;
+      return this.canvas.GL;
     }
 
     /**

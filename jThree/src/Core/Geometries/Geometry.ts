@@ -49,14 +49,14 @@ class Geometry extends jThreeObject {
      return this.primitiveTopology;
    }
 
-   public drawElements(contextManager:Canvas,material:Material)
+   public drawElements(canvas:Canvas,material:Material)
    {
      if(material)
      {
-       contextManager.GL.drawElements(this.PrimitiveTopology,material.getDrawGeometryLength(this),this.IndexBuffer.ElementType,material.getDrawGeometryOffset(this));
+       canvas.GL.drawElements(this.PrimitiveTopology,material.getDrawGeometryLength(this),this.IndexBuffer.ElementType,material.getDrawGeometryOffset(this));
        return;
      }
-     contextManager.GL.drawElements(this.PrimitiveTopology,this.IndexCount,this.IndexBuffer.ElementType,this.GeometryOffset);
+     canvas.GL.drawElements(this.PrimitiveTopology,this.IndexCount,this.IndexBuffer.ElementType,this.GeometryOffset);
    }
 
    protected addQuad(pos:number[],normal:number[],uv:number[],index:number[],points:Vector3[]):void
@@ -146,9 +146,9 @@ class Geometry extends jThreeObject {
      }
    }
 
-   public bindIndexBuffer(contextManager:Canvas)
+   public bindIndexBuffer(canvas:Canvas)
    {
-     this.IndexBuffer.getForContext(contextManager).bindBuffer();
+     this.IndexBuffer.getForContext(canvas).bindBuffer();
    }
 }
 export=Geometry;

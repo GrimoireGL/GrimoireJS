@@ -6,8 +6,8 @@ import VariableRegisteringArgument = require("./VariableRegister/VariableRegiste
 import VariableRegisterBase = require("./VariableRegister/Uniforms/UniformVariableRegisterBase");
 
 class ProgramWrapper extends ResourceWrapper {
-    constructor(parent: Program, contextManager: Canvas) {
-        super(contextManager);
+    constructor(parent: Program, canvas: Canvas) {
+        super(canvas);
         this.parentProgram = parent;
     }
 

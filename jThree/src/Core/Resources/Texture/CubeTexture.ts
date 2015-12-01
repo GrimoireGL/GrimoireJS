@@ -24,9 +24,9 @@ class CubeTexture extends TextureBase
         this.generateMipmapIfNeed();
     }
 
-    protected getInstanceForRenderer(contextManager: Canvas): CubeTextureWrapper
+    protected getInstanceForRenderer(canvas: Canvas): CubeTextureWrapper
     {
-        var textureWrapper = new CubeTextureWrapper(contextManager, this);
+        var textureWrapper = new CubeTextureWrapper(canvas, this);
         return textureWrapper;
     }
 }

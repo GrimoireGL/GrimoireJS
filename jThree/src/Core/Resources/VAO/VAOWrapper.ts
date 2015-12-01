@@ -24,11 +24,11 @@ class VAOWrapper extends ResourceWrapper
 	 */
 	private parent:VAO;
 
-	constructor(contextManager:Canvas,parentVAO:VAO)
+	constructor(canvas:Canvas,parentVAO:VAO)
 	{
-		super(contextManager);
+		super(canvas);
 		this.parent=parentVAO;
-		this.vaoInterface = contextManager.GLExtensionManager.getExtension(GLExtensionList.VertexArrayObject);
+		this.vaoInterface = canvas.GLExtensionManager.getExtension(GLExtensionList.VertexArrayObject);
 	}
 
     public init()

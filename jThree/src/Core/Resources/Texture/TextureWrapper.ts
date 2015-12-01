@@ -7,9 +7,9 @@ import TextureType = require('../../../Wrapper/TextureType');
 import TexImage2DTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
 class TextureWrapper extends TextureWrapperBase
 {
-  constructor(contextManager:Canvas,parent:Texture)
+  constructor(canvas:Canvas,parent:Texture)
   {
-    super(contextManager,parent);
+    super(canvas,parent);
   }
 
 

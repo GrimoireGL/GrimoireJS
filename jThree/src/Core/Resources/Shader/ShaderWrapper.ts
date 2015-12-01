@@ -4,8 +4,8 @@ import ResourceWrapper = require('../ResourceWrapper');
 class ShaderWrapper extends ResourceWrapper
 {
 
-    constructor(parent: Shader,contextManager:Canvas) {
-        super(contextManager);
+    constructor(parent: Shader,canvas:Canvas) {
+        super(canvas);
         this.parentShader = parent;
     }
 

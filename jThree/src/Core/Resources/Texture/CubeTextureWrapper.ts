@@ -7,8 +7,8 @@ import TextureInternalFormat = require("../../../Wrapper/TextureInternalFormatTy
 import TextureType = require("../../../Wrapper/TextureType");
 
 class CubeTextureWrapper extends TextureWrapperBase {
-    constructor(contextManager: Canvas, parent: CubeTexture) {
-        super(contextManager, parent);
+    constructor(canvas: Canvas, parent: CubeTexture) {
+        super(canvas, parent);
     }
 
     public init(isChanged?: boolean) {

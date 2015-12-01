@@ -37,8 +37,8 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
 
     private childWrapper: AssociativeArray<T> = new AssociativeArray<T>();
 
-    public getForContext(contextManager: Canvas): T {
-        return this.getForContextID(contextManager.ID);
+    public getForContext(canvas: Canvas): T {
+        return this.getForContextID(canvas.ID);
     }
 
     public getForContextID(id: string): T {

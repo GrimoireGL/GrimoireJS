@@ -13,9 +13,9 @@ class BufferWrapper extends ResourceWrapper
 
     private parentBuffer:Buffer;
 
-    constructor(parentBuffer: Buffer,contextManager:Canvas)
+    constructor(parentBuffer: Buffer,canvas:Canvas)
     {
-        super(contextManager);
+        super(canvas);
         this.parentBuffer = parentBuffer;
 
     }
