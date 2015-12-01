@@ -3,7 +3,7 @@ import LightBase = require('./../LightBase');
 import Scene = require('../../Scene');
 import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import BufferTexture = require("../../Resources/Texture/BufferTexture");
 import TextureGenerater = require("../../Renderers/TextureGenerater");
 import GeneraterInfoChunk = require("../../Renderers/TextureGeneraters/GeneraterInfoChunk");
@@ -12,12 +12,12 @@ class ShadowDroppableLight extends LightBase {
 		super(scene);
     }
 
- public updateLightMatricis(renderer:RendererBase)
+ public updateLightMatricis(renderer:BasicRenderer)
  {
 
  }
 
- protected updateLightProjection(renderer:RendererBase,shadowMatrix:Matrix)
+ protected updateLightProjection(renderer:BasicRenderer,shadowMatrix:Matrix)
  {
 	 this.matLightViewProjection = shadowMatrix;
  }

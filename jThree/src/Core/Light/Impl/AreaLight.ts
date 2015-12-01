@@ -3,7 +3,7 @@ import LightBase = require('./../LightBase');
 import Scene = require('../../Scene');
 import Matrix = require('../../../Math/Matrix');
 import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import RendererBase = require("../../Renderers/RendererBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
 import glm = require("gl-matrix");
 
 /**
@@ -31,7 +31,7 @@ class AreaLight extends LightBase {
 		super(scene);
     }
 
-    public getParameters(renderer:RendererBase): number[] {
+    public getParameters(renderer:BasicRenderer): number[] {
         var dir = Matrix.transformNormal(renderer.Camera.viewMatrix,this.transformer.forward);
 				var vm = Matrix.multiply(renderer.Camera.viewMatrix,this.transformer.LocalToGlobal);
         var b = Matrix.transformPoint(vm,Vector3.Zero);

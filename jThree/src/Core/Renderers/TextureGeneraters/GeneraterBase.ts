@@ -1,13 +1,13 @@
 import GeneraterInfoChunk = require("./GeneraterInfoChunk");
-import RendererBase = require("../RendererBase");
+import BasicRenderer = require("../BasicRenderer");
 /**
  * Provides abstraction for texture generation.
  * By overriding, it is able to manage texture buffer in your way.
  */
 class GeneraterBase {
-	protected parentRenderer: RendererBase;
+	protected parentRenderer: BasicRenderer;
 
-	constructor(parent: RendererBase) {
+	constructor(parent: BasicRenderer) {
 		this.parentRenderer = parent;
 	}
 

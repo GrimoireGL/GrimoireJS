@@ -1,4 +1,4 @@
-import RendererBase = require('../RendererBase');
+import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
@@ -15,7 +15,7 @@ class GrayScaleStage extends RenderStageBase {
 	private program: Program;
 //
 
-	constructor(renderer: RendererBase) {
+	constructor(renderer: BasicRenderer) {
 		super(renderer);
 		var vs = require('../../Shaders/VertexShaders/PostEffectGeometries.glsl');
 		agent.get("/GrayScale.glsl").end((err, res: agent.Response) => {
@@ -48,7 +48,7 @@ class GrayScaleStage extends RenderStageBase {
 		//this.rbLightFBO.getForContext(this.Renderer.ContextManager).unbind();
 	}
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo): void {
+    public configureMaterial(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo): void {
 		var geometry = object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         programWrapper.register({

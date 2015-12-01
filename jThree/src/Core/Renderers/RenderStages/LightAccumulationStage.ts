@@ -1,4 +1,4 @@
-import RendererBase = require('../RendererBase');
+import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
@@ -13,7 +13,7 @@ class LightAccumulationStage extends RenderStageBase
 
     private program: Program;
 
-    constructor(renderer: RendererBase)
+    constructor(renderer: BasicRenderer)
     {
         super(renderer);
     }
@@ -46,7 +46,7 @@ class LightAccumulationStage extends RenderStageBase
         geometry.drawElements(this.Renderer.ContextManager, null);
     }
 
-    public configureMaterial(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo,targetProgramWrapper:Program): void
+    public configureMaterial(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo,targetProgramWrapper:Program): void
     {
         var geometry = object.Geometry;
         var programWrapper = targetProgramWrapper.getForContext(renderer.ContextManager);

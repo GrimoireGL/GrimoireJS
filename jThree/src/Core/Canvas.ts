@@ -1,7 +1,7 @@
 import GLExtensionManager = require("./GLExtensionManager");
 import Rectangle = require("../Math/Rectangle");
 import JThreeContext = require("../JThreeContext");
-import RendererBase = require("./Renderers/RendererBase");
+import BasicRenderer = require("./Renderers/BasicRenderer");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import JThreeEvent = require('../Base/JThreeEvent');
 import CanvasSizeChangedEventArgs = require('./CanvasSizeChangedEventArgs');
@@ -63,23 +63,17 @@ class Canvas extends CanvasRegion {
     /**
      * event cache for resize event.
      */
-    private onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
+    public onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
 
     public get IsDirty(): boolean {
         return this.isDirty;
-    }
-    /**
-     * add event handler that will be called when canvas size was changed.
-     */
-    public onResize(act: Delegates.Action2<Canvas, CanvasSizeChangedEventArgs>) {
-        this.onResizeEventHandler.addListener(act);
     }
 
     public afterRenderAll(): void {
         this.isDirty = true;
     }
 
-    public beforeRender(renderer: RendererBase): void {
+    public beforeRender(renderer: BasicRenderer): void {
         if (this.isDirty) {//check it needs clear default buffer or not.
             this.clearCanvas();
             this.isDirty = false;
@@ -101,13 +95,6 @@ class Canvas extends CanvasRegion {
         this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,null);//binds to default buffer.
         this.applyClearColor();
         this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-    }
-
-    /**
-     * Get default rectangle it fills this canvas.
-     */
-    public getDefaultRectangle(): Rectangle {
-        return new Rectangle(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
 
     public get region():Rectangle
@@ -148,7 +135,7 @@ class Canvas extends CanvasRegion {
     /**
      * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
      */
-    public afterRender(renderer: RendererBase): void {
+    public afterRender(renderer: BasicRenderer): void {
 
     }
 

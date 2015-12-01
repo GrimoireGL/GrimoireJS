@@ -1,6 +1,6 @@
 ﻿import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
-import RendererBase = require("../../../Core/Renderers/RendererBase");
+import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
 import Geometry = require("../../../Core/Geometries/Geometry");
 import SceneObject = require("../../../Core/SceneObject");
 import Matrix = require("../../../Math/Matrix");
@@ -77,7 +77,7 @@ class PMXGBufferMaterial extends Material
         object.Geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
-    private configurePrimaryBuffer(scene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
+    private configurePrimaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.primaryProgram.getForContext(renderer.ContextManager);
         var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
@@ -99,7 +99,7 @@ class PMXGBufferMaterial extends Material
         });
     }
 
-    private configureSecoundaryBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
+    private configureSecoundaryBuffer(cene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
         var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
@@ -148,7 +148,7 @@ class PMXGBufferMaterial extends Material
     }
 
 
-    private configureThirdBuffer(cene: Scene, renderer: RendererBase, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
+    private configureThirdBuffer(cene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;
         var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
         var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);

@@ -1,6 +1,6 @@
 import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
-import RendererBase = require("../RendererBase");
+import BasicRenderer = require("../BasicRenderer");
 import AccumulationStage = require("../RenderStages/LightAccumulationStage");
 import ShadingStage = require("../RenderStages/FowardShadingStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
@@ -15,7 +15,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
         };
     }
 
-    public getStageChain(target: RendererBase): RenderStageChain[]
+    public getStageChain(target: BasicRenderer): RenderStageChain[]
     {
         return [
             {
