@@ -23,7 +23,7 @@ class Camera extends SceneObject
 
 	public projectionMatrix:Matrix = new Matrix();
 
-	protected updateViewProjectionMatrix()
+	protected __updateViewProjectionMatrix()
 	{
 		glm.mat4.mul(this.viewProjectionMatrix.rawElements,this.projectionMatrix.rawElements,this.viewMatrix.rawElements);
 		glm.mat4.invert(this.viewProjectionInvMatrix.rawElements,this.viewProjectionMatrix.rawElements);

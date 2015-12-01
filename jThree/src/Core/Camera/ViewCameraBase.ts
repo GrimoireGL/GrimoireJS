@@ -8,17 +8,17 @@ class ViewCameraBase extends Camera
   constructor()
   {
     super();
-    this.generateviewMatrix(this);
-    this.transformer.onUpdateTransform((t,o)=>this.UpdateviewMatrix(<Camera>o));
+    this._generateViewMatrix(this);
+    this.transformer.onUpdateTransform((t,o)=>this._updateViewProjectionMatrix(<Camera>o));
   }
 
-  private UpdateviewMatrix(cam:Camera):void
+  private _updateViewProjectionMatrix(cam:Camera):void
   {
-    this.generateviewMatrix(cam);
-    this.updateViewProjectionMatrix();
+    this._generateViewMatrix(cam);
+    this.__updateViewProjectionMatrix();
   }
 
-  private generateviewMatrix(cam:Camera)
+  private _generateViewMatrix(cam:Camera)
   {
     glm.mat4.lookAt(this.viewMatrix.rawElements,cam.Transformer.GlobalPosition.rawElements, Vector3.add(cam.Transformer.forward,cam.Transformer.GlobalPosition).rawElements,cam.Transformer.up.rawElements);
   }
