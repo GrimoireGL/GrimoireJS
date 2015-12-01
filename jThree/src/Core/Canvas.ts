@@ -63,16 +63,10 @@ class Canvas extends CanvasRegion {
     /**
      * event cache for resize event.
      */
-    private onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
+    public onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
 
     public get IsDirty(): boolean {
         return this.isDirty;
-    }
-    /**
-     * add event handler that will be called when canvas size was changed.
-     */
-    public onResize(act: Delegates.Action2<Canvas, CanvasSizeChangedEventArgs>) {
-        this.onResizeEventHandler.addListener(act);
     }
 
     public afterRenderAll(): void {
@@ -101,13 +95,6 @@ class Canvas extends CanvasRegion {
         this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,null);//binds to default buffer.
         this.applyClearColor();
         this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-    }
-
-    /**
-     * Get default rectangle it fills this canvas.
-     */
-    public getDefaultRectangle(): Rectangle {
-        return new Rectangle(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
 
     public get region():Rectangle

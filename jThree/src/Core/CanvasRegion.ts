@@ -117,6 +117,7 @@ class CanvasRegion extends JThreeObjectWithID implements IDisposable {
     }).bind(this);
 
     private _checkMouseInside(e: MouseEvent, mouseState: boolean): boolean {
+      //TODO fix bug here
         var r = this.region;
         var rect = this.canvasElement.getBoundingClientRect();
         var cWidth = rect.right - rect.left;
