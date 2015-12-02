@@ -13,134 +13,98 @@ import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Color4 = require("../Base/Color/Color4");
 import CanvasRegion = require("./CanvasRegion");
 /**
- * Provides some of feature managing canvas.
+ * The class to manage HTMLCanvasElement.
+ * Provides most of interfaces related to GLContext except the features resource manager providing.
+ *
+ * HTMLCanvasElementを管理するクラス
+ * リソースマネージャーが提供する機能以外のGLContextが関連する機能のほとんどを内包します。
  */
 class Canvas extends CanvasRegion {
+
     /**
-     * Generate instance from HtmlCanvasElement
+     * Constructor
+     * @param  {HTMLCanvasElement} canvasElement the HTMLCanvasElement that is managed by this class.
      */
-    public static fromCanvasElement(canvasElement: HTMLCanvasElement): Canvas {//TODO need refactoring
-        var gl: WebGLRenderingContext;
+    constructor(canvasElement: HTMLCanvasElement) {
+        super(canvasElement);
+        this._lastWidth = canvasElement.width;
+        this._lastHeight = canvasElement.height;
+        this.__setGLContext(this._tryGetGLContext());
+    }
+
+    /**
+     * Attempts to try getting GLContext from canvas.
+     * @return {WebGLRenderingContext} [description]
+     */
+    private _tryGetGLContext(): WebGLRenderingContext {
         try {
-            gl = <WebGLRenderingContext>(canvasElement.getContext("webgl") || canvasElement.getContext("experimental-webgl"));
-            var canvas: Canvas = new Canvas(gl,canvasElement);
-            //register handlers here
-            canvas.lastHeight = canvasElement.height;
-            canvas.lastWidth = canvasElement.width;
-            //add div for monitoring size changing in canvas
-            return canvas;
+            return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
         } catch (e) {
-            console.error("Web GL context Generation failed");
-            if (!gl) {
-                console.error("WebGL Context Generation failed." + e);
-                //Processing for this error
-            }
+            console.error("WebGL context generation failed" + e);
         }
     }
 
-    constructor(glContext: WebGLRenderingContext,canvasElement:HTMLCanvasElement) {
-        super(canvasElement);
-        // this.enabled = true;
-        this.setGLContext(glContext);
-    }
+    /**
+     * canvas height of last time
+     */
+    private _lastHeight: number;
 
     /**
-     * cache for the last height.
+     * canvas width of last time
      */
-    private lastHeight: number;
-
-    /**
-     * cache for the last width.
-     */
-    private lastWidth: number;
-
-
-    /**
-     * backing field for IsDirty
-     */
-    private isDirty: boolean = true;
+    private _lastWidth: number;
 
     /**
      * event cache for resize event.
      */
-    public onResizeEventHandler: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
-
-    public get IsDirty(): boolean {
-        return this.isDirty;
-    }
-
-    public afterRenderAll(): void {
-        this.isDirty = true;
-    }
-
-    public beforeRender(renderer: BasicRenderer): void {
-        if (this.isDirty) {//check it needs clear default buffer or not.
-            this.clearCanvas();
-            this.isDirty = false;
-        }
-    }
-
-    public beforeRenderAll(): void {
-        //check size changed or not.
-        if (this.canvasElement.height !== this.lastHeight || this.canvasElement.width !== this.lastWidth) {
-            this.onResizeEventHandler.fire(this, new CanvasSizeChangedEventArgs(this, this.lastWidth, this.lastHeight, this.canvasElement.width, this.canvasElement.height));
-            this.lastHeight = this.canvasElement.height; this.lastWidth = this.canvasElement.width;
-        }
-    }
-
-    /**
-     * clear the default buffer of this canvas with ClearColor.
-     */
-    public clearCanvas(): void {
-        this.GL.bindFramebuffer(this.GL.FRAMEBUFFER,null);//binds to default buffer.
-        this.applyClearColor();
-        this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-    }
-
-    public get region():Rectangle
-    {
-      return new Rectangle(0,0,this.lastWidth,this.lastHeight);
-    }
-
-    /**
-    * backing field for ClearColor
-    */
-    private clearColor: Color4;
-
-    public GL:WebGLRenderingContext;
-
-    private glExtensionManager: GLExtensionManager = new GLExtensionManager();
-
-    public get GLExtensionManager() {
-        return this.glExtensionManager;
-    }
-
-    public get ClearColor(): Color4 {
-        this.clearColor = this.clearColor || new Color4(1, 1, 1, 1);
-        return this.clearColor;
-    }
-    public set ClearColor(col: Color4) {
-        this.clearColor = col || new Color4(1, 1, 1, 1);
-    }
-
-    /**
-     * apply gl context after webglrendering context initiated.
-     */
-    protected setGLContext(glContext: WebGLRenderingContext) {
-        this.GL = glContext;
-        this.glExtensionManager.checkExtensions(glContext);
-    }
-
+    public canvasResized: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
 
     /**
      * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
      */
     public afterRender(renderer: BasicRenderer): void {
+    }
 
+    public afterRenderAll(): void {
+    }
+    public beforeRender(renderer: BasicRenderer): void {
+        this.clearCanvas();
+    }
+    public beforeRenderAll(): void {
+        //check size changed or not.
+        if (this.canvasElement.height !== this._lastHeight || this.canvasElement.width !== this._lastWidth) {
+            this.canvasResized.fire(this, new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
+            this._lastHeight = this.canvasElement.height; this._lastWidth = this.canvasElement.width;
+        }
+    }
+    /**
+     * clear the default buffer of this canvas with ClearColor.
+     */
+    public clearCanvas(): void {
+        this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, null);//binds to default buffer.
+        this.applyClearColor();
+        this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+    }
+    
+    public get region(): Rectangle {
+        return new Rectangle(0, 0, this._lastWidth, this._lastHeight);
+    }
+    /**
+    * backing field for ClearColor
+    */
+    public clearColor: Color4 = new Color4(1, 1, 1, 1);
+    public GL: WebGLRenderingContext;
+    public glExtensionManager: GLExtensionManager = new GLExtensionManager();
+    /**
+     * apply gl context after webglrendering context initiated.
+     */
+    protected __setGLContext(glContext: WebGLRenderingContext) {
+        this.GL = glContext;
+        this.glExtensionManager.checkExtensions(glContext);
     }
 
     public applyClearColor() {
-        this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.ClearColor.B, this.clearColor.A);
+        this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.clearColor.B, this.clearColor.A);
     }
 }
 

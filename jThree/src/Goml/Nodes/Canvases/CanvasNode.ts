@@ -19,7 +19,8 @@ class CanvasNode extends CanvasNodeBase {
         var defaultLoader;
         if(this.attributes.getValue("loader") !=="undefined" && this.nodeManager.nodeRegister.hasAlias("jthree.loader"))
         {
-          defaultLoader = (this.nodeManager.nodeRegister.getObject("jthree.loader",this.attributes.getValue("loader")) as any).loaderHTML;
+          var loaderNode = (this.nodeManager.nodeRegister.getObject("jthree.loader",this.attributes.getValue("loader")) as any);
+          if(loaderNode)defaultLoader = loaderNode.loaderHTML;
         }
         if(!defaultLoader)defaultLoader = require('../../../static/defaultLoader.html');
 
@@ -37,7 +38,7 @@ class CanvasNode extends CanvasNodeBase {
         if (this.targetFrame) resizeElement.appendChild(this.canvasElement);
         this.canvasElement.classList.add("x-j3-c-" + this.ID);
         //initialize contexts
-        this.setCanvas(Canvas.fromCanvasElement(this.canvasElement));
+        this.setCanvas(new Canvas(this.canvasElement));
         JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);
 
         var loaderContainer = document.createElement('div');

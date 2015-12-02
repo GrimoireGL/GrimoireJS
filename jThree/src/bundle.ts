@@ -18,7 +18,6 @@
 /// <reference path="Core/CanvasListChangedEventArgs.ts" />
 /// <reference path="Core/CanvasManager.ts" />
 /// <reference path="Core/CanvasSizeChangedEventArgs.ts" />
-/// <reference path="Core/ContextTimer.ts" />
 /// <reference path="Core/GLExtensionList.ts" />
 /// <reference path="Core/GLExtensionManager.ts" />
 /// <reference path="Core/GLSpecManager.ts" />

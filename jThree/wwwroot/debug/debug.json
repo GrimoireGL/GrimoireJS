@@ -35,6 +35,10 @@
     {
       "goml":"DirectionalLight/DirectionalLight.goml",
       "js":[]
+    },
+    "CustomLoader":
+    {
+      "goml":"CustomLoader/CustomLoader.goml"
     }
   }
 }

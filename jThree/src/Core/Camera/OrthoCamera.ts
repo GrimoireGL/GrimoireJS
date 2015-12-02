@@ -1,93 +1,78 @@
-import ViewCamera=require("./ViewCameraBase");
+import ViewCamera = require("./ViewCameraBase");
 import Matrix = require("../../Math/Matrix");
 import glm = require("gl-matrix");
-class OrthoCamera extends ViewCamera
-{
-  private left:number;
-  private right:number;
-  private top:number;
-  private bottom:number;
-  private near:number;
-  private far:number;
+class OrthoCamera extends ViewCamera {
+    private _left: number;
+    private _right: number;
+    private _top: number;
+    private _bottom: number;
+    private _near: number;
+    private _far: number;
 
-  constructor()
-  {
-    super();
-    this.updateProjection();
-  }
+    constructor() {
+        super();
+        this._updateProjectionMatrix();
+    }
 
-  private updateProjection()
-  {
-    glm.mat4.ortho(this.projectionMatrix.rawElements,this.Left,this.Right,this.Bottom,this.Top,this.Near,this.Far);
-    this.updateViewProjectionMatrix();
-  }
+    private _updateProjectionMatrix() {
+        glm.mat4.ortho(this.projectionMatrix.rawElements, this.Left, this.Right, this.Bottom, this.Top, this.Near, this.Far);
+        this.__updateViewProjectionMatrix();
+    }
 
-    public get Left():number
-  {
-    return this.left;
-  }
+    public get Left(): number {
+        return this._left;
+    }
 
-    public set Left(left:number)
-  {
-    this.left=left;
-    this.updateProjection();
-  }
+    public set Left(left: number) {
+        this._left = left;
+        this._updateProjectionMatrix();
+    }
 
-    public get Right():number
-  {
-    return this.right;
-  }
+    public get Right(): number {
+        return this._right;
+    }
 
-    public set Right(right:number)
-  {
-    this.right=right;
-    this.updateProjection();
-  }
+    public set Right(right: number) {
+        this._right = right;
+        this._updateProjectionMatrix();
+    }
 
-    public get Top():number
-  {
-    return this.top;
-  }
+    public get Top(): number {
+        return this._top;
+    }
 
-    public set Top(top:number)
-  {
-    this.top=top;
-    this.updateProjection();
-  }
+    public set Top(_top: number) {
+        this._top = _top;
+        this._updateProjectionMatrix();
+    }
 
-    public get Bottom()
-  {
-    return this.bottom;
-  }
+    public get Bottom() {
+        return this._bottom;
+    }
 
-    public set Bottom(bottom:number)
-  {
-    this.bottom=bottom;
-    this.updateProjection();
-  }
+    public set Bottom(bottom: number) {
+        this._bottom = bottom;
+        this._updateProjectionMatrix();
+    }
 
-    public get Near():number
-  {
-    return this.near;
-  }
+    public get Near(): number {
+        return this._near;
+    }
 
-    public set Near(near:number)
-  {
-    this.near=near;
-    this.updateProjection();
-  }
+    public set Near(near: number) {
+        this._near = near;
+        this._updateProjectionMatrix();
+    }
 
-    public get Far():number
-  {
-    return this.far;
-  }
+    public get Far(): number {
+        return this._far;
+    }
 
-    public set Far(far:number)
-  {
-    this.far=far;
-    this.updateProjection();
-  }
+    public set Far(far: number) {
+        this._far = far;
+        this._updateProjectionMatrix();
+    }
 
 }
 
-export=OrthoCamera;
+export =OrthoCamera;

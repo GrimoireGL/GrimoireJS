@@ -38,7 +38,6 @@
     "./jThree/src/Core/CanvasManager.ts",
     "./jThree/src/Core/CanvasRegion.ts",
     "./jThree/src/Core/CanvasSizeChangedEventArgs.ts",
-    "./jThree/src/Core/ContextTimer.ts",
     "./jThree/src/Core/Geometries/CircleGeometry.ts",
     "./jThree/src/Core/Geometries/CubeGeometry.ts",
     "./jThree/src/Core/Geometries/CylinderGeometry.ts",
