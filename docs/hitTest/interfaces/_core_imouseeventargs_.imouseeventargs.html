@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DebuggerRendererAPI | jThree</title>
+	<title>IMouseEventArgs | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,24 +57,32 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_debug_debuggerapi_.html">&quot;Debug/DebuggerAPI&quot;</a>
+					<a href="../modules/_core_imouseeventargs_.html">&quot;Core/IMouseEventArgs&quot;</a>
 				</li>
 				<li>
-					<a href="_debug_debuggerapi_.debuggerrendererapi.html">DebuggerRendererAPI</a>
+					<a href="_core_imouseeventargs_.imouseeventargs.html">IMouseEventArgs</a>
 				</li>
 			</ul>
-			<h1>Interface DebuggerRendererAPI</h1>
+			<h1>Interface IMouseEventArgs</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The event args object interface to be used in mouse related event in CanvasRegion</p>
+					</div>
+					<p>CanvasRegionクラスでのマウス関連イベントで使われるイベント引数のインターフェース</p>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">DebuggerRendererAPI</span>
+						<span class="target">IMouseEventArgs</span>
 					</li>
 				</ul>
 			</section>
@@ -82,42 +90,125 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Methods</h3>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported"><a href="_debug_debuggerapi_.debuggerrendererapi.html#addrenderer" class="tsd-kind-icon">add<wbr>Renderer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_imouseeventargs_.imouseeventargs.html#enter" class="tsd-kind-icon">enter</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_imouseeventargs_.imouseeventargs.html#leave" class="tsd-kind-icon">leave</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_imouseeventargs_.imouseeventargs.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_imouseeventargs_.imouseeventargs.html#mouseposition" class="tsd-kind-icon">mouse<wbr>Position</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_core_imouseeventargs_.imouseeventargs.html#region" class="tsd-kind-icon">region</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="addrenderer" class="tsd-anchor"></a>
-					<h3>add<wbr>Renderer</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Renderer<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="../classes/_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a>, debug<span class="tsd-signature-symbol">: </span><a href="../classes/_debug_modules_rendererdebugger_.rendererdebugger.html" class="tsd-signature-type">RendererDebugger</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Debug/DebuggerAPI.ts#L10">Debug/DebuggerAPI.ts:10</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>renderer: <a href="../classes/_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></h5>
-								</li>
-								<li>
-									<h5>debug: <a href="../classes/_debug_modules_rendererdebugger_.rendererdebugger.html" class="tsd-signature-type">RendererDebugger</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="enter" class="tsd-anchor"></a>
+					<h3>enter</h3>
+					<div class="tsd-signature tsd-kind-icon">enter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/IMouseEventArgs.ts#L15">Core/IMouseEventArgs.ts:15</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether the mouse pointer was entered the region by this event calling.</p>
+						</div>
+						<p>このイベント呼び出しにより指定領域にマウスポインタが侵入したかどうか。</p>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{boolean}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="leave" class="tsd-anchor"></a>
+					<h3>leave</h3>
+					<div class="tsd-signature tsd-kind-icon">leave<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/IMouseEventArgs.ts#L23">Core/IMouseEventArgs.ts:23</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether the mouse pointer was leave the region by this event calling.</p>
+						</div>
+						<p>このイベント呼び出しにより指定領域からマウスポインタが出たかどうか。</p>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{boolean}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="mouseover" class="tsd-anchor"></a>
+					<h3>mouse<wbr>Over</h3>
+					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Over<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/IMouseEventArgs.ts#L31">Core/IMouseEventArgs.ts:31</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether the mouse pointer is on the region</p>
+						</div>
+						<p>マウスポインタが指定領域内にあるかどうか</p>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{boolean}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="mouseposition" class="tsd-anchor"></a>
+					<h3>mouse<wbr>Position</h3>
+					<div class="tsd-signature tsd-kind-icon">mouse<wbr>Position<span class="tsd-signature-symbol">:</span> <a href="../classes/_math_vector2_.vector2.html" class="tsd-signature-type">Vector2</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/IMouseEventArgs.ts#L39">Core/IMouseEventArgs.ts:39</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Mouse position normalized in [0,1]</p>
+						</div>
+						<p>　閉区間[0,1]に正規化されているマウス座標</p>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Vector2}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="region" class="tsd-anchor"></a>
+					<h3>region</h3>
+					<div class="tsd-signature tsd-kind-icon">region<span class="tsd-signature-symbol">:</span> <a href="../classes/_core_canvasregion_.canvasregion.html" class="tsd-signature-type">CanvasRegion</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/IMouseEventArgs.ts#L47">Core/IMouseEventArgs.ts:47</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The region this event rised</p>
+						</div>
+						<p>このイベントを発火させたCanvasRegion</p>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{CanvasRegion}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -128,33 +219,36 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_debug_debuggerapi_.html">"<wbr>Debug/<wbr>DebuggerAPI"</a>
+						<a href="../modules/_core_imouseeventargs_.html">"<wbr>Core/IMouse<wbr>Event<wbr>Args"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_debug_debuggerapi_.debuggerapi.html" class="tsd-kind-icon">DebuggerAPI</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_debug_debuggerapi_.debuggerinfomationapi.html" class="tsd-kind-icon">Debugger<wbr>InfomationAPI</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_debug_debuggerapi_.debuggerrendererapi.html" class="tsd-kind-icon">Debugger<wbr>RendererAPI</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_core_imouseeventargs_.imouseeventargs.html" class="tsd-kind-icon">IMouse<wbr>Event<wbr>Args</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_debug_debuggerapi_.debuggerrendererapi.html#addrenderer" class="tsd-kind-icon">add<wbr>Renderer</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_imouseeventargs_.imouseeventargs.html#enter" class="tsd-kind-icon">enter</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_imouseeventargs_.imouseeventargs.html#leave" class="tsd-kind-icon">leave</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_imouseeventargs_.imouseeventargs.html#mouseover" class="tsd-kind-icon">mouse<wbr>Over</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_imouseeventargs_.imouseeventargs.html#mouseposition" class="tsd-kind-icon">mouse<wbr>Position</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_core_imouseeventargs_.imouseeventargs.html#region" class="tsd-kind-icon">region</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_debug_debuggerapi_.debuggerscenestructureapi.html" class="tsd-kind-icon">Debugger<wbr>Scene<wbr>StructureAPI</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

@@ -70,6 +70,19 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The class to provide all of loop action stuff in JThree.</p>
+					</div>
+					<p>JThree内のループに関する機能を提供するクラス</p>
+					<dl class="tsd-comment-tags">
+						<dt>type</dt>
+						<dd><p>{[type]}</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -97,17 +110,17 @@
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_loopmanager_.loopmanager.html#loopactions" class="tsd-kind-icon">loop<wbr>Actions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_loopmanager_.loopmanager.html#registernextloop" class="tsd-kind-icon">register<wbr>Next<wbr>Loop</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_loopmanager_.loopmanager.html#_loopactions" class="tsd-kind-icon">_loop<wbr>Actions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_loopmanager_.loopmanager.html#_registernextloop" class="tsd-kind-icon">_register<wbr>Next<wbr>Loop</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_loopmanager_.loopmanager.html#_loop" class="tsd-kind-icon">_loop</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_loopmanager_.loopmanager.html#addaction" class="tsd-kind-icon">add<wbr>Action</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_loopmanager_.loopmanager.html#begin" class="tsd-kind-icon">begin</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_loopmanager_.loopmanager.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_loopmanager_.loopmanager.html#loop" class="tsd-kind-icon">loop</a></li>
 							</ul>
 						</section>
 					</div>
@@ -125,9 +138,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L19">Core/LoopManager.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L56">Core/LoopManager.ts:56</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructor</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_core_loopmanager_.loopmanager.html" class="tsd-signature-type">LoopManager</a></h4>
 						</li>
 					</ul>
@@ -136,28 +154,73 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="loopactions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> loop<wbr>Actions</h3>
-					<div class="tsd-signature tsd-kind-icon">loop<wbr>Actions<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_core_loopmanager_.loopaction.html" class="tsd-signature-type">LoopAction</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="_loopactions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _loop<wbr>Actions</h3>
+					<div class="tsd-signature tsd-kind-icon">_loop<wbr>Actions<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_core_loopmanager_.loopaction.html" class="tsd-signature-type">LoopAction</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L19">Core/LoopManager.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L56">Core/LoopManager.ts:56</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The list of loop actions already registered.</p>
+						</div>
+						<p>既に登録されたループアクションのリスト</p>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{LoopAction[]}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="registernextloop" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> register<wbr>Next<wbr>Loop</h3>
-					<div class="tsd-signature tsd-kind-icon">register<wbr>Next<wbr>Loop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="_registernextloop" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _register<wbr>Next<wbr>Loop</h3>
+					<div class="tsd-signature tsd-kind-icon">_register<wbr>Next<wbr>Loop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L17">Core/LoopManager.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L48">Core/LoopManager.ts:48</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The function to register next loop calling in next frame.</p>
+						</div>
+						<p>次のフレームでのループ関数の呼び出しを登録する関数</p>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{[type]}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="_loop" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _loop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">_loop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L104">Core/LoopManager.ts:104</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Execute a frame for loop</p>
+								</div>
+								<p>ループの1フレームを実行</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="addaction" class="tsd-anchor"></a>
 					<h3>add<wbr>Action</h3>
@@ -168,16 +231,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L40">Core/LoopManager.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L90">Core/LoopManager.ts:90</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add action to be looped.</p>
+								</div>
+								<p>アクションをループされるよう追加します。</p>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>order: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the execution order where is criteria for priorty of loop.</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <a href="../interfaces/_base_delegates_.action0.html" class="tsd-signature-type">Action0</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the function where will be executed in the loop</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -194,9 +269,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L35">Core/LoopManager.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L78">Core/LoopManager.ts:78</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Begin the loop</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -212,27 +292,10 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_icontextcomponent_.icontextcomponent.html">IContextComponent</a>.<a href="../interfaces/_icontextcomponent_.icontextcomponent.html#getcontextcomponentindex">getContextComponentIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L12">Core/LoopManager.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L37">Core/LoopManager.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="loop" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> loop</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">loop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/LoopManager.ts#L49">Core/LoopManager.ts:49</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -260,10 +323,13 @@
 								<a href="_core_loopmanager_.loopmanager.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_loopmanager_.loopmanager.html#loopactions" class="tsd-kind-icon">loop<wbr>Actions</a>
+								<a href="_core_loopmanager_.loopmanager.html#_loopactions" class="tsd-kind-icon">_loop<wbr>Actions</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_loopmanager_.loopmanager.html#registernextloop" class="tsd-kind-icon">register<wbr>Next<wbr>Loop</a>
+								<a href="_core_loopmanager_.loopmanager.html#_registernextloop" class="tsd-kind-icon">_register<wbr>Next<wbr>Loop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_core_loopmanager_.loopmanager.html#_loop" class="tsd-kind-icon">_loop</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_loopmanager_.loopmanager.html#addaction" class="tsd-kind-icon">add<wbr>Action</a>
@@ -273,9 +339,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_loopmanager_.loopmanager.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_core_loopmanager_.loopmanager.html#loop" class="tsd-kind-icon">loop</a>
 							</li>
 						</ul>
 					</li>
