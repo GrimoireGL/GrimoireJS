@@ -1,52 +1,51 @@
-# Contribution guide
-We really appreciate you to be interesting in this project. 
-Third-party contribution is essential for keeping and enhancing jThree great.
+# Contribution guide.
+We really appreciate your interest in this project.
+Third-party contribution is essential for enhancing jThree.
 
-Now, our code is not following the rule completely. These code should be refactored,but we need contributors to follow our rules.
+Now,we are following our coding rule.
+Contributors need to follow them.
+However some parts of code need refactoring.
 
-## Our goal, our vision, our duty
-Destination of this project is "Import 3DCG technologies and knowledge into Web",not "Import Web technologies and knowledge into Web".
+## Our goal, our vision, our duty.
+Our destination of this project is "Import 3DCG technologies and knowledge into Web",not "Import Web technologies and knowledge into Web".
 
-We should know most of users of this library are **Web engineer, not 3DCG engineer**.
+We should keep in mind that most users of this library are **Web engineers, not 3DCG engineer**.
 
-We don't demands users to know any 3D graphics skills. All of the work requireing any difficult mathmatics or algorithm should be done by us, not users.
+We do not request users to know any 3D graphics skills. All of the work requiring difficult knowledge of mathematics or algorithms should be done by us.
 
-We are going to import some of features affected by 3DCG technologies(like plugin feature,object hierarchies...),but we really believe they makes usage of this library easier.
+We are going to use some of the features affected by 3DCG technologies(like plugin features,object hierarchies...),but we really believe they will make usage of this library easier.
 
-## Build envirnoment
-### Required softwares to build
-* Node.js (v4.2.2LTS is recommended,v4.xx and v5.xx may work well)
+## Development environment.
+### Required softwares to build.
+* Node.js (v4.2.2LTS is recommended,v4.xx and v5.xx may work as well)
 * npm
 
-### Build steps
+### Build steps.
 1 . Clone this repository.
 
-2 . Run this code to install packages in jThree folder (root folder of this repository)
+2 . Run the following command to install packages in jThree folder (a root folder of this repository)
 ```shell
-npm install
+$ npm install
 ```
-3 . Run this code to build job and this build envirnoment will build automatically when you change codes.
+3 . Run the following command to activate the development environment and that will be rebuilt automatically when you change codes.
 ```shell
-npm run watch
+$ npm run watch
 ```
-4 . Go to http://localhhost:8080/debug/ in your own browser to see debug page for jThree.
+4 . Go to http://localhost:8080/debug/ in your browser to see the page to debug for jThree.
 
-### Change build systems and packages
-When you need to change this build system or add some of packages for your contribution. Please read below.
+### Change the build systems and the packages.
+When you need to change the build system or add some packages for your contribution. Please read the followings.
 
-* All of the packages should works on Mac and Windows.
-* Don't change required Node.js version (If you need, please rise an issue)
-* Don't change required software. We don't want complex build envirnoment for new contributors.
+* All of the packages must work on both Mac and Windows.
+* Do not change required the required version of Node.js (If you need　to do that, please raise an issue.)
+* Do not change the required softwares. We do not want to make development environment complex for new contributors.
 
-## Git usage
-We don't demand you to do rebase when you push to our repository,provided you comments well to your commits.
-We
+## How to use git.
+We do not request you to do rebase when you push to our repository,provided your comments well to your commits.
 
 
-We recommend to use emoji for your comment of commits.
+We recommend that you use emoji for your comment of commits.
 
 * :fire: **: fire :** When you deleted some of files
 * :sparkles: **: sparkles :** When you refactor some of files
 * :arrow_up: **: arrow_up :** When you implement some of new features
-
-
