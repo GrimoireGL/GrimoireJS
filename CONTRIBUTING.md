@@ -9,9 +9,9 @@ However some parts of code need refactoring.
 ## Our goal, our vision, our duty.
 Our destination of this project is "Import 3DCG technologies and knowledge into Web",not "Import Web technologies and knowledge into Web".
 
-We should keep in mind that most users of this library are **Web engineer, not only 3DCG engineer**.
+We should keep in mind that most users of this library are **Web engineers, not 3DCG engineer**.
 
-We do not request users to know any 3D graphics skills. All of the work requiring difficult knowledge of mathematics or algorithms will be done by us.
+We do not request users to know any 3D graphics skills. All of the work requiring difficult knowledge of mathematics or algorithms should be done by us.
 
 We are going to use some of the features affected by 3DCG technologies(like plugin features,object hierarchies...),but we really believe they will make usage of this library easier.
 
