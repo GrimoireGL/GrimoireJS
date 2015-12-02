@@ -16,7 +16,7 @@ We do not request users to know any 3D graphics skills. All of the work requirin
 We are going to use some of the features affected by 3DCG technologies(like plugin features,object hierarchies...),but we really believe they will make usage of this library easier.
 
 ## Development environment.
-### Required softwares to build.
+### Required software to build.
 * Node.js (v4.2.2LTS is recommended,v4.xx and v5.xx may work as well)
 * npm
 
@@ -38,7 +38,7 @@ When you need to change the build system or add some packages for your contribut
 
 * All of the packages must work on both Mac and Windows.
 * Do not change required the required version of Node.js (If you need　to do that, please raise an issue.)
-* Do not change the required softwares. We do not want to make development environment complex for new contributors.
+* Do not change the required software. We do not want to make development environment complex for new contributors.
 
 ## How to use git.
 We do not request you to do rebase when you push to our repository,provided your comments well to your commits.

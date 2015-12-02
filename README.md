@@ -4,21 +4,21 @@
 
 ## What is jThree?
 
-jThree is an innovative game engine. jThree may seem to be just only javascript library.
-However, jThree enable browser to use most of feature the other game engine do in local envirnoment, plugin feature,hierarchy,template,module system.
+jThree is an innovative 3D graphics engine. It may seem to be just a javascript library.
+However, jThree will enable browser to use most of the feature as other game engines do in local environment, plugins features,hierarchies,templates,module systems.
 
 
-### Purpose
+### Purposes.
 
-* Provide good learning resource for the beginners to know how programming is awesome via this library.
-* Easy sharing feature that will be achieved because of this library implemented with javascript.
-* Redefine legacies of 3DCG in Web.
-* Keep Enjoyable contributions :heart:
+* Provide a good learning resource for the beginners to know how programming is awesome via this library.
+* Sharing features that will be achieved easily by this library implemented with javascript.
+* Redefine legacies of 3DCG technologies on the Internet.
+* Have Enjoyable contributions :heart:
 
 
-### Dependencies
+### Dependencies.
 
-This library depends on these library. We appreciate these all of the contributors :heart:
+This library depends on the following libraries. We appreciate these contributors below :heart:
 
 |Name|Purpose|URL|Memo|
 |:-:|:-:|:-:|:-:|
@@ -26,20 +26,20 @@ This library depends on these library. We appreciate these all of the contributo
 |gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
 
 
-## Contribution
+## Contributions.
 
-Thank you for interesting in contribution!   :kissing_smiling_eyes:
+Thank you for your interest in contributions!   :kissing_smiling_eyes:
 
 
-### Installation for build
+### Installation to build.
 
 You need the applications below.
 * node.js
 * npm
 
-You need **not** to install packages in global
+You need **not** to install these packages in global.
 
-you need to run the command below to install local npm packages,bower packages,and so on.
+You need to run the command below to install npm packages,bower packages,and so on in local environment.
 
 ```shell
 npm install
@@ -62,11 +62,11 @@ npm run build
 
 (simple web server supported LiveReload)
 
-## Coding Style
+## Coding Style.
 
-Almost every code in this project is written with Typescript.
+Most of the code in this project is written with Typescript.
 For writing Typescript, we use these coding style below.
-There is too much code in this project that is not following this coding style, but It will follow these coding style in future by refactoring.
+There is too much code in this project that is not written by following the coding style, but It will be refactored in the future.
 https://github.com/jThreeJS/jThree/edit/develop/README.md#
 
 
