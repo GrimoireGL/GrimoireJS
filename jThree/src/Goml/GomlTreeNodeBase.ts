@@ -10,8 +10,8 @@ import AssociativeArray = require("../Base/Collections/AssociativeArray");
  */
 class GomlTreeNodeBase extends TreeNodeBase
 {
-    constructor(parent?:TreeNodeBase) {
-        super(parent);
+    constructor() {
+        super();
 
         //load node manager
         this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);

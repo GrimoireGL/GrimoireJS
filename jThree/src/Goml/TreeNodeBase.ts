@@ -6,10 +6,9 @@ import GomlNodeEventList = require("./GomlNodeEventList");
  */
 class TreeNodeBase extends JThreeObjectWithID
 {
-	constructor(parent?:TreeNodeBase)
+	constructor()
 	{
 		super();
-		if(parent!=null)parent.addChild(this);
 	}
 
 	/**
@@ -29,8 +28,8 @@ class TreeNodeBase extends JThreeObjectWithID
 	 */
 	public addChild(child:TreeNodeBase):void
 	{
-	    child.parent = this;
-        this.children.push(child);
+	  child.parent = this;
+    this.children.push(child);
 	}
 
 	/**

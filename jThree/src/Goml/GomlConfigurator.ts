@@ -1,10 +1,12 @@
-import TagFactory = require("./Factories/TagFactory");
 import GomlNodeListElement = require("./GomlNodeListElement");
 import JThreeObject = require("../Base/JThreeObject");
 import EasingFunction = require("./Easing/EasingFunctionBase");
 import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import AttributeConvrterBase = require("./Converter/AttributeConverterBase");
+import GomlTreeNodeBase = require('./GomlTreeNodeBase');
+
 declare function require(string): any;
+
 /**
  * Provides configurations that will be used when parse GOML.
  * These properties is intended to be used for extending by plugin feature.
@@ -22,7 +24,7 @@ class GomlConfigurator extends JThreeObject
     /**
      * All list of goml tags that will be parsed and instanciated when parse GOML.
      */
-    private gomlTagFactories: AssociativeArray<TagFactory> = new AssociativeArray<TagFactory>();
+    private gomlNodes: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
 
     public getConverter(name: string): AttributeConvrterBase
     {
@@ -42,7 +44,7 @@ class GomlConfigurator extends JThreeObject
      */
     public getGomlTagFactory(tagName: string): TagFactory
     {
-        return this.gomlTagFactories.get(tagName);
+        return this.gomlNodes.get(tagName);
     }
 
     /**
@@ -55,7 +57,7 @@ class GomlConfigurator extends JThreeObject
         super();
         this.initializeEasingFunctions();
         this.initializeConverters();
-        this.initializeGomlTags();
+        this.initializeGomlNodes();
     }
 
     /*
@@ -74,9 +76,9 @@ class GomlConfigurator extends JThreeObject
     }
 
     /**
-     * タグ名とTagFactoryの関連付けの初期化を行っています
+     * タグ名とNodeの関連付けを行っています。
      */
-    private initializeGomlTags()
+    private initializeGomlNodes()
     {
         var newList: GomlNodeListElement[] = require("./GomlNodeList");
         newList.forEach((v) =>
@@ -86,8 +88,7 @@ class GomlConfigurator extends JThreeObject
                 var keyInString: string = key;
                 keyInString = keyInString.toUpperCase();//transform into upper case
                 var nodeType = v.NodeTypes[keyInString];
-                var tag = new v.Factory(keyInString, nodeType);
-                this.gomlTagFactories.set(tag.TagName, tag);
+                this.gomlNodes.set(keyInString, );
             }
         });
     }

@@ -3,7 +3,6 @@ import GomlNodeListElement = require("./GomlNodeListElement");
 declare function require(string): any;
 
 var gomlList = [  new GomlNodeListElement("jthree.toplevel",
-    require("./Factories/TagFactory"),
     {
       "CANVASES": require("./Nodes/TopLevel/CanvasesNode"),
       "RESOURCES": require("./Nodes/TopLevel/ResourcesNode"),
@@ -13,7 +12,6 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
       "GOML":require("./Nodes/TopLevel/GomlNode")
     }),
   new GomlNodeListElement("jthree.geometries",
-    require("./Factories/TagFactory"),
     {
       "TRI": require("./Nodes/Geometries/TriangleGeometryNode"),
       "GRID": require("./Nodes/Geometries/GridGeometryNode"),
@@ -23,7 +21,6 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
       "QUAD": require("./Nodes/Geometries/QuadGeometryNode")
     }),
   new GomlNodeListElement("jthree.basic",
-    require("./Factories/TagFactory"),
     {
       "CANVAS": require("./Nodes/Canvases/CanvasNode"),
       "VIEWPORT": require("./Nodes/Renderers/ViewPortNode"),
@@ -31,7 +28,6 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
     }),
   new GomlNodeListElement(
     "jthree.materials",
-    require("./Factories/TagFactory"),
     {
       "SOLID": require("./Nodes/Materials/SolidColorNode"),
       "PHONG": require("./Nodes/Materials/PhongNode"),
@@ -41,7 +37,6 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
     }),
   new GomlNodeListElement(
     "jthree.sceneobject",
-    require("./Factories/SceneObjectTagFactory"),
     {
       "CAMERA": require("./Nodes/SceneObjects/Cameras/CameraNode"),
       "OCAMERA": require("./Nodes/SceneObjects/Cameras/OrthoCameraNode"),
@@ -56,36 +51,35 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
     }),
   new GomlNodeListElement(
       "jthree.textures",
-      require("./Factories/TagFactory"),
       {
           "TEXTURE": require("./Nodes/Texture/TextureNode"),
           "CUBETEXTURE":require("./Nodes/Texture/CubeTextureNode")
       }),
-  new GomlNodeListElement("jthree.behaviors", require("./Factories/TagFactory"),
+  new GomlNodeListElement("jthree.behaviors",
     {
       "BEHAVIORS": require("./Nodes/Behaviors/BehaviorsNode"),
     }),
-  new GomlNodeListElement("jthree.behavior", require("./Factories/BehaviorTagFactory"),
+  new GomlNodeListElement("jthree.behavior",
     {
       "BEHAVIOR": require("./Nodes/Behaviors/BehaviorNode")
     }),
-  new GomlNodeListElement("jthree.template", require("./Factories/ChildrenParseSkipFactory"),
+  new GomlNodeListElement("jthree.template",
     {
       "TEMPLATE": require("./Nodes/Templates/TemplateNode")
     }),
-    new GomlNodeListElement("jthree.loader",require("./Factories/ChildrenParseSkipFactory"),
+    new GomlNodeListElement("jthree.loader",
   {
     "LOADER":require("./Nodes/Loaders/LoaderNode")
   }),
-  new GomlNodeListElement("jthree.pmx.morph", require("../PMX/Goml/Factory/PMXMorphTagFactory"),
+  new GomlNodeListElement("jthree.pmx.morph",
     {
       "MORPH": require("../PMX/Goml/PMXMorphNode"),
     }),
-    new GomlNodeListElement("jthree.pmx.bone", require("../PMX/Goml/Factory/PMXBoneTagFactory"),
+    new GomlNodeListElement("jthree.pmx.bone",
     {
       "BONE": require("../PMX/Goml/PMXBoneNode"),
     }),
-  new GomlNodeListElement("jthree.pmx.contents", require("./Factories/TagFactory"),
+  new GomlNodeListElement("jthree.pmx.contents",
     {
       "MORPHS": require("../PMX/Goml/PMXMorphsNode"),
       "BONES": require("../PMX/Goml/PMXBonesNode"),
