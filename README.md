@@ -37,7 +37,7 @@ You need the applications below.
 * node.js
 * npm
 
-You need **not** to install these packages in global.
+You need **not** to install any packages in global.
 
 You need to run the command below to install npm packages,bower packages,and so on in local environment.
 
