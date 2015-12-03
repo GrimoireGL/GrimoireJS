@@ -23,6 +23,8 @@ class GomlConfigurator extends JThreeObject
     private converters: AssociativeArray<AttributeConvrterBase> = new AssociativeArray<AttributeConvrterBase>();
     /**
      * All list of goml tags that will be parsed and instanciated when parse GOML.
+     *
+     * Keyはタグ名の文字列(大文字)、ValueはGomlNodeのコンストラクタ
      */
     private gomlNodes: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
 
@@ -37,14 +39,14 @@ class GomlConfigurator extends JThreeObject
     }
 
     /**
-     * タグ名から`TagFactory`を取得します
+     * タグ名からGomlNodeを取得します
      *
      * @param  {string} tagName タグ名
-     * @return {TagFactory}
+     * @return {GomlTreeNodeBase}
      */
-    public getGomlTagFactory(tagName: string): TagFactory
+    public createNode(tagName: string): GomlTreeNodeBase
     {
-        return this.gomlNodes.get(tagName);
+        return this.gomlNodes.get(tagName.toUpperCase());
     }
 
     /**
@@ -86,9 +88,9 @@ class GomlConfigurator extends JThreeObject
             for (var key in v.NodeTypes)
             {
                 var keyInString: string = key;
-                keyInString = keyInString.toUpperCase();//transform into upper case
-                var nodeType = v.NodeTypes[keyInString];
-                this.gomlNodes.set(keyInString, );
+                keyInString = keyInString.toUpperCase(); // transform into upper case
+                var nodeType = v.NodeTypes[keyInString]; // nodeTypeはGomlNodeのコンストラクタ
+                this.gomlNodes.set(keyInString, nodeType);
             }
         });
     }

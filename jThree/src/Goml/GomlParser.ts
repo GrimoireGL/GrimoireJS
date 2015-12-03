@@ -23,11 +23,10 @@ class GomlParser {
 
   public static parseChild(parent: GomlTreeNodeBase, child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     //obtain factory class for the node
-    var elem: HTMLElement = <HTMLElement>child;
-    var tagFactory = configurator.getGomlTagFactory(elem.tagName.toUpperCase());
-    //if factory was not defined, there is nothing to do.
-    if (tagFactory) {
-      var newNode = tagFactory.CreateNodeForThis(parent);
+    let elem: HTMLElement = <HTMLElement>child;
+    let newNode = configurator.createNode(elem);
+    // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
+    if (newNode) {
       if (newNode == null) {
         //the factory was obtained, but newNnode is null.
         //It is seem to have something wrong to create instance.
