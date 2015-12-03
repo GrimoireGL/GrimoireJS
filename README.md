@@ -62,20 +62,3 @@ npm run build
 
 (simple web server supported LiveReload)
 
-## Coding Style.
-
-Most of the code in this project is written with Typescript.
-For writing Typescript, we use these coding style below.
-There is too much code in this project that is not written by following the coding style, but It will be refactored in the future.
-https://github.com/jThreeJS/jThree/edit/develop/README.md#
-
-
-### Names
-
-* Use PascalCase for type names.
-* Do not use "I" as a prefix for interface names.
-* Use PascalCase for enum values.
-* Use camelCase for function names.
-* Use camelCase for property names and local variables.
-* Do not use "_" as a prefix for private properties.
-* Use whole words in names when possible.
