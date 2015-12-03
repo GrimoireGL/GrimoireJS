@@ -44,7 +44,7 @@ class GomlConfigurator extends JThreeObject
      * @param  {string} tagName タグ名
      * @return {GomlTreeNodeBase}
      */
-    public createNode(tagName: string): GomlTreeNodeBase
+    public getGomlNode(tagName: string): GomlTreeNodeBase
     {
         return this.gomlNodes.get(tagName.toUpperCase());
     }
