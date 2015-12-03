@@ -8,7 +8,7 @@ import PointList = require("../../Math/PointList");
 /**
  * Basement class of Camera. These class related to camera are one of SceneObject in jThree.
  */
-class Camera extends SceneObject
+abstract class Camera extends SceneObject
 {
 	public viewProjectionMatrix:Matrix = new Matrix();
 
