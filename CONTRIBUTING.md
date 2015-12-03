@@ -1,4 +1,4 @@
-# Contribution guide.
+# Contribution guide
 We really appreciate your interest in this project.
 Third-party contribution is essential for enhancing jThree.
 
@@ -6,7 +6,7 @@ Now,we are following our coding rule.
 Contributors need to follow them.
 However some parts of code need refactoring.
 
-## Our goal, our vision, our duty.
+## Our goal, our vision, our duty
 Our destination of this project is "Import 3DCG technologies and knowledge into Web",not "Import Web technologies and knowledge into Web".
 
 We should keep in mind that most users of this library are **Web engineers, not 3DCG engineer**.
@@ -15,12 +15,12 @@ We do not request users to know any 3D graphics skills. All of the work requirin
 
 We are going to use some of the features affected by 3DCG technologies(like plugin features,object hierarchies...),but we really believe they will make usage of this library easier.
 
-## Development environment.
-### Required software to build.
+## Development environment
+### Required software to build
 * Node.js (v4.2.2LTS is recommended,v4.xx and v5.xx may work as well)
 * npm
 
-### Build steps.
+### Build steps
 1 . Clone this repository.
 
 2 . Run the following command to install packages in jThree folder (a root folder of this repository)
@@ -41,7 +41,7 @@ When you need to change the build system or add some packages for your contribut
 * Do not change the required software. We do not want to make development environment complex for new contributors.
 
 
-## Coding Style.
+## Coding Style
 
 Most of the code in this project is written with Typescript.
 For writing Typescript, we use these coding style below.
@@ -81,7 +81,7 @@ private __fooProtectedMethod():void
 
 ```
 
-## How to use git.
+## How to use git
 We do not request you to do rebase when you push to our repository,provided your comments well to your commits.
 
 
