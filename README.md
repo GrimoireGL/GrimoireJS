@@ -8,7 +8,7 @@ jThree is an innovative 3D graphics engine. It may seem to be just a javascript 
 However, jThree will enable browser to use most of the feature as other game engines do in local environment, plugins features,hierarchies,templates,module systems.
 
 
-### Purposes.
+### Purposes
 
 * Provide a good learning resource for the beginners to know how programming is awesome via this library.
 * Sharing features that will be achieved easily by this library implemented with javascript.
@@ -16,7 +16,7 @@ However, jThree will enable browser to use most of the feature as other game eng
 * Have Enjoyable contributions :heart:
 
 
-### Dependencies.
+### Dependencies
 
 This library depends on the following libraries. We appreciate these contributors below :heart:
 
@@ -26,12 +26,12 @@ This library depends on the following libraries. We appreciate these contributor
 |gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
 
 
-## Contributions.
+## Contributions
 
 Thank you for your interest in contributions!   :kissing_smiling_eyes:
 
 
-### Installation to build.
+### Installation to build
 
 You need the applications below.
 * node.js
