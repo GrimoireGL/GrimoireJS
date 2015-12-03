@@ -40,6 +40,47 @@ When you need to change the build system or add some packages for your contribut
 * Do not change required the required version of Node.js (If you need　to do that, please raise an issue.)
 * Do not change the required software. We do not want to make development environment complex for new contributors.
 
+
+## Coding Style.
+
+Most of the code in this project is written with Typescript.
+For writing Typescript, we use these coding style below.
+There is too much code in this project that is not written by following the coding style, but It will be refactored in the future.
+
+### Names
+
+* Use "PascalCase" for class/enum names and initial character should be capital character.
+* Use "IPascalCase" for interface names and I and secound character should be capital character.
+```typescript
+class FooClassName
+{
+
+}
+
+interface IFooInterfaceName
+{
+}
+```
+
+* Use "camelCase" for any public properties including getter/setter,variables and methods in any types.
+* Use "_camelCase" for any private properties including getter/setter,variables and methods in any types.
+* Use "__camelCase" for any protected properties including getter/setter,variables and methods in any types.
+```typescript
+
+public fooPublicMethod():void
+{
+}
+
+private _fooPrivateMethod():void
+{
+}
+
+private __fooProtectedMethod():void
+{
+}
+
+```
+
 ## How to use git.
 We do not request you to do rebase when you push to our repository,provided your comments well to your commits.
 
