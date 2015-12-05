@@ -1,10 +1,10 @@
 import events = require('events');
-import JThreeObject = require('./JThreeObject');
+import JThreeObjectWithID = require('./JThreeObjectWithID');
 
 /**
- * EventEmitterをmixinしたJThreeObject
+ * EventEmitterをmixinしたJThreeObjectWithID
  */
-class JThreeObjectEE extends JThreeObject implements events.EventEmitter {
+class JThreeObjectEEWithID extends JThreeObjectWithID implements events.EventEmitter {
   addListener: (event: string, listener: Function) => events.EventEmitter;
   on: (event: string, listener: Function) => events.EventEmitter;
   once: (event: string, listener: Function) => events.EventEmitter;
@@ -27,6 +27,6 @@ function applyMixins(derivedCtor: any, baseCtors: any[]) {
   });
 }
 
-applyMixins(JThreeObjectEE, [events.EventEmitter]);
+applyMixins(JThreeObjectEEWithID, [events.EventEmitter]);
 
-export = JThreeObjectEE;
+export = JThreeObjectEEWithID;
