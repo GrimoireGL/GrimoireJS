@@ -36,9 +36,8 @@ abstract class ViewCameraBase extends Camera
    * Generate view matrix
    *
    * ビュー行列を生成します。
-   * @return {[type]}     [description]
    */
-  private _generateViewMatrix()
+  private _generateViewMatrix():void
   {
     glm.mat4.lookAt(this.viewMatrix.rawElements,this.Transformer.GlobalPosition.rawElements, Vector3.add(this.Transformer.forward,this.Transformer.GlobalPosition).rawElements,this.Transformer.up.rawElements);
   }
