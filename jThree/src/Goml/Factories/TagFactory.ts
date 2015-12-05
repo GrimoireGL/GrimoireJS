@@ -4,19 +4,38 @@ import JThreeContext = require("../../JThreeContext");
 import NodeManager = require('./../NodeManager');
 import ContextComponents = require('../../ContextComponents');
 
-class TagFactory extends jThreeObject {
-    constructor(tagName:string,nodeType:any)
+/**
+ * HTMLElementからGomlNodeを生成します
+ */
+class TagFactory extends jThreeObject { // rename candidate: NodeFactory
+    /**
+     * HTMLElementからGomlNodeを生成します
+     * @param {HTMLElement} elem 生成元のHTMLElement
+     */
+    constructor(elem: HTMLElement)
     {
       super();
-      this.tagName=tagName;
-      this.nodeType=nodeType;
       this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager)
+      this.tagName = elem.tagName;
+      this.nodeType = this.nodeManager.configurator.getGomlNode(this.tagName);
     }
 
+    /**
+     * nodeManager
+     * @type {NodeManager}
+     */
     private nodeManager: NodeManager;
 
+    /**
+     * タグ名
+     * @type {string}
+     */
     protected tagName:string;
 
+    /**
+     * GomlNodeのコンストラクタ
+     * @type {any}
+     */
     protected nodeType:any;
 
     public get TagName(): string {
@@ -36,12 +55,8 @@ class TagFactory extends jThreeObject {
      * @param  {GomlTreeNodeBase} parent 親のNode
      * @return {GomlTreeNodeBase}
      */
-    public CreateNodeForThis(parent: GomlTreeNodeBase): GomlTreeNodeBase {
-        return new this.nodeType(parent);
-    }
-
-    protected getTag(name:string): TagFactory {
-        return this.nodeManager.configurator.getGomlTagFactory(name);
+    public CreateNode(): GomlTreeNodeBase {
+        return new this.nodeType();
     }
 }
 

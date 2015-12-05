@@ -24,7 +24,7 @@ class GomlParser {
   public static parseChild(parent: GomlTreeNodeBase, child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     //obtain factory class for the node
     let elem: HTMLElement = <HTMLElement>child;
-    let newNode = configurator.createNode(elem);
+    let newNode = configurator.getGomlNode(elem.tagName);
     // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
     if (newNode) {
       if (newNode == null) {
