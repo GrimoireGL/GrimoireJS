@@ -14,8 +14,8 @@ class JThreeObjectEEWithID extends JThreeObjectWithID implements events.EventEmi
   listeners: (event: string) => Function[];
   emit: (event: string, ...args: any[]) => boolean;
 
-  constructor() {
-    super();
+  constructor(id?:string) {
+    super(id);
   }
 }
 
