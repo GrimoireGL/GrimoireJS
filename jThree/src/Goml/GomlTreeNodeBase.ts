@@ -21,45 +21,12 @@ class GomlTreeNodeBase extends TreeNodeBase
     this.attributes = new AttributeDictionary(this);
   }
 
-  protected defineAttribute(attr: string, define: {[key: string]: any}): void
-  {
-    // TODO: validation
-  }
-
-  protected setAttr(attr: {[key: string]: any}): void;
-  protected setAttr(key: string, value: any): void;
-  protected setAttr(attr_key: {[key: string]: any} | string, value?: any): void
-  {
-    // need check necessarity of update
-    let attr = {}
-    if (typeof attr_key === 'string' && value !== undefined) {
-      attr[attr_key] = value;
-    } else if (attr_key !== null && typeof attr_key === 'object' && Object.getPrototypeOf(attr_key) == Object.prototype) {
-      // check plain object
-      attr = attr_key;
-    } else {
-      // something fatal occuered
-      throw new Error('setAttr argument error');
-    }
-    for (let k in Object.keys(attr)) {
-      this.attributes.setValue(k, attr[k]);
-    }
-  }
-
-  protected setParent() {
-
-  }
-
-  protected setChildren() {
-
-  }
-
   public nodeManager: NodeManager;
 
   /**
    * Attributes this node have.
    */
-  private attributes:AttributeDictionary;
+  public attributes: AttributeDictionary;
 
   public beforeLoad()
   {

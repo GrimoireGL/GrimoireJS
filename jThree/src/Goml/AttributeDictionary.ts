@@ -25,25 +25,22 @@ class AttributeDictionary extends JThreeObject {
 
   public getValue(attrName: string): any {
     var attr = this.attributes[attrName];
-    if (attr === undefined) console.warn(`attribute \"${attrName}\" is not found.`);
+    if (attr === undefined) console.warn(`attribute "${attrName}" is not found.`);
     else
       return attr.Converter.FromInterface(attr.Value);
   }
 
-  public setValue(attrName: string, value: any, needUpdate: boolean = true): void
+  public setValue(attrName: string, value: any): void
   {
     var attr = this.attributes[attrName];
-    if (attr === undefined) console.warn(`attribute \"${attrName}\" is not found.`);
+    if (attr === undefined) console.warn(`attribute "${attrName}" is not found.`);
     else
     {
         if (attr.Constant) {
             console.error(`attribute: ${attrName} is constant attribute`);
             return;
         }
-      var cacheNotifyConfigure = attr.NeedNotifyUpdate;
-      attr.NeedNotifyUpdate = needUpdate;
       attr.Value = value;
-      attr.NeedNotifyUpdate = cacheNotifyConfigure;
     }
   }
 
@@ -74,7 +71,8 @@ class AttributeDictionary extends JThreeObject {
   public defineAttribute(attributes: AttributeDeclaration) {
     for (let key in attributes) {
       const attribute = attributes[key];
-      const gomlAttribute = new GomlAttribute(this.node, key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.handler, attribute.constant);
+      const gomlAttribute = new GomlAttribute(key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.constant);
+      gomlAttribute.addListener('attr-changed', attribute.handler);
       this.attributes[key] = gomlAttribute;
     }
   }
