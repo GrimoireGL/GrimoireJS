@@ -39,7 +39,7 @@ class GomlParser {
       if (!children) return; //if there children is null, parent is end of branch
       if (children.length == 0) return; //if there children is empty, parent is end of branch
       for (let i = 0; i < children.length; i++) {
-        if (!(< HTMLElement>children[i]).tagName) continue;
+        if (!(<HTMLElement>children[i]).tagName) continue;
         // generate instances for every children nodes
         let e = <HTMLElement>children[i];
         GomlParser.parseChild(newNode, e, configurator);
