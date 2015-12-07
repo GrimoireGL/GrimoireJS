@@ -2,7 +2,7 @@
   "version": "v4",
   "repo": "borisyankov/DefinitelyTyped",
   "ref": "master",
-  "path": "./jThree/refs",
+  "path": "./jThree/src/refs",
   "bundle": "./jThree/refs/bundle.ts",
   "installed": {
     "jquery/jquery.d.ts": {
