@@ -2,37 +2,37 @@ import GeometryNodeBase = require("./GeometryNodeBase");
 import Geometry = require("../../../Core/Geometries/Geometry")
 import CircleGeometry = require("../../../Core/Geometries/CircleGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-class CircleGeometryNode extends GeometryNodeBase
-{
-  private gridGeometry:CircleGeometry;
+import GomlAttribute = require('../../GomlAttribute');
 
-  constructor(parent:GomlTreeNodeBase)
-  {
-      super(parent);
-      this.attributes.defineAttribute
-      (
+class CircleGeometryNode extends GeometryNodeBase {
+  private gridGeometry: CircleGeometry;
+
+  constructor(parent: GomlTreeNodeBase) {
+    super();
+    this.attributes.defineAttribute(
+      {
+        'divide':
         {
-          "divide":
-          {
-            value:30,
-            converter:"integer",
-            handler:(v)=>{this.gridGeometry.DiviceCount=v.Value;}
-          }
+          value: 30,
+          converter: 'integer',
         }
-      );
+      });
+    this.attributes.getAttribute('divide').on('attr_changed', this._onDivideAttrChanged.bind(this));
   }
 
-  protected ConstructGeometry():Geometry
-  {
-    this.gridGeometry=new CircleGeometry(this.Name);
+  private _onDivideAttrChanged(attr: GomlAttribute): void {
+    this.gridGeometry.DiviceCount = attr.Value;
+  }
+
+  protected ConstructGeometry(): Geometry {
+    this.gridGeometry = new CircleGeometry(this.Name);
     return this.gridGeometry;
   }
 
-    public beforeLoad()
-  {
+  public beforeLoad() {
     super.beforeLoad();
   }
 
 }
 
-export=CircleGeometryNode
+export =CircleGeometryNode
