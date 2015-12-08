@@ -7,58 +7,71 @@ import ResourceManager = require("../../../Core/ResourceManager");
 import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 class DefferedDebugNode extends MaterialNodeBase {
-    public material: DebugSprite;
+  public material: DebugSprite;
 
-    constructor(parent: GomlTreeNodeBase) {
-        super(parent);
-        this.attributes.defineAttribute({
-            "target": {
-                value: "rb1", converter: "string"
-            },
-            "viewport":
-            {
-                value: "viewport", converter: "string", handler: (v) => {
-                    var viewportTargets = this.nodeManager.getNodeByQuery(v.Value);
-                    if (viewportTargets.length > 0) {
-                        var viewport = <ViewportNode>viewportTargets[0];
-                        JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).
-                          getTextureHandler(viewport.TargetViewport.ID + "." + this.attributes.getValue("target"), (v) => {
-                            this.material.texture = v;
-                        });
-                    }
-                }
-            },
-            "R":
-            {
-                value: "0", converter: "number", handler: (v) => { this.material.ctR = v.Value; }
-            },
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "target": {
+        value: "rb1",
+        converter: "string",
+      },
+      "viewport": {
+        value: "viewport",
+        converter: "string",
+      },
+      "R": {
+        value: "0",
+        converter: "number",
+      },
+      "G": {
+        value: "1",
+        converter: "number",
+      },
 
-            "G":
-            {
-                value: "1", converter: "number", handler: (v) => { this.material.ctG = v.Value; }
-            },
+      "B": {
+        value: "2",
+        converter: "number",
+      },
+      "A": {
+        value: "3",
+        converter: "number",
+      }
+    });
+    this.attributes.getAttribute('viewport').on('changed', this._onViewportAttrChanged.bind(this));
+    this.attributes.getAttribute('R').on('changed', ((attr) => {
+      this.material.ctR = attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('G').on('changed', ((attr) => {
+      this.material.ctG = attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('B').on('changed', ((attr) => {
+      this.material.ctB = attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('A').on('changed', ((attr) => {
+      this.material.ctA = attr.Value;
+    }).bind(this));
+  }
 
-            "B":
-            {
-                value: "2", converter: "number", handler: (v) => { this.material.ctB = v.Value; }
-            },
-
-            "A":
-            {
-                value: "3", converter: "number", handler: (v) => { this.material.ctA = v.Value; }
-            }
-        });
-
+  private _onViewportAttrChanged(attr): void {
+    var viewportTargets = this.nodeManager.getNodeByQuery(attr.Value);
+    if (viewportTargets.length > 0) {
+      var viewport = <ViewportNode>viewportTargets[0];
+      JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).
+        getTextureHandler(viewport.TargetViewport.ID + "." + this.attributes.getValue('target'), (v) => {
+        this.material.texture = v;
+      });
     }
+  }
 
-    protected ConstructMaterial(): Material {
-        this.material = new DebugSprite();
-        return this.material;
-    }
+  protected ConstructMaterial(): Material {
+    this.material = new DebugSprite();
+    return this.material;
+  }
 
-    public beforeLoad() {
-        super.beforeLoad();
-    }
+  public beforeLoad() {
+    super.beforeLoad();
+  }
 
 }
 

@@ -2,41 +2,41 @@ import GeometryNodeBase = require("./GeometryNodeBase");
 import Geometry = require("../../../Core/Geometries/Geometry")
 import GridGeometry = require("../../../Core/Geometries/GridGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-class GridGeometryNode extends GeometryNodeBase
-{
-  private gridGeometry:GridGeometry;
+class GridGeometryNode extends GeometryNodeBase {
+  private gridGeometry: GridGeometry;
 
-  constructor(parent:GomlTreeNodeBase)
-  {
-    super(parent);
+  constructor() {
+    super();
     this.attributes.defineAttribute({
       'hdiv': {
         value: 10,
         converter: 'number',
-        handler: (v) => {
-          this.gridGeometry.HolizontalDivide = v.Value;
-        },
       },
       'vdiv': {
         value: 10,
         converter: 'number',
-        handler: (v) => {
-          this.gridGeometry.VerticalDivide = v.Value;
-        },
       }
     });
+    this.attributes.getAttribute('hdiv').on('changed', this._onHdivAttrChanged.bind(this));
+    this.attributes.getAttribute('vdiv').on('changed', this._onVdivAttrChanged.bind(this));
   }
 
-  protected ConstructGeometry():Geometry
-  {
-    return this.gridGeometry=new GridGeometry(this.Name);
+  private _onHdivAttrChanged(attr): void {
+    this.gridGeometry.HolizontalDivide = attr.Value;
   }
 
-  public beforeLoad()
-  {
+  private _onVdivAttrChanged(attr): void {
+    this.gridGeometry.VerticalDivide = attr.Value;
+  }
+
+  protected ConstructGeometry(): Geometry {
+    return this.gridGeometry = new GridGeometry(this.Name);
+  }
+
+  public beforeLoad() {
     super.beforeLoad();
   }
 
 }
 
-export=GridGeometryNode
+export = GridGeometryNode;

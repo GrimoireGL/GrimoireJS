@@ -9,5 +9,5 @@
 /// <reference path="empower/empower.d.ts" />
 /// <reference path="power-assert-formatter/power-assert-formatter.d.ts" />
 /// <reference path="power-assert/power-assert.d.ts" />
-///<reference path="ammo/ammo.d.ts"/>
-///<reference path="q/q.d.ts"/>
+/// <reference path="ammo/ammo.d.ts"/>
+/// <reference path="q/q.d.ts"/>

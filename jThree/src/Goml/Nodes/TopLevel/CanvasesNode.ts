@@ -1,12 +1,11 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
 class CanvasesNode extends OrderedTopLevelNodeBase {
-  constructor(parent: GomlTreeNodeBase) {
-    super(parent);
+  constructor() {
+    super();
   }
 
-  public get loadPriorty():number
-  {
+  public get loadPriorty(): number {
     return 2000;
   }
 

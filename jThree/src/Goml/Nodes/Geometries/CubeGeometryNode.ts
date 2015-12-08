@@ -1,28 +1,23 @@
-
 import GeometryNodeBase = require("./GeometryNodeBase");
 import Geometry = require("../../../Core/Geometries/Geometry")
 import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 
-class CubeGeometryNode extends GeometryNodeBase
-{
-  private gridGeometry:CubeGeometry;
+class CubeGeometryNode extends GeometryNodeBase {
+  private gridGeometry: CubeGeometry;
 
-  constructor(parent:GomlTreeNodeBase)
-  {
-      super(parent);
+  constructor() {
+    super();
   }
 
-  protected ConstructGeometry():Geometry
-  {
-    return this.gridGeometry=new CubeGeometry(this.Name);
+  protected ConstructGeometry(): Geometry {
+    return this.gridGeometry = new CubeGeometry(this.Name);
   }
 
-    public beforeLoad()
-  {
+  public beforeLoad() {
     super.beforeLoad();
   }
 
 }
 
-export=CubeGeometryNode
+export = CubeGeometryNode;

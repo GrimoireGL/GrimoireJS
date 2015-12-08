@@ -12,9 +12,9 @@ class ObjectNode extends SceneObjectNodeBase
 
   private targetTemplate:TemplateNode;
 
-  constructor(parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
+  constructor()
   {
-      super(parent,parentSceneNode,parentObject);
+      super();
       // TODO: pnly
       // var templateName=elem.getAttribute("template");
       // if(templateName)

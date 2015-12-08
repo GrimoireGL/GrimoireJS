@@ -3,29 +3,30 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import LightNodeBase = require('./LightNodeBase');
 import SceneLight = require('../../../../Core/Light/Impl/SceneLight');
-import LightBase =require('../../../../Core/Light/LightBase');
-class SceneLightNode extends LightNodeBase
-{
-	private targetLight:SceneLight;
+import LightBase = require('../../../../Core/Light/LightBase');
 
-	constructor(parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-		super(parent, parentSceneNode, parentObject);
+class SceneLightNode extends LightNodeBase {
+	private targetLight: SceneLight;
+
+	constructor() {
+		super();
 		this.attributes.defineAttribute({
-			"intensity":{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
+			"intensity": {
+				value: 1,
+				converter: "number",
 			}
-		}
-	);
+		});
+		this.attributes.getAttribute('intensity').on('changed', ((attr) => {
+			this.targetLight.intensity = attr.Value;
+		}).bind(this));
 	}
 
-	public afterLoad()
-	{
+	public afterLoad() {
 		this.attributes.applyDefaultValue();
 	}
 
-	protected constructLight():LightBase
-	{
-		this.targetLight= new SceneLight(this.ContainedSceneNode.targetScene);
+	protected constructLight(): LightBase {
+		this.targetLight = new SceneLight(this.ContainedSceneNode.targetScene);
 		return this.targetLight;
 	}
 }

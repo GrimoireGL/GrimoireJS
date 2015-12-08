@@ -6,35 +6,30 @@ import TextureNodeBase = require("./TextureNodeBase");
 /**
  * Basic 2d texture resource node.
  */
-class TextureNode extends TextureNodeBase
-{
-    constructor(parent: GomlTreeNodeBase)
-    {
-        super(parent);
-        this.attributes.defineAttribute({
-            src: {
-                converter: "string",
-                src:""
-            }
-        });
-    }
+class TextureNode extends TextureNodeBase {
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      src: {
+        converter: "string",
+        src: ""
+      }
+    });
+  }
 
-    protected generateTexture(name: string, rm: ResourceManager): TextureBase
-    {
-        var texture =rm.createTextureWithSource("jthree.goml.texture." + name, null);
-        var img = new Image();
-        img.onload = () =>
-        {
-            (<Texture>this.TargetTexture).ImageSource = img;
-        };
-        img.src = this.attributes.getValue("src");
-        return texture;
-    }
+  protected generateTexture(name: string, rm: ResourceManager): TextureBase {
+    var texture = rm.createTextureWithSource("jthree.goml.texture." + name, null);
+    var img = new Image();
+    img.onload = () => {
+      (<Texture>this.TargetTexture).ImageSource = img;
+    };
+    img.src = this.attributes.getValue("src");
+    return texture;
+  }
 
-    protected get TextureGroupName()
-    {
-        return "texture2d";
-    }
+  protected get TextureGroupName() {
+    return "texture2d";
+  }
 }
 
 export =TextureNode;

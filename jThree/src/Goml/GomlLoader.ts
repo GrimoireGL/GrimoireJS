@@ -22,7 +22,7 @@ class GomlLoader extends jThreeObject {
   /**
    * Constructor. User no need to call this constructor by yourself.
    */
-  constructor(nodeManager:NodeManager,selfTag:HTMLScriptElement) {
+  constructor(nodeManager: NodeManager, selfTag: HTMLScriptElement) {
     super();
     //obtain the script tag that is refering this source code.
     var scriptTags = document.getElementsByTagName('script');
@@ -30,30 +30,28 @@ class GomlLoader extends jThreeObject {
     this.nodeManager = nodeManager;
     var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponent.ResourceLoader);
     this.gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered();
-    resourceLoader.promise.then(()=>
-  {
-    console.log("load finished!!");
-  },undefined,
-  (v)=>
-  {
-    console.log(`loading resource...${v.completedResource/v.resourceCount*100}%`);
-  });
+    resourceLoader.promise.then(() => {
+      console.log("load finished!!");
+    }, undefined,
+      (v) => {
+        console.log(`loading resource...${v.completedResource / v.resourceCount * 100}%`);
+      });
   }
 
-  private nodeManager:NodeManager;
+  private nodeManager: NodeManager;
 
   /**
    * The script tag that is refering this source code.
    */
   private selfTag: HTMLScriptElement;
 
-  private gomlLoadingDeferred:Q.Deferred<void>;
+  private gomlLoadingDeferred: Q.Deferred<void>;
 
   /**
    * Attempt to load GOMLs that placed in HTML file.
    */
   public initForPage(): void {
-    JThreeLogger.sectionLog("Goml loader","Goml initialization was started.");
+    JThreeLogger.sectionLog("Goml loader", "Goml initialization was started.");
     // to load <script src="j3.js" x-goml="HERE"/>
     this.attemptToLoadGomlInScriptAttr();
     // to load the script that is type of text/goml
@@ -71,7 +69,7 @@ class GomlLoader extends jThreeObject {
    */
   private attemptToLoadGomlInScriptAttr(): void {
     var url: string = this.selfTag.getAttribute('x-goml');
-    if(!url)return;
+    if (!url) return;
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => {
       this.scriptLoaded((new DOMParser()).parseFromString(xhr.response, 'text/xml').documentElement);
@@ -112,8 +110,7 @@ class GomlLoader extends jThreeObject {
    * Initialize nodes
    * @param {GomlTreeNodeBase} top target of nodetree to be called recursively
    */
-  private loadTags(top:GomlTreeNodeBase)
-  {
+  private loadTags(top: GomlTreeNodeBase) {
     top.callRecursive((v) => (<GomlTreeNodeBase>v).beforeLoad());
     top.callRecursive((v) => (<GomlTreeNodeBase>v).Load());
     top.callRecursive((v) => (<GomlTreeNodeBase>v).afterLoad());
@@ -127,14 +124,13 @@ class GomlLoader extends jThreeObject {
    */
   private scriptLoaded(source: HTMLElement): void {
     var catched = this.nodeManager.htmlRoot = source;
-    if(catched.children[0].tagName.toUpperCase() === "PARSERERROR")
-    {
-      JThreeLogger.sectionError('Goml loader',`Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
-      JThreeLogger.sectionLongLog('Goml loader',catched.innerHTML);
+    if (catched.children[0].tagName.toUpperCase() === "PARSERERROR") {
+      JThreeLogger.sectionError('Goml loader', `Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
+      JThreeLogger.sectionLongLog('Goml loader', catched.innerHTML);
     }
     if (catched === undefined || catched.tagName.toUpperCase() !== 'GOML') throw new Exceptions.InvalidArgumentException('Root should be goml');
 
-    this.nodeManager.gomlRoot =GomlParser.parse(source,this.nodeManager.configurator)
+    this.nodeManager.gomlRoot = GomlParser.parse(source, this.nodeManager.configurator)
     this.loadTags(this.nodeManager.gomlRoot);
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.nodeManager.ready = true;

@@ -5,41 +5,58 @@ import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
 import AttributeParser = require("../../AttributeParser");
 class SceneObjectNodeBase extends GomlTreeNodeBase {
-  constructor(parent: GomlTreeNodeBase, parentSceneNode: SceneNode, parentObject: SceneObjectNodeBase) {
-    super(parent);
-    this.containedSceneNode = parentSceneNode;
-    this.parentSceneObjectNode = parentObject;
+  constructor() {
+    super();
     this.attributes.defineAttribute({
       "position": {
         value: new Vector3(0, 0, 0),
         converter: "vector3",
-        handler: (v) => {
-          if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Position = <Vector3>v.Value; }
       },
       "scale": {
         value: new Vector3(1, 1, 1),
         converter: "vector3",
-        handler: (v) => { if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Scale = <Vector3>v.Value; }
       },
-      "rotation":
-      {
+      "rotation": {
         value: Quaternion.Identity,
         converter: "rotation",
-        handler: (v) => {
-          if (this.targetSceneObject != null)
-            this.targetSceneObject.Transformer.Rotation = v.Value;
-        }
       },
-      "name":
-      {
-        value:undefined,
-        converter:"string",
-        handler:(v)=>
-        {
-          if(this.targetSceneObject&&v.Value)this.targetSceneObject.name = v.Value;
-        }
+      "name": {
+        value: undefined,
+        converter: "string",
       }
     });
+    this.attributes.getAttribute('position').on('changed', ((attr) => {
+      if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('scale').on('changed', ((attr) => {
+      if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('rotation').on('changed', ((attr) => {
+      if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Rotation = attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('name').on('changed', ((attr) => {
+      if (this.targetSceneObject && attr.Value) this.targetSceneObject.name = attr.Value;
+    }).bind(this));
+  }
+
+  private _onParentAdded(parent): void {
+    let sceneNode: SceneNode = null;
+    let sceneObjectNode: SceneObjectNodeBase = null;
+    if (parent.getTypeName() == "SceneNode")//This parent node is scene node. TODO: I wonder there is better way
+    {
+      sceneNode = <SceneNode>parent;
+      sceneObjectNode = null;
+    } else {
+      if (typeof parent["ContainedSceneNode"] === "undefined") {//check parent extends SceneObjectNodeBase or not.
+        console.error(`${parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
+        return null;
+      } else {
+        sceneObjectNode = <SceneObjectNodeBase>parent;
+        sceneNode = sceneObjectNode.ContainedSceneNode;
+      }
+    }
+    this.containedSceneNode = sceneNode;
+    this.parentSceneObjectNode = sceneObjectNode;
   }
 
   protected ConstructTarget(): SceneObject {
@@ -50,12 +67,11 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
 
   }
 
-
   public beforeLoad(): void {
     super.beforeLoad();
     this.targetSceneObject = this.ConstructTarget();
     if (this.targetSceneObject == null) return;
-    if(!this.targetSceneObject.name||this.targetSceneObject.ID == this.targetSceneObject.name)
+    if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
       this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
     //append targetObject to parent
     this.applyHierarchy();
@@ -104,21 +120,18 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     return this.parentSceneObjectNode;
   }
 
-  public get Position(): Vector3
-  {
+  public get Position(): Vector3 {
     return this.attributes.getValue('position');
   }
 
-  public get Rotation(): Quaternion
-  {
+  public get Rotation(): Quaternion {
     return this.attributes.getValue('rotation');
   }
 
-  public get Scale(): Vector3
-  {
+  public get Scale(): Vector3 {
     return this.attributes.getValue('scale');
   }
 
 }
 
-export =SceneObjectNodeBase;
+export = SceneObjectNodeBase;

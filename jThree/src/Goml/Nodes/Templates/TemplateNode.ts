@@ -13,9 +13,9 @@ class TemplateNode extends GomlTreeNodeBase
     return this.templateGoml;
   }
 
-  constructor(parent:GomlTreeNodeBase)
+  constructor()
   {
-      super(parent);
+      super();
       // var name=elem.getAttribute("name");
       // if(name)
       // {

@@ -21,7 +21,15 @@ class AttributeDictionary extends JThreeObject {
 
   private node: GomlTreeNodeBase;
 
-  private attributes: { [key:string]: GomlAttribute };
+  private attributes: { [key: string]: GomlAttribute };
+
+  public forEachAttr(callbackfn: (value: GomlAttribute, key: string, attributes: { [key: string]: GomlAttribute }) => void): AttributeDictionary {
+    Object.keys(this.attributes).forEach((k) => {
+      let v = this.attributes[k];
+      callbackfn(v, k, this.attributes);
+    }, this);
+    return this;
+  }
 
   public getValue(attrName: string): any {
     var attr = this.attributes[attrName];
@@ -30,22 +38,19 @@ class AttributeDictionary extends JThreeObject {
       return attr.Converter.FromInterface(attr.Value);
   }
 
-  public setValue(attrName: string, value: any): void
-  {
+  public setValue(attrName: string, value: any): void {
     var attr = this.attributes[attrName];
     if (attr === undefined) console.warn(`attribute "${attrName}" is not found.`);
-    else
-    {
-        if (attr.Constant) {
-            console.error(`attribute: ${attrName} is constant attribute`);
-            return;
-        }
+    else {
+      if (attr.Constant) {
+        console.error(`attribute: ${attrName} is constant attribute`);
+        return;
+      }
       attr.Value = value;
     }
   }
 
-  public getAttribute(attrName:string):GomlAttribute
-  {
+  public getAttribute(attrName: string): GomlAttribute {
     return this.attributes[attrName];
   }
 
@@ -72,7 +77,6 @@ class AttributeDictionary extends JThreeObject {
     for (let key in attributes) {
       const attribute = attributes[key];
       const gomlAttribute = new GomlAttribute(key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.constant);
-      gomlAttribute.addListener('attr-changed', attribute.handler);
       this.attributes[key] = gomlAttribute;
     }
   }
@@ -100,4 +104,4 @@ class AttributeDictionary extends JThreeObject {
   }
 }
 
-export =AttributeDictionary;
+export = AttributeDictionary;

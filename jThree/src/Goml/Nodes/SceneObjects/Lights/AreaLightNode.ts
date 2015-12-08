@@ -3,48 +3,52 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import LightNodeBase = require('./LightNodeBase');
 import AreaLight = require("../../../../Core/Light/Impl/AreaLight");
-import LightBase =require('../../../../Core/Light/LightBase');
+import LightBase = require('../../../../Core/Light/LightBase');
 import Vector3 = require("../../../../Math/Vector3");
-class AreaLightNode extends LightNodeBase
-{
-	private targetLight:AreaLight;
 
-	constructor(parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-		super(parent, parentSceneNode, parentObject);
+class AreaLightNode extends LightNodeBase {
+	private targetLight: AreaLight;
+
+	constructor() {
+		super();
 		this.attributes.defineAttribute({
-			"intensity":{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
+			"intensity": {
+				value: 1,
+				converter: "number",
 			},
-			"right":{
-				value:1,
-				converter:"number",
-				handler:(v)=>{
-					this.targetLight.rightLength = v.Value;
-				}
+			"right": {
+				value: 1,
+				converter: "number",
 			}
 			,
-			"top":{
+			"top": {
 				value: 1,
-				converter:"number",
-				handler:(v)=>{
-					this.targetLight.topLength = v.Value;
-				}
+				converter: "number",
 			}
 			,
-			"far":{
+			"far": {
 				value: 1,
-				converter:"number",
-				handler:(v)=>{
-					this.targetLight.farLength = v.Value;
-				}
+				converter: "number",
 			}
 		});
+		this.attributes.getAttribute('intensity').on('changed', ((attr) => {
+			this.targetLight.intensity = attr.Value;
+		}).bind(this));
+		this.attributes.getAttribute('right').on('changed', ((attr) => {
+			this.targetLight.rightLength = attr.Value;
+		}).bind(this));
+		this.attributes.getAttribute('top').on('changed', ((attr) => {
+			this.targetLight.topLength = attr.Value;
+		}).bind(this));
+		this.attributes.getAttribute('far').on('changed', ((attr) => {
+			this.targetLight.farLength = attr.Value;
+		}).bind(this));
 	}
 
-	protected constructLight():LightBase
-	{
-		this.targetLight= new AreaLight(this.ContainedSceneNode.targetScene);
+	protected constructLight(): LightBase {
+		this.targetLight = new AreaLight(this.ContainedSceneNode.targetScene);
 		return this.targetLight;
 	}
 }
+
 export = AreaLightNode;

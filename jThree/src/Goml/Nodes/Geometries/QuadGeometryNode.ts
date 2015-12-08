@@ -3,24 +3,21 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Geometry = require("../../../Core/Geometries/Geometry");
 import QuadGeometry = require("../../../Core/Geometries/QuadGeometry");
 
-class QuadGeometryNode extends GeometryNodeBase
-{
-  private TriGeometry:QuadGeometry;
+class QuadGeometryNode extends GeometryNodeBase {
+  private TriGeometry: QuadGeometry;
 
-  constructor(parent:GomlTreeNodeBase)
-  {
-      super(parent);
+  constructor() {
+    super();
   }
 
-  protected ConstructGeometry():Geometry
-  {
-    return this.TriGeometry=new QuadGeometry(this.Name);
+  protected ConstructGeometry(): Geometry {
+    return this.TriGeometry = new QuadGeometry(this.Name);
   }
 
-    public beforeLoad()
-  {
+  public beforeLoad() {
     super.beforeLoad();
   }
+
 }
 
-export=QuadGeometryNode;
+export = QuadGeometryNode;

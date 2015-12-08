@@ -18,9 +18,9 @@ class BehaviorNode extends GomlTreeNodeBase {
         value: false,
       },
     });
-    this.on('parent_added', this._onParentAdded.bind(this));
-    this.attributes.getAttribute('name').on('attr_changed', this._onNameAttrChanged.bind(this));
-    this.attributes.getAttribute('enabled').on('attr_changed', this._onEnabledAttrChanged.bind(this));
+    this.on('parent-added', this._onParentAdded.bind(this));
+    this.attributes.getAttribute('name').on('changed', this._onNameAttrChanged.bind(this));
+    this.attributes.getAttribute('enabled').on('changed', this._onEnabledAttrChanged.bind(this));
   }
 
   private _onNameAttrChanged(attr: GomlAttribute): void {

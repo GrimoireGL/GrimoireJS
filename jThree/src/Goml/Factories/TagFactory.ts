@@ -7,57 +7,27 @@ import ContextComponents = require('../../ContextComponents');
 /**
  * HTMLElementからGomlNodeを生成します
  */
-class TagFactory extends jThreeObject { // rename candidate: NodeFactory
-    /**
-     * HTMLElementからGomlNodeを生成します
-     * @param {HTMLElement} elem 生成元のHTMLElement
-     */
-    constructor(elem: HTMLElement)
-    {
-      super();
-      this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager)
-      this.tagName = elem.tagName;
-      this.nodeType = this.nodeManager.configurator.getGomlNode(this.tagName);
-    }
+class TagFactory { // rename candidate: NodeFactory
+  /**
+   * nodeManager
+   * @type {NodeManager}
+   */
+  static nodeManager: NodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
-    /**
-     * nodeManager
-     * @type {NodeManager}
-     */
-    private nodeManager: NodeManager;
-
-    /**
-     * タグ名
-     * @type {string}
-     */
-    protected tagName:string;
-
-    /**
-     * GomlNodeのコンストラクタ
-     * @type {any}
-     */
-    protected nodeType:any;
-
-    public get TagName(): string {
-        return this.tagName;
-    }
-
-    public get NoNeedParseChildren():boolean
-    {
-        return false;
-    }
-
-    /**
-     * Nodeを生成します
-     *
-     * `nodeType`に指定されたNodeの種類より、対応するNodeを生成して返します。
-     * `nodeType`は`TagFactory`を継承するクラスで指定されます。
-     * @param  {GomlTreeNodeBase} parent 親のNode
-     * @return {GomlTreeNodeBase}
-     */
-    public CreateNode(): GomlTreeNodeBase {
-        return new this.nodeType();
-    }
+  /**
+   * Nodeを生成します
+   *
+   * `nodeType`に指定されたNodeの種類より、対応するNodeを生成して返します。
+   * `nodeType`は`TagFactory`を継承するクラスで指定されます。
+   * @param  {GomlTreeNodeBase} parent 親のNode
+   * @return {GomlTreeNodeBase}
+   */
+  static CreateNode(elem: HTMLElement): GomlTreeNodeBase {
+    const tagName = elem.tagName;
+    const nodeType = TagFactory.nodeManager.configurator.getGomlNode(tagName);
+    const newNode = new (<any>nodeType)();
+    return newNode;
+  }
 }
 
 export=TagFactory;

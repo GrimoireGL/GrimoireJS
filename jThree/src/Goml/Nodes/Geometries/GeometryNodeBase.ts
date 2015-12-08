@@ -7,14 +7,12 @@ import Geometry = require("../../../Core/Geometries/Geometry");
 class GeometryNodeBase extends GomlTreeNodeBase {
   constructor() {
     super();
-    this.attributes.defineAttribute(
-      {
-        'name':
-        {
-          value: undefined,
-          converter: 'string',
-        }
-      });
+    this.attributes.defineAttribute({
+      'name': {
+        value: undefined,
+        converter: 'string',
+      }
+    });
   }
 
   private name: string;
@@ -49,4 +47,4 @@ class GeometryNodeBase extends GomlTreeNodeBase {
     this.nodeManager.nodeRegister.addObject("jthree.geometries", this.Name, this);
   }
 }
-export =GeometryNodeBase;
+export = GeometryNodeBase;

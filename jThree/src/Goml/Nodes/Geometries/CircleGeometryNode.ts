@@ -9,15 +9,13 @@ class CircleGeometryNode extends GeometryNodeBase {
 
   constructor(parent: GomlTreeNodeBase) {
     super();
-    this.attributes.defineAttribute(
-      {
-        'divide':
-        {
-          value: 30,
-          converter: 'integer',
-        }
-      });
-    this.attributes.getAttribute('divide').on('attr_changed', this._onDivideAttrChanged.bind(this));
+    this.attributes.defineAttribute({
+      'divide': {
+        value: 30,
+        converter: 'integer',
+      }
+    });
+    this.attributes.getAttribute('divide').on('changed', this._onDivideAttrChanged.bind(this));
   }
 
   private _onDivideAttrChanged(attr: GomlAttribute): void {

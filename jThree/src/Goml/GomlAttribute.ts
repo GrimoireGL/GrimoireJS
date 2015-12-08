@@ -6,8 +6,7 @@ import JThreeEvent = require('../Base/JThreeEvent');
 /**
  * Provides the feature to manage attribute of GOML.
  */
-class GomlAttribute extends JThreeObjectEEWithID
-{
+class GomlAttribute extends JThreeObjectEEWithID {
   /**
    * The cache value for attribute.
    */
@@ -19,8 +18,13 @@ class GomlAttribute extends JThreeObjectEEWithID
 
   protected constant: boolean;
 
-  constructor(name: string, value: any, converter: AttributeConverterBase, constant?: boolean)
-  {
+  /**
+   * falseの時はattributeが更新された際のeventは呼ばれません。trueの時、attributeが初期化されていることを示します。
+   * @type {boolean}
+   */
+  public initialized: boolean = false;
+
+  constructor(name: string, value: any, converter: AttributeConverterBase, constant?: boolean) {
     super(name);
     if (typeof constant === "undefined") constant = false;
     this.constant = constant;
@@ -28,13 +32,22 @@ class GomlAttribute extends JThreeObjectEEWithID
     this.value = converter.FromInterface(value);
   }
 
-  public get Name(): string
-  {
+  /**
+   * Attributeが初期化されていることを示すinitializedのフラグを建て、attributeが更新された際のeventが有効になるようにします。
+   *
+   * このメソッドはGomlNodeのインスタンスが生成された後に呼ばれ、GomlNodeのコンストラクタ内でset:Valueが呼ばれてもeventは発生しません。
+   */
+  public initialize(): void {
+    if (this.value === undefined) console.warn(`Attribute ${this.Name} is undefined.`)
+    this.initialized = true;
+    this.notifyValueChanged();
+  }
+
+  public get Name(): string {
     return this.ID;
   }
 
-  public get Value(): any
-  {
+  public get Value(): any {
     return this.value;
   }
 
@@ -48,18 +61,16 @@ class GomlAttribute extends JThreeObjectEEWithID
       return;
     }
     this.value = this.Converter.FromInterface(val);
-    this.emit('attr-changed', this);
+    if (this.initialized) this.emit('changed', this);
   }
 
-  public get Converter(): AttributeConverterBase
-  {
+  public get Converter(): AttributeConverterBase {
     return this.converter;
   }
 
-  public notifyValueChanged()
-  {
+  public notifyValueChanged() {
     if (this.Constant) return;
-    this.emit('attr-changed', this);
+    if (this.initialized) this.emit('changed', this);
   }
 }
 

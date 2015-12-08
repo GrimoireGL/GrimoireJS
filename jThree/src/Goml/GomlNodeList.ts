@@ -2,14 +2,15 @@ import GomlNodeListElement = require("./GomlNodeListElement");
 
 declare function require(string): any;
 
-var gomlList = [  new GomlNodeListElement("jthree.toplevel",
+var gomlList = [
+  new GomlNodeListElement("jthree.toplevel",
     {
       "CANVASES": require("./Nodes/TopLevel/CanvasesNode"),
       "RESOURCES": require("./Nodes/TopLevel/ResourcesNode"),
       "SCENES": require("./Nodes/TopLevel/ScenesNode"),
       "TEMPLATES": require("./Nodes/TopLevel/TemplatesNode"),
-      "LOADERS":require("./Nodes/TopLevel/LoadersNode"),
-      "GOML":require("./Nodes/TopLevel/GomlNode")
+      "LOADERS": require("./Nodes/TopLevel/LoadersNode"),
+      "GOML": require("./Nodes/TopLevel/GomlNode")
     }),
   new GomlNodeListElement("jthree.geometries",
     {
@@ -44,17 +45,17 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
       "OBJECT": require("./Nodes/SceneObjects/ObjectNode"),
       "PLIGHT": require("./Nodes/SceneObjects/Lights/PointLightNode"),
       "DLIGHT": require("./Nodes/SceneObjects/Lights/DirectionalLightNode"),
-      "ALIGHT" : require("./Nodes/SceneObjects/Lights/AreaLightNode"),
-      "SLIGHT" :require("./Nodes/SceneObjects/Lights/SpotLightNode"),
-      "SCENELIGHT" : require('./Nodes/SceneObjects/Lights/SceneLightNode'),
+      "ALIGHT": require("./Nodes/SceneObjects/Lights/AreaLightNode"),
+      "SLIGHT": require("./Nodes/SceneObjects/Lights/SpotLightNode"),
+      "SCENELIGHT": require('./Nodes/SceneObjects/Lights/SceneLightNode'),
       "PMX": require("../PMX/Goml/PMXNode")
     }),
   new GomlNodeListElement(
-      "jthree.textures",
-      {
-          "TEXTURE": require("./Nodes/Texture/TextureNode"),
-          "CUBETEXTURE":require("./Nodes/Texture/CubeTextureNode")
-      }),
+    "jthree.textures",
+    {
+      "TEXTURE": require("./Nodes/Texture/TextureNode"),
+      "CUBETEXTURE": require("./Nodes/Texture/CubeTextureNode")
+    }),
   new GomlNodeListElement("jthree.behaviors",
     {
       "BEHAVIORS": require("./Nodes/Behaviors/BehaviorsNode"),
@@ -67,15 +68,15 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
     {
       "TEMPLATE": require("./Nodes/Templates/TemplateNode")
     }),
-    new GomlNodeListElement("jthree.loader",
-  {
-    "LOADER":require("./Nodes/Loaders/LoaderNode")
-  }),
+  new GomlNodeListElement("jthree.loader",
+    {
+      "LOADER": require("./Nodes/Loaders/LoaderNode")
+    }),
   new GomlNodeListElement("jthree.pmx.morph",
     {
       "MORPH": require("../PMX/Goml/PMXMorphNode"),
     }),
-    new GomlNodeListElement("jthree.pmx.bone",
+  new GomlNodeListElement("jthree.pmx.bone",
     {
       "BONE": require("../PMX/Goml/PMXBoneNode"),
     }),
@@ -83,7 +84,7 @@ var gomlList = [  new GomlNodeListElement("jthree.toplevel",
     {
       "MORPHS": require("../PMX/Goml/PMXMorphsNode"),
       "BONES": require("../PMX/Goml/PMXBonesNode"),
-      "VMD":require("../VMD/Goml/VMDNode")
+      "VMD": require("../VMD/Goml/VMDNode")
     })
 ];
-export =gomlList;
+export = gomlList;

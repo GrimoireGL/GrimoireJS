@@ -51,19 +51,43 @@ class GomlParser {
     }
   }
 
+  /**
+   * GomlNodeの生成、初期化を行います。
+   *
+   * GomlNodeの生成のライフサイクルを定義しています。
+   * @param  {HTMLElement}      elem         [description]
+   * @param  {GomlConfigurator} configurator [description]
+   * @return {GomlTreeNodeBase}              [description]
+   */
   private static createNode(elem: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     const tagName = elem.tagName;
     const nodeType = configurator.getGomlNode(tagName);
+    /**
+     * インスタンス生成
+     * それぞれのGomlNodeのattributeの定義、attribute更新時のイベント、child, parent更新時のイベントの定義
+     */
     const newNode = <GomlTreeNodeBase>new (<any>nodeType)();
+    /**
+     * HTMLElementのattributeとのバインディング
+     */
     Object.keys(elem.attributes).forEach((attrKey) => {
       const attrValue = elem.attributes[attrKey];
       const gomlAttribute = newNode.attributes.getAttribute(attrKey);
       if (gomlAttribute) {
         gomlAttribute.Value = attrValue;
-        gomlAttribute.on('attr_changed', (ga) => {
+        gomlAttribute.on('changed', (ga) => {
           elem.setAttribute(attrKey, ga.Value);
         });
       }
+    });
+    /**
+     * attributeの初期化完了の通知
+     * attributeのchangedイベントの発火
+     * 設定されたattributeを元に処理を行う
+     */
+    newNode.initialize();
+    newNode.attributes.forEachAttr((ga) => {
+      ga.initialize();
     });
     return newNode;
   }

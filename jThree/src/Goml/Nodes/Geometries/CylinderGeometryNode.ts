@@ -2,40 +2,33 @@ import GeometryNodeBase = require("./GeometryNodeBase");
 import Geometry = require("../../../Core/Geometries/Geometry")
 import CylinderGeometry = require("../../../Core/Geometries/CylinderGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-class CylinderGeometryNode extends GeometryNodeBase
-{
-  private gridGeometry:CylinderGeometry;
+class CylinderGeometryNode extends GeometryNodeBase {
+  private gridGeometry: CylinderGeometry;
 
-  constructor(parent:GomlTreeNodeBase)
-  {
-      super(parent);
-      this.attributes.defineAttribute
-      (
-        {
-          "divide":
-          {
-            value:30,
-            converter:"integer",
-            handler:(v)=>{this.gridGeometry.DivideCount=v.Value;}
-          }
-        }
-      );
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "divide": {
+        value: 30,
+        converter: "integer",
+      }
+    });
+    this.attributes.getAttribute('divide').on('attr_change', this._onDivideAttrChanged.bind(this));
   }
 
-  protected ConstructGeometry():Geometry
-  {
-    return this.gridGeometry=new CylinderGeometry(this.Name);
+  private _onDivideAttrChanged(attr): void {
+    this.gridGeometry.DivideCount = attr.Value;
   }
 
-    public beforeLoad()
-  {
+  protected ConstructGeometry(): Geometry {
+    return this.gridGeometry = new CylinderGeometry(this.Name);
+  }
+
+  public beforeLoad() {
     super.beforeLoad();
-    this.gridGeometry.DivideCount=this.attributes.getValue("divide");
+    this.gridGeometry.DivideCount = this.attributes.getValue("divide");
   }
-
-
-
 
 }
 
-export=CylinderGeometryNode;
+export = CylinderGeometryNode;

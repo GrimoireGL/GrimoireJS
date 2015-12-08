@@ -3,42 +3,49 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import LightNodeBase = require('./LightNodeBase');
 import SpotLight = require('../../../../Core/Light/Impl/SpotLight');
-import LightBase =require('../../../../Core/Light/LightBase');
-class SpotLightNode extends LightNodeBase
-{
-	private targetLight:SpotLight;
+import LightBase = require('../../../../Core/Light/LightBase');
 
-		constructor(parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-		super(parent, parentSceneNode, parentObject);
-		this.attributes.defineAttribute({
-			"intensity":{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
-			},
-			"decay":
-			{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.decay=v.Value;}
-			},
-      "inner":
-      {
-        value:"10d",converter:"angle",handler:(v)=>{
-          this.targetLight.inner = v.Value;
-        }
+class SpotLightNode extends LightNodeBase {
+  private targetLight: SpotLight;
+
+		constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "intensity": {
+        value: 1,
+        converter: "number",
       },
-      "outer":{
-        value:"25d",
-        converter:"angle",
-        handler:(v)=>{
-          this.targetLight.outer = v.Value;
-        }
+      "decay": {
+        value: 1,
+        converter: "number",
+      },
+      "inner": {
+        value: "10d",
+        converter: "angle",
+      },
+      "outer": {
+        value: "25d",
+        converter: "angle",
       }
+    });
+    this.attributes.getAttribute('intensity').on('changed', ((attr) => {
+      this.targetLight.intensity = attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('decay').on('changed', ((attr) => {
+      this.targetLight.decay = attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('inner').on('changed', ((attr) => {
+      this.targetLight.inner = attr.Value;
+    }).bind(this));
+    this.attributes.getAttribute('outer').on('changed', ((attr) => {
+      this.targetLight.outer = attr.Value;
+    }).bind(this));
+  }
 
-		});
-	}
-
-	protected constructLight():LightBase
-	{
-		this.targetLight= new SpotLight(this.ContainedSceneNode.targetScene);
-		return this.targetLight;
-	}
+  protected constructLight(): LightBase {
+    this.targetLight = new SpotLight(this.ContainedSceneNode.targetScene);
+    return this.targetLight;
+  }
 }
+
 export = SpotLightNode;

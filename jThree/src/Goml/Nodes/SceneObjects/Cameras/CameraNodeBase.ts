@@ -14,9 +14,9 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase
     return this.targetCamera;
   }
 
-  constructor(parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
+  constructor()
   {
-      super(parent,parentSceneNode,parentObject);
+      super();
       this.nodeManager.nodeRegister.addObject("jthree.camera",this.Name,this);
   }
 
