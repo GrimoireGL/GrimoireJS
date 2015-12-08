@@ -40,7 +40,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   public initialize(): void {
     if (this.value === undefined) console.warn(`Attribute ${this.Name} is undefined.`)
     this.initialized = true;
-    this.notifyValueChanged();
+    if (!this.Constant) this.emit('changed', this);
   }
 
   public get Name(): string {
@@ -61,7 +61,11 @@ class GomlAttribute extends JThreeObjectEEWithID {
       return;
     }
     this.value = this.Converter.FromInterface(val);
-    if (this.initialized) this.emit('changed', this);
+    if (this.initialized) {
+      process.nextTick(() => {
+        this.emit('changed', this);
+      });
+    }
   }
 
   public get Converter(): AttributeConverterBase {
@@ -70,7 +74,11 @@ class GomlAttribute extends JThreeObjectEEWithID {
 
   public notifyValueChanged() {
     if (this.Constant) return;
-    if (this.initialized) this.emit('changed', this);
+    if (this.initialized) {
+      process.nextTick(() => {
+        this.emit('changed', this);
+      });
+    }
   }
 }
 

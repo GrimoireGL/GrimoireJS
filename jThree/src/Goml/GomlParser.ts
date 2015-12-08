@@ -23,31 +23,28 @@ class GomlParser {
 
   public static parseChild(parent: GomlTreeNodeBase, child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     //obtain factory class for the node
-    let elem: HTMLElement = <HTMLElement>child;
+    const elem: HTMLElement = <HTMLElement>child;
     const newNode = GomlParser.createNode(elem, configurator);
     // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
     if (newNode) {
-      if (newNode == null) {
-        //the factory was obtained, but newNnode is null.
-        //It is seem to have something wrong to create instance.
-        //It can be occured, the node is written as the form being not desired for the factory.
-        console.warn(`${elem.tagName} tag was parsed,but failed to create instance. Skipped.`);
-        return;
-      }
       //call this function recursive
-      let children = elem.childNodes;
-      if (!children) return; //if there children is null, parent is end of branch
-      if (children.length == 0) return; //if there children is empty, parent is end of branch
-      for (let i = 0; i < children.length; i++) {
-        if (!(<HTMLElement>children[i]).tagName) continue;
-        // generate instances for every children nodes
-        let e = <HTMLElement>children[i];
-        GomlParser.parseChild(newNode, e, configurator);
+      const children = elem.childNodes;
+      if (children && children.length !== 0) {
+        for (let i = 0; i < children.length; i++) {
+          if (!(<HTMLElement>children[i]).tagName) continue;
+          // generate instances for every children nodes
+          const e = <HTMLElement>children[i];
+          const newChildNode = GomlParser.parseChild(newNode, e, configurator);
+          if (newChildNode) {
+            newNode.addChild(newChildNode);
+          }
+        }
       }
       return newNode;
     } else {
       //when specified node could not be found
       console.warn(`${elem.tagName} was not parsed.'`);
+      return null;
     }
   }
 

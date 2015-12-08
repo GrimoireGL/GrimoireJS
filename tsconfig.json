@@ -344,7 +344,6 @@
     "./jThree/src/bundle.ts",
     "./jThree/src/jThree.ts",
     "./jThree/src/refs/ammo/ammo.d.ts",
-    "./jThree/src/refs/bluebird/bluebird.d.ts",
     "./jThree/src/refs/bundle.ts",
     "./jThree/src/refs/chai/chai.d.ts",
     "./jThree/src/refs/empower/empower.d.ts",

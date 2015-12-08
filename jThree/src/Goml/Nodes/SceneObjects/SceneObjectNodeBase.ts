@@ -25,6 +25,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         converter: "string",
       }
     });
+    this.on('parent-added', this._onParentAdded.bind(this));
     this.attributes.getAttribute('position').on('changed', ((attr) => {
       if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
     }).bind(this));

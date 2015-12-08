@@ -327,7 +327,6 @@
 /// <reference path="bundle-notdoc.ts" />
 /// <reference path="jThree.ts" />
 /// <reference path="refs/ammo/ammo.d.ts" />
-/// <reference path="refs/bluebird/bluebird.d.ts" />
 /// <reference path="refs/bundle.ts" />
 /// <reference path="refs/chai/chai.d.ts" />
 /// <reference path="refs/empower/empower.d.ts" />
