@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.basic.phong" group="jthree.basic.forematerial" order="300">
+  <uniform-register>
+    <register name="jthree.basic.matrix"/>
+    <register name="jthree.basic.camera"/>
+    <register name="jthree.basic.time"/>
+  </uniform-register>
+  <attribute-register>
+    <register name="jthree.basic.geometry"/>
+  </attribute-register>
+  <shader>
+    <pass>
+      <blend src="1" dest="1"/>
+      <depth enabled="false"/>
+      <cull enabled="true" orientation="ccw"/>
+      <glsl fragment="frag" vertex="vert">
+        //@import "jthree.basic.vertexShader"
+        VERTEX_UNIFORMS
+
+        void frag(void)
+        {
+          return vec4(1,0,0,1);
+        }
+      </glsl>
+    </pass>
+  </shader>
+</material>
