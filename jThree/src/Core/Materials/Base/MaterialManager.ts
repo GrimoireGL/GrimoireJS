@@ -6,6 +6,11 @@ import ContextComponents = require("../../../ContextComponents");
  */
 class MaterialManager implements IContextComponent
 {
+  constructor()
+  {
+    this.addShaderChunk("jthree.builtin.vertex",require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
+  }
+
   public getContextComponentIndex():number
   {
     return ContextComponents.MaterialManager;
