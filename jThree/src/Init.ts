@@ -93,11 +93,13 @@ class JThreeInit {
 //@import jthree.builtin.vertex
 //@import jthree.builtin.vertex
 
+//@fragonly
+//This is main function
 void main(void)
 {
 
 }
-
+//@vertonly
 void frag(void)
 {
 

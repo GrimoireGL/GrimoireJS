@@ -5,6 +5,9 @@ class ShaderProgramParser {
     public static parseCombined(combined: string, vsfunc: string, fsfunc: string): string {
         var materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
         var result = ShaderProgramParser.parseImport(combined,materialManager);
+        var flagment = ShaderProgramParser.removeOtherPartCode(result,"vertonly");
+        var vertex = ShaderProgramParser.removeOtherPartCode(result,"fragonly");
+        debugger;
         return result;
     }
 
@@ -54,8 +57,10 @@ class ShaderProgramParser {
           if(source[index]=='}')bracketCount--;
           if(bracketCount == 0)break;
         }
-        var endPoint = index;
+        var endPoint = index + 1;
+        source = source.substr(0,beginPoint) + source.substring(endPoint,source.length);
       }
+      return source;
     }
 }
 
