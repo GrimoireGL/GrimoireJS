@@ -61,6 +61,12 @@ class ProgramWrapper extends ResourceWrapper {
         this.GL.useProgram(this.targetProgram);
     }
 
+    public uniformExists(valName:string):boolean
+    {
+      this.useProgram();
+      return this.fetchUniformLocation(valName) != -1;
+    }
+
     private fetchUniformLocation(valName:string):WebGLUniformLocation
     {
         if(!this.uniformLocations.has(valName))

@@ -17,6 +17,7 @@ import NodeManager = require("./Goml/NodeManager");
 import Debugger = require("./Debug/Debugger");
 import GomlLoader = require("./Goml/GomlLoader");
 import ResourceLoader = require("./Core/ResourceLoader");
+import BasicMaterial = require("./Core/Materials/Base/BasicMaterial")
 
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
@@ -89,22 +90,6 @@ class JThreeInit {
         JThreeContext.registerContextComponent(new NodeManager());
         JThreeContext.registerContextComponent(new Debugger());
         JThreeContext.registerContextComponent(new MaterialManager());
-        ShaderProgramParser.parseCombined(`
-//@import jthree.builtin.vertex
-//@import jthree.builtin.vertex
-
-//@fragonly
-//This is main function
-void main(void)
-{
-
-}
-//@vertonly
-void frag(void)
-{
-
-}
-          `,"vert","frag");
         var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         var loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
         var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
@@ -128,6 +113,7 @@ void frag(void)
         var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
         resourceLoader.promise.then(() => {
             JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
+            var material = new BasicMaterial();
         });
     }
 }

@@ -1,3 +1,4 @@
+import ShaderProgramParser = require("./ShaderProgramParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
 /**
@@ -28,7 +29,7 @@ class MaterialManager implements IContextComponent
    */
   public addShaderChunk(key:string,val:string):void
   {
-    this._shaderChunks[key] = val;
+    this._shaderChunks[key] = ShaderProgramParser.parseImport(val,this);
   }
 
   /**

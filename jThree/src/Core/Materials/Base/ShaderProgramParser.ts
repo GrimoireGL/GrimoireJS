@@ -1,17 +1,21 @@
+import IParsedProgramResult = require("./IParsedProgramResult");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
 class ShaderProgramParser {
-    public static parseCombined(combined: string, vsfunc: string, fsfunc: string): string {
+    public static parseCombined(combined: string): IParsedProgramResult {
         var materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
         var result = ShaderProgramParser.parseImport(combined,materialManager);
-        var flagment = ShaderProgramParser.removeOtherPartCode(result,"vertonly");
-        var vertex = ShaderProgramParser.removeOtherPartCode(result,"fragonly");
-        debugger;
-        return result;
+        var fragment = ShaderProgramParser._removeOtherPart(result,"vertonly");
+        var vertex = ShaderProgramParser._removeOtherPart(result,"fragonly");
+        fragment = ShaderProgramParser._removeAttributeVariables(fragment);
+        return {
+          vertex:vertex,
+          fragment:fragment
+        };
     }
 
-    private static parseImport(source: string,materialManager:MaterialManager): string {
+    public static parseImport(source: string,materialManager:MaterialManager): string {
         while (true) {
             var regexResult = /\s*\/\/+\s*@import\s+([a-zA-Z0-9.-]+)/.exec(source);
             if(!regexResult)break;
@@ -27,7 +31,7 @@ class ShaderProgramParser {
         return source;
     }
 
-    private static removeOtherPartCode(source:string,partFlag:string):string
+    private static _removeOtherPart(source:string,partFlag:string):string
     {
       var regex = new RegExp(`\s*\/\/+\s*@${partFlag}`);
       while(true)
@@ -44,7 +48,7 @@ class ShaderProgramParser {
         }
 
         var bracketCount = 1;
-        while(true)
+        while(true)//find matching bracket
         {
           index++;
           if(index==source.length)
@@ -59,6 +63,18 @@ class ShaderProgramParser {
         }
         var endPoint = index + 1;
         source = source.substr(0,beginPoint) + source.substring(endPoint,source.length);
+      }
+      return source;
+    }
+
+    private static _removeAttributeVariables(source:string):string
+    {
+      var regex =/(\s*attribute\s+[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+;)/;
+      while(true)
+      {
+        var found = regex.exec(source);
+        if(!found)break;
+        source = source.replace(found[0],"");
       }
       return source;
     }

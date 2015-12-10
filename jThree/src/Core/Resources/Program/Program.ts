@@ -38,6 +38,15 @@ class Program extends ContextSafeContainer<ProgramWrapper>{
         return new ProgramWrapper(this, renderer);
     }
 
+    public uniformExists(valName:string):boolean
+    {
+      if(this.wrappers.length > 0)
+      {
+        return this.wrappers[0].uniformExists(valName);
+      }
+      throw new Error("Any program was not initialized!");
+    }
+
     private relinkShader() {
         this.each((v) => {
             v.relink();
