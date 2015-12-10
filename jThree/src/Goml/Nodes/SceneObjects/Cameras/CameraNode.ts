@@ -7,8 +7,8 @@ import CameraNodeBase = require("./CameraNodeBase");
 
 class GomlTreeCameraNode extends CameraNodeBase {
 
-  constructor(parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-    super(parent, parentSceneNode, parentObject);
+  constructor() {
+    super();
     this.attributes.defineAttribute({
       "fovy": {
         value: Math.PI / 4,

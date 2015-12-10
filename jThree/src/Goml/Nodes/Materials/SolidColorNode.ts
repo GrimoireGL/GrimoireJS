@@ -15,7 +15,7 @@ class SolidColorNode extends MaterialNodeBase {
       }
     });
     this.attributes.getAttribute('color').on('changed', ((attr) => {
-      this.material.Color = v.Value;
+      this.material.Color = attr.Value;
     }).bind(this));
   }
 

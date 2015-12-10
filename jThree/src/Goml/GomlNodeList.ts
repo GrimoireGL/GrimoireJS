@@ -56,14 +56,14 @@ var gomlList = [
       "TEXTURE": require("./Nodes/Texture/TextureNode"),
       "CUBETEXTURE": require("./Nodes/Texture/CubeTextureNode")
     }),
-  new GomlNodeListElement("jthree.behaviors",
-    {
-      "BEHAVIORS": require("./Nodes/Behaviors/BehaviorsNode"),
-    }),
-  new GomlNodeListElement("jthree.behavior",
-    {
-      "BEHAVIOR": require("./Nodes/Behaviors/BehaviorNode")
-    }),
+  // new GomlNodeListElement("jthree.behaviors",
+  //   {
+  //     "BEHAVIORS": require("./Nodes/Behaviors/BehaviorsNode"),
+  //   }),
+  // new GomlNodeListElement("jthree.behavior",
+  //   {
+  //     "BEHAVIOR": require("./Nodes/Behaviors/BehaviorNode")
+  //   }),
   new GomlNodeListElement("jthree.template",
     {
       "TEMPLATE": require("./Nodes/Templates/TemplateNode")
@@ -72,18 +72,18 @@ var gomlList = [
     {
       "LOADER": require("./Nodes/Loaders/LoaderNode")
     }),
-  new GomlNodeListElement("jthree.pmx.morph",
-    {
-      "MORPH": require("../PMX/Goml/PMXMorphNode"),
-    }),
-  new GomlNodeListElement("jthree.pmx.bone",
-    {
-      "BONE": require("../PMX/Goml/PMXBoneNode"),
-    }),
+  // new GomlNodeListElement("jthree.pmx.morph",
+  //   {
+  //     "MORPH": require("../PMX/Goml/PMXMorphNode"),
+  //   }),
+  // new GomlNodeListElement("jthree.pmx.bone",
+  //   {
+  //     "BONE": require("../PMX/Goml/PMXBoneNode"),
+  //   }),
   new GomlNodeListElement("jthree.pmx.contents",
     {
-      "MORPHS": require("../PMX/Goml/PMXMorphsNode"),
-      "BONES": require("../PMX/Goml/PMXBonesNode"),
+      // "MORPHS": require("../PMX/Goml/PMXMorphsNode"),
+      // "BONES": require("../PMX/Goml/PMXBonesNode"),
       "VMD": require("../VMD/Goml/VMDNode")
     })
 ];

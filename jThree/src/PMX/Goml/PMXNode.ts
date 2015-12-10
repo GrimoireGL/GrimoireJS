@@ -2,78 +2,69 @@ import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
 import SceneNode = require("../../Goml/Nodes/SceneNode");
 import SceneObject = require("../../Core/SceneObject");
-import PMXModel= require('../Core/PMXModel');
+import PMXModel = require('../Core/PMXModel');
 import JThreeEvent = require('../../Base/JThreeEvent');
 import Delegates = require('../../Base/Delegates');
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceLoader = require("../../Core/ResourceLoader");
 import Q = require("q");
-class PMXNode extends SceneObjectNodeBase
-{
-  private pmxModel:PMXModel=null;
+class PMXNode extends SceneObjectNodeBase {
+  private pmxModel: PMXModel = null;
 
-  public get PMXModel()
-  {
+  public get PMXModel() {
     return this.pmxModel;
   }
 
-  public get PMXModelReady()
-  {
+  public get PMXModelReady() {
     return this.PMXModel != null;
   }
 
   private pmxTargetUpdated: JThreeEvent<PMXModel> = new JThreeEvent<PMXModel>();
 
-  private pmxLoadingDeferred:Q.Deferred<void>;
+  private pmxLoadingDeferred: Q.Deferred<void>;
 
-  public onPMXTargetUpdate(handler:Delegates.Action2<PMXNode,PMXModel>)
-  {
+  public onPMXTargetUpdate(handler: Delegates.Action2<PMXNode, PMXModel>) {
     this.pmxTargetUpdated.addListener(handler);
   }
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:SceneNode,parentObject:SceneObjectNodeBase)
-  {
-      super(elem,parent,parentSceneNode,parentObject);
-      this.pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered();
-      this.attributes.defineAttribute(
+  constructor() {
+    super();
+    this.pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered();
+    this.attributes.defineAttribute(
+      {
+        "src":
         {
-          "src":
-          {
-            converter:"string",value:""
-          }
+          converter: "string", value: ""
         }
-      )
+      }
+    )
   }
 
-  protected ConstructTarget():SceneObject
-  {
+  protected ConstructTarget(): SceneObject {
     return this.pmxModel;
   }
 
-    public beforeLoad()
-  {
+  public beforeLoad() {
     super.beforeLoad();
     PMXModel.LoadFromUrl(this.attributes.getValue("src"))
-      .then((m)=>{
-      this.pmxModel=m;
-      this.targetUpdated();
-      this.pmxTargetUpdated.fire(this,m);
-      this.bubbleEvent("loaded",{target:this});
-      this.pmxLoadingDeferred.resolve(null);
-    });
+      .then((m) => {
+        this.pmxModel = m;
+        this.targetUpdated();
+        this.pmxTargetUpdated.fire(this, m);
+        // this.bubbleEvent("loaded",{target:this});
+        this.pmxLoadingDeferred.resolve(null);
+      });
   }
 
-  protected targetUpdated()
-  {
+  protected targetUpdated() {
     super.beforeLoad();
   }
 
-    public Load()
-  {
+  public Load() {
     super.Load();
   }
 
 }
 
-export=PMXNode;
+export =PMXNode;

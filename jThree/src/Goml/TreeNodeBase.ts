@@ -51,10 +51,18 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    */
   private mounted: boolean;
 
+  /**
+   * get mounted status
+   * @return {boolean} [description]
+   */
   public get Mounted(): boolean {
     return this.mounted;
   }
 
+  /**
+   * update mounted status and emit events
+   * @param {boolean} mounted [description]
+   */
   public set Mounted(mounted: boolean) {
     if (mounted && !this.mounted) {
       this.mounted = mounted;

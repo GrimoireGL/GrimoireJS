@@ -57,15 +57,6 @@ class PhongNode extends MaterialNodeBase {
     return this.material;
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
-  }
-
-  public afterLoad() {
-    super.afterLoad();
-    this.attributes.applyDefaultValue();
-  }
-
 }
 
 export = PhongNode;

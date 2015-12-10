@@ -4,10 +4,10 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 class BehaviorsNode extends GomlTreeNodeBase
 {
 
-  constructor(parent:GomlTreeNodeBase)
+  constructor()
   {
-      super(parent);
-      this.componentTarget=parent;
+      super();
+      // this.componentTarget=parent;
   }
 
   private componentTarget:GomlTreeNodeBase;

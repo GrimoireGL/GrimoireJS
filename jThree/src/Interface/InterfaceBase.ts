@@ -1,6 +1,6 @@
-import NodeManager = require("./Goml/NodeManager");
-import JThreeContext = require("./JThreeContext");
-import ContextComponents = require("./ContextComponents");
+import NodeManager = require("../Goml/NodeManager");
+import JThreeContext = require("../JThreeContext");
+import ContextComponents = require("../ContextComponents");
 
 class InterfaceBase {
 
