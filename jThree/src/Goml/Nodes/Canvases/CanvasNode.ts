@@ -18,9 +18,9 @@ class CanvasNode extends CanvasNodeBase {
       'frame': {
         value: undefined,
         converter: 'string',
+        onchanged: this._initializeCanvas
       }
     });
-    this.attributes.getAttribute('frame').on('changed', this._initializeCanvas.bind(this));
   }
 
   private _initializeCanvas(): void {

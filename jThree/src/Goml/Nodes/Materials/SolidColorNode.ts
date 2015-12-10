@@ -12,11 +12,11 @@ class SolidColorNode extends MaterialNodeBase {
       "color": {
         value: "#0FC",
         converter: "color4",
+        onchanged: (attr) => {
+          this.material.Color = attr.Value;
+        },
       }
     });
-    this.attributes.getAttribute('color').on('changed', ((attr) => {
-      this.material.Color = attr.Value;
-    }).bind(this));
   }
 
   protected ConstructMaterial(): Material {
@@ -24,8 +24,8 @@ class SolidColorNode extends MaterialNodeBase {
     return this.material;
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
   }
 }
 

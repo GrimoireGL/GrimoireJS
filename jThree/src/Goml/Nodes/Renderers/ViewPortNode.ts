@@ -31,30 +31,54 @@ class ViewPortNode extends GomlTreeNodeBase {
       'cam': {
         value: undefined,
         converter: 'string',
+        onchanged: this._onCamAttrChanged,
       },
       "width": {
         value: undefined,
         converter: "number",
+        onchanged: (attr) => {
+          this.width = attr.Value;
+          this.updateViewportArea();
+        },
       },
       "height": {
         value: undefined,
         converter: "number",
+        onchanged: (attr) => {
+          this.height = attr.Value;
+          this.updateViewportArea();
+        },
       },
       "left": {
         value: undefined,
         converter: "number",
+        onchanged: (attr) => {
+          this.left = attr.Value;
+          this.updateViewportArea();
+        },
       },
       "top": {
         value: undefined,
         converter: "number",
+        onchanged: (attr) => {
+          this.top = attr.Value;
+          this.updateViewportArea();
+        },
       },
       "backgroundType": {
         value: "color",
         converter: "string",
+        onchanged: (attr) => {
+          if (attr.Value !== "skybox" && this.skyBoxStageChain) {
+            this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain);
+            this.skyBoxStageChain = null;
+          }
+        },
       },
       "skybox": {
         value: null,
         converter: "string",
+        onchanged: this._onSkyboxAttrChanged,
       },
       "config": {
         converter: "string",
@@ -63,42 +87,11 @@ class ViewPortNode extends GomlTreeNodeBase {
       "name": {
         converter: "string",
         value: undefined,
+        onchanged: (attr) => {
+          if (attr.Value) this.targetRenderer.name = attr.Value;
+        }
       },
     });
-    this.on('parent-added', this._onParentAdded.bind(this));
-    this.attributes.getAttribute('cam').on('changed', this._onCamAttrChanged.bind(this));
-    this.attributes.getAttribute('width').on('changed', ((attr) => {
-      this.width = attr.Value;
-      this.updateViewportArea();
-    }).bind(this));
-    this.attributes.getAttribute('height').on('changed', ((attr) => {
-      this.height = attr.Value;
-      this.updateViewportArea();
-    }).bind(this));
-    this.attributes.getAttribute('left').on('changed', ((attr) => {
-      this.left = attr.Value;
-      this.updateViewportArea();
-    }).bind(this));
-    this.attributes.getAttribute('top').on('changed', ((attr) => {
-      this.top = attr.Value;
-      this.updateViewportArea();
-    }).bind(this));
-    this.attributes.getAttribute('backgroundType').on('changed', ((attr) => {
-      if (attr.Value !== "skybox" && this.skyBoxStageChain) {
-        this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain);
-        this.skyBoxStageChain = null;
-      }
-    }).bind(this));
-    this.attributes.getAttribute('skybox').on('changed', this._onSkyboxAttrChanged.bind(this));
-    this.attributes.getAttribute('name').on('changed', ((attr) => {
-      if (attr.Value) this.targetRenderer.name = attr.Value;
-    }).bind(this));
-  }
-
-  private _onParentAdded(parent): void {
-    this.parentCanvas = <CanvasNode>this.parent;
-    const defaultRect = this.parentCanvas.Canvas.region;
-    // apply to attribute
   }
 
   private _onCamAttrChanged(attr): void {
@@ -124,7 +117,18 @@ class ViewPortNode extends GomlTreeNodeBase {
     }
   }
 
-  public afterLoad() {
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
+    this.parentCanvas = <CanvasNode>parent;
+    const defaultRect = this.parentCanvas.Canvas.region;
+    this.attributes.setValue('width', defaultRect.Width);
+    this.attributes.setValue('height', defaultRect.Height);
+    this.attributes.setValue('left', defaultRect.Left);
+    this.attributes.setValue('top', defaultRect.Top);
+  }
+
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
     var rdr: CanvasNode = this.parentCanvas;
     var defaultRect = rdr.Canvas.region;
     this.targetRenderer = RendererFactory.generateRenderer(rdr.Canvas, defaultRect, this.attributes.getValue("config"));

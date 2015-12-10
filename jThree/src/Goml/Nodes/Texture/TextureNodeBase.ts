@@ -27,43 +27,43 @@ class TextureNodeBase extends GomlTreeNodeBase {
     super();
     this.attributes.defineAttribute({
       name: {
-        converter: "string",
         value: "",
-        constant: true
+        converter: "string",
+        constant: true,
       },
       minFilter: {
-        converter: "string",
         value: "LINEAR",
+        converter: "string",
+        onchanged: (attr) => {
+          this.targetTexture.MinFilter = this.toMinFilterParameter(attr.Value);
+        }
       },
       magFilter: {
-        converter: "string",
         value: "LINEAR",
+        converter: "string",
+        onchanged: (attr) => {
+          this.targetTexture.MagFilter = this.toMagFilterParameter(attr.Value);
+        }
       },
       twrap: {
-        converter: "string",
         value: "clamp",
+        converter: "string",
+        onchanged: (attr) => {
+          this.targetTexture.TWrap = this.toWrapParameter(attr.Value);
+        }
       },
       swrap: {
-        converter: "string",
         value: "clamp",
+        converter: "string",
+        onchanged: (attr) => {
+          this.targetTexture.SWrap = this.toWrapParameter(attr.Value);
+        }
       }
     });
-    this.attributes.getAttribute('minFilter').on('changed', ((attr) => {
-      this.targetTexture.MinFilter = this.toMinFilterParameter(attr.Value);
-    }).bind(this));
-    this.attributes.getAttribute('magFilter').on('changed', ((attr) => {
-      this.targetTexture.MagFilter = this.toMagFilterParameter(attr.Value);
-    }).bind(this));
-    this.attributes.getAttribute('twrap').on('changed', ((attr) => {
-      this.targetTexture.TWrap = this.toWrapParameter(attr.Value);
-    }).bind(this));
-    this.attributes.getAttribute('swrap').on('changed', ((attr) => {
-      this.targetTexture.SWrap = this.toWrapParameter(attr.Value);
-    }).bind(this));
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
     var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     var name = this.attributes.getValue("name");
     this.targetTexture = this.generateTexture(name, rm);

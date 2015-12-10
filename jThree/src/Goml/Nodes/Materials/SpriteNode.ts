@@ -15,9 +15,9 @@ class SpriteNode extends MaterialNodeBase {
       "texture": { //TODO implement texture node
         value: "tex",
         converter: "string",
+        onchanged: this._onTextureAttrChanged,
       }
     });
-    this.attributes.getAttribute('texture').on('changed', this._onTextureAttrChanged.bind(this));
   }
 
   private _onTextureAttrChanged(attr): void {
@@ -31,8 +31,8 @@ class SpriteNode extends MaterialNodeBase {
     return this.material;
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
   }
 
 }

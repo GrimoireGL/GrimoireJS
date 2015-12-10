@@ -15,20 +15,20 @@ class GomlTreeMeshNode extends SceneObjectNodeBase {
       'geo': {
         value: undefined,
         converter: 'string',
+        onchanged: (attr) => {
+          this.geo = attr.Value;
+          this.ConstructTarget();
+        }
       },
       'mat': {
         value: undefined,
         converter: 'string',
+        onchanged: (attr) => {
+          this.mat = attr.Value;
+          this.ConstructTarget();
+        }
       }
     });
-    this.attributes.getAttribute('left').on('changed', ((attr) => {
-      this.geo = attr.Value;
-      this.ConstructTarget();
-    }).bind(this));
-    this.attributes.getAttribute('right').on('changed', ((attr) => {
-      this.mat = attr.Value;
-      this.ConstructTarget();
-    }).bind(this));
   }
 
   protected ConstructTarget(): SceneObject {
@@ -38,12 +38,8 @@ class GomlTreeMeshNode extends SceneObjectNodeBase {
     return this.targetMesh;
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
-  }
-
-  public Load() {
-    super.Load();
+  public nodeWillMount(parent) {
+    super.nodeWillMount(parent);
   }
 
   private geo: string;

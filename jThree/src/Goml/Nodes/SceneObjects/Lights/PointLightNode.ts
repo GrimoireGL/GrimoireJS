@@ -14,27 +14,27 @@ class PointLightNode extends LightNodeBase {
 			"intensity": {
 				value: 1,
 				converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.intensity = attr.Value;
+        }
 			},
 			"decay":
 			{
 				value: 1,
 				converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.decay = attr.Value;
+        }
 			},
 			"distance":
 			{
 				value: 1,
 				converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.distance = attr.Value;
+        }
 			}
 		});
-		this.attributes.getAttribute('intensity').on('changed', ((attr) => {
-      this.targetLight.intensity = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('decay').on('changed', ((attr) => {
-      this.targetLight.decay = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('distance').on('changed', ((attr) => {
-      this.targetLight.distance = attr.Value;
-    }).bind(this));
 	}
 
 	protected constructLight(): LightBase {

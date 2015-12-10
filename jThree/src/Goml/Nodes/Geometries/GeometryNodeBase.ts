@@ -41,8 +41,8 @@ class GeometryNodeBase extends GomlTreeNodeBase {
     return null;
   }
 
-  public beforeLoad(): void {
-    super.beforeLoad();
+  protected nodeDidMounted(): void {
+    super.nodeDidMounted();
     this.targetGeometry = this.ConstructGeometry();
     this.nodeManager.nodeRegister.addObject("jthree.geometries", this.Name, this);
   }

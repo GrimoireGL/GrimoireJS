@@ -11,14 +11,14 @@ class GridGeometryNode extends GeometryNodeBase {
       'hdiv': {
         value: 10,
         converter: 'number',
+        onchanged: this._onHdivAttrChanged,
       },
       'vdiv': {
         value: 10,
         converter: 'number',
+        onchanged: this._onVdivAttrChanged,
       }
     });
-    this.attributes.getAttribute('hdiv').on('changed', this._onHdivAttrChanged.bind(this));
-    this.attributes.getAttribute('vdiv').on('changed', this._onVdivAttrChanged.bind(this));
   }
 
   private _onHdivAttrChanged(attr): void {
@@ -33,8 +33,8 @@ class GridGeometryNode extends GeometryNodeBase {
     return this.gridGeometry = new GridGeometry(this.Name);
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
   }
 
 }

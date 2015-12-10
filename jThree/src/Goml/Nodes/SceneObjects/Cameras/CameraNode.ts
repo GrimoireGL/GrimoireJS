@@ -13,32 +13,32 @@ class GomlTreeCameraNode extends CameraNodeBase {
       "fovy": {
         value: Math.PI / 4,
         converter: "angle",
+        onchanged: (attr) => {
+          this.targetPerspective.Fovy = attr.Value;
+        },
       },
       "aspect": {
         value: 0,
         converter: "number",
+        onchanged: (attr) => {
+          this.targetPerspective.Aspect = attr.Value;
+        },
       },
       "near": {
         value: 0.1,
         converter: "number",
+        onchanged: (attr) => {
+          this.targetPerspective.Near = attr.Value;
+        },
       },
       "far": {
         value: 10,
         converter: "number",
+        onchanged: (attr) => {
+          this.targetPerspective.Far = attr.Value;
+        },
       },
     });
-    this.attributes.getAttribute('fovy').on('changed', ((attr) => {
-      this.targetPerspective.Fovy = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('aspect').on('changed', ((attr) => {
-      this.targetPerspective.Aspect = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('near').on('changed', ((attr) => {
-      this.targetPerspective.Near = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('far').on('changed', ((attr) => {
-      this.targetPerspective.Far = attr.Value;
-    }).bind(this));
   }
 
   private targetPerspective: PerspectiveCamera;

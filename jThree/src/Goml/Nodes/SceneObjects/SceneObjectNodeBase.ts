@@ -11,36 +11,44 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
       "position": {
         value: new Vector3(0, 0, 0),
         converter: "vector3",
+        onchanged: (attr) => {
+          if (this.targetSceneObject != null) {
+            this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+          }
+        }
       },
       "scale": {
         value: new Vector3(1, 1, 1),
         converter: "vector3",
+        onchanged: (attr) => {
+          if (this.targetSceneObject != null) {
+            this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+          }
+        }
       },
       "rotation": {
         value: Quaternion.Identity,
         converter: "rotation",
+        onchanged: (attr) => {
+          if (this.targetSceneObject != null) {
+            this.targetSceneObject.Transformer.Rotation = attr.Value;
+          }
+        }
       },
       "name": {
         value: undefined,
         converter: "string",
+        onchanged: (attr) => {
+          if (this.targetSceneObject && attr.Value) {
+            this.targetSceneObject.name = attr.Value;
+          }
+        }
       }
     });
-    this.on('parent-added', this._onParentAdded.bind(this));
-    this.attributes.getAttribute('position').on('changed', ((attr) => {
-      if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('scale').on('changed', ((attr) => {
-      if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('rotation').on('changed', ((attr) => {
-      if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Rotation = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('name').on('changed', ((attr) => {
-      if (this.targetSceneObject && attr.Value) this.targetSceneObject.name = attr.Value;
-    }).bind(this));
   }
 
-  private _onParentAdded(parent): void {
+  protected nodeWillMount(parent): void {
+    super.nodeWillMount(parent);
     let sceneNode: SceneNode = null;
     let sceneObjectNode: SceneObjectNodeBase = null;
     if (parent.getTypeName() == "SceneNode")//This parent node is scene node. TODO: I wonder there is better way
@@ -58,6 +66,13 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     }
     this.containedSceneNode = sceneNode;
     this.parentSceneObjectNode = sceneObjectNode;
+
+    this.targetSceneObject = this.ConstructTarget();
+    if (this.targetSceneObject == null) return;
+    if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
+      this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
+    //append targetObject to parent
+    this.applyHierarchy();
   }
 
   protected ConstructTarget(): SceneObject {
@@ -66,17 +81,6 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
 
   protected targetUpdated() {
 
-  }
-
-  public beforeLoad(): void {
-    super.beforeLoad();
-    this.targetSceneObject = this.ConstructTarget();
-    if (this.targetSceneObject == null) return;
-    if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
-      this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
-    //append targetObject to parent
-    this.applyHierarchy();
-    this.attributes.applyDefaultValue();
   }
 
   private applyHierarchy() {

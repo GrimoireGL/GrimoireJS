@@ -11,9 +11,9 @@ class CylinderGeometryNode extends GeometryNodeBase {
       "divide": {
         value: 30,
         converter: "integer",
+        onchanged: this._onDivideAttrChanged,
       }
     });
-    this.attributes.getAttribute('divide').on('attr_change', this._onDivideAttrChanged.bind(this));
   }
 
   private _onDivideAttrChanged(attr): void {
@@ -24,8 +24,8 @@ class CylinderGeometryNode extends GeometryNodeBase {
     return this.gridGeometry = new CylinderGeometry(this.Name);
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
     this.gridGeometry.DivideCount = this.attributes.getValue("divide");
   }
 

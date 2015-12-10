@@ -15,34 +15,34 @@ class AreaLightNode extends LightNodeBase {
 			"intensity": {
 				value: 1,
 				converter: "number",
+				onchanged: (attr) => {
+					this.targetLight.intensity = attr.Value;
+				}
 			},
 			"right": {
 				value: 1,
 				converter: "number",
+				onchanged: (attr) => {
+					this.targetLight.rightLength = attr.Value;
+				}
 			}
 			,
 			"top": {
 				value: 1,
 				converter: "number",
+				onchanged: (attr) => {
+					this.targetLight.topLength = attr.Value;
+				}
 			}
 			,
 			"far": {
 				value: 1,
 				converter: "number",
+				onchanged: (attr) => {
+					this.targetLight.farLength = attr.Value;
+				}
 			}
 		});
-		this.attributes.getAttribute('intensity').on('changed', ((attr) => {
-			this.targetLight.intensity = attr.Value;
-		}).bind(this));
-		this.attributes.getAttribute('right').on('changed', ((attr) => {
-			this.targetLight.rightLength = attr.Value;
-		}).bind(this));
-		this.attributes.getAttribute('top').on('changed', ((attr) => {
-			this.targetLight.topLength = attr.Value;
-		}).bind(this));
-		this.attributes.getAttribute('far').on('changed', ((attr) => {
-			this.targetLight.farLength = attr.Value;
-		}).bind(this));
 	}
 
 	protected constructLight(): LightBase {

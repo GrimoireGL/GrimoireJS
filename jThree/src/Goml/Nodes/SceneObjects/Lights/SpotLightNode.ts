@@ -14,32 +14,32 @@ class SpotLightNode extends LightNodeBase {
       "intensity": {
         value: 1,
         converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.intensity = attr.Value;
+        }
       },
       "decay": {
         value: 1,
         converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.decay = attr.Value;
+        }
       },
       "inner": {
         value: "10d",
         converter: "angle",
+        onchanged: (attr) => {
+          this.targetLight.inner = attr.Value;
+        }
       },
       "outer": {
         value: "25d",
         converter: "angle",
+        onchanged: (attr) => {
+          this.targetLight.outer = attr.Value;
+        }
       }
     });
-    this.attributes.getAttribute('intensity').on('changed', ((attr) => {
-      this.targetLight.intensity = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('decay').on('changed', ((attr) => {
-      this.targetLight.decay = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('inner').on('changed', ((attr) => {
-      this.targetLight.inner = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('outer').on('changed', ((attr) => {
-      this.targetLight.outer = attr.Value;
-    }).bind(this));
   }
 
   protected constructLight(): LightBase {

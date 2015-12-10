@@ -13,38 +13,39 @@ class TextureDebugNode extends MaterialNodeBase {
     super();
     this.attributes.defineAttribute({
       "target": {
-        value: "rb1", converter: "string",
+        value: "rb1",
+        converter: "string",
+        onchanged: this._onTargetAttrChanged,
       },
       "R": {
         value: "0",
         converter: "number",
+        onchanged: (attr) => {
+          this.material.ctR = attr.Value;
+        },
       },
       "G": {
         value: "1",
         converter: "number",
+        onchanged: (attr) => {
+          this.material.ctG = attr.Value;
+        },
       },
       "B": {
         value: "2",
         converter: "number",
+        onchanged: (attr) => {
+          this.material.ctB = attr.Value;
+        },
       },
       "A": {
         value: "3",
         converter: "number",
+        onchanged: (attr) => {
+          this.material.ctA = attr.Value;
+        },
       },
     });
-    this.attributes.getAttribute('target').on('changed', this._onTargetAttrChanged.bind(this));
-    this.attributes.getAttribute('R').on('changed', ((attr) => {
-      this.material.ctR = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('G').on('changed', ((attr) => {
-      this.material.ctG = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('B').on('changed', ((attr) => {
-      this.material.ctB = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('A').on('changed', ((attr) => {
-      this.material.ctA = attr.Value;
-    }).bind(this));
   }
 
   private _onTargetAttrChanged(attr): void {
@@ -59,8 +60,8 @@ class TextureDebugNode extends MaterialNodeBase {
     return this.material;
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
   }
 
 }

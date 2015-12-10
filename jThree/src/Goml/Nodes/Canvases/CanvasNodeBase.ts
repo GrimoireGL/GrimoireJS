@@ -7,33 +7,33 @@ class CanvasNodeBase extends GomlTreeNodeBase {
       'width': {
         value: 128,
         converter: 'number',
+        onchanged: (attr) => {
+          this.sizeChanged(attr.Value, this.attributes.getValue('height'));
+        },
       },
       'height': {
         value: 128,
         converter: 'number',
+        onchanged: (attr) => {
+          this.sizeChanged(this.attributes.getValue('width'), attr.Value);
+        },
       },
       'clearColor': {
         value: '#0FF',
         converter: 'color4',
+        onchanged: (attr) => {
+          this.canvas.ClearColor = attr.Value;
+        },
       },
-      'loader':
-      {
+      'loader': {
         value: undefined,
         converter: 'string',
       }
     });
-    this.attributes.getAttribute('width').on('changed', ((attr) => {
-      this.sizeChanged(attr.Value, this.attributes.getValue('height'));
-    }).bind(this));
-    this.attributes.getAttribute('height').on('changed', ((attr) => {
-      this.sizeChanged(this.attributes.getValue('width'), attr.Value);
-    }).bind(this));
-    this.attributes.getAttribute('clearColor').on('changed', ((attr) => {
-      this.canvas.ClearColor = attr.Value;
-    }).bind(this));
   }
 
-  public beforeLoad() {
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
     this.attributes.setValue('width', this.DefaultWidth);
     this.attributes.setValue('height', this.DefaultHeight);
   }

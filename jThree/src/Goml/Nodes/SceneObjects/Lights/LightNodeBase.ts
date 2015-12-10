@@ -14,13 +14,11 @@ class LightNodeBase extends SceneObjectNodeBase {
 			"color": {
 				value: "white",
 				converter: "color4",
+				onchanged: (attr) => {
+					this.targetLightBase.Color = attr.Value;
+				}
 			}
 		});
-		this.attributes.getAttribute('color').on('changed', this._onColorAttrChaged.bind(this));
-	}
-
-	private _onColorAttrChaged(attr): void {
-		this.targetLightBase.Color = attr.Value;
 	}
 
 	/**

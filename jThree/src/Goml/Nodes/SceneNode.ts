@@ -13,20 +13,21 @@ class SceneNode extends GomlTreeNodeBase {
       "ambient": {
         value: "#111",
         converter: "color3",
+        onchanged: this._onAmbientAttrChanged,
       },
       "name": {
         value: "",
         converter: "string"
       }
     });
-    this.attributes.getAttribute('ambient').on('attr_change', this._onAmbientAttrChanged.bind(this));
   }
 
   private _onAmbientAttrChanged(attr): void {
     this.targetScene.sceneAmbient = attr.Value;
   }
 
-  public beforeLoad() {
+  protected nodeDidMounted() {
+    super.nodeDidMounted()
     var sceneName = this.attributes.getValue("name");
     if (sceneName == "") sceneName = null;
     this.targetScene = new Scene(sceneName);

@@ -14,15 +14,11 @@ class SceneLightNode extends LightNodeBase {
 			"intensity": {
 				value: 1,
 				converter: "number",
+				onchanged: (attr) => {
+					this.targetLight.intensity = attr.Value;
+				}
 			}
 		});
-		this.attributes.getAttribute('intensity').on('changed', ((attr) => {
-			this.targetLight.intensity = attr.Value;
-		}).bind(this));
-	}
-
-	public afterLoad() {
-		this.attributes.applyDefaultValue();
 	}
 
 	protected constructLight(): LightBase {

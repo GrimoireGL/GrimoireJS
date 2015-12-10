@@ -6,40 +6,31 @@ import Mesh = require("../../../Shapes/Mesh");
 import TemplateNode = require("../Templates/TemplateNode");
 // import GomlParser = require("../../GomlParser.ts");
 
-class ObjectNode extends SceneObjectNodeBase
-{
-  private targetObject:SceneObject;
+class ObjectNode extends SceneObjectNodeBase {
+  private targetObject: SceneObject;
 
-  private targetTemplate:TemplateNode;
+  private targetTemplate: TemplateNode;
 
-  constructor()
-  {
-      super();
-      // TODO: pnly
-      // var templateName=elem.getAttribute("template");
-      // if(templateName)
-      // {
-      //   this.targetTemplate=<TemplateNode>this.nodeManager.nodeRegister.getObject("jthree.template",templateName);
-        // GomlParser.instanciateTemplate(this.targetTemplate.GetGomlToInstanciate(this.element),this);
-      // }
+  constructor() {
+    super();
+    // TODO: pnly
+    // var templateName=elem.getAttribute("template");
+    // if(templateName)
+    // {
+    //   this.targetTemplate=<TemplateNode>this.nodeManager.nodeRegister.getObject("jthree.template",templateName);
+    // GomlParser.instanciateTemplate(this.targetTemplate.GetGomlToInstanciate(this.element),this);
+    // }
   }
 
-  protected ConstructTarget():SceneObject
-  {
-    this.targetObject=new SceneObject();
+  protected ConstructTarget(): SceneObject {
+    this.targetObject = new SceneObject();
     return this.targetObject;
   }
 
-    public beforeLoad()
-  {
-    super.beforeLoad();
-  }
-
-    public Load()
-  {
-    super.Load();
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
   }
 
 }
 
-export=ObjectNode;
+export =ObjectNode;

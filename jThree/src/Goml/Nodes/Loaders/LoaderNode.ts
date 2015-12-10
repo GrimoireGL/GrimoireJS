@@ -13,9 +13,9 @@ class LoaderNode extends GomlTreeNodeBase {
       "name": {
         value: undefined,
         converter: "string",
+        onchanged: this._onNameAttrChanged,
       }
     });
-    this.attributes.getAttribute('name').on('changed', this._onNameAttrChanged.bind(this));
   }
 
   private _onNameAttrChanged(): void {

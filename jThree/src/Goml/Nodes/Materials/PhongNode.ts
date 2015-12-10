@@ -13,37 +13,37 @@ class PhongNode extends MaterialNodeBase {
       "diffuse": {
         value: "#f0C",
         converter: "color4",
+        onchanged: (attr) => {
+          this.material.diffuse = attr.Value;
+        },
       },
       "ambient": {
         value: "#222",
         converter: "color4",
+        onchanged: (attr) => {
+          this.material.ambient = attr.Value;
+        },
       },
       "specular": {
         value: "#CCC",
         converter: "color3",
+        onchanged: (attr) => {
+          this.material.specular = attr.Value;
+        },
       },
       "specularpower": {
         value: 10,
         converter: "number",
+        onchanged: (attr) => {
+          this.material.specularCoefficient = attr.Value;
+        },
       },
       "texture": {
         value: null,
         converter: "string",
+        onchanged: this._onTextureAttrChanged,
       }
     });
-    this.attributes.getAttribute('diffuse').on('changed', ((attr) => {
-      this.material.diffuse = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('ambient').on('changed', ((attr) => {
-      this.material.ambient = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('specular').on('changed', ((attr) => {
-      this.material.specular = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('specularpower').on('changed', ((attr) => {
-      this.material.specularCoefficient = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('texture').on('changed', this._onTextureAttrChanged.bind(this));
   }
 
   private _onTextureAttrChanged(attr): void {

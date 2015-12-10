@@ -1,6 +1,7 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Material = require('../../../Core/Materials/Material');
 import JThreeID = require("../../../Base/JThreeID");
+
 class MaterialNodeBase extends GomlTreeNodeBase {
   public targetMaterial: Material;
 
@@ -14,16 +15,17 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       'name': {
         value: undefined,
         converter: 'string',
+        onchanged: this._onNameAttrChanged,
       }
     });
-    this.attributes.getAttribute('name').on('changed', this._onNameAttrChanged.bind(this));
   }
 
   private _onNameAttrChanged(attr): void {
     this.name = attr.Value;
   }
 
-  public beforeLoad() {
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
     this.targetMaterial = this.ConstructMaterial();
     this.nodeManager.nodeRegister.addObject("jthree.materials", this.Name, this);
   }
@@ -41,4 +43,4 @@ class MaterialNodeBase extends GomlTreeNodeBase {
 
 }
 
-export =MaterialNodeBase;
+export = MaterialNodeBase;
