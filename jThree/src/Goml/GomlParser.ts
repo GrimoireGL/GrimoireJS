@@ -77,15 +77,6 @@ class GomlParser {
         });
       }
     });
-    /**
-     * attributeの初期化完了の通知
-     * attributeのchangedイベントの発火
-     * 設定されたattributeを元に処理を行う
-     */
-    newNode.initialize();
-    newNode.attributes.forEachAttr((ga) => {
-      ga.initialize();
-    });
     return newNode;
   }
 }

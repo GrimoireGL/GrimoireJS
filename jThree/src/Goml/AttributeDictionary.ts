@@ -77,7 +77,11 @@ class AttributeDictionary extends JThreeObject {
     for (let key in attributes) {
       const attribute = attributes[key];
       const gomlAttribute = new GomlAttribute(key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.constant);
-      gomlAttribute.on('changed', attribute.onchanged);
+      if (attribute.onchanged) {
+        gomlAttribute.on('changed', attribute.onchanged);
+      } else {
+        console.warn(`attribute "${key}" does not have onchange event handler. this causes lack of attribute's consistency.`);
+      }
       this.attributes[key] = gomlAttribute;
     }
   }

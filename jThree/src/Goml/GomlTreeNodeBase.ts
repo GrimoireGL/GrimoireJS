@@ -21,6 +21,15 @@ class GomlTreeNodeBase extends TreeNodeBase {
     //after configuration, this node is going to add to NodesById
     this.nodeManager.NodesById.set(this.ID, this);
     this.attributes = new AttributeDictionary(this);
+
+    // TreeNodeBaseのmoutedが更新される直前に割り込むイベント。attributeの反映専用。
+    this.on('just-before-node-mouted-update', (mounted) => {
+      if (mounted) {
+        this.attributes.forEachAttr((ga) => {
+          ga.initialize();
+        })
+      }
+    });
   }
 
   public nodeManager: NodeManager;
@@ -29,18 +38,6 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * Attributes this node have.
    */
   public attributes: AttributeDictionary;
-
-  public beforeLoad() {
-    // this method should be overriden by the class extends this class.
-  }
-
-  public Load() {
-    // this method should be overriden by the class extends this class.
-  }
-
-  public afterLoad() {
-    // this method should be overriden by the class extends this class.
-  }
 
   /**
    * components that is attached to this node.
