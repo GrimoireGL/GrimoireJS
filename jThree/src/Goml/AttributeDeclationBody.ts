@@ -13,6 +13,11 @@ interface AttributeDeclarationBody {
   value?: any;
 
   /**
+   * apply to event listener when attribute changed
+   */
+  onchanged?: Delegates.Action1<GomlAttribute>;
+
+  /**
    * Whether this attribute accept change by interface or not.
    * default: false
    */

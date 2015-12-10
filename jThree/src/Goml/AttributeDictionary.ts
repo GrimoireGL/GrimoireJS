@@ -21,7 +21,7 @@ class AttributeDictionary extends JThreeObject {
 
   private node: GomlTreeNodeBase;
 
-  private attributes: { [key: string]: GomlAttribute };
+  private attributes: { [key: string]: GomlAttribute } = {};
 
   public forEachAttr(callbackfn: (value: GomlAttribute, key: string, attributes: { [key: string]: GomlAttribute }) => void): AttributeDictionary {
     Object.keys(this.attributes).forEach((k) => {
@@ -77,6 +77,7 @@ class AttributeDictionary extends JThreeObject {
     for (let key in attributes) {
       const attribute = attributes[key];
       const gomlAttribute = new GomlAttribute(key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.constant);
+      gomlAttribute.on('changed', attribute.onchanged);
       this.attributes[key] = gomlAttribute;
     }
   }
