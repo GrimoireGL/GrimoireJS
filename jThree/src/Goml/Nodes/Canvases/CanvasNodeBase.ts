@@ -1,41 +1,45 @@
-import GomlTreeNodeBase = require('../../GomlTreeNodeBase');
-import Canvas = require('../../../Core/Canvas');
+import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import Canvas = require("../../../Core/Canvas");
+
 class CanvasNodeBase extends GomlTreeNodeBase {
   constructor() {
     super();
     this.attributes.defineAttribute({
-      'width': {
+      "width": {
         value: 128,
-        converter: 'number',
-        onchanged: (attr) => {
-          this.sizeChanged(attr.Value, this.attributes.getValue('height'));
+        converter: "number",
+        onchanged: (v) => {
+          this.sizeChanged(v.Value, this.attributes.getValue("height"));
         },
       },
-      'height': {
+      "height": {
         value: 128,
-        converter: 'number',
-        onchanged: (attr) => {
-          this.sizeChanged(this.attributes.getValue('width'), attr.Value);
+        converter: "number",
+        onchanged: (v) => {
+          this.sizeChanged(this.attributes.getValue("width"), v.Value);
         },
       },
-      'clearColor': {
-        value: '#0FF',
-        converter: 'color4',
-        onchanged: (attr) => {
-          this.canvas.ClearColor = attr.Value;
+      "clearColor": {
+        value: "#0FF",
+        converter: "color4",
+        onchanged: (v) => {
+          this.canvas.clearColor = v.Value;
         },
       },
-      'loader': {
+      "loader":
+      {
         value: undefined,
-        converter: 'string',
+        converter: "string",
+        onchanged: (v) => {
+        },
       }
     });
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-    this.attributes.setValue('width', this.DefaultWidth);
-    this.attributes.setValue('height', this.DefaultHeight);
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
+    this.attributes.setValue("width", this.DefaultWidth);
+    this.attributes.setValue("height", this.DefaultHeight);
   }
 
   private canvas: Canvas;

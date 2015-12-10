@@ -31,7 +31,7 @@ class CanvasRegion extends JThreeObjectWithID implements IDisposable {
     /**
      * Dispose used objects and event handlers.
      *
-     *
+     *使ったオブジェクトやイベントハンドラの破棄
      */
     public dispose() {
         this.canvasElement.removeEventListener('mousemove', this._mouseMoveHandler, false);

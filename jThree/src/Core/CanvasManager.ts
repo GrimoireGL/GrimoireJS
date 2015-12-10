@@ -5,6 +5,12 @@ import GLSpecManager = require("./GLSpecManager");
 import JThreeEvent = require("../Base/JThreeEvent");
 import CanvasListChangedEventArgs = require("./CanvasListChangedEventArgs");
 import ListStateChangedType = require("./ListStateChangedType");
+/**
+ * A context component provides the feature to manage all of canvas.
+ *
+ *すべてのCanvasを管理する機能を提供するコンテキストコンポーネント
+ * @type {[type]}
+ */
 class CanvasManager implements IContextComponent
 {
   /**

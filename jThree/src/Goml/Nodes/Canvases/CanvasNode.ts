@@ -18,17 +18,18 @@ class CanvasNode extends CanvasNodeBase {
       'frame': {
         value: undefined,
         converter: 'string',
-        onchanged: this._initializeCanvas
       }
     });
   }
 
-  private _initializeCanvas(): void {
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
     //generate canvas
     this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
     var defaultLoader;
     if (this.attributes.getValue("loader") !== "undefined" && this.nodeManager.nodeRegister.hasGroup("jthree.loader")) {
-      defaultLoader = (this.nodeManager.nodeRegister.getObject("jthree.loader", this.attributes.getValue("loader")) as any).loaderHTML;
+      var loaderNode = (this.nodeManager.nodeRegister.getObject("jthree.loader", this.attributes.getValue("loader")) as any);
+      if (loaderNode) defaultLoader = loaderNode.loaderHTML;
     }
     if (!defaultLoader) defaultLoader = require('../../../static/defaultLoader.html');
 
@@ -46,7 +47,7 @@ class CanvasNode extends CanvasNodeBase {
     if (this.targetFrame) resizeElement.appendChild(this.canvasElement);
     this.canvasElement.classList.add("x-j3-c-" + this.ID);
     //initialize contexts
-    this.setCanvas(Canvas.fromCanvasElement(this.canvasElement));
+    this.setCanvas(new Canvas(this.canvasElement));
     JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);
 
     var loaderContainer = document.createElement('div');
@@ -56,7 +57,7 @@ class CanvasNode extends CanvasNodeBase {
     loaderContainer.classList.add("x-j3-loader-container");
     loaderContainer.innerHTML = defaultLoader;
     resizeElement.appendChild(loaderContainer);
-    this.attributes.applyDefaultValue();
+
     var progressLoaders = loaderContainer.querySelectorAll(".x-j3-loader-progress");
     JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).promise.then(() => {
       var loaders = resizeElement.querySelectorAll(".x-j3-loader-container");
@@ -76,7 +77,15 @@ class CanvasNode extends CanvasNodeBase {
     return this.attributes.getValue("frame") || "body";
   }
 
+  /**
+   *
+   �C�x���g���΂���*/
   public resize();
+  /**
+   * �C�x���g�n���h���̓o�^
+   * @param func
+   * @returns {}
+   */
   public resize(func: Delegates.Action1<CanvasNode>);
   public resize(func?: Delegates.Action1<CanvasNode>) {
 

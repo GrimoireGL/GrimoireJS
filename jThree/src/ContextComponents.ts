@@ -39,6 +39,11 @@ class ContextComponents
   {
     return 7;
   }
+
+  public static get MaterialManager():number
+  {
+    return 8;
+  }
 }
 
 export = ContextComponents;

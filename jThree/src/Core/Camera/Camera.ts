@@ -8,7 +8,7 @@ import PointList = require("../../Math/PointList");
 /**
  * Basement class of Camera. These class related to camera are one of SceneObject in jThree.
  */
-class Camera extends SceneObject
+abstract class Camera extends SceneObject
 {
 	public viewProjectionMatrix:Matrix = new Matrix();
 
@@ -23,7 +23,7 @@ class Camera extends SceneObject
 
 	public projectionMatrix:Matrix = new Matrix();
 
-	protected updateViewProjectionMatrix()
+	protected __updateViewProjectionMatrix()
 	{
 		glm.mat4.mul(this.viewProjectionMatrix.rawElements,this.projectionMatrix.rawElements,this.viewMatrix.rawElements);
 		glm.mat4.invert(this.viewProjectionInvMatrix.rawElements,this.viewProjectionMatrix.rawElements);
