@@ -1,3 +1,4 @@
+import UniformRegisterBase = require("../Registers/UniformRegisterBase");
 import ShaderProgramParser = require("./ShaderProgramParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
@@ -22,6 +23,8 @@ class MaterialManager implements IContextComponent
    */
   private _shaderChunks:{[key:string]:string} = {};
 
+  private _uniformRegisters:{[key:string]:UniformRegisterBase} ={};
+
   /**
    * Add shader chunk code to be stored.
    * @param {string} key shader chunk key
@@ -40,6 +43,11 @@ class MaterialManager implements IContextComponent
   public getShaderChunk(key:string):string
   {
     return this._shaderChunks[key];
+  }
+
+  public addUniformRegister(key:string,register:UniformRegisterBase)
+  {
+    
   }
 
 }

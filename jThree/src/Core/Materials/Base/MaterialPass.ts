@@ -19,7 +19,7 @@ class MaterialPass {
     constructor(passDocument: Element) {
       this._parseGLSL(passDocument);
       this._constructProgram();
-      debugger;
+      this._configureUniformRegisters(passDocument);
     }
 
     private _parseGLSL(passDocument:Element){
@@ -36,6 +36,11 @@ class MaterialPass {
       this.fragmentShader.loadAll();
       this.vertexShader.loadAll();
       this.program = MaterialPass._resourceManager.createProgram("passTestprogram",[this.vertexShader,this.fragmentShader]);
+    }
+
+    private _configureUniformRegisters(passDocument:Element)
+    {
+
     }
 
     private static get _resourceManager():ResourceManager

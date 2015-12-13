@@ -29,6 +29,11 @@ class UniformRegisterBase
       });
     };
   }
+
+  public get name()
+  {
+    return undefined;
+  }
 }
 
 export = UniformRegisterBase;
