@@ -45,8 +45,8 @@ class PMXNode extends SceneObjectNodeBase {
     return this.pmxModel;
   }
 
-  public beforeLoad() {
-    super.beforeLoad();
+  public nodeDidMounted() {
+    super.nodeDidMounted();
     PMXModel.LoadFromUrl(this.attributes.getValue("src"))
       .then((m) => {
         this.pmxModel = m;
@@ -58,11 +58,7 @@ class PMXNode extends SceneObjectNodeBase {
   }
 
   protected targetUpdated() {
-    super.beforeLoad();
-  }
-
-  public Load() {
-    super.Load();
+    super.nodeDidMounted();
   }
 
 }

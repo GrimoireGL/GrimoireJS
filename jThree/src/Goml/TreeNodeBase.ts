@@ -100,11 +100,13 @@ class TreeNodeBase extends JThreeObjectEEWithID {
 	 * Add child to this node
 	 */
   public addChild(child: TreeNodeBase): void {
-    child.parent = this;
-    this.children.push(child);
     if (this.Mounted) {
       child.emit('node-will-mount', this);
       child.Mounted = true;
+    }
+    child.parent = this;
+    this.children.push(child);
+    if (this.Mounted) {
       this.emit('child-added', child);
     }
   }

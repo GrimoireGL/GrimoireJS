@@ -107,17 +107,6 @@ class GomlLoader extends jThreeObject {
   }
 
   /**
-   * Initialize nodes
-   * @param {GomlTreeNodeBase} top target of nodetree to be called recursively
-   */
-  private loadTags(top: GomlTreeNodeBase) {
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).beforeLoad());
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).Load());
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).afterLoad());
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).attributes.applyDefaultValue());
-  }
-
-  /**
    * parse goml source to node tree and load each node
    *
    * @param {HTMLElement} source goml source
@@ -131,7 +120,6 @@ class GomlLoader extends jThreeObject {
     if (catched === undefined || catched.tagName.toUpperCase() !== 'GOML') throw new Exceptions.InvalidArgumentException('Root should be goml');
 
     this.nodeManager.gomlRoot = GomlParser.parse(source, this.nodeManager.configurator)
-    this.loadTags(this.nodeManager.gomlRoot);
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.nodeManager.ready = true;
     this.nodeManager.loadedHandler.fire(this, source);

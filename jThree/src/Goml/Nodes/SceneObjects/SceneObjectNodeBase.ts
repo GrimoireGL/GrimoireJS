@@ -66,7 +66,9 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     }
     this.containedSceneNode = sceneNode;
     this.parentSceneObjectNode = sceneObjectNode;
+  }
 
+  protected nodeDidMounted(): void {
     this.targetSceneObject = this.ConstructTarget();
     if (this.targetSceneObject == null) return;
     if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)

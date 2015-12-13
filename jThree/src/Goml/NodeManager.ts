@@ -69,14 +69,6 @@ class NodeManager extends JThreeObject implements IContextComponent {
   //   this.append(templateInElems, parentNode.Element, false);
   // }
 
-
-  private loadTags(top: GomlTreeNodeBase) {
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).beforeLoad());
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).Load());
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).afterLoad());
-    top.callRecursive((v) => (<GomlTreeNodeBase>v).attributes.applyDefaultValue());
-  }
-
   // public append(source: HTMLElement, parent: HTMLElement, needLoad?: boolean) {
   //   if (typeof needLoad === 'undefined') needLoad = true;
   //   var id = parent.getAttribute("x-j3-id");
