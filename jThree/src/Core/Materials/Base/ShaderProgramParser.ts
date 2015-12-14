@@ -7,7 +7,7 @@ class ShaderProgramParser {
         var result = ShaderProgramParser.parseImport(combined,materialManager);
         var flagment = ShaderProgramParser.removeOtherPartCode(result,"vertonly");
         var vertex = ShaderProgramParser.removeOtherPartCode(result,"fragonly");
-        debugger;
+        // debugger;
         return result;
     }
 
