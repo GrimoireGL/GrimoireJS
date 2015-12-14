@@ -4,6 +4,7 @@ import SceneNode = require("../SceneNode");
 import SceneObject = require("../../../Core/SceneObject");
 import Mesh = require("../../../Shapes/Mesh");
 import TemplateNode = require("../Templates/TemplateNode");
+import Delegate = require('../../../Base/Delegates');
 // import GomlParser = require("../../GomlParser.ts");
 
 class ObjectNode extends SceneObjectNodeBase {
@@ -22,9 +23,9 @@ class ObjectNode extends SceneObjectNodeBase {
     // }
   }
 
-  protected ConstructTarget(): SceneObject {
+  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
     this.targetObject = new SceneObject();
-    return this.targetObject;
+    callbackfn(this.targetObject);
   }
 
   protected nodeWillMount(parent) {

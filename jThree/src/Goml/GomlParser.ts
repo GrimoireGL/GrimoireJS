@@ -18,10 +18,10 @@ class GomlParser {
    * @param {HTMLElement} soruce [description]
    */
   public static parse(soruce: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
-    return GomlParser.parseChild(null, soruce, configurator);
+    return GomlParser.parseChild(soruce, configurator);
   }
 
-  public static parseChild(parent: GomlTreeNodeBase, child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
+  public static parseChild(child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     //obtain factory class for the node
     const elem: HTMLElement = <HTMLElement>child;
     const newNode = GomlParser.createNode(elem, configurator);
@@ -34,12 +34,13 @@ class GomlParser {
           if (!(<HTMLElement>children[i]).tagName) continue;
           // generate instances for every children nodes
           const e = <HTMLElement>children[i];
-          const newChildNode = GomlParser.parseChild(newNode, e, configurator);
+          const newChildNode = GomlParser.parseChild(e, configurator);
           if (newChildNode) {
             newNode.addChild(newChildNode);
           }
         }
       }
+      console.log(newNode);
       return newNode;
     } else {
       //when specified node could not be found
@@ -67,16 +68,20 @@ class GomlParser {
     /**
      * HTMLElementのattributeとのバインディング
      */
-    Object.keys(elem.attributes).forEach((attrKey) => {
-      const attrValue = elem.attributes[attrKey];
-      const gomlAttribute = newNode.attributes.getAttribute(attrKey);
-      if (gomlAttribute) {
-        gomlAttribute.Value = attrValue;
-        gomlAttribute.on('changed', (ga) => {
-          elem.setAttribute(attrKey, ga.Value);
-        });
-      }
-    });
+    for (let i = 0; i <= elem.attributes.length - 1; i++) {
+      let attr = elem.attributes[i];
+      ((attr_: Node) => {
+        const attrKey = attr_.nodeName;
+        const attrValue = attr_.nodeValue;
+        const gomlAttribute = newNode.attributes.getAttribute(attrKey);
+        if (gomlAttribute) {
+          gomlAttribute.Value = attrValue;
+          gomlAttribute.on('changed', (ga) => {
+            elem.setAttribute(attrKey, ga.Value);
+          });
+        }
+      })(attr);
+    }
     return newNode;
   }
 }

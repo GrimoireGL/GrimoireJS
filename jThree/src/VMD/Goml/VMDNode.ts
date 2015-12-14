@@ -70,7 +70,6 @@ class VMDNode extends GomlTreeNodeBase {
     VMDData.LoadFromUrl(attr.Value).then((data) => {
       this.lastURL = attr.Value;
       this.targetVMD = data;
-      this.attributes.applyDefaultValue();
       this.vmdLoadingDeferred.resolve(null);
     });
   }

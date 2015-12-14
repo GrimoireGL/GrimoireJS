@@ -26,10 +26,14 @@ class GomlAttribute extends JThreeObjectEEWithID {
 
   constructor(name: string, value: any, converter: AttributeConverterBase, constant?: boolean) {
     super(name);
-    if (typeof constant === "undefined") constant = false;
+    if (constant === undefined) constant = false;
     this.constant = constant;
     this.converter = converter;
-    this.value = converter.FromInterface(value);
+    if (value !== undefined) {
+      this.value = this.converter.FromInterface(value);
+    } else {
+      this.value = undefined;
+    }
   }
 
   /**
@@ -40,6 +44,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   public initialize(): void {
     if (this.value === undefined) console.warn(`Attribute ${this.Name} is undefined.`)
     this.initialized = true;
+    console.log('initialized', this.ID);
     if (!this.Constant) this.emit('changed', this);
   }
 
@@ -56,15 +61,14 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public set Value(val: any) {
+    console.log('setattr', this.ID, val);
     if (this.Constant) {
       console.warn(`attribute "${this.ID}" is immutable`)
       return;
     }
     this.value = this.Converter.FromInterface(val);
     if (this.initialized) {
-      process.nextTick(() => {
-        this.emit('changed', this);
-      });
+      this.emit('changed', this);
     }
   }
 
@@ -75,9 +79,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   public notifyValueChanged() {
     if (this.Constant) return;
     if (this.initialized) {
-      process.nextTick(() => {
-        this.emit('changed', this);
-      });
+      this.emit('changed', this);
     }
   }
 }

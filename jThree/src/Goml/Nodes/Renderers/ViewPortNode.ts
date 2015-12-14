@@ -8,10 +8,11 @@ import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
 import CanvasNode = require("../Canvases/CanvasNode");
 import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
 import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage");
-import CubeTextureTag = require("../Texture/CubeTextureNode");
+import CubeTextureNode = require("../Texture/CubeTextureNode");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
 import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
 import RendererFactory = require("../../../Core/Renderers/RendererFactory");
+import Delegates = require('../../../Base/Delegates');
 
 class ViewPortNode extends GomlTreeNodeBase {
 
@@ -96,24 +97,25 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private _onCamAttrChanged(attr): void {
     this.cam = attr.Value;
-    this.resolveCamera();
+    this.resolveCamera(() => {}); // ????
   }
 
   private _onSkyboxAttrChanged(attr): void {
     if (this.attributes.getValue("backgroundType") === "skybox") {
-      var cubeTexture = <CubeTextureTag>this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", attr.Value);
-      if (cubeTexture) {
-        if (!this.skyBoxStageChain) {
-          this.skyBoxStageChain = {
-            buffers: {
-              OUT: "default"
-            },
-            stage: new SkyboxStage(this.targetRenderer)
-          };
-          this.targetRenderer.renderPath.insertWithIndex(0, this.skyBoxStageChain);
+      this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", attr.Value, (node: CubeTextureNode) => {
+        if (node) {
+          if (!this.skyBoxStageChain) {
+            this.skyBoxStageChain = {
+              buffers: {
+                OUT: "default"
+              },
+              stage: new SkyboxStage(this.targetRenderer)
+            };
+            this.targetRenderer.renderPath.insertWithIndex(0, this.skyBoxStageChain);
+          }
+          (<SkyboxStage>this.skyBoxStageChain.stage).skyBoxTexture = <CubeTexture>node.TargetTexture;
         }
-        (<SkyboxStage>this.skyBoxStageChain.stage).skyBoxTexture = <CubeTexture>cubeTexture.TargetTexture;
-      }
+      });
     }
   }
 
@@ -132,17 +134,16 @@ class ViewPortNode extends GomlTreeNodeBase {
     var rdr: CanvasNode = this.parentCanvas;
     var defaultRect = rdr.Canvas.region;
     this.targetRenderer = RendererFactory.generateRenderer(rdr.Canvas, defaultRect, this.attributes.getValue("config"));
-    var cameraNode = this.resolveCamera();
-    this.targetRenderer.Camera = cameraNode.TargetCamera;
-    var scene: Scene = cameraNode.ContainedSceneNode.targetScene;
-    scene.addRenderer(this.targetRenderer);
+    this.resolveCamera((cameraNode) => {
+      this.targetRenderer.Camera = cameraNode.TargetCamera;
+      var scene: Scene = cameraNode.ContainedSceneNode.targetScene;
+      scene.addRenderer(this.targetRenderer);
+    });
 
     if ("resize" in rdr) {
       var castedRdr = <CanvasNode>rdr;
       castedRdr.resize(this.updateViewportArea.bind(this));
     }
-
-    this.attributes.applyDefaultValue();
   }
 
   private updateViewportArea() {
@@ -174,25 +175,23 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   }
 
-  private resolveCamera(): CameraNodeBase {
-    var camTags = this.nodeManager.nodeRegister.getGroupMap<SceneObjectNodeBase>("jthree.camera");
-    if (!camTags.has(this.Cam))//if there was no specified camera
-    {
-      console.error("can not find camera");
-      if (camTags.size == 0) {
-        console.error("There is no scene.");
+  private resolveCamera(callbackfn: Delegates.Action1<CameraNodeBase>) {
+    this.nodeManager.nodeRegister.getGroupMap("jthree.camera", (camTags) => {
+      if (!camTags.has(this.Cam)) { //if there was no specified camera
+        console.error("can not find camera");
+        if (camTags.size == 0) {
+          console.error("There is no scene.");
+        } else {
+        }
       } else {
-
+        var targetCam = <CameraNodeBase>camTags.get(this.Cam);
+        if (targetCam.ContainedSceneNode != null) { //if there was specified camera and there is Scene
+          callbackfn(targetCam);
+        } else {
+          console.error("cant retrieve scene!");
+        }
       }
-      return null;
-    }
-    var targetCam = <CameraNodeBase>camTags.get(this.Cam);
-    if (targetCam.ContainedSceneNode != null)//if there was specified camera and there is Scene
-    {
-      return targetCam;
-    } else {
-      console.error("cant retrieve scene!");
-    }
+    });
   }
   private cam: string;
   private left: number;

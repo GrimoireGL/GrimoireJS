@@ -22,15 +22,16 @@ class CanvasNode extends CanvasNodeBase {
     });
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
     //generate canvas
     this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
     var defaultLoader;
-    if (this.attributes.getValue("loader") !== "undefined" && this.nodeManager.nodeRegister.hasGroup("jthree.loader")) {
-      var loaderNode = (this.nodeManager.nodeRegister.getObject("jthree.loader", this.attributes.getValue("loader")) as any);
-      if (loaderNode) defaultLoader = loaderNode.loaderHTML;
-    }
+    // TODO: pnly
+    // if (this.attributes.getValue("loader") !== "undefined" && this.nodeManager.nodeRegister.hasGroup("jthree.loader")) {
+    //   var loaderNode = (this.nodeManager.nodeRegister.getObject("jthree.loader", this.attributes.getValue("loader")) as any);
+    //   if (loaderNode) defaultLoader = loaderNode.loaderHTML;
+    // }
     if (!defaultLoader) defaultLoader = require('../../../static/defaultLoader.html');
 
     //frame resize
@@ -46,6 +47,8 @@ class CanvasNode extends CanvasNodeBase {
 
     if (this.targetFrame) resizeElement.appendChild(this.canvasElement);
     this.canvasElement.classList.add("x-j3-c-" + this.ID);
+    this.emit('canvas-ready');
+
     //initialize contexts
     this.setCanvas(new Canvas(this.canvasElement));
     JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);

@@ -23,27 +23,27 @@ class TreeNodeBase extends JThreeObjectEEWithID {
     super();
     this.on('child-added', (argu) => {
       const cb = this.onChildAdded;
-      if (cb) { cb(argu) }
+      if (cb) { cb.bind(this)(argu) }
     });
     this.on('child-removed', (argu) => {
       const cb = this.onChildRemoved;
-      if (cb) { cb(argu) }
+      if (cb) { cb.bind(this)(argu) }
     });
     this.on('node-will-mount', (parent) => {
       const cb = this.nodeWillMount;
-      if (cb) { cb(parent) }
+      if (cb) { cb.bind(this)(parent) }
     });
     this.on('node-will-unmout', (parent) => {
       const cb = this.nodeWillUnmount;
-      if (cb) { cb(parent) }
+      if (cb) { cb.bind(this)(parent) }
     });
     this.on('node-did-mounted', () => {
       const cb = this.nodeDidMounted;
-      if (cb) { cb() }
+      if (cb) { cb.bind(this)() }
     });
     this.on('node-did-unmouted', () => {
       const cb = this.nodeDidUnmounted;
-      if (cb) { cb() }
+      if (cb) { cb.bind(this)() }
     });
   }
 
@@ -51,7 +51,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * this property is true when this node is mouted to available tree.
    * @type {boolean}
    */
-  private mounted: boolean;
+  private mounted: boolean = false;
 
   /**
    * get mounted status
@@ -71,15 +71,17 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       this.emit('just-before-node-mounted-update', mounted);
       this.mounted = mounted;
       if (this.mounted) {
+        console.log('node-did-mounted', this);
         this.emit('node-did-mounted');
         this.children.forEach((child) => {
-          child.emit('node-will-mount');
+          console.log('node-will-mount', child);
+          child.emit('node-will-mount', this);
           child.Mounted = true;
         });
       } else {
         this.emit('node-unmounted');
         this.children.forEach((child) => {
-          child.emit('node-will-mount');
+          child.emit('node-will-mount', this);
           child.Mounted = false;
         });
       }

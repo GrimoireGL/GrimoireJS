@@ -73,7 +73,6 @@ class BehaviorNode extends GomlTreeNodeBase {
           this.attributes.defineAttribute(attributeContainer);
         }
         this.componentTarget.addBehavior(this);
-        this.attributes.applyDefaultValue();
       } else {
         console.warn(`component"${this.componentName}" is not found.`);
       }

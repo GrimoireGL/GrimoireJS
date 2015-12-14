@@ -4,6 +4,7 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
 import SceneObject = require("../../../../Core/SceneObject");
+import Delegate = require('../../../../Base/Delegates');
 
 class GomlTreeCameraNodeBase extends SceneObjectNodeBase {
   private targetCamera: Camera;
@@ -21,9 +22,9 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase {
     return null;
   }
 
-  protected ConstructTarget(): SceneObject {
+  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
     this.targetCamera = this.ConstructCamera();
-    return this.targetCamera;
+    callbackfn(this.targetCamera);
   }
 
   protected nodeWillMount(parent) {

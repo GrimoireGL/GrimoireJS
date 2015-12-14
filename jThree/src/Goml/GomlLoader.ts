@@ -119,7 +119,9 @@ class GomlLoader extends jThreeObject {
     }
     if (catched === undefined || catched.tagName.toUpperCase() !== 'GOML') throw new Exceptions.InvalidArgumentException('Root should be goml');
 
-    this.nodeManager.gomlRoot = GomlParser.parse(source, this.nodeManager.configurator)
+    const parsedNode = GomlParser.parse(source, this.nodeManager.configurator);
+    parsedNode.Mounted = true;
+    this.nodeManager.gomlRoot = parsedNode;
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.nodeManager.ready = true;
     this.nodeManager.loadedHandler.fire(this, source);

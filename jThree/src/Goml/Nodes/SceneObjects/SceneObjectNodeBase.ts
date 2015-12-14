@@ -4,6 +4,8 @@ import SceneObject = require("../../../Core/SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
 import AttributeParser = require("../../AttributeParser");
+import Delegate = require('../../../Base/Delegates');
+
 class SceneObjectNodeBase extends GomlTreeNodeBase {
   constructor() {
     super();
@@ -69,16 +71,17 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   }
 
   protected nodeDidMounted(): void {
-    this.targetSceneObject = this.ConstructTarget();
-    if (this.targetSceneObject == null) return;
-    if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
-      this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
-    //append targetObject to parent
-    this.applyHierarchy();
+     this.ConstructTarget((sceneObject) => {
+       this.targetSceneObject = sceneObject;
+       if (this.targetSceneObject == null) return;
+       if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
+         this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
+       //append targetObject to parent
+       this.applyHierarchy();
+     });
   }
 
-  protected ConstructTarget(): SceneObject {
-    return null;
+  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
   }
 
   protected targetUpdated() {

@@ -6,14 +6,14 @@ class CanvasNodeBase extends GomlTreeNodeBase {
     super();
     this.attributes.defineAttribute({
       "width": {
-        value: 128,
+        value: undefined,
         converter: "number",
         onchanged: (v) => {
           this.sizeChanged(v.Value, this.attributes.getValue("height"));
         },
       },
       "height": {
-        value: 128,
+        value: undefined,
         converter: "number",
         onchanged: (v) => {
           this.sizeChanged(this.attributes.getValue("width"), v.Value);
@@ -34,10 +34,10 @@ class CanvasNodeBase extends GomlTreeNodeBase {
         },
       }
     });
+    this.on('canvas-ready', this._onCanvasReady);
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  private _onCanvasReady(): void {
     this.attributes.setValue("width", this.DefaultWidth);
     this.attributes.setValue("height", this.DefaultHeight);
   }

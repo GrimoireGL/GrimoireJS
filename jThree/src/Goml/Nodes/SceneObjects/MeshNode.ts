@@ -6,6 +6,8 @@ import BasicMeshObject = require("../../../Shapes/BasicMeshObject");
 import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
 import MaterialNode = require("../Materials/MaterialNodeBase");
 import SolidColor = require("../../../Core/Materials/Forward/SolidColorMaterial");
+import Delegate = require('../../../Base/Delegates');
+
 class GomlTreeMeshNode extends SceneObjectNodeBase {
   private targetMesh: BasicMeshObject;
 
@@ -17,7 +19,7 @@ class GomlTreeMeshNode extends SceneObjectNodeBase {
         converter: 'string',
         onchanged: (attr) => {
           this.geo = attr.Value;
-          this.ConstructTarget();
+          this.ConstructTarget(() => {}); // ????
         }
       },
       'mat': {
@@ -25,17 +27,19 @@ class GomlTreeMeshNode extends SceneObjectNodeBase {
         converter: 'string',
         onchanged: (attr) => {
           this.mat = attr.Value;
-          this.ConstructTarget();
+          this.ConstructTarget(() => {}); // ????
         }
       }
     });
   }
 
-  protected ConstructTarget(): SceneObject {
-    var geo = <GeometryNodeBase>this.nodeManager.nodeRegister.getObject("jthree.geometries", this.Geo);
-    var mat = <MaterialNode>this.nodeManager.nodeRegister.getObject("jthree.materials", this.Mat);
-    this.targetMesh = new BasicMeshObject(geo.TargetGeometry, mat ? mat.targetMaterial : new SolidColor());
-    return this.targetMesh;
+  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
+    this.nodeManager.nodeRegister.getObject("jthree.geometries", this.Geo, (geo: GeometryNodeBase) => {
+      this.nodeManager.nodeRegister.getObject("jthree.materials", this.Mat, (mat: MaterialNode) => {
+        this.targetMesh = new BasicMeshObject(geo.TargetGeometry, mat ? mat.targetMaterial : new SolidColor());
+        callbackfn(this.targetMesh);
+      });
+    });
   }
 
   public nodeWillMount(parent) {

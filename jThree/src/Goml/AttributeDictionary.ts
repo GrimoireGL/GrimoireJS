@@ -89,12 +89,12 @@ class AttributeDictionary extends JThreeObject {
   /**
    * Apply default values to all attributes.
    */
-  public applyDefaultValue() {
-    Object.keys(this.attributes).forEach((k) => {
-      let v = this.attributes[k];
-      if (typeof v.Value !== 'undefined') v.notifyValueChanged();
-    });
-  }
+  // public applyDefaultValue() {
+  //   Object.keys(this.attributes).forEach((k) => {
+  //     let v = this.attributes[k];
+  //     if (typeof v.Value !== 'undefined') v.notifyValueChanged();
+  //   });
+  // }
 
   public updateValue(attrName?: string) {
     if (typeof attrName === 'undefined') {

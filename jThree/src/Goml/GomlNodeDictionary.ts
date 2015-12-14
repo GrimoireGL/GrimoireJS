@@ -13,18 +13,31 @@ class GomlNodeDictionary extends jThreeObject {
    */
   private dictionary: AssociativeArray<AssociativeArray<GomlTreeNodeBase>> = new AssociativeArray<AssociativeArray<GomlTreeNodeBase>>();
 
-  private onGroupMemberChanged: AssociativeArray<JThreeEvent<GomlTreeNodeBase>> = new AssociativeArray<JThreeEvent<GomlTreeNodeBase>>();
+  private cbDictionary: AssociativeArray<AssociativeArray<Delegates.Action1<GomlTreeNodeBase>[]>> = new AssociativeArray<AssociativeArray<Delegates.Action1<GomlTreeNodeBase>[]>>();
+
+  private cbGroupDictionary: AssociativeArray<Delegates.Action1<AssociativeArray<GomlTreeNodeBase>>[]> = new AssociativeArray<Delegates.Action1<AssociativeArray<GomlTreeNodeBase>>[]>();
   /**
    * Add node object with group and name.
    */
   public addObject(group: string, name: string, obj: GomlTreeNodeBase): void {
-    if (!this.dictionary.has(group))//If there was no such group
-    {
+    // register
+    if (!this.dictionary.has(group)) {
       this.dictionary.set(group, new AssociativeArray<GomlTreeNodeBase>());
-      this.onGroupMemberChanged.set(group, new JThreeEvent<GomlTreeNodeBase>());
     }
     this.dictionary.get(group).set(name, obj);
-    this.onGroupMemberChanged.get(group).fire(this, obj);
+    // callback
+    if (this.cbGroupDictionary.has(group)) {
+      this.cbGroupDictionary.get(group).forEach((cb) => {
+        cb(this.dictionary.get(group));
+      });
+      this.cbGroupDictionary.delete(group);
+    }
+    if (this.cbDictionary.has(group) && this.cbDictionary.get(group).has(name)) {
+      this.cbDictionary.get(group).get(name).forEach((cb) => {
+        cb(this.dictionary.get(group).get(name));
+      })
+      this.cbDictionary.get(group).delete(name);
+    }
   }
 
   public hasGroup(group: string): boolean {
@@ -34,26 +47,28 @@ class GomlNodeDictionary extends jThreeObject {
   /**
    * Get node object by group and name.
    */
-  public getObject<T extends GomlTreeNodeBase>(group: string, name: string): T {
-    if (!this.dictionary.has(group)) {
-      JThreeLogger.sectionError("GOML loader", `Unknown group name '${group}' was requested.`);
-      return null;
+  public getObject(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
+    if (this.dictionary.has(group) && this.dictionary.get(group).has(name)) {
+      callbackfn(this.dictionary.get(group).get(name));
     } else {
-      return <T>this.dictionary.get(group).get(name);
+      if (!this.cbDictionary.has(group)) {
+        this.cbDictionary.set(group, new AssociativeArray<Delegates.Action1<GomlTreeNodeBase>[]>());
+      }
+      if (!this.cbDictionary.get(group).has(name)) {
+        this.cbDictionary.get(group).set(name, []);
+      }
+      this.cbDictionary.get(group).get(name).push(callbackfn);
     }
   }
 
-  public getGroupMap<T extends GomlTreeNodeBase>(group: string): AssociativeArray<T> {
-    return <AssociativeArray<T>>this.dictionary.get(group);
-  }
-
-  public onGroupObjectChanged(group: string, handler: Delegates.Action1<GomlTreeNodeBase>) {
-    if (this.hasGroup(group)) {
-      this.onGroupMemberChanged.get(group).addListener(handler);
+  public getGroupMap(group: string, callbackfn: Delegates.Action1<AssociativeArray<GomlTreeNodeBase>>): void {
+    if (this.dictionary.has(group)) {
+      callbackfn(this.dictionary.get(group));
     } else {
-      console.warn("there is no such group");
+      this.cbGroupDictionary.get(group).push(callbackfn);
     }
   }
+
 }
 
-export =GomlNodeDictionary;
+export = GomlNodeDictionary;

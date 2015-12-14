@@ -3,6 +3,7 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import SceneObject = require("../../../../Core/SceneObject");
 import LightBase = require('../../../../Core/Light/LightBase');
+import Delegate = require('../../../../Base/Delegates');
 
 class LightNodeBase extends SceneObjectNodeBase {
 
@@ -28,9 +29,9 @@ class LightNodeBase extends SceneObjectNodeBase {
 		return null;
 	}
 
-	protected ConstructTarget(): SceneObject {
+	protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
 		this.targetLightBase = this.constructLight();
-		return this.targetLightBase;
+		callbackfn(this.targetLightBase);
 	}
 
 }
