@@ -121,6 +121,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   protected nodeWillMount(parent) {
     super.nodeWillMount(parent);
+    this.cam = this.attributes.getValue('cam'); // TODO: pnly
     this.parentCanvas = <CanvasNode>parent;
     const defaultRect = this.parentCanvas.Canvas.region;
     this.attributes.setValue('width', defaultRect.Width);

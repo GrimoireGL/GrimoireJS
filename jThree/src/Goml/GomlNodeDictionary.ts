@@ -15,24 +15,20 @@ class GomlNodeDictionary extends jThreeObject {
 
   private cbDictionary: AssociativeArray<AssociativeArray<Delegates.Action1<GomlTreeNodeBase>[]>> = new AssociativeArray<AssociativeArray<Delegates.Action1<GomlTreeNodeBase>[]>>();
 
-  private cbGroupDictionary: AssociativeArray<Delegates.Action1<AssociativeArray<GomlTreeNodeBase>>[]> = new AssociativeArray<Delegates.Action1<AssociativeArray<GomlTreeNodeBase>>[]>();
   /**
    * Add node object with group and name.
    */
   public addObject(group: string, name: string, obj: GomlTreeNodeBase): void {
-    console.log(group, name, obj);
+    if(group === undefined || name == undefined) {
+      console.error(`group or name is undefined. group: ${group}, name: ${name}`);
+    }
+    console.log('addObject', group, name, obj);
     // register
     if (!this.dictionary.has(group)) {
       this.dictionary.set(group, new AssociativeArray<GomlTreeNodeBase>());
     }
     this.dictionary.get(group).set(name, obj);
     // callback
-    if (this.cbGroupDictionary.has(group)) {
-      this.cbGroupDictionary.get(group).forEach((cb) => {
-        cb(this.dictionary.get(group));
-      });
-      this.cbGroupDictionary.delete(group);
-    }
     if (this.cbDictionary.has(group) && this.cbDictionary.get(group).has(name)) {
       this.cbDictionary.get(group).get(name).forEach((cb) => {
         cb(this.dictionary.get(group).get(name));
@@ -49,9 +45,15 @@ class GomlNodeDictionary extends jThreeObject {
    * Get node object by group and name.
    */
   public getObject(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
+    if(group === undefined || name == undefined) {
+      console.error(`group or name is undefined. group: ${group}, name: ${name}`);
+    }
+    console.log('getObject', group, name);
     if (this.dictionary.has(group) && this.dictionary.get(group).has(name)) {
+      console.log('instantly executed');
       callbackfn(this.dictionary.get(group).get(name));
     } else {
+      console.log('register callback');
       if (!this.cbDictionary.has(group)) {
         this.cbDictionary.set(group, new AssociativeArray<Delegates.Action1<GomlTreeNodeBase>[]>());
       }
@@ -62,12 +64,13 @@ class GomlNodeDictionary extends jThreeObject {
     }
   }
 
-  public getGroupMap(group: string, callbackfn: Delegates.Action1<AssociativeArray<GomlTreeNodeBase>>): void {
-    if (this.dictionary.has(group)) {
-      callbackfn(this.dictionary.get(group));
-    } else {
-      this.cbGroupDictionary.get(group).push(callbackfn);
-    }
+  public checkUncalled(): void {
+    this.cbDictionary.forEach((g, i) => {
+      g.forEach((fn, i_) => {
+        // Specified node is required but not found or not added
+        console.error(`Uncalled callback detected group: ${i}, name: ${i_}`);
+      })
+    });
   }
 
 }

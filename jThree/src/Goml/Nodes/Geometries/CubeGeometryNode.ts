@@ -14,10 +14,6 @@ class CubeGeometryNode extends GeometryNodeBase {
     return this.gridGeometry = new CubeGeometry(this.Name);
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
-
 }
 
 export = CubeGeometryNode;

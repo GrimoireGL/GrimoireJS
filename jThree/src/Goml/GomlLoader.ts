@@ -121,6 +121,7 @@ class GomlLoader extends jThreeObject {
 
     const parsedNode = GomlParser.parse(source, this.nodeManager.configurator);
     parsedNode.Mounted = true;
+    this.nodeManager.nodeRegister.checkUncalled();
     this.nodeManager.gomlRoot = parsedNode;
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.nodeManager.ready = true;

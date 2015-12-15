@@ -8,7 +8,7 @@ import MaterialNode = require("../Materials/MaterialNodeBase");
 import SolidColor = require("../../../Core/Materials/Forward/SolidColorMaterial");
 import Delegate = require('../../../Base/Delegates');
 
-class GomlTreeMeshNode extends SceneObjectNodeBase {
+class MeshNode extends SceneObjectNodeBase {
   private targetMesh: BasicMeshObject;
 
   constructor() {
@@ -43,6 +43,8 @@ class GomlTreeMeshNode extends SceneObjectNodeBase {
   }
 
   public nodeWillMount(parent) {
+    this.geo = this.attributes.getValue('geo'); // TODO: pnly
+    this.mat = this.attributes.getValue('mat'); // TODO: pnly
     super.nodeWillMount(parent);
   }
 
@@ -58,4 +60,4 @@ class GomlTreeMeshNode extends SceneObjectNodeBase {
 
 }
 
-export =GomlTreeMeshNode;
+export = MeshNode;
