@@ -59,6 +59,10 @@ class PhongNode extends MaterialNodeBase {
     return this.material;
   }
 
+  protected nodeWillMount(parent): void {
+    super.nodeWillMount(parent);
+  }
+
 }
 
 export = PhongNode;

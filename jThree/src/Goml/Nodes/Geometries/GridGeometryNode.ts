@@ -33,8 +33,8 @@ class GridGeometryNode extends GeometryNodeBase {
     return this.gridGeometry = new GridGeometry(this.Name);
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
   }
 
 }

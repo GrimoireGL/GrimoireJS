@@ -20,6 +20,7 @@ class GomlNodeDictionary extends jThreeObject {
    * Add node object with group and name.
    */
   public addObject(group: string, name: string, obj: GomlTreeNodeBase): void {
+    console.log(group, name, obj);
     // register
     if (!this.dictionary.has(group)) {
       this.dictionary.set(group, new AssociativeArray<GomlTreeNodeBase>());

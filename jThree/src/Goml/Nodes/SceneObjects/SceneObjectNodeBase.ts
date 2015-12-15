@@ -68,17 +68,15 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     }
     this.containedSceneNode = sceneNode;
     this.parentSceneObjectNode = sceneObjectNode;
-  }
 
-  protected nodeDidMounted(): void {
-     this.ConstructTarget((sceneObject) => {
-       this.targetSceneObject = sceneObject;
-       if (this.targetSceneObject == null) return;
-       if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
-         this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
-       //append targetObject to parent
-       this.applyHierarchy();
-     });
+    this.ConstructTarget((sceneObject) => {
+      this.targetSceneObject = sceneObject;
+      if (this.targetSceneObject == null) return;
+      if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
+        this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
+      //append targetObject to parent
+      this.applyHierarchy();
+    });
   }
 
   protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {

@@ -23,7 +23,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
     this.attributes = new AttributeDictionary(this);
 
     // TreeNodeBaseのmoutedが更新される直前に割り込むイベント。attributeの反映専用。
-    this.on('just-before-node-mouted-update', (mounted) => {
+    this.on('just-before-node-mounted-update', (mounted) => {
       if (mounted) {
         this.attributes.forEachAttr((ga) => {
           ga.initialize();

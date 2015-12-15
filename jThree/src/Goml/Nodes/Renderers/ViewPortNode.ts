@@ -32,14 +32,14 @@ class ViewPortNode extends GomlTreeNodeBase {
       'cam': {
         value: undefined,
         converter: 'string',
-        onchanged: this._onCamAttrChanged,
+        onchanged: this._onCamAttrChanged.bind(this),
       },
       "width": {
         value: undefined,
         converter: "number",
         onchanged: (attr) => {
           this.width = attr.Value;
-          this.updateViewportArea();
+          // this.updateViewportArea(); // TODO: pnly
         },
       },
       "height": {
@@ -47,7 +47,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "number",
         onchanged: (attr) => {
           this.height = attr.Value;
-          this.updateViewportArea();
+          // this.updateViewportArea(); // TODO: pnly
         },
       },
       "left": {
@@ -55,7 +55,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "number",
         onchanged: (attr) => {
           this.left = attr.Value;
-          this.updateViewportArea();
+          // this.updateViewportArea(); // TODO: pnly
         },
       },
       "top": {
@@ -63,7 +63,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "number",
         onchanged: (attr) => {
           this.top = attr.Value;
-          this.updateViewportArea();
+          // this.updateViewportArea(); // TODO: pnly
         },
       },
       "backgroundType": {
@@ -79,7 +79,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       "skybox": {
         value: null,
         converter: "string",
-        onchanged: this._onSkyboxAttrChanged,
+        onchanged: this._onSkyboxAttrChanged.bind(this),
       },
       "config": {
         converter: "string",
@@ -97,7 +97,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private _onCamAttrChanged(attr): void {
     this.cam = attr.Value;
-    this.resolveCamera(() => {}); // ????
+    // this.resolveCamera(() => {}); // ????
   }
 
   private _onSkyboxAttrChanged(attr): void {
@@ -127,12 +127,8 @@ class ViewPortNode extends GomlTreeNodeBase {
     this.attributes.setValue('height', defaultRect.Height);
     this.attributes.setValue('left', defaultRect.Left);
     this.attributes.setValue('top', defaultRect.Top);
-  }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
     var rdr: CanvasNode = this.parentCanvas;
-    var defaultRect = rdr.Canvas.region;
     this.targetRenderer = RendererFactory.generateRenderer(rdr.Canvas, defaultRect, this.attributes.getValue("config"));
     this.resolveCamera((cameraNode) => {
       this.targetRenderer.Camera = cameraNode.TargetCamera;
@@ -144,6 +140,10 @@ class ViewPortNode extends GomlTreeNodeBase {
       var castedRdr = <CanvasNode>rdr;
       castedRdr.resize(this.updateViewportArea.bind(this));
     }
+  }
+
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
   }
 
   private updateViewportArea() {
@@ -176,20 +176,11 @@ class ViewPortNode extends GomlTreeNodeBase {
   }
 
   private resolveCamera(callbackfn: Delegates.Action1<CameraNodeBase>) {
-    this.nodeManager.nodeRegister.getGroupMap("jthree.camera", (camTags) => {
-      if (!camTags.has(this.Cam)) { //if there was no specified camera
-        console.error("can not find camera");
-        if (camTags.size == 0) {
-          console.error("There is no scene.");
-        } else {
-        }
+    this.nodeManager.nodeRegister.getObject("jthree.camera", this.Cam, (targetCam: CameraNodeBase) => {
+      if (targetCam.ContainedSceneNode != null) { //if there was specified camera and there is Scene
+        callbackfn(targetCam);
       } else {
-        var targetCam = <CameraNodeBase>camTags.get(this.Cam);
-        if (targetCam.ContainedSceneNode != null) { //if there was specified camera and there is Scene
-          callbackfn(targetCam);
-        } else {
-          console.error("cant retrieve scene!");
-        }
+        console.error("cant retrieve scene!");
       }
     });
   }

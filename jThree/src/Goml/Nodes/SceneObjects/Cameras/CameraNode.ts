@@ -5,7 +5,7 @@ import Camera = require("../../../../Core/Camera/Camera");
 import PerspectiveCamera = require("../../../../Core/Camera/PerspectiveCamera");
 import CameraNodeBase = require("./CameraNodeBase");
 
-class GomlTreeCameraNode extends CameraNodeBase {
+class CameraNode extends CameraNodeBase {
 
   constructor() {
     super();
@@ -53,6 +53,10 @@ class GomlTreeCameraNode extends CameraNodeBase {
     return camera;
   }
 
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
+  }
+
   public get Fovy(): number {
     return this.attributes.getValue("fovy");
   }
@@ -70,4 +74,4 @@ class GomlTreeCameraNode extends CameraNodeBase {
   }
 }
 
-export = GomlTreeCameraNode;
+export = CameraNode;

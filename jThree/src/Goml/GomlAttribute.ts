@@ -44,7 +44,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   public initialize(): void {
     if (this.value === undefined) console.warn(`Attribute ${this.Name} is undefined.`)
     this.initialized = true;
-    console.log('initialized', this.ID);
+    console.log('initialized', this.ID, this.value);
     if (!this.Constant) this.emit('changed', this);
   }
 

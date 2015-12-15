@@ -6,7 +6,7 @@ import Camera = require("../../../../Core/Camera/Camera");
 import SceneObject = require("../../../../Core/SceneObject");
 import Delegate = require('../../../../Base/Delegates');
 
-class GomlTreeCameraNodeBase extends SceneObjectNodeBase {
+class CameraNodeBase extends SceneObjectNodeBase {
   private targetCamera: Camera;
 
   public get TargetCamera(): Camera {
@@ -15,7 +15,6 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase {
 
   constructor() {
     super();
-    this.nodeManager.nodeRegister.addObject("jthree.camera", this.Name, this);
   }
 
   protected ConstructCamera(): Camera {
@@ -29,6 +28,7 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase {
 
   protected nodeWillMount(parent) {
     super.nodeWillMount(parent);
+    this.nodeManager.nodeRegister.addObject("jthree.camera", this.Name, this);
   }
 
   private name: string;
@@ -41,4 +41,4 @@ class GomlTreeCameraNodeBase extends SceneObjectNodeBase {
   }
 }
 
-export =GomlTreeCameraNodeBase;
+export = CameraNodeBase;

@@ -24,8 +24,8 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     this.name = attr.Value;
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
     this.targetMaterial = this.ConstructMaterial();
     this.nodeManager.nodeRegister.addObject("jthree.materials", this.Name, this);
   }
