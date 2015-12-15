@@ -124,10 +124,10 @@ class ViewPortNode extends GomlTreeNodeBase {
     this.cam = this.attributes.getValue('cam'); // TODO: pnly
     this.parentCanvas = <CanvasNode>parent;
     const defaultRect = this.parentCanvas.Canvas.region;
-    this.attributes.setValue('width', defaultRect.Width);
-    this.attributes.setValue('height', defaultRect.Height);
-    this.attributes.setValue('left', defaultRect.Left);
-    this.attributes.setValue('top', defaultRect.Top);
+    // this.attributes.setValue('width', defaultRect.Width);
+    // this.attributes.setValue('height', defaultRect.Height);
+    // this.attributes.setValue('left', defaultRect.Left);
+    // this.attributes.setValue('top', defaultRect.Top);
 
     var rdr: CanvasNode = this.parentCanvas;
     this.targetRenderer = RendererFactory.generateRenderer(rdr.Canvas, defaultRect, this.attributes.getValue("config"));
@@ -135,6 +135,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       this.targetRenderer.Camera = cameraNode.TargetCamera;
       var scene: Scene = cameraNode.ContainedSceneNode.targetScene;
       scene.addRenderer(this.targetRenderer);
+      this.updateViewportArea();
     });
 
     if ("resize" in rdr) {
@@ -148,6 +149,7 @@ class ViewPortNode extends GomlTreeNodeBase {
   }
 
   private updateViewportArea() {
+    console.info('updateViewportArea');
     if ("targetFrame" in this.parentCanvas) {
       var castedRdr = <CanvasNode>this.parentCanvas;
       var frame = castedRdr.targetFrame;
@@ -159,6 +161,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       var top = this.top > 1 ? this.top : H * this.top;
       var width = this.width > 1 ? this.width : W * this.width;
       var height = this.height > 1 ? this.height : H * this.height;
+      debugger;
       this.targetRenderer.region = new Rectangle(left, top, width, height);
 
       if ("Aspect" in this.targetRenderer.Camera) {//todo Camera�����n���h���o�^������
