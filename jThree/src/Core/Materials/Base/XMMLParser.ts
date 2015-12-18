@@ -53,7 +53,7 @@ class XMMLParser {
 
     private static _parseVariableAttributes(attributes:string):{[key:string]:string}
     {
-      var result =<{[key:string]:string}>{};
+      var result = <{[key:string]:string}>{};
       var commaSplitted = attributes.split(',');
       for(var i = 0; i < commaSplitted.length; i++)
       {

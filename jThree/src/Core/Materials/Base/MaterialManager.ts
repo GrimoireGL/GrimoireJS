@@ -1,3 +1,4 @@
+
 import UniformRegisterBase = require("../Registers/UniformRegisterBase");
 import XMMLParser = require("./XMMLParser");
 import IContextComponent = require("../../../IContextComponent");

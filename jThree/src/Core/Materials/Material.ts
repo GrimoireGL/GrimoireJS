@@ -139,25 +139,26 @@ class Material extends JThreeObjectWithID {
           config.blendArg1 = "srcAlpha"
           config.blendArg2 = "oneMinusSrcAlpha"
         }
-        renderer.GL.blendFunc(this.parseBlendVariable(config.blendArg1,renderer),this.parseBlendVariable(config.blendArg2,renderer));
+        renderer.GL.blendFunc(this._parseBlendConfig(config.blendArg1,renderer),this._parseBlendConfig(config.blendArg2,renderer));
       }else
       {
         renderer.GL.disable(renderer.GL.BLEND);
       }
     }
 
-    private parseBlendVariable(blendConfig:string,renderer:BasicRenderer):number
+    private _parseBlendConfig(blendConfig:string,renderer:BasicRenderer):number
     {
-      if(blendConfig == "1")return renderer.GL.ONE;
-      if(blendConfig == "0")return renderer.GL.ZERO;
-      if(blendConfig == "srcAlpha")return renderer.GL.SRC_ALPHA;
-      if(blendConfig == "srcColor")return renderer.GL.SRC_COLOR;
-      if(blendConfig == "oneMinusSrcAlpha")return renderer.GL.ONE_MINUS_SRC_ALPHA;
-      if(blendConfig == "oneMinusSrcColor")return renderer.GL.ONE_MINUS_SRC_COLOR;
-      if(blendConfig == "oneMinusDstAlpha")return renderer.GL.ONE_MINUS_DST_ALPHA;
-      if(blendConfig == "oneMinusDstColor")return renderer.GL.ONE_MINUS_DST_COLOR;
-      if(blendConfig == "destAlpha")return renderer.GL.DST_ALPHA;
-      if(blendConfig == "destColor")return renderer.GL.DST_COLOR;
+      let lowerCaseBlendConfig = blendConfig.toLowerCase();
+      if(lowerCaseBlendConfig == "1")return renderer.GL.ONE;
+      if(lowerCaseBlendConfig == "0")return renderer.GL.ZERO;
+      if(lowerCaseBlendConfig == "srcalpha")return renderer.GL.SRC_ALPHA;
+      if(lowerCaseBlendConfig == "srcColor")return renderer.GL.SRC_COLOR;
+      if(lowerCaseBlendConfig == "oneminussrcalpha")return renderer.GL.ONE_MINUS_SRC_ALPHA;
+      if(lowerCaseBlendConfig == "oneminussrccolor")return renderer.GL.ONE_MINUS_SRC_COLOR;
+      if(lowerCaseBlendConfig == "oneminusdstalpha")return renderer.GL.ONE_MINUS_DST_ALPHA;
+      if(lowerCaseBlendConfig == "oneminusdstcolor")return renderer.GL.ONE_MINUS_DST_COLOR;
+      if(lowerCaseBlendConfig == "destalpha")return renderer.GL.DST_ALPHA;
+      if(lowerCaseBlendConfig == "destcolor")return renderer.GL.DST_COLOR;
       console.error("Unsupported blend config!");
     }
 
