@@ -1,23 +1,40 @@
-import IUniformVariableInfo = require("./IUniformVariableInfo");
+import IVariableInfo = require("./IVariableInfo");
 import IParsedProgramResult = require("./IParsedProgramResult");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
+/**
+ * Static parsing methods for XMML (eXtended Material Markup Language).
+ * This class provides all useful methods for parsing XMML.
+ */
 class XMMLParser {
-    public static parseCombined(combined: string): IParsedProgramResult {
+  /**
+   * Parse raw XMML
+   * @param  {string}               whole string code of XMML
+   * @return {IParsedProgramResult} information of parsed codes.
+   */
+    public static parseCombined(codeString: string): IParsedProgramResult {
         var materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-        var result = XMMLParser.parseImport(combined,materialManager);
-        var uniforms = XMMLParser._parseUniforms(combined);
+        var result = XMMLParser.parseImport(codeString,materialManager);
+        var uniforms = XMMLParser._parseVariables(codeString,"uniform");
+        var attributes = XMMLParser._parseVariables(codeString,"attribute");
         var fragment = XMMLParser._removeOtherPart(result,"vertonly");
         var vertex = XMMLParser._removeOtherPart(result,"fragonly");
         fragment = XMMLParser._removeAttributeVariables(fragment);
         return {
           vertex:vertex,
           fragment:fragment,
-          uniforms:uniforms
+          uniforms:uniforms,
+          attributes:attributes
         };
     }
 
+    /**
+     * Parse @import syntax and replace them with corresponded codes.
+     * @param  {string}          source          source code XMML to be processed for @import.
+     * @param  {MaterialManager} materialManager the material manager instance containing imported codes.
+     * @return {string}                          replaced codes.
+     */
     public static parseImport(source: string,materialManager:MaterialManager): string {
         while (true) {
             var regexResult = /\s*\/\/+\s*@import\s+([a-zA-Z0-9.-]+)/.exec(source);
@@ -46,14 +63,19 @@ class XMMLParser {
       return result;
     }
 
-    private static _parseUniforms(source:string):IUniformVariableInfo[]
+    private static _generateVariableFetchRegex(variableType:string):RegExp
+    {
+      return new RegExp("(?://@\\((.+)\\))?\\s*" + variableType + "\\s+([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+);","g");
+    }
+
+    private static _parseVariables(source:string,variableType:string):IVariableInfo[]
     {
       var result = [];
-      var regex = /(?:\/\/@\((.+)\))?\s*uniform\s+([a-z0-9A-Z]+)\s+([a-zA-Z0-9_]+);/g;
+      var regex = XMMLParser._generateVariableFetchRegex(variableType);
       var regexResult;
       while((regexResult = regex.exec(source)))
       {
-        result.push(<IUniformVariableInfo>{
+        result.push(<IVariableInfo>{
           variableName:regexResult[3],
           variableType:regexResult[2],
           variableAnnotation: regexResult[1] ? this._parseVariableAttributes(regexResult[1]) : {}

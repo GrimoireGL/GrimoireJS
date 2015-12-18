@@ -1,8 +1,9 @@
-import IUniformVariableInfo = require("./IUniformVariableInfo");
+import IVariableInfo = require("./IVariableInfo");
 interface IParsedProgramResult
 {
   fragment:string;
   vertex:string;
-  uniforms:IUniformVariableInfo[];
+  uniforms:IVariableInfo[];
+  attributes:IVariableInfo[];
 }
 export = IParsedProgramResult;

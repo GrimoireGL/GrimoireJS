@@ -1,7 +1,7 @@
-interface IUniformVariableInfo
+interface IVariableInfo
 {
   variableName:string;
   variableType:string;
   variableAnnotation:{[key:string]:string};
 }
-export = IUniformVariableInfo;
+export = IVariableInfo;

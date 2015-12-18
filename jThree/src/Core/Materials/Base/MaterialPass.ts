@@ -16,26 +16,26 @@ class MaterialPass {
 
     public program:Program;
 
-    constructor(passDocument: Element) {
+    constructor(passDocument: Element,materialName:string,index:number) {
       this._parseGLSL(passDocument);
-      this._constructProgram();
+      this._constructProgram(materialName + index);
       this._configureUniformRegisters(passDocument);
     }
 
-    private _parseGLSL(passDocument:Element){
+    private _parseGLSL(passDocument:Element):void{
       var shaderCode = passDocument.getElementsByTagName("glsl").item(0).textContent;
       var parsedCodes = XMMLParser.parseCombined(shaderCode);
       this.fragmentShaderSource = parsedCodes.fragment;
       this.vertexShaderSource = parsedCodes.vertex;
     }
 
-    private _constructProgram()
+    private _constructProgram(idPrefix:string):void
     {
-      this.fragmentShader = MaterialPass._resourceManager.createShader("passTestfs",this.fragmentShaderSource,ShaderType.FragmentShader);
-      this.vertexShader = MaterialPass._resourceManager.createShader("passTestvs",this.fragmentShaderSource,ShaderType.VertexShader);
+      this.fragmentShader = MaterialPass._resourceManager.createShader(idPrefix + "-fs",this.fragmentShaderSource,ShaderType.FragmentShader);
+      this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs",this.fragmentShaderSource,ShaderType.VertexShader);
       this.fragmentShader.loadAll();
       this.vertexShader.loadAll();
-      this.program = MaterialPass._resourceManager.createProgram("passTestprogram",[this.vertexShader,this.fragmentShader]);
+      this.program = MaterialPass._resourceManager.createProgram(idPrefix + "-program",[this.vertexShader,this.fragmentShader]);
     }
 
     private _configureUniformRegisters(passDocument:Element)
