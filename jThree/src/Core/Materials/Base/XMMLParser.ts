@@ -68,18 +68,21 @@ class XMMLParser {
       return new RegExp("(?://@\\((.+)\\))?\\s*" + variableType + "\\s+([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+);","g");
     }
 
-    private static _parseVariables(source:string,variableType:string):IVariableInfo[]
+    private static _parseVariables(source:string,variableType:string):{[name:string]:IVariableInfo}
     {
-      var result = [];
+      var result = <{[name:string]:IVariableInfo}>{};
       var regex = XMMLParser._generateVariableFetchRegex(variableType);
       var regexResult;
       while((regexResult = regex.exec(source)))
       {
-        result.push(<IVariableInfo>{
-          variableName:regexResult[3],
-          variableType:regexResult[2],
-          variableAnnotation: regexResult[1] ? this._parseVariableAttributes(regexResult[1]) : {}
-        });
+        let name = regexResult[3];
+        let type = regexResult[2];
+        let rawAnnotations = regexResult[1];
+        result[name] = <IVariableInfo>{
+          variableName:name,
+          variableType:type,
+          variableAnnotation: rawAnnotations ? this._parseVariableAttributes(rawAnnotations) : {}
+        };
       }
       return result;
     }

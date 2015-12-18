@@ -3,7 +3,7 @@ interface IParsedProgramResult
 {
   fragment:string;
   vertex:string;
-  uniforms:IVariableInfo[];
-  attributes:IVariableInfo[];
+  uniforms:{[name:string]:IVariableInfo};
+  attributes:{[name:string]:IVariableInfo};
 }
 export = IParsedProgramResult;

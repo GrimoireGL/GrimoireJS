@@ -102,12 +102,12 @@ class BasicMaterial extends Material {
     private _parseMaterialDocument(source: string): void {
       var xmml = (new DOMParser()).parseFromString(source,"text/xml");
       this._materialName = xmml.querySelector("material").getAttribute("name");
-      this._groupName = xmml.querySelector("material").getAttribute("group");
+      this._materialGroup = xmml.querySelector("material").getAttribute("group");
       if(!this._materialName)
       {
         console.error("Material name must be specified");
       }
-      if(!this._groupName)
+      if(!this._materialGroup)
       {
         console.error("Material group must be specified!");
       }
@@ -141,9 +141,14 @@ class BasicMaterial extends Material {
       return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
     }
 
-    private _groupName:string;
+    private _materialGroup:string;
 
     private _materialName:string;
+
+    public get MaterialGroup()
+    {
+      return this._materialGroup;
+    }
 }
 
 export = BasicMaterial;
