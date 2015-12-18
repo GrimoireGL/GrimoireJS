@@ -1,14 +1,16 @@
+import IUniformVariableInfo = require("./IUniformVariableInfo");
 import IParsedProgramResult = require("./IParsedProgramResult");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
-class ShaderProgramParser {
+class XMMLParser {
     public static parseCombined(combined: string): IParsedProgramResult {
         var materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-        var result = ShaderProgramParser.parseImport(combined,materialManager);
-        var fragment = ShaderProgramParser._removeOtherPart(result,"vertonly");
-        var vertex = ShaderProgramParser._removeOtherPart(result,"fragonly");
-        fragment = ShaderProgramParser._removeAttributeVariables(fragment);
+        var result = XMMLParser.parseImport(combined,materialManager);
+        XMMLParser._parseUniforms(combined);
+        var fragment = XMMLParser._removeOtherPart(result,"vertonly");
+        var vertex = XMMLParser._removeOtherPart(result,"fragonly");
+        fragment = XMMLParser._removeAttributeVariables(fragment);
         return {
           vertex:vertex,
           fragment:fragment
@@ -29,6 +31,14 @@ class ShaderProgramParser {
             var source = source.replace(regexResult[0],importContent);
         }
         return source;
+    }
+
+    private static _parseUniforms(source:string):IUniformVariableInfo[]
+    {
+      var result = [];
+      var regexResult = /\s*uniform\s+[a-z0-9]\s+[a-zA-Z0-9_];/g.exec(source);
+      debugger;
+      return result;
     }
 
     private static _removeOtherPart(source:string,partFlag:string):string
@@ -80,4 +90,4 @@ class ShaderProgramParser {
     }
 }
 
-export = ShaderProgramParser;
+export = XMMLParser;

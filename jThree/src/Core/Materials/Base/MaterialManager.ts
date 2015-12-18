@@ -1,7 +1,9 @@
 import UniformRegisterBase = require("../Registers/UniformRegisterBase");
-import ShaderProgramParser = require("./ShaderProgramParser");
+import XMMLParser = require("./XMMLParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
+import Delegates = require("../../../Base/Delegates");
+import BasicMaterixRegister = require("../Registers/BasicMatrixRegister");
 /**
  * A ContextComponent provides the feature to manage materials.
  * @type {[type]}
@@ -11,6 +13,7 @@ class MaterialManager implements IContextComponent
   constructor()
   {
     this.addShaderChunk("jthree.builtin.vertex",require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
+    this.addUniformRegister("jthree.basic.matrix",BasicMaterixRegister);
   }
 
   public getContextComponentIndex():number
@@ -23,7 +26,7 @@ class MaterialManager implements IContextComponent
    */
   private _shaderChunks:{[key:string]:string} = {};
 
-  private _uniformRegisters:{[key:string]:UniformRegisterBase} ={};
+  private _uniformRegisters:{[key:string]:any} ={};
 
   /**
    * Add shader chunk code to be stored.
@@ -32,7 +35,7 @@ class MaterialManager implements IContextComponent
    */
   public addShaderChunk(key:string,val:string):void
   {
-    this._shaderChunks[key] = ShaderProgramParser.parseImport(val,this);
+    this._shaderChunks[key] = XMMLParser.parseImport(val,this);
   }
 
   /**
@@ -45,9 +48,14 @@ class MaterialManager implements IContextComponent
     return this._shaderChunks[key];
   }
 
-  public addUniformRegister(key:string,register:UniformRegisterBase)
+  public addUniformRegister(key:string,register:any)
   {
-    
+    this._uniformRegisters[key] = register;
+  }
+
+  public getUniformRegister(key:string):any
+  {
+    return this._uniformRegisters[key];
   }
 
 }

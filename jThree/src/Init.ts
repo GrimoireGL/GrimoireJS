@@ -1,5 +1,4 @@
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
-import ShaderProgramParser = require("./Core/Materials/Base/ShaderProgramParser");
 import Timer = require("./Core/Timer");
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');

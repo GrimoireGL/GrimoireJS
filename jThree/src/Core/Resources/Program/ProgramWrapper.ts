@@ -102,13 +102,13 @@ class ProgramWrapper extends ResourceWrapper {
      */
     public register(variables: VariableRegisteringArgument) {
         this.useProgram();
-        //this.unregister();
         //register uniform variables
         if (typeof variables.uniforms !== "undefined") {
             for (var uniformKey in variables.uniforms) {
                 var uniform = variables.uniforms[uniformKey];
                 uniform['context'] = this.OwnerCanvas;
                 var index = this._fetchUniformLocation(uniformKey);
+                if(index == -1)continue;
                 var registerer = this._uniformRegisterTypeList[uniform.type];
                 registerer.registerVariable(this.GL, index, uniform.value, uniform);
             }
@@ -119,10 +119,7 @@ class ProgramWrapper extends ResourceWrapper {
                 var attribute = variables.attributes[attributeKey];
                 var buffer = attribute.getForContext(this.OwnerCanvas);
                 buffer.bindBuffer();
-                if (!this._attributeLocations.has(attributeKey)) {
-                    this._attributeLocations.set(attributeKey, this.GL.getAttribLocation(this.TargetProgram, attributeKey));
-                }
-                var attribIndex: number = this._attributeLocations.get(attributeKey);
+                var attribIndex: number = this._fetchAttributeLocation(attributeKey);
                 this.GL.enableVertexAttribArray(attribIndex);
                 this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
             }

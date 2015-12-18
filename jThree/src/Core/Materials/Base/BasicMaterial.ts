@@ -1,16 +1,34 @@
+import ContextComponents = require("../../../ContextComponents");
+import JThreeContext = require("../../../JThreeContext");
+import MaterialManager = require("./MaterialManager");
+import UniformRegisterBase = require("../Registers/UniformRegisterBase");
+import BasicRenderer = require("../../Renderers/BasicRenderer");
+import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
+import Scene = require("../../Scene");
+import SceneObject = require("../../SceneObject");
+import ResolvedChainInfo = require("../../Renderers/ResolvedChainInfo");
 import MaterialPass = require("./MaterialPass");
 import Material = require('../Material');
+import Delegates = require("../../../Base/Delegates");
 
 class BasicMaterial extends Material {
     private _passes:MaterialPass[] = [];
+
+    private _uniformRegisters:UniformRegisterBase[] = [];
 
     private static xmlSource: string
     = `<?xml version="1.0" encoding="UTF-8"?>
   <material name="jthree.basic.phong" group="jthree.basic.forematerial" order="300">
     <uniform-register>
       <register name="jthree.basic.matrix"/>
-      <register name="jthree.basic.camera"/>
-      <register name="jthree.basic.time"/>
+      <register name="jthree.basic.variables">
+        <variable name="diffuse" type="vector"/>
+        <variable name="specular" type="vector"/>
+        <variable name="brightness" type="float"/>
+        <variable name="ambient" type="vector"/>
+        <variable name="textureUsed" type="texture"/>
+        <variable name="texture" type="number"/>
+      </register>
     </uniform-register>
     <attribute-register>
       <register name="jthree.basic.geometry"/>
@@ -32,17 +50,18 @@ class BasicMaterial extends Material {
           varying  vec2 vUv;
           varying vec4 vPosition;
 
-          uniform vec4 diffuse;
-          uniform vec4 specular;
-          uniform vec4 ambient;
-          uniform vec3 ambientCoefficient;
-          uniform mat4 matMVP;
-          uniform mat4 matMV;
-          uniform mat4 matV;
-          uniform int textureUsed;
-          uniform sampler2D texture;
           uniform sampler2D dlight;
           uniform sampler2D slight;
+
+          uniform vec3 ambientCoefficient;
+
+          uniform vec4 diffuse;
+          uniform vec3 specular;
+          uniform float brightness;
+          uniform vec4 ambient;
+          uniform int textureUsed;
+          uniform sampler2D texture;
+
 
           vec2 calcLightUV(vec4 projectionSpacePos)
           {
@@ -52,7 +71,7 @@ class BasicMaterial extends Material {
           //@vertonly
           void main(void)
           {
-            BasicVertexTransformOutput out =  basicVertexTransform(position,normal,uv,matMVP,matMV);
+          BasicVertexTransformOutput out =  basicVertexTransform(position,normal,uv,matMVP,matMV);
             gl_Position = vPosition = out.position;
             vNormal = out.normal;
             vUv = out.normal;
@@ -87,6 +106,24 @@ class BasicMaterial extends Material {
           var pass = passes.item(i);
           this._passes.push(new MaterialPass(pass));
       }
+      this._initializeUniformRegisters(parsed);
+    }
+
+    private _initializeUniformRegisters(doc:Document)
+    {
+      var registersDOM = doc.querySelectorAll("material > uniform-register > register");
+      for(var i = 0; i < registersDOM.length; i++)
+      {
+        var registerDOM = registersDOM.item(i);
+        var registerConstructor = this._materialManager.getUniformRegister(registerDOM.attributes.getNamedItem("name").value);
+        if(!registerConstructor)continue;
+        this._uniformRegisters.push(new registerConstructor(registerDOM));
+      }
+    }
+
+    private get _materialManager():MaterialManager
+    {
+      return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
     }
 }
 
