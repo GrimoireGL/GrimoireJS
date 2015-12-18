@@ -52,7 +52,7 @@ class BasicMaterial extends Material {
 
           uniform sampler2D dlight;
           uniform sampler2D slight;
-
+          //@(test:variable,test2:variable2)
           uniform vec3 ambientCoefficient;
 
           uniform vec4 diffuse;

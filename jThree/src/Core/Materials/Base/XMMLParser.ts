@@ -7,13 +7,14 @@ class XMMLParser {
     public static parseCombined(combined: string): IParsedProgramResult {
         var materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
         var result = XMMLParser.parseImport(combined,materialManager);
-        XMMLParser._parseUniforms(combined);
+        var uniforms = XMMLParser._parseUniforms(combined);
         var fragment = XMMLParser._removeOtherPart(result,"vertonly");
         var vertex = XMMLParser._removeOtherPart(result,"fragonly");
         fragment = XMMLParser._removeAttributeVariables(fragment);
         return {
           vertex:vertex,
-          fragment:fragment
+          fragment:fragment,
+          uniforms:uniforms
         };
     }
 
@@ -33,11 +34,31 @@ class XMMLParser {
         return source;
     }
 
+    private static _parseVariableAttributes(attributes:string):{[key:string]:string}
+    {
+      var result =<{[key:string]:string}>{};
+      var commaSplitted = attributes.split(',');
+      for(var i = 0; i < commaSplitted.length; i++)
+      {
+        var colonSplitted = commaSplitted[i].split(':');
+        result[colonSplitted[0].trim()] = colonSplitted[1].trim();
+      }
+      return result;
+    }
+
     private static _parseUniforms(source:string):IUniformVariableInfo[]
     {
       var result = [];
-      var regexResult = /\s*uniform\s+[a-z0-9]\s+[a-zA-Z0-9_];/g.exec(source);
-      debugger;
+      var regex = /(?:\/\/@\((.+)\))?\s*uniform\s+([a-z0-9A-Z]+)\s+([a-zA-Z0-9_]+);/g;
+      var regexResult;
+      while((regexResult = regex.exec(source)))
+      {
+        result.push(<IUniformVariableInfo>{
+          variableName:regexResult[3],
+          variableType:regexResult[2],
+          variableAnnotation: regexResult[1] ? this._parseVariableAttributes(regexResult[1]) : {}
+        });
+      }
       return result;
     }
 
