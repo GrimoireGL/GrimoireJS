@@ -34,12 +34,12 @@ class BasicMaterial extends Material {
     <attribute-register>
       <register name="jthree.basic.geometry"/>
     </attribute-register>
-    <shader>
+    <passes>
       <pass>
         <blend src="1" dest="1"/>
         <depth enabled="false"/>
         <cull enabled="true" orientation="ccw"/>
-        <glsl fragment="frag" vertex="vert">
+        <glsl>
           <![CDATA[
           //@import jthree.builtin.vertex
 
@@ -92,7 +92,7 @@ class BasicMaterial extends Material {
           ]]>
         </glsl>
       </pass>
-    </shader>
+    </passes>
   </material>
 `;
     constructor() {
@@ -107,7 +107,6 @@ class BasicMaterial extends Material {
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
         super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
         const targetPass = this._passes[passIndex];
-        targetPass.applyProgramVariables();
     }
 
     private _parseMaterialDocument(source: string): void {
@@ -125,7 +124,7 @@ class BasicMaterial extends Material {
     }
 
     private _parsePasses(doc: Document) {
-        var passes = doc.querySelectorAll("material > shader > pass");
+        var passes = doc.querySelectorAll("material > passes > pass");
         for (let i = 0; i < passes.length; i++) {
             var pass = passes.item(i);
             this._passes.push(new MaterialPass(pass, this._materialName, i));

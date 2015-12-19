@@ -72,6 +72,7 @@
     "./jThree/src/Core/Materials/Base/IVariableInfo.ts",
     "./jThree/src/Core/Materials/Base/MaterialManager.ts",
     "./jThree/src/Core/Materials/Base/MaterialPass.ts",
+    "./jThree/src/Core/Materials/Base/Registers/Attribute/BasicGeometryRegister.ts",
     "./jThree/src/Core/Materials/Base/XMMLParser.ts",
     "./jThree/src/Core/Materials/Buffering/GBufferMaterial.ts",
     "./jThree/src/Core/Materials/Buffering/HitTestMaterial.ts",
