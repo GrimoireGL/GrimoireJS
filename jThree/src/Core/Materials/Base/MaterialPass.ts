@@ -6,6 +6,8 @@ import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 import XMMLParser = require("./XMMLParser");
 class MaterialPass {
+    public applyProgramVariables(): void {
+     }
     public fragmentShaderSource: string;
 
     public vertexShaderSource: string;
