@@ -102,7 +102,7 @@ class BasicMaterial extends Material {
         const targetPass = this._passes[passIndex];
         targetPass.configureMaterial(<IMaterialConfigureArgument>{
           scene:scene,
-          renderer:renderStage,
+          renderStage:renderStage,
           object:object,
           textureResource:texs,
           techniqueIndex:techniqueIndex,

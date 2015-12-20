@@ -95,8 +95,11 @@ class XMMLRenderConfigUtility {
         const destAlphaStr = blendNode.getAttribute("dstAlpha");
         let enabled;
         enabled = enabledStr == "true" ? true : defEnabled;
-
-
+        let srcColor = srcColorStr || defSrcColor;
+        let dstColor = destColorStr || defDestColor;
+        let srcAlpha = srcAlphaStr || defSrcAlpha;
+        let dstAlpha = destAlphaStr || defDestAlpha;
+        this._applyBlendFunConfigureToGL(gl,enabled,srcColor,dstColor,srcAlpha,dstAlpha);
     }
 
     private static _getBlendConstant(gl: WebGLRenderingContext, constant: string): number {
