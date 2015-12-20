@@ -22,14 +22,6 @@ class BasicMaterial extends Material {
   <material name="jthree.basic.phong" group="jthree.basic.forematerial" order="300">
     <uniform-register>
       <register name="jthree.basic.matrix"/>
-      <register name="jthree.basic.variables">
-        <variable name="diffuse" type="vector"/>
-        <variable name="specular" type="vector"/>
-        <variable name="brightness" type="float"/>
-        <variable name="ambient" type="vector"/>
-        <variable name="textureUsed" type="texture"/>
-        <variable name="texture" type="number"/>
-      </register>
     </uniform-register>
     <attribute-register>
       <register name="jthree.basic.geometry"/>

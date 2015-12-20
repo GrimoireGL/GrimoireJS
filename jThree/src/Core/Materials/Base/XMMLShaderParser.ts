@@ -7,7 +7,7 @@ import MaterialManager = require("./MaterialManager");
  * Static parsing methods for XMML (eXtended Material Markup Language).
  * This class provides all useful methods for parsing XMML.
  */
-class XMMLParser {
+class XMMLShaderParser {
   /**
    * Parse raw XMML
    * @param  {string}               whole string code of XMML
@@ -15,12 +15,12 @@ class XMMLParser {
    */
     public static parseCombined(codeString: string): IParsedProgramResult {
         var materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-        var result = XMMLParser.parseImport(codeString,materialManager);
-        var uniforms = XMMLParser._parseVariables(codeString,"uniform");
-        var attributes = XMMLParser._parseVariables(codeString,"attribute");
-        var fragment = XMMLParser._removeOtherPart(result,"vertonly");
-        var vertex = XMMLParser._removeOtherPart(result,"fragonly");
-        fragment = XMMLParser._removeAttributeVariables(fragment);
+        var result = XMMLShaderParser.parseImport(codeString,materialManager);
+        var uniforms = XMMLShaderParser._parseVariables(codeString,"uniform");
+        var attributes = XMMLShaderParser._parseVariables(codeString,"attribute");
+        var fragment = XMMLShaderParser._removeOtherPart(result,"vertonly");
+        var vertex = XMMLShaderParser._removeOtherPart(result,"fragonly");
+        fragment = XMMLShaderParser._removeAttributeVariables(fragment);
         return {
           vertex:vertex,
           fragment:fragment,
@@ -71,7 +71,7 @@ class XMMLParser {
     private static _parseVariables(source:string,variableType:string):{[name:string]:IVariableInfo}
     {
       var result = <{[name:string]:IVariableInfo}>{};
-      var regex = XMMLParser._generateVariableFetchRegex(variableType);
+      var regex = XMMLShaderParser._generateVariableFetchRegex(variableType);
       var regexResult;
       while((regexResult = regex.exec(source)))
       {
@@ -137,4 +137,4 @@ class XMMLParser {
     }
 }
 
-export = XMMLParser;
+export = XMMLShaderParser;

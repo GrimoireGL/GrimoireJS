@@ -1,6 +1,6 @@
 
 import UniformRegisterBase = require("../Registers/UniformRegisterBase");
-import XMMLParser = require("./XMMLParser");
+import XMMLShaderParser = require("./XMMLShaderParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
 import Delegates = require("../../../Base/Delegates");
@@ -36,7 +36,7 @@ class MaterialManager implements IContextComponent
    */
   public addShaderChunk(key:string,val:string):void
   {
-    this._shaderChunks[key] = XMMLParser.parseImport(val,this);
+    this._shaderChunks[key] = XMMLShaderParser.parseImport(val,this);
   }
 
   /**
