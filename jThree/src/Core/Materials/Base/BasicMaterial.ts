@@ -11,6 +11,7 @@ import ResolvedChainInfo = require("../../Renderers/ResolvedChainInfo");
 import MaterialPass = require("./MaterialPass");
 import Material = require('../Material');
 import Delegates = require("../../../Base/Delegates");
+import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
 
 class BasicMaterial extends Material {
     private _passes: MaterialPass[] = [];
@@ -99,6 +100,14 @@ class BasicMaterial extends Material {
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
         super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
         const targetPass = this._passes[passIndex];
+        targetPass.configureMaterial(<IMaterialConfigureArgument>{
+          scene:scene,
+          renderer:renderStage,
+          object:object,
+          textureResource:texs,
+          techniqueIndex:techniqueIndex,
+          passIndex:passIndex
+        });
     }
 
     private _parseMaterialDocument(source: string): void {
