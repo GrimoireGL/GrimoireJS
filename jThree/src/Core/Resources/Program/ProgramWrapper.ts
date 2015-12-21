@@ -1,3 +1,4 @@
+import Matrix = require("../../../Math/Matrix");
 import Program = require("./Program");
 import Canvas = require("../../Canvas");
 import ResourceWrapper = require('../ResourceWrapper');
@@ -139,6 +140,13 @@ class ProgramWrapper extends ResourceWrapper {
       bufWrapper.bindBuffer();
       this.GL.enableVertexAttribArray(attribIndex);
       this.GL.vertexAttribPointer(attribIndex,buffer.UnitCount,buffer.ElementType,buffer.Normalized,buffer.Stride,buffer.Offset);
+    }
+
+    public uniformMatrix(variableName:string,mat:Matrix):void
+    {
+      const location = this._fetchUniformLocation(variableName);
+      if(location < 0)return;
+      this.GL.uniformMatrix4fv(location,false,<Float32Array>mat.rawElements);
     }
 }
 

@@ -1,3 +1,6 @@
+import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
+import IVariableInfo = require("./IVariableInfo");
+import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
 import XMMLShaderParser = require("./XMMLShaderParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
@@ -23,7 +26,7 @@ class MaterialManager implements IContextComponent
    */
   private _shaderChunks:{[key:string]:string} = {};
 
-  private _uniformRegisters:{[key:string]:any} ={};
+  private _uniformRegisters:{[key:string]:Delegates.Action4<WebGLRenderingContext,ProgramWrapper,IMaterialConfigureArgument,IVariableInfo>} ={};
 
   /**
    * Add shader chunk code to be stored.
@@ -45,7 +48,7 @@ class MaterialManager implements IContextComponent
     return this._shaderChunks[key];
   }
 
-  public addUniformRegister(key:string,register:any)
+  public addUniformRegister(key:string,register:Delegates.Action4<WebGLRenderingContext,ProgramWrapper,IMaterialConfigureArgument,IVariableInfo>)
   {
     this._uniformRegisters[key] = register;
   }

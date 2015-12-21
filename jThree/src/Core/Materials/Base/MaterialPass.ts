@@ -1,3 +1,5 @@
+import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
+import IVariableInfo = require("./IVariableInfo");
 import IParsedProgramResult = require("./IParsedProgramResult");
 import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
 import BasicMaterial = require("./BasicMaterial");
@@ -9,6 +11,7 @@ import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 import XMMLShaderParser = require("./XMMLShaderParser");
+import Delegates = require("../../../Base/Delegates");
 class MaterialPass {
     public fragmentShaderSource: string;
 
@@ -46,7 +49,7 @@ class MaterialPass {
         this.program = MaterialPass._resourceManager.createProgram(idPrefix + "-program", [this.vertexShader, this.fragmentShader]);
     }
 
-    public configureMaterial(matArg: IMaterialConfigureArgument): void {
+    public configureMaterial(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[]): void {
         const gl = matArg.renderStage.GL;
         const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
         //TODO fix all of these default value to be fetched from renderer default configuration
@@ -58,11 +61,9 @@ class MaterialPass {
         //Apply attribute variables by geometries
         matArg.object.Geometry.applyAttributeVariables(pWrapper, this._parsedProgram.attributes);
         //Apply uniform variables
-        this._applyUniformVariables(gl,matArg);
-    }
-
-    private _applyUniformVariables(gl: WebGLRenderingContext, matArg: IMaterialConfigureArgument): void {
-
+        uniformRegisters.forEach((r) => {
+            r(gl, pWrapper, matArg, this._parsedProgram.uniforms);
+        });
     }
 
     private static get _resourceManager(): ResourceManager {

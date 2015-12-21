@@ -1,3 +1,4 @@
+import IVariableInfo = require("./IVariableInfo");
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
@@ -15,7 +16,7 @@ import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
 class BasicMaterial extends Material {
     private _passes: MaterialPass[] = [];
 
-    private _uniformRegisters: Delegates.Action2<WebGLRenderingContext,IMaterialConfigureArgument>[] = [];
+    private _uniformRegisters: Delegates.Action4<WebGLRenderingContext,ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
 
     private static xmlSource: string
     = `<?xml version="1.0" encoding="UTF-8"?>
@@ -97,13 +98,13 @@ class BasicMaterial extends Material {
         super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
         const targetPass = this._passes[passIndex];
         targetPass.configureMaterial(<IMaterialConfigureArgument>{
-          scene:scene,
-          renderStage:renderStage,
-          object:object,
-          textureResource:texs,
-          techniqueIndex:techniqueIndex,
-          passIndex:passIndex
-        });
+            scene: scene,
+            renderStage: renderStage,
+            object: object,
+            textureResource: texs,
+            techniqueIndex: techniqueIndex,
+            passIndex: passIndex
+        }, this._uniformRegisters);
     }
 
     private _parseMaterialDocument(source: string): void {
