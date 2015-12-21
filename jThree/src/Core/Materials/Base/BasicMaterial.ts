@@ -24,9 +24,6 @@ class BasicMaterial extends Material {
     <uniform-register>
       <register name="jthree.basic.matrix"/>
     </uniform-register>
-    <attribute-register>
-      <register name="jthree.basic.geometry"/>
-    </attribute-register>
     <passes>
       <pass>
         <blend src="1" dest="1"/>

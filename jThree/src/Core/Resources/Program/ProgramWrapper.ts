@@ -4,7 +4,7 @@ import ResourceWrapper = require('../ResourceWrapper');
 import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import VariableRegisteringArgument = require("./VariableRegister/VariableRegisteringArgument");
 import VariableRegisterBase = require("./VariableRegister/Uniforms/UniformVariableRegisterBase");
-
+import Buffer = require("../Buffer/Buffer");
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, canvas: Canvas) {
         super(canvas);
@@ -124,6 +124,21 @@ class ProgramWrapper extends ResourceWrapper {
                 this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
             }
         }
+    }
+
+    /**
+     * Assign attribute variable. This method requires that this related program was already used.
+     * @param {string} variableName variable name to be assigned buffer
+     * @param {Buffer} buffer       actual variable buffer to be assigned
+     */
+    public assignAttributeVariable(variableName:string,buffer:Buffer):void
+    {
+      const attribIndex = this._fetchAttributeLocation(variableName);
+      if(attribIndex < 0)return; // When the variable was not found
+      const bufWrapper = buffer.getForContext(this.OwnerCanvas);
+      bufWrapper.bindBuffer();
+      this.GL.enableVertexAttribArray(attribIndex);
+      this.GL.vertexAttribPointer(attribIndex,buffer.UnitCount,buffer.ElementType,buffer.Normalized,buffer.Stride,buffer.Offset);
     }
 }
 
