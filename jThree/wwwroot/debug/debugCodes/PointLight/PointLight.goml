@@ -29,19 +29,19 @@
       <slight color="#FF00FF" position="-5,2,-3" rotation="euler(-50d,0,50d)" decay="0.3"/>
       <dlight color="#FFFFFF" intensity="0.4" shadow="true"/>
       <mesh geo="cube" mat="red" position="6,0,0">
-        <behaviors>
+        <!-- <behaviors>
             <behavior name="rotation" ratio="0.02"/>
-        </behaviors>
+        </behaviors> -->
       </mesh>
       <mesh geo="cube" mat="red" position="-6,0,0">
-        <behaviors>
+<!--         <behaviors>
             <behavior name="rotation" ratio="0.02"/>
-        </behaviors>
+        </behaviors> -->
       </mesh>
       <pmx scale="0.2" src="/resource/model/GUMI/GUMI.pmx" position="0,0,0">
-        <behaviors>
+<!--         <behaviors>
             <behavior name="rotation" ratio="0.02"/>
-        </behaviors>
+        </behaviors> -->
         <vmd id="melt" frame="0" src="/resource/motion/mens.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
       <pmx scale="0.1" src="/resource/model/stage/stage.pmx" position="0,0,0">

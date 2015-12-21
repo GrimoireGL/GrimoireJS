@@ -80,6 +80,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   }
 
   protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
+    console.error('This method "ConstructTarget" should be overridden.')
   }
 
   protected targetUpdated() {
@@ -98,10 +99,6 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
       }
     }
 
-  }
-
-  public parentChanged() {
-    this.applyHierarchy();
   }
 
   protected targetSceneObject: SceneObject;

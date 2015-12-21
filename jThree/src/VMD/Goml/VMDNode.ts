@@ -35,32 +35,33 @@ class VMDNode extends GomlTreeNodeBase {
       "src": {
         value: "",
         converter: "string",
+        onchanged: this._onSrcAttrChanged,
       },
       "frame": {
         value: 0,
         converter: "number",
+        onchanged: this._onFrameAttrChanged,
       },
       "enabled": {
         value: false,
         converter: "boolean",
+        onchanged: (attr) => {
+          this.enabled = attr.Value;
+        },
       },
       "autoSpeed": {
         value: "0",
         converter: "number",
+        onchanged: (attr) => {
+          this.autoSpeed = attr.Value;
+        },
       }
     });
-    this.on('parent-added', ((parent) => {
-      this.targetPMX = parent;
-      this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
-    }).bind(this));
-    this.attributes.getAttribute('src').on('changed', this._onSrcAttrChanged.bind(this));
-    this.attributes.getAttribute('frame').on('changed', this._onFrameAttrChanged.bind(this));
-    this.attributes.getAttribute('enabled').on('changed', ((attr) => {
-      this.enabled = attr.Value;
-    }).bind(this));
-    this.attributes.getAttribute('autoSpeed').on('changed', ((attr) => {
-      this.autoSpeed = attr.Value;
-    }).bind(this));
+  }
+
+  protected nodeWillMount(parent): void {
+    this.targetPMX = parent;
+    this.targetPMX.on('loaded', () => { this.attributes.updateValue(); });
   }
 
   private _onSrcAttrChanged(attr): void {

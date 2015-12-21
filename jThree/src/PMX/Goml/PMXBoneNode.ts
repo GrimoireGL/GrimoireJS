@@ -13,11 +13,12 @@ class PMXBoneNode extends SceneObjectNodeBase {
 
 	constructor() {
 		super();
-		this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
+		this.targetPMX.on('loaded', () => { this.attributes.updateValue(); });
 		this.attributes.defineAttribute({
 			"name": {
 				value: "",
 				converter: "string",
+				onchanged: this._onNameAttrChanged,
 			}
 		});
 	}
@@ -36,7 +37,8 @@ class PMXBoneNode extends SceneObjectNodeBase {
 		}
 	}
 
-	private _onParentAdded(parent): void {
+	protected nodeWillMount(parent): void {
+		super.nodeWillMount(parent);
 		if (parent.getTypeName() === "PMXBonesNode") {
 			this.targetPMX = (<PMXBonesNode>parent).TargetPMXNode;
 		}

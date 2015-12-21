@@ -9,6 +9,7 @@ import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceLoader = require("../../Core/ResourceLoader");
 import Q = require("q");
+
 class PMXNode extends SceneObjectNodeBase {
   private pmxModel: PMXModel = null;
 
@@ -20,38 +21,33 @@ class PMXNode extends SceneObjectNodeBase {
     return this.PMXModel != null;
   }
 
-  private pmxTargetUpdated: JThreeEvent<PMXModel> = new JThreeEvent<PMXModel>();
-
   private pmxLoadingDeferred: Q.Deferred<void>;
-
-  public onPMXTargetUpdate(handler: Delegates.Action2<PMXNode, PMXModel>) {
-    this.pmxTargetUpdated.addListener(handler);
-  }
 
   constructor() {
     super();
     this.pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered();
-    this.attributes.defineAttribute(
-      {
-        "src":
-        {
-          converter: "string", value: ""
-        }
+    this.attributes.defineAttribute({
+      "src": {
+        converter: "string",
+        value: "",
       }
-    )
+    })
   }
 
-  protected ConstructTarget(): SceneObject {
-    return this.pmxModel;
+  protected ConstructTarget(callbackfn): void {
+    this.on('loaded', () => {
+      callbackfn(this.pmxModel);
+    })
   }
 
-  public nodeDidMounted() {
-    super.nodeDidMounted();
+  public nodeWillMount(parent) {
+    super.nodeWillMount(parent);
     PMXModel.LoadFromUrl(this.attributes.getValue("src"))
       .then((m) => {
         this.pmxModel = m;
         this.targetUpdated();
-        this.pmxTargetUpdated.fire(this, m);
+        this.emit('loaded', m);
+        // this.pmxTargetUpdated.fire(this, m);
         // this.bubbleEvent("loaded",{target:this});
         this.pmxLoadingDeferred.resolve(null);
       });

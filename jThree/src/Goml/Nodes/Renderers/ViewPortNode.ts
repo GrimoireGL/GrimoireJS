@@ -161,7 +161,6 @@ class ViewPortNode extends GomlTreeNodeBase {
       var top = this.top > 1 ? this.top : H * this.top;
       var width = this.width > 1 ? this.width : W * this.width;
       var height = this.height > 1 ? this.height : H * this.height;
-      debugger;
       this.targetRenderer.region = new Rectangle(left, top, width, height);
 
       if ("Aspect" in this.targetRenderer.Camera) {//todo Camera�����n���h���o�^������
