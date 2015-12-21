@@ -26,12 +26,12 @@ class MaterialPass {
 
     constructor(passDocument: Element, materialName: string, index: number) {
         this._passDocument = passDocument;
-        this._parseGLSL(passDocument);
+        this._parseGLSL();
         this._constructProgram(materialName + index);
     }
 
-    private _parseGLSL(passDocument: Element): void {
-        const shaderCode = passDocument.getElementsByTagName("glsl").item(0).textContent;
+    private _parseGLSL(): void {
+        const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
         const parsedCodes = XMMLShaderParser.parseCombined(shaderCode);
         this._parsedProgram = parsedCodes;
         this.fragmentShaderSource = parsedCodes.fragment;

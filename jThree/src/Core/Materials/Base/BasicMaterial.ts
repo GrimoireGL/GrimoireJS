@@ -2,7 +2,6 @@ import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase")
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
-import UniformRegisterBase = require("../Registers/UniformRegisterBase");
 import BasicRenderer = require("../../Renderers/BasicRenderer");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import Scene = require("../../Scene");
@@ -16,7 +15,7 @@ import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
 class BasicMaterial extends Material {
     private _passes: MaterialPass[] = [];
 
-    private _uniformRegisters: UniformRegisterBase[] = [];
+    private _uniformRegisters: Delegates.Action2<WebGLRenderingContext,IMaterialConfigureArgument>[] = [];
 
     private static xmlSource: string
     = `<?xml version="1.0" encoding="UTF-8"?>
@@ -130,15 +129,14 @@ class BasicMaterial extends Material {
     }
 
     private _initializeUniformRegisters(doc: Document) {
-        var registersDOM = doc.querySelectorAll("material > uniform-register > register");
+        const registersDOM = doc.querySelectorAll("material > uniform-register > register");
         for (var i = 0; i < registersDOM.length; i++) {
-            var registerDOM = registersDOM.item(i);
-            var registerConstructor = this._materialManager.getUniformRegister(registerDOM.attributes.getNamedItem("name").value);
-            if (!registerConstructor) continue;
-            this._uniformRegisters.push(new registerConstructor(registerDOM));
+            const registerDOM = registersDOM.item(i);
+            const registerFunction = this._materialManager.getUniformRegister(registerDOM.attributes.getNamedItem("name").value);
+            if (!registerFunction) continue;
+            this._uniformRegisters.push(registerFunction);
         }
     }
-
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
     }

@@ -1,10 +1,7 @@
-
-import UniformRegisterBase = require("../Registers/UniformRegisterBase");
 import XMMLShaderParser = require("./XMMLShaderParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
 import Delegates = require("../../../Base/Delegates");
-import BasicMaterixRegister = require("../Registers/BasicMatrixRegister");
 /**
  * A ContextComponent provides the feature to manage materials.
  * @type {[type]}
@@ -14,7 +11,6 @@ class MaterialManager implements IContextComponent
   constructor()
   {
     this.addShaderChunk("jthree.builtin.vertex",require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
-    this.addUniformRegister("jthree.basic.matrix",BasicMaterixRegister);
   }
 
   public getContextComponentIndex():number
