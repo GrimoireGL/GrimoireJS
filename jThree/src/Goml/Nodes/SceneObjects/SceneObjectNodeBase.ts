@@ -14,8 +14,12 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         value: new Vector3(0, 0, 0),
         converter: "vector3",
         onchanged: (attr) => {
-          if (this.targetSceneObject != null) {
+          if (this.targetSceneObject) {
             this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+            });
           }
         }
       },
@@ -23,8 +27,12 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         value: new Vector3(1, 1, 1),
         converter: "vector3",
         onchanged: (attr) => {
-          if (this.targetSceneObject != null) {
+          if (this.targetSceneObject) {
             this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+            });
           }
         }
       },
@@ -32,8 +40,12 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         value: Quaternion.Identity,
         converter: "rotation",
         onchanged: (attr) => {
-          if (this.targetSceneObject != null) {
-            this.targetSceneObject.Transformer.Rotation = attr.Value;
+          if (this.targetSceneObject) {
+            this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+            });
           }
         }
       },
@@ -41,8 +53,12 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         value: undefined,
         converter: "string",
         onchanged: (attr) => {
-          if (this.targetSceneObject && attr.Value) {
+          if (this.targetSceneObject) {
             this.targetSceneObject.name = attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.name = attr.Value;
+            });
           }
         }
       }
@@ -71,10 +87,14 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
 
     this.ConstructTarget((sceneObject) => {
       this.targetSceneObject = sceneObject;
-      if (this.targetSceneObject == null) return;
+      if (!this.targetSceneObject) {
+        console.error('sceneObject is invalid.');
+        return;
+      }
+      this.emit('target-scene-object-added');
       if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
         this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
-      //append targetObject to parent
+      //append targetObject to parentt
       this.applyHierarchy();
     });
   }
@@ -88,24 +108,15 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   }
 
   private applyHierarchy() {
-    if (!this.targetSceneObject) {
-      console.error("SceneObject node must override ConstructTarget and return the object extending SceneObjnect");
+    if (this.parentSceneObjectNode == null) { //this is root object of scene
+      this.containedSceneNode.targetScene.addObject(this.targetSceneObject);
     } else {
-      if (this.parentSceneObjectNode == null)//this is root object of scene
-        this.containedSceneNode.targetScene.addObject(this.targetSceneObject);
-      else {
-        if (this.parentSceneObjectNode.targetSceneObject == null) return;
-        this.parentSceneObjectNode.targetSceneObject.addChild(this.targetSceneObject);
-      }
+      if (this.parentSceneObjectNode.targetSceneObject == null) return;
+      this.parentSceneObjectNode.targetSceneObject.addChild(this.targetSceneObject);
     }
-
   }
 
   protected targetSceneObject: SceneObject;
-
-  public get TargetObject() {
-    return this.targetSceneObject;
-  }
 
   /**
   * SceneNode containing this node

@@ -37,14 +37,14 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       const cb = this.nodeWillUnmount;
       if (cb) { cb.bind(this)(parent) }
     });
-    this.on('node-did-mounted', () => {
-      const cb = this.nodeDidMounted;
-      if (cb) { cb.bind(this)() }
-    });
-    this.on('node-did-unmouted', () => {
-      const cb = this.nodeDidUnmounted;
-      if (cb) { cb.bind(this)() }
-    });
+    // this.on('node-did-mounted', () => {
+    //   const cb = this.nodeDidMounted;
+    //   if (cb) { cb.bind(this)() }
+    // });
+    // this.on('node-did-unmouted', () => {
+    //   const cb = this.nodeDidUnmounted;
+    //   if (cb) { cb.bind(this)() }
+    // });
   }
 
   /**
@@ -71,8 +71,8 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       this.emit('just-before-node-mounted-update', mounted);
       this.mounted = mounted;
       if (this.mounted) {
-        console.log('node-did-mounted', this);
-        this.emit('node-did-mounted');
+        // console.log('node-did-mounted', this);
+        // this.emit('node-did-mounted');
         this.children.forEach((child) => {
           console.log('node-will-mount', child);
           child.emit('node-will-mount', this);
