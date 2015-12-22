@@ -2,7 +2,7 @@ import Matrix = require("../../../../Math/Matrix");
 import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("../IVariableInfo");
 import IMaterialConfigureArgument = require("../IMaterialConfigureArgument");
-export = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IMaterialConfigureArgument, uniforms: { [key: string]: IVariableInfo }) => {
+const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IMaterialConfigureArgument, uniforms: { [key: string]: IVariableInfo }) => {
     if (uniforms["_matM"])
         pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
     if (uniforms["_matV"])
@@ -16,3 +16,5 @@ export = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IMaterial
     if (uniforms["_matPVM"])
         pWrapper.uniformMatrix("_matPVM", matArg.object.Transformer.calculateMVPMatrix(matArg.renderStage.Renderer));
 }
+
+export = BasicMatrixRegisterer;
