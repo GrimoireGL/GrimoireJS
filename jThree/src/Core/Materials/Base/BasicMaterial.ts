@@ -16,7 +16,7 @@ import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
 class BasicMaterial extends Material {
     private _passes: MaterialPass[] = [];
 
-    private _uniformRegisters: Delegates.Action4<WebGLRenderingContext,ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
+    private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
 
     private static xmlSource: string
     = `<?xml version="1.0" encoding="UTF-8"?>
@@ -104,7 +104,7 @@ class BasicMaterial extends Material {
             textureResource: texs,
             techniqueIndex: techniqueIndex,
             passIndex: passIndex
-        }, this._uniformRegisters);
+        }, this._uniformRegisters,this);
     }
 
     private _parseMaterialDocument(source: string): void {

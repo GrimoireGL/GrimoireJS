@@ -1,3 +1,7 @@
+import Vector4 = require("../../../Math/Vector4");
+import Vector3 = require("../../../Math/Vector3");
+import Vector2 = require("../../../Math/Vector2");
+import VectorBase = require("../../../Math/VectorBase");
 import Matrix = require("../../../Math/Matrix");
 import Program = require("./Program");
 import Canvas = require("../../Canvas");
@@ -76,13 +80,11 @@ class ProgramWrapper extends ResourceWrapper {
         return this._uniformLocations.get(valName);
     }
 
-    private _fetchAttributeLocation(valName:string):number
-    {
-      if(!this._attributeLocations.has(valName))
-      {
-        this._attributeLocations.set(valName,this.GL.getAttribLocation(this.TargetProgram,valName));
-      }
-      return this._attributeLocations.get(valName);
+    private _fetchAttributeLocation(valName: string): number {
+        if (!this._attributeLocations.has(valName)) {
+            this._attributeLocations.set(valName, this.GL.getAttribLocation(this.TargetProgram, valName));
+        }
+        return this._attributeLocations.get(valName);
     }
 
     /**
@@ -109,7 +111,7 @@ class ProgramWrapper extends ResourceWrapper {
                 var uniform = variables.uniforms[uniformKey];
                 uniform['context'] = this.OwnerCanvas;
                 var index = this._fetchUniformLocation(uniformKey);
-                if(index == -1)continue;
+                if (index == -1) continue;
                 var registerer = this._uniformRegisterTypeList[uniform.type];
                 registerer.registerVariable(this.GL, index, uniform.value, uniform);
             }
@@ -132,21 +134,44 @@ class ProgramWrapper extends ResourceWrapper {
      * @param {string} variableName variable name to be assigned buffer
      * @param {Buffer} buffer       actual variable buffer to be assigned
      */
-    public assignAttributeVariable(variableName:string,buffer:Buffer):void
-    {
-      const attribIndex = this._fetchAttributeLocation(variableName);
-      if(attribIndex < 0)return; // When the variable was not found
-      const bufWrapper = buffer.getForContext(this.OwnerCanvas);
-      bufWrapper.bindBuffer();
-      this.GL.enableVertexAttribArray(attribIndex);
-      this.GL.vertexAttribPointer(attribIndex,buffer.UnitCount,buffer.ElementType,buffer.Normalized,buffer.Stride,buffer.Offset);
+    public assignAttributeVariable(variableName: string, buffer: Buffer): void {
+        const attribIndex = this._fetchAttributeLocation(variableName);
+        if (attribIndex < 0) return; // When the variable was not found
+        const bufWrapper = buffer.getForContext(this.OwnerCanvas);
+        bufWrapper.bindBuffer();
+        this.GL.enableVertexAttribArray(attribIndex);
+        this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
     }
 
-    public uniformMatrix(variableName:string,mat:Matrix):void
+    public uniformMatrix(variableName: string, mat: Matrix): void {
+        const location = this._fetchUniformLocation(variableName);
+        if (location < 0) return;
+        this.GL.uniformMatrix4fv(location, false, <Float32Array>mat.rawElements);
+    }
+
+    public uniformVector(variableName: string, vec: VectorBase): void {
+        const location = this._fetchUniformLocation(variableName);
+        if (location < 0) return;
+        switch (vec.ElementCount) {
+            case 2:
+                this.GL.uniform2f(location, (<Vector2>vec).X, (<Vector2>vec).Y);
+                return;
+            case 3:
+                this.GL.uniform3f(location, (<Vector3>vec).X, (<Vector3>vec).Y, (<Vector3>vec).Z);
+                return;
+            case 4:
+                this.GL.uniform4f(location, (<Vector4>vec).X, (<Vector4>vec).Y, (<Vector4>vec).Z, (<Vector4>vec).W);
+                return;
+            default:
+                console.error("Unexpected element count of vector!");
+        }
+    }
+
+    public uniformFloat(variableName:string,val:number):void
     {
       const location = this._fetchUniformLocation(variableName);
       if(location < 0)return;
-      this.GL.uniformMatrix4fv(location,false,<Float32Array>mat.rawElements);
+      this.GL.uniform1f(location,val);
     }
 }
 

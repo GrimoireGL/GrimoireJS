@@ -1,3 +1,7 @@
+import Matrix = require("../../Math/Matrix");
+import VectorBase = require("../../Math/VectorBase");
+import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
+import IVariableInfo = require("./Base/IVariableInfo");
 import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import BasicRenderer = require("../Renderers/BasicRenderer");
 import SceneObject = require("../SceneObject");
@@ -28,6 +32,8 @@ class Material extends JThreeObjectWithID {
    * Whether this material was initialized already or not.
    */
     private initialized:boolean=false;
+
+    public materialVariables:{[key:string]:any} = {};
 
     /**
     * Set loaded status of this material.
@@ -160,6 +166,27 @@ class Material extends JThreeObjectWithID {
       if(lowerCaseBlendConfig == "destalpha")return renderer.GL.DST_ALPHA;
       if(lowerCaseBlendConfig == "destcolor")return renderer.GL.DST_COLOR;
       console.error("Unsupported blend config!");
+    }
+
+    public registerMaterialVariables(pWrapper:ProgramWrapper,uniforms:{[key:string]:IVariableInfo}):void
+    {
+      for(let valName in uniforms)
+      {
+        let uniform = uniforms[valName];
+        if(typeof this.materialVariables[valName] === "undefined")continue;
+        if(uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4")
+        {
+          pWrapper.uniformVector(valName,<VectorBase>this.materialVariables[valName]);
+        }
+        if(uniform.variableType === "mat4")
+        {
+          pWrapper.uniformMatrix(valName,<Matrix>this.materialVariables[valName]);
+        }
+        if(uniform.variableType === "float")
+        {
+          pWrapper.uniformFloat(valName,<number>this.materialVariables[valName])
+        }
+      }
     }
 
     /**

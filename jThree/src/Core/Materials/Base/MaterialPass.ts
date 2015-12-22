@@ -1,3 +1,4 @@
+import Material = require("../Material");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./IVariableInfo");
 import IParsedProgramResult = require("./IParsedProgramResult");
@@ -49,7 +50,7 @@ class MaterialPass {
         this.program = MaterialPass._resourceManager.createProgram(idPrefix + "-program", [this.vertexShader, this.fragmentShader]);
     }
 
-    public configureMaterial(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[]): void {
+    public configureMaterial(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[],material:Material): void {
         const gl = matArg.renderStage.GL;
         const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
         //TODO fix all of these default value to be fetched from renderer default configuration
@@ -64,6 +65,7 @@ class MaterialPass {
         uniformRegisters.forEach((r) => {
             r(gl, pWrapper, matArg, this._parsedProgram.uniforms);
         });
+        material.registerMaterialVariables(pWrapper,this._parsedProgram.uniforms);
     }
 
     private static get _resourceManager(): ResourceManager {
