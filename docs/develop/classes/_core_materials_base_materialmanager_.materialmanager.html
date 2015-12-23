@@ -110,14 +110,17 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_materials_base_materialmanager_.materialmanager.html#_shaderchunks" class="tsd-kind-icon">_shader<wbr>Chunks</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_materials_base_materialmanager_.materialmanager.html#_uniformregisters" class="tsd-kind-icon">_uniform<wbr>Registers</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_materials_base_materialmanager_.materialmanager.html#addshaderchunk" class="tsd-kind-icon">add<wbr>Shader<wbr>Chunk</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_materials_base_materialmanager_.materialmanager.html#adduniformregister" class="tsd-kind-icon">add<wbr>Uniform<wbr>Register</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_materials_base_materialmanager_.materialmanager.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_materials_base_materialmanager_.materialmanager.html#getshaderchunk" class="tsd-kind-icon">get<wbr>Shader<wbr>Chunk</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_materials_base_materialmanager_.materialmanager.html#getuniformregister" class="tsd-kind-icon">get<wbr>Uniform<wbr>Register</a></li>
 							</ul>
 						</section>
 					</div>
@@ -135,7 +138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L8">Core/Materials/Base/MaterialManager.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L13">Core/Materials/Base/MaterialManager.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_materials_base_materialmanager_.materialmanager.html" class="tsd-signature-type">MaterialManager</a></h4>
@@ -151,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">_shader<wbr>Chunks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L22">Core/Materials/Base/MaterialManager.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L26">Core/Materials/Base/MaterialManager.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -164,6 +167,24 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-index-signature">
 								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_uniformregisters" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _uniform<wbr>Registers</h3>
+					<div class="tsd-signature tsd-kind-icon">_uniform<wbr>Registers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L28">Core/Materials/Base/MaterialManager.ts:28</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="../interfaces/_base_delegates_.action4.html" class="tsd-signature-type">Action4</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 						</ul>
 					</div>
@@ -181,7 +202,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L29">Core/Materials/Base/MaterialManager.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L35">Core/Materials/Base/MaterialManager.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -209,6 +230,32 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="adduniformregister" class="tsd-anchor"></a>
+					<h3>add<wbr>Uniform<wbr>Register</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Uniform<wbr>Register<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, register<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action4.html" class="tsd-signature-type">Action4</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L48">Core/Materials/Base/MaterialManager.ts:48</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>register: <a href="../interfaces/_base_delegates_.action4.html" class="tsd-signature-type">Action4</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getcontextcomponentindex" class="tsd-anchor"></a>
 					<h3>get<wbr>Context<wbr>Component<wbr>Index</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -219,7 +266,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_icontextcomponent_.icontextcomponent.html">IContextComponent</a>.<a href="../interfaces/_icontextcomponent_.icontextcomponent.html#getcontextcomponentindex">getContextComponentIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L14">Core/Materials/Base/MaterialManager.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L19">Core/Materials/Base/MaterialManager.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -236,7 +283,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L39">Core/Materials/Base/MaterialManager.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L44">Core/Materials/Base/MaterialManager.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -255,6 +302,29 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 							<p>stored shader chunk code</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getuniformregister" class="tsd-anchor"></a>
+					<h3>get<wbr>Uniform<wbr>Register</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Uniform<wbr>Register<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialManager.ts#L52">Core/Materials/Base/MaterialManager.ts:52</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -284,14 +354,23 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_materials_base_materialmanager_.materialmanager.html#_shaderchunks" class="tsd-kind-icon">_shader<wbr>Chunks</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_materials_base_materialmanager_.materialmanager.html#_uniformregisters" class="tsd-kind-icon">_uniform<wbr>Registers</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_materials_base_materialmanager_.materialmanager.html#addshaderchunk" class="tsd-kind-icon">add<wbr>Shader<wbr>Chunk</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_materials_base_materialmanager_.materialmanager.html#adduniformregister" class="tsd-kind-icon">add<wbr>Uniform<wbr>Register</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_materials_base_materialmanager_.materialmanager.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_materials_base_materialmanager_.materialmanager.html#getshaderchunk" class="tsd-kind-icon">get<wbr>Shader<wbr>Chunk</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_materials_base_materialmanager_.materialmanager.html#getuniformregister" class="tsd-kind-icon">get<wbr>Uniform<wbr>Register</a>
 							</li>
 						</ul>
 					</li>
