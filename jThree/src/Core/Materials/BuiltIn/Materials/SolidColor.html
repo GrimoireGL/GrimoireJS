@@ -5,8 +5,8 @@
 </uniform-register>
 <passes>
   <pass>
-    <blend enabled="true" srcColor="srcalpha" dstColor="oneminussrcalpha" srcAlpha="1" dstAlpha="0"/>
-    <depth enabled="true"/>
+    <blend enabled="false" srcColor="srcalpha" dstColor="oneminussrcalpha" srcAlpha="1" dstAlpha="0"/>
+    <depth enabled="false"/>
     <cull enabled="true" orientation="ccw"/>
     <glsl>
       <![CDATA[
@@ -42,7 +42,7 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(1,0.8,1,1);
+        gl_FragColor = vec4(0.3,0,0.7,1);
       }
 
       ]]>
