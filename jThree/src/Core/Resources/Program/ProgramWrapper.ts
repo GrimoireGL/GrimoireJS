@@ -54,6 +54,10 @@ class ProgramWrapper extends ResourceWrapper {
     public linkProgram(): void {
         if (!this._islinked) {
             this.GL.linkProgram(this._targetProgram);
+            if(!this.GL.getProgramParameter(this._targetProgram,this.GL.LINK_STATUS))
+            {
+              console.error(`LINK ERROR:${this.GL.getProgramInfoLog(this._targetProgram)}`);
+            }
             this._islinked = true;
         }
     }

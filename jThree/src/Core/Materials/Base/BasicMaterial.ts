@@ -31,14 +31,19 @@ class BasicMaterial extends Material {
         <cull enabled="true" orientation="ccw"/>
         <glsl>
           <![CDATA[
-          //@import jthree.builtin.vertex
 
           attribute vec3 position;
           attribute vec3 normal;
           attribute vec2 uv;
 
+          //@vertonly {
+          //@import jthree.builtin.vertex
+            uniform mat4 _matPVM;
+            uniform mat4 _matVM;
+          //}
+
           varying vec3 vNormal;
-          varying  vec2 vUv;
+          varying vec2 vUv;
           varying vec4 vPosition;
 
           vec2 calcLightUV(vec4 projectionSpacePos)
@@ -49,10 +54,10 @@ class BasicMaterial extends Material {
           //@vertonly
           void main(void)
           {
-            BasicVertexTransformOutput out =  basicVertexTransform(position,normal,uv,matMVP,matMV);
-            gl_Position = vPosition = out.position;
-            vNormal = out.normal;
-            vUv = out.normal;
+            BasicVertexTransformOutput o =  basicVertexTransform(position,normal,uv,_matPVM,_matVM);
+            gl_Position = vPosition = o.position;
+            vNormal = o.normal;
+            vUv = o.uv;
           }
 
           //@fragonly
@@ -60,6 +65,7 @@ class BasicMaterial extends Material {
           {
             gl_FragColor = vec4(1,0,0,1);
           }
+
           ]]>
         </glsl>
       </pass>

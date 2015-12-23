@@ -44,7 +44,7 @@ class MaterialPass {
 
     private _constructProgram(idPrefix: string): void {
         this.fragmentShader = MaterialPass._resourceManager.createShader(idPrefix + "-fs", this.fragmentShaderSource, ShaderType.FragmentShader);
-        this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs", this.fragmentShaderSource, ShaderType.VertexShader);
+        this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs", this.vertexShaderSource, ShaderType.VertexShader);
         this.fragmentShader.loadAll();
         this.vertexShader.loadAll();
         this.program = MaterialPass._resourceManager.createProgram(idPrefix + "-program", [this.vertexShader, this.fragmentShader]);

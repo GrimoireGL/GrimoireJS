@@ -23,8 +23,17 @@ class ShaderWrapper extends ResourceWrapper
             this.targetShader = this.GL.createShader(this.parentShader.ShaderType);
             this.GL.shaderSource(this.targetShader, this.parentShader.ShaderSource);
             this.GL.compileShader(this.targetShader);
+            this._checkCompileStatus();
             this.setInitialized(true);
         }
+    }
+
+    private _checkCompileStatus()
+    {
+      if(!this.GL.getShaderParameter(this.targetShader,this.GL.COMPILE_STATUS))
+      {
+        console.error(`Compile error!:${this.GL.getShaderInfoLog(this.targetShader)}`);
+      }
     }
 
     public dispose() {
