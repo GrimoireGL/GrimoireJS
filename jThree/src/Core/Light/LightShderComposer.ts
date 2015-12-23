@@ -36,7 +36,7 @@ class LightShaderComposer extends JThreeObjectWithId
         this.shaderCache = this.generateLightShaderSource();
         this.resourceManager = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.shader = this.resourceManager.createShader(this.ID + ".jthree.light."+idSuffix, "", ShaderType.FragmentShader);
-        this.shader.loadAll();
+        //this.shader.loadAll();
     }
 
     /**

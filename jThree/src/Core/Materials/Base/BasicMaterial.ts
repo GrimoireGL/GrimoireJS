@@ -17,64 +17,10 @@ class BasicMaterial extends Material {
     private _passes: MaterialPass[] = [];
 
     private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
-
-    private static xmlSource: string
-    = `<?xml version="1.0" encoding="UTF-8"?>
-  <material name="jthree.basic.material1" group="jthree.materials.forematerial" order="300">
-    <uniform-register>
-      <register name="jthree.basic.matrix"/>
-    </uniform-register>
-    <passes>
-      <pass>
-        <blend src="1" dest="1"/>
-        <depth enabled="false"/>
-        <cull enabled="true" orientation="ccw"/>
-        <glsl>
-          <![CDATA[
-
-          attribute vec3 position;
-          attribute vec3 normal;
-          attribute vec2 uv;
-
-          //@vertonly {
-          //@import jthree.builtin.vertex
-            uniform mat4 _matPVM;
-            uniform mat4 _matVM;
-          //}
-
-          varying vec3 vNormal;
-          varying vec2 vUv;
-          varying vec4 vPosition;
-
-          vec2 calcLightUV(vec4 projectionSpacePos)
-          {
-             return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;
-          }
-
-          //@vertonly
-          void main(void)
-          {
-            BasicVertexTransformOutput o =  basicVertexTransform(position,normal,uv,_matPVM,_matVM);
-            gl_Position = vPosition = o.position;
-            vNormal = o.normal;
-            vUv = o.uv;
-          }
-
-          //@fragonly
-          void main(void)
-          {
-            gl_FragColor = vec4(1,0,0,1);
-          }
-
-          ]]>
-        </glsl>
-      </pass>
-    </passes>
-  </material>
-`;
-    constructor() {
+    
+    constructor(sourceString:string) {
         super();
-        this._parseMaterialDocument(BasicMaterial.xmlSource);
+        this._parseMaterialDocument(sourceString);
     }
 
     /**

@@ -16,7 +16,6 @@ import NodeManager = require("./Goml/NodeManager");
 import Debugger = require("./Debug/Debugger");
 import GomlLoader = require("./Goml/GomlLoader");
 import ResourceLoader = require("./Core/ResourceLoader");
-import BasicMaterial = require("./Core/Materials/Base/BasicMaterial")
 
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
@@ -112,7 +111,6 @@ class JThreeInit {
         var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
         resourceLoader.promise.then(() => {
             JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
-            var material = new BasicMaterial();
         });
     }
 }
