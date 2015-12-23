@@ -1,10 +1,10 @@
 class XMMLRenderConfigUtility {
-    public static applyCullConfigure(gl: WebGLRenderingContext, elem: Element, defEnabled: boolean, defDirection: string): void {
+    public static applyCullConfigure(gl: WebGLRenderingContext, elem: Element, defDirection: string): void {
         const cullNode = elem.querySelector("cull");
-        if (!cullNode) XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defEnabled, defDirection);
+        if (!cullNode) XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
         const modeStr = cullNode.getAttribute("mode");
         if (!modeStr) {
-            XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defEnabled, defDirection);
+            XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
         } else {
             if (modeStr == "none")
                 XMMLRenderConfigUtility._applyCullConfigureToGL(gl, false, "");

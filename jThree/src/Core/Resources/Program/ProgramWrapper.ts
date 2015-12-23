@@ -1,3 +1,4 @@
+import TextureBase = require("../Texture/TextureBase");
 import Vector4 = require("../../../Math/Vector4");
 import Vector3 = require("../../../Math/Vector3");
 import Vector2 = require("../../../Math/Vector2");
@@ -176,6 +177,18 @@ class ProgramWrapper extends ResourceWrapper {
       const location = this._fetchUniformLocation(variableName);
       if(location < 0)return;
       this.GL.uniform1f(location,val);
+    }
+
+    public uniformTexture2D(variableName:string,tex:TextureBase,texRegister:number):number
+    {
+      const location = this._fetchUniformLocation(variableName);
+      const texWrapper = tex.getForContext(this.OwnerCanvas);
+      if(location < 0)return -1;
+      if(texWrapper.Initialized)
+      {
+        if(texWrapper.registerTexture(texRegister))
+        this.GL.uniform1i(location,texRegister);
+      }
     }
 }
 
