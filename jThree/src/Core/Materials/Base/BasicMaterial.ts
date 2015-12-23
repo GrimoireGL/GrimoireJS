@@ -20,7 +20,7 @@ class BasicMaterial extends Material {
 
     private static xmlSource: string
     = `<?xml version="1.0" encoding="UTF-8"?>
-  <material name="jthree.basic.phong" group="jthree.basic.forematerial" order="300">
+  <material name="jthree.basic.material1" group="jthree.materials.forematerial" order="300">
     <uniform-register>
       <register name="jthree.basic.matrix"/>
     </uniform-register>
@@ -41,19 +41,6 @@ class BasicMaterial extends Material {
           varying  vec2 vUv;
           varying vec4 vPosition;
 
-          uniform sampler2D dlight;
-          uniform sampler2D slight;
-          //@(test:variable,test2:variable2)
-          uniform vec3 ambientCoefficient;
-
-          uniform vec4 diffuse;
-          uniform vec3 specular;
-          uniform float brightness;
-          uniform vec4 ambient;
-          uniform int textureUsed;
-          uniform sampler2D texture;
-
-
           vec2 calcLightUV(vec4 projectionSpacePos)
           {
              return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;
@@ -62,7 +49,7 @@ class BasicMaterial extends Material {
           //@vertonly
           void main(void)
           {
-          BasicVertexTransformOutput out =  basicVertexTransform(position,normal,uv,matMVP,matMV);
+            BasicVertexTransformOutput out =  basicVertexTransform(position,normal,uv,matMVP,matMV);
             gl_Position = vPosition = out.position;
             vNormal = out.normal;
             vUv = out.normal;
@@ -71,13 +58,7 @@ class BasicMaterial extends Material {
           //@fragonly
           void main(void)
           {
-            vec2 adjuv=vUv;
-            gl_FragColor=vec4(0,0,0,1);
-            //gl_FragColor.rgb+=ambient.rgb;
-            ////calculate light uv
-            vec2 lightUV=calcLightUV(vPosition);
-            gl_FragColor.rgb+=texture2D(dlight,lightUV).rgb+texture2D(slight,lightUV).rgb;
-            gl_FragColor.rgb +=ambient.rgb;
+            gl_FragColor = vec4(1,0,0,1);
           }
           ]]>
         </glsl>
@@ -95,16 +76,18 @@ class BasicMaterial extends Material {
 * This is used for passing variables,using programs,binding index buffer.
 */
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
-        super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
+        //super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
         const targetPass = this._passes[passIndex];
-        targetPass.configureMaterial(<IMaterialConfigureArgument>{
+        const matArg = <IMaterialConfigureArgument>{
             scene: scene,
             renderStage: renderStage,
             object: object,
             textureResource: texs,
             techniqueIndex: techniqueIndex,
             passIndex: passIndex
-        }, this._uniformRegisters,this);
+        };
+        targetPass.configureMaterial(matArg, this._uniformRegisters,this);
+        this.__bindIndexBuffer(matArg);
     }
 
     private _parseMaterialDocument(source: string): void {
@@ -119,6 +102,7 @@ class BasicMaterial extends Material {
         }
         this._parsePasses(xmml);
         this._initializeUniformRegisters(xmml);
+        this.setLoaded();
     }
 
     private _parsePasses(doc: Document) {
@@ -137,6 +121,11 @@ class BasicMaterial extends Material {
             if (!registerFunction) continue;
             this._uniformRegisters.push(registerFunction);
         }
+    }
+
+    protected __bindIndexBuffer(matArg:IMaterialConfigureArgument)
+    {
+      matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
     }
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
