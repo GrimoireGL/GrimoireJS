@@ -71,7 +71,7 @@
     "superagent": "^1.4.0",
     "ts-loader": "^0.5.0",
     "tsify": "^0.12.2",
-    "txtify": "pnlybubbles/txtify#074ff0ecffbd394274d3401c524172e49c6fcee7",
+    "txtify": "jThreeJS/txtify#ab4d0fe28e3b1e94e349504688f6011143ad622c",
     "typedoc": "^0.3.8",
     "typescript": "^1.5.3",
     "vinyl-buffer": "^1.0.0",

@@ -1,3 +1,8 @@
+
+import Matrix = require("../../Math/Matrix");
+import VectorBase = require("../../Math/VectorBase");
+import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
+import IVariableInfo = require("./Base/IVariableInfo");
 import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import BasicRenderer = require("../Renderers/BasicRenderer");
 import SceneObject = require("../SceneObject");
@@ -28,6 +33,8 @@ class Material extends JThreeObjectWithID {
    * Whether this material was initialized already or not.
    */
     private initialized:boolean=false;
+
+    public materialVariables:{[key:string]:any} = {};
 
     /**
     * Set loaded status of this material.
@@ -139,26 +146,48 @@ class Material extends JThreeObjectWithID {
           config.blendArg1 = "srcAlpha"
           config.blendArg2 = "oneMinusSrcAlpha"
         }
-        renderer.GL.blendFunc(this.parseBlendVariable(config.blendArg1,renderer),this.parseBlendVariable(config.blendArg2,renderer));
+        renderer.GL.blendFunc(this._parseBlendConfig(config.blendArg1,renderer),this._parseBlendConfig(config.blendArg2,renderer));
       }else
       {
         renderer.GL.disable(renderer.GL.BLEND);
       }
     }
 
-    private parseBlendVariable(blendConfig:string,renderer:BasicRenderer):number
+    private _parseBlendConfig(blendConfig:string,renderer:BasicRenderer):number
     {
-      if(blendConfig == "1")return renderer.GL.ONE;
-      if(blendConfig == "0")return renderer.GL.ZERO;
-      if(blendConfig == "srcAlpha")return renderer.GL.SRC_ALPHA;
-      if(blendConfig == "srcColor")return renderer.GL.SRC_COLOR;
-      if(blendConfig == "oneMinusSrcAlpha")return renderer.GL.ONE_MINUS_SRC_ALPHA;
-      if(blendConfig == "oneMinusSrcColor")return renderer.GL.ONE_MINUS_SRC_COLOR;
-      if(blendConfig == "oneMinusDstAlpha")return renderer.GL.ONE_MINUS_DST_ALPHA;
-      if(blendConfig == "oneMinusDstColor")return renderer.GL.ONE_MINUS_DST_COLOR;
-      if(blendConfig == "destAlpha")return renderer.GL.DST_ALPHA;
-      if(blendConfig == "destColor")return renderer.GL.DST_COLOR;
+      let lowerCaseBlendConfig = blendConfig.toLowerCase();
+      if(lowerCaseBlendConfig == "1")return renderer.GL.ONE;
+      if(lowerCaseBlendConfig == "0")return renderer.GL.ZERO;
+      if(lowerCaseBlendConfig == "srcalpha")return renderer.GL.SRC_ALPHA;
+      if(lowerCaseBlendConfig == "srcColor")return renderer.GL.SRC_COLOR;
+      if(lowerCaseBlendConfig == "oneminussrcalpha")return renderer.GL.ONE_MINUS_SRC_ALPHA;
+      if(lowerCaseBlendConfig == "oneminussrccolor")return renderer.GL.ONE_MINUS_SRC_COLOR;
+      if(lowerCaseBlendConfig == "oneminusdstalpha")return renderer.GL.ONE_MINUS_DST_ALPHA;
+      if(lowerCaseBlendConfig == "oneminusdstcolor")return renderer.GL.ONE_MINUS_DST_COLOR;
+      if(lowerCaseBlendConfig == "destalpha")return renderer.GL.DST_ALPHA;
+      if(lowerCaseBlendConfig == "destcolor")return renderer.GL.DST_COLOR;
       console.error("Unsupported blend config!");
+    }
+
+    public registerMaterialVariables(pWrapper:ProgramWrapper,uniforms:{[key:string]:IVariableInfo}):void
+    {
+      for(let valName in uniforms)
+      {
+        let uniform = uniforms[valName];
+        if(typeof this.materialVariables[valName] === "undefined")continue;
+        if(uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4")
+        {
+          pWrapper.uniformVector(valName,<VectorBase>this.materialVariables[valName]);
+        }
+        if(uniform.variableType === "mat4")
+        {
+          pWrapper.uniformMatrix(valName,<Matrix>this.materialVariables[valName]);
+        }
+        if(uniform.variableType === "float")
+        {
+          pWrapper.uniformFloat(valName,<number>this.materialVariables[valName])
+        }
+      }
     }
 
     /**

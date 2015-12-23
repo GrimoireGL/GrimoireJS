@@ -1,5 +1,4 @@
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
-import ShaderProgramParser = require("./Core/Materials/Base/ShaderProgramParser");
 import Timer = require("./Core/Timer");
 import Delegates = require('./Base/Delegates');
 import JThreeInterface = require('./JThreeInterface');
@@ -89,22 +88,6 @@ class JThreeInit {
         JThreeContext.registerContextComponent(new NodeManager());
         JThreeContext.registerContextComponent(new Debugger());
         JThreeContext.registerContextComponent(new MaterialManager());
-        ShaderProgramParser.parseCombined(`
-//@import jthree.builtin.vertex
-//@import jthree.builtin.vertex
-
-//@fragonly
-//This is main function
-void main(void)
-{
-
-}
-//@vertonly
-void frag(void)
-{
-
-}
-          `,"vert","frag");
         var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         var loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
         var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
