@@ -59,11 +59,17 @@ class GomlParser {
    */
   private static createNode(elem: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     const tagName = elem.tagName;
+    console.log(`createNode: ${tagName}`);
     const nodeType = configurator.getGomlNode(tagName);
     /**
      * インスタンス生成
      * それぞれのGomlNodeのattributeの定義、attribute更新時のイベント、child, parent更新時のイベントの定義
      */
+    if (nodeType === undefined) {
+      throw new Error(`Tag ${tagName} is not found.`)
+      // Process is cut off here.
+      // This will be deal by pass or create mock instance.
+    }
     const newNode = <GomlTreeNodeBase>new (<any>nodeType)();
     /**
      * HTMLElementのattributeとのバインディング

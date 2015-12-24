@@ -14,7 +14,7 @@ RotationBehavior.prototype.attributes =
 {
   ratio: {
     converter: "number",
-    value:0
+    value:0.02
   }
 };
 

@@ -2,6 +2,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Delegates = require("../../../Base/Delegates");
 import GomlAttribute = require("../../GomlAttribute");
 import AttributeDeclaration = require("../../AttributeDeclaration");
+import BehaviorsNode = require('./BehaviorsNode');
 
 class BehaviorNode extends GomlTreeNodeBase {
   private static ignoreNode: string[] = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "element"];
@@ -39,8 +40,8 @@ class BehaviorNode extends GomlTreeNodeBase {
     this.enabled = attr.Value;
   }
 
-  protected nodeWillMount(parent: GomlTreeNodeBase): void {
-    this.componentTarget = parent;
+  protected nodeWillMount(parent: BehaviorsNode): void {
+    this.componentTarget = parent.ComponentTarget;
     this._initializeBehavior();
   }
 
@@ -53,6 +54,7 @@ class BehaviorNode extends GomlTreeNodeBase {
         if (typeof component.enabled !== "undefined") var componentEnabled = component.enabled;
         else
           componentEnabled = true;
+        this.attributes.setValue('enabled', componentEnabled);
         if (typeof component.awake === "function") this.awakeDelegate = component.awake;
         if (typeof component.update === "function") this.updateDelegate = component.update;
         if (typeof component.start === "function") this.startDelegate = component.start;
