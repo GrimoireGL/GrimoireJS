@@ -99,11 +99,11 @@ class VMDNode extends GomlTreeNodeBase {
         if (this.enabled && this.autoSpeed !== 0) {
             var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
             if (this.lastTime === null) {
-                this.lastTime = timer.Time;
+                this.lastTime = timer.time;
                 return;
             } else {
-                var dt = timer.Time - this.lastTime;
-                this.lastTime = timer.Time;
+                var dt = timer.time - this.lastTime;
+                this.lastTime = timer.time;
                 this.attributes.setValue("frame", this.frame + dt / 1000 * 30 * this.autoSpeed);
             }
         }

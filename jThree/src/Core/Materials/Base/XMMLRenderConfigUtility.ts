@@ -1,10 +1,10 @@
 class XMMLRenderConfigUtility {
-    public static applyCullConfigure(gl: WebGLRenderingContext, elem: Element, defEnabled: boolean, defDirection: string): void {
+    public static applyCullConfigure(gl: WebGLRenderingContext, elem: Element, defDirection: string): void {
         const cullNode = elem.querySelector("cull");
-        if (!cullNode) XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defEnabled, defDirection);
+        if (!cullNode) XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
         const modeStr = cullNode.getAttribute("mode");
         if (!modeStr) {
-            XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defEnabled, defDirection);
+            XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
         } else {
             if (modeStr == "none")
                 XMMLRenderConfigUtility._applyCullConfigureToGL(gl, false, "");
@@ -17,12 +17,15 @@ class XMMLRenderConfigUtility {
         if (enabled) {
             gl.enable(gl.CULL_FACE);
             switch (direction) {
-                case "ccw":
-                    gl.cullFace(gl.CCW);
+                case "front":
+                    gl.cullFace(gl.FRONT);
                     return;
-                case "cw":
+                case "frontandback":
+                    gl.cullFace(gl.FRONT_AND_BACK);
+                    return;
+                case "back":
                 default:
-                    gl.cullFace(gl.CW);
+                    gl.cullFace(gl.BACK);
             }
         } else {
             gl.disable(gl.CULL_FACE);
@@ -99,7 +102,7 @@ class XMMLRenderConfigUtility {
         let dstColor = destColorStr || defDestColor;
         let srcAlpha = srcAlphaStr || defSrcAlpha;
         let dstAlpha = destAlphaStr || defDestAlpha;
-        this._applyBlendFunConfigureToGL(gl,enabled,srcColor,dstColor,srcAlpha,dstAlpha);
+        this._applyBlendFunConfigureToGL(gl, enabled, srcColor, dstColor, srcAlpha, dstAlpha);
     }
 
     private static _getBlendConstant(gl: WebGLRenderingContext, constant: string): number {

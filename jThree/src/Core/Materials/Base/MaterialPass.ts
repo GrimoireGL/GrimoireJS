@@ -26,7 +26,7 @@ class MaterialPass {
 
     private _passDocument: Element;
 
-    private _parsedProgram: IParsedProgramResult;
+    public parsedProgram: IParsedProgramResult;
 
     constructor(passDocument: Element, materialName: string, index: number) {
         this._passDocument = passDocument;
@@ -37,7 +37,7 @@ class MaterialPass {
     private _parseGLSL(): void {
         const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
         const parsedCodes = XMMLShaderParser.parseCombined(shaderCode);
-        this._parsedProgram = parsedCodes;
+        this.parsedProgram = parsedCodes;
         this.fragmentShaderSource = parsedCodes.fragment;
         this.vertexShaderSource = parsedCodes.vertex;
     }
@@ -53,19 +53,20 @@ class MaterialPass {
     public configureMaterial(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[],material:Material): void {
         const gl = matArg.renderStage.GL;
         const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
+        const defRendererConfig = matArg.renderStage.DefaultRenderConfigures;
         //TODO fix all of these default value to be fetched from renderer default configuration
-        XMMLRenderConfigUtility.applyCullConfigure(gl, this._passDocument, false, "");
-        XMMLRenderConfigUtility.applyDepthTestConfigure(gl, this._passDocument, true, "less", true);
-        XMMLRenderConfigUtility.applyBlendFuncConfigure(gl, this._passDocument, false, "", "", "", "");
+        XMMLRenderConfigUtility.applyCullConfigure(gl, this._passDocument,defRendererConfig.cullOrientation);
+        XMMLRenderConfigUtility.applyDepthTestConfigure(gl, this._passDocument, defRendererConfig.depthEnabled, defRendererConfig.depthMode, defRendererConfig.depthMask);
+        XMMLRenderConfigUtility.applyBlendFuncConfigure(gl, this._passDocument, defRendererConfig.blendEnabled,defRendererConfig.blendSrcColor,defRendererConfig.blendDstColor,defRendererConfig.blendSrcAlpha,defRendererConfig.blendDstAlpha);
         //Declare using program before assigning material variables
         pWrapper.useProgram();
         //Apply attribute variables by geometries
-        matArg.object.Geometry.applyAttributeVariables(pWrapper, this._parsedProgram.attributes);
+        matArg.object.Geometry.applyAttributeVariables(pWrapper, this.parsedProgram.attributes);
         //Apply uniform variables
         uniformRegisters.forEach((r) => {
-            r(gl, pWrapper, matArg, this._parsedProgram.uniforms);
+            r(gl, pWrapper, matArg, this.parsedProgram.uniforms);
         });
-        material.registerMaterialVariables(pWrapper,this._parsedProgram.uniforms);
+        material.registerMaterialVariables(pWrapper,this.parsedProgram.uniforms);
     }
 
     private static get _resourceManager(): ResourceManager {

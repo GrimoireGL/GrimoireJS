@@ -174,7 +174,7 @@ class Material extends JThreeObjectWithID {
       for(let valName in uniforms)
       {
         let uniform = uniforms[valName];
-        if(typeof this.materialVariables[valName] === "undefined")continue;
+        if(valName[0] == "_" ||typeof this.materialVariables[valName] === "undefined")continue;
         if(uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4")
         {
           pWrapper.uniformVector(valName,<VectorBase>this.materialVariables[valName]);
