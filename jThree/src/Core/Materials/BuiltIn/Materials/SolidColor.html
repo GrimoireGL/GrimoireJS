@@ -23,7 +23,7 @@
 
       //@fragonly {
         uniform vec3 color1;
-        uniform vec3 color2;
+        uniform float intensity;
       //}
 
       varying vec3 vNormal;
@@ -47,7 +47,7 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(color1 * color2,1);
+        gl_FragColor = vec4(color1 * intensity,1);
       }
 
       ]]>

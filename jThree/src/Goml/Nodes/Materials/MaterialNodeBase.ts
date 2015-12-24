@@ -74,7 +74,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
             initialValue = Vector4.Zero;
         }
         if (variableInfo.variableType == "float") {
-            converter = "float";
+            converter = "number";//This should be float
             initialValue = 0.0;
         }
         if (!converter) return undefined;
