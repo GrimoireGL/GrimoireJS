@@ -1,6 +1,7 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Material = require('../../../Core/Materials/Material');
 import JThreeID = require("../../../Base/JThreeID");
+import MaterialPass = require("../../../Core/Materials/Base/MaterialPass");
 class MaterialNodeBase extends GomlTreeNodeBase
 {
     public targetMaterial:Material;
@@ -19,6 +20,11 @@ class MaterialNodeBase extends GomlTreeNodeBase
     public beforeLoad()
     {
       this.targetMaterial=this.ConstructMaterial();
+      if(this.targetMaterial["__passes"])
+      {
+        let passes = this.targetMaterial["__passes"];
+        debugger;
+      }
       this.nodeManager.nodeRegister.addObject("jthree.materials",this.Name,this);
     }
 

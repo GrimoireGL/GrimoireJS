@@ -26,7 +26,7 @@ class RenderStageBase extends JThreeObjectWithID {
     public get DefaultRenderConfigures():IRenderStageRendererConfigure
     {
       return {
-        cullOrientation:"ccw",
+        cullOrientation:"back",
         depthEnabled:true,
         depthMode:"less",
         depthMask:false,
@@ -55,6 +55,7 @@ class RenderStageBase extends JThreeObjectWithID {
 
     constructor(renderer: BasicRenderer) {
         super();
+
         this.renderer = renderer;
     }
 
