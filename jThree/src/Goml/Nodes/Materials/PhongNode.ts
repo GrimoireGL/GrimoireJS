@@ -59,7 +59,7 @@ class PhongNode extends MaterialNodeBase {
     return this.material;
   }
 
-  protected nodeWillMount(parent): void {
+  protected nodeWillMount(parent: GomlTreeNodeBase): void {
     super.nodeWillMount(parent);
   }
 

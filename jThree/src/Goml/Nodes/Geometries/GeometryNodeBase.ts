@@ -40,10 +40,9 @@ class GeometryNodeBase extends GomlTreeNodeBase {
     return null;
   }
 
-  protected nodeWillMount(parent): void {
+  protected nodeWillMount(parent: GomlTreeNodeBase): void {
     super.nodeWillMount(parent);
     this.name = this.attributes.getValue('name'); // TODO: pnly
-    console.info('geometries added', this.Name);
     this.targetGeometry = this.ConstructGeometry();
     this.nodeManager.nodeRegister.addObject("jthree.geometries", this.Name, this);
   }

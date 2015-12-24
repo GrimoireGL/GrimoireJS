@@ -8,19 +8,18 @@ class BehaviorNode extends GomlTreeNodeBase {
 
   constructor() {
     super();
-    // this.attributes.defineAttribute({
-    //   'name': {
-    //     value: undefined,
-    //     converter: 'string',
-    //   },
-    //   'enabled': {
-    //     converter: 'boolean',
-    //     value: false,
-    //   },
-    // });
-    // this.on('parent-added', this._onParentAdded.bind(this));
-    // this.attributes.getAttribute('name').on('changed', this._onNameAttrChanged.bind(this));
-    // this.attributes.getAttribute('enabled').on('changed', this._onEnabledAttrChanged.bind(this));
+    this.attributes.defineAttribute({
+      'name': {
+        value: undefined,
+        converter: 'string',
+        onchanged: this._onNameAttrChanged.bind(this),
+      },
+      'enabled': {
+        converter: 'boolean',
+        value: false,
+        onchanged: this._onEnabledAttrChanged.bind(this),
+      },
+    });
   }
 
   private _onNameAttrChanged(attr: GomlAttribute): void {
@@ -40,7 +39,7 @@ class BehaviorNode extends GomlTreeNodeBase {
     this.enabled = attr.Value;
   }
 
-  private _onParentAdded(parent: GomlTreeNodeBase): void {
+  protected nodeWillMount(parent: GomlTreeNodeBase): void {
     this.componentTarget = parent;
     this._initializeBehavior();
   }
@@ -165,4 +164,4 @@ class BehaviorNode extends GomlTreeNodeBase {
   }
 }
 
-export =BehaviorNode;
+export = BehaviorNode;

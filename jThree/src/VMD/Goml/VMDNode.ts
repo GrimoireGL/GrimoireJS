@@ -59,7 +59,7 @@ class VMDNode extends GomlTreeNodeBase {
     });
   }
 
-  protected nodeWillMount(parent): void {
+  protected nodeWillMount(parent: PMXNode): void {
     this.targetPMX = parent;
     this.targetPMX.on('loaded', () => { this.attributes.updateValue(); });
   }

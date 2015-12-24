@@ -65,7 +65,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  protected nodeWillMount(parent): void {
+  protected nodeWillMount(parent: GomlTreeNodeBase): void {
     super.nodeWillMount(parent);
     let sceneNode: SceneNode = null;
     let sceneObjectNode: SceneObjectNodeBase = null;

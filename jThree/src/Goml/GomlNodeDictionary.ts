@@ -31,6 +31,7 @@ class GomlNodeDictionary extends jThreeObject {
     // callback
     if (this.cbDictionary.has(group) && this.cbDictionary.get(group).has(name)) {
       this.cbDictionary.get(group).get(name).forEach((cb) => {
+        console.log('callback processed');
         cb(this.dictionary.get(group).get(name));
       })
       this.cbDictionary.get(group).delete(name);
@@ -68,7 +69,7 @@ class GomlNodeDictionary extends jThreeObject {
     this.cbDictionary.forEach((g, i) => {
       g.forEach((fn, i_) => {
         // Specified node is required but not found or not added
-        console.error(`Uncalled callback detected group: ${i}, name: ${i_}`);
+        console.error(`Uncalled callback detected. group: ${i}, name: ${i_}`);
       })
     });
   }

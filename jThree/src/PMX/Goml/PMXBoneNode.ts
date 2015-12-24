@@ -37,7 +37,7 @@ class PMXBoneNode extends SceneObjectNodeBase {
 		}
 	}
 
-	protected nodeWillMount(parent): void {
+	protected nodeWillMount(parent: GomlTreeNodeBase): void {
 		super.nodeWillMount(parent);
 		if (parent.getTypeName() === "PMXBonesNode") {
 			this.targetPMX = (<PMXBonesNode>parent).TargetPMXNode;
