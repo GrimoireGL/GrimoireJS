@@ -21,6 +21,11 @@
         uniform mat4 _matVM;
       //}
 
+      //@fragonly {
+        uniform vec3 color1;
+        uniform vec3 color2;
+      //}
+
       varying vec3 vNormal;
       varying vec2 vUv;
       varying vec4 vPosition;
@@ -42,7 +47,7 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(0.3,0,0.7,1);
+        gl_FragColor = vec4(color1 * color2,1);
       }
 
       ]]>
