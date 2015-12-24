@@ -36,6 +36,11 @@ class Timer extends JThreeObject implements IContextComponent
         return this.time;
     }
 
+    public get TimeInSecound():number
+    {
+      return this.time / 1000;
+    }
+
     public get TimeFromLast(): number
     {
         return this.timeFromLast;
