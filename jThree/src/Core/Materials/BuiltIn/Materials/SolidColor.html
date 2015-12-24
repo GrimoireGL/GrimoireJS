@@ -3,6 +3,7 @@
 <uniform-register>
   <register name="jthree.basic.matrix"/>
   <register name="jthree.basic.time"/>
+  <register name="jthree.basic.light"/>
 </uniform-register>
 <passes>
   <pass>
@@ -11,7 +12,6 @@
     <cull enabled="true" orientation="ccw"/>
     <glsl>
       <![CDATA[
-
       attribute vec3 position;
       attribute vec3 normal;
       attribute vec2 uv;
@@ -20,12 +20,14 @@
       //@import jthree.builtin.vertex
         uniform mat4 _matPVM;
         uniform mat4 _matVM;
+        uniform vec4 _Time;
       //}
+
 
       //@fragonly {
         uniform vec3 color1;
         uniform float intensity;
-        uniform vec4 _Time;
+        uniform sampler2D _dlBuffer;
       //}
 
       varying vec3 vNormal;
@@ -42,6 +44,7 @@
       {
         BasicVertexTransformOutput o =  basicVertexTransform(position,normal,uv,_matPVM,_matVM);
         gl_Position = vPosition = o.position;
+        gl_Position.xyz *= vec3(sin(_Time.x/100. + position.x),cos(_Time.x/100. + position.y),sin(_Time.x/500. + position.z));
         vNormal = o.normal;
         vUv = o.uv;
       }
@@ -49,7 +52,7 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(abs(sin(_Time.x/100.)),abs(sin(_Time.y/100.)),abs(sin(_Time.z/100.)),1);
+        gl_FragColor = vec4(texture2D(_dlBuffer,calcLightUV(vPosition)).xyz,1.); //*vec4(abs(sin(_Time.x/100.)),abs(sin(_Time.y/100.)),abs(sin(_Time.z/100.)),1);
       }
 
       ]]>
