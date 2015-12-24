@@ -14,7 +14,7 @@ class Timer extends JThreeObject implements IContextComponent
         this.TimeFromLast = date - this.Time;
         this.time = date;
     }
-    
+
     constructor()
     {
         super();

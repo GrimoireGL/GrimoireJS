@@ -2,6 +2,7 @@
 <material name="jthree.basic.material1" group="jthree.materials.forematerial" order="300">
 <uniform-register>
   <register name="jthree.basic.matrix"/>
+  <register name="jthree.basic.time"/>
 </uniform-register>
 <passes>
   <pass>
@@ -24,6 +25,7 @@
       //@fragonly {
         uniform vec3 color1;
         uniform float intensity;
+        uniform float _Time;
       //}
 
       varying vec3 vNormal;
@@ -47,7 +49,7 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(color1 * intensity,1);
+        gl_FragColor = vec4(vec3(1,1,1) * abs(sin(_Time/100.)/2. + 0.5),1);
       }
 
       ]]>
