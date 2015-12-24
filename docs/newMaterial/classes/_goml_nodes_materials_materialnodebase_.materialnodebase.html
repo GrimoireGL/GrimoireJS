@@ -137,6 +137,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#constructmaterial" class="tsd-kind-icon">Construct<wbr>Material</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#load" class="tsd-kind-icon">Load</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#_generateattributeforpasses" class="tsd-kind-icon">_generate<wbr>Attribute<wbr>For<wbr>Passes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#_generateattributeforvariable" class="tsd-kind-icon">_generate<wbr>Attribute<wbr>For<wbr>Variable</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#addbehavior" class="tsd-kind-icon">add<wbr>Behavior</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#afterload" class="tsd-kind-icon">after<wbr>Load</a></li>
@@ -165,7 +167,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_goml_gomltreenodebase_.gomltreenodebase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L11">Goml/Nodes/Materials/MaterialNodeBase.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L16">Goml/Nodes/Materials/MaterialNodeBase.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -265,7 +267,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L25">Goml/Nodes/Materials/MaterialNodeBase.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L90">Goml/Nodes/Materials/MaterialNodeBase.ts:90</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -302,7 +304,7 @@
 					<div class="tsd-signature tsd-kind-icon">target<wbr>Material<span class="tsd-signature-symbol">:</span> <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L6">Goml/Nodes/Materials/MaterialNodeBase.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L12">Goml/Nodes/Materials/MaterialNodeBase.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -386,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L30">Goml/Nodes/Materials/MaterialNodeBase.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L95">Goml/Nodes/Materials/MaterialNodeBase.ts:95</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -412,7 +414,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L8">Goml/Nodes/Materials/MaterialNodeBase.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L14">Goml/Nodes/Materials/MaterialNodeBase.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></h4>
@@ -434,6 +436,49 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="_generateattributeforpasses" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _generate<wbr>Attribute<wbr>For<wbr>Passes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">_generate<wbr>Attribute<wbr>For<wbr>Passes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L30">Goml/Nodes/Materials/MaterialNodeBase.ts:30</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="_generateattributeforvariable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _generate<wbr>Attribute<wbr>For<wbr>Variable</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">_generate<wbr>Attribute<wbr>For<wbr>Variable<span class="tsd-signature-symbol">(</span>variableName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, variableInfo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_materials_base_ivariableinfo_.ivariableinfo.html" class="tsd-signature-type">IVariableInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AttributeDeclationBody</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L60">Goml/Nodes/Materials/MaterialNodeBase.ts:60</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>variableName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>variableInfo: <a href="../interfaces/_core_materials_base_ivariableinfo_.ivariableinfo.html" class="tsd-signature-type">IVariableInfo</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AttributeDeclationBody</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -524,7 +569,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_goml_gomltreenodebase_.gomltreenodebase.html">GomlTreeNodeBase</a>.<a href="_goml_gomltreenodebase_.gomltreenodebase.html#beforeload">beforeLoad</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L19">Goml/Nodes/Materials/MaterialNodeBase.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/Nodes/Materials/MaterialNodeBase.ts#L24">Goml/Nodes/Materials/MaterialNodeBase.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -742,6 +787,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#load" class="tsd-kind-icon">Load</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#_generateattributeforpasses" class="tsd-kind-icon">_generate<wbr>Attribute<wbr>For<wbr>Passes</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#_generateattributeforvariable" class="tsd-kind-icon">_generate<wbr>Attribute<wbr>For<wbr>Variable</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_goml_nodes_materials_materialnodebase_.materialnodebase.html#addbehavior" class="tsd-kind-icon">add<wbr>Behavior</a>
