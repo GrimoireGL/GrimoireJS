@@ -25,7 +25,7 @@
       //@fragonly {
         uniform vec3 color1;
         uniform float intensity;
-        uniform vec4 _SinTime;
+        uniform vec4 _Time;
       //}
 
       varying vec3 vNormal;
@@ -49,7 +49,7 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(abs(_SinTime.x),abs(_SinTime.y),abs(_SinTime.z),1);
+        gl_FragColor = vec4(abs(sin(_Time.x/100.)),abs(sin(_Time.y/100.)),abs(sin(_Time.z/100.)),1);
       }
 
       ]]>
