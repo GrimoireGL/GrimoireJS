@@ -10,41 +10,24 @@ class Timer extends JThreeObject implements IContextComponent
 
     public updateTimer(): void {
         this.currentFrame++;
-        var date: number = Date.now();
-        this.TimeFromLast = date - this.Time;
-        this.time = date;
+        var currentTime: number = Date.now() - this._initializedTime;
+        this.timeFromLast = currentTime - this.time;
+        this.time = currentTime;
     }
 
     constructor()
     {
         super();
+        this._initializedTime = Date.now();
     }
 
-    protected currentFrame: number = 0;
+    private _initializedTime:number = 0;
 
-    protected time: number = 0;
+    public currentFrame: number = 0;
 
-    protected timeFromLast: number = 0;
+    public time: number = 0;
 
-    public get CurrentFrame(): number
-    {
-        return this.currentFrame;
-    }
-
-    public get Time(): number
-    {
-        return this.time;
-    }
-
-    public get TimeInSecound():number
-    {
-      return this.time / 1000;
-    }
-
-    public get TimeFromLast(): number
-    {
-        return this.timeFromLast;
-    }
+    public timeFromLast: number = 0;
 }
 
 export=Timer;
