@@ -138,7 +138,7 @@ class XMMLShaderParser {
     }
 
     private static _removeAttributeVariables(source: string): string {
-        var regex = /(\s*attribute\s+[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+;)/g;
+        var regex = /(\s*attribute\s+[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+;)/;
         while (true) {
             var found = regex.exec(source);
             if (!found) break;

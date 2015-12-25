@@ -10,9 +10,11 @@
     <cull enabled="true" orientation="ccw"/>
     <glsl>
       <![CDATA[
+
       attribute vec4 position;
       attribute vec3 normal;
       attribute vec2 uv;
+
       varying vec3 vNormal;
       varying vec4 vPosition;
       varying vec2 vUV;
@@ -21,7 +23,7 @@
         uniform mat4 _matVM;
         uniform mat4 _matPVM;
 
-        void main(void)
+        void main()
         {
         	gl_Position = vPosition =_matPVM * position;
         	vNormal =normalize(( _matVM * vec4(normal,0)).xyz);
@@ -32,10 +34,9 @@
 
 
       //@fragonly{
-        precision mediump float;
         uniform sampler2D texture;
         uniform vec4 albedo;
-        uniform int textureUse
+        uniform int textureUsed;
         void main()
         {
         	if(textureUsed == 1)

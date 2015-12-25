@@ -112,7 +112,7 @@ class JThreeInit {
         var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
         resourceLoader.promise.then(() => {
             JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
-            var basicMaterial = new BasicMaterial(require("./Core/Materials/BuiltIn/GBuffer/SecoundaryBuffer.html"));
+            var basicMaterial = new BasicMaterial(require("./Core/Materials/BuiltIn/GBuffer/PrimaryBuffer.html"));
         });
     }
 }
