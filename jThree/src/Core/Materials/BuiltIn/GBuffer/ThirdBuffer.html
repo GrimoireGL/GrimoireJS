@@ -10,22 +10,18 @@
     <cull enabled="true" orientation="ccw"/>
     <glsl>
       <![CDATA[
-      attribute vec3 position;
-
-      varying vec3 vPosition;
+      attribute vec4 position;
 
       //@vertonly{
         uniform mat4 _matPVM;
 
         void main(void)
         {
-        	gl_Position = vPosition =_matPVM * position;
+        	gl_Position =_matPVM * position;
         }
       //}
 
       //@fragonly{
-        precision mediump float;
-
         uniform vec3 specular;
 
         void main()
