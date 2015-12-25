@@ -13,6 +13,7 @@ import Vector4 = require("../../../Math/Vector4");
 import PhongMaterial = require("./../Forward/PhongMaterial");
 import IMaterialConfig = require("./../IMaterialConfig");
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
+import BasicMaterial = require("../Base/BasicMaterial");
 declare function require(string): string;
 /**
  * Provides how to write g-buffers.
@@ -34,9 +35,18 @@ class GBufferMaterial extends Material
 
     private thirdProgram:Program;
 
+    private primaryMaterial:BasicMaterial;
+
+    private secoundaryMaterial:BasicMaterial;
+
+    private thirdMaterial:BasicMaterial;
+
     constructor()
     {
         super();
+        this.primaryMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/PrimaryBuffer.html"));
+        this.secoundaryMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/SecoundaryBuffer.html"));
+        this.thirdMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/ThirdBuffer.html"));
         var vs = require('../../Shaders/GBuffer/Vertex.glsl');
         var fs = require('../../Shaders/GBuffer/PrimaryFragment.glsl');
         this.primaryProgram = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
