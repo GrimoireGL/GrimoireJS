@@ -26,6 +26,7 @@ class XMMLRenderConfigUtility {
                 case "back":
                 default:
                     gl.cullFace(gl.BACK);
+                    return;
             }
         } else {
             gl.disable(gl.CULL_FACE);

@@ -1,3 +1,4 @@
+import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
 ﻿import BasicRenderer = require('../../BasicRenderer');
 import SceneObject = require('../../../SceneObject');
 import RenderStageBase = require('../RenderStageBase');
@@ -12,11 +13,6 @@ import RenderStageConfig = require("../../RenderStageConfig");
  * Third g-buffer SpecularAlbedo.RGB -> third pass
  */
 class GBufferStage extends RenderStageBase {
-    public get RenderStageConfig(): RenderStageConfig {
-        return {
-            depthTest: true
-        };
-    }
 
     constructor(renderer: BasicRenderer) {
         super(renderer);
@@ -44,7 +40,7 @@ class GBufferStage extends RenderStageBase {
                 target: 0,
                 isOptional: false
             }], () => {
-                if (techniqueIndex == 0) {
+               if (techniqueIndex == 0) {
                     this.Renderer.GL.clearColor(0, 0, 0, 0);
                     this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
                 }
