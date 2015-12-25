@@ -44,7 +44,7 @@
       {
         BasicVertexTransformOutput o =  basicVertexTransform(position,normal,uv,_matPVM,_matVM);
         gl_Position = vPosition = o.position;
-        gl_Position.xyz *= vec3(sin(_Time.x/100. + position.x),cos(_Time.x/100. + position.y),sin(_Time.x/500. + position.z));
+        gl_Position.xyz *= vec3(sin(_Time.x/100. + position.x),cos(_Time.x/100. + position.y),1);
         vNormal = o.normal;
         vUv = o.uv;
       }

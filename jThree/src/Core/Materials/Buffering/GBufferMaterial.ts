@@ -17,9 +17,9 @@ declare function require(string): string;
 /**
  * Provides how to write g-buffers.
  * This material have 3 pass for darawing g-buffers.
- * 1-st pass Normal.XY Depth Shiningness
- * 2-nd pass Diffuse.RGBA
- * 3-rd pass Specular.RGB
+ * 1-st technique Normal.XY Depth Shiningness
+ * 2-nd technique Diffuse.RGBA
+ * 3-rd technique Specular.RGB
  */
 class GBufferMaterial extends Material
 {
