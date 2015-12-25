@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var j3m = j3.Math;
 var RotationBehavior = function () {
 
@@ -23,3 +24,5 @@ j3.defineBehavior("rotation", RotationBehavior);
 j3(function () {
 
 });
+=======
+>>>>>>> develop

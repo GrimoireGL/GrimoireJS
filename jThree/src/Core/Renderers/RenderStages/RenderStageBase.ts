@@ -1,3 +1,4 @@
+import IRenderStageRendererConfigure = require("./IRenderStageRendererConfigure");
 import JThreeObjectWithID = require('../../../Base/JThreeObjectWithID');
 import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
@@ -19,8 +20,24 @@ import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 class RenderStageBase extends JThreeObjectWithID {
-    public ____objectIndexany
+
     private renderer: BasicRenderer;
+
+    public get DefaultRenderConfigures():IRenderStageRendererConfigure
+    {
+      return {
+        cullOrientation:"back",
+        depthEnabled:true,
+        depthMode:"less",
+        depthMask:false,
+        blendEnabled:true,
+        blendSrcColor:"srcAlpha",
+        blendDstColor:"oneminussrcalpha",
+        blendSrcAlpha:"1",
+        blendDstAlpha:"0"
+      };
+    }
+
 	/**
 	 * Getter for renderer having this renderstage
 	 */
@@ -38,6 +55,7 @@ class RenderStageBase extends JThreeObjectWithID {
 
     constructor(renderer: BasicRenderer) {
         super();
+
         this.renderer = renderer;
     }
 
