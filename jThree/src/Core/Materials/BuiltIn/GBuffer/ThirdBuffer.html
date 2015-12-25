@@ -5,7 +5,7 @@
 </uniform-register>
 <passes>
   <pass>
-    <blend enabled="false" srcColor="srcalpha" dstColor="oneminussrcalpha" srcAlpha="1" dstAlpha="0"/>
+    <blend enabled="false" srcColor="1" dstColor="0" srcAlpha="1" dstAlpha="0"/>
     <depth enabled="false"/>
     <cull enabled="true" orientation="ccw"/>
     <glsl>
@@ -27,6 +27,7 @@
         void main()
         {
         	gl_FragColor.rgb = specular;
+          gl_FragColor.a = 1.;
         }
       //}
 

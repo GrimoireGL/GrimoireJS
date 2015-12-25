@@ -65,13 +65,13 @@ class GBufferMaterial extends Material
         switch (techniqueIndex)
         {
             case 0:
-                this.configurePrimaryBuffer(scene, renderer, object, texs);
+                this.configurePrimaryBuffer(scene, renderStage, object, texs);
                 break;
             case 1:
-                this.configureSecoundaryBuffer(scene, renderer, object, texs);
+                this.configureSecoundaryBuffer(scene, renderStage, object, texs);
                 break;
             case 2:
-                this.configureThirdBuffer(scene, renderer, object, texs);
+                this.configureThirdBuffer(scene, renderStage, object, texs);
                 break;
         }
         object.Geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
@@ -80,37 +80,20 @@ class GBufferMaterial extends Material
      * Configure shader for 1-st pass.
      * @return {[type]}                     [description]
      */
-    private configurePrimaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo) {
+    private configurePrimaryBuffer(scene: Scene, renderer: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
-        var pw = this.primaryProgram.getForContext(renderer.ContextManager);
-        var v = object.Transformer.calculateMVPMatrix(renderer);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");//shiningness
         var coefficient = 0;
         if(fm.specularCoefficient)coefficient = fm.specularCoefficient;
-        pw.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                normal: geometry.NormalBuffer,
-                uv:geometry.UVBuffer
-            },
-            uniforms: {
-                matMVP: { type: "matrix", value: v },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
-                specularCoefficient: {
-                    type: "float",
-                    value: coefficient
-                }
-            }
-        });
-
+        this.primaryMaterial.materialVariables["brightness"] = coefficient;
+        this.primaryMaterial.configureMaterial(scene,renderer,object,texs,0,0);
     }
     /**
      * Configure shader for 2nd pass.
      * @return {[type]}                     [description]
      */
-    private configureSecoundaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo) {
+    private configureSecoundaryBuffer(scene: Scene, renderer: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo) {
         var geometry = object.Geometry;
-        var programWrapper = this.secoundaryProgram.getForContext(renderer.ContextManager);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
         var albedo;
         if (fm && fm.diffuse) {//TODO there should be good implementation
@@ -118,47 +101,16 @@ class GBufferMaterial extends Material
         } else {
             albedo = new Vector4(1, 0, 0, 1);
         }
-        var v = object.Transformer.calculateMVPMatrix(renderer);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                normal: geometry.NormalBuffer,
-                uv: geometry.UVBuffer
-            },
-            uniforms: {
-                matMVP: {
-                    type: "matrix",
-                    value: v
-                },
-                matMV: {
-                    type: "matrix",
-                    value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal)
-                },
-                albedo: {
-                    type: "vector",
-                    value: albedo
-                },
-                texture: {
-                    type: "texture",
-                    value: fm.texture,
-                    register: 0
-                },
-                textureUsed: {
-                    type: "integer",
-                    value: (fm.texture ? 1 : 0)
-                }
-            }
-        });
+        this.secoundaryMaterial.materialVariables["albedo"] = albedo;
+        this.secoundaryMaterial.configureMaterial(scene,renderer,object,texs,1,0);
     }
 
     /**
      * Configure shader for 3rd pass.
      * @return {[type]}                     [description]
      */
-    private configureThirdBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo)
+    private configureThirdBuffer(scene: Scene, renderer: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo)
     {
-        var geometry = object.Geometry;
-        var programWrapper = this.thirdProgram.getForContext(renderer.ContextManager);
         var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
         var specular;
         if (fm && fm.diffuse) {
@@ -167,28 +119,8 @@ class GBufferMaterial extends Material
         {
             specular = new Vector3(1, 0, 0);
         }
-        var v = object.Transformer.calculateMVPMatrix(renderer);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                normal: geometry.NormalBuffer,
-                uv: geometry.UVBuffer
-            },
-            uniforms: {
-                matMVP: {
-                    type: "matrix",
-                    value: v
-                },
-                matMV: {
-                    type: "matrix",
-                    value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal)
-                },
-                specular: {
-                    type: "vector",
-                    value: specular
-                },
-            }
-        });
+        this.thirdMaterial.materialVariables["specular"] = specular;
+        this.thirdMaterial.configureMaterial(scene,renderer,object,texs,2,0);
     }
 
     public  getMaterialConfig(pass:number,technique:number):IMaterialConfig
