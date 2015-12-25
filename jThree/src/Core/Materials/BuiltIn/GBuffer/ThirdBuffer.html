@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.gbuffer.third" group="jthree.materials.gbuffer.third" order="300">
+<uniform-register>
+  <register name="jthree.basic.matrix"/>
+</uniform-register>
+<passes>
+  <pass>
+    <blend enabled="false" srcColor="srcalpha" dstColor="oneminussrcalpha" srcAlpha="1" dstAlpha="0"/>
+    <depth enabled="false"/>
+    <cull enabled="true" orientation="ccw"/>
+    <glsl>
+      <![CDATA[
+      attribute vec4 position;
+
+      //@vertonly{
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+        	gl_Position =_matPVM * position;
+        }
+      //}
+
+      //@fragonly{
+        uniform vec3 specular;
+
+        void main()
+        {
+        	gl_FragColor.rgb = specular;
+        }
+      //}
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

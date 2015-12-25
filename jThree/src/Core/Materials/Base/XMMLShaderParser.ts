@@ -27,7 +27,6 @@ class XMMLShaderParser {
             fragment = this._addPrecision(fragment, "float", "mediump");
             fragPrecision["float"] = "mediump";
         }
-        console.error(vertex);
         return {
             vertex: vertex,
             fragment: fragment,
@@ -91,12 +90,11 @@ class XMMLShaderParser {
     }
 
     private static _removeOtherPart(source: string, partFlag: string): string {
-        var regex = new RegExp(`\s*\/\/+\s*@${partFlag}`);
+        var regex = new RegExp(`\s*\/\/+\s*@${partFlag}`,'g');
         while (true) {
             var found = regex.exec(source);
             if (!found) break;//When there was no more found
             var beginPoint = found.index;
-
             var index = beginPoint;
             while (true)//ignore next {
             {
@@ -129,7 +127,7 @@ class XMMLShaderParser {
     }
 
     private static _obtainPrecisions(source: string): { [type: string]: string } {
-        const regex = /\s*precision\s+([a-z]+)\s+([a-z0-9]+)/;
+        const regex = /\s*precision\s+([a-z]+)\s+([a-z0-9]+)/g;
         let result: { [type: string]: string } = {};
         while (true) {
             var found = regex.exec(source);

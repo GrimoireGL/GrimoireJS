@@ -13,13 +13,14 @@ import Vector4 = require("../../../Math/Vector4");
 import PhongMaterial = require("./../Forward/PhongMaterial");
 import IMaterialConfig = require("./../IMaterialConfig");
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
+import BasicMaterial = require("../Base/BasicMaterial");
 declare function require(string): string;
 /**
  * Provides how to write g-buffers.
  * This material have 3 pass for darawing g-buffers.
- * 1-st pass Normal.XY Depth Shiningness
- * 2-nd pass Diffuse.RGBA
- * 3-rd pass Specular.RGB
+ * 1-st technique Normal.XY Depth Shiningness
+ * 2-nd technique Diffuse.RGBA
+ * 3-rd technique Specular.RGB
  */
 class GBufferMaterial extends Material
 {
@@ -34,9 +35,18 @@ class GBufferMaterial extends Material
 
     private thirdProgram:Program;
 
+    private primaryMaterial:BasicMaterial;
+
+    private secoundaryMaterial:BasicMaterial;
+
+    private thirdMaterial:BasicMaterial;
+
     constructor()
     {
         super();
+        this.primaryMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/PrimaryBuffer.html"));
+        this.secoundaryMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/SecoundaryBuffer.html"));
+        this.thirdMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/ThirdBuffer.html"));
         var vs = require('../../Shaders/GBuffer/Vertex.glsl');
         var fs = require('../../Shaders/GBuffer/PrimaryFragment.glsl');
         this.primaryProgram = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
