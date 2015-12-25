@@ -24,7 +24,7 @@
     "PointLight":
     {
       "goml":"PointLight/PointLight.goml",
-      "js":["BehavorLight/BehavorLight.js"]
+      "js":["PointLight/PointLight.js"]
     },
     "BehavorLight":
     {

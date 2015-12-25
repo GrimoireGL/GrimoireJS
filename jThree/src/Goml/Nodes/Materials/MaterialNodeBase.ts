@@ -8,95 +8,106 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Material = require('../../../Core/Materials/Material');
 import JThreeID = require("../../../Base/JThreeID");
 import MaterialPass = require("../../../Core/Materials/Base/MaterialPass");
+
 class MaterialNodeBase extends GomlTreeNodeBase {
-    public targetMaterial: Material;
+  public targetMaterial: Material;
 
-    protected ConstructMaterial(): Material {
-        return null;
-    }
+  protected ConstructMaterial(): Material {
+    return null;
+  }
 
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-        super(elem, parent);
-        this.attributes.defineAttribute({
-        });
-    }
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      'name': {
+        value: undefined,
+        converter: 'string',
+        onchanged: this._onNameAttrChanged,
+      }
+    });
+  }
 
-    public beforeLoad() {
-        this.targetMaterial = this.ConstructMaterial();
-        this._generateAttributeForPasses();
-        this.nodeManager.nodeRegister.addObject("jthree.materials", this.Name, this);
-    }
+  private _onNameAttrChanged(attr): void {
+    this.name = attr.Value;
+  }
 
-    private _generateAttributeForPasses(): void {
-        if (this.targetMaterial["_passes"]) {
-            let passes = <MaterialPass[]>this.targetMaterial["_passes"];
-            let passVariables = {};
-            for (let i = 0; i < passes.length; i++) {
-                const pass = passes[i];
-                const uniforms = pass.parsedProgram.uniforms;
-                for (let variableName in uniforms) {
-                    if (variableName[0] == "_") continue;//Ignore system variables
-                    if (!passVariables[variableName]) {
-                      //When the pass variable are not found yet.
-                        passVariables[variableName] = uniforms[variableName];
-                    }
-                    else {
-                      //When the pass variable are already found.
-                        if (passVariables[variableName] == uniforms[variableName]) continue;//When the variable was found and same type.(This is not matter)
-                        else//When the variable was already found and
-                            console.error("Material can not contain same variables even if these variable are included in different passes");
-                    }
-                }
-            }
-            let attributes: AttributeDeclaration = {};
-            for (let variableName in passVariables) {
-                const attribute = this._generateAttributeForVariable(variableName, passVariables[variableName]);
-                if (attribute) attributes[variableName] = attribute;
-            }
-            this.attributes.defineAttribute(attributes);
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
+    this.name = this.attributes.getValue('name'); // TODO: pnly
+    this.targetMaterial = this.ConstructMaterial();
+    this._generateAttributeForPasses();
+    this.nodeManager.nodeRegister.addObject("jthree.materials", this.Name, this);
+  }
+
+  private _generateAttributeForPasses(): void {
+    if (this.targetMaterial["_passes"]) {
+      let passes = <MaterialPass[]>this.targetMaterial["_passes"];
+      let passVariables = {};
+      for (let i = 0; i < passes.length; i++) {
+        const pass = passes[i];
+        const uniforms = pass.parsedProgram.uniforms;
+        for (let variableName in uniforms) {
+          if (variableName[0] == "_") continue;//Ignore system variables
+          if (!passVariables[variableName]) {
+            //When the pass variable are not found yet.
+            passVariables[variableName] = uniforms[variableName];
+          }
+          else {
+            //When the pass variable are already found.
+            if (passVariables[variableName] == uniforms[variableName]) continue;//When the variable was found and same type.(This is not matter)
+            else//When the variable was already found and
+              console.error("Material can not contain same variables even if these variable are included in different passes");
+          }
         }
+      }
+      let attributes: AttributeDeclaration = {};
+      for (let variableName in passVariables) {
+        const attribute = this._generateAttributeForVariable(variableName, passVariables[variableName]);
+        if (attribute) attributes[variableName] = attribute;
+      }
+      this.attributes.defineAttribute(attributes);
     }
+  }
 
-    private _generateAttributeForVariable(variableName: string, variableInfo: IVariableInfo): AttributeDeclationBody {
-        let converter;
-        let initialValue;
-        if (variableInfo.variableType == "vec2")//TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.
-        {
-            converter = "vector2";
-            initialValue = Vector2.Zero;
-        }
-        if (variableInfo.variableType == "vec3") {
-            converter = "vector3";
-            initialValue = Vector3.Zero;
-        }
-        if (variableInfo.variableType == "vec4") {
-            converter = "vector4";
-            initialValue = Vector4.Zero;
-        }
-        if (variableInfo.variableType == "float") {
-            converter = "number";//This should be float
-            initialValue = 0.0;
-        }
-        if (!converter) return undefined;
-        return {
-            converter: converter,
-            value: initialValue,
-            handler: (v) => {
-                this.targetMaterial.materialVariables[variableName] = v.Value;
-            }
-        };
+  private _generateAttributeForVariable(variableName: string, variableInfo: IVariableInfo): AttributeDeclationBody {
+    let converter;
+    let initialValue;
+    if (variableInfo.variableType == "vec2") { // TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.
+      converter = "vector2";
+      initialValue = Vector2.Zero;
     }
+    if (variableInfo.variableType == "vec3") {
+      converter = "vector3";
+      initialValue = Vector3.Zero;
+    }
+    if (variableInfo.variableType == "vec4") {
+      converter = "vector4";
+      initialValue = Vector4.Zero;
+    }
+    if (variableInfo.variableType == "float") {
+      converter = "number"; // This should be float
+      initialValue = 0.0;
+    }
+    if (!converter) return undefined;
+    return {
+      converter: converter,
+      value: initialValue,
+      handler: (v) => {
+        this.targetMaterial.materialVariables[variableName] = v.Value;
+      }
+    };
+  }
 
-    private name: string;
-    /**
-    * GOML Attribute
-    * Identical Name for camera
-    */
-    public get Name(): string {
-        this.name = this.name || this.element.getAttribute('name') || JThreeID.getUniqueRandom(10);
-        return this.name;
-    }
+  private name: string;
+  /**
+  * GOML Attribute
+  * Identical Name for camera
+  */
+  public get Name(): string {
+    this.name = this.name || JThreeID.getUniqueRandom(10);
+    return this.name;
+  }
 
 }
 
-export =MaterialNodeBase;
+export = MaterialNodeBase;

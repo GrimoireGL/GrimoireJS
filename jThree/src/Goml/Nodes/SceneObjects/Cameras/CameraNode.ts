@@ -3,73 +3,75 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
 import PerspectiveCamera = require("../../../../Core/Camera/PerspectiveCamera");
-import GomlTreeCameraNodeBase = require("./CameraNodeBase");
+import CameraNodeBase = require("./CameraNodeBase");
 
-class GomlTreeCameraNode extends GomlTreeCameraNodeBase
-{
+class CameraNode extends CameraNodeBase {
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
-  {
-      super(elem,parent,parentSceneNode,parentObject);
-      this.attributes.defineAttribute(
-        {
-          "fovy":{
-            value:Math.PI/4,
-            converter:"angle",
-            handler:(v)=>{this.targetPerspective.Fovy=v.Value;}
-          },
-          "aspect":{
-            value:0,
-            converter:"number",
-            handler:(v)=>{this.targetPerspective.Aspect=v.Value;}
-          },
-          "near":
-          {
-            value:0.1,
-            converter:"number",
-            handler:(v)=>{this.targetPerspective.Near=v.Value}
-          },
-          "far":
-          {
-            value:10,
-            converter:"number",
-            handler:(v)=>{this.targetPerspective.Far=v.Value}
-          }
-        }
-      );
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "fovy": {
+        value: Math.PI / 4,
+        converter: "angle",
+        onchanged: (attr) => {
+          this.targetPerspective.Fovy = attr.Value;
+        },
+      },
+      "aspect": {
+        value: 0,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetPerspective.Aspect = attr.Value;
+        },
+      },
+      "near": {
+        value: 0.1,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetPerspective.Near = attr.Value;
+        },
+      },
+      "far": {
+        value: 10,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetPerspective.Far = attr.Value;
+        },
+      },
+    });
   }
-  private targetPerspective:PerspectiveCamera;
 
-  protected ConstructCamera():Camera
-  {
-    var camera=new PerspectiveCamera();
-    this.targetPerspective=camera;
-    camera.Fovy=this.Fovy;
-    camera.Aspect=this.Aspect;
-    camera.Near=this.Near;
-    camera.Far=this.Far;
+  private targetPerspective: PerspectiveCamera;
+
+  protected ConstructCamera(): Camera {
+    var camera = new PerspectiveCamera();
+    this.targetPerspective = camera;
+    camera.Fovy = this.Fovy;
+    camera.Aspect = this.Aspect;
+    camera.Near = this.Near;
+    camera.Far = this.Far;
     return camera;
   }
 
-    public get Fovy():number
-  {
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
+  }
+
+  public get Fovy(): number {
     return this.attributes.getValue("fovy");
   }
 
-    public get Aspect():number
-  {
+  public get Aspect(): number {
     return this.attributes.getValue("aspect");
   }
 
-    public get Near():number
-  {
+  public get Near(): number {
     return this.attributes.getValue("near");
   }
 
-    public get Far():number
-  {
+  public get Far(): number {
     return this.attributes.getValue("far");
   }
 }
 
-export=GomlTreeCameraNode;
+export = CameraNode;

@@ -3,33 +3,44 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import LightNodeBase = require('./LightNodeBase');
 import PointLight = require('../../../../Core/Light/Impl/PointLight');
-import LightBase =require('../../../../Core/Light/LightBase');
-class PointLightNode extends LightNodeBase
-{
-	private targetLight:PointLight;
+import LightBase = require('../../../../Core/Light/LightBase');
 
-		constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-		super(elem, parent, parentSceneNode, parentObject);
+class PointLightNode extends LightNodeBase {
+	private targetLight: PointLight;
+
+		constructor() {
+		super();
 		this.attributes.defineAttribute({
-			"intensity":{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.intensity=v.Value;}
+			"intensity": {
+				value: 1,
+				converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.intensity = attr.Value;
+        }
 			},
 			"decay":
 			{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.decay=v.Value;}
+				value: 1,
+				converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.decay = attr.Value;
+        }
 			},
 			"distance":
 			{
-				value:1,converter:"number",handler:(v)=>{this.targetLight.distance=v.Value;}
+				value: 1,
+				converter: "number",
+        onchanged: (attr) => {
+          this.targetLight.distance = attr.Value;
+        }
 			}
-
 		});
 	}
 
-	protected constructLight():LightBase
-	{
-		this.targetLight= new PointLight(this.ContainedSceneNode.targetScene);
+	protected constructLight(): LightBase {
+		this.targetLight = new PointLight(this.ContainedSceneNode.targetScene);
 		return this.targetLight;
 	}
 }
+
 export = PointLightNode;

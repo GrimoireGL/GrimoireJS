@@ -13,45 +13,46 @@ class TemplateNode extends GomlTreeNodeBase
     return this.templateGoml;
   }
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
+  constructor()
   {
-      super(elem,parent);
-      var name=elem.getAttribute("name");
-      if(name)
-      {
-        this.nodeManager.nodeRegister.addObject("jthree.template",name,this);
-        this.templateGoml=elem.innerHTML;
-      }else{
-        console.error("template tag should be specified name.")
-      }
+      super();
+      // var name=elem.getAttribute("name");
+      // if(name)
+      // {
+      //   this.nodeManager.nodeRegister.addObject("jthree.template",name,this);
+      //   this.templateGoml=elem.innerHTML;
+      // }else{
+      //   console.error("template tag should be specified name.")
+      // }
   }
 
   public GetGomlToInstanciate(instanciateParent:HTMLElement):string
   {
-    var valueMap:{[key:string]:string}={};
-    var templateAttributes=this.element.attributes;
-    for (var i = 0; i < templateAttributes.length; i++) {
-      var attribute = templateAttributes.item(i);
-      if(TemplateNode.templateIgnore.indexOf(attribute.name)===-1)
-      {
-        valueMap[attribute.name]=attribute.value;
-      }
-    }
-    var instanciateParentAttributes=instanciateParent.attributes;
-    for (var i = 0; i < instanciateParentAttributes.length; i++) {
-      var attribute = instanciateParentAttributes.item(i);
-      if(TemplateNode.parentIgnore.indexOf(attribute.name)===-1)
-      {
-        valueMap[attribute.name]=attribute.value;
-      }
-    }
-    var replaceTarget:string = this.TemplateGoml;
-    for(var replaceKey in valueMap)
-    {
-      var value = valueMap[replaceKey];
-      replaceTarget=replaceTarget.replace(`{{${replaceKey}}}`,value);
-    }
-    return replaceTarget;
+    // var valueMap:{[key:string]:string}={};
+    // var templateAttributes=this.element.attributes;
+    // for (var i = 0; i < templateAttributes.length; i++) {
+    //   var attribute = templateAttributes.item(i);
+    //   if(TemplateNode.templateIgnore.indexOf(attribute.name)===-1)
+    //   {
+    //     valueMap[attribute.name]=attribute.value;
+    //   }
+    // }
+    // var instanciateParentAttributes=instanciateParent.attributes;
+    // for (var i = 0; i < instanciateParentAttributes.length; i++) {
+    //   var attribute = instanciateParentAttributes.item(i);
+    //   if(TemplateNode.parentIgnore.indexOf(attribute.name)===-1)
+    //   {
+    //     valueMap[attribute.name]=attribute.value;
+    //   }
+    // }
+    // var replaceTarget:string = this.TemplateGoml;
+    // for(var replaceKey in valueMap)
+    // {
+    //   var value = valueMap[replaceKey];
+    //   replaceTarget=replaceTarget.replace(`{{${replaceKey}}}`,value);
+    // }
+    // return replaceTarget;
+    return '';
   }
 
 }

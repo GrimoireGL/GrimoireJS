@@ -4,52 +4,41 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
 import SceneObject = require("../../../../Core/SceneObject");
+import Delegate = require('../../../../Base/Delegates');
 
-class GomlTreeCameraNodeBase extends SceneObjectNodeBase
-{
-  private targetCamera:Camera;
+class CameraNodeBase extends SceneObjectNodeBase {
+  private targetCamera: Camera;
 
-  public get TargetCamera():Camera
-  {
+  public get TargetCamera(): Camera {
     return this.targetCamera;
   }
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase,parentSceneNode:GomlTreeSceneNode,parentObject:SceneObjectNodeBase)
-  {
-      super(elem,parent,parentSceneNode,parentObject);
-      this.nodeManager.nodeRegister.addObject("jthree.camera",this.Name,this);
+  constructor() {
+    super();
   }
 
-  protected ConstructCamera():Camera
-  {
+  protected ConstructCamera(): Camera {
     return null;
   }
 
-  protected ConstructTarget():SceneObject
-  {
-    this.targetCamera=this.ConstructCamera();
-    return this.targetCamera;
+  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
+    this.targetCamera = this.ConstructCamera();
+    callbackfn(this.targetCamera);
   }
 
-    public beforeLoad()
-  {
-    super.beforeLoad();
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent);
+    this.nodeManager.nodeRegister.addObject("jthree.camera", this.Name, this);
   }
 
-    public Load()
-  {
-    super.Load();
-  }
-
-  private name:string;
+  private name: string;
   /**
   * GOML Attribute
   * Identical Name for camera
   */
-    public get Name():string{
-    this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
-    return this.name;
+  public get Name(): string {
+    return this.attributes.getValue('name');
   }
 }
 
-export=GomlTreeCameraNodeBase;
+export = CameraNodeBase;

@@ -22,16 +22,16 @@ class JThreeLogger
 
     public static sectionLongLog(sectionName:string,log:string)
     {
-      var params = JThreeLogger.sectionLogParams(sectionName,"");
-      var logLines = log.split('\n');
-      var entireLog="\n";
-      for (let i = 0; i < logLines.length; i++) {
-          var line = `%c ${i+1} %c▶%c ${logLines[i]}\n`;
-          params.push("background-color:#344F66;color:white;","color:#344F66;","");
-          entireLog+=line;
-      }
-      params[0]+=entireLog;
-      console.log.apply(console,params);
+      // var params = JThreeLogger.sectionLogParams(sectionName,"");
+      // var logLines = log.split('\n');
+      // var entireLog="\n";
+      // for (let i = 0; i < logLines.length; i++) {
+      //     var line = `%c ${i+1} %c▶%c ${logLines[i]}\n`;
+      //     params.push("background-color:#344F66;color:white;","color:#344F66;","");
+      //     entireLog+=line;
+      // }
+      // params[0]+=entireLog;
+      // console.log.apply(console,params);
     }
 
     private static sectionLogParams(sectionName:string,log:string)
