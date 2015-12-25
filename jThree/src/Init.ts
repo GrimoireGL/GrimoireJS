@@ -1,3 +1,4 @@
+import BasicMaterial = require("./Core/Materials/Base/BasicMaterial");
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
 import Timer = require("./Core/Timer");
 import Delegates = require('./Base/Delegates');
@@ -111,6 +112,7 @@ class JThreeInit {
         var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
         resourceLoader.promise.then(() => {
             JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
+            var basicMaterial = new BasicMaterial(require("./Core/Materials/BuiltIn/GBuffer/SecoundaryBuffer.html"));
         });
     }
 }

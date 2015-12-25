@@ -10,10 +10,10 @@
     <cull enabled="true" orientation="ccw"/>
     <glsl>
       <![CDATA[
-      attribute vec3 position;
+      attribute vec4 position;
       attribute vec3 normal;
       varying vec3 vNormal;
-      varying vec3 vPosition;
+      varying vec4 vPosition;
 
       //@vertonly{
         uniform mat4 _matVM;
