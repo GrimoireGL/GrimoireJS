@@ -3,7 +3,7 @@
   "repo": "borisyankov/DefinitelyTyped",
   "ref": "master",
   "path": "./jThree/src/refs",
-  "bundle": "./jThree/refs/bundle.ts",
+  "bundle": "./jThree/src/refs/bundle.ts",
   "installed": {
     "jquery/jquery.d.ts": {
       "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"

@@ -12,7 +12,7 @@ class BehaviorRegistry extends JThreeObject
   {
     super();
   }
-  
+
   private behaviorInstances: AssociativeArray<BehaviorDeclarationBody> = new AssociativeArray<BehaviorDeclarationBody>();
 
   public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody|Delegates.Action0);
@@ -47,8 +47,8 @@ class BehaviorRegistry extends JThreeObject
   }
     /**
      * Generate reference copy
-     * @param targetObject the object you want to copy 
-     * @returns {} 
+     * @param targetObject the object you want to copy
+     * @returns {}
      */
   private copyObject(targetObject:any) {
       if (typeof targetObject === "object") {

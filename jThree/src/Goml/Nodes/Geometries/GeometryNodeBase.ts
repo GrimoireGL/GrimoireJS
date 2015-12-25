@@ -4,57 +4,47 @@ import Geometry = require("../../../Core/Geometries/Geometry");
 /**
 * Base class for managing geometry node.
 */
-class GomlTreeGeometryNode extends GomlTreeNodeBase
-{
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
-  {
-      super(elem,parent);
+class GeometryNodeBase extends GomlTreeNodeBase {
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      'name': {
+        value: undefined,
+        converter: 'string',
+      }
+    });
   }
 
-  private name:string;
+  private name: string;
   /**
   * GOML Attribute
   * Identical Name for geometry
   */
-    public get Name():string{
-    this.name=this.name||this.element.getAttribute('name')||JThreeID.getUniqueRandom(10);
+  public get Name(): string {
     return this.name;
   }
 
-  private lazy:boolean=undefined;
+  private targetGeometry: Geometry;
+
   /**
-  * GOML Attribute
-  * If this Attribute was true, this resource will be loaded when be used first.
+  * The geometry this node managing.
   */
-    public get Lazy():boolean
-  {
-    this.lazy=typeof this.lazy === 'undefined'?this.element.getAttribute('lazy').toLowerCase()=='true':this.lazy;
-    return this.lazy;
-  }
-
-  private targetGeometry:Geometry;
-
-/**
-* The geometry this node managing.
-*/
-    public get TargetGeometry():Geometry
-  {
+  public get TargetGeometry(): Geometry {
     return this.targetGeometry;
   }
   /**
   * Generate geometry instance for the geometry.
   * You need to override this function to extend this class.
   */
-  protected ConstructGeometry():Geometry
-  {
+  protected ConstructGeometry(): Geometry {
     return null;
   }
 
-    public beforeLoad():void
-  {
-    super.beforeLoad();
-    this.targetGeometry=this.ConstructGeometry();
-    this.nodeManager.nodeRegister.addObject("jthree.geometries",this.Name,this);
+  protected nodeWillMount(parent: GomlTreeNodeBase): void {
+    super.nodeWillMount(parent);
+    this.name = this.attributes.getValue('name'); // TODO: pnly
+    this.targetGeometry = this.ConstructGeometry();
+    this.nodeManager.nodeRegister.addObject("jthree.geometries", this.Name, this);
   }
 }
-export=GomlTreeGeometryNode;
+export = GeometryNodeBase;

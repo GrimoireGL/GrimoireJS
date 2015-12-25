@@ -1,23 +1,23 @@
 {
-	"folders":
-	[
-		{
-			"folder_exclude_patterns":
-			[
-				"node_modules",
-				"bower_components",
-				".settings",
-				"ci",
-				"atom",
-				"scripts",
-				"bin"
-			],
-			"path": "."
-		}
-	],
-	"settings":
-	{
-		"tab_size": 2,
-		"translate_tabs_to_spaces": true
-	}
+  "folders": [
+    {
+      "folder_exclude_patterns": [
+        "node_modules",
+        "bower_components",
+        ".settings",
+        "ci",
+        "atom",
+        "scripts",
+        "bin"
+      ],
+      "path": "."
+    }
+  ],
+  "settings": {
+    "tab_size": 2,
+    "translate_tabs_to_spaces": true,
+    "ignored_packages": [
+    	"SublimeCodeIntel"
+    ]
+  }
 }

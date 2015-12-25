@@ -4,85 +4,119 @@ import SceneObject = require("../../../Core/SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
 import AttributeParser = require("../../AttributeParser");
+import Delegate = require('../../../Base/Delegates');
+
 class SceneObjectNodeBase extends GomlTreeNodeBase {
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: SceneNode, parentObject: SceneObjectNodeBase) {
-    super(elem, parent);
-    this.containedSceneNode = parentSceneNode;
-    this.parentSceneObjectNode = parentObject;
+  constructor() {
+    super();
     this.attributes.defineAttribute({
       "position": {
         value: new Vector3(0, 0, 0),
-        converter: "vector3", handler: (v) => {
-          if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Position = <Vector3>v.Value; }
+        converter: "vector3",
+        onchanged: (attr) => {
+          if (this.targetSceneObject) {
+            this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+            });
+          }
+        }
       },
       "scale": {
         value: new Vector3(1, 1, 1),
-        converter: "vector3", handler: (v) => { if (this.targetSceneObject != null) this.targetSceneObject.Transformer.Scale = <Vector3>v.Value; }
-      },
-      "rotation":
-      {
-        value: Quaternion.Identity,
-        converter: "rotation",
-        handler: (v) => {
-          if (this.targetSceneObject != null)
-            this.targetSceneObject.Transformer.Rotation = v.Value;
+        converter: "vector3",
+        onchanged: (attr) => {
+          if (this.targetSceneObject) {
+            this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+            });
+          }
         }
       },
-      "name":
-      {
-        value:undefined,
-        converter:"string",
-        handler:(v)=>
-        {
-          if(this.targetSceneObject&&v.Value)this.targetSceneObject.name = v.Value;
+      "rotation": {
+        value: Quaternion.Identity,
+        converter: "rotation",
+        onchanged: (attr) => {
+          if (this.targetSceneObject) {
+            this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+            });
+          }
+        }
+      },
+      "name": {
+        value: undefined,
+        converter: "string",
+        onchanged: (attr) => {
+          if (this.targetSceneObject) {
+            this.targetSceneObject.name = attr.Value;
+          } else {
+            this.once('target-scene-object-added', () => {
+              this.targetSceneObject.name = attr.Value;
+            });
+          }
         }
       }
     });
   }
 
-  protected ConstructTarget(): SceneObject {
-    return null;
+  protected nodeWillMount(parent: GomlTreeNodeBase): void {
+    super.nodeWillMount(parent);
+    let sceneNode: SceneNode = null;
+    let sceneObjectNode: SceneObjectNodeBase = null;
+    if (parent.getTypeName() == "SceneNode")//This parent node is scene node. TODO: I wonder there is better way
+    {
+      sceneNode = <SceneNode>parent;
+      sceneObjectNode = null;
+    } else {
+      if (typeof parent["ContainedSceneNode"] === "undefined") {//check parent extends SceneObjectNodeBase or not.
+        console.error(`${parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
+        return null;
+      } else {
+        sceneObjectNode = <SceneObjectNodeBase>parent;
+        sceneNode = sceneObjectNode.ContainedSceneNode;
+      }
+    }
+    this.containedSceneNode = sceneNode;
+    this.parentSceneObjectNode = sceneObjectNode;
+
+    this.ConstructTarget((sceneObject) => {
+      this.targetSceneObject = sceneObject;
+      if (!this.targetSceneObject) {
+        console.error('sceneObject is invalid.');
+        return;
+      }
+      this.emit('target-scene-object-added');
+      if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
+        this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
+      //append targetObject to parentt
+      this.applyHierarchy();
+    });
+  }
+
+  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
+    console.error('This method "ConstructTarget" should be overridden.')
   }
 
   protected targetUpdated() {
 
   }
 
-
-  public beforeLoad(): void {
-    super.beforeLoad();
-    this.targetSceneObject = this.ConstructTarget();
-    if (this.targetSceneObject == null) return;
-    if(!this.targetSceneObject.name||this.targetSceneObject.ID == this.targetSceneObject.name)
-      this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
-    //append targetObject to parent
-    this.applyHierarchy();
-    this.attributes.applyDefaultValue();
-  }
-
   private applyHierarchy() {
-    if (!this.targetSceneObject) {
-      console.error("SceneObject node must override ConstructTarget and return the object extending SceneObjnect");
+    if (this.parentSceneObjectNode == null) { //this is root object of scene
+      this.containedSceneNode.targetScene.addObject(this.targetSceneObject);
     } else {
-      if (this.parentSceneObjectNode == null)//this is root object of scene
-        this.containedSceneNode.targetScene.addObject(this.targetSceneObject);
-      else {
-        if (this.parentSceneObjectNode.targetSceneObject == null) return;
-        this.parentSceneObjectNode.targetSceneObject.addChild(this.targetSceneObject);
-      }
+      if (this.parentSceneObjectNode.targetSceneObject == null) return;
+      this.parentSceneObjectNode.targetSceneObject.addChild(this.targetSceneObject);
     }
-
-  }
-
-  public parentChanged() {
-    this.applyHierarchy();
   }
 
   protected targetSceneObject: SceneObject;
-
-  public get TargetObject() {
-    return this.targetSceneObject;
-  }
 
   /**
   * SceneNode containing this node
@@ -102,24 +136,18 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     return this.parentSceneObjectNode;
   }
 
-  private position: Vector3;
-
   public get Position(): Vector3 {
-    return this.position || Vector3.parse(this.element.getAttribute('position') || "0");
+    return this.attributes.getValue('position');
   }
-
-  private rotation: Quaternion;
 
   public get Rotation(): Quaternion {
-    return this.rotation || AttributeParser.ParseRotation3D(this.element.getAttribute('rotation') || "x(0)");
+    return this.attributes.getValue('rotation');
   }
 
-  private scale: Vector3;
-
   public get Scale(): Vector3 {
-    return this.scale || Vector3.parse(this.element.getAttribute('scale') || "1");
+    return this.attributes.getValue('scale');
   }
 
 }
 
-export =SceneObjectNodeBase;
+export = SceneObjectNodeBase;

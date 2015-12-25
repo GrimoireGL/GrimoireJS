@@ -1,35 +1,32 @@
 import JThreeObject = require("../Base/JThreeObject");
 
-class GomlNodeListElement extends JThreeObject
-{
-  private group:string;
+/**
+ * GomlNodeをグループとしてまとめて管理します
+ */
+class GomlNodeListElement extends JThreeObject {
+  private group: string;
 
-  private factory:any;
+  private nodeTypes: { [key: string]: any };
 
-  private nodeTypes:{[key:string]:any};
-
-  constructor(group:string,factory:any,nodeTypes:{[key:string]:any})
-  {
+  /**
+   * constructor
+   *
+   * @param {string} group    グループ識別用の文字列。すべて大文字で管理されています。
+   * @param {any}}  nodeTypes グループ内のGomlNodeのconstructorをまとめるObject。Tag名がKeyとなっています。
+   */
+  constructor(group: string, nodeTypes: { [key: string]: any }) {
     super();
-    this.group=group;
-    this.nodeTypes=nodeTypes;
-    this.factory=factory;
+    this.group = group;
+    this.nodeTypes = nodeTypes;
   }
 
-  public get Group():string
-  {
+  public get Group(): string {
     return this.group;
   }
 
-  public get NodeTypes():{[key:string]:any}
-  {
+  public get NodeTypes(): { [key: string]: any } {
     return this.nodeTypes;
-  }
-
-  public get Factory():any
-  {
-    return this.factory;
   }
 }
 
-export=GomlNodeListElement;
+export =GomlNodeListElement;

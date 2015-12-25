@@ -1,30 +1,29 @@
 ﻿import Delegates = require("../Base/Delegates");
 import GomlAttribute = require("./GomlAttribute");
 
-interface AttributeDeclarationBody
-{
+interface AttributeDeclarationBody {
 	/**
 	 * Converter name, jThree will interpret the value using this class.
 	 */
-	converter:string;
-
-	/**
-	 * call back method, if the value of this attribute changed, this method will be fired.
-	 */
-	handler?:Delegates.Action1<GomlAttribute>;
+  converter: string;
 
 	/**
 	 * default value of this attribute.
 	 */
-    value?: any;
+  value?: any;
 
-    /**
-     * Whether this attribute accept change by interface or not.
-     * default: false
-     */
-    constant?:boolean;
+  /**
+   * apply to event listener when attribute changed
+   */
+  onchanged?: Delegates.Action1<GomlAttribute>;
 
-		[other:string]:any;
+  /**
+   * Whether this attribute accept change by interface or not.
+   * default: false
+   */
+  constant?: boolean;
+
+  [other: string]: any;
 }
 
- export = AttributeDeclarationBody;
+export = AttributeDeclarationBody;
