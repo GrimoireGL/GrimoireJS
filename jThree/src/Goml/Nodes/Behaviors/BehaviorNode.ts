@@ -40,7 +40,7 @@ class BehaviorNode extends GomlTreeNodeBase {
     this.enabled = attr.Value;
   }
 
-  protected nodeWillMount(parent: BehaviorsNode): void {
+  protected onMount(parent: BehaviorsNode): void {
     this.componentTarget = parent.ComponentTarget;
     this._initializeBehavior();
   }

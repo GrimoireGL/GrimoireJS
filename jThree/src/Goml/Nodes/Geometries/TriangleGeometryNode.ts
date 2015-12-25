@@ -42,9 +42,7 @@ class GomlTreeTriNode extends GeometryNodeBase {
     return this.TriGeometry = new TriangleGeometry(this.Name);
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 
 }
 

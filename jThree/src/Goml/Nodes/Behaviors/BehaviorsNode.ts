@@ -7,8 +7,8 @@ class BehaviorsNode extends GomlTreeNodeBase {
     super();
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(parent) {
+    super.onMount(parent);
     this.componentTarget = parent;
   }
 

@@ -22,8 +22,8 @@ class CanvasNode extends CanvasNodeBase {
     });
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(parent) {
+    super.onMount(parent);
     //generate canvas
     this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
     var defaultLoader;

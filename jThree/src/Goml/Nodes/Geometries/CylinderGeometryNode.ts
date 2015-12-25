@@ -24,8 +24,8 @@ class CylinderGeometryNode extends GeometryNodeBase {
     return this.gridGeometry = new CylinderGeometry(this.Name);
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
+  protected onMount() {
+    super.onMount();
     this.gridGeometry.DivideCount = this.attributes.getValue("divide");
   }
 

@@ -42,10 +42,10 @@ class MeshNode extends SceneObjectNodeBase {
     });
   }
 
-  public nodeWillMount(parent) {
+  public initialize(parent) {
     this.geo = this.attributes.getValue('geo'); // TODO: pnly
     this.mat = this.attributes.getValue('mat'); // TODO: pnly
-    super.nodeWillMount(parent);
+    super.onMount(parent);
   }
 
   private geo: string;

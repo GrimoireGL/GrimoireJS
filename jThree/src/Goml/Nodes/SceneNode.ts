@@ -26,8 +26,8 @@ class SceneNode extends GomlTreeNodeBase {
     this.targetScene.sceneAmbient = attr.Value;
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent)
+  protected onMount(parent) {
+    super.onMount(parent)
     var sceneName = this.attributes.getValue("name");
     if (sceneName == "") sceneName = null;
     this.targetScene = new Scene(sceneName);

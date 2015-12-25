@@ -62,8 +62,8 @@ class TextureNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(parent) {
+    super.onMount(parent);
     var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     var name = this.attributes.getValue("name");
     this.targetTexture = this.generateTexture(name, rm);

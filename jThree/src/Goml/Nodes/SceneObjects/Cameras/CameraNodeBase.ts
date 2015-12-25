@@ -26,8 +26,8 @@ class CameraNodeBase extends SceneObjectNodeBase {
     callbackfn(this.targetCamera);
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(parent) {
+    super.onMount(parent);
     this.nodeManager.nodeRegister.addObject("jthree.camera", this.Name, this);
   }
 

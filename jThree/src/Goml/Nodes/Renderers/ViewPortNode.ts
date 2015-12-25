@@ -119,8 +119,8 @@ class ViewPortNode extends GomlTreeNodeBase {
     }
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(parent) {
+    super.onMount(parent);
     this.cam = this.attributes.getValue('cam'); // TODO: pnly
     this.parentCanvas = <CanvasNode>parent;
     const defaultRect = this.parentCanvas.Canvas.region;
@@ -144,9 +144,7 @@ class ViewPortNode extends GomlTreeNodeBase {
     }
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 
   private updateViewportArea() {
     console.info('updateViewportArea');

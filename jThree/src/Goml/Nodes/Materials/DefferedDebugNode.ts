@@ -69,9 +69,7 @@ class DefferedDebugNode extends MaterialNodeBase {
     return this.material;
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 
 }
 

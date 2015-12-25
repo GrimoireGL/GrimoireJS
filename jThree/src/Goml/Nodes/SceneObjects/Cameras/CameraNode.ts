@@ -53,8 +53,8 @@ class CameraNode extends CameraNodeBase {
     return camera;
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(parent) {
+    super.onMount(parent);
   }
 
   public get Fovy(): number {

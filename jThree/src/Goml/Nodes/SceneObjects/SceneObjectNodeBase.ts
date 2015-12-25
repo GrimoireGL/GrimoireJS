@@ -65,8 +65,8 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  protected nodeWillMount(parent: GomlTreeNodeBase): void {
-    super.nodeWillMount(parent);
+  protected onMount(parent: GomlTreeNodeBase): void {
+    super.onMount(parent);
     let sceneNode: SceneNode = null;
     let sceneObjectNode: SceneObjectNodeBase = null;
     if (parent.getTypeName() == "SceneNode")//This parent node is scene node. TODO: I wonder there is better way

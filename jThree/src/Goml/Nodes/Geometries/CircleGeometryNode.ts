@@ -27,9 +27,7 @@ class CircleGeometryNode extends GeometryNodeBase {
     return this.gridGeometry;
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 
 }
 
