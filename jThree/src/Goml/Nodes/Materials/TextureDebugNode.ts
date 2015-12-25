@@ -5,53 +5,65 @@ import Material = require('../../../Core/Materials/Material')
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../../Core/ResourceManager");
+
 class TextureDebugNode extends MaterialNodeBase {
-    public material: DebugSprite;
+  public material: DebugSprite;
 
-    constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-        super(elem, parent);
-        this.attributes.defineAttribute({
-            "target": {
-                value: "rb1", converter: "string",
-                handler: (v) => {
-                        JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager)
-                          .getTextureHandler(this.attributes.getValue("target"), (v) => {
-                            this.material.texture = v;
-                        });
-                }
-            },
-            "R":
-            {
-                value: "0", converter: "number", handler: (v) => { this.material.ctR = v.Value; }
-            },
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "target": {
+        value: "rb1",
+        converter: "string",
+        onchanged: this._onTargetAttrChanged,
+      },
+      "R": {
+        value: "0",
+        converter: "number",
+        onchanged: (attr) => {
+          this.material.ctR = attr.Value;
+        },
+      },
+      "G": {
+        value: "1",
+        converter: "number",
+        onchanged: (attr) => {
+          this.material.ctG = attr.Value;
+        },
+      },
+      "B": {
+        value: "2",
+        converter: "number",
+        onchanged: (attr) => {
+          this.material.ctB = attr.Value;
+        },
+      },
+      "A": {
+        value: "3",
+        converter: "number",
+        onchanged: (attr) => {
+          this.material.ctA = attr.Value;
+        },
+      },
+    });
+  }
 
-            "G":
-            {
-                value: "1", converter: "number", handler: (v) => { this.material.ctG = v.Value; }
-            },
+  private _onTargetAttrChanged(attr): void {
+    JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager)
+      .getTextureHandler(this.attributes.getValue("target"), (v) => {
+        this.material.texture = v;
+    });
+  }
 
-            "B":
-            {
-                value: "2", converter: "number", handler: (v) => { this.material.ctB = v.Value; }
-            },
+  protected ConstructMaterial(): Material {
+    this.material = new DebugSprite();
+    return this.material;
+  }
 
-            "A":
-            {
-                value: "3", converter: "number", handler: (v) => { this.material.ctA = v.Value; }
-            },
-        });
-
-    }
-
-    protected ConstructMaterial(): Material {
-        this.material = new DebugSprite();
-        return this.material;
-    }
-
-    public beforeLoad() {
-        super.beforeLoad();
-    }
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
+  }
 
 }
 
-export =TextureDebugNode;
+export = TextureDebugNode;

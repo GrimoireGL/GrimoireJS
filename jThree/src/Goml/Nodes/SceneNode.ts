@@ -3,37 +3,37 @@ import Scene = require("../../Core/Scene");
 import JThreeContext = require('../../JThreeContext');
 import SceneManager = require("../../Core/SceneManager");
 import ContextComponents = require("../../ContextComponents");
-class SceneNode extends GomlTreeNodeBase
-{
-    public targetScene:Scene;
 
-  constructor(elem: HTMLElement,parent:GomlTreeNodeBase)
-  {
-      super(elem,parent);
+class SceneNode extends GomlTreeNodeBase {
+  public targetScene: Scene;
+
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "ambient": {
+        value: "#111",
+        converter: "color3",
+        onchanged: this._onAmbientAttrChanged,
+      },
+      "name": {
+        value: "",
+        converter: "string"
+      }
+    });
   }
 
-    public beforeLoad()
-  {
-    this.attributes.defineAttribute({
-        "ambient":{
-          value:"#111",
-          converter:"color3",
-          handler:(v)=>{
-            this.targetScene.sceneAmbient = v.Value;
-          }
-        },
-        "name":
-        {
-          value:"",
-          converter:"string"
-        }
-      });
+  private _onAmbientAttrChanged(attr): void {
+    this.targetScene.sceneAmbient = attr.Value;
+  }
+
+  protected nodeWillMount(parent) {
+    super.nodeWillMount(parent)
     var sceneName = this.attributes.getValue("name");
-    if(sceneName == "") sceneName =null;
-    this.targetScene=new Scene(sceneName);
+    if (sceneName == "") sceneName = null;
+    this.targetScene = new Scene(sceneName);
     JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.targetScene);
   }
 
 }
 
-export=SceneNode;
+export =SceneNode;

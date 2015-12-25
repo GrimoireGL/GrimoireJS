@@ -3,29 +3,22 @@ import SolidColor = require("../../../Core/Materials/Forward/SolidColorMaterial"
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
 import Material = require('../../../Core/Materials/Material');
-class SolidColorNode extends MaterialNodeBase
-{
-    public material:BasicMaterial;
 
-    constructor(elem:HTMLElement,parent:GomlTreeNodeBase) {
-        super(elem,parent);
-        // this.attributes.defineAttribute({
-        //   "color":{
-        //     value:"#0FC",converter:"color4",handler:(v)=>{this.material.Color=v.Value}
-        //   }
-        // });
-    }
+class SolidColorNode extends MaterialNodeBase {
+  public material: BasicMaterial;
 
-    protected ConstructMaterial():Material
-    {
-      this.material=new BasicMaterial(require("../../../Core/Materials/BuiltIn/Materials/SolidColor.html"));
-      return this.material;
-    }
+  constructor() {
+    super();
+  }
 
-    public beforeLoad()
-    {
-      super.beforeLoad();
-    }
+  protected ConstructMaterial(): Material {
+    this.material = new BasicMaterial(require("../../../Core/Materials/BuiltIn/Materials/SolidColor.html"));
+    return this.material;
+  }
+
+  protected nodeDidMounted() {
+    super.nodeDidMounted();
+  }
 }
 
-export=SolidColorNode;
+export = SolidColorNode;

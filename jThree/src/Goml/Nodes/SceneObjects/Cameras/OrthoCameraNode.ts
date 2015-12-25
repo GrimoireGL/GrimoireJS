@@ -7,55 +7,54 @@ import GomlTreeCameraNodeBase = require("./CameraNodeBase");
 
 class OrthoCameraNode extends GomlTreeCameraNodeBase {
 
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase, parentSceneNode: GomlTreeSceneNode, parentObject: SceneObjectNodeBase) {
-    super(elem, parent, parentSceneNode, parentObject);
-    this.attributes.defineAttribute(
-      {
-        "left": {
-          value: -100,
-          converter: "number",
-          handler: (v) => {
-            this.targetOrtho.Left = v.Value;
-          }
-        },
-        "right": {
-          value: 100,
-          converter: "number",
-          handler: (v) => {
-            this.targetOrtho.Right = v.Value;
-          }
-        },
-         "bottom": {
-          value: -100,
-          converter: "number",
-          handler: (v) => {
-            this.targetOrtho.Bottom = v.Value;
-          }
-        },
-        "top": {
-          value: 100,
-          converter: "number",
-          handler: (v) => {
-            this.targetOrtho.Top = v.Value;
-          }
-         },
-          "near": {
-            value: -100,
-            converter: "number",
-            handler: (v) => {
-              this.targetOrtho.Near = v.Value;
-            }
-          },
-          "far": {
-            value: -100,
-            converter: "number",
-            handler: (v) => {
-              this.targetOrtho.Far = v.Value;
-            }
-          }
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "left": {
+        value: -100,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetOrtho.Left = attr.Value;
+        }
+      },
+      "right": {
+        value: 100,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetOrtho.Right = attr.Value;
+        }
+      },
+      "bottom": {
+        value: -100,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetOrtho.Bottom = attr.Value;
+        }
+      },
+      "top": {
+        value: 100,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetOrtho.Top = attr.Value;
+        }
+      },
+      "near": {
+        value: -100,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetOrtho.Near = attr.Value;
+        }
+      },
+      "far": {
+        value: -100,
+        converter: "number",
+        onchanged: (attr) => {
+          this.targetOrtho.Far = attr.Value;
+        }
       }
-      );
+    });
   }
+
   private targetOrtho: OrthoCamera;
 
   protected ConstructCamera(): Camera {
@@ -72,4 +71,4 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
 
 }
 
-export =OrthoCameraNode;
+export = OrthoCameraNode;

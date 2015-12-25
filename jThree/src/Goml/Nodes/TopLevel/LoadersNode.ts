@@ -1,12 +1,11 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
 class LoadersNode extends OrderedTopLevelNodeBase {
-  constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-    super(elem, parent);
+  constructor() {
+    super();
   }
 
-  public get loadPriorty():number
-  {
+  public get loadPriorty(): number {
     return 1000;
   }
 
