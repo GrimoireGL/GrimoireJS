@@ -102,6 +102,8 @@ class GBufferMaterial extends Material
             albedo = new Vector4(1, 0, 0, 1);
         }
         this.secoundaryMaterial.materialVariables["albedo"] = albedo;
+        this.secoundaryMaterial.materialVariables["textureUsed"] = !!fm.texture ? 1 : 0;
+        this.secoundaryMaterial.materialVariables["texture"] = fm.texture;
         this.secoundaryMaterial.configureMaterial(scene,renderer,object,texs,1,0);
     }
 

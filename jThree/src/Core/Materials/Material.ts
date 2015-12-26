@@ -1,3 +1,4 @@
+import TextureBase = require("../Resources/Texture/TextureBase");
 
 import Matrix = require("../../Math/Matrix");
 import VectorBase = require("../../Math/VectorBase");
@@ -186,6 +187,18 @@ class Material extends JThreeObjectWithID {
         if(uniform.variableType === "float")
         {
           pWrapper.uniformFloat(valName,<number>this.materialVariables[valName])
+        }
+        if(uniform.variableType === "int")
+        {
+          pWrapper.uniformInt(valName,<number>this.materialVariables[valName]);
+        }
+        if(uniform.variableType === "sampler2D")
+        {
+          if(this.materialVariables[valName])//TODO This register number should be fetched from attribute of uniform variable.
+            pWrapper.uniformTexture2D(valName,<TextureBase>this.materialVariables[valName],1);
+          else//TODO Alternative texture should be assigned to the variable here to prevent errors of WebGL.
+            //pWrapper.uniformTexture2D(valName,<TextureBase>)
+            ;
         }
       }
     }
