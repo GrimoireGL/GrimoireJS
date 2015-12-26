@@ -41,7 +41,7 @@ class XMMLRenderConfigUtility {
         const maskStr = depthNode.getAttribute("mask");
         let mode = modeStr || defMode;
         let mask;
-        if (typeof mask == "undefined") {
+        if (typeof maskStr == "undefined") {
             mask = defMask;
         } else {
             mask = maskStr == "true";
