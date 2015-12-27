@@ -13,7 +13,7 @@ RotationBehavior.prototype.update = function(v) {
 RotationBehavior.prototype.attributes =
 {
   ratio: {
-    converter: "number",
+    converter: "float",
     value:0.02
   }
 };

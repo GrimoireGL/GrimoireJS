@@ -31,8 +31,8 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     this.name = attr.Value;
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount() {
+    super.onMount();
     this.name = this.attributes.getValue('name'); // TODO: pnly
     this.targetMaterial = this.ConstructMaterial();
     this._generateAttributeForPasses();
@@ -73,19 +73,19 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     let converter;
     let initialValue;
     if (variableInfo.variableType == "vec2") { // TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.
-      converter = "vector2";
+      converter = "vec2";
       initialValue = Vector2.Zero;
     }
     if (variableInfo.variableType == "vec3") {
-      converter = "vector3";
+      converter = "vec3";
       initialValue = Vector3.Zero;
     }
     if (variableInfo.variableType == "vec4") {
-      converter = "vector4";
+      converter = "vec4";
       initialValue = Vector4.Zero;
     }
     if (variableInfo.variableType == "float") {
-      converter = "number"; // This should be float
+      converter = "float"; // This should be float
       initialValue = 0.0;
     }
     if (!converter) return undefined;

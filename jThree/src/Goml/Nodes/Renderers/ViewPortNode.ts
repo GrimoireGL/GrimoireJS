@@ -36,7 +36,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       },
       "width": {
         value: undefined,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.width = attr.Value;
           // this.updateViewportArea(); // TODO: pnly
@@ -44,7 +44,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       },
       "height": {
         value: undefined,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.height = attr.Value;
           // this.updateViewportArea(); // TODO: pnly
@@ -52,7 +52,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       },
       "left": {
         value: undefined,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.left = attr.Value;
           // this.updateViewportArea(); // TODO: pnly
@@ -60,7 +60,7 @@ class ViewPortNode extends GomlTreeNodeBase {
       },
       "top": {
         value: undefined,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.top = attr.Value;
           // this.updateViewportArea(); // TODO: pnly
@@ -119,10 +119,10 @@ class ViewPortNode extends GomlTreeNodeBase {
     }
   }
 
-  protected onMount(parent) {
-    super.onMount(parent);
+  protected onMount(): void {
+    super.onMount();
     this.cam = this.attributes.getValue('cam'); // TODO: pnly
-    this.parentCanvas = <CanvasNode>parent;
+    this.parentCanvas = <CanvasNode>this.parent;
     const defaultRect = this.parentCanvas.Canvas.region;
     // this.attributes.setValue('width', defaultRect.Width);
     // this.attributes.setValue('height', defaultRect.Height);

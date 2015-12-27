@@ -7,14 +7,14 @@ class CanvasNodeBase extends GomlTreeNodeBase {
     this.attributes.defineAttribute({
       "width": {
         value: undefined,
-        converter: "number",
+        converter: "float",
         onchanged: (v) => {
           this.sizeChanged(v.Value, this.attributes.getValue("height"));
         },
       },
       "height": {
         value: undefined,
-        converter: "number",
+        converter: "float",
         onchanged: (v) => {
           this.sizeChanged(this.attributes.getValue("width"), v.Value);
         },

@@ -76,7 +76,12 @@ class AttributeDictionary extends JThreeObject {
   public defineAttribute(attributes: AttributeDeclaration) {
     for (let key in attributes) {
       const attribute = attributes[key];
-      const gomlAttribute = new GomlAttribute(key, attribute.value, this.node.nodeManager.configurator.getConverter(attribute.converter), attribute.constant);
+      console.log(attribute.converter, this.node);
+      const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);
+      if (!converter) {
+        throw new Error(`converter \"${attribute.converter}\" is not found`)
+      }
+      const gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.constant);
       if (attribute.onchanged) {
         gomlAttribute.on('changed', attribute.onchanged.bind(this.node));
       } else {

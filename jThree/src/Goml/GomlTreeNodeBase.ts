@@ -5,6 +5,8 @@ import NodeManager = require('./NodeManager');
 import ContextComponents = require('../ContextComponents');
 import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
 import AssociativeArray = require("../Base/Collections/AssociativeArray");
+import Delegates = require("../Base/Delegates");
+
 /**
  * This is the most base class in all GomlNode
  */
@@ -22,8 +24,8 @@ class GomlTreeNodeBase extends TreeNodeBase {
     this.nodeManager.NodesById.set(this.ID, this);
     this.attributes = new AttributeDictionary(this);
 
-    // TreeNodeBaseのmoutedが更新される直前に割り込むイベント。attributeの反映専用。
-    this.on('just-before-node-mounted-update', (mounted) => {
+    // apply attributes
+    this.on('node-mount-process-finished', (mounted) => {
       if (mounted) {
         this.attributes.forEachAttr((ga) => {
           ga.initialize();
@@ -32,6 +34,10 @@ class GomlTreeNodeBase extends TreeNodeBase {
     });
   }
 
+  /**
+   * node manager
+   * @type {NodeManager}
+   */
   public nodeManager: NodeManager;
 
   /**

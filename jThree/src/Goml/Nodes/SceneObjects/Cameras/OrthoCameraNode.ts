@@ -12,42 +12,42 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
     this.attributes.defineAttribute({
       "left": {
         value: -100,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetOrtho.Left = attr.Value;
         }
       },
       "right": {
         value: 100,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetOrtho.Right = attr.Value;
         }
       },
       "bottom": {
         value: -100,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetOrtho.Bottom = attr.Value;
         }
       },
       "top": {
         value: 100,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetOrtho.Top = attr.Value;
         }
       },
       "near": {
         value: -100,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetOrtho.Near = attr.Value;
         }
       },
       "far": {
         value: -100,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetOrtho.Far = attr.Value;
         }

@@ -13,7 +13,7 @@ class DirectionalLightNode extends LightNodeBase {
     this.attributes.defineAttribute({
       "intensity": {
         value: 1,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetLight.intensity = attr.Value;
         }
@@ -27,7 +27,7 @@ class DirectionalLightNode extends LightNodeBase {
       },
       "bias": {
         value: 0.01,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetLight.bias = attr.Value;
         }

@@ -12,7 +12,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     this.attributes.defineAttribute({
       "position": {
         value: new Vector3(0, 0, 0),
-        converter: "vector3",
+        converter: "vec3",
         onchanged: (attr) => {
           if (this.targetSceneObject) {
             this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
@@ -25,7 +25,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
       },
       "scale": {
         value: new Vector3(1, 1, 1),
-        converter: "vector3",
+        converter: "vec3",
         onchanged: (attr) => {
           if (this.targetSceneObject) {
             this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
@@ -65,20 +65,20 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  protected onMount(parent: GomlTreeNodeBase): void {
-    super.onMount(parent);
+  protected onMount(): void {
+    super.onMount();
     let sceneNode: SceneNode = null;
     let sceneObjectNode: SceneObjectNodeBase = null;
-    if (parent.getTypeName() == "SceneNode")//This parent node is scene node. TODO: I wonder there is better way
+    if (this.parent.getTypeName() == "SceneNode")//This parent node is scene node. TODO: I wonder there is better way
     {
-      sceneNode = <SceneNode>parent;
+      sceneNode = <SceneNode>this.parent;
       sceneObjectNode = null;
     } else {
-      if (typeof parent["ContainedSceneNode"] === "undefined") {//check parent extends SceneObjectNodeBase or not.
-        console.error(`${parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
+      if (typeof this.parent["ContainedSceneNode"] === "undefined") {//check parent extends SceneObjectNodeBase or not.
+        console.error(`${this.parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
         return null;
       } else {
-        sceneObjectNode = <SceneObjectNodeBase>parent;
+        sceneObjectNode = <SceneObjectNodeBase>this.parent;
         sceneNode = sceneObjectNode.ContainedSceneNode;
       }
     }
