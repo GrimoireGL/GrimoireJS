@@ -27,6 +27,9 @@
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean"
   },
+  "directories": {
+    "test": "jThree/test_"
+  },
   "devDependencies": {
     "browserify": "^9.0.7",
     "chai": "^3.2.0",
