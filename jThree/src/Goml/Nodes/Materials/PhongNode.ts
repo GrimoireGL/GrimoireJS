@@ -33,7 +33,7 @@ class PhongNode extends MaterialNodeBase {
       },
       "specularpower": {
         value: 10,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.material.specularCoefficient = attr.Value;
         },
@@ -59,8 +59,8 @@ class PhongNode extends MaterialNodeBase {
     return this.material;
   }
 
-  protected onMount(parent: GomlTreeNodeBase): void {
-    super.onMount(parent);
+  protected onMount(): void {
+    super.onMount();
   }
 
 }

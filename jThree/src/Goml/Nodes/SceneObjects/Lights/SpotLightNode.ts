@@ -13,14 +13,14 @@ class SpotLightNode extends LightNodeBase {
     this.attributes.defineAttribute({
       "intensity": {
         value: 1,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetLight.intensity = attr.Value;
         }
       },
       "decay": {
         value: 1,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetLight.decay = attr.Value;
         }

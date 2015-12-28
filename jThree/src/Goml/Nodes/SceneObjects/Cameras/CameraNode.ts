@@ -19,21 +19,21 @@ class CameraNode extends CameraNodeBase {
       },
       "aspect": {
         value: 0,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetPerspective.Aspect = attr.Value;
         },
       },
       "near": {
         value: 0.1,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetPerspective.Near = attr.Value;
         },
       },
       "far": {
         value: 10,
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.targetPerspective.Far = attr.Value;
         },
@@ -53,8 +53,8 @@ class CameraNode extends CameraNodeBase {
     return camera;
   }
 
-  protected onMount(parent) {
-    super.onMount(parent);
+  protected onMount(): void {
+    super.onMount();
   }
 
   public get Fovy(): number {

@@ -13,7 +13,7 @@ class PointLightNode extends LightNodeBase {
 		this.attributes.defineAttribute({
 			"intensity": {
 				value: 1,
-				converter: "number",
+				converter: "float",
         onchanged: (attr) => {
           this.targetLight.intensity = attr.Value;
         }
@@ -21,7 +21,7 @@ class PointLightNode extends LightNodeBase {
 			"decay":
 			{
 				value: 1,
-				converter: "number",
+				converter: "float",
         onchanged: (attr) => {
           this.targetLight.decay = attr.Value;
         }
@@ -29,7 +29,7 @@ class PointLightNode extends LightNodeBase {
 			"distance":
 			{
 				value: 1,
-				converter: "number",
+				converter: "float",
         onchanged: (attr) => {
           this.targetLight.distance = attr.Value;
         }

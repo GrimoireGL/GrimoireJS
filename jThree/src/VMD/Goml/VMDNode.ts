@@ -39,7 +39,7 @@ class VMDNode extends GomlTreeNodeBase {
       },
       "frame": {
         value: 0,
-        converter: "number",
+        converter: "float",
         onchanged: this._onFrameAttrChanged,
       },
       "enabled": {
@@ -51,7 +51,7 @@ class VMDNode extends GomlTreeNodeBase {
       },
       "autoSpeed": {
         value: "0",
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.autoSpeed = attr.Value;
         },
@@ -59,8 +59,9 @@ class VMDNode extends GomlTreeNodeBase {
     });
   }
 
-  protected nodeWillMount(parent: PMXNode): void {
-    this.targetPMX = parent;
+  protected onMount(): void {
+    super.onMount();
+    this.targetPMX = <PMXNode>this.parent;
     this.targetPMX.on('loaded', () => { this.attributes.updateValue(); });
   }
 
