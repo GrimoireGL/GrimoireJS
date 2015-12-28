@@ -186,7 +186,7 @@ class ProgramWrapper extends ResourceWrapper {
       this.GL.uniform1i(location,val);
     }
 
-    public uniformTexture2D(variableName:string,tex:TextureBase,texRegister:number):number
+    public uniformSampler2D(variableName:string,tex:TextureBase,texRegister:number):number
     {
       const location = this._fetchUniformLocation(variableName);
       const texWrapper = tex.getForContext(this.OwnerCanvas);
