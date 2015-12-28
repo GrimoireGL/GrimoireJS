@@ -7,7 +7,7 @@
   <pass>
     <blend enabled="false" srcColor="srcalpha" dstColor="oneminussrcalpha" srcAlpha="1" dstAlpha="0"/>
     <depth enabled="false"/>
-    <cull enabled="true" orientation="ccw"/>
+    <cull enabled="true" orientation="back"/>
     <glsl>
       <![CDATA[
 
@@ -34,7 +34,9 @@
 
 
       //@fragonly{
+        //@(register:1)
         uniform sampler2D texture;
+        
         uniform vec4 albedo;
         uniform int textureUsed;
         void main()

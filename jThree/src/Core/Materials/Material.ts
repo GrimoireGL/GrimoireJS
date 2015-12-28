@@ -1,3 +1,5 @@
+import RendererBase = require("../Renderers/RendererConfigurator/RendererConfiguratorBase");
+import TextureBase = require("../Resources/Texture/TextureBase");
 
 import Matrix = require("../../Math/Matrix");
 import VectorBase = require("../../Math/VectorBase");
@@ -29,29 +31,27 @@ declare function require(string): string;
 * This is one of significant difference between jThree and the other Web3D libraries in Material.
 */
 class Material extends JThreeObjectWithID {
-   /**
-   * Whether this material was initialized already or not.
-   */
-    private initialized:boolean=false;
+    /**
+    * Whether this material was initialized already or not.
+    */
+    private initialized: boolean = false;
 
-    public materialVariables:{[key:string]:any} = {};
+    public materialVariables: { [key: string]: any } = {};
 
     /**
     * Set loaded status of this material.
     * If first argument of boolean was passed,the status of loaded will be changed in that value.
     * If first argument of boolean was not passed, the status of loaded will be changed in true.
     */
-    protected setLoaded(flag?:boolean)
-    {
-        flag=typeof flag ==='undefined'?true:flag;
-        this.initialized=flag;
+    protected setLoaded(flag?: boolean) {
+        flag = typeof flag === 'undefined' ? true : flag;
+        this.initialized = flag;
     }
 
     /**
      * Provides the flag this material finished loading or not.
      */
-    public get Initialized():boolean
-    {
+    public get Initialized(): boolean {
         return this.initialized;
     }
 
@@ -72,19 +72,17 @@ class Material extends JThreeObjectWithID {
         return this.priorty;
     }
 
-    public getMaterialConfig(pass:number,technique:number):IMaterialConfig
-    {
-      return {
-        cull:"ccw",
-        blend:true
-      }
+    public getMaterialConfig(pass: number, technique: number): IMaterialConfig {
+        return {
+            cull: "ccw",
+            blend: true
+        }
     }
     /**
     * Group name of this material.
     * This main purpose is mainly intended to be used in RenderStage for filtering materials by puropse of material.
     */
-    public get MaterialGroup():string
-    {
+    public get MaterialGroup(): string {
         return "jthree.materials.forematerial";
     }
     /**
@@ -104,90 +102,92 @@ class Material extends JThreeObjectWithID {
     * @param vscode the vertex shader source code
     * @param fscode the fragment shader source code
     */
-    protected loadProgram(vsid: string, fsid: string, pid: string,vscode:string,fscode:string): Program {
+    protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        var vShader = rm.createShader(vsid,vscode,ShaderType.VertexShader);
-        var fShader = rm.createShader(fsid,fscode,ShaderType.FragmentShader);
-        vShader.loadAll();fShader.loadAll();
-        return rm.createProgram(pid,[vShader,fShader]);
+        var vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
+        var fShader = rm.createShader(fsid, fscode, ShaderType.FragmentShader);
+        vShader.loadAll(); fShader.loadAll();
+        return rm.createProgram(pid, [vShader, fShader]);
     }
     /**
     * Apply configuration of program.
     * This is used for passing variables,using programs,binding index buffer.
     */
-    public configureMaterial(scene:Scene,renderStage: RenderStageBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
-        this.applyMaterialConfig(passIndex,techniqueIndex,renderStage.Renderer);
+    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
+        this.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
         return;
     }
 
-    protected applyMaterialConfig(passIndex:number,techniqueIndex:number,renderer:BasicRenderer)
-    {
-      var config = this.getMaterialConfig(passIndex,techniqueIndex);
-      if(config.cull)
-      {
-        renderer.GL.enable(renderer.GL.CULL_FACE);
-        if(config.cull == "cw")
-        {
-          renderer.GL.cullFace(renderer.GL.FRONT);
-        }else
-        {
-          renderer.GL.cullFace(renderer.GL.BACK);
+    protected applyMaterialConfig(passIndex: number, techniqueIndex: number, renderer: BasicRenderer) {
+        var config = this.getMaterialConfig(passIndex, techniqueIndex);
+        if (config.cull) {
+            renderer.GL.enable(renderer.GL.CULL_FACE);
+            if (config.cull == "cw") {
+                renderer.GL.cullFace(renderer.GL.FRONT);
+            } else {
+                renderer.GL.cullFace(renderer.GL.BACK);
+            }
+        } else {
+            renderer.GL.disable(renderer.GL.CULL_FACE);
         }
-      }else
-      {
-        renderer.GL.disable(renderer.GL.CULL_FACE);
-      }
-      if(config.blend)
-      {
-        renderer.GL.enable(renderer.GL.BLEND);
-        if(!config.blendArg1)
-        {
-          //If blendFunc was not specified, jThree will select linear blending
-          config.blendArg1 = "srcAlpha"
-          config.blendArg2 = "oneMinusSrcAlpha"
+        if (config.blend) {
+            renderer.GL.enable(renderer.GL.BLEND);
+            if (!config.blendArg1) {
+                //If blendFunc was not specified, jThree will select linear blending
+                config.blendArg1 = "srcAlpha"
+                config.blendArg2 = "oneMinusSrcAlpha"
+            }
+            renderer.GL.blendFunc(this._parseBlendConfig(config.blendArg1, renderer), this._parseBlendConfig(config.blendArg2, renderer));
+        } else {
+            renderer.GL.disable(renderer.GL.BLEND);
         }
-        renderer.GL.blendFunc(this._parseBlendConfig(config.blendArg1,renderer),this._parseBlendConfig(config.blendArg2,renderer));
-      }else
-      {
-        renderer.GL.disable(renderer.GL.BLEND);
-      }
     }
 
-    private _parseBlendConfig(blendConfig:string,renderer:BasicRenderer):number
-    {
-      let lowerCaseBlendConfig = blendConfig.toLowerCase();
-      if(lowerCaseBlendConfig == "1")return renderer.GL.ONE;
-      if(lowerCaseBlendConfig == "0")return renderer.GL.ZERO;
-      if(lowerCaseBlendConfig == "srcalpha")return renderer.GL.SRC_ALPHA;
-      if(lowerCaseBlendConfig == "srcColor")return renderer.GL.SRC_COLOR;
-      if(lowerCaseBlendConfig == "oneminussrcalpha")return renderer.GL.ONE_MINUS_SRC_ALPHA;
-      if(lowerCaseBlendConfig == "oneminussrccolor")return renderer.GL.ONE_MINUS_SRC_COLOR;
-      if(lowerCaseBlendConfig == "oneminusdstalpha")return renderer.GL.ONE_MINUS_DST_ALPHA;
-      if(lowerCaseBlendConfig == "oneminusdstcolor")return renderer.GL.ONE_MINUS_DST_COLOR;
-      if(lowerCaseBlendConfig == "destalpha")return renderer.GL.DST_ALPHA;
-      if(lowerCaseBlendConfig == "destcolor")return renderer.GL.DST_COLOR;
-      console.error("Unsupported blend config!");
+    private _parseBlendConfig(blendConfig: string, renderer: BasicRenderer): number {
+        let lowerCaseBlendConfig = blendConfig.toLowerCase();
+        if (lowerCaseBlendConfig == "1") return renderer.GL.ONE;
+        if (lowerCaseBlendConfig == "0") return renderer.GL.ZERO;
+        if (lowerCaseBlendConfig == "srcalpha") return renderer.GL.SRC_ALPHA;
+        if (lowerCaseBlendConfig == "srcColor") return renderer.GL.SRC_COLOR;
+        if (lowerCaseBlendConfig == "oneminussrcalpha") return renderer.GL.ONE_MINUS_SRC_ALPHA;
+        if (lowerCaseBlendConfig == "oneminussrccolor") return renderer.GL.ONE_MINUS_SRC_COLOR;
+        if (lowerCaseBlendConfig == "oneminusdstalpha") return renderer.GL.ONE_MINUS_DST_ALPHA;
+        if (lowerCaseBlendConfig == "oneminusdstcolor") return renderer.GL.ONE_MINUS_DST_COLOR;
+        if (lowerCaseBlendConfig == "destalpha") return renderer.GL.DST_ALPHA;
+        if (lowerCaseBlendConfig == "destcolor") return renderer.GL.DST_COLOR;
+        console.error("Unsupported blend config!");
     }
 
-    public registerMaterialVariables(pWrapper:ProgramWrapper,uniforms:{[key:string]:IVariableInfo}):void
-    {
-      for(let valName in uniforms)
-      {
-        let uniform = uniforms[valName];
-        if(valName[0] == "_" ||typeof this.materialVariables[valName] === "undefined")continue;
-        if(uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4")
-        {
-          pWrapper.uniformVector(valName,<VectorBase>this.materialVariables[valName]);
+    public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableInfo }): void {
+        for (let valName in uniforms) {
+            let uniform = uniforms[valName];
+            if (valName[0] == "_") continue;
+            if (typeof this.materialVariables[valName] === "undefined") {
+                this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
+                continue;
+            }
+            if (uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4") {
+                pWrapper.uniformVector(valName, <VectorBase>this.materialVariables[valName]);
+            }
+            if (uniform.variableType === "mat4") {
+                pWrapper.uniformMatrix(valName, <Matrix>this.materialVariables[valName]);
+            }
+            if (uniform.variableType === "float") {
+                pWrapper.uniformFloat(valName, <number>this.materialVariables[valName])
+            }
+            if (uniform.variableType === "int") {
+                pWrapper.uniformInt(valName, <number>this.materialVariables[valName]);
+            }
+            if (uniform.variableType === "sampler2D") {
+                pWrapper.uniformSampler2D(valName, <TextureBase>this.materialVariables[valName], 3);
+            }
         }
-        if(uniform.variableType === "mat4")
-        {
-          pWrapper.uniformMatrix(valName,<Matrix>this.materialVariables[valName]);
+    }
+
+    private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
+        if (uniform.variableType === "sampler2D") {
+            pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture, 3);
         }
-        if(uniform.variableType === "float")
-        {
-          pWrapper.uniformFloat(valName,<number>this.materialVariables[valName])
-        }
-      }
     }
 
     /**
@@ -197,13 +197,11 @@ class Material extends JThreeObjectWithID {
         return true;
     }
 
-    public getDrawGeometryLength(geo:Geometry):number
-    {
+    public getDrawGeometryLength(geo: Geometry): number {
         return geo.IndexCount;
     }
 
-    public getDrawGeometryOffset(geo:Geometry):number
-    {
+    public getDrawGeometryOffset(geo: Geometry): number {
         return geo.GeometryOffset;
     }
 }

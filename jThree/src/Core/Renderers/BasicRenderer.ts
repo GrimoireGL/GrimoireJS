@@ -1,3 +1,5 @@
+import BufferTexture = require("../Resources/Texture/BufferTexture");
+import TextureBase = require("../Resources/Texture/TextureBase");
 import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
 import jThreeObjectWithID = require("../../Base/JThreeObjectWithID");
@@ -41,6 +43,38 @@ class BasicRenderer extends CanvasRegion
         this.RenderPathExecutor.generateAllTextures();
         this.name = this.ID;
     }
+
+    /**
+     * Initialize renderer to be rendererd.
+     * Basically, this method are used for initializing GL resources, the other variable and any resources will be initialized when constructor was called.
+     * This method is not intended to be called by user manually.
+     */
+    public initialize():void
+    {
+      this.alternativeTexture = this.__initializeAlternativeTexture();
+    }
+
+    /**
+     * Initialize and obtain the buffer texture which will be used when any texture sampler2D variable in GLSL was not assigned.
+     * This method will be called when RendererFactory called initialize method to construct instance.
+     * Basically,this method is not intended to be called from user.
+     * @return {TextureBase} Constructed texture buffer.
+     */
+    protected __initializeAlternativeTexture():TextureBase
+    {
+      const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+      let tex = <BufferTexture>rm.createTexture("jthree.alt." + this.ID ,1,1);
+      tex.updateTexture(new Uint8Array([255,0,255,255]));//Use purple color as the color of default buffer texture.
+      return tex;
+    }
+
+    /**
+     * The texture which will be used for unassigned texture sampler2D variable in GLSL.
+     * This variable is not intended to be assigned by user manually.
+     * If you want to change this alternative texture, you need to extend this class and overrride __initializeAlternativeTexture method.
+     * @type {TextureBase}
+     */
+    public alternativeTexture:TextureBase;
 
     public renderPath:RenderPath = new RenderPath();
 
