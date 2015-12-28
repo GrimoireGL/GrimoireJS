@@ -179,14 +179,14 @@ class Material extends JThreeObjectWithID {
                 pWrapper.uniformInt(valName, <number>this.materialVariables[valName]);
             }
             if (uniform.variableType === "sampler2D") {
-                pWrapper.uniformSampler2D(valName, <TextureBase>this.materialVariables[valName], 3);
+                pWrapper.uniformSampler2D(valName, <TextureBase>this.materialVariables[valName], <number>new Number(uniform.variableAnnotation["register"]||0));
             }
         }
     }
 
     private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
         if (uniform.variableType === "sampler2D") {
-            pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture, 3);
+            pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture,  <number>new Number(uniform.variableAnnotation["register"]||0));
         }
     }
 

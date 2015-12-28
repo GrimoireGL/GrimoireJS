@@ -14,6 +14,21 @@ import RenderStageConfig = require("../../RenderStageConfig");
  */
 class GBufferStage extends RenderStageBase {
 
+  public get DefaultRenderConfigures():IRenderStageRendererConfigure
+  {
+    return{
+      cullOrientation:"back",
+      depthEnabled:true,
+      depthMode:"lequal",
+      depthMask:true,
+      blendEnabled:false,
+      blendSrcColor:"1",
+      blendDstColor:"0",
+      blendSrcAlpha:"1",
+      blendDstAlpha:"0"
+    };
+  }
+
     constructor(renderer: BasicRenderer) {
         super(renderer);
     }
@@ -43,6 +58,9 @@ class GBufferStage extends RenderStageBase {
                 if (techniqueIndex == 0) {
                     this.Renderer.GL.clearColor(0, 0, 0, 0);
                     this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+                } else {
+                    this.Renderer.GL.clearColor(0, 0, 0, 0);
+                    this.Renderer.GL.clear(ClearTargetType.ColorBits);
                 }
             }, () => {
                 this.Renderer.ContextManager.applyClearColor();
