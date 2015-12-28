@@ -1,3 +1,4 @@
+import RendererBase = require("../Renderers/RendererConfigurator/RendererConfiguratorBase");
 import TextureBase = require("../Resources/Texture/TextureBase");
 
 import Matrix = require("../../Math/Matrix");
@@ -170,7 +171,7 @@ class Material extends JThreeObjectWithID {
       console.error("Unsupported blend config!");
     }
 
-    public registerMaterialVariables(pWrapper:ProgramWrapper,uniforms:{[key:string]:IVariableInfo}):void
+    public registerMaterialVariables(renderer:BasicRenderer,pWrapper:ProgramWrapper,uniforms:{[key:string]:IVariableInfo}):void
     {
       for(let valName in uniforms)
       {
@@ -197,8 +198,7 @@ class Material extends JThreeObjectWithID {
           if(this.materialVariables[valName])//TODO This register number should be fetched from attribute of uniform variable.
             pWrapper.uniformTexture2D(valName,<TextureBase>this.materialVariables[valName],1);
           else//TODO Alternative texture should be assigned to the variable here to prevent errors of WebGL.
-            //pWrapper.uniformTexture2D(valName,<TextureBase>)
-            ;
+            pWrapper.uniformTexture2D(valName,renderer.alternativeTexture,1);
         }
       }
     }

@@ -66,7 +66,7 @@ class MaterialPass {
         uniformRegisters.forEach((r) => {
             r(gl, pWrapper, matArg, this.parsedProgram.uniforms);
         });
-        material.registerMaterialVariables(pWrapper,this.parsedProgram.uniforms);
+        material.registerMaterialVariables(matArg.renderStage.Renderer,pWrapper,this.parsedProgram.uniforms);
     }
 
     private static get _resourceManager(): ResourceManager {

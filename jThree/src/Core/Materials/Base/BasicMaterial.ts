@@ -17,7 +17,7 @@ class BasicMaterial extends Material {
     private _passes: MaterialPass[] = [];
 
     private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
-    
+
     constructor(sourceString:string) {
         super();
         this._parseMaterialDocument(sourceString);

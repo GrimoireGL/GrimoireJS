@@ -29,12 +29,6 @@ class GBufferMaterial extends Material
         return "jthree.materials.gbuffer";
     }
 
-    private primaryProgram: Program;
-
-    private secoundaryProgram: Program;
-
-    private thirdProgram:Program;
-
     private primaryMaterial:BasicMaterial;
 
     private secoundaryMaterial:BasicMaterial;
@@ -47,19 +41,11 @@ class GBufferMaterial extends Material
         this.primaryMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/PrimaryBuffer.html"));
         this.secoundaryMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/SecoundaryBuffer.html"));
         this.thirdMaterial = new BasicMaterial(require("../BuiltIn/GBuffer/ThirdBuffer.html"));
-        var vs = require('../../Shaders/GBuffer/Vertex.glsl');
-        var fs = require('../../Shaders/GBuffer/PrimaryFragment.glsl');
-        this.primaryProgram = this.loadProgram("jthree.shaders.gbuffer.primary.vs", "jthree.shaders.gbuffer.primary.fs", "jthree.programs.gbuffer.primary", vs, fs);
-        var fs = require('../../Shaders/GBuffer/SecoundaryFragment.glsl');
-        this.secoundaryProgram = this.loadProgram("jthree.shaders.gbuffer.secoundary.vs", "jthree.shaders.gbuffer.secoundary.fs", "jthree.programs.gbuffer.secoundary", vs, fs);
-        var fs = require('../../Shaders/GBuffer/ThirdFragment.glsl');
-        this.thirdProgram = this.loadProgram("jthree.shaders.gbuffer.third.vs", "jthree.shaders.gbuffer.third.fs", "jthree.programs.gbuffer.third", vs, fs);
         this.setLoaded();
     }
 
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex): void
     {
-        if (!this.primaryProgram) return;
         var renderer = renderStage.Renderer;
         super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         switch (techniqueIndex)
