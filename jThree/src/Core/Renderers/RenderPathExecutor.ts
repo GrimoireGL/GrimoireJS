@@ -80,6 +80,7 @@ class RenderPathExecutor
         var stageIndex = 0;
         renderPath.path.forEach(chain=>
         {
+          try{
             var texs = this.genChainTexture(chain);
             var stage = chain.stage;
             var techniqueCount = stage.getTechniqueCount(scene);
@@ -129,6 +130,10 @@ class RenderPathExecutor
               index:stageIndex
             });
             stageIndex++;
+          }catch(e)
+          {
+            debugger;
+          }
         });
         this.renderPathCompleted.fire(this,{
           owner:this,
