@@ -162,7 +162,7 @@ class Material extends JThreeObjectWithID {
         for (let valName in uniforms) {
             let uniform = uniforms[valName];
             if (valName[0] == "_") continue;
-            if (typeof this.materialVariables[valName] === "undefined") {
+            if (!this.materialVariables[valName]) {
                 this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
                 continue;
             }
