@@ -15,12 +15,18 @@ class JThreeContext
    */
     public static init()
     {
-      if(!window.j3.context)window.j3.context = new JThreeContext();
+      if (window) { // for head-less test
+        if(!window.j3.context)window.j3.context = new JThreeContext();
+      }
     }
 
     private static get context():JThreeContext
     {
-      return window.j3.context;
+      if (window) { // for head-less test
+        return window.j3.context;
+      } else {
+        return undefined;
+      }
     }
 
     /**
