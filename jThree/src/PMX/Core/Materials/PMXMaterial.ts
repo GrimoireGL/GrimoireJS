@@ -150,7 +150,6 @@ class PMXMaterial extends Material
     constructor(pmx: PMXModel, index: number, offset: number)
     {
         super();
-        let matTest = new BasicMaterial(require("../../Materials/ThirdBuffer.html"));
         this.addMorphParam = new PmxMaterialMorphParamContainer(1);
         this.mulMorphParam = new PmxMaterialMorphParamContainer(0);
         this.parentModel = pmx;

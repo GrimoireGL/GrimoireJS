@@ -1,3 +1,4 @@
+import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 ﻿import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
@@ -21,11 +22,19 @@ declare function require(string): string;
  */
 class PMXGBufferMaterial extends Material
 {
+
+  //TODO these variables must be removed.
     protected primaryProgram: Program;
 
     protected secoundaryProgram: Program;
 
     protected thirdProgram: Program;
+
+    protected __primaryMaterial:BasicMaterial;
+
+    protected __secoundaryMaterial:BasicMaterial;
+
+    protected __thirdMaterial:BasicMaterial;
 
     protected associatedMaterial: PMXMaterial;
 
@@ -49,6 +58,9 @@ class PMXGBufferMaterial extends Material
     {
         super();
         this.associatedMaterial = material;
+        this.__primaryMaterial = new BasicMaterial(require("../../Materials/PrimaryBuffer.html"));
+        this.__secoundaryMaterial = new BasicMaterial(require("../../Materials/SecoundaryBuffer.html"));
+        this.__thirdMaterial = new BasicMaterial(require("../../Materials/ThirdBuffer.html"));
         var vs = require('../../Shader/PMXGBufferVertex.glsl');
         var fs = require('../../Shader/PMXPrimaryGBufferFragment.glsl');
         this.primaryProgram = this.loadProgram("jthree.shaders.vertex.pmx.gbuffer", "jthree.shaders.fragment.pmx.gbuffer", "jthree.programs.pmx.gbuffer", vs, fs);
@@ -63,41 +75,54 @@ class PMXGBufferMaterial extends Material
         if (!this.primaryProgram||this.associatedMaterial.Diffuse.A<1.0E-3) return;
         var renderer = renderStage.Renderer;
         super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
+        const skeleton = this.associatedMaterial.ParentModel.skeleton;
         switch (techniqueIndex) {
             case 0:
-                this.configurePrimaryBuffer(scene, renderer, object, texs, techniqueIndex);
+                this.__primaryMaterial.materialVariables = {
+                  boneMatriciesTexture:skeleton.MatrixTexture,
+                  brightness:this.associatedMaterial.Specular.W,
+                  boneCount:skeleton.BoneCount
+                };
+                this.__primaryMaterial.configureMaterial(scene,renderStage,object,texs,1,0);
                 break;
             case 1:
+                this.__secoundaryMaterial.materialVariables = {
+                  boneMatriciesTexture:skeleton.MatrixTexture,
+                  boneCount:skeleton.BoneCount,
+                  diffuse:PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Diffuse.toVector(), this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.diffuse, 4),
+                  texture:this.associatedMaterial.Texture,
+                  sphere:this.associatedMaterial.Sphere
+                };
                 this.configureSecoundaryBuffer(scene, renderer, object, texs, techniqueIndex);
                 break;
             case 2:
                 this.configureThirdBuffer(scene, renderer, object, texs, techniqueIndex);
                 break;
         }
-        object.Geometry.bindIndexBuffer(renderer.ContextManager);
+//        object.Geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
-    private configurePrimaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
-        var geometry = <PMXGeometry>object.Geometry;
-        var programWrapper = this.primaryProgram.getForContext(renderer.ContextManager);
-        var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                normal: geometry.NormalBuffer,
-                boneWeights: geometry.boneWeightBuffer,
-                boneIndicies: geometry.boneIndexBuffer,
-                uv:geometry.UVBuffer
-            },
-            uniforms: {
-                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
-                matVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value:renderer.Camera.viewMatrix },
-                specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
-                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount }
-            }
-        });
-    }
+    // private configurePrimaryBuffer(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
+    //     var geometry = <PMXGeometry>object.Geometry;
+    //     var programWrapper = this.primaryProgram.getForContext(renderer.ContextManager);
+    //     var v = Matrix.multiply(renderer.Camera.projectionMatrix, renderer.Camera.viewMatrix);
+    //     programWrapper.register({
+    //         attributes: {
+    //             position: geometry.PositionBuffer,
+    //             normal: geometry.NormalBuffer,
+    //             boneWeights: geometry.boneWeightBuffer,
+    //             boneIndicies: geometry.boneIndexBuffer,
+    //             uv:geometry.UVBuffer
+    //         },
+    //         uniforms: {
+    //             boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
+    //             matVP: { type: "matrix", value: v },
+    //             matV: { type: "matrix", value:renderer.Camera.viewMatrix },
+    //             specularCoefficient: { type: "float", value: this.associatedMaterial.Specular.W },
+    //             boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount }
+    //         }
+    //     });
+    // }
 
     private configureSecoundaryBuffer(cene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo, pass?: number) {
         var geometry = <PMXGeometry>object.Geometry;

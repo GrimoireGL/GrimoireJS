@@ -47,7 +47,7 @@
         }
       //}
       //@fragonly{
-        uniform float specularCoefficient;
+        uniform float brightness;
 
         vec2 compressNormal()
         {
@@ -62,7 +62,7 @@
 
         void main(void)
         {
-        	gl_FragColor = vec4(compressNormal(),calcDepth(),specularCoefficient);
+        	gl_FragColor = vec4(compressNormal(),calcDepth(),brightness);
         }
       //}
       ]]>
