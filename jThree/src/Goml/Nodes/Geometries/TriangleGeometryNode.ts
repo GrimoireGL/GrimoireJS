@@ -12,17 +12,17 @@ class GomlTreeTriNode extends GeometryNodeBase {
     this.attributes.defineAttribute({
       'first': {
         value: new Vector3(-1, 0, 0),
-        converter: 'vector3',
+        converter: 'vec3',
         onchanged: this._onFirstAttrChanged,
       },
       'second': {
         value: new Vector3(0, 1, 0),
-        converter: 'vector3',
+        converter: 'vec3',
         onchanged: this._onSecondAttrChanged,
       },
       'third': {
         value: new Vector3(1, 0, 0),
-        converter: 'vector3',
+        converter: 'vec3',
         onchanged: this._onThirdAttrChanged,
       },
     });
@@ -42,9 +42,7 @@ class GomlTreeTriNode extends GeometryNodeBase {
     return this.TriGeometry = new TriangleGeometry(this.Name);
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 
 }
 

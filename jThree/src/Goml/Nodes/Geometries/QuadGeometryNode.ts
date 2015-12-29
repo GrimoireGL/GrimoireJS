@@ -14,9 +14,7 @@ class QuadGeometryNode extends GeometryNodeBase {
     return this.TriGeometry = new QuadGeometry(this.Name);
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 
 }
 

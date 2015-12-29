@@ -23,14 +23,14 @@ class DefferedDebugNode extends MaterialNodeBase {
       },
       "R": {
         value: "0",
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.material.ctR = attr.Value;
         },
       },
       "G": {
         value: "1",
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.material.ctG = attr.Value;
         },
@@ -38,14 +38,14 @@ class DefferedDebugNode extends MaterialNodeBase {
 
       "B": {
         value: "2",
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.material.ctB = attr.Value;
         },
       },
       "A": {
         value: "3",
-        converter: "number",
+        converter: "float",
         onchanged: (attr) => {
           this.material.ctA = attr.Value;
         },
@@ -69,9 +69,7 @@ class DefferedDebugNode extends MaterialNodeBase {
     return this.material;
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 
 }
 

@@ -28,8 +28,8 @@ class ObjectNode extends SceneObjectNodeBase {
     callbackfn(this.targetObject);
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(): void {
+    super.onMount();
   }
 
 }

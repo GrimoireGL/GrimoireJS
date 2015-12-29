@@ -14,14 +14,14 @@ class AreaLightNode extends LightNodeBase {
 		this.attributes.defineAttribute({
 			"intensity": {
 				value: 1,
-				converter: "number",
+				converter: "float",
 				onchanged: (attr) => {
 					this.targetLight.intensity = attr.Value;
 				}
 			},
 			"right": {
 				value: 1,
-				converter: "number",
+				converter: "float",
 				onchanged: (attr) => {
 					this.targetLight.rightLength = attr.Value;
 				}
@@ -29,7 +29,7 @@ class AreaLightNode extends LightNodeBase {
 			,
 			"top": {
 				value: 1,
-				converter: "number",
+				converter: "float",
 				onchanged: (attr) => {
 					this.targetLight.topLength = attr.Value;
 				}
@@ -37,7 +37,7 @@ class AreaLightNode extends LightNodeBase {
 			,
 			"far": {
 				value: 1,
-				converter: "number",
+				converter: "float",
 				onchanged: (attr) => {
 					this.targetLight.farLength = attr.Value;
 				}

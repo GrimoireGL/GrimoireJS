@@ -8,10 +8,8 @@ import GomlNodeEventList = require("./GomlNodeEventList");
  * events
  * child-added: 子が追加された時
  * child-removed: 子が削除された時
- * node-will-mount: 自分が有効なツリーに追加される直前。parentの参照が可能。
- * node-will-unmout: 自分が有効なツリーから削除される直前。parentの参照が可能。
- * node-did-mounted: 自分が有効なツリーに追加された時
- * node-did-unmouted: 自分が有効なツリーから削除された時
+ * on-mount: 自分が有効なツリーに追加される直前。parentの参照が可能。
+ * on-unmount: 自分が有効なツリーから削除される直前。parentの参照が可能。
  *
  * イベントの通知順序には注意が必要です。
  * 例として、あるNodeが子として追加された場合、子にparent-addedが呼ばれその次に自分自身にchild-addedが通知されます。
@@ -21,30 +19,22 @@ import GomlNodeEventList = require("./GomlNodeEventList");
 class TreeNodeBase extends JThreeObjectEEWithID {
   constructor() {
     super();
-    this.on('child-added', (argu) => {
+    this.on('child-added', (child) => {
       const cb = this.onChildAdded;
-      if (cb) { cb.bind(this)(argu) }
+      if (cb) { cb.bind(this)(child) }
     });
-    this.on('child-removed', (argu) => {
+    this.on('child-removed', (child) => {
       const cb = this.onChildRemoved;
-      if (cb) { cb.bind(this)(argu) }
+      if (cb) { cb.bind(this)(child) }
     });
-    this.on('node-will-mount', (parent) => {
-      const cb = this.nodeWillMount;
-      if (cb) { cb.bind(this)(parent) }
+    this.on('on-mount', () => {
+      const cb = this.onMount;
+      if (cb) { cb.bind(this)() }
     });
-    this.on('node-will-unmout', (parent) => {
-      const cb = this.nodeWillUnmount;
-      if (cb) { cb.bind(this)(parent) }
+    this.on('on-unmount', () => {
+      const cb = this.onUnmount;
+      if (cb) { cb.bind(this)() }
     });
-    // this.on('node-did-mounted', () => {
-    //   const cb = this.nodeDidMounted;
-    //   if (cb) { cb.bind(this)() }
-    // });
-    // this.on('node-did-unmouted', () => {
-    //   const cb = this.nodeDidUnmounted;
-    //   if (cb) { cb.bind(this)() }
-    // });
   }
 
   /**
@@ -62,26 +52,28 @@ class TreeNodeBase extends JThreeObjectEEWithID {
   }
 
   /**
+   * if ready, onMount initialization is finished.
+   * @type {boolean}
+   */
+  public ready: boolean = false;
+
+  /**
    * update mounted status and emit events
    * @param {boolean} mounted [description]
    */
   public set Mounted(mounted: boolean) {
     if (mounted && !this.mounted) {
-      // do not use this event.
-      this.emit('just-before-node-mounted-update', mounted);
       this.mounted = mounted;
       if (this.mounted) {
-        // console.log('node-did-mounted', this);
-        // this.emit('node-did-mounted');
+        this.emit('on-mount');
+        this.emit('node-mount-process-finished', this.mounted); // this will be move
         this.children.forEach((child) => {
-          console.log('node-will-mount', child);
-          child.emit('node-will-mount', this);
           child.Mounted = true;
         });
       } else {
-        this.emit('node-unmounted');
+        this.emit('on-unmount');
+        this.emit('node-mount-process-finished', this.mounted); // this will be move
         this.children.forEach((child) => {
-          child.emit('node-will-mount', this);
           child.Mounted = false;
         });
       }
@@ -102,13 +94,10 @@ class TreeNodeBase extends JThreeObjectEEWithID {
 	 * Add child to this node
 	 */
   public addChild(child: TreeNodeBase): void {
-    if (this.Mounted) {
-      child.emit('node-will-mount', this);
-      child.Mounted = true;
-    }
     child.parent = this;
     this.children.push(child);
     if (this.Mounted) {
+      child.Mounted = true;
       this.emit('child-added', child);
     }
   }
@@ -121,16 +110,13 @@ class TreeNodeBase extends JThreeObjectEEWithID {
     for (let i = 0; i < this.children.length; i++) {
       let v = this.children[i]
       if (v === child) {
-        if (this.Mounted) {
-          child.emit('node-will-unmount', this);
-        }
-        this.children.splice(i, 1);
         child.parent = null;
-        // TODO: events after-treatment
+        this.children.splice(i, 1);
         if (this.Mounted) {
-          this.emit('child-removed', child);
           child.Mounted = false;
+          this.emit('child-removed', child);
         }
+        // TODO: events after-treatment
         child = null;
         break;
       }
@@ -148,39 +134,27 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * This method is called when child is added
    * This method should be overridden.
    */
-  protected onChildAdded(attr: TreeNodeBase): void {}
+  protected onChildAdded(child: TreeNodeBase): void {}
 
   /**
    * This method is called when child is removed
    * This method should be overridden.
    */
-  protected onChildRemoved(attr: TreeNodeBase): void {}
+  protected onChildRemoved(child: TreeNodeBase): void {}
 
   /**
    * This method is called when this node is mounted to available tree.
    * If you change attribute here, no events are fired.
    * This method should be overridden.
    */
-  protected nodeWillMount(parent: TreeNodeBase): void {}
+  protected onMount(): void {}
 
   /**
    * This method is called when this node is unmounted from available tree.
    * You can still access parent.
    * This method should be overridden.
    */
-  protected nodeWillUnmount(parent: TreeNodeBase): void {}
-
-  /**
-   * This method is called when this node is mounted to available tree.
-   * This method should be overridden.
-   */
-  protected nodeDidMounted(): void {}
-
-  /**
-   * This method is called when this node is unmounted from available tree.
-   * This method should be overridden.
-   */
-  protected nodeDidUnmounted(): void {}
+  protected onUnmount(): void {}
 
 	/**
 	 * Execute delegate in each nodes recursively.

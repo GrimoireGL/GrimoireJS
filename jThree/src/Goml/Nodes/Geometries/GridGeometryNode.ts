@@ -10,12 +10,12 @@ class GridGeometryNode extends GeometryNodeBase {
     this.attributes.defineAttribute({
       'hdiv': {
         value: 10,
-        converter: 'number',
+        converter: 'float',
         onchanged: this._onHdivAttrChanged,
       },
       'vdiv': {
         value: 10,
-        converter: 'number',
+        converter: 'float',
         onchanged: this._onVdivAttrChanged,
       }
     });
@@ -33,8 +33,8 @@ class GridGeometryNode extends GeometryNodeBase {
     return this.gridGeometry = new GridGeometry(this.Name);
   }
 
-  protected nodeWillMount(parent) {
-    super.nodeWillMount(parent);
+  protected onMount(): void {
+    super.onMount();
   }
 
 }

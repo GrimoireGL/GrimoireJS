@@ -16,9 +16,7 @@ class SolidColorNode extends MaterialNodeBase {
     return this.material;
   }
 
-  protected nodeDidMounted() {
-    super.nodeDidMounted();
-  }
+
 }
 
 export = SolidColorNode;
