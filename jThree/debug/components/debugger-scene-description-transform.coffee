@@ -9,7 +9,6 @@ class DebuggerSceneDescriptionTransform extends React.Component
       rotation:@obtainEular(@lastObject.transformer.rotation)
       scale:@lastObject.transformer.scale
   render:->
-    console.log @state.rotation
     <div>
       <Vector3 title="position" value={@state.position} onValueChanged={@onPositionChange}/>
       <Vector3 title="rotation" value={@state.rotation} onValueChanged={@onRotationChange}/>

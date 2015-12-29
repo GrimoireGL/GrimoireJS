@@ -20,7 +20,6 @@ uniform float u_boneCount;
 mat4 matFromIndex(float index)
 {
 	float y =index/u_boneCount+1./u_boneCount/2.;
-	y=y;
 	return mat4(
 	texture2D(u_boneMatricies,vec2(0.125,y)),
 	texture2D(u_boneMatricies,vec2(0.375,y)),
@@ -41,5 +40,5 @@ mat4 boneTransform=getBoneTransform();
 v_pos=gl_Position = matVP*boneTransform*vec4(position,1.0);
 v_normal=normalize((matMV*vec4(normal,0)).xyz);
 v_spuv=v_normal.xy/2.+vec2(0.5,0.5);
-v_uv=uv;	
+v_uv=uv;
 }

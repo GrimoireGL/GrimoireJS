@@ -28,6 +28,7 @@ class RendererChainResourceEntity extends React.Component
 
 
   onResourceSelected:()=>
+    debugger;
     @props.rdrDebugger.getTextureHtmlImage(@props.stage.stage.ID,@props.texKey).then (image)=>
       container = ReactDOM.findDOMNode(this.refs.container)
       container.innerHTML = '';

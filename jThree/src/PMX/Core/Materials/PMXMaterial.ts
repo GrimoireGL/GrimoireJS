@@ -1,3 +1,4 @@
+import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
@@ -149,6 +150,7 @@ class PMXMaterial extends Material
     constructor(pmx: PMXModel, index: number, offset: number)
     {
         super();
+        let matTest = new BasicMaterial(require("../../Materials/ThirdBuffer.html"));
         this.addMorphParam = new PmxMaterialMorphParamContainer(1);
         this.mulMorphParam = new PmxMaterialMorphParamContainer(0);
         this.parentModel = pmx;
