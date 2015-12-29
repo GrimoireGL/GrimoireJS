@@ -1,3 +1,5 @@
+import IVariableInfo = require("../../Core/Materials/Base/IVariableInfo");
+import ProgramWrapper = require("../../Core/Resources/Program/ProgramWrapper");
 import Geometry = require('../../Core/Geometries/Geometry');
 import PrimitiveTopology = require('../../Wrapper/PrimitiveTopology');
 import BufferTargetType = require('../../Wrapper/BufferTargetType');
@@ -45,7 +47,7 @@ class PMXGeometry extends Geometry {
         this.positionBuferSource = new Float32Array(verticies.positions);
         this.uvBufferSource = new Float32Array(verticies.uvs);
         this.indexBuffer.update(surfaceBuffer, surfaceBuffer.length);
-        this.normalBuffer.update(verticies.normals,verticies.normals.length);
+        this.normalBuffer.update(verticies.normals, verticies.normals.length);
         this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
         this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);
         this.edgeSizeBuffer.update(verticies.edgeScaling, verticies.edgeScaling.length)
@@ -59,6 +61,20 @@ class PMXGeometry extends Geometry {
 
     public updateUVBuffer() {
         this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
+    }
+
+
+    public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void {
+        super.applyAttributeVariables(pWrapper, attributes);
+        if (attributes["edgeScaling"]) {
+            pWrapper.assignAttributeVariable("edgeScaling", this.edgeSizeBuffer);
+        }
+        if (attributes["boneIndicies"]) {
+            pWrapper.assignAttributeVariable("boneIndicies", this.boneIndexBuffer);
+        }
+        if (attributes["boneWeights"]) {
+            pWrapper.assignAttributeVariable("boneWeights", this.boneWeightBuffer);
+        }
     }
 }
 
