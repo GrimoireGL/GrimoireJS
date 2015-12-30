@@ -15,6 +15,7 @@
       varying vec3 vNormal;
       varying vec4 vPosition;
       varying vec2 vUV;
+      varying vec2 vSphereUV;
 
       //@vertonly{
         uniform mat4 _matVM;
@@ -45,6 +46,7 @@
           mat4 boneTransform=getBoneTransform();
           vPosition=gl_Position = _matPV*boneTransform*vec4(position,1.0);
           vNormal=normalize((_matVM*vec4(normal,0)).xyz);
+          vSphereUV=vNormal.xy/2.+vec2(0.5,0.5);
           vUV=uv;
         }
       //}
@@ -76,13 +78,13 @@
            if(textureUsed > 0){
              gl_FragColor=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
            }
-        //    if(sphereMode==1)
-        //    {
-        //      gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
-        //    }else if(sphereMode==2)
-        //    {
-        //      gl_FragColor.rgb+=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
-        //    }
+           if(sphereMode==1)
+           {
+             gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
+           }else if(sphereMode==2)
+           {
+             gl_FragColor.rgb+=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
+           }
       }
       //}
       ]]>

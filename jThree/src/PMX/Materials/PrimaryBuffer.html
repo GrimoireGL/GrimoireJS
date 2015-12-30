@@ -16,7 +16,7 @@
       varying vec4 vPosition;
 
       //@vertonly{
-        uniform mat4 _matVM;
+        uniform mat4 _matV;
         uniform mat4 _matPV;
         //@(register:0)
         uniform sampler2D boneMatriciesTexture;
@@ -43,7 +43,7 @@
         void main(void){
           mat4 boneTransform=getBoneTransform();
           vPosition=gl_Position = _matPV*boneTransform*vec4(position,1.0);
-          vNormal=normalize((_matVM*vec4(normal,0)).xyz);
+          vNormal=normalize((_matV*boneTransform*vec4(normal,0)).xyz);
         }
       //}
       //@fragonly{
