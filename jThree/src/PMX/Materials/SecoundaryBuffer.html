@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.gbuffer.pmx.primary" group="jthree.materials.gbuffer.secoundary" order="300">
+<material name="jthree.gbuffer.pmx.secoundary" group="jthree.materials.gbuffer.secoundary" order="300">
 <uniform-register>
   <register name="jthree.basic.matrix"/>
 </uniform-register>
 <passes>
   <pass>
-    <depth enabled="true" mode="always" mask="true"/>
     <glsl>
       <![CDATA[
       attribute vec3 position;
@@ -16,7 +15,6 @@
       varying vec3 vNormal;
       varying vec4 vPosition;
       varying vec2 vUV;
-      varying vec2 vSphereUV;
 
       //@vertonly{
         uniform mat4 _matVM;
@@ -45,51 +43,47 @@
 
         void main(void){
           mat4 boneTransform=getBoneTransform();
-          vPosition=gl_Position = _matPV;//*boneTransform*vec4(position,1.0);
+          vPosition=gl_Position = _matPV*boneTransform*vec4(position,1.0);
           vNormal=normalize((_matVM*vec4(normal,0)).xyz);
-          vSphereUV=vNormal.xy/2.+vec2(0.5,0.5);
           vUV=uv;
         }
       //}
       //@fragonly{
-        //uniform vec4 diffuse;
-        ////@(register:1)
-        //uniform sampler2D texture;
-        ////@(register:2)
-        //uniform sampler2D sphere;
-        //uniform int textureUsed;
-        //uniform int sphereMode;
-        //uniform vec4 addTextureCoefficient;
-        //uniform vec4 mulTextureCoefficient;
-        //uniform vec4 addSphereCoefficient;
-        //uniform vec4 mulSphereCoefficient;
-//
-//
-        //vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
-        //{
-        //    vec4 result=texture2D(source,abs(fract(uv)));
-        //    result.rgb=mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);
-        //    result.rgb=result.rgb*mulCoeff.rgb+addCoeff.rgb;
-        //    return result;
-        //}
-//
-        //void main(void){
-        //    //gl_FragColor.rgba=diffuse;
-        //    //if(textureUsed > 0){
-        //    //     gl_FragColor=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
-        //    //}
-        //    //if(sphereMode==1)
-        //    //{
-        //    //  gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
-        //    //}else if(sphereMode==2)
-        //    //{
-        //    //  gl_FragColor.rgb+=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
-        //    //}
-        //    gl_FragColor = vec4(1,0,1,1);
-        //}
-        void main(void){
-          gl_FragColor = vec4(1,0,0,1);
+        uniform vec4 diffuse;
+        //@(register:1)
+        uniform sampler2D texture;
+        //@(register:2)
+        uniform sampler2D sphere;
+        uniform mat4 matV;
+        uniform int textureUsed;
+        uniform int sphereMode;
+        uniform vec4 addTextureCoefficient;
+        uniform vec4 mulTextureCoefficient;
+        uniform vec4 addSphereCoefficient;
+        uniform vec4 mulSphereCoefficient;
+
+
+        vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
+        {
+            vec4 result=texture2D(source,abs(fract(uv)));
+            result.rgb=mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);
+            result.rgb=result.rgb*mulCoeff.rgb+addCoeff.rgb;
+            return result;
         }
+
+        void main(void){
+           gl_FragColor.rgba=diffuse;
+           if(textureUsed > 0){
+             gl_FragColor=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
+           }
+        //    if(sphereMode==1)
+        //    {
+        //      gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
+        //    }else if(sphereMode==2)
+        //    {
+        //      gl_FragColor.rgb+=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
+        //    }
+      }
       //}
       ]]>
     </glsl>

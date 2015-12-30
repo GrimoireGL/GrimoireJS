@@ -68,17 +68,17 @@ class PMXGBufferMaterial extends Material {
                 break;
             case 1:
                 this.__secoundaryMaterial.materialVariables = {
-                    boneMatriciesTexture: skeleton.MatrixTexture,
-                    boneCount: skeleton.BoneCount,
-                    diffuse: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Diffuse.toVector(), this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.diffuse, 4),
-                    texture: this.associatedMaterial.Texture,
-                    sphere: this.associatedMaterial.Sphere,
-                    textureUsed: this.associatedMaterial.Texture == null || this.associatedMaterial.Texture.ImageSource == null ? 0 : 1,
-                    sphereMode: this.associatedMaterial.Sphere == null || this.associatedMaterial.Sphere.ImageSource == null ? 0 : this.associatedMaterial.SphereMode,
-                    addTextureCoefficient: new Vector4(this.associatedMaterial.addMorphParam.textureCoeff),
-                    mulTextureCoefficient: new Vector4(this.associatedMaterial.mulMorphParam.textureCoeff),
-                    addSphereCoefficient: new Vector4(this.associatedMaterial.addMorphParam.sphereCoeff),
-                    mulSphereCoefficient: new Vector4(this.associatedMaterial.mulMorphParam.sphereCoeff)
+                  boneMatriciesTexture: skeleton.MatrixTexture,
+                  boneCount: skeleton.BoneCount,
+                  diffuse: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Diffuse.toVector(), this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.diffuse, 4),
+                  texture: this.associatedMaterial.Texture,
+                  sphere: this.associatedMaterial.Sphere,
+                  textureUsed: this.associatedMaterial.Texture == null || this.associatedMaterial.Texture.ImageSource == null ? 0 : 1,
+                  sphereMode: this.associatedMaterial.Sphere == null || this.associatedMaterial.Sphere.ImageSource == null ? 0 : this.associatedMaterial.SphereMode,
+                  addTextureCoefficient: new Vector4(this.associatedMaterial.addMorphParam.textureCoeff),
+                  mulTextureCoefficient: new Vector4(this.associatedMaterial.mulMorphParam.textureCoeff),
+                  addSphereCoefficient: new Vector4(this.associatedMaterial.addMorphParam.sphereCoeff),
+                  mulSphereCoefficient: new Vector4(this.associatedMaterial.mulMorphParam.sphereCoeff)
                 };
                 this.__secoundaryMaterial.configureMaterial(scene, renderStage, object, texs, 1, 0);
                 break;
