@@ -162,31 +162,46 @@ class Material extends JThreeObjectWithID {
         for (let valName in uniforms) {
             let uniform = uniforms[valName];
             if (valName[0] == "_") continue;
-            if (!this.materialVariables[valName]) {
+            const val = this.materialVariables[valName];
+            if (typeof val === "undefined"||val == null) {
                 this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
                 continue;
             }
             if (uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4") {
-                pWrapper.uniformVector(valName, <VectorBase>this.materialVariables[valName]);
+                pWrapper.uniformVector(valName, <VectorBase>val);
             }
             if (uniform.variableType === "mat4") {
-                pWrapper.uniformMatrix(valName, <Matrix>this.materialVariables[valName]);
+                pWrapper.uniformMatrix(valName, <Matrix>val);
             }
             if (uniform.variableType === "float") {
-                pWrapper.uniformFloat(valName, <number>this.materialVariables[valName])
+                pWrapper.uniformFloat(valName, <number>val)
             }
             if (uniform.variableType === "int") {
-                pWrapper.uniformInt(valName, <number>this.materialVariables[valName]);
+                pWrapper.uniformInt(valName, <number>val);
             }
             if (uniform.variableType === "sampler2D") {
-                pWrapper.uniformSampler2D(valName, <TextureBase>this.materialVariables[valName], <number>new Number(uniform.variableAnnotation["register"]||0));
+                let registerAnnotation = uniform.variableAnnotation["register"];
+                let register;
+                if (registerAnnotation) {
+                    register = <number>parseInt(registerAnnotation, 10);
+                } else {
+                    register = 0;
+                }
+                pWrapper.uniformSampler2D(valName, <TextureBase>val, register);
             }
         }
     }
 
     private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
         if (uniform.variableType === "sampler2D") {
-            pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture,  <number>new Number(uniform.variableAnnotation["register"]||0));
+            let registerAnnotation = uniform.variableAnnotation["register"];
+            let register;
+            if (registerAnnotation) {
+                register = <number>parseInt(registerAnnotation, 10);
+            } else {
+                register = 0;
+            }
+            pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture, register);
         }
     }
 
