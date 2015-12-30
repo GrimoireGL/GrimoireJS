@@ -55,7 +55,7 @@ class PMXGBufferMaterial extends Material {
 
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
         if (this.associatedMaterial.Diffuse.A < 1.0E-3) return;
-        super.configureMaterial(scene, renderStage, object, texs, techniqueIndex, passIndex);
+        //super.configureMaterial(scene, renderStage, object, texs, techniqueIndex, passIndex);
         const skeleton = this.associatedMaterial.ParentModel.skeleton;
         switch (techniqueIndex) {
             case 0:

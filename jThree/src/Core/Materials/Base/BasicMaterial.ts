@@ -18,7 +18,7 @@ class BasicMaterial extends Material {
 
     private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
 
-    constructor(sourceString:string) {
+    constructor(sourceString: string) {
         super();
         this._parseMaterialDocument(sourceString);
     }
@@ -38,7 +38,7 @@ class BasicMaterial extends Material {
             techniqueIndex: techniqueIndex,
             passIndex: passIndex
         };
-        targetPass.configureMaterial(matArg, this._uniformRegisters,this);
+        targetPass.configureMaterial(matArg, this._uniformRegisters, this);
         this.__bindIndexBuffer(matArg);
     }
 
@@ -75,9 +75,8 @@ class BasicMaterial extends Material {
         }
     }
 
-    protected __bindIndexBuffer(matArg:IMaterialConfigureArgument)
-    {
-      matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
+    protected __bindIndexBuffer(matArg: IMaterialConfigureArgument) {
+        matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
     }
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
