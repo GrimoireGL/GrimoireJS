@@ -282,6 +282,7 @@
     "./jThree/src/PMX/Core/Materials/PMXShadowMapMaterial.ts",
     "./jThree/src/PMX/Core/PMXBone.ts",
     "./jThree/src/PMX/Core/PMXBoneTransformer.ts",
+    "./jThree/src/PMX/Core/PMXCoreInitializer.ts",
     "./jThree/src/PMX/Core/PMXGeometry.ts",
     "./jThree/src/PMX/Core/PMXMaterialMorphParamContainer.ts",
     "./jThree/src/PMX/Core/PMXModel.ts",

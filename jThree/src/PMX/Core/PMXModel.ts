@@ -1,3 +1,4 @@
+import PMXCoreInitializer = require("./PMXCoreInitializer");
 import PMXHitAreaMaterial = require("./Materials/PMXHitAreaMaterial");
 import SceneObject = require("../../Core/SceneObject");
 import PMXModelData = require("../PMXLoader");
@@ -82,6 +83,7 @@ class PMXModel extends SceneObject {
 
     constructor(pmx: PMXModelData, resourceDirectory: string) {
         super();
+        PMXCoreInitializer.init();
         this.onload.addListener(() => { this.loaded = true });
         this.modelData = pmx;
         this.modelDirectory = resourceDirectory;
