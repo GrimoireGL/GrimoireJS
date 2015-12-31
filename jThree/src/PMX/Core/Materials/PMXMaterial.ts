@@ -25,17 +25,14 @@ import JThreeContext = require("../../../JThreeContext");
 import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
 import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 
-declare function require(string): string;
-
-
 /**
  * the materials for PMX.
  */
 class PMXMaterial extends Material
 {
-    protected program: Program;
-
     protected edgeProgram: Program;
+
+    protected __innerMaterial:BasicMaterial;
 
     private verticiesCount;
 
@@ -139,7 +136,7 @@ class PMXMaterial extends Material
 
     public getPassCount(techniqueIndex:number): number
     {
-        return this.edgeColor == null ? 1 : 2;
+        return 1;
     }
 
     public get SelfShadow(): boolean
@@ -166,9 +163,7 @@ class PMXMaterial extends Material
         this.specular = new Vector4(materialData.specular);
         this.edgeSize = materialData.edgeSize;
         this.sphereMode = materialData.sphereMode;
-        var vs = require('../../Shader/PMXVertex.glsl');
-        var fs = require('../../Shader/PMXFragment.glsl');
-        this.program = this.loadProgram("jthree.shaders.vertex.pmx.basic", "jthree.shaders.fragment.pmx.basic", "jthree.programs.pmx.basic", vs, fs);
+        this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
         var vs = require('../../Shader/PMXEdgeVertex.glsl');
         var fs = require('../../Shader/PMXEdgeFragment.glsl');
         this.edgeProgram = this.loadProgram("jthree.shaders.vertex.pmx.edge", "jthree.shaders.fragment.pmx.edge", "jthree.programs.pmx.edge", vs, fs);
@@ -177,6 +172,8 @@ class PMXMaterial extends Material
         if (materialData.sharedToonFlag == 0)
         {// not shared texture
             this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon");
+        }else{
+          //TODO use shared toon textures
         }
         this.setLoaded();
     }
@@ -184,101 +181,37 @@ class PMXMaterial extends Material
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex:number,passIndex:number): void
     {
       var renderer = renderStage.Renderer;
-      super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
+      const skeleton = this.parentModel.skeleton;
+      //super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         if (passIndex == 1)
         {
             this.configureEdgeMaterial(renderer, object);
             return;
         }
-        if (!this.program) return;
-        renderer.GL.blendFunc(BlendFuncParamType.SrcAlpha, BlendFuncParamType.OneMinusSrcAlpha);
-        var geometry = <PMXGeometry>object.Geometry;
-        var programWrapper = this.program.getForContext(renderer.ContextManager);
-        var v = object.Transformer.calculateMVPMatrix(renderer);
-        programWrapper.register(
-            {
-                attributes: {
-                    position: geometry.PositionBuffer,
-                    normal: geometry.NormalBuffer,
-                    uv: geometry.UVBuffer,
-                    boneWeights: geometry.boneWeightBuffer,
-                    boneIndicies: geometry.boneIndexBuffer
-                },
-                uniforms: {
-                    dlight: {
-                        type: "texture",
-                        value: texs["DLIGHT"],
-                        register: 0
-                    }, slight: {
-                        type: "texture",
-                        value: texs["SLIGHT"],
-                        register: 5
-                    },
-                    u_texture: {
-                        type: "texture",
-                        value: this.texture,
-                        register: 1
-                    },
-                    u_toon: {
-                        type: "texture",
-                        value: this.toon,
-                        register: 2
-                    },
-                    u_sphere: {
-                        type: "texture",
-                        value: this.sphere,
-                        register: 3
-                    },
-                    u_boneMatricies: {
-                        type: "texture",
-                        value: this.parentModel.skeleton.MatrixTexture,
-                        register: 4
-                    },
-                    u_textureUsed: {
-                        type: "integer",
-                        value: this.texture == null || this.texture.ImageSource == null ? 0 : 1
-                    },
-                    u_sphereMode: {
-                        type: "integer",
-                        value: this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode
-                    },
-                    u_toonFlag: {
-                        type: "integer",
-                        value: this.toon == null || this.toon.ImageSource == null ? 0 : 1
-                    },
-                    u_ambient: {
-                        type: "vector",
-                        value: PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.ambient.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.ambient, 3)
-                    },
-                    u_diffuse: {
-                        type: "vector",
-                        value: PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.diffuse.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.diffuse, 4)
-                    },
-                    u_addTexCoeff: { type: "vector", value: new Vector4(this.addMorphParam.textureCoeff) },
-                    u_mulTexCoeff: { type: "vector", value: new Vector4(this.mulMorphParam.textureCoeff) },
-                    u_addSphereCoeff: { type: "vector", value: new Vector4(this.addMorphParam.sphereCoeff) },
-                    u_mulSphereCoeff: { type: "vector", value: new Vector4(this.mulMorphParam.sphereCoeff) },
-                    u_addToonCoeff: { type: "vector", value: new Vector4(this.addMorphParam.toonCoeff) },
-                    u_mulToonCoeff: { type: "vector", value: new Vector4(this.mulMorphParam.toonCoeff) },
-                    matMVP: { type: "matrix", value: v },
-                    matVP: { type: "matrix", value:renderer.Camera.viewProjectionMatrix },
-                    u_boneCount: {
-                        type: "float",
-                        value: this.parentModel.skeleton.BoneCount
-                    },
-                    ambientCoefficient:
-                    {
-                      type:"vector",
-                      value:scene.sceneAmbient.toVector()
-                    }
-                }
-            });
-        geometry.bindIndexBuffer(renderer.ContextManager);
+        this.__innerMaterial.materialVariables = {
+            boneCount:skeleton.BoneCount,
+            boneMatriciesTexture:skeleton.MatrixTexture,
+            texture: this.texture,
+            toon: this.toon,
+            sphere: this.sphere,
+            diffuse: this.diffuse.toVector(),
+            specular: this.specular,
+            ambient: this.ambient.toVector(),
+            textureUsed: this.texture == null || this.texture.ImageSource == null ? 0 : 1,
+            sphereMode: this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode,
+            toonFlag: this.toon == null || this.toon.ImageSource == null ? 0 : 1,
+            addTexCoeff:new Vector4(this.addMorphParam.textureCoeff) ,
+            mulTexCoeff:new Vector4(this.mulMorphParam.textureCoeff) ,
+            addSphereCoeff:new Vector4(this.addMorphParam.sphereCoeff),
+            mulSphereCoeff:new Vector4(this.mulMorphParam.sphereCoeff),
+            addToonCoeff:new Vector4(this.addMorphParam.toonCoeff) ,
+            mulToonCoeff:new Vector4(this.mulMorphParam.toonCoeff) ,
+        };
+        this.__innerMaterial.configureMaterial(scene,renderStage,object,texs,techniqueIndex,passIndex);
     }
 
     private configureEdgeMaterial(renderer: BasicRenderer, object: SceneObject): void
     {
-        if (!this.program) return;
         var geometry = <PMXGeometry> object.Geometry;
         var programWrapper = this.edgeProgram.getForContext(renderer.ContextManager);
         programWrapper.register({

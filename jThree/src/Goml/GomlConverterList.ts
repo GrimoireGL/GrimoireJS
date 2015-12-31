@@ -1,4 +1,3 @@
-declare function require(string): any;
 /**
  * List for constructor functions of converter classes.
  * Converters manage how an attribute will be parsed, converted into string, or animated.

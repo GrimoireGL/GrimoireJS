@@ -31,7 +31,7 @@ class RenderStageBase extends JThreeObjectWithID {
         depthMode:"less",
         depthMask:false,
         blendEnabled:true,
-        blendSrcColor:"srcAlpha",
+        blendSrcColor:"srcalpha",
         blendDstColor:"oneminussrcalpha",
         blendSrcAlpha:"1",
         blendDstAlpha:"0"

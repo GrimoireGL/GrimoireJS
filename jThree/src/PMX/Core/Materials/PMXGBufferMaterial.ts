@@ -15,8 +15,6 @@ import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer"
 import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
 import Vector3 = require("../../../Math/Vector3");
 import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
-
-declare function require(string): string;
 /**
  * the materials for PMX.
  */
@@ -55,7 +53,6 @@ class PMXGBufferMaterial extends Material {
 
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
         if (this.associatedMaterial.Diffuse.A < 1.0E-3) return;
-        //super.configureMaterial(scene, renderStage, object, texs, techniqueIndex, passIndex);
         const skeleton = this.associatedMaterial.ParentModel.skeleton;
         switch (techniqueIndex) {
             case 0:
@@ -111,24 +108,24 @@ class PMXGBufferMaterial extends Material {
     }
 
     public getMaterialConfig(pass: number, technique: number): IMaterialConfig {
-        if (technique == 0) {
-            return {
-                blend: false,
-                cull: "ccw"
-            }
-        }
-        if (technique == 1) {
-            return {
-                cull: "ccw",
-                blend: true
-            }
-        } else {
-            return {
-                cull: "ccw",
-                blend: false
-            }
-        }
-    }
+       if (technique == 0) {
+           return {
+               blend: false,
+               cull: "ccw"
+           }
+       }
+       if (technique == 1) {
+           return {
+               cull: "ccw",
+               blend: true
+           }
+       } else {
+           return {
+               cull: "ccw",
+               blend: false
+           }
+       }
+   }
 }
 
 export =PMXGBufferMaterial;

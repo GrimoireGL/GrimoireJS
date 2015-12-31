@@ -1,7 +1,5 @@
 import GomlNodeListElement = require("./GomlNodeListElement");
 
-declare function require(string): any;
-
 var gomlList = [
   new GomlNodeListElement("jthree.toplevel",
     {

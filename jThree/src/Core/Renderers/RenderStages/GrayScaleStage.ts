@@ -9,7 +9,6 @@ import Matrix = require('../../../Math/Matrix');
 import ResolvedChainInfo = require('../ResolvedChainInfo');
 import agent = require('superagent');
 
-declare function require(name: string): any;
 class GrayScaleStage extends RenderStageBase {
 
 	private program: Program;

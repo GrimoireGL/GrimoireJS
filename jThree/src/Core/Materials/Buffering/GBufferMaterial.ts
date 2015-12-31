@@ -14,7 +14,6 @@ import PhongMaterial = require("./../Forward/PhongMaterial");
 import IMaterialConfig = require("./../IMaterialConfig");
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 import BasicMaterial = require("../Base/BasicMaterial");
-declare function require(string): string;
 /**
  * Provides how to write g-buffers.
  * This material have 3 pass for darawing g-buffers.

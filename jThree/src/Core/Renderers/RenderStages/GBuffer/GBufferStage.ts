@@ -14,20 +14,19 @@ import RenderStageConfig = require("../../RenderStageConfig");
  */
 class GBufferStage extends RenderStageBase {
 
-  public get DefaultRenderConfigures():IRenderStageRendererConfigure
-  {
-    return{
-      cullOrientation:"back",
-      depthEnabled:true,
-      depthMode:"lequal",
-      depthMask:true,
-      blendEnabled:false,
-      blendSrcColor:"1",
-      blendDstColor:"0",
-      blendSrcAlpha:"1",
-      blendDstAlpha:"0"
-    };
-  }
+    public get DefaultRenderConfigures(): IRenderStageRendererConfigure {
+        return {
+            cullOrientation: "back",
+            depthEnabled: true,
+            depthMode: "less",
+            depthMask: true,
+            blendEnabled: false,
+            blendSrcColor: "1",
+            blendDstColor: "0",
+            blendSrcAlpha: "1",
+            blendDstAlpha: "0"
+        };
+    }
 
     constructor(renderer: BasicRenderer) {
         super(renderer);
@@ -55,13 +54,16 @@ class GBufferStage extends RenderStageBase {
                 target: 0,
                 isOptional: false
             }], () => {
-                if (techniqueIndex == 0) {
-                    this.Renderer.GL.clearColor(0, 0, 0, 0);
-                    this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-                } else {
-                    this.Renderer.GL.clearColor(0, 0, 0, 0);
-                    this.Renderer.GL.clear(ClearTargetType.ColorBits);
-                }
+                // if (techniqueIndex == 0) {
+                //     this.Renderer.GL.clearColor(0, 0, 0, 0);
+                //     this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+                // } else {
+                //     this.Renderer.GL.clearColor(0, 0, 0, 0);
+                //     this.Renderer.GL.clear(ClearTargetType.ColorBits);
+                // }
+                this.Renderer.GL.clearColor(0, 0, 0, 0);
+                this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+
             }, () => {
                 this.Renderer.ContextManager.applyClearColor();
                 this.Renderer.GL.clear(ClearTargetType.DepthBits);
