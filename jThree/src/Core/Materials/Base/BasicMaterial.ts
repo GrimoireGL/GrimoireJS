@@ -64,6 +64,7 @@ class BasicMaterial extends Material {
             var pass = passes.item(i);
             this._passes.push(new MaterialPass(pass, this._materialName, i));
         }
+        this._passCount = passes.length;
     }
 
     private _initializeUniformRegisters(doc: Document) {
@@ -89,6 +90,17 @@ class BasicMaterial extends Material {
 
     public get MaterialGroup() {
         return this._materialGroup;
+    }
+
+    private _passCount:number = 0;
+
+    /**
+    * Should return how many times required to render this material.
+    * If you render some of model with edge,it can be 2 or greater.
+    * Because it needs rendering edge first,then rendering forward shading.
+    */
+    public getPassCount(techniqueIndex: number) {
+        return this._passCount;
     }
 }
 

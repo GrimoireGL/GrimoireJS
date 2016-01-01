@@ -29,7 +29,7 @@ class RenderStageBase extends JThreeObjectWithID {
         cullOrientation:"back",
         depthEnabled:true,
         depthMode:"less",
-        depthMask:false,
+        depthMask:true,
         blendEnabled:true,
         blendSrcColor:"srcalpha",
         blendDstColor:"oneminussrcalpha",
