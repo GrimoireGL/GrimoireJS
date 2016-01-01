@@ -80,8 +80,8 @@ class GBufferMaterial extends Material
         var geometry = matArg.object.Geometry;
         var fm = <PhongMaterial>matArg.object.getMaterial("jthree.materials.forematerial");
         var albedo;
-        if (fm && fm.diffuse) {//TODO there should be good implementation
-            albedo = fm.diffuse.toVector();
+        if (fm && fm.materialVariables["diffuse"]) {//TODO there should be good implementation
+            albedo = fm.materialVariables["diffuse"].toVector();
         } else {
             albedo = new Vector4(1, 0, 0, 1);
         }

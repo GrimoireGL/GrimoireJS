@@ -77,11 +77,11 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       initialValue = Vector2.Zero;
     }
     if (variableInfo.variableType == "vec3") {
-      converter = "vector3";
+      converter = "color3";
       initialValue = Vector3.Zero;
     }
     if (variableInfo.variableType == "vec4") {
-      converter = "vector4";
+      converter = "color4";//TODO add vector4 converter
       initialValue = Vector4.Zero;
     }
     if (variableInfo.variableType == "float") {
