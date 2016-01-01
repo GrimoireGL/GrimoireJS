@@ -175,7 +175,14 @@ class RenderStageBase extends JThreeObjectWithID {
             var material = materials[i];
             if (!material || !material.Initialized || !material.Enabled) return;
             for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
-                material.configureMaterial(scene, this, object, texs, techniqueIndex, pass);
+                material.configureMaterial({
+                  scene:scene,
+                  renderStage:this,
+                  object:object,
+                  textureResource:texs,
+                  techniqueIndex:techniqueIndex,
+                  passIndex:pass
+                })
                 object.Geometry.drawElements(this.Renderer.ContextManager, material);
             }
         }

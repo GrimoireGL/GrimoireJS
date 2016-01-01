@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
 import IMaterialConfig = require("../IMaterialConfig");
 import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
@@ -19,11 +20,12 @@ class HitTestMaterial extends Material {
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
-        var renderer = renderStage.Renderer;
-        super.configureMaterial(scene, renderStage, object, texs, techniqueIndex, passIndex);
-        var r = 0xFF00 & (renderStage as any).___objectIndex;
-        var g = 0x00FF & (renderStage as any).___objectIndex;
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+        var renderer = matArg.renderStage.Renderer;
+        const object = matArg.object;
+        //super.configureMaterial(scene, renderStage, object, texs, techniqueIndex, passIndex);
+        var r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
+        var g = 0x00FF & (matArg.renderStage as any).___objectIndex;
         var geometry = object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);

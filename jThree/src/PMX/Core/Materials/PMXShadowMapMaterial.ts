@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
 import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
@@ -56,12 +57,12 @@ class PMXShadowMapMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
         if (!this.program||this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
-        var renderer = renderStage.Renderer;
-        var geometry = <PMXGeometry>object.Geometry;
-        var light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
+        super.configureMaterial(matArg);
+        var renderer = matArg.renderStage.Renderer;
+        var geometry = <PMXGeometry>matArg.object.Geometry;
+        var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         programWrapper.register({
             attributes: {
@@ -75,7 +76,7 @@ class PMXShadowMapMaterial extends Material
                 boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount }
             }
         });
-        object.Geometry.bindIndexBuffer(renderer.ContextManager);
+        matArg.object.Geometry.bindIndexBuffer(renderer.ContextManager);
     }
 
 

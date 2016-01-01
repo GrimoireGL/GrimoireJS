@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
 import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
 import BasicRenderer = require("../../Renderers/BasicRenderer");
@@ -27,12 +28,12 @@ class SolidColorMaterial extends Material {
     this.setLoaded();
   }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
-    var renderer = renderStage.Renderer;
-    super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
-    var geometry = object.Geometry;
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+    var renderer = matArg.renderStage.Renderer;
+    //super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
+    var geometry = matArg.object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
-    var v = object.Transformer.calculateMVPMatrix(renderer);
+    var v = matArg.object.Transformer.calculateMVPMatrix(renderer);
         programWrapper.register({
             attributes: {
                 position: geometry.PositionBuffer,
@@ -40,7 +41,7 @@ class SolidColorMaterial extends Material {
             },
             uniforms: {
                 matMVP: { type: "matrix", value: v },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, matArg.object.Transformer.LocalToGlobal) },
                 u_color:{type:"vector",value:this.Color.toVector()}
             }
         });

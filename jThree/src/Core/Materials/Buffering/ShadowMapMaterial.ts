@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
 import BasicMaterial = require("../Base/BasicMaterial");
 import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
@@ -22,13 +23,13 @@ class ShadowMapMaterial extends BasicMaterial
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
+    public configureMaterial(matArg:IMaterialConfigureArgument): void
     {
-      const light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
+      const light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
       this.materialVariables={
-        matL:Matrix.multiply(light.matLightViewProjection,object.Transformer.LocalToGlobal)
+        matL:Matrix.multiply(light.matLightViewProjection,matArg.object.Transformer.LocalToGlobal)
       };
-      super.configureMaterial(scene,renderStage,object,texs,techniqueIndex,passIndex);
+      super.configureMaterial(matArg);
     }
 }
 

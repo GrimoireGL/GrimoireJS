@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
@@ -158,10 +159,10 @@ class PMXMaterial extends Material {
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
-        var renderer = renderStage.Renderer;
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+        var renderer = matArg.renderStage.Renderer;
         const skeleton = this.parentModel.skeleton;
-        if (passIndex == 1) {
+        if (matArg.passIndex == 1) {
             this.__innerMaterial.materialVariables = {
                 boneCount: skeleton.BoneCount,
                 boneMatriciesTexture: skeleton.MatrixTexture,
@@ -190,7 +191,7 @@ class PMXMaterial extends Material {
                 mulToonCoeff: new Vector4(this.mulMorphParam.toonCoeff)
             };
         }
-        this.__innerMaterial.configureMaterial(scene, renderStage, object, texs, techniqueIndex, passIndex);
+        this.__innerMaterial.configureMaterial(matArg);
     }
 
     private loadPMXTexture(index: number, prefix: string): Texture {

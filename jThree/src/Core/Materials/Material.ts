@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("./Base/IMaterialConfigureArgument");
 import RendererBase = require("../Renderers/RendererConfigurator/RendererConfiguratorBase");
 import TextureBase = require("../Resources/Texture/TextureBase");
 
@@ -112,11 +113,11 @@ class Material extends JThreeObjectWithID {
     * Apply configuration of program.
     * This is used for passing variables,using programs,binding index buffer.
     */
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
-        this.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+         this.applyMaterialConfig(matArg.passIndex, matArg.techniqueIndex, matArg.renderStage.Renderer);
         return;
     }
-
+//TODO remove old material configure system
     protected applyMaterialConfig(passIndex: number, techniqueIndex: number, renderer: BasicRenderer) {
         var config = this.getMaterialConfig(passIndex, techniqueIndex);
         if (config.cull) {

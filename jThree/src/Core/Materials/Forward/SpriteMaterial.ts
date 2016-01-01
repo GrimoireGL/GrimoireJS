@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
 import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
 import BasicRenderer = require("../../Renderers/BasicRenderer");
@@ -26,13 +27,12 @@ class SpriteMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
+    public configureMaterial(matArg:IMaterialConfigureArgument): void
     {
-        var renderer = renderStage.Renderer;
-        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
-        var geometry = object.Geometry;
+        var renderer = matArg.renderStage.Renderer;
+        var geometry = matArg.object.Geometry;
         var programWrapper = this.program.getForContext(renderer.ContextManager);
-        var v = object.Transformer.calculateMVPMatrix(renderer);
+        var v = matArg.object.Transformer.calculateMVPMatrix(renderer);
         //gen ct matrix
         var ctM: Matrix = Matrix.zero();
         if (this.ctR < 4) ctM.setAt(0,this.ctR, 1);
@@ -47,7 +47,7 @@ class SpriteMaterial extends Material
             }, uniforms: {
                 matMVP: { type: "matrix", value: v },
                 matV: { type: "matrix", value: renderer.Camera.viewMatrix },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
+                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, matArg.object.Transformer.LocalToGlobal) },
                 u_sampler: { type: "texture", register: 0, value: this.texture },
                 additionA: { type: "integer", value: this.ctA < 4 ? 0 : 1 },
                 ctM: { type: "matrix", value: ctM }

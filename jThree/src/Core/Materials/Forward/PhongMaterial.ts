@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
 import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
 import BasicRenderer = require("../../Renderers/BasicRenderer");
@@ -31,10 +32,11 @@ class PhongMaterial extends Material {
     this.setLoaded();
   }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject,texs:ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
     if (!this.program) return;
-    super.configureMaterial(scene, renderStage, object,texs,techniqueIndex,passIndex);
-    var renderer = renderStage.Renderer;
+    //super.configureMaterial(scene, renderStage, object,texs,techniqueIndex,passIndex);
+    var renderer = matArg.renderStage.Renderer;
+    const object = matArg.object;
     var geometry = object.Geometry;
     var pw = this.program.getForContext(renderer.ContextManager);
     var v = object.Transformer.calculateMVPMatrix(renderer);
@@ -49,13 +51,13 @@ class PhongMaterial extends Material {
                 matV: { type: "matrix", value: renderer.Camera.viewMatrix },
                 matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
                 texture: { type: "texture", register: 0, value: this.texture },
-                dlight: { type: "texture", register: 1, value: texs["DLIGHT"] },
-                slight: { type: "texture", register: 2, value: texs["SLIGHT"] },
+                dlight: { type: "texture", register: 1, value: matArg.textureResource["DLIGHT"] },
+                slight: { type: "texture", register: 2, value: matArg.textureResource["SLIGHT"] },
                 ambient: { type: "vector", value: this.ambient.toVector() },
                 diffuse: { type: "vector", value: this.diffuse.toVector() },
                 specular: { type: "vector", value: this.specular.toVector4(this.specularCoefficient) },
                 textureUsed: { type: "integer", value: (this.texture != null) ? 1 : 0 },
-                ambientCoefficient:{type:"vector",value:scene.sceneAmbient.toVector()}
+                ambientCoefficient:{type:"vector",value:matArg.scene.sceneAmbient.toVector()}
             }
         });
     geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();

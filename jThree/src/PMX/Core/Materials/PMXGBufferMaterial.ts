@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 ﻿import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
@@ -51,17 +52,17 @@ class PMXGBufferMaterial extends Material {
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
         if (this.associatedMaterial.Diffuse.A < 1.0E-3) return;
         const skeleton = this.associatedMaterial.ParentModel.skeleton;
-        switch (techniqueIndex) {
+        switch (matArg.techniqueIndex) {
             case 0:
                 this.__primaryMaterial.materialVariables = {
                     boneMatriciesTexture: skeleton.MatrixTexture,
                     brightness: this.associatedMaterial.Specular.W,
                     boneCount: skeleton.BoneCount
                 };
-                this.__primaryMaterial.configureMaterial(scene, renderStage, object, texs, 0, 0);
+                this.__primaryMaterial.configureMaterial(matArg);
                 break;
             case 1:
                 this.__secoundaryMaterial.materialVariables = {
@@ -77,7 +78,7 @@ class PMXGBufferMaterial extends Material {
                   addSphereCoefficient: new Vector4(this.associatedMaterial.addMorphParam.sphereCoeff),
                   mulSphereCoefficient: new Vector4(this.associatedMaterial.mulMorphParam.sphereCoeff)
                 };
-                this.__secoundaryMaterial.configureMaterial(scene, renderStage, object, texs, 1, 0);
+                this.__secoundaryMaterial.configureMaterial(matArg);
                 break;
             case 2:
                 this.__thirdMaterial.materialVariables = {
@@ -85,7 +86,7 @@ class PMXGBufferMaterial extends Material {
                     boneCount: skeleton.BoneCount,
                     specular: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Specular, this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.specular, 3)
                 };
-                this.__thirdMaterial.configureMaterial(scene, renderStage, object, texs, 2, 0);
+                this.__thirdMaterial.configureMaterial(matArg);
                 break;
         }
     }
