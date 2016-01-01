@@ -72,12 +72,6 @@ class Material extends JThreeObjectWithID {
         return this.priorty;
     }
 
-    public getMaterialConfig(pass: number, technique: number): IMaterialConfig {
-        return {
-            cull: "ccw",
-            blend: true
-        }
-    }
     /**
     * Group name of this material.
     * This main purpose is mainly intended to be used in RenderStage for filtering materials by puropse of material.
@@ -114,48 +108,7 @@ class Material extends JThreeObjectWithID {
     * This is used for passing variables,using programs,binding index buffer.
     */
     public configureMaterial(matArg:IMaterialConfigureArgument): void {
-         this.applyMaterialConfig(matArg.passIndex, matArg.techniqueIndex, matArg.renderStage.Renderer);
         return;
-    }
-//TODO remove old material configure system
-    protected applyMaterialConfig(passIndex: number, techniqueIndex: number, renderer: BasicRenderer) {
-        var config = this.getMaterialConfig(passIndex, techniqueIndex);
-        if (config.cull) {
-            renderer.GL.enable(renderer.GL.CULL_FACE);
-            if (config.cull == "cw") {
-                renderer.GL.cullFace(renderer.GL.FRONT);
-            } else {
-                renderer.GL.cullFace(renderer.GL.BACK);
-            }
-        } else {
-            renderer.GL.disable(renderer.GL.CULL_FACE);
-        }
-        if (config.blend) {
-            renderer.GL.enable(renderer.GL.BLEND);
-            if (!config.blendArg1) {
-                //If blendFunc was not specified, jThree will select linear blending
-                config.blendArg1 = "srcAlpha"
-                config.blendArg2 = "oneMinusSrcAlpha"
-            }
-            renderer.GL.blendFunc(this._parseBlendConfig(config.blendArg1, renderer), this._parseBlendConfig(config.blendArg2, renderer));
-        } else {
-            renderer.GL.disable(renderer.GL.BLEND);
-        }
-    }
-
-    private _parseBlendConfig(blendConfig: string, renderer: BasicRenderer): number {
-        let lowerCaseBlendConfig = blendConfig.toLowerCase();
-        if (lowerCaseBlendConfig == "1") return renderer.GL.ONE;
-        if (lowerCaseBlendConfig == "0") return renderer.GL.ZERO;
-        if (lowerCaseBlendConfig == "srcalpha") return renderer.GL.SRC_ALPHA;
-        if (lowerCaseBlendConfig == "srcColor") return renderer.GL.SRC_COLOR;
-        if (lowerCaseBlendConfig == "oneminussrcalpha") return renderer.GL.ONE_MINUS_SRC_ALPHA;
-        if (lowerCaseBlendConfig == "oneminussrccolor") return renderer.GL.ONE_MINUS_SRC_COLOR;
-        if (lowerCaseBlendConfig == "oneminusdstalpha") return renderer.GL.ONE_MINUS_DST_ALPHA;
-        if (lowerCaseBlendConfig == "oneminusdstcolor") return renderer.GL.ONE_MINUS_DST_COLOR;
-        if (lowerCaseBlendConfig == "destalpha") return renderer.GL.DST_ALPHA;
-        if (lowerCaseBlendConfig == "destcolor") return renderer.GL.DST_COLOR;
-        console.error("Unsupported blend config!");
     }
 
     public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableInfo }): void {
