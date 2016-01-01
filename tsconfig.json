@@ -201,7 +201,6 @@
     "./jThree/src/Goml/Converter/RotationAttributeConverter.ts",
     "./jThree/src/Goml/Converter/StringAttributeConverter.ts",
     "./jThree/src/Goml/Converter/Vector3AttributeConverter.ts",
-    "./jThree/src/Goml/Converter/Vector4AttributeConverter.ts",
     "./jThree/src/Goml/Easing/EasingFunctionBase.ts",
     "./jThree/src/Goml/Easing/LinearEasingFunction.ts",
     "./jThree/src/Goml/Easing/SwingEasingFunction.ts",

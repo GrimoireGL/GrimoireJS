@@ -49,7 +49,7 @@ class PhongNode extends MaterialNodeBase {
   private _onTextureAttrChanged(attr): void {
     if (attr.Value) {
       this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", attr.Value, (node: TextureNode) => {
-        this.material.texture = node.TargetTexture;
+        this.material.materialVariables["texture"] = node.TargetTexture;
       });
     }
   }

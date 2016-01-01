@@ -68,7 +68,8 @@ class GBufferMaterial extends Material
         var geometry = matArg.object.Geometry;
         var fm = <PhongMaterial>matArg.object.getMaterial("jthree.materials.forematerial");//shiningness
         var coefficient = 0;
-        if(fm.specularCoefficient)coefficient = fm.specularCoefficient;
+        const fmArgs = fm.materialVariables;
+        if(fmArgs["brightness"])coefficient = fmArgs["brightness"];
         this.primaryMaterial.materialVariables["brightness"] = coefficient;
         this.primaryMaterial.configureMaterial(matArg);
     }
@@ -79,6 +80,7 @@ class GBufferMaterial extends Material
     private configureSecoundaryBuffer(matArg:IMaterialConfigureArgument) {
         var geometry = matArg.object.Geometry;
         var fm = <PhongMaterial>matArg.object.getMaterial("jthree.materials.forematerial");
+        const fmArgs = fm.materialVariables;
         var albedo;
         if (fm && fm.materialVariables["diffuse"]) {//TODO there should be good implementation
             albedo = fm.materialVariables["diffuse"].toVector();
@@ -87,7 +89,7 @@ class GBufferMaterial extends Material
         }
         this.secoundaryMaterial.materialVariables["albedo"] = albedo;
         this.secoundaryMaterial.materialVariables["textureUsed"] = 0;
-        this.secoundaryMaterial.materialVariables["texture"] = fm.texture;
+        this.secoundaryMaterial.materialVariables["texture"] = fmArgs["texture"];
         this.secoundaryMaterial.configureMaterial(matArg);
     }
 
@@ -98,9 +100,10 @@ class GBufferMaterial extends Material
     private configureThirdBuffer(matArg:IMaterialConfigureArgument)
     {
         var fm = <PhongMaterial>matArg.object.getMaterial("jthree.materials.forematerial");
+        const fmArgs = fm.materialVariables;
         var specular;
-        if (fm && fm.diffuse) {
-            specular = fm.specular.toVector();
+        if (fm && fmArgs["specular"]) {
+            specular = fmArgs["specular"].toVector();
         } else
         {
             specular = new Vector3(1, 0, 0);
