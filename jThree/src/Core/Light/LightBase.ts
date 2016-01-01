@@ -1,4 +1,4 @@
-import Color4 = require('../../Base/Color/Color4');
+import Color4 = require('../../Math/Color4');
 import Vector3 = require('../../Math/Vector3');
 import SceneObject = require('../SceneObject');
 import Canvas = require('../Canvas');

@@ -4,7 +4,7 @@ import GomlAttribute = require("../GomlAttribute");
 import Delegates = require("../../Base/Delegates");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import AnimaterBase = require("../Animater/AnimaterBase");
-import Color4 = require("../../Base/Color/Color4");
+import Color4 = require("../../Math/Color4");
 import Color4Animater = require("../Animater/Color4Animater");
 class Color4AttributeConverter extends AttributeConverterBase
 {

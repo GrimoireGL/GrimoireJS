@@ -1,3 +1,6 @@
+import Vector4 = require("../../Math/Vector4");
+import Vector3 = require("../../Math/Vector3");
+import Vector2 = require("../../Math/Vector2");
 import IMaterialConfigureArgument = require("./Base/IMaterialConfigureArgument");
 import RendererBase = require("../Renderers/RendererConfigurator/RendererConfiguratorBase");
 import TextureBase = require("../Resources/Texture/TextureBase");
@@ -155,6 +158,18 @@ class Material extends JThreeObjectWithID {
                 register = 0;
             }
             pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture, register);
+        }
+        if(uniform.variableType == "vec2")
+        {
+          pWrapper.uniformVector(uniform.variableName,new Vector2(0,0));
+        }
+        if(uniform.variableType == "vec3")
+        {
+          pWrapper.uniformVector(uniform.variableName,new Vector3(0,0,0));
+        }
+        if(uniform.variableType == "vec4")
+        {
+          pWrapper.uniformVector(uniform.variableName,new Vector4(0,0,0,0));
         }
     }
 

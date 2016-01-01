@@ -157,17 +157,19 @@ class ProgramWrapper extends ResourceWrapper {
     public uniformVector(variableName: string, vec: VectorBase): void {
         const location = this._fetchUniformLocation(variableName);
         if (location < 0) return;
+        const rawVector = vec.rawElements;
         switch (vec.ElementCount) {
             case 2:
-                this.GL.uniform2f(location, (<Vector2>vec).X, (<Vector2>vec).Y);
+                this.GL.uniform2f(location, rawVector[0],rawVector[1]);
                 return;
             case 3:
-                this.GL.uniform3f(location, (<Vector3>vec).X, (<Vector3>vec).Y, (<Vector3>vec).Z);
+                this.GL.uniform3f(location, rawVector[0], rawVector[1], rawVector[2]);
                 return;
             case 4:
-                this.GL.uniform4f(location, (<Vector4>vec).X, (<Vector4>vec).Y, (<Vector4>vec).Z, (<Vector4>vec).W);
+                this.GL.uniform4f(location, rawVector[0], rawVector[1], rawVector[2], rawVector[3]);
                 return;
             default:
+                debugger;
                 console.error("Unexpected element count of vector!");
         }
     }
