@@ -8,5 +8,5 @@ vec3 pack_float(float f){
 
 void main(void)
 {
-  gl_FragColor.rgb = pack_float(vPosition.z/vPosition.w/2. + 0.5);
+  gl_FragColor = vec4(pack_float(vPosition.z/vPosition.w/2. + 0.5),1.0);
 }
