@@ -20,7 +20,6 @@ import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import IMaterialConfig = require("./IMaterialConfig");
 import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 /**
 * Basement class for any Materials.
 * Material is basically meaning what shader will be used or what shader variable will passed.

@@ -7,15 +7,6 @@ import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import RenderStageConfig = require("../RenderStageConfig");
 class FowardShadingStage extends RenderStageBase
 {
-
-    public get RenderStageConfig(): RenderStageConfig
-    {
-        return {
-            depthTest: true
-        };
-    }
-
-
 	constructor(renderer: BasicRenderer) {
 		super(renderer);
 	}
