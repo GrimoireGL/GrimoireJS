@@ -14,31 +14,21 @@ import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase")
  * By this material, default meshes will be rendered as shadow map.
  * These shadow map will be used in lighting stage to drop shadow.
  */
-class ShadowMapMaterial extends Material
+class ShadowMapMaterial extends BasicMaterial
 {
-  public get MaterialGroup(): string
-  {
-      return "jthree.materials.shadowmap";
-  }
-
-    protected program: Program;
-
-    protected shadowMapMaterial:BasicMaterial;
-
     constructor()
     {
-        super();
-        this.shadowMapMaterial = new BasicMaterial(require("../BuiltIn/ShadowMap/ShadowMap.html"));
+        super(require("../BuiltIn/ShadowMap/ShadowMap.html"));
         this.setLoaded();
     }
 
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
     {
       const light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
-      this.shadowMapMaterial.materialVariables={
+      this.materialVariables={
         matL:Matrix.multiply(light.matLightViewProjection,object.Transformer.LocalToGlobal)
       };
-      this.shadowMapMaterial.configureMaterial(scene,renderStage,object,texs,techniqueIndex,passIndex);
+      super.configureMaterial(scene,renderStage,object,texs,techniqueIndex,passIndex);
     }
 }
 
