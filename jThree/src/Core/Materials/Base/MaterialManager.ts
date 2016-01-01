@@ -21,6 +21,7 @@ class MaterialManager implements IContextComponent {
         this.addUniformRegister("jthree.basic.light",LightBufferRegisterer);
         this.addUniformRegister("jthree.basic.time",TimeRegisterer);
         this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
+        this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
     }
 
     public getContextComponentIndex(): number {

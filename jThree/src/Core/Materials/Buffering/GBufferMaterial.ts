@@ -11,7 +11,6 @@ import TextureBase = require('../../Resources/Texture/TextureBase');
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
 import Vector4 = require("../../../Math/Vector4");
-import PhongMaterial = require("./../Forward/PhongMaterial");
 import IMaterialConfig = require("./../IMaterialConfig");
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 import BasicMaterial = require("../Base/BasicMaterial");
@@ -66,7 +65,7 @@ class GBufferMaterial extends Material
      */
     private configurePrimaryBuffer(matArg:IMaterialConfigureArgument) {
         var geometry = matArg.object.Geometry;
-        var fm = <PhongMaterial>matArg.object.getMaterial("jthree.materials.forematerial");//shiningness
+        var fm = matArg.object.getMaterial("jthree.materials.forematerial");//shiningness
         var coefficient = 0;
         const fmArgs = fm.materialVariables;
         if(fmArgs["brightness"])coefficient = fmArgs["brightness"];
@@ -79,7 +78,7 @@ class GBufferMaterial extends Material
      */
     private configureSecoundaryBuffer(matArg:IMaterialConfigureArgument) {
         var geometry = matArg.object.Geometry;
-        var fm = <PhongMaterial>matArg.object.getMaterial("jthree.materials.forematerial");
+        var fm = matArg.object.getMaterial("jthree.materials.forematerial");
         const fmArgs = fm.materialVariables;
         var albedo;
         if (fm && fm.materialVariables["diffuse"]) {//TODO there should be good implementation
@@ -99,7 +98,7 @@ class GBufferMaterial extends Material
      */
     private configureThirdBuffer(matArg:IMaterialConfigureArgument)
     {
-        var fm = <PhongMaterial>matArg.object.getMaterial("jthree.materials.forematerial");
+        var fm = matArg.object.getMaterial("jthree.materials.forematerial");
         const fmArgs = fm.materialVariables;
         var specular;
         if (fm && fmArgs["specular"]) {

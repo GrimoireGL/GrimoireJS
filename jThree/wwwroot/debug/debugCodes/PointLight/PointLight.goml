@@ -1,7 +1,7 @@
 <goml>
   <resources>
     <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
-    <phong diffuse="red" specular="#CCC" specularpower="15" name="red"/>
+    <solid name="red" solid="red"/>
     <phong diffuse="green" specular="#CCC" specularposer="15" name="green"/>
     <cube name="cube" />
     <grid hdiv="20" name="grid" vdiv="20"/>

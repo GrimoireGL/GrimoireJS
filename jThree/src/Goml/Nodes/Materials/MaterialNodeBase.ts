@@ -1,3 +1,4 @@
+import Color4 = require("../../../Base/Color/Color4");
 import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
 import JThreeContext = require("../../../JThreeContext");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
@@ -92,7 +93,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     }
     if (variableInfo.variableType == "vec4") {
       converter = "color4";//TODO add vector4 converter
-      initialValue = Vector4.Zero;
+      initialValue = Color4.parseColor("#FF00FFFF");
     }
     if (variableInfo.variableType == "float") {
       converter = "number"; // This should be float
