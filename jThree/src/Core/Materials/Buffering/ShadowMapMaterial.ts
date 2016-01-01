@@ -1,3 +1,4 @@
+import BasicMaterial = require("../Base/BasicMaterial");
 import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
 import BasicRenderer = require("../../Renderers/BasicRenderer");
@@ -22,41 +23,22 @@ class ShadowMapMaterial extends Material
 
     protected program: Program;
 
+    protected shadowMapMaterial:BasicMaterial;
+
     constructor()
     {
         super();
-        var vs = require('../../Shaders/Shadow/ShadowMapVertex.glsl');
-        var fs = require('../../Shaders/Shadow/ShadowMapFragment.glsl');
-        this.program = this.loadProgram("jthree.shaders.vertex.shadowmap", "jthree.shaders.fragment.shadowmap", "jthree.programs.shadowmap", vs, fs);
+        this.shadowMapMaterial = new BasicMaterial(require("../BuiltIn/ShadowMap/ShadowMap.html"));
         this.setLoaded();
     }
 
     public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void
     {
-      var renderer = renderStage.Renderer;
-        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
-        var light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
-        var geometry = object.Geometry;
-        var matPLW = Matrix.multiply(light.matLightViewProjection,object.Transformer.LocalToGlobal);
-        this.program.getForContext(renderer.ContextManager).register({
-          attributes:
-          {
-            position:geometry.PositionBuffer
-          },
-          uniforms:
-          {
-            matPLW:{type:"matrix",value:matPLW}
-          }
-        });
-        geometry.bindIndexBuffer(renderer.ContextManager);
-    }
-
-    public getMaterialConfig(pass:number,technique:number):IMaterialConfig
-    {
-      return {
-        cull:"ccw",
-        blend:false
-      }
+      const light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
+      this.shadowMapMaterial.materialVariables={
+        matL:Matrix.multiply(light.matLightViewProjection,object.Transformer.LocalToGlobal)
+      };
+      this.shadowMapMaterial.configureMaterial(scene,renderStage,object,texs,techniqueIndex,passIndex);
     }
 }
 

@@ -15,6 +15,7 @@ import TimeRegisterer = require("./Registerer/TimeRegisterer");
 class MaterialManager implements IContextComponent {
     constructor() {
         this.addShaderChunk("jthree.builtin.vertex", require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
+        this.addShaderChunk("jthree.builtin.shadowfragment",require("../BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));
         this.addUniformRegister("jthree.basic.matrix",BasicMatrixRegisterer);
         this.addUniformRegister("jthree.basic.light",LightBufferRegisterer);
         this.addUniformRegister("jthree.basic.time",TimeRegisterer);

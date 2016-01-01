@@ -1,3 +1,4 @@
+import BasicMaterial = require("../Core/Materials/Base/BasicMaterial");
 import Geometry = require("../Core/Geometries/Geometry");
 import Material = require("../Core/Materials/Material");
 import Mesh = require('./Mesh');

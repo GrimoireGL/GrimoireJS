@@ -27,6 +27,6 @@ mat4 getBoneTransform()
 }
 
 void main(void){
-mat4 boneTransform=getBoneTransform();
-gl_Position = matVP*boneTransform*position;
+	mat4 boneTransform=getBoneTransform();
+	gl_Position = matVP*boneTransform*position;
 }
