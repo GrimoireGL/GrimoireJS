@@ -1,3 +1,7 @@
+import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
+import JThreeContext = require("../../../JThreeContext");
+import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
+import ContextComponents = require("../../../ContextComponents");
 import IVariableInfo = require("../../../Core/Materials/Base/IVariableInfo");
 import AttributeDeclationBody = require("../../AttributeDeclationBody");
 import Vector4 = require("../../../Math/Vector4");
@@ -30,6 +34,12 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   private _onNameAttrChanged(attr): void {
     this.name = attr.Value;
   }
+
+  protected __getMaterialFromMatName(name:string):BasicMaterial
+  {
+    return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial(name);
+  }
+
 
   protected nodeWillMount(parent) {
     super.nodeWillMount(parent);

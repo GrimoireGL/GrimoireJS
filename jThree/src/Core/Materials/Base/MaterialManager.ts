@@ -62,6 +62,10 @@ class MaterialManager implements IContextComponent {
         return this._uniformRegisters[key];
     }
 
+    /**
+     * Register material document(XMML) in material manager
+     * @param {string} matDocument Raw xmml parsable string
+     */
     public registerMaterial(matDocument:string):void
     {
       const dom = (new DOMParser()).parseFromString(matDocument,"text/xml");
@@ -74,7 +78,11 @@ class MaterialManager implements IContextComponent {
         this._materialDocuments[matName] = matDocument;
       }
     }
-
+    /**
+     * Construct BasicMaterial instance with registered xmml
+     * @param  {string}        matName name of the xmml
+     * @return {BasicMaterial}         [description]
+     */
     public constructMaterial(matName:string):BasicMaterial
     {
       const matDoc = this._materialDocuments[matName];
