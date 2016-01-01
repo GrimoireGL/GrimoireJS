@@ -1,3 +1,4 @@
+import BasicMaterial = require("./BasicMaterial");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./IVariableInfo");
 import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
@@ -19,6 +20,7 @@ class MaterialManager implements IContextComponent {
         this.addUniformRegister("jthree.basic.matrix",BasicMatrixRegisterer);
         this.addUniformRegister("jthree.basic.light",LightBufferRegisterer);
         this.addUniformRegister("jthree.basic.time",TimeRegisterer);
+        this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
     }
 
     public getContextComponentIndex(): number {
@@ -31,6 +33,8 @@ class MaterialManager implements IContextComponent {
     private _shaderChunks: { [key: string]: string } = {};
 
     private _uniformRegisters: { [key: string]: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, {[key:string]:IVariableInfo}> } = {};
+
+    private _materialDocuments:{[key:string]:string} = {};
 
     /**
      * Add shader chunk code to be stored.
@@ -58,6 +62,31 @@ class MaterialManager implements IContextComponent {
         return this._uniformRegisters[key];
     }
 
+    public registerMaterial(matDocument:string):void
+    {
+      const dom = (new DOMParser()).parseFromString(matDocument,"text/xml");
+      const matTag = dom.querySelector("material");
+      const matName = matTag.getAttribute("name");
+      if(!matName)
+      {
+        console.error("Material name is required attribute,but name was not specified!");
+      }else{
+        this._materialDocuments[matName] = matDocument;
+      }
+    }
+
+    public constructMaterial(matName:string):BasicMaterial
+    {
+      const matDoc = this._materialDocuments[matName];
+      if(!matDoc)
+      {
+        console.error(`Specified material name '${matName}' was not found!`);
+        return undefined;
+      }else
+      {
+        return new BasicMaterial(matDoc);
+      }
+    }
 }
 
 export = MaterialManager;

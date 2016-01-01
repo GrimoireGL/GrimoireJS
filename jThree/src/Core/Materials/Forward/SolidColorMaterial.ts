@@ -30,7 +30,6 @@ class SolidColorMaterial extends Material {
 
     public configureMaterial(matArg:IMaterialConfigureArgument): void {
     var renderer = matArg.renderStage.Renderer;
-    //super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
     var geometry = matArg.object.Geometry;
     var programWrapper = this.program.getForContext(renderer.ContextManager);
     var v = matArg.object.Transformer.calculateMVPMatrix(renderer);

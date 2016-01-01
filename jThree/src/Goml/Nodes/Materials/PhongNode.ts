@@ -1,3 +1,6 @@
+import ContextComponents = require("../../../ContextComponents");
+import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
+import JThreeContext = require("../../../JThreeContext");
 import Phong = require("../../../Core/Materials/Forward/PhongMaterial");
 ﻿import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
@@ -55,7 +58,7 @@ class PhongNode extends MaterialNodeBase {
   }
 
   protected ConstructMaterial(): Material {
-    this.material = new Phong();
+    this.material = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial("jthree.basic.phong");
     return this.material;
   }
 
