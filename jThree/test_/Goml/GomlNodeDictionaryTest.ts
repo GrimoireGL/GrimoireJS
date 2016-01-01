@@ -17,7 +17,7 @@ describe('GomlNodeDictionary', () => {
     gnd.addNode('group1', 'node1', <GomlTreeNodeBase>node1);
     node1.Mounted = true;
     gnd.getNode('group1', 'node1', callbackfn);
-    assert(callbackfn.lastCall.args[1] === node1);
+    assert(callbackfn.lastCall.args[0] === node1);
     assert(callbackfn.callCount == 1);
   });
 
@@ -27,9 +27,9 @@ describe('GomlNodeDictionary', () => {
     const callbackfn = sinon.spy();
     gnd.addNode('group1', 'node1', <GomlTreeNodeBase>node1);
     gnd.getNode('group1', 'node1', callbackfn);
-    assert(callbackfn.lastCall.args[1] === null);
+    assert(callbackfn.lastCall.args[0] === null);
     node1.Mounted = true;
-    assert(callbackfn.lastCall.args[1] === node1);
+    assert(callbackfn.lastCall.args[0] === node1);
     assert(callbackfn.callCount === 2);
   });
 
@@ -38,10 +38,10 @@ describe('GomlNodeDictionary', () => {
     const node1 = new TreeNodeBase();
     const callbackfn = sinon.spy();
     gnd.getNode('group1', 'node1', callbackfn);
-    assert(callbackfn.lastCall.args[1] === null);
+    assert(callbackfn.lastCall.args[0] === null);
     gnd.addNode('group1', 'node1', <GomlTreeNodeBase>node1);
     node1.Mounted = true;
-    assert(callbackfn.lastCall.args[1] === node1);
+    assert(callbackfn.lastCall.args[0] === node1);
     assert(callbackfn.callCount === 2);
   });
 
@@ -53,7 +53,7 @@ describe('GomlNodeDictionary', () => {
     gnd.getNode('group1', 'node1', callbackfn);
     assert(callbackfn.calledWith(node1) === true);
     gnd.addNode('group1', 'node2', <GomlTreeNodeBase>node1);
-    assert(callbackfn.lastCall.args[1] === null);
+    assert(callbackfn.lastCall.args[0] === null);
     assert(callbackfn.callCount == 2);
   });
 });
