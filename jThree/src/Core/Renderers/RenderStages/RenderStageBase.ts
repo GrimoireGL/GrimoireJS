@@ -182,7 +182,7 @@ class RenderStageBase extends JThreeObjectWithID {
                   textureResource:texs,
                   techniqueIndex:techniqueIndex,
                   passIndex:pass
-                })
+                });
                 object.Geometry.drawElements(this.Renderer.ContextManager, material);
             }
         }

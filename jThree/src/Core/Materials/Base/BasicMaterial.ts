@@ -38,7 +38,6 @@ class BasicMaterial extends Material {
         var xmml = (new DOMParser()).parseFromString(source, "text/xml");
         this._materialName = xmml.querySelector("material").getAttribute("name");
         this._materialGroup = xmml.querySelector("material").getAttribute("group");
-
         if (!this._materialName) {
             console.error("Material name must be specified");
         }

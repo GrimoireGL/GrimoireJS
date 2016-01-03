@@ -18,7 +18,7 @@ class MeshNode extends SceneObjectNodeBase {
         converter: 'string',
         onchanged: (attr) => {
           this.geo = attr.Value;
-          this.ConstructTarget(() => {}); // ????
+          //this.ConstructTarget(() => {}); // ????
         }
       },
       'mat': {
@@ -26,7 +26,7 @@ class MeshNode extends SceneObjectNodeBase {
         converter: 'string',
         onchanged: (attr) => {
           this.mat = attr.Value;
-          this.ConstructTarget(() => {}); // ????
+          //this.ConstructTarget(() => {}); // ????
         }
       }
     });
