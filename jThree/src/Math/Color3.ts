@@ -1,53 +1,43 @@
-import JThreeObject = require("../JThreeObject");
-import Vector3 = require("../../Math/Vector3");
+import VectorBase = require("../Math/VectorBase");
+import JThreeObject = require("../Base/JThreeObject");
+import Vector3 = require("./Vector3");
 import Color4 = require("./Color4");
-import Vector4 = require("../../Math/Vector4");
-declare function require(string): { [key: string]: string };
-
-class Color3 extends JThreeObject {
+import Vector4 = require("./Vector4");
+class Color3 extends VectorBase {
     constructor(r: number, g: number, b: number) {
         super();
-        this._r = r;
-        this._g = g;
-        this._b = b;
+        this.rawElements = [r, g, b];
     }
 
-    private _r: number;
-    private _g: number;
-    private _b: number;
-
     public get R(): number {
-        return this._r;
+        return this.rawElements[0];
     }
 
     public get G(): number {
-        return this._g;
+        return this.rawElements[1];
     }
 
     public get B(): number {
-        return this._b;
+        return this.rawElements[2];
     }
 
-    public static FromColor4(col:Color4):Color3
-    {
-      return new Color3(col.R,col.G,col.B);
+    public static FromColor4(col: Color4): Color3 {
+        return new Color3(col.R, col.G, col.B);
     }
-    public toVector():Vector3
-    {
-      return new Vector3(this.R,this.G,this.B);
+    public toVector(): Vector3 {
+        return new Vector3(this.R, this.G, this.B);
     }
 
-    public toVector4(a?:number):Vector4
-    {
-        if(typeof a ==="undefined")a=0;
-        return new Vector4(this.R,this.G,this.B,a);
+    public toVector4(a?: number): Vector4 {
+        if (typeof a === "undefined") a = 0;
+        return new Vector4(this.R, this.G, this.B, a);
     }
 
-    public static colorTable: { [key: string]: string } = require("../../static/color.json");
+    public static colorTable: { [key: string]: string } = require("../static/color.json");
     ///Color parser for css like syntax
     public static internalParse(color: string, isFirst: boolean): Color3 {
         if (isFirst && Color4.colorTable[color]) {
-            var col=Color4.internalParse(Color4.colorTable[color], false);
+            var col = Color4.internalParse(Color4.colorTable[color], false);
             return Color3.FromColor4(col);
         }
         if (isFirst) {
@@ -59,7 +49,7 @@ class Color3 extends JThreeObject {
                     parseInt(s.charAt(0), 16) / 0xf,
                     parseInt(s.charAt(1), 16) / 0xf,
                     parseInt(s.charAt(2), 16) / 0xf
-                    );
+                );
             }
         }
 
@@ -71,7 +61,7 @@ class Color3 extends JThreeObject {
                 parseInt(s.substr(0, 2), 16) / 0xff,
                 parseInt(s.substr(2, 2), 16) / 0xff,
                 parseInt(s.substr(4, 2), 16) / 0xff
-                );
+            );
         }
 
         var n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
@@ -85,8 +75,12 @@ class Color3 extends JThreeObject {
         return Color3.internalParse(color, true);
     }
 
+    public get ElementCount(): number {
+        return 3;
+    }
+
     public toString(): string {
-        var st ="#";
+        var st = "#";
         st += Math.round(this.R * 0xff).toString(16).toUpperCase();
         st += Math.round(this.G * 0xff).toString(16).toUpperCase();
         st += Math.round(this.B * 0xff).toString(16).toUpperCase();

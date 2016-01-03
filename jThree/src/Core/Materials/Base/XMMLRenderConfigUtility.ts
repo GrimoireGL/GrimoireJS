@@ -91,8 +91,10 @@ class XMMLRenderConfigUtility {
                     return;
             }
         }
-        else
+        else {
+            gl.depthMask(mask);
             gl.disable(gl.DEPTH_TEST);
+        }
     }
 
     public static applyBlendFuncConfigure(gl: WebGLRenderingContext, elem: Element, defEnabled: boolean, defSrcColor: string, defDestColor: string, defSrcAlpha: string, defDestAlpha: string): void {

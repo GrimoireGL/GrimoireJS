@@ -1,3 +1,4 @@
+import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
 import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
@@ -13,7 +14,6 @@ import Vector4 = require("../../../Math/Vector4");
 import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
 import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
 import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 /**
  * the materials for PMX.
  */
@@ -57,15 +57,16 @@ class PMXHitAreaMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex:number): void {
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
         if (!this.program||this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
-        var r = 0xFF00 & (renderStage as any).___objectIndex;
-        var g = 0x00FF & (renderStage as any).___objectIndex;
+        //super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
+        var r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
+        var g = 0x00FF & (matArg.renderStage as any).___objectIndex;
         var b = this.associatedMaterial.materialIndex;
-        var renderer = renderStage.Renderer;
+        var renderer = matArg.renderStage.Renderer;
+        const object = matArg.object;
         var geometry = <PMXGeometry>object.Geometry;
-        var light = scene.LightRegister.shadowDroppableLights[techniqueIndex];
+        var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
         var programWrapper = this.program.getForContext(renderer.ContextManager);
         programWrapper.register({
             attributes: {

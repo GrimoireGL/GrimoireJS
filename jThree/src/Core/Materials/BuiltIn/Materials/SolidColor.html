@@ -1,58 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.basic.material1" group="jthree.materials.forematerial" order="300">
+<material name="jthree.basic.solid" group="jthree.materials.forematerial" order="300">
 <uniform-register>
   <register name="jthree.basic.matrix"/>
-  <register name="jthree.basic.time"/>
-  <register name="jthree.basic.light"/>
 </uniform-register>
 <passes>
   <pass>
-    <blend enabled="false" srcColor="srcalpha" dstColor="oneminussrcalpha" srcAlpha="1" dstAlpha="0"/>
-    <depth enabled="false"/>
-    <cull enabled="true" orientation="ccw"/>
     <glsl>
       <![CDATA[
       attribute vec3 position;
-      attribute vec3 normal;
-      attribute vec2 uv;
+      varying vec4 vPosition;
 
       //@vertonly {
-      //@import jthree.builtin.vertex
         uniform mat4 _matPVM;
-        uniform mat4 _matVM;
-        uniform vec4 _Time;
       //}
 
 
       //@fragonly {
-        uniform vec3 color1;
-        uniform float intensity;
-        uniform sampler2D _dlBuffer;
+        uniform vec4 solid;
       //}
-
-      varying vec3 vNormal;
-      varying vec2 vUv;
-      varying vec4 vPosition;
-
-      vec2 calcLightUV(vec4 projectionSpacePos)
-      {
-         return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;
-      }
 
       //@vertonly
       void main(void)
       {
-        BasicVertexTransformOutput o =  basicVertexTransform(position,normal,uv,_matPVM,_matVM);
-        gl_Position = vPosition = o.position;
-        //gl_Position.xyz *= vec3(position.x,position.x * position.z,position.z);
-        vNormal = o.normal;
-        vUv = o.uv;
+        gl_Position = vPosition = _matPVM * vec4(position,1.0);
       }
 
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(texture2D(_dlBuffer,calcLightUV(vPosition)).xyz,1.); //*vec4(abs(sin(_Time.x/100.)),abs(sin(_Time.y/100.)),abs(sin(_Time.z/100.)),1);
+        gl_FragColor = solid;
       }
 
       ]]>

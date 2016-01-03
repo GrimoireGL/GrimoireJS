@@ -1,3 +1,7 @@
+import Vector4 = require("../../Math/Vector4");
+import Vector3 = require("../../Math/Vector3");
+import Vector2 = require("../../Math/Vector2");
+import IMaterialConfigureArgument = require("./Base/IMaterialConfigureArgument");
 import RendererBase = require("../Renderers/RendererConfigurator/RendererConfiguratorBase");
 import TextureBase = require("../Resources/Texture/TextureBase");
 
@@ -20,7 +24,6 @@ import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import IMaterialConfig = require("./IMaterialConfig");
 import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 /**
 * Basement class for any Materials.
 * Material is basically meaning what shader will be used or what shader variable will passed.
@@ -72,12 +75,6 @@ class Material extends JThreeObjectWithID {
         return this.priorty;
     }
 
-    public getMaterialConfig(pass: number, technique: number): IMaterialConfig {
-        return {
-            cull: "ccw",
-            blend: true
-        }
-    }
     /**
     * Group name of this material.
     * This main purpose is mainly intended to be used in RenderStage for filtering materials by puropse of material.
@@ -113,49 +110,8 @@ class Material extends JThreeObjectWithID {
     * Apply configuration of program.
     * This is used for passing variables,using programs,binding index buffer.
     */
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
-        this.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
         return;
-    }
-
-    protected applyMaterialConfig(passIndex: number, techniqueIndex: number, renderer: BasicRenderer) {
-        var config = this.getMaterialConfig(passIndex, techniqueIndex);
-        if (config.cull) {
-            renderer.GL.enable(renderer.GL.CULL_FACE);
-            if (config.cull == "cw") {
-                renderer.GL.cullFace(renderer.GL.FRONT);
-            } else {
-                renderer.GL.cullFace(renderer.GL.BACK);
-            }
-        } else {
-            renderer.GL.disable(renderer.GL.CULL_FACE);
-        }
-        if (config.blend) {
-            renderer.GL.enable(renderer.GL.BLEND);
-            if (!config.blendArg1) {
-                //If blendFunc was not specified, jThree will select linear blending
-                config.blendArg1 = "srcAlpha"
-                config.blendArg2 = "oneMinusSrcAlpha"
-            }
-            renderer.GL.blendFunc(this._parseBlendConfig(config.blendArg1, renderer), this._parseBlendConfig(config.blendArg2, renderer));
-        } else {
-            renderer.GL.disable(renderer.GL.BLEND);
-        }
-    }
-
-    private _parseBlendConfig(blendConfig: string, renderer: BasicRenderer): number {
-        let lowerCaseBlendConfig = blendConfig.toLowerCase();
-        if (lowerCaseBlendConfig == "1") return renderer.GL.ONE;
-        if (lowerCaseBlendConfig == "0") return renderer.GL.ZERO;
-        if (lowerCaseBlendConfig == "srcalpha") return renderer.GL.SRC_ALPHA;
-        if (lowerCaseBlendConfig == "srcColor") return renderer.GL.SRC_COLOR;
-        if (lowerCaseBlendConfig == "oneminussrcalpha") return renderer.GL.ONE_MINUS_SRC_ALPHA;
-        if (lowerCaseBlendConfig == "oneminussrccolor") return renderer.GL.ONE_MINUS_SRC_COLOR;
-        if (lowerCaseBlendConfig == "oneminusdstalpha") return renderer.GL.ONE_MINUS_DST_ALPHA;
-        if (lowerCaseBlendConfig == "oneminusdstcolor") return renderer.GL.ONE_MINUS_DST_COLOR;
-        if (lowerCaseBlendConfig == "destalpha") return renderer.GL.DST_ALPHA;
-        if (lowerCaseBlendConfig == "destcolor") return renderer.GL.DST_COLOR;
-        console.error("Unsupported blend config!");
     }
 
     public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableInfo }): void {
@@ -202,6 +158,18 @@ class Material extends JThreeObjectWithID {
                 register = 0;
             }
             pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture, register);
+        }
+        if(uniform.variableType == "vec2")
+        {
+          pWrapper.uniformVector(uniform.variableName,new Vector2(0,0));
+        }
+        if(uniform.variableType == "vec3")
+        {
+          pWrapper.uniformVector(uniform.variableName,new Vector3(0,0,0));
+        }
+        if(uniform.variableType == "vec4")
+        {
+          pWrapper.uniformVector(uniform.variableName,new Vector4(0,0,0,0));
         }
     }
 
