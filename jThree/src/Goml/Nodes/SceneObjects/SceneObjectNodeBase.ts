@@ -15,11 +15,11 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         converter: "vec3",
         onchanged: (attr) => {
           if (this.targetSceneObject) {
-            this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+            this._onPositionChanged(attr);
           } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
-            });
+            // if (this.listeners('target-scene-object-added').indexOf(this._onPositionChanged) === -1) {
+              this.once('target-scene-object-added', this._onPositionChanged.bind(this));
+            // }
           }
         }
       },
@@ -28,11 +28,11 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         converter: "vec3",
         onchanged: (attr) => {
           if (this.targetSceneObject) {
-            this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+            this._onScaleChanged(attr);
           } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
-            });
+            // if (this.listeners('target-scene-object-added').indexOf(this._onScaleChanged) === -1) {
+              this.once('target-scene-object-added', this._onScaleChanged.bind(this));
+            // }
           }
         }
       },
@@ -41,11 +41,11 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         converter: "rotation",
         onchanged: (attr) => {
           if (this.targetSceneObject) {
-            this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+            this._onRotationChanged(attr);
           } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
-            });
+            // if (this.listeners('target-scene-object-added').indexOf(this._onRotationChanged) === -1) {
+              this.once('target-scene-object-added', this._onRotationChanged.bind(this));
+            // }
           }
         }
       },
@@ -54,15 +54,31 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         converter: "string",
         onchanged: (attr) => {
           if (this.targetSceneObject) {
-            this.targetSceneObject.name = attr.Value;
+            this._onNameChanged(attr);
           } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.name = attr.Value;
-            });
+            // if (this.listeners('target-scene-object-added').indexOf(this._onNameChanged) === -1) {
+              this.once('target-scene-object-added', this._onNameChanged.bind(this));
+            // }
           }
         }
       }
     });
+  }
+
+  private _onPositionChanged(attr): void {
+    this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+  }
+
+  private _onScaleChanged(attr): void {
+    this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+  }
+
+  private _onRotationChanged(attr): void {
+    this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+  }
+
+  private _onNameChanged(attr): void {
+    this.targetSceneObject.name = attr.Value;
   }
 
   protected onMount(): void {
