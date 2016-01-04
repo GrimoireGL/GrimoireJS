@@ -67,7 +67,8 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * @param {string} name String to require argument. This must be uniqe.
    */
   nodeExport(name: string): void {
-
+    const group = [].concat(['jthree'], this.GroupPrefix).join('.');
+    this.nodeManager.nodeRegister.addNode(group, name, this);
   }
 
   /**
@@ -80,7 +81,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * @param {Delegates.Action1<GomlTreeNodeBase>} callbackfn callback function called with required node.
    */
   nodeImport(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
-
+    this.nodeManager.nodeRegister.getNode(group, name, callbackfn);
   }
 
   /**

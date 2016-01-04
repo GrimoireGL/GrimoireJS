@@ -31,12 +31,14 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     this.name = attr.Value;
   }
 
+  protected groupPrefix: string = 'material';
+
   protected onMount() {
     super.onMount();
     this.name = this.attributes.getValue('name'); // TODO: pnly
     this.targetMaterial = this.ConstructMaterial();
     this._generateAttributeForPasses();
-    this.nodeManager.nodeRegister.addObject("jthree.materials", this.Name, this);
+    this.nodeExport(this.Name);
   }
 
   private _generateAttributeForPasses(): void {

@@ -31,7 +31,7 @@ class GomlNodeDictionary extends jThreeObject {
     if (group === undefined || name == undefined) {
       console.error(`group or name is undefined. group: ${group}, name: ${name}`);
     }
-    console.log('addObject', group, name, node);
+    console.log('addNode', group, name, node);
     // register
     if (!this.dictionary[group]) {
       this.dictionary[group] = {};
@@ -71,7 +71,7 @@ class GomlNodeDictionary extends jThreeObject {
     if (group === undefined || name == undefined) {
       console.error(`group or name is undefined. group: ${group}, name: ${name}`);
     }
-    console.log('getObject', group, name);
+    console.log('getNode', group, name);
     // register
     if (!this.dictionary[group]) {
       this.dictionary[group] = {};
@@ -82,7 +82,7 @@ class GomlNodeDictionary extends jThreeObject {
     const target = this.dictionary[group][name];
     target.cb.push(callbackfn);
     // call immediately
-    callbackfn(target.node ? target.node : null);
+    callbackfn(target.node ? (target.node.Mounted ? target.node : null) : null);
   }
 
   public checkUncalled(): void {

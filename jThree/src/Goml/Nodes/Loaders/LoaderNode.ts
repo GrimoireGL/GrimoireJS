@@ -19,7 +19,7 @@ class LoaderNode extends GomlTreeNodeBase {
   }
 
   private _onNameAttrChanged(): void {
-    this.nodeManager.nodeRegister.addObject("jthree.loader", this.attributes.getValue("name"), this);
+    this.nodeExport(this.attributes.getValue("name"));
   }
 }
 
