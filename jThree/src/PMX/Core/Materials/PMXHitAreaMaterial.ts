@@ -13,7 +13,6 @@ import Vector4 = require("../../../Math/Vector4");
 import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
 import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
 import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 /**
  * the materials for PMX.
  */

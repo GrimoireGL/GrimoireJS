@@ -1,7 +1,10 @@
 class XMMLRenderConfigUtility {
     public static applyCullConfigure(gl: WebGLRenderingContext, elem: Element, defDirection: string): void {
         const cullNode = elem.querySelector("cull");
-        if (!cullNode) XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
+        if (!cullNode) {
+            XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
+            return;
+        }
         const modeStr = cullNode.getAttribute("mode");
         if (!modeStr) {
             XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
@@ -26,6 +29,7 @@ class XMMLRenderConfigUtility {
                 case "back":
                 default:
                     gl.cullFace(gl.BACK);
+                    return;
             }
         } else {
             gl.disable(gl.CULL_FACE);
@@ -34,13 +38,16 @@ class XMMLRenderConfigUtility {
 
     public static applyDepthTestConfigure(gl: WebGLRenderingContext, elem: Element, defEnabled: boolean, defMode: string, defMask: boolean): void {
         const depthNode = elem.querySelector("depth");
-        if (!depthNode) XMMLRenderConfigUtility._applyDepthTestConfigureToGL(gl, defEnabled, defMode, defMask);
+        if (!depthNode) {
+            XMMLRenderConfigUtility._applyDepthTestConfigureToGL(gl, defEnabled, defMode, defMask);
+            return;
+        }
         const enabledStr = depthNode.getAttribute("enabled");
         const modeStr = depthNode.getAttribute("mode");
         const maskStr = depthNode.getAttribute("mask");
         let mode = modeStr || defMode;
         let mask;
-        if (typeof mask == "undefined") {
+        if (typeof maskStr == "undefined") {
             mask = defMask;
         } else {
             mask = maskStr == "true";
@@ -84,13 +91,18 @@ class XMMLRenderConfigUtility {
                     return;
             }
         }
-        else
+        else {
+            gl.depthMask(mask);
             gl.disable(gl.DEPTH_TEST);
+        }
     }
 
     public static applyBlendFuncConfigure(gl: WebGLRenderingContext, elem: Element, defEnabled: boolean, defSrcColor: string, defDestColor: string, defSrcAlpha: string, defDestAlpha: string): void {
         const blendNode = elem.querySelector("blend");
-        if (!blendNode) XMMLRenderConfigUtility._applyBlendFunConfigureToGL(gl, defEnabled, defSrcColor, defDestColor, defSrcAlpha, defDestAlpha);
+        if (!blendNode) {
+            XMMLRenderConfigUtility._applyBlendFunConfigureToGL(gl, defEnabled, defSrcColor, defDestColor, defSrcAlpha, defDestAlpha);
+            return;
+        }
         const enabledStr = blendNode.getAttribute("enabled");
         const srcColorStr = blendNode.getAttribute("srcColor");
         const destColorStr = blendNode.getAttribute("dstColor");

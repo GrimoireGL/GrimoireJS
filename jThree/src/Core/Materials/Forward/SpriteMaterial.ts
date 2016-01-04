@@ -7,7 +7,6 @@ import TextureBase = require('../../Resources/Texture/TextureBase');
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 
 class SpriteMaterial extends Material
 {

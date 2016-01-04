@@ -300,7 +300,7 @@ class PMX {
         var count = r.getInt32();
         this.textures = new Array(count);
         for (var i = 0; i < count; i++) {
-            this.textures[i] = this.readTextBuf();
+            this.textures[i] = this.readTextBuf().replace('\\','/');
         }
     }
 

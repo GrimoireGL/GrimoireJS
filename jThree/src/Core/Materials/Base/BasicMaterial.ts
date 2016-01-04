@@ -17,8 +17,8 @@ class BasicMaterial extends Material {
     private _passes: MaterialPass[] = [];
 
     private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
-    
-    constructor(sourceString:string) {
+
+    constructor(sourceString: string) {
         super();
         this._parseMaterialDocument(sourceString);
     }
@@ -38,7 +38,7 @@ class BasicMaterial extends Material {
             techniqueIndex: techniqueIndex,
             passIndex: passIndex
         };
-        targetPass.configureMaterial(matArg, this._uniformRegisters,this);
+        targetPass.configureMaterial(matArg, this._uniformRegisters, this);
         this.__bindIndexBuffer(matArg);
     }
 
@@ -46,6 +46,7 @@ class BasicMaterial extends Material {
         var xmml = (new DOMParser()).parseFromString(source, "text/xml");
         this._materialName = xmml.querySelector("material").getAttribute("name");
         this._materialGroup = xmml.querySelector("material").getAttribute("group");
+
         if (!this._materialName) {
             console.error("Material name must be specified");
         }
@@ -63,6 +64,7 @@ class BasicMaterial extends Material {
             var pass = passes.item(i);
             this._passes.push(new MaterialPass(pass, this._materialName, i));
         }
+        this._passCount = passes.length;
     }
 
     private _initializeUniformRegisters(doc: Document) {
@@ -75,9 +77,8 @@ class BasicMaterial extends Material {
         }
     }
 
-    protected __bindIndexBuffer(matArg:IMaterialConfigureArgument)
-    {
-      matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
+    protected __bindIndexBuffer(matArg: IMaterialConfigureArgument) {
+        matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
     }
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
@@ -89,6 +90,17 @@ class BasicMaterial extends Material {
 
     public get MaterialGroup() {
         return this._materialGroup;
+    }
+
+    private _passCount:number = 0;
+
+    /**
+    * Should return how many times required to render this material.
+    * If you render some of model with edge,it can be 2 or greater.
+    * Because it needs rendering edge first,then rendering forward shading.
+    */
+    public getPassCount(techniqueIndex: number) {
+        return this._passCount;
     }
 }
 

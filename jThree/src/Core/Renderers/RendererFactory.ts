@@ -11,7 +11,9 @@ class RendererFactory
   public static generateRenderer(canvas:Canvas,drawRect:Rectangle,configureName:string)
   {
     configureName = configureName || "default";
-    return new BasicRenderer(canvas,drawRect,new RendererFactory.rendererConfigurations[configureName]());
+    const renderer = new BasicRenderer(canvas,drawRect,new RendererFactory.rendererConfigurations[configureName]());
+    renderer.initialize();
+    return renderer;
   }
 }
 

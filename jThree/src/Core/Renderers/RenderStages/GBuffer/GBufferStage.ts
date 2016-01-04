@@ -1,3 +1,4 @@
+import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
 ﻿import BasicRenderer = require('../../BasicRenderer');
 import SceneObject = require('../../../SceneObject');
 import RenderStageBase = require('../RenderStageBase');
@@ -11,24 +12,29 @@ import RenderStageConfig = require("../../RenderStageConfig");
  * Secoundary g-buffer DiffuseAlbedo.RGBA -> secound pass
  * Third g-buffer SpecularAlbedo.RGB -> third pass
  */
-class GBufferStage extends RenderStageBase
-{
-    public get RenderStageConfig(): RenderStageConfig
-    {
+class GBufferStage extends RenderStageBase {
+
+    public get DefaultRenderConfigures(): IRenderStageRendererConfigure {
         return {
-            depthTest: true
+            cullOrientation: "back",
+            depthEnabled: true,
+            depthMode: "less",
+            depthMask: true,
+            blendEnabled: false,
+            blendSrcColor: "1",
+            blendDstColor: "0",
+            blendSrcAlpha: "1",
+            blendDstAlpha: "0"
         };
     }
 
-    constructor(renderer: BasicRenderer)
-    {
+    constructor(renderer: BasicRenderer) {
         super(renderer);
     }
 
     public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
         var outTexture;//switch texture by passCount
-        switch (techniqueIndex)
-        {
+        switch (techniqueIndex) {
             case 0:
                 outTexture = texs["PRIMARY"];
                 break;
@@ -47,11 +53,18 @@ class GBufferStage extends RenderStageBase
                 texture: outTexture,
                 target: 0,
                 isOptional: false
-            }], () =>
-            {
+            }], () => {
+                // if (techniqueIndex == 0) {
+                //     this.Renderer.GL.clearColor(0, 0, 0, 0);
+                //     this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
+                // } else {
+                //     this.Renderer.GL.clearColor(0, 0, 0, 0);
+                //     this.Renderer.GL.clear(ClearTargetType.ColorBits);
+                // }
+                this.Renderer.GL.clearColor(0, 0, 0, 0);
                 this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-            }, () =>
-            {
+
+            }, () => {
                 this.Renderer.ContextManager.applyClearColor();
                 this.Renderer.GL.clear(ClearTargetType.DepthBits);
             });
@@ -61,13 +74,11 @@ class GBufferStage extends RenderStageBase
         this.drawForMaterials(scene, object, techniqueIndex, texs, "jthree.materials.gbuffer");
     }
 
-    public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean
-    {
+    public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
         return typeof object.Geometry != "undefined" && object.Geometry != null;
     }
 
-    public getTechniqueCount(scene: Scene)
-    {
+    public getTechniqueCount(scene: Scene) {
         return 3;
     }
 }

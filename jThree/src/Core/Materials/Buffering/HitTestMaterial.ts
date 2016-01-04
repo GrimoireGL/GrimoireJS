@@ -8,7 +8,6 @@ import Vector4 = require("../../../Math/Vector4");
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 
 class HitTestMaterial extends Material {
     protected program: Program;

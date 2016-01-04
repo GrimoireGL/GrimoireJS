@@ -8,7 +8,6 @@ import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
 import IMaterialConfig = require("./../IMaterialConfig");
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 /**
  * Provides shadow map rendering materials.
  * By this material, default meshes will be rendered as shadow map.

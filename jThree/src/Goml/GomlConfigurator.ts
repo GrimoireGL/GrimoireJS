@@ -4,9 +4,6 @@ import EasingFunction = require("./Easing/EasingFunctionBase");
 import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import AttributeConvrterBase = require("./Converter/AttributeConverterBase");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-
-declare function require(string): any;
-
 /**
  * Provides configurations that will be used when parse GOML.
  * These properties is intended to be used for extending by plugin feature.

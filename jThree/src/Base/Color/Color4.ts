@@ -1,7 +1,5 @@
 import JThreeObject = require("../JThreeObject");
 import Vector4 = require("../../Math/Vector4");
-declare function require(string): { [key: string]: string };
-
 class Color4 extends JThreeObject {
     constructor(r: number, g: number, b: number, a: number) {
         super();

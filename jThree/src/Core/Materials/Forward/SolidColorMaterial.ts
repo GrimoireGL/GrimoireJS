@@ -7,7 +7,6 @@ import Color4 = require("../../../Base/Color/Color4");
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 
 class SolidColorMaterial extends Material {
   private color: Color4 = Color4.parseColor('#F0F');
