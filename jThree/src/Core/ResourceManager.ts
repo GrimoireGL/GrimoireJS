@@ -55,21 +55,36 @@ class ResourceManager extends jThreeObject implements IContextComponent {
             if (typeof cachedTag["then"] === "function") {//Assume this is promise object
                 (<Q.IPromise<HTMLImageElement>>cachedTag).then((imgTag) => {
                     deferred.resolve(imgTag);
-                })
-            }  else {
-                  //Assume this is just a html img element.
-                 deferred.resolve(cachedTag);//TODO this may cause a bug.
+                }, () => deferred.reject(null));
+            } else {
+                //Assume this is just a html img element.
+                deferred.resolve(cachedTag);//TODO this may cause a bug.
             }
         } else { //If this was first call for target texture.
             const imgTag = document.createElement("img");
             imgTag.onload = () => {
-                  this._initializedImgTags[src] = imgTag;
+                this._initializedImgTags[src] = imgTag;
                 deferred.resolve(imgTag);
+            }
+            imgTag.onerror = () => {
+                deferred.reject(null);
             }
             imgTag.src = src;
             this._initializedImgTags[src] = deferred.promise;
         }
         return deferred.promise;
+    }
+
+    public loadTexture(src: string,onComplete:Delegates.Action1<Texture>):void{
+        src = this._getAbsolutePath(src);
+        if(this.getTexture(src)){
+          onComplete(this.getTexture(src));
+        }
+        this.generateImgTagFromSrc(src).then((tag)=>{
+          const texture = this.createTextureWithSource(src,tag);
+          onComplete(texture);
+        },()=>{
+        });
     }
 
     private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();

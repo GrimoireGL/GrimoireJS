@@ -101,6 +101,7 @@ class RenderPathExecutor
             stage.applyStageConfig();
             for (var i = 0; i < techniqueCount; i++)
             {
+                        debugger;
                 stage.preTechnique(scene, i, texs);
                 targetObjects.forEach(v=>
                 {
