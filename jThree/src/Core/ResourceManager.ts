@@ -18,6 +18,7 @@ import TextureBase = require('./Resources/Texture/TextureBase');
 import CubeTexture = require("./Resources/Texture/CubeTexture");
 import IContextComponent = require("../IContextComponent");
 import ContextComponents = require("../ContextComponents");
+import Q = require("q");
 type ImageSource = HTMLCanvasElement | HTMLImageElement | ImageData | ArrayBufferView;
 
 /**
@@ -28,8 +29,47 @@ class ResourceManager extends jThreeObject implements IContextComponent {
         return ContextComponents.ResourceManager;
     }
 
-    constructor() {
-        super();
+    /**
+     * Convert relative path to absolute path
+     * @param  {string} relative relative path to be converted
+     * @return {string}          converted absolute path
+     */
+    private _getAbsolutePath(relative: string): string {
+        const aElem = document.createElement('a');
+        aElem.href = relative;
+        return aElem.href;
+    }
+
+    private _initializedImgTags: { [url: string]: HTMLImageElement | Q.IPromise<HTMLImageElement> } = {};
+
+    /**
+     * Generate img tag for texture from src path
+     * @param  {string}                       src src path to obtain texture image
+     * @return {Q.IPromise<HTMLImageElement>}     The promise object being resolved when the img tag was initialized
+     */
+    public generateImgTagFromSrc(src: string): Q.IPromise<HTMLImageElement> {
+        src = this._getAbsolutePath(src);
+        const deferred = Q.defer();
+        if (this._initializedImgTags[src]) {
+            const cachedTag = this._initializedImgTags[src];
+            if (typeof cachedTag["then"] === "function") {//Assume this is promise object
+                (<Q.IPromise<HTMLImageElement>>cachedTag).then((imgTag) => {
+                    deferred.resolve(imgTag);
+                })
+            }  else {
+                  //Assume this is just a html img element.
+                 deferred.resolve(cachedTag);//TODO this may cause a bug.
+            }
+        } else { //If this was first call for target texture.
+            const imgTag = document.createElement("img");
+            imgTag.onload = () => {
+                  this._initializedImgTags[src] = imgTag;
+                deferred.resolve(imgTag);
+            }
+            imgTag.src = src;
+            this._initializedImgTags[src] = deferred.promise;
+        }
+        return deferred.promise;
     }
 
     private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
@@ -105,7 +145,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     public createRBO(id: string, width: number, height: number): RBO {
         return this.rbos.create(id, () => {
             var r = new RBO(width, height);
-            r.each(v=> v.init());
+            r.each(v => v.init());
             return r;
         });
     }
@@ -119,7 +159,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     public createFBO(id: string): FBO {
         return this.fbos.create(id, () => {
             var fbo = new FBO();
-            fbo.each(v=> v.init());
+            fbo.each(v => v.init());
             return fbo;
         });
     }
@@ -131,7 +171,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedByte) {
         return this.textures.create(id, () => {
             var bt = new BufferTexture(width, height, texType, elemType, id);
-            bt.each(v=> v.init());
+            bt.each(v => v.init());
             return bt;
         });
     }
