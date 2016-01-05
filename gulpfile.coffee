@@ -22,6 +22,7 @@ del = require 'del'
 args = require('yargs').argv
 reactify = require 'coffee-reactify'
 envify = require 'envify/custom'
+notifier = require 'node-notifier'
 
 ###
 TASK SUMMARY
@@ -143,6 +144,8 @@ gulp.task 'build', ['build:main']
 building task
 ###
 
+buildSuccess = true
+
 Object.keys(config).forEach (suffix) ->
   c = config[suffix]
   bundler = forceBundler || c.bundler
@@ -153,6 +156,7 @@ Object.keys(config).forEach (suffix) ->
           .src path.resolve(__dirname, c.entry)
           .pipe gulpif(watching, plumber(
             errorHandler: (err)->
+              buildSuccess = false
               gutil.log gutil.colors.black.bgRed " [COMPILATION FAILED] (#{suffix}) #{err.name} "
               gutil.log err.message
               @emit 'end'))
@@ -179,7 +183,15 @@ Object.keys(config).forEach (suffix) ->
           .on 'end', ->
             copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
             copyFiles(path.join(c.dest[0], c.name + '.map'), c.dest[1..])
+            if buildSuccess
+              notifier.notify({
+                message: "BUILD SUCCESS (#{suffix})",
+                title: 'jThree',
+                sound: 'Glass'
+              });
+              gutil.log gutil.colors.black.bgGreen " [BUILD SUCCESS] (#{suffix}) "
             gutil.log gutil.colors.black.bgWhite " [BUILD END] (#{suffix}) "
+            buildSuccess = true
           .on 'error', ->
             # gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
 
