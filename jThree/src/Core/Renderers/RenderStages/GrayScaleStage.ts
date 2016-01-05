@@ -54,7 +54,7 @@ class GrayScaleStage extends RenderStageBase {
         pWrapper.assignAttributeVariable("position",geometry.PositionBuffer);
         pWrapper.assignAttributeVariable("uv",geometry.UVBuffer);
         pWrapper.uniformSampler2D("source",texs["SOURCE"],0);
-        geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
+      //  geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
 
     public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {

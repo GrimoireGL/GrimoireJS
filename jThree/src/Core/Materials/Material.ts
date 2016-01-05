@@ -181,7 +181,7 @@ class Material extends JThreeObjectWithID {
     }
 
     public getDrawGeometryLength(geo: Geometry): number {
-        return geo.IndexCount;
+        return geo.Length;
     }
 
     public getDrawGeometryOffset(geo: Geometry): number {

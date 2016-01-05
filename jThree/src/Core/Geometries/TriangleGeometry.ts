@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -7,12 +8,12 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import ContextComponents = require("../../ContextComponents");
 import JThreeContext = require("../../JThreeContext");
 import ResourceManager = require("../ResourceManager");
-class TriangleGeometry extends Geometry {
+class TriangleGeometry extends BasicGeometry {
     constructor(name:string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology=PrimitiveTopology.Triangles;
-        this.indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
+        this.__indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
         this.positionBuffer=rm.createBuffer(name+"-pos",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer=rm.createBuffer(name+"-nor",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer=rm.createBuffer(name+"-uv",BufferTargetType.ArrayBuffer,BufferUsageType.StaticDraw,2,ElementType.Float);
@@ -58,7 +59,7 @@ class TriangleGeometry extends Geometry {
     }
 
     protected updateIndexBuffer():void{
-      this.indexBuffer.update(new Uint8Array([0,1,2]),3);
+      this.__indexBuffer.update(new Uint8Array([0,1,2]),3);
     }
 
     protected updateBuffers():void

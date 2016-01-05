@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -7,7 +8,7 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
-class CylinderGeometry extends Geometry {
+class CylinderGeometry extends BasicGeometry {
 
     private divideCount:number=10;
 
@@ -26,7 +27,7 @@ class CylinderGeometry extends Geometry {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology=PrimitiveTopology.Triangles;
-        this.indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedShort);
+        this.__indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedShort);
         this.positionBuffer=rm.createBuffer(name+"-pos",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer=rm.createBuffer(name+"-nor",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer=rm.createBuffer(name+"-uv",BufferTargetType.ArrayBuffer,BufferUsageType.StaticDraw,2,ElementType.Float);
@@ -41,7 +42,7 @@ class CylinderGeometry extends Geometry {
       var uv:number[]=[];
       var index:number[]=[];
       this.addCylinder(pos,normal,uv,index,this.DivideCount,new Vector3(0,1,0),new Vector3(0,-1,0),new Vector3(0,0,-1),1);
-      this.indexBuffer.update(new Uint16Array(index),index.length);
+      this.__indexBuffer.update(new Uint16Array(index),index.length);
       this.normalBuffer.update(new Float32Array(normal),normal.length);
       this.uvBuffer.update(new Float32Array(uv),uv.length);
       this.positionBuffer.update(new Float32Array(pos),pos.length);

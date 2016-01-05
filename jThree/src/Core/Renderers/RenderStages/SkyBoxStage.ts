@@ -44,7 +44,7 @@ class SkyBoxStage extends RenderStageBase
         pWrapper.assignAttributeVariable("uv",geometry.UVBuffer);
         pWrapper.uniformSampler2D("skyTex",this.skyBoxTexture,0);
         pWrapper.uniformMatrix("matVP",this.Renderer.Camera.viewMatrix);
-        geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
+        //geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
         geometry.drawElements(this.Renderer.ContextManager,null);
     }
 

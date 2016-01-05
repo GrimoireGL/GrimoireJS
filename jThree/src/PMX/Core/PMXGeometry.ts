@@ -1,3 +1,4 @@
+import BasicGeometry = require("../../Core/Geometries/BasicGeometry");
 import IVariableInfo = require("../../Core/Materials/Base/IVariableInfo");
 import ProgramWrapper = require("../../Core/Resources/Program/ProgramWrapper");
 import Geometry = require('../../Core/Geometries/Geometry');
@@ -11,7 +12,7 @@ import ContextComponents = require("../../ContextComponents");
 import JThreeContext = require("../../JThreeContext");
 import ResourceManager = require("../../Core/ResourceManager");
 
-class PMXGeometry extends Geometry {
+class PMXGeometry extends BasicGeometry {
 
     public edgeSizeBuffer: Buffer;
 
@@ -28,7 +29,7 @@ class PMXGeometry extends Geometry {
         var name = `${pmx.Header.modelName}(${pmx.Header.modelNameEn})`;
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology = PrimitiveTopology.Triangles;
-        this.indexBuffer = rm.createBuffer(name + "-index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedInt);
+        this.__indexBuffer = rm.createBuffer(name + "-index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedInt);
         this.positionBuffer = rm.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer = rm.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer = rm.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
@@ -46,7 +47,7 @@ class PMXGeometry extends Geometry {
         var verticies = pmx.Verticies;
         this.positionBuferSource = new Float32Array(verticies.positions);
         this.uvBufferSource = new Float32Array(verticies.uvs);
-        this.indexBuffer.update(surfaceBuffer, surfaceBuffer.length);
+        this.__indexBuffer.update(surfaceBuffer, surfaceBuffer.length);
         this.normalBuffer.update(verticies.normals, verticies.normals.length);
         this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
         this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);

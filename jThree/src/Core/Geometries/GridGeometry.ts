@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -6,12 +7,12 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
-class GridGeometry extends Geometry {
+class GridGeometry extends BasicGeometry {
     constructor(name:string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology=PrimitiveTopology.Lines;
-        this.indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedShort);
+        this.__indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedShort);
         this.positionBuffer=rm.createBuffer(name+"-pos",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer=rm.createBuffer(name+"-nor",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer=rm.createBuffer(name+"-uv",BufferTargetType.ArrayBuffer,BufferUsageType.StaticDraw,2,ElementType.Float);
@@ -76,7 +77,7 @@ class GridGeometry extends Geometry {
       var arr:number[]=[];
       for(var v=0;v<this.VerticiesCount;v++)
         arr.push(v);
-      this.indexBuffer.update(new Uint16Array(arr),this.VerticiesCount);
+      this.__indexBuffer.update(new Uint16Array(arr),this.VerticiesCount);
     }
 
     protected updateBuffers():void

@@ -67,7 +67,7 @@ class LightAccumulationStage extends RenderStageBase
         pWrapper.uniformFloat("shadowMapMax",scene.LightRegister.shadowMapResourceManager.maximumShadowMapCount);
         pWrapper.uniformMatrixArrayFromBuffer("matLWs",scene.LightRegister.lightWorldMatricis);
         pWrapper.uniformMatrixArrayFromBuffer("matVILs",scene.LightRegister.viewInvertedLightMatricis);
-        geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
+      //  geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
 
     public needRender(scene: Scene, object: SceneObject, passCount: number): boolean

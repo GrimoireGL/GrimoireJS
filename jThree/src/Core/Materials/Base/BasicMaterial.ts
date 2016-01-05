@@ -31,7 +31,7 @@ class BasicMaterial extends Material {
         //super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
         const targetPass = this._passes[matArg.passIndex];
         targetPass.configureMaterial(matArg, this._uniformRegisters, this);
-        this.__bindIndexBuffer(matArg);
+        //this.__bindIndexBuffer(matArg);
     }
 
     private _parseMaterialDocument(source: string): void {
@@ -68,9 +68,9 @@ class BasicMaterial extends Material {
         }
     }
 
-    protected __bindIndexBuffer(matArg: IMaterialConfigureArgument) {
-        matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
-    }
+    // protected __bindIndexBuffer(matArg: IMaterialConfigureArgument) {
+    //     matArg.object.Geometry.bindIndexBuffer();
+    // }
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
     }

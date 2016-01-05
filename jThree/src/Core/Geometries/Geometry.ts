@@ -9,11 +9,11 @@ import Material = require("./../Materials/Material");
 /**
  * Base abstraction for geometry.
  */
-class Geometry extends jThreeObject {
+abstract class Geometry extends jThreeObject {
     protected positionBuffer: Buffer;
     protected normalBuffer: Buffer;
     protected uvBuffer: Buffer;
-    protected indexBuffer: Buffer;
+
     protected primitiveTopology: PrimitiveTopology = PrimitiveTopology.Triangles;
 
     public get PositionBuffer(): Buffer {
@@ -29,17 +29,6 @@ class Geometry extends jThreeObject {
         return this.uvBuffer;
     }
 
-    public get IndexBuffer(): Buffer {
-        return this.indexBuffer;
-    }
-
-    /**
-     * 3 times of surface count.
-     */
-    public get IndexCount() {
-        return this.indexBuffer.Length;
-    }
-
     public get GeometryOffset() {
         return 0;
     }
@@ -48,12 +37,11 @@ class Geometry extends jThreeObject {
         return this.primitiveTopology;
     }
 
-    public drawElements(canvas: Canvas, material: Material) {
-        if (material) {
-            canvas.GL.drawElements(this.PrimitiveTopology, material.getDrawGeometryLength(this), this.IndexBuffer.ElementType, material.getDrawGeometryOffset(this));
-            return;
-        }
-        canvas.GL.drawElements(this.PrimitiveTopology, this.IndexCount, this.IndexBuffer.ElementType, this.GeometryOffset);
+    public abstract drawElements(canvas: Canvas, material: Material);
+
+    public get Length():number
+    {
+      return 0;
     }
 
     protected addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {
@@ -135,10 +123,6 @@ class Geometry extends jThreeObject {
             pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v3.X, v3.Y, v3.Z, v2.X, v2.Y, v2.Z);
             index.push(startIndex, startIndex + 1, startIndex + 2, startIndex, startIndex + 2, startIndex + 3);
         }
-    }
-
-    public bindIndexBuffer(canvas: Canvas) {
-        this.IndexBuffer.getForContext(canvas).bindBuffer();
     }
 
     public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void {
