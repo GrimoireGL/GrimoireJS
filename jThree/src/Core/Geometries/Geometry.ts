@@ -10,25 +10,7 @@ import Material = require("./../Materials/Material");
  * Base abstraction for geometry.
  */
 abstract class Geometry extends jThreeObject {
-    protected positionBuffer: Buffer;
-    protected normalBuffer: Buffer;
-    protected uvBuffer: Buffer;
-
     protected primitiveTopology: PrimitiveTopology = PrimitiveTopology.Triangles;
-
-    public get PositionBuffer(): Buffer {
-        return this.positionBuffer;
-    }
-
-    public get NormalBuffer(): Buffer {
-        return this.normalBuffer;
-
-    }
-
-    public get UVBuffer(): Buffer {
-        return this.uvBuffer;
-    }
-
     public get GeometryOffset() {
         return 0;
     }
@@ -125,19 +107,6 @@ abstract class Geometry extends jThreeObject {
         }
     }
 
-    public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void {
-        if(attributes["position"])
-        {
-          pWrapper.assignAttributeVariable("position",this.PositionBuffer);
-        }
-        if(attributes["normal"])
-        {
-          pWrapper.assignAttributeVariable("normal",this.NormalBuffer);
-        }
-        if(attributes["uv"])
-        {
-          pWrapper.assignAttributeVariable("uv",this.uvBuffer);
-        }
-   }
+    public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void ;
 }
 export =Geometry;

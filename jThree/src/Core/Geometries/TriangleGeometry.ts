@@ -13,7 +13,7 @@ class TriangleGeometry extends BasicGeometry {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology=PrimitiveTopology.Triangles;
-        this.__indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
+        this.indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
         this.positionBuffer=rm.createBuffer(name+"-pos",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer=rm.createBuffer(name+"-nor",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer=rm.createBuffer(name+"-uv",BufferTargetType.ArrayBuffer,BufferUsageType.StaticDraw,2,ElementType.Float);
@@ -59,7 +59,7 @@ class TriangleGeometry extends BasicGeometry {
     }
 
     protected updateIndexBuffer():void{
-      this.__indexBuffer.update(new Uint8Array([0,1,2]),3);
+      this.indexBuffer.update(new Uint8Array([0,1,2]),3);
     }
 
     protected updateBuffers():void

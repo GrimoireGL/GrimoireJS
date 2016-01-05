@@ -1,3 +1,4 @@
+import BasicGeometry = require("../../Geometries/BasicGeometry");
 import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
@@ -48,11 +49,11 @@ class GrayScaleStage extends RenderStageBase {
     }
 
     public configureMaterial(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo): void {
-        var geometry = object.Geometry;
+        var geometry = <BasicGeometry>object.Geometry;
         var pWrapper = this.program.getForContext(renderer.ContextManager);
         pWrapper.useProgram();
-        pWrapper.assignAttributeVariable("position",geometry.PositionBuffer);
-        pWrapper.assignAttributeVariable("uv",geometry.UVBuffer);
+        pWrapper.assignAttributeVariable("position",geometry.positionBuffer);
+        pWrapper.assignAttributeVariable("uv",geometry.uvBuffer);
         pWrapper.uniformSampler2D("source",texs["SOURCE"],0);
       //  geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }

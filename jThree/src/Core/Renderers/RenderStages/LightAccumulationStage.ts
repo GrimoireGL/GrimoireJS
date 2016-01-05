@@ -1,3 +1,4 @@
+import BasicGeometry = require("../../Geometries/BasicGeometry");
 import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
@@ -48,12 +49,12 @@ class LightAccumulationStage extends RenderStageBase
 
     public configureMaterial(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo,targetProgramWrapper:Program): void
     {
-        var geometry = object.Geometry;
+        var geometry = <BasicGeometry>object.Geometry;
         var pWrapper = targetProgramWrapper.getForContext(renderer.ContextManager);
         var ip = Matrix.inverse(renderer.Camera.projectionMatrix);
         pWrapper.useProgram();
-        pWrapper.assignAttributeVariable("position",geometry.PositionBuffer);
-        pWrapper.assignAttributeVariable("uv",geometry.UVBuffer);
+        pWrapper.assignAttributeVariable("position",geometry.positionBuffer);
+        pWrapper.assignAttributeVariable("uv",geometry.uvBuffer);
         pWrapper.uniformSampler2D("primary",texs["PRIMARY"],0);
         pWrapper.uniformSampler2D("secoundary",texs["SECOUNDARY"],1);
         pWrapper.uniformSampler2D("third",texs["THIRD"],2);

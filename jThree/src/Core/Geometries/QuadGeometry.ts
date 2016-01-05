@@ -11,7 +11,7 @@ class QuadGeometry extends BasicGeometry {
     constructor(name:string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        this.__indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
+        this.indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
         this.positionBuffer=rm.createBuffer(name+"-pos",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer=rm.createBuffer(name+"-nor",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer=rm.createBuffer(name+"-uv",BufferTargetType.ArrayBuffer,BufferUsageType.StaticDraw,2,ElementType.Float);
@@ -28,7 +28,7 @@ class QuadGeometry extends BasicGeometry {
       this.positionBuffer.update(new Float32Array(pos),pos.length);
       this.normalBuffer.update(new Float32Array(nor),nor.length);
       this.uvBuffer.update(new Float32Array(uv),uv.length);
-      this.__indexBuffer.update(new Uint8Array(index),index.length);
+      this.indexBuffer.update(new Uint8Array(index),index.length);
     }
 }
 

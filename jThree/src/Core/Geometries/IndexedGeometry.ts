@@ -2,32 +2,28 @@ import Material = require("../Materials/Material");
 import Canvas = require("../Canvas");
 import Geometry = require("./Geometry");
 import Buffer = require("../Resources/Buffer/Buffer");
-class IndexedGeometry extends Geometry
+abstract class IndexedGeometry extends Geometry
 {
-    protected __indexBuffer: Buffer;
-
-    public get IndexBuffer(): Buffer {
-        return this.__indexBuffer;
-    }
+    public indexBuffer: Buffer;
 
     /**
      * 3 times of surface count.
      */
     public get IndexCount() {
-        return this.__indexBuffer.Length;
+        return this.indexBuffer.Length;
     }
 
     public drawElements(canvas: Canvas, material: Material) {
       this.bindIndexBuffer(canvas);
         if (material) {
-            canvas.GL.drawElements(this.PrimitiveTopology, material.getDrawGeometryLength(this), this.IndexBuffer.ElementType, material.getDrawGeometryOffset(this));
+            canvas.GL.drawElements(this.PrimitiveTopology, material.getDrawGeometryLength(this), this.indexBuffer.ElementType, material.getDrawGeometryOffset(this));
             return;
         }
-        canvas.GL.drawElements(this.PrimitiveTopology, this.IndexCount, this.IndexBuffer.ElementType, this.GeometryOffset);
+        canvas.GL.drawElements(this.PrimitiveTopology, this.IndexCount, this.indexBuffer.ElementType, this.GeometryOffset);
     }
 
     public bindIndexBuffer(canvas: Canvas) {
-        this.__indexBuffer.getForContext(canvas).bindBuffer();
+        this.indexBuffer.getForContext(canvas).bindBuffer();
     }
 }
 

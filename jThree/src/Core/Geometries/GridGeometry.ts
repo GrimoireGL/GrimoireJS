@@ -12,7 +12,7 @@ class GridGeometry extends BasicGeometry {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology=PrimitiveTopology.Lines;
-        this.__indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedShort);
+        this.indexBuffer=rm.createBuffer(name+"index",BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedShort);
         this.positionBuffer=rm.createBuffer(name+"-pos",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.normalBuffer=rm.createBuffer(name+"-nor",BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
         this.uvBuffer=rm.createBuffer(name+"-uv",BufferTargetType.ArrayBuffer,BufferUsageType.StaticDraw,2,ElementType.Float);
@@ -77,7 +77,7 @@ class GridGeometry extends BasicGeometry {
       var arr:number[]=[];
       for(var v=0;v<this.VerticiesCount;v++)
         arr.push(v);
-      this.__indexBuffer.update(new Uint16Array(arr),this.VerticiesCount);
+      this.indexBuffer.update(new Uint16Array(arr),this.VerticiesCount);
     }
 
     protected updateBuffers():void
