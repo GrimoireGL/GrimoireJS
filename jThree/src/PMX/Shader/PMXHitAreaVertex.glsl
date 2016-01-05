@@ -5,7 +5,7 @@ attribute vec4 boneWeights;
 attribute vec4 boneIndicies;
 
 uniform mat4 matVP;
-uniform mediump sampler2D boneMatricies;
+uniform sampler2D boneMatricies;
 uniform float boneCount;
 
 mat4 matFromIndex(float index)

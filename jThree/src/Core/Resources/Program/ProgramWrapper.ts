@@ -116,19 +116,19 @@ class ProgramWrapper extends ResourceWrapper {
     public uniformMatrixArrayFromBuffer(variableName:string,buffer:Float32Array):void
     {
       const location = this._fetchUniformLocation(variableName);
-      if(location < 0)return;
+      if(!location)return;
       this.GL.uniform4fv(location,buffer);
     }
 
     public uniformMatrix(variableName: string, mat: Matrix): void {
         const location = this._fetchUniformLocation(variableName);
-        if (location < 0) return;
+        if (!location) return;
         this.GL.uniformMatrix4fv(location, false, <Float32Array>mat.rawElements);
     }
 
     public uniformVector(variableName: string, vec: VectorBase): void {
         const location = this._fetchUniformLocation(variableName);
-        if (location < 0) return;
+        if (!location) return;
         const rawVector = vec.rawElements;
         switch (vec.ElementCount) {
             case 2:
@@ -149,14 +149,14 @@ class ProgramWrapper extends ResourceWrapper {
     public uniformFloat(variableName:string,val:number):void
     {
       const location = this._fetchUniformLocation(variableName);
-      if(location < 0)return;
+      if(!location)return;
       this.GL.uniform1f(location,val);
     }
 
     public uniformInt(variableName:string,val:number):void
     {
       const location = this._fetchUniformLocation(variableName);
-      if(location < 0)return;
+      if(!location)return;
       this.GL.uniform1i(location,val);
     }
 
@@ -164,7 +164,7 @@ class ProgramWrapper extends ResourceWrapper {
     {
       const location = this._fetchUniformLocation(variableName);
       const texWrapper = tex.getForContext(this.OwnerCanvas);
-      if(location < 0)return -1;
+      if(!location)return -1;
       if(texWrapper.Initialized)
       {
         if(texWrapper.registerTexture(texRegister))

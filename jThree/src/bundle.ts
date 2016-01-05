@@ -64,7 +64,6 @@
 /// <reference path="Core/Materials/Base/XMMLRenderConfigUtility.ts" />
 /// <reference path="Core/Materials/Base/XMMLShaderParser.ts" />
 /// <reference path="Core/Materials/Buffering/GBufferMaterial.ts" />
-/// <reference path="Core/Materials/Buffering/HitTestMaterial.ts" />
 /// <reference path="Core/Materials/Buffering/ShadowMapMaterial.ts" />
 /// <reference path="Core/Materials/IMaterialConfig.ts" />
 /// <reference path="Core/Materials/Material.ts" />
