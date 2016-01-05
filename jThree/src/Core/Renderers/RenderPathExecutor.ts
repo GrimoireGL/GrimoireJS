@@ -15,6 +15,11 @@ import JThreeEvent = require("../../Base/JThreeEvent");
 import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
 import IRenderPathCompletedEventArgs = require("./IRenderPathCompletedEventArgs");
 import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventArgs");
+/**
+ * All rendering path should be executed with this class.
+ *
+ * @type {[type]}
+ */
 class RenderPathExecutor
 {
     public renderStageCompleted:JThreeEvent<IRenderStageCompletedEventArgs> = new JThreeEvent<IRenderStageCompletedEventArgs>();
@@ -101,7 +106,6 @@ class RenderPathExecutor
             stage.applyStageConfig();
             for (var i = 0; i < techniqueCount; i++)
             {
-                        debugger;
                 stage.preTechnique(scene, i, texs);
                 targetObjects.forEach(v=>
                 {

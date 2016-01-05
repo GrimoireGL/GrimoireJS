@@ -31,7 +31,7 @@ class SpriteMaterial extends Material
     {
         var renderer = matArg.renderStage.Renderer;
         var geometry = matArg.object.Geometry;
-        var programWrapper = this.program.getForContext(renderer.ContextManager);
+        var pWrapper = this.program.getForContext(renderer.ContextManager);
         var v = matArg.object.Transformer.calculateMVPMatrix(renderer);
         //gen ct matrix
         var ctM: Matrix = Matrix.zero();
@@ -39,20 +39,16 @@ class SpriteMaterial extends Material
         if (this.ctG < 4) ctM.setAt(1,this.ctG, 1);
         if (this.ctB < 4) ctM.setAt(2,this.ctB, 1);
         if (this.ctA < 4) ctM.setAt(3,this.ctA, 1);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                normal: geometry.NormalBuffer,
-                uv: geometry.UVBuffer
-            }, uniforms: {
-                matMVP: { type: "matrix", value: v },
-                matV: { type: "matrix", value: renderer.Camera.viewMatrix },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, matArg.object.Transformer.LocalToGlobal) },
-                u_sampler: { type: "texture", register: 0, value: this.texture },
-                additionA: { type: "integer", value: this.ctA < 4 ? 0 : 1 },
-                ctM: { type: "matrix", value: ctM }
-            }
-        });
+        pWrapper.useProgram();
+        pWrapper.assignAttributeVariable("position",geometry.PositionBuffer);
+        pWrapper.assignAttributeVariable("normal",geometry.NormalBuffer);
+        pWrapper.assignAttributeVariable("uv",geometry.UVBuffer);
+        pWrapper.uniformMatrix("matMVP",v);
+        pWrapper.uniformMatrix("matV",renderer.Camera.viewMatrix);
+        pWrapper.uniformMatrix("matMV", Matrix.multiply(renderer.Camera.viewMatrix, matArg.object.Transformer.LocalToGlobal) );
+        pWrapper.uniformSampler2D("u_sampler",this.texture,0);
+        pWrapper.uniformInt("additionA",this.ctA < 4 ? 0 : 1 );
+        pWrapper.uniformMatrix("ctM",ctM);
         geometry.bindIndexBuffer(renderer.ContextManager);
     }
 }

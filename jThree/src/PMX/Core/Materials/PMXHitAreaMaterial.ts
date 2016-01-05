@@ -67,20 +67,15 @@ class PMXHitAreaMaterial extends Material
         const object = matArg.object;
         var geometry = <PMXGeometry>object.Geometry;
         var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
-        var programWrapper = this.program.getForContext(renderer.ContextManager);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                boneWeights: geometry.boneWeightBuffer,
-                boneIndicies: geometry.boneIndexBuffer,
-            },
-            uniforms: {
-                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
-                matVP:{type:"matrix",value:renderer.Camera.viewProjectionMatrix},
-                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount },
-                areaIndex:{type:"vector",value: new Vector4(r /0xFF,  g/0xFF, b / 0xFF, 1)}
-            }
-        });
+        var pWrapper = this.program.getForContext(renderer.ContextManager);
+        pWrapper.useProgram();
+        pWrapper.assignAttributeVariable("position",geometry.PositionBuffer);
+        pWrapper.assignAttributeVariable("boneWeights",geometry.boneWeightBuffer);
+        pWrapper.assignAttributeVariable("boneIndicies",geometry.boneIndexBuffer);
+        pWrapper.uniformMatrix("matVP",renderer.Camera.viewProjectionMatrix);
+        pWrapper.uniformFloat("boneCount",this.associatedMaterial.ParentModel.skeleton.BoneCount);
+        pWrapper.uniformVector("areaIndex",new Vector4(r /0xFF,  g/0xFF, b / 0xFF, 1));
+        pWrapper.uniformSampler2D("boneMatricies",this.associatedMaterial.ParentModel.skeleton.MatrixTexture,0);
         object.Geometry.bindIndexBuffer(renderer.ContextManager);
     }
 

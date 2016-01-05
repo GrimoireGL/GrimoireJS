@@ -27,19 +27,14 @@ class HitTestMaterial extends Material {
         var r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
         var g = 0x00FF & (matArg.renderStage as any).___objectIndex;
         var geometry = object.Geometry;
-        var programWrapper = this.program.getForContext(renderer.ContextManager);
+        var pWrapper = this.program.getForContext(renderer.ContextManager);
         var v = object.Transformer.calculateMVPMatrix(renderer);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                normal: geometry.NormalBuffer
-            },
-            uniforms: {
-                matMVP: { type: "matrix", value: v },
-                matMV: { type: "matrix", value: Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) },
-                u_color: { type: "vector", value: new Vector4(r /0xFF,  g/0xFF, 0, 1) }
-            }
-        });
+        pWrapper.useProgram();
+        pWrapper.uniformMatrix("matMVP",v);
+        pWrapper.uniformMatrix("matMV",Matrix.multiply(renderer.Camera.viewMatrix, object.Transformer.LocalToGlobal) );
+        pWrapper.uniformVector("u_color",new Vector4(r /0xFF,  g/0xFF, 0, 1));
+        pWrapper.assignAttributeVariable("position",geometry.PositionBuffer);
+        pWrapper.assignAttributeVariable("normal",geometry.NormalBuffer);
         geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
 

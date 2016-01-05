@@ -107,6 +107,7 @@
     "./jThree/src/Core/Renderers/RenderStages/IRenderStageRendererConfigure.ts",
     "./jThree/src/Core/Renderers/RenderStages/LightAccumulationStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts",
+    "./jThree/src/Core/Renderers/RenderStages/RSML/RSMLRenderStageBase.ts",
     "./jThree/src/Core/Renderers/RenderStages/ShadowMapGenerationStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/SkyBoxStage.ts",
     "./jThree/src/Core/Renderers/ResolvedChainInfo.ts",
