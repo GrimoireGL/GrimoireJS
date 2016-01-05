@@ -29,8 +29,7 @@ var gomlList = [
     "jthree.materials",
     {
       "SOLID": require("./Nodes/Materials/SolidColorNode"),
-      "PHONG": require("./Nodes/Materials/PhongNode"),
-      "SPRITE": require("./Nodes/Materials/SpriteNode")
+      "PHONG": require("./Nodes/Materials/PhongNode")
     }),
   new GomlNodeListElement(
     "jthree.sceneobject",
