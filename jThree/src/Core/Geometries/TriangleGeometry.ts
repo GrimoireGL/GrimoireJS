@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -7,7 +8,7 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import ContextComponents = require("../../ContextComponents");
 import JThreeContext = require("../../JThreeContext");
 import ResourceManager = require("../ResourceManager");
-class TriangleGeometry extends Geometry {
+class TriangleGeometry extends BasicGeometry {
     constructor(name:string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);

@@ -1,16 +1,16 @@
+import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
 ﻿import Material = require("./../Material");
 import Program = require("../../Resources/Program/Program");
 import BasicRenderer = require("../../Renderers/BasicRenderer");
 import SceneObject = require("../../SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Matrix = require("../../../Math/Matrix");
-import Color4 = require("../../../Base/Color/Color4");
-import Color3 = require('../../../Base/Color/Color3');
+import Color4 = require("../../../Math/Color4");
+import Color3 = require('../../../Math/Color3');
 import TextureBase = require('../../Resources/Texture/TextureBase');
 import Scene = require('../../Scene');
 import ResolvedChainInfo = require('../../Renderers/ResolvedChainInfo');
 import Vector4 = require("../../../Math/Vector4");
-import PhongMaterial = require("./../Forward/PhongMaterial");
 import IMaterialConfig = require("./../IMaterialConfig");
 import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
 import BasicMaterial = require("../Base/BasicMaterial");
@@ -43,71 +43,72 @@ class GBufferMaterial extends Material
         this.setLoaded();
     }
 
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo,techniqueIndex:number,passIndex): void
+    public configureMaterial(matArg:IMaterialConfigureArgument): void
     {
-        var renderer = renderStage.Renderer;
-        super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
-        switch (techniqueIndex)
+        var renderer = matArg.renderStage.Renderer;
+        switch (matArg.techniqueIndex)
         {
             case 0:
-                this.configurePrimaryBuffer(scene, renderStage, object, texs);
+                this.configurePrimaryBuffer(matArg);
                 break;
             case 1:
-                this.configureSecoundaryBuffer(scene, renderStage, object, texs);
+                this.configureSecoundaryBuffer(matArg);
                 break;
             case 2:
-                this.configureThirdBuffer(scene, renderStage, object, texs);
+                this.configureThirdBuffer(matArg);
                 break;
         }
-        object.Geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
     /**
      * Configure shader for 1-st pass.
      * @return {[type]}                     [description]
      */
-    private configurePrimaryBuffer(scene: Scene, renderer: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo) {
-        var geometry = object.Geometry;
-        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");//shiningness
+    private configurePrimaryBuffer(matArg:IMaterialConfigureArgument) {
+        var geometry = matArg.object.Geometry;
+        var fm = matArg.object.getMaterial("jthree.materials.forematerial");//shiningness
         var coefficient = 0;
-        if(fm.specularCoefficient)coefficient = fm.specularCoefficient;
+        const fmArgs = fm.materialVariables;
+        if(fmArgs["brightness"])coefficient = fmArgs["brightness"];
         this.primaryMaterial.materialVariables["brightness"] = coefficient;
-        this.primaryMaterial.configureMaterial(scene,renderer,object,texs,0,0);
+        this.primaryMaterial.configureMaterial(matArg);
     }
     /**
      * Configure shader for 2nd pass.
      * @return {[type]}                     [description]
      */
-    private configureSecoundaryBuffer(scene: Scene, renderer: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo) {
-        var geometry = object.Geometry;
-        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
+    private configureSecoundaryBuffer(matArg:IMaterialConfigureArgument) {
+        var geometry = matArg.object.Geometry;
+        var fm = matArg.object.getMaterial("jthree.materials.forematerial");
+        const fmArgs = fm.materialVariables;
         var albedo;
-        if (fm && fm.diffuse) {//TODO there should be good implementation
-            albedo = fm.diffuse.toVector();
+        if (fm && fm.materialVariables["diffuse"]) {//TODO there should be good implementation
+            albedo = fm.materialVariables["diffuse"].toVector();
         } else {
             albedo = new Vector4(1, 0, 0, 1);
         }
         this.secoundaryMaterial.materialVariables["albedo"] = albedo;
         this.secoundaryMaterial.materialVariables["textureUsed"] = 0;
-        this.secoundaryMaterial.materialVariables["texture"] = fm.texture;
-        this.secoundaryMaterial.configureMaterial(scene,renderer,object,texs,1,0);
+        this.secoundaryMaterial.materialVariables["texture"] = fmArgs["texture"];
+        this.secoundaryMaterial.configureMaterial(matArg);
     }
 
     /**
      * Configure shader for 3rd pass.
      * @return {[type]}                     [description]
      */
-    private configureThirdBuffer(scene: Scene, renderer: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo)
+    private configureThirdBuffer(matArg:IMaterialConfigureArgument)
     {
-        var fm = <PhongMaterial>object.getMaterial("jthree.materials.forematerial");
+        var fm = matArg.object.getMaterial("jthree.materials.forematerial");
+        const fmArgs = fm.materialVariables;
         var specular;
-        if (fm && fm.diffuse) {
-            specular = fm.specular.toVector();
+        if (fm && fmArgs["specular"]) {
+            specular = fmArgs["specular"];
         } else
         {
             specular = new Vector3(1, 0, 0);
         }
         this.thirdMaterial.materialVariables["specular"] = specular;
-        this.thirdMaterial.configureMaterial(scene,renderer,object,texs,2,0);
+        this.thirdMaterial.configureMaterial(matArg);
     }
 
     public  getMaterialConfig(pass:number,technique:number):IMaterialConfig

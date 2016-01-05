@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -7,7 +8,7 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import ResourceManager = require("../ResourceManager");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
-class CubeGeometry extends Geometry {
+class CubeGeometry extends BasicGeometry {
     constructor(name: string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
@@ -36,10 +37,6 @@ class CubeGeometry extends Geometry {
     this.uvBuffer.update(new Float32Array(uv), uv.length);
     this.positionBuffer.update(new Float32Array(pos), pos.length);
     }
-
-  public drawElements(canvas, material) {
-    super.drawElements(canvas, material);
-  }
 
 }
 

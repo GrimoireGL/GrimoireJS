@@ -1,3 +1,8 @@
+import Color4 = require("../../../Math/Color4");
+import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
+import JThreeContext = require("../../../JThreeContext");
+import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
+import ContextComponents = require("../../../ContextComponents");
 import IVariableInfo = require("../../../Core/Materials/Base/IVariableInfo");
 import AttributeDeclationBody = require("../../AttributeDeclationBody");
 import Vector4 = require("../../../Math/Vector4");
@@ -30,6 +35,12 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   private _onNameAttrChanged(attr): void {
     this.name = attr.Value;
   }
+
+  protected __getMaterialFromMatName(name:string):BasicMaterial
+  {
+    return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial(name);
+  }
+
 
   protected onMount() {
     super.onMount();
@@ -77,12 +88,12 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       initialValue = Vector2.Zero;
     }
     if (variableInfo.variableType == "vec3") {
-      converter = "vec3";
+      converter = "color3";
       initialValue = Vector3.Zero;
     }
     if (variableInfo.variableType == "vec4") {
-      converter = "vec4";
-      initialValue = Vector4.Zero;
+      converter = "color4";//TODO add vector4 converter
+      initialValue = new Color4(0,0,0,1);
     }
     if (variableInfo.variableType == "float") {
       converter = "float"; // This should be float
@@ -92,7 +103,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     return {
       converter: converter,
       value: initialValue,
-      handler: (v) => {
+      onchanged: (v) => {
         this.targetMaterial.materialVariables[variableName] = v.Value;
       }
     };

@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -6,7 +7,7 @@ import Vector3 = require("../../Math/Vector3");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 import JThreeContext = require("../../JThreeContext");
-class QuadGeometry extends Geometry {
+class QuadGeometry extends BasicGeometry {
     constructor(name:string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);

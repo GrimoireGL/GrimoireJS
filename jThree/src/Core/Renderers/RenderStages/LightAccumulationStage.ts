@@ -1,3 +1,4 @@
+import BasicGeometry = require("../../Geometries/BasicGeometry");
 import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
@@ -48,81 +49,26 @@ class LightAccumulationStage extends RenderStageBase
 
     public configureMaterial(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo,targetProgramWrapper:Program): void
     {
-        var geometry = object.Geometry;
-        var programWrapper = targetProgramWrapper.getForContext(renderer.ContextManager);
+        var geometry = <BasicGeometry>object.Geometry;
+        var pWrapper = targetProgramWrapper.getForContext(renderer.ContextManager);
         var ip = Matrix.inverse(renderer.Camera.projectionMatrix);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                uv: geometry.UVBuffer
-            },
-            uniforms: {
-                primary: {
-                    type: "texture",
-                    value: texs["PRIMARY"],
-                    register: 0
-                },
-                secoundary: {
-                    type: "texture",
-                    value: texs["SECOUNDARY"],
-                    register: 1
-                },
-                third: {
-                    type: "texture",
-                    value: texs["THIRD"],
-                    register: 2
-                },
-                lightParam: {
-                    type: "texture",
-                    value: scene.LightRegister.ParameterTexture,
-                    register: 3
-                },
-                lightParamSize: {
-                    type: "vector",
-                    value:scene.LightRegister.TextureSize
-                },
-                matV: {
-                    type: "matrix",
-                    value:renderer.Camera.viewMatrix
-                },
-                matIP: {
-                    type: "matrix",
-                    value:ip
-                },
-                matLWs:
-                {
-                  type:"matrixarray",
-                  value:scene.LightRegister.lightWorldMatricis
-                },
-                matVILs:
-                {
-                  type:"matrixarray",
-                  value:scene.LightRegister.viewInvertedLightMatricis
-                },
-                shadowMap:
-                {
-                  type:"texture",
-                  value:scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture,
-                  register:4
-                },
-                shadowParam:{
-                  type:"texture",
-                  value:scene.LightRegister.shadowMapResourceManager.shadowMatrixTexture,
-                  register:5
-                },
-                matIV:
-                {
-                  type:"matrix",
-                  value:Matrix.inverse(renderer.Camera.viewMatrix)
-                },
-                shadowMapMax:
-                {
-                  type:"float",
-                  value:scene.LightRegister.shadowMapResourceManager.maximumShadowMapCount
-                }
-            }
-        });
-        geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
+        pWrapper.useProgram();
+        pWrapper.assignAttributeVariable("position",geometry.positionBuffer);
+        pWrapper.assignAttributeVariable("uv",geometry.uvBuffer);
+        pWrapper.uniformSampler2D("primary",texs["PRIMARY"],0);
+        pWrapper.uniformSampler2D("secoundary",texs["SECOUNDARY"],1);
+        pWrapper.uniformSampler2D("third",texs["THIRD"],2);
+        pWrapper.uniformSampler2D("lightParam",scene.LightRegister.ParameterTexture,3);
+        pWrapper.uniformSampler2D("shadowMap",scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture,4);
+        pWrapper.uniformSampler2D("shadowParam",scene.LightRegister.shadowMapResourceManager.shadowMatrixTexture,5);
+        pWrapper.uniformVector("lightParamSize",scene.LightRegister.TextureSize);
+        pWrapper.uniformMatrix("matV",renderer.Camera.viewMatrix);
+        pWrapper.uniformMatrix("matIP",ip);
+        pWrapper.uniformMatrix("matIV",Matrix.inverse(renderer.Camera.viewMatrix));
+        pWrapper.uniformFloat("shadowMapMax",scene.LightRegister.shadowMapResourceManager.maximumShadowMapCount);
+        pWrapper.uniformMatrixArrayFromBuffer("matLWs",scene.LightRegister.lightWorldMatricis);
+        pWrapper.uniformMatrixArrayFromBuffer("matVILs",scene.LightRegister.viewInvertedLightMatricis);
+      //  geometry.IndexBuffer.getForContext(renderer.ContextManager).bindBuffer();
     }
 
     public needRender(scene: Scene, object: SceneObject, passCount: number): boolean

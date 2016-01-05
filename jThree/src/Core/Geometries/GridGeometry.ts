@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -6,7 +7,7 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
-class GridGeometry extends Geometry {
+class GridGeometry extends BasicGeometry {
     constructor(name:string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);

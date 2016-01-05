@@ -1,3 +1,4 @@
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -7,7 +8,7 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
-class CylinderGeometry extends Geometry {
+class CylinderGeometry extends BasicGeometry {
 
     private divideCount:number=10;
 

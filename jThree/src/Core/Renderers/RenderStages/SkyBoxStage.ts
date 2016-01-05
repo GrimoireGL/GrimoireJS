@@ -1,3 +1,4 @@
+import BasicGeometry = require("../../Geometries/BasicGeometry");
 ﻿import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
@@ -37,19 +38,14 @@ class SkyBoxStage extends RenderStageBase
     }
 
     public render(scene: Scene, object: SceneObject, passCount: number) {
-        var geometry = object.Geometry;
-        var pw = this.program.getForContext(this.Renderer.ContextManager);
-        pw.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                uv:geometry.UVBuffer
-            },
-            uniforms: {
-                skyTex: { type: "texture", register: 0, value: this.skyBoxTexture},
-                matVP:{type:"matrix",value:this.Renderer.Camera.viewMatrix}
-            }
-        });
-        geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
+        var geometry = <BasicGeometry>object.Geometry;
+        var pWrapper = this.program.getForContext(this.Renderer.ContextManager);
+        pWrapper.useProgram();
+        pWrapper.assignAttributeVariable("position",geometry.positionBuffer);
+        pWrapper.assignAttributeVariable("uv",geometry.uvBuffer);
+        pWrapper.uniformSampler2D("skyTex",this.skyBoxTexture,0);
+        pWrapper.uniformMatrix("matVP",this.Renderer.Camera.viewMatrix);
+        //geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
         geometry.drawElements(this.Renderer.ContextManager,null);
     }
 

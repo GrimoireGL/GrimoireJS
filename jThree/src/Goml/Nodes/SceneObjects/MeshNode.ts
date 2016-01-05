@@ -5,7 +5,6 @@ import SceneObject = require("../../../Core/SceneObject");
 import BasicMeshObject = require("../../../Shapes/BasicMeshObject");
 import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
 import MaterialNode = require("../Materials/MaterialNodeBase");
-import SolidColor = require("../../../Core/Materials/Forward/SolidColorMaterial");
 import Delegate = require('../../../Base/Delegates');
 
 class MeshNode extends SceneObjectNodeBase {
@@ -19,7 +18,7 @@ class MeshNode extends SceneObjectNodeBase {
         converter: 'string',
         onchanged: (attr) => {
           this.geo = attr.Value;
-          this.ConstructTarget(() => {}); // ????
+          //this.ConstructTarget(() => {}); // ????
         }
       },
       'mat': {
@@ -27,7 +26,7 @@ class MeshNode extends SceneObjectNodeBase {
         converter: 'string',
         onchanged: (attr) => {
           this.mat = attr.Value;
-          this.ConstructTarget(() => {}); // ????
+          //this.ConstructTarget(() => {}); // ????
         }
       }
     });
@@ -36,7 +35,7 @@ class MeshNode extends SceneObjectNodeBase {
   protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
     this.nodeManager.nodeRegister.getObject("jthree.geometries", this.Geo, (geo: GeometryNodeBase) => {
       this.nodeManager.nodeRegister.getObject("jthree.materials", this.Mat, (mat: MaterialNode) => {
-        this.targetMesh = new BasicMeshObject(geo.TargetGeometry, mat ? mat.targetMaterial : new SolidColor());
+        this.targetMesh = new BasicMeshObject(geo.TargetGeometry, mat.targetMaterial);
         callbackfn(this.targetMesh);
       });
     });

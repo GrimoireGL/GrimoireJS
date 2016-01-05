@@ -27,26 +27,17 @@ class BasicMaterial extends Material {
 * Apply configuration of program.
 * This is used for passing variables,using programs,binding index buffer.
 */
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
         //super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
-        const targetPass = this._passes[passIndex];
-        const matArg = <IMaterialConfigureArgument>{
-            scene: scene,
-            renderStage: renderStage,
-            object: object,
-            textureResource: texs,
-            techniqueIndex: techniqueIndex,
-            passIndex: passIndex
-        };
+        const targetPass = this._passes[matArg.passIndex];
         targetPass.configureMaterial(matArg, this._uniformRegisters, this);
-        this.__bindIndexBuffer(matArg);
+        //this.__bindIndexBuffer(matArg);
     }
 
     private _parseMaterialDocument(source: string): void {
         var xmml = (new DOMParser()).parseFromString(source, "text/xml");
         this._materialName = xmml.querySelector("material").getAttribute("name");
         this._materialGroup = xmml.querySelector("material").getAttribute("group");
-
         if (!this._materialName) {
             console.error("Material name must be specified");
         }
@@ -77,9 +68,9 @@ class BasicMaterial extends Material {
         }
     }
 
-    protected __bindIndexBuffer(matArg: IMaterialConfigureArgument) {
-        matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
-    }
+    // protected __bindIndexBuffer(matArg: IMaterialConfigureArgument) {
+    //     matArg.object.Geometry.bindIndexBuffer();
+    // }
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
     }

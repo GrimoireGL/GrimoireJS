@@ -5,11 +5,11 @@ import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");
 import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
-import Delegates =require('../Base/Delegates')
+import Delegates = require('../Base/Delegates')
 import LightRegister = require('./Light/LightRegister');
 import PointLight = require("./Light/Impl/PointLight");
 import DirectionalLight = require("./Light/Impl/DirectionalLight");
-import Color3 = require("../Base/Color/Color3");
+import Color3 = require("../Math/Color3");
 import AreaLight = require("./Light/Impl/AreaLight");
 import SpotLight = require("./Light/Impl/SpotLight");
 import ISceneObjectChangedEventArgs = require("./ISceneObjectChangedEventArgs");
@@ -19,13 +19,13 @@ import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
  * Provides scene feature.
  */
 class Scene extends jThreeObjectWithID {
-    constructor(id?:string) {
+    constructor(id?: string) {
         super(id);
         this.enabled = true;
         this.lightRegister = new LightRegister(this);
     }
 
-    public sceneObjectStructureChanged:JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
+    public sceneObjectStructureChanged: JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
 
     /**
      * Whether this scene needs update or not.
@@ -53,7 +53,7 @@ class Scene extends jThreeObjectWithID {
      */
     public update(): void {
         if (!this.enabled) return;
-        this.children.forEach(v=> v.update());
+        this.children.forEach(v => v.update());
     }
 
     /**
@@ -70,29 +70,27 @@ class Scene extends jThreeObjectWithID {
         });
     }
 
-    public rendererListChanged:JThreeEvent<RendererListChangedEventArgs>=new JThreeEvent<RendererListChangedEventArgs>();
+    public rendererListChanged: JThreeEvent<RendererListChangedEventArgs> = new JThreeEvent<RendererListChangedEventArgs>();
 
     private renderers: BasicRenderer[] = [];
 
     public addRenderer(renderer: BasicRenderer): void {
         this.renderers.push(renderer);
-        this.rendererListChanged.fire(this,{
-          owner:this,
-          renderer:renderer,
-          isAdditionalChange:true
+        this.rendererListChanged.fire(this, {
+            owner: this,
+            renderer: renderer,
+            isAdditionalChange: true
         });
     }
 
-    public get Renderers():BasicRenderer[]
-    {
+    public get Renderers(): BasicRenderer[] {
         return this.renderers;
     }
 
     public children: SceneObject[] = [];
 
 
-    public addLight(light:LightBase):void
-    {
+    public addLight(light: LightBase): void {
         this.lightRegister.addLight(light);
     }
 
@@ -100,15 +98,30 @@ class Scene extends jThreeObjectWithID {
         this.children.push(targetObject);
         targetObject.ParentScene = this;
         this.notifySceneObjectChanged({
-          owner:null,
-          scene:this,
-          isAdditionalChange:true,
-          changedSceneObject:targetObject,
-          changedSceneObjectID:targetObject.ID
+            owner: null,
+            scene: this,
+            isAdditionalChange: true,
+            changedSceneObject: targetObject,
+            changedSceneObjectID: targetObject.ID
         });
     }
 
-    private cameras: AssociativeArray<Camera>=new AssociativeArray<Camera>();
+    public removeObject(removeTarget: SceneObject): void {
+        const index = this.children.indexOf(removeTarget);
+        if (index >= 0) {
+            this.children.splice(index, 1);
+            removeTarget.ParentScene = null;
+            this.notifySceneObjectChanged({
+                owner: null,
+                scene: this,
+                isAdditionalChange: false,
+                changedSceneObject: removeTarget,
+                changedSceneObjectID: removeTarget.ID
+            });
+        }
+    }
+
+    private cameras: AssociativeArray<Camera> = new AssociativeArray<Camera>();
 
     /**
      * Append the camera to this scene as managed
@@ -132,11 +145,10 @@ class Scene extends jThreeObjectWithID {
     /**
      * Scene ambient coefficients
      */
-    public sceneAmbient:Color3 = new Color3(0.1,0.1,0.1);
+    public sceneAmbient: Color3 = new Color3(1.0, 1.0, 1.0);
 
-    public notifySceneObjectChanged(eventArg:ISceneObjectChangedEventArgs)
-    {
-      this.sceneObjectStructureChanged.fire(this,eventArg);
+    public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs) {
+        this.sceneObjectStructureChanged.fire(this, eventArg);
     }
 }
 

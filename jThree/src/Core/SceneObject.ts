@@ -1,3 +1,4 @@
+import IParentSceneChangedEventArgs = require("./IParentSceneChangedEventArgs");
 ﻿import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Material = require("./Materials/Material");
 import Delegates = require("../Base/Delegates");
@@ -101,6 +102,8 @@ class SceneObject extends JThreeObjectWithID
 
     public set ParentScene(scene:Scene)
     {
+        if(scene == this.parentScene)return;
+        const lastScene = this.parentScene;
         this.parentScene=scene;
         // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
         //     console.error("There is something wrong in Scene structure.");
@@ -108,7 +111,10 @@ class SceneObject extends JThreeObjectWithID
         this.children.forEach((v)=>{
             v.ParentScene=scene;
         });
-        this.onParentSceneChanged();
+        this.onParentSceneChanged({
+          lastParentScene:lastScene,
+          currentParentScene:this.parentScene
+        });
     }
 
     public onMaterialChanged(func:Delegates.Action2<Material,SceneObject>): void {
@@ -193,7 +199,7 @@ class SceneObject extends JThreeObjectWithID
 
     }
 
-    public onParentSceneChanged()
+    public onParentSceneChanged(sceneInfo:IParentSceneChangedEventArgs)
     {
 
     }

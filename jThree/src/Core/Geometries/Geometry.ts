@@ -9,52 +9,25 @@ import Material = require("./../Materials/Material");
 /**
  * Base abstraction for geometry.
  */
-class Geometry extends jThreeObject {
-    protected positionBuffer: Buffer;
-    protected normalBuffer: Buffer;
-    protected uvBuffer: Buffer;
-    protected indexBuffer: Buffer;
-    protected primitiveTopology: PrimitiveTopology = PrimitiveTopology.Triangles;
-
-    public get PositionBuffer(): Buffer {
-        return this.positionBuffer;
-    }
-
-    public get NormalBuffer(): Buffer {
-        return this.normalBuffer;
-
-    }
-
-    public get UVBuffer(): Buffer {
-        return this.uvBuffer;
-    }
-
-    public get IndexBuffer(): Buffer {
-        return this.indexBuffer;
-    }
-
-    /**
-     * 3 times of surface count.
-     */
-    public get IndexCount() {
-        return this.indexBuffer.Length;
-    }
-
+abstract class Geometry extends jThreeObject {
+    public primitiveTopology: PrimitiveTopology = PrimitiveTopology.Triangles;
     public get GeometryOffset() {
         return 0;
     }
 
-    public get PrimitiveTopology(): PrimitiveTopology {
-        return this.primitiveTopology;
+    public abstract drawElements(canvas: Canvas, material: Material);
+
+    public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void ;
+
+    protected __assignAttributeIfExists(pWrapper:ProgramWrapper,attributes: { [key: string]: IVariableInfo },valName:string,buffer:Buffer):void
+    {
+      if(attributes[valName])
+      {
+        pWrapper.assignAttributeVariable(valName,buffer);
+      }
     }
 
-    public drawElements(canvas: Canvas, material: Material) {
-        if (material) {
-            canvas.GL.drawElements(this.PrimitiveTopology, material.getDrawGeometryLength(this), this.IndexBuffer.ElementType, material.getDrawGeometryOffset(this));
-            return;
-        }
-        canvas.GL.drawElements(this.PrimitiveTopology, this.IndexCount, this.IndexBuffer.ElementType, this.GeometryOffset);
-    }
+    public abstract getDrawLength():number;
 
     protected addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {
         var startIndex = pos.length / 3;
@@ -137,23 +110,5 @@ class Geometry extends jThreeObject {
         }
     }
 
-    public bindIndexBuffer(canvas: Canvas) {
-        this.IndexBuffer.getForContext(canvas).bindBuffer();
-    }
-
-    public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void {
-        if(attributes["position"])
-        {
-          pWrapper.assignAttributeVariable("position",this.PositionBuffer);
-        }
-        if(attributes["normal"])
-        {
-          pWrapper.assignAttributeVariable("normal",this.NormalBuffer);
-        }
-        if(attributes["uv"])
-        {
-          pWrapper.assignAttributeVariable("uv",this.uvBuffer);
-        }
-   }
 }
 export =Geometry;

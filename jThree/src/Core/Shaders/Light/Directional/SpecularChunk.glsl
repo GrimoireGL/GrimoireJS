@@ -2,7 +2,7 @@ vec3 calcDirectionalLight(vec3 position,vec3 normal,int i,vec3 specular,float sp
 {
   vec3 l = normalize((vec4(-getLightParameter(i,1).xyz,0)).xyz);
   vec3 e = normalize(-position);
-  vec3 accum = getLightParameter(i,0).yzw*specular*max(0.,pow(dot(normal,normalize(l+e)),specularCoefficient));
+  vec3 accum = getLightParameter(i,0).yzw*max(0.,pow(dot(normal,normalize(l+e)),specularCoefficient));
   vec3 shadowParamVec = getLightParameter(i,2).xyz;
   if(shadowParamVec.x < 0.5)return accum; // check this light needs to project shadows
   vec4 wPosition = matIV * vec4(position,1.0);
