@@ -1,3 +1,4 @@
+import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
 import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
@@ -17,10 +18,8 @@ import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderSta
 /**
  * the materials for PMX.
  */
-class PMXHitAreaMaterial extends Material
+class PMXHitAreaMaterial extends BasicMaterial
 {
-    protected program: Program;
-
     protected associatedMaterial: PMXMaterial;
 
     /**
@@ -49,45 +48,22 @@ class PMXHitAreaMaterial extends Material
 
     constructor(material: PMXMaterial)
     {
-        super();
+        super(require("../../Materials/HitAreaTest.html"));
         this.associatedMaterial = material;
-        var vs = require('../../Shader/PMXHitAreaVertex.glsl');
-        var fs = require('../../Shader/PMXHitAreaFragment.glsl');
-        this.program = this.loadProgram("jthree.shaders.vertex.pmx.hitarea", "jthree.shaders.fragment.pmx.hitarea", "jthree.programs.pmx.hitarea", vs, fs);
         this.setLoaded();
     }
 
     public configureMaterial(matArg:IMaterialConfigureArgument): void {
-        if (!this.program||this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        //super.configureMaterial(scene, renderStage, object, texs,techniqueIndex,passIndex);
         var r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
         var g = 0x00FF & (matArg.renderStage as any).___objectIndex;
-        var b = this.associatedMaterial.materialIndex;
-        var renderer = matArg.renderStage.Renderer;
-        const object = matArg.object;
-        var geometry = <PMXGeometry>object.Geometry;
-        var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
-        var programWrapper = this.program.getForContext(renderer.ContextManager);
-        programWrapper.register({
-            attributes: {
-                position: geometry.PositionBuffer,
-                boneWeights: geometry.boneWeightBuffer,
-                boneIndicies: geometry.boneIndexBuffer,
-            },
-            uniforms: {
-                boneMatricies: { type: "texture", value: this.associatedMaterial.ParentModel.skeleton.MatrixTexture, register: 0 },
-                matVP:{type:"matrix",value:renderer.Camera.viewProjectionMatrix},
-                boneCount: { type: "float", value: this.associatedMaterial.ParentModel.skeleton.BoneCount },
-                areaIndex:{type:"vector",value: new Vector4(r /0xFF,  g/0xFF, b / 0xFF, 1)}
-            }
-        });
-        object.Geometry.bindIndexBuffer(renderer.ContextManager);
-    }
-
-
-    public get Priorty(): number
-    {
-        return 100;
+        var b = 0xFF & this.associatedMaterial.materialIndex;
+        const skeleton = this.associatedMaterial.ParentModel.skeleton;
+        this.materialVariables={
+          boneCount:skeleton.BoneCount,
+          boneMatriciesTexture:skeleton.MatrixTexture,
+          indexColor:new Vector4(r /0xFF,  g/0xFF, b / 0xFF, 1)
+        };
+        super.configureMaterial(matArg);
     }
 
     public getDrawGeometryLength(geo: Geometry): number
@@ -98,11 +74,6 @@ class PMXHitAreaMaterial extends Material
     public getDrawGeometryOffset(geo: Geometry): number
     {
         return this.VerticiesOffset * 4;
-    }
-
-    public get MaterialGroup(): string
-    {
-        return "jthree.materials.hitarea";
     }
 }
 

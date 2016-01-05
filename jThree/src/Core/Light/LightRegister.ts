@@ -243,6 +243,7 @@ class LightRegister
         this.lightIdDictionary.set(light.ID, this.lights.length - 1);
         this.heightUpdate(0);
     }
+
     /**
      * Update height of light parameter texture.
      * @param start starting line of x-coordinate to update texture variable.

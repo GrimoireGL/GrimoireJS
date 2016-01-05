@@ -54,13 +54,6 @@ class GBufferStage extends RenderStageBase {
                 target: 0,
                 isOptional: false
             }], () => {
-                // if (techniqueIndex == 0) {
-                //     this.Renderer.GL.clearColor(0, 0, 0, 0);
-                //     this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-                // } else {
-                //     this.Renderer.GL.clearColor(0, 0, 0, 0);
-                //     this.Renderer.GL.clear(ClearTargetType.ColorBits);
-                // }
                 this.Renderer.GL.clearColor(0, 0, 0, 0);
                 this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
 

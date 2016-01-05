@@ -102,7 +102,7 @@ class GBufferMaterial extends Material
         const fmArgs = fm.materialVariables;
         var specular;
         if (fm && fmArgs["specular"]) {
-            specular = fmArgs["specular"].toVector();
+            specular = fmArgs["specular"];
         } else
         {
             specular = new Vector3(1, 0, 0);

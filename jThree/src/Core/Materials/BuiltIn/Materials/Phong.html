@@ -42,7 +42,7 @@
       uniform sampler2D _dlBuffer;
       uniform sampler2D _slBuffer;
       uniform vec4 diffuse;
-      uniform vec4 specular;
+      uniform vec3 specular;
       uniform vec4 ambient;
       uniform vec3 ambientCoefficient;
       void main(void)
@@ -53,7 +53,7 @@
         ////calculate light uv
         vec2 lightUV=calcLightUV(vPosition);
         gl_FragColor.rgb+=texture2D(_dlBuffer,lightUV).rgb+texture2D(_slBuffer,lightUV).rgb;
-        gl_FragColor.rgb +=ambient.rgb;
+        //gl_FragColor.rgb +=ambient.rgb;
       }
       //}
       ]]>

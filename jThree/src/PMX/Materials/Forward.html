@@ -79,16 +79,25 @@
           vec3 dlc = texture2D(_dlBuffer,lightUV).rgb;
           vec3 slc = texture2D(_slBuffer,lightUV).rgb;
           vec3 alc = ambient * ambientCoefficient;
+          vec4 dc;
+          if(textureUsed == 1)
+          {
+            dc = blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
+          }
+          else
+          {
+            dc = diffuse;
+          }
           if(toonFlag==1)
           {
         		  float brightness = max(max(dlc.r,dlc.g),dlc.b);
-              gl_FragColor.rgb+=blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dlc;
+              gl_FragColor.rgb+=blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
           }else
           {
-              gl_FragColor.rgb+=dlc;
+              gl_FragColor.rgb+=dlc * dc.rgb;
           }
-        	gl_FragColor.a=diffuse.a;
-          gl_FragColor.rgb += slc + alc;
+        	gl_FragColor.a=dc.a;
+          gl_FragColor.rgb += alc + slc;
         }
 
       //}
