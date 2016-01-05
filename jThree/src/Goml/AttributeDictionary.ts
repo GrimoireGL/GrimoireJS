@@ -84,13 +84,17 @@ class AttributeDictionary extends JThreeObject {
       const existed_attribute = this.getAttribute(key);
       let gomlAttribute: GomlAttribute = null;
       if (existed_attribute && existed_attribute.reserved) {
-        console.log('define_attribute(override)', key, this.node);
+        console.log('define_attribute(override)', key, attribute, this.node);
         gomlAttribute = existed_attribute;
         gomlAttribute.Converter = converter;
         gomlAttribute.constant = attribute.constant;
         gomlAttribute.Value = gomlAttribute.Converter.ToAttribute(gomlAttribute.Value);
       } else {
-        console.log('define_attribute', key, this.node);
+        if (attribute.reserved) {
+          console.log('define_attribute(temp)', key, attribute, this.node);
+        } else {
+          console.log('define_attribute', key, attribute, this.node);
+        }
         gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.reserved, attribute.constant);
       }
       if (attribute.onchanged) {
