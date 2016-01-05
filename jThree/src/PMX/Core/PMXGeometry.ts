@@ -67,15 +67,9 @@ class PMXGeometry extends BasicGeometry {
 
     public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void {
         super.applyAttributeVariables(pWrapper, attributes);
-        if (attributes["edgeScaling"]) {
-            pWrapper.assignAttributeVariable("edgeScaling", this.edgeSizeBuffer);
-        }
-        if (attributes["boneIndicies"]) {
-            pWrapper.assignAttributeVariable("boneIndicies", this.boneIndexBuffer);
-        }
-        if (attributes["boneWeights"]) {
-            pWrapper.assignAttributeVariable("boneWeights", this.boneWeightBuffer);
-        }
+        this.__assignAttributeIfExists(pWrapper,attributes,"edgeScaling",this.edgeSizeBuffer);
+        this.__assignAttributeIfExists(pWrapper,attributes,"boneIndicies",this.boneIndexBuffer);
+        this.__assignAttributeIfExists(pWrapper,attributes,"boneWeights",this.boneWeightBuffer);
     }
 }
 

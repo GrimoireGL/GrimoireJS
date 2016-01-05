@@ -19,6 +19,14 @@ abstract class Geometry extends jThreeObject {
 
     public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void ;
 
+    protected __assignAttributeIfExists(pWrapper:ProgramWrapper,attributes: { [key: string]: IVariableInfo },valName:string,buffer:Buffer):void
+    {
+      if(attributes[valName])
+      {
+        pWrapper.assignAttributeVariable(valName,buffer);
+      }
+    }
+
     public abstract getDrawLength():number;
 
     protected addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {
