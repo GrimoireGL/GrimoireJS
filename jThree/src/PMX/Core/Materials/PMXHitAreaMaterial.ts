@@ -56,12 +56,12 @@ class PMXHitAreaMaterial extends BasicMaterial
     public configureMaterial(matArg:IMaterialConfigureArgument): void {
         var r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
         var g = 0x00FF & (matArg.renderStage as any).___objectIndex;
-        var b = this.associatedMaterial.materialIndex;
+        var b = 0xFF & this.associatedMaterial.materialIndex;
         const skeleton = this.associatedMaterial.ParentModel.skeleton;
         this.materialVariables={
           boneCount:skeleton.BoneCount,
           boneMatriciesTexture:skeleton.MatrixTexture,
-          areaIndex:new Vector4(r /0xFF,  g/0xFF, b / 0xFF, 1)
+          indexColor:new Vector4(r /0xFF,  g/0xFF, b / 0xFF, 1)
         };
         super.configureMaterial(matArg);
     }
