@@ -1,3 +1,4 @@
+import GeometryBuilder = require("./GeometryBuilder");
 import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
@@ -40,7 +41,7 @@ class CircleGeometry extends BasicGeometry {
       var normal:number[]=[];
       var uv:number[]=[];
       var index:number[]=[];
-      this.addCircle(pos,normal,uv,index,this.divideCount,Vector3.Zero,Vector3.YUnit,new Vector3(0,0,-1));
+      GeometryBuilder.addCircle(pos,normal,uv,index,this.divideCount,Vector3.Zero,Vector3.YUnit,new Vector3(0,0,-1));
       this.indexBuffer.update(new Uint8Array(index),index.length);
       this.normalBuffer.update(new Float32Array(normal),normal.length);
       this.uvBuffer.update(new Float32Array(uv),uv.length);

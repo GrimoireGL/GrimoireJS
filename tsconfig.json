@@ -43,6 +43,7 @@
     "./jThree/src/Core/Geometries/CubeGeometry.ts",
     "./jThree/src/Core/Geometries/CylinderGeometry.ts",
     "./jThree/src/Core/Geometries/Geometry.ts",
+    "./jThree/src/Core/Geometries/GeometryBuilder.ts",
     "./jThree/src/Core/Geometries/GridGeometry.ts",
     "./jThree/src/Core/Geometries/IndexedGeometry.ts",
     "./jThree/src/Core/Geometries/QuadGeometry.ts",
