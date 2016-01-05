@@ -10,21 +10,16 @@ import Material = require("./../Materials/Material");
  * Base abstraction for geometry.
  */
 abstract class Geometry extends jThreeObject {
-    protected primitiveTopology: PrimitiveTopology = PrimitiveTopology.Triangles;
+    public primitiveTopology: PrimitiveTopology = PrimitiveTopology.Triangles;
     public get GeometryOffset() {
         return 0;
     }
 
-    public get PrimitiveTopology(): PrimitiveTopology {
-        return this.primitiveTopology;
-    }
-
     public abstract drawElements(canvas: Canvas, material: Material);
 
-    public get Length():number
-    {
-      return 0;
-    }
+    public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void ;
+
+    public abstract getDrawLength():number;
 
     protected addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {
         var startIndex = pos.length / 3;
@@ -107,6 +102,5 @@ abstract class Geometry extends jThreeObject {
         }
     }
 
-    public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void ;
 }
 export =Geometry;
