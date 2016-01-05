@@ -26,9 +26,11 @@ class CameraNodeBase extends SceneObjectNodeBase {
     callbackfn(this.targetCamera);
   }
 
+  protected groupPrefix: string = 'camera';
+
   protected onMount(): void {
     super.onMount();
-    this.nodeManager.nodeRegister.addObject("jthree.camera", this.Name, this);
+    this.nodeExport(this.Name);
   }
 
   private name: string;

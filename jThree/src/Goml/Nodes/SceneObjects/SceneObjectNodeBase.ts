@@ -85,26 +85,26 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     this.containedSceneNode = sceneNode;
     this.parentSceneObjectNode = sceneObjectNode;
 
-    this.ConstructTarget((sceneObject) => {
-      this.targetSceneObject = sceneObject;
-      if (!this.targetSceneObject) {
-        console.error('sceneObject is invalid.');
-        return;
-      }
-      this.emit('target-scene-object-added');
-      if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
-        this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
-      //append targetObject to parentt
-      this.applyHierarchy();
-    });
+    // this.ConstructTarget((sceneObject) => {
+    //   this.targetSceneObject = sceneObject;
+    //   if (!this.targetSceneObject) {
+    //     console.error('sceneObject is invalid.');
+    //     return;
+    //   }
+    //   this.emit('target-scene-object-added');
+    //   if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
+    //     this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
+    //   //append targetObject to parentt
+    //   this.applyHierarchy();
+    // });
   }
 
+  /**
+   * SceneObjectの初期化のみに使用される
+   * @param {Delegate.Action1<SceneObject>} callbackfn [description]
+   */
   protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
     console.error('This method "ConstructTarget" should be overridden.')
-  }
-
-  protected targetUpdated() {
-
   }
 
   private applyHierarchy() {

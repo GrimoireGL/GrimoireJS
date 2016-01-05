@@ -40,7 +40,7 @@ class GeometryNodeBase extends GomlTreeNodeBase {
     return null;
   }
 
-  protected groupPrefix: string = 'geometries';
+  protected groupPrefix: string = 'geometry';
 
   protected onMount(): void {
     super.onMount();

@@ -102,7 +102,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private _onSkyboxAttrChanged(attr): void {
     if (this.attributes.getValue("backgroundType") === "skybox") {
-      this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", attr.Value, (node: CubeTextureNode) => {
+      this.nodeImport("jthree.resource.cubetexture", attr.Value, (node: CubeTextureNode) => {
         if (node) {
           if (!this.skyBoxStageChain) {
             this.skyBoxStageChain = {
@@ -177,7 +177,7 @@ class ViewPortNode extends GomlTreeNodeBase {
   }
 
   private resolveCamera(callbackfn: Delegates.Action1<CameraNodeBase>) {
-    this.nodeManager.nodeRegister.getObject("jthree.camera", this.Cam, (targetCam) => {
+    this.nodeImport("jthree.scene.camera", this.Cam, (targetCam) => {
       if ((<CameraNodeBase>targetCam).ContainedSceneNode != null) { //if there was specified camera and there is Scene
         callbackfn(<CameraNodeBase>targetCam);
       } else {

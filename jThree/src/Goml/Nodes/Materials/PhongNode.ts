@@ -2,7 +2,7 @@ import Phong = require("../../../Core/Materials/Forward/PhongMaterial");
 ﻿import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import MaterialNodeBase = require('./MaterialNodeBase');
-import Material = require('../../../Core/Materials/Material')
+import Material = require('../../../Core/Materials/Material');
 import TextureNode = require("../Texture/TextureNode")
 class PhongNode extends MaterialNodeBase {
   public material: Phong;
@@ -48,7 +48,7 @@ class PhongNode extends MaterialNodeBase {
 
   private _onTextureAttrChanged(attr): void {
     if (attr.Value) {
-      this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", attr.Value, (node: TextureNode) => {
+      this.nodeImport("jthree.resource.texture2d", attr.Value, (node: TextureNode) => {
         this.material.texture = node.TargetTexture;
       });
     }

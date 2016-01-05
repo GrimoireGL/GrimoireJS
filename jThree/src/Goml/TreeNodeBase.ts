@@ -52,12 +52,6 @@ class TreeNodeBase extends JThreeObjectEEWithID {
   }
 
   /**
-   * if ready, onMount initialization is finished.
-   * @type {boolean}
-   */
-  public ready: boolean = false;
-
-  /**
    * update mounted status and emit events
    * @param {boolean} mounted [description]
    */
