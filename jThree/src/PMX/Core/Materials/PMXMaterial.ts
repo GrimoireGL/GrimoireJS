@@ -154,7 +154,7 @@ class PMXMaterial extends Material {
         if (materialData.sharedToonFlag == 0) {// not shared texture
             this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon");
         } else {
-            //TODO use shared toon textures
+            this.toon = this.loadSharedTexture(materialData.targetToonIndex);
         }
         this.setLoaded();
     }
@@ -188,7 +188,8 @@ class PMXMaterial extends Material {
                 addSphereCoeff: new Vector4(this.addMorphParam.sphereCoeff),
                 mulSphereCoeff: new Vector4(this.mulMorphParam.sphereCoeff),
                 addToonCoeff: new Vector4(this.addMorphParam.toonCoeff),
-                mulToonCoeff: new Vector4(this.mulMorphParam.toonCoeff)
+                mulToonCoeff: new Vector4(this.mulMorphParam.toonCoeff),
+                ambientCoefficient:matArg.scene.sceneAmbient.toVector()
             };
         }
         this.__innerMaterial.configureMaterial(matArg);
@@ -207,6 +208,21 @@ class PMXMaterial extends Material {
             });
             return texture;
         }
+    }
+
+    private loadSharedTexture(index:number):Texture
+    {
+      if(index < 0) return null;
+      const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+      const resName = "jthree.pmx.sharedtoon." + index;
+      if(rm.getTexture(resName))
+      {
+        return rm.getTexture(resName);
+      }else
+      {
+        const tex = rm.createTextureWithSource(resName,this.parentModel.pmxTextureManager.generateSharedToonImg(index));
+        return tex;
+      }
     }
 
     private loadImage(index: number): Q.Promise<HTMLImageElement> {

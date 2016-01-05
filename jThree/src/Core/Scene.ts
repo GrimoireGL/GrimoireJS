@@ -145,7 +145,7 @@ class Scene extends jThreeObjectWithID {
     /**
      * Scene ambient coefficients
      */
-    public sceneAmbient: Color3 = new Color3(0.01, 0.01, 0.01);
+    public sceneAmbient: Color3 = new Color3(1.0, 1.0, 1.0);
 
     public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs) {
         this.sceneObjectStructureChanged.fire(this, eventArg);
