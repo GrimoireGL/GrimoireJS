@@ -39,6 +39,11 @@
     "CustomLoader":
     {
       "goml":"CustomLoader/CustomLoader.goml"
+    },
+    "interface":
+    {
+      "goml":"Interface/Interface.goml",
+      "js":["Interface/Interface.js"]
     }
   }
 }

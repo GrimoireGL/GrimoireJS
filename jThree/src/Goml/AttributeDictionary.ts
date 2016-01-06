@@ -42,7 +42,7 @@ class AttributeDictionary extends JThreeObject {
     var attr = this.attributes[attrName];
     if (attr === undefined) console.warn(`attribute "${attrName}" is not found.`);
     else {
-      if (attr.Constant) {
+      if (attr.constant) {
         console.error(`attribute: ${attrName} is constant attribute`);
         return;
       }
@@ -71,17 +71,32 @@ class AttributeDictionary extends JThreeObject {
   /**
    * Define attributes to the node.
    *
+   * This method must not be called outside of Node classes.
    * If you define already defined attribute, it will be replaced.
    */
   public defineAttribute(attributes: AttributeDeclaration) {
     for (let key in attributes) {
       const attribute = attributes[key];
-      console.log(attribute.converter, this.node);
       const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);
-      if (!converter) {
+      if (!converter && !attribute.reserved) {
         throw new Error(`converter \"${attribute.converter}\" is not found`)
       }
-      const gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.constant);
+      const existed_attribute = this.getAttribute(key);
+      let gomlAttribute: GomlAttribute = null;
+      if (existed_attribute && existed_attribute.reserved) {
+        console.log('define_attribute(override)', key, attribute, this.node);
+        gomlAttribute = existed_attribute;
+        gomlAttribute.Converter = converter;
+        gomlAttribute.constant = attribute.constant;
+        gomlAttribute.Value = gomlAttribute.Converter.ToAttribute(gomlAttribute.Value);
+      } else {
+        if (attribute.reserved) {
+          console.log('define_attribute(temp)', key, attribute, this.node);
+        } else {
+          console.log('define_attribute', key, attribute, this.node);
+        }
+        gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.reserved, attribute.constant);
+      }
       if (attribute.onchanged) {
         gomlAttribute.on('changed', attribute.onchanged.bind(this.node));
       } else {
@@ -89,6 +104,16 @@ class AttributeDictionary extends JThreeObject {
       }
       this.attributes[key] = gomlAttribute;
     }
+  }
+
+  /**
+   * Reserve attribute for define.
+   *
+   * This method could be called from outside of Node classes.
+   */
+  public reserveAttribute(name: string, value: any) {
+    const attribute: AttributeDeclaration = { [name]: { value, reserved: true } };
+    this.defineAttribute(attribute);
   }
 
   /**
@@ -104,7 +129,7 @@ class AttributeDictionary extends JThreeObject {
   public updateValue(attrName?: string) {
     if (typeof attrName === 'undefined') {
       Object.keys(this.attributes).forEach((k) => {
-        let v = this.attributes[k]
+        let v = this.attributes[k];
         v.notifyValueChanged();
       });
     } else {
