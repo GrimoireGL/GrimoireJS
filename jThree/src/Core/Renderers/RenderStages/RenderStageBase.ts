@@ -92,7 +92,7 @@ class RenderStageBase extends JThreeObjectWithID {
         return 1;
     }
 
-    public get TargetGeometry(): string {
+    public getTargetGeometry(techniqueIndex:number): string {
         return "scene";
     }
 
