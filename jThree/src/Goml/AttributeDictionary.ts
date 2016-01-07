@@ -74,7 +74,7 @@ class AttributeDictionary extends JThreeObject {
    * This method must not be called outside of Node classes.
    * If you define already defined attribute, it will be replaced.
    */
-  public defineAttribute(attributes: AttributeDeclaration): GomlAttribute {
+  public defineAttribute(attributes: AttributeDeclaration): void {
     for (let key in attributes) {
       const attribute = attributes[key];
       const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);
@@ -102,9 +102,7 @@ class AttributeDictionary extends JThreeObject {
       } else {
         console.warn(`attribute "${key}" does not have onchange event handler. this causes lack of attribute's consistency.`);
       }
-      this.attributes[key] = gomlAttribute;
     }
-    return this;
   }
 
   /**
@@ -115,7 +113,7 @@ class AttributeDictionary extends JThreeObject {
   public reserveAttribute(name: string, value: any): GomlAttribute {
     const attribute: AttributeDeclaration = { [name]: { value, reserved: true } };
     this.defineAttribute(attribute);
-    return this;
+    return this.getAttribute(name);
   }
 
   /**
