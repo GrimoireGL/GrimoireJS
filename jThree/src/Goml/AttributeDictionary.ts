@@ -74,7 +74,7 @@ class AttributeDictionary extends JThreeObject {
    * This method must not be called outside of Node classes.
    * If you define already defined attribute, it will be replaced.
    */
-  public defineAttribute(attributes: AttributeDeclaration) {
+  public defineAttribute(attributes: AttributeDeclaration): GomlAttribute {
     for (let key in attributes) {
       const attribute = attributes[key];
       const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);
@@ -88,7 +88,7 @@ class AttributeDictionary extends JThreeObject {
         gomlAttribute = existed_attribute;
         gomlAttribute.Converter = converter;
         gomlAttribute.constant = attribute.constant;
-        gomlAttribute.Value = gomlAttribute.Converter.ToAttribute(gomlAttribute.Value);
+        gomlAttribute.Value = gomlAttribute.ValueStr;
       } else {
         if (attribute.reserved) {
           console.log('define_attribute(temp)', key, attribute, this.node);
@@ -104,6 +104,7 @@ class AttributeDictionary extends JThreeObject {
       }
       this.attributes[key] = gomlAttribute;
     }
+    return this;
   }
 
   /**
@@ -111,9 +112,10 @@ class AttributeDictionary extends JThreeObject {
    *
    * This method could be called from outside of Node classes.
    */
-  public reserveAttribute(name: string, value: any) {
+  public reserveAttribute(name: string, value: any): GomlAttribute {
     const attribute: AttributeDeclaration = { [name]: { value, reserved: true } };
     this.defineAttribute(attribute);
+    return this;
   }
 
   /**

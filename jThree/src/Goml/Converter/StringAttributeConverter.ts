@@ -6,7 +6,7 @@ class StringAttributeConverter extends AttributeConverterBase {
   }
 
   public ToAttribute(val: string): string {
-    return val;
+    return val == null ? '' : val; // double equal char comparision to null is ok
   }
 
   public FromAttribute(attr: string): string {

@@ -56,6 +56,10 @@ class GomlAttribute extends JThreeObjectEEWithID {
     return this.value;
   }
 
+  public get ValueStr(): string {
+    return this.converter.ToAttribute(this.value);
+  }
+
   public set Value(val: any) {
     // console.log('setattr', this.ID, val);
     if (this.constant && this.value === undefined) {
