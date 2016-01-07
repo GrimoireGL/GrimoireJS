@@ -82,7 +82,7 @@ class RenderPathExecutor {
                 stage.preStage(scene, texs);
                 stage.applyStageConfig();
                 for (var i = 0; i < techniqueCount; i++) {
-                    switch (stage.getTargetGeometry(i)) {
+                    switch (stage.getTarget(i)) {
                         case "quad":
                             targetObjects = [new Mesh(this.defaultQuad, null)];
                             break;

@@ -82,7 +82,7 @@ class LightAccumulationStage extends RenderStageBase
     }
 
 
-    public getTargetGeometry(techniqueIndex:number): string
+    public getTarget(techniqueIndex:number): string
     {
         return "quad";
     }

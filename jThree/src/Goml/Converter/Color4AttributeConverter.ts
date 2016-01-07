@@ -20,14 +20,14 @@ class Color4AttributeConverter extends AttributeConverterBase
 
   public FromAttribute(attr:string):any
   {
-    return Color4.parseColor(attr);
+    return Color4.parse(attr);
   }
 
   public FromInterface(val:any):any
   {
     if(typeof val === 'string')
     {
-      return Color4.parseColor(val);
+      return Color4.parse(val);
     }else if(typeof val === 'object')
     {
       return val;

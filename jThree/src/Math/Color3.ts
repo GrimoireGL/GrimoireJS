@@ -71,12 +71,22 @@ class Color3 extends VectorBase {
         throw new Error("color parse failed.");
     }
 
-    public static parseColor(color: string): Color3 {
+    public static parse(color: string): Color3 {
         return Color3.internalParse(color, true);
     }
 
     public get ElementCount(): number {
         return 3;
+    }
+
+    public static equals(col1:Color3,col2:Color3):boolean
+    {
+      return VectorBase.elementEqual(col1,col2);
+    }
+
+    public equalWith(col:Color3):boolean
+    {
+      return Color3.equals(col,this);
     }
 
     public toString(): string {

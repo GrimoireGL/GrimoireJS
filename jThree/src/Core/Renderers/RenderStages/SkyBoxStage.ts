@@ -59,7 +59,7 @@ class SkyBoxStage extends RenderStageBase
         return 1;
     }
 
-    public getTargetGeometry(techniqueIndex:number): string
+    public getTarget(techniqueIndex:number): string
     {
         return "cube";
     }

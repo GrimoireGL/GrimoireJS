@@ -92,7 +92,7 @@ class RenderStageBase extends JThreeObjectWithID {
         return 1;
     }
 
-    public getTargetGeometry(techniqueIndex:number): string {
+    public getTarget(techniqueIndex:number): string {
         return "scene";
     }
 
@@ -169,7 +169,7 @@ class RenderStageBase extends JThreeObjectWithID {
         }
     }
 
-    protected drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
+    public drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
         var materials = object.getMaterials(materialGroup);
         for (var i = 0; i < materials.length; i++) {
             var material = materials[i];

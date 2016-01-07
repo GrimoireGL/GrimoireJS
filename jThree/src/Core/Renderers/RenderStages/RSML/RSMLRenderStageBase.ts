@@ -1,3 +1,4 @@
+import BasicTechnique = require("./BasicTechnique");
 import BasicRenderer = require('../../BasicRenderer');
 import SceneObject = require('../../../SceneObject');
 import RenderStageBase = require('../RenderStageBase');
@@ -11,7 +12,7 @@ class RSMLRenderStage extends RenderStageBase {
 
     private _techniqueCount:number;
 
-    private _targetGeometry:string;
+    private _techniques:BasicTechnique[];
 
     constructor(renderer: BasicRenderer,rsmlSource:string) {
         super(renderer);
@@ -29,34 +30,32 @@ class RSMLRenderStage extends RenderStageBase {
       }
       const techniqueTags = stageTag.querySelectorAll("technique");
       this._techniqueCount = techniqueTags.length;
+      this._techniques = new Array(this._techniqueCount);
+      for(let techniqueIndex = 0; techniqueIndex < this._techniqueCount; techniqueIndex ++)
+      {
+        this._techniques[techniqueIndex] = new BasicTechnique(this,techniqueTags.item(techniqueIndex));
+      }
     }
 
-    public preTechnique(scene: Scene, passCount: number, texs: ResolvedChainInfo) {
-        this.bindAsOutBuffer(this.DefaultFBO, [{
-            texture: null,
-            target: "depth",
-            type: "rbo"
-        }, {
-                texture: texs["OUT"],
-                target: 0,
-                isOptional: false
-            }], () => {
-                this.Renderer.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-            }, () => {
-                this.Renderer.GL.clear(ClearTargetType.DepthBits);
-            });
+    public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+      this._techniques[techniqueIndex].preTechnique(scene,texs);
     }
 
-    public render(scene: Scene, object: SceneObject, passCount: number, texs: ResolvedChainInfo) {
-        this.drawForMaterials(scene, object, passCount, texs, "jthree.materials.forematerial");
+    public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
+      this._techniques[techniqueIndex].render(scene,object,techniqueIndex,texs);
     }
 
-    public needRender(scene: Scene, object: SceneObject, passCount: number): boolean {
+    public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
         return typeof object.Geometry != "undefined" && object.Geometry != null;
     }
 
     public getTechniqueCount(scene: Scene) {
         return this._techniqueCount;
+    }
+
+    public getTarget(techniqueIndex:number):string
+    {
+      return this._techniques[techniqueIndex].Target;
     }
 }
 

@@ -67,7 +67,7 @@ class GrayScaleStage extends RenderStageBase {
     }
 
 
-    public getTargetGeometry(techniqueIndex:number): string {
+    public getTarget(techniqueIndex:number): string {
         return "quad";
     }
 
