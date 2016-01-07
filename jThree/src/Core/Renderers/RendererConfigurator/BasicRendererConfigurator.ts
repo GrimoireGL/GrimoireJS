@@ -12,11 +12,11 @@ import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
   private static rsmlTest:string = `<?xml version="1.0" encoding="UTF-8"?>
   <rsml>
-    <stage name="jthree.basic.forward">
-      <technique type="material" target="scene" materialGroup="jthree.materials.gbuffer.primary">
+    <stage name="jthree.basic.rsmlTest">
+      <technique type="material" target="scene" materialGroup="jthree.materials.gbuffer">
         <fbo>
           <rbo clearDepth="1.0"/>
-          <color name="OUT" clearColor="1,0,0,1" register="0"/>
+          <color name="OUT" clearColor="0,0,0,0" register="0"/>
         </fbo>
       </technique>
     </stage>
