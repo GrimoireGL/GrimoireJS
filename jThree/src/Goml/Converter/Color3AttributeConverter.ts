@@ -8,11 +8,6 @@ import Color3 = require("../../Math/Color3");
 import Color3Animater = require("../Animater/Color3Animater");
 class Color3AttributeConverter extends AttributeConverterBase
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;
@@ -20,14 +15,14 @@ class Color3AttributeConverter extends AttributeConverterBase
 
   public FromAttribute(attr:string):any
   {
-    return Color3.parseColor(attr);
+    return Color3.parse(attr);
   }
 
   public FromInterface(val:any):any
   {
     if(typeof val === 'string')
     {
-      return Color3.parseColor(val);
+      return Color3.parse(val);
     }else if(typeof val === 'object')
     {
       return val;

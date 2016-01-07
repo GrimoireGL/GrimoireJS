@@ -159,13 +159,13 @@ class Vector3 extends VectorBase {
         //n(1.0,2.0,3.0) normalized
         //1.0
         //check attributes
-        var negativeMatch = str.match(/^-n?(\(.+\))$/);
+        var negativeMatch = str.match(/^-(n?\(.+\))$/);
         var needNegate = false;
         if (negativeMatch) {
             needNegate = true;
             str = negativeMatch[1];
         }
-        var normalizeMatch = str.match(/^n(\(.+\))$/);
+        var normalizeMatch = str.match(/^-?n(\(.+\))$/);
         var needNormalize = false;
         if (normalizeMatch) {
             needNormalize = true;
@@ -176,11 +176,12 @@ class Vector3 extends VectorBase {
         var strNums = str.split(/,/g);
         if (strNums.length == 1) {
             var elemNum: number = parseFloat(strNums[0]);
+            if(isNaN(elemNum))return undefined;
             resultVec = new Vector3(elemNum, elemNum, elemNum);
         } else if (strNums.length == 3) {
             resultVec = new Vector3(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]));
         } else {
-            throw Error("passed argument was invalid");
+            return undefined;
         }
         if (needNormalize) resultVec = resultVec.normalizeThis();
         if (needNegate) resultVec = resultVec.negateThis();

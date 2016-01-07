@@ -1,5 +1,5 @@
-React = require 'React'
-Radium = require 'Radium'
+React = require 'react'
+Radium = require 'radium'
 colors = require './colors/definition'
 class DebuggerHeaderLink extends React.Component
   constructor:(props)->

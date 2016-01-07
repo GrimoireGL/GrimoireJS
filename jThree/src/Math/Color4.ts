@@ -46,7 +46,7 @@ class Color4 extends VectorBase {
             }
         }
         if (isFirst) {
-            m = color.match(/^#([0-9a-f]{3})$/i);
+            m = color.match(/^#([0-9a-f]{4})$/i);
             //#ffff
             if (m) {
                 var s = m[1];
@@ -92,16 +92,26 @@ class Color4 extends VectorBase {
             d = d <= 1 ? d : d / 0xff;
             return new Color4(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff, parseInt(n[4]));
         }
-        throw new Error("color parse failed.");
+        return undefined;
     }
 
-    public static parseColor(color: string): Color4 {
+    public static parse(color: string): Color4 {
         return Color4.internalParse(color, true);
     }
 
     public get ElementCount():number
     {
       return 4;
+    }
+
+    public equalWith(col:Color4):boolean
+    {
+      return Color4.equals(col,this);
+    }
+
+    public static equals(col1:Color4,col2:Color4):boolean
+    {
+      return VectorBase.elementEqual(col1,col2);
     }
 
     public toString(): string {

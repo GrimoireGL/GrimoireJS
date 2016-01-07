@@ -6,10 +6,6 @@ import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import Delegates = require("../../Base/Delegates");
 class AttributeConverterBase extends JThreeObject
 {
-  constructor()
-  {
-    super();
-  }
 
   public ToAttribute(val:any):string
   {

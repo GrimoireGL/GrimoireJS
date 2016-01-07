@@ -1,10 +1,6 @@
 import Exceptions = require("../../Exceptions");
 import AttributeConverterBase = require("./AttributeConverterBase");
 class StringAttributeConverter extends AttributeConverterBase {
-  constructor() {
-    super();
-  }
-
   public ToAttribute(val: string): string {
     return val == null ? '' : val; // double equal char comparision to null is ok
   }
