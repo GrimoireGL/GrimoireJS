@@ -1,3 +1,4 @@
+import RSMLRenderStageBase = require("../RenderStages/RSML/RSMLRenderStageBase");
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
@@ -9,6 +10,19 @@ import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
 import ShadowMapGenerationStage = require("../RenderStages/ShadowMapGenerationStage");
 import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
+  private static rsmlTest:string = `<?xml version="1.0" encoding="UTF-8"?>
+  <rsml>
+    <stage name="jthree.basic.forward">
+      <technique type="material" target="scene" materialGroup="jthree.materials.gbuffer.primary">
+        <fbo>
+          <rbo clearDepth="1.0"/>
+          <color name="OUT" clearColor="1,0,0,1" register="0"/>
+        </fbo>
+      </technique>
+    </stage>
+  </rsml>
+`;
+
     public get TextureBuffers(): GeneraterInfo {
         return {
             /*            "deffered.rb1": {
@@ -103,6 +117,12 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                     SPECULAR: "light.specular"
                 },
                 stage: new AccumulationStage(target)
+            },
+            {
+              buffers: {
+                OUT: "hitarea"
+              },
+              stage: new RSMLRenderStageBase(target,BasicRendererConfigurator.rsmlTest)
             },
             {
                 buffers: {
