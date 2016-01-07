@@ -6,11 +6,6 @@ import Delegates = require('../../Base/Delegates');
 import AnimaterBase = require('../Animater/AnimaterBase');
 class IntegerAttributeConverter extends AttributeConverterBase
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;

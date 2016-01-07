@@ -8,11 +8,6 @@ import Color4 = require("../../Math/Color4");
 import Color4Animater = require("../Animater/Color4Animater");
 class Color4AttributeConverter extends AttributeConverterBase
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;

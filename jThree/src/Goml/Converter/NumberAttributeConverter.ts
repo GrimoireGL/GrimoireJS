@@ -7,11 +7,6 @@ import AnimaterBase = require("../Animater/AnimaterBase");
 import NumberAnimater = require("../Animater/NumberAnimater");
 class NumberAttributeConverter extends AttributeConverterBase
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;

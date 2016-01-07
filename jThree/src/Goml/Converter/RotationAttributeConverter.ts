@@ -9,11 +9,6 @@ import AnimaterBase = require("../Animater/AnimaterBase");
 
 class RotationAttributeConverter extends JThreeObject
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;

@@ -1,11 +1,6 @@
 import AttributeConverterBase = require("./AttributeConverterBase");
 class BooleanAttributeConverter extends AttributeConverterBase
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;

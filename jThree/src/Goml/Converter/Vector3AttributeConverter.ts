@@ -8,11 +8,6 @@ import Vector3 = require("../../Math/Vector3");
 import Vector3Animater = require("../Animater/Vector3Animater");
 class Vector3AttributeConverter extends AttributeConverterBase
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;

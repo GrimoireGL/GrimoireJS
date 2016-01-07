@@ -3,11 +3,6 @@ import AttributeParser = require("../AttributeParser");
 import AttributeConverterBase = require("./AttributeConverterBase");
 class AngleAttributeConverter extends AttributeConverterBase
 {
-  constructor()
-  {
-    super();
-  }
-
   public ToAttribute(val:any):string
   {
     return val;
