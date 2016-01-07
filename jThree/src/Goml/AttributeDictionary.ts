@@ -54,6 +54,10 @@ class AttributeDictionary extends JThreeObject {
     return this.attributes[attrName];
   }
 
+  public getAllAttributes(): { [key: string]: GomlAttribute } {
+    return this.attributes;
+  }
+
   public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Delegates.Action0) {
     var attr = this.attributes[attrName];
     if (attr === undefined) console.warn(`attribute \"${attrName}\" is not found.`);
@@ -84,23 +88,25 @@ class AttributeDictionary extends JThreeObject {
       const existed_attribute = this.getAttribute(key);
       let gomlAttribute: GomlAttribute = null;
       if (existed_attribute && existed_attribute.reserved) {
-        console.log('define_attribute(override)', key, attribute, this.node);
+        console.log('define_attribute(override)', key, attribute, this.node.getTypeName());
         gomlAttribute = existed_attribute;
         gomlAttribute.Converter = converter;
         gomlAttribute.constant = attribute.constant;
         gomlAttribute.Value = gomlAttribute.ValueStr;
+        gomlAttribute.reserved = false;
       } else {
-        if (attribute.reserved) {
-          console.log('define_attribute(temp)', key, attribute, this.node);
-        } else {
-          console.log('define_attribute', key, attribute, this.node);
-        }
         gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.reserved, attribute.constant);
-      }
-      if (attribute.onchanged) {
-        gomlAttribute.on('changed', attribute.onchanged.bind(this.node));
-      } else {
-        console.warn(`attribute "${key}" does not have onchange event handler. this causes lack of attribute's consistency.`);
+        if (attribute.reserved) {
+          console.log('define_attribute(temp)', key, attribute, this.node.getTypeName());
+        } else {
+          console.log('define_attribute', key, attribute, this.node.getTypeName());
+          if (attribute.onchanged) {
+            gomlAttribute.on('changed', attribute.onchanged.bind(this.node));
+          } else {
+            console.warn(`attribute "${key}" does not have onchange event handler. this causes lack of attribute's consistency.`);
+          }
+        }
+        this.attributes[key] = gomlAttribute;
       }
     }
   }

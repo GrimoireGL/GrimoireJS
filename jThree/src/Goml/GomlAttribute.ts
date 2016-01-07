@@ -66,10 +66,10 @@ class GomlAttribute extends JThreeObjectEEWithID {
       console.warn(`attribute "${this.ID}" is immutable`)
       return;
     }
-    if (val !== undefined) {
-      this.value = this.Converter.FromInterface(val);
-    } else {
+    if (val == null || val === '') { // unll or undefined or empty
       this.value = undefined;
+    } else {
+      this.value = this.Converter.FromInterface(val);
     }
     if (this.initialized) {
       this.emit('changed', this);

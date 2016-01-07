@@ -40,7 +40,7 @@ class GomlParser {
           }
         }
       }
-      console.log(newNode);
+      console.log('parseChild finish:', newNode);
       return newNode;
     } else {
       //when specified node could not be found
@@ -77,9 +77,11 @@ class GomlParser {
      * Nodeの必須Attributes一覧を取得し、HTMLElementに存在しなければ追加。
      * HTMLElementのすべてのattributesを取得し、NodeのAttributesに反映。なかった場合にはreserveする。
      */
+    console.log(elem.outerHTML);
     newNode.attributes.forEachAttr((attr, key) => {
       if (!elem.getAttribute(key)) {
         elem.setAttribute(key, attr.ValueStr);
+        console.log('add essential attr:', key, attr.ValueStr, attr.Value);
       }
     });
     for (let i = 0; i <= elem.attributes.length - 1; i++) {
