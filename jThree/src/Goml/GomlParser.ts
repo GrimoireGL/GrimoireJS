@@ -85,6 +85,8 @@ class GomlParser {
           gomlAttribute.on('changed', (ga) => {
             elem.setAttribute(attrKey, ga.Value);
           });
+        } else {
+          newNode.attributes.reserveAttribute(attrKey, attrValue);
         }
       })(attr);
     }
