@@ -133,19 +133,16 @@ class BasicTechnique extends JThreeObjectWithID {
                 }
             }
         }
-        if(this._depthConfigureElement)
-        {
-          const clearDepth = this._depthConfigureElement.getAttribute("clearDepth");
-          let depth;
-          if(!clearDepth)
-          {
-            depth = 0;
-          }else
-          {
-            depth = parseFloat(clearDepth);
-          }
-          this._gl.clearDepth(depth);
-          this._gl.clear(this._gl.DEPTH_BUFFER_BIT);
+        if (this._depthConfigureElement) {
+            const clearDepth = this._depthConfigureElement.getAttribute("clearDepth");
+            let depth;
+            if (!clearDepth) {
+                depth = 0;
+            } else {
+                depth = parseFloat(clearDepth);
+            }
+            this._gl.clearDepth(depth);
+            this._gl.clear(this._gl.DEPTH_BUFFER_BIT);
         }
     }
 }

@@ -10,19 +10,6 @@ import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
 import ShadowMapGenerationStage = require("../RenderStages/ShadowMapGenerationStage");
 import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
-  private static rsmlTest:string = `<?xml version="1.0" encoding="UTF-8"?>
-  <rsml>
-    <stage name="jthree.basic.rsmlTest">
-      <technique type="material" target="scene" materialGroup="jthree.materials.gbuffer">
-        <fbo>
-          <rbo clearDepth="1.0"/>
-          <color name="OUT" clearColor="0,0,0,0" register="0"/>
-        </fbo>
-      </technique>
-    </stage>
-  </rsml>
-`;
-
     public get TextureBuffers(): GeneraterInfo {
         return {
             /*            "deffered.rb1": {
@@ -122,7 +109,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
               buffers: {
                 OUT: "hitarea"
               },
-              stage: new RSMLRenderStageBase(target,BasicRendererConfigurator.rsmlTest)
+              stage: new RSMLRenderStageBase(target,require("../RenderStages/BuiltIn/ForwardShadingStage.html"))
             },
             {
                 buffers: {
