@@ -68,7 +68,7 @@ class Color3 extends VectorBase {
         if (n && isFirst) {
             return new Color3(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff);
         }
-        throw new Error("color parse failed.");
+        return undefined;
     }
 
     public static parse(color: string): Color3 {

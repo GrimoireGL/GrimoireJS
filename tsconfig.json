@@ -244,6 +244,7 @@
     "./jThree/src/Goml/Nodes/TopLevel/ScenesNode.ts",
     "./jThree/src/Goml/Nodes/TopLevel/TemplatesNode.ts",
     "./jThree/src/Goml/TreeNodeBase.ts",
+    "./jThree/src/Goml/VectorColorCombinedParser.ts",
     "./jThree/src/IContextComponent.ts",
     "./jThree/src/Init.ts",
     "./jThree/src/Interface/InterfaceBase.ts",

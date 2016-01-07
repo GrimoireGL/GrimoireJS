@@ -92,7 +92,7 @@ class Color4 extends VectorBase {
             d = d <= 1 ? d : d / 0xff;
             return new Color4(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff, parseInt(n[4]));
         }
-        throw new Error("color parse failed.");
+        return undefined;
     }
 
     public static parse(color: string): Color4 {

@@ -165,6 +165,43 @@ class Vector4 extends VectorBase {
       return `{${this.X},${this.Y},${this.Z},${this.W}}`;
     }
 
+    public static parse(str:string):Vector4
+    {
+      var resultVec: Vector4;
+      //1,0,2.0,3.0
+      //-(1.0,2.0,3.0)
+      //n(1.0,2.0,3.0) normalized
+      //1.0
+      //check attributes
+      var negativeMatch = str.match(/^-(n?\(.+\))$/);
+      var needNegate = false;
+      if (negativeMatch) {
+          needNegate = true;
+          str = negativeMatch[1];
+      }
+      var normalizeMatch = str.match(/^-?n(\(.+\))$/);
+      var needNormalize = false;
+      if (normalizeMatch) {
+          needNormalize = true;
+          str = normalizeMatch[1];
+      }
+      //check body
+      str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
+      var strNums = str.split(/,/g);
+      if (strNums.length == 1) {
+          var elemNum: number = parseFloat(strNums[0]);
+          if(isNaN(elemNum))return undefined;
+          resultVec = new Vector4(elemNum, elemNum, elemNum,elemNum);
+      } else if (strNums.length == 4) {
+          resultVec = new Vector4(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]),parseFloat(strNums[3]));
+      } else {
+          return undefined;
+      }
+      if (needNormalize) resultVec = resultVec.normalizeThis();
+      if (needNegate) resultVec = resultVec.negateThis();
+      return resultVec;
+    }
+
 }
 
 
