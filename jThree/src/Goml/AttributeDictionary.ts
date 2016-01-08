@@ -79,6 +79,7 @@ class AttributeDictionary extends JThreeObject {
    * If you define already defined attribute, it will be replaced.
    */
   public defineAttribute(attributes: AttributeDeclaration): void {
+    console.log('attributes_declaration', attributes);
     for (let key in attributes) {
       const attribute = attributes[key];
       const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);

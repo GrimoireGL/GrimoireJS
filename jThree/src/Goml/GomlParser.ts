@@ -90,6 +90,7 @@ class GomlParser {
         const attrKey = attr_.nodeName;
         const attrValue = attr_.nodeValue;
         let gomlAttribute = newNode.attributes.getAttribute(attrKey);
+        console.log('attribute_binding', attrKey, attrValue, gomlAttribute);
         if (!gomlAttribute) {
           gomlAttribute = newNode.attributes.reserveAttribute(attrKey, attrValue);
         } else {
