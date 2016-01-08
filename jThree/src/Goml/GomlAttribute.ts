@@ -72,7 +72,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
       try {
         this.Converter.toStringAttr(val);
       } catch (e) {
-        console.error(`type of attribute: ${this.Name} is not adapt to converter: ${this.Converter.getTypeName()}`, 'val', val);
+        console.warn(`type of attribute: ${this.Name}(${val}) is not adapt to converter: ${this.Converter.getTypeName()}`, val);
       }
       this.value = val;
     }
@@ -92,9 +92,13 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public set Converter(converter: AttributeConverterBase) {
-    const attr_value = this.Converter.toStringAttr(this.Value);
-    this.converter = converter;
-    this.Value = attr_value;
+    if (this.converter === undefined) {
+      this.converter = converter;
+    } else {
+      const attr_value = this.Converter.toStringAttr(this.Value);
+      this.converter = converter;
+      this.Value = attr_value;
+    }
   }
 
   public notifyValueChanged() {
