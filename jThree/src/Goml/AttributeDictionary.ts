@@ -35,7 +35,7 @@ class AttributeDictionary extends JThreeObject {
     var attr = this.attributes[attrName];
     if (attr === undefined) console.warn(`attribute "${attrName}" is not found.`);
     else
-      return attr.Converter.FromInterface(attr.Value);
+      return attr.Value;
   }
 
   public setValue(attrName: string, value: any): void {

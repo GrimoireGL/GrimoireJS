@@ -80,8 +80,8 @@ class GomlParser {
     console.log(elem.outerHTML);
     newNode.attributes.forEachAttr((attr, key) => {
       if (!elem.getAttribute(key)) {
-        elem.setAttribute(key, attr.ValueStr);
         console.log('add essential attr:', key, attr.ValueStr, attr.Value);
+        elem.setAttribute(key, attr.ValueStr);
       }
     });
     for (let i = 0; i <= elem.attributes.length - 1; i++) {

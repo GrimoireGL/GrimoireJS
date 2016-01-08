@@ -6,36 +6,20 @@ import GomlAttribute = require("../GomlAttribute");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import Delegates = require("../../Base/Delegates");
 import AnimaterBase = require("../Animater/AnimaterBase");
+import Quaternion = require("../../Math/Quaternion");
 
-class RotationAttributeConverter extends JThreeObject
-{
-  public ToAttribute(val:any):string
-  {
-    return val;
+class RotationAttributeConverter extends JThreeObject {
+  public toStringAttr(val: Quaternion): string {
+    return val.toAngleAxisString();
   }
 
-  public FromAttribute(attr:string):any
-  {
+  public toObjectAttr(attr: string): Quaternion {
     return AttributeParser.ParseRotation3D(attr);
   }
 
-  public FromInterface(val:any):any
-  {
-    if(typeof val === 'string')
-    {
-      return this.FromAttribute(val);
-    }else if(typeof val === 'object')
-    {
-      return val;
-    }
-    //we should implememnt something here?
-    throw new Exceptions.InvalidArgumentException("val can't parse");
-  }
-
-  public GetAnimater(attr:GomlAttribute,beginVal:any,endVal:any,beginTime:number,duration:number,easing:EasingFunctionBase,onComplete?:Delegates.Action0):AnimaterBase
-  {
-    return new RotationAnimater(attr,beginTime,duration,beginVal,endVal,easing,onComplete);
+  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Delegates.Action0): AnimaterBase {
+    return new RotationAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }
 
-export=RotationAttributeConverter;
+export =RotationAttributeConverter;

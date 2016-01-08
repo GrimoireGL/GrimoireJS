@@ -57,7 +57,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public get ValueStr(): string {
-    return this.converter.ToAttribute(this.value);
+    return this.value == null ? '' : this.converter.toStringAttr(this.value);
   }
 
   public set Value(val: any) {
@@ -66,10 +66,15 @@ class GomlAttribute extends JThreeObjectEEWithID {
       console.warn(`attribute "${this.ID}" is immutable`)
       return;
     }
-    if (val == null || val === '') { // unll or undefined or empty
-      this.value = undefined;
+    if (typeof val == 'string') {
+      this.value = this.Converter.toObjectAttr(val);
     } else {
-      this.value = this.Converter.FromInterface(val);
+      try {
+        this.Converter.toStringAttr(val);
+      } catch (e) {
+        console.error(`type of attribute: ${this.Name} is not adapt to converter: ${this.Converter.getTypeName()}`, 'val', val);
+      }
+      this.value = val;
     }
     if (this.initialized) {
       this.emit('changed', this);
@@ -87,7 +92,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public set Converter(converter: AttributeConverterBase) {
-    const attr_value = this.Converter.ToAttribute(this.Value);
+    const attr_value = this.Converter.toStringAttr(this.Value);
     this.converter = converter;
     this.Value = attr_value;
   }
