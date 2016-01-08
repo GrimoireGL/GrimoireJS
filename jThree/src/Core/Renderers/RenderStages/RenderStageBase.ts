@@ -1,3 +1,4 @@
+import Material = require("../../Materials/Material");
 import IRenderStageRendererConfigure = require("./IRenderStageRendererConfigure");
 import JThreeObjectWithID = require('../../../Base/JThreeObjectWithID');
 import BasicRenderer = require('../BasicRenderer');
@@ -172,20 +173,24 @@ class RenderStageBase extends JThreeObjectWithID {
     public drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
         var materials = object.getMaterials(materialGroup);
         for (var i = 0; i < materials.length; i++) {
-            var material = materials[i];
-            if (!material || !material.Initialized || !material.Enabled) return;
-            for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
-                material.configureMaterial({
-                  scene:scene,
-                  renderStage:this,
-                  object:object,
-                  textureResource:texs,
-                  techniqueIndex:techniqueIndex,
-                  passIndex:pass
-                });
-                object.Geometry.drawElements(this.Renderer.ContextManager, material);
-            }
+            this.drawForMaterial(scene,object,techniqueIndex,texs,materials[i]);
         }
+    }
+
+    public drawForMaterial(scene:Scene,object:SceneObject,techniqueIndex:number,texs:ResolvedChainInfo,material:Material):void
+    {
+      if (!material || !material.Initialized || !material.Enabled) return;
+      for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
+          material.configureMaterial({
+            scene:scene,
+            renderStage:this,
+            object:object,
+            textureResource:texs,
+            techniqueIndex:techniqueIndex,
+            passIndex:pass
+          });
+          object.Geometry.drawElements(this.Renderer.ContextManager, material);
+      }
     }
 
 	/**

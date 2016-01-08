@@ -1,3 +1,5 @@
+import MaterialManager = require("../../../Materials/Base/MaterialManager");
+import BasicMaterial = require("../../../Materials/Base/BasicMaterial");
 import Vector4 = require("../../../../Math/Vector4");
 import SceneObject = require("../../../SceneObject");
 import FrameBufferAttachmentType = require("../../../../Wrapper/FrameBufferAttachmentType");
@@ -21,9 +23,9 @@ class BasicTechnique extends JThreeObjectWithID {
 
     private _colorConfigureElements: NodeListOf<Element>;
 
-    private _techniqueType: string;
-
     protected _renderStage: RenderStageBase;
+
+    public _defaultMaterial:BasicMaterial;
 
     protected get _gl(): WebGLRenderingContext {
         return this._renderStage.GL;
@@ -38,7 +40,13 @@ class BasicTechnique extends JThreeObjectWithID {
         this._fboConfigureElement = this._techniqueDocument.getElementsByTagName("fbo").item(0);
         this._depthConfigureElement = this._fboConfigureElement.getElementsByTagName("rbo").item(0);
         this._colorConfigureElements = this._fboConfigureElement.getElementsByTagName("color");
-        this._techniqueType = this._techniqueDocument.getAttribute("type");
+        if(this._target != "scene")
+        {
+          const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+          const matName = this._techniqueDocument.getAttribute('material');
+          if(!matName)console.error("material name was not specified.");
+          this._defaultMaterial = mm.constructMaterial(matName);
+        }
     }
 
     public get Target(): string {
@@ -50,10 +58,13 @@ class BasicTechnique extends JThreeObjectWithID {
     }
 
     public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo): void {
-        switch (this._techniqueType) {
-            case "material":
+        switch (this.Target) {
+            case "scene":
                 const materialGroup = this._techniqueDocument.getAttribute("materialGroup");
                 this._renderStage.drawForMaterials(scene, object, techniqueIndex, texs, materialGroup);
+                break;
+            default:
+              this._renderStage.drawForMaterial(scene,object,techniqueIndex,texs,this._defaultMaterial);
         }
     }
 

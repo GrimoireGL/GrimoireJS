@@ -109,7 +109,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
               buffers: {
                 OUT: "hitarea"
               },
-              stage: new RSMLRenderStageBase(target,require("../RenderStages/BuiltIn/ForwardShadingStage.html"))
+              stage: new RSMLRenderStageBase(target,require("../RenderStages/BuiltIn/RSMLTest.html"))
             },
             {
                 buffers: {
