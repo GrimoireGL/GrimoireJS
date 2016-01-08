@@ -28,10 +28,8 @@ class BasicMaterial extends Material {
 * This is used for passing variables,using programs,binding index buffer.
 */
     public configureMaterial(matArg:IMaterialConfigureArgument): void {
-        //super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
         const targetPass = this._passes[matArg.passIndex];
         targetPass.configureMaterial(matArg, this._uniformRegisters, this);
-        //this.__bindIndexBuffer(matArg);
     }
 
     private _parseMaterialDocument(source: string): void {
@@ -68,9 +66,6 @@ class BasicMaterial extends Material {
         }
     }
 
-    // protected __bindIndexBuffer(matArg: IMaterialConfigureArgument) {
-    //     matArg.object.Geometry.bindIndexBuffer();
-    // }
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
     }

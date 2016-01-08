@@ -4,7 +4,6 @@ import Vector2 = require("../../Math/Vector2");
 import IMaterialConfigureArgument = require("./Base/IMaterialConfigureArgument");
 import RendererBase = require("../Renderers/RendererConfigurator/RendererConfiguratorBase");
 import TextureBase = require("../Resources/Texture/TextureBase");
-
 import Matrix = require("../../Math/Matrix");
 import VectorBase = require("../../Math/VectorBase");
 import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
@@ -37,7 +36,7 @@ class Material extends JThreeObjectWithID {
     /**
     * Whether this material was initialized already or not.
     */
-    private initialized: boolean = false;
+    private _initialized: boolean = false;
 
     public materialVariables: { [key: string]: any } = {};
 
@@ -48,31 +47,26 @@ class Material extends JThreeObjectWithID {
     */
     protected setLoaded(flag?: boolean) {
         flag = typeof flag === 'undefined' ? true : flag;
-        this.initialized = flag;
+        this._initialized = flag;
     }
 
     /**
      * Provides the flag this material finished loading or not.
      */
     public get Initialized(): boolean {
-        return this.initialized;
+        return this._initialized;
     }
-
-    constructor() {
-        super();
-    }
-
     /**
     * Rendering priorty
     */
-    private priorty: number;
+    private _priorty: number;
     /**
     * Rendering priorty of this material.
     * If render stage request materials of an specific material group, these list is sorted in this priorty value.
     * So any material with same group id having lower priorty will be rendered later.
     */
     public get Priorty(): number {
-        return this.priorty;
+        return this._priorty;
     }
 
     /**
@@ -110,7 +104,7 @@ class Material extends JThreeObjectWithID {
     * Apply configuration of program.
     * This is used for passing variables,using programs,binding index buffer.
     */
-    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+    public configureMaterial(matArg: IMaterialConfigureArgument): void {
         return;
     }
 
@@ -119,7 +113,7 @@ class Material extends JThreeObjectWithID {
             let uniform = uniforms[valName];
             if (valName[0] == "_") continue;
             const val = this.materialVariables[valName];
-            if (typeof val === "undefined"||val == null) {
+            if (typeof val === "undefined" || val == null) {
                 this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
                 continue;
             }
@@ -159,17 +153,14 @@ class Material extends JThreeObjectWithID {
             }
             pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture, register);
         }
-        if(uniform.variableType == "vec2")
-        {
-          pWrapper.uniformVector(uniform.variableName,new Vector2(0,0));
+        if (uniform.variableType == "vec2") {
+            pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
         }
-        if(uniform.variableType == "vec3")
-        {
-          pWrapper.uniformVector(uniform.variableName,new Vector3(0,0,0));
+        if (uniform.variableType == "vec3") {
+            pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
         }
-        if(uniform.variableType == "vec4")
-        {
-          pWrapper.uniformVector(uniform.variableName,new Vector4(0,0,0,0));
+        if (uniform.variableType == "vec4") {
+            pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 0));
         }
     }
 

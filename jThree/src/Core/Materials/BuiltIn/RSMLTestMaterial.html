@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.basic.rsmlTest" group="jthree.materials.rsmlTest" order="300">
+<uniform-register>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      attribute vec2 uv;
+      varying vec2 vUV;
+
+      //@fragonly {
+        uniform vec4 solid;
+      //}
+
+      //@vertonly
+      void main(void)
+      {
+        gl_Position = vec4(position,1.0);
+        vUV = uv;
+      }
+
+      //@fragonly
+      void main(void)
+      {
+        gl_FragColor = vec4(vUV.r,vUV.g,0,1);
+      }
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

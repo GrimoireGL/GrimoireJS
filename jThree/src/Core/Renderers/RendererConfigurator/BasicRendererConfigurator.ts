@@ -1,3 +1,4 @@
+import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
@@ -103,6 +104,12 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                     SPECULAR: "light.specular"
                 },
                 stage: new AccumulationStage(target)
+            },
+            {
+              buffers: {
+                OUT: "hitarea"
+              },
+              stage: new RSMLRenderStage(target,require("../RenderStages/BuiltIn/RSMLTest.html"))
             },
             {
                 buffers: {

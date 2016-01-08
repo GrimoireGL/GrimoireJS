@@ -69,7 +69,7 @@ class XMMLShaderParser {
     }
 
     private static _generateVariableFetchRegex(variableType: string): RegExp {
-        return new RegExp("(?://@\\((.+)\\))?\\s*" + variableType + "\\s+([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+);", "g");
+        return new RegExp("(?://@\\((.+)\\))?\\s*" + variableType + "\\s+((?:lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+);", "g");
     }
 
     private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableInfo } {
@@ -77,12 +77,14 @@ class XMMLShaderParser {
         var regex = XMMLShaderParser._generateVariableFetchRegex(variableType);
         var regexResult;
         while ((regexResult = regex.exec(source))) {
-            let name = regexResult[3];
-            let type = regexResult[2];
+            let name = regexResult[4];
+            let type = regexResult[3];
+            let precision = regexResult[2];
             let rawAnnotations = regexResult[1];
             result[name] = <IVariableInfo>{
                 variableName: name,
                 variableType: type,
+                variablePrecision:precision,
                 variableAnnotation: rawAnnotations ? this._parseVariableAttributes(rawAnnotations) : {}
             };
         }
