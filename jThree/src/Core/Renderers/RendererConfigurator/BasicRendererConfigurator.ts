@@ -107,6 +107,9 @@ class BasicRendererConfigurator extends ConfiguratorBase {
             },
             {
               buffers: {
+                PRIMARY: "gbuffer.primary",
+                SECOUNDARY: "gbuffer.secoundary",
+                THIRD: "gbuffer.third",
                 OUT: "hitarea"
               },
               stage: new RSMLRenderStage(target,require("../RenderStages/BuiltIn/RSMLTest.html"))
@@ -117,7 +120,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                     SLIGHT: "light.specular",
                     OUT: "default"
                 },
-                stage: new ShadingStage(target)
+                stage: new RSMLRenderStage(target,require('../RenderStages/BuiltIn/ForwardShading.html'))
             }];
     }
 }

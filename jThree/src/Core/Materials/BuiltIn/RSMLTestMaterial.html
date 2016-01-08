@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <material name="jthree.basic.rsmlTest" group="jthree.materials.rsmlTest" order="300">
 <uniform-register>
+  <register name="jthree.basic.buffer"/>
+  <register name="jthree.basic.time"/>
 </uniform-register>
 <passes>
   <pass>
@@ -12,6 +14,9 @@
 
       //@fragonly {
         uniform vec4 solid;
+        //@(register:0,name:PRIMARY,type:buffer)
+        uniform sampler2D _Src;
+        uniform vec4 _Time;
       //}
 
       //@vertonly
@@ -24,7 +29,9 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = vec4(vUV.r,vUV.g,0,1);
+        vec3 col = texture2D(_Src,vUV).rgb;
+        float l = length(col) /sqrt(3.);
+        gl_FragColor = vec4(l,l,l,1);
       }
 
       ]]>

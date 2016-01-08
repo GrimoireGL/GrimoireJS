@@ -9,6 +9,7 @@ import ContextComponents = require("../../../ContextComponents");
 import Delegates = require("../../../Base/Delegates");
 import BasicMatrixRegisterer = require("./Registerer/BasicMatrixReisterer");
 import LightBufferRegisterer = require("./Registerer/LightBufferRegisterer");
+import TextureBufferRegisterer = require("./Registerer/TextureBufferRegisterer");
 import TimeRegisterer = require("./Registerer/TimeRegisterer");
 /**
  * A ContextComponent provides the feature to manage materials.
@@ -22,6 +23,7 @@ class MaterialManager implements IContextComponent {
         this.addUniformRegister("jthree.basic.light",LightBufferRegisterer);
         this.addUniformRegister("jthree.basic.time",TimeRegisterer);
         this.addUniformRegister("jthree.basic.texture",TextureRegister);
+        this.addUniformRegister('jthree.basic.buffer',TextureBufferRegisterer);
         this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
         this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
         this.registerMaterial(require("../BuiltIn/RSMLTestMaterial.html"));

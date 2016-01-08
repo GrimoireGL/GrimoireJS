@@ -25,7 +25,7 @@ class BasicTechnique extends JThreeObjectWithID {
 
     protected _renderStage: RenderStageBase;
 
-    public _defaultMaterial:BasicMaterial;
+    public _defaultMaterial: BasicMaterial;
 
     protected get _gl(): WebGLRenderingContext {
         return this._renderStage.GL;
@@ -38,14 +38,15 @@ class BasicTechnique extends JThreeObjectWithID {
         this._target = this._techniqueDocument.getAttribute("target");
         if (!this._target) this._target = "scene";
         this._fboConfigureElement = this._techniqueDocument.getElementsByTagName("fbo").item(0);
-        this._depthConfigureElement = this._fboConfigureElement.getElementsByTagName("rbo").item(0);
-        this._colorConfigureElements = this._fboConfigureElement.getElementsByTagName("color");
-        if(this._target != "scene")
-        {
-          const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-          const matName = this._techniqueDocument.getAttribute('material');
-          if(!matName)console.error("material name was not specified.");
-          this._defaultMaterial = mm.constructMaterial(matName);
+        if (this._fboConfigureElement) {
+            this._depthConfigureElement = this._fboConfigureElement.getElementsByTagName("rbo").item(0);
+            this._colorConfigureElements = this._fboConfigureElement.getElementsByTagName("color");
+        }
+        if (this._target != "scene") {
+            const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+            const matName = this._techniqueDocument.getAttribute('material');
+            if (!matName) console.error("material name was not specified.");
+            this._defaultMaterial = mm.constructMaterial(matName);
         }
     }
 
@@ -64,7 +65,7 @@ class BasicTechnique extends JThreeObjectWithID {
                 this._renderStage.drawForMaterials(scene, object, techniqueIndex, texs, materialGroup);
                 break;
             default:
-              this._renderStage.drawForMaterial(scene,object,techniqueIndex,texs,this._defaultMaterial);
+                this._renderStage.drawForMaterial(scene, object, techniqueIndex, texs, this._defaultMaterial);
         }
     }
 
