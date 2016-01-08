@@ -1,8 +1,8 @@
+import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 import AccumulationStage = require("../RenderStages/LightAccumulationStage");
-import ShadingStage = require("../RenderStages/FowardShadingStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
@@ -24,7 +24,7 @@ class BasicRendererConfigurator extends ConfiguratorBase
                     SLIGHT:"light.specular",
                     OUT: "default"
                 },
-                stage: new ShadingStage(target)
+                stage: new RSMLRenderStage(target,require("../RenderStages/BuiltIn/ForwardShading.html"))
             }];
     }
 }

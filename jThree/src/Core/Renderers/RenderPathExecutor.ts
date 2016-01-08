@@ -80,7 +80,7 @@ class RenderPathExecutor {
                 var techniqueCount = stage.getTechniqueCount(scene);
                 var targetObjects: SceneObject[];
                 stage.preStage(scene, texs);
-                stage.applyStageConfig();
+                //stage.applyStageConfig();
                 for (var i = 0; i < techniqueCount; i++) {
                     switch (stage.getTarget(i)) {
                         case "quad":

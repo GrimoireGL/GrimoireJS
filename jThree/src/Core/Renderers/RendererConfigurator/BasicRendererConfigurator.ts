@@ -3,7 +3,6 @@ import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 import AccumulationStage = require("../RenderStages/LightAccumulationStage");
-import ShadingStage = require("../RenderStages/FowardShadingStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
