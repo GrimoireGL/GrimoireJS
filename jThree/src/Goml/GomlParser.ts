@@ -58,6 +58,7 @@ class GomlParser {
    * @return {GomlTreeNodeBase}              [description]
    */
   private static createNode(elem: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
+    console.log('START');
     const tagName = elem.tagName;
     console.log(`createNode: ${tagName}`);
     const nodeType = configurator.getGomlNode(tagName);
@@ -101,6 +102,7 @@ class GomlParser {
         });
       })(attr);
     }
+    console.log('END');
     return newNode;
   }
 }
