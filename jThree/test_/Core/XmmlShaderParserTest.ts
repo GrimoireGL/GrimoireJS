@@ -52,13 +52,22 @@ const idealParsedUniforms = {
     {
         variableName: '_matPVM',
         variableType: 'mat4',
+        variablePrecision: undefined,
         variableAnnotation: {}
     },
     testTexture:
     {
         variableName: 'testTexture',
         variableType: 'sampler2D',
+        variablePrecision: undefined,
         variableAnnotation: { register: '0', sampler: '12' }
+    },
+    precTexture:
+    {
+        variableName: 'precTexture',
+        variableType: 'sampler2D',
+        variablePrecision: 'mediump ',
+        variableAnnotation: {}
     }
 };
 
@@ -79,7 +88,6 @@ describe('Xmml shader parsing', () => {
         assert(removeAllSpace(parsedResult.fragment) === removeAllSpace(idealParsedFragment));
     });
     it('Parsing uniform', () => {
-      console.log(parsedResult.uniforms);
-        //assert(_.isEqual(parsedResult.uniforms,idealParsedUniforms));
+        assert(_.isEqual(parsedResult.uniforms, idealParsedUniforms));
     });
 });
