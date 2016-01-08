@@ -1,4 +1,4 @@
-import RSMLRenderStageBase = require("./RSML/RSMLRenderStageBase");
+import RSMLRenderStageBase = require("./RSML/RSMLRenderStage");
 import SceneObject = require("../../SceneObject");
 import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import ResolvedChainInfo = require("../ResolvedChainInfo");

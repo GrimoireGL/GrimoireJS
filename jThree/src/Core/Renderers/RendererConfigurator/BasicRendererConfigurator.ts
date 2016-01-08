@@ -1,4 +1,4 @@
-import RSMLRenderStageBase = require("../RenderStages/RSML/RSMLRenderStageBase");
+import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
@@ -109,7 +109,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
               buffers: {
                 OUT: "hitarea"
               },
-              stage: new RSMLRenderStageBase(target,require("../RenderStages/BuiltIn/RSMLTest.html"))
+              stage: new RSMLRenderStage(target,require("../RenderStages/BuiltIn/RSMLTest.html"))
             },
             {
                 buffers: {
