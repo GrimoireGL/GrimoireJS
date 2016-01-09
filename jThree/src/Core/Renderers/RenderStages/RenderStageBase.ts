@@ -97,18 +97,6 @@ class RenderStageBase extends JThreeObjectWithID {
         return "scene";
     }
 
-    private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
-        if (typeof flag === 'undefined') {
-            flag = def;
-        }
-        if (flag) {
-            this.GL.enable(target);
-        }
-        else {
-            this.GL.disable(target);
-        }
-    }
-
     protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
         var rm = this.ResourceManager;
         var vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
