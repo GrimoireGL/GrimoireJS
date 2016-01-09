@@ -6,10 +6,11 @@
     <solid name="matTest" solid="#00FF00FF" intensity="3"/>
     <cube name="cube" />
     <grid hdiv="20" name="grid" vdiv="20"/>
+    <cubetexture name="cubemap" srcs="/resource/cube/cube_PX.png /resource/cube/cube_NX.png /resource/cube/cube_PY.png /resource/cube/cube_NY.png /resource/cube/cube_PZ.png /resource/cube/cube_NZ.png" />
   </resources>
   <canvases>
     <canvas clearColor="purple" frame=".canvasContainer">
-      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" skybox="cubemap" backgroundType="skybox"/>
     </canvas>
   </canvases>
   <scenes>
