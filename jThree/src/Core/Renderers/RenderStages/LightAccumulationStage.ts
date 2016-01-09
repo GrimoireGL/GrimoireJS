@@ -55,12 +55,12 @@ class LightAccumulationStage extends RenderStageBase
         pWrapper.useProgram();
         pWrapper.assignAttributeVariable("position",geometry.positionBuffer);
         pWrapper.assignAttributeVariable("uv",geometry.uvBuffer);
-        pWrapper.uniformSampler2D("primary",texs["PRIMARY"],0);
-        pWrapper.uniformSampler2D("secoundary",texs["SECOUNDARY"],1);
-        pWrapper.uniformSampler2D("third",texs["THIRD"],2);
-        pWrapper.uniformSampler2D("lightParam",scene.LightRegister.ParameterTexture,3);
-        pWrapper.uniformSampler2D("shadowMap",scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture,4);
-        pWrapper.uniformSampler2D("shadowParam",scene.LightRegister.shadowMapResourceManager.shadowMatrixTexture,5);
+        pWrapper.uniformSampler("primary",texs["PRIMARY"],0);
+        pWrapper.uniformSampler("secoundary",texs["SECOUNDARY"],1);
+        pWrapper.uniformSampler("third",texs["THIRD"],2);
+        pWrapper.uniformSampler("lightParam",scene.LightRegister.ParameterTexture,3);
+        pWrapper.uniformSampler("shadowMap",scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture,4);
+        pWrapper.uniformSampler("shadowParam",scene.LightRegister.shadowMapResourceManager.shadowMatrixTexture,5);
         pWrapper.uniformVector("lightParamSize",scene.LightRegister.TextureSize);
         pWrapper.uniformMatrix("matV",renderer.Camera.viewMatrix);
         pWrapper.uniformMatrix("matIP",ip);

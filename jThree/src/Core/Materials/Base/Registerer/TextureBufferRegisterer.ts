@@ -13,7 +13,7 @@ const TextureBufferRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWra
       if(!bufferName || !matArg.textureResource[bufferName])continue;
       let register = parseInt(uniform.variableAnnotation['register']);
       if(!register)register = 0;
-      pWrapper.uniformSampler2D(variableName,matArg.textureResource[bufferName],register);
+      pWrapper.uniformSampler(variableName,matArg.textureResource[bufferName],register);
     }
   }
 }

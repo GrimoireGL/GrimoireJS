@@ -117,19 +117,50 @@ class Material extends JThreeObjectWithID {
                 this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
                 continue;
             }
-            if (uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4") {
-                pWrapper.uniformVector(valName, <VectorBase>val);
+            switch (uniform.variableType) {
+                case 'vec2':
+                case 'vec3':
+                case 'vec4':
+                    pWrapper.uniformVector(valName, <VectorBase>val);
+                    continue;
+                case 'mat4':
+                    pWrapper.uniformMatrix(valName, <Matrix>val);
+                    continue;
+                case 'float':
+                    pWrapper.uniformFloat(valName, <number>val);
+                    continue;
+                case 'int':
+                    pWrapper.uniformInt(valName, <number>val);
+                    continue;
+                case 'sampler2D':
+                case 'samplerCube':
+                    let registerAnnotation = uniform.variableAnnotation["register"];
+                    let register;
+                    if (registerAnnotation) {
+                        register = <number>parseInt(registerAnnotation, 10);
+                    } else {
+                        register = 0;
+                    }
+                    pWrapper.uniformSampler(valName, <TextureBase>val, register);
+                    continue;
+                default:
+                    console.warn(`Unknown variable type ${uniform.variableType}`);
             }
-            if (uniform.variableType === "mat4") {
-                pWrapper.uniformMatrix(valName, <Matrix>val);
-            }
-            if (uniform.variableType === "float") {
-                pWrapper.uniformFloat(valName, <number>val)
-            }
-            if (uniform.variableType === "int") {
-                pWrapper.uniformInt(valName, <number>val);
-            }
-            if (uniform.variableType === "sampler2D") {
+        }
+    }
+
+    private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
+        switch (uniform.variableType) {
+            case 'vec2':
+                pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
+                return;
+            case 'vec3':
+                pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
+                return;
+            case 'vec4':
+                pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 0));
+                return;
+            case 'sampler2D':
                 let registerAnnotation = uniform.variableAnnotation["register"];
                 let register;
                 if (registerAnnotation) {
@@ -137,30 +168,8 @@ class Material extends JThreeObjectWithID {
                 } else {
                     register = 0;
                 }
-                pWrapper.uniformSampler2D(valName, <TextureBase>val, register);
-            }
-        }
-    }
-
-    private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
-        if (uniform.variableType === "sampler2D") {
-            let registerAnnotation = uniform.variableAnnotation["register"];
-            let register;
-            if (registerAnnotation) {
-                register = <number>parseInt(registerAnnotation, 10);
-            } else {
-                register = 0;
-            }
-            pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture, register);
-        }
-        if (uniform.variableType == "vec2") {
-            pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
-        }
-        if (uniform.variableType == "vec3") {
-            pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
-        }
-        if (uniform.variableType == "vec4") {
-            pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 0));
+                pWrapper.uniformSampler(uniform.variableName, renderer.alternativeTexture, register);
+                return;
         }
     }
 

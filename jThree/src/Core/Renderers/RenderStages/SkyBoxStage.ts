@@ -1,3 +1,4 @@
+import IndexedGeometry = require("../../Geometries/IndexedGeometry");
 import BasicGeometry = require("../../Geometries/BasicGeometry");
 ﻿import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
@@ -24,17 +25,6 @@ class SkyBoxStage extends RenderStageBase
 
     public preTechnique(scene: Scene, passCount: number, chainInfo: ResolvedChainInfo) {
         this.Renderer.GL.bindFramebuffer(this.Renderer.GL.FRAMEBUFFER,null);
-
-      /*  this.bindAsOutBuffer(this.DefaultFBO, [
-            {
-                texture: chainInfo["OUT"],
-                target: 0
-            }
-        ], () =>
-            {
-                this.Renderer.GLContext.ClearColor(0, 0, 0, 0);
-                this.Renderer.GLContext.Clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
-            });*/
     }
 
     public render(scene: Scene, object: SceneObject, passCount: number) {
@@ -43,9 +33,8 @@ class SkyBoxStage extends RenderStageBase
         pWrapper.useProgram();
         pWrapper.assignAttributeVariable("position",geometry.positionBuffer);
         pWrapper.assignAttributeVariable("uv",geometry.uvBuffer);
-        pWrapper.uniformSampler2D("skyTex",this.skyBoxTexture,0);
+        pWrapper.uniformSampler("skyTex",this.skyBoxTexture,0);
         pWrapper.uniformMatrix("matVP",this.Renderer.Camera.viewMatrix);
-        //geometry.IndexBuffer.getForContext(this.Renderer.ContextManager).bindBuffer();
         geometry.drawElements(this.Renderer.ContextManager,null);
     }
 
