@@ -3,7 +3,6 @@ import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 import AccumulationStage = require("../RenderStages/LightAccumulationStage");
-import ShadingStage = require("../RenderStages/FowardShadingStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
@@ -107,6 +106,9 @@ class BasicRendererConfigurator extends ConfiguratorBase {
             },
             {
               buffers: {
+                PRIMARY: "gbuffer.primary",
+                SECOUNDARY: "gbuffer.secoundary",
+                THIRD: "gbuffer.third",
                 OUT: "hitarea"
               },
               stage: new RSMLRenderStage(target,require("../RenderStages/BuiltIn/RSMLTest.html"))
@@ -117,7 +119,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                     SLIGHT: "light.specular",
                     OUT: "default"
                 },
-                stage: new ShadingStage(target)
+                stage: new RSMLRenderStage(target,require('../RenderStages/BuiltIn/ForwardShading.html'))
             }];
     }
 }

@@ -17,7 +17,7 @@ const TextureRegister = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, ma
     {
       default:
         console.warn(`Unknown texture source type:${sourceType}. src will be interpreted as url`);
-      case "url":
+      case "url"://TODO WIP
       //TODO implement this
         continue;
       case "id":
