@@ -61,7 +61,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public set Value(val: any) {
-    console.log('setattr', this.Name, val);
+    // console.log('setattr', this.Name, val);
     if (this.constant && this.value !== undefined) {
       console.warn(`attribute "${this.ID}" is immutable`)
       return;
