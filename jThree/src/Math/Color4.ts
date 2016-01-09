@@ -113,7 +113,7 @@ class Color4 extends VectorBase {
   }
 
   public toString(): string {
-    return `rgba(${this.R}, ${this.G}, ${this.B}, ${this.A})`;
+    return `rgba(${Math.round(this.R * 255)}, ${Math.round(this.G * 255)}, ${Math.round(this.B * 255)}, ${Math.round(this.A * 255)})`;
   }
 
   public toDisplayString(): string {

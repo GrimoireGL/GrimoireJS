@@ -89,7 +89,7 @@ class Color3 extends VectorBase {
   }
 
   public toString(): string {
-    return `rgb(${this.R}, ${this.G}, ${this.B})`;
+    return `rgb(${Math.round(this.R * 255)}, ${Math.round(this.G * 255)}, ${Math.round(this.B * 255)})`;
   }
 
   public toDisplayString(): string {

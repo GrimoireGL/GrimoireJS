@@ -168,7 +168,6 @@ class PMXMaterial extends Material {
                 boneMatriciesTexture: skeleton.MatrixTexture,
                 edgeSize: PmxMaterialMorphParamContainer.calcMorphedSingleValue(this.edgeSize, this.addMorphParam, this.mulMorphParam, (t) => t.edgeSize),
                 edgeColor: PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.edgeColor.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.edgeColor, 4)
-
             };
         } else {
             this.__innerMaterial.materialVariables = {
