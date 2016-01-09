@@ -1,25 +1,20 @@
 import Exceptions = require("../../Exceptions");
 import AttributeParser = require("../AttributeParser");
 import AttributeConverterBase = require("./AttributeConverterBase");
-class AngleAttributeConverter extends AttributeConverterBase
-{
-  public ToAttribute(val:any):string
-  {
-    return val;
+
+class AngleAttributeConverter extends AttributeConverterBase {
+  public toStringAttr(val: number): string {
+    return val.toString();
   }
 
-  public FromAttribute(attr:string):any
-  {
+  public toObjectAttr(attr: string): number {
     return AttributeParser.ParseAngle(attr);
   }
 
-  public FromInterface(val:any):any
-  {
-    if(typeof val === 'string')
-    {
-      return this.FromAttribute(val);
-    }else if(typeof val === 'number')
-    {
+  public FromInterface(val: any): any {
+    if (typeof val === 'string') {
+      return this.toObjectAttr(val);
+    } else if (typeof val === 'number') {
       return val;
     }
     //we should implememnt something here?
@@ -27,4 +22,4 @@ class AngleAttributeConverter extends AttributeConverterBase
   }
 }
 
-export=AngleAttributeConverter;
+export = AngleAttributeConverter;

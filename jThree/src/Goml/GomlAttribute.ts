@@ -56,17 +56,27 @@ class GomlAttribute extends JThreeObjectEEWithID {
     return this.value;
   }
 
+  public get ValueStr(): string {
+    return this.value == null ? '' : this.converter.toStringAttr(this.value);
+  }
+
   public set Value(val: any) {
-    // console.log('setattr', this.ID, val);
-    if (this.constant && this.value === undefined) {
+    console.log('setattr', this.Name, val);
+    if (this.constant && this.value !== undefined) {
       console.warn(`attribute "${this.ID}" is immutable`)
       return;
     }
-    if (val !== undefined) {
-      this.value = this.Converter.FromInterface(val);
+    if (typeof val == 'string') {
+      this.value = this.Converter.toObjectAttr(val);
     } else {
-      this.value = undefined;
+      try {
+        this.Converter.toStringAttr(val);
+      } catch (e) {
+        console.warn(`type of attribute: ${this.Name}(${val}) is not adapt to converter: ${this.Converter.getTypeName()}`, val);
+      }
+      this.value = val;
     }
+    console.log('setattr_obj', this.Name, this.value);
     if (this.initialized) {
       this.emit('changed', this);
     }
@@ -83,9 +93,13 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public set Converter(converter: AttributeConverterBase) {
-    const attr_value = this.Converter.ToAttribute(this.Value);
-    this.converter = converter;
-    this.Value = attr_value;
+    if (this.converter === undefined) {
+      this.converter = converter;
+    } else {
+      const attr_value = this.Converter.toStringAttr(this.Value);
+      this.converter = converter;
+      this.Value = attr_value;
+    }
   }
 
   public notifyValueChanged() {

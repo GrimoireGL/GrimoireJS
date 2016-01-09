@@ -1,21 +1,13 @@
 import AttributeConverterBase = require("./AttributeConverterBase");
-class BooleanAttributeConverter extends AttributeConverterBase
-{
-  public ToAttribute(val:any):string
-  {
-    return val;
+
+class BooleanAttributeConverter extends AttributeConverterBase {
+  public toStringAttr(val: boolean): string {
+    return val.toString();
   }
 
-  public FromAttribute(attr:string):any
-  {
+  public toObjectAttr(attr: string): any {
     return attr === 'true';
-  }
-
-  public FromInterface(val:any):any
-  {
-    if(typeof val === 'boolean')return val;
-    return this.FromAttribute(val);
   }
 }
 
-export=BooleanAttributeConverter;
+export = BooleanAttributeConverter;

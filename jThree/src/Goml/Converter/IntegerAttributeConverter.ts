@@ -4,33 +4,19 @@ import GomlAttribute = require('../GomlAttribute');
 import EasingFunctionBase = require('../Easing/EasingFunctionBase');
 import Delegates = require('../../Base/Delegates');
 import AnimaterBase = require('../Animater/AnimaterBase');
-class IntegerAttributeConverter extends AttributeConverterBase
-{
-  public ToAttribute(val:any):string
-  {
-    return val;
+
+class IntegerAttributeConverter extends AttributeConverterBase {
+  public toStringAttr(val: number): string {
+    return val.toString();
   }
 
-  public FromAttribute(attr:string):any
-  {
+  public toObjectAttr(attr: string): number {
     return parseInt(attr);
   }
 
-  public FromInterface(val:any):any
-  {
-    if(typeof val ==='number')
-    {
-      return Math.floor(<number>val);
-    }else if(typeof val === 'string')
-    {
-      return Math.floor(this.FromAttribute(val));
-    }
-  }
-
-  public GetAnimater(attr:GomlAttribute,beginVal:any,endVal:any,beginTime:number,duration:number,easing:EasingFunctionBase,onComplete?:Delegates.Action0):AnimaterBase
-  {
-    return new IntegerAnimater(attr,beginTime,duration,beginVal,endVal,easing,onComplete);
+  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Delegates.Action0): AnimaterBase {
+    return new IntegerAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }
 
-export=IntegerAttributeConverter;
+export = IntegerAttributeConverter;
