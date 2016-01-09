@@ -97,12 +97,6 @@ class RenderStageBase extends JThreeObjectWithID {
         return "scene";
     }
 
-    // public applyStageConfig() {
-    //     var config = this.RenderStageConfig;
-    //     //cull enabled/disabled
-    //     this.applyStageConfigToGLFeature(config.depthTest, GLFeature.DepthTest, true);
-    // }
-
     private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
         if (typeof flag === 'undefined') {
             flag = def;
@@ -114,12 +108,6 @@ class RenderStageBase extends JThreeObjectWithID {
             this.GL.disable(target);
         }
     }
-
-    // public get RenderStageConfig(): RenderStageConfig {
-    //     return {
-    //         depthTest: true
-    //     };
-    // }
 
     protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
         var rm = this.ResourceManager;
