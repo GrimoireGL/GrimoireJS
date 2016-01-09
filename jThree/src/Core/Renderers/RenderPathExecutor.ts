@@ -120,7 +120,7 @@ class RenderPathExecutor {
                 });
                 stageIndex++;
             } catch (e) {
-                // debugger;
+                 debugger;
             }
         });
         this.renderPathCompleted.fire(this, {
