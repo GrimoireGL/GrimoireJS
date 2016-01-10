@@ -1,3 +1,4 @@
+import SphereGeometry = require("../../../Core/Geometries/SphereGeometry");
 import GeometryNodeBase = require("./GeometryNodeBase");
 import Geometry = require("../../../Core/Geometries/Geometry")
 import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
@@ -11,7 +12,7 @@ class CubeGeometryNode extends GeometryNodeBase {
   }
 
   protected ConstructGeometry(): Geometry {
-    return this.geometry = new CubeGeometry(this.Name);
+    return this.geometry = new SphereGeometry(this.Name);
   }
 
 }

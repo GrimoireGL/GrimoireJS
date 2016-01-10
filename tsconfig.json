@@ -47,6 +47,7 @@
     "./jThree/src/Core/Geometries/GridGeometry.ts",
     "./jThree/src/Core/Geometries/IndexedGeometry.ts",
     "./jThree/src/Core/Geometries/QuadGeometry.ts",
+    "./jThree/src/Core/Geometries/SphereGeometry.ts",
     "./jThree/src/Core/Geometries/TriangleGeometry.ts",
     "./jThree/src/Core/GLExtensionList.ts",
     "./jThree/src/Core/GLExtensionManager.ts",

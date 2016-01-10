@@ -3,7 +3,7 @@ import Geometry = require("../../../Core/Geometries/Geometry")
 import CylinderGeometry = require("../../../Core/Geometries/CylinderGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 class CylinderGeometryNode extends GeometryNodeBase {
-  private gridGeometry: CylinderGeometry;
+  private geometry: CylinderGeometry;
 
   constructor() {
     super();
@@ -17,16 +17,16 @@ class CylinderGeometryNode extends GeometryNodeBase {
   }
 
   private _onDivideAttrChanged(attr): void {
-    this.gridGeometry.DivideCount = attr.Value;
+    this.geometry.DivideCount = attr.Value;
   }
 
   protected ConstructGeometry(): Geometry {
-    return this.gridGeometry = new CylinderGeometry(this.Name);
+    return this.geometry = new CylinderGeometry(this.Name);
   }
 
   protected onMount() {
     super.onMount();
-    this.gridGeometry.DivideCount = this.attributes.getValue("divide");
+    this.geometry.DivideCount = this.attributes.getValue("divide");
   }
 
 }

@@ -15,6 +15,7 @@ var gomlList = [
       "TRI": require("./Nodes/Geometries/TriangleGeometryNode"),
       "GRID": require("./Nodes/Geometries/GridGeometryNode"),
       "CUBE": require("./Nodes/Geometries/CubeGeometryNode"),
+      "SPHERE": require("./Nodes/Geometries/SphereGeometryNode"),
       "CIRCLE": require("./Nodes/Geometries/CircleGeometryNode"),
       "CYLINDER": require("./Nodes/Geometries/CylinderGeometryNode"),
       "QUAD": require("./Nodes/Geometries/QuadGeometryNode")
