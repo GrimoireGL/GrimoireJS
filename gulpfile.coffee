@@ -6,8 +6,10 @@ mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
 plumber = require 'gulp-plumber'
 rename = require 'gulp-rename'
-watchify = require 'gulp-watchify'
+watchify = require 'watchify'
+browserify = require 'browserify'
 sourcemaps = require 'gulp-sourcemaps'
+source = require 'vinyl-source-stream'
 buffer = require 'vinyl-buffer'
 uglify = require 'gulp-uglify'
 gulpif = require 'gulp-if'
@@ -23,6 +25,7 @@ args = require('yargs').argv
 reactify = require 'coffee-reactify'
 envify = require 'envify/custom'
 notifier = require 'node-notifier'
+formatter = require 'pretty-hrtime'
 
 ###
 TASK SUMMARY
@@ -104,24 +107,24 @@ config =
     dest: ['./jThree/bin/product', './jThree/wwwroot']
     target: 'web'
     minify: false
-    transform:'coffeeify'
-    detectGlobals:false
+    transform: ['shaderify', 'txtify']
+    detectGlobals: false
   debug:
     entry: './jThree/debug/debug.coffee'
     name: 'j3-debug.js'
     dest:['./jThree/wwwroot/debug']
     target: 'web'
-    minify:false
-    transform:'coffee-reactify'
-    detectGlobals:true
+    minify: false
+    transform: ['coffee-reactify', 'shaderify', 'txtify']
+    detectGlobals: true
   test:
     entry: './jThree/test/Test.coffee'
     name: 'test.js'
     dest: ['./jThree/test/build']
     target: 'node'
     minify: false
-    transform:'coffeeify'
-    detectGlobals:false
+    transform: ['coffeeify', 'shaderify', 'txtify']
+    detectGlobals: false
 
 # files for clean task
 cleaner_files = ['./jThree/src/**/*.js']
@@ -137,7 +140,7 @@ gulp.task 'default', ['build']
 ###
 build task
 ###
-gulp.task 'build', ['build:main']
+gulp.task 'build', ['build:main', 'build:debug']
 
 
 ###
@@ -149,51 +152,57 @@ buildSuccess = true
 Object.keys(config).forEach (suffix) ->
   c = config[suffix]
   bundler = forceBundler || c.bundler
-  gulp.task "build:#{suffix}", do ->
-      # tsdBundlePath = JSON.parse(fs.readFileSync(tsdPath))?.bundle
-      return watchify (watchify) ->
-        gulp
-          .src path.resolve(__dirname, c.entry)
-          .pipe gulpif(watching, plumber(
-            errorHandler: (err)->
-              buildSuccess = false
-              gutil.log gutil.colors.black.bgRed " [COMPILATION FAILED] (#{suffix}) #{err.name} "
-              gutil.log err.message
-              @emit 'end'))
-          .pipe watchify
-            watch: watching
-            extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
-            debug: true
-            transform: [c.transform]
-            detectGlobals: c.detectGlobals
-            bundleExternal: c.target == 'web'
-            setup: (b) ->
-              b.transform shaderify
-              b.transform txtify
-              b.plugin tsify, {target: "es5"}
-              b.transform envify
-                NODE_ENV: if env_production then 'production' else 'development'
-          .pipe buffer()
-          .pipe sourcemaps.init
-            loadMaps: true
-          .pipe gulpif(!watching, gulpif(c.minify, uglify()))
-          .pipe rename(c.name)
-          .pipe sourcemaps.write('./')
-          .pipe gulp.dest(c.dest[0])
-          .on 'end', ->
-            copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
-            copyFiles(path.join(c.dest[0], c.name + '.map'), c.dest[1..])
-            if buildSuccess
-              notifier.notify({
-                message: "BUILD SUCCESS (#{suffix})",
-                title: 'jThree',
-                sound: 'Glass'
-              });
-              gutil.log gutil.colors.black.bgGreen " [BUILD SUCCESS] (#{suffix}) "
-            gutil.log gutil.colors.black.bgWhite " [BUILD END] (#{suffix}) "
-            buildSuccess = true
-          .on 'error', ->
-            # gutil.log gutil.colors.black.bgYellow 'If tsconfig.json is not up-to-date, run command: "./   node_modules/.bin/gulp --require coffee-script/register update-tsconfig-files"'
+  gulp.task "build:#{suffix}", ->
+    opt =
+      entries: path.resolve(__dirname, c.entry)
+      cache: {}
+      packageCache: {}
+      extensions: ['', '.js', '.json', '.ts', '.coffee', '.glsl']
+      debug: true
+      transform: c.transform
+      detectGlobals: c.detectGlobals
+      bundleExternal: c.target == 'web'
+    if watching
+      opt = _.merge opt, watchify.args
+    b = browserify opt
+    if watching
+      b = watchify b, opt
+    b = b
+      .plugin tsify, {target: "es5"}
+      .transform envify
+        NODE_ENV: if env_production then 'production' else 'development'
+    bundle = ->
+      time = process.hrtime()
+      gutil.log "Bundling... #{if watching then '(watch mode)' else ''}"
+      b
+        .bundle()
+        .on 'error', (err) ->
+          buildSuccess = false
+          gutil.log gutil.colors.black.bgRed " [COMPILATION FAILED] (#{suffix}) #{c.name} "
+          gutil.log err.message
+          @emit 'end'
+        .on 'end', ->
+          copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
+          copyFiles(path.join(c.dest[0], c.name + '.map'), c.dest[1..])
+          if buildSuccess
+            notifier.notify({
+              message: "BUILD SUCCESS (#{suffix})",
+              title: 'jThree',
+              sound: 'Glass'
+            });
+            taskTime = formatter process.hrtime time
+            gutil.log(gutil.colors.black.bgGreen(" [BUILD SUCCESS] (#{suffix}) ") + gutil.colors.magenta(" #{taskTime}"))
+          buildSuccess = true
+        .pipe source c.name
+        .pipe buffer()
+        .pipe sourcemaps.init
+          loadMaps: true
+        .pipe gulpif(!watching, gulpif(c.minify, uglify()))
+        .pipe rename c.name
+        .pipe sourcemaps.write('./')
+        .pipe gulp.dest(c.dest[0])
+    b.on 'update', bundle
+    bundle()
 
 
 ###
@@ -216,7 +225,7 @@ gulp.task 'enable-watch-mode', -> watching = true
 ###
 main watch task
 ###
-gulp.task 'watch:main', ['enable-watch-mode','build:debug', 'build:main','server', 'watch:reload']
+gulp.task 'watch:main', ['enable-watch-mode', 'build:debug', 'build:main', 'server', 'watch:reload']
 
 gulp.task 'watch:reload', ->
   gulp.watch watchForReload, ['reload']
