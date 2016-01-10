@@ -5,7 +5,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlAttribute = require('../../GomlAttribute');
 
 class CircleGeometryNode extends GeometryNodeBase {
-  private gridGeometry: CircleGeometry;
+  private geometry: CircleGeometry;
 
   constructor() {
     super();
@@ -19,12 +19,12 @@ class CircleGeometryNode extends GeometryNodeBase {
   }
 
   private _onDivideAttrChanged(attr: GomlAttribute): void {
-    this.gridGeometry.DiviceCount = attr.Value;
+    this.geometry.DiviceCount = attr.Value;
   }
 
   protected ConstructGeometry(): Geometry {
-    this.gridGeometry = new CircleGeometry(this.Name);
-    return this.gridGeometry;
+    this.geometry = new CircleGeometry(this.Name);
+    return this.geometry;
   }
 
 

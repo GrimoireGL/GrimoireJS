@@ -3,7 +3,7 @@ import Geometry = require("../../../Core/Geometries/Geometry")
 import GridGeometry = require("../../../Core/Geometries/GridGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 class GridGeometryNode extends GeometryNodeBase {
-  private gridGeometry: GridGeometry;
+  private geometry: GridGeometry;
 
   constructor() {
     super();
@@ -22,15 +22,15 @@ class GridGeometryNode extends GeometryNodeBase {
   }
 
   private _onHdivAttrChanged(attr): void {
-    this.gridGeometry.HolizontalDivide = attr.Value;
+    this.geometry.HolizontalDivide = attr.Value;
   }
 
   private _onVdivAttrChanged(attr): void {
-    this.gridGeometry.VerticalDivide = attr.Value;
+    this.geometry.VerticalDivide = attr.Value;
   }
 
   protected ConstructGeometry(): Geometry {
-    return this.gridGeometry = new GridGeometry(this.Name);
+    return this.geometry = new GridGeometry(this.Name);
   }
 
   protected onMount(): void {
