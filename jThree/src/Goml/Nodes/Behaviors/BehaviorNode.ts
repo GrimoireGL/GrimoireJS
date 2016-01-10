@@ -16,8 +16,8 @@ class BehaviorNode extends GomlTreeNodeBase {
         onchanged: this._onNameAttrChanged.bind(this),
       },
       'enabled': {
-        converter: 'boolean',
         value: false,
+        converter: 'boolean',
         onchanged: this._onEnabledAttrChanged.bind(this),
       },
     });
