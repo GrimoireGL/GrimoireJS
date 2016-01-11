@@ -1,7 +1,6 @@
 import GomlNodeListElement = require("./GomlNodeListElement");
 import JThreeObject = require("../Base/JThreeObject");
 import EasingFunction = require("./Easing/EasingFunctionBase");
-import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import AttributeConvrterBase = require("./Converter/AttributeConverterBase");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
 /**
@@ -12,24 +11,24 @@ class GomlConfigurator extends JThreeObject {
   /**
    * List of easing function to indicate how animation will be.
    */
-  private easingFunctions: AssociativeArray<EasingFunction> = new AssociativeArray<EasingFunction>();
+  private easingFunctions: {[key:string]:EasingFunction} = {};
   /**
    * List of converter function classes.
    */
-  private converters: AssociativeArray<AttributeConvrterBase> = new AssociativeArray<AttributeConvrterBase>();
+  private converters: {[key:string]:AttributeConvrterBase} = {};
   /**
    * All list of goml tags that will be parsed and instanciated when parse GOML.
    *
    * Keyはタグ名の文字列(大文字)、ValueはGomlNodeのコンストラクタ
    */
-  private gomlNodes: AssociativeArray<GomlTreeNodeBase> = new AssociativeArray<GomlTreeNodeBase>();
+  private gomlNodes: {[key:string]:GomlTreeNodeBase}= {};
 
   public getConverter(name: string): AttributeConvrterBase {
-    return this.converters.get(name);
+    return this.converters[name];
   }
 
   public getEasingFunction(name: string): EasingFunction {
-    return this.easingFunctions.get(name);
+    return this.easingFunctions[name];
   }
 
   /**
@@ -39,7 +38,7 @@ class GomlConfigurator extends JThreeObject {
    * @return {GomlTreeNodeBase}
    */
   public getGomlNode(tagName: string): GomlTreeNodeBase {
-    return this.gomlNodes.get(tagName.toUpperCase());
+    return this.gomlNodes[tagName.toUpperCase()];
   }
 
   /**
@@ -58,13 +57,21 @@ class GomlConfigurator extends JThreeObject {
   * Initialize associative array for easing functions that will be used for animation in goml.
   */
   private initializeEasingFunctions() {
-    this.loadIntoAssociativeArray(this.easingFunctions, require("./EasingFunctionList"));
+    const list = require("./EasingFunctionList");
+    for (var key in list) {
+      var type = list[key];
+      this.easingFunctions[key] =  new type();
+    }
   }
   /**
    * Initialize converters from list.
    */
   private initializeConverters() {
-    this.loadIntoAssociativeArray(this.converters, require("./GomlConverterList"));
+    const list = require("./GomlConverterList");
+    for (var key in list) {
+      var type = list[key];
+      this.converters[key] =  new type();
+    }
   }
 
   /**
@@ -77,19 +84,9 @@ class GomlConfigurator extends JThreeObject {
         var keyInString: string = key;
         keyInString = keyInString.toUpperCase(); // transform into upper case
         var nodeType = v.NodeTypes[keyInString]; // nodeTypeはGomlNodeのコンストラクタ
-        this.gomlNodes.set(keyInString, nodeType);
+        this.gomlNodes[keyInString] =  nodeType;
       }
     });
-  }
-
-  /**
-  * Initialize something associative array from required hash.
-  */
-  private loadIntoAssociativeArray<T>(targetArray: AssociativeArray<T>, list: { [key: string]: any }) {
-    for (var key in list) {
-      var type = list[key];
-      targetArray.set(key, new type());
-    }
   }
 }
 export = GomlConfigurator;

@@ -3,41 +3,41 @@ import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import JThreeObject = require("../../Base/JThreeObject");
 import Delegates = require("./../../Base/Delegates")
 class ResourceArray<T> extends JThreeObject
-{	
-	private resourceArray:AssociativeArray<T>=new AssociativeArray<T>();
-	
+{
+	private resourceArray:{[key:string]:T} = {};
+
 	private handlerArray:AssociativeArray<Delegates.Action1<T>[]>=new AssociativeArray<Delegates.Action1<T>[]>();
-	
+
 	constructor()
 	{
 		super();
 	}
-	
-	
+
+
 	public create(id:string,creationFunc:Delegates.Func0<T>){
-		if(this.resourceArray.has(id))
+		if(this.resourceArray[id])
 		{
-			var resource=this.resourceArray.get(id);
+			var resource=this.resourceArray[id];
 			return resource;
 		}else{
 			resource=creationFunc();
-			this.resourceArray.set(id,resource);
+			this.resourceArray[id] = resource;
 			var handlers=this.handlerArray.get(id);
 			if(handlers)handlers.forEach(v=>v(resource));
 			return resource;
 		}
 	}
-	
+
 	public get(id:string):T
 	{
-		return this.resourceArray.get(id);
+		return this.resourceArray[id];
 	}
-	
+
 	public has(id:string):boolean
 	{
-		return this.resourceArray.has(id);
+		return !!this.resourceArray[id];
 	}
-	
+
 	public getHandler(id:string,handler:Delegates.Action1<T>)
 	{
 		if(this.has(id))
@@ -51,15 +51,6 @@ class ResourceArray<T> extends JThreeObject
 				this.handlerArray.set(id,[handler]);
 			}
 		}
-	}
-	
-	public toString():string
-	{
-		var logInfo:string ="";
-		this.resourceArray.forEach((v,k,m)=>{
-			logInfo=logInfo+k+"\n";
-		});
-		return logInfo;
 	}
 }
 
