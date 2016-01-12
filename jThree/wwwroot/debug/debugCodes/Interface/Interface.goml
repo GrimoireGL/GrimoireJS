@@ -24,10 +24,8 @@
       <mesh id="cube2" geo="cube" mat="matTest" rotation="z(90d)" position="3,3,0"/>
       <mesh id="cube3" geo="cube" mat="matTest" rotation="x(90d)" position="-3,3,0"/>
       <mesh id="cube4" geo="cube" mat="matTest" position="-3,3,-5"/>
-      <mesh id="cube5" geo="cube" mat="matTest"/>
-      <mesh id="cube6" geo="cube" mat="matTest" position="-3,3,-5"/>
-      <mesh id="cube7" geo="sphere" mat="matTest"/>
-      <mesh id="cube8" geo="grid" mat="matTest" scale="10"/>
+      <mesh id="cube5" geo="sphere" mat="matTest"/>
+      <mesh id="cube6" geo="grid" mat="matTest" scale="10"/>
       <alight color="#FFF" intensity="0.2"  top="40"  far="50" right="50" position="-10,-10,10"/>
       <dlight color="#F00" intensity="1" rotation="x(15d)"/>
     </scene>
