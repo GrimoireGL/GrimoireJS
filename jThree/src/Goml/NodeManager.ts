@@ -50,15 +50,19 @@ class NodeManager extends JThreeObject implements IContextComponent {
   }
 
   public getNodeByElement(elem: HTMLElement): GomlTreeNodeBase {
-    var id = elem.getAttribute("x-j3-id");
+    const id = elem.getAttribute("x-j3-id");
     return this.getNode(id);
   }
 
+  public getElementByNode(node: GomlTreeNodeBase): HTMLElement {
+    return node.props.getProp('elem');
+  }
+
   public getNodeByQuery(query: string): GomlTreeNodeBase[] {
-    var result = [];
-    var found = this.htmlRoot.querySelectorAll(query);
-    for (var index = 0; index < found.length; index++) {
-      var id = (<HTMLElement>found[index]).getAttribute("x-j3-id");
+    const result = [];
+    const found = this.htmlRoot.querySelectorAll(query);
+    for (let index = 0; index < found.length; index++) {
+      const id = (<HTMLElement>found[index]).getAttribute("x-j3-id");
       result.push(this.getNode(id));
     }
     return result;

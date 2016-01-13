@@ -6,6 +6,7 @@ import ContextComponents = require('../ContextComponents');
 import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
 import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import Delegates = require("../Base/Delegates");
+import NodeProps = require('./NodeProps');
 
 /**
  * This is the most base class in all GomlNode
@@ -50,6 +51,12 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * Attributes this node have.
    */
   public attributes: AttributeDictionary;
+
+  /**
+   * props for Node.
+   * @type {NodeProps}
+   */
+  public props: NodeProps;
 
   /**
    * components that is attached to this node.

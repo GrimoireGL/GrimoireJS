@@ -102,6 +102,7 @@ class GomlParser {
         });
       })(attr);
     }
+    newNode.props.setProp('elem', elem);
     console.log('END');
     return newNode;
   }
