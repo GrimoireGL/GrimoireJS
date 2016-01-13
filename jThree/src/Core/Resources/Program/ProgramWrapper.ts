@@ -7,7 +7,6 @@ import Matrix = require("../../../Math/Matrix");
 import Program = require("./Program");
 import Canvas = require("../../Canvas");
 import ResourceWrapper = require('../ResourceWrapper');
-import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import Buffer = require("../Buffer/Buffer");
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, canvas: Canvas) {

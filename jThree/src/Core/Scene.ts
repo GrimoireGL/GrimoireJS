@@ -3,7 +3,6 @@ import JThreeEvent = require('../Base/JThreeEvent');
 import BasicRenderer = require("./Renderers/BasicRenderer");
 import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import LightBase = require('./Light/LightBase')
 import Delegates = require('../Base/Delegates')
 import LightRegister = require('./Light/LightRegister');
@@ -121,25 +120,20 @@ class Scene extends jThreeObjectWithID {
         }
     }
 
-    private cameras: AssociativeArray<Camera> = new AssociativeArray<Camera>();
+    private cameras: {[id:string]:Camera} = {};
 
     /**
      * Append the camera to this scene as managed
      */
     public addCamera(camera: Camera) {
-        this.cameras.set(camera.ID, camera);
+        this.cameras[camera.ID] =  camera;
     }
 
     /**
      * Get the camera managed in this scene.
      */
     public getCamera(id: string): Camera {
-        return this.cameras.get(id);
-    }
-
-    public toString(): string {
-        console.log(this);
-        return `Scene\nRenderers:\nRendererCount:${this.renderers.length}\nCamera Count:${this.cameras.size}\nSceneObjects:\nSceneObjectCount:${this.children.length}\n`;
+        return this.cameras[id];
     }
 
     /**

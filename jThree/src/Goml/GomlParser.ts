@@ -1,7 +1,6 @@
 import JThreeObject = require('../Base/JThreeObject');
 import Delegates = require('../Base/Delegates');
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import GomlConfigurator = require('./GomlConfigurator');
 
 class GomlParser {

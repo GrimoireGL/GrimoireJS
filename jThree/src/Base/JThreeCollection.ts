@@ -8,7 +8,7 @@ class JThreeCollection<T extends JThreeObjectWithID>
 {
   /**
    * Managed collection
-   * @type {AssociativeArray<T>}
+   * @type {{[key:string]:T} }
    */
   private _collection:AssociativeArray<T>=new AssociativeArray<T>();
 
