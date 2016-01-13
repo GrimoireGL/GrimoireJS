@@ -66,8 +66,65 @@ class GeometryBuilder
               currentNormal.X, currentNormal.Y, currentNormal.Z);
           uv.push(0, 1, 1, 0, 1, 0, 0, 0);
           pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v3.X, v3.Y, v3.Z, v2.X, v2.Y, v2.Z);
-          index.push(startIndex, startIndex + 1, startIndex + 2, startIndex, startIndex + 2, startIndex + 3);
+          index.push(startIndex+2, startIndex + 1, startIndex, startIndex+3, startIndex + 2, startIndex);
       }
+  }
+  public static addSphere(pos: number[], normal: number[], uv: number[], index: number[], divide1: number, divide2: number, center: Vector3, r: number):void {
+      var vt=Vector3.add(center,new Vector3(0,r,0));
+      var vb=Vector3.add(center,new Vector3(0,-r,0));
+      pos.push(vt.X,vt.Y,vt.Z);
+      normal.push(0,1,0);
+      uv.push(0, 1);
+      for(var i=0;i<divide1-1;i++){
+        var angle_y = (i + 1) * Math.PI / divide1;
+        var d=r*Math.sin(angle_y);
+        var h=r*Math.cos(angle_y);
+        for(var j=0;j<divide2;j++){
+          var angle_x = j * 2 * Math.PI / divide2;
+          var currentNormal=new Vector3(d*Math.sin(angle_x),0,d*Math.cos(angle_x));
+
+          var v0 = Vector3.add(new Vector3(0,h,0), currentNormal);
+          var v0_n=v0.normalizeThis();
+          var startIndex = pos.length / 3;
+
+          pos.push(v0.X, v0.Y, v0.Z);
+          normal.push(v0_n.X, v0_n.Y, v0_n.Z);
+          uv.push(0, 1);
+
+          if(i==0){
+            if(j==0){
+            }else if(j==divide2-1){
+              index.push(0, startIndex-1, startIndex);
+              index.push(0,startIndex,1)
+            }else{
+              index.push(0, startIndex-1, startIndex);
+            }
+          }else {
+            if(j==0){
+              //index.push(startIndex-divide2, startIndex-1, startIndex);
+              index.push(startIndex-divide2, startIndex, startIndex-divide2+1);
+            }else if(j==divide2-1){
+              index.push(startIndex-divide2,startIndex-1,startIndex);
+              index.push(startIndex-divide2+1,startIndex-divide2-divide2+1,startIndex);
+              index.push(startIndex-divide2-divide2+1,startIndex-divide2,startIndex);
+            }else{
+              index.push(startIndex-divide2,startIndex-1,startIndex);
+              index.push(startIndex-divide2+1,startIndex-divide2,startIndex);
+            }
+          }
+        }
+          var startIndex = pos.length / 3;
+          index.push(0,startIndex-1,divide2*i);
+      }
+
+      var startIndex = pos.length / 3;
+      pos.push(vb.X,vb.Y,vb.Z);
+      normal.push(0,-1,0);
+      uv.push(0, 1);
+      for(var j=0;j<divide2-1;j++){
+        index.push(startIndex,startIndex-1-j,startIndex-2-j);
+      }
+      index.push(startIndex,startIndex-divide2,startIndex-1);
   }
 
 }
