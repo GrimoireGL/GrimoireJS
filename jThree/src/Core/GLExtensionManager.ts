@@ -1,5 +1,4 @@
 import JThreeObject = require("../Base/JThreeObject");
-import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import JThreeLogger = require("../Base/JThreeLogger");
 import GLExtensionList = require("./GLExtensionList");
 /**
@@ -13,7 +12,7 @@ class GLExtensionManager extends JThreeObject {
         GLExtensionList.TextureFilterAnisotropic,
         GLExtensionList.VertexArrayObject];
 
-    private extensions: AssociativeArray<any> = new AssociativeArray<any>();
+    private extensions: {[key:string]:any} = {};
 
     constructor() {
         super();
@@ -36,17 +35,17 @@ class GLExtensionManager extends JThreeObject {
                 JThreeLogger.sectionError('GL Extension', `WebGL Extension:${element} was requested,but your browser is not supporting this feature.`);
             } else {
                 JThreeLogger.sectionLog("GL Extension", `${element} was instanciated successfully`);
-                this.extensions.set(element, ext);
+                this.extensions[element]= ext;
             }
         }
     }
 
     public getExtension(extName: string): any {
-        return this.extensions.get(extName);
+        return this.extensions[extName];
     }
 
     public hasExtension(extName: string): boolean {
-        return this.extensions.has(extName);
+        return this.extensions[extName];
     }
 
 }

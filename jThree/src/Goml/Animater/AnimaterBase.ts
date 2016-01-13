@@ -2,51 +2,48 @@ import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import GomlAttribute = require("../GomlAttribute");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import Delegates = require("../../Base/Delegates");
-class AnimaterBase extends JThreeObjectWithID
-{
-  protected targetAttribute:GomlAttribute;
 
-  protected onComplete:Delegates.Action0;
+class AnimaterBase extends JThreeObjectWithID {
+  protected targetAttribute: GomlAttribute;
 
-  protected duration:number;
+  protected onComplete: Delegates.Action0;
 
-  protected beginTime:number;
+  protected duration: number;
 
-  protected easingFunction:EasingFunctionBase;
+  protected beginTime: number;
 
-  protected beginValue:any;
+  protected easingFunction: EasingFunctionBase;
 
-  protected endValue:any;
+  protected beginValue: any;
 
-  constructor(targetAttribute:GomlAttribute,begintime:number,duration:number,beginValue:any,endValue:any,easing:EasingFunctionBase,onComplete?:Delegates.Action0)
-  {
-      super();
-      this.targetAttribute=targetAttribute;
-      this.beginTime=begintime;
-      this.duration=duration;
-      this.onComplete=onComplete;
-      this.easingFunction=easing;
-      this.beginValue=this.targetAttribute.Converter.FromInterface(beginValue);
-      this.endValue=this.targetAttribute.Converter.FromInterface(endValue);
+  protected endValue: any;
+
+  constructor(targetAttribute: GomlAttribute, begintime: number, duration: number, beginValue: any, endValue: any, easing: EasingFunctionBase, onComplete?: Delegates.Action0) {
+    super();
+    this.targetAttribute = targetAttribute;
+    this.beginTime = begintime;
+    this.duration = duration;
+    this.onComplete = onComplete;
+    this.easingFunction = easing;
+    this.beginValue = this.targetAttribute.Converter.toObjectAttr(beginValue);
+    this.endValue = this.targetAttribute.Converter.toObjectAttr(endValue);
   }
 
   /**
   * Upate
   */
-  public update(time:number):boolean
-  {
-    var progress=(time-this.beginTime)/this.duration;
-    var isFinish=progress>=1;
-    progress=Math.min(Math.max(progress,0),1);//clamp [0,1]
+  public update(time: number): boolean {
+    var progress = (time - this.beginTime) / this.duration;
+    var isFinish = progress >= 1;
+    progress = Math.min(Math.max(progress, 0), 1);//clamp [0,1]
     this.updateAnimation(progress);
-    if(isFinish&&typeof this.onComplete==="function")this.onComplete();
+    if (isFinish && typeof this.onComplete === "function") this.onComplete();
     return isFinish;
   }
 
-  protected updateAnimation(progress:number):void
-  {
+  protected updateAnimation(progress: number): void {
 
   }
 }
 
-export=AnimaterBase;
+export = AnimaterBase;

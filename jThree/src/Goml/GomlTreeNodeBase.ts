@@ -25,6 +25,12 @@ class GomlTreeNodeBase extends TreeNodeBase {
 
     // apply attributes
     this.on('node-mount-process-finished', (mounted) => {
+      const attrs = this.attributes.getAllAttributes();
+      const attrs_kv = {};
+      Object.keys(attrs).forEach((v) => {
+        attrs_kv[v] = attrs[v].Value;
+      });
+      console.log('ga initialize', this.getTypeName(), attrs_kv);
       if (mounted) {
         this.attributes.forEachAttr((ga) => {
           ga.initialize();

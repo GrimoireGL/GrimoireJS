@@ -6,35 +6,19 @@ import EasingFunctionBase = require("../Easing/EasingFunctionBase");
 import AnimaterBase = require("../Animater/AnimaterBase");
 import Color4 = require("../../Math/Color4");
 import Color4Animater = require("../Animater/Color4Animater");
-class Color4AttributeConverter extends AttributeConverterBase
-{
-  public ToAttribute(val:any):string
-  {
-    return val;
+
+class Color4AttributeConverter extends AttributeConverterBase {
+  public toStringAttr(val: Color4): string {
+    return val.toString();
   }
 
-  public FromAttribute(attr:string):any
-  {
+  public toObjectAttr(attr: string): Color4 {
     return Color4.parse(attr);
   }
 
-  public FromInterface(val:any):any
-  {
-    if(typeof val === 'string')
-    {
-      return Color4.parse(val);
-    }else if(typeof val === 'object')
-    {
-      return val;
-    }
-    //we should implememnt something here?
-    throw new Exceptions.InvalidArgumentException("val can't parse");
-  }
-
-  public GetAnimater(attr:GomlAttribute,beginVal:any,endVal:any,beginTime:number,duration:number,easing:EasingFunctionBase,onComplete?:Delegates.Action0):AnimaterBase
-  {
-    return new Color4Animater(attr,beginTime,duration,beginVal,endVal,easing,onComplete);
+  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Delegates.Action0): AnimaterBase {
+    return new Color4Animater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }
 
-export=Color4AttributeConverter;
+export = Color4AttributeConverter;

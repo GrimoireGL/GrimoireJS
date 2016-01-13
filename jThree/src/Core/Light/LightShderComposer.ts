@@ -14,9 +14,9 @@ class LightShaderComposer extends JThreeObjectWithId
 {
     private shader: Shader;
 
-    private lightTypeIdArray: {[id:string]:number} = {};
+    private lightTypeIdArray: {[key:string]:number} = {};
 
-    private lightTextureSize:number = 0;
+    private typeCount:number = 0;
 
     private shaderSourceBase: string;
 
@@ -80,8 +80,8 @@ class LightShaderComposer extends JThreeObjectWithId
             return;
         } else
         {
-            this.lightTypeIdArray[lightTypeName] =  this.lightTextureSize + 1;
-            this.lightTextureSize ++;
+            this.lightTypeIdArray[lightTypeName] =  this.typeCount + 1;
+            this.typeCount ++;
         }
         this.shaderFuncDefs.push(shaderFuncCode);
         this.shaderFuncNames.push(shaderFuncName);
