@@ -104,20 +104,21 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_goml_attributedictionary_.attributedictionary.html#attributes" class="tsd-kind-icon">attributes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_goml_attributedictionary_.attributedictionary.html#element" class="tsd-kind-icon">element</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_goml_attributedictionary_.attributedictionary.html#node" class="tsd-kind-icon">node</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#applydefaultvalue" class="tsd-kind-icon">apply<wbr>Default<wbr>Value</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#defineattribute" class="tsd-kind-icon">define<wbr>Attribute</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#foreachattr" class="tsd-kind-icon">for<wbr>Each<wbr>Attr</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#getallattributes" class="tsd-kind-icon">get<wbr>All<wbr>Attributes</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#getanimater" class="tsd-kind-icon">get<wbr>Animater</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#getattribute" class="tsd-kind-icon">get<wbr>Attribute</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_attributedictionary_.attributedictionary.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#getvalue" class="tsd-kind-icon">get<wbr>Value</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#isdefined" class="tsd-kind-icon">is<wbr>Defined</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#reserveattribute" class="tsd-kind-icon">reserve<wbr>Attribute</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#setvalue" class="tsd-kind-icon">set<wbr>Value</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_goml_attributedictionary_.attributedictionary.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_goml_attributedictionary_.attributedictionary.html#updatevalue" class="tsd-kind-icon">update<wbr>Value</a></li>
@@ -132,7 +133,7 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Attribute<wbr>Dictionary<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a>, element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_goml_attributedictionary_.attributedictionary.html" class="tsd-signature-type">AttributeDictionary</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Attribute<wbr>Dictionary<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_goml_attributedictionary_.attributedictionary.html" class="tsd-signature-type">AttributeDictionary</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -148,9 +149,6 @@
 								<li>
 									<h5>node: <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h5>
 								</li>
-								<li>
-									<h5>element: <span class="tsd-signature-type">HTMLElement</span></h5>
-								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_goml_attributedictionary_.attributedictionary.html" class="tsd-signature-type">AttributeDictionary</a></h4>
 						</li>
@@ -162,22 +160,20 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="attributes" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> attributes</h3>
-					<div class="tsd-signature tsd-kind-icon">attributes<span class="tsd-signature-symbol">:</span> <a href="_base_jthreecollection_.jthreecollection.html" class="tsd-signature-type">JThreeCollection</a><span class="tsd-signature-symbol">&lt;</span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">attributes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L28">Goml/AttributeDictionary.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L24">Goml/AttributeDictionary.ts:24</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="element" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> element</h3>
-					<div class="tsd-signature tsd-kind-icon">element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L26">Goml/AttributeDictionary.ts:26</a></li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a></h5>
+							</li>
 						</ul>
-					</aside>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="node" class="tsd-anchor"></a>
@@ -185,35 +181,13 @@
 					<div class="tsd-signature tsd-kind-icon">node<span class="tsd-signature-symbol">:</span> <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L24">Goml/AttributeDictionary.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L22">Goml/AttributeDictionary.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="applydefaultvalue" class="tsd-anchor"></a>
-					<h3>apply<wbr>Default<wbr>Value</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">apply<wbr>Default<wbr>Value<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L86">Goml/AttributeDictionary.ts:86</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Apply default values to all attributes.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="defineattribute" class="tsd-anchor"></a>
 					<h3>define<wbr>Attribute</h3>
@@ -224,13 +198,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L76">Goml/AttributeDictionary.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L81">Goml/AttributeDictionary.ts:81</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Define attributes to the node.</p>
 								</div>
+								<p>This method must not be called outside of Node classes.
+								If you define already defined attribute, it will be replaced.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -239,6 +215,80 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="foreachattr" class="tsd-anchor"></a>
+					<h3>for<wbr>Each<wbr>Attr</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">for<wbr>Each<wbr>Attr<span class="tsd-signature-symbol">(</span>callbackfn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_goml_attributedictionary_.attributedictionary.html" class="tsd-signature-type">AttributeDictionary</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L26">Goml/AttributeDictionary.ts:26</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callbackfn: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a>, key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, attributes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>value: <a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a></h5>
+														</li>
+														<li>
+															<h5>key: <span class="tsd-signature-type">string</span></h5>
+														</li>
+														<li>
+															<h5>attributes: <span class="tsd-signature-type">object</span></h5>
+															<ul class="tsd-parameters">
+																<li class="tsd-parameter-index-signature">
+																	<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a></h5>
+																</li>
+															</ul>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_goml_attributedictionary_.attributedictionary.html" class="tsd-signature-type">AttributeDictionary</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getallattributes" class="tsd-anchor"></a>
+					<h3>get<wbr>All<wbr>Attributes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Attributes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L57">Goml/AttributeDictionary.ts:57</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-index-signature">
+									<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a></h5>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -252,7 +302,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L59">Goml/AttributeDictionary.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L61">Goml/AttributeDictionary.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -293,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L54">Goml/AttributeDictionary.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L53">Goml/AttributeDictionary.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -340,7 +390,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L30">Goml/AttributeDictionary.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L34">Goml/AttributeDictionary.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -363,7 +413,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L69">Goml/AttributeDictionary.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L71">Goml/AttributeDictionary.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -382,16 +432,48 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="setvalue" class="tsd-anchor"></a>
-					<h3>set<wbr>Value</h3>
+					<a name="reserveattribute" class="tsd-anchor"></a>
+					<h3>reserve<wbr>Attribute</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Value<span class="tsd-signature-symbol">(</span>attrName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, needUpdate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">reserve<wbr>Attribute<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L37">Goml/AttributeDictionary.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L120">Goml/AttributeDictionary.ts:120</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reserve attribute for define.</p>
+								</div>
+								<p>This method could be called from outside of Node classes.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_goml_gomlattribute_.gomlattribute.html" class="tsd-signature-type">GomlAttribute</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setvalue" class="tsd-anchor"></a>
+					<h3>set<wbr>Value</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Value<span class="tsd-signature-symbol">(</span>attrName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L41">Goml/AttributeDictionary.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -401,9 +483,6 @@
 								</li>
 								<li>
 									<h5>value: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> needUpdate: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -445,9 +524,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L92">Goml/AttributeDictionary.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Goml/AttributeDictionary.ts#L136">Goml/AttributeDictionary.ts:136</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Apply default values to all attributes.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -485,16 +569,16 @@
 								<a href="_goml_attributedictionary_.attributedictionary.html#attributes" class="tsd-kind-icon">attributes</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_goml_attributedictionary_.attributedictionary.html#element" class="tsd-kind-icon">element</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_goml_attributedictionary_.attributedictionary.html#node" class="tsd-kind-icon">node</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_goml_attributedictionary_.attributedictionary.html#applydefaultvalue" class="tsd-kind-icon">apply<wbr>Default<wbr>Value</a>
+								<a href="_goml_attributedictionary_.attributedictionary.html#defineattribute" class="tsd-kind-icon">define<wbr>Attribute</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_goml_attributedictionary_.attributedictionary.html#defineattribute" class="tsd-kind-icon">define<wbr>Attribute</a>
+								<a href="_goml_attributedictionary_.attributedictionary.html#foreachattr" class="tsd-kind-icon">for<wbr>Each<wbr>Attr</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_goml_attributedictionary_.attributedictionary.html#getallattributes" class="tsd-kind-icon">get<wbr>All<wbr>Attributes</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_goml_attributedictionary_.attributedictionary.html#getanimater" class="tsd-kind-icon">get<wbr>Animater</a>
@@ -510,6 +594,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_goml_attributedictionary_.attributedictionary.html#isdefined" class="tsd-kind-icon">is<wbr>Defined</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_goml_attributedictionary_.attributedictionary.html#reserveattribute" class="tsd-kind-icon">reserve<wbr>Attribute</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_goml_attributedictionary_.attributedictionary.html#setvalue" class="tsd-kind-icon">set<wbr>Value</a>

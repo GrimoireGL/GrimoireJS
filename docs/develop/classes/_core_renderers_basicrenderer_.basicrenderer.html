@@ -110,6 +110,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_basicrenderer_.basicrenderer.html#_viewport" class="tsd-kind-icon">_viewport</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_renderers_basicrenderer_.basicrenderer.html#alternativetexture" class="tsd-kind-icon">alternative<wbr>Texture</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_basicrenderer_.basicrenderer.html#camera" class="tsd-kind-icon">camera</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_basicrenderer_.basicrenderer.html#canvas" class="tsd-kind-icon">canvas</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_basicrenderer_.basicrenderer.html#canvaselement" class="tsd-kind-icon">canvas<wbr>Element</a></li>
@@ -136,11 +137,13 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_core_renderers_basicrenderer_.basicrenderer.html#___initializealternativetexture" class="tsd-kind-icon">___initialize<wbr>Alternative<wbr>Texture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_basicrenderer_.basicrenderer.html#afterrender" class="tsd-kind-icon">after<wbr>Render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_basicrenderer_.basicrenderer.html#applyviewportconfigure" class="tsd-kind-icon">apply<wbr>Viewport<wbr>Configure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_basicrenderer_.basicrenderer.html#beforerender" class="tsd-kind-icon">before<wbr>Render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_basicrenderer_.basicrenderer.html#dispose" class="tsd-kind-icon">dispose</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_basicrenderer_.basicrenderer.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_basicrenderer_.basicrenderer.html#initialize" class="tsd-kind-icon">initialize</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_basicrenderer_.basicrenderer.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_basicrenderer_.basicrenderer.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
@@ -161,7 +164,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L22">Core/Renderers/BasicRenderer.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L24">Core/Renderers/BasicRenderer.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -194,9 +197,31 @@
 					<div class="tsd-signature tsd-kind-icon">_viewport<span class="tsd-signature-symbol">:</span> <a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L125">Core/Renderers/BasicRenderer.ts:125</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L159">Core/Renderers/BasicRenderer.ts:159</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="alternativetexture" class="tsd-anchor"></a>
+					<h3>alternative<wbr>Texture</h3>
+					<div class="tsd-signature tsd-kind-icon">alternative<wbr>Texture<span class="tsd-signature-symbol">:</span> <a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L77">Core/Renderers/BasicRenderer.ts:77</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The texture which will be used for unassigned texture sampler2D variable in GLSL.
+								This variable is not intended to be assigned by user manually.
+							If you want to change this alternative texture, you need to extend this class and overrride __initializeAlternativeTexture method.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{TextureBase}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="camera" class="tsd-anchor"></a>
@@ -204,7 +229,7 @@
 					<div class="tsd-signature tsd-kind-icon">camera<span class="tsd-signature-symbol">:</span> <a href="_core_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L50">Core/Renderers/BasicRenderer.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L84">Core/Renderers/BasicRenderer.ts:84</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -219,7 +244,7 @@
 					<div class="tsd-signature tsd-kind-icon">canvas<span class="tsd-signature-symbol">:</span> <a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L74">Core/Renderers/BasicRenderer.ts:74</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L108">Core/Renderers/BasicRenderer.ts:108</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -317,7 +342,7 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Path<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_renderpath_.renderpath.html" class="tsd-signature-type">RenderPath</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L45">Core/Renderers/BasicRenderer.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L79">Core/Renderers/BasicRenderer.ts:79</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -327,7 +352,7 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Path<wbr>Executor<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_renderpathexecutor_.renderpathexecutor.html" class="tsd-signature-type">RenderPathExecutor</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L112">Core/Renderers/BasicRenderer.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L146">Core/Renderers/BasicRenderer.ts:146</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -342,7 +367,7 @@
 					<div class="tsd-signature tsd-kind-icon">viewport<wbr>Changed<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="_math_rectangle_.rectangle.html" class="tsd-signature-type">Rectangle</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L122">Core/Renderers/BasicRenderer.ts:122</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L156">Core/Renderers/BasicRenderer.ts:156</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -360,7 +385,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L54">Core/Renderers/BasicRenderer.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L88">Core/Renderers/BasicRenderer.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -373,7 +398,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L61">Core/Renderers/BasicRenderer.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L95">Core/Renderers/BasicRenderer.ts:95</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -401,7 +426,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L79">Core/Renderers/BasicRenderer.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L113">Core/Renderers/BasicRenderer.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -423,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L84">Core/Renderers/BasicRenderer.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L118">Core/Renderers/BasicRenderer.ts:118</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLRenderingContext</span></h4>
@@ -484,7 +509,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L117">Core/Renderers/BasicRenderer.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L151">Core/Renderers/BasicRenderer.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -508,7 +533,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#region">region</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L131">Core/Renderers/BasicRenderer.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L165">Core/Renderers/BasicRenderer.ts:165</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -523,7 +548,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvasregion_.canvasregion.html#region">region</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L139">Core/Renderers/BasicRenderer.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L173">Core/Renderers/BasicRenderer.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,6 +575,31 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="___initializealternativetexture" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> ___initialize<wbr>Alternative<wbr>Texture</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">___initialize<wbr>Alternative<wbr>Texture<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L63">Core/Renderers/BasicRenderer.ts:63</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Initialize and obtain the buffer texture which will be used when any texture sampler2D variable in GLSL was not assigned.
+										This method will be called when RendererFactory called initialize method to construct instance.
+									Basically,this method is not intended to be called from user.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></h4>
+							<p>Constructed texture buffer.</p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="afterrender" class="tsd-anchor"></a>
 					<h3>after<wbr>Render</h3>
@@ -560,7 +610,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L103">Core/Renderers/BasicRenderer.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L137">Core/Renderers/BasicRenderer.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -583,7 +633,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L154">Core/Renderers/BasicRenderer.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L188">Core/Renderers/BasicRenderer.ts:188</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -605,7 +655,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L93">Core/Renderers/BasicRenderer.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L127">Core/Renderers/BasicRenderer.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -668,6 +718,30 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="initialize" class="tsd-anchor"></a>
+					<h3>initialize</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">initialize<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L52">Core/Renderers/BasicRenderer.ts:52</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Initialize renderer to be rendererd.
+										Basically, this method are used for initializing GL resources, the other variable and any resources will be initialized when constructor was called.
+									This method is not intended to be called by user manually.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -677,7 +751,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L66">Core/Renderers/BasicRenderer.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BasicRenderer.ts#L100">Core/Renderers/BasicRenderer.ts:100</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -741,6 +815,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_renderers_basicrenderer_.basicrenderer.html#_viewport" class="tsd-kind-icon">_viewport</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_renderers_basicrenderer_.basicrenderer.html#alternativetexture" class="tsd-kind-icon">alternative<wbr>Texture</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_renderers_basicrenderer_.basicrenderer.html#camera" class="tsd-kind-icon">camera</a>
 							</li>
@@ -789,6 +866,9 @@
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_core_renderers_basicrenderer_.basicrenderer.html#region" class="tsd-kind-icon">region</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="_core_renderers_basicrenderer_.basicrenderer.html#___initializealternativetexture" class="tsd-kind-icon">___initialize<wbr>Alternative<wbr>Texture</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_renderers_basicrenderer_.basicrenderer.html#afterrender" class="tsd-kind-icon">after<wbr>Render</a>
 							</li>
@@ -803,6 +883,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_renderers_basicrenderer_.basicrenderer.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_renderers_basicrenderer_.basicrenderer.html#initialize" class="tsd-kind-icon">initialize</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_renderers_basicrenderer_.basicrenderer.html#render" class="tsd-kind-icon">render</a>

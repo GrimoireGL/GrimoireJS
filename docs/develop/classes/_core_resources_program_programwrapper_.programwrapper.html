@@ -101,7 +101,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_program_programwrapper_.programwrapper.html#_parentprogram" class="tsd-kind-icon">_parent<wbr>Program</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_program_programwrapper_.programwrapper.html#_targetprogram" class="tsd-kind-icon">_target<wbr>Program</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_program_programwrapper_.programwrapper.html#_uniformlocations" class="tsd-kind-icon">_uniform<wbr>Locations</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_resources_program_programwrapper_.programwrapper.html#_uniformregistertypelist" class="tsd-kind-icon">_uniform<wbr>Register<wbr>Type<wbr>List</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_resources_program_programwrapper_.programwrapper.html#oninitializechangedevent" class="tsd-kind-icon">on<wbr>Initialize<wbr>Changed<wbr>Event</a></li>
 							</ul>
 						</section>
@@ -126,14 +125,15 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_resources_program_programwrapper_.programwrapper.html#init" class="tsd-kind-icon">init</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#linkprogram" class="tsd-kind-icon">link<wbr>Program</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_program_programwrapper_.programwrapper.html#oninitializechanged" class="tsd-kind-icon">on<wbr>Initialize<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#register" class="tsd-kind-icon">register</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#relink" class="tsd-kind-icon">relink</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_resources_program_programwrapper_.programwrapper.html#setinitialized" class="tsd-kind-icon">set<wbr>Initialized</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_resources_program_programwrapper_.programwrapper.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformexists" class="tsd-kind-icon">uniform<wbr>Exists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformfloat" class="tsd-kind-icon">uniform<wbr>Float</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformint" class="tsd-kind-icon">uniform<wbr>Int</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformmatrix" class="tsd-kind-icon">uniform<wbr>Matrix</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformtexture2d" class="tsd-kind-icon">uniform<wbr>Texture2D</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformmatrixarrayfrombuffer" class="tsd-kind-icon">uniform<wbr>Matrix<wbr>Array<wbr>From<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformsampler" class="tsd-kind-icon">uniform<wbr>Sampler</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#uniformvector" class="tsd-kind-icon">uniform<wbr>Vector</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resources_program_programwrapper_.programwrapper.html#useprogram" class="tsd-kind-icon">use<wbr>Program</a></li>
 							</ul>
@@ -154,7 +154,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_resources_resourcewrapper_.resourcewrapper.html">ResourceWrapper</a>.<a href="_core_resources_resourcewrapper_.resourcewrapper.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L14">Core/Resources/Program/ProgramWrapper.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L11">Core/Resources/Program/ProgramWrapper.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -176,12 +176,20 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_attributelocations" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _attribute<wbr>Locations</h3>
-					<div class="tsd-signature tsd-kind-icon">_attribute<wbr>Locations<span class="tsd-signature-symbol">:</span> <a href="_base_collections_associativearray_.associativearray.html" class="tsd-signature-type">AssociativeArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">_attribute<wbr>Locations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L26">Core/Resources/Program/ProgramWrapper.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L23">Core/Resources/Program/ProgramWrapper.ts:23</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_islinked" class="tsd-anchor"></a>
@@ -189,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">_islinked<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L20">Core/Resources/Program/ProgramWrapper.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L17">Core/Resources/Program/ProgramWrapper.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -199,7 +207,7 @@
 					<div class="tsd-signature tsd-kind-icon">_parent<wbr>Program<span class="tsd-signature-symbol">:</span> <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L24">Core/Resources/Program/ProgramWrapper.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L21">Core/Resources/Program/ProgramWrapper.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -209,34 +217,24 @@
 					<div class="tsd-signature tsd-kind-icon">_target<wbr>Program<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WebGLProgram</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L22">Core/Resources/Program/ProgramWrapper.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L19">Core/Resources/Program/ProgramWrapper.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_uniformlocations" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _uniform<wbr>Locations</h3>
-					<div class="tsd-signature tsd-kind-icon">_uniform<wbr>Locations<span class="tsd-signature-symbol">:</span> <a href="_base_collections_associativearray_.associativearray.html" class="tsd-signature-type">AssociativeArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLUniformLocation</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">_uniform<wbr>Locations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L28">Core/Resources/Program/ProgramWrapper.ts:28</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_uniformregistertypelist" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _uniform<wbr>Register<wbr>Type<wbr>List</h3>
-					<div class="tsd-signature tsd-kind-icon">_uniform<wbr>Register<wbr>Type<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L30">Core/Resources/Program/ProgramWrapper.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L25">Core/Resources/Program/ProgramWrapper.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>name: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">VariableRegisterBase</span></h5>
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">WebGLUniformLocation</span></h5>
 							</li>
 						</ul>
 					</div>
@@ -352,7 +350,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L32">Core/Resources/Program/ProgramWrapper.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L27">Core/Resources/Program/ProgramWrapper.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WebGLProgram</span></h4>
@@ -372,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L88">Core/Resources/Program/ProgramWrapper.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L83">Core/Resources/Program/ProgramWrapper.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -395,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L81">Core/Resources/Program/ProgramWrapper.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L76">Core/Resources/Program/ProgramWrapper.ts:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -418,7 +416,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L142">Core/Resources/Program/ProgramWrapper.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L106">Core/Resources/Program/ProgramWrapper.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -455,7 +453,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L46">Core/Resources/Program/ProgramWrapper.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L41">Core/Resources/Program/ProgramWrapper.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -497,7 +495,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_resources_resourcewrapper_.resourcewrapper.html">ResourceWrapper</a>.<a href="_core_resources_resourcewrapper_.resourcewrapper.html#init">init</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L36">Core/Resources/Program/ProgramWrapper.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L31">Core/Resources/Program/ProgramWrapper.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -514,7 +512,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L55">Core/Resources/Program/ProgramWrapper.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L50">Core/Resources/Program/ProgramWrapper.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -551,34 +549,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="register" class="tsd-anchor"></a>
-					<h3>register</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">register<span class="tsd-signature-symbol">(</span>variables<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_resources_program_variableregister_variableregisteringargument_.variableregisteringargument.html" class="tsd-signature-type">VariableRegisteringArgument</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L111">Core/Resources/Program/ProgramWrapper.ts:111</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Pass the variables into shader</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>variables: <a href="../interfaces/_core_resources_program_variableregister_variableregisteringargument_.variableregisteringargument.html" class="tsd-signature-type">VariableRegisteringArgument</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="relink" class="tsd-anchor"></a>
 					<h3>relink</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -588,7 +558,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L98">Core/Resources/Program/ProgramWrapper.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L93">Core/Resources/Program/ProgramWrapper.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -659,7 +629,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L76">Core/Resources/Program/ProgramWrapper.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L71">Core/Resources/Program/ProgramWrapper.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -682,7 +652,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L175">Core/Resources/Program/ProgramWrapper.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L148">Core/Resources/Program/ProgramWrapper.ts:148</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>variableName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>val: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="uniformint" class="tsd-anchor"></a>
+					<h3>uniform<wbr>Int</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">uniform<wbr>Int<span class="tsd-signature-symbol">(</span>variableName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L155">Core/Resources/Program/ProgramWrapper.ts:155</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -708,7 +704,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L151">Core/Resources/Program/ProgramWrapper.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L122">Core/Resources/Program/ProgramWrapper.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -725,16 +721,42 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="uniformtexture2d" class="tsd-anchor"></a>
-					<h3>uniform<wbr>Texture2D</h3>
+					<a name="uniformmatrixarrayfrombuffer" class="tsd-anchor"></a>
+					<h3>uniform<wbr>Matrix<wbr>Array<wbr>From<wbr>Buffer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">uniform<wbr>Texture2D<span class="tsd-signature-symbol">(</span>variableName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, tex<span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a>, texRegister<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">uniform<wbr>Matrix<wbr>Array<wbr>From<wbr>Buffer<span class="tsd-signature-symbol">(</span>variableName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L182">Core/Resources/Program/ProgramWrapper.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L115">Core/Resources/Program/ProgramWrapper.ts:115</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>variableName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>buffer: <span class="tsd-signature-type">Float32Array</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="uniformsampler" class="tsd-anchor"></a>
+					<h3>uniform<wbr>Sampler</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">uniform<wbr>Sampler<span class="tsd-signature-symbol">(</span>variableName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, tex<span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a>, texRegister<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L162">Core/Resources/Program/ProgramWrapper.ts:162</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -763,7 +785,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L157">Core/Resources/Program/ProgramWrapper.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L128">Core/Resources/Program/ProgramWrapper.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -789,7 +811,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L66">Core/Resources/Program/ProgramWrapper.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Resources/Program/ProgramWrapper.ts#L61">Core/Resources/Program/ProgramWrapper.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -834,9 +856,6 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_resources_program_programwrapper_.programwrapper.html#_uniformlocations" class="tsd-kind-icon">_uniform<wbr>Locations</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_resources_program_programwrapper_.programwrapper.html#_uniformregistertypelist" class="tsd-kind-icon">_uniform<wbr>Register<wbr>Type<wbr>List</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_core_resources_program_programwrapper_.programwrapper.html#oninitializechangedevent" class="tsd-kind-icon">on<wbr>Initialize<wbr>Changed<wbr>Event</a>
 							</li>
@@ -880,9 +899,6 @@
 								<a href="_core_resources_program_programwrapper_.programwrapper.html#oninitializechanged" class="tsd-kind-icon">on<wbr>Initialize<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_resources_program_programwrapper_.programwrapper.html#register" class="tsd-kind-icon">register</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resources_program_programwrapper_.programwrapper.html#relink" class="tsd-kind-icon">relink</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
@@ -898,10 +914,16 @@
 								<a href="_core_resources_program_programwrapper_.programwrapper.html#uniformfloat" class="tsd-kind-icon">uniform<wbr>Float</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_resources_program_programwrapper_.programwrapper.html#uniformint" class="tsd-kind-icon">uniform<wbr>Int</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resources_program_programwrapper_.programwrapper.html#uniformmatrix" class="tsd-kind-icon">uniform<wbr>Matrix</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_resources_program_programwrapper_.programwrapper.html#uniformtexture2d" class="tsd-kind-icon">uniform<wbr>Texture2D</a>
+								<a href="_core_resources_program_programwrapper_.programwrapper.html#uniformmatrixarrayfrombuffer" class="tsd-kind-icon">uniform<wbr>Matrix<wbr>Array<wbr>From<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_resources_program_programwrapper_.programwrapper.html#uniformsampler" class="tsd-kind-icon">uniform<wbr>Sampler</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resources_program_programwrapper_.programwrapper.html#uniformvector" class="tsd-kind-icon">uniform<wbr>Vector</a>
