@@ -113,7 +113,7 @@ class ViewPortNode extends GomlTreeNodeBase {
             };
             this.targetRenderer.renderPath.insertWithIndex(0, this.skyBoxStageChain);
           }
-          (<SkyboxStage>this.skyBoxStageChain.stage).skyBoxTexture = <CubeTexture>node.TargetTexture;
+          (<SkyboxStage>this.skyBoxStageChain.stage).techniques[0]._defaultMaterial.materialVariables["skybox"] = <CubeTexture>node.TargetTexture;
         }
       });
     }

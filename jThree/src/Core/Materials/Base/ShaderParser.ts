@@ -7,7 +7,7 @@ import MaterialManager = require("./MaterialManager");
  * Static parsing methods for XMML (eXtended Material Markup Language).
  * This class provides all useful methods for parsing XMML.
  */
-class XMMLShaderParser {
+class ShaderParser {
     /**
      * Parse raw XMML
      * @param  {string}               whole string code of XMML
@@ -15,14 +15,14 @@ class XMMLShaderParser {
      */
     public static parseCombined(codeString: string): IParsedProgramResult {
         var materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-        var result = XMMLShaderParser.parseImport(codeString, materialManager);
-        var uniforms = XMMLShaderParser._parseVariables(codeString, "uniform");
-        var attributes = XMMLShaderParser._parseVariables(codeString, "attribute");
-        var fragment = XMMLShaderParser._removeOtherPart(result, "vertonly");
-        var vertex = XMMLShaderParser._removeOtherPart(result, "fragonly");
-        fragment = XMMLShaderParser._removeAttributeVariables(fragment);
-        let fragPrecision = XMMLShaderParser._obtainPrecisions(fragment);
-        let vertPrecision = XMMLShaderParser._obtainPrecisions(vertex);
+        var result = ShaderParser.parseImport(codeString, materialManager);
+        var uniforms = ShaderParser._parseVariables(codeString, "uniform");
+        var attributes = ShaderParser._parseVariables(codeString, "attribute");
+        var fragment = ShaderParser._removeOtherPart(result, "vertonly");
+        var vertex = ShaderParser._removeOtherPart(result, "fragonly");
+        fragment = ShaderParser._removeAttributeVariables(fragment);
+        let fragPrecision = ShaderParser._obtainPrecisions(fragment);
+        let vertPrecision = ShaderParser._obtainPrecisions(vertex);
         if (!fragPrecision["float"]) {//When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
             fragment = this._addPrecision(fragment, "float", "mediump");
             fragPrecision["float"] = "mediump";
@@ -74,7 +74,7 @@ class XMMLShaderParser {
 
     private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableInfo } {
         var result = <{ [name: string]: IVariableInfo }>{};
-        var regex = XMMLShaderParser._generateVariableFetchRegex(variableType);
+        var regex = ShaderParser._generateVariableFetchRegex(variableType);
         var regexResult;
         while ((regexResult = regex.exec(source))) {
             let name = regexResult[4];
@@ -150,4 +150,4 @@ class XMMLShaderParser {
     }
 }
 
-export = XMMLShaderParser;
+export = ShaderParser;
