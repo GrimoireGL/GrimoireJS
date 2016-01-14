@@ -1,8 +1,8 @@
 export =
 [
   require("./Impl/AreaLight"),
-  require("./Impl/DirectionalLight.ts"),
-  require("./Impl/PointLight.ts"),
-  require("./Impl/SpotLight.ts"),
-  require("./Impl/SceneLight.ts")
+  require("./Impl/DirectionalLight"),
+  require("./Impl/PointLight"),
+  require("./Impl/SpotLight"),
+  require("./Impl/SceneLight")
 ]
