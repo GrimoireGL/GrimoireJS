@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rsml>
-  <stage name="jthree.basic.hitarea">
-    <technique target="quad" material="jthree.basic.rsmlTest">
-      <fbo>
-        <rbo clearDepth="1.0"/>
-        <color name="OUT" clearColor="1,1,0,1" register="0"/>
-      </fbo>
+  <stage name="jthree.basic.skybox">
+    <technique target="cube" material="jthree.basic.skybox">
+      <blend enabled="false"/>
+      <cull enabled="true" mode="front"/>
     </technique>
   </stage>
 </rsml>
