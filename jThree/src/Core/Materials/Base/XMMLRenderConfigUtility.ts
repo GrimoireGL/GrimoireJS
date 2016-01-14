@@ -1,3 +1,4 @@
+import GLEnumParser = require("../../../Wrapper/GLEnumParser");
 class XMMLRenderConfigUtility {
     public static applyCullConfigure(gl: WebGLRenderingContext, elem: Element, defDirection: string): void {
         const cullNode = elem.querySelector("cull");
@@ -16,21 +17,10 @@ class XMMLRenderConfigUtility {
         }
     }
 
-    private static _applyCullConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, direction: string): void {
+    private static _applyCullConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, mode: string): void {
         if (enabled) {
             gl.enable(gl.CULL_FACE);
-            switch (direction) {
-                case "front":
-                    gl.cullFace(gl.FRONT);
-                    return;
-                case "frontandback":
-                    gl.cullFace(gl.FRONT_AND_BACK);
-                    return;
-                case "back":
-                default:
-                    gl.cullFace(gl.BACK);
-                    return;
-            }
+            gl.cullFace(GLEnumParser.parseCullMode(gl, mode));
         } else {
             gl.disable(gl.CULL_FACE);
         }
@@ -63,33 +53,7 @@ class XMMLRenderConfigUtility {
         if (enabled) {
             gl.enable(gl.DEPTH_TEST);
             gl.depthMask(mask);
-            switch (mode) {
-                case "never":
-                    gl.depthFunc(gl.NEVER);
-                    return;
-                case "lequal":
-                    gl.depthFunc(gl.LEQUAL);
-                    return;
-                case "equal":
-                    gl.depthFunc(gl.EQUAL);
-                    return;
-                case "gequal":
-                    gl.depthFunc(gl.GEQUAL);
-                    return;
-                case "greater":
-                    gl.depthFunc(gl.GREATER);
-                    return;
-                case "notequal":
-                    gl.depthFunc(gl.NOTEQUAL);
-                    return;
-                case "always":
-                    gl.depthFunc(gl.ALWAYS);
-                    return;
-                case "less":
-                default:
-                    gl.depthFunc(gl.LESS);
-                    return;
-            }
+            gl.depthFunc(GLEnumParser.parseDepthFunc(gl, mode))
         }
         else {
             gl.depthMask(mask);
@@ -117,43 +81,10 @@ class XMMLRenderConfigUtility {
         this._applyBlendFunConfigureToGL(gl, enabled, srcColor, dstColor, srcAlpha, dstAlpha);
     }
 
-    private static _getBlendConstant(gl: WebGLRenderingContext, constant: string): number {
-        constant = constant.toLowerCase();
-        switch (constant) {
-            case "1":
-            case "one":
-                return gl.ONE;
-            case "0":
-            case "zero":
-                return gl.ZERO;
-            case "srccolor":
-                return gl.SRC_COLOR;
-            case "dstcolor":
-                return gl.DST_COLOR;
-            case "oneminussrccolor":
-                return gl.ONE_MINUS_SRC_COLOR;
-            case "oneminusdstcolor":
-                return gl.ONE_MINUS_SRC_COLOR;
-            case "srcalpha":
-                return gl.SRC_ALPHA;
-            case "dstalpha":
-                return gl.DST_ALPHA;
-            case "oneminussrcalpha":
-                return gl.ONE_MINUS_SRC_ALPHA;
-            case "oneminusdstalpha":
-                return gl.ONE_MINUS_DST_ALPHA;
-            case "srcalphasaturate":
-                return gl.SRC_ALPHA_SATURATE;
-            default:
-                console.error(`Unknown blend costant ${constant}`);
-                return gl.ONE;
-        }
-    }
-
     private static _applyBlendFunConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, srcColor: string, destColor: string, srcAlpha: string, destAlpha: string): void {
         if (enabled) {
             gl.enable(gl.BLEND);
-            gl.blendFuncSeparate(XMMLRenderConfigUtility._getBlendConstant(gl, srcColor), XMMLRenderConfigUtility._getBlendConstant(gl, destColor), XMMLRenderConfigUtility._getBlendConstant(gl, srcAlpha), XMMLRenderConfigUtility._getBlendConstant(gl, destAlpha));
+            gl.blendFuncSeparate(GLEnumParser.parseBlendFunc(gl, srcColor), GLEnumParser.parseBlendFunc(gl, destColor), GLEnumParser.parseBlendFunc(gl, srcAlpha), GLEnumParser.parseBlendFunc(gl, destAlpha));
         } else {
             gl.disable(gl.BLEND);
         }

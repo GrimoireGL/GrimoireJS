@@ -341,6 +341,7 @@
     "./jThree/src/Wrapper/FrameBufferAttachmentType.ts",
     "./jThree/src/Wrapper/GetParameterType.ts",
     "./jThree/src/Wrapper/GLCullMode.ts",
+    "./jThree/src/Wrapper/GLEnumParser.ts",
     "./jThree/src/Wrapper/GLFeatureType.ts",
     "./jThree/src/Wrapper/PrimitiveTopology.ts",
     "./jThree/src/Wrapper/RBO/RBOInternalFormat.ts",
