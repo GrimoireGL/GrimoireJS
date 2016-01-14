@@ -11,7 +11,7 @@ import ShaderType = require("../../../Wrapper/ShaderType");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
-import XMMLShaderParser = require("./XMMLShaderParser");
+import ShaderParser = require("./ShaderParser");
 import Delegates = require("../../../Base/Delegates");
 class MaterialPass {
     public fragmentShaderSource: string;
@@ -36,7 +36,7 @@ class MaterialPass {
 
     private _parseGLSL(): void {
         const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
-        const parsedCodes = XMMLShaderParser.parseCombined(shaderCode);
+        const parsedCodes = ShaderParser.parseCombined(shaderCode);
         this.parsedProgram = parsedCodes;
         this.fragmentShaderSource = parsedCodes.fragment;
         this.vertexShaderSource = parsedCodes.vertex;

@@ -3,7 +3,7 @@ import BasicMaterial = require("./BasicMaterial");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./IVariableInfo");
 import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
-import XMMLShaderParser = require("./XMMLShaderParser");
+import ShaderParser = require("./ShaderParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
 import Delegates = require("../../../Base/Delegates");
@@ -48,7 +48,7 @@ class MaterialManager implements IContextComponent {
      * @param {string} val shader chunk code
      */
     public addShaderChunk(key: string, val: string): void {
-        this._shaderChunks[key] = XMMLShaderParser.parseImport(val, this);
+        this._shaderChunks[key] = ShaderParser.parseImport(val, this);
     }
 
     /**

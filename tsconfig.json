@@ -86,7 +86,6 @@
     "./jThree/src/Core/Materials/Base/ShaderParser.ts",
     "./jThree/src/Core/Materials/Base/ShaderProgramParser.ts",
     "./jThree/src/Core/Materials/Base/XMMLRenderConfigUtility.ts",
-    "./jThree/src/Core/Materials/Base/XMMLShaderParser.ts",
     "./jThree/src/Core/Materials/Buffering/GBufferMaterial.ts",
     "./jThree/src/Core/Materials/Buffering/HitAreaMaterial.ts",
     "./jThree/src/Core/Materials/Buffering/ShadowMapMaterial.ts",
