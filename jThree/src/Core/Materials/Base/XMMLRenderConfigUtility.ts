@@ -20,7 +20,7 @@ class XMMLRenderConfigUtility {
     private static _applyCullConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, mode: string): void {
         if (enabled) {
             gl.enable(gl.CULL_FACE);
-            gl.cullFace(GLEnumParser.parseCullMode(gl,mode));
+            gl.cullFace(GLEnumParser.parseCullMode(gl, mode));
         } else {
             gl.disable(gl.CULL_FACE);
         }
@@ -53,7 +53,7 @@ class XMMLRenderConfigUtility {
         if (enabled) {
             gl.enable(gl.DEPTH_TEST);
             gl.depthMask(mask);
-            gl.depthFunc(GLEnumParser.parseDepthFunc(gl,mode))
+            gl.depthFunc(GLEnumParser.parseDepthFunc(gl, mode))
         }
         else {
             gl.depthMask(mask);
