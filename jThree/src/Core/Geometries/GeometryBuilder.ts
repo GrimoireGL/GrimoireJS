@@ -126,7 +126,37 @@ class GeometryBuilder
       }
       index.push(startIndex,startIndex-divide2,startIndex-1);
   }
+  public static addCone(pos: number[], normal: number[], uv: number[], index: number[], divide: number):void {
+      var top=new Vector3(0,1,0);
+      pos.push(0,-1,0);
+      normal.push(0,-1,0);
+      uv.push(0, 1);
+      var angle = 2*Math.PI / divide;
+      var y=Math.sqrt(5)/5.0;
+      var k=y*2;
 
+      for(var i=0;i<divide;i++){
+        var d1=Math.sin(angle*i);
+        var d2=Math.cos(angle*i);
+
+        var v=new Vector3(d1,-1,d2);
+        var vn=new Vector3(d1*k,y,d2*k);
+
+        var startIndex = pos.length / 3;
+        pos.push(v.X,v.Y,v.Z,v.X,v.Y,v.Z,0,1,0);
+        uv.push(0, 1,0,1,0,1);
+        normal.push(vn.X,vn.Y,vn.Z,0,-1,0,vn.X,vn.Y,vn.Z);
+
+        if(i!=0){
+          index.push(startIndex-1,startIndex-3,startIndex);
+          index.push(0,startIndex-2,startIndex+1)
+        }
+      }
+      startIndex=pos.length/3-1;
+      index.push(startIndex,startIndex-2,1);
+      index.push(0,startIndex-1,2);
+
+  }
 }
 
 export = GeometryBuilder;

@@ -14,6 +14,7 @@ class SkyBoxStage extends RenderStageBase
     public skyBoxTexture:CubeTexture;
 
     private program:Program;
+
     constructor(renderer: BasicRenderer)
     {
         super(renderer);
@@ -25,11 +26,15 @@ class SkyBoxStage extends RenderStageBase
 
     public preTechnique(scene: Scene, passCount: number, chainInfo: ResolvedChainInfo) {
         this.Renderer.GL.bindFramebuffer(this.Renderer.GL.FRAMEBUFFER,null);
+        this.GL.clear(this.GL.DEPTH_BUFFER_BIT);
+        this.GL.disable(this.GL.DEPTH_TEST);
+        this.GL.disable(this.GL.BLEND);
     }
 
     public render(scene: Scene, object: SceneObject, passCount: number) {
         var geometry = <BasicGeometry>object.Geometry;
         var pWrapper = this.program.getForContext(this.Renderer.ContextManager);
+        this.GL.cullFace(this.GL.FRONT);
         pWrapper.useProgram();
         pWrapper.assignAttributeVariable("position",geometry.positionBuffer);
         pWrapper.assignAttributeVariable("uv",geometry.uvBuffer);

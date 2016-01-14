@@ -27,13 +27,13 @@ class RenderStageBase extends JThreeObjectWithID {
     public get DefaultRenderConfigures():IRenderStageRendererConfigure
     {
       return {
-        cullOrientation:"back",
+        cullOrientation:"BACK",
         depthEnabled:true,
-        depthMode:"less",
+        depthMode:"LESS",
         depthMask:true,
         blendEnabled:true,
-        blendSrcColor:"srcalpha",
-        blendDstColor:"oneminussrcalpha",
+        blendSrcColor:"SRC_ALPHA",
+        blendDstColor:"ONE_MINUS_SRC_ALPHA",
         blendSrcAlpha:"1",
         blendDstAlpha:"0"
       };
