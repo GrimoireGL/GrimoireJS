@@ -14,6 +14,7 @@ jThree/src/*.js
 jThree/src/*.js.map
 jThree/src/**/*.js
 jThree/src/**/*.js.map
+jThree/lib
 jThree/bin/**/*.*
 jThree/docs/**.*
 jThree/test/build/

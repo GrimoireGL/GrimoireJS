@@ -2,7 +2,7 @@ import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import PMXNode = require("./PMXNode");
 class PMXBonesNode extends GomlTreeNodeBase {
   constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
-    super(elem, parent);
+    super();
     this.targetPMXNode = <PMXNode>parent;
   }
 
