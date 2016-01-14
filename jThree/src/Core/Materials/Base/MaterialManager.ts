@@ -27,6 +27,7 @@ class MaterialManager implements IContextComponent {
         this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
         this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
         this.registerMaterial(require("../BuiltIn/RSMLTestMaterial.html"));
+        this.registerMaterial(require("../BuiltIn/Materials/SkyboxMaterial.html"));
     }
 
     public getContextComponentIndex(): number {

@@ -13,11 +13,11 @@ class RSMLRenderStage extends RenderStageBase {
 
     private _techniqueCount:number;
 
-    private _techniques:BasicTechnique[];
+    public techniques:BasicTechnique[];
 
     public getDefaultRendererConfigure(techniqueIndex:number):IRenderStageRendererConfigure
     {
-      return this._techniques[techniqueIndex].defaultRenderConfigure;
+      return this.techniques[techniqueIndex].defaultRenderConfigure;
     }
 
     public getSuperRendererConfigure():IRenderStageRendererConfigure
@@ -41,19 +41,19 @@ class RSMLRenderStage extends RenderStageBase {
       }
       const techniqueTags = stageTag.querySelectorAll("technique");
       this._techniqueCount = techniqueTags.length;
-      this._techniques = new Array(this._techniqueCount);
+      this.techniques = new Array(this._techniqueCount);
       for(let techniqueIndex = 0; techniqueIndex < this._techniqueCount; techniqueIndex ++)
       {
-        this._techniques[techniqueIndex] = new BasicTechnique(this,techniqueTags.item(techniqueIndex));
+        this.techniques[techniqueIndex] = new BasicTechnique(this,techniqueTags.item(techniqueIndex));
       }
     }
 
     public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
-      this._techniques[techniqueIndex].preTechnique(scene,texs);
+      this.techniques[techniqueIndex].preTechnique(scene,texs);
     }
 
     public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
-      this._techniques[techniqueIndex].render(scene,object,techniqueIndex,texs);
+      this.techniques[techniqueIndex].render(scene,object,techniqueIndex,texs);
     }
 
     public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
@@ -66,7 +66,7 @@ class RSMLRenderStage extends RenderStageBase {
 
     public getTarget(techniqueIndex:number):string
     {
-      return this._techniques[techniqueIndex].Target;
+      return this.techniques[techniqueIndex].Target;
     }
 }
 
