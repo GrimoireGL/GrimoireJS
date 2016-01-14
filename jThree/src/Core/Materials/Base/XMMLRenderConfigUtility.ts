@@ -1,19 +1,21 @@
+import GLInfoDebugger = require("../../../Debug/GLInfoDebugger");
 class XMMLRenderConfigUtility {
     public static applyCullConfigure(gl: WebGLRenderingContext, elem: Element, defDirection: string): void {
         const cullNode = elem.querySelector("cull");
         if (!cullNode) {
             XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
-            return;
-        }
-        const modeStr = cullNode.getAttribute("mode");
-        if (!modeStr) {
-            XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
         } else {
-            if (modeStr == "none")
-                XMMLRenderConfigUtility._applyCullConfigureToGL(gl, false, "");
-            else
-                XMMLRenderConfigUtility._applyCullConfigureToGL(gl, true, modeStr);
+            const modeStr = cullNode.getAttribute("mode");
+            if (!modeStr) {
+                XMMLRenderConfigUtility._applyCullConfigureToGL(gl, defDirection != "none", defDirection);
+            } else {
+                if (modeStr == "none")
+                    XMMLRenderConfigUtility._applyCullConfigureToGL(gl, false, "");
+                else
+                    XMMLRenderConfigUtility._applyCullConfigureToGL(gl, true, modeStr);
+            }
         }
+        //GLInfoDebugger.debugCullConfig(gl);
     }
 
     private static _applyCullConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, direction: string): void {
@@ -97,24 +99,20 @@ class XMMLRenderConfigUtility {
         }
     }
 
-    public static applyBlendFuncConfigure(gl: WebGLRenderingContext, elem: Element, defEnabled: boolean, defSrcColor: string, defDestColor: string, defSrcAlpha: string, defDestAlpha: string): void {
+    public static applyBlendFuncConfigure(gl: WebGLRenderingContext, elem: Element, defEnabled: boolean, defSrcColor: string, defDestColor: string): void {
         const blendNode = elem.querySelector("blend");
         if (!blendNode) {
-            XMMLRenderConfigUtility._applyBlendFunConfigureToGL(gl, defEnabled, defSrcColor, defDestColor, defSrcAlpha, defDestAlpha);
+            XMMLRenderConfigUtility._applyBlendFunConfigureToGL(gl, defEnabled, defSrcColor, defDestColor);
             return;
         }
         const enabledStr = blendNode.getAttribute("enabled");
-        const srcColorStr = blendNode.getAttribute("srcColor");
-        const destColorStr = blendNode.getAttribute("dstColor");
-        const srcAlphaStr = blendNode.getAttribute("srcAlpha");
-        const destAlphaStr = blendNode.getAttribute("dstAlpha");
+        const srcStr = blendNode.getAttribute("src");
+        const dstStr = blendNode.getAttribute("dst");
         let enabled;
         enabled = enabledStr == "true" ? true : defEnabled;
-        let srcColor = srcColorStr || defSrcColor;
-        let dstColor = destColorStr || defDestColor;
-        let srcAlpha = srcAlphaStr || defSrcAlpha;
-        let dstAlpha = destAlphaStr || defDestAlpha;
-        this._applyBlendFunConfigureToGL(gl, enabled, srcColor, dstColor, srcAlpha, dstAlpha);
+        let src = srcStr || defSrcColor;
+        let dst = dstStr || defDestColor;
+        this._applyBlendFunConfigureToGL(gl, enabled, src, dst);
     }
 
     private static _getBlendConstant(gl: WebGLRenderingContext, constant: string): number {
@@ -150,10 +148,10 @@ class XMMLRenderConfigUtility {
         }
     }
 
-    private static _applyBlendFunConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, srcColor: string, destColor: string, srcAlpha: string, destAlpha: string): void {
+    private static _applyBlendFunConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, srcColor: string, destColor: string): void {
         if (enabled) {
             gl.enable(gl.BLEND);
-            gl.blendFuncSeparate(XMMLRenderConfigUtility._getBlendConstant(gl, srcColor), XMMLRenderConfigUtility._getBlendConstant(gl, destColor), XMMLRenderConfigUtility._getBlendConstant(gl, srcAlpha), XMMLRenderConfigUtility._getBlendConstant(gl, destAlpha));
+            gl.blendFunc(XMMLRenderConfigUtility._getBlendConstant(gl, srcColor), XMMLRenderConfigUtility._getBlendConstant(gl, destColor));
         } else {
             gl.disable(gl.BLEND);
         }

@@ -56,7 +56,7 @@ class MaterialPass {
         const defRendererConfig = matArg.renderStage.DefaultRenderConfigures;
         XMMLRenderConfigUtility.applyCullConfigure(gl, this._passDocument,defRendererConfig.cullOrientation);
         XMMLRenderConfigUtility.applyDepthTestConfigure(gl, this._passDocument, defRendererConfig.depthEnabled, defRendererConfig.depthMode, defRendererConfig.depthMask);
-        XMMLRenderConfigUtility.applyBlendFuncConfigure(gl, this._passDocument, defRendererConfig.blendEnabled,defRendererConfig.blendSrcColor,defRendererConfig.blendDstColor,defRendererConfig.blendSrcAlpha,defRendererConfig.blendDstAlpha);
+        XMMLRenderConfigUtility.applyBlendFuncConfigure(gl, this._passDocument, defRendererConfig.blendEnabled,defRendererConfig.blendSrcColor,defRendererConfig.blendDstColor);
         //Declare using program before assigning material variables
         pWrapper.useProgram();
         //Apply attribute variables by geometries
