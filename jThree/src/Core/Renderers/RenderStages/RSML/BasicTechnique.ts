@@ -1,3 +1,6 @@
+import RSMLRenderStage = require("./RSMLRenderStage");
+import XMLRenderConfigUtility = require("../../../Materials/Base/XMLRenderConfigUtility");
+import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
 import MaterialManager = require("../../../Materials/Base/MaterialManager");
 import BasicMaterial = require("../../../Materials/Base/BasicMaterial");
 import Vector4 = require("../../../../Math/Vector4");
@@ -23,18 +26,21 @@ class BasicTechnique extends JThreeObjectWithID {
 
     private _colorConfigureElements: NodeListOf<Element>;
 
-    protected _renderStage: RenderStageBase;
+    protected _renderStage: RSMLRenderStage;
 
     public _defaultMaterial: BasicMaterial;
+
+    public defaultRenderConfigure:IRenderStageRendererConfigure;
 
     protected get _gl(): WebGLRenderingContext {
         return this._renderStage.GL;
     }
 
-    constructor(renderStage: RenderStageBase, technique: Element) {
+    constructor(renderStage: RSMLRenderStage, technique: Element) {
         super();
         this._renderStage = renderStage;
         this._techniqueDocument = technique;
+        this.defaultRenderConfigure = XMLRenderConfigUtility.parseRenderConfig(technique,this._renderStage.getSuperRendererConfigure());
         this._target = this._techniqueDocument.getAttribute("target");
         if (!this._target) this._target = "scene";
         this._fboConfigureElement = this._techniqueDocument.getElementsByTagName("fbo").item(0);
@@ -65,6 +71,7 @@ class BasicTechnique extends JThreeObjectWithID {
                 this._renderStage.drawForMaterials(scene, object, techniqueIndex, texs, materialGroup);
                 break;
             default:
+                XMLRenderConfigUtility.applyAll(this._gl,this.defaultRenderConfigure);
                 this._renderStage.drawForMaterial(scene, object, techniqueIndex, texs, this._defaultMaterial);
         }
     }

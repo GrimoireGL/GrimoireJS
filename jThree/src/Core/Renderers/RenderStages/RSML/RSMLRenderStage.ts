@@ -1,3 +1,4 @@
+import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
 import BasicTechnique = require("./BasicTechnique");
 import BasicRenderer = require('../../BasicRenderer');
 import SceneObject = require('../../../SceneObject');
@@ -13,6 +14,16 @@ class RSMLRenderStage extends RenderStageBase {
     private _techniqueCount:number;
 
     private _techniques:BasicTechnique[];
+
+    public getDefaultRendererConfigure(techniqueIndex:number):IRenderStageRendererConfigure
+    {
+      return this._techniques[techniqueIndex].defaultRenderConfigure;
+    }
+
+    public getSuperRendererConfigure():IRenderStageRendererConfigure
+    {
+      return super.getDefaultRendererConfigure(0);
+    }
 
     constructor(renderer: BasicRenderer,rsmlSource:string) {
         super(renderer);

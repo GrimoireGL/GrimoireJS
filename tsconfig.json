@@ -85,7 +85,7 @@
     "./jThree/src/Core/Materials/Base/Registerer/TextureRegister.ts",
     "./jThree/src/Core/Materials/Base/Registerer/TimeRegisterer.ts",
     "./jThree/src/Core/Materials/Base/ShaderParser.ts",
-    "./jThree/src/Core/Materials/Base/XMMLRenderConfigUtility.ts",
+    "./jThree/src/Core/Materials/Base/XMLRenderConfigUtility.ts",
     "./jThree/src/Core/Materials/Buffering/GBufferMaterial.ts",
     "./jThree/src/Core/Materials/Buffering/HitAreaMaterial.ts",
     "./jThree/src/Core/Materials/Buffering/ShadowMapMaterial.ts",
