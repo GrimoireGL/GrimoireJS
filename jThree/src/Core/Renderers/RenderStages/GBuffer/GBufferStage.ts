@@ -1,11 +1,10 @@
+import SceneObject = require("../../../SceneObject");
+import ResolvedChainInfo = require("../../ResolvedChainInfo");
+import Scene = require("../../../Scene");
+import BasicRenderer = require("../../BasicRenderer");
+import RenderStageBase = require("../RenderStageBase");
 import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
-﻿import BasicRenderer = require('../../BasicRenderer');
-import SceneObject = require('../../../SceneObject');
-import RenderStageBase = require('../RenderStageBase');
-import Scene = require('../../../Scene');
-import ResolvedChainInfo = require('../../ResolvedChainInfo');
 import ClearTargetType = require("../../../../Wrapper/ClearTargetType");
-import RenderStageConfig = require("../../RenderStageConfig");
 /**
  * This stage draws 3 of G buffers.
  * Primary g-buffer Normal.X Normal.Y Depth SpecularCoefficent -> First pass
@@ -31,7 +30,7 @@ class GBufferStage extends RenderStageBase {
     }
 
     public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
-        var outTexture;//switch texture by passCount
+        let outTexture; // switch texture by passCount
         switch (techniqueIndex) {
             case 0:
                 outTexture = texs["PRIMARY"];
@@ -66,7 +65,7 @@ class GBufferStage extends RenderStageBase {
     }
 
     public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
-        return typeof object.Geometry != "undefined" && object.Geometry != null;
+        return typeof object.Geometry !== "undefined" && object.Geometry != null;
     }
 
     public getTechniqueCount(scene: Scene) {
