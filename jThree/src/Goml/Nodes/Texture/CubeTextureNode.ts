@@ -33,9 +33,7 @@ class CubeTextureNode extends TextureNodeBase {
     return texture;
   }
 
-  protected get TextureGroupName() {
-    return "cubetexture";
-  }
+  protected groupPrefix: string = 'cubetexture'
 
   private loadedFlags: boolean[] = [false, false, false, false, false, false];
 

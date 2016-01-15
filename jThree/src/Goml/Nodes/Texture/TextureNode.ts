@@ -27,9 +27,7 @@ class TextureNode extends TextureNodeBase {
     return texture;
   }
 
-  protected get TextureGroupName() {
-    return "texture2d";
-  }
+  protected groupPrefix: string = 'texture2d';
 }
 
 export =TextureNode;

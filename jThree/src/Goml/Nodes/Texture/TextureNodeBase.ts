@@ -67,16 +67,13 @@ class TextureNodeBase extends GomlTreeNodeBase {
     var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     var name = this.attributes.getValue("name");
     this.targetTexture = this.generateTexture(name, rm);
-    this.nodeManager.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);
+    this.nodeExport(name);
   }
 
   protected generateTexture(name: string, rm: ResourceManager): TextureBase {
     return null;
   }
 
-  protected get TextureGroupName() {
-    return "";
-  }
   /**
    * Min filter attribute string is changed into enum by this method.
    * @param  {string}        Attribute string
