@@ -1,8 +1,7 @@
 /**
 * AssociativeArray string with an object.
 */
-class AssociativeArray<T> implements Map<string, T>
-{
+class AssociativeArray<T> implements Map<string, T> {
   private target: Map<string, T> = new Map<string, T>();
 
     public clear(): void {
@@ -35,8 +34,8 @@ class AssociativeArray<T> implements Map<string, T>
   }
 
     public get asArray(): T[] {
-    var array = new Array(this.size);
-    var i = 0;
+    const array = new Array(this.size);
+    let i = 0;
     this.forEach((v) => {
       array[i] = v;
       i++;
