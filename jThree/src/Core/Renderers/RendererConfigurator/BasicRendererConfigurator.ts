@@ -16,20 +16,6 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                 generater: "rendererfit",
                 internalFormat: "RGBA",
                 element: "FLOAT"
-            }
-            ,
-            "gbuffer.secoundary":
-            {
-                generater: "rendererfit",
-                internalFormat: "RGBA",
-                element: "UBYTE"
-            }
-            ,
-            "gbuffer.third":
-            {
-                generater: "rendererfit",
-                internalFormat: "RGB",
-                element: "UBYTE"
             },
             "light.diffuse": {
                 generater: "rendererfit",
@@ -67,24 +53,30 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                 },
                 stage: new HitAreaRenderStage(target)
             },
+            // {
+            //     buffers: {
+            //         PRIMARY: "gbuffer.primary",
+            //         SECOUNDARY: "gbuffer.secoundary",
+            //         THIRD: "gbuffer.third"
+            //     },
+            //     stage: new GBufferStage(target)
+            // },
             {
-                buffers: {
-                    PRIMARY: "gbuffer.primary",
-                    SECOUNDARY: "gbuffer.secoundary",
-                    THIRD: "gbuffer.third"
-                },
-                stage: new GBufferStage(target)
+              buffers:{
+                 PRIMARY: "gbuffer.primary"
+              },
+              stage:new RSMLRenderStage(target,require("../RenderStages/BuiltIn/GBuffer.html"))
             },
-            {
-                buffers: {
-                    PRIMARY: "gbuffer.primary",
-                    SECOUNDARY: "gbuffer.secoundary",
-                    THIRD: "gbuffer.third",
-                    DIFFUSE: "light.diffuse",
-                    SPECULAR: "light.specular"
-                },
-                stage: new AccumulationStage(target)
-            },
+            // {
+            //     buffers: {
+            //         PRIMARY: "gbuffer.primary",
+            //         SECOUNDARY: "gbuffer.secoundary",
+            //         THIRD: "gbuffer.third",
+            //         DIFFUSE: "light.diffuse",
+            //         SPECULAR: "light.specular"
+            //     },
+            //     stage: new AccumulationStage(target)
+            // },
             {
                 buffers: {
                     DLIGHT: "light.diffuse",

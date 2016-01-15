@@ -1,3 +1,4 @@
+import PrimaryBufferMaterial = require("../Core/Materials/Buffering/PrimaryBufferMaterial");
 import BasicMaterial = require("../Core/Materials/Base/BasicMaterial");
 import Geometry = require("../Core/Geometries/Base/Geometry");
 import Material = require("../Core/Materials/Material");
@@ -10,7 +11,7 @@ class BasicMeshObject extends Mesh
         constructor(geometry:Geometry,mat:Material)
         {
             super(geometry,mat);
-            this.addMaterial(new GBufferMaterial());
+            this.addMaterial(new PrimaryBufferMaterial());
             this.addMaterial(new ShadowMapMaterial());
             this.addMaterial(new HitAreaTestMaterial());
         }

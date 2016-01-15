@@ -2,11 +2,14 @@
 <rsml>
   <stage name="jthree.basic.gbuffer">
     <technique target="scene" materialGroup="jthree.basic.gbuffer.1">
+      <fbo>
+        <color name="PRIMARY" clearColor="0,0,0,0" register="0"/>
+      </fbo>
       <cull enabled="true" mode="BACK"/>
       <blend enabled="true" src="ONE" dst="ZERO"/>
       <depth enabled="true" mode="LESS"/>
     </technique>
-    <technique target="scene" materialGroup="jthree.basic.gbuffer.2">
+    <!-- <technique target="scene" materialGroup="jthree.basic.gbuffer.2">
       <cull enabled="true" mode="BACK"/>
       <blend enabled="true" src="ONE" dst="ZERO"/>
       <depth enabled="true" mode="LESS"/>
@@ -15,6 +18,6 @@
       <cull enabled="true" mode="BACK"/>
       <blend enabled="true" src="ONE" dst="ZERO"/>
       <depth enabled="true" mode="LESS"/>
-    </technique>
+    </technique> -->
   </stage>
 </rsml>

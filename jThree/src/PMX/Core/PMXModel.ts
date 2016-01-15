@@ -1,3 +1,4 @@
+import PMXPrimaryBufferMaterial = require("./Materials/PMXPrimaryBufferMaterial");
 import PMXCoreInitializer = require("./PMXCoreInitializer");
 import PMXHitAreaMaterial = require("./Materials/PMXHitAreaMaterial");
 import SceneObject = require("../../Core/SceneObject");
@@ -96,7 +97,8 @@ class PMXModel extends SceneObject {
             var currentMat = pmx.Materials[materialCount];
             var mat = new PMXMaterial(this, materialCount, offset);
             this.addMaterial(mat);
-            this.addMaterial(new PMXGBufferMaterial(mat));
+            //this.addMaterial(new PMXGBufferMaterial(mat));
+            this.addMaterial(new PMXPrimaryBufferMaterial(mat));
             this.addMaterial(new PMXShadowMapMaterial(mat));
             this.addMaterial(new PMXHitAreaMaterial(mat));
             this.pmxMaterials[materialCount] = mat;

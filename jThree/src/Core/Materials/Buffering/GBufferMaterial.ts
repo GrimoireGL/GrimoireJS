@@ -23,6 +23,7 @@ import BasicMaterial = require("../Base/BasicMaterial");
  */
 class GBufferMaterial extends Material
 {
+  
     public get MaterialGroup(): string
     {
         return "jthree.materials.gbuffer";
@@ -111,29 +112,6 @@ class GBufferMaterial extends Material
         this.thirdMaterial.configureMaterial(matArg);
     }
 
-    public  getMaterialConfig(pass:number,technique:number):IMaterialConfig
-    {
-      if(technique == 0)
-      {
-        return {
-          blend:false,
-          cull:"ccw"
-        }
-      }
-      if(technique == 1)
-      {
-        return {
-          cull:"ccw",
-          blend:true
-        }
-      }else
-      {
-        return {
-          cull:"ccw",
-          blend:false
-        }
-      }
-    }
 }
 
 export =GBufferMaterial;
