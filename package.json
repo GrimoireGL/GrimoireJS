@@ -25,7 +25,8 @@
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "./node_modules/.bin/gulp --require coffee-script/register test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
-    "clean": "./node_modules/.bin/gulp --require coffee-script/register clean"
+    "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
+    "lint" : "./node_modules/.bin?gulp --require coffee-script/register tslint"
   },
   "directories": {
     "test": "jThree/test_"
