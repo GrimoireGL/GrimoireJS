@@ -1,7 +1,7 @@
-import Material = require("../Materials/Material");
-import Canvas = require("../Canvas");
+import Material = require("../../Materials/Material");
+import Canvas = require("gl-matrix");
 import Geometry = require("./Geometry");
-import Buffer = require("../Resources/Buffer/Buffer");
+import Buffer = require("../../Resources/Buffer/Buffer");
 /**
  * The abstract class for the geometries having index buffer(ELEMENT_ARRAY_BUFFER) for drawing.
  *

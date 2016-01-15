@@ -1,4 +1,4 @@
-import Vector3 = require("../../Math/Vector3");
+import Vector3 = require("../../../Math/Vector3");
 class GeometryBuilder
 {
   public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {

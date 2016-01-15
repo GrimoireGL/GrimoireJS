@@ -1,8 +1,8 @@
-import IVariableInfo = require("../Materials/Base/IVariableInfo");
-import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
+import IVariableInfo = require("../../Materials/Base/IVariableInfo");
+import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IndexedGeometry = require("./IndexedGeometry");
-import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import Buffer = require("../Resources/Buffer/Buffer");
+import PrimitiveTopology = require("../../../Wrapper/PrimitiveTopology");
+import Buffer = require("../../Resources/Buffer/Buffer");
 /**
  * Basic geometry for builtin primitives. This geometry contains position,normal,uv as buffer.
  *

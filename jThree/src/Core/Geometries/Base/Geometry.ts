@@ -1,11 +1,11 @@
-import IVariableInfo = require("../Materials/Base/IVariableInfo");
-import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
-import jThreeObject = require("../../Base/JThreeObject");
-import Buffer = require("./../Resources/Buffer/Buffer");
-import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import Vector3 = require("../../Math/Vector3");
-import Canvas = require("./../Canvas");
-import Material = require("./../Materials/Material");
+import IVariableInfo = require("../../Materials/Base/IVariableInfo");
+import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
+import jThreeObject = require("../../../Base/JThreeObject");
+import Buffer = require("./../../Resources/Buffer/Buffer");
+import PrimitiveTopology = require("../../../Wrapper/PrimitiveTopology");
+import Vector3 = require("../../../Math/Vector3");
+import Canvas = require("./../../Canvas");
+import Material = require("./../../Materials/Material");
 /**
  * Base abstraction for geometry.
  */

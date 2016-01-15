@@ -1,5 +1,5 @@
-import BasicGeometry = require("./BasicGeometry");
-import Geometry = require("./Geometry");
+import BasicGeometry = require("./Base/BasicGeometry");
+import Geometry = require("./Base/Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
 import ElementType = require("../../Wrapper/ElementType");
