@@ -2,7 +2,7 @@ import BasicMaterial = require("./Core/Materials/Base/BasicMaterial");
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
 import Timer = require("./Core/Timer");
 import Delegates = require('./Base/Delegates');
-import JThreeInterface = require('./Interface/JThreeInterface');
+import J3Object = require('./Interface/J3Object');
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
 import BehaviorDeclarationBody = require("./Goml/Behaviors/BehaviorDeclarationBody");
 import agent = require("superagent");
@@ -56,7 +56,7 @@ class JThreeInit {
     * 1, to use for select elements like jQuery in GOML.
     * 2, to use for subscribing eventhandler to be called when j3 is loaded.
     */
-    public static j3(query: string | Delegates.Action0): JThreeInterface {
+    public static j3(query: string | Delegates.Action0): J3Object {
         // var nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
         // if (typeof query === 'function') {//check whether this is function or not.
         //     nodeManager.loadedHandler.addListener(query);
