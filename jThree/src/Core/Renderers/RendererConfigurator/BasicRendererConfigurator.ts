@@ -11,25 +11,6 @@ import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
     public get TextureBuffers(): GeneraterInfo {
         return {
-            /*            "deffered.rb1": {
-                            generater: "rendererfit",
-                            internalFormat: "RGBA",
-                            element: "UBYTE"
-                        },
-                        "deffered.rb2": {
-                            generater: "rendererfit",
-                            internalFormat: "RGBA",
-                            element: "UBYTE"
-                        }, "deffered.depth": {
-                            generater: "rendererfit",
-                            internalFormat: "RGBA",
-                            element: "UBYTE"
-                        }
-                        , "deffered.light": {
-                            generater: "rendererfit",
-                            internalFormat: "RGBA",
-                            element: "UBYTE"
-                        },*/
             "gbuffer.primary":
             {
                 generater: "rendererfit",
@@ -103,15 +84,6 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                     SPECULAR: "light.specular"
                 },
                 stage: new AccumulationStage(target)
-            },
-            {
-              buffers: {
-                PRIMARY: "gbuffer.primary",
-                SECOUNDARY: "gbuffer.secoundary",
-                THIRD: "gbuffer.third",
-                OUT: "hitarea"
-              },
-              stage: new RSMLRenderStage(target,require("../RenderStages/BuiltIn/RSMLTest.html"))
             },
             {
                 buffers: {
