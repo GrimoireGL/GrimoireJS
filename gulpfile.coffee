@@ -28,6 +28,7 @@ formatter = require 'pretty-hrtime'
 runSequence = require 'run-sequence'
 ts = require 'gulp-typescript'
 changed = require 'gulp-changed'
+tslint = require 'gulp-tslint'
 
 ###
 TASK SUMMARY
@@ -97,6 +98,7 @@ defaultStatsOptions =
 
 # ts compilcation config
 tsEntries = './jThree/src/**/*.ts'
+refsEntries = './jThree/src/refs/**/*.ts'
 tsDest = './jThree/lib'
 tsBase = './jThree/src'
 
@@ -418,3 +420,9 @@ gulp.task 'clean', ->
   del(del_entries).then (paths) ->
     paths.forEach (p) -> gutil.log "deleted: \"#{p}\""
   del(del_entries_silent)
+
+gulp.task 'tslint', ->
+  gulp.src [tsEntries,'!' + refsEntries,'!./jThree/src/bundle-notdoc.ts']
+    .pipe tslint
+      configuration:"./tslint.json"
+    .pipe tslint.report "verbose"

@@ -4,7 +4,6 @@ import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 import AccumulationStage = require("../RenderStages/LightAccumulationStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
-import SkyBoxStage = require("../RenderStages/SkyBoxStage");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
 import ShadowMapGenerationStage = require("../RenderStages/ShadowMapGenerationStage");
 import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
@@ -37,11 +36,11 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         };
     }
 
-    public getStageChain(target: BasicRenderer): RenderStageChain[] {
-        return [
-            {
-                buffers:
-                {
+  public getStageChain(target: BasicRenderer): RenderStageChain[] {
+    return [
+      {
+        buffers:
+        {
 
                 },
                 stage: new ShadowMapGenerationStage(target)

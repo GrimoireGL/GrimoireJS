@@ -2,15 +2,14 @@
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 
-class RendererConfiguratorBase
-{
-    public get TextureBuffers():GeneraterInfo {
-        return null;
-    }
+class RendererConfiguratorBase {
+  public get TextureBuffers(): GeneraterInfo {
+    return null;
+  }
 
-    public getStageChain(target:BasicRenderer):RenderStageChain[] {
-        return null;
-    }
+  public getStageChain(target: BasicRenderer): RenderStageChain[] {
+    return null;
+  }
 }
 
 export = RendererConfiguratorBase;

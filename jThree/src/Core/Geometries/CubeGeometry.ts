@@ -1,6 +1,5 @@
 import GeometryBuilder = require("./Base/GeometryBuilder");
 import BasicGeometry = require("./Base/BasicGeometry");
-import Geometry = require("./Base/Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
 import ElementType = require("../../Wrapper/ElementType");
@@ -12,7 +11,7 @@ import ContextComponents = require("../../ContextComponents");
 class CubeGeometry extends BasicGeometry {
     constructor(name: string) {
         super();
-        var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+        const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.primitiveTopology = PrimitiveTopology.Triangles;
         this.indexBuffer = rm.createBuffer(name + "index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedByte);
         this.positionBuffer = rm.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
@@ -23,22 +22,22 @@ class CubeGeometry extends BasicGeometry {
 
 
     protected updateBuffers(): void {
-    var pos: number[] = [];
-    var normal: number[] = [];
-    var uv: number[] = [];
-    var index: number[] = [];
-    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, -1, 1), new Vector3(1, 1, 1)]);
-    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, 1, 1),  new Vector3(1, -1, 1),  new Vector3(1, 1, -1)]);
-    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, 1, -1), new Vector3(1, -1, -1), new Vector3(-1, 1, -1)]);
-    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, -1),new Vector3(-1, -1, -1),new Vector3(-1, 1, 1)]);
-    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1),   new Vector3(-1, 1, -1)]);
-    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, -1, 1), new Vector3(-1, -1, 1), new Vector3(1, -1, -1)]);
-    this.indexBuffer.update(new Uint8Array(index), index.length);
-    this.normalBuffer.update(new Float32Array(normal), normal.length);
-    this.uvBuffer.update(new Float32Array(uv), uv.length);
-    this.positionBuffer.update(new Float32Array(pos), pos.length);
+        const pos: number[] = [];
+        const normal: number[] = [];
+        const uv: number[] = [];
+        const index: number[] = [];
+        GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, -1, 1), new Vector3(1, 1, 1)]);
+        GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, 1, 1), new Vector3(1, -1, 1), new Vector3(1, 1, -1)]);
+        GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, 1, -1), new Vector3(1, -1, -1), new Vector3(-1, 1, -1)]);
+        GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, -1), new Vector3(-1, -1, -1), new Vector3(-1, 1, 1)]);
+        GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1), new Vector3(-1, 1, -1)]);
+        GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, -1, 1), new Vector3(-1, -1, 1), new Vector3(1, -1, -1)]);
+        this.indexBuffer.update(new Uint8Array(index), index.length);
+        this.normalBuffer.update(new Float32Array(normal), normal.length);
+        this.uvBuffer.update(new Float32Array(uv), uv.length);
+        this.positionBuffer.update(new Float32Array(pos), pos.length);
     }
 
 }
 
-export =CubeGeometry;
+export = CubeGeometry;

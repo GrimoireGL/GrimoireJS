@@ -1,5 +1,4 @@
 import ViewCamera = require("./ViewCameraBase");
-import Matrix = require("../../Math/Matrix");
 import glm = require("gl-matrix");
 class OrthoCamera extends ViewCamera {
     private _left: number;
@@ -75,4 +74,4 @@ class OrthoCamera extends ViewCamera {
 
 }
 
-export =OrthoCamera;
+export = OrthoCamera;

@@ -1,5 +1,4 @@
 import ViewCamera = require("./ViewCameraBase");
-import Matrix = require("../../Math/Matrix");
 import glm = require("gl-matrix");
 class PerspectiveCamera extends ViewCamera {
     private _fovy: number = Math.PI / 4;
@@ -49,4 +48,4 @@ class PerspectiveCamera extends ViewCamera {
     }
 }
 
-export =PerspectiveCamera;
+export = PerspectiveCamera;

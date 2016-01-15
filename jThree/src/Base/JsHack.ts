@@ -8,10 +8,10 @@ class JsHack {
      * @return {string}   obtained name
      */
     public static getObjectName(obj: any): string {
-        var funcNameRegex = /function (.{1,})\(/;
-        var result = (funcNameRegex).exec((obj).constructor.toString());
+        const funcNameRegex = /function (.{1,})\(/;
+        const result = (funcNameRegex).exec((obj).constructor.toString());
         return (result && result.length > 1) ? result[1] : "";
     }
 }
 
-export=JsHack;
+export = JsHack;

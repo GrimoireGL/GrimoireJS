@@ -25,7 +25,8 @@
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "./node_modules/.bin/gulp --require coffee-script/register test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
-    "clean": "./node_modules/.bin/gulp --require coffee-script/register clean"
+    "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
+    "lint" : "./node_modules/.bin?gulp --require coffee-script/register tslint"
   },
   "directories": {
     "test": "jThree/test_"
@@ -50,6 +51,7 @@
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^4.3.0",
     "gulp-typedoc": "^1.2.1",
     "gulp-typescript": "^2.10.0",
     "gulp-uglify": "^1.5.1",
@@ -76,6 +78,7 @@
     "superagent": "^1.6.1",
     "ts-loader": "^0.7.2",
     "tsify": "^0.13.2",
+    "tslint": "^3.2.1",
     "txtify": "jThreeJS/txtify#ab4d0fe28e3b1e94e349504688f6011143ad622c",
     "typedoc": "^0.3.12",
     "typescript": "^1.7.5",
