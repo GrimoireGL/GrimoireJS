@@ -105,7 +105,7 @@ config =
   main:
     entries: './jThree/lib/jThree.js'
     name: 'j3.js'
-    extensions: ['.js', '.json', '.glsl', '.html']
+    extensions: ['.js', '.json', '.glsl', '.html','.xmml']
     dest: ['./jThree/bin/product', './jThree/wwwroot']
     target: 'web'
     minify: false
@@ -237,6 +237,7 @@ Object.keys(config).forEach (suffix) ->
           bundleSuccess = false
           gutil.log gutil.colors.black.bgRed " [BUNDLING FAILED] (#{suffix}) #{c.name} "
           gutil.log err.message
+          console.log err
           @emit 'end'
         .on 'end', ->
           copyFiles(path.join(c.dest[0], c.name), c.dest[1..])

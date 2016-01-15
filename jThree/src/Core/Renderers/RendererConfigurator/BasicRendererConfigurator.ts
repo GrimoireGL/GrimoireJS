@@ -53,30 +53,20 @@ class BasicRendererConfigurator extends ConfiguratorBase {
                 },
                 stage: new HitAreaRenderStage(target)
             },
-            // {
-            //     buffers: {
-            //         PRIMARY: "gbuffer.primary",
-            //         SECOUNDARY: "gbuffer.secoundary",
-            //         THIRD: "gbuffer.third"
-            //     },
-            //     stage: new GBufferStage(target)
-            // },
             {
               buffers:{
                  PRIMARY: "gbuffer.primary"
               },
               stage:new RSMLRenderStage(target,require("../RenderStages/BuiltIn/GBuffer.html"))
             },
-            // {
-            //     buffers: {
-            //         PRIMARY: "gbuffer.primary",
-            //         SECOUNDARY: "gbuffer.secoundary",
-            //         THIRD: "gbuffer.third",
-            //         DIFFUSE: "light.diffuse",
-            //         SPECULAR: "light.specular"
-            //     },
-            //     stage: new AccumulationStage(target)
-            // },
+            {
+                buffers: {
+                    PRIMARY: "gbuffer.primary",
+                    DIFFUSE: "light.diffuse",
+                    SPECULAR: "light.specular"
+                },
+                stage: new RSMLRenderStage(target,require("../RenderStages/BuiltIn/LightAccumulationStage.html"))
+            },
             {
                 buffers: {
                     DLIGHT: "light.diffuse",

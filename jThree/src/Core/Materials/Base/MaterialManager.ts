@@ -26,7 +26,6 @@ class MaterialManager implements IContextComponent {
         this.addUniformRegister('jthree.basic.buffer',TextureBufferRegisterer);
         this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
         this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
-        this.registerMaterial(require("../BuiltIn/RSMLTestMaterial.html"));
         this.registerMaterial(require("../BuiltIn/Materials/SkyboxMaterial.html"));
     }
 

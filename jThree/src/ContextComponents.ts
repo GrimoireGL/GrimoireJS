@@ -44,6 +44,11 @@ class ContextComponents
   {
     return 8;
   }
+
+  public static get PrimitiveRegistory():number
+  {
+    return 9;
+  }
 }
 
 export = ContextComponents;

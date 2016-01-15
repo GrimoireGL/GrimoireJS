@@ -42,6 +42,7 @@
     "./jThree/src/Core/Geometries/Base/Geometry.ts",
     "./jThree/src/Core/Geometries/Base/GeometryBuilder.ts",
     "./jThree/src/Core/Geometries/Base/IndexedGeometry.ts",
+    "./jThree/src/Core/Geometries/Base/PrimitiveRegistory.ts",
     "./jThree/src/Core/Geometries/CircleGeometry.ts",
     "./jThree/src/Core/Geometries/ConeGeometry.ts",
     "./jThree/src/Core/Geometries/CubeGeometry.ts",
