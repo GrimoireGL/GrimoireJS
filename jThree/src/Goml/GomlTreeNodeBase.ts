@@ -4,7 +4,6 @@ import JThreeContext = require("../JThreeContext");
 import NodeManager = require('./NodeManager');
 import ContextComponents = require('../ContextComponents');
 import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
-import AssociativeArray = require("../Base/Collections/AssociativeArray");
 import Delegates = require("../Base/Delegates");
 import NodeProps = require('./NodeProps');
 
@@ -22,7 +21,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
     this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
     //after configuration, this node is going to add to NodesById
-    this.nodeManager.NodesById.set(this.ID, this);
+    this.nodeManager.NodesById[this.ID] =  this;
     this.attributes = new AttributeDictionary(this);
 
     // apply attributes
@@ -61,19 +60,19 @@ class GomlTreeNodeBase extends TreeNodeBase {
   /**
    * components that is attached to this node.
    */
-  protected behaviors: AssociativeArray<BehaviorNode[]> = new AssociativeArray<BehaviorNode[]>();
+  protected behaviors: {[key:string]:BehaviorNode[]} = {};
 
   /**
    * Add component to this node.
    */
   public addBehavior(behaviors: BehaviorNode): void {
     this.nodeManager.behaviorRunner.addBehavior(behaviors, this);
-    if (!this.behaviors.has(behaviors.BehaviorName)) this.behaviors.set(behaviors.BehaviorName, []);
-    this.behaviors.get(behaviors.BehaviorName).push(behaviors);
+    if (!this.behaviors[behaviors.BehaviorName]) this.behaviors[behaviors.BehaviorName] =  [];
+    this.behaviors[behaviors.BehaviorName].push(behaviors);
   }
 
   public getBehaviors(behaviorName: string): BehaviorNode[] {
-    return this.behaviors.get(behaviorName);
+    return this.behaviors[behaviorName];
   }
 }
 

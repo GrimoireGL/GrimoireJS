@@ -1,6 +1,5 @@
 ﻿import BufferTexture = require("../Resources/Texture/BufferTexture");
 import LightBase = require("./LightBase");
-import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import InternalFormatType = require("../../Wrapper/TextureInternalFormatType");
 import TextureType = require("../../Wrapper/TextureType");
 import Scene = require("../Scene");
@@ -83,7 +82,7 @@ class LightRegister
     /**
      * Light dictionary being sorted with id used in shaders.
      */
-    private lightIdDictionary: AssociativeArray<number> = new AssociativeArray<number>();
+    private lightIdDictionary: {[key:string]:number} = {};
 
     private get shaderHeader()
     {
@@ -240,7 +239,7 @@ class LightRegister
     {
 
         this.lights.push(light);
-        this.lightIdDictionary.set(light.ID, this.lights.length - 1);
+        this.lightIdDictionary[light.ID] = this.lights.length - 1;
         this.heightUpdate(0);
     }
 
@@ -276,7 +275,7 @@ class LightRegister
      */
     private lightUpdate(light: LightBase,renderer:BasicRenderer)
     {
-        var index = this.lightIdDictionary.get(light.ID);
+        var index = this.lightIdDictionary[light.ID];
         var parameters = light.getParameters(renderer,this.shadowDroppableLightCount);
         var baseIndex = index * 4 * this.TextureWidth + 1;
         var endIndex = baseIndex + parameters.length;

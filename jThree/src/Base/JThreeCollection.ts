@@ -1,6 +1,5 @@
 import JThreeObjectWithID = require("./JThreeObjectWithID");
 import Delegates = require("../Base/Delegates");
-import AssociativeArray = require('./Collections/AssociativeArray');
 /**
  * Collections for JThreeObjectWithID
  */
@@ -8,9 +7,11 @@ class JThreeCollection<T extends JThreeObjectWithID>
 {
   /**
    * Managed collection
-   * @type {AssociativeArray<T>}
+   * @type {{[key:string]:T} }
    */
-  private _collection:AssociativeArray<T>=new AssociativeArray<T>();
+  private _collection:{[key:string]:T} = {};
+
+  private _length = 0;
 
   /**
    * Obtain object by object ID
@@ -19,7 +20,7 @@ class JThreeCollection<T extends JThreeObjectWithID>
    */
   public getById(id:string):T
   {
-    return this._collection.get(id);
+    return this._collection[id];
   }
 
   /**
@@ -29,7 +30,7 @@ class JThreeCollection<T extends JThreeObjectWithID>
    */
   public isContained(item:T):boolean
   {
-    return this._collection.has(item.ID);
+    return !!this._collection[item.ID];
   }
 
   /**
@@ -40,11 +41,12 @@ class JThreeCollection<T extends JThreeObjectWithID>
    */
   public insert(item:T):boolean
   {
-    if(this._collection.has(item.ID))
+    if(this.isContained(item))
     {
       return false;
     }else{
-      this._collection.set(item.ID,item);
+      this._length ++;
+      this._collection[item.ID] = item;
       return true;
     }
   }
@@ -56,9 +58,10 @@ class JThreeCollection<T extends JThreeObjectWithID>
    */
   public del(item:T):boolean
   {
-    if(this._collection.has(item.ID))
+    if(this.isContained(item))
     {
-      this._collection.delete(item.ID);
+      this._length --;
+      delete this._collection[item.ID];
       return true;
     }else
       return false;
@@ -70,7 +73,10 @@ class JThreeCollection<T extends JThreeObjectWithID>
    */
   public each(act:Delegates.Action3<T,string,JThreeCollection<T>>):void
   {
-    this._collection.forEach((a,b)=>act(a,b,this));
+    for(var elem in this._collection)
+    {
+      act(this._collection[elem],elem,this);
+    }
   }
 
   /**
@@ -78,7 +84,14 @@ class JThreeCollection<T extends JThreeObjectWithID>
    */
   public asArray():T[]
   {
-    return this._collection.asArray;
+    const array = new Array(this._length);
+    let index = 0;
+    for(var elem in this._collection)
+    {
+      array[index] = this._collection[elem];
+      index ++;
+    }
+    return array;
   }
 
   /**
@@ -86,7 +99,7 @@ class JThreeCollection<T extends JThreeObjectWithID>
    */
   public get length()
   {
-    return this._collection.length;
+    return this._length;
   }
 }
 

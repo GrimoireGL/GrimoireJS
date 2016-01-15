@@ -1,5 +1,4 @@
 import BasicRenderer = require('./BasicRenderer');
-import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import RenderStageChain = require('./RenderStageChain');
 import SceneObject = require('../SceneObject');
 import Mesh = require('../../Shapes/Mesh')

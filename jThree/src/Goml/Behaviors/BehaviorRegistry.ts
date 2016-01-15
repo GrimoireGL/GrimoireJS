@@ -1,5 +1,4 @@
 import JThreeObject = require('../../Base/JThreeObject');
-import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import BehaviorDeclaration = require('./BehaviorDeclaration');
 import BehaviorDeclarationBody = require('./BehaviorDeclarationBody');
 import Delegates = require("../../Base/Delegates");
@@ -13,7 +12,7 @@ class BehaviorRegistry extends JThreeObject
     super();
   }
 
-  private behaviorInstances: AssociativeArray<BehaviorDeclarationBody> = new AssociativeArray<BehaviorDeclarationBody>();
+  private behaviorInstances: {[id:string]:BehaviorDeclarationBody} = {};
 
   public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody|Delegates.Action0);
   public defineBehavior(behaviorDeclarations:BehaviorDeclaration);
@@ -21,20 +20,20 @@ class BehaviorRegistry extends JThreeObject
   {
       if (typeof nameOrDeclarations === "string") {
           var behaviorName = <string>nameOrDeclarations;
-          this.behaviorInstances.set(behaviorName, this.generateBehaviorInstance(behaviorDeclaration));
+          this.behaviorInstances[behaviorName] = this.generateBehaviorInstance(behaviorDeclaration);
       } else
       {
           //assume arguments are object.
           var behaviorDeclarations = <BehaviorDeclaration>nameOrDeclarations;
           for (var behaviorKey in behaviorDeclarations) {
-              this.behaviorInstances.set(behaviorKey, this.generateBehaviorInstance(behaviorDeclarations[behaviorKey]));
+              this.behaviorInstances[behaviorKey] = this.generateBehaviorInstance(behaviorDeclarations[behaviorKey]);
           }
       }
   }
 
   public getBehavior(behaviorName:string):BehaviorDeclarationBody
   {
-    return this.behaviorInstances.get(behaviorName);
+    return this.behaviorInstances[behaviorName];
   }
 
   private generateBehaviorInstance(behaviorDecl:BehaviorDeclarationBody|Delegates.Action0):BehaviorDeclarationBody {

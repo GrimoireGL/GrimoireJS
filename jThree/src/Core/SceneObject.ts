@@ -6,7 +6,6 @@ import Geometry = require("./Geometries/Geometry");
 import Scene=require('./Scene');
 import JThreeCollection = require("../Base/JThreeCollection");
 import Transformer = require("./Transform/Transformer");
-import AssociativeArray = require('../Base/Collections/AssociativeArray');
 import JThreeEvent = require("../Base/JThreeEvent");
 import ISceneObjectStructureChangedEventArgs = require("./ISceneObjectChangedEventArgs");
 /**
@@ -29,7 +28,7 @@ class SceneObject extends JThreeObjectWithID
 
     private materialChanagedHandler:Delegates.Action2<Material,SceneObject>[]=[];
 
-    private materials:AssociativeArray<JThreeCollection<Material>>=new AssociativeArray<JThreeCollection<Material>>();
+    private materials:{[materialGroup:string]:JThreeCollection<Material>}= {};
 
     /**
      * Contains the children.
@@ -124,23 +123,24 @@ class SceneObject extends JThreeObjectWithID
      * すべてのマテリアルに対して処理を実行します。
      */
     public eachMaterial(func:Delegates.Action1<Material>): void {
-        this.materials.forEach((v) =>v.each(e=>func(e)));
+      for(let material in this.materials)
+        this.materials[material].each(e=>func(e));
     }
 
     public addMaterial(mat: Material): void
     {
-        if(!this.materials.has(mat.MaterialGroup))
+        if(!this.materials[mat.MaterialGroup])
         {
-            this.materials.set(mat.MaterialGroup,new JThreeCollection<Material>());
+            this.materials[mat.MaterialGroup] = new JThreeCollection<Material>();
         }
-        this.materials.get(mat.MaterialGroup).insert(mat);
+        this.materials[mat.MaterialGroup].insert(mat);
     }
 
     public getMaterial(matGroup:string):Material
     {
-        if(this.materials.has(matGroup))
+        if(this.materials[matGroup])
         {
-            var a=this.materials.get(matGroup);
+            var a=this.materials[matGroup];
             var ret=null;
             a.each((e)=>{
                 ret=e;
@@ -151,11 +151,11 @@ class SceneObject extends JThreeObjectWithID
         return null;
     }
 
-    public getMaterials(matAlias:string):Material[]
+    public getMaterials(matGroup:string):Material[]
     {
-      if(this.materials.has(matAlias))
+      if(this.materials[matGroup])
       {
-        return this.materials.get(matAlias).asArray();
+        return this.materials[matGroup].asArray();
       }
       return [];
     }

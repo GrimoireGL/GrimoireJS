@@ -7,7 +7,6 @@ import Matrix = require("../../../Math/Matrix");
 import Program = require("./Program");
 import Canvas = require("../../Canvas");
 import ResourceWrapper = require('../ResourceWrapper');
-import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
 import Buffer = require("../Buffer/Buffer");
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, canvas: Canvas) {
@@ -21,9 +20,9 @@ class ProgramWrapper extends ResourceWrapper {
 
     private _parentProgram: Program = null;
 
-    private _attributeLocations: AssociativeArray<number> = new AssociativeArray<number>();
+    private _attributeLocations: {[key:string]:number} = {};
 
-    private _uniformLocations: AssociativeArray<WebGLUniformLocation> = new AssociativeArray<WebGLUniformLocation>();
+    private _uniformLocations: {[key:string]:WebGLUniformLocation} = {};
 
     public get TargetProgram(): WebGLProgram {
         return this._targetProgram;
@@ -75,17 +74,17 @@ class ProgramWrapper extends ResourceWrapper {
     }
 
     private _fetchUniformLocation(valName: string): WebGLUniformLocation {
-        if (!this._uniformLocations.has(valName)) {
-            this._uniformLocations.set(valName, this.GL.getUniformLocation(this.TargetProgram, valName));
+        if (!this._uniformLocations[valName]) {
+            this._uniformLocations[valName] =  this.GL.getUniformLocation(this.TargetProgram, valName);
         }
-        return this._uniformLocations.get(valName);
+        return this._uniformLocations[valName];
     }
 
     private _fetchAttributeLocation(valName: string): number {
-        if (!this._attributeLocations.has(valName)) {
-            this._attributeLocations.set(valName, this.GL.getAttribLocation(this.TargetProgram, valName));
+        if (!this._attributeLocations[valName]) {
+            this._attributeLocations[valName] =  this.GL.getAttribLocation(this.TargetProgram, valName);
         }
-        return this._attributeLocations.get(valName);
+        return this._attributeLocations[valName];
     }
 
     /**
@@ -160,7 +159,7 @@ class ProgramWrapper extends ResourceWrapper {
       this.GL.uniform1i(location,val);
     }
 
-    public uniformSampler2D(variableName:string,tex:TextureBase,texRegister:number):number
+    public uniformSampler(variableName:string,tex:TextureBase,texRegister:number):number
     {
       const location = this._fetchUniformLocation(variableName);
       const texWrapper = tex.getForContext(this.OwnerCanvas);

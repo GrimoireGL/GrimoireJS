@@ -21,7 +21,7 @@ const TextureRegister = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, ma
       //TODO implement this
         continue;
       case "id":
-        pWrapper.uniformSampler2D(uniform.variableName,rm.getTexture(src),7);
+        pWrapper.uniformSampler(uniform.variableName,rm.getTexture(src),7);
         continue;
     }
   }
