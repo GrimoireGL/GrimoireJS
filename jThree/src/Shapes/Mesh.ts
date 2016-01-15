@@ -1,5 +1,5 @@
 import SceneObject = require("../Core/SceneObject");
-import Geometry = require("../Core/Geometries/Geometry");
+import Geometry = require("../Core/Geometries/Base/Geometry");
 import Material = require("../Core/Materials/Material");
 
 class Mesh extends SceneObject

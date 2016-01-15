@@ -1,3 +1,4 @@
+import Geometry = require("../Geometries/Base/Geometry");
 import Vector4 = require("../../Math/Vector4");
 import Vector3 = require("../../Math/Vector3");
 import Vector2 = require("../../Math/Vector2");
@@ -17,7 +18,6 @@ import ShaderType = require("../../Wrapper/ShaderType");
 import Program = require('../Resources/Program/Program');
 import Scene = require('../Scene');
 import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
-import Geometry = require('../Geometries/Geometry')
 import ResourceManager = require("../ResourceManager");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
@@ -83,22 +83,6 @@ class Material extends JThreeObjectWithID {
     */
     public getPassCount(techniqueIndex: number) {
         return 1;
-    }
-
-    /**
-    * Initialize shader programs.
-    * @param vsid the vertex shader id
-    * @param fsid the fragment shader id
-    * @param pid the program id which is link of the vertex shader and fragment shader
-    * @param vscode the vertex shader source code
-    * @param fscode the fragment shader source code
-    */
-    protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
-        var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        var vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
-        var fShader = rm.createShader(fsid, fscode, ShaderType.FragmentShader);
-        vShader.loadAll(); fShader.loadAll();
-        return rm.createProgram(pid, [vShader, fShader]);
     }
     /**
     * Apply configuration of program.

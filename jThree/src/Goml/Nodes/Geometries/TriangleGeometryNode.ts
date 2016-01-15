@@ -1,7 +1,7 @@
 import GeometryNodeBase = require("./GeometryNodeBase");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Vector3 = require("../../../Math/Vector3");
-import Geometry = require("../../../Core/Geometries/Geometry");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import TriangleGeometry = require("../../../Core/Geometries/TriangleGeometry");
 
 class GomlTreeTriNode extends GeometryNodeBase {

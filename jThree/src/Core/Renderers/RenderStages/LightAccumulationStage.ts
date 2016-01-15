@@ -1,4 +1,4 @@
-import BasicGeometry = require("../../Geometries/BasicGeometry");
+import BasicGeometry = require("../../Geometries/Base/BasicGeometry");
 import BasicRenderer = require('../BasicRenderer');
 import SceneObject = require('../../SceneObject');
 import RenderStageBase = require('./RenderStageBase');
