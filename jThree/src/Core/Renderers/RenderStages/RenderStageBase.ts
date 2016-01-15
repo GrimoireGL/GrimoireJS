@@ -24,18 +24,16 @@ class RenderStageBase extends JThreeObjectWithID {
 
     private renderer: BasicRenderer;
 
-    public get DefaultRenderConfigures():IRenderStageRendererConfigure
+    public getDefaultRendererConfigure(techniqueIndex:number):IRenderStageRendererConfigure
     {
       return {
-        cullOrientation:"back",
+        cullOrientation:"BACK",
         depthEnabled:true,
-        depthMode:"less",
+        depthMode:"LESS",
         depthMask:true,
         blendEnabled:true,
-        blendSrcColor:"srcalpha",
-        blendDstColor:"oneminussrcalpha",
-        blendSrcAlpha:"1",
-        blendDstAlpha:"0"
+        blendSrcFactor:"SRC_ALPHA",
+        blendDstFactor:"ONE_MINUS_SRC_ALPHA"
       };
     }
 
