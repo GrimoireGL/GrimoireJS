@@ -123,6 +123,7 @@ config =
 
 # files for clean task
 cleaner_files = ['./jThree/src/**/*.js']
+cleaner_files_silent = ['./jThree/lib/**/*']
 
 env_production = false
 
@@ -412,5 +413,7 @@ gulp.task 'clean', ->
       del_entries.push path.resolve(__dirname, d, c.name)
       del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
   del_entries = del_entries.concat cleaner_files
+  del_entries_silent = cleaner_files_silent
   del(del_entries).then (paths) ->
     paths.forEach (p) -> gutil.log "deleted: \"#{p}\""
+  del(del_entries_silent)
