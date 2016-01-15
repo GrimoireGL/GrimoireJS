@@ -21,10 +21,8 @@ class GBufferStage extends RenderStageBase {
             depthMode: "less",
             depthMask: true,
             blendEnabled: false,
-            blendSrcColor: "1",
-            blendDstColor: "0",
-            blendSrcAlpha: "1",
-            blendDstAlpha: "0"
+            blendSrcFactor: "1",
+            blendDstFactor: "0"
         };
     }
 

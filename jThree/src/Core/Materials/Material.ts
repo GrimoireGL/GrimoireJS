@@ -158,7 +158,7 @@ class Material extends JThreeObjectWithID {
                 pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
                 return;
             case 'vec4':
-                pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 0));
+                pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 1));
                 return;
             case 'sampler2D':
                 let registerAnnotation = uniform.variableAnnotation["register"];

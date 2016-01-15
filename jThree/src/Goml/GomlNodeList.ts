@@ -18,7 +18,8 @@ var gomlList = [
       "SPHERE": require("./Nodes/Geometries/SphereGeometryNode"),
       "CIRCLE": require("./Nodes/Geometries/CircleGeometryNode"),
       "CYLINDER": require("./Nodes/Geometries/CylinderGeometryNode"),
-      "QUAD": require("./Nodes/Geometries/QuadGeometryNode")
+      "QUAD": require("./Nodes/Geometries/QuadGeometryNode"),
+      "CONE": require("./Nodes/Geometries/ConeGeometryNode")
     }),
   new GomlNodeListElement("jthree.basic",
     {

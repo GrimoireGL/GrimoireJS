@@ -246,8 +246,7 @@ Object.keys(config).forEach (suffix) ->
           if buildSuccess && bundleSuccess
             notifier.notify({
               message: "BUILD SUCCESS (#{suffix})",
-              title: 'jThree',
-              sound: 'Glass'
+              title: 'jThree'
             });
           buildSuccess = true
           bundleSuccess = true
