@@ -26,7 +26,7 @@
     "test": "./node_modules/.bin/gulp --require coffee-script/register test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
-    "lint" : "./node_modules/.bin?gulp --require coffee-script/register tslint"
+    "lint": "./node_modules/.bin?gulp --require coffee-script/register tslint"
   },
   "directories": {
     "test": "jThree/test_"
@@ -60,6 +60,7 @@
     "js-yaml": "^3.4.6",
     "json-loader": "^0.5.4",
     "lodash": "^3.10.1",
+    "mkdirp": "^0.5.1",
     "mocha": "^2.3.4",
     "node-notifier": "^4.4.0",
     "power-assert": "^1.2.0",
