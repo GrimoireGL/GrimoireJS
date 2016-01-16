@@ -12,8 +12,6 @@ import Geometry = require('../../../Core/Geometries/Geometry');
 import Delegate = require('../../../Base/Delegates');
 
 class MeshNode extends SceneObjectNodeBase {
-  private targetMesh: BasicMeshObject;
-
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -30,14 +28,15 @@ class MeshNode extends SceneObjectNodeBase {
     });
   }
 
-  public geo: string;
-  public mat: string;
+  private geo: string;
+  private mat: string;
 
   /**
    * Geomatry instance
    * @type {Geometry}
    */
   private geo_instance: Geometry;
+
   /**
    * Material instance
    * If this has not defined yet, initialize with SolidColor
@@ -71,8 +70,8 @@ class MeshNode extends SceneObjectNodeBase {
   }
 
   private _updateTarget(): void {
-    if (this.geo_instance && this.mat_instance) {
-
+    if (this.geo_instance) {
+      this.targetSceneObject = new BasicMeshObject(this.geo_instance, this.mat_instance ? this.mat_instance : new SolidColor());
     }
   }
 

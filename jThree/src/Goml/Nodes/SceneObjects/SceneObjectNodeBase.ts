@@ -16,10 +16,6 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         onchanged: (attr) => {
           if (this.targetSceneObject) {
             this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
-          } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
-            });
           }
         }
       },
@@ -29,10 +25,6 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         onchanged: (attr) => {
           if (this.targetSceneObject) {
             this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
-          } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
-            });
           }
         }
       },
@@ -42,10 +34,6 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         onchanged: (attr) => {
           if (this.targetSceneObject) {
             this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
-          } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
-            });
           }
         }
       },
@@ -55,10 +43,6 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
         onchanged: (attr) => {
           if (this.targetSceneObject) {
             this.targetSceneObject.name = attr.Value;
-          } else {
-            this.once('target-scene-object-added', () => {
-              this.targetSceneObject.name = attr.Value;
-            });
           }
         }
       }
@@ -69,12 +53,11 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     super.onMount();
     let sceneNode: SceneNode = null;
     let sceneObjectNode: SceneObjectNodeBase = null;
-    if (this.parent.getTypeName() == "SceneNode")//This parent node is scene node. TODO: I wonder there is better way
-    {
+    if (this.parent.getTypeName() == "SceneNode") { // This parent node is scene node. TODO: I wonder there is better way
       sceneNode = <SceneNode>this.parent;
       sceneObjectNode = null;
     } else {
-      if (typeof this.parent["ContainedSceneNode"] === "undefined") {//check parent extends SceneObjectNodeBase or not.
+      if (typeof this.parent["ContainedSceneNode"] === "undefined") { // check parent extends SceneObjectNodeBase or not.
         console.error(`${this.parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
         return null;
       } else {

@@ -44,7 +44,7 @@ class GomlNodeDictionary extends jThreeObject {
     target.node = node;
     // when node is exist in other group and name
     if (group_name) {
-      if(!(group_name.group === group && group_name.name == name)) {
+      if(!(group_name.group === group && group_name.name === name)) {
         if (target.node.Mounted) {
           // notify remove
           this.dictionary[group_name.group][group_name.name].cb.forEach((fn) => { fn(null); });

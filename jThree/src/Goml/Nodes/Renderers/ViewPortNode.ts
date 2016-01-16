@@ -178,10 +178,14 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private resolveCamera(callbackfn: Delegates.Action1<CameraNodeBase>) {
     this.nodeImport("jthree.scene.camera", this.Cam, (targetCam) => {
-      if ((<CameraNodeBase>targetCam).ContainedSceneNode != null) { //if there was specified camera and there is Scene
-        callbackfn(<CameraNodeBase>targetCam);
+      if (targetCam) {
+        if ((<CameraNodeBase>targetCam).ContainedSceneNode != null) { // if there was specified camera and there is Scene
+          callbackfn(<CameraNodeBase>targetCam);
+        } else {
+          console.error("cant retrieve scene!");
+        }
       } else {
-        console.error("cant retrieve scene!");
+        // remove camera
       }
     });
   }
