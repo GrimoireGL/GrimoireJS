@@ -65,10 +65,10 @@
           vec3 normal = getNormal(rawBuffer);
           float depth = getDepth(rawBuffer);
           vec3 pos = getPosition(depth);
-          float power = pow(distance(pos,lightPosition)/dist,decay);
+          float power = pow(max(0.,1. - distance(pos,lightPosition)/dist),decay);
           float lambart = max(0.,dot(normal,normalize(lightPosition - pos)));
           float l = 1.0 - distance(pos,lightPosition)/dist;
-          gl_FragColor = vec4(l,l,l,1.0);//dist;//vec4(lightColor * lambart * power,1.0);
+          gl_FragColor = vec4(lightColor * power,1.0);
         }
       //}
       ]]>

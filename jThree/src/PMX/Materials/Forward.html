@@ -77,7 +77,7 @@
           gl_FragColor = vec4(0,0,0,0);
           vec2 lightUV=calcLightUV(vPosition);
           vec3 dlc = texture2D(_dlBuffer,lightUV).rgb;
-          vec3 slc = texture2D(_slBuffer,lightUV).rgb;
+          //vec3 slc = texture2D(_slBuffer,lightUV).rgb;
           vec3 alc = ambient * ambientCoefficient;
           vec4 dc;
           if(textureUsed == 1)
@@ -91,13 +91,13 @@
           if(toonFlag==1)
           {
         		  float brightness = max(max(dlc.r,dlc.g),dlc.b);
-              gl_FragColor.rgb+=blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
+              gl_FragColor.rgb += normalize(dlc) * blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
           }else
           {
-              gl_FragColor.rgb+=dlc * dc.rgb;
+              gl_FragColor.rgb+= dlc * dc.rgb;
           }
-        	gl_FragColor.a=dc.a;
-          gl_FragColor.rgb += alc + slc;
+        	gl_FragColor.a=1.0;
+          gl_FragColor.rgb += alc + dlc;
         }
 
       //}

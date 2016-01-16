@@ -5,12 +5,8 @@ import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");
 import LightBase = require('./Light/LightBase')
 import Delegates = require('../Base/Delegates')
-import LightRegister = require('./Light/LightRegister');
 import PointLight = require("./Light/Impl/PointLight");
-import DirectionalLight = require("./Light/Impl/DirectionalLight");
 import Color3 = require("../Math/Color3");
-import AreaLight = require("./Light/Impl/AreaLight");
-import SpotLight = require("./Light/Impl/SpotLight");
 import ISceneObjectChangedEventArgs = require("./ISceneObjectChangedEventArgs");
 import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
 
@@ -21,7 +17,6 @@ class Scene extends jThreeObjectWithID {
     constructor(id?: string) {
         super(id);
         this.enabled = true;
-        this.lightRegister = new LightRegister(this);
     }
 
     public sceneObjectStructureChanged: JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
@@ -31,19 +26,6 @@ class Scene extends jThreeObjectWithID {
      * @type {boolean}
      */
     public enabled: boolean;
-
-    /**
-     * The class managing lights of this scene.
-     * @type {LightRegister}
-     */
-    private lightRegister: LightRegister;
-
-    /**
-     * The class managing lights of this scene.
-     */
-    public get LightRegister() {
-        return this.lightRegister;
-    }
 
     /**
      * Scene will be updated by this method.
@@ -63,7 +45,6 @@ class Scene extends jThreeObjectWithID {
     public render(): void {
         this.renderers.forEach((r) => {
             r.beforeRender();
-            this.lightRegister.updateLightForRenderer(r);
             r.render(this);
             r.afterRender();
         });
@@ -88,10 +69,6 @@ class Scene extends jThreeObjectWithID {
 
     public children: SceneObject[] = [];
 
-
-    public addLight(light: LightBase): void {
-        this.lightRegister.addLight(light);
-    }
 
     public addObject(targetObject: SceneObject): void {
         this.children.push(targetObject);

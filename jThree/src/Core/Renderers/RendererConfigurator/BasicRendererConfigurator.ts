@@ -2,10 +2,8 @@ import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
-import AccumulationStage = require("../RenderStages/LightAccumulationStage");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
-import ShadowMapGenerationStage = require("../RenderStages/ShadowMapGenerationStage");
 import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
     public get TextureBuffers(): GeneraterInfo {
@@ -38,13 +36,6 @@ class BasicRendererConfigurator extends ConfiguratorBase {
 
   public getStageChain(target: BasicRenderer): RenderStageChain[] {
     return [
-      {
-        buffers:
-        {
-
-                },
-                stage: new ShadowMapGenerationStage(target)
-            },
             {
                 buffers:
                 {

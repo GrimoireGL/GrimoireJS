@@ -48,6 +48,12 @@
             "js": [
                 "NewSample/NewSample.js"
             ]
+        },
+        "PointLightTest": {
+            "goml": "PointLightTest/PointLightTest.goml",
+            "js": [
+                "PointLightTest/PointLightTest.js"
+            ]
         }
     }
 }
