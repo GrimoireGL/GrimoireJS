@@ -7,7 +7,7 @@ class PrimaryBufferMaterial extends BasicMaterial
     super(require("../BuiltIn/GBuffer/PrimaryBuffer.html"));
   }
 
-  public configureMaterial(matArg:IMaterialConfigureArgument): void
+  public apply(matArg: IMaterialConfigureArgument): void
   {
     var geometry = matArg.object.Geometry;
     var fm = matArg.object.getMaterial("jthree.materials.forematerial");//brightness
@@ -15,7 +15,7 @@ class PrimaryBufferMaterial extends BasicMaterial
     const fmArgs = fm.materialVariables;
     if(fmArgs["brightness"])brightness = fmArgs["brightness"];
     this.materialVariables["brightness"] = brightness;
-    super.configureMaterial(matArg);
+    super.apply(matArg);
   }
 }
 

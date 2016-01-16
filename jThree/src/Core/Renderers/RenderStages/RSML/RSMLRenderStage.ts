@@ -52,7 +52,7 @@ class RSMLRenderStage extends RenderStageBase {
   }
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
-    return typeof object.Geometry != "undefined" && object.Geometry != null;
+    return typeof object.Geometry !== "undefined" && object.Geometry != null;
   }
 
   public getTechniqueCount(scene: Scene) {

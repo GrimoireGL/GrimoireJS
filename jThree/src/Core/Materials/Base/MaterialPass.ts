@@ -36,7 +36,7 @@ class MaterialPass {
     this._parseGLSL();
     this._constructProgram(materialName + index);
   }
-  public configureMaterial(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[], material: Material): void {
+  public apply(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[], material: Material): void {
     const gl = matArg.renderStage.GL;
     const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
     const renderConfig = this._fetchRenderConfigure(matArg);

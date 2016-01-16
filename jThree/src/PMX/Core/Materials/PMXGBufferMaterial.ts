@@ -52,7 +52,7 @@ class PMXGBufferMaterial extends Material {
         this.setLoaded();
     }
 
-    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+    public apply(matArg: IMaterialConfigureArgument): void {
         if (this.associatedMaterial.Diffuse.A < 1.0E-3) return;
         const skeleton = this.associatedMaterial.ParentModel.skeleton;
         switch (matArg.techniqueIndex) {
@@ -62,7 +62,7 @@ class PMXGBufferMaterial extends Material {
                     brightness: this.associatedMaterial.Specular.W,
                     boneCount: skeleton.BoneCount
                 };
-                this.__primaryMaterial.configureMaterial(matArg);
+                this.__primaryMaterial.apply(matArg);
                 break;
             case 1:
                 this.__secoundaryMaterial.materialVariables = {
@@ -78,7 +78,7 @@ class PMXGBufferMaterial extends Material {
                   addSphereCoefficient: new Vector4(this.associatedMaterial.addMorphParam.sphereCoeff),
                   mulSphereCoefficient: new Vector4(this.associatedMaterial.mulMorphParam.sphereCoeff)
                 };
-                this.__secoundaryMaterial.configureMaterial(matArg);
+                this.__secoundaryMaterial.apply(matArg);
                 break;
             case 2:
                 this.__thirdMaterial.materialVariables = {
@@ -86,7 +86,7 @@ class PMXGBufferMaterial extends Material {
                     boneCount: skeleton.BoneCount,
                     specular: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Specular, this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.specular, 3)
                 };
-                this.__thirdMaterial.configureMaterial(matArg);
+                this.__thirdMaterial.apply(matArg);
                 break;
         }
     }

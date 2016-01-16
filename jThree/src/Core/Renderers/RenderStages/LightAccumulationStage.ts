@@ -43,11 +43,11 @@ class LightAccumulationStage extends RenderStageBase
     {
         var geometry = object.Geometry;
         if (!geometry) return;
-        this.configureMaterial(scene, this.Renderer, new Mesh(geometry, null), texs,techniqueIndex === 0?scene.LightRegister.DiffuseLightProgram:scene.LightRegister.SpecularLightProgram);
+        this.apply(scene, this.Renderer, new Mesh(geometry, null), texs,techniqueIndex === 0?scene.LightRegister.DiffuseLightProgram:scene.LightRegister.SpecularLightProgram);
         geometry.drawElements(this.Renderer.ContextManager, null);
     }
 
-    public configureMaterial(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo,targetProgramWrapper:Program): void
+    public apply(scene: Scene, renderer: BasicRenderer, object: SceneObject, texs: ResolvedChainInfo,targetProgramWrapper:Program): void
     {
         var geometry = <BasicGeometry>object.Geometry;
         var pWrapper = targetProgramWrapper.getForContext(renderer.ContextManager);

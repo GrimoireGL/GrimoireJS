@@ -7,11 +7,11 @@ class HitAreaMaterial extends BasicMaterial {
     super(require("../BuiltIn/HitAreaTest.html"));
   }
 
-  public configureMaterial(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IMaterialConfigureArgument): void {
     const r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
     const g = 0x00FF & (matArg.renderStage as any).___objectIndex;
     this.materialVariables["indexColor"] = new Vector4(r / 0xFF, g / 0xFF, 0, 1);
-    super.configureMaterial(matArg);
+    super.apply(matArg);
   }
 }
 

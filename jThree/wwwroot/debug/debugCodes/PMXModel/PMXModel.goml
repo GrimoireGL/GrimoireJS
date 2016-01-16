@@ -19,6 +19,7 @@
       <mesh geo="grid" mat="red" scale="10" position="1,0,0"/>
       <mesh geo="grid" mat="green" scale="10" rotation="z(90d)" position="1,0,0"/>
       <mesh geo="grid" mat="blue" scale="10" rotation="x(90d)"/>
+      <plight distance="2.0"/>
       <!-- <alight color="#FFF" intensity="1"  top="40"  far="50" right="50" position="-10,-10,10"/> -->
       <scenelight color="white" intensity="0.1"/>
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx">

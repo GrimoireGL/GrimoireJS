@@ -27,7 +27,7 @@ class JThreeStatic {
   public defineBehavior(behaviorName: string, decl: BehaviorDeclarationBody | Delegates.Action0);
   public defineBehavior(declarations: BehaviorDeclaration);
   public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, declaration?: BehaviorDeclarationBody | Delegates.Action0) {
-    JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager).behaviorRegistry.defineBehavior(<string>nameOrDeclarations, declaration);//This is not string but it is for conviniesnce.
+    JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager).behaviorRegistry.defineBehavior(<string>nameOrDeclarations, declaration); // This is not string but it is for conviniesnce.
   }
 
   public get Math() {
@@ -72,12 +72,12 @@ class JThreeInit {
   * This method should be called when Jthree loaded.
   */
   public static Init(): void {
-    var scripts = document.getElementsByTagName('script');
+    const scripts = document.getElementsByTagName("script");
     JThreeInit.SelfTag = scripts[scripts.length - 1];
-    //register interfaces
-    window["j3"] = JThreeInit.j3;//$(~~~)
-    var pro = Object.getPrototypeOf(window["j3"]);
-    for (var key in JThreeStatic.prototype) {
+    // register interfaces
+    window["j3"] = JThreeInit.j3; // $(~~~)
+    const pro = Object.getPrototypeOf(window["j3"]);
+    for (let key in JThreeStatic.prototype) {
       pro[key] = JThreeStatic.prototype[key];
     }
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
@@ -91,28 +91,31 @@ class JThreeInit {
     JThreeContext.registerContextComponent(new NodeManager());
     JThreeContext.registerContextComponent(new Debugger());
     JThreeContext.registerContextComponent(new MaterialManager());
-    JThreeContext.registerContextComponent(new PrimitiveRegistory())
-    var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
-    var loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
-    var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
-    var sceneManager = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
+    JThreeContext.registerContextComponent(new PrimitiveRegistory());
+    const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    const timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
+    const sceneManager = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
     loopManager.addAction(1000, () => timer.updateTimer());
-    //loopManager.addAction(2000,()=>this.updateAnimation());
-    //loopManager.addAction(3000,()=>this.gomlLoader.update());
+    // loopManager.addAction(2000,()=>this.updateAnimation());
+    // loopManager.addAction(3000,()=>this.gomlLoader.update());
     loopManager.addAction(4000, () => canvasManager.beforeRenderAll());
     loopManager.addAction(5000, () => sceneManager.renderAll());
     loopManager.addAction(6000, () => canvasManager.afterRenderAll());
-    if (JThreeInit.SelfTag.getAttribute('x-lateLoad') !== "true") window.addEventListener('DOMContentLoaded', () => {
+    if (JThreeInit.SelfTag.getAttribute("x-lateLoad") !== "true") {
+      window.addEventListener("DOMContentLoaded", () => {
       JThreeInit.startInitialize();
     });
+    }
   }
 
   private static startInitialize() {
-    var nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
-    var loader = new GomlLoader(nodeManager, JThreeInit.SelfTag)
+    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager); // This is not string but it is for conviniesnce.
+    const loader = new GomlLoader(nodeManager, JThreeInit.SelfTag);
     loader.initForPage();
+    JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).registerDefaultPrimitives();
     JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger).attach();
-    var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
+    const resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
     resourceLoader.promise.then(() => {
       JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
     });

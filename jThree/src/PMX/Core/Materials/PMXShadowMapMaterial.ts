@@ -45,7 +45,7 @@ class PMXShadowMapMaterial extends BasicMaterial
         this.setLoaded();
     }
 
-    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+    public apply(matArg: IMaterialConfigureArgument): void {
         if (this.associatedMaterial.Diffuse.A<1.0E-3) return;
         var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
         const skeleton = this.associatedMaterial.ParentModel.skeleton;
@@ -54,7 +54,7 @@ class PMXShadowMapMaterial extends BasicMaterial
            boneMatriciesTexture:skeleton.MatrixTexture,
            boneCount:skeleton.BoneCount
         };
-        super.configureMaterial(matArg);
+        super.apply(matArg);
     }
 
 

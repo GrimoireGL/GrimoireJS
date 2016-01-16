@@ -53,7 +53,7 @@ class PMXHitAreaMaterial extends BasicMaterial
         this.setLoaded();
     }
 
-    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+    public apply(matArg: IMaterialConfigureArgument): void {
         var r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
         var g = 0x00FF & (matArg.renderStage as any).___objectIndex;
         var b = 0xFF & this.associatedMaterial.materialIndex;
@@ -63,7 +63,7 @@ class PMXHitAreaMaterial extends BasicMaterial
           boneMatriciesTexture:skeleton.MatrixTexture,
           indexColor:new Vector4(r /0xFF,  g/0xFF, b / 0xFF, 1)
         };
-        super.configureMaterial(matArg);
+        super.apply(matArg);
     }
 
     public getDrawGeometryLength(geo: Geometry): number

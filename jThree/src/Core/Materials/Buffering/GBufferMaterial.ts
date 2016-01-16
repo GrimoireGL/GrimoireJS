@@ -30,7 +30,7 @@ class GBufferMaterial extends Material {
     this.setLoaded();
   }
 
-  public configureMaterial(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IMaterialConfigureArgument): void {
     switch (matArg.techniqueIndex) {
       case 0:
         this.configurePrimaryBuffer(matArg);
@@ -70,7 +70,7 @@ class GBufferMaterial extends Material {
     const fmArgs = fm.materialVariables;
     if (fmArgs["brightness"]) { coefficient = fmArgs["brightness"]; }
     this.primaryMaterial.materialVariables["brightness"] = coefficient;
-    this.primaryMaterial.configureMaterial(matArg);
+    this.primaryMaterial.apply(matArg);
   }
   /**
    * Configure shader for 2nd pass.
@@ -88,7 +88,7 @@ class GBufferMaterial extends Material {
     this.secoundaryMaterial.materialVariables["albedo"] = albedo;
     this.secoundaryMaterial.materialVariables["textureUsed"] = 0;
     this.secoundaryMaterial.materialVariables["texture"] = fmArgs["texture"];
-    this.secoundaryMaterial.configureMaterial(matArg);
+    this.secoundaryMaterial.apply(matArg);
   }
 
 }

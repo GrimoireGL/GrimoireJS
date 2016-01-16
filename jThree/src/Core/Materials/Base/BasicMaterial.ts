@@ -28,9 +28,10 @@ class BasicMaterial extends Material {
 * Apply configuration of program.
 * This is used for passing variables,using programs,binding index buffer.
 */
-  public configureMaterial(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IMaterialConfigureArgument): void {
+    super.apply(matArg);
     const targetPass = this._passes[matArg.passIndex];
-    targetPass.configureMaterial(matArg, this._uniformRegisters, this);
+    targetPass.apply(matArg, this._uniformRegisters, this);
   }
 
   /**

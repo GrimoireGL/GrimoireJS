@@ -12,7 +12,7 @@ class PMXPrimaryBufferMaterial extends BasicMaterial
     this._associatedMaterial = material;
   }
 
-  public configureMaterial(matArg:IMaterialConfigureArgument): void {
+  public apply(matArg: IMaterialConfigureArgument): void {
       if (this._associatedMaterial.Diffuse.A < 1.0E-3) return;
       const skeleton = this._associatedMaterial.ParentModel.skeleton;
       this.materialVariables = {
@@ -20,7 +20,7 @@ class PMXPrimaryBufferMaterial extends BasicMaterial
           brightness: this._associatedMaterial.Specular.W,
           boneCount: skeleton.BoneCount
       };
-      super.configureMaterial(matArg);
+      super.apply(matArg);
   }
 
   /**

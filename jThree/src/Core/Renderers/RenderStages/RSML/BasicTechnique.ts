@@ -140,7 +140,7 @@ class BasicTechnique extends JThreeObjectWithID {
       const clearColor = colorBufferConfigure.getAttribute("clearColor");
       if (!clearColor) {
         this._gl.clearColor(0, 0, 0, 0);
-      } else if (clearColor == "none") {
+      } else if (clearColor === "none") {
         continue;
       } else {
         const colorVector = Vector4.parse(clearColor);

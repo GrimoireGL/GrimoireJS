@@ -1,3 +1,4 @@
+import JThreeObjectEEWithID = require("../../Base/JThreeObjectEEWithID");
 import Geometry = require("../Geometries/Base/Geometry");
 import Vector4 = require("../../Math/Vector4");
 import Vector3 = require("../../Math/Vector3");
@@ -8,15 +9,7 @@ import Matrix = require("../../Math/Matrix");
 import VectorBase = require("../../Math/VectorBase");
 import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./Base/IVariableInfo");
-import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 import BasicRenderer = require("../Renderers/BasicRenderer");
-import ShaderType = require("../../Wrapper/ShaderType");
-import Program = require('../Resources/Program/Program');
-import Scene = require('../Scene');
-import ResolvedChainInfo = require('../Renderers/ResolvedChainInfo');
-import ResourceManager = require("../ResourceManager");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
 /**
 * Basement class for any Materials.
 * Material is basically meaning what shader will be used or what shader variable will passed.
@@ -26,7 +19,7 @@ import ContextComponents = require("../../ContextComponents");
 * Some of materials are intended to use in deferred rendering stage(G-buffer generation stage is one of example).
 * This is one of significant difference between jThree and the other Web3D libraries in Material.
 */
-class Material extends JThreeObjectWithID {
+class Material extends JThreeObjectEEWithID {
   public materialVariables: { [key: string]: any } = {};
 
   /**
@@ -82,25 +75,11 @@ class Material extends JThreeObjectWithID {
   }
 
   /**
-  * Initialize shader programs.
-  * @param vsid the vertex shader id
-  * @param fsid the fragment shader id
-  * @param pid the program id which is link of the vertex shader and fragment shader
-  * @param vscode the vertex shader source code
-  * @param fscode the fragment shader source code
-  */
-  protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    const vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
-    const fShader = rm.createShader(fsid, fscode, ShaderType.FragmentShader);
-    vShader.loadAll(); fShader.loadAll();
-    return rm.createProgram(pid, [vShader, fShader]);
-  }
-  /**
   * Apply configuration of program.
   * This is used for passing variables,using programs,binding index buffer.
   */
-  public configureMaterial(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IMaterialConfigureArgument): void {
+    this.emit("apply", matArg);
     return;
   }
 
