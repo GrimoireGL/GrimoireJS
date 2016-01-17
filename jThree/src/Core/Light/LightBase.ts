@@ -13,9 +13,8 @@ class LightBase extends SceneObject {
 
   private parameterChanged: JThreeEvent<LightBase> = new JThreeEvent();
 
-  constructor(scene: Scene) {
+  constructor() {
     super();
-    this.scene = scene;
   }
 
   private color: Color3 = new Color3(0, 0, 0);
@@ -53,14 +52,6 @@ class LightBase extends SceneObject {
 
   public getParameters(renderer: BasicRenderer, shadowMapIndex?: number): number[] {
     return [];
-  }
-
-  public initializeLight() {
-
-  }
-
-  public onParentSceneChanged(info: IParentSceneChangedEventArgs) {
-
   }
 }
 

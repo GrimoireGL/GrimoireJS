@@ -12,8 +12,8 @@ import Scene = require("../../Scene");
  * X:TYPE ID ,XYZ:COLOR
  */
 class SceneLight extends LightBase {
-  constructor(scene: Scene) {
-    super(scene);
+  constructor() {
+    super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
     const material = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/SceneLight.html"));
     material.on("apply", (matArg: IMaterialConfigureArgument) => {

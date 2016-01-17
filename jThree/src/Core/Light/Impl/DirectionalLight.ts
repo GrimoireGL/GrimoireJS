@@ -16,14 +16,10 @@ import Debugger = require("../../../Debug/Debugger");
 
 /**
  * Provides directional light feature.
- * Parameters:
- * X:TYPE ID ,YZW:COLOR
- * XYZ:DIRECTION
- * X:Shadow map flag,Y:sampler index ,Z: bias
  */
 class DirectionalLight extends LightBase {
-  constructor(scene: Scene) {
-    super(scene);
+  constructor() {
+    super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
     const material = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.html"));
     material.on("apply", (matArg: IMaterialConfigureArgument) => {
