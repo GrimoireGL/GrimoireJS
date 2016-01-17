@@ -38,7 +38,7 @@ class PointLightNode extends LightNodeBase {
 	}
 
 	protected constructLight(): LightBase {
-		this.targetLight = new PointLight(this.ContainedSceneNode.targetScene);
+		this.targetLight = new PointLight();
 		return this.targetLight;
 	}
 }

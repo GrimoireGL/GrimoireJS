@@ -27,7 +27,7 @@ class DirectionalLightNode extends LightNodeBase {
   }
 
   protected constructLight(): LightBase {
-    this.targetLight = new DirectionalLight(this.ContainedSceneNode.targetScene);
+    this.targetLight = new DirectionalLight();
     return this.targetLight;
   }
 }

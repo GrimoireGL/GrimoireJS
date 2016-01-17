@@ -22,7 +22,7 @@ class SceneLightNode extends LightNodeBase {
 	}
 
 	protected constructLight(): LightBase {
-		this.targetLight = new SceneLight(this.ContainedSceneNode.targetScene);
+		this.targetLight = new SceneLight();
 		return this.targetLight;
 	}
 }

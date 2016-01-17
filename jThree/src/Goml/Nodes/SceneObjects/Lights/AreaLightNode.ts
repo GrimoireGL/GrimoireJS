@@ -1,3 +1,4 @@
+import AreaLight = require("../../../../Core/Light/Impl/AreaLight");
 import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
@@ -7,46 +8,23 @@ import LightBase = require('../../../../Core/Light/LightBase');
 import Vector3 = require("../../../../Math/Vector3");
 
 class AreaLightNode extends LightNodeBase {
-  private targetLight: LightBase;
+  private targetLight: AreaLight;
 
   constructor() {
     super();
-    // this.attributes.defineAttribute({
-    //   "intensity": {
-    //     value: 1,
-    //     converter: "float",
-    //     onchanged: (attr) => {
-    //       this.targetLight.intensity = attr.Value;
-    //     }
-    //   },
-    //   "right": {
-    //     value: 1,
-    //     converter: "float",
-    //     onchanged: (attr) => {
-    //       this.targetLight.rightLength = attr.Value;
-    //     }
-    //   }
-    //   ,
-    //   "top": {
-    //     value: 1,
-    //     converter: "float",
-    //     onchanged: (attr) => {
-    //       this.targetLight.topLength = attr.Value;
-    //     }
-    //   }
-    //   ,
-    //   "far": {
-    //     value: 1,
-    //     converter: "float",
-    //     onchanged: (attr) => {
-    //       this.targetLight.farLength = attr.Value;
-    //     }
-    //   }
-    // });
+    this.attributes.defineAttribute({
+      "intensity": {
+        value: 1,
+        converter: "float",
+        onchanged: (attr) => {
+          this.targetLight.intensity = attr.Value;
+        }
+      }
+    });
   }
 
   protected constructLight(): LightBase {
-    //this.targetLight = new AreaLight(this.ContainedSceneNode.targetScene);
+    this.targetLight = new AreaLight();
     return this.targetLight;
   }
 }
