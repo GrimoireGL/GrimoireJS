@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <material name="jthree.basic.light.diffuse.point" group="jthree.light.diffuse" order="300">
+  <material name="jthree.basic.light.diffuse.directional" group="jthree.light.diffuse" order="300">
     <uniform-register>
       <register name="jthree.basic.matrix" />
       <register name="jthree.basic.buffer" />
@@ -16,7 +16,7 @@
 
         void main(void)
         {
-          gl_Position = vLightProjectedPosition = _matPVM * vec4(position,1.0);
+          gl_Position = vLightProjectedPosition =  vec4(position,1.0);
         }
       //}
 

@@ -61,7 +61,6 @@
 /// <reference path="Core/Materials/Base/Registerer/TimeRegisterer.ts" />
 /// <reference path="Core/Materials/Base/XMLRenderConfigUtility.ts" />
 /// <reference path="Core/Materials/Base/ShaderParser.ts" />
-/// <reference path="Core/Materials/Buffering/GBufferMaterial.ts" />
 /// <reference path="Core/Materials/Buffering/HitAreaMaterial.ts" />
 /// <reference path="Core/Materials/Buffering/ShadowMapMaterial.ts" />
 /// <reference path="Core/Materials/IMaterialConfig.ts" />
