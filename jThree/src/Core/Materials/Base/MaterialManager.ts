@@ -28,6 +28,7 @@ class MaterialManager implements IContextComponent {
   constructor() {
     this.addShaderChunk("jthree.builtin.vertex", require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
     this.addShaderChunk("jthree.builtin.shadowfragment", require("../BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));
+    this.addShaderChunk("jthree.builtin.light.bufferreader", require("../BuiltIn/Light/Chunk/_LightAccumulation.glsl"));
     this.addUniformRegister("jthree.basic.matrix", BasicMatrixRegisterer);
     this.addUniformRegister("jthree.basic.light", LightBufferRegisterer);
     this.addUniformRegister("jthree.basic.time", TimeRegisterer);

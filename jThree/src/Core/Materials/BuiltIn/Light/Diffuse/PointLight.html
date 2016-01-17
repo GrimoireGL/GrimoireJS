@@ -30,41 +30,15 @@
         uniform vec3 lightPosition;
         //@(type:buffer,register:0,name:PRIMARY)
         uniform sampler2D _gBuffer;
-
-        // Get depth from texture
-        float getDepth(vec4 rawBuffer)
-        {
-        	return rawBuffer.z;
-        }
-        // Get normal from texture
-        vec3 getNormal(vec4 rawBuffer)
-        {
-        	highp vec2 compressed = rawBuffer.xy * 4. - vec2(2.,2.);
-        	highp vec3 result;
-        	float f = dot(compressed,compressed);
-        	float g = sqrt(1. - f/4.);
-        	result.z = 1. - f/2.;
-        	result.xy = compressed * g;
-        	return normalize(result);
-        }
-        // Reconstruct position
-        vec3 getPosition(float depth)
-        {
-        	vec4 reconstructed = _matIP*vec4(vLightProjectedPosition.xy/vLightProjectedPosition.w,depth,1.);
-        	return reconstructed.xyz / reconstructed.w;
-        }
-
-        vec2 calcBufferPosition()
-        {
-          return ((vLightProjectedPosition.xy/vLightProjectedPosition.w) + vec2(1.0,1.0)) * 0.5;
-        }
+        
+        //@import jthree.builtin.light.bufferreader
 
         void main(void)
         {
-          vec4 rawBuffer = texture2D(_gBuffer,calcBufferPosition());
+          vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
           vec3 normal = getNormal(rawBuffer);
           float depth = getDepth(rawBuffer);
-          vec3 pos = getPosition(depth);
+          vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
           float power = pow(max(0.,1. - distance(pos,lightPosition)/dist),decay);
           float lambart = max(0.,dot(normal,normalize(lightPosition - pos)));
           float l = 1.0 - distance(pos,lightPosition)/dist;
