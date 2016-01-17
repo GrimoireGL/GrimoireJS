@@ -2,17 +2,10 @@ import IMaterialConfigureArgument = require("../../Materials/Base/IMaterialConfi
 import LightBase = require("../LightBase");
 import BasicMaterial = require("../../Materials/Base/BasicMaterial");
 import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
-import Vector3 = require('../../../Math/Vector3');
-import Scene = require('../../Scene');
-import Matrix = require('../../../Math/Matrix');
-import BasicRenderer = require("../../Renderers/BasicRenderer");
-import glm = require("gl-matrix");
-import PointList = require("../../../Math/PointList");
-import Camera = require("../../Camera/Camera");
-import AABB = require("../../../Math/AABB");
+import Vector3 = require("../../../Math/Vector3");
+import Matrix = require("../../../Math/Matrix");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
-import Debugger = require("../../../Debug/Debugger");
 
 /**
  * Provides directional light feature.

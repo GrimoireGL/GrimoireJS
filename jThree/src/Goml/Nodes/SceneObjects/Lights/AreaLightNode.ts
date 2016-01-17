@@ -1,11 +1,7 @@
 import AreaLight = require("../../../../Core/Light/Impl/AreaLight");
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
-import LightNodeBase = require('./LightNodeBase');
+import LightNodeBase = require("./LightNodeBase");
 // import AreaLight = require("../../../../Core/Light/Impl/AreaLight");
-import LightBase = require('../../../../Core/Light/LightBase');
-import Vector3 = require("../../../../Math/Vector3");
+import LightBase = require("../../../../Core/Light/LightBase");
 
 class AreaLightNode extends LightNodeBase {
   private targetLight: AreaLight;

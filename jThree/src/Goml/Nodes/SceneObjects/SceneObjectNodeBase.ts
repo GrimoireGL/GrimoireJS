@@ -75,7 +75,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
       sceneObjectNode = null;
     } else {
       if (typeof this.parent["ContainedSceneNode"] === "undefined") {//check parent extends SceneObjectNodeBase or not.
-        console.error(`${this.parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
+        console.error(`${this.parent.toString() } is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
         return null;
       } else {
         sceneObjectNode = <SceneObjectNodeBase>this.parent;
@@ -93,7 +93,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
       }
       this.emit('target-scene-object-added');
       if (!this.targetSceneObject.name || this.targetSceneObject.ID == this.targetSceneObject.name)
-        this.targetSceneObject.name = `${this.targetSceneObject.getTypeName()}(${this.targetSceneObject.ID})`;
+        this.targetSceneObject.name = `${this.targetSceneObject.getTypeName() }(${this.targetSceneObject.ID})`;
       //append targetObject to parentt
       this.applyHierarchy();
     });
