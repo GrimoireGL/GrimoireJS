@@ -1,6 +1,6 @@
 import ConeGeometry = require("../../../Core/Geometries/ConeGeometry");
 import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Geometry")
+import Geometry = require("../../../Core/Geometries/Base/Geometry")
 import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 

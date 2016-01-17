@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsml>
+  <stage name="jthree.basic.light">
+    <technique target="scene" materialGroup="jthree.light.diffuse">
+      <fbo>
+        <rbo clearDepth="1.0"/>
+        <color name="DIFFUSE" clearColor="0,0,0,0" register="0"/>
+      </fbo>
+      <cull enabled="true" mode="BACK"/>
+      <blend enabled="true" src="ONE" dst="ONE"/>
+      <depth enabled="false"/>
+    </technique>
+    <technique target="scene" materialGroup="jthree.light.specular">
+      <fbo>
+        <rbo clearDepth="1.0"/>
+        <color name="SPECULAR" clearColor="0,0,0,0" register="0"/>
+      </fbo>
+      <cull enabled="true" mode="BACK"/>
+      <blend enabled="true" src="ONE" dst="ONE"/>
+      <depth enabled="false"/>
+    </technique>
+  </stage>
+</rsml>

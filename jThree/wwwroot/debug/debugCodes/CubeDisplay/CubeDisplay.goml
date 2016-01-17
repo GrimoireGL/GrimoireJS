@@ -24,8 +24,9 @@
       <mesh geo="cube" mat="matTest" rotation="x(90d)" position="-3,3,0"/>
       <alight color="#FFF" intensity="0.2"  top="40"  far="50" right="50" position="-10,-10,10"/>
       <dlight color="#F00" intensity="1" rotation="x(15d)"/>
+      <plight distance="7"/>
       <mesh geo="cube" mat="matTest" position="-3,3,-5"/>
-      <mesh geo="cube" mat="matTest"/>
+      <mesh geo="cube" mat="green"/>
       <mesh geo="grid" mat="matTest" scale="10"/>
     </scene>
   </scenes>

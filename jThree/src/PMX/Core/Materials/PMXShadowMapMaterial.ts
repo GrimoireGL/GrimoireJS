@@ -3,7 +3,7 @@ import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMater
 import Material = require('../../../Core/Materials/Material');
 import Program = require("../../../Core/Resources/Program/Program");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
-import Geometry = require("../../../Core/Geometries/Geometry");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import SceneObject = require("../../../Core/SceneObject");
 import Matrix = require("../../../Math/Matrix");
 import GLFeatureType = require("../../../Wrapper/GLFeatureType");
@@ -45,16 +45,16 @@ class PMXShadowMapMaterial extends BasicMaterial
         this.setLoaded();
     }
 
-    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+    public apply(matArg: IMaterialConfigureArgument): void {
         if (this.associatedMaterial.Diffuse.A<1.0E-3) return;
-        var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
-        const skeleton = this.associatedMaterial.ParentModel.skeleton;
-        this.materialVariables = {
-           matL:light.matLightViewProjection,
-           boneMatriciesTexture:skeleton.MatrixTexture,
-           boneCount:skeleton.BoneCount
-        };
-        super.configureMaterial(matArg);
+        // var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
+        // const skeleton = this.associatedMaterial.ParentModel.skeleton;
+        // this.materialVariables = {
+        //    matL:light.matLightViewProjection,
+        //    boneMatriciesTexture:skeleton.MatrixTexture,
+        //    boneCount:skeleton.BoneCount
+        // };
+        super.apply(matArg);
     }
 
 

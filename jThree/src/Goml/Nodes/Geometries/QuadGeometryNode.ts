@@ -1,6 +1,6 @@
 import GeometryNodeBase = require("./GeometryNodeBase");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Geometry = require("../../../Core/Geometries/Geometry");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import QuadGeometry = require("../../../Core/Geometries/QuadGeometry");
 
 class QuadGeometryNode extends GeometryNodeBase {

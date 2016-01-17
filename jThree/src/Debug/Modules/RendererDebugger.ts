@@ -12,70 +12,54 @@ import IRequestBufferTexture = require("./Renderer/IRequestBufferTexture");
 import IRequestShadowMapTexture = require('./Renderer/IRequestShadowMapTexture');
 import IRequestBufferTextureProgress = require("./Renderer/IRequestBufferTextureProgress");
 import IRequestShadowMapProgress = require("./Renderer/IRequestShadowMapProgress");
-class RendererDebugger extends DebuggerModuleBase
-{
-  private bufferTextureRequest:IRequestBufferTexture;
+class RendererDebugger extends DebuggerModuleBase {
+  private bufferTextureRequest: IRequestBufferTexture;
 
-  private shadowMapRequest:IRequestShadowMapTexture;
+  private shadowMapRequest: IRequestShadowMapTexture;
 
-  private bufferTextureProgressRequest:IRequestBufferTextureProgress;
+  private bufferTextureProgressRequest: IRequestBufferTextureProgress;
 
-  private shadowMapProgressRequest:IRequestShadowMapProgress;
+  private shadowMapProgressRequest: IRequestShadowMapProgress;
 
-  public attach(debug:Debugger)
-  {
+  public attach(debug: Debugger) {
     var sm = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
-    sm.Scenes.forEach(s=>
-    {
-      this.attachToScene(s,debug);
+    sm.Scenes.forEach(s=> {
+      this.attachToScene(s, debug);
     });
-    sm.sceneListChanged.addListener((o,h)=>
-    {
-      if(h.isAdditionalChange)
-      {
-        this.attachToScene(h.changedScene,debug);
-      }else
-      {
+    sm.sceneListChanged.addListener((o, h) => {
+      if (h.isAdditionalChange) {
+        this.attachToScene(h.changedScene, debug);
+      } else {
         //TODO add code for delete
       }
     });
   }
 
-  private attachToScene(scene:Scene,debug:Debugger)
-  {
-    scene.Renderers.forEach(r=>
-    {
-      this.attachToRenderer(r,debug);
+  private attachToScene(scene: Scene, debug: Debugger) {
+    scene.Renderers.forEach(r=> {
+      this.attachToRenderer(r, debug);
     });
-    scene.rendererListChanged.addListener((o,h)=>
-    {
-      if(h.isAdditionalChange)
-      {
-        this.attachToRenderer(h.renderer,debug);
-      }else
-      {
+    scene.rendererListChanged.addListener((o, h) => {
+      if (h.isAdditionalChange) {
+        this.attachToRenderer(h.renderer, debug);
+      } else {
         //TODO add code for delete
       }
     });
   }
 
-  private canvasToimg(renderer:BasicRenderer)
-  {
+  private canvasToimg(renderer: BasicRenderer) {
     var canvas = <Canvas>renderer.ContextManager;
-    var img = new Image(canvas.canvasElement.width,canvas.canvasElement.height);
+    var img = new Image(canvas.canvasElement.width, canvas.canvasElement.height);
     img.src = canvas.canvasElement.toDataURL();
     return img;
   }
 
-  private attachToRenderer(renderer:BasicRenderer,debug:Debugger)
-  {
-    debug.debuggerAPI.renderers.addRenderer(renderer,this);
-    renderer.RenderPathExecutor.renderStageCompleted.addListener((o,v)=>
-    {
-      if(this.bufferTextureRequest && v.completedChain.stage.ID === this.bufferTextureRequest.stageID)
-      {
-        if(v.bufferTextures[this.bufferTextureRequest.bufferTextureID] == null)
-        {
+  private attachToRenderer(renderer: BasicRenderer, debug: Debugger) {
+    debug.debuggerAPI.renderers.addRenderer(renderer, this);
+    renderer.RenderPathExecutor.renderStageCompleted.addListener((o, v) => {
+      if (this.bufferTextureRequest && v.completedChain.stage.ID === this.bufferTextureRequest.stageID) {
+        if (v.bufferTextures[this.bufferTextureRequest.bufferTextureID] == null) {
           this.bufferTextureRequest.deffered.resolve(this.canvasToimg(v.owner.renderer));
           this.bufferTextureRequest = null;
           return;
@@ -84,112 +68,100 @@ class RendererDebugger extends DebuggerModuleBase
         this.bufferTextureRequest = null;
       }
     });
-    renderer.RenderPathExecutor.renderPathCompleted.addListener((o,v)=>
-    {
-      if(this.shadowMapRequest && v.owner.renderer.ID === this.shadowMapRequest.rendererID)
-      {
-        this.shadowMapRequest.deffered.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapRequest.generator));
+    renderer.RenderPathExecutor.renderPathCompleted.addListener((o, v) => {
+      if (this.shadowMapRequest && v.owner.renderer.ID === this.shadowMapRequest.rendererID) {
+        //this.shadowMapRequest.deffered.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapRequest.generator));
         this.shadowMapRequest = null;
       }
-      if(this.bufferTextureProgressRequest&&this.bufferTextureProgressRequest.begin)
-      {
+      if (this.bufferTextureProgressRequest && this.bufferTextureProgressRequest.begin) {
         this.bufferTextureProgressRequest.deffered.resolve(null);
         this.bufferTextureProgressRequest = null;
       }
-      if(this.shadowMapProgressRequest && this.shadowMapProgressRequest.begin)
-      {
+      if (this.shadowMapProgressRequest && this.shadowMapProgressRequest.begin) {
         this.shadowMapProgressRequest.deffered.resolve(null);
         this.shadowMapProgressRequest = null;
       }
     });
-    renderer.RenderPathExecutor.renderObjectCompleted.addListener((o,v)=>
-    {
-      if(this.bufferTextureProgressRequest && v.stage.ID === this.bufferTextureProgressRequest.stageID)
-      {
+    renderer.RenderPathExecutor.renderObjectCompleted.addListener((o, v) => {
+      if (this.bufferTextureProgressRequest && v.stage.ID === this.bufferTextureProgressRequest.stageID) {
         this.bufferTextureProgressRequest.begin = true;
         v.owner.renderer.GL.flush();
         var img;
-        if(v.bufferTextures[this.bufferTextureProgressRequest.bufferTextureID]==null)
-        {
+        if (v.bufferTextures[this.bufferTextureProgressRequest.bufferTextureID] == null) {
           //for default buffer
           img = this.canvasToimg(v.owner.renderer);
-        }else{
-         img = v.bufferTextures[this.bufferTextureProgressRequest.bufferTextureID].wrappers[0].generateHtmlImage(this.bufferTextureProgressRequest.generator);
-       }
+        } else {
+          img = v.bufferTextures[this.bufferTextureProgressRequest.bufferTextureID].wrappers[0].generateHtmlImage(this.bufferTextureProgressRequest.generator);
+        }
         img.title = `object:${v.renderedObject.name} technique:${v.technique}`;
         this.bufferTextureProgressRequest.deffered.notify(
           {
-            image:img,
-            object:v.renderedObject,
-            technique:v.technique
+            image: img,
+            object: v.renderedObject,
+            technique: v.technique
           }
-        )
+          )
       }
-      if(this.shadowMapProgressRequest &&v.stage.getTypeName() === "ShadowMapGenerationStage"&& v.stage.Renderer.ID === this.shadowMapProgressRequest.rendererID)
-      {
+      if (this.shadowMapProgressRequest && v.stage.getTypeName() === "ShadowMapGenerationStage" && v.stage.Renderer.ID === this.shadowMapProgressRequest.rendererID) {
         this.shadowMapProgressRequest.begin = true;
         v.owner.renderer.GL.flush();
-        img =v.renderedObject.ParentScene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapProgressRequest.generator);
+        img = undefined;//v.renderedObject.ParentScene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapProgressRequest.generator);
         img.title = `object:${v.renderedObject.name} technique:${v.technique}`;
         this.shadowMapProgressRequest.deffered.notify(
           {
-            image:img,
-            object:v.renderedObject,
-            technique:v.technique
+            image: img,
+            object: v.renderedObject,
+            technique: v.technique
           }
-        )
+          )
       }
     });
   }
 
-  public getShadowMapImage(rendererID:string,generator?:any):Q.IPromise<HTMLImageElement>
-  {
+  public getShadowMapImage(rendererID: string, generator?: any): Q.IPromise<HTMLImageElement> {
     var d = Q.defer<HTMLImageElement>();
     this.shadowMapRequest =
     {
-      deffered:d,
-      rendererID:rendererID,
-      generator:generator
+      deffered: d,
+      rendererID: rendererID,
+      generator: generator
     };
     return d.promise;
   }
 
-  public getShadowMapProgressImage(rendererID:string,generator?:any):Q.IPromise<HTMLImageElement>
-  {
+  public getShadowMapProgressImage(rendererID: string, generator?: any): Q.IPromise<HTMLImageElement> {
     var d = Q.defer<HTMLImageElement>();
     this.shadowMapProgressRequest =
     {
-      deffered:d,
-      rendererID:rendererID,
-      generator:generator,
-      begin:false
+      deffered: d,
+      rendererID: rendererID,
+      generator: generator,
+      begin: false
     }
     return d.promise;
   }
 
-  public getTextureHtmlImage(stageID:string,bufferTextureID:string,generator?:any):Q.IPromise<HTMLImageElement>
-  {
+  public getTextureHtmlImage(stageID: string, bufferTextureID: string, generator?: any): Q.IPromise<HTMLImageElement> {
     var d = Q.defer<HTMLImageElement>();
     this.bufferTextureRequest =
     {
-        deffered:d,
-        stageID:stageID,
-        bufferTextureID:bufferTextureID,
-        generator:generator
+      deffered: d,
+      stageID: stageID,
+      bufferTextureID: bufferTextureID,
+      generator: generator
     };
     return d.promise;
   }
 
-  public getTextureProgressHtmlImage(stageID:string,bufferTextureID:string,generator?:any):Q.IPromise<HTMLImageElement>
-  {
+  public getTextureProgressHtmlImage(stageID: string, bufferTextureID: string, generator?: any): Q.IPromise<HTMLImageElement> {
     var d = Q.defer<HTMLImageElement>();
     this.bufferTextureProgressRequest =
     {
-      deffered:d,
-      stageID:stageID,
-      bufferTextureID:bufferTextureID,
-      generator:generator,
-      begin:false
+      deffered: d,
+      stageID: stageID,
+      bufferTextureID: bufferTextureID,
+      generator: generator,
+      begin: false
     };
     return d.promise;
   }

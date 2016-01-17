@@ -1,5 +1,5 @@
 import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Geometry")
+import Geometry = require("../../../Core/Geometries/Base/Geometry")
 import CircleGeometry = require("../../../Core/Geometries/CircleGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlAttribute = require('../../GomlAttribute');

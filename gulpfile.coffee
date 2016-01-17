@@ -28,6 +28,8 @@ formatter = require 'pretty-hrtime'
 runSequence = require 'run-sequence'
 ts = require 'gulp-typescript'
 changed = require 'gulp-changed'
+tslint = require 'gulp-tslint'
+mkdir = require 'mkdirp'
 
 ###
 TASK SUMMARY
@@ -97,6 +99,7 @@ defaultStatsOptions =
 
 # ts compilcation config
 tsEntries = './jThree/src/**/*.ts'
+refsEntries = './jThree/src/refs/**/*.ts'
 tsDest = './jThree/lib'
 tsBase = './jThree/src'
 
@@ -105,7 +108,7 @@ config =
   main:
     entries: './jThree/lib/jThree.js'
     name: 'j3.js'
-    extensions: ['.js', '.json', '.glsl', '.html']
+    extensions: ['.js', '.json', '.glsl', '.html','.xmml']
     dest: ['./jThree/bin/product', './jThree/wwwroot']
     target: 'web'
     minify: false
@@ -123,6 +126,7 @@ config =
 
 # files for clean task
 cleaner_files = ['./jThree/src/**/*.js']
+cleaner_files_silent = ['./jThree/lib/**/*']
 
 env_production = false
 
@@ -236,6 +240,7 @@ Object.keys(config).forEach (suffix) ->
           bundleSuccess = false
           gutil.log gutil.colors.black.bgRed " [BUNDLING FAILED] (#{suffix}) #{c.name} "
           gutil.log err.message
+          console.log err
           @emit 'end'
         .on 'end', ->
           copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
@@ -412,5 +417,34 @@ gulp.task 'clean', ->
       del_entries.push path.resolve(__dirname, d, c.name)
       del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
   del_entries = del_entries.concat cleaner_files
+  del_entries_silent = cleaner_files_silent
   del(del_entries).then (paths) ->
     paths.forEach (p) -> gutil.log "deleted: \"#{p}\""
+  del(del_entries_silent)
+
+gulp.task 'tslint', ->
+  gulp.src [tsEntries,'!' + refsEntries,'!./jThree/src/bundle-notdoc.ts']
+    .pipe tslint
+      configuration:"./tslint.json"
+    .pipe tslint.report "verbose"
+
+gulp.task 'sample', ->
+  sampleName = args.name
+  debugDir = "./jThree/wwwroot/debug/";
+  dirName =  debugDir  + "debugCodes/" + sampleName
+  gomlPath = (dirName + "/" + sampleName + ".goml")
+  jsPath = (dirName + "/" + sampleName + ".js")
+  mkdir dirName,(err)=>
+    if err
+      console.error err
+      return
+    fs.createReadStream debugDir + "Template.goml"
+      .pipe fs.createWriteStream gomlPath
+    fs.createReadStream debugDir + "Template.js"
+      .pipe fs.createWriteStream jsPath
+    fs.readFile debugDir + "debug.json","utf-8",(err,data)=>
+      jsonData = JSON.parse data
+      jsonData.codes[sampleName] =
+        goml: sampleName + "/" + sampleName + ".goml"
+        js: [sampleName + "/" + sampleName + ".js"]
+      fs.writeFile debugDir + "debug.json", JSON.stringify jsonData,null,4

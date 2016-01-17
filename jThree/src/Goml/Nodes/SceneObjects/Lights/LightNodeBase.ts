@@ -14,7 +14,7 @@ class LightNodeBase extends SceneObjectNodeBase {
 		this.attributes.defineAttribute({
 			"color": {
 				value: "white",
-				converter: "color4",
+				converter: "color3",
 				onchanged: (attr) => {
 					this.targetLightBase.Color = attr.Value;
 				}
