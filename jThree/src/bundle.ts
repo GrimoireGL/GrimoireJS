@@ -74,7 +74,6 @@
 /// <reference path="Core/Renderers/RenderPathExecutor.ts" />
 /// <reference path="Core/Renderers/RenderStageChain.ts" />
 /// <reference path="Core/Renderers/RenderStageConfig.ts" />
-/// <reference path="Core/Renderers/RenderStages/GBuffer/GBufferStage.ts" />
 /// <reference path="Core/Renderers/RenderStages/HitAreaRenderStage.ts" />
 /// <reference path="Core/Renderers/RenderStages/IRenderStageRendererConfigure.ts" />
 /// <reference path="Core/Renderers/RenderStages/RSML/BasicTechnique.ts" />
