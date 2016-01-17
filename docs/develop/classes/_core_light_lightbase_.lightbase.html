@@ -83,6 +83,9 @@
 										<a href="_core_light_impl_pointlight_.pointlight.html" class="tsd-signature-type">PointLight</a>
 									</li>
 									<li>
+										<a href="_core_light_impl_arealight_.arealight.html" class="tsd-signature-type">AreaLight</a>
+									</li>
+									<li>
 										<a href="_core_light_impl_directionallight_.directionallight.html" class="tsd-signature-type">DirectionalLight</a>
 									</li>
 									<li>
@@ -143,12 +146,11 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_light_lightbase_.lightbase.html#getparameters" class="tsd-kind-icon">get<wbr>Parameters</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_light_lightbase_.lightbase.html#initializelight" class="tsd-kind-icon">initialize<wbr>Light</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_light_lightbase_.lightbase.html#onparameterchanged" class="tsd-kind-icon">on<wbr>Parameter<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_light_lightbase_.lightbase.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_lightbase_.lightbase.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
@@ -162,7 +164,7 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Light<wbr>Base<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Light<wbr>Base<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -172,12 +174,6 @@
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L14">Core/Light/LightBase.ts:14</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>scene: <a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a></h5>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_core_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a></h4>
 						</li>
 					</ul>
@@ -191,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">:</span> <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L21">Core/Light/LightBase.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L20">Core/Light/LightBase.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -285,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L23">Core/Light/LightBase.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L22">Core/Light/LightBase.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></h4>
@@ -293,7 +289,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L27">Core/Light/LightBase.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L26">Core/Light/LightBase.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -394,7 +390,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L35">Core/Light/LightBase.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L34">Core/Light/LightBase.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -473,7 +469,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L31">Core/Light/LightBase.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L30">Core/Light/LightBase.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -559,7 +555,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L46">Core/Light/LightBase.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L45">Core/Light/LightBase.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -582,7 +578,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L42">Core/Light/LightBase.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L41">Core/Light/LightBase.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -629,7 +625,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L39">Core/Light/LightBase.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L38">Core/Light/LightBase.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -741,7 +737,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L54">Core/Light/LightBase.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L53">Core/Light/LightBase.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -778,23 +774,6 @@
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 							<p>Class name of the instance.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="initializelight" class="tsd-anchor"></a>
-					<h3>initialize<wbr>Light</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">initialize<wbr>Light<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L58">Core/Light/LightBase.ts:58</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -850,7 +829,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L50">Core/Light/LightBase.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L49">Core/Light/LightBase.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -881,24 +860,24 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="onparentscenechanged" class="tsd-anchor"></a>
 					<h3>on<wbr>Parent<wbr>Scene<wbr>Changed</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed<span class="tsd-signature-symbol">(</span>info<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_iparentscenechangedeventargs_.iparentscenechangedeventargs.html" class="tsd-signature-type">IParentSceneChangedEventArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed<span class="tsd-signature-symbol">(</span>sceneInfo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_iparentscenechangedeventargs_.iparentscenechangedeventargs.html" class="tsd-signature-type">IParentSceneChangedEventArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overwrites <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onparentscenechanged">onParentSceneChanged</a></p>
+								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onparentscenechanged">onParentSceneChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L62">Core/Light/LightBase.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L202">Core/SceneObject.ts:202</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>info: <a href="../interfaces/_core_iparentscenechangedeventargs_.iparentscenechangedeventargs.html" class="tsd-signature-type">IParentSceneChangedEventArgs</a></h5>
+									<h5>sceneInfo: <a href="../interfaces/_core_iparentscenechangedeventargs_.iparentscenechangedeventargs.html" class="tsd-signature-type">IParentSceneChangedEventArgs</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1049,9 +1028,6 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_light_lightbase_.lightbase.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_light_lightbase_.lightbase.html#initializelight" class="tsd-kind-icon">initialize<wbr>Light</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_light_lightbase_.lightbase.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a>
 							</li>
@@ -1064,7 +1040,7 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_light_lightbase_.lightbase.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_light_lightbase_.lightbase.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
