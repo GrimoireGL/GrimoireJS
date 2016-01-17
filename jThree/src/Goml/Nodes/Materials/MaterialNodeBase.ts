@@ -58,15 +58,15 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         const pass = passes[i];
         const uniforms = pass.parsedProgram.uniforms;
         for (let variableName in uniforms) {
-          if (variableName[0] == "_") continue;//Ignore system variables
+          if (variableName[0] == "_") continue; //Ignore system variables
           if (!passVariables[variableName]) {
-            //When the pass variable are not found yet.
+            // When the pass variable are not found yet.
             passVariables[variableName] = uniforms[variableName];
           }
           else {
-            //When the pass variable are already found.
-            if (passVariables[variableName] == uniforms[variableName]) continue;//When the variable was found and same type.(This is not matter)
-            else//When the variable was already found and
+            // When the pass variable are already found.
+            if (passVariables[variableName] == uniforms[variableName]) continue; // When the variable was found and same type.(This is not matter)
+            else // When the variable was already found and
               console.error("Material can not contain same variables even if these variable are included in different passes");
           }
         }
@@ -104,6 +104,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       converter: converter,
       value: initialValue,
       onchanged: (v) => {
+       console.warn("onchanged" + v.Name);
         this.targetMaterial.materialVariables[variableName] = v.Value;
       }
     };

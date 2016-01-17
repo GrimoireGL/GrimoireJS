@@ -84,6 +84,7 @@ class AttributeDictionary extends JThreeObject {
       const attribute = attributes[key];
       const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);
       if (!converter && !attribute.reserved) {
+       console.error("Converter not found!");
         throw new Error(`converter \"${attribute.converter}\" is not found`)
       }
       const existed_attribute = this.getAttribute(key);
@@ -95,6 +96,7 @@ class AttributeDictionary extends JThreeObject {
         gomlAttribute.constant = attribute.constant;
         gomlAttribute.Value = gomlAttribute.ValueStr;
         gomlAttribute.reserved = false;
+        gomlAttribute.on('changed', attribute.onchanged.bind(this.node));
       } else {
         gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.reserved, attribute.constant);
         if (attribute.reserved) {

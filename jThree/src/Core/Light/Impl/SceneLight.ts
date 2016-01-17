@@ -4,7 +4,6 @@ import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
 import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 import LightBase = require("./../LightBase");
-import Scene = require("../../Scene");
 
 /**
  * Provides area light feature.

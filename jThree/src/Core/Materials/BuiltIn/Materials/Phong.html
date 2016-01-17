@@ -45,6 +45,7 @@
       uniform vec3 specular;
       uniform vec4 ambient;
       uniform vec3 ambientCoefficient;
+      uniform float brightness;
       void main(void)
       {
         vec2 adjuv=vUv;
@@ -52,7 +53,7 @@
         //gl_FragColor.rgb+=ambient.rgb;
         ////calculate light uv
         vec2 lightUV=calcLightUV(vPosition);
-        gl_FragColor.rgb+=texture2D(_dlBuffer,lightUV).rgb+texture2D(_slBuffer,lightUV).rgb;
+        gl_FragColor.rgb+=diffuse.rgb * texture2D(_dlBuffer,lightUV).rgb+specular.rgb *texture2D(_slBuffer,lightUV).rgb;
         //gl_FragColor.rgb +=ambient.rgb;
       }
       //}
