@@ -13,7 +13,6 @@ import ResolvedChainInfo = require('../../../Core/Renderers/ResolvedChainInfo');
 import PMXGeometry = require('./../PMXGeometry');
 import Vector4 = require("../../../Math/Vector4");
 import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
-import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
 import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 /**
  * the materials for PMX.
@@ -36,14 +35,6 @@ class PMXHitAreaMaterial extends BasicMaterial
     public get VerticiesOffset()
     {
         return this.associatedMaterial.VerticiesOffset;
-    }
-
-    public getMaterialConfig(pass:number,technique:number):IMaterialConfig
-    {
-      return {
-        blend:false,
-        cull:this.associatedMaterial.cullEnabled ? "ccw":undefined
-      }
     }
 
     constructor(material: PMXMaterial)

@@ -32,7 +32,11 @@ abstract class RenderStageBase extends JThreeObjectWithID {
       depthMask: true,
       blendEnabled: true,
       blendSrcFactor: "SRC_ALPHA",
-      blendDstFactor: "ONE_MINUS_SRC_ALPHA"
+      blendDstFactor: "ONE_MINUS_SRC_ALPHA",
+      redMask: true,
+      greenMask: true,
+      blueMask: true,
+      alphaMask: true
     };
   }
 
