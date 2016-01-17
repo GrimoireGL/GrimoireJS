@@ -7,9 +7,6 @@ import Matrix = require("../../../Math/Matrix");
 import Program = require("./Program");
 import Canvas = require("../../Canvas");
 import ResourceWrapper = require('../ResourceWrapper');
-import AssociativeArray = require('../../../Base/Collections/AssociativeArray');
-import VariableRegisteringArgument = require("./VariableRegister/VariableRegisteringArgument");
-import VariableRegisterBase = require("./VariableRegister/Uniforms/UniformVariableRegisterBase");
 import Buffer = require("../Buffer/Buffer");
 class ProgramWrapper extends ResourceWrapper {
     constructor(parent: Program, canvas: Canvas) {
@@ -23,11 +20,9 @@ class ProgramWrapper extends ResourceWrapper {
 
     private _parentProgram: Program = null;
 
-    private _attributeLocations: AssociativeArray<number> = new AssociativeArray<number>();
+    private _attributeLocations: {[key:string]:number} = {};
 
-    private _uniformLocations: AssociativeArray<WebGLUniformLocation> = new AssociativeArray<WebGLUniformLocation>();
-
-    private _uniformRegisterTypeList: { [name: string]: VariableRegisterBase } = require("./VariableRegister/Uniforms/UniformTypeList");
+    private _uniformLocations: {[key:string]:WebGLUniformLocation} = {};
 
     public get TargetProgram(): WebGLProgram {
         return this._targetProgram;
@@ -79,17 +74,17 @@ class ProgramWrapper extends ResourceWrapper {
     }
 
     private _fetchUniformLocation(valName: string): WebGLUniformLocation {
-        if (!this._uniformLocations.has(valName)) {
-            this._uniformLocations.set(valName, this.GL.getUniformLocation(this.TargetProgram, valName));
+        if (!this._uniformLocations[valName]) {
+            this._uniformLocations[valName] =  this.GL.getUniformLocation(this.TargetProgram, valName);
         }
-        return this._uniformLocations.get(valName);
+        return this._uniformLocations[valName];
     }
 
     private _fetchAttributeLocation(valName: string): number {
-        if (!this._attributeLocations.has(valName)) {
-            this._attributeLocations.set(valName, this.GL.getAttribLocation(this.TargetProgram, valName));
+        if (!this._attributeLocations[valName]) {
+            this._attributeLocations[valName] =  this.GL.getAttribLocation(this.TargetProgram, valName);
         }
-        return this._attributeLocations.get(valName);
+        return this._attributeLocations[valName];
     }
 
     /**
@@ -101,37 +96,6 @@ class ProgramWrapper extends ResourceWrapper {
         this._parentProgram.AttachedShaders.forEach((v, i, a) => {
             this.GL.attachShader(this._targetProgram, v.getForContextID(this.OwnerID).TargetShader);
         });
-    }
-
-    /**
-     * Pass the variables into shader
-     * @param variables
-     * @returns {}
-     */
-    public register(variables: VariableRegisteringArgument) {
-        this.useProgram();
-        //register uniform variables
-        if (typeof variables.uniforms !== "undefined") {
-            for (var uniformKey in variables.uniforms) {
-                var uniform = variables.uniforms[uniformKey];
-                uniform['context'] = this.OwnerCanvas;
-                var index = this._fetchUniformLocation(uniformKey);
-                if (index == -1) continue;
-                var registerer = this._uniformRegisterTypeList[uniform.type];
-                registerer.registerVariable(this.GL, index, uniform.value, uniform);
-            }
-        }
-        //register attribute variables
-        if (typeof variables.attributes !== "undefined") {
-            for (var attributeKey in variables.attributes) {
-                var attribute = variables.attributes[attributeKey];
-                var buffer = attribute.getForContext(this.OwnerCanvas);
-                buffer.bindBuffer();
-                var attribIndex: number = this._fetchAttributeLocation(attributeKey);
-                this.GL.enableVertexAttribArray(attribIndex);
-                this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
-            }
-        }
     }
 
     /**
@@ -148,26 +112,35 @@ class ProgramWrapper extends ResourceWrapper {
         this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
     }
 
+    public uniformMatrixArrayFromBuffer(variableName:string,buffer:Float32Array):void
+    {
+      const location = this._fetchUniformLocation(variableName);
+      if(!location)return;
+      this.GL.uniform4fv(location,buffer);
+    }
+
     public uniformMatrix(variableName: string, mat: Matrix): void {
         const location = this._fetchUniformLocation(variableName);
-        if (location < 0) return;
+        if (!location) return;
         this.GL.uniformMatrix4fv(location, false, <Float32Array>mat.rawElements);
     }
 
     public uniformVector(variableName: string, vec: VectorBase): void {
         const location = this._fetchUniformLocation(variableName);
-        if (location < 0) return;
+        if (!location) return;
+        const rawVector = vec.rawElements;
         switch (vec.ElementCount) {
             case 2:
-                this.GL.uniform2f(location, (<Vector2>vec).X, (<Vector2>vec).Y);
+                this.GL.uniform2f(location, rawVector[0],rawVector[1]);
                 return;
             case 3:
-                this.GL.uniform3f(location, (<Vector3>vec).X, (<Vector3>vec).Y, (<Vector3>vec).Z);
+                this.GL.uniform3f(location, rawVector[0], rawVector[1], rawVector[2]);
                 return;
             case 4:
-                this.GL.uniform4f(location, (<Vector4>vec).X, (<Vector4>vec).Y, (<Vector4>vec).Z, (<Vector4>vec).W);
+                this.GL.uniform4f(location, rawVector[0], rawVector[1], rawVector[2], rawVector[3]);
                 return;
             default:
+                debugger;
                 console.error("Unexpected element count of vector!");
         }
     }
@@ -175,22 +148,22 @@ class ProgramWrapper extends ResourceWrapper {
     public uniformFloat(variableName:string,val:number):void
     {
       const location = this._fetchUniformLocation(variableName);
-      if(location < 0)return;
+      if(!location)return;
       this.GL.uniform1f(location,val);
     }
 
     public uniformInt(variableName:string,val:number):void
     {
       const location = this._fetchUniformLocation(variableName);
-      if(location < 0)return;
+      if(!location)return;
       this.GL.uniform1i(location,val);
     }
 
-    public uniformSampler2D(variableName:string,tex:TextureBase,texRegister:number):number
+    public uniformSampler(variableName:string,tex:TextureBase,texRegister:number):number
     {
       const location = this._fetchUniformLocation(variableName);
       const texWrapper = tex.getForContext(this.OwnerCanvas);
-      if(location < 0)return -1;
+      if(!location)return -1;
       if(texWrapper.Initialized)
       {
         if(texWrapper.registerTexture(texRegister))

@@ -1,3 +1,5 @@
+import GeometryBuilder = require("./GeometryBuilder");
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -6,7 +8,7 @@ import Vector3 = require("../../Math/Vector3");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
 import JThreeContext = require("../../JThreeContext");
-class QuadGeometry extends Geometry {
+class QuadGeometry extends BasicGeometry {
     constructor(name:string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
@@ -23,7 +25,7 @@ class QuadGeometry extends Geometry {
       var nor:number[]=[];
       var uv:number[] = [];
       var index:number[]=[];
-      this.addQuad(pos,nor,uv,index,[new Vector3(-1,1,0),new Vector3(-1,-1,0),new Vector3(1,1,0)]);
+      GeometryBuilder.addQuad(pos,nor,uv,index,[new Vector3(-1,1,0),new Vector3(-1,-1,0),new Vector3(1,1,0)]);
       this.positionBuffer.update(new Float32Array(pos),pos.length);
       this.normalBuffer.update(new Float32Array(nor),nor.length);
       this.uvBuffer.update(new Float32Array(uv),uv.length);

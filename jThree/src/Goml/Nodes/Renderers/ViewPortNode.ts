@@ -35,7 +35,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         onchanged: this._onCamAttrChanged.bind(this),
       },
       "width": {
-        value: undefined,
+        value: 640,
         converter: "float",
         onchanged: (attr) => {
           this.width = attr.Value;
@@ -43,7 +43,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         },
       },
       "height": {
-        value: undefined,
+        value: 480,
         converter: "float",
         onchanged: (attr) => {
           this.height = attr.Value;
@@ -51,7 +51,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         },
       },
       "left": {
-        value: undefined,
+        value: 0,
         converter: "float",
         onchanged: (attr) => {
           this.left = attr.Value;
@@ -59,7 +59,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         },
       },
       "top": {
-        value: undefined,
+        value: 0,
         converter: "float",
         onchanged: (attr) => {
           this.top = attr.Value;
@@ -113,7 +113,7 @@ class ViewPortNode extends GomlTreeNodeBase {
             };
             this.targetRenderer.renderPath.insertWithIndex(0, this.skyBoxStageChain);
           }
-          (<SkyboxStage>this.skyBoxStageChain.stage).skyBoxTexture = <CubeTexture>node.TargetTexture;
+          (<SkyboxStage>this.skyBoxStageChain.stage).techniques[0]._defaultMaterial.materialVariables["skybox"] = <CubeTexture>node.TargetTexture;
         }
       });
     }
@@ -124,11 +124,6 @@ class ViewPortNode extends GomlTreeNodeBase {
     this.cam = this.attributes.getValue('cam'); // TODO: pnly
     this.parentCanvas = <CanvasNode>this.parent;
     const defaultRect = this.parentCanvas.Canvas.region;
-    // this.attributes.setValue('width', defaultRect.Width);
-    // this.attributes.setValue('height', defaultRect.Height);
-    // this.attributes.setValue('left', defaultRect.Left);
-    // this.attributes.setValue('top', defaultRect.Top);
-
     var rdr: CanvasNode = this.parentCanvas;
     this.targetRenderer = RendererFactory.generateRenderer(rdr.Canvas, defaultRect, this.attributes.getValue("config"));
     this.resolveCamera((cameraNode) => {

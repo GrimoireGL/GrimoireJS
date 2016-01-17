@@ -10,7 +10,7 @@ import ContextComponents = require("../ContextComponents");
 import CanvasManager = require("./CanvasManager");
 import Debugger = require("../Debug/Debugger");
 import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
-import Color4 = require("../Base/Color/Color4");
+import Color4 = require("../Math/Color4");
 import CanvasRegion = require("./CanvasRegion");
 /**
  * The class to manage HTMLCanvasElement.
@@ -85,7 +85,7 @@ class Canvas extends CanvasRegion {
         this.applyClearColor();
         this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
     }
-    
+
     public get region(): Rectangle {
         return new Rectangle(0, 0, this._lastWidth, this._lastHeight);
     }

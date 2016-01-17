@@ -1,17 +1,18 @@
+import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
 import Material = require("../Material");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./IVariableInfo");
 import IParsedProgramResult = require("./IParsedProgramResult");
 import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
 import BasicMaterial = require("./BasicMaterial");
-import XMMLRenderConfigUtility = require("./XMMLRenderConfigUtility");
+import XMLRenderConfigUtility = require("./XMLRenderConfigUtility");
 import Program = require("../../Resources/Program/Program");
 import Shader = require("../../Resources/Shader/Shader");
 import ShaderType = require("../../../Wrapper/ShaderType");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
-import XMMLShaderParser = require("./XMMLShaderParser");
+import ShaderParser = require("./ShaderParser");
 import Delegates = require("../../../Base/Delegates");
 class MaterialPass {
     public fragmentShaderSource: string;
@@ -28,6 +29,22 @@ class MaterialPass {
 
     public parsedProgram: IParsedProgramResult;
 
+    private _renderConfigureCache:{[id:string]:IRenderStageRenderConfigure} = {};
+
+    private _fetchRenderConfigure(matArg:IMaterialConfigureArgument):IRenderStageRenderConfigure
+    {
+      const id = matArg.renderStage.ID;
+      if(this._renderConfigureCache[id])
+      {
+        return this._renderConfigureCache[id];
+      }else
+      {
+        const configure =  XMLRenderConfigUtility.parseRenderConfig(this._passDocument,matArg.renderStage.getDefaultRendererConfigure(matArg.techniqueIndex));
+        this._renderConfigureCache[id] = configure;
+        return configure;
+      }
+    }
+
     constructor(passDocument: Element, materialName: string, index: number) {
         this._passDocument = passDocument;
         this._parseGLSL();
@@ -36,7 +53,7 @@ class MaterialPass {
 
     private _parseGLSL(): void {
         const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
-        const parsedCodes = XMMLShaderParser.parseCombined(shaderCode);
+        const parsedCodes = ShaderParser.parseCombined(shaderCode);
         this.parsedProgram = parsedCodes;
         this.fragmentShaderSource = parsedCodes.fragment;
         this.vertexShaderSource = parsedCodes.vertex;
@@ -53,10 +70,8 @@ class MaterialPass {
     public configureMaterial(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[],material:Material): void {
         const gl = matArg.renderStage.GL;
         const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
-        const defRendererConfig = matArg.renderStage.DefaultRenderConfigures;
-        XMMLRenderConfigUtility.applyCullConfigure(gl, this._passDocument,defRendererConfig.cullOrientation);
-        XMMLRenderConfigUtility.applyDepthTestConfigure(gl, this._passDocument, defRendererConfig.depthEnabled, defRendererConfig.depthMode, defRendererConfig.depthMask);
-        XMMLRenderConfigUtility.applyBlendFuncConfigure(gl, this._passDocument, defRendererConfig.blendEnabled,defRendererConfig.blendSrcColor,defRendererConfig.blendDstColor,defRendererConfig.blendSrcAlpha,defRendererConfig.blendDstAlpha);
+        const renderConfig = this._fetchRenderConfigure(matArg);
+        XMLRenderConfigUtility.applyAll(gl,renderConfig);
         //Declare using program before assigning material variables
         pWrapper.useProgram();
         //Apply attribute variables by geometries

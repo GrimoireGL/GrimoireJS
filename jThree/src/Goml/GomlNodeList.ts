@@ -1,7 +1,5 @@
 import GomlNodeListElement = require("./GomlNodeListElement");
 
-declare function require(string): any;
-
 var gomlList = [
   new GomlNodeListElement("jthree.toplevel",
     {
@@ -17,9 +15,11 @@ var gomlList = [
       "TRI": require("./Nodes/Geometries/TriangleGeometryNode"),
       "GRID": require("./Nodes/Geometries/GridGeometryNode"),
       "CUBE": require("./Nodes/Geometries/CubeGeometryNode"),
+      "SPHERE": require("./Nodes/Geometries/SphereGeometryNode"),
       "CIRCLE": require("./Nodes/Geometries/CircleGeometryNode"),
       "CYLINDER": require("./Nodes/Geometries/CylinderGeometryNode"),
-      "QUAD": require("./Nodes/Geometries/QuadGeometryNode")
+      "QUAD": require("./Nodes/Geometries/QuadGeometryNode"),
+      "CONE": require("./Nodes/Geometries/ConeGeometryNode")
     }),
   new GomlNodeListElement("jthree.basic",
     {
@@ -31,10 +31,7 @@ var gomlList = [
     "jthree.materials",
     {
       "SOLID": require("./Nodes/Materials/SolidColorNode"),
-      "PHONG": require("./Nodes/Materials/PhongNode"),
-      "SPRITE": require("./Nodes/Materials/SpriteNode"),
-      "DDEBUG": require("./Nodes/Materials/DefferedDebugNode"),
-      "TDEBUG": require("./Nodes/Materials/TextureDebugNode")
+      "PHONG": require("./Nodes/Materials/PhongNode")
     }),
   new GomlNodeListElement(
     "jthree.sceneobject",

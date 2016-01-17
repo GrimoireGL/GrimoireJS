@@ -3,6 +3,8 @@ import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import Delegates = require("../Base/Delegates");
 import GomlTreeNodeBase = require('./GomlTreeNodeBase');
 import JThreeEvent = require('../Base/JThreeEvent');
+import StringAttributeConverter = require('./Converter/StringAttributeConverter');
+
 /**
  * Provides the feature to manage attribute of GOML.
  */
@@ -16,7 +18,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
    */
   protected converter: AttributeConverterBase;
 
-  protected constant: boolean;
+  public constant: boolean;
 
   /**
    * falseの時はattributeが更新された際のeventは呼ばれません。trueの時、attributeが初期化されていることを示します。
@@ -24,17 +26,15 @@ class GomlAttribute extends JThreeObjectEEWithID {
    */
   public initialized: boolean = false;
 
-  constructor(name: string, value: any, converter: AttributeConverterBase, constant?: boolean) {
+  constructor(name: string, value: any, converter: AttributeConverterBase, reserved: boolean, constant: boolean) {
     super(name);
-    if (constant === undefined) constant = false;
-    this.constant = constant;
-    this.converter = converter;
-    if (value !== undefined) {
-      this.value = this.converter.FromInterface(value);
-    } else {
-      this.value = undefined;
-    }
+    this.constant = constant !== undefined ? constant : false;
+    this.reserved = reserved !== undefined ? reserved : false;
+    this.Converter = converter;
+    this.Value = value;
   }
+
+  public reserved: boolean = false;
 
   /**
    * Attributeが初期化されていることを示すinitializedのフラグを建て、attributeが更新された際のeventが有効になるようにします。
@@ -45,7 +45,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
     if (this.value === undefined) console.warn(`Attribute ${this.Name} is undefined.`)
     this.initialized = true;
     console.log('initialized', this.ID, this.value);
-    if (!this.Constant) this.emit('changed', this);
+    if (!this.constant) this.emit('changed', this);
   }
 
   public get Name(): string {
@@ -56,28 +56,54 @@ class GomlAttribute extends JThreeObjectEEWithID {
     return this.value;
   }
 
-  public get Constant(): boolean {
-    return this.constant;
+  public get ValueStr(): string {
+    return this.value == null ? '' : this.converter.toStringAttr(this.value);
   }
 
   public set Value(val: any) {
-    // console.log('setattr', this.ID, val);
-    if (this.Constant && this.value === undefined) {
+    // console.log('setattr', this.Name, val);
+    if (this.constant && this.value !== undefined) {
       console.warn(`attribute "${this.ID}" is immutable`)
       return;
     }
-    this.value = this.Converter.FromInterface(val);
+    if (typeof val == 'string') {
+      this.value = this.Converter.toObjectAttr(val);
+    } else {
+      try {
+        this.Converter.toStringAttr(val);
+      } catch (e) {
+        console.warn(`type of attribute: ${this.Name}(${val}) is not adapt to converter: ${this.Converter.getTypeName()}`, val);
+      }
+      this.value = val;
+    }
+    console.log('setattr_obj', this.Name, this.value);
     if (this.initialized) {
       this.emit('changed', this);
     }
   }
 
+  /**
+   * Get converter
+   *
+   * If converter is undefined, string converter will be used as default.
+   * @return {AttributeConverterBase} converter
+   */
   public get Converter(): AttributeConverterBase {
-    return this.converter;
+    return this.converter ? this.converter : <AttributeConverterBase>(new StringAttributeConverter);
+  }
+
+  public set Converter(converter: AttributeConverterBase) {
+    if (this.converter === undefined) {
+      this.converter = converter;
+    } else {
+      const attr_value = this.Converter.toStringAttr(this.Value);
+      this.converter = converter;
+      this.Value = attr_value;
+    }
   }
 
   public notifyValueChanged() {
-    if (this.Constant) return;
+    if (this.constant) return;
     if (this.initialized) {
       this.emit('changed', this);
     }

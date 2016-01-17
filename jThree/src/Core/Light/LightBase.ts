@@ -1,4 +1,5 @@
-import Color4 = require('../../Base/Color/Color4');
+import IParentSceneChangedEventArgs = require("../IParentSceneChangedEventArgs");
+import Color4 = require('../../Math/Color4');
 import Vector3 = require('../../Math/Vector3');
 import SceneObject = require('../SceneObject');
 import Canvas = require('../Canvas');
@@ -67,9 +68,13 @@ class LightBase extends SceneObject
 
     }
 
-    public onParentSceneChanged()
+    public onParentSceneChanged(info:IParentSceneChangedEventArgs)
     {
-      this.ParentScene.addLight(this);
+      if(info.lastParentScene)
+      {
+        //info.lastParentScene.removeLight(this);
+      }
+      if(info.currentParentScene)info.currentParentScene.addLight(this);
     }
 }
 

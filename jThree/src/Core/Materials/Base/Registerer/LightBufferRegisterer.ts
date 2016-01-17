@@ -4,9 +4,9 @@ import IVariableInfo = require("../IVariableInfo");
 import IMaterialConfigureArgument = require("../IMaterialConfigureArgument");
 const LightBufferRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IMaterialConfigureArgument, uniforms: { [key: string]: IVariableInfo }) => {
   if(uniforms["_dlBuffer"])
-    pWrapper.uniformSampler2D("_dlBuffer",matArg.textureResource["DLIGHT"],0);
+    pWrapper.uniformSampler("_dlBuffer",matArg.textureResource["DLIGHT"],0);
   if(uniforms["_slBuffer"])
-    pWrapper.uniformSampler2D("_slBuffer",matArg.textureResource["SLIGHT"],1);
+    pWrapper.uniformSampler("_slBuffer",matArg.textureResource["SLIGHT"],1);
 }
 
 export = LightBufferRegisterer;

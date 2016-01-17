@@ -24,25 +24,25 @@ class PMXBoneNode extends SceneObjectNodeBase {
 	}
 
 	private _onNameAttrChanged(attr): void {
-		if (!this.targetPMX.PMXModelReady) return;
-		var bone = this.targetPMX.PMXModel.skeleton.getBoneByName(attr.Value);
-		if (bone != null && bone != this.targetSceneObject) {
-			this.targetSceneObject = bone;
-			if (this.children) {
-				for (var i = 0; i < this.children.length; i++) {
-					(<SceneObjectNodeBase>this.children[i]).TargetObject.Transformer.Position=bone.Transformer.LocalOrigin;
-					(<SceneObjectNodeBase>this.children[i]).parentChanged();
-				}
-			}
-		}
+		// if (!this.targetPMX.PMXModelReady) return;
+		// var bone = this.targetPMX.PMXModel.skeleton.getBoneByName(attr.Value);
+		// if (bone != null && bone != this.targetSceneObject) {
+		// 	this.targetSceneObject = bone;
+		// 	if (this.children) {
+		// 		for (var i = 0; i < this.children.length; i++) {
+		// 			(<SceneObjectNodeBase>this.children[i]).TargetObject.Transformer.Position=bone.Transformer.LocalOrigin;
+		// 			(<SceneObjectNodeBase>this.children[i]).parentChanged();
+		// 		}
+		// 	}
+		// }
 	}
 
-	protected nodeWillMount(parent: GomlTreeNodeBase): void {
-		super.nodeWillMount(parent);
-		if (parent.getTypeName() === "PMXBonesNode") {
-			this.targetPMX = (<PMXBonesNode>parent).TargetPMXNode;
-		}
-	}
+	// protected nodeWillMount(parent: GomlTreeNodeBase): void {
+	// 	super.nodeWillMount(parent);
+	// 	if (parent.getTypeName() === "PMXBonesNode") {
+	// 		this.targetPMX = (<PMXBonesNode>parent).TargetPMXNode;
+	// 	}
+	// }
 }
 
 export =PMXBoneNode;

@@ -4,7 +4,6 @@ import Delegates = require("../../Base/Delegates");
 import Exceptions = require("../../Exceptions");
 import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
 import ListStateChangedType = require("../ListStateChangedType");
-import AssociativeArray = require('../../Base/Collections/AssociativeArray');
 import ResourceWrapper = require('./ResourceWrapper');
 import JThreeContext = require("../../JThreeContext");
 import CanvasManager = require("../CanvasManager");
@@ -26,41 +25,53 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     protected initializeForFirst() {
       var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
         canvasManager.canvases.forEach((v) => {
-            this.childWrapper.set(v.ID, this.getInstanceForRenderer(v));
+            this.childWrapper[v.ID]=this.getInstanceForRenderer(v);
+            this.wrapperLength ++;
         });
     }
 
     public get wrappers():T[]
     {
-      return this.childWrapper.asArray;
+      const array = new Array(this.wrapperLength);
+      let index = 0;
+      this.each((elem)=>{
+        array[index] = elem;
+        index ++;
+      })
+      return array;
     }
 
-    private childWrapper: AssociativeArray<T> = new AssociativeArray<T>();
+    private childWrapper:{[key:string]:T} = {};
+
+    private wrapperLength:number = 0;
 
     public getForContext(canvas: Canvas): T {
         return this.getForContextID(canvas.ID);
     }
 
     public getForContextID(id: string): T {
-        if (!this.childWrapper.has(id)) console.log("There is no matching object with the ID:" + id);
-        return this.childWrapper.get(id);
+        if (!this.childWrapper[id]) console.log("There is no matching object with the ID:" + id);
+        return this.childWrapper[id];
     }
 
     public each(act: Delegates.Action1<T>): void {
-        this.childWrapper.forEach(((v, i, a) => {
-            act(v);
-        }));
+        for(let key in this.childWrapper)
+        {
+          act(this.childWrapper[key]);
+        }
     }
 
     private rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
         switch (arg.ChangeType) {
             case ListStateChangedType.Add:
-                this.childWrapper.set(arg.AffectedRenderer.ID, this.getInstanceForRenderer(arg.AffectedRenderer));
+                this.childWrapper[arg.AffectedRenderer.ID] =  this.getInstanceForRenderer(arg.AffectedRenderer);
+                this.wrapperLength++;
                 break;
             case ListStateChangedType.Delete:
-                var delTarget: T = this.childWrapper.get(arg.AffectedRenderer.ID);
-                this.childWrapper.delete(arg.AffectedRenderer.ID);
+                var delTarget: T = this.childWrapper[arg.AffectedRenderer.ID];
+                delete this.childWrapper[arg.AffectedRenderer.ID];
                 this.disposeResource(delTarget);
+                this.wrapperLength --;
                 break;
         }
     }

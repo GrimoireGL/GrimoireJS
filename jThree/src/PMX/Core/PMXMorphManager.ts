@@ -1,13 +1,12 @@
 import PMXMorph = require("./PMXMorph");
 import PMXModel = require("./PMXModel");
-import AssociativeArray = require("./../../Base/Collections/AssociativeArray");
 class PMXMorphManager
 {
 	private morphs: PMXMorph[];
 
 	private model: PMXModel;
 
-	private morphsDictionary: AssociativeArray<PMXMorph> = new AssociativeArray<PMXMorph>();
+	private morphsDictionary: {[morphName:string]:PMXMorph} = {};
 
 	public postProcessFlag: boolean[]=[false,false,false,false,false,false,false,false,false];
 
@@ -17,7 +16,7 @@ class PMXMorphManager
 		this.morphs = new Array(model.ModelData.Morphs.length);
 		for (var i = 0; i < model.ModelData.Morphs.length; ++i) {
 			this.morphs[i] = PMXMorph.CreateMorph(model, i,this);
-			if(this.morphs[i]!=null)this.morphsDictionary.set(this.morphs[i].MorphName, this.morphs[i]);
+			if(this.morphs[i]!=null)this.morphsDictionary[this.morphs[i].MorphName] =  this.morphs[i];
 		}
 	}
 
@@ -38,7 +37,7 @@ class PMXMorphManager
 
 	public getMorphByName(name:string)
 	{
-		return this.morphsDictionary.get(name);
+		return this.morphsDictionary[name];
 	}
 
 	public getMorphByIndex(index:number)

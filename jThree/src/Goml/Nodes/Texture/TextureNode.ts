@@ -18,7 +18,7 @@ class TextureNode extends TextureNodeBase {
   }
 
   protected generateTexture(name: string, rm: ResourceManager): TextureBase {
-    var texture = rm.createTextureWithSource("jthree.goml.texture." + name, null);
+    var texture = rm.createTextureWithSource(name, null);
     var img = new Image();
     img.onload = () => {
       (<Texture>this.TargetTexture).ImageSource = img;

@@ -1,3 +1,5 @@
+import GeometryBuilder = require("./GeometryBuilder");
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -7,7 +9,7 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceManager = require("../ResourceManager");
-class CylinderGeometry extends Geometry {
+class CylinderGeometry extends BasicGeometry {
 
     private divideCount:number=10;
 
@@ -40,7 +42,7 @@ class CylinderGeometry extends Geometry {
       var normal:number[]=[];
       var uv:number[]=[];
       var index:number[]=[];
-      this.addCylinder(pos,normal,uv,index,this.DivideCount,new Vector3(0,1,0),new Vector3(0,-1,0),new Vector3(0,0,-1),1);
+      GeometryBuilder.addCylinder(pos,normal,uv,index,this.DivideCount,new Vector3(0,1,0),new Vector3(0,-1,0),new Vector3(0,0,-1),1);
       this.indexBuffer.update(new Uint16Array(index),index.length);
       this.normalBuffer.update(new Float32Array(normal),normal.length);
       this.uvBuffer.update(new Float32Array(uv),uv.length);

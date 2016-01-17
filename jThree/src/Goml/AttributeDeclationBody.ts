@@ -5,7 +5,7 @@ interface AttributeDeclarationBody {
 	/**
 	 * Converter name, jThree will interpret the value using this class.
 	 */
-  converter: string;
+  converter?: string;
 
 	/**
 	 * default value of this attribute.
@@ -22,6 +22,12 @@ interface AttributeDeclarationBody {
    * default: false
    */
   constant?: boolean;
+
+  /**
+   * If this is true, override attribute except value.
+   * @type {[type]}
+   */
+  reserved?: boolean;
 
   [other: string]: any;
 }

@@ -4,14 +4,14 @@ import Geometry = require("../../../Core/Geometries/Geometry");
 import QuadGeometry = require("../../../Core/Geometries/QuadGeometry");
 
 class QuadGeometryNode extends GeometryNodeBase {
-  private TriGeometry: QuadGeometry;
+  private geometry: QuadGeometry;
 
   constructor() {
     super();
   }
 
   protected ConstructGeometry(): Geometry {
-    return this.TriGeometry = new QuadGeometry(this.Name);
+    return this.geometry = new QuadGeometry(this.Name);
   }
 
 

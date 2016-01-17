@@ -66,7 +66,7 @@ class ShadowMapGenerationStage extends RenderStageBase
         return scene.LightRegister.ShadowDroppableLightCount;
     }
 
-    public get TargetGeometry(): string
+    public getTarget(techniqueIndex:number): string
     {
         return "scene";
     }

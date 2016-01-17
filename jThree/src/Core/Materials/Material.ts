@@ -1,6 +1,9 @@
+import Vector4 = require("../../Math/Vector4");
+import Vector3 = require("../../Math/Vector3");
+import Vector2 = require("../../Math/Vector2");
+import IMaterialConfigureArgument = require("./Base/IMaterialConfigureArgument");
 import RendererBase = require("../Renderers/RendererConfigurator/RendererConfiguratorBase");
 import TextureBase = require("../Resources/Texture/TextureBase");
-
 import Matrix = require("../../Math/Matrix");
 import VectorBase = require("../../Math/VectorBase");
 import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
@@ -20,7 +23,6 @@ import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import IMaterialConfig = require("./IMaterialConfig");
 import RenderStageBase = require("../Renderers/RenderStages/RenderStageBase");
-declare function require(string): string;
 /**
 * Basement class for any Materials.
 * Material is basically meaning what shader will be used or what shader variable will passed.
@@ -34,7 +36,7 @@ class Material extends JThreeObjectWithID {
     /**
     * Whether this material was initialized already or not.
     */
-    private initialized: boolean = false;
+    private _initialized: boolean = false;
 
     public materialVariables: { [key: string]: any } = {};
 
@@ -45,39 +47,28 @@ class Material extends JThreeObjectWithID {
     */
     protected setLoaded(flag?: boolean) {
         flag = typeof flag === 'undefined' ? true : flag;
-        this.initialized = flag;
+        this._initialized = flag;
     }
 
     /**
      * Provides the flag this material finished loading or not.
      */
     public get Initialized(): boolean {
-        return this.initialized;
+        return this._initialized;
     }
-
-    constructor() {
-        super();
-    }
-
     /**
     * Rendering priorty
     */
-    private priorty: number;
+    private _priorty: number;
     /**
     * Rendering priorty of this material.
     * If render stage request materials of an specific material group, these list is sorted in this priorty value.
     * So any material with same group id having lower priorty will be rendered later.
     */
     public get Priorty(): number {
-        return this.priorty;
+        return this._priorty;
     }
 
-    public getMaterialConfig(pass: number, technique: number): IMaterialConfig {
-        return {
-            cull: "ccw",
-            blend: true
-        }
-    }
     /**
     * Group name of this material.
     * This main purpose is mainly intended to be used in RenderStage for filtering materials by puropse of material.
@@ -113,80 +104,72 @@ class Material extends JThreeObjectWithID {
     * Apply configuration of program.
     * This is used for passing variables,using programs,binding index buffer.
     */
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
-        this.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
+    public configureMaterial(matArg: IMaterialConfigureArgument): void {
         return;
-    }
-
-    protected applyMaterialConfig(passIndex: number, techniqueIndex: number, renderer: BasicRenderer) {
-        var config = this.getMaterialConfig(passIndex, techniqueIndex);
-        if (config.cull) {
-            renderer.GL.enable(renderer.GL.CULL_FACE);
-            if (config.cull == "cw") {
-                renderer.GL.cullFace(renderer.GL.FRONT);
-            } else {
-                renderer.GL.cullFace(renderer.GL.BACK);
-            }
-        } else {
-            renderer.GL.disable(renderer.GL.CULL_FACE);
-        }
-        if (config.blend) {
-            renderer.GL.enable(renderer.GL.BLEND);
-            if (!config.blendArg1) {
-                //If blendFunc was not specified, jThree will select linear blending
-                config.blendArg1 = "srcAlpha"
-                config.blendArg2 = "oneMinusSrcAlpha"
-            }
-            renderer.GL.blendFunc(this._parseBlendConfig(config.blendArg1, renderer), this._parseBlendConfig(config.blendArg2, renderer));
-        } else {
-            renderer.GL.disable(renderer.GL.BLEND);
-        }
-    }
-
-    private _parseBlendConfig(blendConfig: string, renderer: BasicRenderer): number {
-        let lowerCaseBlendConfig = blendConfig.toLowerCase();
-        if (lowerCaseBlendConfig == "1") return renderer.GL.ONE;
-        if (lowerCaseBlendConfig == "0") return renderer.GL.ZERO;
-        if (lowerCaseBlendConfig == "srcalpha") return renderer.GL.SRC_ALPHA;
-        if (lowerCaseBlendConfig == "srcColor") return renderer.GL.SRC_COLOR;
-        if (lowerCaseBlendConfig == "oneminussrcalpha") return renderer.GL.ONE_MINUS_SRC_ALPHA;
-        if (lowerCaseBlendConfig == "oneminussrccolor") return renderer.GL.ONE_MINUS_SRC_COLOR;
-        if (lowerCaseBlendConfig == "oneminusdstalpha") return renderer.GL.ONE_MINUS_DST_ALPHA;
-        if (lowerCaseBlendConfig == "oneminusdstcolor") return renderer.GL.ONE_MINUS_DST_COLOR;
-        if (lowerCaseBlendConfig == "destalpha") return renderer.GL.DST_ALPHA;
-        if (lowerCaseBlendConfig == "destcolor") return renderer.GL.DST_COLOR;
-        console.error("Unsupported blend config!");
     }
 
     public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableInfo }): void {
         for (let valName in uniforms) {
             let uniform = uniforms[valName];
             if (valName[0] == "_") continue;
-            if (!this.materialVariables[valName]) {
+            const val = this.materialVariables[valName];
+            if (typeof val === "undefined" || val == null) {
                 this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
                 continue;
             }
-            if (uniform.variableType === "vec2" || uniform.variableType === "vec3" || uniform.variableType === "vec4") {
-                pWrapper.uniformVector(valName, <VectorBase>this.materialVariables[valName]);
-            }
-            if (uniform.variableType === "mat4") {
-                pWrapper.uniformMatrix(valName, <Matrix>this.materialVariables[valName]);
-            }
-            if (uniform.variableType === "float") {
-                pWrapper.uniformFloat(valName, <number>this.materialVariables[valName])
-            }
-            if (uniform.variableType === "int") {
-                pWrapper.uniformInt(valName, <number>this.materialVariables[valName]);
-            }
-            if (uniform.variableType === "sampler2D") {
-                pWrapper.uniformSampler2D(valName, <TextureBase>this.materialVariables[valName], <number>new Number(uniform.variableAnnotation["register"]||0));
+            switch (uniform.variableType) {
+                case 'vec2':
+                case 'vec3':
+                case 'vec4':
+                    pWrapper.uniformVector(valName, <VectorBase>val);
+                    continue;
+                case 'mat4':
+                    pWrapper.uniformMatrix(valName, <Matrix>val);
+                    continue;
+                case 'float':
+                    pWrapper.uniformFloat(valName, <number>val);
+                    continue;
+                case 'int':
+                    pWrapper.uniformInt(valName, <number>val);
+                    continue;
+                case 'sampler2D':
+                case 'samplerCube':
+                    let registerAnnotation = uniform.variableAnnotation["register"];
+                    let register;
+                    if (registerAnnotation) {
+                        register = <number>parseInt(registerAnnotation, 10);
+                    } else {
+                        register = 0;
+                    }
+                    pWrapper.uniformSampler(valName, <TextureBase>val, register);
+                    continue;
+                default:
+                    console.warn(`Unknown variable type ${uniform.variableType}`);
             }
         }
     }
 
     private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
-        if (uniform.variableType === "sampler2D") {
-            pWrapper.uniformSampler2D(uniform.variableName, renderer.alternativeTexture,  <number>new Number(uniform.variableAnnotation["register"]||0));
+        switch (uniform.variableType) {
+            case 'vec2':
+                pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
+                return;
+            case 'vec3':
+                pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
+                return;
+            case 'vec4':
+                pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 1));
+                return;
+            case 'sampler2D':
+                let registerAnnotation = uniform.variableAnnotation["register"];
+                let register;
+                if (registerAnnotation) {
+                    register = <number>parseInt(registerAnnotation, 10);
+                } else {
+                    register = 0;
+                }
+                pWrapper.uniformSampler(uniform.variableName, renderer.alternativeTexture, register);
+                return;
         }
     }
 
@@ -198,7 +181,7 @@ class Material extends JThreeObjectWithID {
     }
 
     public getDrawGeometryLength(geo: Geometry): number {
-        return geo.IndexCount;
+        return geo.getDrawLength();
     }
 
     public getDrawGeometryOffset(geo: Geometry): number {

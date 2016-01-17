@@ -27,7 +27,7 @@ class TextureNodeBase extends GomlTreeNodeBase {
     super();
     this.attributes.defineAttribute({
       name: {
-        value: "",
+        value: undefined,
         converter: "string",
         constant: true,
       },

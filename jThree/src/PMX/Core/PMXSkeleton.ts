@@ -1,6 +1,5 @@
 import PMXModel = require('./PMXModel');
 import PMXBone = require('./PMXBone');
-import AssociativeArray = require('../../Base/Collections/AssociativeArray')
 import TextureBuffer = require('../../Core/Resources/Texture/BufferTexture');
 import TextureFormat = require('../../Wrapper/TextureInternalFormatType');
 import ElementFormat = require('../../Wrapper/TextureType');
@@ -22,7 +21,7 @@ class PMXSkeleton {
 				this.rootBones.push(pmxBone);
 			}
 			this.bonesInTransformOrder[i] = this.bones[i] = pmxBone;
-			this.boneDictionary.set(bone.boneName, pmxBone);
+			this.boneDictionary[bone.boneName] = pmxBone;
 		}
 		this.bones.forEach((v) => v.boneDictionaryConstructed());
 		this.bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
@@ -35,7 +34,7 @@ class PMXSkeleton {
 
 	private bonesInTransformOrder: PMXBone[];
 
-	private boneDictionary: AssociativeArray<PMXBone> = new AssociativeArray<PMXBone>();
+	private boneDictionary: {[boneName:string]:PMXBone} = {};
 
 	private matricies: Float32Array;
 
@@ -52,7 +51,7 @@ class PMXSkeleton {
 	}
 
 	public getBoneByName(name: string): PMXBone {
-		return this.boneDictionary.get(name);
+		return this.boneDictionary[name];
 	}
 
 	public getBoneByIndex(index: number): PMXBone {

@@ -1,5 +1,5 @@
 import AnimagterBase = require("./AnimaterBase");
-import Color3 = require("../../Base/Color/Color3");
+import Color3 = require("../../Math/Color3");
 class Color3Animater extends AnimagterBase
 {
 

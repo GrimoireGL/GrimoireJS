@@ -4,14 +4,14 @@ import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 
 class CubeGeometryNode extends GeometryNodeBase {
-  private gridGeometry: CubeGeometry;
+  private geometry: Geometry;
 
   constructor() {
     super();
   }
 
   protected ConstructGeometry(): Geometry {
-    return this.gridGeometry = new CubeGeometry(this.Name);
+    return this.geometry = new CubeGeometry(this.Name);
   }
 
 }

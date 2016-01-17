@@ -5,7 +5,7 @@ import Geometry = require("../../../Core/Geometries/Geometry");
 import TriangleGeometry = require("../../../Core/Geometries/TriangleGeometry");
 
 class GomlTreeTriNode extends GeometryNodeBase {
-  private TriGeometry: TriangleGeometry;
+  private geometry: TriangleGeometry;
 
   constructor() {
     super();
@@ -29,17 +29,17 @@ class GomlTreeTriNode extends GeometryNodeBase {
   }
 
   private _onFirstAttrChanged(attr): void {
-    this.TriGeometry.First = attr.Value;
+    this.geometry.First = attr.Value;
   }
   private _onSecondAttrChanged(attr): void {
-    this.TriGeometry.Second = attr.Value;
+    this.geometry.Second = attr.Value;
   }
   private _onThirdAttrChanged(attr): void {
-    this.TriGeometry.Third = attr.Value;
+    this.geometry.Third = attr.Value;
   }
 
   protected ConstructGeometry(): Geometry {
-    return this.TriGeometry = new TriangleGeometry(this.Name);
+    return this.geometry = new TriangleGeometry(this.Name);
   }
 
 

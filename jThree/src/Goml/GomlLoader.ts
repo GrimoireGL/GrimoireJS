@@ -7,7 +7,6 @@ import NodeManager = require("./NodeManager");
 import JThreeContext = require("../JThreeContext");
 import ResourceLoader = require("../Core/ResourceLoader");
 import ContextComponent = require("../ContextComponents");
-declare function require(string): any;
 
 /**
  * The class for loading goml.

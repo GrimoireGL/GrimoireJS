@@ -18,7 +18,7 @@ class BasicMaterial extends Material {
 
     private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
 
-    constructor(sourceString:string) {
+    constructor(sourceString: string) {
         super();
         this._parseMaterialDocument(sourceString);
     }
@@ -27,19 +27,9 @@ class BasicMaterial extends Material {
 * Apply configuration of program.
 * This is used for passing variables,using programs,binding index buffer.
 */
-    public configureMaterial(scene: Scene, renderStage: RenderStageBase, object: SceneObject, texs: ResolvedChainInfo, techniqueIndex: number, passIndex: number): void {
-        //super.applyMaterialConfig(passIndex, techniqueIndex, renderStage.Renderer);
-        const targetPass = this._passes[passIndex];
-        const matArg = <IMaterialConfigureArgument>{
-            scene: scene,
-            renderStage: renderStage,
-            object: object,
-            textureResource: texs,
-            techniqueIndex: techniqueIndex,
-            passIndex: passIndex
-        };
-        targetPass.configureMaterial(matArg, this._uniformRegisters,this);
-        this.__bindIndexBuffer(matArg);
+    public configureMaterial(matArg:IMaterialConfigureArgument): void {
+        const targetPass = this._passes[matArg.passIndex];
+        targetPass.configureMaterial(matArg, this._uniformRegisters, this);
     }
 
     private _parseMaterialDocument(source: string): void {
@@ -63,6 +53,7 @@ class BasicMaterial extends Material {
             var pass = passes.item(i);
             this._passes.push(new MaterialPass(pass, this._materialName, i));
         }
+        this._passCount = passes.length;
     }
 
     private _initializeUniformRegisters(doc: Document) {
@@ -75,10 +66,6 @@ class BasicMaterial extends Material {
         }
     }
 
-    protected __bindIndexBuffer(matArg:IMaterialConfigureArgument)
-    {
-      matArg.object.Geometry.IndexBuffer.getForContext(matArg.renderStage.Renderer.ContextManager).bindBuffer();
-    }
     private get _materialManager(): MaterialManager {
         return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager)
     }
@@ -89,6 +76,17 @@ class BasicMaterial extends Material {
 
     public get MaterialGroup() {
         return this._materialGroup;
+    }
+
+    private _passCount:number = 0;
+
+    /**
+    * Should return how many times required to render this material.
+    * If you render some of model with edge,it can be 2 or greater.
+    * Because it needs rendering edge first,then rendering forward shading.
+    */
+    public getPassCount(techniqueIndex: number) {
+        return this._passCount;
     }
 }
 

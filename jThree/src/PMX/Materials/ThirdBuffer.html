@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.gbuffer.pmx.primary" group="jthree.materials.gbuffer.primary" order="300">
+<material name="jthree.gbuffer.pmx.third" group="jthree.materials.gbuffer.third" order="300">
 <uniform-register>
   <register name="jthree.basic.matrix"/>
 </uniform-register>
@@ -12,32 +12,15 @@
       attribute vec4 boneIndicies;
 
       //@vertonly{
+        //@import jthree.pmx.vertex
         uniform mat4 _matPV;
-        //@(register:0)
+        //@(register:2)
         uniform sampler2D boneMatriciesTexture;
         uniform float boneCount;
 
-        mat4 matFromIndex(float index)
-        {
-        	float y =index/boneCount+1./boneCount/2.;
-        	return mat4(
-        	texture2D(boneMatriciesTexture,vec2(0.125,y)),
-        	texture2D(boneMatriciesTexture,vec2(0.375,y)),
-        	texture2D(boneMatriciesTexture,vec2(0.625,y)),
-        	texture2D(boneMatriciesTexture,vec2(0.875,y)));
-        }
-
-        mat4 getBoneTransform()
-        {
-        	return boneWeights.x*matFromIndex(boneIndicies.x)
-        	+boneWeights.y*matFromIndex(boneIndicies.y)
-        	+boneWeights.z*matFromIndex(boneIndicies.z)
-        	+boneWeights.w*matFromIndex(boneIndicies.w);
-        }
-
         void main(void){
-          mat4 boneTransform=getBoneTransform();
-          gl_Position = _matPV*boneTransform*vec4(position,1.0);
+          mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
+          gl_Position = calcPosition(boneTransform,_matPV,position);
         }
       //}
       //@fragonly{

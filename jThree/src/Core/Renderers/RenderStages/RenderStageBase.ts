@@ -1,3 +1,4 @@
+import Material = require("../../Materials/Material");
 import IRenderStageRendererConfigure = require("./IRenderStageRendererConfigure");
 import JThreeObjectWithID = require('../../../Base/JThreeObjectWithID');
 import BasicRenderer = require('../BasicRenderer');
@@ -23,18 +24,16 @@ class RenderStageBase extends JThreeObjectWithID {
 
     private renderer: BasicRenderer;
 
-    public get DefaultRenderConfigures():IRenderStageRendererConfigure
+    public getDefaultRendererConfigure(techniqueIndex:number):IRenderStageRendererConfigure
     {
       return {
-        cullOrientation:"back",
+        cullOrientation:"BACK",
         depthEnabled:true,
-        depthMode:"less",
-        depthMask:false,
+        depthMode:"LESS",
+        depthMask:true,
         blendEnabled:true,
-        blendSrcColor:"srcAlpha",
-        blendDstColor:"oneminussrcalpha",
-        blendSrcAlpha:"1",
-        blendDstAlpha:"0"
+        blendSrcFactor:"SRC_ALPHA",
+        blendDstFactor:"ONE_MINUS_SRC_ALPHA"
       };
     }
 
@@ -92,32 +91,8 @@ class RenderStageBase extends JThreeObjectWithID {
         return 1;
     }
 
-    public get TargetGeometry(): string {
+    public getTarget(techniqueIndex:number): string {
         return "scene";
-    }
-
-    public applyStageConfig() {
-        var config = this.RenderStageConfig;
-        //cull enabled/disabled
-        this.applyStageConfigToGLFeature(config.depthTest, GLFeature.DepthTest, true);
-    }
-
-    private applyStageConfigToGLFeature(flag: boolean, target: GLFeature, def: boolean) {
-        if (typeof flag === 'undefined') {
-            flag = def;
-        }
-        if (flag) {
-            this.GL.enable(target);
-        }
-        else {
-            this.GL.disable(target);
-        }
-    }
-
-    public get RenderStageConfig(): RenderStageConfig {
-        return {
-            depthTest: true
-        };
     }
 
     protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
@@ -169,16 +144,27 @@ class RenderStageBase extends JThreeObjectWithID {
         }
     }
 
-    protected drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
+    public drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
         var materials = object.getMaterials(materialGroup);
         for (var i = 0; i < materials.length; i++) {
-            var material = materials[i];
-            if (!material || !material.Initialized || !material.Enabled) return;
-            for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
-                material.configureMaterial(scene, this, object, texs, techniqueIndex, pass);
-                object.Geometry.drawElements(this.Renderer.ContextManager, material);
-            }
+            this.drawForMaterial(scene,object,techniqueIndex,texs,materials[i]);
         }
+    }
+
+    public drawForMaterial(scene:Scene,object:SceneObject,techniqueIndex:number,texs:ResolvedChainInfo,material:Material):void
+    {
+      if (!material || !material.Initialized || !material.Enabled) return;
+      for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
+          material.configureMaterial({
+            scene:scene,
+            renderStage:this,
+            object:object,
+            textureResource:texs,
+            techniqueIndex:techniqueIndex,
+            passIndex:pass
+          });
+          object.Geometry.drawElements(this.Renderer.ContextManager, material);
+      }
     }
 
 	/**

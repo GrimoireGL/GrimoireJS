@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.gbuffer.pmx.primary" group="jthree.materials.gbuffer.primary" order="300">
+<material name="jthree.gbuffer.pmx.secoundary" group="jthree.materials.gbuffer.secoundary" order="300">
 <uniform-register>
   <register name="jthree.basic.matrix"/>
 </uniform-register>
@@ -18,44 +18,28 @@
       varying vec2 vSphereUV;
 
       //@vertonly{
-        uniform mat4 _matVM;
+        //@import jthree.pmx.vertex
+        uniform mat4 _matV;
         uniform mat4 _matPV;
-        //@(register:0)
+        //@(register:2)
         uniform sampler2D boneMatriciesTexture;
         uniform float boneCount;
 
-        mat4 matFromIndex(float index)
-        {
-        	float y =index/boneCount+1./boneCount/2.;
-        	return mat4(
-        	texture2D(boneMatriciesTexture,vec2(0.125,y)),
-        	texture2D(boneMatriciesTexture,vec2(0.375,y)),
-        	texture2D(boneMatriciesTexture,vec2(0.625,y)),
-        	texture2D(boneMatriciesTexture,vec2(0.875,y)));
-        }
-
-        mat4 getBoneTransform()
-        {
-        	return boneWeights.x*matFromIndex(boneIndicies.x)
-        	+boneWeights.y*matFromIndex(boneIndicies.y)
-        	+boneWeights.z*matFromIndex(boneIndicies.z)
-        	+boneWeights.w*matFromIndex(boneIndicies.w);
-        }
-
         void main(void){
-          mat4 boneTransform=getBoneTransform();
-          vPosition=gl_Position = _matPV*boneTransform*vec4(position,1.0);
-          vNormal=normalize((_matVM*vec4(normal,0)).xyz);
-          vSphereUV=vNormal.xy/2.+vec2(0.5,0.5);
-          vUV=uv;
+          vUV = uv;
+          mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
+          vPosition=gl_Position = calcPosition(boneTransform,_matPV,position);
+          vNormal = calcNormal(boneTransform,_matV,normal);
+          vSphereUV = calcSphereUV(vNormal);
         }
       //}
       //@fragonly{
         uniform vec4 diffuse;
-        //@(register:1)
+        //@(register:3)
         uniform sampler2D texture;
-        //@(register:2)
+        //@(register:4)
         uniform sampler2D sphere;
+        uniform mat4 matV;
         uniform int textureUsed;
         uniform int sphereMode;
         uniform vec4 addTextureCoefficient;
@@ -73,18 +57,18 @@
         }
 
         void main(void){
-            gl_FragColor.rgba=diffuse;
-            if(textureUsed > 0){
-                 gl_FragColor=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
-            }
-            if(sphereMode==1)
-            {
-              gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
-            }else if(sphereMode==2)
-            {
-              gl_FragColor.rgb+=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
-            }
-        }
+           gl_FragColor.rgba=diffuse;
+           if(textureUsed > 0){
+             gl_FragColor=blendPMXTexture(texture,vUV,addTextureCoefficient,mulTextureCoefficient);
+           }
+           if(sphereMode==1)
+           {
+             gl_FragColor.rgb*=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
+           }else if(sphereMode==2)
+           {
+             gl_FragColor.rgb+=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
+           }
+      }
       //}
       ]]>
     </glsl>

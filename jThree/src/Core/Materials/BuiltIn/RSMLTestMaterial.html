@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.basic.rsmlTest" group="jthree.materials.rsmlTest" order="300">
+<uniform-register>
+  <register name="jthree.basic.buffer"/>
+  <register name="jthree.basic.time"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      attribute vec2 uv;
+      varying vec2 vUV;
+
+      //@fragonly {
+        uniform vec4 solid;
+        //@(register:0,name:PRIMARY,type:buffer)
+        uniform sampler2D _Src;
+        uniform vec4 _Time;
+      //}
+
+      //@vertonly
+      void main(void)
+      {
+        gl_Position = vec4(position,1.0);
+        vUV = uv;
+      }
+
+      //@fragonly
+      void main(void)
+      {
+        vec3 col = texture2D(_Src,vUV).rgb;
+        float l = length(col) /sqrt(3.);
+        gl_FragColor = vec4(l,l,l,1);
+      }
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

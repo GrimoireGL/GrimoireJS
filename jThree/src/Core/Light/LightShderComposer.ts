@@ -1,5 +1,4 @@
 import Shader = require("../Resources/Shader/Shader");
-import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import LightBase = require("./LightBase");
 import ResourceManager = require("../ResourceManager");
 import JThreeObjectWithId = require("../../Base/JThreeObjectWithID");
@@ -15,7 +14,9 @@ class LightShaderComposer extends JThreeObjectWithId
 {
     private shader: Shader;
 
-    private lightTypeIdArray: AssociativeArray<number> = new AssociativeArray<number>();
+    private lightTypeIdArray: {[key:string]:number} = {};
+
+    private typeCount:number = 0;
 
     private shaderSourceBase: string;
 
@@ -63,8 +64,8 @@ class LightShaderComposer extends JThreeObjectWithId
      * @returns {number} id
      */
     public getLightTypeId(light: LightBase) {
-        return this.lightTypeIdArray.has(light.LightType) ?
-            this.lightTypeIdArray.get(light.LightType) : 0;
+        return this.lightTypeIdArray[light.LightType] ?
+            this.lightTypeIdArray[light.LightType] : 0;
     }
 
     /**
@@ -74,12 +75,13 @@ class LightShaderComposer extends JThreeObjectWithId
      * @param lightTypeName light type name it must be same with LightBase.LightTypeName
      */
     public addLightType(shaderFuncName: string, shaderFuncCode: string, lightTypeName: string) {
-        if (this.lightTypeIdArray.has(lightTypeName)) {
+        if (this.lightTypeIdArray[lightTypeName]) {
             console.warn("already this light type was added.");
             return;
         } else
         {
-            this.lightTypeIdArray.set(lightTypeName, this.lightTypeIdArray.size + 1);
+            this.lightTypeIdArray[lightTypeName] =  this.typeCount + 1;
+            this.typeCount ++;
         }
         this.shaderFuncDefs.push(shaderFuncCode);
         this.shaderFuncNames.push(shaderFuncName);

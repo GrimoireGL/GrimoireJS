@@ -1,3 +1,4 @@
+import PMXCoreInitializer = require("./PMXCoreInitializer");
 import PMXHitAreaMaterial = require("./Materials/PMXHitAreaMaterial");
 import SceneObject = require("../../Core/SceneObject");
 import PMXModelData = require("../PMXLoader");
@@ -6,7 +7,6 @@ import PMXMaterial = require("./Materials/PMXMaterial");
 import Delegates = require("../../Base/Delegates");
 import PMXSkeleton = require("./PMXSkeleton");
 import PMXMorphManager = require("./PMXMorphManager");
-import AssociativeArray = require("../../Base/Collections/AssociativeArray");
 import PMXGBufferMaterial = require("./Materials/PMXGBufferMaterial");
 import PMXShadowMapMaterial = require("./Materials/PMXShadowMapMaterial");
 import JThreeEvent = require("../../Base/JThreeEvent");
@@ -43,7 +43,7 @@ class PMXModel extends SceneObject {
 
     private morphManager: PMXMorphManager;
 
-    private materialDictionary: AssociativeArray<PMXMaterial> = new AssociativeArray<PMXMaterial>();
+    private materialDictionary: {[materialName:string]:PMXMaterial}= {};
 
     private pmxMaterials: PMXMaterial[];
 
@@ -56,7 +56,7 @@ class PMXModel extends SceneObject {
     public modelDirectory: string;
 
     public getPMXMaterialByName(name: string) {
-        return this.materialDictionary.get(name);
+        return this.materialDictionary[name];
     }
 
     public getPMXMaterialByIndex(index: number) {
@@ -82,6 +82,7 @@ class PMXModel extends SceneObject {
 
     constructor(pmx: PMXModelData, resourceDirectory: string) {
         super();
+        PMXCoreInitializer.init();
         this.onload.addListener(() => { this.loaded = true });
         this.modelData = pmx;
         this.modelDirectory = resourceDirectory;
@@ -99,7 +100,7 @@ class PMXModel extends SceneObject {
             this.addMaterial(new PMXShadowMapMaterial(mat));
             this.addMaterial(new PMXHitAreaMaterial(mat));
             this.pmxMaterials[materialCount] = mat;
-            this.materialDictionary.set(currentMat.materialName, mat);
+            this.materialDictionary[currentMat.materialName] =  mat;
             offset += currentMat.vertexCount;
         }
         this.morphManager = new PMXMorphManager(this);

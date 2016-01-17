@@ -6,7 +6,6 @@ import SceneObject = require("../../../Core/SceneObject");
 import BasicMeshObject = require("../../../Shapes/BasicMeshObject");
 import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
 import MaterialNode = require("../Materials/MaterialNodeBase");
-import SolidColorMaterial = require("../../../Core/Materials/Forward/SolidColorMaterial");
 import Material = require('../../../Core/Materials/Material');
 import Geometry = require('../../../Core/Geometries/Geometry');
 import Delegate = require('../../../Base/Delegates');
@@ -41,7 +40,7 @@ class MeshNode extends SceneObjectNodeBase {
    * Material instance
    * If this has not defined yet, initialize with SolidColorMaterial
    */
-  private mat_instance: Material = new SolidColorMaterial();
+  private mat_instance: Material = null;
 
   /**
    * Called when geo attribute is changed

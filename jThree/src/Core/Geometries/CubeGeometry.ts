@@ -1,3 +1,5 @@
+import GeometryBuilder = require("./GeometryBuilder");
+import BasicGeometry = require("./BasicGeometry");
 import Geometry = require("./Geometry");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
 import BufferUsageType = require("../../Wrapper/BufferUsageType");
@@ -7,7 +9,7 @@ import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import ResourceManager = require("../ResourceManager");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
-class CubeGeometry extends Geometry {
+class CubeGeometry extends BasicGeometry {
     constructor(name: string) {
         super();
         var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
@@ -25,21 +27,17 @@ class CubeGeometry extends Geometry {
     var normal: number[] = [];
     var uv: number[] = [];
     var index: number[] = [];
-    this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, -1, 1), new Vector3(1, 1, 1)]);
-    this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, 1),  new Vector3(1, -1, 1),  new Vector3(1, 1, -1)]);
-    this.addQuad(pos, normal, uv, index, [new Vector3(1, 1, -1), new Vector3(1, -1, -1), new Vector3(-1, 1, -1)]);
-    this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, -1),new Vector3(-1, -1, -1),new Vector3(-1, 1, 1)]);
-    this.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1),   new Vector3(-1, 1, -1)]);
-    this.addQuad(pos, normal, uv, index, [new Vector3(1, -1, 1), new Vector3(-1, -1, 1), new Vector3(1, -1, -1)]);
+    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(-1, -1, 1), new Vector3(1, 1, 1)]);
+    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, 1, 1),  new Vector3(1, -1, 1),  new Vector3(1, 1, -1)]);
+    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, 1, -1), new Vector3(1, -1, -1), new Vector3(-1, 1, -1)]);
+    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, -1),new Vector3(-1, -1, -1),new Vector3(-1, 1, 1)]);
+    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(-1, 1, 1), new Vector3(1, 1, 1),   new Vector3(-1, 1, -1)]);
+    GeometryBuilder.addQuad(pos, normal, uv, index, [new Vector3(1, -1, 1), new Vector3(-1, -1, 1), new Vector3(1, -1, -1)]);
     this.indexBuffer.update(new Uint8Array(index), index.length);
     this.normalBuffer.update(new Float32Array(normal), normal.length);
     this.uvBuffer.update(new Float32Array(uv), uv.length);
     this.positionBuffer.update(new Float32Array(pos), pos.length);
     }
-
-  public drawElements(canvas, material) {
-    super.drawElements(canvas, material);
-  }
 
 }
 

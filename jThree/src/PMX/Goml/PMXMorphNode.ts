@@ -5,9 +5,9 @@ class PMXMorphNode extends GomlTreeNodeBase {
 	private targetPMX: PMXNode;
 
 	constructor(elem: HTMLElement, parent: GomlTreeNodeBase, pmx: PMXNode) { // TODO: pnly
-		super(elem, parent);
+		super();
 		this.targetPMX = pmx;
-		this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
+		// this.targetPMX.onPMXTargetUpdate((e, o) => { this.attributes.updateValue(); });
 		this.attributes.defineAttribute({
 			"name":
 			{
