@@ -39,7 +39,6 @@
 /// <reference path="Core/IResourceLoaderEventArgs.ts" />
 /// <reference path="Core/ISceneListChangedEventArgs.ts" />
 /// <reference path="Core/ISceneObjectChangedEventArgs.ts" />
-/// <reference path="Core/Light/DefaultLightTypeList.ts" />
 /// <reference path="Core/Light/Impl/AreaLight.ts" />
 /// <reference path="Core/Light/Impl/DirectionalLight.ts" />
 /// <reference path="Core/Light/Impl/PointLight.ts" />
