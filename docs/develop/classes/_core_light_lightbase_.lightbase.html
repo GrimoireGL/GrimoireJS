@@ -80,16 +80,10 @@
 								<span class="target">LightBase</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="_core_light_shadowmap_shadowdroppablelight_.shadowdroppablelight.html" class="tsd-signature-type">ShadowDroppableLight</a>
-									</li>
-									<li>
 										<a href="_core_light_impl_pointlight_.pointlight.html" class="tsd-signature-type">PointLight</a>
 									</li>
 									<li>
-										<a href="_core_light_impl_arealight_.arealight.html" class="tsd-signature-type">AreaLight</a>
-									</li>
-									<li>
-										<a href="_core_light_impl_spotlight_.spotlight.html" class="tsd-signature-type">SpotLight</a>
+										<a href="_core_light_impl_directionallight_.directionallight.html" class="tsd-signature-type">DirectionalLight</a>
 									</li>
 									<li>
 										<a href="_core_light_impl_scenelight_.scenelight.html" class="tsd-signature-type">SceneLight</a>
@@ -175,7 +169,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L15">Core/Light/LightBase.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L14">Core/Light/LightBase.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -194,17 +188,17 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="color" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> color</h3>
-					<div class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">:</span> <a href="_math_color4_.color4.html" class="tsd-signature-type">Color4</a></div>
+					<div class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">:</span> <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L23">Core/Light/LightBase.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L21">Core/Light/LightBase.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="geometry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> geometry</h3>
-					<div class="tsd-signature tsd-kind-icon">geometry<span class="tsd-signature-symbol">:</span> <a href="_core_geometries_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></div>
+					<div class="tsd-signature tsd-kind-icon">geometry<span class="tsd-signature-symbol">:</span> <a href="_core_geometries_base_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#geometry">geometry</a></p>
 						<ul>
@@ -229,7 +223,7 @@
 					<div class="tsd-signature tsd-kind-icon">parameter<wbr>Changed<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L15">Core/Light/LightBase.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L14">Core/Light/LightBase.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -239,7 +233,7 @@
 					<div class="tsd-signature tsd-kind-icon">scene<span class="tsd-signature-symbol">:</span> <a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L13">Core/Light/LightBase.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L12">Core/Light/LightBase.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -284,28 +278,28 @@
 					<a name="color-1" class="tsd-anchor"></a>
 					<h3>Color</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Color<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_color4_.color4.html" class="tsd-signature-type">Color4</a></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Color<span class="tsd-signature-symbol">(</span>col<span class="tsd-signature-symbol">: </span><a href="_math_color4_.color4.html" class="tsd-signature-type">Color4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Color<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Color<span class="tsd-signature-symbol">(</span>col<span class="tsd-signature-symbol">: </span><a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L25">Core/Light/LightBase.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L23">Core/Light/LightBase.ts:23</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_math_color4_.color4.html" class="tsd-signature-type">Color4</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L30">Core/Light/LightBase.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L27">Core/Light/LightBase.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>col: <a href="_math_color4_.color4.html" class="tsd-signature-type">Color4</a></h5>
+									<h5>col: <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -316,8 +310,8 @@
 					<a name="geometry-1" class="tsd-anchor"></a>
 					<h3>Geometry</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Geometry<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_geometries_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Geometry<span class="tsd-signature-symbol">(</span>geo<span class="tsd-signature-symbol">: </span><a href="_core_geometries_geometry_.geometry.html" class="tsd-signature-type">Geometry</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Geometry<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_geometries_base_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Geometry<span class="tsd-signature-symbol">(</span>geo<span class="tsd-signature-symbol">: </span><a href="_core_geometries_base_geometry_.geometry.html" class="tsd-signature-type">Geometry</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -327,7 +321,7 @@
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L166">Core/SceneObject.ts:166</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_core_geometries_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_core_geometries_base_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
@@ -339,7 +333,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>geo: <a href="_core_geometries_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></h5>
+									<h5>geo: <a href="_core_geometries_base_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -400,7 +394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L40">Core/Light/LightBase.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L35">Core/Light/LightBase.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -479,7 +473,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L35">Core/Light/LightBase.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L31">Core/Light/LightBase.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -565,7 +559,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L53">Core/Light/LightBase.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L46">Core/Light/LightBase.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -588,7 +582,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L48">Core/Light/LightBase.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L42">Core/Light/LightBase.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -635,7 +629,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L45">Core/Light/LightBase.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L39">Core/Light/LightBase.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -747,7 +741,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L62">Core/Light/LightBase.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L54">Core/Light/LightBase.ts:54</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -797,7 +791,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L66">Core/Light/LightBase.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L58">Core/Light/LightBase.ts:58</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -856,7 +850,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L58">Core/Light/LightBase.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L50">Core/Light/LightBase.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -898,7 +892,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onparentscenechanged">onParentSceneChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L71">Core/Light/LightBase.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L62">Core/Light/LightBase.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>

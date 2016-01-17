@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IndexedGeometry | jThree</title>
+	<title>BasicGeometry | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_core_geometries_indexedgeometry_.html">&quot;Core/Geometries/IndexedGeometry&quot;</a>
+					<a href="../modules/_core_geometries_base_basicgeometry_.html">&quot;Core/Geometries/Base/BasicGeometry&quot;</a>
 				</li>
 				<li>
-					<a href="_core_geometries_indexedgeometry_.indexedgeometry.html">IndexedGeometry</a>
+					<a href="_core_geometries_base_basicgeometry_.basicgeometry.html">BasicGeometry</a>
 				</li>
 			</ul>
-			<h1>Class IndexedGeometry</h1>
+			<h1>Class BasicGeometry</h1>
 		</div>
 	</div>
 </header>
@@ -73,22 +73,51 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The abstract class for the geometries having index buffer(ELEMENT_ARRAY_BUFFER) for drawing.</p>
+						<p>Basic geometry for builtin primitives. This geometry contains position,normal,uv as buffer.</p>
 					</div>
-					<p>描画にインデックスバッファ(ELEMENT_ARRAY_BUFFER)を用いるジオメトリの抽象クラス</p>
+					<p>ビルトインのプリミティブのためのジオメトリ、このジオメトリはposition,normal,uvをバッファとして持つ。</p>
+					<dl class="tsd-comment-tags">
+						<dt>type</dt>
+						<dd><p>{[type]}</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_core_geometries_geometry_.geometry.html" class="tsd-signature-type">Geometry</a>
+						<a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html" class="tsd-signature-type">IndexedGeometry</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">IndexedGeometry</span>
+								<span class="target">BasicGeometry</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="_core_geometries_basicgeometry_.basicgeometry.html" class="tsd-signature-type">BasicGeometry</a>
+										<a href="_core_geometries_cylindergeometry_.cylindergeometry.html" class="tsd-signature-type">CylinderGeometry</a>
+									</li>
+									<li>
+										<a href="_core_geometries_cubegeometry_.cubegeometry.html" class="tsd-signature-type">CubeGeometry</a>
+									</li>
+									<li>
+										<a href="_core_geometries_spheregeometry_.spheregeometry.html" class="tsd-signature-type">SphereGeometry</a>
+									</li>
+									<li>
+										<a href="_core_geometries_quadgeometry_.quadgeometry.html" class="tsd-signature-type">QuadGeometry</a>
+									</li>
+									<li>
+										<a href="_core_geometries_circlegeometry_.circlegeometry.html" class="tsd-signature-type">CircleGeometry</a>
+									</li>
+									<li>
+										<a href="_core_geometries_gridgeometry_.gridgeometry.html" class="tsd-signature-type">GridGeometry</a>
+									</li>
+									<li>
+										<a href="_core_geometries_trianglegeometry_.trianglegeometry.html" class="tsd-signature-type">TriangleGeometry</a>
+									</li>
+									<li>
+										<a href="_pmx_core_pmxgeometry_.pmxgeometry.html" class="tsd-signature-type">PMXGeometry</a>
+									</li>
+									<li>
+										<a href="_core_geometries_conegeometry_.conegeometry.html" class="tsd-signature-type">ConeGeometry</a>
 									</li>
 								</ul>
 							</li>
@@ -103,26 +132,29 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#indexbuffer" class="tsd-kind-icon">index<wbr>Buffer</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#primitivetopology" class="tsd-kind-icon">primitive<wbr>Topology</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#indexbuffer" class="tsd-kind-icon">index<wbr>Buffer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#normalbuffer" class="tsd-kind-icon">normal<wbr>Buffer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#positionbuffer" class="tsd-kind-icon">position<wbr>Buffer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#primitivetopology" class="tsd-kind-icon">primitive<wbr>Topology</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#uvbuffer" class="tsd-kind-icon">uv<wbr>Buffer</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#geometryoffset" class="tsd-kind-icon">Geometry<wbr>Offset</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#geometryoffset" class="tsd-kind-icon">Geometry<wbr>Offset</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#___assignattributeifexists" class="tsd-kind-icon">___assign<wbr>Attribute<wbr>IfExists</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_indexedgeometry_.indexedgeometry.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#___assignattributeifexists" class="tsd-kind-icon">___assign<wbr>Attribute<wbr>IfExists</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -130,13 +162,14 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="indexbuffer" class="tsd-anchor"></a>
 					<h3>index<wbr>Buffer</h3>
 					<div class="tsd-signature tsd-kind-icon">index<wbr>Buffer<span class="tsd-signature-symbol">:</span> <a href="_core_resources_buffer_buffer_.buffer.html" class="tsd-signature-type">Buffer</a></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html">IndexedGeometry</a>.<a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html#indexbuffer">indexBuffer</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/IndexedGeometry.ts#L17">Core/Geometries/IndexedGeometry.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/IndexedGeometry.ts#L17">Core/Geometries/Base/IndexedGeometry.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -151,16 +184,76 @@
 						</dl>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="normalbuffer" class="tsd-anchor"></a>
+					<h3>normal<wbr>Buffer</h3>
+					<div class="tsd-signature tsd-kind-icon">normal<wbr>Buffer<span class="tsd-signature-symbol">:</span> <a href="_core_resources_buffer_buffer_.buffer.html" class="tsd-signature-type">Buffer</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/BasicGeometry.ts#L21">Core/Geometries/Base/BasicGeometry.ts:21</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>normals of the verticies.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Buffer}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="positionbuffer" class="tsd-anchor"></a>
+					<h3>position<wbr>Buffer</h3>
+					<div class="tsd-signature tsd-kind-icon">position<wbr>Buffer<span class="tsd-signature-symbol">:</span> <a href="_core_resources_buffer_buffer_.buffer.html" class="tsd-signature-type">Buffer</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/BasicGeometry.ts#L16">Core/Geometries/Base/BasicGeometry.ts:16</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>positions of the verticies.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Buffer}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="primitivetopology" class="tsd-anchor"></a>
 					<h3>primitive<wbr>Topology</h3>
 					<div class="tsd-signature tsd-kind-icon">primitive<wbr>Topology<span class="tsd-signature-symbol">:</span> <a href="../enums/_wrapper_primitivetopology_.primitivetopology.html" class="tsd-signature-type">PrimitiveTopology</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_geometries_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_geometry_.geometry.html#primitivetopology">primitiveTopology</a></p>
+						<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#primitivetopology">primitiveTopology</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Geometry.ts#L12">Core/Geometries/Geometry.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/Geometry.ts#L12">Core/Geometries/Base/Geometry.ts:12</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="uvbuffer" class="tsd-anchor"></a>
+					<h3>uv<wbr>Buffer</h3>
+					<div class="tsd-signature tsd-kind-icon">uv<wbr>Buffer<span class="tsd-signature-symbol">:</span> <a href="_core_resources_buffer_buffer_.buffer.html" class="tsd-signature-type">Buffer</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/BasicGeometry.ts#L26">Core/Geometries/Base/BasicGeometry.ts:26</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>uvs of the verticies.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>type</dt>
+							<dd><p>{Buffer}</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
@@ -174,9 +267,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_geometries_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_geometry_.geometry.html#geometryoffset">GeometryOffset</a></p>
+								<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#geometryoffset">GeometryOffset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Geometry.ts#L13">Core/Geometries/Geometry.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/Geometry.ts#L13">Core/Geometries/Base/Geometry.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -195,9 +288,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_geometries_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_geometry_.geometry.html#___assignattributeifexists">___assignAttributeIfExists</a></p>
+								<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#___assignattributeifexists">___assignAttributeIfExists</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Geometry.ts#L21">Core/Geometries/Geometry.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/Geometry.ts#L21">Core/Geometries/Base/Geometry.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -224,17 +317,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="___bindindexbuffer" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> ___bind<wbr>Index<wbr>Buffer</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon">___bind<wbr>Index<wbr>Buffer<span class="tsd-signature-symbol">(</span>canvas<span class="tsd-signature-symbol">: </span><a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html">IndexedGeometry</a>.<a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html#___bindindexbuffer">___bindIndexBuffer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/IndexedGeometry.ts#L51">Core/Geometries/IndexedGeometry.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/IndexedGeometry.ts#L51">Core/Geometries/Base/IndexedGeometry.ts:51</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -256,18 +350,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="applyattributevariables" class="tsd-anchor"></a>
 					<h3>apply<wbr>Attribute<wbr>Variables</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">apply<wbr>Attribute<wbr>Variables<span class="tsd-signature-symbol">(</span>pWrapper<span class="tsd-signature-symbol">: </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a>, attributes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_geometries_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_geometry_.geometry.html#applyattributevariables">applyAttributeVariables</a></p>
+								<p>Overwrites <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#applyattributevariables">applyAttributeVariables</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Geometry.ts#L19">Core/Geometries/Geometry.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/BasicGeometry.ts#L28">Core/Geometries/Base/BasicGeometry.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -288,18 +382,19 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="drawelements" class="tsd-anchor"></a>
 					<h3>draw<wbr>Elements</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">draw<wbr>Elements<span class="tsd-signature-symbol">(</span>canvas<span class="tsd-signature-symbol">: </span><a href="_core_canvas_.canvas.html" class="tsd-signature-type">Canvas</a>, material<span class="tsd-signature-symbol">: </span><a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overwrites <a href="_core_geometries_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_geometry_.geometry.html#drawelements">drawElements</a></p>
+								<p>Inherited from <a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html">IndexedGeometry</a>.<a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html#drawelements">drawElements</a></p>
+								<p>Overwrites <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#drawelements">drawElements</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/IndexedGeometry.ts#L36">Core/Geometries/IndexedGeometry.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/IndexedGeometry.ts#L36">Core/Geometries/Base/IndexedGeometry.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -327,18 +422,19 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="getdrawlength" class="tsd-anchor"></a>
 					<h3>get<wbr>Draw<wbr>Length</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Draw<wbr>Length<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overwrites <a href="_core_geometries_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_geometry_.geometry.html#getdrawlength">getDrawLength</a></p>
+								<p>Inherited from <a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html">IndexedGeometry</a>.<a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html#getdrawlength">getDrawLength</a></p>
+								<p>Overwrites <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#getdrawlength">getDrawLength</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/IndexedGeometry.ts#L25">Core/Geometries/IndexedGeometry.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/IndexedGeometry.ts#L25">Core/Geometries/Base/IndexedGeometry.ts:25</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -410,7 +506,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_core_geometries_indexedgeometry_.html">"<wbr>Core/<wbr>Geometries/<wbr>Indexed<wbr>Geometry"</a>
+						<a href="../modules/_core_geometries_base_basicgeometry_.html">"<wbr>Core/<wbr>Geometries/<wbr>Base/<wbr>Basic<wbr>Geometry"</a>
 					</li>
 				</ul>
 			</nav>
@@ -419,37 +515,46 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_core_geometries_indexedgeometry_.indexedgeometry.html" class="tsd-kind-icon">Indexed<wbr>Geometry</a>
+						<a href="_core_geometries_base_basicgeometry_.basicgeometry.html" class="tsd-kind-icon">Basic<wbr>Geometry</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#indexbuffer" class="tsd-kind-icon">index<wbr>Buffer</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#indexbuffer" class="tsd-kind-icon">index<wbr>Buffer</a>
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#normalbuffer" class="tsd-kind-icon">normal<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#positionbuffer" class="tsd-kind-icon">position<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#primitivetopology" class="tsd-kind-icon">primitive<wbr>Topology</a>
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#primitivetopology" class="tsd-kind-icon">primitive<wbr>Topology</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#uvbuffer" class="tsd-kind-icon">uv<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#geometryoffset" class="tsd-kind-icon">Geometry<wbr>Offset</a>
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#geometryoffset" class="tsd-kind-icon">Geometry<wbr>Offset</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#___assignattributeifexists" class="tsd-kind-icon">___assign<wbr>Attribute<wbr>IfExists</a>
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#___assignattributeifexists" class="tsd-kind-icon">___assign<wbr>Attribute<wbr>IfExists</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a>
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_geometries_indexedgeometry_.indexedgeometry.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>
