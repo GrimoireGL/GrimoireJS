@@ -53,7 +53,7 @@ class ShaderParser {
         console.error(`Required shader chunk '${regexResult[1]}' was not found!!`);
         importContent = "";
       }
-      var source = source.replace(regexResult[0], '\n' + importContent + '\n');
+      source = source.replace(regexResult[0], '\n' + importContent + '\n');
     }
     return source;
   }
@@ -67,9 +67,9 @@ class ShaderParser {
     }
     return result;
   }
-
+  // http://regexper.com/#(%3F%3A%5C%2F%5C%2F%40%5C((.%2B)%5C))%3F%5Cs*uniform%5Cs%2B((%3F%3Alowp%7Cmediump%7Chighp)%5Cs%2B)%3F(%5Ba-z0-9A-Z%5D%2B)%5Cs%2B(%5Ba-zA-Z0-9_%5D%2B)(%3F%3A%5Cs*%5C%5B%5Cs*(%5Cd%2B)%5Cs*%5C%5D%5Cs*)%3F%5Cs*%3B
   private static _generateVariableFetchRegex(variableType: string): RegExp {
-    return new RegExp("(?://@\\((.+)\\))?\\s*" + variableType + "\\s+((?:lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+);", "g");
+    return new RegExp("(?://@\\((.+)\\))?\\s*" + variableType + "\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;", "g");
   }
 
   private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableInfo } {
@@ -85,7 +85,9 @@ class ShaderParser {
         variableName: name,
         variableType: type,
         variablePrecision: precision,
-        variableAnnotation: rawAnnotations ? this._parseVariableAttributes(rawAnnotations) : {}
+        variableAnnotation: rawAnnotations ? this._parseVariableAttributes(rawAnnotations) : {},
+        isArray: (typeof regexResult[5] !== "undefined"),
+        arrayLength: (typeof regexResult[5] !== "undefined") ? parseInt(regexResult[5], 10) : undefined
       };
     }
     return result;
