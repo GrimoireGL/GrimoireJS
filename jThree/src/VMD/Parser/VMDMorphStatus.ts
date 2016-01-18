@@ -1,7 +1,6 @@
-interface VMDMorphStatus
-{
-	frameNumber: number;
-	value: number;
+interface VMDMorphStatus {
+  frameNumber: number;
+  value: number;
 }
 
 export = VMDMorphStatus;

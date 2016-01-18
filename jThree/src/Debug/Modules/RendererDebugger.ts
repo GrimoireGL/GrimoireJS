@@ -5,11 +5,11 @@ import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import Scene = require("../../Core/Scene");
 import BasicRenderer = require("../../Core/Renderers/BasicRenderer");
-import Q = require("q");;
-import Delegate = require("../../Base/Delegates");;
+import Q = require("q");
+import Delegate = require("../../Base/Delegates");
 import Canvas = require("../../Core/Canvas");
 import IRequestBufferTexture = require("./Renderer/IRequestBufferTexture");
-import IRequestShadowMapTexture = require("./Renderer/IRequestShadowMapTexture");;
+import IRequestShadowMapTexture = require("./Renderer/IRequestShadowMapTexture");
 import IRequestBufferTextureProgress = require("./Renderer/IRequestBufferTextureProgress");
 import IRequestShadowMapProgress = require("./Renderer/IRequestShadowMapProgress");
 class RendererDebugger extends DebuggerModuleBase {

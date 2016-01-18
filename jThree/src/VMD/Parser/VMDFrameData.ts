@@ -1,6 +1,5 @@
-interface VMDFrameData
-{
-	frameNumber: number;
+interface VMDFrameData {
+  frameNumber: number;
 }
 
 export = VMDFrameData;

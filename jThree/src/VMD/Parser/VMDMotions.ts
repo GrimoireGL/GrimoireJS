@@ -1,8 +1,7 @@
 import VmdMotion = require("./VMDMotion");
 
-interface VMDMotions
-{
-	[boneName:string]:VmdMotion[];
+interface VMDMotions {
+  [boneName: string]: VmdMotion[];
 }
 
-export=VMDMotions;
+export = VMDMotions;

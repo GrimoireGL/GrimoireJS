@@ -1,15 +1,12 @@
 import ContextComponents = require("../ContextComponents");
 import JThreeContext = require("../JThreeContext");
 import Debugger = require("./Debugger");
-class GLInfoDebugger
-{
-  public static debugCullConfig(gl:WebGLRenderingContext):any
-  {
+class GLInfoDebugger {
+  public static debugCullConfig(gl: WebGLRenderingContext): any {
     const cullFace = gl.getParameter(gl.CULL_FACE);
     const cullMode = gl.getParameter(gl.CULL_FACE_MODE);
     let mode;
-    switch(cullMode)
-    {
+    switch (cullMode) {
       case gl.FRONT:
         mode = "FRONT";
         break;
@@ -22,11 +19,10 @@ class GLInfoDebugger
       default:
         mode = `Unknown(${cullMode})`;
     }
-    return {enabled:cullFace,mode:mode};
+    return { enabled: cullFace, mode: mode };
   }
 
-  public static debugBlendConfig(gl:WebGLRenderingContext):any
-  {
+  public static debugBlendConfig(gl: WebGLRenderingContext): any {
     const blend = gl.getParameter(gl.BLEND);
     const rawSrcAlpha = gl.getParameter(gl.SRC_ALPHA);
     const rawSrcColor = gl.getParameter(gl.SRC_COLOR);
@@ -35,10 +31,8 @@ class GLInfoDebugger
 
   }
 
-  private static _blendCoefficientToString(gl:WebGLRenderingContext,val:number):string
-  {
-    switch(val)
-    {
+  private static _blendCoefficientToString(gl: WebGLRenderingContext, val: number): string {
+    switch (val) {
       case gl.ZERO:
         return "ZERO";
       case gl.ONE:

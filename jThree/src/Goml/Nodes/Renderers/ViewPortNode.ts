@@ -12,7 +12,7 @@ import CubeTextureNode = require("../Texture/CubeTextureNode");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
 import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
 import RendererFactory = require("../../../Core/Renderers/RendererFactory");
-import Delegates = require("../../../Base/Delegates");;
+import Delegates = require("../../../Base/Delegates");
 
 class ViewPortNode extends GomlTreeNodeBase {
 

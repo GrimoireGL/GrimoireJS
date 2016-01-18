@@ -1,7 +1,7 @@
 import Canvas = require("../../Canvas")
-import TargetTextureType = require("../../../Wrapper/TargetTextureType")
+import TargetTextureType = require("../../../Wrapper/TargetTextureType");
 import BufferTexture = require("./BufferTexture");
-import TextureWrapperBase = require("./TextureWrapperBase");;
+import TextureWrapperBase = require("./TextureWrapperBase");
 import TexImage2DTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
 import FramebufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
 import ElementType = require("../../../Wrapper/ElementType");
@@ -12,8 +12,8 @@ class BufferTextureWrapper extends TextureWrapperBase {
   }
 
   public init() {
-    if (this.Initialized) return;
-    var parent = <BufferTexture>this.Parent;
+    if (this.Initialized) { return; }
+    const parent = <BufferTexture>this.Parent;
     this.setTargetTexture(this.GL.createTexture());
     this.bind();
     this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);

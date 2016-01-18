@@ -3,7 +3,7 @@ import MaterialManager = require("../../../Core/Materials/Base/MaterialManager")
 import JThreeContext = require("../../../JThreeContext");
 ﻿import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import MaterialNodeBase = require("./MaterialNodeBase");;
+import MaterialNodeBase = require("./MaterialNodeBase");
 import Material = require("../../../Core/Materials/Material");
 import TextureNode = require("../Texture/TextureNode")
 class PhongNode extends MaterialNodeBase {

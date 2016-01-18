@@ -124,12 +124,14 @@ class Transformer extends JThreeObject {
   public updateTransform(): void {
     this.hasChanged = true;
     this.updateTransformMatricies();
-    //notify update to childrens
-    if (this.linkedObject.Children && this.NeedUpdateChildren) this.linkedObject.Children.forEach((v) => {
+    // notify update to childrens
+    if (this.linkedObject.Children && this.NeedUpdateChildren) {
+    this.linkedObject.Children.forEach((v) => {
       v.Transformer.updateTransform();
     });
+    }
     this.g2lupdated = false;
-    //fire updated event
+    // fire updated event
     this.onUpdateTransformHandler.fire(this, this.linkedObject);
   }
 
@@ -142,7 +144,7 @@ class Transformer extends JThreeObject {
     glm.mat4.identity(this.localTransformMatrix.rawElements);
     glm.mat4.identity(this.localToGlobalMatrix.rawElements);
     // generate local transofrm matrix
-    glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements);//substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+    glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
     if (this.linkedObject != null && this.linkedObject.Parent != null) {
       // Use LocalToGlobal matrix of parents to multiply with localTransformCache
       glm.mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
@@ -167,7 +169,7 @@ class Transformer extends JThreeObject {
 
   private updateDirection(rawElements: Vector3, sourceVector4: number[]) {
     glm.vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobalMatrix.rawElements);
-    glm.vec3.normalize(rawElements.rawElements, rawElements.rawElements)
+    glm.vec3.normalize(rawElements.rawElements, rawElements.rawElements);
   }
 
   /**

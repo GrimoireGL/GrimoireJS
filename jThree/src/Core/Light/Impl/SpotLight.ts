@@ -1,5 +1,5 @@
-// import Scene = require("../../Scene");;
-// import LightBase = require("./../LightBase");;
+// import Scene = require("../../Scene");
+// import LightBase = require("./../LightBase");
 // import LightTypeDeclaration = require("./../LightTypeDeclaration");
 // import BasicRenderer = require("../../Renderers/BasicRenderer");
 // import Matrix = require("../../../Math/Matrix");

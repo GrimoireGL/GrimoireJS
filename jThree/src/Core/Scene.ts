@@ -1,5 +1,5 @@
 ﻿import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
-import JThreeEvent = require("../Base/JThreeEvent");;
+import JThreeEvent = require("../Base/JThreeEvent");
 import BasicRenderer = require("./Renderers/BasicRenderer");
 import SceneObject = require("./SceneObject");
 import Camera = require("./Camera/Camera");

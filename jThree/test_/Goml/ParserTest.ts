@@ -1,8 +1,8 @@
 /// <reference path="../../src/refs/bundle.ts" />
-import PA = require("power-assert");;
+import PA = require("power-assert");
 const assert = PA.default;
 
-import sinon = require("sinon");;
+import sinon = require("sinon");
 import Color3 = require("../../src/Math/Color3");
 import Color4 = require("../../src/Math/Color4");
 import Vector3 = require("../../src/Math/Vector3");

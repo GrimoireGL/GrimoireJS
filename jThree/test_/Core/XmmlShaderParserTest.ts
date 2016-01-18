@@ -1,8 +1,8 @@
 /// <reference path="../../src/refs/bundle.ts" />
-import PA = require("power-assert");;
+import PA = require("power-assert");
 const assert = PA.default;
 
-import sinon = require("sinon");;
+import sinon = require("sinon");
 import XmmlShaderParser = require("../../src/Core/Materials/Base/ShaderParser");
 import JThreeContext = require("../../src/JThreeContext");
 import _ = require("underscore");
