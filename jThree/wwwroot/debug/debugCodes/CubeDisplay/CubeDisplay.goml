@@ -1,6 +1,7 @@
 <goml>
   <resources>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
+    <texture name="testTexture" src="/resource/texture/miku.png"/>
+    <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue" texture="testTexture"/>
     <phong diffuse="red" specular="#CCC" specularpower="15" name="red"/>
     <phong diffuse="green" specular="#CCC" specularposer="15" name="green"/>
     <solid name="matTest" solid="#FF0000FF" intensity="3"/>
@@ -26,7 +27,7 @@
       <dlight color="#F00" intensity="1" rotation="x(15d)"/>
       <plight distance="7"/>
       <mesh geo="cube" mat="matTest" position="-3,3,-5"/>
-      <mesh geo="cube" mat="green"/>
+      <mesh geo="cube" mat="blue" scale="5"/>
       <mesh geo="grid" mat="matTest" scale="10"/>
     </scene>
   </scenes>

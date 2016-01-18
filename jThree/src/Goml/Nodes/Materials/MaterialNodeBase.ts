@@ -1,3 +1,4 @@
+import TextureNode = require("../Texture/TextureNode");
 import Color4 = require("../../../Math/Color4");
 import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
 import JThreeContext = require("../../../JThreeContext");
@@ -82,21 +83,34 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   private _generateAttributeForVariable(variableName: string, variableInfo: IVariableInfo): AttributeDeclationBody {
     let converter;
     let initialValue;
-    if (variableInfo.variableType == "vec2") { // TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.
+    if (variableInfo.variableType === "vec2") { // TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.
       converter = "vec2";
       initialValue = Vector2.Zero;
     }
-    if (variableInfo.variableType == "vec3") {
+    if (variableInfo.variableType === "vec3") {
       converter = "color3";
       initialValue = Vector3.Zero;
     }
-    if (variableInfo.variableType == "vec4") {
-      converter = "color4";//TODO add vector4 converter
+    if (variableInfo.variableType === "vec4") {
+      converter = "color4"; // TODO add vector4 converter
       initialValue = new Color4(0, 0, 0, 1);
     }
-    if (variableInfo.variableType == "float") {
+    if (variableInfo.variableType === "float") {
       converter = "float"; // This should be float
       initialValue = 0.0;
+    }
+    if (variableInfo.variableType === "sampler2D") {
+      return {
+        converter: "string",
+        value: "",
+        onchanged: (v) => {
+          if (v.Value) {
+            this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", v.Value, (node: TextureNode) => {
+              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            });
+          }
+        }
+      };
     }
     if (!converter) return undefined;
     return {

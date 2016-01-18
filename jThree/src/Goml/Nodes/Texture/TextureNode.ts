@@ -32,4 +32,4 @@ class TextureNode extends TextureNodeBase {
   }
 }
 
-export =TextureNode;
+export = TextureNode;
