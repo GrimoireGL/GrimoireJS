@@ -1,3 +1,4 @@
+import VectorArray = require("../../../Math/VectorArray");
 import TextureBase = require("../Texture/TextureBase");
 import VectorBase = require("../../../Math/VectorBase");
 import Matrix = require("../../../Math/Matrix");
@@ -125,16 +126,51 @@ class ProgramWrapper extends ResourceWrapper {
     }
   }
 
+  public uniformVectorArray(variableName: string, vectors: VectorArray): void {
+    const location = this._fetchUniformLocation(variableName);
+    if (!location) { return; }
+    const rawVector = vectors.rawElements;
+    switch (vectors.unitSize) {
+      case 2:
+        this.GL.uniform2fv(location, new Float32Array(vectors.rawElements));
+        return;
+      case 3:
+        this.GL.uniform3fv(location, new Float32Array(vectors.rawElements));
+        return;
+      case 4:
+        this.GL.uniform4fv(location, new Float32Array(vectors.rawElements));
+        return;
+      default:
+        console.error("Unexpected element count of vector!");
+    }
+  }
+
   public uniformFloat(variableName: string, val: number): void {
     const location = this._fetchUniformLocation(variableName);
     if (!location) { return; }
     this.GL.uniform1f(location, val);
   }
 
+  public uniformFloatArray(variableName: string, val: number[]): void {
+    const location = this._fetchUniformLocation(variableName);
+    if (!location) {
+      return;
+    }
+    this.GL.uniform1fv(location, new Float32Array(val));
+  }
+
   public uniformInt(variableName: string, val: number): void {
     const location = this._fetchUniformLocation(variableName);
     if (!location) { return; }
     this.GL.uniform1i(location, val);
+  }
+
+  public uniformIntArray(variableName: string, val: number[]): void {
+    const location = this._fetchUniformLocation(variableName);
+    if (!location) {
+      return;
+    }
+    this.GL.uniform1iv(location, new Int32Array(val));
   }
 
   public uniformSampler(variableName: string, tex: TextureBase, texRegister: number): number {

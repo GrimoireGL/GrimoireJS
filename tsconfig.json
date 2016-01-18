@@ -255,6 +255,7 @@
     "./jThree/src/Math/Vector2.ts",
     "./jThree/src/Math/Vector3.ts",
     "./jThree/src/Math/Vector4.ts",
+    "./jThree/src/Math/VectorArray.ts",
     "./jThree/src/Math/VectorBase.ts",
     "./jThree/src/PMX/Core/Materials/PMXGBufferMaterial.ts",
     "./jThree/src/PMX/Core/Materials/PMXHitAreaMaterial.ts",
