@@ -1,19 +1,7 @@
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
-import Material = require("../../../Core/Materials/Material");
-import Program = require("../../../Core/Resources/Program/Program");
-import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import SceneObject = require("../../../Core/SceneObject");
-import Matrix = require("../../../Math/Matrix");
-import GLFeatureType = require("../../../Wrapper/GLFeatureType");
-import Scene = require("../../../Core/Scene");
 import PMXMaterial = require("./PMXMaterial");
-import ResolvedChainInfo = require("../../../Core/Renderers/ResolvedChainInfo");
-import PMXGeometry = require("./../PMXGeometry");
-import Vector4 = require("../../../Math/Vector4");
-import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
-import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 /**
  * the materials for PMX.
  */
