@@ -13,10 +13,9 @@
       //@vertonly
       //{
         uniform mat4 _matPVM;
-
         void main(void)
         {
-          gl_Position = vLightProjectedPosition = _matPVM * vec4(position,1.0);
+          gl_Position = vLightProjectedPosition = _matPVM *  vec4(position,1.0);
         }
       //}
 

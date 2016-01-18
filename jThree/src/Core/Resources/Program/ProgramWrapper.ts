@@ -91,7 +91,6 @@ class ProgramWrapper extends ResourceWrapper {
     if (attribIndex < 0) { return; } // When the variable was not found
     const bufWrapper = buffer.getForContext(this.OwnerCanvas);
     bufWrapper.bindBuffer();
-    this.GL.enableVertexAttribArray(attribIndex);
     this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
   }
 
@@ -129,7 +128,6 @@ class ProgramWrapper extends ResourceWrapper {
   public uniformVectorArray(variableName: string, vectors: VectorArray): void {
     const location = this._fetchUniformLocation(variableName);
     if (!location) { return; }
-    const rawVector = vectors.rawElements;
     switch (vectors.unitSize) {
       case 2:
         this.GL.uniform2fv(location, new Float32Array(vectors.rawElements));
@@ -194,6 +192,9 @@ class ProgramWrapper extends ResourceWrapper {
   private _fetchAttributeLocation(valName: string): number {
     if (!this._attributeLocations[valName]) {
       this._attributeLocations[valName] = this.GL.getAttribLocation(this.TargetProgram, valName);
+      if (this._attributeLocations[valName] >= 0) {
+       this.GL.enableVertexAttribArray(this._attributeLocations[valName]);
+      }
     }
     return this._attributeLocations[valName];
   }

@@ -22,7 +22,7 @@ class PointLight extends LightBase {
         decay: this.decay,
         dist: this.distance,
         lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
-      };
+       };
     });
     const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/PointLight.html"));
     specularMaterial.on("apply", (matArg: IMaterialConfigureArgument) => {
