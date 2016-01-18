@@ -4,7 +4,9 @@ uniform mat4 _matPVM;
 //@(register:0,sampler:12)
 uniform sampler2D testTexture;
 
-uniform mediump sampler2D precTexture;
+uniform mediump sampler2D precTexture ;
+
+uniform mediump sampler2D precTexture2 [120];
 
 varying vec3 test;
 
