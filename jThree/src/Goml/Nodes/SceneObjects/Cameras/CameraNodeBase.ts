@@ -1,12 +1,9 @@
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import JThreeID = require("../../../../Base/JThreeID");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
-import SceneObject = require("../../../../Core/SceneObject");
-import Delegate = require('../../../../Base/Delegates');
 
 class CameraNodeBase extends SceneObjectNodeBase {
+  protected groupPrefix: string = "camera";
+
   private targetCamera: Camera;
 
   public get TargetCamera(): Camera {
@@ -17,29 +14,26 @@ class CameraNodeBase extends SceneObjectNodeBase {
     super();
   }
 
+  /**
+   * Construct camera. This method should be overridden.
+   * @return {Camera} [description]
+   */
   protected ConstructCamera(): Camera {
-    return null;
+    return;
   }
 
-  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
-    this.targetCamera = this.ConstructCamera();
-    callbackfn(this.targetCamera);
-  }
-
-  protected groupPrefix: string = 'camera';
-
+  /**
+   * Construct camera and set to TargetSceneObject.
+   * This Node is exported.
+   */
   protected onMount(): void {
     super.onMount();
-    this.nodeExport(this.Name);
-  }
-
-  private name: string;
-  /**
-  * GOML Attribute
-  * Identical Name for camera
-  */
-  public get Name(): string {
-    return this.attributes.getValue('name');
+    this.TargetSceneObject = this.ConstructCamera();
+    let name = this.attributes.getValue("name");
+    if (typeof name !== 'string') {
+      throw Error(`${this.getTypeName()}: camera name must be requied.`);
+    }
+    this.nodeExport(name);
   }
 }
 

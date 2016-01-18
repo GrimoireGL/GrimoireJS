@@ -1,6 +1,3 @@
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
 import PerspectiveCamera = require("../../../../Core/Camera/PerspectiveCamera");
 import CameraNodeBase = require("./CameraNodeBase");
@@ -44,7 +41,7 @@ class CameraNode extends CameraNodeBase {
   private targetPerspective: PerspectiveCamera;
 
   protected ConstructCamera(): Camera {
-    var camera = new PerspectiveCamera();
+    const camera = new PerspectiveCamera();
     this.targetPerspective = camera;
     camera.Fovy = this.Fovy;
     camera.Aspect = this.Aspect;

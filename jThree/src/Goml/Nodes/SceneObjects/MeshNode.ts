@@ -1,34 +1,30 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import GomlAttribute = require("../../GomlAttribute");
 import SceneObjectNodeBase = require("./SceneObjectNodeBase");
-import SceneNode = require("../SceneNode");
-import SceneObject = require("../../../Core/SceneObject");
 import BasicMeshObject = require("../../../Shapes/BasicMeshObject");
 import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
 import MaterialNode = require("../Materials/MaterialNodeBase");
-import Material = require('../../../Core/Materials/Material');
-import Geometry = require('../../../Core/Geometries/Geometry');
-import Delegate = require('../../../Base/Delegates');
+import Material = require("../../../Core/Materials/Material");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 
 class MeshNode extends SceneObjectNodeBase {
   constructor() {
     super();
     this.attributes.defineAttribute({
-      'geo': {
+      "geo": {
         value: undefined,
-        converter: 'string',
+        converter: "string",
         onchanged: this._onGeoAttrChanged.bind(this),
       },
-      'mat': {
+      "mat": {
         value: undefined,
-        converter: 'string',
+        converter: "string",
         onchanged: this._onMatAttrChanged.bind(this),
       }
     });
   }
 
-  private geo: string;
-  private mat: string;
+  private geo: string = null;
+  private mat: string = null;
 
   /**
    * Geomatry instance
@@ -38,9 +34,12 @@ class MeshNode extends SceneObjectNodeBase {
 
   /**
    * Material instance
-   * If this has not defined yet, initialize with SolidColorMaterial
    */
   private mat_instance: Material = null;
+
+  protected onMount(): void {
+    super.onMount();
+  }
 
   /**
    * Called when geo attribute is changed
@@ -70,22 +69,8 @@ class MeshNode extends SceneObjectNodeBase {
 
   private _updateTarget(): void {
     if (this.geo_instance && this.mat_instance) {
-      this.targetSceneObject = new BasicMeshObject(this.geo_instance, this.mat_instance);
+      this.TargetSceneObject = new BasicMeshObject(this.geo_instance, this.mat_instance);
     }
-  }
-
-  /**
-   * Construct target mesh on mount
-   * @param {Delegate.Action1<SceneObject>} callbackfn called when target scene object is constructed
-   */
-  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
-
-  }
-
-  public onMount(): void {
-    super.onMount();
-    this.geo = this.attributes.getValue('geo'); // TODO: pnly
-    this.mat = this.attributes.getValue('mat'); // TODO: pnly
   }
 }
 
