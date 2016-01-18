@@ -3,7 +3,7 @@
     <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
     <phong diffuse="red" specular="#CCC" specularpower="15" name="red"/>
     <phong diffuse="green" specular="#CCC" specularposer="15" name="green"/>
-    <solid name="matTest" solid="#00FF00FF" intensity="3"/>
+    <solid name="matTest" solid="#00FF00FF" intensity="3" cubeTest="cubemap"/>
     <cube name="cube" />
     <sphere name="sphere" />
     <grid hdiv="20" name="grid" vdiv="20"/>

@@ -17,6 +17,7 @@
 
       //@fragonly {
         uniform vec4 solid;
+        uniform samplerCube cubeTest;
       //}
 
       //@vertonly
@@ -28,7 +29,7 @@
       //@fragonly
       void main(void)
       {
-        gl_FragColor = solid;
+        gl_FragColor = textureCube(cubeTest,vPosition.xyz);//solid;
       }
 
       ]]>

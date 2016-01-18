@@ -1,3 +1,4 @@
+import CubeTexture = require("../Resources/Texture/CubeTexture");
 import BufferTexture = require("../Resources/Texture/BufferTexture");
 import TextureBase = require("../Resources/Texture/TextureBase");
 import Camera = require("./../Camera/Camera");
@@ -25,6 +26,8 @@ class BasicRenderer extends CanvasRegion {
    * @type {TextureBase}
    */
   public alternativeTexture: TextureBase;
+
+  public alternativeCubeTexture: CubeTexture;
 
   public renderPath: RenderPath = new RenderPath();
 
@@ -76,6 +79,7 @@ class BasicRenderer extends CanvasRegion {
    */
   public initialize(): void {
     this.alternativeTexture = this.__initializeAlternativeTexture();
+    this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
   }
 
   /**
@@ -86,8 +90,14 @@ class BasicRenderer extends CanvasRegion {
    */
   protected __initializeAlternativeTexture(): TextureBase {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    let tex = <BufferTexture>rm.createTexture("jthree.alt." + this.ID, 1, 1);
+    let tex = <BufferTexture>rm.createTexture("jthree.alt.texture2D." + this.ID, 1, 1);
     tex.updateTexture(new Uint8Array([255, 0, 255, 255])); // Use purple color as the color of default buffer texture.
+    return tex;
+  }
+
+  protected __initializeAlternativeCubeTexture(): CubeTexture {
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    let tex = rm.createCubeTextureWithSource("jthree.alt.textureCube." + this.ID, null);
     return tex;
   }
   /**

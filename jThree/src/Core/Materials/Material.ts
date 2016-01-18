@@ -175,7 +175,19 @@ class Material extends JThreeObjectEEWithID {
           }
           pWrapper.uniformSampler(uniform.variableName, renderer.alternativeTexture, register);
           if (uniform.variableAnnotation["flag"]) {
-            debugger;
+            pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
+          }
+          return;
+        case "samplerCube":
+          let registerCubeAnnotation = uniform.variableAnnotation["register"];
+          let registerCube;
+          if (registerAnnotation) {
+            registerCube = <number>parseInt(registerCubeAnnotation, 10);
+          } else {
+            registerCube = 0;
+          }
+          pWrapper.uniformSampler(uniform.variableName, renderer.alternativeCubeTexture, registerCube);
+          if (uniform.variableAnnotation["flag"]) {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
           }
           return;
