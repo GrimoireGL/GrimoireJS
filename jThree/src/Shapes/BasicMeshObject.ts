@@ -1,5 +1,4 @@
 import PrimaryBufferMaterial = require("../Core/Materials/Buffering/PrimaryBufferMaterial");
-import BasicMaterial = require("../Core/Materials/Base/BasicMaterial");
 import Geometry = require("../Core/Geometries/Base/Geometry");
 import Material = require("../Core/Materials/Material");
 import Mesh = require("./Mesh");

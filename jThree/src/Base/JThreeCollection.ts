@@ -92,4 +92,4 @@ class JThreeCollection<T extends JThreeObjectWithID> {
     }
 }
 
-export =JThreeCollection;
+export = JThreeCollection;

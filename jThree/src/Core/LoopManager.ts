@@ -7,15 +7,14 @@ import Delegate = require("../Base/Delegates");
  * ループマネージャーにより実行されるアクションのセット
  * @type {[type]}
  */
-interface LoopAction
-{
+interface LoopAction {
   /**
    * Order for executing. The less this number,the more being executed in early order.
    *
    * 実行順序、この番号が低ければ低いほど、実行タイミングが早い。
    * @type {number}
    */
-  order:number;
+  order: number;
 
   /**
    * The function to be executed.
@@ -23,7 +22,7 @@ interface LoopAction
    * 実行される関数
    * @type {Delegate.Action0}
    */
-  action:Delegate.Action0;
+  action: Delegate.Action0;
 }
 
 /**
@@ -32,10 +31,8 @@ interface LoopAction
  * JThree内のループに関する機能を提供するクラス
  * @type {[type]}
  */
-class LoopManager implements IContextComponent
-{
-  public getContextComponentIndex():number
-  {
+class LoopManager implements IContextComponent {
+  public getContextComponentIndex(): number {
     return ContextComponents.LoopManager;
   }
 
@@ -53,30 +50,28 @@ class LoopManager implements IContextComponent
    * 既に登録されたループアクションのリスト
    * @type {LoopAction[]}
    */
-  private _loopActions:LoopAction[] = [];
+  private _loopActions: LoopAction[] = [];
 
   /**
    * Constructor
    */
-  constructor()
-  {
-    this._registerNextLoop=
-      window.requestAnimationFrame //if window.requestAnimationFrame is defined or undefined
-        ?
-      　()=>{//When window.requestAnimationFrame is supported
-      　window.requestAnimationFrame(this._loop.bind(this));
-      　}
-      　:
-      　()=>{//When window.requestAnimationFrame is not supported.
-      　  window.setTimeout(this._loop.bind(this),1000/60);
-      　  };
+  constructor() {
+    this._registerNextLoop =
+    window.requestAnimationFrame  // if window.requestAnimationFrame is defined or undefined
+      ?
+      () => { // When window.requestAnimationFrame is supported
+        window.requestAnimationFrame(this._loop.bind(this));
+      }
+      :
+      () => { // When window.requestAnimationFrame is not supported.
+        window.setTimeout(this._loop.bind(this), 1000 / 60);
+      };
   }
 
   /**
    * Begin the loop
    */
-  public begin():void
-  {
+  public begin(): void {
     this._loop();
   }
 
@@ -87,13 +82,12 @@ class LoopManager implements IContextComponent
    * @param  {number}           order  the execution order where is criteria for priorty of loop.
    * @param  {Delegate.Action0} action the function where will be executed in the loop
    */
-  public addAction(order:number,action:Delegate.Action0):void
-  {
+  public addAction(order: number, action: Delegate.Action0): void {
     this._loopActions.push({
-      order:order,
-      action:action
+      order: order,
+      action: action
     });
-    this._loopActions.sort((a1,a2)=>a1.order-a2.order);
+    this._loopActions.sort((a1, a2) => a1.order - a2.order);
   }
 
   /**
@@ -101,10 +95,8 @@ class LoopManager implements IContextComponent
    *
    * ループの1フレームを実行
    */
-  private _loop():void
-  {
-    this._loopActions.forEach(act=>
-    {
+  private _loop(): void {
+    this._loopActions.forEach(act => {
       act.action();
     });
     this._registerNextLoop();

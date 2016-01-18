@@ -1,5 +1,4 @@
 import VectorBase = require("./VectorBase");
-import JThreeObject = require("../Base/JThreeObject");
 import Vector4 = require("./Vector4");
 
 class Color4 extends VectorBase {
@@ -28,14 +27,14 @@ class Color4 extends VectorBase {
   }
 
   public static colorTable: { [key: string]: string } = require("../static/color.json");
-  ///Color parser for css like syntax
+  /// Color parser for css like syntax
   public static internalParse(color: string, isFirst: boolean): Color4 {
     if (isFirst && Color4.colorTable[color]) {
       return Color4.internalParse(Color4.colorTable[color], false);
     }
     if (isFirst) {
       var m = color.match(/^#([0-9a-f]{3})$/i);
-      //#fff
+      // #fff
       if (m) {
         var s = m[1];
         return new Color4(
@@ -43,12 +42,12 @@ class Color4 extends VectorBase {
           parseInt(s.charAt(1), 16) / 0xf,
           parseInt(s.charAt(2), 16) / 0xf,
           1
-        );
+          );
       }
     }
     if (isFirst) {
       m = color.match(/^#([0-9a-f]{4})$/i);
-      //#ffff
+      // #ffff
       if (m) {
         var s = m[1];
         return new Color4(
@@ -56,10 +55,10 @@ class Color4 extends VectorBase {
           parseInt(s.charAt(1), 16) / 0xf,
           parseInt(s.charAt(2), 16) / 0xf,
           parseInt(s.charAt(3), 16) / 0xf
-        );
+          );
       }
     }
-    //#ffffff
+    // #ffffff
     m = color.match(/^#([0-9a-f]{6})$/i);
     if (m) {
       var s = m[1];
@@ -68,9 +67,9 @@ class Color4 extends VectorBase {
         parseInt(s.substr(2, 2), 16) / 0xff,
         parseInt(s.substr(4, 2), 16) / 0xff,
         1
-      );
+        );
     }
-    //#ffffffff
+    // #ffffffff
     if (isFirst) {
       m = color.match(/^#([0-9a-f]{8})$/i);
       if (m) {
@@ -80,7 +79,7 @@ class Color4 extends VectorBase {
           parseInt(s.substr(2, 2), 16) / 0xff,
           parseInt(s.substr(4, 2), 16) / 0xff,
           parseInt(s.substr(6, 2), 16) / 0xff
-        );
+          );
       }
     }
     var n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
@@ -113,7 +112,7 @@ class Color4 extends VectorBase {
   }
 
   public toString(): string {
-    return `rgba(${Math.round(this.R * 255)}, ${Math.round(this.G * 255)}, ${Math.round(this.B * 255)}, ${Math.round(this.A * 255)})`;
+    return `rgba(${Math.round(this.R * 255) }, ${Math.round(this.G * 255) }, ${Math.round(this.B * 255) }, ${Math.round(this.A * 255) })`;
   }
 
   public toDisplayString(): string {

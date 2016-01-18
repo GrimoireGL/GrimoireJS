@@ -152,7 +152,7 @@ class Vector3 extends VectorBase {
   }
 
   public toDisplayString(): string {
-    return `Vector3${this.toString()}`;
+    return `Vector3${this.toString() }`;
   }
 
   public get ElementCount(): number { return 3; }

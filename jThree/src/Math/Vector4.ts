@@ -161,7 +161,7 @@ class Vector4 extends VectorBase {
   }
 
   public toDisplayString(): string {
-    return `Vector4${this.toString()}`;
+    return `Vector4${this.toString() }`;
   }
 
   public toMathematicaString() {
