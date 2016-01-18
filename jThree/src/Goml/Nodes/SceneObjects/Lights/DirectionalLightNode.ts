@@ -1,11 +1,8 @@
 import DirectionalLight = require("../../../../Core/Light/Impl/DirectionalLight");
 import LightNodeBase = require("./LightNodeBase");
-// import DirectionalLight = require('../../../../Core/Light/Impl/DirectionalLight');
 import LightBase = require("../../../../Core/Light/LightBase");
 
 class DirectionalLightNode extends LightNodeBase {
-  private targetLight: DirectionalLight;
-
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -13,22 +10,25 @@ class DirectionalLightNode extends LightNodeBase {
         value: 1,
         converter: "float",
         onchanged: (attr) => {
-          this.targetLight.intensity = attr.Value;
+          if (this.TargetSceneObject) {
+            (<DirectionalLight>this.TargetSceneObject).intensity = attr.Value;
+          }
         }
       },
       "bias": {
         value: 0.01,
         converter: "float",
         onchanged: (attr) => {
-          this.targetLight.bias = attr.Value;
+          if (this.TargetSceneObject) {
+            (<DirectionalLight>this.TargetSceneObject).bias = attr.Value;
+          }
         }
       }
     });
   }
 
   protected constructLight(): LightBase {
-    this.targetLight = new DirectionalLight();
-    return this.targetLight;
+    return new DirectionalLight();
   }
 }
 export = DirectionalLightNode;
