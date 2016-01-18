@@ -1,8 +1,8 @@
 import AttributeDictionary = require("./AttributeDictionary");
-import TreeNodeBase = require('./TreeNodeBase');
+import TreeNodeBase = require("./TreeNodeBase");;
 import JThreeContext = require("../JThreeContext");
-import NodeManager = require('./NodeManager');
-import ContextComponents = require('../ContextComponents');
+import NodeManager = require("./NodeManager");;
+import ContextComponents = require("../ContextComponents");;
 import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
 import Delegates = require("../Base/Delegates");
 

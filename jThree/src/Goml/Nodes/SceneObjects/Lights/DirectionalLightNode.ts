@@ -1,6 +1,6 @@
 import DirectionalLight = require("../../../../Core/Light/Impl/DirectionalLight");
 import LightNodeBase = require("./LightNodeBase");
-// import DirectionalLight = require('../../../../Core/Light/Impl/DirectionalLight');
+// import DirectionalLight = require("../../../../Core/Light/Impl/DirectionalLight");;
 import LightBase = require("../../../../Core/Light/LightBase");
 
 class DirectionalLightNode extends LightNodeBase {

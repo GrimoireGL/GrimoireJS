@@ -1,7 +1,7 @@
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import MaterialNodeBase = require('./MaterialNodeBase');
-import Material = require('../../../Core/Materials/Material');
+import MaterialNodeBase = require("./MaterialNodeBase");;
+import Material = require("../../../Core/Materials/Material");;
 
 class SolidColorNode extends MaterialNodeBase {
   public material: BasicMaterial;

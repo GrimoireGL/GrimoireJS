@@ -1,6 +1,6 @@
-import JThreeObject = require('../../Base/JThreeObject');
-import BehaviorDeclaration = require('./BehaviorDeclaration');
-import BehaviorDeclarationBody = require('./BehaviorDeclarationBody');
+import JThreeObject = require("../../Base/JThreeObject");;
+import BehaviorDeclaration = require("./BehaviorDeclaration");;
+import BehaviorDeclarationBody = require("./BehaviorDeclarationBody");;
 import Delegates = require("../../Base/Delegates");
 /**
 * Provides feature to register behavior.

@@ -15,6 +15,17 @@ import FBOWrapper = require("../../../Resources/FBO/FBOWrapper");
 import ResolvedChainInfo = require("../../ResolvedChainInfo");
 import Scene = require("../../../Scene");
 class BasicTechnique extends JThreeObjectWithID {
+
+  public _defaultMaterial: BasicMaterial;
+
+  public defaultRenderConfigure: IRenderStageRendererConfigure;
+
+  protected _renderStage: RSMLRenderStage;
+
+  protected __fbo: FBO;
+
+  protected __fboInitialized: boolean = false;
+
   private _techniqueDocument: Element;
 
   private _target: string;
@@ -24,16 +35,6 @@ class BasicTechnique extends JThreeObjectWithID {
   private _fboConfigureElement: Element;
 
   private _colorConfigureElements: NodeListOf<Element>;
-
-  protected _renderStage: RSMLRenderStage;
-
-  protected __fbo: FBO;
-
-  protected __fboInitialized: boolean = false;
-
-  public _defaultMaterial: BasicMaterial;
-
-  public defaultRenderConfigure: IRenderStageRendererConfigure;
 
   protected get _gl(): WebGLRenderingContext {
     return this._renderStage.GL;
@@ -124,9 +125,9 @@ class BasicTechnique extends JThreeObjectWithID {
   }
 
   private _applyDepthConfiguration(scene: Scene, texs: ResolvedChainInfo): void {
-    if (!this.__fboInitialized && this._fboConfigureElement) this.__initializeFBO(texs);
+    if (!this.__fboInitialized && this._fboConfigureElement) { this.__initializeFBO(texs); }
     if (!this._fboConfigureElement) {
-      //if there was no fbo configuration, use screen buffer as default
+      // if there was no fbo configuration, use screen buffer as default
       this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
     } else {
       this.__fbo.getForContext(this._renderStage.Renderer.ContextManager).bind();
@@ -144,8 +145,9 @@ class BasicTechnique extends JThreeObjectWithID {
         continue;
       } else {
         const colorVector = Vector4.parse(clearColor);
-        if (!colorVector) console.error(`Could not parse the color ${clearColor}`);
-        else {
+        if (!colorVector) {
+          console.error(`Could not parse the color ${clearColor}`);
+        } else {
           this._gl.clearColor(colorVector.X, colorVector.Y, colorVector.Z, colorVector.W);
           this._gl.clear(this._gl.COLOR_BUFFER_BIT);
         }

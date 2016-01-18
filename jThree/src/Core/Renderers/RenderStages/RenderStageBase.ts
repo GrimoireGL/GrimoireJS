@@ -1,22 +1,12 @@
 import Material = require("../../Materials/Material");
 import IRenderStageRendererConfigure = require("./IRenderStageRendererConfigure");
-import JThreeObjectWithID = require('../../../Base/JThreeObjectWithID');
-import BasicRenderer = require('../BasicRenderer');
-import SceneObject = require('../../SceneObject');
-import Scene = require('../../Scene')
-import Program = require('../../Resources/Program/Program');
-import ShaderType = require("../../../Wrapper/ShaderType");
-import ResolvedChainInfo = require('../ResolvedChainInfo');
-import TextureBase = require('../../Resources/Texture/TextureBase');
-import RBO = require('../../Resources/RBO/RBO');
-import FBO = require('../../Resources/FBO/FBO');
-import FBOWrapper = require('../../Resources/FBO/FBOWrapper');
-import Delegates = require('../../../Base/Delegates');
-import GLCullMode = require('../../../Wrapper/GLCullMode');
-import GLFeature = require('../../../Wrapper/GLFeatureType');
-import FrameBufferAttachmentType = require('../../../Wrapper/FrameBufferAttachmentType');
-import FboBindData = require("../FBOBindData");
-import RenderStageConfig = require("../RenderStageConfig");
+import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
+import BasicRenderer = require("../BasicRenderer");
+import SceneObject = require("../../SceneObject");
+import Scene = require("../../Scene");
+import ResolvedChainInfo = require("../ResolvedChainInfo");
+import RBO = require("../../Resources/RBO/RBO");
+import FBO = require("../../Resources/FBO/FBO");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
@@ -97,14 +87,14 @@ abstract class RenderStageBase extends JThreeObjectWithID {
   }
 
   public drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
-    var materials = object.getMaterials(materialGroup);
-    for (var i = 0; i < materials.length; i++) {
+    const materials = object.getMaterials(materialGroup);
+    for (let i = 0; i < materials.length; i++) {
       this.drawForMaterial(scene, object, techniqueIndex, texs, materials[i]);
     }
   }
 
   public drawForMaterial(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, material: Material): void {
-    if (!material || !material.Initialized || !material.Enabled) return;
+    if (!material || !material.Initialized || !material.Enabled) { return; }
     for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
       material.apply({
         scene: scene,

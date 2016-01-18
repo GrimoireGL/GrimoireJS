@@ -2,13 +2,12 @@
 import BufferUsageType = require("../../../Wrapper/BufferUsageType");
 import Canvas = require("../../Canvas");
 import ElementType = require("../../../Wrapper/ElementType");
-import ContextSafeResourceContainer = require("../ContextSafeResourceContainer")
+import ContextSafeResourceContainer = require("../ContextSafeResourceContainer");
 import BufferWrapper = require("./BufferWrapper");
 /**
  * Provides buffer resource without considering context.
  */
-class Buffer extends ContextSafeResourceContainer<BufferWrapper>
-{
+class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
 
   constructor(target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType) {
     super();

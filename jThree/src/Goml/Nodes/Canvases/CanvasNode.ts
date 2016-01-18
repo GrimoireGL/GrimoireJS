@@ -3,7 +3,7 @@ import JThreeContext = require("../../../JThreeContext");
 import ContextComponents = require("../../../ContextComponents");
 import CanvasManager = require("../../../Core/CanvasManager");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import CanvasNodeBase = require('./CanvasNodeBase');
+import CanvasNodeBase = require("./CanvasNodeBase");;
 import Delegates = require("../../../Base/Delegates");
 import ResourceLoader = require("../../../Core/ResourceLoader");
 

@@ -4,17 +4,13 @@ import Canvas = require("../../Canvas");
 import ShaderWrapper = require("./ShaderWrapper");
 import Delegates = require("../../../Base/Delegates");
 import JThreeEvent = require("../../../Base/JThreeEvent");
-class Shader extends ContextSafeContainer<ShaderWrapper>
-{
-  /**
-   * シェーダークラスを作成する。
-   */
-  public static CreateShader(source: string, shaderType: ShaderType): Shader {
-    var shader: Shader = new Shader();
-    shader.shaderSource = source;
-    shader.shaderType = shaderType;
-    return shader;
-  }
+class Shader extends ContextSafeContainer<ShaderWrapper> {
+
+  private shaderSource: string;
+
+  private onUpdateEvent: JThreeEvent<string> = new JThreeEvent<string>();
+
+  private shaderType: ShaderType;
   /**
    * コンストラクタ
    * (Should not be called by new,You should use CreateShader static method instead.)
@@ -24,7 +20,17 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
     this.initializeForFirst();
   }
 
-  private shaderType: ShaderType;
+  /**
+   * シェーダークラスを作成する。
+   */
+  public static CreateShader(source: string, shaderType: ShaderType): Shader {
+    const shader: Shader = new Shader();
+    shader.shaderSource = source;
+    shader.shaderType = shaderType;
+    return shader;
+  }
+
+
   /**
    * Shader Type
    * (VertexShader or FragmentShader)
@@ -33,7 +39,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
     return this.shaderType;
   }
 
-  private shaderSource: string;
+
   /**
    * Shader Source in text
    */
@@ -53,8 +59,6 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
   protected getInstanceForRenderer(renderer: Canvas): ShaderWrapper {
     return new ShaderWrapper(this, renderer);
   }
-
-  private onUpdateEvent: JThreeEvent<string> = new JThreeEvent<string>();
 
   /**
    * Update shader source code.
@@ -81,4 +85,4 @@ class Shader extends ContextSafeContainer<ShaderWrapper>
   }
 }
 
-export =Shader;
+export = Shader;
