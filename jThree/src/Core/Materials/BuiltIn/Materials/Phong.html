@@ -46,17 +46,18 @@
       uniform vec4 ambient;
       uniform vec3 ambientCoefficient;
       uniform float brightness;
-      //@(register:0)
+      //@(register:2,flag:_textureUsed)
       uniform sampler2D texture;
+      uniform int _textureUsed;
       void main(void)
       {
         gl_FragColor=vec4(0,0,0,1);
         //gl_FragColor.rgb+=ambient.rgb;
         ////calculate light uv
         vec2 lightUV=calcLightUV(vPosition);
-        gl_FragColor.rgb+=diffuse.rgb * texture2D(_dlBuffer,lightUV).rgb+specular.rgb *texture2D(_slBuffer,lightUV).rgb;
-        //gl_FragColor.rgb +=ambient.rgb;
-        gl_FragColor.rgb = texture2D(texture,vUv).rgb;
+        vec3 d = _textureUsed == 1 ? texture2D(texture,vUv).rgb : diffuse.rgb;
+        gl_FragColor.rgb+= d * texture2D(_dlBuffer,lightUV).rgb+specular.rgb *texture2D(_slBuffer,lightUV).rgb;
+        gl_FragColor.rgb += ambient.rgb;
       }
       //}
       ]]>
