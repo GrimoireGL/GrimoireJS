@@ -1,6 +1,7 @@
 <goml>
   <resources>
     <quad name="quad"/>
+    <texture name="testTexture" src="/resource/texture/miku.png"/>
     <phong name="matTest" brightness="20.0" specular="#AAA" diffuse="#AAA"/>
   </resources>
   <canvases>

@@ -118,6 +118,9 @@ class Material extends JThreeObjectEEWithID {
               register = 0;
             }
             pWrapper.uniformSampler(valName, <TextureBase>val, register);
+            if (uniform.variableAnnotation["flag"]) {
+              pWrapper.uniformInt(uniform.variableAnnotation["flag"], 1);
+            }
             continue;
           default:
             console.warn(`Unknown variable type ${uniform.variableType}`);
@@ -171,6 +174,10 @@ class Material extends JThreeObjectEEWithID {
             register = 0;
           }
           pWrapper.uniformSampler(uniform.variableName, renderer.alternativeTexture, register);
+          if (uniform.variableAnnotation["flag"]) {
+            debugger;
+            pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
+          }
           return;
       }
     }

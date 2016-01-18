@@ -87,7 +87,7 @@ class BasicRenderer extends CanvasRegion {
   protected __initializeAlternativeTexture(): TextureBase {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     let tex = <BufferTexture>rm.createTexture("jthree.alt." + this.ID, 1, 1);
-    tex.updateTexture(new Uint8Array([255, 255, 0, 255])); // Use purple color as the color of default buffer texture.
+    tex.updateTexture(new Uint8Array([255, 0, 255, 255])); // Use purple color as the color of default buffer texture.
     return tex;
   }
   /**
