@@ -3,7 +3,6 @@ import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
-import GBufferStage = require("../RenderStages/GBuffer/GBufferStage");
 import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
     public get TextureBuffers(): GeneraterInfo {

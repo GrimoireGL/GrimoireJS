@@ -20,7 +20,7 @@ import RenderStageConfig = require("../RenderStageConfig");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
-class RenderStageBase extends JThreeObjectWithID {
+abstract class RenderStageBase extends JThreeObjectWithID {
 
   private renderer: BasicRenderer;
 
@@ -32,7 +32,11 @@ class RenderStageBase extends JThreeObjectWithID {
       depthMask: true,
       blendEnabled: true,
       blendSrcFactor: "SRC_ALPHA",
-      blendDstFactor: "ONE_MINUS_SRC_ALPHA"
+      blendDstFactor: "ONE_MINUS_SRC_ALPHA",
+      redMask: true,
+      greenMask: true,
+      blueMask: true,
+      alphaMask: true
     };
   }
 
@@ -58,18 +62,18 @@ class RenderStageBase extends JThreeObjectWithID {
   }
 
   public preStage(scene: Scene, texs: ResolvedChainInfo) {
-
+    return;
   }
 
   public postStage(scene: Scene, texs: ResolvedChainInfo) {
-
+    return;
   }
 
 	/**
 	 * This method will be called before process render in each pass
 	 */
   public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
-
+    return;
   }
 	/**
 	 * This method will be called after process render in each pass.
@@ -78,9 +82,7 @@ class RenderStageBase extends JThreeObjectWithID {
     this.Renderer.GL.flush();
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
-
-  }
+  public abstract render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo);
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
     return false;
@@ -92,55 +94,6 @@ class RenderStageBase extends JThreeObjectWithID {
 
   public getTarget(techniqueIndex: number): string {
     return "scene";
-  }
-
-  protected loadProgram(vsid: string, fsid: string, pid: string, vscode: string, fscode: string): Program {
-    var rm = this.ResourceManager;
-    var vShader = rm.createShader(vsid, vscode, ShaderType.VertexShader);
-    var fShader = rm.createShader(fsid, fscode, ShaderType.FragmentShader);
-    vShader.loadAll(); fShader.loadAll();
-    return rm.createProgram(pid, [vShader, fShader]);
-  }
-
-  protected bindAsOutBuffer(fbo: FBO, bindInfo: FboBindData[], onBind: Delegates.Action0, onDefaultBuffer?: Delegates.Action0) {
-    var shouldBeDefault = false;
-    var targetWrapper = fbo.getForContext(this.Renderer.ContextManager);
-    bindInfo.forEach(v=> {
-      v.target = v.target.toString().toLowerCase();
-      var attachmentType;
-      //assign attachment type
-      if (v.target === "depth") {
-        attachmentType = FrameBufferAttachmentType.DepthAttachment;
-      } else if (v.target === "stencil") {
-        attachmentType = FrameBufferAttachmentType.StencilAttachment;
-      } else if (v.target === "depthstencil") {
-        attachmentType = FrameBufferAttachmentType.DepthStencilAttachment;
-      } else {
-        attachmentType = ((<number>FrameBufferAttachmentType.ColorAttachment0) + <number>new Number(v.target));
-      }
-      if (shouldBeDefault || (typeof v.isOptional !== 'undefined' && !v.isOptional && v.texture === null)) {//use default buffer
-        this.attachToWrapper(v, targetWrapper, attachmentType);
-        this.Renderer.GL.bindFramebuffer(this.Renderer.GL.FRAMEBUFFER, null);
-        shouldBeDefault = true;
-      } else {
-        this.attachToWrapper(v, targetWrapper, attachmentType);
-      }
-    });
-    if (shouldBeDefault) {
-      if (onDefaultBuffer) onDefaultBuffer();
-    } else {
-      onBind();
-    }
-  }
-
-  private attachToWrapper(v: FboBindData, targetWrapper: FBOWrapper, targetAttachment: FrameBufferAttachmentType) {
-    if (!v.type || v.type === "texture") {
-      targetWrapper.attachTexture(targetAttachment, <TextureBase>v.texture);
-    } else if (v.type === "rbo") {
-      targetWrapper.attachRBO(targetAttachment, <RBO>v.texture);
-    } else {
-      console.error("unknown bind type!");
-    }
   }
 
   public drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {

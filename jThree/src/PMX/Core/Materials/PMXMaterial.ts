@@ -23,7 +23,6 @@ import JThreeLogger = require("../../../Base/JThreeLogger");
 import ResourceManager = require("../../../Core/ResourceManager");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
-import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
 import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 
 /**
@@ -35,19 +34,6 @@ class PMXMaterial extends Material {
   private _verticiesCount;
 
   private _verticiesOffset;
-
-  public getMaterialConfig(pass: number, technique: number): IMaterialConfig {
-    if (pass === 0) {
-      return {
-        cull: this.cullEnabled ? "ccw" : undefined,
-        blend: true
-      }
-    } else {
-      return {
-        cull: "cw"
-      }
-    }
-  }
 
   /**
    * Count of verticies
