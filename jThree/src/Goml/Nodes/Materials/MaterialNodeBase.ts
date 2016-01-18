@@ -1,3 +1,4 @@
+import CubeTextureNode = require("../Texture/CubeTextureNode");
 import TextureNode = require("../Texture/TextureNode");
 import Color4 = require("../../../Math/Color4");
 import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
@@ -106,6 +107,19 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         onchanged: (v) => {
           if (v.Value) {
             this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", v.Value, (node: TextureNode) => {
+              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            });
+          }
+        }
+      };
+    }
+    if (variableInfo.variableType === "samplerCube") {
+      return {
+        converter: "string",
+        value: "",
+        onchanged: (v) => {
+          if (v.Value) {
+            this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", v.Value, (node: CubeTextureNode) => {
               this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
             });
           }
