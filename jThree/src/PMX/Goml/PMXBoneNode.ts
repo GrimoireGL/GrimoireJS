@@ -1,7 +1,7 @@
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import PMXNode = require("./PMXNode");
 import SceneObjectNodeBase = require("../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
-import PMXBonesNode = require('./PMXBonesNode');
+import PMXBonesNode = require("./PMXBonesNode");;
 
 class PMXBoneNode extends SceneObjectNodeBase {
 

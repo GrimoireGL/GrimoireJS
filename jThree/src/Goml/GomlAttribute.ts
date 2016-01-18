@@ -1,9 +1,9 @@
 import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
 import Delegates = require("../Base/Delegates");
-import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-import JThreeEvent = require('../Base/JThreeEvent');
-import StringAttributeConverter = require('./Converter/StringAttributeConverter');
+import GomlTreeNodeBase = require("./GomlTreeNodeBase");;
+import JThreeEvent = require("../Base/JThreeEvent");;
+import StringAttributeConverter = require("./Converter/StringAttributeConverter");;
 
 /**
  * Provides the feature to manage attribute of GOML.

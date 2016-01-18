@@ -10,7 +10,7 @@ import Vector3 = require("../../../Math/Vector3");
 import Vector2 = require("../../../Math/Vector2");
 import AttributeDeclaration = require("../../AttributeDeclaration");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Material = require('../../../Core/Materials/Material');
+import Material = require("../../../Core/Materials/Material");;
 import JThreeID = require("../../../Base/JThreeID");
 import MaterialPass = require("../../../Core/Materials/Base/MaterialPass");
 

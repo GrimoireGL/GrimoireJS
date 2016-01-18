@@ -1,9 +1,9 @@
-// import BasicRenderer = require('../BasicRenderer');
-// import SceneObject = require('../../SceneObject');
-// import RenderStageBase = require('./RenderStageBase');
+// import BasicRenderer = require("../BasicRenderer");;
+// import SceneObject = require("../../SceneObject");;
+// import RenderStageBase = require("./RenderStageBase");;
 // import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-// import Scene = require('../../Scene');
-// import ResolvedChainInfo = require('../ResolvedChainInfo');
+// import Scene = require("../../Scene");;
+// import ResolvedChainInfo = require("../ResolvedChainInfo");;
 // import Program = require("../../Resources/Program/Program");
 // import Matrix = require("../../../Math/Matrix");
 // import CubeTexture = require("../../Resources/Texture/CubeTexture");

@@ -2,7 +2,7 @@ import GeometryNodeBase = require("./GeometryNodeBase");
 import Geometry = require("../../../Core/Geometries/Base/Geometry")
 import CircleGeometry = require("../../../Core/Geometries/CircleGeometry");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import GomlAttribute = require('../../GomlAttribute');
+import GomlAttribute = require("../../GomlAttribute");;
 
 class CircleGeometryNode extends GeometryNodeBase {
   private geometry: CircleGeometry;

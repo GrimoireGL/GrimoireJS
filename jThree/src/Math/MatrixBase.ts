@@ -1,4 +1,4 @@
-import glm=require('gl-matrix');
+import glm=require("gl-matrix");;
 class MatrixBase {
 
     protected static elementEqual(m1:MatrixBase,m2:MatrixBase):boolean

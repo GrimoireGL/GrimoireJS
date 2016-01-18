@@ -1,8 +1,8 @@
-import JThreeObject = require('../../Base/JThreeObject');
-import JThreeCollection = require('../../Base/JThreeCollection');
+import JThreeObject = require("../../Base/JThreeObject");;
+import JThreeCollection = require("../../Base/JThreeCollection");;
 import BehaviorNode = require("../Nodes/Behaviors/BehaviorNode");
 import GomlTreeNodeBase = require("../GomlTreeNodeBase");
-import JThreeObjectWithID = require('../../Base/JThreeObjectWithID');
+import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");;
 /**
  * container class for storeing BehaviorNode and TargetNode
  */

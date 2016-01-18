@@ -3,8 +3,8 @@ import JThreeCollection = require("../Base/JThreeCollection");
 import GomlAttribute = require("./GomlAttribute");
 import Delegates = require("../Base/Delegates");
 import EasingFunctionBase = require("./Easing/EasingFunctionBase");
-import GomlTreeNodeBase = require('./GomlTreeNodeBase');
-import AttributeDeclaration = require('./AttributeDeclaration');
+import GomlTreeNodeBase = require("./GomlTreeNodeBase");;
+import AttributeDeclaration = require("./AttributeDeclaration");;
 
 /**
  * The class managing attributes of a node.
