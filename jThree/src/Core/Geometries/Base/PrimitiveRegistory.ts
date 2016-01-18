@@ -1,3 +1,4 @@
+import ConeGeometry = require("../ConeGeometry");
 import CylinderGeometry = require("../CylinderGeometry");
 import CubeGeometry = require("../CubeGeometry");
 import SphereGeometry = require("../SphereGeometry");
@@ -20,6 +21,7 @@ class PrimitiveRegistory implements IContextComponent {
     this.addPrimitive("sphere", new SphereGeometry("sphere"));
     this.addPrimitive("cube", new CubeGeometry("cube"));
     this.addPrimitive("cylinder", new CylinderGeometry("cylinder"));
+    this.addPrimitive("cone", new ConeGeometry("cone"));
   }
 
   public addPrimitive(key: string, geo: Geometry): void {

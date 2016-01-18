@@ -78,9 +78,6 @@ tsdPath = './tsd.json'
 # root path for simple server
 serverRoot = './jThree/wwwroot'
 
-# watch src for liveReload
-watchForReload = ['./jThree/wwwroot/**/*.js', './jThree/wwwroot/**/*.html', './jThree/wwwroot/**/*.goml']
-
 # webpack output stats config
 defaultStatsOptions =
   colors: gutil.colors.supportsColor
@@ -102,6 +99,9 @@ tsEntries = './jThree/src/**/*.ts'
 refsEntries = './jThree/src/refs/**/*.ts'
 tsDest = './jThree/lib'
 tsBase = './jThree/src'
+
+# watch src for liveReload
+watchForReload = ['./jThree/wwwroot/**/*.js', './jThree/wwwroot/**/*.html', './jThree/wwwroot/**/*.goml']
 
 # individual config for bundling
 config =
@@ -185,7 +185,7 @@ gulp.task 'build:main:others', (done) ->
     .on 'end', ->
       done()
   if watching
-    gulp.watch othersEntries, ['build:main:others']
+    gulp.watch othersEntries, ['build:main:others','build:main:ts']
 
 gulp.task 'build:main', ->
   runSequence(['build:main:ts', 'build:main:others'], 'bundle:main');

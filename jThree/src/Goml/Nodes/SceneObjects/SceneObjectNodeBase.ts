@@ -102,7 +102,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
    * @param {SceneObject} obj [description]
    */
   private _updateSceneObjectChild(obj: SceneObject): void {
-    if (typeof obj === 'undefined') {
+    if (typeof obj === "undefined") {
       console.error(`${this.getTypeName()}: targetSceneObject is undefined. It must be null or instance.`);
       obj = null;
     }

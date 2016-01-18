@@ -1,7 +1,7 @@
 <goml>
   <resources>
     <quad name="quad"/>
-    <phong name="matTest"/>
+    <phong name="matTest" brightness="20.0" specular="#FFF"/>
   </resources>
   <canvases>
     <canvas clearColor="#11022A" frame=".canvasContainer">
@@ -13,18 +13,19 @@
       <object>
         <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
       </object>
-      <mesh geo="quad" mat="matTest" scale="10" rotation="euler(-90d,15d,12d)"/>
-      <plight color="#FFFF00" distance="4" decay="1" position="0,1,0"/>
-      <plight color="#FF00FF" distance="4" decay="1" position="1,1,3"/>
-      <plight color="#FFFFFF" distance="4" decay="1" position="-2,1,3"/>
-      <plight color="#FFAA00" distance="4" decay="1" position="5,1,-2"/>
-      <plight color="#FFFF99" distance="4" decay="1" position="-4,1,0"/>
-      <plight color="#22FF00" distance="4" decay="1" position="2,1,3"/>
-      <plight color="#119000" distance="4" decay="1" position="4,1,0"/>
-      <plight color="#FF00CC" distance="4" decay="1" position="2,1,-3"/>
+      <mesh geo="quad" mat="matTest" scale="10" rotation="euler(-90d,0,0)"/>
+      <plight color="#FFFF00" distance="4" decay="0.3" position="0,1,0"/>
+      <plight color="#FF00FF" distance="4" decay="0.3" position="1,1,3"/>
+      <plight color="#FFFFFF" distance="4" decay="0.3" position="-2,1,3"/>
+      <plight color="#FFAA00" distance="4" decay="0.3" position="5,1,-2"/>
+      <plight color="#FFFF99" distance="4" decay="0.3" position="-4,1,0"/>
+      <plight color="#22FF00" distance="4" decay="0.3" position="2,1,3"/>
+      <plight color="#119000" distance="4" decay="0.3" position="4,1,0"/>
+      <plight color="#FF00CC" distance="4" decay="0.3" position="2,1,-3"/>
       <scenelight color="#101010"/>
       <dlight color="#111111" rotation="y(30d)"/>
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx"/>
+      <alight color="#110011" position="0,0,0" scale="5" rotation="y(30d)"/>
     </scene>
   </scenes>
 </goml>
