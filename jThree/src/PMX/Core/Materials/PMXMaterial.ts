@@ -12,7 +12,6 @@ import PmxMaterialMorphParamContainer = require("./../PMXMaterialMorphParamConta
 import ResourceManager = require("../../../Core/ResourceManager");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
-import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
 
 /**
  * the materials for PMX.

@@ -36,77 +36,6 @@ class PMXModel extends SceneObject {
     return d.promise;
   }
 
-  private modelData: PMXModelData;
-
-  public skeleton: PMXSkeleton;
-
-  private morphManager: PMXMorphManager;
-
-  private materialDictionary: { [materialName: string]: PMXMaterial } = {};
-
-  private pmxMaterials: PMXMaterial[];
-
-  public loadingTextureCount: number = 0;
-
-  public loadedTextureCount: number = 0;
-
-  public pmxTextureManager: PMXTextureManager;
-
-  public modelDirectory: string;
-
-  public getPMXMaterialByName(name: string) {
-    return this.materialDictionary[name];
-  }
-
-  public getPMXMaterialByIndex(index: number) {
-    return this.pmxMaterials[index];
-  }
-
-  public get ModelData(): PMXModelData {
-    return this.modelData;
-  }
-
-
-  public get Materials(): PMXMaterial[] {
-    return this.pmxMaterials;
-  }
-
-  public get MorphManager(): PMXMorphManager {
-    return this.morphManager;
-  }
-
-  public onload: JThreeEvent<PMXModel> = new JThreeEvent<PMXModel>();
-
-  public loaded: boolean = false;
-
-  constructor(pmx: PMXModelData, resourceDirectory: string) {
-    super();
-    PMXCoreInitializer.init();
-    this.onload.addListener(() => { this.loaded = true });
-    this.modelData = pmx;
-    this.modelDirectory = resourceDirectory;
-    this.pmxTextureManager = new PMXTextureManager(this);
-    this.geometry = new PMXGeometry(pmx);
-    this.skeleton = new PMXSkeleton(this);
-    this.pmxMaterials = new Array(pmx.Materials.length);
-    this.name = pmx.Header.modelName;
-    var offset = 0;
-    for (var materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
-      var currentMat = pmx.Materials[materialCount];
-      var mat = new PMXMaterial(this, materialCount, offset);
-      this.addMaterial(mat);
-      // this.addMaterial(new PMXGBufferMaterial(mat));
-      this.addMaterial(new PMXPrimaryBufferMaterial(mat));
-      this.addMaterial(new PMXShadowMapMaterial(mat));
-      this.addMaterial(new PMXHitAreaMaterial(mat));
-      this.pmxMaterials[materialCount] = mat;
-      this.materialDictionary[currentMat.materialName] = mat;
-      offset += currentMat.vertexCount;
-    }
-    this.morphManager = new PMXMorphManager(this);
-  }
-
-<<<<<<< Updated upstream
     private modelData: PMXModelData;
 
     public skeleton: PMXSkeleton;
@@ -180,12 +109,6 @@ class PMXModel extends SceneObject {
         this.morphManager.applyMorph();
         this.skeleton.updateMatricies();
     }
-=======
-  public update() {
-    this.morphManager.applyMorph();
-    this.skeleton.updateMatricies();
-  }
->>>>>>> Stashed changes
 }
 
-export =PMXModel;
+export = PMXModel;

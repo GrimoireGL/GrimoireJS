@@ -1,26 +1,6 @@
 ﻿import Vector4 = require("../../Math/Vector4");
 import Vector3 = require("../../Math/Vector3");
 import Delegates = require("../../Base/Delegates");
-<<<<<<< Updated upstream
-
-class PMXMaterialMorphParamContainer
-{
-    constructor(calcFlag: number)
-    {
-        this.calcFlag = calcFlag;
-        var def = 1 - calcFlag;
-        this.diffuse = [def, def, def, def];
-        this.specular = [def, def, def, def];
-        this.ambient = [def, def, def];
-        this.edgeColor = [def, def, def, def];
-        this.edgeSize = def;
-        this.textureCoeff = [def, def, def, def];
-        this.sphereCoeff = [def, def, def, def];
-        this.toonCoeff = [def, def, def, def];
-    }
-=======
->>>>>>> Stashed changes
-
 class PMXMaterialMorphParamContainer {
   constructor(calcFlag: number) {
     this.calcFlag = calcFlag;
