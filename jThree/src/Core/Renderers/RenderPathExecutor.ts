@@ -62,7 +62,6 @@ class RenderPathExecutor {
         const techniqueCount = stage.getTechniqueCount(scene);
         let targetObjects: SceneObject[];
         stage.preStage(scene, texs);
-        // stage.applyStageConfig();
         for (let techniqueIndex = 0; techniqueIndex < techniqueCount; techniqueIndex++) {
           switch (stage.getTarget(techniqueIndex)) {
             case "scene":

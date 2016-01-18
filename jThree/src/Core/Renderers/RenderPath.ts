@@ -8,7 +8,7 @@ class RenderPath {
 
   public insertWithIndex(index: number, stage: RenderStageChain) {
     if (index >= 0 && index <= this.path.length) {
-      var newStageChain = new Array(this.path.length + 1);
+      const newStageChain = new Array(this.path.length + 1);
       for (let i = 0; i < index; i++) {
         newStageChain[i] = this.path[i];
       }
@@ -24,7 +24,7 @@ class RenderPath {
 
   public deleteWithIndex(index: number) {
     if (index >= 0 && index < this.path.length && this.path.length > 0) {
-      var newStageChain = new Array(this.path.length - 1);
+      const newStageChain = new Array(this.path.length - 1);
       for (let i = 0; i < index; i++) {
         newStageChain[i] = this.path[i];
       }
