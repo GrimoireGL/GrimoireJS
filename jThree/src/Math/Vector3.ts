@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require("gl-matrix");;
+import glm = require("gl-matrix");
 
 class Vector3 extends VectorBase {
   public static get XUnit(): Vector3 {

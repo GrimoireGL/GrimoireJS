@@ -1,4 +1,4 @@
-import glm=require("gl-matrix");;
+import glm=require("gl-matrix");
 import Delegates = require("../Base/Delegates");
 class VectorBase {
 

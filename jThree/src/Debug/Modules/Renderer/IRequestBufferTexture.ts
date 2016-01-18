@@ -1,5 +1,5 @@
 import q = require("q")
-import Delegates = require("../../../Base/Delegates");;
+import Delegates = require("../../../Base/Delegates");
 interface IRequestBufferTexture
 {
   deffered:q.Deferred<HTMLImageElement>,

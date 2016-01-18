@@ -2,7 +2,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Delegates = require("../../../Base/Delegates");
 import GomlAttribute = require("../../GomlAttribute");
 import AttributeDeclaration = require("../../AttributeDeclaration");
-import BehaviorsNode = require("./BehaviorsNode");;
+import BehaviorsNode = require("./BehaviorsNode");
 
 class BehaviorNode extends GomlTreeNodeBase {
   private static ignoreNode: string[] = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "element"];

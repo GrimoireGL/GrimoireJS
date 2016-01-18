@@ -2,7 +2,7 @@ import GomlNodeListElement = require("./GomlNodeListElement");
 import JThreeObject = require("../Base/JThreeObject");
 import EasingFunction = require("./Easing/EasingFunctionBase");
 import AttributeConvrterBase = require("./Converter/AttributeConverterBase");
-import GomlTreeNodeBase = require("./GomlTreeNodeBase");;
+import GomlTreeNodeBase = require("./GomlTreeNodeBase");
 /**
  * Provides configurations that will be used when parse GOML.
  * These properties is intended to be used for extending by plugin feature.

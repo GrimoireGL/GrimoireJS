@@ -1,9 +1,9 @@
 import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
-import LightNodeBase = require("./LightNodeBase");;
-import SceneLight = require("../../../../Core/Light/Impl/SceneLight");;
-import LightBase = require("../../../../Core/Light/LightBase");;
+import LightNodeBase = require("./LightNodeBase");
+import SceneLight = require("../../../../Core/Light/Impl/SceneLight");
+import LightBase = require("../../../../Core/Light/LightBase");
 
 class SceneLightNode extends LightNodeBase {
   private targetLight: SceneLight;

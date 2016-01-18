@@ -1,13 +1,13 @@
 /// <reference path="../../src/refs/bundle.ts" />
 
-import PA = require("power-assert");;
+import PA = require("power-assert");
 const assert = PA.default;
 
-import sinon = require("sinon");;
+import sinon = require("sinon");
 
-import GomlNodeDictionary = require("../../src/Goml/GomlNodeDictionary");;
-import TreeNodeBase = require("../../src/Goml/TreeNodeBase");;
-import GomlTreeNodeBase = require("../../src/Goml/GomlTreeNodeBase");;
+import GomlNodeDictionary = require("../../src/Goml/GomlNodeDictionary");
+import TreeNodeBase = require("../../src/Goml/TreeNodeBase");
+import GomlTreeNodeBase = require("../../src/Goml/GomlTreeNodeBase");
 
 describe('GomlNodeDictionary', () => {
   it('addNode, mount, getNode', () => {

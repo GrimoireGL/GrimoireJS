@@ -1,6 +1,6 @@
 ﻿import Vector4 = require("../../Math/Vector4");
 import Vector3 = require("../../Math/Vector3");
-import Delegates = require("../../Base/Delegates");;
+import Delegates = require("../../Base/Delegates");
 
 class PMXMaterialMorphParamContainer
 {

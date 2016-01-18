@@ -5,7 +5,7 @@ import SceneObject = require("../../../Core/SceneObject");
 import BasicMeshObject = require("../../../Shapes/BasicMeshObject");
 import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
 import MaterialNode = require("../Materials/MaterialNodeBase");
-import Delegate = require("../../../Base/Delegates");;
+import Delegate = require("../../../Base/Delegates");
 
 class MeshNode extends SceneObjectNodeBase {
   private targetMesh: BasicMeshObject;

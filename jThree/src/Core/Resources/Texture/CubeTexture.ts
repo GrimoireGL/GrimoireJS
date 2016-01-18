@@ -2,33 +2,28 @@
 import CubeTextureWrapper = require("./CubeTextureWrapper");
 import Canvas = require("../../Canvas");
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
-class CubeTexture extends TextureBase
-{
-    constructor(source: ImageSource[],textureName:string,flipY:boolean)
-    {
-        super(textureName,flipY,true);
-        this.ImageSource = source;
-    }
+class CubeTexture extends TextureBase {
+  constructor(source: ImageSource[], textureName: string, flipY: boolean) {
+    super(textureName, flipY, true);
+    this.ImageSource = source;
+  }
 
-    private imageSource: ImageSource[] = null;
+  private imageSource: ImageSource[] = null;
 
-    public get ImageSource(): ImageSource[]
-    {
-        return this.imageSource;
-    }
+  public get ImageSource(): ImageSource[] {
+    return this.imageSource;
+  }
 
-    public set ImageSource(img: ImageSource[])
-    {
-        this.imageSource = img;
-        this.each((v) => (<CubeTextureWrapper>v).init(true));
-        this.generateMipmapIfNeed();
-    }
+  public set ImageSource(img: ImageSource[]) {
+    this.imageSource = img;
+    this.each((v) => (<CubeTextureWrapper>v).init(true));
+    this.generateMipmapIfNeed();
+  }
 
-    protected getInstanceForRenderer(canvas: Canvas): CubeTextureWrapper
-    {
-        var textureWrapper = new CubeTextureWrapper(canvas, this);
-        return textureWrapper;
-    }
+  protected getInstanceForRenderer(canvas: Canvas): CubeTextureWrapper {
+    const textureWrapper = new CubeTextureWrapper(canvas, this);
+    return textureWrapper;
+  }
 }
 
-export =CubeTexture;
+export = CubeTexture;

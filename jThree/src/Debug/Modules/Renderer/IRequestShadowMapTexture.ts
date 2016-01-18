@@ -1,4 +1,4 @@
-import Q = require("q");;
+import Q = require("q");
 import Delegates = require("../../../Base/Delegates");
 interface IRequestShadowMapTexture
 {

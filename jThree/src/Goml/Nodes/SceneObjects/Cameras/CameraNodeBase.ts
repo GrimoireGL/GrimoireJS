@@ -4,7 +4,7 @@ import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
 import SceneObject = require("../../../../Core/SceneObject");
-import Delegate = require("../../../../Base/Delegates");;
+import Delegate = require("../../../../Base/Delegates");
 
 class CameraNodeBase extends SceneObjectNodeBase {
   private targetCamera: Camera;
