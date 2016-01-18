@@ -14,14 +14,22 @@ class DirectionalLight extends LightBase {
   constructor() {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
-    const material = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.html"));
-    material.on("apply", (matArg: IMaterialConfigureArgument) => {
-      material.materialVariables = {
+    const diffuseMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.html"));
+    diffuseMaterial.on("apply", (matArg: IMaterialConfigureArgument) => {
+      diffuseMaterial.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.Renderer.Camera.viewMatrix, this.transformer.forward))
       };
     });
-    this.addMaterial(material);
+    const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/DirectionalLight.html"));
+    specularMaterial.on("apply", (matArg: IMaterialConfigureArgument) => {
+      specularMaterial.materialVariables = {
+        lightColor: this.Color.toVector().multiplyWith(this.intensity),
+        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.Renderer.Camera.viewMatrix, this.transformer.forward))
+      };
+    });
+    this.addMaterial(diffuseMaterial);
+    this.addMaterial(specularMaterial);
   }
 
 

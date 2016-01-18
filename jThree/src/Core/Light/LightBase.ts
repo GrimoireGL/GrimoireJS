@@ -1,3 +1,4 @@
+import Matrix = require("../../Math/Matrix");
 import Color3 = require("../../Math/Color3");
 import Vector3 = require("../../Math/Vector3");
 import SceneObject = require("../SceneObject");
@@ -14,7 +15,7 @@ class LightBase extends SceneObject {
   }
 
   public get Position(): Vector3 {
-    return this.Transformer.Position;
+    return Matrix.transformPoint(this.Transformer.LocalToGlobal, new Vector3(0, 0, 0));
   }
 }
 

@@ -38,7 +38,7 @@ class SphereGeometry extends BasicGeometry {
         const normal: number[] = [];
         const uv: number[] = [];
         const index: number[] = [];
-        GeometryBuilder.addSphere(pos, normal, uv, index, 8, 24, new Vector3(0, 0, 0), 1);
+        GeometryBuilder.addSphere(pos, normal, uv, index, 8, 24, new Vector3(0, 0, 0));
         // GeometryBuilder.addCylinder(pos,normal,uv,index,this.DivideCount,new Vector3(0,1,0),new Vector3(0,-1,0),new Vector3(0,0,-1),1);
         this.indexBuffer.update(new Uint16Array(index), index.length);
         this.normalBuffer.update(new Float32Array(normal), normal.length);

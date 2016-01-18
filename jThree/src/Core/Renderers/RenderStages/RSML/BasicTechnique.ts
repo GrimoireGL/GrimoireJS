@@ -153,6 +153,10 @@ class BasicTechnique extends JThreeObjectWithID {
     }
     if (this._depthConfigureElement) {
       const clearDepth = this._depthConfigureElement.getAttribute("clearDepth");
+      const clearFlag = this._depthConfigureElement.getAttribute("clear");
+      if (clearFlag === "false") {
+        return;
+      }
       let depth;
       if (!clearDepth) {
         depth = 0;
