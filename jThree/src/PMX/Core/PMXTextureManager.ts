@@ -1,13 +1,12 @@
 import PMXModel = require("./PMXModel");
 import JThreeLogger = require("../../Base/JThreeLogger");
 import Q = require("q");
-class PMXTextureManager
-{
-  private model:PMXModel;
+class PMXTextureManager {
+  private model: PMXModel;
 
-  private textures:HTMLImageElement[]|Q.Promise<HTMLImageElement>[]=[];
+  private textures: HTMLImageElement[]|Q.Promise<HTMLImageElement>[] = [];
 
-  private static _toons:string[] = [
+  private static _toons: string[] = [
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX////Nzc1XNMFjAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC",
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX////14eF2pXIGAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC",
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX///+ampo+MvaSAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC",
@@ -20,20 +19,16 @@ class PMXTextureManager
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAC0lEQVQI12MY5AAAAKAAAfgHMzoAAAAASUVORK5CYII="
   ];
 
-  public static _imgConvertedToons:HTMLImageElement[] =[];
+  public static _imgConvertedToons: HTMLImageElement[] = [];
 
-  constructor(model:PMXModel)
-  {
+  constructor(model: PMXModel) {
     this.model = model;
   }
 
-  public generateSharedToonImg(index:number):HTMLImageElement
-  {
-    if(PMXTextureManager._imgConvertedToons[index])
-    {
+  public generateSharedToonImg(index: number): HTMLImageElement {
+    if (PMXTextureManager._imgConvertedToons[index]) {
       return PMXTextureManager._imgConvertedToons[index];
-    }else
-    {
+    } else {
       const imgTag = document.createElement("img");
       imgTag.src = PMXTextureManager._toons[index];
       PMXTextureManager._imgConvertedToons[index] = imgTag;
@@ -41,31 +36,27 @@ class PMXTextureManager
     }
   }
 
-  public loadTexture(index:number):Q.Promise<HTMLImageElement>
-  {
-    if(this.textures[index] && typeof this.textures[index] === "object")return Q.Promise<HTMLImageElement>((resolver,reject,notify)=>{resolver(this.textures[index])});//Assume texture was loaded
-    if(this.textures[index]&& typeof this.textures[index] ==="function")return <Q.Promise<HTMLImageElement>>this.textures[index];//Assume texture is loading
-    var loadingPromise =  Q.Promise<HTMLImageElement>((resolver, reject, notify) =>
-    {
-        var img = new Image();
-        img.onload = () =>
-        {
-            this.textures[index] = img;
-            resolver(img);
-            this.model.loadedTextureCount++;
-            JThreeLogger.sectionLog("pmx texture",`loaded texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount}`);
-            if(this.model.loadingTextureCount == this.model.loadedTextureCount)this.model.onload.fire(this.model,this.model);
-        }
-        img.onerror = () =>
-        {
-          this.textures[index] = img;
-          resolver(img);
-          this.model.loadedTextureCount++;
-          JThreeLogger.sectionError("pmx texture",`load failure texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount} ${img.src}`);
-          if(this.model.loadingTextureCount == this.model.loadedTextureCount)this.model.onload.fire(this.model,this.model);
-        }
-        img.src = this.model.modelDirectory + this.model.ModelData.Textures[index];
-        this.model.loadingTextureCount++;
+  public loadTexture(index: number): Q.Promise<HTMLImageElement> {
+    if (this.textures[index] && typeof this.textures[index] === "object") return Q.Promise<HTMLImageElement>((resolver, reject, notify) => { resolver(this.textures[index]) });//Assume texture was loaded
+    if (this.textures[index] && typeof this.textures[index] === "function") return <Q.Promise<HTMLImageElement>>this.textures[index];//Assume texture is loading
+    var loadingPromise = Q.Promise<HTMLImageElement>((resolver, reject, notify) => {
+      var img = new Image();
+      img.onload = () => {
+        this.textures[index] = img;
+        resolver(img);
+        this.model.loadedTextureCount++;
+        JThreeLogger.sectionLog("pmx texture", `loaded texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount}`);
+        if (this.model.loadingTextureCount == this.model.loadedTextureCount) this.model.onload.fire(this.model, this.model);
+      }
+      img.onerror = () => {
+        this.textures[index] = img;
+        resolver(img);
+        this.model.loadedTextureCount++;
+        JThreeLogger.sectionError("pmx texture", `load failure texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount} ${img.src}`);
+        if (this.model.loadingTextureCount == this.model.loadedTextureCount) this.model.onload.fire(this.model, this.model);
+      }
+      img.src = this.model.modelDirectory + this.model.ModelData.Textures[index];
+      this.model.loadingTextureCount++;
     });
     this.textures[index] = loadingPromise;
     return loadingPromise;
