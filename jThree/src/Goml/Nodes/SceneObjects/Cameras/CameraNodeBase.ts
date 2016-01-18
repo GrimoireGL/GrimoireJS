@@ -4,10 +4,8 @@ import Camera = require("../../../../Core/Camera/Camera");
 class CameraNodeBase extends SceneObjectNodeBase {
   protected groupPrefix: string = "camera";
 
-  private targetCamera: Camera;
-
   public get TargetCamera(): Camera {
-    return this.targetCamera;
+    return <Camera>this.TargetSceneObject;
   }
 
   constructor() {
@@ -19,7 +17,7 @@ class CameraNodeBase extends SceneObjectNodeBase {
    * @return {Camera} [description]
    */
   protected ConstructCamera(): Camera {
-    return;
+    return null;
   }
 
   /**
@@ -30,7 +28,7 @@ class CameraNodeBase extends SceneObjectNodeBase {
     super.onMount();
     this.TargetSceneObject = this.ConstructCamera();
     let name = this.attributes.getValue("name");
-    if (typeof name !== 'string') {
+    if (typeof name !== "string") {
       throw Error(`${this.getTypeName()}: camera name must be requied.`);
     }
     this.nodeExport(name);
