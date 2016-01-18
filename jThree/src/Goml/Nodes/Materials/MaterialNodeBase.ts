@@ -36,8 +36,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     this.name = attr.Value;
   }
 
-  protected __getMaterialFromMatName(name:string):BasicMaterial
-  {
+  protected __getMaterialFromMatName(name: string): BasicMaterial {
     return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial(name);
   }
 
@@ -93,7 +92,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     }
     if (variableInfo.variableType == "vec4") {
       converter = "color4";//TODO add vector4 converter
-      initialValue = new Color4(0,0,0,1);
+      initialValue = new Color4(0, 0, 0, 1);
     }
     if (variableInfo.variableType == "float") {
       converter = "float"; // This should be float
@@ -104,7 +103,6 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       converter: converter,
       value: initialValue,
       onchanged: (v) => {
-       console.warn("onchanged" + v.Name);
         this.targetMaterial.materialVariables[variableName] = v.Value;
       }
     };
