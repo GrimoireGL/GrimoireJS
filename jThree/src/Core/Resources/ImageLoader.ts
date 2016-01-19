@@ -4,7 +4,7 @@ class ImageLoader {
   private static _loadedTextures: { [url: string]: HTMLImageElement|Q.IPromise<HTMLImageElement> } = {};
 
   public static loadImage(src: string): Q.IPromise<HTMLImageElement> {
-    const absPath = ImageLoader._getAbsolutePath(src);
+    const absPath = ImageLoader.getAbsolutePath(src);
     if (ImageLoader._loadedTextures[absPath] && typeof ImageLoader._loadedTextures[absPath]["then"] === "function") { // Assume this is Promise object
       return <Q.IPromise<HTMLImageElement>>ImageLoader._loadedTextures[absPath];
     } else {
@@ -34,7 +34,7 @@ class ImageLoader {
    * @param  {string} relative relative path to be converted
    * @return {string}          converted absolute path
    */
-  private static _getAbsolutePath(relative: string): string {
+  public static getAbsolutePath(relative: string): string {
     const aElem = document.createElement("a");
     aElem.href = relative;
     return aElem.href;

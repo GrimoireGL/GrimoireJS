@@ -186,7 +186,7 @@ class PMXMaterial extends Material {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const resName = "jthree.pmx.sharedtoon." + index;
     if (rm.getTexture(resName)) {
-      return rm.getTexture(resName);
+      return <Texture>rm.getTexture(resName);
     } else {
       const tex = rm.createTextureWithSource(resName, this.parentModel.pmxTextureManager.generateSharedToonImg(index));
       return tex;

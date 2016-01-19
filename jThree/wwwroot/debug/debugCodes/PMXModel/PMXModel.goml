@@ -25,6 +25,9 @@
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx">
         <!-- <vmd id="melt" frame="0" src="/resource/motion/menf.vmd" enabled="true" autoSpeed="1"/> -->
       </pmx>
+      <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx" position="3,0,0">
+
+      </pmx>
     </scene>
   </scenes>
 </goml>

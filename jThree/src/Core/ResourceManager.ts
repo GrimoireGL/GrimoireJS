@@ -47,6 +47,30 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return deferred.promise;
   }
 
+  public loadCubeTexture(srcs: string[]): Q.IPromise<CubeTexture> {
+    const deferred = Q.defer<CubeTexture>();
+    let id = "";
+    let absPaths = [, , , , , ];
+    for (let i = 0; i < 6; i++) {
+      absPaths[i] = ImageLoader.getAbsolutePath(srcs[i]);
+      id += absPaths[i];
+    }
+    if (this.getTexture(id)) {
+      process.nextTick(() => {
+        deferred.resolve(<CubeTexture>this.getTexture(id));
+      });
+    } else {
+      const promises: Q.IPromise<HTMLImageElement>[] = [, , , , , ];
+      for (let i = 0; i < 6; i++) {
+        promises[i] = ImageLoader.loadImage(absPaths[i]);
+      }
+      Q.all(promises).then((textures) => {
+        deferred.resolve(this.createCubeTextureWithSource(id, textures, false));
+      });
+    }
+    return deferred.promise;
+  }
+
   private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
 
   public createBuffer(id: string, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType): Buffer {
@@ -98,14 +122,14 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   }
 
 
-  public getTexture(id: string): Texture {
-    return <Texture>this.textures.get(id);
+  public getTexture(id: string): TextureBase {
+    return <TextureBase>this.textures.get(id);
   }
 
   public createCubeTextureWithSource(id: string, sources: ImageSource[], flipY = false): CubeTexture {
     return <CubeTexture>this.textures.create(id, () => {
-      var cubeTexture = new CubeTexture(sources, id, flipY);
-      //cubeTexture.each(v => v.init());
+      const cubeTexture = new CubeTexture(sources, id, flipY);
+      cubeTexture.each(v => v.init());
       return cubeTexture;
     });
   }
