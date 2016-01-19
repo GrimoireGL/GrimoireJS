@@ -1,4 +1,4 @@
-import IMaterialConfigureArgument = require("../../Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../Materials/Base/BasicMaterial");
 import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
 import JThreeContext = require("../../../JThreeContext");
@@ -15,7 +15,7 @@ class SceneLight extends LightBase {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
     const material = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/SceneLight.html"));
-    material.on("apply", (matArg: IMaterialConfigureArgument) => {
+    material.on("apply", (matArg: IApplyMaterialArgument) => {
       material.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity)
       };

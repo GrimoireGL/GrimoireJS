@@ -1,7 +1,7 @@
 import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("../IVariableInfo");
-import IMaterialConfigureArgument = require("../IMaterialConfigureArgument");
-const TextureBufferRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IMaterialConfigureArgument, uniforms: { [key: string]: IVariableInfo }) => {
+import IApplyMaterialArgument = require("../IApplyMaterialArgument");
+const TextureBufferRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableInfo }) => {
     for (let variableName in uniforms) {
         const uniform = uniforms[variableName];
         if (variableName[0] !== "_" || uniform.variableType !== "sampler2D") { continue; }

@@ -17,14 +17,18 @@
       varying vec4 vPosition;
       varying vec2 vUV;
       varying vec2 vSphereUV;
+      varying vec4 vBaseColor;
 
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matV;
         uniform mat4 _matPV;
         //@(register:2)
         uniform sampler2D boneMatriciesTexture;
         uniform float boneCount;
+        uniform vec4 diffuse;
+        uniform vec3 ambient;
+        uniform vec3 ambientCoefficient;
 
         void main(void){
           vUV = uv;
@@ -32,15 +36,16 @@
           vPosition=gl_Position = calcPosition(boneTransform,_matPV,position);
           vNormal = calcNormal(boneTransform,_matV,normal);
           vSphereUV = calcSphereUV(vNormal);
+          vBaseColor.rgb = diffuse.rgb + ambient.rgb;
+          vBaseColor.a = diffuse.a;
+          vBaseColor = clamp(vBaseColor,0.,1.);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
         uniform sampler2D _dlBuffer;
         uniform sampler2D _slBuffer;
 
-        uniform vec4 diffuse;
         uniform vec4 specular;
-        uniform vec3 ambient;
         //@(register:3)
         uniform sampler2D texture;
         //@(register:4)
@@ -56,7 +61,6 @@
         uniform vec4 mulSphereCoeff;
         uniform vec4 addToonCoeff;
         uniform vec4 mulToonCoeff;
-        uniform vec3 ambientCoefficient;
 
         vec2 calcLightUV(vec4 projectionSpacePos)
         {
@@ -77,30 +81,30 @@
           gl_FragColor = vec4(0,0,0,0);
           vec2 lightUV=calcLightUV(vPosition);
           vec3 dlc = texture2D(_dlBuffer,lightUV).rgb;
-          //vec3 slc = texture2D(_slBuffer,lightUV).rgb;
-          vec3 alc = ambient * ambientCoefficient;
+          vec3 slc = texture2D(_slBuffer,lightUV).rgb;
           vec4 dc;
           if(textureUsed == 1)
           {
-            dc = blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
+            dc = vBaseColor * blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
           }
-          else
-          {
-            dc = diffuse;
+          if(sphereMode == 1){
+            dc.rgb *= texture2D(sphere,vSphereUV).rgb;
+          }else if(sphereMode == 2){
+            dc.rgb += texture2D(sphere,vSphereUV).rgb;
           }
           if(toonFlag==1)
           {
         		  float brightness = max(max(dlc.r,dlc.g),dlc.b);
-              gl_FragColor.rgb += normalize(dlc) * blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
+              dc.rgb = normalize(dlc) * blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
           }else
           {
-              gl_FragColor.rgb+= dlc * dc.rgb;
+              dc.rgb = dlc * dc.rgb;
           }
-        	gl_FragColor.a=1.0;
-          gl_FragColor.rgb += alc + dlc;
+          dc.rgb += slc * specular.rgb;
+          gl_FragColor = dc;
         }
 
-      //}
+      }
       ]]>
     </glsl>
   </pass>
@@ -113,7 +117,7 @@
       attribute vec4 boneWeights;
       attribute vec4 boneIndicies;
       attribute float edgeScaling;
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matPV;
         //@(register:2)
@@ -132,8 +136,8 @@
           coeff*=edgeSize*edgeScaling;
           gl_Position = matPVM*vec4(position + coeff*normal,1);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
 
         uniform vec4 edgeColor;
 
@@ -141,7 +145,7 @@
         {
           gl_FragColor = edgeColor;
         }
-      //}
+      }
       ]]>
     </glsl>
   </pass>

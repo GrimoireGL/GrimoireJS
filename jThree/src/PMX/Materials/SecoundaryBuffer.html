@@ -17,7 +17,7 @@
       varying vec2 vUV;
       varying vec2 vSphereUV;
 
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matV;
         uniform mat4 _matPV;
@@ -32,8 +32,8 @@
           vNormal = calcNormal(boneTransform,_matV,normal);
           vSphereUV = calcSphereUV(vNormal);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
         uniform vec4 diffuse;
         //@(register:3)
         uniform sampler2D texture;
@@ -69,7 +69,7 @@
              gl_FragColor.rgb+=blendPMXTexture(sphere,vSphereUV,addSphereCoefficient,mulSphereCoefficient).rgb;
            }
       }
-      //}
+      }
       ]]>
     </glsl>
   </pass>
