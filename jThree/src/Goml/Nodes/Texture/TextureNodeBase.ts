@@ -64,13 +64,20 @@ class TextureNodeBase extends GomlTreeNodeBase {
 
   protected onMount(): void {
     super.onMount();
-    var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    var name = this.attributes.getValue("name");
-    this.targetTexture = this.generateTexture(name, rm);
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const name = this.attributes.getValue("name");
+    this.targetTexture = this.constructTexture(name, rm);
     this.nodeExport(name);
   }
 
-  protected generateTexture(name: string, rm: ResourceManager): TextureBase {
+  /**
+   * Construct texture.
+   * This method should be overridden.
+   * @param  {string}          name [description]
+   * @param  {ResourceManager} rm   [description]
+   * @return {TextureBase}          [description]
+   */
+  protected constructTexture(name: string, rm: ResourceManager): TextureBase {
     return null;
   }
 
@@ -93,10 +100,12 @@ class TextureNodeBase extends GomlTreeNodeBase {
       case "NEAREST":
         return MinFilterType.Nearest;
       case "LINEAR":
+        return MinFilterType.Linear;
       default:
         return MinFilterType.Linear;
     }
   }
+
   /**
    * Mag filter attribute string is changed into enum by this method.
    * @param  {string}        attr Attribute string
@@ -108,10 +117,12 @@ class TextureNodeBase extends GomlTreeNodeBase {
       case "NEAREST":
         return MagFilterType.Nearest;
       case "LINEAR":
+        return MagFilterType.Linear;
       default:
         return MagFilterType.Linear;
     }
   }
+
   /**
    * Wrap attribute string is changed into enum by this method.
    * @param  {string} attr Attribute string
@@ -124,11 +135,12 @@ class TextureNodeBase extends GomlTreeNodeBase {
         return TextureWrapType.Repeat;
       case "MIRRORED_REPEAT":
         return TextureWrapType.MirroredRepeat;
-      default:
       case "CLAMP":
+        return TextureWrapType.ClampToEdge;
+      default:
         return TextureWrapType.ClampToEdge;
     }
   }
 }
 
-export =TextureNodeBase;
+export = TextureNodeBase;
