@@ -96,16 +96,17 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_materials_base_materialpass_.materialpass.html#_material" class="tsd-kind-icon">_material</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_materials_base_materialpass_.materialpass.html#_passdocument" class="tsd-kind-icon">_pass<wbr>Document</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_materials_base_materialpass_.materialpass.html#_passid" class="tsd-kind-icon">_pass<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_materials_base_materialpass_.materialpass.html#_renderconfigurecache" class="tsd-kind-icon">_render<wbr>Configure<wbr>Cache</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_materials_base_materialpass_.materialpass.html#fragmentshader" class="tsd-kind-icon">fragment<wbr>Shader</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_materials_base_materialpass_.materialpass.html#fragmentshadersource" class="tsd-kind-icon">fragment<wbr>Shader<wbr>Source</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_materials_base_materialpass_.materialpass.html#parsedprogram" class="tsd-kind-icon">parsed<wbr>Program</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_materials_base_materialpass_.materialpass.html#passindex" class="tsd-kind-icon">pass<wbr>Index</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_materials_base_materialpass_.materialpass.html#program" class="tsd-kind-icon">program</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_materials_base_materialpass_.materialpass.html#vertexshader" class="tsd-kind-icon">vertex<wbr>Shader</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_materials_base_materialpass_.materialpass.html#vertexshadersource" class="tsd-kind-icon">vertex<wbr>Shader<wbr>Source</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_core_materials_base_materialpass_.materialpass.html#_lastexecutedpassprogram" class="tsd-kind-icon">_last<wbr>Executed<wbr>Pass<wbr>Program</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -135,18 +136,21 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Material<wbr>Pass<span class="tsd-signature-symbol">(</span>passDocument<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span>, materialName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_materials_base_materialpass_.materialpass.html" class="tsd-signature-type">MaterialPass</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Material<wbr>Pass<span class="tsd-signature-symbol">(</span>material<span class="tsd-signature-symbol">: </span><a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a>, passDocument<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span>, materialName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_materials_base_materialpass_.materialpass.html" class="tsd-signature-type">MaterialPass</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L36">Core/Materials/Base/MaterialPass.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L40">Core/Materials/Base/MaterialPass.ts:40</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
+								<li>
+									<h5>material: <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></h5>
+								</li>
 								<li>
 									<h5>passDocument: <span class="tsd-signature-type">Element</span></h5>
 								</li>
@@ -165,12 +169,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_material" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _material</h3>
+					<div class="tsd-signature tsd-kind-icon">_material<span class="tsd-signature-symbol">:</span> <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L40">Core/Materials/Base/MaterialPass.ts:40</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_passdocument" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _pass<wbr>Document</h3>
 					<div class="tsd-signature tsd-kind-icon">_pass<wbr>Document<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Element</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L32">Core/Materials/Base/MaterialPass.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L34">Core/Materials/Base/MaterialPass.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -180,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">_pass<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L36">Core/Materials/Base/MaterialPass.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L38">Core/Materials/Base/MaterialPass.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -190,7 +204,7 @@
 					<div class="tsd-signature tsd-kind-icon">_render<wbr>Configure<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L34">Core/Materials/Base/MaterialPass.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L36">Core/Materials/Base/MaterialPass.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -208,7 +222,7 @@
 					<div class="tsd-signature tsd-kind-icon">fragment<wbr>Shader<span class="tsd-signature-symbol">:</span> <a href="_core_resources_shader_shader_.shader.html" class="tsd-signature-type">Shader</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L24">Core/Materials/Base/MaterialPass.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L26">Core/Materials/Base/MaterialPass.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -218,7 +232,7 @@
 					<div class="tsd-signature tsd-kind-icon">fragment<wbr>Shader<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L20">Core/Materials/Base/MaterialPass.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L22">Core/Materials/Base/MaterialPass.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -228,7 +242,17 @@
 					<div class="tsd-signature tsd-kind-icon">parsed<wbr>Program<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_core_materials_base_iparsedprogramresult_.iparsedprogramresult.html" class="tsd-signature-type">IParsedProgramResult</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L30">Core/Materials/Base/MaterialPass.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L32">Core/Materials/Base/MaterialPass.ts:32</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="passindex" class="tsd-anchor"></a>
+					<h3>pass<wbr>Index</h3>
+					<div class="tsd-signature tsd-kind-icon">pass<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L20">Core/Materials/Base/MaterialPass.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -238,7 +262,7 @@
 					<div class="tsd-signature tsd-kind-icon">program<span class="tsd-signature-symbol">:</span> <a href="_core_resources_program_program_.program.html" class="tsd-signature-type">Program</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L28">Core/Materials/Base/MaterialPass.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L30">Core/Materials/Base/MaterialPass.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -248,7 +272,7 @@
 					<div class="tsd-signature tsd-kind-icon">vertex<wbr>Shader<span class="tsd-signature-symbol">:</span> <a href="_core_resources_shader_shader_.shader.html" class="tsd-signature-type">Shader</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L26">Core/Materials/Base/MaterialPass.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L28">Core/Materials/Base/MaterialPass.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -258,17 +282,7 @@
 					<div class="tsd-signature tsd-kind-icon">vertex<wbr>Shader<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L22">Core/Materials/Base/MaterialPass.ts:22</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
-					<a name="_lastexecutedpassprogram" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> _last<wbr>Executed<wbr>Pass<wbr>Program</h3>
-					<div class="tsd-signature tsd-kind-icon">_last<wbr>Executed<wbr>Pass<wbr>Program<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L18">Core/Materials/Base/MaterialPass.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L24">Core/Materials/Base/MaterialPass.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -329,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L95">Core/Materials/Base/MaterialPass.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L106">Core/Materials/Base/MaterialPass.ts:106</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_resourcemanager_.resourcemanager.html" class="tsd-signature-type">ResourceManager</a></h4>
@@ -349,7 +363,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L84">Core/Materials/Base/MaterialPass.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L95">Core/Materials/Base/MaterialPass.ts:95</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -366,19 +380,19 @@
 					<a name="_fetchrenderconfigure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _fetch<wbr>Render<wbr>Configure</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_fetch<wbr>Render<wbr>Configure<span class="tsd-signature-symbol">(</span>matArg<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IRenderStageRenderConfigure</span></li>
+						<li class="tsd-signature tsd-kind-icon">_fetch<wbr>Render<wbr>Configure<span class="tsd-signature-symbol">(</span>matArg<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_materials_base_iapplymaterialargument_.iapplymaterialargument.html" class="tsd-signature-type">IApplyMaterialArgument</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IRenderStageRenderConfigure</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L63">Core/Materials/Base/MaterialPass.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L66">Core/Materials/Base/MaterialPass.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>matArg: <a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a></h5>
+									<h5>matArg: <a href="../interfaces/_core_materials_base_iapplymaterialargument_.iapplymaterialargument.html" class="tsd-signature-type">IApplyMaterialArgument</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IRenderStageRenderConfigure</span></h4>
@@ -395,7 +409,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L76">Core/Materials/Base/MaterialPass.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L87">Core/Materials/Base/MaterialPass.ts:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -406,22 +420,22 @@
 					<a name="apply" class="tsd-anchor"></a>
 					<h3>apply</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">apply<span class="tsd-signature-symbol">(</span>matArg<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a>, uniformRegisters<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action4.html" class="tsd-signature-type">Action4</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span>, material<span class="tsd-signature-symbol">: </span><a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">apply<span class="tsd-signature-symbol">(</span>matArg<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_materials_base_iapplymaterialargument_.iapplymaterialargument.html" class="tsd-signature-type">IApplyMaterialArgument</a>, uniformRegisters<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.action4.html" class="tsd-signature-type">Action4</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/_core_materials_base_iapplymaterialargument_.iapplymaterialargument.html" class="tsd-signature-type">IApplyMaterialArgument</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span>, material<span class="tsd-signature-symbol">: </span><a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L44">Core/Materials/Base/MaterialPass.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Materials/Base/MaterialPass.ts#L50">Core/Materials/Base/MaterialPass.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>matArg: <a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a></h5>
+									<h5>matArg: <a href="../interfaces/_core_materials_base_iapplymaterialargument_.iapplymaterialargument.html" class="tsd-signature-type">IApplyMaterialArgument</a></h5>
 								</li>
 								<li>
-									<h5>uniformRegisters: <a href="../interfaces/_base_delegates_.action4.html" class="tsd-signature-type">Action4</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/_core_materials_base_imaterialconfigureargument_.imaterialconfigureargument.html" class="tsd-signature-type">IMaterialConfigureArgument</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>uniformRegisters: <a href="../interfaces/_base_delegates_.action4.html" class="tsd-signature-type">Action4</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">, </span><a href="_core_resources_program_programwrapper_.programwrapper.html" class="tsd-signature-type">ProgramWrapper</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/_core_materials_base_iapplymaterialargument_.iapplymaterialargument.html" class="tsd-signature-type">IApplyMaterialArgument</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 								<li>
 									<h5>material: <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></h5>
@@ -504,6 +518,9 @@
 								<a href="_core_materials_base_materialpass_.materialpass.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_materials_base_materialpass_.materialpass.html#_material" class="tsd-kind-icon">_material</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_core_materials_base_materialpass_.materialpass.html#_passdocument" class="tsd-kind-icon">_pass<wbr>Document</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -522,6 +539,9 @@
 								<a href="_core_materials_base_materialpass_.materialpass.html#parsedprogram" class="tsd-kind-icon">parsed<wbr>Program</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_materials_base_materialpass_.materialpass.html#passindex" class="tsd-kind-icon">pass<wbr>Index</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_materials_base_materialpass_.materialpass.html#program" class="tsd-kind-icon">program</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -529,9 +549,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_materials_base_materialpass_.materialpass.html#vertexshadersource" class="tsd-kind-icon">vertex<wbr>Shader<wbr>Source</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
-								<a href="_core_materials_base_materialpass_.materialpass.html#_lastexecutedpassprogram" class="tsd-kind-icon">_last<wbr>Executed<wbr>Pass<wbr>Program</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_materials_base_materialpass_.materialpass.html#id" class="tsd-kind-icon">ID</a>
