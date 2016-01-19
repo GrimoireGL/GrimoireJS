@@ -17,31 +17,45 @@ class SpotLightNode extends LightNodeBase {
         }
       },
       "innerAngle": {
-        value: 1.744,
+        value: 0.2,
         converter: "angle",
         onchanged: (attr) => {
           this.targetLight.innerAngle = attr.Value;
         }
       },
       "outerAngle": {
-        value: 2.5,
+        value: 0.5,
         converter: "angle",
         onchanged: (attr) => {
           this.targetLight.outerAngle = attr.Value;
         }
       },
       "innerDistance": {
-        value: 3,
-        converter: "angle",
+        value: 4,
+        converter: "float",
         onchanged: (attr) => {
           this.targetLight.innerDistance = attr.Value;
         }
       },
       "outerDistance": {
-        value: 5,
-        converter: "angle",
+        value: 15,
+        converter: "float",
         onchanged: (attr) => {
           this.targetLight.outerDistance = attr.Value;
+        }
+      },
+      "distanceDecay": {
+        value: 1,
+        converter: "float",
+        onchanged: (attr) => {
+          this.targetLight.distanceDecay = attr.Value;
+        }
+      },
+      "angleDecay": {
+        value: 1,
+        converter: "float",
+        onchanged: (attr) => {
+          this.targetLight.angleDecay = attr.Value;
         }
       }
     });

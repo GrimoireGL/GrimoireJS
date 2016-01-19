@@ -14,10 +14,19 @@
         <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
       </object>
       <mesh geo="quad" mat="matTest" scale="10" rotation="euler(-90d,0,0)" position="0,-0.1,0"/>
-      <!-- <plight position="5,0,0" distance="5" decay="10" color="#FFF"/> -->
-      <slight color="#FFF" scale="5" intensity="0.3" position="0,0,0" innerAngle="1/4p"/>
-      <slight color="#FFF" scale="5" intensity="0.3" position="-3,0,0" innerAngle="1/4p"/>
-      <slight color="#FFF" scale="1" intensity="0.3" rotation="z(90d)" position="3,0,0" innerAngle="p"/>
+      <slight color="#FFF" scale="1" intensity="0.3" position="0,15,0" rotation="x(-15d)" innerDistance="13" outerDistance="20" />
+      <!-- <slight color="#FFF" scale="1" intensity="0.3" position="0,3,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="-3,1,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="-2,2,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="-1,3,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="0,5,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="-2,2,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="2,6,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="3,7,0" />
+      <slight color="#FFF" scale="1" intensity="0.3" position="4,8,0" /> -->
+
+        <!-- <slight color="#FFF" scale="1" intensity="0.3" rotation="z(30d)" position="3,3,0" />
+        <slight color="#FFF" scale="3" intensity="0.3" position="0,3,-2" /> -->
       <scenelight color="#101010"/>
       <!-- <dlight color="#111111" rotation="x(45d)"/> -->
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx"/>
