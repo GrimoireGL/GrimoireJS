@@ -1,3 +1,4 @@
+import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 import IConfigureEventArgs = require("../../../Core/IConfigureEventArgs");
 import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
@@ -71,11 +72,11 @@ class PMXMaterial extends Material {
 
   private edgeSize: number;
 
-  private sphere: Texture = null;
+  private sphere: TextureBase = null;
 
-  private texture: Texture = null;
+  private texture: TextureBase = null;
 
-  private toon: Texture = null;
+  private toon: TextureBase = null;
 
   private pmxData: PMX;
 
@@ -124,10 +125,17 @@ class PMXMaterial extends Material {
     this.edgeSize = materialData.edgeSize;
     this.sphereMode = materialData.sphereMode;
     this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
-    this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere");
-    this.texture = this.loadPMXTexture(materialData.textureIndex, "texture");
+    const tm = this.parentModel.pmxTextureManager;
+    tm.loadTexture(materialData.sphereTextureIndex).then((texture) => {
+      this.sphere = texture;
+    });
+    tm.loadTexture(materialData.textureIndex).then((texture) => {
+      this.texture = texture;
+    });
     if (materialData.sharedToonFlag === 0) { // not shared texture
-      this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon");
+      tm.loadTexture(materialData.targetToonIndex).then((texture) => {
+        this.toon = texture;
+      });
     } else {
       this.toon = this.loadSharedTexture(materialData.targetToonIndex);
     }
@@ -158,9 +166,9 @@ class PMXMaterial extends Material {
         diffuse: this.diffuse.toVector(),
         specular: this.specular,
         ambient: this.ambient.toVector(),
-        textureUsed: this.texture == null || this.texture.ImageSource == null ? 0 : 1,
-        sphereMode: this.sphere == null || this.sphere.ImageSource == null ? 0 : this.sphereMode,
-        toonFlag: this.toon == null || this.toon.ImageSource == null ? 0 : 1,
+        textureUsed: !this.texture ? 0 : 1,
+        sphereMode: !this.sphere ? 0 : this.sphereMode,
+        toonFlag: !this.toon ? 0 : 1,
         addTexCoeff: new Vector4(this.addMorphParam.textureCoeff),
         mulTexCoeff: new Vector4(this.mulMorphParam.textureCoeff),
         addSphereCoeff: new Vector4(this.addMorphParam.sphereCoeff),
@@ -171,21 +179,6 @@ class PMXMaterial extends Material {
       };
     }
     this.__innerMaterial.apply(matArg);
-  }
-
-  private loadPMXTexture(index: number, prefix: string): Texture {
-    if (index < 0) return null;
-    var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    var resourceName = this.pmxData.Header.modelName + "jthree.pmx." + prefix + "." + index;
-    if (rm.getTexture(resourceName)) {
-      return rm.getTexture(resourceName);
-    } else {
-      var texture = rm.createTextureWithSource(resourceName, null);
-      this.loadImage(index).then((t) => {
-        texture.ImageSource = t;
-      });
-      return texture;
-    }
   }
 
   private loadSharedTexture(index: number): Texture {
@@ -200,9 +193,6 @@ class PMXMaterial extends Material {
     }
   }
 
-  private loadImage(index: number): Q.Promise<HTMLImageElement> {
-    return this.parentModel.pmxTextureManager.loadTexture(index);
-  }
 
   public get Priorty(): number {
     return 100 + this.materialIndex;

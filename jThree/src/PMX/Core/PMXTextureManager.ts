@@ -1,10 +1,12 @@
+import TextureBase = require("../../Core/Resources/Texture/TextureBase");
+import ContextComponents = require("../../ContextComponents");
+import ResourceManager = require("../../Core/ResourceManager");
+import JThreeContext = require("../../JThreeContext");
 import PMXModel = require("./PMXModel");
 import JThreeLogger = require("../../Base/JThreeLogger");
 import Q = require("q");
 class PMXTextureManager {
-  private model: PMXModel;
-
-  private textures: HTMLImageElement[]|Q.Promise<HTMLImageElement>[] = [];
+  public static _imgConvertedToons: HTMLImageElement[] = [];
 
   private static _toons: string[] = [
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX////Nzc1XNMFjAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC",
@@ -19,7 +21,8 @@ class PMXTextureManager {
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAC0lEQVQI12MY5AAAAKAAAfgHMzoAAAAASUVORK5CYII="
   ];
 
-  public static _imgConvertedToons: HTMLImageElement[] = [];
+  private model: PMXModel;
+
 
   constructor(model: PMXModel) {
     this.model = model;
@@ -36,30 +39,37 @@ class PMXTextureManager {
     }
   }
 
-  public loadTexture(index: number): Q.Promise<HTMLImageElement> {
-    if (this.textures[index] && typeof this.textures[index] === "object") return Q.Promise<HTMLImageElement>((resolver, reject, notify) => { resolver(this.textures[index]) });//Assume texture was loaded
-    if (this.textures[index] && typeof this.textures[index] === "function") return <Q.Promise<HTMLImageElement>>this.textures[index];//Assume texture is loading
-    var loadingPromise = Q.Promise<HTMLImageElement>((resolver, reject, notify) => {
-      var img = new Image();
-      img.onload = () => {
-        this.textures[index] = img;
-        resolver(img);
+  public loadTexture(index: number): Q.IPromise<TextureBase> {
+    const deferred = Q.defer<TextureBase>();
+    if (index < 0) {
+      process.nextTick(() => {
+        deferred.resolve(null);
+      });
+      return deferred.promise;
+    }
+    this.model.loadingTextureCount++;
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    return rm.loadTexture(this.model.modelDirectory + this.model.ModelData.Textures[index]).then<TextureBase>((texture) => {
+      process.nextTick(() => {
         this.model.loadedTextureCount++;
         JThreeLogger.sectionLog("pmx texture", `loaded texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount}`);
-        if (this.model.loadingTextureCount == this.model.loadedTextureCount) this.model.onload.fire(this.model, this.model);
-      }
-      img.onerror = () => {
-        this.textures[index] = img;
-        resolver(img);
-        this.model.loadedTextureCount++;
-        JThreeLogger.sectionError("pmx texture", `load failure texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount} ${img.src}`);
-        if (this.model.loadingTextureCount == this.model.loadedTextureCount) this.model.onload.fire(this.model, this.model);
-      }
-      img.src = this.model.modelDirectory + this.model.ModelData.Textures[index];
-      this.model.loadingTextureCount++;
-    });
-    this.textures[index] = loadingPromise;
-    return loadingPromise;
+        if (this.model.loadingTextureCount === this.model.loadedTextureCount) {
+          this.model.onload.fire(this.model, this.model);
+        }
+        deferred.resolve(texture);
+      });
+      return deferred.promise;
+    }, (error) => {
+        process.nextTick(() => {
+          this.model.loadedTextureCount++;
+          JThreeLogger.sectionError("pmx texture", `load failure texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount}  ${error}`);
+          if (this.model.loadingTextureCount === this.model.loadedTextureCount) {
+            this.model.onload.fire(this.model, this.model);
+          }
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      });
   }
 }
 
