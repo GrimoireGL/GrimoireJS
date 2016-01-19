@@ -1,0 +1,27 @@
+<goml>
+  <resources>
+    <quad name="quad"/>
+    <phong name="matTest" brightness="20.0" specular="#AAA" diffuse="#AAA"/>
+  </resources>
+  <canvases>
+    <canvas clearColor="#11022A" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+    </canvas>
+  </canvases>
+  <scenes>
+    <scene name="mainScene">
+      <object>
+        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
+      </object>
+      <mesh geo="quad" mat="matTest" scale="10" rotation="euler(-90d,0,0)" position="0,-0.1,0"/>
+      <!-- <plight position="5,0,0" distance="5" decay="10" color="#FFF"/> -->
+      <slight color="#FFF" scale="5" intensity="0.3" position="0,0,0" innerAngle="1/4p"/>
+      <slight color="#FFF" scale="5" intensity="0.3" position="-3,0,0" innerAngle="1/4p"/>
+      <slight color="#FFF" scale="1" intensity="0.3" rotation="z(90d)" position="3,0,0" innerAngle="p"/>
+      <scenelight color="#101010"/>
+      <!-- <dlight color="#111111" rotation="x(45d)"/> -->
+      <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx"/>
+      <!-- <alight color="#110011" position="0,0,0" scale="5" rotation="y(30d)"/> -->
+    </scene>
+  </scenes>
+</goml>

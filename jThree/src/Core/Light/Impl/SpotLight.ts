@@ -1,58 +1,38 @@
-// import Scene = require('../../Scene');
-// import LightBase = require('./../LightBase');
-// import LightTypeDeclaration = require("./../LightTypeDeclaration");
-// import BasicRenderer = require("../../Renderers/BasicRenderer");
-// import Matrix = require("../../../Math/Matrix");
-// import Vector3 = require("../../../Math/Vector3");
-// /**
-//  * Point Light
-//  * Parameter order
-//  * 0:X:TypeID YZW:Color.RGB*Intencity
-//  * 1:XYZ:Position
-//  * 2:XYZ:Direction
-//  * 3:X:Innner Cone,Y:Outer Cone,Z:Decay
-//  */
-// class SpotLight extends LightBase
-// {
-// 	constructor(scene:Scene)
-// 	{
-// 		super(scene);
-// 	}
-// 	public intensity:number=1.0;
-//
-// 	public decay:number=1;
-//
-// 	public inner:number=0.3;
-//
-// 	public outer:number=0.7;
-//
-// 	public get LightType():string
-// 	{
-// 		return "jthree.lights.spotlight";
-//     }
-//
-//     public getParameters(renderer:BasicRenderer): number[]
-//     {
-// 			　var pos;
-// 			 var matVM =Matrix.multiply(renderer.Camera.viewMatrix,this.Transformer.LocalToGlobal);
-// 			  pos = Matrix.transformPoint(matVM,Vector3.Zero);
-// 				var dir = new Vector3(0,-1,0);
-// 				dir = Matrix.transformNormal(matVM,dir);
-//         return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
-//             pos.X,pos.Y,pos.Z, 0,
-// 						dir.X,dir.Y,dir.Z,0,
-//         Math.cos(this.inner),Math.cos(this.outer),this.decay];
-//     }
-//
-//     public static get TypeDefinition(): LightTypeDeclaration {
-//         return {
-//             typeName: "jthree.lights.spotlight",
-//             requiredParamCount: 3,
-//             shaderfuncName: "calcSpotLight",
-//             diffuseFragmentCode: require('../../Shaders/Light/Spot/DiffuseChunk.glsl'),
-//             specularFragmentCode:require("../../Shaders/Light/Spot/SpecularChunk.glsl")
-//         };
-//     }
-// }
-//
-// export = SpotLight;
+import IMaterialConfigureArgument = require("../../Materials/Base/IMaterialConfigureArgument");
+import BasicMaterial = require("../../Materials/Base/BasicMaterial");
+import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
+import ContextComponents = require("../../../ContextComponents");
+import JThreeContext = require("../../../JThreeContext");
+import Scene = require('../../Scene');
+import LightBase = require('./../LightBase');
+import BasicRenderer = require("../../Renderers/BasicRenderer");
+import Matrix = require("../../../Math/Matrix");
+import Vector3 = require("../../../Math/Vector3");
+/**
+ * Point Light
+ */
+class SpotLight extends LightBase {
+  constructor() {
+    super();
+    this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("cone");
+    const diffuseMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/SpotLight.html"));
+    diffuseMaterial.on("apply", (matArg: IMaterialConfigureArgument) => {
+      //this.Transformer.Scale = new Vector3(1, 10, 1);
+
+      diffuseMaterial.materialVariables =
+      {
+        lightColor: this.Color.toVector().multiplyWith(this.intensity),
+        innerAngle: this.innerAngle
+      };
+    });
+    this.addMaterial(diffuseMaterial);
+  }
+
+  public intensity: number = 1;
+  public innerAngle: number = 1.744;
+  public outerAngle: number = 2.5;
+  public innerDistance: number = 3;
+  public outerDistance: number = 5;
+}
+
+export = SpotLight;
