@@ -1,10 +1,5 @@
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
-import SceneNode = require("../../Goml/Nodes/SceneNode");
-import SceneObject = require("../../Core/SceneObject");
 import PMXModel = require("../Core/PMXModel");
-import JThreeEvent = require("../../Base/JThreeEvent");
-import Delegates = require("../../Base/Delegates");
 import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import ResourceLoader = require("../../Core/ResourceLoader");
@@ -31,13 +26,13 @@ class PMXNode extends SceneObjectNodeBase {
         converter: "string",
         value: "",
       }
-    })
+    });
   }
 
   protected ConstructTarget(callbackfn): void {
-    this.on('loaded', () => {
+    this.on("loaded", () => {
       callbackfn(this.pmxModel);
-    })
+    });
   }
 
   public onMount(): void {
@@ -46,7 +41,7 @@ class PMXNode extends SceneObjectNodeBase {
       .then((m) => {
         this.pmxModel = m;
         this.targetUpdated();
-        this.emit('loaded', m);
+        this.emit("loaded", m);
         // this.pmxTargetUpdated.fire(this, m);
         // this.bubbleEvent("loaded",{target:this});
         this.pmxLoadingDeferred.resolve(null);
@@ -59,4 +54,4 @@ class PMXNode extends SceneObjectNodeBase {
 
 }
 
-export =PMXNode;
+export = PMXNode;
