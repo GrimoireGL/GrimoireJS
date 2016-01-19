@@ -11,43 +11,43 @@ class CameraNode extends CameraNodeBase {
         value: Math.PI / 4,
         converter: "angle",
         onchanged: (attr) => {
-          this.targetPerspective.Fovy = attr.Value;
+          if (this.TargetSceneObject) {
+            (<PerspectiveCamera>this.TargetSceneObject).Fovy = attr.Value;
+          }
         },
       },
       "aspect": {
         value: 0,
         converter: "float",
         onchanged: (attr) => {
-          this.targetPerspective.Aspect = attr.Value;
+          if (this.TargetSceneObject) {
+            (<PerspectiveCamera>this.TargetSceneObject).Aspect = attr.Value;
+          }
         },
       },
       "near": {
         value: 0.1,
         converter: "float",
         onchanged: (attr) => {
-          this.targetPerspective.Near = attr.Value;
+          if (this.TargetSceneObject) {
+            (<PerspectiveCamera>this.TargetSceneObject).Near = attr.Value;
+          }
         },
       },
       "far": {
         value: 10,
         converter: "float",
         onchanged: (attr) => {
-          this.targetPerspective.Far = attr.Value;
+          if (this.TargetSceneObject) {
+            (<PerspectiveCamera>this.TargetSceneObject).Far = attr.Value;
+          }
         },
       },
     });
   }
 
-  private targetPerspective: PerspectiveCamera;
-
   protected ConstructCamera(): Camera {
-    const camera = new PerspectiveCamera();
-    this.targetPerspective = camera;
-    camera.Fovy = this.Fovy;
-    camera.Aspect = this.Aspect;
-    camera.Near = this.Near;
-    camera.Far = this.Far;
-    return camera;
+    return new PerspectiveCamera();
   }
 
   protected onMount(): void {

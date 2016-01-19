@@ -11,59 +11,49 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
         value: -100,
         converter: "float",
         onchanged: (attr) => {
-          this.targetOrtho.Left = attr.Value;
+          (<OrthoCamera>this.TargetSceneObject).Left = attr.Value;
         }
       },
       "right": {
         value: 100,
         converter: "float",
         onchanged: (attr) => {
-          this.targetOrtho.Right = attr.Value;
+          (<OrthoCamera>this.TargetSceneObject).Right = attr.Value;
         }
       },
       "bottom": {
         value: -100,
         converter: "float",
         onchanged: (attr) => {
-          this.targetOrtho.Bottom = attr.Value;
+          (<OrthoCamera>this.TargetSceneObject).Bottom = attr.Value;
         }
       },
       "top": {
         value: 100,
         converter: "float",
         onchanged: (attr) => {
-          this.targetOrtho.Top = attr.Value;
+          (<OrthoCamera>this.TargetSceneObject).Top = attr.Value;
         }
       },
       "near": {
         value: -100,
         converter: "float",
         onchanged: (attr) => {
-          this.targetOrtho.Near = attr.Value;
+          (<OrthoCamera>this.TargetSceneObject).Near = attr.Value;
         }
       },
       "far": {
         value: -100,
         converter: "float",
         onchanged: (attr) => {
-          this.targetOrtho.Far = attr.Value;
+          (<OrthoCamera>this.TargetSceneObject).Far = attr.Value;
         }
       }
     });
   }
 
-  private targetOrtho: OrthoCamera;
-
   protected ConstructCamera(): Camera {
-    const camera = new OrthoCamera();
-    this.targetOrtho = camera;
-    camera.Left = this.attributes.getValue("left");
-    camera.Bottom = this.attributes.getValue("right");
-    camera.Top = this.attributes.getValue("top");
-    camera.Right = this.attributes.getValue("right");
-    camera.Far = this.attributes.getValue("far");
-    camera.Near = this.attributes.getValue("near");
-    return camera;
+    return new OrthoCamera();
   }
 
 }
