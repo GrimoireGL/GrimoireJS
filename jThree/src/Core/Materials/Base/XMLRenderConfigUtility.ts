@@ -18,6 +18,14 @@ class XMLRenderConfigureUtility {
     return target;
   }
 
+  public static applyAll(gl: WebGLRenderingContext, config: IRenderStageRenderConfigure): void {
+    XMLRenderConfigureUtility._applyCullConfigureToGL(gl, config.cullOrientation !== "NONE", config.cullOrientation);
+    XMLRenderConfigureUtility._applyBlendFunConfigureToGL(gl, config.blendEnabled, config.blendSrcFactor, config.blendDstFactor);
+    XMLRenderConfigureUtility._applyDepthTestConfigureToGL(gl, config.depthEnabled, config.depthMode);
+    XMLRenderConfigureUtility._applyMaskConfigureToGL(gl, config.redMask, config.greenMask, config.blueMask, config.alphaMask, config.depthMask);
+  }
+
+
   private static _parseBoolean(val: string, def: boolean): boolean {
     if (!val) { return def; }
     if (val === "true") { return true; }
@@ -87,13 +95,6 @@ class XMLRenderConfigureUtility {
       target.depthEnabled = this._parseBoolean(enabledStr, defConfig.depthEnabled);
       target.depthMode = modeStr || defConfig.depthMode;
     }
-  }
-
-  public static applyAll(gl: WebGLRenderingContext, config: IRenderStageRenderConfigure): void {
-    XMLRenderConfigureUtility._applyCullConfigureToGL(gl, config.cullOrientation !== "NONE", config.cullOrientation);
-    XMLRenderConfigureUtility._applyBlendFunConfigureToGL(gl, config.blendEnabled, config.blendSrcFactor, config.blendDstFactor);
-    XMLRenderConfigureUtility._applyDepthTestConfigureToGL(gl, config.depthEnabled, config.depthMode);
-    XMLRenderConfigureUtility._applyMaskConfigureToGL(gl, config.redMask, config.greenMask, config.blueMask, config.alphaMask, config.depthMask);
   }
 
 
