@@ -68,7 +68,7 @@
     "./jThree/src/Core/ListStateChangedType.ts",
     "./jThree/src/Core/LoopManager.ts",
     "./jThree/src/Core/Materials/Base/BasicMaterial.ts",
-    "./jThree/src/Core/Materials/Base/IMaterialConfigureArgument.ts",
+    "./jThree/src/Core/Materials/Base/IApplyMaterialArgument.ts",
     "./jThree/src/Core/Materials/Base/IParsedProgramResult.ts",
     "./jThree/src/Core/Materials/Base/IVariableInfo.ts",
     "./jThree/src/Core/Materials/Base/MaterialManager.ts",

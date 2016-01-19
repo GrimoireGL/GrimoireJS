@@ -3,7 +3,7 @@ import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase")
 import ResolvedChainInfo = require("../../Renderers/ResolvedChainInfo");
 import SceneObject = require("../../SceneObject");
 import Scene = require("../../Scene");
-interface IMaterialConfigureArgument {
+interface IApplyMaterialArgument {
   scene: Scene;
   camera: Camera;
   renderStage: RenderStageBase;
@@ -13,4 +13,4 @@ interface IMaterialConfigureArgument {
   passIndex: number;
 }
 
-export = IMaterialConfigureArgument;
+export = IApplyMaterialArgument;

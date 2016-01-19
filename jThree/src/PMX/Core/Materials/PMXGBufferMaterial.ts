@@ -1,4 +1,4 @@
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 ﻿import Material = require("../../../Core/Materials/Material");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
@@ -41,7 +41,7 @@ class PMXGBufferMaterial extends Material {
     this.setLoaded();
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     if (this.associatedMaterial.Diffuse.A < 1.0E-3) {
       return;
     }

@@ -16,7 +16,7 @@
 
       varying vec4 vPosition;
 
-      //@vertonly{
+      @vertonly{
       //@import jthree.pmx.vertex
       uniform mat4 matL;
       //@(register:2)
@@ -27,12 +27,11 @@
         mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
         vPosition=gl_Position = calcPosition(boneTransform,matL,position);
       }
-      //}
+      }
 
-      //@fragonly
-      //{
+      @fragonly{
       //@import jthree.builtin.shadowfragment
-      //}
+      }
       ]]>
     </glsl>
   </pass>

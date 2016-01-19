@@ -16,7 +16,7 @@
       varying vec3 vNormal;
       varying vec4 vPosition;
 
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matV;
         uniform mat4 _matPV;
@@ -29,8 +29,8 @@
           vPosition=gl_Position = calcPosition(boneTransform,_matPV,position);
           vNormal= calcNormal(boneTransform,_matV,normal);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
         uniform float brightness;
 
         vec2 compressNormal()
@@ -48,7 +48,7 @@
         {
         	gl_FragColor = vec4(compressNormal(),calcDepth(),brightness);
         }
-      //}
+      }
       ]]>
     </glsl>
   </pass>

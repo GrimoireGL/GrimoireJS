@@ -1,4 +1,4 @@
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import Material = require("../../../Core/Materials/Material");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
@@ -133,7 +133,7 @@ class PMXMaterial extends Material {
     this.setLoaded();
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     var renderer = matArg.renderStage.Renderer;
     const skeleton = this.parentModel.skeleton;
     if (matArg.passIndex == 1) {

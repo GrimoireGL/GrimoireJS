@@ -18,7 +18,7 @@
       varying vec2 vUV;
       varying vec2 vSphereUV;
 
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matV;
         uniform mat4 _matPV;
@@ -33,8 +33,8 @@
           vNormal = calcNormal(boneTransform,_matV,normal);
           vSphereUV = calcSphereUV(vNormal);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
         uniform sampler2D _dlBuffer;
         uniform sampler2D _slBuffer;
 
@@ -100,7 +100,7 @@
           gl_FragColor.rgb += alc + dlc;
         }
 
-      //}
+      }
       ]]>
     </glsl>
   </pass>
@@ -113,7 +113,7 @@
       attribute vec4 boneWeights;
       attribute vec4 boneIndicies;
       attribute float edgeScaling;
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matPV;
         //@(register:2)
@@ -132,8 +132,8 @@
           coeff*=edgeSize*edgeScaling;
           gl_Position = matPVM*vec4(position + coeff*normal,1);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
 
         uniform vec4 edgeColor;
 
@@ -141,7 +141,7 @@
         {
           gl_FragColor = edgeColor;
         }
-      //}
+      }
       ]]>
     </glsl>
   </pass>

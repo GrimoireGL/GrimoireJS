@@ -3,9 +3,9 @@ import JThreeContext = require("../../../../JThreeContext");
 import ContextComponents = require("../../../../ContextComponents");
 import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("../IVariableInfo");
-import IMaterialConfigureArgument = require("../IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../IApplyMaterialArgument");
 import Timer = require("../../../Timer");
-const TimeRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IMaterialConfigureArgument, uniforms: { [key: string]: IVariableInfo }) => {
+const TimeRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableInfo }) => {
     if (uniforms["_Time"]) {
         const timer: Timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
         if (uniforms["_Time"].variableType === "float") {

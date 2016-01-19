@@ -10,26 +10,24 @@
       attribute vec3 position;
       varying vec4 vPosition;
 
-      //@vertonly {
+      @vertonly {
         uniform mat4 _matPVM;
-      //}
 
-
-      //@fragonly {
-        uniform vec4 solid;
-        uniform samplerCube cubeTest;
-      //}
-
-      //@vertonly
-      void main(void)
-      {
-        gl_Position = vPosition = _matPVM * vec4(position,1.0);
+        void main(void)
+        {
+          gl_Position = vPosition = _matPVM * vec4(position,1.0);
+        }
       }
 
-      //@fragonly
-      void main(void)
-      {
-        gl_FragColor = textureCube(cubeTest,vPosition.xyz);//solid;
+
+      @fragonly {
+        uniform vec4 solid;
+        uniform samplerCube cubeTest;
+
+        void main(void)
+        {
+          gl_FragColor = textureCube(cubeTest,vPosition.xyz);//solid;
+        }
       }
 
       ]]>

@@ -1,5 +1,5 @@
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import PMXMaterial = require("./PMXMaterial");
 /**
@@ -28,7 +28,7 @@ class PMXShadowMapMaterial extends BasicMaterial {
     this.setLoaded();
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     if (this.associatedMaterial.Diffuse.A < 1.0E-3) return;
     // var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
     // const skeleton = this.associatedMaterial.ParentModel.skeleton;

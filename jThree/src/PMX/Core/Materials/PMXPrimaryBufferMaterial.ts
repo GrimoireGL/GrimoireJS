@@ -1,6 +1,6 @@
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import PMXMaterial = require("./PMXMaterial");
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 class PMXPrimaryBufferMaterial extends BasicMaterial {
   private _associatedMaterial: PMXMaterial;
@@ -10,7 +10,7 @@ class PMXPrimaryBufferMaterial extends BasicMaterial {
     this._associatedMaterial = material;
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     if (this._associatedMaterial.Diffuse.A < 1.0E-3) return;
     const skeleton = this._associatedMaterial.ParentModel.skeleton;
     this.materialVariables = {
