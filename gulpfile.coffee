@@ -109,7 +109,7 @@ config =
     entries: './jThree/lib/jThree.js'
     name: 'j3.js'
     extensions: ['.js', '.json', '.glsl', '.html','.xmml']
-    dest: ['./jThree/bin/product', './jThree/wwwroot']
+    dest: ['./jThree/wwwroot', './jThree/bin/product']
     target: 'web'
     minify: false
     transform: ['shaderify', 'txtify']
