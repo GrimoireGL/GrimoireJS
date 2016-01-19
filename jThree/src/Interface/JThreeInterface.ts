@@ -2,7 +2,7 @@ import JThreeObject = require("../Base/JThreeObject");
 import Timer = require("../Core/Timer");
 import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
 import Delegate = require("../Base/Delegates");
-import InterfaceBase = require('./InterfaceBase');
+import InterfaceBase = require("./InterfaceBase");
 
 /**
  * Provides jQuery like API for jThree.

@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require('gl-matrix');
+import glm = require("gl-matrix");
 
 class Vector4 extends VectorBase {
   /*
@@ -161,7 +161,7 @@ class Vector4 extends VectorBase {
   }
 
   public toDisplayString(): string {
-    return `Vector4${this.toString()}`;
+    return `Vector4${this.toString() }`;
   }
 
   public toMathematicaString() {

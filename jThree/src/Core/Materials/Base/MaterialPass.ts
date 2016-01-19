@@ -1,3 +1,4 @@
+import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
 import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
 import Material = require("../Material");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
@@ -13,7 +14,9 @@ import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 import ShaderParser = require("./ShaderParser");
 import Delegates = require("../../../Base/Delegates");
-class MaterialPass {
+class MaterialPass extends JThreeObjectWithID {
+  private static _lastExecutedPassProgram: string;
+
   public fragmentShaderSource: string;
 
   public vertexShaderSource: string;
@@ -24,14 +27,16 @@ class MaterialPass {
 
   public program: Program;
 
-
   public parsedProgram: IParsedProgramResult;
 
   private _passDocument: Element;
 
   private _renderConfigureCache: { [id: string]: IRenderStageRenderConfigure } = {};
 
+  private _passId: string;
+
   constructor(passDocument: Element, materialName: string, index: number) {
+    super();
     this._passDocument = passDocument;
     this._parseGLSL();
     this._constructProgram(materialName + index);
@@ -40,9 +45,12 @@ class MaterialPass {
     const gl = matArg.renderStage.GL;
     const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
     const renderConfig = this._fetchRenderConfigure(matArg);
-    XMLRenderConfigUtility.applyAll(gl, renderConfig);
-    // Declare using program before assigning material variables
-    pWrapper.useProgram();
+    if (MaterialPass._lastExecutedPassProgram !== this._passId) {
+      XMLRenderConfigUtility.applyAll(gl, renderConfig);
+      MaterialPass._lastExecutedPassProgram = this._passId;
+      // Declare using program before assigning material variables
+      pWrapper.useProgram();
+    }
     // Apply attribute variables by geometries
     matArg.object.Geometry.applyAttributeVariables(pWrapper, this.parsedProgram.attributes);
     // Apply uniform variables
@@ -74,6 +82,7 @@ class MaterialPass {
   }
 
   private _constructProgram(idPrefix: string): void {
+    this._passId = idPrefix;
     this.fragmentShader = MaterialPass._resourceManager.createShader(idPrefix + "-fs", this.fragmentShaderSource, ShaderType.FragmentShader);
     this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs", this.vertexShaderSource, ShaderType.VertexShader);
     this.fragmentShader.loadAll();

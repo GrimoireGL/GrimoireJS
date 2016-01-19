@@ -3,7 +3,7 @@ import IParentSceneChangedEventArgs = require("./IParentSceneChangedEventArgs");
 import Material = require("./Materials/Material");
 import Delegates = require("../Base/Delegates");
 import Geometry = require("./Geometries/Base/Geometry");
-import Scene = require('./Scene');
+import Scene = require("./Scene");
 import JThreeCollection = require("../Base/JThreeCollection");
 import Transformer = require("./Transform/Transformer");
 import JThreeEvent = require("../Base/JThreeEvent");
@@ -123,7 +123,7 @@ class SceneObject extends JThreeObjectWithID {
         return this.parentScene;
       }
     } else {
-      //The parent scene was already cached.
+      // The parent scene was already cached.
       return this.parentScene;
     }
   }
@@ -133,12 +133,14 @@ class SceneObject extends JThreeObjectWithID {
   */
 
   public set ParentScene(scene: Scene) {
-    if (scene == this.parentScene) return;
+    if (scene === this.parentScene) {
+      return;
+    }
     const lastScene = this.parentScene;
     this.parentScene = scene;
     // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
     //     console.error("There is something wrong in Scene structure.");
-    //insert recursively to the children this SceneObject contains.
+    // insert recursively to the children this SceneObject contains.
     this.children.forEach((v) => {
       v.ParentScene = scene;
     });
@@ -151,6 +153,7 @@ class SceneObject extends JThreeObjectWithID {
   public onMaterialChanged(func: Delegates.Action2<Material, SceneObject>): void {
     this.materialChanagedHandler.push(func);
   }
+
   /**
    * すべてのマテリアルに対して処理を実行します。
    */
@@ -201,26 +204,26 @@ class SceneObject extends JThreeObjectWithID {
 
   public callRecursive(action: Delegates.Action1<SceneObject>) {
     if (this.children) {
-      this.children.forEach(t=> t.callRecursive(action));
+      this.children.forEach((t) => t.callRecursive(action));
     }
     action(this);
   }
 
   public onChildrenChanged() {
-
+    return;
   }
 
   public onParentChanged() {
-
+    return;
   }
 
   public onParentSceneChanged(sceneInfo: IParentSceneChangedEventArgs) {
-
+    return;
   }
 
   public update() {
-
+    return;
   }
 }
 
-export =SceneObject;
+export = SceneObject;

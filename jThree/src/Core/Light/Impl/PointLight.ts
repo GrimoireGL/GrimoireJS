@@ -21,8 +21,8 @@ class PointLight extends LightBase {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         decay: this.decay,
         dist: this.distance,
-        lightPosition: Matrix.transformPoint(matArg.renderStage.Renderer.Camera.viewMatrix, this.Position)
-      };
+        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
+       };
     });
     const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/PointLight.html"));
     specularMaterial.on("apply", (matArg: IMaterialConfigureArgument) => {
@@ -31,7 +31,7 @@ class PointLight extends LightBase {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         decay: this.decay,
         dist: this.distance,
-        lightPosition: Matrix.transformPoint(matArg.renderStage.Renderer.Camera.viewMatrix, this.Position)
+        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
       };
     });
     this.addMaterial(diffuseMaterial);

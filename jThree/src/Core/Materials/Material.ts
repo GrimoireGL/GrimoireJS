@@ -92,34 +92,55 @@ class Material extends JThreeObjectEEWithID {
         this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
         continue;
       }
-      switch (uniform.variableType) {
-        case "vec2":
-        case "vec3":
-        case "vec4":
-          pWrapper.uniformVector(valName, <VectorBase>val);
-          continue;
-        case "mat4":
-          pWrapper.uniformMatrix(valName, <Matrix>val);
-          continue;
-        case "float":
-          pWrapper.uniformFloat(valName, <number>val);
-          continue;
-        case "int":
-          pWrapper.uniformInt(valName, <number>val);
-          continue;
-        case "sampler2D":
-        case "samplerCube":
-          let registerAnnotation = uniform.variableAnnotation["register"];
-          let register;
-          if (registerAnnotation) {
-            register = <number>parseInt(registerAnnotation, 10);
-          } else {
-            register = 0;
-          }
-          pWrapper.uniformSampler(valName, <TextureBase>val, register);
-          continue;
-        default:
-          console.warn(`Unknown variable type ${uniform.variableType}`);
+      if (!uniform.isArray) {
+        switch (uniform.variableType) {
+          case "vec2":
+          case "vec3":
+          case "vec4":
+            pWrapper.uniformVector(valName, <VectorBase>val);
+            continue;
+          case "mat4":
+            pWrapper.uniformMatrix(valName, <Matrix>val);
+            continue;
+          case "float":
+            pWrapper.uniformFloat(valName, <number>val);
+            continue;
+          case "int":
+            pWrapper.uniformInt(valName, <number>val);
+            continue;
+          case "sampler2D":
+          case "samplerCube":
+            let registerAnnotation = uniform.variableAnnotation["register"];
+            let register;
+            if (registerAnnotation) {
+              register = <number>parseInt(registerAnnotation, 10);
+            } else {
+              register = 0;
+            }
+            pWrapper.uniformSampler(valName, <TextureBase>val, register);
+            if (uniform.variableAnnotation["flag"]) {
+              pWrapper.uniformInt(uniform.variableAnnotation["flag"], 1);
+            }
+            continue;
+          default:
+            console.warn(`Unknown variable type ${uniform.variableType}`);
+        }
+      } else {
+        switch (uniform.variableType) {
+          case "vec2":
+          case "vec3":
+          case "vec4":
+            pWrapper.uniformVectorArray(valName, val);
+            continue;
+          case "float":
+            pWrapper.uniformFloatArray(valName, val);
+            continue;
+          case "int":
+            pWrapper.uniformIntArray(valName, val);
+            continue;
+          default:
+            console.warn(`Unknown array variable type ${uniform.variableType}[]`);
+        }
       }
     }
   }
@@ -133,26 +154,44 @@ class Material extends JThreeObjectEEWithID {
   }
 
   private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
-    switch (uniform.variableType) {
-      case "vec2":
-        pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
-        return;
-      case "vec3":
-        pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
-        return;
-      case "vec4":
-        pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 1));
-        return;
-      case "sampler2D":
-        let registerAnnotation = uniform.variableAnnotation["register"];
-        let register;
-        if (registerAnnotation) {
-          register = <number>parseInt(registerAnnotation, 10);
-        } else {
-          register = 0;
-        }
-        pWrapper.uniformSampler(uniform.variableName, renderer.alternativeTexture, register);
-        return;
+    if (!uniform.isArray) {
+      switch (uniform.variableType) {
+        case "vec2":
+          pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
+          return;
+        case "vec3":
+          pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
+          return;
+        case "vec4":
+          pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 1));
+          return;
+        case "sampler2D":
+          let registerAnnotation = uniform.variableAnnotation["register"];
+          let register;
+          if (registerAnnotation) {
+            register = <number>parseInt(registerAnnotation, 10);
+          } else {
+            register = 0;
+          }
+          pWrapper.uniformSampler(uniform.variableName, renderer.alternativeTexture, register);
+          if (uniform.variableAnnotation["flag"]) {
+            pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
+          }
+          return;
+        case "samplerCube":
+          let registerCubeAnnotation = uniform.variableAnnotation["register"];
+          let registerCube;
+          if (registerAnnotation) {
+            registerCube = <number>parseInt(registerCubeAnnotation, 10);
+          } else {
+            registerCube = 0;
+          }
+          pWrapper.uniformSampler(uniform.variableName, renderer.alternativeCubeTexture, registerCube);
+          if (uniform.variableAnnotation["flag"]) {
+            pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
+          }
+          return;
+      }
     }
   }
 

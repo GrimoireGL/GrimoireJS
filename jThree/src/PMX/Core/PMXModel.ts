@@ -5,10 +5,8 @@ import SceneObject = require("../../Core/SceneObject");
 import PMXModelData = require("../PMXLoader");
 import PMXGeometry = require("./PMXGeometry");
 import PMXMaterial = require("./Materials/PMXMaterial");
-import Delegates = require("../../Base/Delegates");
 import PMXSkeleton = require("./PMXSkeleton");
 import PMXMorphManager = require("./PMXMorphManager");
-import PMXGBufferMaterial = require("./Materials/PMXGBufferMaterial");
 import PMXShadowMapMaterial = require("./Materials/PMXShadowMapMaterial");
 import JThreeEvent = require("../../Base/JThreeEvent");
 import PMXTextureManager = require("./PMXTextureManager");
@@ -16,27 +14,27 @@ import Q = require("q");
 
 class PMXModel extends SceneObject {
 
-    public static LoadFromUrl(url: string): Q.Promise<PMXModel> {
-        var d = Q.defer<PMXModel>();
-        var targetUrl = url;
-        var targetDirectory = targetUrl.substr(0, targetUrl.lastIndexOf("/") + 1);
-        var oReq = new XMLHttpRequest();
-        oReq.open("GET", targetUrl, true);
-        oReq.setRequestHeader("Accept", "*/*");
-        oReq.responseType = "arraybuffer";
-        oReq.onload = () => {
-            var pmx = new PMXModelData(oReq.response);
-            var model = new PMXModel(pmx, targetDirectory);
-            if (model.loaded) d.resolve(model);
-            else {
-                model.onload.addListener(() => {
-                    d.resolve(model);
-                })
-            }
-        };
-        oReq.send(null);
-        return d.promise;
-    }
+  public static LoadFromUrl(url: string): Q.Promise<PMXModel> {
+    var d = Q.defer<PMXModel>();
+    var targetUrl = url;
+    var targetDirectory = targetUrl.substr(0, targetUrl.lastIndexOf("/") + 1);
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", targetUrl, true);
+    oReq.setRequestHeader("Accept", "*/*");
+    oReq.responseType = "arraybuffer";
+    oReq.onload = () => {
+      var pmx = new PMXModelData(oReq.response);
+      var model = new PMXModel(pmx, targetDirectory);
+      if (model.loaded) d.resolve(model);
+      else {
+        model.onload.addListener(() => {
+          d.resolve(model);
+        })
+      }
+    };
+    oReq.send(null);
+    return d.promise;
+  }
 
     private modelData: PMXModelData;
 
@@ -97,7 +95,6 @@ class PMXModel extends SceneObject {
             var currentMat = pmx.Materials[materialCount];
             var mat = new PMXMaterial(this, materialCount, offset);
             this.addMaterial(mat);
-            //this.addMaterial(new PMXGBufferMaterial(mat));
             this.addMaterial(new PMXPrimaryBufferMaterial(mat));
             this.addMaterial(new PMXShadowMapMaterial(mat));
             this.addMaterial(new PMXHitAreaMaterial(mat));
@@ -114,4 +111,4 @@ class PMXModel extends SceneObject {
     }
 }
 
-export =PMXModel;
+export = PMXModel;

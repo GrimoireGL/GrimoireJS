@@ -1,7 +1,6 @@
-﻿ interface GroupMorph
-{
-	morphIndex:number;
-	morphRate:number;
+interface GroupMorph {
+  morphIndex: number;
+  morphRate: number;
 }
 
- export = GroupMorph;
+export = GroupMorph;

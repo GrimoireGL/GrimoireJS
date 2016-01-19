@@ -1,10 +1,9 @@
-﻿
-interface BoneMorph
-{
-    boneIndex: number;
-    translationOffset: number[];
-    rotationOffset: number[];
+
+interface BoneMorph {
+  boneIndex: number;
+  translationOffset: number[];
+  rotationOffset: number[];
 }
 
 
-export=BoneMorph;
+export = BoneMorph;

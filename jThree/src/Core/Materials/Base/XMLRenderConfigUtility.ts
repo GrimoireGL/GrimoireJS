@@ -14,13 +14,36 @@ class XMLRenderConfigureUtility {
     XMLRenderConfigureUtility._parseCullConfigure(parent, defConfig, target);
     XMLRenderConfigureUtility._parseBlendConfigure(parent, defConfig, target);
     XMLRenderConfigureUtility._parseDepthConfigure(parent, defConfig, target);
+    XMLRenderConfigureUtility._parseMaskConfigure(parent, defConfig, target);
     return target;
   }
 
   private static _parseBoolean(val: string, def: boolean): boolean {
     if (!val) { return def; }
-    if (val == "true") { return true; }
-    else { return false; }
+    if (val === "true") { return true; }
+    return false;
+  }
+
+  private static _parseMaskConfigure(elem: Element, defConfig: IRenderStageRenderConfigure, target: IRenderStageRenderConfigure): void {
+    const maskNode = elem.getElementsByTagName("mask").item(0);
+    if (!maskNode) {
+      target.redMask = defConfig.redMask;
+      target.greenMask = defConfig.greenMask;
+      target.blueMask = defConfig.blueMask;
+      target.alphaMask = defConfig.alphaMask;
+      target.depthMask = defConfig.depthMask;
+    } else {
+      const redMaskStr = maskNode.getAttribute("red");
+      const greenMaskStr = maskNode.getAttribute("green");
+      const blueMaskStr = maskNode.getAttribute("blue");
+      const alphaMaskStr = maskNode.getAttribute("alpha");
+      const depthMaskStr = maskNode.getAttribute("depth");
+      target.redMask = XMLRenderConfigureUtility._parseBoolean(redMaskStr, defConfig.redMask);
+      target.greenMask = XMLRenderConfigureUtility._parseBoolean(greenMaskStr, defConfig.greenMask);
+      target.blueMask = XMLRenderConfigureUtility._parseBoolean(blueMaskStr, defConfig.blueMask);
+      target.alphaMask = XMLRenderConfigureUtility._parseBoolean(alphaMaskStr, defConfig.alphaMask);
+      target.depthMask = XMLRenderConfigureUtility._parseBoolean(depthMaskStr, defConfig.depthMask);
+    }
   }
 
   private static _parseCullConfigure(elem: Element, defConfig: IRenderStageRenderConfigure, target: IRenderStageRenderConfigure): void {
@@ -67,9 +90,10 @@ class XMLRenderConfigureUtility {
   }
 
   public static applyAll(gl: WebGLRenderingContext, config: IRenderStageRenderConfigure): void {
-    XMLRenderConfigureUtility._applyCullConfigureToGL(gl, config.cullOrientation != "none", config.cullOrientation);
+    XMLRenderConfigureUtility._applyCullConfigureToGL(gl, config.cullOrientation !== "none", config.cullOrientation);
     XMLRenderConfigureUtility._applyBlendFunConfigureToGL(gl, config.blendEnabled, config.blendSrcFactor, config.blendDstFactor);
     XMLRenderConfigureUtility._applyDepthTestConfigureToGL(gl, config.depthEnabled, config.depthMode);
+    XMLRenderConfigureUtility._applyMaskConfigureToGL(gl, config.redMask, config.greenMask, config.blueMask, config.alphaMask, config.depthMask);
   }
 
 
@@ -99,6 +123,11 @@ class XMLRenderConfigureUtility {
     } else {
       gl.disable(gl.BLEND);
     }
+  }
+
+  private static _applyMaskConfigureToGL(gl: WebGLRenderingContext, red: boolean, green: boolean, blue: boolean, alpha: boolean, depth: boolean): void {
+    gl.colorMask(red, green, blue, alpha);
+    gl.depthMask(depth);
   }
 }
 

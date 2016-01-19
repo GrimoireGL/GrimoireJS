@@ -22,7 +22,7 @@ const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapp
     pWrapper.uniformMatrix("_matPVM", matArg.object.Transformer.calculateMVPMatrix(matArg.renderStage.Renderer));
   }
   if (uniforms["_matIP"]) {
-    pWrapper.uniformMatrix("_matIP", Matrix.inverse(matArg.camera.projectionMatrix));
+    pWrapper.uniformMatrix("_matIP", matArg.camera.invProjectionMatrix);
   }
   if (uniforms["_eyePosition"]) {
     pWrapper.uniformVector("_eyePosition", matArg.camera.Transformer.GlobalPosition);

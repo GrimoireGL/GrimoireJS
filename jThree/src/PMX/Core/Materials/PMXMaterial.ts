@@ -1,30 +1,17 @@
 import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import Material = require('../../../Core/Materials/Material');
-import Program = require("../../../Core/Resources/Program/Program");
-import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
+import Material = require("../../../Core/Materials/Material");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import SceneObject = require("../../../Core/SceneObject");
-import Vector4 = require('../../../Math/Vector4');
-import Matrix = require("../../../Math/Matrix");
+import Vector4 = require("../../../Math/Vector4");
 import Color4 = require("../../../Math/Color4");
-import Color3 = require('../../../Math/Color3');
-import GLCullMode = require("../../../Wrapper/GLCullMode");
-import GLFeatureType = require("../../../Wrapper/GLFeatureType");
-import Scene = require('../../../Core/Scene');
-import ResolvedChainInfo = require('../../../Core/Renderers/ResolvedChainInfo');
-import PMX = require('../../PMXLoader');
-import Texture = require('../../../Core/Resources/Texture/Texture');
-import BlendFuncParamType = require("../../../Wrapper/BlendFuncParamType");
-import PMXGeometry = require('./../PMXGeometry');
-import PMXModel = require('./../PMXModel');
-import PmxMaterialMorphParamContainer = require('./../PMXMaterialMorphParamContainer');
-import JThreeLogger = require("../../../Base/JThreeLogger");
+import Color3 = require("../../../Math/Color3");
+import PMX = require("../../PMXLoader");
+import Texture = require("../../../Core/Resources/Texture/Texture");
+import PMXModel = require("./../PMXModel");
+import PmxMaterialMorphParamContainer = require("./../PMXMaterialMorphParamContainer");
 import ResourceManager = require("../../../Core/ResourceManager");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
-import IMaterialConfig = require("../../../Core/Materials/IMaterialConfig");
-import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 
 /**
  * the materials for PMX.
@@ -35,19 +22,6 @@ class PMXMaterial extends Material {
   private _verticiesCount;
 
   private _verticiesOffset;
-
-  public getMaterialConfig(pass: number, technique: number): IMaterialConfig {
-    if (pass === 0) {
-      return {
-        cull: this.cullEnabled ? "ccw" : undefined,
-        blend: true
-      }
-    } else {
-      return {
-        cull: "cw"
-      }
-    }
-  }
 
   /**
    * Count of verticies
@@ -238,4 +212,4 @@ class PMXMaterial extends Material {
   }
 }
 
-export =PMXMaterial;
+export = PMXMaterial;

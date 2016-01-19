@@ -12,6 +12,8 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Material = require("../../../Core/Materials/Material");
 import MaterialPass = require("../../../Core/Materials/Base/MaterialPass");
 import GomlAttribute = require("../../GomlAttribute");
+import TextureNode = require("../../Nodes/Texture/TextureNode");
+import CubeTextureNode = require("../../Nodes/Texture/CubeTextureNode");
 
 class MaterialNodeBase extends GomlTreeNodeBase {
   protected groupPrefix: string = "material";
@@ -27,6 +29,13 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         onchanged: this._onNameAttrChanged,
       }
     });
+  }
+
+  /**
+  * The material this node managing.
+  */
+  public get TargetMaterial(): Material {
+    return this.targetMaterial;
   }
 
   protected onMount() {
@@ -109,6 +118,32 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       converter = "float"; // This should be float
       initialValue = 0.0;
     }
+    if (variableInfo.variableType === "sampler2D") {
+      return {
+        converter: "string",
+        value: "",
+        onchanged: (v) => {
+          if (v.Value) {
+            this.nodeImport("jthree.resource.texture2d", v.Value, (node: TextureNode) => {
+              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            });
+          }
+        }
+      };
+    }
+    if (variableInfo.variableType === "samplerCube") {
+      return {
+        converter: "string",
+        value: "",
+        onchanged: (v) => {
+          if (v.Value) {
+            this.nodeImport("jthree.resource.cubetexture", v.Value, (node: CubeTextureNode) => {
+              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            });
+          }
+        }
+      };
+    }
     if (!converter) {
       return;
     }
@@ -116,7 +151,6 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       converter: converter,
       value: initialValue,
       onchanged: (v) => {
-       console.warn("onchanged" + v.Name);
         this.targetMaterial.materialVariables[variableName] = v.Value;
       }
     };

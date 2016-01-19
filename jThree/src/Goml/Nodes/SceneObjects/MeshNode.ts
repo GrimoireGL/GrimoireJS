@@ -62,7 +62,7 @@ class MeshNode extends SceneObjectNodeBase {
     this.mat = attr.Value;
     this.mat_instance = null;
     this.nodeImport("jthree.materials", this.mat, (mat: MaterialNode) => {
-      this.mat_instance = mat.targetMaterial;
+      this.mat_instance = mat.TargetMaterial;
       this._updateTarget();
     });
   }
