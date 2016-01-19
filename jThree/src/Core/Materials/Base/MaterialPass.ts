@@ -1,3 +1,4 @@
+import IConfigureEventArgs = require("../../IConfigureEventArgs");
 import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
 import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
 import Material = require("../Material");
@@ -15,7 +16,6 @@ import ResourceManager = require("../../ResourceManager");
 import ShaderParser = require("./ShaderParser");
 import Delegates = require("../../../Base/Delegates");
 class MaterialPass extends JThreeObjectWithID {
-  private static _lastExecutedPassProgram: string;
 
   public passIndex: number;
 
@@ -51,12 +51,9 @@ class MaterialPass extends JThreeObjectWithID {
     const gl = matArg.renderStage.GL;
     const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
     const renderConfig = this._fetchRenderConfigure(matArg);
-    if (MaterialPass._lastExecutedPassProgram !== this._passId) {
-      XMLRenderConfigUtility.applyAll(gl, renderConfig);
-      MaterialPass._lastExecutedPassProgram = this._passId;
-      // Declare using program before assigning material variables
-      pWrapper.useProgram();
-    }
+    XMLRenderConfigUtility.applyAll(gl, renderConfig);
+    // Declare using program before assigning material variables
+    pWrapper.useProgram();
     // Apply attribute variables by geometries
     matArg.object.Geometry.applyAttributeVariables(pWrapper, this.parsedProgram.attributes);
     // Apply uniform variables
@@ -76,7 +73,7 @@ class MaterialPass extends JThreeObjectWithID {
       this._renderConfigureCache[id] = configure;
       result = configure;
     }
-    this._material.emit("configure", {
+    this._material.emit("configure", <IConfigureEventArgs>{
       pass: this,
       passIndex: this.passIndex,
       material: this._material,

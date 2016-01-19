@@ -54,6 +54,7 @@
     "./jThree/src/Core/GLExtensionList.ts",
     "./jThree/src/Core/GLExtensionManager.ts",
     "./jThree/src/Core/GLSpecManager.ts",
+    "./jThree/src/Core/IConfigureEventArgs.ts",
     "./jThree/src/Core/IMouseEventArgs.ts",
     "./jThree/src/Core/IParentSceneChangedEventArgs.ts",
     "./jThree/src/Core/IResourceLoaderEventArgs.ts",
