@@ -10,23 +10,23 @@
       <![CDATA[
       attribute vec4 position;
 
-      //@vertonly{
+      @vertonly{
         uniform mat4 _matPVM;
 
         void main(void)
         {
         	gl_Position =_matPVM * position;
         }
-      //}
+      }
 
-      //@fragonly{
+      @fragonly{
         uniform vec4 indexColor;
 
         void main()
         {
         	gl_FragColor = indexColor;
         }
-      //}
+      }
 
       ]]>
     </glsl>

@@ -7,23 +7,21 @@
         <glsl>
           <![CDATA[
       attribute vec3 position;
-      //@vertonly
-      //{
+      @vertonly{
 
         void main(void)
         {
           gl_Position =  vec4(position,1.0);
         }
-      //}
+      }
 
-      //@fragonly
-      //{
+      @fragonly{
         uniform vec3 lightColor;
         void main(void)
         {
           gl_FragColor = vec4(lightColor,1.0);
         }
-      //}
+      }
       ]]>
         </glsl>
       </pass>

@@ -1,6 +1,7 @@
 <goml>
   <resources>
     <quad name="quad"/>
+    <texture name="testTexture" src="/resource/texture/miku.png"/>
     <phong name="matTest" brightness="20.0" specular="#AAA" diffuse="#AAA"/>
   </resources>
   <canvases>
@@ -627,7 +628,7 @@
           <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
           <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
         </object>
-      </object> -->
+      </object>
       <scenelight color="#101010"/>
       <dlight color="#111111" rotation="x(45d)"/>
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx"/>

@@ -1,3 +1,5 @@
+import CubeTextureNode = require("../Texture/CubeTextureNode");
+import TextureNode = require("../Texture/TextureNode");
 import Color4 = require("../../../Math/Color4");
 import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
 import JThreeContext = require("../../../JThreeContext");
@@ -10,7 +12,7 @@ import Vector3 = require("../../../Math/Vector3");
 import Vector2 = require("../../../Math/Vector2");
 import AttributeDeclaration = require("../../AttributeDeclaration");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Material = require('../../../Core/Materials/Material');
+import Material = require("../../../Core/Materials/Material");
 import JThreeID = require("../../../Base/JThreeID");
 import MaterialPass = require("../../../Core/Materials/Base/MaterialPass");
 
@@ -36,8 +38,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     this.name = attr.Value;
   }
 
-  protected __getMaterialFromMatName(name:string):BasicMaterial
-  {
+  protected __getMaterialFromMatName(name: string): BasicMaterial {
     return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial(name);
   }
 
@@ -83,28 +84,53 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   private _generateAttributeForVariable(variableName: string, variableInfo: IVariableInfo): AttributeDeclationBody {
     let converter;
     let initialValue;
-    if (variableInfo.variableType == "vec2") { // TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.
+    if (variableInfo.variableType === "vec2") { // TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.
       converter = "vec2";
       initialValue = Vector2.Zero;
     }
-    if (variableInfo.variableType == "vec3") {
+    if (variableInfo.variableType === "vec3") {
       converter = "color3";
       initialValue = Vector3.Zero;
     }
-    if (variableInfo.variableType == "vec4") {
-      converter = "color4";//TODO add vector4 converter
-      initialValue = new Color4(0,0,0,1);
+    if (variableInfo.variableType === "vec4") {
+      converter = "color4"; // TODO add vector4 converter
+      initialValue = new Color4(0, 0, 0, 1);
     }
-    if (variableInfo.variableType == "float") {
+    if (variableInfo.variableType === "float") {
       converter = "float"; // This should be float
       initialValue = 0.0;
+    }
+    if (variableInfo.variableType === "sampler2D") {
+      return {
+        converter: "string",
+        value: "",
+        onchanged: (v) => {
+          if (v.Value) {
+            this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", v.Value, (node: TextureNode) => {
+              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            });
+          }
+        }
+      };
+    }
+    if (variableInfo.variableType === "samplerCube") {
+      return {
+        converter: "string",
+        value: "",
+        onchanged: (v) => {
+          if (v.Value) {
+            this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", v.Value, (node: CubeTextureNode) => {
+              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            });
+          }
+        }
+      };
     }
     if (!converter) return undefined;
     return {
       converter: converter,
       value: initialValue,
       onchanged: (v) => {
-       console.warn("onchanged" + v.Name);
         this.targetMaterial.materialVariables[variableName] = v.Value;
       }
     };

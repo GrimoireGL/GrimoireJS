@@ -1,11 +1,11 @@
-import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../Base/IApplyMaterialArgument");
 import BasicMaterial = require("../Base/BasicMaterial");
 class PrimaryBufferMaterial extends BasicMaterial {
   constructor() {
     super(require("../BuiltIn/GBuffer/PrimaryBuffer.html"));
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     var fm = matArg.object.getMaterial("jthree.materials.forematerial");//brightness
     var brightness = 0;
     const fmArgs = fm.materialVariables;

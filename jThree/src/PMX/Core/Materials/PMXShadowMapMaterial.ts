@@ -1,19 +1,7 @@
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
-import Material = require('../../../Core/Materials/Material');
-import Program = require("../../../Core/Resources/Program/Program");
-import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import SceneObject = require("../../../Core/SceneObject");
-import Matrix = require("../../../Math/Matrix");
-import GLFeatureType = require("../../../Wrapper/GLFeatureType");
-import Scene = require('../../../Core/Scene');
-import PMXMaterial = require('./PMXMaterial');
-import ResolvedChainInfo = require('../../../Core/Renderers/ResolvedChainInfo');
-import PMXGeometry = require('./../PMXGeometry');
-import Vector4 = require("../../../Math/Vector4");
-import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
-import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
+import PMXMaterial = require("./PMXMaterial");
 /**
  * the materials for PMX.
  */
@@ -40,7 +28,7 @@ class PMXShadowMapMaterial extends BasicMaterial {
     this.setLoaded();
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     if (this.associatedMaterial.Diffuse.A < 1.0E-3) return;
     // var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
     // const skeleton = this.associatedMaterial.ParentModel.skeleton;

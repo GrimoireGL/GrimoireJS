@@ -14,112 +14,125 @@ import TextureFormat = require("../../../Wrapper/TextureInternalFormatType");
  */
 class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
 {
-    private targetTextureType: TextureTargetType = TextureTargetType.Texture2D;
+  private targetTextureType: TextureTargetType = TextureTargetType.Texture2D;
 
-    public get TargetTextureType() {
-        return this.targetTextureType;
+  public get TargetTextureType() {
+    return this.targetTextureType;
+  }
+
+  protected textureFormat: TextureFormat = TextureFormat.RGBA;
+
+  public get TextureFormat(): TextureFormat {
+    return this.textureFormat;
+  }
+
+  protected elementFormat: ElementFormat = ElementFormat.UnsignedByte;
+
+  public get ElementFormat(): ElementFormat {
+    return this.elementFormat;
+  }
+
+  private onFilterParameterChangedHandler: JThreeEvent<TextureParameterType> = new JThreeEvent<TextureParameterType>();
+  private minFilter: TextureMinFilterType = TextureMinFilterType.Nearest;
+  private magFilter: TextureMagFilterType = TextureMagFilterType.Nearest;
+  private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
+  private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
+  private flipY: boolean = false;
+
+  constructor(textureName: string);
+  constructor(textureName: string, flipY: boolean, isCubeTexture: boolean);
+  constructor(textureName: string, flipY?: boolean, isCubeTexture?: boolean) {
+    super();
+    if (typeof flipY === "undefined") {
+      flipY = false;
     }
-
-    protected textureFormat: TextureFormat = TextureFormat.RGBA;
-
-    public get TextureFormat(): TextureFormat {
-        return this.textureFormat;
+    if (typeof isCubeTexture === "undefined") {
+      isCubeTexture = false;
     }
+    this.flipY = flipY;
+    this.targetTextureType = isCubeTexture ? TextureTargetType.CubeTexture : TextureTargetType.Texture2D;
+    this.initializeForFirst();
+  }
 
-    protected elementFormat: ElementFormat = ElementFormat.UnsignedByte;
 
-    public get ElementFormat(): ElementFormat {
-        return this.elementFormat;
+  public get FlipY(): boolean {
+    return this.flipY;
+  }
+
+  public set FlipY(val: boolean) {
+    this.flipY = val;
+  }
+
+  public get MinFilter(): TextureMinFilterType {
+    return this.minFilter;
+  }
+  public set MinFilter(value: TextureMinFilterType) {
+    if (value === this.minFilter) {
+      return;
     }
+    this.minFilter = value;
+    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.MinFilter);
+  }
 
-    private onFilterParameterChangedHandler: JThreeEvent<TextureParameterType> = new JThreeEvent<TextureParameterType>();
-    private minFilter: TextureMinFilterType = TextureMinFilterType.Nearest;
-    private magFilter: TextureMagFilterType = TextureMagFilterType.Nearest;
-    private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
-    private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
-    private flipY: boolean = false;
-
-    constructor(textureName: string);
-    constructor(textureName: string, flipY: boolean, isCubeTexture: boolean);
-    constructor(textureName: string, flipY?: boolean, isCubeTexture?: boolean) {
-        super();
-        if (typeof flipY === "undefined") flipY = false;
-        if (typeof isCubeTexture === "undefined") isCubeTexture = false;
-        this.flipY = flipY;
-        this.targetTextureType = isCubeTexture ? TextureTargetType.CubeTexture : TextureTargetType.Texture2D;
-        this.initializeForFirst();
+  public get MagFilter(): TextureMagFilterType {
+    return this.magFilter;
+  }
+  public set MagFilter(value: TextureMagFilterType) {
+    if (value === this.magFilter) {
+      return;
     }
+    this.magFilter = value;
+    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.MagFilter);
+  }
 
+  public get SWrap(): TextureWrapType {
+    return this.sWrap;
+  }
 
-    public get FlipY(): boolean {
-        return this.flipY;
+  public set SWrap(value: TextureWrapType) {
+    if (this.sWrap === value) {
+      return;
     }
+    this.sWrap = value;
+    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.WrapS);
+  }
 
-    public set FlipY(val: boolean) {
-        this.flipY = val;
-    }
+  public get TWrap(): TextureWrapType {
+    return this.tWrap;
+  }
 
-    public get MinFilter(): TextureMinFilterType {
-        return this.minFilter;
+  public set TWrap(value: TextureWrapType) {
+    if (this.tWrap === value) {
+      return;
     }
-    public set MinFilter(value: TextureMinFilterType) {
-        if (value === this.minFilter) return;
-        this.minFilter = value;
-        this.onFilterParameterChangedHandler.fire(this, TextureParameterType.MinFilter);
-    }
+    this.tWrap = value;
+    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.WrapT);
+  }
 
-    public get MagFilter(): TextureMagFilterType {
-        return this.magFilter;
-    }
-    public set MagFilter(value: TextureMagFilterType) {
-        if (value === this.magFilter) return;
-        this.magFilter = value;
-        this.onFilterParameterChangedHandler.fire(this, TextureParameterType.MagFilter);
-    }
+  public onFilterParameterChanged(handler: Delegates.Action2<TextureBase, TextureParameterType>): void {
+    this.onFilterParameterChangedHandler.addListener(handler);
+  }
 
-    public get SWrap(): TextureWrapType {
-        return this.sWrap;
+  public generateMipmapIfNeed() {
+    switch (this.MinFilter) {
+      case TextureMinFilterType.LinearMipmapLinear:
+      case TextureMinFilterType.LinearMipmapNearest:
+      case TextureMinFilterType.NearestMipmapLinear:
+      case TextureMinFilterType.NearestMipmapNearest:
+        this.each((v) => {
+          v.bind();
+          v.GL.generateMipmap(this.TargetTextureType);
+        });
+        break;
+      default:
     }
+  }
 
-    public set SWrap(value: TextureWrapType) {
-        if (this.sWrap === value) return;
-        this.sWrap = value;
-        this.onFilterParameterChangedHandler.fire(this, TextureParameterType.WrapS);
-    }
+  private textureName: string;
 
-    public get TWrap(): TextureWrapType {
-        return this.tWrap;
-    }
-
-    public set TWrap(value: TextureWrapType) {
-        if (this.tWrap === value) return;
-        this.tWrap = value;
-        this.onFilterParameterChangedHandler.fire(this, TextureParameterType.WrapT);
-    }
-
-    public onFilterParameterChanged(handler: Delegates.Action2<TextureBase, TextureParameterType>): void {
-        this.onFilterParameterChangedHandler.addListener(handler);
-    }
-
-    public generateMipmapIfNeed() {
-        switch (this.MinFilter) {
-            case TextureMinFilterType.LinearMipmapLinear:
-            case TextureMinFilterType.LinearMipmapNearest:
-            case TextureMinFilterType.NearestMipmapLinear:
-            case TextureMinFilterType.NearestMipmapNearest:
-                this.each((v) => {
-                    v.bind();
-                    v.GL.generateMipmap(this.TargetTextureType);
-                });
-            default:
-        }
-    }
-
-    private textureName: string;
-
-    public get TextureName(): string {
-        return this.textureName;
-    }
+  public get TextureName(): string {
+    return this.textureName;
+  }
 }
 
 export = TextureBase;

@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require('gl-matrix');
+import glm = require("gl-matrix");
 class Vector2 extends VectorBase {
 
   public static get XUnit(): Vector2 {
@@ -130,7 +130,7 @@ class Vector2 extends VectorBase {
   }
 
   public toDisplayString(): string {
-    return `Vector2${this.toString()}`;
+    return `Vector2${this.toString() }`;
   }
 
   public get ElementCount(): number { return 2; }

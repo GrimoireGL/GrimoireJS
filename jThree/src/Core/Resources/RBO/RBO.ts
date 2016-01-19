@@ -2,52 +2,45 @@ import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer
 import RBOWrapper = require("./RBOWrapper");
 import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat");
 import Canvas = require("../../../Core/Canvas");
-class RBO extends ContextSafeResourceContainer<RBOWrapper>
-{
-	constructor(width:number,height:number,format:RBOInternalFormatType=RBOInternalFormatType.DepthComponent16)
-	{
-		super();
-		this.width=width;
-		this.height=height;
-		this.format=format;
-		this.initializeForFirst();
-	}
+class RBO extends ContextSafeResourceContainer<RBOWrapper> {
+  constructor(width: number, height: number, format: RBOInternalFormatType = RBOInternalFormatType.DepthComponent16) {
+    super();
+    this.width = width;
+    this.height = height;
+    this.format = format;
+    this.initializeForFirst();
+  }
 
-	private width:number;
-	private height:number;
-	private format:RBOInternalFormatType;
-	public get Width():number
-	{
-		return this.width;
-	}
+  private width: number;
+  private height: number;
+  private format: RBOInternalFormatType;
+  public get Width(): number {
+    return this.width;
+  }
 
-	public get Height():number
-	{
-		return this.height;
-	}
+  public get Height(): number {
+    return this.height;
+  }
 
-	public get Format():RBOInternalFormatType
-	{
-		return this.format;
-	}
+  public get Format(): RBOInternalFormatType {
+    return this.format;
+  }
 
-	protected getInstanceForRenderer(renderer:Canvas): RBOWrapper {
-		return new RBOWrapper(renderer,this);
+  protected getInstanceForRenderer(renderer: Canvas): RBOWrapper {
+    return new RBOWrapper(renderer, this);
+  }
+
+  protected disposeResource(resource: RBOWrapper): void {
+    return;
+  }
+
+  public resize(width: number, height: number) {
+    if (this.width !== width || this.height !== height) {
+      this.width = width;
+      this.height = height;
+      this.each(v => (<RBOWrapper>v).resize(width, height));
     }
-
-    protected disposeResource(resource: RBOWrapper): void {
-
-    }
-
-    public resize(width:number,height:number)
-	{
-		if(this.width!==width||this.height!==height)
-		{
-			this.width=width;
-			this.height=height;
-			this.each(v=>(<RBOWrapper>v).resize(width,height));
-		}
-	}
+  }
 }
 
 export = RBO;

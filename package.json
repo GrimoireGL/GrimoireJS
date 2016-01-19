@@ -39,6 +39,7 @@
     "coffee-script": "^1.10.0",
     "coffeeify": "^2.0.1",
     "del": "^2.2.0",
+    "difflet": "^1.0.1",
     "envify": "^3.4.0",
     "espower-typescript": "^3.0.0",
     "glob-array": "^0.1.2",

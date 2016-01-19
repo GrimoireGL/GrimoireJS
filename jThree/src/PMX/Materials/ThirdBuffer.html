@@ -11,7 +11,7 @@
       attribute vec4 boneWeights;
       attribute vec4 boneIndicies;
 
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matPV;
         //@(register:2)
@@ -22,8 +22,8 @@
           mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
           gl_Position = calcPosition(boneTransform,_matPV,position);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
 
         uniform vec3 specular;
 
@@ -31,7 +31,7 @@
         {
         	gl_FragColor.rgb = specular;
         }
-      //}
+      }
       ]]>
     </glsl>
   </pass>

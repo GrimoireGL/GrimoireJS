@@ -1,29 +1,18 @@
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
+import IConfigureEventArgs = require("../../../Core/IConfigureEventArgs");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import Material = require('../../../Core/Materials/Material');
-import Program = require("../../../Core/Resources/Program/Program");
-import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
+import Material = require("../../../Core/Materials/Material");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import SceneObject = require("../../../Core/SceneObject");
-import Vector4 = require('../../../Math/Vector4');
-import Matrix = require("../../../Math/Matrix");
+import Vector4 = require("../../../Math/Vector4");
 import Color4 = require("../../../Math/Color4");
-import Color3 = require('../../../Math/Color3');
-import GLCullMode = require("../../../Wrapper/GLCullMode");
-import GLFeatureType = require("../../../Wrapper/GLFeatureType");
-import Scene = require('../../../Core/Scene');
-import ResolvedChainInfo = require('../../../Core/Renderers/ResolvedChainInfo');
-import PMX = require('../../PMXLoader');
-import Texture = require('../../../Core/Resources/Texture/Texture');
-import BlendFuncParamType = require("../../../Wrapper/BlendFuncParamType");
-import PMXGeometry = require('./../PMXGeometry');
-import PMXModel = require('./../PMXModel');
-import PmxMaterialMorphParamContainer = require('./../PMXMaterialMorphParamContainer');
-import JThreeLogger = require("../../../Base/JThreeLogger");
+import Color3 = require("../../../Math/Color3");
+import PMX = require("../../PMXLoader");
+import Texture = require("../../../Core/Resources/Texture/Texture");
+import PMXModel = require("./../PMXModel");
+import PmxMaterialMorphParamContainer = require("./../PMXMaterialMorphParamContainer");
 import ResourceManager = require("../../../Core/ResourceManager");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
-import RenderStageBase = require("../../../Core/Renderers/RenderStages/RenderStageBase");
 
 /**
  * the materials for PMX.
@@ -127,7 +116,7 @@ class PMXMaterial extends Material {
     this._verticiesCount = materialData.vertexCount;
     this._verticiesOffset = offset;
     this.Name = materialData.materialName;
-    this.cullEnabled = !((materialData.drawFlag & 0x01) > 0);//each side draw flag
+    this.cullEnabled = !((materialData.drawFlag & 0x01) > 0); // each side draw flag
     this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
     this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
     if ((materialData.drawFlag & 0x10) > 0) this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);
@@ -137,18 +126,22 @@ class PMXMaterial extends Material {
     this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
     this.sphere = this.loadPMXTexture(materialData.sphereTextureIndex, "sphere");
     this.texture = this.loadPMXTexture(materialData.textureIndex, "texture");
-    if (materialData.sharedToonFlag == 0) {// not shared texture
+    if (materialData.sharedToonFlag === 0) { // not shared texture
       this.toon = this.loadPMXTexture(materialData.targetToonIndex, "toon");
     } else {
       this.toon = this.loadSharedTexture(materialData.targetToonIndex);
     }
     this.setLoaded();
+    this.__innerMaterial.on("configure", (v: IConfigureEventArgs) => {
+      if (v.passIndex === 0) {
+        v.configure.cullOrientation = this.cullEnabled ? "BACK" : "NONE";
+      }
+    });
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
-    var renderer = matArg.renderStage.Renderer;
+  public apply(matArg: IApplyMaterialArgument): void {
     const skeleton = this.parentModel.skeleton;
-    if (matArg.passIndex == 1) {
+    if (matArg.passIndex === 1) {
       this.__innerMaterial.materialVariables = {
         boneCount: skeleton.BoneCount,
         boneMatriciesTexture: skeleton.MatrixTexture,
@@ -224,4 +217,4 @@ class PMXMaterial extends Material {
   }
 }
 
-export =PMXMaterial;
+export = PMXMaterial;

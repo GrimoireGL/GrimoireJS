@@ -11,7 +11,7 @@
       attribute vec3 position;
       varying vec3 vPosition;
 
-      //@vertonly{
+      @vertonly{
         uniform mat4 _matV;
 
         void main(void)
@@ -19,9 +19,9 @@
         	vPosition = (vec4(position,1.0) * _matV).xyz;
           gl_Position = vec4(position,1.0);
         }
-      //}
+      }
 
-      //@fragonly{
+      @fragonly{
         //@(register:0)
         uniform samplerCube skybox;
 
@@ -29,7 +29,7 @@
         {
         		gl_FragColor=textureCube(skybox,vPosition);
         }
-      //}
+      }
 
       ]]>
     </glsl>

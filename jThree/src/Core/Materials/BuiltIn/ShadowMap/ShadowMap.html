@@ -11,18 +11,17 @@
 
       varying vec4 vPosition;
 
-      //@vertonly{
+      @vertonly{
       uniform mat4 matL;
       void main(void)
       {
         gl_Position = vPosition = matL * vec4(position,1.0);
       }
-      //}
+      }
 
-      //@fragonly
-      //{
+      @fragonly{
       //@import jthree.builtin.shadowfragment
-      //}
+      }
       ]]>
     </glsl>
   </pass>

@@ -1,4 +1,4 @@
-import IMaterialConfigureArgument = require("../../Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../Materials/Base/BasicMaterial");
 import ContextComponents = require("../../../ContextComponents");
 import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
@@ -15,7 +15,7 @@ class AreaLight extends LightBase {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("cube");
     const material = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/AreaLight.html"));
-    material.on("apply", (matArg: IMaterialConfigureArgument) => {
+    material.on("apply", (matArg: IApplyMaterialArgument) => {
       material.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         areaMatrix: Matrix.inverse(Matrix.multiply(matArg.camera.viewMatrix, matArg.object.Transformer.LocalToGlobal))

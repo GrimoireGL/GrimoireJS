@@ -1,9 +1,7 @@
 import Debugger = require("../Debugger");
-class DebuggerModuleBase
-{
-  public attach(debug:Debugger):void
-  {
-
+class DebuggerModuleBase {
+  public attach(debug: Debugger): void {
+   return;
   }
 }
 

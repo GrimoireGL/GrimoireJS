@@ -2,7 +2,7 @@ import TextureRegister = require("./Registerer/TextureRegister");
 import BasicMaterial = require("./BasicMaterial");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./IVariableInfo");
-import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("./IApplyMaterialArgument");
 import ShaderParser = require("./ShaderParser");
 import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
@@ -21,7 +21,7 @@ class MaterialManager implements IContextComponent {
    */
   private _shaderChunks: { [key: string]: string } = {};
 
-  private _uniformRegisters: { [key: string]: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }> } = {};
+  private _uniformRegisters: { [key: string]: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }> } = {};
 
   private _materialDocuments: { [key: string]: string } = {};
 
@@ -61,7 +61,7 @@ class MaterialManager implements IContextComponent {
     return this._shaderChunks[key];
   }
 
-  public addUniformRegister(key: string, register: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>) {
+  public addUniformRegister(key: string, register: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>) {
     this._uniformRegisters[key] = register;
   }
 

@@ -4,7 +4,7 @@ import SceneObject = require("../../../Core/SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
 import AttributeParser = require("../../AttributeParser");
-import Delegate = require('../../../Base/Delegates');
+import Delegate = require("../../../Base/Delegates");
 
 class SceneObjectNodeBase extends GomlTreeNodeBase {
   constructor() {
