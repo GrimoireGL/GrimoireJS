@@ -129,12 +129,12 @@ class GeometryBuilder {
 
       if (i !== 0) {
         index.push(startIndex - 1, startIndex - 3, startIndex);
-        index.push(0, startIndex - 2, startIndex + 1);
+        index.push(0, startIndex + 1, startIndex - 2);
       }
     }
     startIndex = pos.length / 3 - 1;
     index.push(startIndex, startIndex - 2, 1);
-    index.push(0, startIndex - 1, 2);
+    index.push(0, 2, startIndex - 1);
   }
 
   private static calcUVInCircle(index: number, divCount: number): number[] {

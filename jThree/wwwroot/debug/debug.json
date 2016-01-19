@@ -54,6 +54,12 @@
             "js": [
                 "PointLightTest/PointLightTest.js"
             ]
+        },
+        "SpotLightTest": {
+            "goml": "SpotLightTest/SpotLightTest.goml",
+            "js": [
+                "SpotLightTest/SpotLightTest.js"
+            ]
         }
     }
 }
