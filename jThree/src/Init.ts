@@ -104,8 +104,8 @@ class JThreeInit {
     loopManager.addAction(6000, () => canvasManager.afterRenderAll());
     if (JThreeInit.SelfTag.getAttribute("x-lateLoad") !== "true") {
       window.addEventListener("DOMContentLoaded", () => {
-      JThreeInit.startInitialize();
-    });
+        JThreeInit.startInitialize();
+      });
     }
   }
 

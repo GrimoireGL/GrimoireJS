@@ -113,7 +113,7 @@ config =
     target: 'web'
     minify: false
     transform: ['shaderify', 'txtify']
-    detectGlobals: false
+    detectGlobals: true
   debug:
     entries: './jThree/debug/debug.coffee'
     name: 'j3-debug.js'

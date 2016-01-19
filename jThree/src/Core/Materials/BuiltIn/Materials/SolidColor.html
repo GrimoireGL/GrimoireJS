@@ -22,11 +22,10 @@
 
       @fragonly {
         uniform vec4 solid;
-        uniform samplerCube cubeTest;
 
         void main(void)
         {
-          gl_FragColor = textureCube(cubeTest,vPosition.xyz);//solid;
+          gl_FragColor = solid;
         }
       }
 

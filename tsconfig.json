@@ -119,6 +119,7 @@
     "./jThree/src/Core/Resources/ContextSafeResourceContainer.ts",
     "./jThree/src/Core/Resources/FBO/FBO.ts",
     "./jThree/src/Core/Resources/FBO/FBOWrapper.ts",
+    "./jThree/src/Core/Resources/ImageLoader.ts",
     "./jThree/src/Core/Resources/Program/Program.ts",
     "./jThree/src/Core/Resources/Program/ProgramWrapper.ts",
     "./jThree/src/Core/Resources/RBO/RBO.ts",
