@@ -2,7 +2,7 @@
 <material name="jthree.basic.phong" group="jthree.materials.forematerial" order="300">
 <uniform-register>
   <register name="jthree.basic.matrix"/>
-  <register name="jthree.basic.light"/>
+  <register name="jthree.basic.buffer"/>
 </uniform-register>
 <passes>
   <pass>
@@ -39,7 +39,9 @@
       }
 
       @fragonly{
+        //@(register:0,type:buffer,name:DIFFUSE)
         uniform sampler2D _dlBuffer;
+        //@(register:1,type:buffer,name:SPECULAR)
         uniform sampler2D _slBuffer;
         uniform vec4 diffuse;
         uniform vec3 specular;

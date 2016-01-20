@@ -8,7 +8,6 @@ import IContextComponent = require("../../../IContextComponent");
 import ContextComponents = require("../../../ContextComponents");
 import Delegates = require("../../../Base/Delegates");
 import BasicMatrixRegisterer = require("./Registerer/BasicMatrixReisterer");
-import LightBufferRegisterer = require("./Registerer/LightBufferRegisterer");
 import TextureBufferRegisterer = require("./Registerer/TextureBufferRegisterer");
 import TimeRegisterer = require("./Registerer/TimeRegisterer");
 /**
@@ -30,13 +29,13 @@ class MaterialManager implements IContextComponent {
     this.addShaderChunk("jthree.builtin.shadowfragment", require("../BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));
     this.addShaderChunk("jthree.builtin.light.bufferreader", require("../BuiltIn/Light/Chunk/_LightAccumulation.glsl"));
     this.addUniformRegister("jthree.basic.matrix", BasicMatrixRegisterer);
-    this.addUniformRegister("jthree.basic.light", LightBufferRegisterer);
     this.addUniformRegister("jthree.basic.time", TimeRegisterer);
     this.addUniformRegister("jthree.basic.texture", TextureRegister);
     this.addUniformRegister("jthree.basic.buffer", TextureBufferRegisterer);
     this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SkyboxMaterial.html"));
+    this.registerMaterial(require("../BuiltIn/Effects/DistanceFog.html"));
   }
 
   public getContextComponentIndex(): number {

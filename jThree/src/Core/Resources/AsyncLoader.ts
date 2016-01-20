@@ -1,3 +1,6 @@
+import ResourceLoader = require("../ResourceLoader");
+import ContextComponents = require("../../ContextComponents");
+import JThreeContext = require("../../JThreeContext");
 import Q = require("q");
 import Delegates = require("../../Base/Delegates");
 class AsyncLoader<T> {
@@ -15,7 +18,8 @@ class AsyncLoader<T> {
     if (this._loadedResource[absPath] && typeof this._loadedResource[absPath]["then"] === "function") { // Assume this is Promise object
       return <Q.IPromise<T>>this._loadedResource[absPath];
     } else {
-      const deferred = Q.defer<T>();
+      const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
+      const deferred = loader.getResourceLoadingDeffered<T>();
       if (this._loadedResource[absPath]) { // Assume this is loaded texture
         process.nextTick(() => {
           deferred.resolve(<T>this._loadedResource[absPath]);

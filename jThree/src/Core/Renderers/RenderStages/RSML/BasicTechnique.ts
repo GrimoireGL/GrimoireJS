@@ -65,7 +65,7 @@ class BasicTechnique extends JThreeObjectWithID {
   }
 
   public preTechnique(scene: Scene, texs: ResolvedChainInfo): void {
-    this._applyDepthConfiguration(scene, texs);
+    this._applyBufferConfiguration(scene, texs);
   }
 
   public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo): void {
@@ -124,14 +124,37 @@ class BasicTechnique extends JThreeObjectWithID {
     }
   }
 
-  private _applyDepthConfiguration(scene: Scene, texs: ResolvedChainInfo): void {
-    if (!this.__fboInitialized && this._fboConfigureElement) { this.__initializeFBO(texs); }
+  private _applyBufferConfiguration(scene: Scene, texs: ResolvedChainInfo): void {
     if (!this._fboConfigureElement) {
       // if there was no fbo configuration, use screen buffer as default
       this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
+      return;
     } else {
+      const primaryBuffer = this._fboConfigureElement.getAttribute("primary");
+      if (primaryBuffer && !texs[primaryBuffer]) {
+        this._onPrimaryBufferFail(primaryBuffer, texs);
+        return;
+      }
+      if (!this.__fboInitialized) { this.__initializeFBO(texs); }
       this.__fbo.getForContext(this._renderStage.Renderer.Canvas).bind();
       this._clearBuffers();
+    }
+  }
+
+  private _onPrimaryBufferFail(primaryName: string, texs: ResolvedChainInfo): void {
+    const colors = this._fboConfigureElement.getElementsByTagName("color");
+    for (let i = 0; i < colors.length; i++) {
+      if (colors.item(i).getAttribute("name") !== primaryName) {
+        continue;
+      } else {
+        const color = colors.item(i);
+        const clearColor = color.getAttribute("clearColor");
+        if (clearColor) {
+          const col = Vector4.parse(clearColor);
+          this._gl.clearColor(col.X, col.Y, col.Z, col.W);
+          this._gl.clear(this._gl.COLOR_BUFFER_BIT);
+        }
+      }
     }
   }
 

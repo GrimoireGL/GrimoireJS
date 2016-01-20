@@ -2,6 +2,9 @@
 <rsml>
   <stage name="jthree.basic.skybox">
     <technique target="cube" material="jthree.basic.skybox">
+      <fbo primary="OUT">
+        <color name="OUT" clearColor="0,0,0,0" register="0"/>
+      </fbo>
       <cull enabled="true" mode="FRONT"/>
     </technique>
   </stage>

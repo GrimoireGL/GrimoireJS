@@ -2,7 +2,7 @@
 <material name="jthree.pmx.forward" group="jthree.materials.forematerial" order="300">
 <uniform-register>
   <register name="jthree.basic.matrix"/>
-  <register name="jthree.basic.light"/>
+  <register name="jthree.basic.buffer"/>
 </uniform-register>
 <passes>
   <pass>
@@ -42,7 +42,9 @@
         }
       }
       @fragonly{
+        //@(type:buffer,name:DIFFUSE,register:0)
         uniform sampler2D _dlBuffer;
+        //@(type:buffer,name:SPECULAR,register:1)
         uniform sampler2D _slBuffer;
 
         uniform vec4 specular;
@@ -85,7 +87,7 @@
           vec4 dc;
           if(textureUsed == 1)
           {
-            dc = vBaseColor * blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
+            dc = vBaseColor * texture2D(texture,vUV);//blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
           }
           if(sphereMode == 1){
             dc.rgb *= texture2D(sphere,vSphereUV).rgb;

@@ -28,13 +28,13 @@ class ResourceLoader implements IContextComponent {
     return this.resourceLoadingDeferred.promise;
   }
 
-  public getResourceLoadingDeffered(): Q.Deferred<void> {
+  public getResourceLoadingDeffered<T>(): Q.Deferred<T> {
     if (!this.isLoading) {
       this.resourceLoadingDeferred = Q.defer<IResourceLoaderEventArgs>();
     }
     this.resourceCount++;
-    const d = Q.defer<void>();
-    this.registerForResourceLoaded(d.promise);
+    const d = Q.defer<T>();
+    this.registerForResourceLoaded<T>(d.promise);
     return d;
   }
 
@@ -43,7 +43,7 @@ class ResourceLoader implements IContextComponent {
    * Register promise to be able to check status when the promise notify state.
    * @param {Q.Promise<void>} promise [description]
    */
-  private registerForResourceLoaded(promise: Q.Promise<void>): void {
+  private registerForResourceLoaded<T>(promise: Q.Promise<T>): void {
     promise.then(
       () => { // On fullfilled
         this.loadedResourceCount++;

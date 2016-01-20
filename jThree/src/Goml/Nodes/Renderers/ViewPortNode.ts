@@ -107,7 +107,7 @@ class ViewPortNode extends GomlTreeNodeBase {
           if (!this.skyBoxStageChain) {
             this.skyBoxStageChain = {
               buffers: {
-                OUT: "default"
+                OUT: "main"
               },
               stage: new SkyboxStage(this.targetRenderer)
             };

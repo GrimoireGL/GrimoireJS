@@ -29,6 +29,12 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         generater: "rendererfit",
         internalFormat: "RGBA",
         element: "UBYTE"
+      },
+      "main":
+      {
+        generater: "rendererfit",
+        internalFormat: "RGBA",
+        element: "UBYTE"
       }
     };
   }
@@ -60,9 +66,17 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         buffers: {
           DLIGHT: "light.diffuse",
           SLIGHT: "light.specular",
-          OUT: "default"
+          OUT: "main"
         },
         stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/ForwardShading.html"))
+      },
+      {
+        buffers: {
+          PRIMARY: "gbuffer.primary",
+          MAIN: "main",
+          OUT: "default"
+        },
+        stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/DistanceFog.html"))
       }];
   }
 }
