@@ -72,13 +72,15 @@ class PMX {
   }
 
   private readTextBuf(): string {
-    var length = this.reader.getInt32();
-    if (this.header.encoding == 0) {
+    const length = this.reader.getInt32();
+    if (this.header.encoding === 0) {
       // When this was UTF-16LE
-      var textArr = []
-      for (var i = 0; i < length / 2; i++) {
-        var c = this.reader.getUint16();
-        if (c == 0) continue;// To discard null char
+      const textArr = [];
+      for (let i = 0; i < length / 2; i++) {
+        const c = this.reader.getUint16();
+        if (c === 0) {
+          continue; //  To discard null char
+        }
         textArr.push(c);
       }
       return String.fromCharCode.apply(null, textArr);
@@ -86,42 +88,10 @@ class PMX {
     return this.reader.getString(length, this.reader.tell(), "utf8");
   }
 
-  private toUTF8Array(str) {
-    var utf8 = [];
-    for (var i = 0; i < str.length; i++) {
-      var charcode = str.charCodeAt(i);
-      if (charcode < 0x80) utf8.push(charcode);
-      else if (charcode < 0x800) {
-        utf8.push(0xc0 | (charcode >> 6),
-          0x80 | (charcode & 0x3f));
-      }
-      else if (charcode < 0xd800 || charcode >= 0xe000) {
-        utf8.push(0xe0 | (charcode >> 12),
-          0x80 | ((charcode >> 6) & 0x3f),
-          0x80 | (charcode & 0x3f));
-      }
-      // surrogate pair
-      else {
-        i++;
-        // UTF-16 encodes 0x10000-0x10FFFF by
-        // subtracting 0x10000 and splitting the
-        // 20 bits of 0x0-0xFFFFF into two halves
-        charcode = 0x10000 + (((charcode & 0x3ff) << 10)
-          | (str.charCodeAt(i) & 0x3ff))
-        utf8.push(0xf0 | (charcode >> 18),
-          0x80 | ((charcode >> 12) & 0x3f),
-          0x80 | ((charcode >> 6) & 0x3f),
-          0x80 | (charcode & 0x3f));
-      }
-    }
-    return utf8;
-  }
-
   private loadHeader() {
-    var r = this.reader;
+    const r = this.reader;
     this.reader.getUint32(); // pass magic
-    this.header =
-    {
+    this.header = {
       version: r.getFloat32(),
       headerByteSize: r.getUint8(),
       encoding: r.getUint8(),
@@ -185,18 +155,18 @@ class PMX {
   }
 
   private loadVerticies() {
-    var r = this.reader;
-    var count = r.getInt32();
-    var uvCount = this.header.uvAddition;
+    const r = this.reader;
+    const count = r.getInt32();
+    const uvCount = this.header.uvAddition;
     // allocate arrays
-    var additionalUvs = new Array(uvCount);
-    for (var i = 0; i < uvCount; i++) {
+    const additionalUvs = new Array(uvCount);
+    for (let i = 0; i < uvCount; i++) {
       additionalUvs[i] = new Array(count * 4);
     }
-    var bi1 = 0, bi2 = 0, bi3 = 0, bi4 = 0;
-    var bw1 = 0, bw2 = 0, bw3 = 0, bw4 = 0;
-    var sumCache = 0;
-    var result: PMXVerticies = {
+    let bi1 = 0, bi2 = 0, bi3 = 0, bi4 = 0;
+    let bw1 = 0, bw2 = 0, bw3 = 0, bw4 = 0;
+    let sumCache = 0;
+    const result: PMXVerticies = {
       positions: new Array(count * 3),
       normals: new Float32Array(count * 3),
       uvs: new Array(count * 2),
@@ -206,7 +176,7 @@ class PMX {
       boneIndicies: new Float32Array(count * 4),
       boneWeights: new Float32Array(count * 4)
     };
-    for (var i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       bi1 = 0; bi2 = 0; bi3 = 0; bi4 = 0;
       bw1 = 0; bw2 = 0; bw3 = 0; bw4 = 0;
       result.positions[3 * i + 0] = r.getFloat32();
@@ -217,13 +187,13 @@ class PMX {
       result.normals[3 * i + 2] = -r.getFloat32();
       result.uvs[2 * i + 0] = r.getFloat32();
       result.uvs[2 * i + 1] = r.getFloat32();
-      for (var j = 0; j < uvCount; j++) {
+      for (let j = 0; j < uvCount; j++) {
         result.additionalUV[j][4 * i + 0] = r.getFloat32();
         result.additionalUV[j][4 * i + 1] = r.getFloat32();
         result.additionalUV[j][4 * i + 2] = r.getFloat32();
         result.additionalUV[j][4 * i + 3] = r.getFloat32();
       }
-      result.verticies[i] = { weightTransform: r.getUint8() }
+      result.verticies[i] = { weightTransform: r.getUint8() };
       switch (result.verticies[i].weightTransform) {
         case 0: // BDEF
           bi1 = this.readBoneIndex();
@@ -255,8 +225,7 @@ class PMX {
           bi2 = this.readBoneIndex();
           bw1 = r.getFloat32();
           bw2 = 1 - bw1;
-          result.verticies[i].sdef =
-          {
+          result.verticies[i].sdef = {
             boneParams: [
               r.getFloat32(),
               r.getFloat32(),
@@ -268,7 +237,7 @@ class PMX {
               r.getFloat32(),
               r.getFloat32(),
             ]
-          }
+          };
           break;
       }
       result.boneIndicies[4 * i + 0] = bi1;
@@ -279,16 +248,16 @@ class PMX {
       result.boneWeights[4 * i + 1] = bw2;
       result.boneWeights[4 * i + 2] = bw3;
       result.boneWeights[4 * i + 3] = bw4;
-      result.edgeScaling[i] = r.getFloat32()
+      result.edgeScaling[i] = r.getFloat32();
     }
     this.verticies = result;
   }
 
   private loadSurfaces() {
-    var r = this.reader;
-    var count = r.getInt32();
+    const r = this.reader;
+    const count = r.getInt32();
     this.surfaces = new Array(count);
-    for (var i = 0; i < count / 3; i++) {
+    for (let i = 0; i < count / 3; i++) {
       this.surfaces[3 * i + 0] = this.readVertexIndex();
       this.surfaces[3 * i + 2] = this.readVertexIndex();
       this.surfaces[3 * i + 1] = this.readVertexIndex();
@@ -296,20 +265,20 @@ class PMX {
   }
 
   private loadTextures() {
-    var r = this.reader;
-    var count = r.getInt32();
+    const r = this.reader;
+    const count = r.getInt32();
     this.textures = new Array(count);
-    for (var i = 0; i < count; i++) {
-      this.textures[i] = this.readTextBuf().replace('\\', '/');
+    for (let i = 0; i < count; i++) {
+      this.textures[i] = this.readTextBuf().replace("\\", "/");
     }
   }
 
   private loadMaterials() {
-    var r = this.reader;
-    var count = r.getInt32();
+    const r = this.reader;
+    const count = r.getInt32();
     this.materials = new Array(count);
-    var cache = 0;
-    for (var i = 0; i < count; i++) {
+    let cache = 0;
+    for (let i = 0; i < count; i++) {
       this.materials[i] = {
         materialName: this.readTextBuf(),
         materialNameEn: this.readTextBuf(),
@@ -323,7 +292,7 @@ class PMX {
         sphereTextureIndex: this.readTextureIndex(),
         sphereMode: r.getUint8(),
         sharedToonFlag: cache = r.getUint8(),
-        targetToonIndex: cache == 0 ? this.readTextureIndex() : r.getUint8(),
+        targetToonIndex: cache === 0 ? this.readTextureIndex() : r.getUint8(),
         memo: this.readTextBuf(),
         vertexCount: r.getInt32(),
       };
@@ -331,13 +300,13 @@ class PMX {
   }
 
   private loadBones() {
-    var r = this.reader;
-    var count = r.getUint32();
+    const r = this.reader;
+    const count = r.getUint32();
     this.bones = new Array(count);
-    var boneFlagCache = 0;
-    var ikLinkCountCache = 0;
-    var ikLimitedCache = 0;
-    for (var i = 0; i < count; i++) {
+    let boneFlagCache = 0;
+    let ikLinkCountCache = 0;
+    let ikLimitedCache = 0;
+    for (let i = 0; i < count; i++) {
       this.bones[i] = {
         boneName: this.readTextBuf(),
         boneNameEn: this.readTextBuf(),
@@ -345,7 +314,7 @@ class PMX {
         parentBoneIndex: this.readBoneIndex(),
         transformLayer: r.getInt32(),
         boneFlag: boneFlagCache = r.getUint16(),
-        positionOffset: (boneFlagCache & 0x0001) == 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
+        positionOffset: (boneFlagCache & 0x0001) === 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
         connectingBoneIndex: (boneFlagCache & 0x0001) > 0 ? this.readBoneIndex() : undefined,
         providingBoneIndex: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? this.readBoneIndex() : undefined,
         providingRate: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? r.getFloat32() : undefined,
@@ -359,22 +328,23 @@ class PMX {
         ikLinkCount: (boneFlagCache & 0x0020) > 0 ? ikLinkCountCache = r.getInt32() : ikLinkCountCache = undefined,
         ikLinks: (boneFlagCache & 0x0020) > 0 ? new Array(ikLinkCountCache) : undefined
       };
-      if (ikLinkCountCache)
-        for (var j = 0; j < ikLinkCountCache; j++) {
+      if (ikLinkCountCache) {
+        for (let j = 0; j < ikLinkCountCache; j++) {
           this.bones[i].ikLinks[j] = {
             ikLinkBoneIndex: this.readBoneIndex(),
             isLimitedRotation: ikLimitedCache = r.getUint8(),
             limitedRotation: ikLimitedCache > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined
-          }
+          };
         }
+      }
     }
   }
   private loadMorphs() {
-    var r = this.reader;
-    var count = r.getInt32();
+    const r = this.reader;
+    const count = r.getInt32();
     this.morphs = new Array(count);
-    var morphCountCache = 0;
-    for (var i = 0; i < count; i++) {
+    let morphCountCache = 0;
+    for (let i = 0; i < count; i++) {
       this.morphs[i] = {
         morphName: this.readTextBuf(),
         morphNameEn: this.readTextBuf(),
@@ -386,7 +356,7 @@ class PMX {
         case 0:
           // group morph
           this.morphs[i].groupMorph = new Array(morphCountCache);
-          for (var j = 0; j < morphCountCache; j++) {
+          for (let j = 0; j < morphCountCache; j++) {
             this.morphs[i].groupMorph[j] = {
               morphIndex: this.readMorphIndex(),
               morphRate: r.getFloat32()
@@ -395,17 +365,16 @@ class PMX {
           break;
         case 1:
           this.morphs[i].vertexMorph = new Array(morphCountCache);
-          for (var j = 0; j < morphCountCache; j++) {
-            this.morphs[i].vertexMorph[j] =
-            {
+          for (let j = 0; j < morphCountCache; j++) {
+            this.morphs[i].vertexMorph[j] = {
               vertexIndex: this.readVertexIndex(),
               vertexOffset: [r.getFloat32(), r.getFloat32(), -r.getFloat32()]
-            }
+            };
           }
           break;
         case 2:
           this.morphs[i].boneMorph = new Array(morphCountCache);
-          for (var j = 0; j < morphCountCache; j++) {
+          for (let j = 0; j < morphCountCache; j++) {
             this.morphs[i].boneMorph[j]
             = {
               boneIndex: this.readBoneIndex(),
@@ -420,7 +389,7 @@ class PMX {
         case 6:
         case 7:
           this.morphs[i].uvMorph = new Array(morphCountCache);
-          for (var j = 0; j < morphCountCache; j++) {
+          for (let j = 0; j < morphCountCache; j++) {
             this.morphs[i].uvMorph[j]
             = {
               vertexIndex: this.readVertexIndex(),
@@ -430,7 +399,7 @@ class PMX {
           break;
         case 8:
           this.morphs[i].materialMorph = new Array(morphCountCache);
-          for (var j = 0; j < morphCountCache; j++) {
+          for (let j = 0; j < morphCountCache; j++) {
             this.morphs[i].materialMorph[j]
             = {
               materialIndex: this.readMaterialIndex(),
@@ -451,14 +420,13 @@ class PMX {
   }
 
   private loadDisplayFrames() {
-    var r = this.reader;
-    var count = r.getInt32();
+    const r = this.reader;
+    const count = r.getInt32();
     this.displayFrames = new Array(count);
-    var countCache = 0;
-    var targetCache = 0;
-    for (var i = 0; i < count; i++) {
-      this.displayFrames[i] =
-      {
+    let countCache = 0;
+    let targetCache = 0;
+    for (let i = 0; i < count; i++) {
+      this.displayFrames[i] = {
         frameName: this.readTextBuf(),
         frameNameEn: this.readTextBuf(),
         specialFrameFlag: r.getUint8(),
@@ -466,7 +434,7 @@ class PMX {
         targetElementTypes: new Array(countCache),
         targetIndex: new Array(countCache)
       };
-      for (var j = 0; j < countCache; j++) {
+      for (let j = 0; j < countCache; j++) {
         this.displayFrames[i].targetElementTypes[j] = targetCache = r.getUint8();
         this.displayFrames[i].targetIndex[j] = targetCache > 0 ? this.readMorphIndex() : this.readBoneIndex();
       }
@@ -474,10 +442,10 @@ class PMX {
   }
 
   private loadRigidBodies() {
-    var r = this.reader;
-    var count = r.getInt32();
+    const r = this.reader;
+    const count = r.getInt32();
     this.rigidBodies = new Array(count);
-    for (var i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       this.rigidBodies[i] = {
         rigidBodyName: this.readTextBuf(),
         rigidBodyNameEn: this.readTextBuf(),
@@ -499,16 +467,16 @@ class PMX {
   }
 
   private loadJoints() {
-    var r = this.reader;
-    var count = r.getInt32();
+    const r = this.reader;
+    const count = r.getInt32();
     this.joints = new Array(count);
-    var typeCache = 0;
-    for (var i = 0; i < count; i++) {
+    let typeCache = 0;
+    for (let i = 0; i < count; i++) {
       this.joints[i] = {
         jointName: this.readTextBuf(),
         jointNameEn: this.readTextBuf(),
         jointType: typeCache = r.getUint8(),
-        spring: typeCache == 0 ?
+        spring: typeCache === 0 ?
           {
             targetRigidBody1: this.readRigidBodyIndex(),
             targetRigidBody2: this.readRigidBodyIndex(),

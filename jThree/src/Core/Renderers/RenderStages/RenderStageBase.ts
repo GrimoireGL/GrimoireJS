@@ -95,7 +95,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 
   public drawForMaterial(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, material: Material): void {
     if (!material || !material.Initialized || !material.Enabled) { return; }
-    for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
+    for (let pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
       material.apply({
         scene: scene,
         renderStage: this,
@@ -105,7 +105,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
         passIndex: pass,
         camera: this.Renderer.Camera
       });
-      object.Geometry.drawElements(this.Renderer.ContextManager, material);
+      object.Geometry.drawElements(this.Renderer.Canvas, material);
     }
   }
 

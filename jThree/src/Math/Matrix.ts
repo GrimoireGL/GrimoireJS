@@ -22,14 +22,19 @@ class Matrix extends MatrixBase {
   }
 
   private isValidArray(arr: Float32Array): boolean {
-    if (arr.length !== 16) return false;
+    if (arr.length !== 16) {
+      return false;
+    }
     return true;
   }
 
   constructor(arr?: glm.GLM.IArray) {
     super();
-    if (arr) this.rawElements = arr;
-    else this.rawElements = glm.mat4.create();
+    if (arr) {
+      this.rawElements = arr;
+    } else {
+      this.rawElements = glm.mat4.create();
+    }
   }
 
   public getAt(row: number, colmun: number): number {
@@ -61,8 +66,8 @@ class Matrix extends MatrixBase {
   }
 
   public static add(m1: Matrix, m2: Matrix): Matrix {
-    var mat = glm.mat4.create();
-    for (var i = 0; i < 16; i++) {
+    const mat = glm.mat4.create();
+    for (let i = 0; i < 16; i++) {
       mat[i] = m1.rawElements[i] + m2.rawElements[i];
     }
     return new Matrix(mat);
@@ -73,18 +78,18 @@ class Matrix extends MatrixBase {
   }
 
   public static scalarMultiply(s: number, m: Matrix): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.multiply(newMat, [s, 0, 0, 0, 0, s, 0, 0, 0, 0, s, 0, 0, 0, 0, s], m.rawElements);
     return new Matrix(newMat);
   }
 
   public static multiply(m1: Matrix, m2: Matrix): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     return new Matrix(glm.mat4.mul(newMat, m1.rawElements, m2.rawElements));
   }
 
   public static TRS(t: Vector3, rot: Quaternion, s: Vector3): Matrix {
-    var newMat = glm.mat4.create(); var cacheMat = glm.mat4.create();
+    const newMat = glm.mat4.create(); const cacheMat = glm.mat4.create();
     glm.mat4.mul(newMat, glm.mat4.translate(newMat, glm.mat4.create(), t.rawElements), glm.mat4.fromQuat(cacheMat, rot.rawElements));
     glm.mat4.scale(newMat, newMat, s.rawElements);
     return new Matrix(newMat);
@@ -95,29 +100,29 @@ class Matrix extends MatrixBase {
   }
 
   public static transpose(m: Matrix): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     return new Matrix(glm.mat4.transpose(newMat, m.rawElements));
   }
 
   public static transformPoint(m: Matrix, t: Vector3): Vector3 {
-    var newVec = glm.vec3.create();
+    const newVec = glm.vec3.create();
     glm.vec3.transformMat4(newVec, t.rawElements, m.rawElements);
     return new Vector3(newVec);
   }
 
   public static transformNormal(m: Matrix, t: Vector3): Vector3 {
-    var newVec = glm.vec4.create();
-    var trans = glm.vec4.create();
+    const newVec = glm.vec4.create();
+    const trans = glm.vec4.create();
     trans[0] = t.X; trans[1] = t.Y; trans[2] = t.Z; trans[3] = 0;
-    glm.vec4.transformMat4(newVec, trans, m.rawElements)
+    glm.vec4.transformMat4(newVec, trans, m.rawElements);
     return new Vector3(newVec[0], newVec[1], newVec[2]);
   }
 
   public static transform(m: Matrix, t: Vector4): Vector4 {
-    var newVec = glm.vec4.create();
-    var trans = glm.vec4.create();
+    const newVec = glm.vec4.create();
+    const trans = glm.vec4.create();
     trans[0] = t.X; trans[1] = t.Y; trans[2] = t.Z; trans[3] = t.W;
-    glm.vec4.transformMat4(newVec, trans, m.rawElements)
+    glm.vec4.transformMat4(newVec, trans, m.rawElements);
     return new Vector4(newVec[0], newVec[1], newVec[2], newVec[3]);
   }
 
@@ -132,7 +137,7 @@ class Matrix extends MatrixBase {
    * Compute inverted passed matrix.
    */
   public static inverse(m: Matrix): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     return new Matrix(glm.mat4.invert(newMat, m.rawElements));
   }
 
@@ -140,7 +145,7 @@ class Matrix extends MatrixBase {
    * Generate linear translation transform matrix.
    */
   public static translate(v: Vector3): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.translate(newMat, newMat, v.rawElements);
     return new Matrix(newMat);
   }
@@ -149,57 +154,57 @@ class Matrix extends MatrixBase {
    * Generate linear scaling transform matrix.
    */
   public static scale(v: Vector3): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.scale(newMat, newMat, v.rawElements);
     return new Matrix(newMat);
   }
 
   public static rotateX(angle: number): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.rotateX(newMat, newMat, angle);
     return new Matrix(newMat);
   }
 
   public static rotateY(angle: number): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.rotateY(newMat, newMat, angle);
     return new Matrix(newMat);
   }
 
   public static rotateZ(angle: number): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.rotateZ(newMat, newMat, angle);
     return new Matrix(newMat);
   }
 
   public static RotationQuaternion(quat: Quaternion): Matrix {
-    var quaternion = glm.quat.create();
-    var newMat = glm.mat4.create();
+    const quaternion = glm.quat.create();
+    const newMat = glm.mat4.create();
     glm.quat.normalize(quaternion, quat.rawElements);
     glm.mat4.fromQuat(newMat, quaternion);
     return new Matrix(newMat);
   }
 
   public static frustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.frustum(newMat, left, right, bottom, top, near, far);
     return new Matrix(newMat);
   }
 
   public static ortho(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.ortho(newMat, left, right, bottom, top, near, far);
     return new Matrix(newMat);
   }
 
   public static perspective(fovy: number, aspect: number, near: number, far: number): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.perspective(newMat, fovy, aspect, near, far);
     return new Matrix(newMat);
   }
 
   public static lookAt(eye: Vector3, lookAt: Vector3, up: Vector3): Matrix {
-    var newMat = glm.mat4.create();
+    const newMat = glm.mat4.create();
     glm.mat4.lookAt(newMat, eye.rawElements, lookAt.rawElements, up.rawElements);
     return new Matrix(newMat);
   }
@@ -212,7 +217,7 @@ class Matrix extends MatrixBase {
     return (`|${this.getBySingleIndex(0) } ${this.getBySingleIndex(4) } ${this.getBySingleIndex(8) } ${this.getBySingleIndex(12) }|\n
                  |${this.getBySingleIndex(1) } ${this.getBySingleIndex(5) } ${this.getBySingleIndex(9) } ${this.getBySingleIndex(13) }|\n
                  |${this.getBySingleIndex(2) } ${this.getBySingleIndex(6) } ${this.getBySingleIndex(10) } ${this.getBySingleIndex(14) }|\n
-                 |${this.getBySingleIndex(3) } ${this.getBySingleIndex(7) } ${this.getBySingleIndex(11) } ${this.getBySingleIndex(15) }|`)
+                 |${this.getBySingleIndex(3) } ${this.getBySingleIndex(7) } ${this.getBySingleIndex(11) } ${this.getBySingleIndex(15) }|`);
   }
 
   public toMathematicaString(): string {
@@ -228,4 +233,4 @@ class Matrix extends MatrixBase {
 
   public get ColmunCount(): number { return 4; }
 }
-export =Matrix;
+export = Matrix;

@@ -3,7 +3,6 @@ import PMXSkeleton = require("./PMXSkeleton");
 import PMXModel = require("./PMXModel");
 import PMXBoneTransformer = require("./PMXBoneTransformer");
 import Vector3 = require("../../Math/Vector3");
-import Delegates = require("../../Base/Delegates");
 class PMXBone extends SceneObject {
   private targetModel: PMXModel;
 
@@ -16,11 +15,11 @@ class PMXBone extends SceneObject {
   }
 
   public get IsRootBone() {
-    return this.TargetBoneData.parentBoneIndex == -1;
+    return this.TargetBoneData.parentBoneIndex === -1;
   }
 
   public get OrderCriteria() {
-    var latex = this.targetModel.ModelData.Bones.length;
+    const latex = this.targetModel.ModelData.Bones.length;
     return this.boneIndex + this.TargetBoneData.transformLayer * latex + (this.AfterPhysics ? latex * latex : 0);
   }
 
@@ -47,24 +46,26 @@ class PMXBone extends SceneObject {
       this.targetSkeleton.getBoneByIndex(this.TargetBoneData.parentBoneIndex).addChild(this);
     }
     this.Transformer.LocalOrigin = new Vector3(this.TargetBoneData.position);
-    var transformer = <PMXBoneTransformer>this.transformer;
+    const transformer = <PMXBoneTransformer>this.transformer;
     if (transformer.IsIKBone)
-      for (var i = 0; i < this.TargetBoneData.ikLinkCount; i++)
+      for (let i = 0; i < this.TargetBoneData.ikLinkCount; i++)
         (<PMXBoneTransformer>this.targetSkeleton.getBoneByIndex(this.TargetBoneData.ikLinks[i].ikLinkBoneIndex).transformer).isIKLink = true;
   }
 
   public updateBoneTransform() {
-    var t = <PMXBoneTransformer>this.transformer;
+    const t = <PMXBoneTransformer>this.transformer;
     t.updateTransformForPMX();
   }
 
   public structureToString(layer: number) {
-    var result = "";
-    for (var i = 0; i < layer; i++)result += "  ";
+    let result = "";
+    for (let i = 0; i < layer; i++)result += "  ";
     result += this.toString() + "\n";
-    var arr = this.Children;
-    for (var index = 0; index < arr.length; index++) {
-      if (typeof arr[index] !== "undefined") result += (<PMXBone>arr[index]).structureToString(layer + 1);
+    let arr = this.Children;
+    for (let index = 0; index < arr.length; index++) {
+      if (typeof arr[index] !== "undefined") {
+        result += (<PMXBone>arr[index]).structureToString(layer + 1);
+      }
     }
     return result;
   }
@@ -74,11 +75,11 @@ class PMXBone extends SceneObject {
   }
 
   public applyMatrixToBuffer(buffer: Float32Array) {
-    //if (!(<PMXBoneTransformer>this.Transformer).transformUpdated) return;
-    for (var i = 0; i < 16; i++) {
+    // if (!(<PMXBoneTransformer>this.Transformer).transformUpdated) return;
+    for (let i = 0; i < 16; i++) {
       buffer[16 * this.boneIndex + i] = this.Transformer.LocalToGlobal.rawElements[i];
     }
-    //(<PMXBoneTransformer>this.Transformer).transformUpdated = false;
+    // (<PMXBoneTransformer>this.Transformer).transformUpdated = false;
   }
 }
 

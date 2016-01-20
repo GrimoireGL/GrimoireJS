@@ -7,7 +7,6 @@ import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import ContextComponents = require("../../../ContextComponents");
 import IVariableInfo = require("../../../Core/Materials/Base/IVariableInfo");
 import AttributeDeclationBody = require("../../AttributeDeclationBody");
-import Vector4 = require("../../../Math/Vector4");
 import Vector3 = require("../../../Math/Vector3");
 import Vector2 = require("../../../Math/Vector2");
 import AttributeDeclaration = require("../../AttributeDeclaration");
@@ -26,9 +25,9 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   constructor() {
     super();
     this.attributes.defineAttribute({
-      'name': {
+      "name": {
         value: undefined,
-        converter: 'string',
+        converter: "string",
         onchanged: this._onNameAttrChanged,
       }
     });
@@ -45,7 +44,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
 
   protected onMount() {
     super.onMount();
-    this.name = this.attributes.getValue('name'); // TODO: pnly
+    this.name = this.attributes.getValue("name"); // TODO: pnly
     this.targetMaterial = this.ConstructMaterial();
     this._generateAttributeForPasses();
     this.nodeManager.nodeRegister.addObject("jthree.materials", this.Name, this);
@@ -59,23 +58,28 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         const pass = passes[i];
         const uniforms = pass.parsedProgram.uniforms;
         for (let variableName in uniforms) {
-          if (variableName[0] == "_") continue; //Ignore system variables
+          if (variableName[0] === "_") {
+            continue; // Ignore system variables
+          }
           if (!passVariables[variableName]) {
             // When the pass variable are not found yet.
             passVariables[variableName] = uniforms[variableName];
-          }
-          else {
+          } else {
             // When the pass variable are already found.
-            if (passVariables[variableName] == uniforms[variableName]) continue; // When the variable was found and same type.(This is not matter)
-            else // When the variable was already found and
+            if (passVariables[variableName] === uniforms[variableName]) {
+              continue; // When the variable was found and same type.(This is not matter)
+            } else { // When the variable was already found and
               console.error("Material can not contain same variables even if these variable are included in different passes");
+            }
           }
         }
       }
       let attributes: AttributeDeclaration = {};
       for (let variableName in passVariables) {
         const attribute = this._generateAttributeForVariable(variableName, passVariables[variableName]);
-        if (attribute) attributes[variableName] = attribute;
+        if (attribute) {
+          attributes[variableName] = attribute;
+        }
       }
       this.attributes.defineAttribute(attributes);
     }
@@ -106,7 +110,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         value: "",
         onchanged: (v) => {
           if (v.Value) {
-            this.nodeManager.nodeRegister.getObject("jthree.resource.texture2d", v.Value, (node: TextureNode) => {
+            this.nodeManager.nodeRegister.getObject("jthree.resource.Texture2D", v.Value, (node: TextureNode) => {
               this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
             });
           }
@@ -119,14 +123,17 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         value: "",
         onchanged: (v) => {
           if (v.Value) {
-            this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", v.Value, (node: CubeTextureNode) => {
+            this.nodeManager.nodeRegister.getObject("jthree.resource.TextureCube", v.Value, (node: CubeTextureNode) => {
               this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
             });
           }
         }
       };
     }
-    if (!converter) return undefined;
+    if (!converter) {
+      console.warn(`Variable forwarding for ${variableInfo.variableType} is not implemented yet. Attribute declaration of ${variableInfo.variableName} was skipped.`);
+      return undefined;
+    }
     return {
       converter: converter,
       value: initialValue,

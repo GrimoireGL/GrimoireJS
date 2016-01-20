@@ -49,7 +49,7 @@ class MaterialPass extends JThreeObjectWithID {
   }
   public apply(matArg: IApplyMaterialArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>[], material: Material): void {
     const gl = matArg.renderStage.GL;
-    const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
+    const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.Canvas);
     const renderConfig = this._fetchRenderConfigure(matArg);
     XMLRenderConfigUtility.applyAll(gl, renderConfig);
     // Declare using program before assigning material variables

@@ -10,14 +10,14 @@ import ResourceManager = require("../../Core/ResourceManager");
 class PMXSkeleton {
   constructor(model: PMXModel) {
     model.skeleton = this;
-    var bones = model.ModelData.Bones;
+    const bones = model.ModelData.Bones;
     this.bones = new Array(model.ModelData.Bones.length);
     this.bonesInTransformOrder = new Array(model.ModelData.Bones.length);
     this.matricies = new Float32Array(model.ModelData.Bones.length * 16);
-    for (var i = 0; i < bones.length; i++) {
-      var bone = bones[i];
-      var pmxBone = new PMXBone(model, this, i);
-      if (bone.parentBoneIndex == -1) {
+    for (let i = 0; i < bones.length; i++) {
+      const bone = bones[i];
+      const pmxBone = new PMXBone(model, this, i);
+      if (bone.parentBoneIndex === -1) {
         this.rootBones.push(pmxBone);
       }
       this.bonesInTransformOrder[i] = this.bones[i] = pmxBone;
@@ -58,7 +58,7 @@ class PMXSkeleton {
 
   public updateMatricies() {
     this.updateBoneTransforms();
-    for (var i = 0; i < this.bones.length; i++) {
+    for (let i = 0; i < this.bones.length; i++) {
       this.bones[i].applyMatrixToBuffer(this.matricies);
     }
     this.matrixTexture.updateTexture(this.matricies);
@@ -68,12 +68,12 @@ class PMXSkeleton {
     // this.rootBones.forEach(v=>v.callRecursive(l=>{
     // 	if(l["updateBoneTransform"])(<PMXBone>l).updateBoneTransform();
     // }));
-    this.bonesInTransformOrder.forEach(v=> (v.updateBoneTransform()));
+    this.bonesInTransformOrder.forEach(v => (v.updateBoneTransform()));
   }
 
   public structureToString() {
-    var result = "";
-    this.rootBones.forEach(v=> result += v.structureToString(0));
+    let result = "";
+    this.rootBones.forEach(v => result += v.structureToString(0));
     return result;
   }
 }

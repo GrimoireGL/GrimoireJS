@@ -39,7 +39,7 @@ class BasicRenderer extends CanvasRegion {
   private camera: Camera;
 
   /**
-   * ContextManager managing this renderer.
+   * Canvas managing this renderer.
    */
   private canvas: Canvas;
 
@@ -118,9 +118,9 @@ class BasicRenderer extends CanvasRegion {
   }
 
   /**
-   * ContextManager managing this renderer.
+   * Canvas managing this renderer.
    */
-  public get ContextManager(): Canvas {
+  public get Canvas(): Canvas {
     return this.canvas;
   }
 
@@ -134,7 +134,7 @@ class BasicRenderer extends CanvasRegion {
    */
   public beforeRender() {
     this.applyViewportConfigure();
-    this.ContextManager.beforeRender(this);
+    this.Canvas.beforeRender(this);
   }
 
   /**
@@ -143,7 +143,7 @@ class BasicRenderer extends CanvasRegion {
    */
   public afterRender() {
     this.GL.flush();
-    this.ContextManager.afterRender(this);
+    this.Canvas.afterRender(this);
   }
 
   /**

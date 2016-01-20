@@ -33,7 +33,7 @@ class TextureNode extends TextureNodeBase {
   }
 
   protected get TextureGroupName() {
-    return "texture2d";
+    return "Texture2D";
   }
 }
 

@@ -32,11 +32,12 @@ class Color4 extends VectorBase {
     if (isFirst && Color4.colorTable[color]) {
       return Color4.internalParse(Color4.colorTable[color], false);
     }
+    let m;
     if (isFirst) {
-      var m = color.match(/^#([0-9a-f]{3})$/i);
+      m = color.match(/^#([0-9a-f]{3})$/i);
       // #fff
       if (m) {
-        var s = m[1];
+        const s = m[1];
         return new Color4(
           parseInt(s.charAt(0), 16) / 0xf,
           parseInt(s.charAt(1), 16) / 0xf,
@@ -49,7 +50,7 @@ class Color4 extends VectorBase {
       m = color.match(/^#([0-9a-f]{4})$/i);
       // #ffff
       if (m) {
-        var s = m[1];
+        const s = m[1];
         return new Color4(
           parseInt(s.charAt(0), 16) / 0xf,
           parseInt(s.charAt(1), 16) / 0xf,
@@ -61,7 +62,7 @@ class Color4 extends VectorBase {
     // #ffffff
     m = color.match(/^#([0-9a-f]{6})$/i);
     if (m) {
-      var s = m[1];
+      const s = m[1];
       return new Color4(
         parseInt(s.substr(0, 2), 16) / 0xff,
         parseInt(s.substr(2, 2), 16) / 0xff,
@@ -73,7 +74,7 @@ class Color4 extends VectorBase {
     if (isFirst) {
       m = color.match(/^#([0-9a-f]{8})$/i);
       if (m) {
-        var s = m[1];
+        const s = m[1];
         return new Color4(
           parseInt(s.substr(0, 2), 16) / 0xff,
           parseInt(s.substr(2, 2), 16) / 0xff,
@@ -82,15 +83,15 @@ class Color4 extends VectorBase {
           );
       }
     }
-    var n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+    let n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
     if (n && isFirst) {
-      return new Color4(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff, 1);
+      return new Color4(parseInt(n[1], 10) / 0xff, parseInt(n[2], 10) / 0xff, parseInt(n[3], 10) / 0xff, 1);
     }
-    var n = color.match(/^rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\,\s*(\d+)\s*\)$/i);
+    n = color.match(/^rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\,\s*(\d+)\s*\)$/i);
     if (n && isFirst) {
-      var d = parseInt(n[4]);
+      let d = parseInt(n[4], 10);
       d = d <= 1 ? d : d / 0xff;
-      return new Color4(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff, parseInt(n[4]));
+      return new Color4(parseInt(n[1], 10) / 0xff, parseInt(n[2], 10) / 0xff, parseInt(n[3], 10) / 0xff, parseInt(n[4], 10));
     }
     return undefined;
   }

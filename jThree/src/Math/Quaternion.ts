@@ -28,7 +28,7 @@ class Quaternion extends JThreeObject {
   public rawElements: glm.GLM.IArray;
 
   public get eularAngles() {
-    var eular = this.FactoringQuaternionZXY();
+    const eular = this.FactoringQuaternionZXY();
     return new Vector3(eular.x, eular.y, eular.z);
   }
 
@@ -76,7 +76,7 @@ class Quaternion extends JThreeObject {
   * Get the conjugate of this quaternion
   */
   public get Conjugate(): Quaternion {
-    var newQuat = glm.quat.create();
+    const newQuat = glm.quat.create();
     return new Quaternion(glm.quat.conjugate(newQuat, this.rawElements));
   }
 
@@ -90,13 +90,13 @@ class Quaternion extends JThreeObject {
   * Get normalized quaternion
   */
   public Normalize(): Quaternion {
-    var newQuat = glm.quat.create();
+    const newQuat = glm.quat.create();
     return new Quaternion(glm.quat.normalize(newQuat, this.rawElements));
   }
 
 
   public Inverse(): Quaternion {
-    var newQuat = glm.quat.create();
+    const newQuat = glm.quat.create();
     return new Quaternion(glm.quat.invert(newQuat, this.rawElements));
   }
 
@@ -104,7 +104,7 @@ class Quaternion extends JThreeObject {
   * Calculate add result of two quaternion
   */
   public static Add(q1: Quaternion, q2: Quaternion): Quaternion {
-    var newQuat = glm.quat.create();
+    const newQuat = glm.quat.create();
 
     return new Quaternion(glm.quat.add(newQuat, q1.rawElements, q2.rawElements));
   }
@@ -113,7 +113,7 @@ class Quaternion extends JThreeObject {
   * Calculate Multiply result of two quaternion
   */
   public static Multiply(q1: Quaternion, q2: Quaternion): Quaternion {
-    var newQuat = glm.quat.create();
+    const newQuat = glm.quat.create();
     return new Quaternion(glm.quat.mul(newQuat, q1.rawElements, q2.rawElements));
   }
 
@@ -121,11 +121,11 @@ class Quaternion extends JThreeObject {
   * Calculate the rotation quaternion represented as pair of angle and axis.
   */
   public static AngleAxis(angle: number, axis: Vector3): Quaternion {
-    var axisVec = glm.vec3.create();
+    const axisVec = glm.vec3.create();
     axisVec[0] = axis.X;
     axisVec[1] = axis.Y;
     axisVec[2] = axis.Z;
-    var newQuat = glm.quat.create();
+    const newQuat = glm.quat.create();
     return new Quaternion(glm.quat.setAxisAngle(newQuat, axisVec, +angle));
   }
 
@@ -139,7 +139,7 @@ class Quaternion extends JThreeObject {
 
 
   public static Slerp(q1: Quaternion, q2: Quaternion, t: number): Quaternion {
-    var newQuat = glm.quat.create();
+    const newQuat = glm.quat.create();
     return new Quaternion(glm.quat.slerp(newQuat, q1.rawElements, q2.rawElements, +t));
   }
 
@@ -150,56 +150,56 @@ class Quaternion extends JThreeObject {
    * @returns {number} angle represented in radians.
    */
   public static Angle(q1: Quaternion, q2: Quaternion): number {
-    var delta = Quaternion.Multiply(q2, q1.Inverse());
+    let delta = Quaternion.Multiply(q2, q1.Inverse());
     delta = delta.Normalize();
     return 2 * Math.acos(delta.W);
   }
 
   public static FromToRotation(from: Vector3, to: Vector3) {
-    var crossed = Vector3.cross(from.normalized, to.normalized);
-    var angle = Vector3.dot(from.normalized, to.normalized);
+    const crossed = Vector3.cross(from.normalized, to.normalized);
+    const angle = Vector3.dot(from.normalized, to.normalized);
     return Quaternion.AngleAxis(angle, crossed);
   }
 
   public static LookRotation(forward: Vector3, upVec?: Vector3) {
     upVec = upVec || Vector3.YUnit;
-    var normalizedForward = forward.normalized;
-    var upForwardCross = Vector3.cross(upVec, normalizedForward).normalized;
-    var thirdAxis = Vector3.cross(normalizedForward, upForwardCross);
-    var m00 = upForwardCross.X;
-    var m01 = upForwardCross.Y;
-    var m02 = upForwardCross.Z;
-    var m10 = thirdAxis.X;
-    var m11 = thirdAxis.Y;
-    var m12 = thirdAxis.Z;
-    var m20 = normalizedForward.X;
-    var m21 = normalizedForward.Y;
-    var m22 = normalizedForward.Z;
+    const normalizedForward = forward.normalized;
+    const upForwardCross = Vector3.cross(upVec, normalizedForward).normalized;
+    const thirdAxis = Vector3.cross(normalizedForward, upForwardCross);
+    const m00 = upForwardCross.X;
+    const m01 = upForwardCross.Y;
+    const m02 = upForwardCross.Z;
+    const m10 = thirdAxis.X;
+    const m11 = thirdAxis.Y;
+    const m12 = thirdAxis.Z;
+    const m20 = normalizedForward.X;
+    const m21 = normalizedForward.Y;
+    const m22 = normalizedForward.Z;
 
-    var num8 = m00 + m11 + m22;
+    const num8 = m00 + m11 + m22;
 
     if (num8 > 0) {
-      var num = Math.sqrt(1 + num8);
+      const num = Math.sqrt(1 + num8);
       return new Quaternion([(m12 - m21) * 0.5 / num, (m20 - m02) * 0.5 / num, (m01 - m10) * 0.5 / num, num / 2]);
     }
     if (m00 >= m11 && m00 >= m22) {
-      var num7 = Math.sqrt(1 + m00 - m11 - m22);
+      const num7 = Math.sqrt(1 + m00 - m11 - m22);
       return new Quaternion([(m01 + m10) * 0.5 / num7, (m02 + m20) * 0.5 / num7, (m12 - m21) * 0.5 / num7, num7 / 2]);
     }
     if (m11 > m22) {
-      var num6 = Math.sqrt(1 + m11 - m00 - m22);
+      const num6 = Math.sqrt(1 + m11 - m00 - m22);
       return new Quaternion([(m10 + m01) * 0, 5 / num6, 0.5 * num6, (m21 + m12) * 0.5 / num6, (m20 - m02) * 0.5 / num6]);
     }
-    var num5 = Math.sqrt(1 + m22 - m00 - m11);
+    const num5 = Math.sqrt(1 + m22 - m00 - m11);
     return new Quaternion([(m20 + m02) * 0.5 / num5, (m21 + m12) * 0.5 / num5, 0.5 * num5, (m01 - m10) * 0.5 / num5]);
   }
 
   public toAngleAxisString() {
-    var angle = 2 * Math.acos(this.W);
-    var imm = Math.sqrt(1 - this.W * this.W);
-    if (angle != 180 && angle != 0) {//avoid singularities
+    const angle = 2 * Math.acos(this.W);
+    const imm = Math.sqrt(1 - this.W * this.W);
+    if (angle !== 180 && angle !== 0) { // avoid singularities
       return `axis(${angle},${this.X / imm},${this.Y / imm},${this.Z / imm})`;
-    } else if (angle == 0) {
+    } else if (angle === 0) {
       return `axis(${angle},0,1,0)`;
     } else {
       return `axis(180d,${this.X},${this.Y},${this.Z})`;
@@ -211,9 +211,9 @@ class Quaternion extends JThreeObject {
   }
 
   public FactoringQuaternionZXY() {
-    var result = { x: 0, y: 0, z: 0 };
-    var mat = Matrix.RotationQuaternion(this);
-    var sx = mat.rawElements[6];
+    const result = { x: 0, y: 0, z: 0 };
+    const mat = Matrix.RotationQuaternion(this);
+    const sx = mat.rawElements[6];
     if (Math.abs(sx) < 1 - 1.0E-4) {
       result.x = Math.asin(sx);
       result.z = Math.atan2(-mat.rawElements[4], mat.rawElements[5]);
@@ -228,9 +228,9 @@ class Quaternion extends JThreeObject {
 
 
   public FactoringQuaternionXYZ() {
-    var result = { x: 0, y: 0, z: 0 };
-    var mat = Matrix.RotationQuaternion(this);
-    var sy = -mat.rawElements[2];
+    const result = { x: 0, y: 0, z: 0 };
+    const mat = Matrix.RotationQuaternion(this);
+    const sy = -mat.rawElements[2];
     if (Math.abs(sy) < 1 - 1.0E-4) {
       result.x = Math.atan2(mat.rawElements[6], mat.rawElements[10]);
       result.y = Math.asin(sy);

@@ -6,11 +6,6 @@ class ResourceArray<T> extends JThreeObject {
 
   private handlerArray: { [id: string]: Delegates.Action1<T>[] } = {};
 
-  constructor() {
-    super();
-  }
-
-
   public create(id: string, creationFunc: Delegates.Func0<T>) {
     let resource;
     if (this.resourceArray[id]) {
