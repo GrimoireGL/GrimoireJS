@@ -42,18 +42,18 @@ class PMXModel extends SceneObject {
   private static _loadDataFromUrl(url: string, directory: string): Q.IPromise<PMXModelData> {
     return PMXModel._asyncLoader.fetch(url, (path) => {
       const deferred = Q.defer<PMXModelData>();
-      const oReq = new XMLHttpRequest(); // use xhr since superagent is not supporting responseType property
-      oReq.open("GET", path, true);
-      oReq.setRequestHeader("Accept", "*/*");
-      oReq.responseType = "arraybuffer";
-      oReq.onload = () => {
-        const pmx = new PMXModelData(oReq.response, directory);
+      const xhr = new XMLHttpRequest(); // use xhr since superagent is not supporting responseType property
+      xhr.open("GET", path, true);
+      xhr.setRequestHeader("Accept", "*/*");
+      xhr.responseType = "arraybuffer";
+      xhr.onload = () => {
+        const pmx = new PMXModelData(xhr.response, directory);
         deferred.resolve(pmx);
       };
-      oReq.onerror = (err) => {
+      xhr.onerror = (err) => {
         deferred.reject(err);
       };
-      oReq.send(null);
+      xhr.send(null);
       return deferred.promise;
     });
   }

@@ -68,7 +68,7 @@ class VMDNode extends GomlTreeNodeBase {
   private _onSrcAttrChanged(attr): void {
     if (!attr.Value || attr.Value == this.lastURL) return;
     if (this.vmdLoadingDeferred) this.vmdLoadingDeferred.resolve(null);
-    this.vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered();
+    this.vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
     VMDData.LoadFromUrl(attr.Value).then((data) => {
       this.lastURL = attr.Value;
       this.targetVMD = data;

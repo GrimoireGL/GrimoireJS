@@ -20,7 +20,7 @@ class PMXNode extends SceneObjectNodeBase {
 
   constructor() {
     super();
-    this.pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered();
+    this.pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
     this.attributes.defineAttribute({
       "src": {
         converter: "string",

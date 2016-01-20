@@ -72,8 +72,8 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
 
   protected onMount(): void {
     super.onMount();
-    var rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    var name = this.attributes.getValue("name");
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const name = this.attributes.getValue("name");
     this.generateTexture(name, rm).then((texture) => {
       this.targetTexture = texture;
       this.nodeManager.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);
@@ -142,4 +142,4 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
   }
 }
 
-export =TextureNodeBase;
+export = TextureNodeBase;

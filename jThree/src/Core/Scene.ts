@@ -1,4 +1,4 @@
-﻿import jThreeObjectWithID = require("../Base/JThreeObjectWithID");
+import jThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
 import JThreeEvent = require("../Base/JThreeEvent");
 import BasicRenderer = require("./Renderers/BasicRenderer");
 import SceneObject = require("./SceneObject");
@@ -10,7 +10,7 @@ import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
 /**
  * Provides scene feature.
  */
-class Scene extends jThreeObjectWithID {
+class Scene extends jThreeObjectEEWithID {
   constructor(id?: string) {
     super(id);
     this.enabled = true;
@@ -40,28 +40,39 @@ class Scene extends jThreeObjectWithID {
    * You don't need to call this method manually in most of use case.
    */
   public render(): void {
-    this.renderers.forEach((r) => {
+    this._renderers.forEach((r) => {
       r.beforeRender();
       r.render(this);
       r.afterRender();
     });
   }
 
-  public rendererListChanged: JThreeEvent<RendererListChangedEventArgs> = new JThreeEvent<RendererListChangedEventArgs>();
-
-  private renderers: BasicRenderer[] = [];
+  private _renderers: BasicRenderer[] = [];
 
   public addRenderer(renderer: BasicRenderer): void {
-    this.renderers.push(renderer);
-    this.rendererListChanged.fire(this, {
+    this._renderers.push(renderer);
+    this.emit("changed-renderer", <RendererListChangedEventArgs>{
       owner: this,
       renderer: renderer,
       isAdditionalChange: true
     });
   }
 
+  public removeRenderer(renderer: BasicRenderer): void {
+    const index = this._renderers.indexOf(renderer);
+    if (index < 0) {
+      return;
+    }
+    this._renderers.splice(index, 1);
+    this.emit("changed-renderer", <RendererListChangedEventArgs>{
+      owner: this,
+      renderer: renderer,
+      isAdditionalChange: false
+    });
+  }
+
   public get Renderers(): BasicRenderer[] {
-    return this.renderers;
+    return this._renderers;
   }
 
   public children: SceneObject[] = [];

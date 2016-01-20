@@ -21,7 +21,7 @@ class RendererFit extends GeneraterBase {
     }
   }
 
-  public generate(name: string, texInfo: GeneraterInfoChunk) {
+  public generate(texInfo: GeneraterInfoChunk) {
     const rect = this.ParentRenderRectangle;
     const width = rect.Width, height = rect.Height;
     let internalFormat: TextureInternalFormatType;
@@ -82,8 +82,8 @@ class RendererFit extends GeneraterBase {
         console.error("the given parameter was invalid : element format " + texInfo["element"]);
     }
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    const resource = rm.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
-    this.parentRenderer.viewportChanged.addListener((r, s: Rectangle) => {
+    const resource = rm.createTexture(this.parentRenderer.ID + "." + texInfo.name, width, height, internalFormat, elementFormat);
+    this.parentRenderer.on("resize", (s: Rectangle) => {
       const bufTex = <BufferTexture>resource;
       if (s.Width !== bufTex.Width || s.Height !== bufTex.Height) {
         (<BufferTexture>resource).resize(s.Width, s.Height);

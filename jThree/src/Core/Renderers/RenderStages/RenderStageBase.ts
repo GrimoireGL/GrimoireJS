@@ -6,7 +6,6 @@ import SceneObject = require("../../SceneObject");
 import Scene = require("../../Scene");
 import ResolvedChainInfo = require("../ResolvedChainInfo");
 import RBO = require("../../Resources/RBO/RBO");
-import FBO = require("../../Resources/FBO/FBO");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
@@ -39,10 +38,6 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 
   public get GL() {
     return this.Renderer.GL;
-  }
-
-  private get ResourceManager() {
-    return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
   }
 
   constructor(renderer: BasicRenderer) {
@@ -110,17 +105,11 @@ abstract class RenderStageBase extends JThreeObjectWithID {
   }
 
 	/**
-	 * Get default fbo that is allocated for this renderer.
-	 */
-  public get DefaultFBO(): FBO {
-    return this.ResourceManager.getFBO(this.Renderer.ID + ".fbo.default");
-  }
-
-	/**
 	 * Get default rbo that is allocated for this renderer.
 	 */
   public get DefaultRBO(): RBO {
-    return this.ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
+   const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    return rm.getRBO(this.Renderer.ID + ".rbo.default");
   }
 }
 

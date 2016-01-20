@@ -38,6 +38,10 @@ class ContextComponents {
   public static get PrimitiveRegistory(): number {
     return 9;
   }
+
+  public static get RenderStageRegistory(): number {
+    return 10;
+  }
 }
 
 export = ContextComponents;
