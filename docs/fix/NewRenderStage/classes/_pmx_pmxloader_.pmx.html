@@ -91,6 +91,7 @@
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#_resourcedirectory" class="tsd-kind-icon">_resource<wbr>Directory</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#bones" class="tsd-kind-icon">bones</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#displayframes" class="tsd-kind-icon">display<wbr>Frames</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#header" class="tsd-kind-icon">header</a></li>
@@ -137,7 +138,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#readtextbuf" class="tsd-kind-icon">read<wbr>Text<wbr>Buf</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#readtextureindex" class="tsd-kind-icon">read<wbr>Texture<wbr>Index</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#readvertexindex" class="tsd-kind-icon">read<wbr>Vertex<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_pmx_pmxloader_.pmx.html#toutf8array" class="tsd-kind-icon">toUTF8<wbr>Array</a></li>
 							</ul>
 						</section>
 					</div>
@@ -149,19 +149,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new PMX<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></li>
+						<li class="tsd-signature tsd-kind-icon">new PMX<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayBuffer</span>, resourceDirectory<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L58">PMX/PMXLoader.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L61">PMX/PMXLoader.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>data: <span class="tsd-signature-type">ArrayBuffer</span></h5>
+								</li>
+								<li>
+									<h5>resourceDirectory: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></h4>
@@ -172,12 +175,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_resourcedirectory" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _resource<wbr>Directory</h3>
+					<div class="tsd-signature tsd-kind-icon">_resource<wbr>Directory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L33">PMX/PMXLoader.ts:33</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="bones" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> bones</h3>
 					<div class="tsd-signature tsd-kind-icon">bones<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxbone_.pmxbone.html" class="tsd-signature-type">PMXBone</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L22">PMX/PMXLoader.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L23">PMX/PMXLoader.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,7 +200,7 @@
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Frames<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxdisplayframe_.pmxdisplayframe.html" class="tsd-signature-type">PMXDisplayFrame</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L26">PMX/PMXLoader.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L27">PMX/PMXLoader.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -197,7 +210,7 @@
 					<div class="tsd-signature tsd-kind-icon">header<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxheader_.pmxheader.html" class="tsd-signature-type">PMXHeader</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L12">PMX/PMXLoader.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L13">PMX/PMXLoader.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -207,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">joints<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxjoint_.pmxjoint.html" class="tsd-signature-type">PMXJoint</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L30">PMX/PMXLoader.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L31">PMX/PMXLoader.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">materials<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxmaterial_.pmxmaterial.html" class="tsd-signature-type">PMXMaterial</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L20">PMX/PMXLoader.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L21">PMX/PMXLoader.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -227,7 +240,7 @@
 					<div class="tsd-signature tsd-kind-icon">morphs<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxmorph_.pmxmorph.html" class="tsd-signature-type">PMXMorph</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L24">PMX/PMXLoader.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L25">PMX/PMXLoader.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -237,7 +250,7 @@
 					<div class="tsd-signature tsd-kind-icon">reader<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_bundle_notdoc_.jdataview.html" class="tsd-signature-type">jDataView</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L10">PMX/PMXLoader.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L11">PMX/PMXLoader.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -247,7 +260,7 @@
 					<div class="tsd-signature tsd-kind-icon">rigid<wbr>Bodies<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxrigidbody_.pmxrigidbody.html" class="tsd-signature-type">PMXRigidBody</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L28">PMX/PMXLoader.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L29">PMX/PMXLoader.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -257,7 +270,7 @@
 					<div class="tsd-signature tsd-kind-icon">surfaces<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L16">PMX/PMXLoader.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L17">PMX/PMXLoader.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -267,7 +280,7 @@
 					<div class="tsd-signature tsd-kind-icon">textures<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L18">PMX/PMXLoader.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L19">PMX/PMXLoader.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -277,7 +290,7 @@
 					<div class="tsd-signature tsd-kind-icon">verticies<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pmx_pmxverticies_.pmxverticies.html" class="tsd-signature-type">PMXVerticies</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L14">PMX/PMXLoader.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L15">PMX/PMXLoader.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -294,7 +307,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L52">PMX/PMXLoader.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L55">PMX/PMXLoader.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_pmx_pmxbone_.pmxbone.html" class="tsd-signature-type">PMXBone</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -311,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L32">PMX/PMXLoader.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L35">PMX/PMXLoader.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_pmx_pmxheader_.pmxheader.html" class="tsd-signature-type">PMXHeader</a></h4>
@@ -328,7 +341,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L44">PMX/PMXLoader.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L47">PMX/PMXLoader.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_pmx_pmxmaterial_.pmxmaterial.html" class="tsd-signature-type">PMXMaterial</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -345,7 +358,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L56">PMX/PMXLoader.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L59">PMX/PMXLoader.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_pmx_pmxmorph_.pmxmorph.html" class="tsd-signature-type">PMXMorph</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -362,7 +375,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L40">PMX/PMXLoader.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L43">PMX/PMXLoader.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -379,7 +392,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L48">PMX/PMXLoader.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L51">PMX/PMXLoader.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -396,7 +409,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L36">PMX/PMXLoader.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L39">PMX/PMXLoader.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_pmx_pmxverticies_.pmxverticies.html" class="tsd-signature-type">PMXVerticies</a></h4>
@@ -416,7 +429,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L333">PMX/PMXLoader.ts:333</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L307">PMX/PMXLoader.ts:307</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -433,7 +446,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L453">PMX/PMXLoader.ts:453</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L427">PMX/PMXLoader.ts:427</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -450,7 +463,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L120">PMX/PMXLoader.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L95">PMX/PMXLoader.ts:95</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -467,7 +480,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L501">PMX/PMXLoader.ts:501</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L474">PMX/PMXLoader.ts:474</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -484,7 +497,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L307">PMX/PMXLoader.ts:307</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L281">PMX/PMXLoader.ts:281</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -501,7 +514,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L372">PMX/PMXLoader.ts:372</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L347">PMX/PMXLoader.ts:347</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -518,7 +531,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L476">PMX/PMXLoader.ts:476</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L449">PMX/PMXLoader.ts:449</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -535,7 +548,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L287">PMX/PMXLoader.ts:287</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L260">PMX/PMXLoader.ts:260</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -552,7 +565,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L298">PMX/PMXLoader.ts:298</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L271">PMX/PMXLoader.ts:271</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -569,7 +582,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L187">PMX/PMXLoader.ts:187</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L161">PMX/PMXLoader.ts:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -586,7 +599,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L146">PMX/PMXLoader.ts:146</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L120">PMX/PMXLoader.ts:120</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -603,7 +616,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L176">PMX/PMXLoader.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L150">PMX/PMXLoader.ts:150</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -626,7 +639,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L158">PMX/PMXLoader.ts:158</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L132">PMX/PMXLoader.ts:132</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -643,7 +656,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L154">PMX/PMXLoader.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L128">PMX/PMXLoader.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -660,7 +673,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L162">PMX/PMXLoader.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L136">PMX/PMXLoader.ts:136</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -677,7 +690,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L74">PMX/PMXLoader.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L78">PMX/PMXLoader.ts:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -694,7 +707,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L150">PMX/PMXLoader.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L124">PMX/PMXLoader.ts:124</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -711,33 +724,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L165">PMX/PMXLoader.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L139">PMX/PMXLoader.ts:139</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="toutf8array" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> toUTF8<wbr>Array</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">toUTF8<wbr>Array<span class="tsd-signature-symbol">(</span>str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/PMX/PMXLoader.ts#L89">PMX/PMXLoader.ts:89</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>str: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -763,6 +753,9 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_pmx_pmxloader_.pmx.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_pmx_pmxloader_.pmx.html#_resourcedirectory" class="tsd-kind-icon">_resource<wbr>Directory</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_pmx_pmxloader_.pmx.html#bones" class="tsd-kind-icon">bones</a>
@@ -871,9 +864,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_pmx_pmxloader_.pmx.html#readvertexindex" class="tsd-kind-icon">read<wbr>Vertex<wbr>Index</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_pmx_pmxloader_.pmx.html#toutf8array" class="tsd-kind-icon">toUTF8<wbr>Array</a>
 							</li>
 						</ul>
 					</li>

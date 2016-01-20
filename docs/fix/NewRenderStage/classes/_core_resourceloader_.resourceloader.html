@@ -111,8 +111,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_resourceloader_.resourceloader.html#checkresourceloaded" class="tsd-kind-icon">check<wbr>Resource<wbr>Loaded</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourceloader_.resourceloader.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_resourceloader_.resourceloader.html#getresourceloadingdeffered" class="tsd-kind-icon">get<wbr>Resource<wbr>Loading<wbr>Deffered</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_resourceloader_.resourceloader.html#registerforresourceloaded" class="tsd-kind-icon">register<wbr>For<wbr>Resource<wbr>Loaded</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_core_resourceloader_.resourceloader.html#getresourceloadingdeffered" class="tsd-kind-icon">get<wbr>Resource<wbr>Loading<wbr>Deffered</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private"><a href="_core_resourceloader_.resourceloader.html#registerforresourceloaded" class="tsd-kind-icon">register<wbr>For<wbr>Resource<wbr>Loaded</a></li>
 							</ul>
 						</section>
 					</div>
@@ -230,7 +230,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceLoader.ts#L68">Core/ResourceLoader.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceLoader.ts#L67">Core/ResourceLoader.ts:67</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,11 +260,11 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="getresourceloadingdeffered" class="tsd-anchor"></a>
 					<h3>get<wbr>Resource<wbr>Loading<wbr>Deffered</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Loading<wbr>Deffered<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Deferred</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Resource<wbr>Loading<wbr>Deffered&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Deferred</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -273,21 +273,27 @@
 									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceLoader.ts#L31">Core/ResourceLoader.ts:31</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Deferred</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Deferred</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
 					<a name="registerforresourceloaded" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> register<wbr>For<wbr>Resource<wbr>Loaded</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">register<wbr>For<wbr>Resource<wbr>Loaded<span class="tsd-signature-symbol">(</span>promise<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">register<wbr>For<wbr>Resource<wbr>Loaded&lt;T&gt;<span class="tsd-signature-symbol">(</span>promise<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceLoader.ts#L47">Core/ResourceLoader.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/ResourceLoader.ts#L46">Core/ResourceLoader.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -296,10 +302,16 @@
 									Register promise to be able to check status when the promise notify state.</p>
 								</div>
 							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>promise: <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>promise: <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -358,10 +370,10 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_resourceloader_.resourceloader.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="_core_resourceloader_.resourceloader.html#getresourceloadingdeffered" class="tsd-kind-icon">get<wbr>Resource<wbr>Loading<wbr>Deffered</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
 								<a href="_core_resourceloader_.resourceloader.html#registerforresourceloaded" class="tsd-kind-icon">register<wbr>For<wbr>Resource<wbr>Loaded</a>
 							</li>
 						</ul>

@@ -90,6 +90,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><span class="tsd-signature-type">EventEmitter</span></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -103,11 +109,19 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_pointlight_.pointlight.html#decay" class="tsd-kind-icon">decay</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_pointlight_.pointlight.html#distance" class="tsd-kind-icon">distance</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#emit" class="tsd-kind-icon">emit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_light_impl_pointlight_.pointlight.html#geometry" class="tsd-kind-icon">geometry</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_pointlight_.pointlight.html#intensity" class="tsd-kind-icon">intensity</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#listeners" class="tsd-kind-icon">listeners</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#once" class="tsd-kind-icon">once</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_pointlight_.pointlight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_light_impl_pointlight_.pointlight.html#transformer" class="tsd-kind-icon">transformer</a></li>
 							</ul>
 						</section>
@@ -168,6 +182,41 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="addlistener" class="tsd-anchor"></a>
+					<h3>add<wbr>Listener</h3>
+					<div class="tsd-signature tsd-kind-icon">add<wbr>Listener<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#addlistener">addListener</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L8">Base/JThreeObjectEEWithID.ts:8</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>event: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="decay" class="tsd-anchor"></a>
 					<h3>decay</h3>
@@ -188,6 +237,41 @@
 						</ul>
 					</aside>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="emit" class="tsd-anchor"></a>
+					<h3>emit</h3>
+					<div class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#emit">emit</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L15">Base/JThreeObjectEEWithID.ts:15</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>event: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="geometry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> geometry</h3>
@@ -195,7 +279,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#geometry">geometry</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L164">Core/SceneObject.ts:164</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L150">Core/SceneObject.ts:150</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -210,15 +294,216 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="listeners" class="tsd-anchor"></a>
+					<h3>listeners</h3>
+					<div class="tsd-signature tsd-kind-icon">listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#listeners">listeners</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L14">Base/JThreeObjectEEWithID.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">[]</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>event: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">[]</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="name" class="tsd-anchor"></a>
 					<h3>name</h3>
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L27">Core/SceneObject.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L25">Core/SceneObject.ts:25</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="on" class="tsd-anchor"></a>
+					<h3>on</h3>
+					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#on">on</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L9">Base/JThreeObjectEEWithID.ts:9</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>event: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="once" class="tsd-anchor"></a>
+					<h3>once</h3>
+					<div class="tsd-signature tsd-kind-icon">once<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#once">once</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L10">Base/JThreeObjectEEWithID.ts:10</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>event: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="removealllisteners" class="tsd-anchor"></a>
+					<h3>remove<wbr>All<wbr>Listeners</h3>
+					<div class="tsd-signature tsd-kind-icon">remove<wbr>All<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#removealllisteners">removeAllListeners</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L12">Base/JThreeObjectEEWithID.ts:12</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> event: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="removelistener" class="tsd-anchor"></a>
+					<h3>remove<wbr>Listener</h3>
+					<div class="tsd-signature tsd-kind-icon">remove<wbr>Listener<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#removelistener">removeListener</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L11">Base/JThreeObjectEEWithID.ts:11</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>event: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>listener: <span class="tsd-signature-type">Function</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="setmaxlisteners" class="tsd-anchor"></a>
+					<h3>set<wbr>Max<wbr>Listeners</h3>
+					<div class="tsd-signature tsd-kind-icon">set<wbr>Max<wbr>Listeners<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#setmaxlisteners">setMaxListeners</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L13">Base/JThreeObjectEEWithID.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>n: <span class="tsd-signature-type">number</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="transformer" class="tsd-anchor"></a>
@@ -227,7 +512,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#transformer">transformer</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L176">Core/SceneObject.ts:176</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L160">Core/SceneObject.ts:160</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -245,7 +530,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#children-1">Children</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L41">Core/SceneObject.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L39">Core/SceneObject.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -303,7 +588,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#geometry-1">Geometry</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L166">Core/SceneObject.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L152">Core/SceneObject.ts:152</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_geometries_base_geometry_.geometry.html" class="tsd-signature-type">Geometry</a></h4>
@@ -312,7 +597,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#geometry-1">Geometry</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L171">Core/SceneObject.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L156">Core/SceneObject.ts:156</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -380,7 +665,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#parent-1">Parent</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L68">Core/SceneObject.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L65">Core/SceneObject.ts:65</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a></h4>
@@ -399,7 +684,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#parentscene-1">ParentScene</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L81">Core/SceneObject.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L77">Core/SceneObject.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -413,7 +698,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#parentscene-1">ParentScene</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L102">Core/SceneObject.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L95">Core/SceneObject.ts:95</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -460,7 +745,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#transformer-1">Transformer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L178">Core/SceneObject.ts:178</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L162">Core/SceneObject.ts:162</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_transform_transformer_.transformer.html" class="tsd-signature-type">Transformer</a></h4>
@@ -481,7 +766,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#addchild">addChild</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L45">Core/SceneObject.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L43">Core/SceneObject.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -505,7 +790,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#addmaterial">addMaterial</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L130">Core/SceneObject.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L122">Core/SceneObject.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -529,7 +814,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#callrecursive">callRecursive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L183">Core/SceneObject.ts:183</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L166">Core/SceneObject.ts:166</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -553,7 +838,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#eachmaterial">eachMaterial</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L125">Core/SceneObject.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L117">Core/SceneObject.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -582,7 +867,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#getmaterial">getMaterial</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L139">Core/SceneObject.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L129">Core/SceneObject.ts:129</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -606,7 +891,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#getmaterials">getMaterials</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L154">Core/SceneObject.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L142">Core/SceneObject.ts:142</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -654,7 +939,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onchildrenchanged">onChildrenChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L192">Core/SceneObject.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L173">Core/SceneObject.ts:173</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -672,7 +957,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onmaterialchanged">onMaterialChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L119">Core/SceneObject.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L111">Core/SceneObject.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -696,7 +981,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onparentchanged">onParentChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L197">Core/SceneObject.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L177">Core/SceneObject.ts:177</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -714,7 +999,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onparentscenechanged">onParentSceneChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L202">Core/SceneObject.ts:202</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L181">Core/SceneObject.ts:181</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -763,7 +1048,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#update">update</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L207">Core/SceneObject.ts:207</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L185">Core/SceneObject.ts:185</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -793,11 +1078,17 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_core_light_impl_pointlight_.pointlight.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_light_impl_pointlight_.pointlight.html#decay" class="tsd-kind-icon">decay</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_light_impl_pointlight_.pointlight.html#distance" class="tsd-kind-icon">distance</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#emit" class="tsd-kind-icon">emit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_core_light_impl_pointlight_.pointlight.html#geometry" class="tsd-kind-icon">geometry</a>
@@ -806,7 +1097,25 @@
 								<a href="_core_light_impl_pointlight_.pointlight.html#intensity" class="tsd-kind-icon">intensity</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#listeners" class="tsd-kind-icon">listeners</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_light_impl_pointlight_.pointlight.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#on" class="tsd-kind-icon">on</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#once" class="tsd-kind-icon">once</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_pointlight_.pointlight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_core_light_impl_pointlight_.pointlight.html#transformer" class="tsd-kind-icon">transformer</a>

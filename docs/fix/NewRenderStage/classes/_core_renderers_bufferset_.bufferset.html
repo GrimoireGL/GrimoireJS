@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GLExtensionManager | jThree</title>
+	<title>BufferSet | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_core_glextensionmanager_.html">&quot;Core/GLExtensionManager&quot;</a>
+					<a href="../modules/_core_renderers_bufferset_.html">&quot;Core/Renderers/BufferSet&quot;</a>
 				</li>
 				<li>
-					<a href="_core_glextensionmanager_.glextensionmanager.html">GLExtensionManager</a>
+					<a href="_core_renderers_bufferset_.bufferset.html">BufferSet</a>
 				</li>
 			</ul>
-			<h1>Class GLExtensionManager</h1>
+			<h1>Class BufferSet</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Provides the feature to require gl extension.</p>
+						<p>The class managing all buffer textures used for rendering in a BasicRenderer.</p>
 					</div>
 				</div>
 			</section>
@@ -81,12 +81,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_base_jthreeobject_.jthreeobject.html" class="tsd-signature-type">JThreeObject</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">GLExtensionManager</span>
-							</li>
-						</ul>
+						<span class="target">BufferSet</span>
 					</li>
 				</ul>
 			</section>
@@ -97,24 +92,23 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_core_renderers_bufferset_.bufferset.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_glextensionmanager_.glextensionmanager.html#extensions" class="tsd-kind-icon">extensions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_glextensionmanager_.glextensionmanager.html#requiredextensions" class="tsd-kind-icon">required<wbr>Extensions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_bufferset_.bufferset.html#_colorbuffers" class="tsd-kind-icon">_color<wbr>Buffers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_bufferset_.bufferset.html#_renderer" class="tsd-kind-icon">_renderer</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#checkextensions" class="tsd-kind-icon">check<wbr>Extensions</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#getextension" class="tsd-kind-icon">get<wbr>Extension</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_glextensionmanager_.glextensionmanager.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#hasextension" class="tsd-kind-icon">has<wbr>Extension</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_glextensionmanager_.glextensionmanager.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_bufferset_.bufferset.html#appendbuffer" class="tsd-kind-icon">append<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_bufferset_.bufferset.html#appendbuffers" class="tsd-kind-icon">append<wbr>Buffers</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_bufferset_.bufferset.html#getcolorbuffer" class="tsd-kind-icon">get<wbr>Color<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_bufferset_.bufferset.html#removebuffer" class="tsd-kind-icon">remove<wbr>Buffer</a></li>
 							</ul>
 						</section>
 					</div>
@@ -126,16 +120,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new GLExtension<wbr>Manager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Buffer<wbr>Set<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_bufferset_.bufferset.html" class="tsd-signature-type">BufferSet</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L15">Core/GLExtensionManager.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BufferSet.ts#L14">Core/Renderers/BufferSet.ts:14</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>renderer: <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_bufferset_.bufferset.html" class="tsd-signature-type">BufferSet</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -143,30 +143,35 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="extensions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> extensions</h3>
-					<div class="tsd-signature tsd-kind-icon">extensions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<a name="_colorbuffers" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _color<wbr>Buffers</h3>
+					<div class="tsd-signature tsd-kind-icon">_color<wbr>Buffers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L15">Core/GLExtensionManager.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BufferSet.ts#L14">Core/Renderers/BufferSet.ts:14</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The color buffers managed by this class.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></h5>
 							</li>
 						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="requiredextensions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> required<wbr>Extensions</h3>
-					<div class="tsd-signature tsd-kind-icon">required<wbr>Extensions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="_renderer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _renderer</h3>
+					<div class="tsd-signature tsd-kind-icon">_renderer<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L8">Core/GLExtensionManager.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BufferSet.ts#L10">Core/Renderers/BufferSet.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -174,22 +179,29 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="checkextensions" class="tsd-anchor"></a>
-					<h3>check<wbr>Extensions</h3>
+					<a name="appendbuffer" class="tsd-anchor"></a>
+					<h3>append<wbr>Buffer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">check<wbr>Extensions<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">append<wbr>Buffer<span class="tsd-signature-symbol">(</span>argument<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_texturegeneraters_generaterinfochunk_.generaterinfochunk.html" class="tsd-signature-type">GeneraterInfoChunk</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L21">Core/GLExtensionManager.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BufferSet.ts#L24">Core/Renderers/BufferSet.ts:24</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generate new buffer and append list.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>context: <span class="tsd-signature-type">WebGLRenderingContext</span></h5>
+									<h5>argument: <a href="../interfaces/_core_renderers_texturegeneraters_generaterinfochunk_.generaterinfochunk.html" class="tsd-signature-type">GeneraterInfoChunk</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -197,97 +209,78 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getextension" class="tsd-anchor"></a>
-					<h3>get<wbr>Extension</h3>
+					<a name="appendbuffers" class="tsd-anchor"></a>
+					<h3>append<wbr>Buffers</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Extension<span class="tsd-signature-symbol">(</span>extName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">append<wbr>Buffers<span class="tsd-signature-symbol">(</span>args<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_texturegeneraters_generaterinfochunk_.generaterinfochunk.html" class="tsd-signature-type">GeneraterInfoChunk</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L45">Core/GLExtensionManager.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BufferSet.ts#L33">Core/Renderers/BufferSet.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>extName: <span class="tsd-signature-type">string</span></h5>
+									<h5>args: <a href="../interfaces/_core_renderers_texturegeneraters_generaterinfochunk_.generaterinfochunk.html" class="tsd-signature-type">GeneraterInfoChunk</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="gettypename" class="tsd-anchor"></a>
-					<h3>get<wbr>Type<wbr>Name</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Type<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#gettypename">getTypeName</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L20">Base/JThreeObject.ts:20</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Obtain class name</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>Class name of the instance.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="hasextension" class="tsd-anchor"></a>
-					<h3>has<wbr>Extension</h3>
+					<a name="getcolorbuffer" class="tsd-anchor"></a>
+					<h3>get<wbr>Color<wbr>Buffer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">has<wbr>Extension<span class="tsd-signature-symbol">(</span>extName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Color<wbr>Buffer<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L49">Core/GLExtensionManager.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BufferSet.ts#L50">Core/Renderers/BufferSet.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>extName: <span class="tsd-signature-type">string</span></h5>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_core_resources_texture_texturebase_.texturebase.html" class="tsd-signature-type">TextureBase</a></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="tostring" class="tsd-anchor"></a>
-					<h3>to<wbr>String</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="removebuffer" class="tsd-anchor"></a>
+					<h3>remove<wbr>Buffer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Buffer<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L12">Base/JThreeObject.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/BufferSet.ts#L43">Core/Renderers/BufferSet.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Obtain stringfied object.
-									If this method was not overridden, this method return class name.</p>
+									<p>Remove buffer and dispose.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>stringfied object</p>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -300,7 +293,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_core_glextensionmanager_.html">"<wbr>Core/GLExtension<wbr>Manager"</a>
+						<a href="../modules/_core_renderers_bufferset_.html">"<wbr>Core/<wbr>Renderers/<wbr>Buffer<wbr>Set"</a>
 					</li>
 				</ul>
 			</nav>
@@ -309,31 +302,28 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-kind-icon">GLExtension<wbr>Manager</a>
+						<a href="_core_renderers_bufferset_.bufferset.html" class="tsd-kind-icon">Buffer<wbr>Set</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_core_renderers_bufferset_.bufferset.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#extensions" class="tsd-kind-icon">extensions</a>
+								<a href="_core_renderers_bufferset_.bufferset.html#_colorbuffers" class="tsd-kind-icon">_color<wbr>Buffers</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#requiredextensions" class="tsd-kind-icon">required<wbr>Extensions</a>
+								<a href="_core_renderers_bufferset_.bufferset.html#_renderer" class="tsd-kind-icon">_renderer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#checkextensions" class="tsd-kind-icon">check<wbr>Extensions</a>
+								<a href="_core_renderers_bufferset_.bufferset.html#appendbuffer" class="tsd-kind-icon">append<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#getextension" class="tsd-kind-icon">get<wbr>Extension</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+								<a href="_core_renderers_bufferset_.bufferset.html#appendbuffers" class="tsd-kind-icon">append<wbr>Buffers</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#hasextension" class="tsd-kind-icon">has<wbr>Extension</a>
+								<a href="_core_renderers_bufferset_.bufferset.html#getcolorbuffer" class="tsd-kind-icon">get<wbr>Color<wbr>Buffer</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_core_renderers_bufferset_.bufferset.html#removebuffer" class="tsd-kind-icon">remove<wbr>Buffer</a>
 							</li>
 						</ul>
 					</li>

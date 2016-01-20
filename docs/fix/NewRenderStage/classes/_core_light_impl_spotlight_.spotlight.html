@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>OrthoCamera | jThree</title>
+	<title>SpotLight | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,27 +57,34 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_core_camera_orthocamera_.html">&quot;Core/Camera/OrthoCamera&quot;</a>
+					<a href="../modules/_core_light_impl_spotlight_.html">&quot;Core/Light/Impl/SpotLight&quot;</a>
 				</li>
 				<li>
-					<a href="_core_camera_orthocamera_.orthocamera.html">OrthoCamera</a>
+					<a href="_core_light_impl_spotlight_.spotlight.html">SpotLight</a>
 				</li>
 			</ul>
-			<h1>Class OrthoCamera</h1>
+			<h1>Class SpotLight</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Point Light</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_core_camera_viewcamerabase_.viewcamerabase.html" class="tsd-signature-type">ViewCameraBase</a>
+						<a href="_core_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">OrthoCamera</span>
+								<span class="target">SpotLight</span>
 							</li>
 						</ul>
 					</li>
@@ -96,72 +103,61 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_core_camera_orthocamera_.orthocamera.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_core_light_impl_spotlight_.spotlight.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_camera_orthocamera_.orthocamera.html#_bottom" class="tsd-kind-icon">_bottom</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_camera_orthocamera_.orthocamera.html#_far" class="tsd-kind-icon">_far</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_camera_orthocamera_.orthocamera.html#_left" class="tsd-kind-icon">_left</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_camera_orthocamera_.orthocamera.html#_near" class="tsd-kind-icon">_near</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_camera_orthocamera_.orthocamera.html#_right" class="tsd-kind-icon">_right</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_camera_orthocamera_.orthocamera.html#_top" class="tsd-kind-icon">_top</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#emit" class="tsd-kind-icon">emit</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#frustumpoints" class="tsd-kind-icon">frustum<wbr>Points</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_camera_orthocamera_.orthocamera.html#geometry" class="tsd-kind-icon">geometry</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#invprojectionmatrix" class="tsd-kind-icon">inv<wbr>Projection<wbr>Matrix</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#listeners" class="tsd-kind-icon">listeners</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#on" class="tsd-kind-icon">on</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#once" class="tsd-kind-icon">once</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#projectionmatrix" class="tsd-kind-icon">projection<wbr>Matrix</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_camera_orthocamera_.orthocamera.html#transformer" class="tsd-kind-icon">transformer</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#viewmatrix" class="tsd-kind-icon">view<wbr>Matrix</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#viewprojectioninvmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#viewprojectionmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Matrix</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_spotlight_.spotlight.html#angledecay" class="tsd-kind-icon">angle<wbr>Decay</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_spotlight_.spotlight.html#distancedecay" class="tsd-kind-icon">distance<wbr>Decay</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#emit" class="tsd-kind-icon">emit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_light_impl_spotlight_.spotlight.html#geometry" class="tsd-kind-icon">geometry</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_spotlight_.spotlight.html#innerangle" class="tsd-kind-icon">inner<wbr>Angle</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_spotlight_.spotlight.html#innerdistance" class="tsd-kind-icon">inner<wbr>Distance</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_spotlight_.spotlight.html#intensity" class="tsd-kind-icon">intensity</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#listeners" class="tsd-kind-icon">listeners</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#once" class="tsd-kind-icon">once</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_spotlight_.spotlight.html#outerangle" class="tsd-kind-icon">outer<wbr>Angle</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_light_impl_spotlight_.spotlight.html#outerdistance" class="tsd-kind-icon">outer<wbr>Distance</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_light_impl_spotlight_.spotlight.html#transformer" class="tsd-kind-icon">transformer</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_camera_orthocamera_.orthocamera.html#bottom" class="tsd-kind-icon">Bottom</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#children" class="tsd-kind-icon">Children</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_camera_orthocamera_.orthocamera.html#far" class="tsd-kind-icon">Far</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#geometry-1" class="tsd-kind-icon">Geometry</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#id" class="tsd-kind-icon">ID</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_camera_orthocamera_.orthocamera.html#left" class="tsd-kind-icon">Left</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_camera_orthocamera_.orthocamera.html#near" class="tsd-kind-icon">Near</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#parent" class="tsd-kind-icon">Parent</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_camera_orthocamera_.orthocamera.html#right" class="tsd-kind-icon">Right</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="_core_camera_orthocamera_.orthocamera.html#top" class="tsd-kind-icon">Top</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#transformer-1" class="tsd-kind-icon">Transformer</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#children" class="tsd-kind-icon">Children</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#color" class="tsd-kind-icon">Color</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#geometry-1" class="tsd-kind-icon">Geometry</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#id" class="tsd-kind-icon">ID</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#parent" class="tsd-kind-icon">Parent</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#position" class="tsd-kind-icon">Position</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#transformer-1" class="tsd-kind-icon">Transformer</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_core_camera_orthocamera_.orthocamera.html#___updateviewprojectionmatrix" class="tsd-kind-icon">___update<wbr>View<wbr>Projection<wbr>Matrix</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_camera_orthocamera_.orthocamera.html#_updateprojectionmatrix" class="tsd-kind-icon">_update<wbr>Projection<wbr>Matrix</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_core_camera_orthocamera_.orthocamera.html#update" class="tsd-kind-icon">update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_light_impl_spotlight_.spotlight.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -173,83 +169,23 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Ortho<wbr>Camera<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_camera_orthocamera_.orthocamera.html" class="tsd-signature-type">OrthoCamera</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Spot<wbr>Light<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_light_impl_spotlight_.spotlight.html" class="tsd-signature-type">SpotLight</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overwrites <a href="_core_camera_viewcamerabase_.viewcamerabase.html">ViewCameraBase</a>.<a href="_core_camera_viewcamerabase_.viewcamerabase.html#constructor">constructor</a></p>
+								<p>Overwrites <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L9">Core/Camera/OrthoCamera.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L12">Core/Light/Impl/SpotLight.ts:12</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_core_camera_orthocamera_.orthocamera.html" class="tsd-signature-type">OrthoCamera</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_core_light_impl_spotlight_.spotlight.html" class="tsd-signature-type">SpotLight</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_bottom" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _bottom</h3>
-					<div class="tsd-signature tsd-kind-icon">_bottom<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L7">Core/Camera/OrthoCamera.ts:7</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_far" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _far</h3>
-					<div class="tsd-signature tsd-kind-icon">_far<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L9">Core/Camera/OrthoCamera.ts:9</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_left" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _left</h3>
-					<div class="tsd-signature tsd-kind-icon">_left<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L4">Core/Camera/OrthoCamera.ts:4</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_near" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _near</h3>
-					<div class="tsd-signature tsd-kind-icon">_near<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L8">Core/Camera/OrthoCamera.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_right" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _right</h3>
-					<div class="tsd-signature tsd-kind-icon">_right<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L5">Core/Camera/OrthoCamera.ts:5</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_top" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _top</h3>
-					<div class="tsd-signature tsd-kind-icon">_top<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L6">Core/Camera/OrthoCamera.ts:6</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="addlistener" class="tsd-anchor"></a>
 					<h3>add<wbr>Listener</h3>
@@ -284,6 +220,26 @@
 							</li>
 						</ul>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="angledecay" class="tsd-anchor"></a>
+					<h3>angle<wbr>Decay</h3>
+					<div class="tsd-signature tsd-kind-icon">angle<wbr>Decay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L41">Core/Light/Impl/SpotLight.ts:41</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="distancedecay" class="tsd-anchor"></a>
+					<h3>distance<wbr>Decay</h3>
+					<div class="tsd-signature tsd-kind-icon">distance<wbr>Decay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L42">Core/Light/Impl/SpotLight.ts:42</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="emit" class="tsd-anchor"></a>
@@ -320,22 +276,6 @@
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="frustumpoints" class="tsd-anchor"></a>
-					<h3>frustum<wbr>Points</h3>
-					<div class="tsd-signature tsd-kind-icon">frustum<wbr>Points<span class="tsd-signature-symbol">:</span> <a href="_math_pointlist_.pointlist.html" class="tsd-signature-type">PointList</a></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#frustumpoints">frustumPoints</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L17">Core/Camera/Camera.ts:17</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>View frustum vertex points in World space</p>
-						</div>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="geometry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> geometry</h3>
@@ -347,14 +287,33 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="invprojectionmatrix" class="tsd-anchor"></a>
-					<h3>inv<wbr>Projection<wbr>Matrix</h3>
-					<div class="tsd-signature tsd-kind-icon">inv<wbr>Projection<wbr>Matrix<span class="tsd-signature-symbol">:</span> <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="innerangle" class="tsd-anchor"></a>
+					<h3>inner<wbr>Angle</h3>
+					<div class="tsd-signature tsd-kind-icon">inner<wbr>Angle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#invprojectionmatrix">invProjectionMatrix</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L23">Core/Camera/Camera.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L37">Core/Light/Impl/SpotLight.ts:37</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="innerdistance" class="tsd-anchor"></a>
+					<h3>inner<wbr>Distance</h3>
+					<div class="tsd-signature tsd-kind-icon">inner<wbr>Distance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L39">Core/Light/Impl/SpotLight.ts:39</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="intensity" class="tsd-anchor"></a>
+					<h3>intensity</h3>
+					<div class="tsd-signature tsd-kind-icon">intensity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L36">Core/Light/Impl/SpotLight.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -471,14 +430,23 @@
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="projectionmatrix" class="tsd-anchor"></a>
-					<h3>projection<wbr>Matrix</h3>
-					<div class="tsd-signature tsd-kind-icon">projection<wbr>Matrix<span class="tsd-signature-symbol">:</span> <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="outerangle" class="tsd-anchor"></a>
+					<h3>outer<wbr>Angle</h3>
+					<div class="tsd-signature tsd-kind-icon">outer<wbr>Angle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#projectionmatrix">projectionMatrix</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L21">Core/Camera/Camera.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L38">Core/Light/Impl/SpotLight.ts:38</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="outerdistance" class="tsd-anchor"></a>
+					<h3>outer<wbr>Distance</h3>
+					<div class="tsd-signature tsd-kind-icon">outer<wbr>Distance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/SpotLight.ts#L40">Core/Light/Impl/SpotLight.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -592,74 +560,9 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="viewmatrix" class="tsd-anchor"></a>
-					<h3>view<wbr>Matrix</h3>
-					<div class="tsd-signature tsd-kind-icon">view<wbr>Matrix<span class="tsd-signature-symbol">:</span> <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#viewmatrix">viewMatrix</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L19">Core/Camera/Camera.ts:19</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="viewprojectioninvmatrix" class="tsd-anchor"></a>
-					<h3>view<wbr>Projection<wbr>Inv<wbr>Matrix</h3>
-					<div class="tsd-signature tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix<span class="tsd-signature-symbol">:</span> <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#viewprojectioninvmatrix">viewProjectionInvMatrix</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L12">Core/Camera/Camera.ts:12</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="viewprojectionmatrix" class="tsd-anchor"></a>
-					<h3>view<wbr>Projection<wbr>Matrix</h3>
-					<div class="tsd-signature tsd-kind-icon">view<wbr>Projection<wbr>Matrix<span class="tsd-signature-symbol">:</span> <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#viewprojectionmatrix">viewProjectionMatrix</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L10">Core/Camera/Camera.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
-					<a name="bottom" class="tsd-anchor"></a>
-					<h3>Bottom</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Bottom<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Bottom<span class="tsd-signature-symbol">(</span>bottom<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L49">Core/Camera/OrthoCamera.ts:49</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L53">Core/Camera/OrthoCamera.ts:53</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>bottom: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="children" class="tsd-anchor"></a>
 					<h3>Children</h3>
@@ -683,32 +586,34 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
-					<a name="far" class="tsd-anchor"></a>
-					<h3>Far</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Far<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Far<span class="tsd-signature-symbol">(</span>far<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+					<a name="color" class="tsd-anchor"></a>
+					<h3>Color</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Color<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Color<span class="tsd-signature-symbol">(</span>col<span class="tsd-signature-symbol">: </span><a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_light_lightbase_.lightbase.html#color-1">Color</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L67">Core/Camera/OrthoCamera.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L9">Core/Light/LightBase.ts:9</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_light_lightbase_.lightbase.html#color-1">Color</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L71">Core/Camera/OrthoCamera.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L13">Core/Light/LightBase.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>far: <span class="tsd-signature-type">number</span></h5>
+									<h5>col: <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -793,70 +698,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
-					<a name="left" class="tsd-anchor"></a>
-					<h3>Left</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Left<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Left<span class="tsd-signature-symbol">(</span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L22">Core/Camera/OrthoCamera.ts:22</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L26">Core/Camera/OrthoCamera.ts:26</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>left: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
-					<a name="near" class="tsd-anchor"></a>
-					<h3>Near</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Near<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Near<span class="tsd-signature-symbol">(</span>near<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L58">Core/Camera/OrthoCamera.ts:58</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L62">Core/Camera/OrthoCamera.ts:62</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>near: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="parent" class="tsd-anchor"></a>
 					<h3>Parent</h3>
@@ -919,67 +760,21 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
-					<a name="right" class="tsd-anchor"></a>
-					<h3>Right</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Right<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Right<span class="tsd-signature-symbol">(</span>right<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="position" class="tsd-anchor"></a>
+					<h3>Position</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Position<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_light_lightbase_.lightbase.html#position">Position</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L31">Core/Camera/OrthoCamera.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L17">Core/Light/LightBase.ts:17</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L35">Core/Camera/OrthoCamera.ts:35</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>right: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
-					<a name="top" class="tsd-anchor"></a>
-					<h3>Top</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> Top<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> Top<span class="tsd-signature-symbol">(</span>_top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L40">Core/Camera/OrthoCamera.ts:40</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L44">Core/Camera/OrthoCamera.ts:44</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>_top: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -1002,43 +797,8 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="___updateviewprojectionmatrix" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> ___update<wbr>View<wbr>Projection<wbr>Matrix</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">___update<wbr>View<wbr>Projection<wbr>Matrix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#___updateviewprojectionmatrix">___updateViewProjectionMatrix</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L25">Core/Camera/Camera.ts:25</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_updateprojectionmatrix" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _update<wbr>Projection<wbr>Matrix</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_update<wbr>Projection<wbr>Matrix<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/OrthoCamera.ts#L16">Core/Camera/OrthoCamera.ts:16</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="addchild" class="tsd-anchor"></a>
 					<h3>add<wbr>Child</h3>
@@ -1272,21 +1032,26 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="onparentscenechanged" class="tsd-anchor"></a>
 					<h3>on<wbr>Parent<wbr>Scene<wbr>Changed</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed<span class="tsd-signature-symbol">(</span>sceneInfo<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_iparentscenechangedeventargs_.iparentscenechangedeventargs.html" class="tsd-signature-type">IParentSceneChangedEventArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#onparentscenechanged">onParentSceneChanged</a></p>
-								<p>Overwrites <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onparentscenechanged">onParentSceneChanged</a></p>
+								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#onparentscenechanged">onParentSceneChanged</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L36">Core/Camera/Camera.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L181">Core/SceneObject.ts:181</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sceneInfo: <a href="../interfaces/_core_iparentscenechangedeventargs_.iparentscenechangedeventargs.html" class="tsd-signature-type">IParentSceneChangedEventArgs</a></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -1316,19 +1081,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="update" class="tsd-anchor"></a>
 					<h3>update</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_camera_camera_.camera.html">Camera</a>.<a href="_core_camera_camera_.camera.html#update">update</a></p>
-								<p>Overwrites <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#update">update</a></p>
+								<p>Inherited from <a href="_core_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobject_.sceneobject.html#update">update</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Camera/Camera.ts#L32">Core/Camera/Camera.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObject.ts#L185">Core/SceneObject.ts:185</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1344,7 +1108,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_core_camera_orthocamera_.html">"<wbr>Core/<wbr>Camera/<wbr>Ortho<wbr>Camera"</a>
+						<a href="../modules/_core_light_impl_spotlight_.html">"<wbr>Core/<wbr>Light/<wbr>Impl/<wbr>Spot<wbr>Light"</a>
 					</li>
 				</ul>
 			</nav>
@@ -1353,160 +1117,127 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_core_camera_orthocamera_.orthocamera.html" class="tsd-kind-icon">Ortho<wbr>Camera</a>
+						<a href="_core_light_impl_spotlight_.spotlight.html" class="tsd-kind-icon">Spot<wbr>Light</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="_core_camera_orthocamera_.orthocamera.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_camera_orthocamera_.orthocamera.html#_bottom" class="tsd-kind-icon">_bottom</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_camera_orthocamera_.orthocamera.html#_far" class="tsd-kind-icon">_far</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_camera_orthocamera_.orthocamera.html#_left" class="tsd-kind-icon">_left</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_camera_orthocamera_.orthocamera.html#_near" class="tsd-kind-icon">_near</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_camera_orthocamera_.orthocamera.html#_right" class="tsd-kind-icon">_right</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_camera_orthocamera_.orthocamera.html#_top" class="tsd-kind-icon">_top</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_light_impl_spotlight_.spotlight.html#angledecay" class="tsd-kind-icon">angle<wbr>Decay</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_light_impl_spotlight_.spotlight.html#distancedecay" class="tsd-kind-icon">distance<wbr>Decay</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#emit" class="tsd-kind-icon">emit</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#frustumpoints" class="tsd-kind-icon">frustum<wbr>Points</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#emit" class="tsd-kind-icon">emit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_core_camera_orthocamera_.orthocamera.html#geometry" class="tsd-kind-icon">geometry</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#geometry" class="tsd-kind-icon">geometry</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_light_impl_spotlight_.spotlight.html#innerangle" class="tsd-kind-icon">inner<wbr>Angle</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_light_impl_spotlight_.spotlight.html#innerdistance" class="tsd-kind-icon">inner<wbr>Distance</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_light_impl_spotlight_.spotlight.html#intensity" class="tsd-kind-icon">intensity</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#invprojectionmatrix" class="tsd-kind-icon">inv<wbr>Projection<wbr>Matrix</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#listeners" class="tsd-kind-icon">listeners</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#listeners" class="tsd-kind-icon">listeners</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#name" class="tsd-kind-icon">name</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#on" class="tsd-kind-icon">on</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#on" class="tsd-kind-icon">on</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#once" class="tsd-kind-icon">once</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_light_impl_spotlight_.spotlight.html#outerangle" class="tsd-kind-icon">outer<wbr>Angle</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_core_light_impl_spotlight_.spotlight.html#outerdistance" class="tsd-kind-icon">outer<wbr>Distance</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#once" class="tsd-kind-icon">once</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#projectionmatrix" class="tsd-kind-icon">projection<wbr>Matrix</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_core_camera_orthocamera_.orthocamera.html#transformer" class="tsd-kind-icon">transformer</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#viewmatrix" class="tsd-kind-icon">view<wbr>Matrix</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#viewprojectioninvmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Inv<wbr>Matrix</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#viewprojectionmatrix" class="tsd-kind-icon">view<wbr>Projection<wbr>Matrix</a>
-							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
-								<a href="_core_camera_orthocamera_.orthocamera.html#bottom" class="tsd-kind-icon">Bottom</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#transformer" class="tsd-kind-icon">transformer</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#children" class="tsd-kind-icon">Children</a>
-							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
-								<a href="_core_camera_orthocamera_.orthocamera.html#far" class="tsd-kind-icon">Far</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#children" class="tsd-kind-icon">Children</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#geometry-1" class="tsd-kind-icon">Geometry</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#color" class="tsd-kind-icon">Color</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#id" class="tsd-kind-icon">ID</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#geometry-1" class="tsd-kind-icon">Geometry</a>
 							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
-								<a href="_core_camera_orthocamera_.orthocamera.html#left" class="tsd-kind-icon">Left</a>
-							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
-								<a href="_core_camera_orthocamera_.orthocamera.html#near" class="tsd-kind-icon">Near</a>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_spotlight_.spotlight.html#id" class="tsd-kind-icon">ID</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#parent" class="tsd-kind-icon">Parent</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#parent" class="tsd-kind-icon">Parent</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a>
-							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
-								<a href="_core_camera_orthocamera_.orthocamera.html#right" class="tsd-kind-icon">Right</a>
-							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
-								<a href="_core_camera_orthocamera_.orthocamera.html#top" class="tsd-kind-icon">Top</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#transformer-1" class="tsd-kind-icon">Transformer</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#position" class="tsd-kind-icon">Position</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_core_camera_orthocamera_.orthocamera.html#___updateviewprojectionmatrix" class="tsd-kind-icon">___update<wbr>View<wbr>Projection<wbr>Matrix</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_core_camera_orthocamera_.orthocamera.html#_updateprojectionmatrix" class="tsd-kind-icon">_update<wbr>Projection<wbr>Matrix</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_spotlight_.spotlight.html#transformer-1" class="tsd-kind-icon">Transformer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#addchild" class="tsd-kind-icon">add<wbr>Child</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#addchild" class="tsd-kind-icon">add<wbr>Child</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="_core_light_impl_spotlight_.spotlight.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="_core_camera_orthocamera_.orthocamera.html#update" class="tsd-kind-icon">update</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_spotlight_.spotlight.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_core_light_impl_spotlight_.spotlight.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>

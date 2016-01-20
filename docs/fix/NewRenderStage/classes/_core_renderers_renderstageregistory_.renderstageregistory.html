@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GLExtensionManager | jThree</title>
+	<title>RenderStageRegistory | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,37 +57,31 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_core_glextensionmanager_.html">&quot;Core/GLExtensionManager&quot;</a>
+					<a href="../modules/_core_renderers_renderstageregistory_.html">&quot;Core/Renderers/RenderStageRegistory&quot;</a>
 				</li>
 				<li>
-					<a href="_core_glextensionmanager_.glextensionmanager.html">GLExtensionManager</a>
+					<a href="_core_renderers_renderstageregistory_.renderstageregistory.html">RenderStageRegistory</a>
 				</li>
 			</ul>
-			<h1>Class GLExtensionManager</h1>
+			<h1>Class RenderStageRegistory</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Provides the feature to require gl extension.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_base_jthreeobject_.jthreeobject.html" class="tsd-signature-type">JThreeObject</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">GLExtensionManager</span>
-							</li>
-						</ul>
+						<span class="target">RenderStageRegistory</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_icontextcomponent_.icontextcomponent.html" class="tsd-signature-type">IContextComponent</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -97,24 +91,21 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_core_renderers_renderstageregistory_.renderstageregistory.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_glextensionmanager_.glextensionmanager.html#extensions" class="tsd-kind-icon">extensions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_glextensionmanager_.glextensionmanager.html#requiredextensions" class="tsd-kind-icon">required<wbr>Extensions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderstageregistory_.renderstageregistory.html#_renderstagefactoryfunctions" class="tsd-kind-icon">_render<wbr>Stage<wbr>Factory<wbr>Functions</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#checkextensions" class="tsd-kind-icon">check<wbr>Extensions</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#getextension" class="tsd-kind-icon">get<wbr>Extension</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_glextensionmanager_.glextensionmanager.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_glextensionmanager_.glextensionmanager.html#hasextension" class="tsd-kind-icon">has<wbr>Extension</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_glextensionmanager_.glextensionmanager.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderstageregistory_.renderstageregistory.html#construct" class="tsd-kind-icon">construct</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderstageregistory_.renderstageregistory.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderstageregistory_.renderstageregistory.html#register" class="tsd-kind-icon">register</a></li>
 							</ul>
 						</section>
 					</div>
@@ -126,16 +117,16 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new GLExtension<wbr>Manager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Render<wbr>Stage<wbr>Registory<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_renderstageregistory_.renderstageregistory.html" class="tsd-signature-type">RenderStageRegistory</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L15">Core/GLExtensionManager.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageRegistory.ts#L9">Core/Renderers/RenderStageRegistory.ts:9</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-signature-type">GLExtensionManager</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_renderstageregistory_.renderstageregistory.html" class="tsd-signature-type">RenderStageRegistory</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -143,151 +134,140 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="extensions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> extensions</h3>
-					<div class="tsd-signature tsd-kind-icon">extensions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<a name="_renderstagefactoryfunctions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _render<wbr>Stage<wbr>Factory<wbr>Functions</h3>
+					<div class="tsd-signature tsd-kind-icon">_render<wbr>Stage<wbr>Factory<wbr>Functions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L15">Core/GLExtensionManager.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageRegistory.ts#L9">Core/Renderers/RenderStageRegistory.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="../interfaces/_base_delegates_.func1.html" class="tsd-signature-type">Func1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">, </span><a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 						</ul>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="requiredextensions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> required<wbr>Extensions</h3>
-					<div class="tsd-signature tsd-kind-icon">required<wbr>Extensions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L8">Core/GLExtensionManager.ts:8</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="checkextensions" class="tsd-anchor"></a>
-					<h3>check<wbr>Extensions</h3>
+					<a name="construct" class="tsd-anchor"></a>
+					<h3>construct</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">check<wbr>Extensions<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">construct<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L21">Core/GLExtensionManager.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageRegistory.ts#L58">Core/Renderers/RenderStageRegistory.ts:58</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Construct new render stage related to specifed key.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>context: <span class="tsd-signature-type">WebGLRenderingContext</span></h5>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the key to identify render stage</p>
+									</div>
+								</li>
+								<li>
+									<h5>renderer: <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the renderer being going to hold generated render stage base</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a></h4>
+							<p>generated render stage base</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getcontextcomponentindex" class="tsd-anchor"></a>
+					<h3>get<wbr>Context<wbr>Component<wbr>Index</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_icontextcomponent_.icontextcomponent.html">IContextComponent</a>.<a href="../interfaces/_icontextcomponent_.icontextcomponent.html#getcontextcomponentindex">getContextComponentIndex</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageRegistory.ts#L20">Core/Renderers/RenderStageRegistory.ts:20</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="register" class="tsd-anchor"></a>
+					<h3>register</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">register<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">register<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, factory<span class="tsd-signature-symbol">: </span><a href="../interfaces/_base_delegates_.func1.html" class="tsd-signature-type">Func1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">, </span><a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageRegistory.ts#L28">Core/Renderers/RenderStageRegistory.ts:28</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Register new render stage factory from RSML source.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>RSML source</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getextension" class="tsd-anchor"></a>
-					<h3>get<wbr>Extension</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Extension<span class="tsd-signature-symbol">(</span>extName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L45">Core/GLExtensionManager.ts:45</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>extName: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="gettypename" class="tsd-anchor"></a>
-					<h3>get<wbr>Type<wbr>Name</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Type<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#gettypename">getTypeName</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L20">Base/JThreeObject.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStageRegistory.ts#L35">Core/Renderers/RenderStageRegistory.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Obtain class name</p>
+									<p>Register new render stage factory from delegate function.
+									This overload mainly used for registering custum overrided class.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>Class name of the instance.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="hasextension" class="tsd-anchor"></a>
-					<h3>has<wbr>Extension</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">has<wbr>Extension<span class="tsd-signature-symbol">(</span>extName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/GLExtensionManager.ts#L49">Core/GLExtensionManager.ts:49</a></li>
-								</ul>
-							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>extName: <span class="tsd-signature-type">string</span></h5>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the key to be used for constructing the render stage</p>
+									</div>
+								</li>
+								<li>
+									<h5>factory: <a href="../interfaces/_base_delegates_.func1.html" class="tsd-signature-type">Func1</a><span class="tsd-signature-symbol">&lt;</span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">, </span><a href="_core_renderers_renderstages_renderstagebase_.renderstagebase.html" class="tsd-signature-type">RenderStageBase</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>factory function for constructing the render stage</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="tostring" class="tsd-anchor"></a>
-					<h3>to<wbr>String</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L12">Base/JThreeObject.ts:12</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Obtain stringfied object.
-									If this method was not overridden, this method return class name.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>stringfied object</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -300,7 +280,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_core_glextensionmanager_.html">"<wbr>Core/GLExtension<wbr>Manager"</a>
+						<a href="../modules/_core_renderers_renderstageregistory_.html">"<wbr>Core/<wbr>Renderers/<wbr>Render<wbr>Stage<wbr>Registory"</a>
 					</li>
 				</ul>
 			</nav>
@@ -309,31 +289,22 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_core_glextensionmanager_.glextensionmanager.html" class="tsd-kind-icon">GLExtension<wbr>Manager</a>
+						<a href="_core_renderers_renderstageregistory_.renderstageregistory.html" class="tsd-kind-icon">Render<wbr>Stage<wbr>Registory</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_core_renderers_renderstageregistory_.renderstageregistory.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#extensions" class="tsd-kind-icon">extensions</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#requiredextensions" class="tsd-kind-icon">required<wbr>Extensions</a>
+								<a href="_core_renderers_renderstageregistory_.renderstageregistory.html#_renderstagefactoryfunctions" class="tsd-kind-icon">_render<wbr>Stage<wbr>Factory<wbr>Functions</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#checkextensions" class="tsd-kind-icon">check<wbr>Extensions</a>
+								<a href="_core_renderers_renderstageregistory_.renderstageregistory.html#construct" class="tsd-kind-icon">construct</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#getextension" class="tsd-kind-icon">get<wbr>Extension</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+								<a href="_core_renderers_renderstageregistory_.renderstageregistory.html#getcontextcomponentindex" class="tsd-kind-icon">get<wbr>Context<wbr>Component<wbr>Index</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#hasextension" class="tsd-kind-icon">has<wbr>Extension</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_core_glextensionmanager_.glextensionmanager.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="_core_renderers_renderstageregistory_.renderstageregistory.html#register" class="tsd-kind-icon">register</a>
 							</li>
 						</ul>
 					</li>
