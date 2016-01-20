@@ -1,3 +1,4 @@
+import AsyncLoader = require("./Resources/AsyncLoader");
 import ImageLoader = require("./Resources/ImageLoader");
 ﻿import BufferTargetType = require("../Wrapper/BufferTargetType");
 import BufferUsageType = require("../Wrapper/BufferUsageType");
@@ -52,7 +53,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     let id = "";
     let absPaths = [, , , , , ];
     for (let i = 0; i < 6; i++) {
-      absPaths[i] = ImageLoader.getAbsolutePath(srcs[i]);
+      absPaths[i] = AsyncLoader.getAbsolutePath(srcs[i]);
       id += absPaths[i];
     }
     if (this.getTexture(id)) {
@@ -143,7 +144,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
 
   public createRBO(id: string, width: number, height: number): RBO {
     return this.rbos.create(id, () => {
-      var r = new RBO(width, height);
+      const r = new RBO(width, height);
       r.each(v => v.init());
       return r;
     });
@@ -157,7 +158,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
 
   public createFBO(id: string): FBO {
     return this.fbos.create(id, () => {
-      var fbo = new FBO();
+      const fbo = new FBO();
       fbo.each(v => v.init());
       return fbo;
     });
@@ -169,7 +170,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
 
   public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedByte) {
     return this.textures.create(id, () => {
-      var bt = new BufferTexture(width, height, texType, elemType, id);
+      const bt = new BufferTexture(width, height, texType, elemType, id);
       bt.each(v => v.init());
       return bt;
     });
@@ -179,4 +180,4 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return `buffer:${this.buffers.toString() }\nshader:${this.shaders.toString() }\nprograms:${this.programs.toString() }\ntexture:${this.textures.toString() }`;
   }
 }
-export =ResourceManager;
+export = ResourceManager;

@@ -16,13 +16,13 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
 
   constructor() {
     super();
-    var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
-    //Initialize resources for the renderers already subscribed.
+    const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    // Initialize resources for the renderers already subscribed.
     canvasManager.canvasListChanged.addListener(this.rendererChanged.bind(this));
   }
 
   protected initializeForFirst() {
-    var canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     canvasManager.canvases.forEach((v) => {
       this.childWrapper[v.ID] = this.getInstanceForRenderer(v);
       this.wrapperLength++;
@@ -35,7 +35,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     this.each((elem) => {
       array[index] = elem;
       index++;
-    })
+    });
     return array;
   }
 
@@ -48,7 +48,9 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
   }
 
   public getForContextID(id: string): T {
-    if (!this.childWrapper[id]) console.log("There is no matching object with the ID:" + id);
+    if (!this.childWrapper[id]) {
+      console.log("There is no matching object with the ID:" + id);
+    }
     return this.childWrapper[id];
   }
 
@@ -65,7 +67,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
         this.wrapperLength++;
         break;
       case ListStateChangedType.Delete:
-        var delTarget: T = this.childWrapper[arg.AffectedRenderer.ID];
+        const delTarget: T = this.childWrapper[arg.AffectedRenderer.ID];
         delete this.childWrapper[arg.AffectedRenderer.ID];
         this.disposeResource(delTarget);
         this.wrapperLength--;
@@ -82,4 +84,4 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
   }
 }
 
-export =ContextSafeResourceContainer;
+export = ContextSafeResourceContainer;

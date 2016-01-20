@@ -44,7 +44,7 @@ class SceneObject extends JThreeObjectEEWithID {
     this.children.push(obj);
     obj.parent = this;
     obj.Transformer.updateTransform();
-    var eventArg = {
+    const eventArg = {
       owner: this,
       scene: this.ParentScene,
       isAdditionalChange: true,
@@ -93,12 +93,12 @@ class SceneObject extends JThreeObjectEEWithID {
   */
 
   public set ParentScene(scene: Scene) {
-    if (scene == this.parentScene) return;
+    if (scene === this.parentScene) return;
     const lastScene = this.parentScene;
     this.parentScene = scene;
     // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
     //     console.error("There is something wrong in Scene structure.");
-    //insert recursively to the children this SceneObject contains.
+    // insert recursively to the children this SceneObject contains.
     this.children.forEach((v) => {
       v.ParentScene = scene;
     });
@@ -128,8 +128,8 @@ class SceneObject extends JThreeObjectEEWithID {
 
   public getMaterial(matGroup: string): Material {
     if (this.materials[matGroup]) {
-      var a = this.materials[matGroup];
-      var ret = null;
+      const a = this.materials[matGroup];
+      let ret = null;
       a.each((e) => {
         ret = e;
         return;

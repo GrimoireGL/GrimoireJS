@@ -2,7 +2,6 @@ import jThreeObject = require("../Base/JThreeObject");
 import Scene = require("./Scene");
 import IContextComponent = require("../IContextComponent");
 import ContextComponents = require("../ContextComponents");
-import CanvasManager = require("./CanvasManager");
 import JThreeEvent = require("../Base/JThreeEvent");
 import ISceneListChangedEventArgs = require("./ISceneListChangedEventArgs");
 

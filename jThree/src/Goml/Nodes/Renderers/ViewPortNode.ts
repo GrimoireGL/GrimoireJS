@@ -102,7 +102,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private _onSkyboxAttrChanged(attr): void {
     if (this.attributes.getValue("backgroundType") === "skybox") {
-      this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", attr.Value, (node: CubeTextureNode) => {
+      this.nodeManager.nodeRegister.getObject("jthree.resource.TextureCube", attr.Value, (node: CubeTextureNode) => {
         if (node) {
           if (!this.skyBoxStageChain) {
             this.skyBoxStageChain = {

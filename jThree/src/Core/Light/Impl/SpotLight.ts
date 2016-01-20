@@ -3,9 +3,7 @@ import BasicMaterial = require("../../Materials/Base/BasicMaterial");
 import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
-import Scene = require('../../Scene');
-import LightBase = require('./../LightBase');
-import BasicRenderer = require("../../Renderers/BasicRenderer");
+import LightBase = require("./../LightBase");
 import Matrix = require("../../../Math/Matrix");
 import Vector3 = require("../../../Math/Vector3");
 /**
@@ -20,8 +18,7 @@ class SpotLight extends LightBase {
       const tan = Math.tan(this.outerAngle);
       this.Transformer.Scale = new Vector3(tan * this.outerDistance, this.outerDistance / 2, tan * this.outerDistance);
 
-      diffuseMaterial.materialVariables =
-      {
+      diffuseMaterial.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         innerAngle: this.innerAngle,
         outerAngle: this.outerAngle,
@@ -41,8 +38,8 @@ class SpotLight extends LightBase {
   public outerAngle: number = 0.5;
   public innerDistance: number = 4;
   public outerDistance: number = 15;
-  public angleDecay:number=1.0;
-  public distanceDecay:number=1.0;
+  public angleDecay: number = 1.0;
+  public distanceDecay: number = 1.0;
 }
 
 export = SpotLight;

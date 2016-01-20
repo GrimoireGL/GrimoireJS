@@ -39,8 +39,8 @@ class CubeTextureNode extends TextureNodeBase {
   }
 
   protected get TextureGroupName() {
-    return "cubetexture";
+    return "TextureCube";
   }
 }
 
-export =CubeTextureNode;
+export = CubeTextureNode;

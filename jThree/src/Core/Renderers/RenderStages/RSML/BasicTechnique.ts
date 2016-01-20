@@ -84,7 +84,7 @@ class BasicTechnique extends JThreeObjectWithID {
     this.__fboInitialized = true;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.__fbo = rm.createFBO("jthree.technique." + this.ID);
-    const fboWrapper = this.__fbo.getForContext(this._renderStage.Renderer.ContextManager);
+    const fboWrapper = this.__fbo.getForContext(this._renderStage.Renderer.Canvas);
     this._attachRBOConfigure(fboWrapper);
     this._attachTextureConfigure(fboWrapper, texs);
   }
@@ -130,7 +130,7 @@ class BasicTechnique extends JThreeObjectWithID {
       // if there was no fbo configuration, use screen buffer as default
       this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
     } else {
-      this.__fbo.getForContext(this._renderStage.Renderer.ContextManager).bind();
+      this.__fbo.getForContext(this._renderStage.Renderer.Canvas).bind();
       this._clearBuffers();
     }
   }
