@@ -25,7 +25,7 @@ class RendererDebugger extends DebuggerModuleBase {
     sm.Scenes.forEach(s => {
       this.attachToScene(s, debug);
     });
-    sm.sceneListChanged.addListener((o, h) => {
+    sm.on("change", (h) => {
       if (h.isAdditionalChange) {
         this.attachToScene(h.changedScene, debug);
       } else {
@@ -38,7 +38,7 @@ class RendererDebugger extends DebuggerModuleBase {
     scene.Renderers.forEach(r => {
       this.attachToRenderer(r, debug);
     });
-    scene.rendererListChanged.addListener((o, h) => {
+    scene.on("changed-renderer", (h) => {
       if (h.isAdditionalChange) {
         this.attachToRenderer(h.renderer, debug);
       } else {
