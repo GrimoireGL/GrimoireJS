@@ -6,7 +6,7 @@ import JThreeContext = require("../../JThreeContext");
 
 class SceneStructureDebugger extends DebuggerModuleBase {
   public attach(debug: Debugger) {
-    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).on("changed", (v) => {
+    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).on("change", (v) => {
       if (v.isAdditionalChange) {
         // If scene was added
         var scenesAPI = debug.debuggerAPI.scenes.setScene(v.changedScene.ID, v.changedScene);

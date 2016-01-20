@@ -9,9 +9,7 @@ import SceneObject = require("../SceneObject");
 import Mesh = require("../../Shapes/Mesh");
 import Scene = require("../Scene");
 import ResolvedChainInfo = require("./ResolvedChainInfo");
-import GeneraterInfo = require("./TextureGeneraters/GeneraterInfo");
 import RenderPath = require("./RenderPath");
-import TextureGenerater = require("./TextureGenerater");
 import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
 import IRenderPathCompletedEventArgs = require("./IRenderPathCompletedEventArgs");
 import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventArgs");
@@ -26,26 +24,6 @@ class RenderPathExecutor extends JThreeObjectEE {
   constructor(parent: BasicRenderer) {
     super();
     this.renderer = parent;
-  }
-
-  private textureBuffers: GeneraterInfo = {};
-
-  public get TextureBuffers() {
-    return this.textureBuffers;
-  }
-
-  public set TextureBuffers(val: GeneraterInfo) {
-    this.textureBuffers = val;
-  }
-
-
-	/**
-	 * Generate all textures subscribed to TextureBuffers
-	 */
-  public generateAllTextures() {
-    for (let name in this.textureBuffers) {
-      TextureGenerater.generateTexture(this.renderer, name, this.textureBuffers[name]);
-    }
   }
 
   public processRender(scene: Scene, renderPath: RenderPath) {
@@ -120,7 +98,7 @@ class RenderPathExecutor extends JThreeObjectEE {
         texInfo[targetName] = null; // default buffer
         continue;
       }
-      const tex = TextureGenerater.getTexture(this.renderer, bufferName);
+      const tex = this.renderer.bufferSet.getColorBuffer(bufferName);
       texInfo[targetName] = tex;
     }
     return texInfo;

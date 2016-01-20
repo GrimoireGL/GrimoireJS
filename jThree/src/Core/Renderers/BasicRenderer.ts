@@ -1,3 +1,4 @@
+import BufferSet = require("./BufferSet");
 import CubeTexture = require("../Resources/Texture/CubeTexture");
 import BufferTexture = require("../Resources/Texture/BufferTexture");
 import TextureBase = require("../Resources/Texture/TextureBase");
@@ -53,6 +54,8 @@ class BasicRenderer extends CanvasRegion {
   */
   private renderPathExecutor: RenderPathExecutor;
 
+  public bufferSet: BufferSet;
+
 
   /**
    * Constructor of RenderBase
@@ -70,8 +73,8 @@ class BasicRenderer extends CanvasRegion {
     if (this._viewport) { rm.createRBO(this.ID + ".rbo.default", this._viewport.Width, this._viewport.Height); }
     rm.createFBO(this.ID + ".fbo.default");
     this.renderPath.path.push.apply(this.renderPath.path, configurator.getStageChain(this));
-    this.RenderPathExecutor.TextureBuffers = configurator.TextureBuffers;
-    this.RenderPathExecutor.generateAllTextures();
+    this.bufferSet = new BufferSet(this);
+    this.bufferSet.appendBuffers(configurator.TextureBuffers);
     this.name = this.ID;
   }
 

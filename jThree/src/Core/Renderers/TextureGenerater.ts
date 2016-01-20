@@ -9,11 +9,11 @@ class TextureGenerater {
 
   private static generaters: { [key: string]: { [id: string]: GeneraterBase } } = {};
 
-  public static generateTexture(renderer: BasicRenderer, name: string, generaterInfo: GeneraterInfoChunk) {
+  public static generateTexture(renderer: BasicRenderer, generaterInfo: GeneraterInfoChunk) {
     const generaters = TextureGenerater.getGeneraters(renderer);
     const generater = generaters[generaterInfo.generater];
-    generater.generate(name, generaterInfo);
-    return TextureGenerater.getTexture(renderer, name);
+    generater.generate(generaterInfo);
+    return TextureGenerater.getTexture(renderer, generaterInfo.name);
   }
 
   public static getTexture(renderer: BasicRenderer, bufferName: string) {

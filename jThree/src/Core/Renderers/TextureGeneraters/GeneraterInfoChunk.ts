@@ -6,6 +6,8 @@ interface GeneraterInfoChunk {
 	 * Name that is used for texture generation.
 	 */
   generater: string;
+
+  name: string;
   [others: string]: any;
 }
 

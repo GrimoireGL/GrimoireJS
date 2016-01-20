@@ -86,6 +86,7 @@
     "./jThree/src/Core/Materials/Material.ts",
     "./jThree/src/Core/RendererListChangedEventArgs.ts",
     "./jThree/src/Core/Renderers/BasicRenderer.ts",
+    "./jThree/src/Core/Renderers/BufferSet.ts",
     "./jThree/src/Core/Renderers/FBOBindData.ts",
     "./jThree/src/Core/Renderers/IRenderObjectCompletedEventArgs.ts",
     "./jThree/src/Core/Renderers/IRenderPathCompletedEventArgs.ts",

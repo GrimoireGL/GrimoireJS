@@ -15,7 +15,7 @@ abstract class GeneraterBase {
 	 * Generate texture with provided arguments.
 	 * This method is intended for being overriden.
 	 */
-  public abstract generate(name: string, texInfo: GeneraterInfoChunk);
+  public abstract generate(texInfo: GeneraterInfoChunk);
 }
 
 export = GeneraterBase;
