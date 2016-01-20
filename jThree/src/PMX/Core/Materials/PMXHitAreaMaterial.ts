@@ -1,5 +1,5 @@
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import PMXMaterial = require("./PMXMaterial");
 import Vector4 = require("../../../Math/Vector4");
@@ -29,7 +29,7 @@ class PMXHitAreaMaterial extends BasicMaterial {
     this.setLoaded();
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     const r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
     const g = 0x00FF & (matArg.renderStage as any).___objectIndex;
     const b = 0xFF & this.associatedMaterial.materialIndex;

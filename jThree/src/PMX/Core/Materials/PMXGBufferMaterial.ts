@@ -1,4 +1,4 @@
-import IMaterialConfigureArgument = require("../../../Core/Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 ﻿import Material = require("../../../Core/Materials/Material");
 import Geometry = require("../../../Core/Geometries/Base/Geometry");
@@ -41,7 +41,7 @@ class PMXGBufferMaterial extends Material {
     this.setLoaded();
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     if (this.associatedMaterial.Diffuse.A < 1.0E-3) {
       return;
     }
@@ -62,8 +62,8 @@ class PMXGBufferMaterial extends Material {
           diffuse: PMXMaterialParamContainer.calcMorphedVectorValue(this.associatedMaterial.Diffuse.toVector(), this.associatedMaterial.addMorphParam, this.associatedMaterial.mulMorphParam, (t) => t.diffuse, 4),
           texture: this.associatedMaterial.Texture,
           sphere: this.associatedMaterial.Sphere,
-          textureUsed: this.associatedMaterial.Texture == null || this.associatedMaterial.Texture.ImageSource == null ? 0 : 1,
-          sphereMode: this.associatedMaterial.Sphere == null || this.associatedMaterial.Sphere.ImageSource == null ? 0 : this.associatedMaterial.SphereMode,
+          textureUsed: this.associatedMaterial.Texture ? 1 : 0,
+          sphereMode: this.associatedMaterial.Sphere ? this.associatedMaterial.SphereMode : 0,
           addTextureCoefficient: new Vector4(this.associatedMaterial.addMorphParam.textureCoeff),
           mulTextureCoefficient: new Vector4(this.associatedMaterial.mulMorphParam.textureCoeff),
           addSphereCoefficient: new Vector4(this.associatedMaterial.addMorphParam.sphereCoeff),

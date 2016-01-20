@@ -12,7 +12,7 @@
       attribute vec4 boneWeights;
       attribute vec4 boneIndicies;
 
-      //@vertonly{
+      @vertonly{
         //@import jthree.pmx.vertex
         uniform mat4 _matPV;
         //@(register:0)
@@ -23,8 +23,8 @@
           mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
           gl_Position = calcPosition(boneTransform,_matPV,position);
         }
-      //}
-      //@fragonly{
+      }
+      @fragonly{
 
         uniform vec4 indexColor;
 
@@ -32,7 +32,7 @@
         {
         	gl_FragColor = indexColor;
         }
-      //}
+      }
       ]]>
     </glsl>
   </pass>

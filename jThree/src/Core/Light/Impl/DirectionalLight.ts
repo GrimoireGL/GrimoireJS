@@ -1,4 +1,4 @@
-import IMaterialConfigureArgument = require("../../Materials/Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
 import LightBase = require("../LightBase");
 import BasicMaterial = require("../../Materials/Base/BasicMaterial");
 import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
@@ -15,14 +15,14 @@ class DirectionalLight extends LightBase {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
     const diffuseMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.html"));
-    diffuseMaterial.on("apply", (matArg: IMaterialConfigureArgument) => {
+    diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       diffuseMaterial.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.Renderer.Camera.viewMatrix, this.transformer.forward))
       };
     });
     const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/DirectionalLight.html"));
-    specularMaterial.on("apply", (matArg: IMaterialConfigureArgument) => {
+    specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       specularMaterial.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.Renderer.Camera.viewMatrix, this.transformer.forward))

@@ -15,6 +15,8 @@
         <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
       </object>
       <mesh geo="quad" mat="matTest" scale="10" rotation="euler(-90d,0,0)" position="0,-0.1,0"/>
+      <plight position="5,0,0" distance="5" decay="10" color="#FFF"/>
+      <slight color="#FFF" scale="5" intensity="0.3" rotation="z(30d)" position="3,3,3"/>
       <object position="0,0,0">
         <object rotation="y(0d)">
           <plight color="#0000CC" decay="0.3" distance="1"/>

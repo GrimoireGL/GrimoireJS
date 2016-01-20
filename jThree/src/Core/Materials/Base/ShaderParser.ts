@@ -18,9 +18,11 @@ class ShaderParser {
     const result = ShaderParser.parseImport(codeString, materialManager);
     const uniforms = ShaderParser._parseVariables(codeString, "uniform");
     const attributes = ShaderParser._parseVariables(codeString, "attribute");
-    let fragment = ShaderParser._removeOtherPart(result, "vertonly");
-    let vertex = ShaderParser._removeOtherPart(result, "fragonly");
+    let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vertonly"), "fragonly");
+    let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "fragonly"), "vertonly");
     fragment = ShaderParser._removeAttributeVariables(fragment);
+    fragment = ShaderParser._removeVariableAnnotations(fragment);
+    vertex = ShaderParser._removeVariableAnnotations(vertex);
     let fragPrecision = ShaderParser._obtainPrecisions(fragment);
     let vertPrecision = ShaderParser._obtainPrecisions(vertex);
     if (!fragPrecision["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
@@ -47,35 +49,35 @@ class ShaderParser {
     while (true) {
       const regexResult = /\s*\/\/+\s*@import\s+([a-zA-Z0-9.-]+)/.exec(source);
       if (!regexResult) { break; }
-      var importContent;
+      let importContent;
       importContent = materialManager.getShaderChunk(regexResult[1]);
       if (!importContent) {
         console.error(`Required shader chunk '${regexResult[1]}' was not found!!`);
         importContent = "";
       }
-      source = source.replace(regexResult[0], '\n' + importContent + '\n');
+      source = source.replace(regexResult[0], `\n${importContent}\n`);
     }
     return source;
   }
 
   private static _parseVariableAttributes(attributes: string): { [key: string]: string } {
-    var result = <{ [key: string]: string }>{};
-    var commaSplitted = attributes.split(',');
-    for (var i = 0; i < commaSplitted.length; i++) {
-      var colonSplitted = commaSplitted[i].split(':');
+    const result = <{ [key: string]: string }>{};
+    const commaSplitted = attributes.split(",");
+    for (let i = 0; i < commaSplitted.length; i++) {
+      const colonSplitted = commaSplitted[i].split(":");
       result[colonSplitted[0].trim()] = colonSplitted[1].trim();
     }
     return result;
   }
   // http://regexper.com/#(%3F%3A%5C%2F%5C%2F%40%5C((.%2B)%5C))%3F%5Cs*uniform%5Cs%2B((%3F%3Alowp%7Cmediump%7Chighp)%5Cs%2B)%3F(%5Ba-z0-9A-Z%5D%2B)%5Cs%2B(%5Ba-zA-Z0-9_%5D%2B)(%3F%3A%5Cs*%5C%5B%5Cs*(%5Cd%2B)%5Cs*%5C%5D%5Cs*)%3F%5Cs*%3B
   private static _generateVariableFetchRegex(variableType: string): RegExp {
-    return new RegExp("(?://@\\((.+)\\))?\\s*" + variableType + "\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;", "g");
+    return new RegExp(`(?:(?://)?@\\((.+)\\))?\\s*${variableType}\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;`, "g");
   }
 
   private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableInfo } {
-    var result = <{ [name: string]: IVariableInfo }>{};
-    var regex = ShaderParser._generateVariableFetchRegex(variableType);
-    var regexResult;
+    const result = <{ [name: string]: IVariableInfo }>{};
+    const regex = ShaderParser._generateVariableFetchRegex(variableType);
+    let regexResult;
     while ((regexResult = regex.exec(source))) {
       let name = regexResult[4];
       let type = regexResult[3];
@@ -93,35 +95,92 @@ class ShaderParser {
     return result;
   }
 
+  private static _removeVariableAnnotations(source: string): string {
+    const regex = new RegExp("@\\(.+\\)", "g");
+    let regexResult;
+    while ((regexResult = regex.exec(source))) {
+      source = source.substr(0, regexResult.index) + source.substring(regexResult.index + regexResult[0].length, source.length);
+    }
+    return source;
+  }
+
   private static _removeOtherPart(source: string, partFlag: string): string {
-    var regex = new RegExp(`\s*\/\/+\s*@${partFlag}`, 'g');
+    const regex = new RegExp(`\s*(?:\/\/+)?\s*@${partFlag}`, "g");
     while (true) {
-      var found = regex.exec(source);
-      if (!found) break;//When there was no more found
-      var beginPoint = found.index;
-      var index = beginPoint;
-      while (true)//ignore next {
-      {
+      const found = regex.exec(source);
+      if (!found) {
+        break; // When there was no more found
+      }
+      let beginPoint = found.index;
+      let index = beginPoint;
+      while (true) { // ignore next {
         index++;
-        if (source[index] == '{') break;
+        if (source[index] === "{") {
+          break;
+        }
       }
 
-      var bracketCount = 1;
-      while (true)//find matching bracket
-      {
+      let bracketCount = 1;
+      while (true) { // find matching bracket
         index++;
-        if (index == source.length) {
-          //error no bracket matching
+        if (index === source.length) {
+          // error no bracket matching
           console.error("Invalid bracket matching!");
           return source;
         }
-        if (source[index] == '{') bracketCount++;
-        if (source[index] == '}') bracketCount--;
-        if (bracketCount == 0) break;
+        if (source[index] === "{") {
+          bracketCount++;
+        }
+        if (source[index] === "}") {
+          bracketCount--;
+        }
+        if (bracketCount === 0) {
+          break;
+        }
       }
-      var endPoint = index + 1;
+      const endPoint = index + 1;
 
       source = source.substr(0, beginPoint) + source.substring(endPoint, source.length);
+    }
+    return source;
+  }
+
+  private static _removeSelfOnlyTag(source: string, partFlag: string): string {
+    const regex = new RegExp(`(\s*(?:\/\/+)?\s*@${partFlag})`, "g");
+    while (true) {
+      const found = regex.exec(source);
+      if (!found) {
+        break; // When there was no more found
+      }
+      let beginPoint = found.index;
+      let index = beginPoint;
+      while (true) { // ignore next {
+        index++;
+        if (source[index] === "{") {
+          break;
+        }
+      }
+      beginPoint = index;
+      let bracketCount = 1;
+      while (true) {  // find matching bracket
+        index++;
+        if (index === source.length) {
+          // error no bracket matching
+          console.error("Invalid bracket matching!");
+          return source;
+        }
+        if (source[index] === "{") {
+          bracketCount++;
+        }
+        if (source[index] === "}") {
+          bracketCount--;
+        }
+        if (bracketCount === 0) {
+          break;
+        }
+      }
+      const endPoint = index + 1;
+      source = source.substr(0, found.index) + source.substring(beginPoint + 1, endPoint - 1) + source.substring(endPoint + 1, source.length);
     }
     return source;
   }
@@ -134,18 +193,22 @@ class ShaderParser {
     const regex = /\s*precision\s+([a-z]+)\s+([a-z0-9]+)/g;
     let result: { [type: string]: string } = {};
     while (true) {
-      var found = regex.exec(source);
-      if (!found) break;
+      const found = regex.exec(source);
+      if (!found) {
+        break;
+      }
       result[found[2]] = found[1];
     }
     return result;
   }
 
   private static _removeAttributeVariables(source: string): string {
-    var regex = /(\s*attribute\s+[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+;)/;
+    const regex = /(\s*attribute\s+[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+;)/;
     while (true) {
-      var found = regex.exec(source);
-      if (!found) break;
+      let found = regex.exec(source);
+      if (!found) {
+        break;
+      }
       source = source.replace(found[0], "");
     }
     return source;

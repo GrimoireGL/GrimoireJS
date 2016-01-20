@@ -16,7 +16,7 @@
       varying vec4 vPosition;
       varying vec2 vUV;
 
-      //@vertonly{
+      @vertonly{
         uniform mat4 _matVM;
         uniform mat4 _matPVM;
 
@@ -27,10 +27,10 @@
           vUV = uv;
         }
 
-      //}
+      }
 
 
-      //@fragonly{
+      @fragonly{
         //@(register:0)
         uniform sampler2D texture;
 
@@ -49,7 +49,7 @@
         }
 
 
-      //}
+      }
 
       ]]>
     </glsl>

@@ -3,7 +3,7 @@ import Geometry = require("../Geometries/Base/Geometry");
 import Vector4 = require("../../Math/Vector4");
 import Vector3 = require("../../Math/Vector3");
 import Vector2 = require("../../Math/Vector2");
-import IMaterialConfigureArgument = require("./Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("./Base/IApplyMaterialArgument");
 import TextureBase = require("../Resources/Texture/TextureBase");
 import Matrix = require("../../Math/Matrix");
 import VectorBase = require("../../Math/VectorBase");
@@ -78,7 +78,7 @@ class Material extends JThreeObjectEEWithID {
   * Apply configuration of program.
   * This is used for passing variables,using programs,binding index buffer.
   */
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     this.emit("apply", matArg);
     return;
   }

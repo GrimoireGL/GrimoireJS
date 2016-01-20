@@ -12,7 +12,7 @@
       varying vec3 vNormal;
       varying vec4 vPosition;
 
-      //@vertonly{
+      @vertonly{
         uniform mat4 _matVM;
         uniform mat4 _matPVM;
 
@@ -21,9 +21,9 @@
         	gl_Position = vPosition =_matPVM * position;
         	vNormal =normalize(( _matVM * vec4(normal,0)).xyz);
         }
-      //}
+      }
 
-      //@fragonly{
+      @fragonly{
         uniform float brightness;
         vec2 compressNormal()
         {
@@ -40,7 +40,7 @@
         {
         	gl_FragColor = vec4(compressNormal(),calcDepth(),brightness);
         }
-      //}
+      }
 
       ]]>
     </glsl>

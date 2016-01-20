@@ -1,5 +1,5 @@
+import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
 import IParentSceneChangedEventArgs = require("./IParentSceneChangedEventArgs");
-﻿import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Material = require("./Materials/Material");
 import Delegates = require("../Base/Delegates");
 import Geometry = require("./Geometries/Base/Geometry");
@@ -12,8 +12,7 @@ import ISceneObjectStructureChangedEventArgs = require("./ISceneObjectChangedEve
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
  */
-class SceneObject extends JThreeObjectWithID {
-
+class SceneObject extends JThreeObjectEEWithID {
   public name: string;
 
   protected geometry: Geometry;
@@ -27,9 +26,9 @@ class SceneObject extends JThreeObjectWithID {
   private materials: { [materialGroup: string]: JThreeCollection<Material> } = {};
 
   /**
-   * Parent of this SceneObject.
+   * Contains the parent scene containing this SceneObject.
    */
-  private parent: SceneObject;
+  private parentScene: Scene;
 
   /**
    * Contains the children.
@@ -37,9 +36,9 @@ class SceneObject extends JThreeObjectWithID {
   private children: SceneObject[] = [];
 
   /**
-   * Contains the parent scene containing this SceneObject.
+   * Parent of this SceneObject.
    */
-  private parentScene: Scene;
+  private parent: SceneObject;
 
   constructor(transformer?: Transformer) {
     super();
@@ -54,10 +53,6 @@ class SceneObject extends JThreeObjectWithID {
     return this.children;
   }
 
-  /**
-   * add SceneObject to children.
-   * @param {SceneObject} obj [description]
-   */
   public addChild(obj: SceneObject): void {
     this.children.push(obj);
     obj.parent = this;
@@ -133,9 +128,7 @@ class SceneObject extends JThreeObjectWithID {
   */
 
   public set ParentScene(scene: Scene) {
-    if (scene === this.parentScene) {
-      return;
-    }
+    if (scene === this.parentScene) return;
     const lastScene = this.parentScene;
     this.parentScene = scene;
     // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
@@ -153,7 +146,6 @@ class SceneObject extends JThreeObjectWithID {
   public onMaterialChanged(func: Delegates.Action2<Material, SceneObject>): void {
     this.materialChanagedHandler.push(func);
   }
-
   /**
    * すべてのマテリアルに対して処理を実行します。
    */
@@ -204,7 +196,7 @@ class SceneObject extends JThreeObjectWithID {
 
   public callRecursive(action: Delegates.Action1<SceneObject>) {
     if (this.children) {
-      this.children.forEach((t) => t.callRecursive(action));
+      this.children.forEach(t => t.callRecursive(action));
     }
     action(this);
   }

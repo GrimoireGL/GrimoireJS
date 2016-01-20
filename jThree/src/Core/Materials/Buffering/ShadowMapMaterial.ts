@@ -1,4 +1,4 @@
-import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../Base/IApplyMaterialArgument");
 import BasicMaterial = require("../Base/BasicMaterial");
 import Matrix = require("../../../Math/Matrix");
 /**
@@ -12,7 +12,7 @@ class ShadowMapMaterial extends BasicMaterial {
     this.setLoaded();
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     // const light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
     // this.materialVariables = {
     //   matL: Matrix.multiply(light.matLightViewProjection, matArg.object.Transformer.LocalToGlobal)

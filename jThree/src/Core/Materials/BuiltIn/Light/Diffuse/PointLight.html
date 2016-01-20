@@ -10,17 +10,15 @@
           <![CDATA[
       attribute vec3 position;
       varying vec4 vLightProjectedPosition;
-      //@vertonly
-      //{
+      @vertonly{
         uniform mat4 _matPVM;
         void main(void)
         {
           gl_Position = vLightProjectedPosition = _matPVM *  vec4(position,1.0);
         }
-      //}
+      }
 
-      //@fragonly
-      //{
+      @fragonly{
         uniform vec3 lightColor;
         uniform float decay;
         uniform float dist;
@@ -39,11 +37,11 @@
           vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
           float d = distance(pos,lightPosition)/dist;
           if(d > 1.)discard;
-          float power = pow(max(0.,1. - distance(pos,lightPosition)/dist),decay);
+          float power = pow(d,decay);
           float lambart = max(0.,dot(normal,normalize(lightPosition - pos)));
           gl_FragColor = vec4(lightColor * power * lambart,1.0);
         }
-      //}
+      }
       ]]>
         </glsl>
       </pass>

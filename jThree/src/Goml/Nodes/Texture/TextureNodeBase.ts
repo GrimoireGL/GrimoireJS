@@ -9,7 +9,7 @@ import ContextComponents = require("../../../ContextComponents");
 /**
  * All texture resource node class inherit this class.
  */
-class TextureNodeBase extends GomlTreeNodeBase {
+abstract class TextureNodeBase extends GomlTreeNodeBase {
   /**
    * Texture reference being managed by this node.
    * @type {TextureBase}
@@ -35,28 +35,36 @@ class TextureNodeBase extends GomlTreeNodeBase {
         value: "LINEAR",
         converter: "string",
         onchanged: (attr) => {
-          this.targetTexture.MinFilter = this.toMinFilterParameter(attr.Value);
+          if (this.targetTexture) {
+            this.targetTexture.MinFilter = this.toMinFilterParameter(attr.Value);
+          }
         }
       },
       magFilter: {
         value: "LINEAR",
         converter: "string",
         onchanged: (attr) => {
-          this.targetTexture.MagFilter = this.toMagFilterParameter(attr.Value);
+          if (this.targetTexture) {
+            this.targetTexture.MagFilter = this.toMagFilterParameter(attr.Value);
+          }
         }
       },
       twrap: {
         value: "clamp",
         converter: "string",
         onchanged: (attr) => {
-          this.targetTexture.TWrap = this.toWrapParameter(attr.Value);
+          if (this.targetTexture) {
+            this.targetTexture.TWrap = this.toWrapParameter(attr.Value);
+          }
         }
       },
       swrap: {
         value: "clamp",
         converter: "string",
         onchanged: (attr) => {
-          this.targetTexture.SWrap = this.toWrapParameter(attr.Value);
+          if (this.targetTexture) {
+            this.targetTexture.SWrap = this.toWrapParameter(attr.Value);
+          }
         }
       }
     });
@@ -66,20 +74,19 @@ class TextureNodeBase extends GomlTreeNodeBase {
     super.onMount();
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const name = this.attributes.getValue("name");
-    this.targetTexture = this.constructTexture(name, rm);
-    this.nodeExport(name);
+    this.constructTexture(name, rm).then((texture) => {
+      this.targetTexture = texture;
+      this.nodeExport(name);
+    });
   }
 
   /**
    * Construct texture.
-   * This method should be overridden.
    * @param  {string}          name [description]
    * @param  {ResourceManager} rm   [description]
    * @return {TextureBase}          [description]
    */
-  protected constructTexture(name: string, rm: ResourceManager): TextureBase {
-    return null;
-  }
+  protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase>;
 
   /**
    * Min filter attribute string is changed into enum by this method.

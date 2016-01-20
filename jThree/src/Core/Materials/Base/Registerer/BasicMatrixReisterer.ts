@@ -1,8 +1,8 @@
 import Matrix = require("../../../../Math/Matrix");
 import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("../IVariableInfo");
-import IMaterialConfigureArgument = require("../IMaterialConfigureArgument");
-const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IMaterialConfigureArgument, uniforms: { [key: string]: IVariableInfo }) => {
+import IApplyMaterialArgument = require("../IApplyMaterialArgument");
+const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableInfo }) => {
   if (uniforms["_matM"]) {
     pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
   }

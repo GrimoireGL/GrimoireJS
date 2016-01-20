@@ -1,10 +1,11 @@
+import IConfigureEventArgs = require("../../IConfigureEventArgs");
 import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
 import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
 import Material = require("../Material");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./IVariableInfo");
 import IParsedProgramResult = require("./IParsedProgramResult");
-import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("./IApplyMaterialArgument");
 import XMLRenderConfigUtility = require("./XMLRenderConfigUtility");
 import Program = require("../../Resources/Program/Program");
 import Shader = require("../../Resources/Shader/Shader");
@@ -15,7 +16,8 @@ import ResourceManager = require("../../ResourceManager");
 import ShaderParser = require("./ShaderParser");
 import Delegates = require("../../../Base/Delegates");
 class MaterialPass extends JThreeObjectWithID {
-  private static _lastExecutedPassProgram: string;
+
+  public passIndex: number;
 
   public fragmentShaderSource: string;
 
@@ -35,22 +37,23 @@ class MaterialPass extends JThreeObjectWithID {
 
   private _passId: string;
 
-  constructor(passDocument: Element, materialName: string, index: number) {
+  private _material: Material;
+
+  constructor(material: Material, passDocument: Element, materialName: string, index: number) {
     super();
+    this.passIndex = index;
+    this._material = material;
     this._passDocument = passDocument;
     this._parseGLSL();
     this._constructProgram(materialName + index);
   }
-  public apply(matArg: IMaterialConfigureArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[], material: Material): void {
+  public apply(matArg: IApplyMaterialArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>[], material: Material): void {
     const gl = matArg.renderStage.GL;
     const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.ContextManager);
     const renderConfig = this._fetchRenderConfigure(matArg);
-    if (MaterialPass._lastExecutedPassProgram !== this._passId) {
-      XMLRenderConfigUtility.applyAll(gl, renderConfig);
-      MaterialPass._lastExecutedPassProgram = this._passId;
-      // Declare using program before assigning material variables
-      pWrapper.useProgram();
-    }
+    XMLRenderConfigUtility.applyAll(gl, renderConfig);
+    // Declare using program before assigning material variables
+    pWrapper.useProgram();
     // Apply attribute variables by geometries
     matArg.object.Geometry.applyAttributeVariables(pWrapper, this.parsedProgram.attributes);
     // Apply uniform variables
@@ -60,15 +63,23 @@ class MaterialPass extends JThreeObjectWithID {
     material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.parsedProgram.uniforms);
   }
 
-  private _fetchRenderConfigure(matArg: IMaterialConfigureArgument): IRenderStageRenderConfigure {
+  private _fetchRenderConfigure(matArg: IApplyMaterialArgument): IRenderStageRenderConfigure {
     const id = matArg.renderStage.ID;
+    let result: IRenderStageRenderConfigure;
     if (this._renderConfigureCache[id]) {
-      return this._renderConfigureCache[id];
+      result = this._renderConfigureCache[id];
     } else {
       const configure = XMLRenderConfigUtility.parseRenderConfig(this._passDocument, matArg.renderStage.getDefaultRendererConfigure(matArg.techniqueIndex));
       this._renderConfigureCache[id] = configure;
-      return configure;
+      result = configure;
     }
+    this._material.emit("configure", <IConfigureEventArgs>{
+      pass: this,
+      passIndex: this.passIndex,
+      material: this._material,
+      configure: result
+    });
+    return result;
   }
 
 

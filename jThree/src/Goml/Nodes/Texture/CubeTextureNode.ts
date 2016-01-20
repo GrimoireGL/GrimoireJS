@@ -1,16 +1,12 @@
-﻿import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture")
-import TextureNodeBase = require("./TextureNodeBase");
+﻿import TextureNodeBase = require("./TextureNodeBase");
 import ResourceManager = require("../../../Core/ResourceManager");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
+import Q = require("q");
 /**
  * Cube texture resource node.
  */
 class CubeTextureNode extends TextureNodeBase {
   protected groupPrefix: string = "cubetexture";
-
-  private loadedFlags: boolean[] = [false, false, false, false, false, false];
-
-  private loadedImages: HTMLImageElement[] = [null, null, null, null, null, null];
 
   constructor() {
     super();
@@ -25,33 +21,20 @@ class CubeTextureNode extends TextureNodeBase {
     });
   }
 
-  protected constructTexture(name: string, rm: ResourceManager): TextureBase {
-    const texture = rm.createCubeTextureWithSource("jthree.goml.cubetexture." + name, null, false);
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
+    const deferred = Q.defer<TextureBase>();
     const srcsv = this.attributes.getValue("srcs");
     if (srcsv) {
       const srcs = srcsv.split(" ");
-      for (let i = 0; i < 6; i++) {
-        this.loadImg(i, srcs[i]);
-      }
+      rm.loadCubeTexture(srcs).then((texture) => {
+        deferred.resolve(texture);
+      });
+    } else {
+      process.nextTick(() => {
+       deferred.resolve(null);
+      });
     }
-    return texture;
-  }
-
-  private loadImg(index: number, src: string) {
-    const img = this.loadedImages[index] = new Image();
-    img.onload = () => {
-      this.loadedFlags[index] = true;
-      let allTrue = true;
-      for (let j = 0; j < 6; j++) {
-        if (!this.loadedFlags[j]) {
-          allTrue = false;
-        }
-      }
-      if (allTrue) {
-        (<CubeTexture>this.TargetTexture).ImageSource = this.loadedImages;
-      }
-    };
-    img.src = src;
+    return deferred.promise;
   }
 }
 

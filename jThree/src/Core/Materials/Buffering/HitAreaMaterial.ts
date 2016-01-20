@@ -1,5 +1,5 @@
 import BasicMaterial = require("../Base/BasicMaterial");
-import IMaterialConfigureArgument = require("../Base/IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("../Base/IApplyMaterialArgument");
 import Vector4 = require("../../../Math/Vector4");
 
 class HitAreaMaterial extends BasicMaterial {
@@ -7,7 +7,7 @@ class HitAreaMaterial extends BasicMaterial {
     super(require("../BuiltIn/HitAreaTest.html"));
   }
 
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     const r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
     const g = 0x00FF & (matArg.renderStage as any).___objectIndex;
     this.materialVariables["indexColor"] = new Vector4(r / 0xFF, g / 0xFF, 0, 1);

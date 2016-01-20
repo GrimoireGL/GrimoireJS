@@ -6,12 +6,12 @@ import MaterialManager = require("./MaterialManager");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import MaterialPass = require("./MaterialPass");
 import Delegates = require("../../../Base/Delegates");
-import IMaterialConfigureArgument = require("./IMaterialConfigureArgument");
+import IApplyMaterialArgument = require("./IApplyMaterialArgument");
 
 class BasicMaterial extends Material {
   private _passes: MaterialPass[] = [];
 
-  private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IMaterialConfigureArgument, { [key: string]: IVariableInfo }>[] = [];
+  private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>[] = [];
 
   private _materialGroup: string;
 
@@ -28,7 +28,7 @@ class BasicMaterial extends Material {
 * Apply configuration of program.
 * This is used for passing variables,using programs,binding index buffer.
 */
-  public apply(matArg: IMaterialConfigureArgument): void {
+  public apply(matArg: IApplyMaterialArgument): void {
     super.apply(matArg);
     const targetPass = this._passes[matArg.passIndex];
     targetPass.apply(matArg, this._uniformRegisters, this);
@@ -66,7 +66,7 @@ class BasicMaterial extends Material {
     const passes = doc.querySelectorAll("material > passes > pass");
     for (let i = 0; i < passes.length; i++) {
       const pass = passes.item(i);
-      this._passes.push(new MaterialPass(pass, this._materialName, i));
+      this._passes.push(new MaterialPass(this, pass, this._materialName, i));
     }
     this._passCount = passes.length;
   }
