@@ -1,9 +1,7 @@
 import jThreeObject = require("../Base/JThreeObject");
 import GomlTreeNodeBase = require("./GomlTreeNodeBase");
-import AssociativeArray = require("../Base/Collections/AssociativeArray");
-import JThreeEvent = require("../Base/JThreeEvent");
 import Delegates = require("../Base/Delegates");
-import JThreeLogger = require("../Base/JThreeLogger");
+
 /**
  * Dictionary class to cache GOML node objects.
  */
@@ -28,23 +26,23 @@ class GomlNodeDictionary extends jThreeObject {
    * @param {GomlTreeNodeBase} obj   node object
    */
   public addNode(group: string, name: string, node: GomlTreeNodeBase): void {
-    if (group === undefined || name == undefined) {
+    if (typeof group === "undefined" || typeof name === "undefined") {
       console.error(`group or name is undefined. group: ${group}, name: ${name}`);
     }
-    console.log('addNode', group, name, node);
+    console.log("addNode", group, name, node);
     // register
     if (!this.dictionary[group]) {
       this.dictionary[group] = {};
     }
     if (!this.dictionary[group][name]) {
-      this.dictionary[group][name] = { node: undefined, cb: [] };
+      this.dictionary[group][name] = { node: void 0, cb: [] };
     }
     const target = this.dictionary[group][name];
     const group_name = this.IDDictionary[node.ID];
     target.node = node;
     // when node is exist in other group and name
     if (group_name) {
-      if(!(group_name.group === group && group_name.name === name)) {
+      if (!(group_name.group === group && group_name.name === name)) {
         if (target.node.Mounted) {
           // notify remove
           this.dictionary[group_name.group][group_name.name].cb.forEach((fn) => { fn(null); });
@@ -53,10 +51,10 @@ class GomlNodeDictionary extends jThreeObject {
       }
     }
     this.IDDictionary[target.node.ID] = { group: group, name: name };
-    target.node.on('on-mount', () => {
+    target.node.on("on-mount", () => {
       target.cb.forEach((fn) => { fn(target.node); });
     });
-    target.node.on('on-unmount', () => {
+    target.node.on("on-unmount", () => {
       target.cb.forEach((fn) => { fn(null); });
     });
   }
@@ -68,16 +66,16 @@ class GomlNodeDictionary extends jThreeObject {
    * @param {Delegates.Action1<GomlTreeNodeBase>} callbackfn callback function for notifying node changes.
    */
   public getNode(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
-    if (group === undefined || name == undefined) {
+    if (typeof group === "undefined" || typeof name === "undefined") {
       console.error(`group or name is undefined. group: ${group}, name: ${name}`);
     }
-    console.log('getNode', group, name);
+    console.log("getNode", group, name);
     // register
     if (!this.dictionary[group]) {
       this.dictionary[group] = {};
     }
     if (!this.dictionary[group][name]) {
-      this.dictionary[group][name] = { node: undefined, cb: [] };
+      this.dictionary[group][name] = { node: void 0, cb: [] };
     }
     const target = this.dictionary[group][name];
     target.cb.push(callbackfn);
@@ -85,7 +83,9 @@ class GomlNodeDictionary extends jThreeObject {
     callbackfn(target.node ? (target.node.Mounted ? target.node : null) : null);
   }
 
+  // this method will be removed.
   public checkUncalled(): void {
+    return;
   }
 
 }

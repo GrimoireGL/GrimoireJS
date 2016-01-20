@@ -57,7 +57,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    */
   public callRecursive(act: Delegates.Action1<TreeNodeBase>) {
     act(this);
-    this.children.forEach((v)=> v.callRecursive(act));
+    this.children.forEach((v) => v.callRecursive(act));
   }
 
   /**

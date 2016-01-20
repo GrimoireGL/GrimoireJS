@@ -125,7 +125,11 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         onchanged: (v) => {
           if (v.Value) {
             this.nodeImport("jthree.resource.texture2d", v.Value, (node: TextureNode) => {
-              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+              if (node) {
+                this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+              } else {
+                // when texture node removed
+              }
             });
           }
         }
@@ -138,7 +142,11 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         onchanged: (v) => {
           if (v.Value) {
             this.nodeImport("jthree.resource.cubetexture", v.Value, (node: CubeTextureNode) => {
-              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+              if (node) {
+                this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+              } else {
+                // when texture node removed
+              }
             });
           }
         }

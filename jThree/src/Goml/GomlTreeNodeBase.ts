@@ -11,33 +11,9 @@ import Delegates = require("../Base/Delegates");
  */
 class GomlTreeNodeBase extends TreeNodeBase {
   /**
-   * コンストラクタ内ではattributeの定義、attributeの変化時のイベント、child, parentが更新された際のイベントを設定します。
+   * Attributes this node have.
    */
-  constructor() {
-    super();
-
-    //load node manager
-    this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
-
-    //after configuration, this node is going to add to NodesById
-    this.nodeManager.NodesById[this.ID] =  this;
-    this.attributes = new AttributeDictionary(this);
-
-    // apply attributes
-    this.on('node-mount-process-finished', (mounted) => {
-      const attrs = this.attributes.getAllAttributes();
-      const attrs_kv = {};
-      Object.keys(attrs).forEach((v) => {
-        attrs_kv[v] = attrs[v].Value;
-      });
-      console.log('ga initialize', this.getTypeName(), attrs_kv);
-      if (mounted) {
-        this.attributes.forEachAttr((ga) => {
-          ga.initialize();
-        })
-      }
-    });
-  }
+  public attributes: AttributeDictionary;
 
   /**
    * node manager
@@ -50,18 +26,52 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * If this property is not overridden, no prefix will be added.
    * @type {string}
    */
-  protected groupPrefix: string = ''
+  protected groupPrefix: string = "";
+
+  /**
+   * components that is attached to this node.
+   */
+  protected behaviors: {[key: string]: BehaviorNode[]} = {};
+
+  /**
+   * コンストラクタ内ではattributeの定義、attributeの変化時のイベント、child, parentが更新された際のイベントを設定します。
+   */
+  constructor() {
+    super();
+
+    // load node manager
+    this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+
+    // after configuration, this node is going to add to NodesById
+    this.nodeManager.NodesById[this.ID] =  this;
+    this.attributes = new AttributeDictionary(this);
+
+    // apply attributes
+    this.on("node-mount-process-finished", (mounted) => {
+      const attrs = this.attributes.getAllAttributes();
+      const attrs_kv = {};
+      Object.keys(attrs).forEach((v) => {
+        attrs_kv[v] = attrs[v].Value;
+      });
+      console.log("ga initialize", this.getTypeName(), attrs_kv);
+      if (mounted) {
+        this.attributes.forEachAttr((ga) => {
+          ga.initialize();
+        });
+      }
+    });
+  }
 
   /**
    * get group prefixes array that is concatenated from ansestors of tree.
    * @return {string[]} array of group prefix
    */
   public get GroupPrefix(): string[] {
-    let groupPrefixArray: string[] = []
-    if (this.parent && (<GomlTreeNodeBase>this.parent).groupPrefix !== '') {
-      groupPrefixArray.push((<GomlTreeNodeBase>this.parent).groupPrefix)
+    let groupPrefixArray: string[] = [];
+    if (this.parent) {
+      groupPrefixArray = (<GomlTreeNodeBase>this.parent).GroupPrefix;
     }
-    if (this.groupPrefix !== '') {
+    if (this.groupPrefix !== "") {
       groupPrefixArray.push(this.groupPrefix);
     }
     return groupPrefixArray;
@@ -71,8 +81,8 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * Add node to expose for requiring from other node.
    * @param {string} name String to require argument. This must be uniqe.
    */
-  nodeExport(name: string): void {
-    const group = [].concat(['jthree'], this.GroupPrefix).join('.');
+  public nodeExport(name: string): void {
+    const group = [].concat(["jthree"], this.GroupPrefix).join(".");
     this.nodeManager.nodeRegister.addNode(group, name, this);
   }
 
@@ -85,26 +95,18 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * @param {string}                              name       name identify among specified group.
    * @param {Delegates.Action1<GomlTreeNodeBase>} callbackfn callback function called with required node.
    */
-  nodeImport(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
+  public nodeImport(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
     this.nodeManager.nodeRegister.getNode(group, name, callbackfn);
   }
-
-  /**
-   * Attributes this node have.
-   */
-  public attributes: AttributeDictionary;
-
-  /**
-   * components that is attached to this node.
-   */
-  protected behaviors: {[key:string]:BehaviorNode[]} = {};
 
   /**
    * Add component to this node.
    */
   public addBehavior(behaviors: BehaviorNode): void {
     this.nodeManager.behaviorRunner.addBehavior(behaviors, this);
-    if (!this.behaviors[behaviors.BehaviorName]) this.behaviors[behaviors.BehaviorName] =  [];
+    if (!this.behaviors[behaviors.BehaviorName]) {
+      this.behaviors[behaviors.BehaviorName] = [];
+    }
     this.behaviors[behaviors.BehaviorName].push(behaviors);
   }
 

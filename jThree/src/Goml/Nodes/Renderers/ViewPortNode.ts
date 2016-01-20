@@ -137,22 +137,24 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private updateViewportArea() {
     console.log("updateViewportArea");
-    if (this.parentCanvas.targetFrame) {
-      // when canvas HTMLElement is applied
-      const frame = this.parentCanvas.targetFrame;
-      const W = frame.clientWidth;
-      const H = frame.clientHeight;
-      const left = this.left > 1 ? this.left : W * this.left;
-      const top = this.top > 1 ? this.top : H * this.top;
-      const width = this.width > 1 ? this.width : W * this.width;
-      const height = this.height > 1 ? this.height : H * this.height;
-      this.targetRenderer.region = new Rectangle(left, top, width, height);
-    } else {
-      // when canvas HTMLElement is not applied
-      this.targetRenderer.region = new Rectangle(this.left, this.top, this.width, this.height);
-    }
-    if (this.targetRenderer.Camera.getTypeName() === "PerspectiveCamera") {
-      (<PerspectiveCamera>this.targetRenderer.Camera).Aspect = this.width / this.height;
+    if (this.parentCanvas) {
+      if (this.parentCanvas.targetFrame) {
+        // when canvas HTMLElement is applied
+        const frame = this.parentCanvas.targetFrame;
+        const W = frame.clientWidth;
+        const H = frame.clientHeight;
+        const left = this.left > 1 ? this.left : W * this.left;
+        const top = this.top > 1 ? this.top : H * this.top;
+        const width = this.width > 1 ? this.width : W * this.width;
+        const height = this.height > 1 ? this.height : H * this.height;
+        this.targetRenderer.region = new Rectangle(left, top, width, height);
+      } else {
+        // when canvas HTMLElement is not applied
+        this.targetRenderer.region = new Rectangle(this.left, this.top, this.width, this.height);
+      }
+      if (this.targetRenderer.Camera.getTypeName() === "PerspectiveCamera") {
+        (<PerspectiveCamera>this.targetRenderer.Camera).Aspect = this.width / this.height;
+      }
     }
   }
 
