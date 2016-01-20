@@ -6,6 +6,7 @@ import PMXMorph = require("./PMXMorph");
 import PMXDisplayFrame = require("./PMXDisplayFrame");
 import PMXRigidBody = require("./PMXRigidBody");
 import PMXJoint = require("./PMXJoint");
+import ImageLoader = require("../Core/Resources/ImageLoader");
 class PMX {
   private reader: jDataView;
 
@@ -28,6 +29,8 @@ class PMX {
   private rigidBodies: PMXRigidBody[];
 
   private joints: PMXJoint[];
+
+  private _resourceDirectory: string;
 
   public get Header() {
     return this.header;
@@ -57,7 +60,8 @@ class PMX {
     return this.morphs;
   }
 
-  constructor(data: ArrayBuffer) {
+  constructor(data: ArrayBuffer, resourceDirectory: string) {
+    this._resourceDirectory = resourceDirectory;
     this.reader = new jDataView(data, 0, data.byteLength, true);
     this.loadHeader();
     this.loadVerticies();
@@ -270,6 +274,7 @@ class PMX {
     this.textures = new Array(count);
     for (let i = 0; i < count; i++) {
       this.textures[i] = this.readTextBuf().replace("\\", "/");
+      ImageLoader.loadImage(this._resourceDirectory + this.textures[i]);
     }
   }
 

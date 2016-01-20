@@ -1,3 +1,4 @@
+import AsyncLoader = require("../../Core/Resources/AsyncLoader");
 import PMXPrimaryBufferMaterial = require("./Materials/PMXPrimaryBufferMaterial");
 import PMXCoreInitializer = require("./PMXCoreInitializer");
 import PMXHitAreaMaterial = require("./Materials/PMXHitAreaMaterial");
@@ -8,18 +9,17 @@ import PMXMaterial = require("./Materials/PMXMaterial");
 import PMXSkeleton = require("./PMXSkeleton");
 import PMXMorphManager = require("./PMXMorphManager");
 import PMXShadowMapMaterial = require("./Materials/PMXShadowMapMaterial");
-import JThreeEvent = require("../../Base/JThreeEvent");
 import PMXTextureManager = require("./PMXTextureManager");
 import Q = require("q");
 class PMXModel extends SceneObject {
 
-  private static _modelDataCache: { [absUrl: string]: PMXModelData|Q.IPromise<PMXModelData> } = {};
+  private static _asyncLoader: AsyncLoader<PMXModelData> = new AsyncLoader<PMXModelData>();
 
   public static LoadFromUrl(url: string): Q.IPromise<PMXModel> {
-    const targetDirectory = url.substr(0, url.lastIndexOf("/") + 1);
-    return PMXModel._loadDataFromUrl(url).then<PMXModel>((modelData) => {
+    const directory = url.substr(0, url.lastIndexOf("/") + 1);
+    return PMXModel._loadDataFromUrl(url, directory).then<PMXModel>((modelData) => {
       const deferred = Q.defer<PMXModel>();
-      const model = new PMXModel(modelData, targetDirectory);
+      const model = new PMXModel(modelData, directory);
       if (model.loaded) {
         process.nextTick(() => {
           deferred.resolve(model);
@@ -39,43 +39,25 @@ class PMXModel extends SceneObject {
    * @param  {string}                   url the url pmx model being placed.
    * @return {Q.IPromise<PMXModelData>}     the promise object for loading.
    */
-  private static _loadDataFromUrl(url: string): Q.IPromise<PMXModelData> {
-    const absUrl = PMXModel._getAbsolutePath(url); // transform the path for absolute path to be unique string
-    const deferred = Q.defer<PMXModelData>();
-    if (PMXModel._modelDataCache[absUrl]) { // When something is stored in the cache
-      if (typeof PMXModel._modelDataCache[absUrl]["then"] === "undefined") { // assume there was completely loaded model data in the cache
-        process.nextTick(() => {
-          deferred.resolve(<PMXModelData>PMXModel._modelDataCache[absUrl]);
-        });
-      } else { // assume the model data is now under loading
-        return <Q.IPromise<PMXModelData>>PMXModel._modelDataCache[absUrl];
-      }
-    } else { // When new request is needed to populate
+  private static _loadDataFromUrl(url: string, directory: string): Q.IPromise<PMXModelData> {
+    return PMXModel._asyncLoader.fetch(url, (path) => {
+      const deferred = Q.defer<PMXModelData>();
       const oReq = new XMLHttpRequest(); // use xhr since superagent is not supporting responseType property
-      oReq.open("GET", absUrl, true);
+      oReq.open("GET", path, true);
       oReq.setRequestHeader("Accept", "*/*");
       oReq.responseType = "arraybuffer";
       oReq.onload = () => {
-        const pmx = new PMXModelData(oReq.response);
-        PMXModel._modelDataCache[absUrl] = pmx;
+        const pmx = new PMXModelData(oReq.response, directory);
         deferred.resolve(pmx);
       };
+      oReq.onerror = (err) => {
+        deferred.reject(err);
+      };
       oReq.send(null);
-      PMXModel._modelDataCache[absUrl] = deferred.promise;
-    }
-    return deferred.promise;
+      return deferred.promise;
+    });
   }
 
-  /**
-   * Convert relative path to absolute path
-   * @param  {string} relative relative path to be converted
-   * @return {string}          converted absolute path
-   */
-  private static _getAbsolutePath(relative: string): string {
-    const aElem = document.createElement("a");
-    aElem.href = relative;
-    return aElem.href;
-  }
 
   private modelData: PMXModelData;
 

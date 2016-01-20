@@ -1,3 +1,4 @@
+import AsyncLoader = require("./Resources/AsyncLoader");
 import ImageLoader = require("./Resources/ImageLoader");
 ﻿import BufferTargetType = require("../Wrapper/BufferTargetType");
 import BufferUsageType = require("../Wrapper/BufferUsageType");
@@ -52,7 +53,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     let id = "";
     let absPaths = [, , , , , ];
     for (let i = 0; i < 6; i++) {
-      absPaths[i] = ImageLoader.getAbsolutePath(srcs[i]);
+      absPaths[i] = AsyncLoader.getAbsolutePath(srcs[i]);
       id += absPaths[i];
     }
     if (this.getTexture(id)) {

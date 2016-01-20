@@ -1,3 +1,4 @@
+import AsyncLoader = require("../../Core/Resources/AsyncLoader");
 import VMDHeader = require("./VMDHeader");
 import VMDMotions = require("./VMDMotions");
 import VMDMorphs = require("./VMDMorphs");
@@ -9,19 +10,25 @@ import BezierCurve = require("./BezierCurve");
 import Q = require("q");
 class VMDData {
 
-  public static LoadFromUrl(url: string): Q.Promise<VMDData> {
-    const d = Q.defer<VMDData>();
-    const targetUrl = url;
-    const oReq = new XMLHttpRequest();
-    oReq.open("GET", targetUrl, true);
-    oReq.setRequestHeader("Accept", "*/*");
-    oReq.responseType = "arraybuffer";
-    oReq.onload = () => {
-      const data = new VMDData(oReq.response);
-      d.resolve(data);
-    };
-    oReq.send(null);
-    return d.promise;
+  private static _asyncLoader: AsyncLoader<VMDData> = new AsyncLoader<VMDData>();
+
+  public static LoadFromUrl(url: string): Q.IPromise<VMDData> {
+    return VMDData._asyncLoader.fetch(url, (path) => {
+      const d = Q.defer<VMDData>();
+      const oReq = new XMLHttpRequest();
+      oReq.open("GET", path, true);
+      oReq.setRequestHeader("Accept", "*/*");
+      oReq.responseType = "arraybuffer";
+      oReq.onload = () => {
+        const data = new VMDData(oReq.response);
+        d.resolve(data);
+      };
+      oReq.onerror = (err) => {
+        d.reject(err);
+      };
+      oReq.send(null);
+      return d.promise;
+    });
   }
 
   private reader: jDataView;
