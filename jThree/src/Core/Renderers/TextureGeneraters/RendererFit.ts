@@ -83,7 +83,7 @@ class RendererFit extends GeneraterBase {
     }
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const resource = rm.createTexture(this.parentRenderer.ID + "." + name, width, height, internalFormat, elementFormat);
-    this.parentRenderer.viewportChanged.addListener((r, s: Rectangle) => {
+    this.parentRenderer.on("resize", (s: Rectangle) => {
       const bufTex = <BufferTexture>resource;
       if (s.Width !== bufTex.Width || s.Height !== bufTex.Height) {
         (<BufferTexture>resource).resize(s.Width, s.Height);

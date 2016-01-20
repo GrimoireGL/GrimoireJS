@@ -3,7 +3,6 @@ import BufferTexture = require("../Resources/Texture/BufferTexture");
 import TextureBase = require("../Resources/Texture/TextureBase");
 import Camera = require("./../Camera/Camera");
 import RenderPathExecutor = require("./RenderPathExecutor");
-import JThreeEvent = require("../../Base/JThreeEvent");
 import Rectangle = require("../../Math/Rectangle");
 import RendererConfiguratorBase = require("./RendererConfigurator/RendererConfiguratorBase");
 import RendererConfigurator = require("./RendererConfigurator/BasicRendererConfigurator");
@@ -27,11 +26,15 @@ class BasicRenderer extends CanvasRegion {
    */
   public alternativeTexture: TextureBase;
 
+  /**
+   * The cubeTexture which will be used for unassigned texture samplerCube variable in GLSL.
+   * This variable is not intended to be assigned by user manually.
+   * If you want to change this alternative texture, yoou need to extend this class and override __initializeAlternativeCubeTexture method.
+   * @type {CubeTexture}
+   */
   public alternativeCubeTexture: CubeTexture;
 
   public renderPath: RenderPath = new RenderPath();
-
-  public viewportChanged: JThreeEvent<Rectangle> = new JThreeEvent<Rectangle>(); // TODO argument should be optimized.
 
   /**
    * The camera reference this renderer using for draw.
@@ -169,7 +172,7 @@ class BasicRenderer extends CanvasRegion {
       if (isNaN(area.Height + area.Width)) { return; }
       this._viewport = area;
       JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
-      this.viewportChanged.fire(this, area);
+      this.emit("resize", area);
     }
 
   }

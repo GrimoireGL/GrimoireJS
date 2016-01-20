@@ -1,8 +1,8 @@
+import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
 import IMouseEventArgs = require("./IMouseEventArgs");
 import JThreeEvent = require("../Base/JThreeEvent");
 import IDisposable = require("../Base/IDisposable");
 import Rectangle = require("../Math/Rectangle");
-import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Vector2 = require("../Math/Vector2");
 import JThreeContext = require("../JThreeContext");
 import Debugger = require("../Debug/Debugger");
@@ -14,7 +14,7 @@ import ContextComponents = require("../ContextComponents");
  * キャンバス内の特定領域におけるマウスイベントを管理するためのクラス。
  * 主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。
  */
-class CanvasRegion extends JThreeObjectWithID implements IDisposable {
+class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
   /**
    * Constructor
    * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region

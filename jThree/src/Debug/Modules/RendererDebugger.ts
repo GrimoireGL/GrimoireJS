@@ -56,7 +56,7 @@ class RendererDebugger extends DebuggerModuleBase {
 
   private attachToRenderer(renderer: BasicRenderer, debug: Debugger) {
     debug.debuggerAPI.renderers.addRenderer(renderer, this);
-    renderer.RenderPathExecutor.renderStageCompleted.addListener((o, v) => {
+    renderer.RenderPathExecutor.on("rendered-stage", (v) => {
       if (this.bufferTextureRequest && v.completedChain.stage.ID === this.bufferTextureRequest.stageID) {
         if (v.bufferTextures[this.bufferTextureRequest.bufferTextureID] == null) {
           this.bufferTextureRequest.deffered.resolve(this.canvasToimg(v.owner.renderer));
@@ -67,7 +67,7 @@ class RendererDebugger extends DebuggerModuleBase {
         this.bufferTextureRequest = null;
       }
     });
-    renderer.RenderPathExecutor.renderPathCompleted.addListener((o, v) => {
+    renderer.RenderPathExecutor.on("rendered-path", (v) => {
       if (this.shadowMapRequest && v.owner.renderer.ID === this.shadowMapRequest.rendererID) {
         // this.shadowMapRequest.deffered.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapRequest.generator));
         this.shadowMapRequest = null;
@@ -81,7 +81,7 @@ class RendererDebugger extends DebuggerModuleBase {
         this.shadowMapProgressRequest = null;
       }
     });
-    renderer.RenderPathExecutor.renderObjectCompleted.addListener((o, v) => {
+    renderer.RenderPathExecutor.on("rendered-object", (v) => {
       let img;
       if (this.bufferTextureProgressRequest && v.stage.ID === this.bufferTextureProgressRequest.stageID) {
         this.bufferTextureProgressRequest.begin = true;
@@ -112,7 +112,7 @@ class RendererDebugger extends DebuggerModuleBase {
             object: v.renderedObject,
             technique: v.technique
           }
-         );
+          );
       }
     });
   }

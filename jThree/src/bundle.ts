@@ -54,7 +54,6 @@
 /// <reference path="Core/Materials/Base/MaterialManager.ts" />
 /// <reference path="Core/Materials/Base/MaterialPass.ts" />
 /// <reference path="Core/Materials/Base/Registerer/BasicMatrixReisterer.ts" />
-/// <reference path="Core/Materials/Base/Registerer/LightBufferRegisterer.ts" />
 /// <reference path="Core/Materials/Base/Registerer/TextureBufferRegisterer.ts" />
 /// <reference path="Core/Materials/Base/Registerer/TextureRegister.ts" />
 /// <reference path="Core/Materials/Base/Registerer/TimeRegisterer.ts" />
