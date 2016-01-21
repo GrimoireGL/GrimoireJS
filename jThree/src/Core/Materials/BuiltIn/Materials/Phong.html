@@ -39,16 +39,16 @@
       }
 
       @fragonly{
-        //@(register:1,type:buffer,name:DLIGHT)
+        @{register:1,type:"buffer",name:"DLIGHT"}
         uniform sampler2D _dlBuffer;
-        //@(register:2,type:buffer,name:SLIGHT)
+        @{register:2,type:"buffer",name:"SLIGHT"}
         uniform sampler2D _slBuffer;
         uniform vec4 diffuse;
         uniform vec3 specular;
         uniform vec4 ambient;
         uniform vec3 ambientCoefficient;
         uniform float brightness;
-        //@(register:3,flag:_textureUsed)
+        @{register:3,flag:"_textureUsed"}
         uniform sampler2D texture;
         uniform int _textureUsed;
         void main(void)

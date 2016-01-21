@@ -65,7 +65,7 @@ const idealParsedUniforms = {
     variableName: "testTexture",
     variableType: "sampler2D",
     variablePrecision: undefined,
-    variableAnnotation: { register: "0", sampler: "12" },
+    variableAnnotation: { register: 0, sampler: 12 },
     isArray: false,
     arrayLength: undefined
   },
@@ -105,7 +105,7 @@ describe("Xmml shader parsing", () => {
     assert(removeAllSpace(parsedResult.vertex) === removeAllSpace(idealParsedVertex));
   });
   it("Parsing fragment", () => {
-   console.log(parsedResult.fragment);
+    console.log(parsedResult.fragment);
     assert(removeAllSpace(parsedResult.fragment) === removeAllSpace(idealParsedFragment));
   });
   it("Parsing uniform", () => {

@@ -303,6 +303,7 @@
     "./jThree/src/refs/gl-matrix/gl-matrix.d.ts",
     "./jThree/src/refs/js-yaml/js-yaml.d.ts",
     "./jThree/src/refs/jsdom/jsdom.d.ts",
+    "./jThree/src/refs/json5/json5.d.ts",
     "./jThree/src/refs/mocha/mocha.d.ts",
     "./jThree/src/refs/node/node.d.ts",
     "./jThree/src/refs/power-assert-formatter/power-assert-formatter.d.ts",

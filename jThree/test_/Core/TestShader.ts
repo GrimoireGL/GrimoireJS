@@ -2,7 +2,7 @@ export = `attribute vec3 position;
 
 uniform mat4 _matPVM;
 
-@(register:0,sampler:12)
+@{register:0,sampler:12}
 uniform sampler2D testTexture;
 
 uniform mediump sampler2D precTexture ;
