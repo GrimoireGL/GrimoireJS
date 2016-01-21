@@ -125,7 +125,7 @@ class BasicTechnique extends JThreeObjectWithID {
         this._onPrimaryBufferFail();
         return;
       }
-      if (true) {
+      if (!this.__fboInitialized) {
         this.__initializeFBO(texs);
       }
       this.__fbo.getForContext(this._renderStage.Renderer.Canvas).bind();
