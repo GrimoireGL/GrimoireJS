@@ -83,18 +83,24 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderpath_.renderpath.html#_renderer" class="tsd-kind-icon">_renderer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#path" class="tsd-kind-icon">path</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#deletestage" class="tsd-kind-icon">delete<wbr>Stage</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderpath_.renderpath.html#_fromtemplate" class="tsd-kind-icon">_from<wbr>Template</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#deletewithindex" class="tsd-kind-icon">delete<wbr>With<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#insertafter" class="tsd-kind-icon">insert<wbr>After</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#insertbefore" class="tsd-kind-icon">insert<wbr>Before</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#frompathtemplate" class="tsd-kind-icon">from<wbr>Path<wbr>Template</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#insertwithindex" class="tsd-kind-icon">insert<wbr>With<wbr>Index</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderpath_.renderpath.html#pushstage" class="tsd-kind-icon">push<wbr>Stage</a></li>
 							</ul>
@@ -103,40 +109,76 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Render<wbr>Path<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_renderers_renderpath_.renderpath.html" class="tsd-signature-type">RenderPath</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L10">Core/Renderers/RenderPath.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>renderer: <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_renderpath_.renderpath.html" class="tsd-signature-type">RenderPath</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_renderer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _renderer</h3>
+					<div class="tsd-signature tsd-kind-icon">_renderer<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L10">Core/Renderers/RenderPath.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="path" class="tsd-anchor"></a>
 					<h3>path</h3>
 					<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L3">Core/Renderers/RenderPath.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L8">Core/Renderers/RenderPath.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="deletestage" class="tsd-anchor"></a>
-					<h3>delete<wbr>Stage</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>Stage<span class="tsd-signature-symbol">(</span>stage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="_fromtemplate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _from<wbr>Template</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">_from<wbr>Template<span class="tsd-signature-symbol">(</span>template<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L40">Core/Renderers/RenderPath.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L57">Core/Renderers/RenderPath.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>stage: <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h5>
+									<h5>template: <a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -150,7 +192,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L25">Core/Renderers/RenderPath.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L42">Core/Renderers/RenderPath.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -164,51 +206,22 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="insertafter" class="tsd-anchor"></a>
-					<h3>insert<wbr>After</h3>
+					<a name="frompathtemplate" class="tsd-anchor"></a>
+					<h3>from<wbr>Path<wbr>Template</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">insert<wbr>After<span class="tsd-signature-symbol">(</span>targetStage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a>, stage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Path<wbr>Template<span class="tsd-signature-symbol">(</span>templates<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L50">Core/Renderers/RenderPath.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L20">Core/Renderers/RenderPath.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>targetStage: <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h5>
-								</li>
-								<li>
-									<h5>stage: <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="insertbefore" class="tsd-anchor"></a>
-					<h3>insert<wbr>Before</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">insert<wbr>Before<span class="tsd-signature-symbol">(</span>targetStage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a>, stage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L60">Core/Renderers/RenderPath.ts:60</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>targetStage: <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h5>
-								</li>
-								<li>
-									<h5>stage: <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h5>
+									<h5>templates: <a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -219,13 +232,13 @@
 					<a name="insertwithindex" class="tsd-anchor"></a>
 					<h3>insert<wbr>With<wbr>Index</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">insert<wbr>With<wbr>Index<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">insert<wbr>With<wbr>Index<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L9">Core/Renderers/RenderPath.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L26">Core/Renderers/RenderPath.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -234,7 +247,7 @@
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>stage: <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h5>
+									<h5>stage: <a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -245,19 +258,19 @@
 					<a name="pushstage" class="tsd-anchor"></a>
 					<h3>push<wbr>Stage</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">push<wbr>Stage<span class="tsd-signature-symbol">(</span>stage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">push<wbr>Stage<span class="tsd-signature-symbol">(</span>stage<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L5">Core/Renderers/RenderPath.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderPath.ts#L16">Core/Renderers/RenderPath.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>stage: <a href="../interfaces/_core_renderers_renderstagechain_.renderstagechain.html" class="tsd-signature-type">RenderStageChain</a></h5>
+									<h5>stage: <a href="../interfaces/_core_renderers_stagechaintemplate_.stagechaintemplate.html" class="tsd-signature-type">StageChainTemplate</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -284,20 +297,23 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_core_renderers_renderpath_.renderpath.html" class="tsd-kind-icon">Render<wbr>Path</a>
 						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_core_renderers_renderpath_.renderpath.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_core_renderers_renderpath_.renderpath.html#_renderer" class="tsd-kind-icon">_renderer</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_core_renderers_renderpath_.renderpath.html#path" class="tsd-kind-icon">path</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_renderers_renderpath_.renderpath.html#deletestage" class="tsd-kind-icon">delete<wbr>Stage</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_core_renderers_renderpath_.renderpath.html#_fromtemplate" class="tsd-kind-icon">_from<wbr>Template</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_renderers_renderpath_.renderpath.html#deletewithindex" class="tsd-kind-icon">delete<wbr>With<wbr>Index</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_renderers_renderpath_.renderpath.html#insertafter" class="tsd-kind-icon">insert<wbr>After</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_core_renderers_renderpath_.renderpath.html#insertbefore" class="tsd-kind-icon">insert<wbr>Before</a>
+								<a href="_core_renderers_renderpath_.renderpath.html#frompathtemplate" class="tsd-kind-icon">from<wbr>Path<wbr>Template</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_core_renderers_renderpath_.renderpath.html#insertwithindex" class="tsd-kind-icon">insert<wbr>With<wbr>Index</a>
