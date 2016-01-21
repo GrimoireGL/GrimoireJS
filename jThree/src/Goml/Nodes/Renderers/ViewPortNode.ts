@@ -111,11 +111,12 @@ class ViewPortNode extends GomlTreeNodeBase {
               buffers: {
                 OUT: "default"
               },
-              stage: "jthree.basic.skybox"
+              stage: "jthree.basic.skybox",
+              variables: {}
             };
             this.targetRenderer.renderPath.insertWithIndex(0, this.skyBoxStageChain);
           }
-          (<RSMLRenderStage>this.targetRenderer.renderPath.path[0].stage).techniques[0]._defaultMaterial.materialVariables["skybox"] = <CubeTexture>node.TargetTexture;
+          this.skyBoxStageChain.variables["skybox"] = <CubeTexture>node.TargetTexture;
         }
       });
     }

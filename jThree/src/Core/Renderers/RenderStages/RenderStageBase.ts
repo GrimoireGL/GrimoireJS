@@ -13,6 +13,8 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 
   private renderer: BasicRenderer;
 
+  public stageVariables: {} = {};
+
   public getDefaultRendererConfigure(techniqueIndex: number): IRenderStageRendererConfigure {
     return {
       cullOrientation: "BACK",
@@ -108,7 +110,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 	 * Get default rbo that is allocated for this renderer.
 	 */
   public get DefaultRBO(): RBO {
-   const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     return rm.getRBO(this.Renderer.ID + ".rbo.default");
   }
 }

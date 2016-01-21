@@ -30,6 +30,12 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         generater: "rendererfit",
         internalFormat: "RGBA",
         element: "UBYTE"
+      },
+      {
+        name: "main",
+        generater: "rendererfit",
+        internalFormat: "RGBA",
+        element: "UBYTE"
       }
     ];
   }
@@ -64,16 +70,16 @@ class BasicRendererConfigurator extends ConfiguratorBase {
           OUT: "default"
         },
         stage: "jthree.basic.foward"
-      }];
-    // },
-    // {
-    //   buffers: {
-    //     PRIMARY: "gbuffer.primary",
-    //     MAIN: "main",
-    //     OUT: "default"
-    //   },
-    //   stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/DistanceFog.html"))
-    // }];
+       }];
+      // },
+      // {
+      //   buffers: {
+      //     PRIMARY: "gbuffer.primary",
+      //     MAIN: "main",
+      //     OUT: "default"
+      //   },
+      //   stage: "jthree.basic.distanceFog"
+      // }];
   }
 }
 

@@ -58,7 +58,8 @@ class RenderPath {
     const rr = JThreeContext.getContextComponent<RenderStageRegistory>(ContextComponents.RenderStageRegistory);
     return {
       buffers: template.buffers,
-      stage: rr.construct(template.stage, this._renderer)
+      stage: rr.construct(template.stage, this._renderer),
+      variables: template.variables || {}
     };
   }
 }

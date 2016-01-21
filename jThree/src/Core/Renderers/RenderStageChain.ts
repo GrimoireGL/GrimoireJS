@@ -4,6 +4,7 @@ interface RenderStageChain {
     [name: string]: string
   };
   stage: RenderStage;
+  variables: {};
 }
 
 export = RenderStageChain;
