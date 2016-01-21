@@ -120,7 +120,9 @@ class PMXBoneTransformer extends Transformer {
   }
 
   public updateTransformForPMX() {
-    if (this.pmx == null) return;
+    if (this.pmx == null) {
+      return;
+    }
     this.updateLocalTranslation();
     if (this.IsIKBone && this.pmx.skeleton) {
       this.applyCCDIK();
@@ -149,7 +151,7 @@ class PMXBoneTransformer extends Transformer {
     // Multiply local rotations of this bone
     glm.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.userRotation.rawElements);
     glm.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.morphRotation.rawElements);
-    if (this.IsRotationProvidingBone) { //Memorize providing rotation of this bone
+    if (this.IsRotationProvidingBone) { // Memorize providing rotation of this bone
       glm.quat.copy(this.providingRotation.rawElements, this.Rotation.rawElements);
     }
     // Calculate IkLink rotation of this bone
@@ -204,24 +206,26 @@ class PMXBoneTransformer extends Transformer {
   }
 
   private getLink2Effector(link: PMXBoneTransformer, effector: PMXBoneTransformer) {
-    var ToLinkLocal = Matrix.inverse(link.LocalToGlobal);
-    var ep = effector.LocalOrigin;
-    var local2effectorLocal = Matrix.multiply(ToLinkLocal, effector.LocalToGlobal);
-    var effectorPos = Matrix.transformPoint(local2effectorLocal, ep);
+    const ToLinkLocal = Matrix.inverse(link.LocalToGlobal);
+    const ep = effector.LocalOrigin;
+    const local2effectorLocal = Matrix.multiply(ToLinkLocal, effector.LocalToGlobal);
+    const effectorPos = Matrix.transformPoint(local2effectorLocal, ep);
     return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();
   }
 
   private getLink2Target(link: PMXBoneTransformer, tp: Vector3) {
-    var ToLinkLocal = Matrix.inverse(link.LocalToGlobal);
-    var effectorPos = Matrix.transformPoint(ToLinkLocal, tp);
+    const ToLinkLocal = Matrix.inverse(link.LocalToGlobal);
+    const effectorPos = Matrix.transformPoint(ToLinkLocal, tp);
     return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();
   }
 
   private ikLinkCalc(link: PMXBoneTransformer, effector: Vector3, target: Vector3, rotationLimit: number, ikLink: PMXIKLink, it: number) {
-    //Calculate rotation angle
-    var dot = Vector3.dot(effector, target);
-    if (dot > 1.0) dot = 1.0;//adjust error (if dot was over 1.0, acos(dot) will be NaN. Then, it cause some of bug)
-    var rotationAngle = this.clampFloat(Math.acos(dot), rotationLimit);
+    // Calculate rotation angle
+    let dot = Vector3.dot(effector, target);
+    if (dot > 1.0) {
+      dot = 1.0; // adjust error (if dot was over 1.0, acos(dot) will be NaN. Then, it cause some of bug)
+    }
+    const rotationAngle = this.clampFloat(Math.acos(dot), rotationLimit);
     if (isNaN(rotationAngle)) {
       return;
     }
@@ -251,7 +255,9 @@ class PMXBoneTransformer extends Transformer {
   }
 
   private RestrictRotation(link: PMXIKLink, rot: Quaternion): Quaternion {
-    if (!link.isLimitedRotation) return rot;//If this link bone is not enabled with rotation limit,just return.
+    if (!link.isLimitedRotation) {
+      return rot; // If this link bone is not enabled with rotation limit,just return.
+    }
     const decomposed = rot.FactoringQuaternionXYZ();
     const xRotation = Math.max(link.limitedRotation[0], Math.min(link.limitedRotation[3], -decomposed.x));
     const yRotation = Math.max(link.limitedRotation[1], Math.min(link.limitedRotation[4], -decomposed.y));

@@ -6,7 +6,7 @@ import Q = require("q");
  * Cube texture resource node.
  */
 class CubeTextureNode extends TextureNodeBase {
-  protected groupPrefix: string = "cubetexture";
+  protected groupPrefix: string = "TextureCube";
 
   constructor() {
     super();

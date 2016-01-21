@@ -37,14 +37,15 @@ class Color3 extends VectorBase {
   /// Color parser for css like syntax
   public static internalParse(color: string, isFirst: boolean): Color3 {
     if (isFirst && Color4.colorTable[color]) {
-      var col = Color4.internalParse(Color4.colorTable[color], false);
+      const col = Color4.internalParse(Color4.colorTable[color], false);
       return Color3.FromColor4(col);
     }
+    let m;
     if (isFirst) {
-      var m = color.match(/^#([0-9a-f]{3})$/i);
+      m = color.match(/^#([0-9a-f]{3})$/i);
       // #fff
       if (m) {
-        var s = m[1];
+        const s = m[1];
         return new Color3(
           parseInt(s.charAt(0), 16) / 0xf,
           parseInt(s.charAt(1), 16) / 0xf,
@@ -56,7 +57,7 @@ class Color3 extends VectorBase {
     // #ffffff
     m = color.match(/^#([0-9a-f]{6})$/i);
     if (m) {
-      var s = m[1];
+      const s = m[1];
       return new Color3(
         parseInt(s.substr(0, 2), 16) / 0xff,
         parseInt(s.substr(2, 2), 16) / 0xff,
@@ -64,9 +65,9 @@ class Color3 extends VectorBase {
         );
     }
 
-    var n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+    const n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
     if (n && isFirst) {
-      return new Color3(parseInt(n[1]) / 0xff, parseInt(n[2]) / 0xff, parseInt(n[3]) / 0xff);
+      return new Color3(parseInt(n[1], 10) / 0xff, parseInt(n[2], 10) / 0xff, parseInt(n[3], 10) / 0xff);
     }
     return undefined;
   }
@@ -92,7 +93,7 @@ class Color3 extends VectorBase {
   }
 
   public toDisplayString(): string {
-    var st = "#";
+    let st = "#";
     st += Math.round(this.R * 0xff).toString(16).toUpperCase();
     st += Math.round(this.G * 0xff).toString(16).toUpperCase();
     st += Math.round(this.B * 0xff).toString(16).toUpperCase();

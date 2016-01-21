@@ -1,3 +1,4 @@
+import JThreeObjectEE = require("../../Base/JThreeObjectEE");
 import RenderStageBase = require("./RenderStages/RenderStageBase");
 import PrimitiveRegistory = require("../Geometries/Base/PrimitiveRegistory");
 import JThreeContext = require("../../JThreeContext");
@@ -8,10 +9,7 @@ import SceneObject = require("../SceneObject");
 import Mesh = require("../../Shapes/Mesh");
 import Scene = require("../Scene");
 import ResolvedChainInfo = require("./ResolvedChainInfo");
-import GeneraterInfo = require("./TextureGeneraters/GeneraterInfo");
 import RenderPath = require("./RenderPath");
-import TextureGenerater = require("./TextureGenerater");
-import JThreeEvent = require("../../Base/JThreeEvent");
 import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
 import IRenderPathCompletedEventArgs = require("./IRenderPathCompletedEventArgs");
 import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventArgs");
@@ -20,37 +18,12 @@ import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventA
  *
  * @type {[type]}
  */
-class RenderPathExecutor {
-  public renderStageCompleted: JThreeEvent<IRenderStageCompletedEventArgs> = new JThreeEvent<IRenderStageCompletedEventArgs>();
-
-  public renderPathCompleted: JThreeEvent<IRenderPathCompletedEventArgs> = new JThreeEvent<IRenderPathCompletedEventArgs>();
-
-  public renderObjectCompleted: JThreeEvent<IRenderObjectCompletedEventArgs> = new JThreeEvent<IRenderObjectCompletedEventArgs>();
-
+class RenderPathExecutor extends JThreeObjectEE {
   public renderer: BasicRenderer;
 
   constructor(parent: BasicRenderer) {
+    super();
     this.renderer = parent;
-  }
-
-  private textureBuffers: GeneraterInfo = {};
-
-  public get TextureBuffers() {
-    return this.textureBuffers;
-  }
-
-  public set TextureBuffers(val: GeneraterInfo) {
-    this.textureBuffers = val;
-  }
-
-
-	/**
-	 * Generate all textures subscribed to TextureBuffers
-	 */
-  public generateAllTextures() {
-    for (let name in this.textureBuffers) {
-      TextureGenerater.generateTexture(this.renderer, name, this.textureBuffers[name]);
-    }
   }
 
   public processRender(scene: Scene, renderPath: RenderPath) {
@@ -82,7 +55,7 @@ class RenderPathExecutor {
           stage.postTechnique(scene, techniqueIndex, texs);
         }
         stage.postStage(scene, texs);
-        this.renderStageCompleted.fire(this, {
+        this.emit("rendered-stage", <IRenderStageCompletedEventArgs>{
           owner: this,
           completedChain: chain,
           bufferTextures: texs,
@@ -93,7 +66,7 @@ class RenderPathExecutor {
         debugger;
       }
     });
-    this.renderPathCompleted.fire(this, {
+    this.emit("rendered-path", <IRenderPathCompletedEventArgs> {
       owner: this,
       scene: scene
     });
@@ -104,7 +77,7 @@ class RenderPathExecutor {
       v.callRecursive(_v => {
         if (_v.Geometry && stage.needRender(scene, _v, techniqueIndex)) {
           stage.render(scene, _v, techniqueIndex, texs);
-          this.renderObjectCompleted.fire(this, {
+          this.emit("rendered-object", <IRenderObjectCompletedEventArgs>{
             owner: this,
             renderedObject: _v,
             stage: stage,
@@ -125,7 +98,7 @@ class RenderPathExecutor {
         texInfo[targetName] = null; // default buffer
         continue;
       }
-      const tex = TextureGenerater.getTexture(this.renderer, bufferName);
+      const tex = this.renderer.bufferSet.getColorBuffer(bufferName);
       texInfo[targetName] = tex;
     }
     return texInfo;

@@ -1,15 +1,9 @@
 import GLExtensionManager = require("./GLExtensionManager");
 import Rectangle = require("../Math/Rectangle");
-import JThreeContext = require("../JThreeContext");
 import BasicRenderer = require("./Renderers/BasicRenderer");
 import ClearTargetType = require("../Wrapper/ClearTargetType");
 import JThreeEvent = require("../Base/JThreeEvent");
 import CanvasSizeChangedEventArgs = require("./CanvasSizeChangedEventArgs");
-import Delegates = require("../Base/Delegates");
-import ContextComponents = require("../ContextComponents");
-import CanvasManager = require("./CanvasManager");
-import Debugger = require("../Debug/Debugger");
-import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Color4 = require("../Math/Color4");
 import CanvasRegion = require("./CanvasRegion");
 /**
@@ -63,15 +57,17 @@ class Canvas extends CanvasRegion {
    * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
    */
   public afterRender(renderer: BasicRenderer): void {
+   return;
   }
 
   public afterRenderAll(): void {
+   return;
   }
   public beforeRender(renderer: BasicRenderer): void {
     this.clearCanvas();
   }
   public beforeRenderAll(): void {
-    //check size changed or not.
+    // check size changed or not.
     if (this.canvasElement.height !== this._lastHeight || this.canvasElement.width !== this._lastWidth) {
       this.canvasResized.fire(this, new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
       this._lastHeight = this.canvasElement.height; this._lastWidth = this.canvasElement.width;
@@ -81,7 +77,7 @@ class Canvas extends CanvasRegion {
    * clear the default buffer of this canvas with ClearColor.
    */
   public clearCanvas(): void {
-    this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, null);//binds to default buffer.
+    this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, null); // binds to default buffer.
     this.applyClearColor();
     this.GL.clear(ClearTargetType.ColorBits | ClearTargetType.DepthBits);
   }
@@ -109,4 +105,4 @@ class Canvas extends CanvasRegion {
 }
 
 
-export =Canvas;
+export = Canvas;

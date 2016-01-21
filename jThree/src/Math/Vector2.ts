@@ -26,7 +26,7 @@ class Vector2 extends VectorBase {
   constructor(x: glm.GLM.IArray);
   constructor(x: number | glm.GLM.IArray, y?: number) {
     super();
-    if (typeof y === 'undefined') {
+    if (typeof y === "undefined") {
       this.rawElements = <glm.GLM.IArray>x;
       return;
     }
@@ -58,17 +58,17 @@ class Vector2 extends VectorBase {
   }
 
   public static add(v1: Vector2, v2: Vector2): Vector2 {
-    var newVec = glm.vec2.create();
+    const newVec = glm.vec2.create();
     return new Vector2(glm.vec2.add(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static subtract(v1: Vector2, v2: Vector2): Vector2 {
-    var newVec = glm.vec2.create();
+    const newVec = glm.vec2.create();
     return new Vector2(glm.vec2.sub(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static multiply(s: number, v: Vector2): Vector2 {
-    var newVec = glm.vec2.create();
+    const newVec = glm.vec2.create();
     return new Vector2(glm.vec2.scale(newVec, v.rawElements, s));
   }
 
@@ -81,7 +81,7 @@ class Vector2 extends VectorBase {
   }
 
   public static normalize(v1: Vector2): Vector2 {
-    var newVec = glm.vec2.create();
+    const newVec = glm.vec2.create();
     return new Vector2(glm.vec2.normalize(newVec, v1.rawElements));
   }
 
@@ -140,4 +140,4 @@ class Vector2 extends VectorBase {
   }
 }
 
-export =Vector2;
+export = Vector2;

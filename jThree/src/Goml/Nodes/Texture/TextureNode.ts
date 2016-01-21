@@ -6,7 +6,7 @@ import Q = require("q");
  * Basic 2d texture resource node.
  */
 class TextureNode extends TextureNodeBase {
-  protected groupPrefix: string = "texture2d";
+  protected groupPrefix: string = "Texture2D";
 
   constructor() {
     super();

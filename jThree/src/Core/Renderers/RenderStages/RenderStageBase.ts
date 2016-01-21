@@ -6,7 +6,6 @@ import SceneObject = require("../../SceneObject");
 import Scene = require("../../Scene");
 import ResolvedChainInfo = require("../ResolvedChainInfo");
 import RBO = require("../../Resources/RBO/RBO");
-import FBO = require("../../Resources/FBO/FBO");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
@@ -39,10 +38,6 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 
   public get GL() {
     return this.Renderer.GL;
-  }
-
-  private get ResourceManager() {
-    return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
   }
 
   constructor(renderer: BasicRenderer) {
@@ -95,7 +90,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 
   public drawForMaterial(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, material: Material): void {
     if (!material || !material.Initialized || !material.Enabled) { return; }
-    for (var pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
+    for (let pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
       material.apply({
         scene: scene,
         renderStage: this,
@@ -105,22 +100,16 @@ abstract class RenderStageBase extends JThreeObjectWithID {
         passIndex: pass,
         camera: this.Renderer.Camera
       });
-      object.Geometry.drawElements(this.Renderer.ContextManager, material);
+      object.Geometry.drawElements(this.Renderer.Canvas, material);
     }
-  }
-
-	/**
-	 * Get default fbo that is allocated for this renderer.
-	 */
-  public get DefaultFBO(): FBO {
-    return this.ResourceManager.getFBO(this.Renderer.ID + ".fbo.default");
   }
 
 	/**
 	 * Get default rbo that is allocated for this renderer.
 	 */
   public get DefaultRBO(): RBO {
-    return this.ResourceManager.getRBO(this.Renderer.ID + ".rbo.default");
+   const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    return rm.getRBO(this.Renderer.ID + ".rbo.default");
   }
 }
 

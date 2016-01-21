@@ -1,9 +1,9 @@
-﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfo");
+import GeneraterInfoChunk = require("../TextureGeneraters/GeneraterInfoChunk");
 import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 
 class RendererConfiguratorBase {
-  public get TextureBuffers(): GeneraterInfo {
+  public get TextureBuffers(): GeneraterInfoChunk[] {
     return null;
   }
 

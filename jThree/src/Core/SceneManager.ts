@@ -1,33 +1,23 @@
-import jThreeObject = require("../Base/JThreeObject");
+import jThreeObjectEE = require("../Base/JThreeObjectEE");
 import Scene = require("./Scene");
 import IContextComponent = require("../IContextComponent");
 import ContextComponents = require("../ContextComponents");
-import CanvasManager = require("./CanvasManager");
 import JThreeEvent = require("../Base/JThreeEvent");
 import ISceneListChangedEventArgs = require("./ISceneListChangedEventArgs");
 
 /**
 * The class for managing entire scenes.
 */
-class SceneManager extends jThreeObject implements IContextComponent {
-    constructor() {
-        super();
-    }
-
-    public getContextComponentIndex(): number {
-        return ContextComponents.SceneManager;
-    }
+class SceneManager extends jThreeObjectEE implements IContextComponent {
 
     /**
      * All scene map. Hold by Scene.ID.
      */
     private scenes: { [sceneID: string]: Scene } = {};
 
-    /**
-     * Event object notifying when scene list was changed.
-     * @type {JThreeEvent<ISceneListChangedEventArgs>}
-     */
-    public sceneListChanged: JThreeEvent<ISceneListChangedEventArgs> = new JThreeEvent<ISceneListChangedEventArgs>();
+    public getContextComponentIndex(): number {
+        return ContextComponents.SceneManager;
+    }
 
     /**
     * Add new scene to be managed.
@@ -35,7 +25,7 @@ class SceneManager extends jThreeObject implements IContextComponent {
     public addScene(scene: Scene): void {
         if (!this.scenes[scene.ID]) {
             this.scenes[scene.ID] = scene;
-            this.sceneListChanged.fire(this, {
+            this.emit("change", {
                 owner: this,
                 isAdditionalChange: true,
                 changedScene: scene
@@ -60,7 +50,7 @@ class SceneManager extends jThreeObject implements IContextComponent {
     public removeScene(scene: Scene): void {
         if (this.scenes[scene.ID]) {
             delete this.scenes[scene.ID];
-            this.sceneListChanged.fire(this, {
+            this.emit("change", {
                 owner: this,
                 isAdditionalChange: false,
                 changedScene: scene
@@ -83,4 +73,4 @@ class SceneManager extends jThreeObject implements IContextComponent {
 
 }
 
-export =SceneManager;
+export = SceneManager;

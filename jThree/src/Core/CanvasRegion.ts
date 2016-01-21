@@ -1,8 +1,8 @@
+import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
 import IMouseEventArgs = require("./IMouseEventArgs");
 import JThreeEvent = require("../Base/JThreeEvent");
 import IDisposable = require("../Base/IDisposable");
 import Rectangle = require("../Math/Rectangle");
-import JThreeObjectWithID = require("../Base/JThreeObjectWithID");
 import Vector2 = require("../Math/Vector2");
 import JThreeContext = require("../JThreeContext");
 import Debugger = require("../Debug/Debugger");
@@ -14,7 +14,7 @@ import ContextComponents = require("../ContextComponents");
  * キャンバス内の特定領域におけるマウスイベントを管理するためのクラス。
  * 主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。
  */
-class CanvasRegion extends JThreeObjectWithID implements IDisposable {
+class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
   /**
    * Constructor
    * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region
@@ -22,21 +22,10 @@ class CanvasRegion extends JThreeObjectWithID implements IDisposable {
   constructor(canvasElement: HTMLCanvasElement) {
     super();
     this.canvasElement = canvasElement;
-    this.canvasElement.addEventListener('mousemove', this._mouseMoveHandler, false);
-    this.canvasElement.addEventListener('mouseenter', this._mouseEnterHandler, false);
-    this.canvasElement.addEventListener('mouseleave', this._mouseLeaveHandler, false);
+    this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler, false);
+    this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler, false);
+    this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler, false);
     this.name = this.ID;
-  }
-
-  /**
-   * Dispose used objects and event handlers.
-   *
-   *使ったオブジェクトやイベントハンドラの破棄
-   */
-  public dispose() {
-    this.canvasElement.removeEventListener('mousemove', this._mouseMoveHandler, false);
-    this.canvasElement.removeEventListener('mouseenter', this._mouseEnterHandler, false);
-    this.canvasElement.removeEventListener('mouseleave', this._mouseLeaveHandler, false);
   }
 
   /**
@@ -73,16 +62,6 @@ class CanvasRegion extends JThreeObjectWithID implements IDisposable {
 
   public mouseEvent: JThreeEvent<IMouseEventArgs> = new JThreeEvent<IMouseEventArgs>();
 
-
-  /**
-   * The region managed by this class.(This getter should be overridden)
-   *
-   * このクラスによって管理されている領域(このgetterはオーバーライドされるべきものです。)
-   */
-  public get region(): Rectangle {
-    return null;
-  }
-
   private _mouseMoveHandler = ((e: MouseEvent): void => {
     this._checkMouseInside(e, true);
     this.mouseEvent.fire(this, {
@@ -116,14 +95,35 @@ class CanvasRegion extends JThreeObjectWithID implements IDisposable {
     });
   }).bind(this);
 
+
+  /**
+   * The region managed by this class.(This getter should be overridden)
+   *
+   * このクラスによって管理されている領域(このgetterはオーバーライドされるべきものです。)
+   */
+  public get region(): Rectangle {
+    return null;
+  }
+
+  /**
+   * Dispose used objects and event handlers.
+   *
+   *使ったオブジェクトやイベントハンドラの破棄
+   */
+  public dispose() {
+    this.canvasElement.removeEventListener("mousemove", this._mouseMoveHandler, false);
+    this.canvasElement.removeEventListener("mouseenter", this._mouseEnterHandler, false);
+    this.canvasElement.removeEventListener("mouseleave", this._mouseLeaveHandler, false);
+  }
+
   private _checkMouseInside(e: MouseEvent, mouseState: boolean): boolean {
-    //TODO fix bug here
-    var r = this.region;
-    var rect = this.canvasElement.getBoundingClientRect();
-    var cWidth = rect.right - rect.left;
-    var cHeight = rect.bottom - rect.top;
-    var x = (e.clientX - rect.left) / cWidth * this.canvasElement.width;
-    var y = (e.clientY - rect.top) / cHeight * this.canvasElement.height;
+    // TODO fix bug here
+    const r = this.region;
+    const rect = this.canvasElement.getBoundingClientRect();
+    const cWidth = rect.right - rect.left;
+    const cHeight = rect.bottom - rect.top;
+    const x = (e.clientX - rect.left) / cWidth * this.canvasElement.width;
+    const y = (e.clientY - rect.top) / cHeight * this.canvasElement.height;
     this.mouseOver = mouseState && r.contains(x, y);
     if (this.mouseOver) {
       this.mousePosition.X = (x - r.Left) / r.Width;
@@ -132,7 +132,7 @@ class CanvasRegion extends JThreeObjectWithID implements IDisposable {
       this.mousePosition.X = -1;
       this.mousePosition.Y = -1;
     }
-    var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+    const debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
     debug.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
       mouseOver: this.mouseOver,
       mousePositionX: this.mousePosition.X,

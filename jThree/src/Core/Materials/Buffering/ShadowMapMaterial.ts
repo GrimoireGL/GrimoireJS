@@ -1,6 +1,5 @@
 import IApplyMaterialArgument = require("../Base/IApplyMaterialArgument");
 import BasicMaterial = require("../Base/BasicMaterial");
-import Matrix = require("../../../Math/Matrix");
 /**
  * Provides shadow map rendering materials.
  * By this material, default meshes will be rendered as shadow map.

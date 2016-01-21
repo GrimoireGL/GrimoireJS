@@ -1,9 +1,9 @@
 import PMXModel = require("./PMXModel");
 import PMXGeometry = require("./PMXGeometry");
 import PMXMorphManager = require("./PMXMorphManager");
-class PMXMorph {
+abstract class PMXMorph {
   public static CreateMorph(model: PMXModel, index: number, morphManager: PMXMorphManager): PMXMorph {
-    var morphData = model.ModelData.Morphs[index];
+    const morphData = model.ModelData.Morphs[index];
     switch (morphData.morphKind) {
       case 0:
         return new PMXGroupMorph(model, index, morphManager);
@@ -38,7 +38,7 @@ class PMXMorph {
   }
 
   public set Progress(val: number) {
-    if (this.progressCurrentCache != val) {
+    if (this.progressCurrentCache !== val) {
       this.progressCurrentCache = val;
     }
   }
@@ -60,16 +60,14 @@ class PMXMorph {
   }
 
   public update() {
-    if (this.progress != this.progressCurrentCache) {
+    if (this.progress !== this.progressCurrentCache) {
       this.updateProgress(this.progressCurrentCache, this.progress);
       this.progress = this.progressCurrentCache;
       this.morphManager.postProcessFlag[this.TargetMorphData.morphKind] = true;
     }
   }
 
-  protected updateProgress(current: number, last: number) {
-
-  }
+  protected abstract updateProgress(current: number, last: number);
 }
 
 class PMXVertexMorph extends PMXMorph {
@@ -78,9 +76,9 @@ class PMXVertexMorph extends PMXMorph {
   }
 
   protected updateProgress(current: number, last: number) {
-    var ratio = current - last;
-    for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
-      var vm = this.TargetMorphData.vertexMorph[i];
+    const ratio = current - last;
+    for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
+      const vm = this.TargetMorphData.vertexMorph[i];
       (<PMXGeometry>this.model.Geometry).positionBuferSource[3 * vm.vertexIndex + 0] += vm.vertexOffset[0] * ratio;
       (<PMXGeometry>this.model.Geometry).positionBuferSource[3 * vm.vertexIndex + 1] += vm.vertexOffset[1] * ratio;
       (<PMXGeometry>this.model.Geometry).positionBuferSource[3 * vm.vertexIndex + 2] += vm.vertexOffset[2] * ratio;
@@ -93,9 +91,9 @@ class PMXUVMorph extends PMXMorph {
     (<PMXGeometry>model.Geometry).updateUVBuffer();
   }
   protected updateProgress(current: number, last: number) {
-    var ratio = current - last;
-    for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
-      var vm = this.TargetMorphData.uvMorph[i];
+    const ratio = current - last;
+    for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
+      const vm = this.TargetMorphData.uvMorph[i];
       (<PMXGeometry>this.model.Geometry).uvBufferSource[3 * vm.vertexIndex + 0] += vm.uvOffset[0] * ratio;
       (<PMXGeometry>this.model.Geometry).uvBufferSource[3 * vm.vertexIndex + 1] += vm.uvOffset[1] * ratio;
       (<PMXGeometry>this.model.Geometry).uvBufferSource[3 * vm.vertexIndex + 2] += vm.uvOffset[2] * ratio;
@@ -105,11 +103,13 @@ class PMXUVMorph extends PMXMorph {
 
 class PMXGroupMorph extends PMXMorph {
   protected updateProgress(current: number, last: number) {
-    var ratio = current - last;
-    for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
-      var vm = this.TargetMorphData.groupMorph[i];
-      var m = this.morphManager.getMorphByIndex(vm.morphIndex);
-      if (m) m.Progress += ratio * vm.morphRate;
+    const ratio = current - last;
+    for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
+      const vm = this.TargetMorphData.groupMorph[i];
+      const m = this.morphManager.getMorphByIndex(vm.morphIndex);
+      if (m) {
+        m.Progress += ratio * vm.morphRate;
+      }
     }
   }
 }
@@ -117,17 +117,18 @@ class PMXGroupMorph extends PMXMorph {
 class PMXMaterialMorph extends PMXMorph {
   protected updateProgress(current: number, last: number) {
 
-    var ratio = current - last;
-    for (var i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
-      var vm = this.TargetMorphData.materialMorph[i];
-      if (vm.materialIndex == -1) {
-        var targetMaterials = this.model.Materials;
+    const ratio = current - last;
+    for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
+      const vm = this.TargetMorphData.materialMorph[i];
+      let targetMaterials ;
+      if (vm.materialIndex === -1) {
+        targetMaterials = this.model.Materials;
       } else {
-        var targetMaterials = [this.model.getPMXMaterialByIndex(vm.materialIndex)];
+        targetMaterials = [this.model.getPMXMaterialByIndex(vm.materialIndex)];
       }
-      for (var j = 0; j < targetMaterials.length; j++) {
-        var targetMaterial = targetMaterials[j];
-        var target = vm.operationType == 1 ? targetMaterial.addMorphParam : targetMaterial.mulMorphParam;
+      for (let j = 0; j < targetMaterials.length; j++) {
+        const targetMaterial = targetMaterials[j];
+        const target = vm.operationType === 1 ? targetMaterial.addMorphParam : targetMaterial.mulMorphParam;
         target.edgeSize += ratio * (vm.edgeSize + vm.operationType - 1);
         this.assignMorphValues(3, target.ambient, vm.ambient, ratio, vm.operationType);
         this.assignMorphValues(4, target.diffuse, vm.diffuse, ratio, vm.operationType);
@@ -142,7 +143,7 @@ class PMXMaterialMorph extends PMXMorph {
   }
 
   private assignMorphValues(vecLength: number, target: number[], morphValues: number[], ratio: number, opType: number) {
-    for (var i = 0; i < vecLength; i++) {
+    for (let i = 0; i < vecLength; i++) {
       target[i] += ratio * (morphValues[i] + opType - 1);
     }
   }

@@ -3,7 +3,6 @@ import BasicMaterial = require("../../Materials/Base/BasicMaterial");
 import ContextComponents = require("../../../ContextComponents");
 import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
 import JThreeContext = require("../../../JThreeContext");
-import Vector3 = require("../../../Math/Vector3");
 import LightBase = require("./../LightBase");
 import Matrix = require("../../../Math/Matrix");
 

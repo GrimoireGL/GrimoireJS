@@ -124,7 +124,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         value: "",
         onchanged: (v) => {
           if (v.Value) {
-            this.nodeImport("jthree.resource.texture2d", v.Value, (node: TextureNode) => {
+            this.nodeImport("jthree.resource.Texture2D", v.Value, (node: TextureNode) => {
               if (node) {
                 this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
               } else {
@@ -141,7 +141,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         value: "",
         onchanged: (v) => {
           if (v.Value) {
-            this.nodeImport("jthree.resource.cubetexture", v.Value, (node: CubeTextureNode) => {
+            this.nodeImport("jthree.resource.TextureCube", v.Value, (node: CubeTextureNode) => {
               if (node) {
                 this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
               } else {
@@ -153,7 +153,8 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       };
     }
     if (!converter) {
-      return;
+      console.warn(`Variable forwarding for ${variableInfo.variableType} is not implemented yet. Attribute declaration of ${variableInfo.variableName} was skipped.`);
+      return undefined;
     }
     return {
       converter: converter,

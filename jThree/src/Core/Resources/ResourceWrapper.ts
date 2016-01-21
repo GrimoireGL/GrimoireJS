@@ -1,8 +1,9 @@
+import IDisposable = require("../../Base/IDisposable");
 import JThreeObject = require("../../Base/JThreeObject");
 import ContextManager = require("../Canvas");
 import JThreeEvent = require("../../Base/JThreeEvent");
 import Delegates = require("../../Base/Delegates");
-class ResourceWrapper extends JThreeObject {
+class ResourceWrapper extends JThreeObject implements IDisposable {
   constructor(ownerCanvas: ContextManager) {
     super();
     this.ownerCanvas = ownerCanvas;
@@ -10,6 +11,10 @@ class ResourceWrapper extends JThreeObject {
 
   private ownerCanvas: ContextManager;
 
+
+  public dispose() {
+    return;
+  }
   /**
   * The canvas hold this resource.
   */
@@ -57,7 +62,7 @@ class ResourceWrapper extends JThreeObject {
   }
 
   public init() {
-   return;
+    return;
   }
 }
 
