@@ -120,10 +120,11 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#___initializefbo" class="tsd-kind-icon">___initializeFBO</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_applydepthconfiguration" class="tsd-kind-icon">_apply<wbr>Depth<wbr>Configuration</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_applybufferconfiguration" class="tsd-kind-icon">_apply<wbr>Buffer<wbr>Configuration</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_attachrboconfigure" class="tsd-kind-icon">_attachRBOConfigure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_attachtextureconfigure" class="tsd-kind-icon">_attach<wbr>Texture<wbr>Configure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_clearbuffers" class="tsd-kind-icon">_clear<wbr>Buffers</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_onprimarybufferfail" class="tsd-kind-icon">_on<wbr>Primary<wbr>Buffer<wbr>Fail</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#pretechnique" class="tsd-kind-icon">pre<wbr>Technique</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#render" class="tsd-kind-icon">render</a></li>
@@ -373,10 +374,10 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_applydepthconfiguration" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _apply<wbr>Depth<wbr>Configuration</h3>
+					<a name="_applybufferconfiguration" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _apply<wbr>Buffer<wbr>Configuration</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Depth<wbr>Configuration<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Buffer<wbr>Configuration<span class="tsd-signature-symbol">(</span>scene<span class="tsd-signature-symbol">: </span><a href="_core_scene_.scene.html" class="tsd-signature-type">Scene</a>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -457,9 +458,35 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RSML/BasicTechnique.ts#L138">Core/Renderers/RenderStages/RSML/BasicTechnique.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RSML/BasicTechnique.ts#L161">Core/Renderers/RenderStages/RSML/BasicTechnique.ts:161</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="_onprimarybufferfail" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _on<wbr>Primary<wbr>Buffer<wbr>Fail</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">_on<wbr>Primary<wbr>Buffer<wbr>Fail<span class="tsd-signature-symbol">(</span>primaryName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, texs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Renderers/RenderStages/RSML/BasicTechnique.ts#L144">Core/Renderers/RenderStages/RSML/BasicTechnique.ts:144</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>primaryName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>texs: <a href="../interfaces/_core_renderers_resolvedchaininfo_.resolvedchaininfo.html" class="tsd-signature-type">ResolvedChainInfo</a></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -637,7 +664,7 @@
 								<a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#___initializefbo" class="tsd-kind-icon">___initializeFBO</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_applydepthconfiguration" class="tsd-kind-icon">_apply<wbr>Depth<wbr>Configuration</a>
+								<a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_applybufferconfiguration" class="tsd-kind-icon">_apply<wbr>Buffer<wbr>Configuration</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_attachrboconfigure" class="tsd-kind-icon">_attachRBOConfigure</a>
@@ -647,6 +674,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_clearbuffers" class="tsd-kind-icon">_clear<wbr>Buffers</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#_onprimarybufferfail" class="tsd-kind-icon">_on<wbr>Primary<wbr>Buffer<wbr>Fail</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_core_renderers_renderstages_rsml_basictechnique_.basictechnique.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
