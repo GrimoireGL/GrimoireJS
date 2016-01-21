@@ -74,17 +74,20 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
     super.onMount();
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const name = this.attributes.getValue("name");
-    this.generateTexture(name, rm).then((texture) => {
+    this.constructTexture(name, rm).then((texture) => {
       this.targetTexture = texture;
-      this.nodeManager.nodeRegister.addObject("jthree.resource." + this.TextureGroupName, name, this);
+      this.nodeExport(name);
     });
   }
 
-  protected abstract generateTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase>;
+  /**
+   * Construct texture.
+   * @param  {string}          name [description]
+   * @param  {ResourceManager} rm   [description]
+   * @return {TextureBase}          [description]
+   */
+  protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase>;
 
-  protected get TextureGroupName() {
-    return "";
-  }
   /**
    * Min filter attribute string is changed into enum by this method.
    * @param  {string}        Attribute string
@@ -104,10 +107,12 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
       case "NEAREST":
         return MinFilterType.Nearest;
       case "LINEAR":
+        return MinFilterType.Linear;
       default:
         return MinFilterType.Linear;
     }
   }
+
   /**
    * Mag filter attribute string is changed into enum by this method.
    * @param  {string}        attr Attribute string
@@ -119,10 +124,12 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
       case "NEAREST":
         return MagFilterType.Nearest;
       case "LINEAR":
+        return MagFilterType.Linear;
       default:
         return MagFilterType.Linear;
     }
   }
+
   /**
    * Wrap attribute string is changed into enum by this method.
    * @param  {string} attr Attribute string
@@ -135,8 +142,9 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         return TextureWrapType.Repeat;
       case "MIRRORED_REPEAT":
         return TextureWrapType.MirroredRepeat;
-      default:
       case "CLAMP":
+        return TextureWrapType.ClampToEdge;
+      default:
         return TextureWrapType.ClampToEdge;
     }
   }

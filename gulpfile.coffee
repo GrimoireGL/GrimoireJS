@@ -240,7 +240,6 @@ Object.keys(config).forEach (suffix) ->
           bundleSuccess = false
           gutil.log gutil.colors.black.bgRed " [BUNDLING FAILED] (#{suffix}) #{c.name} "
           gutil.log err.message
-          console.log err
           @emit 'end'
         .on 'end', ->
           copyFiles(path.join(c.dest[0], c.name), c.dest[1..])

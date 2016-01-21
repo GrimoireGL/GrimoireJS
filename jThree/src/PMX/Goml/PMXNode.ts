@@ -29,29 +29,15 @@ class PMXNode extends SceneObjectNodeBase {
     });
   }
 
-  protected ConstructTarget(callbackfn): void {
-    this.on("loaded", () => {
-      callbackfn(this.pmxModel);
-    });
-  }
-
   public onMount(): void {
     super.onMount();
     PMXModel.LoadFromUrl(this.attributes.getValue("src"))
       .then((m) => {
         this.pmxModel = m;
-        this.targetUpdated();
-        this.emit("loaded", m);
-        // this.pmxTargetUpdated.fire(this, m);
-        // this.bubbleEvent("loaded",{target:this});
+        this.TargetSceneObject = this.pmxModel;
         this.pmxLoadingDeferred.resolve(null);
       });
   }
-
-  protected targetUpdated() {
-    // super.onMount();
-  }
-
 }
 
 export = PMXNode;

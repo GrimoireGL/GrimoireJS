@@ -1,6 +1,4 @@
-﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture")
-import TextureNodeBase = require("./TextureNodeBase");
+﻿import TextureNodeBase = require("./TextureNodeBase");
 import ResourceManager = require("../../../Core/ResourceManager");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 import Q = require("q");
@@ -8,6 +6,7 @@ import Q = require("q");
  * Cube texture resource node.
  */
 class CubeTextureNode extends TextureNodeBase {
+  protected groupPrefix: string = "TextureCube";
 
   constructor() {
     super();
@@ -22,11 +21,11 @@ class CubeTextureNode extends TextureNodeBase {
     });
   }
 
-  protected generateTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
     const deferred = Q.defer<TextureBase>();
-    var srcsv = this.attributes.getValue("srcs");
+    const srcsv = this.attributes.getValue("srcs");
     if (srcsv) {
-      var srcs = srcsv.split(" ");
+      const srcs = srcsv.split(" ");
       rm.loadCubeTexture(srcs).then((texture) => {
         deferred.resolve(texture);
       });
@@ -36,10 +35,6 @@ class CubeTextureNode extends TextureNodeBase {
       });
     }
     return deferred.promise;
-  }
-
-  protected get TextureGroupName() {
-    return "TextureCube";
   }
 }
 

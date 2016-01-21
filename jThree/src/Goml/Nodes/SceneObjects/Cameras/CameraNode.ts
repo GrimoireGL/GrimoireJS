@@ -1,9 +1,7 @@
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
 import PerspectiveCamera = require("../../../../Core/Camera/PerspectiveCamera");
 import CameraNodeBase = require("./CameraNodeBase");
+import GomlAttribute = require("../../../GomlAttribute");
 
 class CameraNode extends CameraNodeBase {
 
@@ -13,44 +11,34 @@ class CameraNode extends CameraNodeBase {
       "fovy": {
         value: Math.PI / 4,
         converter: "angle",
-        onchanged: (attr) => {
-          this.targetPerspective.Fovy = attr.Value;
-        },
+        onchanged: this._onFovyAttrChanged.bind(this),
       },
       "aspect": {
         value: 0,
         converter: "float",
-        onchanged: (attr) => {
-          this.targetPerspective.Aspect = attr.Value;
-        },
+        onchanged: this._onAspectAttrChanged.bind(this),
       },
       "near": {
         value: 0.1,
         converter: "float",
-        onchanged: (attr) => {
-          this.targetPerspective.Near = attr.Value;
-        },
+        onchanged: this._onNearAttrChanged.bind(this),
       },
       "far": {
         value: 10,
         converter: "float",
-        onchanged: (attr) => {
-          this.targetPerspective.Far = attr.Value;
-        },
+        onchanged: this._onFarAttrChanged.bind(this),
       },
+    });
+    this.on("update-scene-object", (obj: PerspectiveCamera) => {
+      this._onFovyAttrChanged.bind(this)(this.attributes.getAttribute("fovy"));
+      this._onAspectAttrChanged.bind(this)(this.attributes.getAttribute("aspect"));
+      this._onNearAttrChanged.bind(this)(this.attributes.getAttribute("near"));
+      this._onFarAttrChanged.bind(this)(this.attributes.getAttribute("far"));
     });
   }
 
-  private targetPerspective: PerspectiveCamera;
-
   protected ConstructCamera(): Camera {
-    var camera = new PerspectiveCamera();
-    this.targetPerspective = camera;
-    camera.Fovy = this.Fovy;
-    camera.Aspect = this.Aspect;
-    camera.Near = this.Near;
-    camera.Far = this.Far;
-    return camera;
+    return new PerspectiveCamera();
   }
 
   protected onMount(): void {
@@ -71,6 +59,30 @@ class CameraNode extends CameraNodeBase {
 
   public get Far(): number {
     return this.attributes.getValue("far");
+  }
+
+  private _onFovyAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<PerspectiveCamera>this.TargetSceneObject).Fovy = attr.Value;
+    }
+  }
+
+  private _onAspectAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<PerspectiveCamera>this.TargetSceneObject).Aspect = attr.Value;
+    }
+  }
+
+  private _onNearAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<PerspectiveCamera>this.TargetSceneObject).Near = attr.Value;
+    }
+  }
+
+  private _onFarAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<PerspectiveCamera>this.TargetSceneObject).Far = attr.Value;
+    }
   }
 }
 

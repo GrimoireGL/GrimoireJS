@@ -13,25 +13,38 @@ import ISceneObjectStructureChangedEventArgs = require("./ISceneObjectChangedEve
  * SceneObject is same as GameObject in Unity.
  */
 class SceneObject extends JThreeObjectEEWithID {
+  public name: string;
 
-  constructor(transformer?: Transformer) {
-    super();
-    this.transformer = transformer || new Transformer(this);
-    this.name = this.ID;
-  }
+  protected geometry: Geometry;
+
+  protected transformer: Transformer;
 
   private onStructureChangedEvent: JThreeEvent<ISceneObjectStructureChangedEventArgs> = new JThreeEvent<ISceneObjectStructureChangedEventArgs>();
-
-  public name: string;
 
   private materialChanagedHandler: Delegates.Action2<Material, SceneObject>[] = [];
 
   private materials: { [materialGroup: string]: JThreeCollection<Material> } = {};
 
   /**
+   * Contains the parent scene containing this SceneObject.
+   */
+  private parentScene: Scene;
+
+  /**
    * Contains the children.
    */
   private children: SceneObject[] = [];
+
+  /**
+   * Parent of this SceneObject.
+   */
+  private parent: SceneObject;
+
+  constructor(transformer?: Transformer) {
+    super();
+    this.transformer = transformer || new Transformer(this);
+    this.name = this.ID;
+  }
 
   /**
   * Getter for children
@@ -54,22 +67,44 @@ class SceneObject extends JThreeObjectEEWithID {
     this.onStructureChangedEvent.fire(this, eventArg);
     this.onChildrenChanged();
     obj.onParentChanged();
-    if (this.ParentScene) this.ParentScene.notifySceneObjectChanged(eventArg);
+    if (this.ParentScene) {
+      this.ParentScene.notifySceneObjectChanged(eventArg);
+    }
   }
 
   /**
-   * Parent of this SceneObject.
+   * remove SceneObject from children.
+   * @param {SceneObject} obj [description]
    */
-  private parent: SceneObject;
+  public removeChild(obj: SceneObject): void {
+    const childIndex = this.children.indexOf(obj);
+    if (childIndex !== -1) {
+      this.children.splice(childIndex, 1);
+      const eventArg = {
+        owner: this,
+        scene: this.ParentScene,
+        isAdditionalChange: false,
+        changedSceneObject: obj,
+        changedSceneObjectID: obj.ID
+      };
+      this.onStructureChangedEvent.fire(this, eventArg);
+      obj.onParentChanged();
+      if (this.ParentScene) {
+        this.ParentScene.notifySceneObjectChanged(eventArg);
+      }
+    }
+  }
+
+  /**
+   * remove this SceneObject from parent.
+   */
+  public remove(): void {
+    this.parent.removeChild(this);
+  }
 
   public get Parent(): SceneObject {
     return this.parent;
   }
-
-  /**
-   * Contains the parent scene containing this SceneObject.
-   */
-  private parentScene: Scene;
 
   /**
   * The Getter for the parent scene containing this SceneObject.
@@ -115,8 +150,9 @@ class SceneObject extends JThreeObjectEEWithID {
    * すべてのマテリアルに対して処理を実行します。
    */
   public eachMaterial(func: Delegates.Action1<Material>): void {
-    for (let material in this.materials)
-      this.materials[material].each(e=> func(e));
+    for (let material in this.materials) {
+      this.materials[material].each((e) => func(e));
+    }
   }
 
   public addMaterial(mat: Material): void {
@@ -146,9 +182,6 @@ class SceneObject extends JThreeObjectEEWithID {
     return [];
   }
 
-
-  protected geometry: Geometry;
-
   public get Geometry(): Geometry {
     return this.geometry;
   }
@@ -156,8 +189,6 @@ class SceneObject extends JThreeObjectEEWithID {
   public set Geometry(geo: Geometry) {
     this.geometry = geo;
   }
-
-  protected transformer: Transformer;
 
   public get Transformer(): Transformer {
     return this.transformer;

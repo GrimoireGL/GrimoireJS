@@ -1,6 +1,4 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Delegates = require("../../../Base/Delegates");
-import TreeNodeBase = require("../../TreeNodeBase");
 
 class LoaderNode extends GomlTreeNodeBase {
   public loaderHTML: string;
@@ -8,7 +6,7 @@ class LoaderNode extends GomlTreeNodeBase {
   constructor() {
     super();
     // this.loaderHTML = elem.innerHTML;
-    this.loaderHTML = ''; // TODO: pnly
+    this.loaderHTML = ""; // TODO: pnly
     this.attributes.defineAttribute({
       "name": {
         value: undefined,
@@ -19,7 +17,7 @@ class LoaderNode extends GomlTreeNodeBase {
   }
 
   private _onNameAttrChanged(): void {
-    this.nodeManager.nodeRegister.addObject("jthree.loader", this.attributes.getValue("name"), this);
+    this.nodeExport(this.attributes.getValue("name"));
   }
 }
 
