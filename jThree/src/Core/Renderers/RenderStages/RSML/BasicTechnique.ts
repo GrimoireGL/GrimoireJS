@@ -136,7 +136,9 @@ class BasicTechnique extends JThreeObjectWithID {
         this._onPrimaryBufferFail(primaryBuffer, texs);
         return;
       }
-      if (!this.__fboInitialized) { this.__initializeFBO(texs); }
+      if (true) {
+        this.__initializeFBO(texs);
+      }
       this.__fbo.getForContext(this._renderStage.Renderer.Canvas).bind();
       this._clearBuffers();
     }
@@ -160,6 +162,7 @@ class BasicTechnique extends JThreeObjectWithID {
   }
 
   private _clearBuffers(): void {
+    let clearFlag: number = 0;
     for (let colorBufferIndex = 0; colorBufferIndex < this._colorConfigureElements.length; colorBufferIndex++) {
       const colorBufferConfigure = this._colorConfigureElements.item(colorBufferIndex);
       const clearColor = colorBufferConfigure.getAttribute("clearColor");
@@ -173,25 +176,26 @@ class BasicTechnique extends JThreeObjectWithID {
           console.error(`Could not parse the color ${clearColor}`);
         } else {
           this._gl.clearColor(colorVector.X, colorVector.Y, colorVector.Z, colorVector.W);
-          this._gl.clear(this._gl.COLOR_BUFFER_BIT);
+          clearFlag |= this._gl.COLOR_BUFFER_BIT;
         }
       }
     }
     if (this._depthConfigureElement) {
       const clearDepth = this._depthConfigureElement.getAttribute("clearDepth");
-      const clearFlag = this._depthConfigureElement.getAttribute("clear");
-      if (clearFlag === "false") {
-        return;
+      const clear = this._depthConfigureElement.getAttribute("clear");
+      if (clear !== "false") {
+        let depth;
+        if (!clearDepth) {
+          depth = 1.0;
+        } else {
+          depth = parseFloat(clearDepth);
+        }
+        this._gl.depthMask(true);
+        this._gl.clearDepth(depth);
+        clearFlag |= this._gl.DEPTH_BUFFER_BIT;
       }
-      let depth;
-      if (!clearDepth) {
-        depth = 0;
-      } else {
-        depth = parseFloat(clearDepth);
-      }
-      this._gl.clearDepth(depth);
-      this._gl.clear(this._gl.DEPTH_BUFFER_BIT);
     }
+    this._gl.clear(clearFlag);
   }
 }
 

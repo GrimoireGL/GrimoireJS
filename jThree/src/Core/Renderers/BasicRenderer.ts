@@ -71,7 +71,6 @@ class BasicRenderer extends CanvasRegion {
     this._viewport = viewportArea;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     if (this._viewport) { rm.createRBO(this.ID + ".rbo.default", this._viewport.Width, this._viewport.Height); }
-    rm.createFBO(this.ID + ".fbo.default");
     this.renderPath.fromPathTemplate(configurator.getStageChain(this));
     this.bufferSet = new BufferSet(this);
     this.bufferSet.appendBuffers(configurator.TextureBuffers);

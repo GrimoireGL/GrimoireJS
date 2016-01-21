@@ -4,10 +4,11 @@
     <technique target="scene" materialGroup="jthree.materials.forematerial">
       <fbo primary="OUT">
         <color name="OUT" register="0"/>
-        <rbo clearDepth="1.0"/>
+        <rbo clear="true" type="depth"/>
       </fbo>
       <cull enabled="true" mode="BACK"/>
       <blend enabled="true"/>
+      <depth enabled="true" mode="LESS"/>
     </technique>
   </stage>
 </rsml>

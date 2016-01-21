@@ -1,9 +1,7 @@
 import StageChainTemplate = require("../StageChainTemplate");
-import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfoChunk");
 import BasicRenderer = require("../BasicRenderer");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
-import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
   public get TextureBuffers(): GeneraterInfo[] {
     return [
@@ -67,19 +65,18 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         buffers: {
           DLIGHT: "light.diffuse",
           SLIGHT: "light.specular",
-          OUT: "default"
+          OUT: "main"
         },
         stage: "jthree.basic.foward"
-       }];
-      // },
-      // {
-      //   buffers: {
-      //     PRIMARY: "gbuffer.primary",
-      //     MAIN: "main",
-      //     OUT: "default"
-      //   },
-      //   stage: "jthree.basic.distanceFog"
-      // }];
+      },
+      {
+        buffers: {
+          PRIMARY: "gbuffer.primary",
+          MAIN: "main",
+          OUT: "default"
+        },
+        stage: "jthree.basic.distanceFog"
+      }];
   }
 }
 
