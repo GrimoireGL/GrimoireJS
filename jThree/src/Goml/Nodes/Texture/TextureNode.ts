@@ -6,6 +6,8 @@ import Q = require("q");
  * Basic 2d texture resource node.
  */
 class TextureNode extends TextureNodeBase {
+  protected groupPrefix: string = "Texture2D";
+
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -16,7 +18,7 @@ class TextureNode extends TextureNodeBase {
     });
   }
 
-  protected generateTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
     const deferred = Q.defer<TextureBase>();
     if (this.attributes.getValue("src")) {
       rm.loadTexture(this.attributes.getValue("src")).then((texture) => {
@@ -28,10 +30,6 @@ class TextureNode extends TextureNodeBase {
       });
     }
     return deferred.promise;
-  }
-
-  protected get TextureGroupName() {
-    return "Texture2D";
   }
 }
 

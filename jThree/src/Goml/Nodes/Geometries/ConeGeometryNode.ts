@@ -1,20 +1,19 @@
 import ConeGeometry = require("../../../Core/Geometries/ConeGeometry");
 import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry")
-import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 
 class ConeGeometryNode extends GeometryNodeBase {
-  private geometry: Geometry;
-
   constructor() {
     super();
   }
 
-  protected ConstructGeometry(): Geometry {
-    return this.geometry = new ConeGeometry(this.Name);
+  protected onMount(): void {
+    super.onMount();
   }
 
+  protected ConstructGeometry(name: string): Geometry {
+    return new ConeGeometry(name);
+  }
 }
 
 export = ConeGeometryNode;

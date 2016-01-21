@@ -1,7 +1,7 @@
 import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry")
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import CylinderGeometry = require("../../../Core/Geometries/CylinderGeometry");
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+
 class CylinderGeometryNode extends GeometryNodeBase {
   private geometry: CylinderGeometry;
 
@@ -16,19 +16,18 @@ class CylinderGeometryNode extends GeometryNodeBase {
     });
   }
 
-  private _onDivideAttrChanged(attr): void {
-    this.geometry.DivideCount = attr.Value;
-  }
-
-  protected ConstructGeometry(): Geometry {
-    return this.geometry = new CylinderGeometry(this.Name);
-  }
-
   protected onMount() {
     super.onMount();
     this.geometry.DivideCount = this.attributes.getValue("divide");
   }
 
+  protected ConstructGeometry(name: string): Geometry {
+    return this.geometry = new CylinderGeometry(name);
+  }
+
+  private _onDivideAttrChanged(attr): void {
+    this.geometry.DivideCount = attr.Value;
+  }
 }
 
 export = CylinderGeometryNode;

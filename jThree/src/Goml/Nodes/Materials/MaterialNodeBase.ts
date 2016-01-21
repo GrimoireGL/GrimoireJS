@@ -1,5 +1,3 @@
-import CubeTextureNode = require("../Texture/CubeTextureNode");
-import TextureNode = require("../Texture/TextureNode");
 import Color4 = require("../../../Math/Color4");
 import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
 import JThreeContext = require("../../../JThreeContext");
@@ -12,15 +10,15 @@ import Vector2 = require("../../../Math/Vector2");
 import AttributeDeclaration = require("../../AttributeDeclaration");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import Material = require("../../../Core/Materials/Material");
-import JThreeID = require("../../../Base/JThreeID");
 import MaterialPass = require("../../../Core/Materials/Base/MaterialPass");
+import GomlAttribute = require("../../GomlAttribute");
+import TextureNode = require("../../Nodes/Texture/TextureNode");
+import CubeTextureNode = require("../../Nodes/Texture/CubeTextureNode");
 
 class MaterialNodeBase extends GomlTreeNodeBase {
-  public targetMaterial: Material;
+  protected groupPrefix: string = "material";
 
-  protected ConstructMaterial(): Material {
-    return null;
-  }
+  private targetMaterial: Material;
 
   constructor() {
     super();
@@ -33,21 +31,37 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  private _onNameAttrChanged(attr): void {
-    this.name = attr.Value;
+  /**
+  * The material this node managing.
+  */
+  public get TargetMaterial(): Material {
+    return this.targetMaterial;
+  }
+
+  protected onMount() {
+    super.onMount();
+    this.targetMaterial = this.ConstructMaterial();
+    this._generateAttributeForPasses();
+  }
+
+  /**
+   * Construct material. This method must be overridden.
+   * @return {Material} [description]
+   */
+  protected ConstructMaterial(): Material {
+    return null;
   }
 
   protected __getMaterialFromMatName(name: string): BasicMaterial {
     return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial(name);
   }
 
-
-  protected onMount() {
-    super.onMount();
-    this.name = this.attributes.getValue("name"); // TODO: pnly
-    this.targetMaterial = this.ConstructMaterial();
-    this._generateAttributeForPasses();
-    this.nodeManager.nodeRegister.addObject("jthree.materials", this.Name, this);
+  private _onNameAttrChanged(attr: GomlAttribute): void {
+    const name = attr.Value;
+    if (typeof name !== "string") {
+      throw Error(`${this.getTypeName()}: name attribute must be required.`);
+    }
+    this.nodeExport(name);
   }
 
   private _generateAttributeForPasses(): void {
@@ -110,8 +124,12 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         value: "",
         onchanged: (v) => {
           if (v.Value) {
-            this.nodeManager.nodeRegister.getObject("jthree.resource.Texture2D", v.Value, (node: TextureNode) => {
-              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            this.nodeImport("jthree.resource.Texture2D", v.Value, (node: TextureNode) => {
+              if (node) {
+                this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+              } else {
+                // when texture node removed
+              }
             });
           }
         }
@@ -123,8 +141,12 @@ class MaterialNodeBase extends GomlTreeNodeBase {
         value: "",
         onchanged: (v) => {
           if (v.Value) {
-            this.nodeManager.nodeRegister.getObject("jthree.resource.TextureCube", v.Value, (node: CubeTextureNode) => {
-              this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+            this.nodeImport("jthree.resource.TextureCube", v.Value, (node: CubeTextureNode) => {
+              if (node) {
+                this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+              } else {
+                // when texture node removed
+              }
             });
           }
         }
@@ -142,17 +164,6 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       }
     };
   }
-
-  private name: string;
-  /**
-  * GOML Attribute
-  * Identical Name for camera
-  */
-  public get Name(): string {
-    this.name = this.name || JThreeID.getUniqueRandom(10);
-    return this.name;
-  }
-
 }
 
 export = MaterialNodeBase;

@@ -1,5 +1,5 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
+
 class CanvasesNode extends OrderedTopLevelNodeBase {
   constructor() {
     super();

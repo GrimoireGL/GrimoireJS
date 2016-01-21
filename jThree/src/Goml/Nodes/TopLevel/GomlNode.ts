@@ -1,7 +1,7 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Delegates = require("../../../Base/Delegates");
 import TreeNodeBase = require("../../TreeNodeBase");
 import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
+
 class GomlNode extends GomlTreeNodeBase {
   constructor() {
     super();
