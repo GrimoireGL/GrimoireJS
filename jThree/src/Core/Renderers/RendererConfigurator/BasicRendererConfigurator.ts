@@ -1,9 +1,7 @@
-import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
+import StageChainTemplate = require("../StageChainTemplate");
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfoChunk");
-import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
-import HitAreaRenderStage = require("../RenderStages/HitAreaRenderStage");
 class BasicRendererConfigurator extends ConfiguratorBase {
   public get TextureBuffers(): GeneraterInfo[] {
     return [
@@ -30,24 +28,30 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         generater: "rendererfit",
         internalFormat: "RGBA",
         element: "UBYTE"
+      },
+      {
+        name: "main",
+        generater: "rendererfit",
+        internalFormat: "RGBA",
+        element: "UBYTE"
       }
     ];
   }
 
-  public getStageChain(target: BasicRenderer): RenderStageChain[] {
+  public getStageChain(target: BasicRenderer): StageChainTemplate[] {
     return [
       {
         buffers:
         {
           OUT: "hitarea"
         },
-        stage: new HitAreaRenderStage(target)
+        stage: "jthree.hitarea"
       },
       {
         buffers: {
           PRIMARY: "gbuffer.primary"
         },
-        stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/GBuffer.html"))
+        stage: "jthree.basic.gbuffer"
       },
       {
         buffers: {
@@ -55,25 +59,24 @@ class BasicRendererConfigurator extends ConfiguratorBase {
           DIFFUSE: "light.diffuse",
           SPECULAR: "light.specular"
         },
-        stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/LightAccumulationStage.html"))
+        stage: "jthree.basic.light"
       },
       {
         buffers: {
           DLIGHT: "light.diffuse",
           SLIGHT: "light.specular",
+          OUT: "main"
+        },
+        stage: "jthree.basic.foward"
+      },
+      {
+        buffers: {
+          PRIMARY: "gbuffer.primary",
+          MAIN: "main",
           OUT: "default"
         },
-        stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/ForwardShading.html"))
+        stage: "jthree.basic.distanceFog"
       }];
-    // },
-    // {
-    //   buffers: {
-    //     PRIMARY: "gbuffer.primary",
-    //     MAIN: "main",
-    //     OUT: "default"
-    //   },
-    //   stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/DistanceFog.html"))
-    // }];
   }
 }
 

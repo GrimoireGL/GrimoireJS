@@ -1,3 +1,4 @@
+import RenderStageRegistory = require("./Core/Renderers/RenderStageRegistory");
 import PrimitiveRegistory = require("./Core/Geometries/Base/PrimitiveRegistory");
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
 import Timer = require("./Core/Timer");
@@ -89,6 +90,7 @@ class JThreeInit {
     JThreeContext.registerContextComponent(new Debugger());
     JThreeContext.registerContextComponent(new MaterialManager());
     JThreeContext.registerContextComponent(new PrimitiveRegistory());
+    JThreeContext.registerContextComponent(new RenderStageRegistory());
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
     const timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);

@@ -1,3 +1,4 @@
+import StageChainTemplate = require("../../../Core/Renderers/StageChainTemplate");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
 import Rectangle = require("../../../Math/Rectangle");
@@ -5,10 +6,8 @@ import Scene = require("../../../Core/Scene");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
 import CanvasNode = require("../Canvases/CanvasNode");
 import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
-import SkyboxStage = require("../../../Core/Renderers/RenderStages/SkyBoxStage");
 import CubeTextureNode = require("../Texture/CubeTextureNode");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
-import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
 import RendererFactory = require("../../../Core/Renderers/RendererFactory");
 import GomlAttribute = require("../../GomlAttribute");
 
@@ -20,9 +19,10 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private targetRenderer: BasicRenderer;
 
+  private skyBoxStageChain: StageChainTemplate;
+
   private parentCanvas: CanvasNode;
 
-  private skyBoxStageChain: RenderStageChain;
 
   constructor() {
     super();
@@ -69,7 +69,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "string",
         onchanged: (attr) => {
           if (attr.Value !== "skybox" && this.skyBoxStageChain) {
-            this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain);
+            // this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain); TODO fix this
             this.skyBoxStageChain = null;
           }
         },
@@ -125,11 +125,12 @@ class ViewPortNode extends GomlTreeNodeBase {
               buffers: {
                 OUT: "default"
               },
-              stage: new SkyboxStage(this.targetRenderer)
+              stage: "jthree.basic.skybox",
+              variables: {}
             };
             this.targetRenderer.renderPath.insertWithIndex(0, this.skyBoxStageChain);
           }
-          (<SkyboxStage>this.skyBoxStageChain.stage).techniques[0]._defaultMaterial.materialVariables["skybox"] = <CubeTexture>node.TargetTexture;
+          this.skyBoxStageChain.variables["skybox"] = <CubeTexture>node.TargetTexture;
         }
       });
     }

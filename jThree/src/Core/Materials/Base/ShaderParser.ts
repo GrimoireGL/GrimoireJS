@@ -3,6 +3,7 @@ import IParsedProgramResult = require("./IParsedProgramResult");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
+import JSON5 = require("json5");
 /**
  * Static parsing methods for XMML (eXtended Material Markup Language).
  * This class provides all useful methods for parsing XMML.
@@ -61,17 +62,11 @@ class ShaderParser {
   }
 
   private static _parseVariableAttributes(attributes: string): { [key: string]: string } {
-    const result = <{ [key: string]: string }>{};
-    const commaSplitted = attributes.split(",");
-    for (let i = 0; i < commaSplitted.length; i++) {
-      const colonSplitted = commaSplitted[i].split(":");
-      result[colonSplitted[0].trim()] = colonSplitted[1].trim();
-    }
-    return result;
+    return JSON5.parse(attributes);
   }
   // http://regexper.com/#(%3F%3A%5C%2F%5C%2F%40%5C((.%2B)%5C))%3F%5Cs*uniform%5Cs%2B((%3F%3Alowp%7Cmediump%7Chighp)%5Cs%2B)%3F(%5Ba-z0-9A-Z%5D%2B)%5Cs%2B(%5Ba-zA-Z0-9_%5D%2B)(%3F%3A%5Cs*%5C%5B%5Cs*(%5Cd%2B)%5Cs*%5C%5D%5Cs*)%3F%5Cs*%3B
   private static _generateVariableFetchRegex(variableType: string): RegExp {
-    return new RegExp(`(?:(?://)?@\\((.+)\\))?\\s*${variableType}\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;`, "g");
+    return new RegExp(`(?:(?://)?@(\\{.+\\}))?\\s*${variableType}\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;`, "g");
   }
 
   private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableInfo } {
@@ -96,7 +91,7 @@ class ShaderParser {
   }
 
   private static _removeVariableAnnotations(source: string): string {
-    const regex = new RegExp("@\\(.+\\)", "g");
+    const regex = new RegExp("@\\{.+\\}", "g");
     let regexResult;
     while ((regexResult = regex.exec(source))) {
       source = source.substr(0, regexResult.index) + source.substring(regexResult.index + regexResult[0].length, source.length);

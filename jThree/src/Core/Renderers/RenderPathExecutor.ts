@@ -50,6 +50,7 @@ class RenderPathExecutor extends JThreeObjectEE {
                 targetObjects = [new Mesh(geometry, null)];
               }
           }
+          stage.stageVariables = chain.variables;
           stage.preTechnique(scene, techniqueIndex, texs);
           this.renderObjects(targetObjects, stage, scene, techniqueIndex, texs, chain);
           stage.postTechnique(scene, techniqueIndex, texs);
