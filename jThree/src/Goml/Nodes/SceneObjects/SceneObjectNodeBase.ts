@@ -3,6 +3,7 @@ import SceneNode = require("../SceneNode");
 import SceneObject = require("../../../Core/SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
+import GomlAttribute = require("../../GomlAttribute");
 
 class SceneObjectNodeBase extends GomlTreeNodeBase {
   /**
@@ -27,39 +28,29 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
       "position": {
         value: new Vector3(0, 0, 0),
         converter: "vec3",
-        onchanged: (attr) => {
-          if (this.targetSceneObject) {
-            this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
-          }
-        }
+        onchanged: this._onPositionAttrChanged__SceneObjectNodeBase.bind(this),
       },
       "scale": {
         value: new Vector3(1, 1, 1),
         converter: "vec3",
-        onchanged: (attr) => {
-          if (this.targetSceneObject) {
-            this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
-          }
-        }
+        onchanged: this._onScaleAttrChanged__SceneObjectNodeBase.bind(this),
       },
       "rotation": {
         value: Quaternion.Identity,
         converter: "rotation",
-        onchanged: (attr) => {
-          if (this.targetSceneObject) {
-            this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
-          }
-        }
+        onchanged: this._onRotationAttrChanged__SceneObjectNodeBase.bind(this),
       },
       "name": {
         value: void 0,
         converter: "string",
-        onchanged: (attr) => {
-          if (this.targetSceneObject) {
-            this.targetSceneObject.name = attr.Value;
-          }
-        }
+        onchanged: this._onNameAttrChanged__SceneObjectNodeBase.bind(this),
       }
+    });
+    this.on("update-scene-object", (obj: SceneObject) => {
+      this._onPositionAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("position"));
+      this._onScaleAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("scale"));
+      this._onRotationAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("rotation"));
+      this._onNameAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("name"));
     });
   }
 
@@ -95,6 +86,30 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
 
   protected onUnmount(): void {
     super.onUnmount();
+  }
+
+  private _onPositionAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
+    if (this.targetSceneObject) {
+      this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+    }
+  }
+
+  private _onScaleAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
+    if (this.targetSceneObject) {
+      this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+    }
+  }
+
+  private _onRotationAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
+    if (this.targetSceneObject) {
+      this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+    }
+  }
+
+  private _onNameAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
+    if (this.targetSceneObject) {
+      this.targetSceneObject.name = attr.Value;
+    }
   }
 
   /**
@@ -136,7 +151,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   protected set TargetSceneObject(obj: SceneObject) {
     this._updateSceneObjectChild(obj);
     this.targetSceneObject = obj;
-    this.attributes.emitChangeAll();
+    this.emit("update-scene-object", obj);
   }
 
   /**

@@ -46,15 +46,23 @@ class GomlNodeDictionary extends jThreeObject {
         if (target.node.Mounted) {
           // notify remove
           this.dictionary[group_name.group][group_name.name].cb.forEach((fn) => { fn(null); });
+          console.log("callWithNode(notify-remove)", null, `cb:${this.dictionary[group_name.group][group_name.name].cb.length}`);
           delete this.dictionary[group_name.group][group_name.name];
         }
       }
     }
     this.IDDictionary[target.node.ID] = { group: group, name: name };
-    target.node.on("on-mount", () => {
+    if (target.node.Mounted) {
+      console.log("callWithNode(on-add)", target.node.getTypeName(), `cb:${target.cb.length}`);
       target.cb.forEach((fn) => { fn(target.node); });
-    });
-    target.node.on("on-unmount", () => {
+    } else {
+      target.node.on("on-mount", () => { // TODO pnly: check listeners
+        console.log("callWithNode(on-mount)", target.node.getTypeName(), `cb:${target.cb.length}`);
+        target.cb.forEach((fn) => { fn(target.node); });
+      });
+    }
+    target.node.on("on-unmount", () => { // TODO pnly: check listeners
+      console.log("callWithNode(on-mount)", null, `cb:${target.cb.length}`);
       target.cb.forEach((fn) => { fn(null); });
     });
   }
@@ -77,9 +85,15 @@ class GomlNodeDictionary extends jThreeObject {
     if (!this.dictionary[group][name]) {
       this.dictionary[group][name] = { node: void 0, cb: [] };
     }
+    console.log(this.dictionary);
     const target = this.dictionary[group][name];
-    target.cb.push(callbackfn);
+    if (target.cb.length >= 10) {
+      throw new Error("registered listeners count is over 10.");
+    } else {
+      target.cb.push(callbackfn);
+    }
     // call immediately
+    console.log("callWithNode(on-get)", target.node ? (target.node.Mounted ? target.node : null) : undefined, `cb:${target.cb.length}`);
     callbackfn(target.node ? (target.node.Mounted ? target.node : null) : null);
   }
 

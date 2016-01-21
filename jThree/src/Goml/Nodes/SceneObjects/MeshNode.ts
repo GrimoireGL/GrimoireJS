@@ -48,7 +48,8 @@ class MeshNode extends SceneObjectNodeBase {
   private _onGeoAttrChanged(attr: GomlAttribute): void {
     this.geo = attr.Value;
     this.geo_instance = null;
-    this.nodeImport("jthree.resource.geometries", this.geo, (geo: GeometryNodeBase) => {
+    // console.warn("onGeoAttrChanged", attr.Value);
+    this.nodeImport("jthree.resource.geometry", this.geo, (geo: GeometryNodeBase) => {
       if (geo) {
         this.geo_instance = geo.TargetGeometry;
       } else {
@@ -65,7 +66,8 @@ class MeshNode extends SceneObjectNodeBase {
   private _onMatAttrChanged(attr: GomlAttribute): void {
     this.mat = attr.Value;
     this.mat_instance = null;
-    this.nodeImport("jthree.resource.materials", this.mat, (mat: MaterialNode) => {
+    // console.warn("onMatAttrChanged", attr.Value);
+    this.nodeImport("jthree.resource.material", this.mat, (mat: MaterialNode) => {
       if (mat) {
         this.mat_instance = mat.TargetMaterial;
       } else {

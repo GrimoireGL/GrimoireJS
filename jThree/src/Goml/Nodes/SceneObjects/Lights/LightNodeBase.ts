@@ -1,5 +1,6 @@
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
 import LightBase = require("../../../../Core/Light/LightBase");
+import GomlAttribute = require("../../../GomlAttribute");
 
 class LightNodeBase extends SceneObjectNodeBase {
   constructor() {
@@ -8,12 +9,11 @@ class LightNodeBase extends SceneObjectNodeBase {
       "color": {
         value: "white",
         converter: "color3",
-        onchanged: (attr) => {
-          if (this.TargetSceneObject) {
-            (<LightBase>this.TargetSceneObject).Color = attr.Value;
-          }
-        }
+        onchanged: this._onColorAttrChanged.bind(this),
       }
+    });
+    this.on("update-scene-object", (obj: LightBase) => {
+      this._onColorAttrChanged.bind(this)(this.attributes.getAttribute("color"));
     });
   }
 
@@ -28,6 +28,12 @@ class LightNodeBase extends SceneObjectNodeBase {
   protected onMount(): void {
     super.onMount();
     this.TargetSceneObject = this.constructLight();
+  }
+
+  private _onColorAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<LightBase>this.TargetSceneObject).Color = attr.Value;
+    }
   }
 }
 
