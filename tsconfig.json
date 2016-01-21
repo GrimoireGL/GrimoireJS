@@ -106,6 +106,7 @@
     "./jThree/src/Core/Renderers/RenderStages/ShadowMapGenerationStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/SkyBoxStage.ts",
     "./jThree/src/Core/Renderers/ResolvedChainInfo.ts",
+    "./jThree/src/Core/Renderers/StageChainTemplate.ts",
     "./jThree/src/Core/Renderers/TextureGenerater.ts",
     "./jThree/src/Core/Renderers/TextureGeneraters/GeneraterBase.ts",
     "./jThree/src/Core/Renderers/TextureGeneraters/GeneraterInfoChunk.ts",

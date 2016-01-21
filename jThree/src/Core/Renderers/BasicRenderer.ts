@@ -35,7 +35,7 @@ class BasicRenderer extends CanvasRegion {
    */
   public alternativeCubeTexture: CubeTexture;
 
-  public renderPath: RenderPath = new RenderPath();
+  public renderPath: RenderPath = new RenderPath(this);
 
   /**
    * The camera reference this renderer using for draw.
@@ -72,7 +72,7 @@ class BasicRenderer extends CanvasRegion {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     if (this._viewport) { rm.createRBO(this.ID + ".rbo.default", this._viewport.Width, this._viewport.Height); }
     rm.createFBO(this.ID + ".fbo.default");
-    this.renderPath.path.push.apply(this.renderPath.path, configurator.getStageChain(this));
+    this.renderPath.fromPathTemplate(configurator.getStageChain(this));
     this.bufferSet = new BufferSet(this);
     this.bufferSet.appendBuffers(configurator.TextureBuffers);
     this.name = this.ID;

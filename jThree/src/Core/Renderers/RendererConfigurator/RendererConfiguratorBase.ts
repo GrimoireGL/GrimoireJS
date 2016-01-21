@@ -1,5 +1,5 @@
 import GeneraterInfoChunk = require("../TextureGeneraters/GeneraterInfoChunk");
-import RenderStageChain = require("../RenderStageChain");
+import StageChainTemplate = require("../StageChainTemplate");
 import BasicRenderer = require("../BasicRenderer");
 
 class RendererConfiguratorBase {
@@ -7,7 +7,7 @@ class RendererConfiguratorBase {
     return null;
   }
 
-  public getStageChain(target: BasicRenderer): RenderStageChain[] {
+  public getStageChain(target: BasicRenderer): StageChainTemplate[] {
     return null;
   }
 }

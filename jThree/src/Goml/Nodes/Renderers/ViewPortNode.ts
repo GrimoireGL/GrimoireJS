@@ -1,3 +1,5 @@
+import RSMLRenderStage = require("../../../Core/Renderers/RenderStages/RSML/RSMLRenderStage");
+import StageChainTemplate = require("../../../Core/Renderers/StageChainTemplate");
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
 import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
@@ -20,7 +22,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private targetRenderer: BasicRenderer;
 
-  private skyBoxStageChain: RenderStageChain;
+  private skyBoxStageChain: StageChainTemplate;
 
   public get TargetViewport(): BasicRenderer {
     return this.targetRenderer;
@@ -71,7 +73,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "string",
         onchanged: (attr) => {
           if (attr.Value !== "skybox" && this.skyBoxStageChain) {
-            this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain);
+            // this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain); TODO fix this
             this.skyBoxStageChain = null;
           }
         },
@@ -109,11 +111,11 @@ class ViewPortNode extends GomlTreeNodeBase {
               buffers: {
                 OUT: "default"
               },
-              stage: new SkyboxStage(this.targetRenderer)
+              stage: "jthree.basic.skybox"
             };
             this.targetRenderer.renderPath.insertWithIndex(0, this.skyBoxStageChain);
           }
-          (<SkyboxStage>this.skyBoxStageChain.stage).techniques[0]._defaultMaterial.materialVariables["skybox"] = <CubeTexture>node.TargetTexture;
+          (<RSMLRenderStage>this.targetRenderer.renderPath.path[0].stage).techniques[0]._defaultMaterial.materialVariables["skybox"] = <CubeTexture>node.TargetTexture;
         }
       });
     }
