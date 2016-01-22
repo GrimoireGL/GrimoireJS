@@ -68,26 +68,11 @@ class FBOWrapper extends ResourceWrapper {
 
   public dispose() {
     if (this.Initialized) {
-      //TODO Dispose frame buffer
+      // TODO Dispose frame buffer
       this.targetFBO = null;
       this.setInitialized(false);
     }
   }
-
-  public clear(r: number, g: number, b: number, a: number, d?: number, s?: number) {
-    this.bind();
-    var clearFlag = 0;
-    if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined' && typeof a !== 'undefined') {
-      clearFlag = clearFlag | ClearTargetType.ColorBits;
-      this.GL.clearColor(r, g, b, a);
-    }
-    if (typeof d !== 'undefined') {
-      clearFlag = clearFlag | ClearTargetType.DepthBits;
-      this.GL.clearDepth(d);
-    }
-    //TODO add stencil
-    this.GL.clear(clearFlag);
-  }
 }
 
-export =FBOWrapper;
+export = FBOWrapper;

@@ -21,7 +21,7 @@
         //@import jthree.pmx.vertex
         uniform mat4 _matV;
         uniform mat4 _matPV;
-        //@(register:2)
+        @{register:2}
         uniform sampler2D boneMatriciesTexture;
         uniform float boneCount;
 
@@ -35,9 +35,9 @@
       }
       @fragonly{
         uniform vec4 diffuse;
-        //@(register:3)
+        @{register:3}
         uniform sampler2D texture;
-        //@(register:4)
+        @{register:4}
         uniform sampler2D sphere;
         uniform mat4 matV;
         uniform int textureUsed;

@@ -1,6 +1,5 @@
-import RSMLRenderStage = require("../RenderStages/RSML/RSMLRenderStage");
+import StageChainTemplate = require("../StageChainTemplate");
 import GeneraterInfo = require("../TextureGeneraters/GeneraterInfoChunk");
-import RenderStageChain = require("../RenderStageChain");
 import BasicRenderer = require("../BasicRenderer");
 import ConfiguratorBase = require("./RendererConfiguratorBase");
 class BasicRendererConfigurator extends ConfiguratorBase {
@@ -8,7 +7,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
     return [];
   }
 
-  public getStageChain(target: BasicRenderer): RenderStageChain[] {
+  public getStageChain(target: BasicRenderer): StageChainTemplate[] {
     return [
       {
         buffers: {
@@ -16,7 +15,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
           SLIGHT: "light.specular",
           OUT: "default"
         },
-        stage: new RSMLRenderStage(target, require("../RenderStages/BuiltIn/ForwardShading.html"))
+        stage: "jthree.basic.foward"
       }];
   }
 }

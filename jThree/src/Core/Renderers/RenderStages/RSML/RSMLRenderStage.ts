@@ -12,9 +12,15 @@ class RSMLRenderStage extends RenderStageBase {
 
   private _techniqueCount: number;
 
+  private _stageName: string;
+
   constructor(renderer: BasicRenderer, rsmlSource: string) {
     super(renderer);
     this._parseRSML(rsmlSource);
+  }
+
+  public get stageName(): string {
+    return this._stageName;
   }
 
   public getDefaultRendererConfigure(techniqueIndex: number): IRenderStageRendererConfigure {
@@ -52,6 +58,7 @@ class RSMLRenderStage extends RenderStageBase {
       console.error("Stage tag was not found in RSML");
       return;
     }
+    this._stageName = stageTag.getAttribute("name");
     const techniqueTags = stageTag.querySelectorAll("technique");
     this._techniqueCount = techniqueTags.length;
     this.techniques = new Array(this._techniqueCount);

@@ -1,18 +1,35 @@
+import BasicRenderer = require("./BasicRenderer");
+import ContextComponents = require("../../ContextComponents");
+import RenderStageRegistory = require("./RenderStageRegistory");
+import JThreeContext = require("../../JThreeContext");
+import StageChainTemplate = require("./StageChainTemplate");
 import RenderStageChain = require("./RenderStageChain");
 class RenderPath {
   public path: RenderStageChain[] = [];
 
-  public pushStage(stage: RenderStageChain) {
-    this.path.push(stage);
+  private _renderer: BasicRenderer;
+
+  constructor(renderer: BasicRenderer) {
+    this._renderer = renderer;
   }
 
-  public insertWithIndex(index: number, stage: RenderStageChain) {
+  public pushStage(stage: StageChainTemplate) {
+    this.path.push(this._fromTemplate(stage));
+  }
+
+  public fromPathTemplate(templates: StageChainTemplate[]): void {
+    templates.forEach((e) => {
+      this.path.push(this._fromTemplate(e));
+    });
+  }
+
+  public insertWithIndex(index: number, stage: StageChainTemplate) {
     if (index >= 0 && index <= this.path.length) {
       const newStageChain = new Array(this.path.length + 1);
       for (let i = 0; i < index; i++) {
         newStageChain[i] = this.path[i];
       }
-      newStageChain[index] = stage;
+      newStageChain[index] = this._fromTemplate(stage);
       for (let i = index + 1; i < newStageChain.length; i++) {
         newStageChain[i] = this.path[i - 1];
       }
@@ -37,34 +54,13 @@ class RenderPath {
     }
   }
 
-  public deleteStage(stage: RenderStageChain) {
-    for (let i = 0; i < this.path.length; i++) {
-      if (this.path[i] === stage) {
-        this.deleteWithIndex(i);
-        return;
-      }
-    }
-    console.warn("Couldn't find specified RenderStage, any render stage was not deleted");
-  }
-
-  public insertAfter(targetStage: RenderStageChain, stage: RenderStageChain) {
-    for (let i = 0; i < this.path.length; i++) {
-      if (this.path[i] === stage) {
-        this.insertWithIndex(i + 1, stage);
-        return;
-      }
-    }
-    console.error("Invalid render stage chain.Specified targetsStage was not found.");
-  }
-
-  public insertBefore(targetStage: RenderStageChain, stage: RenderStageChain) {
-    for (let i = 0; i < this.path.length; i++) {
-      if (this.path[i] === stage) {
-        this.insertWithIndex(i, stage);
-        return;
-      }
-    }
-    console.error("Invalid render stage chain. Specified targetStage was not found");
+  private _fromTemplate(template: StageChainTemplate): RenderStageChain {
+    const rr = JThreeContext.getContextComponent<RenderStageRegistory>(ContextComponents.RenderStageRegistory);
+    return {
+      buffers: template.buffers,
+      stage: rr.construct(template.stage, this._renderer),
+      variables: template.variables || {}
+    };
   }
 }
 

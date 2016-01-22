@@ -40,13 +40,13 @@ class RenderStageRegistory implements IContextComponent {
     }
     const parser = new DOMParser();
     const rsmlRoot = parser.parseFromString(nameOrsource, "text/xml");
-    const stageRoot = rsmlRoot.getElementById("stage");
+    const stageRoot = rsmlRoot.querySelector("rsml > stage");
     const name = stageRoot.getAttribute("name");
     if (!name) {
       console.error(`The name field was not found in RSML file.\n${nameOrsource}`);
       return;
     }
-    this._renderStageFactoryFunctions[nameOrsource] = (renderer: BasicRenderer) => new RSMLRenderStage(renderer, nameOrsource);
+    this._renderStageFactoryFunctions[name] = (renderer: BasicRenderer) => new RSMLRenderStage(renderer, nameOrsource);
   }
 
   /**

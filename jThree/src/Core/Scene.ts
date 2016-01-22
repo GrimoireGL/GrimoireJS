@@ -131,4 +131,4 @@ class Scene extends jThreeObjectEEWithID {
   }
 }
 
-export =Scene;
+export = Scene;
