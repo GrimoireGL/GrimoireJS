@@ -68,6 +68,14 @@ class BasicRendererConfigurator extends ConfiguratorBase {
           OUT: "main"
         },
         stage: "jthree.basic.foward"
+      },
+      {
+        buffers: {
+          MAIN: "main",
+          PRIMARY: "gbuffer.primary",
+          OUT: "default"
+        },
+        stage: "jthree.basic.distanceFog"
       }];
   }
 }

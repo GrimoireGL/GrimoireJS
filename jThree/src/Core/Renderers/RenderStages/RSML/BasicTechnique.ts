@@ -85,7 +85,7 @@ class BasicTechnique extends JThreeObjectWithID {
   }
 
   private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo) {
-   // TODO support for multiple rendering buffer
+    // TODO support for multiple rendering buffer
     const colorConfigure = this._fboBindingInfo[0];
     fboWrapper.attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs[colorConfigure.name]);
   }
@@ -132,9 +132,12 @@ class BasicTechnique extends JThreeObjectWithID {
       this._clearBuffers();
     }
   }
-
+  /**
+   * When primary buffer was failed to bind, this method bind default buffer as drawing target.
+   */
   private _onPrimaryBufferFail(): void {
     const primaryBuffer = this._fboBindingInfo[this._fboBindingInfo.primaryIndex];
+    this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
     if (primaryBuffer.needClear) {
       this._gl.colorMask(true, true, true, true);
       const col = primaryBuffer.clearColor;

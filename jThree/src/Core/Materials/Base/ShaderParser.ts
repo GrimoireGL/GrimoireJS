@@ -53,7 +53,7 @@ class ShaderParser {
    */
   public static parseImport(source: string, materialManager: MaterialManager): string {
     while (true) {
-      const regexResult = /\s*\/\/+\s*@import\s+([a-zA-Z0-9.-]+)/.exec(source);
+      const regexResult = /\s*@import\s+"([a-zA-Z0-9.-]+)"/.exec(source);
       if (!regexResult) { break; }
       let importContent;
       importContent = materialManager.getShaderChunk(regexResult[1]);
