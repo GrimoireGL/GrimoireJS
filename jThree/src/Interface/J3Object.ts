@@ -1,6 +1,7 @@
 import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
 import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
 import J3ObjectBase = require("./J3ObjectBase");
+import InterfaceSelector = require("./InterfaceSelector");
 
 /**
  * Provides jQuery like API for jThree.
@@ -22,35 +23,20 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods {
    */
   constructor(nodes_query: GomlTreeNodeBase[] | string) {
     super();
-    // check arguments and initialize valuables.
     let nodes, query;
-    if (this instanceof J3Object) {
-      // call with new operator
-      if (nodes_query instanceof GomlTreeNodeBase) {
-        nodes = [nodes_query];
-      } else if (nodes_query instanceof Array && nodes_query[0] instanceof GomlTreeNodeBase) {
-        nodes = nodes_query;
-      } else {
-        if (typeof nodes_query === "string") {
-          throw new Error("You should use constructor with no new expression.");
-        }
-      }
-
-    } else {
-      // call with no new, this keyword will be window
-      if (nodes_query instanceof Array && nodes_query[0] instanceof GomlTreeNodeBase) {
-        nodes = nodes_query;
-        console.warn("you should use constructor with new expression when you call with Node argument");
-      } else {
-        query = nodes_query;
-      }
+    if (nodes_query instanceof GomlTreeNodeBase) {
+      nodes = [nodes_query];
+    } else if (nodes_query instanceof Array && nodes_query[0] instanceof GomlTreeNodeBase) {
+      nodes = nodes_query;
+    } else if (typeof nodes_query === "string") {
+      query = nodes_query;
     }
     if (nodes) {
       this.nodes = nodes;
     } else if (query) {
-
+      this.nodes = InterfaceSelector.find(query);
     } else {
-      throw new Error("something fatal ocuuered");
+      throw new Error("Something fatal ocuuered.");
     }
   }
 

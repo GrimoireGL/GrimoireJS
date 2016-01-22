@@ -30,10 +30,10 @@ class GomlLoader extends jThreeObject {
     var resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponent.ResourceLoader);
     this.gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered<void>();
     resourceLoader.promise.then(() => {
-      console.log("load finished!!");
+      // console.log("load finished!!");
     }, undefined,
       (v) => {
-        console.log(`loading resource...${v.completedResource / v.resourceCount * 100}%`);
+        // console.log(`loading resource...${v.completedResource / v.resourceCount * 100}%`);
       });
   }
 
@@ -127,8 +127,5 @@ class GomlLoader extends jThreeObject {
     this.nodeManager.loadedHandler.fire(this, source);
     this.gomlLoadingDeferred.resolve(null);
   }
-
-
-
 }
 export = GomlLoader;

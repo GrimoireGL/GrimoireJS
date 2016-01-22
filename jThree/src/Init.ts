@@ -55,15 +55,16 @@ class JThreeInit {
   * 1, to use for select elements like jQuery in GOML.
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
-  public static j3(query: string | Delegates.Action0): J3Object {
-      // var nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
-      // if (typeof query === 'function') {//check whether this is function or not.
-      //     nodeManager.loadedHandler.addListener(query);
-      //     return undefined;//when function was subscribed, it is no need to return JThreeInterface.
-      // }
-      // var targetObject: NodeList = nodeManager.htmlRoot.querySelectorAll(<string>query); //call as query
-      // return new JThreeInterface(targetObject);
-    return;
+  public static j3(argu: string | Delegates.Action0): J3Object {
+    if (typeof argu === "string") {
+      return new J3Object(argu);
+    } else if (typeof argu === "function") {
+      const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
+      loader.promise.then(argu);
+      return;
+    } else {
+      throw new Error("Selector query must be string.");
+    }
   }
 
   /**

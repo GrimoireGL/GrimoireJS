@@ -44,7 +44,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   public initialize(): void {
     if (this.value === undefined) console.warn(`Attribute ${this.Name} is undefined.`)
     this.initialized = true;
-    console.log('initialized', this.ID, this.value);
+    // console.log('initialized', this.ID, this.value);
     if (!this.constant) this.emit('changed', this);
   }
 
@@ -61,7 +61,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public set Value(val: any) {
-    // console.log('setattr', this.Name, val);
+    // // console.log('setattr', this.Name, val);
     if (this.constant && this.value !== undefined) {
       console.warn(`attribute "${this.ID}" is immutable`)
       return;
@@ -76,7 +76,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
       }
       this.value = val;
     }
-    console.log('setattr_obj', this.Name, this.value);
+    // console.log('setattr_obj', this.Name, this.value);
     if (this.initialized) {
       this.emit('changed', this);
     }

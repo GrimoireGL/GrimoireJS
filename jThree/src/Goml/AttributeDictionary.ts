@@ -83,7 +83,7 @@ class AttributeDictionary extends JThreeObject {
    * If you define already defined attribute, it will be replaced.
    */
   public defineAttribute(attributes: AttributeDeclaration): void {
-    console.log("attributes_declaration", attributes);
+    // console.log("attributes_declaration", attributes);
     for (let key in attributes) {
       const attribute = attributes[key];
       const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);
@@ -94,7 +94,7 @@ class AttributeDictionary extends JThreeObject {
       const existed_attribute = this.getAttribute(key);
       let gomlAttribute: GomlAttribute = null;
       if (existed_attribute && existed_attribute.reserved) {
-        console.log("define_attribute(override)", key, attribute, this.node.getTypeName());
+        // console.log("define_attribute(override)", key, attribute, this.node.getTypeName());
         gomlAttribute = existed_attribute;
         gomlAttribute.Converter = converter;
         gomlAttribute.constant = attribute.constant;
@@ -104,9 +104,9 @@ class AttributeDictionary extends JThreeObject {
       } else {
         gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.reserved, attribute.constant);
         if (attribute.reserved) {
-          console.log("define_attribute(temp)", key, attribute, this.node.getTypeName());
+          // console.log("define_attribute(temp)", key, attribute, this.node.getTypeName());
         } else {
-          console.log("define_attribute", key, attribute, this.node.getTypeName());
+          // console.log("define_attribute", key, attribute, this.node.getTypeName());
           if (attribute.onchanged) {
             gomlAttribute.on("changed", attribute.onchanged.bind(this.node));
           } else {
