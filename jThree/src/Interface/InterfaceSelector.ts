@@ -1,9 +1,9 @@
-import J3Object = require('./J3Object');
-import nodeManager = require('./VarNodeManager');
+import J3Object = require("./J3Object");
+import nodeManager = require("./VarNodeManager");
 
 class InterfaceSelector {
   public static find(selector: string, context: J3Object) {
-
+    nodeManager.getNodeByQuery(selector);
   }
 }
 
