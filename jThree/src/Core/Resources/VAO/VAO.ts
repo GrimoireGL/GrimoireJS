@@ -4,19 +4,18 @@ import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat")
 import Canvas = require("../../../Core/Canvas");
 class VAO extends ContextSafeResourceContainer<VAOWrapper>
 {
-	constructor()
-	{
-		super();
-		this.initializeForFirst();
-	}
+  constructor() {
+    super();
+    this.initializeForFirst();
+  }
 
-	protected getInstanceForRenderer(renderer:Canvas): VAOWrapper {
-		return new VAOWrapper(renderer,this);
-    }
+  protected getInstanceForRenderer(renderer: Canvas): VAOWrapper {
+    return new VAOWrapper(renderer, this);
+  }
 
-    protected disposeResource(resource: VAOWrapper): void {
-
-    }
+  protected disposeResource(resource: VAOWrapper): void {
+			return;
+  }
 }
 
 export = VAO;

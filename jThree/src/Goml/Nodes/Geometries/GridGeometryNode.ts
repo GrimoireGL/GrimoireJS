@@ -1,24 +1,32 @@
 import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Geometry")
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import GridGeometry = require("../../../Core/Geometries/GridGeometry");
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+
 class GridGeometryNode extends GeometryNodeBase {
   private geometry: GridGeometry;
 
   constructor() {
     super();
     this.attributes.defineAttribute({
-      'hdiv': {
+      "hdiv": {
         value: 10,
-        converter: 'float',
+        converter: "float",
         onchanged: this._onHdivAttrChanged,
       },
-      'vdiv': {
+      "vdiv": {
         value: 10,
-        converter: 'float',
+        converter: "float",
         onchanged: this._onVdivAttrChanged,
       }
     });
+  }
+
+  protected onMount(): void {
+    super.onMount();
+  }
+
+  protected ConstructGeometry(name: string): Geometry {
+    return this.geometry = new GridGeometry(name);
   }
 
   private _onHdivAttrChanged(attr): void {
@@ -28,15 +36,6 @@ class GridGeometryNode extends GeometryNodeBase {
   private _onVdivAttrChanged(attr): void {
     this.geometry.VerticalDivide = attr.Value;
   }
-
-  protected ConstructGeometry(): Geometry {
-    return this.geometry = new GridGeometry(this.Name);
-  }
-
-  protected onMount(): void {
-    super.onMount();
-  }
-
 }
 
 export = GridGeometryNode;

@@ -1,12 +1,12 @@
-﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture")
-import TextureNodeBase = require("./TextureNodeBase");
+﻿import TextureNodeBase = require("./TextureNodeBase");
 import ResourceManager = require("../../../Core/ResourceManager");
 import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
+import Q = require("q");
 /**
  * Cube texture resource node.
  */
 class CubeTextureNode extends TextureNodeBase {
+  protected groupPrefix: string = "TextureCube";
 
   constructor() {
     super();
@@ -21,40 +21,21 @@ class CubeTextureNode extends TextureNodeBase {
     });
   }
 
-  protected generateTexture(name: string, rm: ResourceManager): TextureBase {
-    var texture = rm.createCubeTextureWithSource("jthree.goml.cubetexture." + name, null, false);
-    var srcsv = this.attributes.getValue("srcs");
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
+    const deferred = Q.defer<TextureBase>();
+    const srcsv = this.attributes.getValue("srcs");
     if (srcsv) {
-      var srcs = srcsv.split(" ");
-      for (var i = 0; i < 6; i++) {
-        this.loadImg(i, srcs[i]);
-      }
+      const srcs = srcsv.split(" ");
+      rm.loadCubeTexture(srcs).then((texture) => {
+        deferred.resolve(texture);
+      });
+    } else {
+      process.nextTick(() => {
+       deferred.resolve(null);
+      });
     }
-    return texture;
-  }
-
-  protected get TextureGroupName() {
-    return "cubetexture";
-  }
-
-  private loadedFlags: boolean[] = [false, false, false, false, false, false];
-
-  private loadedImages: HTMLImageElement[] = [null, null, null, null, null, null];
-
-  private loadImg(index: number, src: string) {
-    var img = this.loadedImages[index] = new Image();
-    img.onload = () => {
-      this.loadedFlags[index] = true;
-      var allTrue = true;
-      for (var j = 0; j < 6; j++) {
-        if (!this.loadedFlags[j]) allTrue = false;
-      }
-      if (allTrue) {
-        (<CubeTexture>this.TargetTexture).ImageSource = this.loadedImages;
-      }
-    }
-    img.src = src;
+    return deferred.promise;
   }
 }
 
-export =CubeTextureNode;
+export = CubeTextureNode;

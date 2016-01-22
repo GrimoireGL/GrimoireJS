@@ -1,29 +1,31 @@
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
-import LightNodeBase = require('./LightNodeBase');
-import SceneLight = require('../../../../Core/Light/Impl/SceneLight');
-import LightBase = require('../../../../Core/Light/LightBase');
+import LightNodeBase = require("./LightNodeBase");
+import SceneLight = require("../../../../Core/Light/Impl/SceneLight");
+import LightBase = require("../../../../Core/Light/LightBase");
+import GomlAttribute = require("../../../GomlAttribute");
 
 class SceneLightNode extends LightNodeBase {
-	private targetLight: SceneLight;
+  constructor() {
+    super();
+    this.attributes.defineAttribute({
+      "intensity": {
+        value: 1,
+        converter: "float",
+        onchanged: this._onIntensityAttrChanged.bind(this),
+      }
+    });
+    this.on("update-scene-object", (obj: SceneLight) => {
+      this._onIntensityAttrChanged.bind(this)(this.attributes.getAttribute("intensity"));
+    });
+  }
 
-	constructor() {
-		super();
-		this.attributes.defineAttribute({
-			"intensity": {
-				value: 1,
-				converter: "float",
-				onchanged: (attr) => {
-					this.targetLight.intensity = attr.Value;
-				}
-			}
-		});
-	}
+  protected constructLight(): LightBase {
+    return new SceneLight();
+  }
 
-	protected constructLight(): LightBase {
-		this.targetLight = new SceneLight(this.ContainedSceneNode.targetScene);
-		return this.targetLight;
-	}
+  private _onIntensityAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SceneLight>this.TargetSceneObject).intensity = attr.Value;
+    }
+  }
 }
 export = SceneLightNode;

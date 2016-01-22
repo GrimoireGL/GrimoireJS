@@ -1,10 +1,9 @@
-import Vector3 = require('../../../Math/Vector3');
-import LightBase = require('./../LightBase');
-import Scene = require('../../Scene');
-import Matrix = require('../../../Math/Matrix');
-import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import BasicRenderer = require("../../Renderers/BasicRenderer");
-import glm = require("gl-matrix");
+import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
+import BasicMaterial = require("../../Materials/Base/BasicMaterial");
+import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
+import JThreeContext = require("../../../JThreeContext");
+import ContextComponents = require("../../../ContextComponents");
+import LightBase = require("./../LightBase");
 
 /**
  * Provides area light feature.
@@ -12,36 +11,20 @@ import glm = require("gl-matrix");
  * X:TYPE ID ,XYZ:COLOR
  */
 class SceneLight extends LightBase {
-	constructor(scene: Scene) {
-		super(scene);
-    }
+  constructor() {
+    super();
+    this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
+    const material = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/SceneLight.html"));
+    material.on("apply", (matArg: IApplyMaterialArgument) => {
+      material.materialVariables = {
+        lightColor: this.Color.toVector().multiplyWith(this.intensity)
+      };
+    });
+    this.addMaterial(material);
+  }
 
-    public getParameters(renderer:BasicRenderer): number[] {
-        return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity];
-		}
+  public intensity: number = 1.0;
 
-		private calcAxis(x:number,y:number,z:number,bp:Vector3)
-		{
-			return new Vector3(x + bp.X , y + bp.Y, -z + bp.Z);
-		}
-
-	public intensity: number = 1.0;
-
-
-	public get LightType(): string {
-		return "jthree.lights.scenelight";
-    }
-
-    public static get TypeDefinition(): LightTypeDeclaration
-    {
-        return {
-            typeName: "jthree.lights.scenelight",
-            requiredParamCount: 1,
-            shaderfuncName: "calcSceneLight",
-            diffuseFragmentCode: require('../../Shaders/Light/Scene/DiffuseChunk.glsl'),
-            specularFragmentCode: require('../../Shaders/Light/Scene/SpecularChunk.glsl')
-        };
-    }
 }
 
 export = SceneLight;

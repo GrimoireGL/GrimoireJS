@@ -1,43 +1,43 @@
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
-import LightNodeBase = require('./LightNodeBase');
-import DirectionalLight = require('../../../../Core/Light/Impl/DirectionalLight');
-import LightBase = require('../../../../Core/Light/LightBase');
+import DirectionalLight = require("../../../../Core/Light/Impl/DirectionalLight");
+import LightNodeBase = require("./LightNodeBase");
+import LightBase = require("../../../../Core/Light/LightBase");
+import GomlAttribute = require("../../../GomlAttribute");
 
 class DirectionalLightNode extends LightNodeBase {
-  private targetLight: DirectionalLight;
-
   constructor() {
     super();
     this.attributes.defineAttribute({
       "intensity": {
         value: 1,
         converter: "float",
-        onchanged: (attr) => {
-          this.targetLight.intensity = attr.Value;
-        }
-      },
-      "shadow": {
-        value: false,
-        converter: "boolean",
-        onchanged: (attr) => {
-          this.targetLight.isShadowDroppable = attr.Value;
-        }
+        onchanged: this._onIntensityAttrChanged.bind(this),
       },
       "bias": {
         value: 0.01,
         converter: "float",
-        onchanged: (attr) => {
-          this.targetLight.bias = attr.Value;
-        }
+        onchanged: this._onBiasAttrChanged.bind(this),
       }
+    });
+    this.on("update-scene-object", (obj: DirectionalLight) => {
+      this._onIntensityAttrChanged.bind(this)(this.attributes.getAttribute("intensity"));
+      this._onBiasAttrChanged.bind(this)(this.attributes.getAttribute("bias"));
     });
   }
 
   protected constructLight(): LightBase {
-    this.targetLight = new DirectionalLight(this.ContainedSceneNode.targetScene);
-    return this.targetLight;
+    return new DirectionalLight();
+  }
+
+  private _onIntensityAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<DirectionalLight>this.TargetSceneObject).intensity = attr.Value;
+    }
+  }
+
+  private _onBiasAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<DirectionalLight>this.TargetSceneObject).bias = attr.Value;
+    }
   }
 }
 export = DirectionalLightNode;

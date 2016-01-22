@@ -28,6 +28,8 @@ formatter = require 'pretty-hrtime'
 runSequence = require 'run-sequence'
 ts = require 'gulp-typescript'
 changed = require 'gulp-changed'
+tslint = require 'gulp-tslint'
+mkdir = require 'mkdirp'
 
 ###
 TASK SUMMARY
@@ -76,9 +78,6 @@ tsdPath = './tsd.json'
 # root path for simple server
 serverRoot = './jThree/wwwroot'
 
-# watch src for liveReload
-watchForReload = ['./jThree/wwwroot/**/*.js', './jThree/wwwroot/**/*.html', './jThree/wwwroot/**/*.goml']
-
 # webpack output stats config
 defaultStatsOptions =
   colors: gutil.colors.supportsColor
@@ -97,20 +96,24 @@ defaultStatsOptions =
 
 # ts compilcation config
 tsEntries = './jThree/src/**/*.ts'
+refsEntries = './jThree/src/refs/**/*.ts'
 tsDest = './jThree/lib'
 tsBase = './jThree/src'
+
+# watch src for liveReload
+watchForReload = ['./jThree/wwwroot/**/*.js', './jThree/wwwroot/**/*.html', './jThree/wwwroot/**/*.goml']
 
 # individual config for bundling
 config =
   main:
     entries: './jThree/lib/jThree.js'
     name: 'j3.js'
-    extensions: ['.js', '.json', '.glsl', '.html']
-    dest: ['./jThree/bin/product', './jThree/wwwroot']
+    extensions: ['.js', '.json', '.glsl', '.html','.xmml']
+    dest: ['./jThree/wwwroot', './jThree/bin/product']
     target: 'web'
     minify: false
     transform: ['shaderify', 'txtify']
-    detectGlobals: false
+    detectGlobals: true
   debug:
     entries: './jThree/debug/debug.coffee'
     name: 'j3-debug.js'
@@ -123,6 +126,7 @@ config =
 
 # files for clean task
 cleaner_files = ['./jThree/src/**/*.js']
+cleaner_files_silent = ['./jThree/lib/**/*']
 
 env_production = false
 
@@ -181,7 +185,7 @@ gulp.task 'build:main:others', (done) ->
     .on 'end', ->
       done()
   if watching
-    gulp.watch othersEntries, ['build:main:others']
+    gulp.watch othersEntries, ['build:main:others','build:main:ts']
 
 gulp.task 'build:main', ->
   runSequence(['build:main:ts', 'build:main:others'], 'bundle:main');
@@ -412,5 +416,34 @@ gulp.task 'clean', ->
       del_entries.push path.resolve(__dirname, d, c.name)
       del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
   del_entries = del_entries.concat cleaner_files
+  del_entries_silent = cleaner_files_silent
   del(del_entries).then (paths) ->
     paths.forEach (p) -> gutil.log "deleted: \"#{p}\""
+  del(del_entries_silent)
+
+gulp.task 'tslint', ->
+  gulp.src [tsEntries,'!' + refsEntries,'!./jThree/src/bundle-notdoc.ts']
+    .pipe tslint
+      configuration:"./tslint.json"
+    .pipe tslint.report "verbose"
+
+gulp.task 'sample', ->
+  sampleName = args.name
+  debugDir = "./jThree/wwwroot/debug/";
+  dirName =  debugDir  + "debugCodes/" + sampleName
+  gomlPath = (dirName + "/" + sampleName + ".goml")
+  jsPath = (dirName + "/" + sampleName + ".js")
+  mkdir dirName,(err)=>
+    if err
+      console.error err
+      return
+    fs.createReadStream debugDir + "Template.goml"
+      .pipe fs.createWriteStream gomlPath
+    fs.createReadStream debugDir + "Template.js"
+      .pipe fs.createWriteStream jsPath
+    fs.readFile debugDir + "debug.json","utf-8",(err,data)=>
+      jsonData = JSON.parse data
+      jsonData.codes[sampleName] =
+        goml: sampleName + "/" + sampleName + ".goml"
+        js: [sampleName + "/" + sampleName + ".js"]
+      fs.writeFile debugDir + "debug.json", JSON.stringify jsonData,null,4

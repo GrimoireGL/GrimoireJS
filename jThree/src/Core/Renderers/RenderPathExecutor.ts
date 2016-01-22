@@ -1,16 +1,15 @@
-import BasicRenderer = require('./BasicRenderer');
-import RenderStageChain = require('./RenderStageChain');
-import SceneObject = require('../SceneObject');
-import Mesh = require('../../Shapes/Mesh')
-import Scene = require('../Scene');
-import QuadGeometry = require('../Geometries/QuadGeometry');
-import ResolvedChainInfo = require('./ResolvedChainInfo');
-import GeneraterInfo = require('./TextureGeneraters/GeneraterInfo');
-import GeneraterBase = require('./TextureGeneraters/GeneraterBase');
-import CubeGeometry = require("../Geometries/CubeGeometry");
+import JThreeObjectEE = require("../../Base/JThreeObjectEE");
+import RenderStageBase = require("./RenderStages/RenderStageBase");
+import PrimitiveRegistory = require("../Geometries/Base/PrimitiveRegistory");
+import JThreeContext = require("../../JThreeContext");
+import ContextComponents = require("../../ContextComponents");
+import BasicRenderer = require("./BasicRenderer");
+import RenderStageChain = require("./RenderStageChain");
+import SceneObject = require("../SceneObject");
+import Mesh = require("../../Shapes/Mesh");
+import Scene = require("../Scene");
+import ResolvedChainInfo = require("./ResolvedChainInfo");
 import RenderPath = require("./RenderPath");
-import TextureGenerater = require("./TextureGenerater");
-import JThreeEvent = require("../../Base/JThreeEvent");
 import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
 import IRenderPathCompletedEventArgs = require("./IRenderPathCompletedEventArgs");
 import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventArgs");
@@ -19,114 +18,92 @@ import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventA
  *
  * @type {[type]}
  */
-class RenderPathExecutor {
-    public renderStageCompleted: JThreeEvent<IRenderStageCompletedEventArgs> = new JThreeEvent<IRenderStageCompletedEventArgs>();
+class RenderPathExecutor extends JThreeObjectEE {
+  public renderer: BasicRenderer;
 
-    public renderPathCompleted: JThreeEvent<IRenderPathCompletedEventArgs> = new JThreeEvent<IRenderPathCompletedEventArgs>();
+  constructor(parent: BasicRenderer) {
+    super();
+    this.renderer = parent;
+  }
 
-    public renderObjectCompleted: JThreeEvent<IRenderObjectCompletedEventArgs> = new JThreeEvent<IRenderObjectCompletedEventArgs>();
-
-    public renderer: BasicRenderer;
-    private defaultQuad: QuadGeometry;
-    private defaultCube: CubeGeometry;
-
-    constructor(parent: BasicRenderer) {
-        this.renderer = parent;
-        this.defaultQuad = new QuadGeometry("jthree.renderstage.default.quad");
-        this.defaultCube = new CubeGeometry("jthree.renderstage.default.cube");
-    }
-
-    private textureBuffers: GeneraterInfo = {};
-
-    public get TextureBuffers() {
-        return this.textureBuffers;
-    }
-
-    public set TextureBuffers(val: GeneraterInfo) {
-        this.textureBuffers = val;
-    }
-
-
-	/**
-	 * Generate all textures subscribed to TextureBuffers
-	 */
-    public generateAllTextures() {
-        for (var name in this.textureBuffers) {
-            TextureGenerater.generateTexture(this.renderer, name, this.textureBuffers[name]);
-        }
-    }
-
-    private genChainTexture(chain: RenderStageChain): ResolvedChainInfo {
-        var texInfo: ResolvedChainInfo = {};
-        for (var targetName in chain.buffers) {
-            var bufferName = chain.buffers[targetName];
-            if (bufferName == 'default') {
-                texInfo[targetName] = null;//default buffer
+  public processRender(scene: Scene, renderPath: RenderPath) {
+    let stageIndex = 0;
+    renderPath.path.forEach(chain => {
+      try {
+        const texs = this.genChainTexture(chain);
+        const stage = chain.stage;
+        const techniqueCount = stage.getTechniqueCount(scene);
+        let targetObjects: SceneObject[];
+        stage.preStage(scene, texs);
+        for (let techniqueIndex = 0; techniqueIndex < techniqueCount; techniqueIndex++) {
+          switch (stage.getTarget(techniqueIndex)) {
+            case "scene":
+              targetObjects = scene.children;
+              break;
+            default:
+              const pr = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
+              const geometry = pr.getPrimitive(stage.getTarget(techniqueIndex));
+              if (!geometry) {
+                console.error(`Unknown primitive ${stage.getTarget(techniqueIndex) } was specified!`);
                 continue;
-            }
-            var tex = TextureGenerater.getTexture(this.renderer, bufferName);
-            texInfo[targetName] = tex;
+              } else {
+                targetObjects = [new Mesh(geometry, null)];
+              }
+          }
+          stage.preTechnique(scene, techniqueIndex, texs);
+          this.renderObjects(targetObjects, stage, scene, techniqueIndex, texs, chain);
+          stage.postTechnique(scene, techniqueIndex, texs);
         }
-        return texInfo;
-    }
-
-    public processRender(scene: Scene, renderPath: RenderPath) {
-        var stageIndex = 0;
-        renderPath.path.forEach(chain => {
-            try {
-                var texs = this.genChainTexture(chain);
-                var stage = chain.stage;
-                var techniqueCount = stage.getTechniqueCount(scene);
-                var targetObjects: SceneObject[];
-                stage.preStage(scene, texs);
-                //stage.applyStageConfig();
-                for (var i = 0; i < techniqueCount; i++) {
-                    switch (stage.getTarget(i)) {
-                        case "quad":
-                            targetObjects = [new Mesh(this.defaultQuad, null)];
-                            break;
-                        case "cube":
-                            targetObjects = [new Mesh(this.defaultCube, null)];
-                            break;
-                        case "scene":
-                        default:
-                            targetObjects = scene.children;
-                    }
-                    stage.preTechnique(scene, i, texs);
-                    targetObjects.forEach(v => {
-                        v.callRecursive(v => {
-                            if (v.Geometry && stage.needRender(scene, v, i)) {
-                                stage.render(scene, v, i, texs);
-                                this.renderObjectCompleted.fire(this, {
-                                    owner: this,
-                                    renderedObject: v,
-                                    stage: stage,
-                                    stageChain: chain,
-                                    bufferTextures: texs,
-                                    technique: i
-                                });
-                            }
-                        });
-                    });
-                    stage.postTechnique(scene, i, texs);
-                }
-                stage.postStage(scene, texs);
-                this.renderStageCompleted.fire(this, {
-                    owner: this,
-                    completedChain: chain,
-                    bufferTextures: texs,
-                    index: stageIndex
-                });
-                stageIndex++;
-            } catch (e) {
-                 debugger;
-            }
+        stage.postStage(scene, texs);
+        this.emit("rendered-stage", <IRenderStageCompletedEventArgs>{
+          owner: this,
+          completedChain: chain,
+          bufferTextures: texs,
+          index: stageIndex
         });
-        this.renderPathCompleted.fire(this, {
+        stageIndex++;
+      } catch (e) {
+        debugger;
+      }
+    });
+    this.emit("rendered-path", <IRenderPathCompletedEventArgs> {
+      owner: this,
+      scene: scene
+    });
+  }
+
+  private renderObjects(targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo, chain: RenderStageChain): void {
+    targetObjects.forEach(v => {
+      v.callRecursive(_v => {
+        if (_v.Geometry && stage.needRender(scene, _v, techniqueIndex)) {
+          stage.render(scene, _v, techniqueIndex, texs);
+          this.emit("rendered-object", <IRenderObjectCompletedEventArgs>{
             owner: this,
-            scene: scene
-        })
+            renderedObject: _v,
+            stage: stage,
+            stageChain: chain,
+            bufferTextures: texs,
+            technique: techniqueIndex
+          });
+        }
+      });
+    });
+  }
+
+  private genChainTexture(chain: RenderStageChain): ResolvedChainInfo {
+    const texInfo: ResolvedChainInfo = {};
+    for (let targetName in chain.buffers) {
+      const bufferName = chain.buffers[targetName];
+      if (bufferName === "default") {
+        texInfo[targetName] = null; // default buffer
+        continue;
+      }
+      const tex = this.renderer.bufferSet.getColorBuffer(bufferName);
+      texInfo[targetName] = tex;
     }
+    return texInfo;
+  }
+
 }
 
-export =RenderPathExecutor;
+export = RenderPathExecutor;

@@ -1,50 +1,104 @@
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
-import LightNodeBase = require('./LightNodeBase');
-import SpotLight = require('../../../../Core/Light/Impl/SpotLight');
-import LightBase = require('../../../../Core/Light/LightBase');
+import SpotLight = require("../../../../Core/Light/Impl/SpotLight");
+import LightNodeBase = require("./LightNodeBase");
+// import SpotLight = require('../../../../Core/Light/Impl/SpotLight');
+import LightBase = require("../../../../Core/Light/LightBase");
+import GomlAttribute = require("../../../GomlAttribute");
 
 class SpotLightNode extends LightNodeBase {
-  private targetLight: SpotLight;
-
-		constructor() {
+  constructor() {
     super();
     this.attributes.defineAttribute({
       "intensity": {
         value: 1,
         converter: "float",
-        onchanged: (attr) => {
-          this.targetLight.intensity = attr.Value;
-        }
+        onchanged: this._onIntensityAttrChanged.bind(this),
       },
-      "decay": {
+      "innerAngle": {
+        value: 0.2,
+        converter: "angle",
+        onchanged: this._onInnerAngleAttrChanged.bind(this),
+      },
+      "outerAngle": {
+        value: 0.5,
+        converter: "angle",
+        onchanged: this._onOuterAngleAttrChanged.bind(this),
+      },
+      "innerDistance": {
+        value: 4,
+        converter: "float",
+        onchanged: this._onInnerDistanceAttrChanged.bind(this),
+      },
+      "outerDistance": {
+        value: 15,
+        converter: "float",
+        onchanged: this._onOuterDistanceAttrChanged.bind(this),
+      },
+      "distanceDecay": {
         value: 1,
         converter: "float",
-        onchanged: (attr) => {
-          this.targetLight.decay = attr.Value;
-        }
+        onchanged: this._onDistanceDecayAttrChanged.bind(this),
       },
-      "inner": {
-        value: "10d",
-        converter: "angle",
-        onchanged: (attr) => {
-          this.targetLight.inner = attr.Value;
-        }
+      "angleDecay": {
+        value: 1,
+        converter: "float",
+        onchanged: this._onAngleDecayAttrChanged.bind(this),
       },
-      "outer": {
-        value: "25d",
-        converter: "angle",
-        onchanged: (attr) => {
-          this.targetLight.outer = attr.Value;
-        }
-      }
+    });
+    this.on("update-scene-object", (obj: SpotLight) => {
+      this._onIntensityAttrChanged.bind(this)(this.attributes.getAttribute("intensity"));
+      this._onInnerAngleAttrChanged.bind(this)(this.attributes.getAttribute("innerAngle"));
+      this._onOuterAngleAttrChanged.bind(this)(this.attributes.getAttribute("outerAngle"));
+      this._onInnerDistanceAttrChanged.bind(this)(this.attributes.getAttribute("innerDistance"));
+      this._onOuterDistanceAttrChanged.bind(this)(this.attributes.getAttribute("outerDistance"));
+      this._onDistanceDecayAttrChanged.bind(this)(this.attributes.getAttribute("distanceDecay"));
+      this._onAngleDecayAttrChanged.bind(this)(this.attributes.getAttribute("angleDecay"));
     });
   }
 
   protected constructLight(): LightBase {
-    this.targetLight = new SpotLight(this.ContainedSceneNode.targetScene);
-    return this.targetLight;
+    return new SpotLight();
+  }
+
+  private _onIntensityAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SpotLight>this.TargetSceneObject).intensity = attr.Value;
+    }
+  }
+
+  private _onInnerAngleAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SpotLight>this.TargetSceneObject).innerAngle = attr.Value;
+    }
+  }
+
+  private _onOuterAngleAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SpotLight>this.TargetSceneObject).outerAngle = attr.Value;
+    }
+  }
+
+  private _onInnerDistanceAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SpotLight>this.TargetSceneObject).innerDistance = attr.Value;
+    }
+  }
+
+  private _onOuterDistanceAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SpotLight>this.TargetSceneObject).outerDistance = attr.Value;
+    }
+  }
+
+  private _onDistanceDecayAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SpotLight>this.TargetSceneObject).distanceDecay = attr.Value;
+    }
+  }
+
+  private _onAngleDecayAttrChanged(attr: GomlAttribute): void {
+    if (this.TargetSceneObject) {
+      (<SpotLight>this.TargetSceneObject).angleDecay = attr.Value;
+    }
   }
 }
 

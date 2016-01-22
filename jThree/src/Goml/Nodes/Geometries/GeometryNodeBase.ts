@@ -1,30 +1,24 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import JThreeID = require("../../../Base/JThreeID");
-import Geometry = require("../../../Core/Geometries/Geometry");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
+import GomlAttribute = require("../../GomlAttribute");
 /**
 * Base class for managing geometry node.
 */
 class GeometryNodeBase extends GomlTreeNodeBase {
+  protected groupPrefix: string = "geometry";
+
+  private targetGeometry: Geometry;
+
   constructor() {
     super();
     this.attributes.defineAttribute({
-      'name': {
+      "name": {
         value: undefined,
-        converter: 'string',
+        converter: "string",
+        onchanged: this._onNameAttrChanged.bind(this),
       }
     });
   }
-
-  private name: string;
-  /**
-  * GOML Attribute
-  * Identical Name for geometry
-  */
-  public get Name(): string {
-    return this.name;
-  }
-
-  private targetGeometry: Geometry;
 
   /**
   * The geometry this node managing.
@@ -32,19 +26,26 @@ class GeometryNodeBase extends GomlTreeNodeBase {
   public get TargetGeometry(): Geometry {
     return this.targetGeometry;
   }
-  /**
-  * Generate geometry instance for the geometry.
-  * You need to override this function to extend this class.
-  */
-  protected ConstructGeometry(): Geometry {
-    return null;
-  }
 
   protected onMount(): void {
     super.onMount();
-    this.name = this.attributes.getValue('name'); // TODO: pnly
-    this.targetGeometry = this.ConstructGeometry();
-    this.nodeManager.nodeRegister.addObject("jthree.geometries", this.Name, this);
+  }
+
+  /**
+  * Generate geometry instance for the geometry.
+  * This methods must be overridden.
+  */
+  protected ConstructGeometry(name: string): Geometry {
+    return null;
+  }
+
+  private _onNameAttrChanged(attr: GomlAttribute): void {
+    const name = attr.Value;
+    if (typeof name !== "string") {
+      throw Error(`${this.getTypeName()}: name attribute must be required.`);
+    }
+    this.targetGeometry = this.ConstructGeometry(attr.Value);
+    this.nodeExport(name);
   }
 }
 export = GeometryNodeBase;

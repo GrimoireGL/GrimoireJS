@@ -10,25 +10,23 @@
       attribute vec3 position;
       varying vec4 vPosition;
 
-      //@vertonly {
+      @vertonly {
         uniform mat4 _matPVM;
-      //}
 
-
-      //@fragonly {
-        uniform vec4 solid;
-      //}
-
-      //@vertonly
-      void main(void)
-      {
-        gl_Position = vPosition = _matPVM * vec4(position,1.0);
+        void main(void)
+        {
+          gl_Position = vPosition = _matPVM * vec4(position,1.0);
+        }
       }
 
-      //@fragonly
-      void main(void)
-      {
-        gl_FragColor = solid;
+
+      @fragonly {
+        uniform vec4 solid;
+
+        void main(void)
+        {
+          gl_FragColor = solid;
+        }
       }
 
       ]]>

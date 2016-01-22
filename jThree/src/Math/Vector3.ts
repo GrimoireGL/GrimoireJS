@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require('gl-matrix');
+import glm = require("gl-matrix");
 
 class Vector3 extends VectorBase {
   public static get XUnit(): Vector3 {
@@ -30,7 +30,7 @@ class Vector3 extends VectorBase {
   constructor(x: glm.GLM.IArray);
   constructor(x: number | glm.GLM.IArray, y?: number, z?: number) {
     super();
-    if (typeof y === 'undefined') {
+    if (typeof y === "undefined") {
       this.rawElements = <glm.GLM.IArray>x;
       return;
     }
@@ -70,17 +70,17 @@ class Vector3 extends VectorBase {
   }
 
   public static add(v1: Vector3, v2: Vector3): Vector3 {
-    var newVec = glm.vec3.create();
+    const newVec = glm.vec3.create();
     return new Vector3(glm.vec3.add(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static subtract(v1: Vector3, v2: Vector3): Vector3 {
-    var newVec = glm.vec3.create();
+    const newVec = glm.vec3.create();
     return new Vector3(glm.vec3.sub(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static multiply(s: number, v: Vector3): Vector3 {
-    var newVec = glm.vec3.create();
+    const newVec = glm.vec3.create();
     return new Vector3(glm.vec3.scale(newVec, v.rawElements, s));
   }
 
@@ -93,12 +93,12 @@ class Vector3 extends VectorBase {
   }
 
   public static normalize(v1: Vector3): Vector3 {
-    var newVec = glm.vec3.create();
+    const newVec = glm.vec3.create();
     return new Vector3(glm.vec3.normalize(newVec, v1.rawElements));
   }
 
   public static cross(v1: Vector3, v2: Vector3): Vector3 {
-    var newVec = glm.vec3.create();
+    const newVec = glm.vec3.create();
     return new Vector3(glm.vec3.cross(newVec, v1.rawElements, v2.rawElements));
   }
 
@@ -152,38 +152,38 @@ class Vector3 extends VectorBase {
   }
 
   public toDisplayString(): string {
-    return `Vector3${this.toString()}`;
+    return `Vector3${this.toString() }`;
   }
 
   public get ElementCount(): number { return 3; }
 
   public static parse(str: string): Vector3 {
-    var resultVec: Vector3;
-    //1,0,2.0,3.0
-    //-(1.0,2.0,3.0)
-    //n(1.0,2.0,3.0) normalized
-    //1.0
-    //check attributes
-    var negativeMatch = str.match(/^-(n?\(.+\))$/);
-    var needNegate = false;
+    let resultVec: Vector3;
+    // 1,0,2.0,3.0
+    // -(1.0,2.0,3.0)
+    // n(1.0,2.0,3.0) normalized
+    // 1.0
+    // check attributes
+    const negativeMatch = str.match(/^-(n?\(.+\))$/);
+    let needNegate = false;
     if (negativeMatch) {
       needNegate = true;
       str = negativeMatch[1];
     }
-    var normalizeMatch = str.match(/^-?n(\(.+\))$/);
-    var needNormalize = false;
+    const normalizeMatch = str.match(/^-?n(\(.+\))$/);
+    let needNormalize = false;
     if (normalizeMatch) {
       needNormalize = true;
       str = normalizeMatch[1];
     }
-    //check body
+    // check body
     str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
-    var strNums = str.split(/,/g);
-    if (strNums.length == 1) {
-      var elemNum: number = parseFloat(strNums[0]);
-      if (isNaN(elemNum)) return undefined;
+    const strNums = str.split(/,/g);
+    if (strNums.length === 1) {
+      let elemNum: number = parseFloat(strNums[0]);
+      if (isNaN(elemNum)) { return undefined; }
       resultVec = new Vector3(elemNum, elemNum, elemNum);
-    } else if (strNums.length == 3) {
+    } else if (strNums.length === 3) {
       resultVec = new Vector3(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]));
     } else {
       return undefined;
@@ -191,7 +191,7 @@ class Vector3 extends VectorBase {
     if (needNormalize) resultVec = resultVec.normalizeThis();
     if (needNegate) resultVec = resultVec.negateThis();
     if (isNaN(resultVec.X) || isNaN(resultVec.Y) || isNaN(resultVec.Y)) {
-      console.error('Element is NaN', resultVec);
+      console.error("Element is NaN", resultVec);
     }
     return resultVec;
   }

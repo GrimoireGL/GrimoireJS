@@ -1,9 +1,7 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
-import CanvasNodeBase = require("../Canvases/CanvasNodeBase");
 import Rectangle = require("../../../Math/Rectangle");
 import Scene = require("../../../Core/Scene");
-import SceneObjectNodeBase = require("../SceneObjects/SceneObjectNodeBase");
 import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
 import CanvasNode = require("../Canvases/CanvasNode");
 import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
@@ -12,26 +10,26 @@ import CubeTextureNode = require("../Texture/CubeTextureNode");
 import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
 import RenderStageChain = require("../../../Core/Renderers/RenderStageChain");
 import RendererFactory = require("../../../Core/Renderers/RendererFactory");
-import Delegates = require('../../../Base/Delegates');
+import GomlAttribute = require("../../GomlAttribute");
 
 class ViewPortNode extends GomlTreeNodeBase {
-
-  private parentCanvas: CanvasNode;
+  private left: number;
+  private top: number;
+  private width: number;
+  private height: number;
 
   private targetRenderer: BasicRenderer;
 
-  private skyBoxStageChain: RenderStageChain;
+  private parentCanvas: CanvasNode;
 
-  public get TargetViewport(): BasicRenderer {
-    return this.targetRenderer;
-  }
+  private skyBoxStageChain: RenderStageChain;
 
   constructor() {
     super();
     this.attributes.defineAttribute({
-      'cam': {
+      "cam": {
         value: undefined,
-        converter: 'string',
+        converter: "string",
         onchanged: this._onCamAttrChanged.bind(this),
       },
       "width": {
@@ -39,7 +37,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "float",
         onchanged: (attr) => {
           this.width = attr.Value;
-          // this.updateViewportArea(); // TODO: pnly
+          this.updateViewportArea();
         },
       },
       "height": {
@@ -47,7 +45,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "float",
         onchanged: (attr) => {
           this.height = attr.Value;
-          // this.updateViewportArea(); // TODO: pnly
+          this.updateViewportArea();
         },
       },
       "left": {
@@ -55,7 +53,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "float",
         onchanged: (attr) => {
           this.left = attr.Value;
-          // this.updateViewportArea(); // TODO: pnly
+          this.updateViewportArea();
         },
       },
       "top": {
@@ -63,7 +61,7 @@ class ViewPortNode extends GomlTreeNodeBase {
         converter: "float",
         onchanged: (attr) => {
           this.top = attr.Value;
-          // this.updateViewportArea(); // TODO: pnly
+          this.updateViewportArea();
         },
       },
       "backgroundType": {
@@ -83,26 +81,44 @@ class ViewPortNode extends GomlTreeNodeBase {
       },
       "config": {
         converter: "string",
-        value: "default"
+        value: "default",
+        onchanged: this._onConfigAttrChanged.bind(this),
       },
       "name": {
         converter: "string",
         value: undefined,
         onchanged: (attr) => {
-          if (attr.Value) this.targetRenderer.name = attr.Value;
+          this.targetRenderer.name = attr.Value;
         }
       },
     });
   }
 
-  private _onCamAttrChanged(attr): void {
-    this.cam = attr.Value;
-    // this.resolveCamera(() => {}); // ????
+  public get TargetViewport(): BasicRenderer {
+    return this.targetRenderer;
+  }
+
+  protected onMount(): void {
+    super.onMount();
+  }
+
+  private _onConfigAttrChanged(attr: GomlAttribute): void {
+    if (this.parent.getTypeName() !== "CanvasNode") {
+      throw Error("viewport must be the direct child of canvas");
+    }
+    this.parentCanvas = <CanvasNode>this.parent;
+    const defaultRect = this.parentCanvas.Canvas.region;
+    this.targetRenderer = RendererFactory.generateRenderer(this.parentCanvas.Canvas, defaultRect, attr.Value);
+    this.parentCanvas.resize(this.updateViewportArea.bind(this));
+  }
+
+  private _onCamAttrChanged(attr: GomlAttribute): void {
+    this.resolveCamera(attr.Value);
   }
 
   private _onSkyboxAttrChanged(attr): void {
     if (this.attributes.getValue("backgroundType") === "skybox") {
-      this.nodeManager.nodeRegister.getObject("jthree.resource.cubetexture", attr.Value, (node: CubeTextureNode) => {
+      this.nodeImport("jthree.resource.TextureCube", attr.Value, (node: CubeTextureNode) => {
         if (node) {
           if (!this.skyBoxStageChain) {
             this.skyBoxStageChain = {
@@ -119,77 +135,46 @@ class ViewPortNode extends GomlTreeNodeBase {
     }
   }
 
-  protected onMount(): void {
-    super.onMount();
-    this.cam = this.attributes.getValue('cam'); // TODO: pnly
-    this.parentCanvas = <CanvasNode>this.parent;
-    const defaultRect = this.parentCanvas.Canvas.region;
-    var rdr: CanvasNode = this.parentCanvas;
-    this.targetRenderer = RendererFactory.generateRenderer(rdr.Canvas, defaultRect, this.attributes.getValue("config"));
-    this.resolveCamera((cameraNode) => {
-      this.targetRenderer.Camera = cameraNode.TargetCamera;
-      var scene: Scene = cameraNode.ContainedSceneNode.targetScene;
-      scene.addRenderer(this.targetRenderer);
-      this.updateViewportArea();
-    });
-
-    if ("resize" in rdr) {
-      var castedRdr = <CanvasNode>rdr;
-      castedRdr.resize(this.updateViewportArea.bind(this));
-    }
-  }
-
-
-
   private updateViewportArea() {
-    console.info('updateViewportArea');
-    if ("targetFrame" in this.parentCanvas) {
-      var castedRdr = <CanvasNode>this.parentCanvas;
-      var frame = castedRdr.targetFrame;
-
-      castedRdr.resize(this.updateViewportArea.bind(this));
-      var W = frame.clientWidth;
-      var H = frame.clientHeight;
-      var left = this.left > 1 ? this.left : W * this.left;
-      var top = this.top > 1 ? this.top : H * this.top;
-      var width = this.width > 1 ? this.width : W * this.width;
-      var height = this.height > 1 ? this.height : H * this.height;
-      this.targetRenderer.region = new Rectangle(left, top, width, height);
-
-      if ("Aspect" in this.targetRenderer.Camera) {//todo Camera�����n���h���o�^������
-        var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;
-        castedCam.Aspect = width / height;
+    console.log("updateViewportArea");
+    if (this.parentCanvas) {
+      if (this.parentCanvas.targetFrame) {
+        // when canvas HTMLElement is applied
+        const frame = this.parentCanvas.targetFrame;
+        const W = frame.clientWidth;
+        const H = frame.clientHeight;
+        const left = this.left > 1 ? this.left : W * this.left;
+        const top = this.top > 1 ? this.top : H * this.top;
+        const width = this.width > 1 ? this.width : W * this.width;
+        const height = this.height > 1 ? this.height : H * this.height;
+        this.targetRenderer.region = new Rectangle(left, top, width, height);
+      } else {
+        // when canvas HTMLElement is not applied
+        this.targetRenderer.region = new Rectangle(this.left, this.top, this.width, this.height);
       }
-    } else {
-      this.targetRenderer.region = new Rectangle(this.left, this.top, this.width, this.height);
-
-      if ("Aspect" in this.targetRenderer.Camera) {
-        var castedCam = <PerspectiveCamera>this.targetRenderer.Camera;
-        castedCam.Aspect = this.width / this.height;
+      if (this.targetRenderer.Camera.getTypeName() === "PerspectiveCamera") {
+        (<PerspectiveCamera>this.targetRenderer.Camera).Aspect = this.width / this.height;
       }
     }
-
   }
 
-  private resolveCamera(callbackfn: Delegates.Action1<CameraNodeBase>) {
-    this.nodeManager.nodeRegister.getObject("jthree.camera", this.Cam, (targetCam: CameraNodeBase) => {
-      if (targetCam.ContainedSceneNode != null) { //if there was specified camera and there is Scene
-        callbackfn(targetCam);
-      } else {
-        console.error("cant retrieve scene!");
+  private resolveCamera(cam) {
+    this.nodeImport("jthree.scene.camera", cam, (cameraNode: CameraNodeBase) => {
+      //
+      // remove camera here
+      //
+      if (cameraNode) {
+        if (cameraNode.ContainedSceneNode != null) { // if there was specified camera and there is Scene
+          this.targetRenderer.Camera = cameraNode.TargetCamera;
+          const scene: Scene = cameraNode.ContainedSceneNode.targetScene;
+          scene.addRenderer(this.targetRenderer);
+          this.updateViewportArea();
+        } else {
+          console.error("cant retrieve scene!");
+        }
       }
     });
   }
-  private cam: string;
-  private left: number;
-  private top: number;
-  private width: number;
-  private height: number;
-
-  public get Cam(): string {
-    return this.cam;
-  }
-
 }
 
 export = ViewPortNode;

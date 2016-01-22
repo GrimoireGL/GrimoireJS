@@ -1,5 +1,5 @@
 import VectorBase = require("./VectorBase");
-import glm = require('gl-matrix');
+import glm = require("gl-matrix");
 
 class Vector4 extends VectorBase {
   /*
@@ -38,7 +38,7 @@ class Vector4 extends VectorBase {
   constructor(x: number, y: number, z: number, w: number);
   constructor(x: number | glm.GLM.IArray, y?: number, z?: number, w?: number) {
     super();
-    if (typeof y === 'undefined') {
+    if (typeof y === "undefined") {
       this.rawElements = <glm.GLM.IArray>x;
       return;
     }
@@ -86,17 +86,17 @@ class Vector4 extends VectorBase {
   }
 
   public static add(v1: Vector4, v2: Vector4): Vector4 {
-    var newVec = glm.vec4.create();
+    const newVec = glm.vec4.create();
     return new Vector4(glm.vec4.add(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static subtract(v1: Vector4, v2: Vector4): Vector4 {
-    var newVec = glm.vec4.create();
+    const newVec = glm.vec4.create();
     return new Vector4(glm.vec4.sub(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static multiply(s: number, v: Vector4): Vector4 {
-    var newVec = glm.vec4.create();
+    const newVec = glm.vec4.create();
     return new Vector4(glm.vec4.scale(newVec, v.rawElements, s));
   }
 
@@ -109,7 +109,7 @@ class Vector4 extends VectorBase {
   }
 
   public static normalize(v1: Vector4): Vector4 {
-    var newVec = glm.vec4.create();
+    const newVec = glm.vec4.create();
     return new Vector4(glm.vec4.normalize(newVec, v1.rawElements));
   }
 
@@ -161,7 +161,7 @@ class Vector4 extends VectorBase {
   }
 
   public toDisplayString(): string {
-    return `Vector4${this.toString()}`;
+    return `Vector4${this.toString() }`;
   }
 
   public toMathematicaString() {
@@ -169,41 +169,44 @@ class Vector4 extends VectorBase {
   }
 
   public static parse(str: string): Vector4 {
-    var resultVec: Vector4;
-    //1,0,2.0,3.0
-    //-(1.0,2.0,3.0)
-    //n(1.0,2.0,3.0) normalized
-    //1.0
-    //check attributes
-    var negativeMatch = str.match(/^-(n?\(.+\))$/);
-    var needNegate = false;
+    let resultVec: Vector4;
+    // 1,0,2.0,3.0
+    // -(1.0,2.0,3.0)
+    // n(1.0,2.0,3.0) normalized
+    // 1.0
+    // check attributes
+    const negativeMatch = str.match(/^-(n?\(.+\))$/);
+    let needNegate = false;
     if (negativeMatch) {
       needNegate = true;
       str = negativeMatch[1];
     }
-    var normalizeMatch = str.match(/^-?n(\(.+\))$/);
-    var needNormalize = false;
+    const normalizeMatch = str.match(/^-?n(\(.+\))$/);
+    let needNormalize = false;
     if (normalizeMatch) {
       needNormalize = true;
       str = normalizeMatch[1];
     }
-    //check body
+    // check body
     str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
-    var strNums = str.split(/,/g);
-    if (strNums.length == 1) {
-      var elemNum: number = parseFloat(strNums[0]);
+    const strNums = str.split(/,/g);
+    if (strNums.length === 1) {
+      let elemNum: number = parseFloat(strNums[0]);
       if (isNaN(elemNum)) return undefined;
       resultVec = new Vector4(elemNum, elemNum, elemNum, elemNum);
-    } else if (strNums.length == 4) {
+    } else if (strNums.length === 4) {
       resultVec = new Vector4(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]), parseFloat(strNums[3]));
     } else {
       return undefined;
     }
-    if (needNormalize) resultVec = resultVec.normalizeThis();
-    if (needNegate) resultVec = resultVec.negateThis();
+    if (needNormalize) {
+      resultVec = resultVec.normalizeThis();
+    }
+    if (needNegate) {
+      resultVec = resultVec.negateThis();
+    }
     return resultVec;
   }
-
 }
 
 

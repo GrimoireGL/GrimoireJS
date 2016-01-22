@@ -1,43 +1,46 @@
-import GomlTreeNodeBase = require("../../../GomlTreeNodeBase");
-import JThreeID = require("../../../../Base/JThreeID");
 import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import GomlTreeSceneNode = require("../../SceneNode");
 import Camera = require("../../../../Core/Camera/Camera");
-import SceneObject = require("../../../../Core/SceneObject");
-import Delegate = require('../../../../Base/Delegates');
+import GomlAttribute = require("../../../GomlAttribute");
 
 class CameraNodeBase extends SceneObjectNodeBase {
-  private targetCamera: Camera;
+  protected groupPrefix: string = "camera";
 
   public get TargetCamera(): Camera {
-    return this.targetCamera;
+    return <Camera>this.TargetSceneObject;
   }
 
   constructor() {
     super();
+    this.attributes.getAttribute("name").on("changed", this._onNameAttrChanged.bind(this));
   }
 
+  /**
+   * Construct camera. This method should be overridden.
+   * @return {Camera} [description]
+   */
   protected ConstructCamera(): Camera {
     return null;
   }
 
-  protected ConstructTarget(callbackfn: Delegate.Action1<SceneObject>): void {
-    this.targetCamera = this.ConstructCamera();
-    callbackfn(this.targetCamera);
-  }
-
+  /**
+   * Construct camera and set to TargetSceneObject.
+   * This Node is exported.
+   */
   protected onMount(): void {
     super.onMount();
-    this.nodeManager.nodeRegister.addObject("jthree.camera", this.Name, this);
+    this.TargetSceneObject = this.ConstructCamera();
   }
 
-  private name: string;
   /**
-  * GOML Attribute
-  * Identical Name for camera
-  */
-  public get Name(): string {
-    return this.attributes.getValue('name');
+   * Export node when name attribute changed.
+   * @param {GomlAttribute} attr [description]
+   */
+  private _onNameAttrChanged(attr: GomlAttribute): void {
+    const name = attr.Value;
+    if (typeof name !== "string") {
+      throw Error(`${this.getTypeName()}: name attribute must be required.`);
+    }
+    this.nodeExport(name);
   }
 }
 

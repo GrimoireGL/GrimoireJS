@@ -3,7 +3,7 @@
     <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
     <phong diffuse="red" specular="#CCC" specularpower="15" name="red"/>
     <phong diffuse="green" specular="#CCC" specularposer="15" name="green"/>
-    <cube name="cube" />
+    <cube name="cube"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
   </resources>
   <canvases>
@@ -19,10 +19,12 @@
       <mesh geo="grid" mat="red" scale="10" position="1,0,0"/>
       <mesh geo="grid" mat="green" scale="10" rotation="z(90d)" position="1,0,0"/>
       <mesh geo="grid" mat="blue" scale="10" rotation="x(90d)"/>
+      <plight distance="10.0" position="0,0,-2"/>
       <!-- <alight color="#FFF" intensity="1"  top="40"  far="50" right="50" position="-10,-10,10"/> -->
-      <scenelight color="white" intensity="0.1"/>
+      <scenelight color="white" intensity="1"/>
+      <!-- <pmx scale="0.2" src="/resource/model/stage/stage.pmx" position="0,3,0"/> -->
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx">
-        <!-- <vmd id="melt" frame="0" src="/resource/motion/menf.vmd" enabled="true" autoSpeed="1"/> -->
+        <vmd id="melt" frame="0" src="/resource/motion/menf.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
     </scene>
   </scenes>

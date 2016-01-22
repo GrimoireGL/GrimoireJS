@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <material name="jthree.basic.light.diffuse.point" group="jthree.light.diffuse" order="300">
+    <uniform-register>
+      <register name="jthree.basic.matrix" />
+      <register name="jthree.basic.buffer" />
+    </uniform-register>
+    <passes>
+      <pass>
+        <glsl>
+          <![CDATA[
+      attribute vec3 position;
+      varying vec4 vLightProjectedPosition;
+      @vertonly{
+        uniform mat4 _matPVM;
+        void main(void)
+        {
+          gl_Position = vLightProjectedPosition = _matPVM *  vec4(position,1.0);
+        }
+      }
+
+      @fragonly{
+        uniform vec3 lightColor;
+        uniform float decay;
+        uniform float dist;
+        uniform mat4 _matIP;
+        uniform vec3 lightPosition;
+        //@(type:buffer,register:0,name:PRIMARY)
+        uniform sampler2D _gBuffer;
+
+        //@import jthree.builtin.light.bufferreader
+
+        void main(void)
+        {
+          vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
+          vec3 normal = getNormal(rawBuffer);
+          float depth = getDepth(rawBuffer);
+          vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
+          float d = distance(pos,lightPosition)/dist;
+          if(d > 1.)discard;
+          float power = pow(d,decay);
+          float lambart = max(0.,dot(normal,normalize(lightPosition - pos)));
+          gl_FragColor = vec4(lightColor * power * lambart,1.0);
+        }
+      }
+      ]]>
+        </glsl>
+      </pass>
+    </passes>
+  </material>

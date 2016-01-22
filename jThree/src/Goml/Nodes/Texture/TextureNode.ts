@@ -1,12 +1,13 @@
-﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Texture = require("../../../Core/Resources/Texture/Texture");
-import ResourceManager = require("../../../Core/ResourceManager")
-import TextureBase = require("../../../Core/Resources/Texture/TextureBase")
+import ResourceManager = require("../../../Core/ResourceManager");
+import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
 import TextureNodeBase = require("./TextureNodeBase");
+import Q = require("q");
 /**
  * Basic 2d texture resource node.
  */
 class TextureNode extends TextureNodeBase {
+  protected groupPrefix: string = "Texture2D";
+
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -17,19 +18,19 @@ class TextureNode extends TextureNodeBase {
     });
   }
 
-  protected generateTexture(name: string, rm: ResourceManager): TextureBase {
-    var texture = rm.createTextureWithSource(name, null);
-    var img = new Image();
-    img.onload = () => {
-      (<Texture>this.TargetTexture).ImageSource = img;
-    };
-    img.src = this.attributes.getValue("src");
-    return texture;
-  }
-
-  protected get TextureGroupName() {
-    return "texture2d";
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
+    const deferred = Q.defer<TextureBase>();
+    if (this.attributes.getValue("src")) {
+      rm.loadTexture(this.attributes.getValue("src")).then((texture) => {
+        deferred.resolve(texture);
+      });
+    } else {
+      process.nextTick(() => {
+        deferred.resolve(null);
+      });
+    }
+    return deferred.promise;
   }
 }
 
-export =TextureNode;
+export = TextureNode;

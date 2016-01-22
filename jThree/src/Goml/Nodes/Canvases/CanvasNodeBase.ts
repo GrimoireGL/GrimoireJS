@@ -6,14 +6,14 @@ class CanvasNodeBase extends GomlTreeNodeBase {
     super();
     this.attributes.defineAttribute({
       "width": {
-        value: undefined,
+        value: 640,
         converter: "float",
         onchanged: (v) => {
           this.sizeChanged(v.Value, this.attributes.getValue("height"));
         },
       },
       "height": {
-        value: undefined,
+        value: 480,
         converter: "float",
         onchanged: (v) => {
           this.sizeChanged(this.attributes.getValue("width"), v.Value);
@@ -26,20 +26,11 @@ class CanvasNodeBase extends GomlTreeNodeBase {
           this.canvas.clearColor = v.Value;
         },
       },
-      "loader":
-      {
+      "loader": {
         value: undefined,
         converter: "string",
-        onchanged: (v) => {
-        },
       }
     });
-    this.on('canvas-ready', this._onCanvasReady);
-  }
-
-  private _onCanvasReady(): void {
-    this.attributes.setValue("width", this.DefaultWidth);
-    this.attributes.setValue("height", this.DefaultHeight);
   }
 
   private canvas: Canvas;
@@ -54,7 +45,7 @@ class CanvasNodeBase extends GomlTreeNodeBase {
   }
 
   protected sizeChanged(width: number, height: number) {
-
+    return;
   }
 
   protected get DefaultWidth(): number {

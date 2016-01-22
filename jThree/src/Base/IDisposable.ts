@@ -1,5 +1,4 @@
-interface IDisposable
-{
+interface IDisposable {
   dispose();
 }
 

@@ -1,6 +1,3 @@
-
-var generatorList = {
-	"rendererfit":require("./RendererFit")
+export = {
+  "rendererfit": require("./RendererFit")
 };
-
-export = generatorList;

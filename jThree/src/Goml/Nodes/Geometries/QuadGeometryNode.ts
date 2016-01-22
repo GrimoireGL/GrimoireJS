@@ -1,6 +1,5 @@
 import GeometryNodeBase = require("./GeometryNodeBase");
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Geometry = require("../../../Core/Geometries/Geometry");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 import QuadGeometry = require("../../../Core/Geometries/QuadGeometry");
 
 class QuadGeometryNode extends GeometryNodeBase {
@@ -10,12 +9,13 @@ class QuadGeometryNode extends GeometryNodeBase {
     super();
   }
 
-  protected ConstructGeometry(): Geometry {
-    return this.geometry = new QuadGeometry(this.Name);
+  protected onMount(): void {
+    super.onMount();
   }
 
-
-
+  protected ConstructGeometry(name: string): Geometry {
+    return this.geometry = new QuadGeometry(name);
+  }
 }
 
 export = QuadGeometryNode;

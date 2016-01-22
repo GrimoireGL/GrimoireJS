@@ -1,5 +1,4 @@
 import ViewCamera = require("./ViewCameraBase");
-import Matrix = require("../../Math/Matrix");
 import glm = require("gl-matrix");
 class OrthoCamera extends ViewCamera {
     private _left: number;
@@ -16,6 +15,7 @@ class OrthoCamera extends ViewCamera {
 
     private _updateProjectionMatrix() {
         glm.mat4.ortho(this.projectionMatrix.rawElements, this.Left, this.Right, this.Bottom, this.Top, this.Near, this.Far);
+        glm.mat4.invert(this.invProjectionMatrix.rawElements, this.projectionMatrix.rawElements);
         this.__updateViewProjectionMatrix();
     }
 
@@ -75,4 +75,4 @@ class OrthoCamera extends ViewCamera {
 
 }
 
-export =OrthoCamera;
+export = OrthoCamera;

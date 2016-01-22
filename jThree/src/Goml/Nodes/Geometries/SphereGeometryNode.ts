@@ -1,18 +1,18 @@
 import SphereGeometry = require("../../../Core/Geometries/SphereGeometry");
 import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Geometry")
-import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import Geometry = require("../../../Core/Geometries/Base/Geometry");
 
 class CubeGeometryNode extends GeometryNodeBase {
-  private geometry: Geometry;
-
   constructor() {
     super();
   }
 
-  protected ConstructGeometry(): Geometry {
-    return this.geometry = new SphereGeometry(this.Name);
+  protected onMount(): void {
+    super.onMount();
+  }
+
+  protected ConstructGeometry(name: string): Geometry {
+    return new SphereGeometry(name);
   }
 
 }

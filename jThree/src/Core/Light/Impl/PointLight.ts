@@ -1,52 +1,48 @@
-import Scene = require('../../Scene');
-import LightBase = require('./../LightBase');
-import LightTypeDeclaration = require("./../LightTypeDeclaration");
-import BasicRenderer = require("../../Renderers/BasicRenderer");
-import Matrix = require("../../../Math/Matrix");
 import Vector3 = require("../../../Math/Vector3");
+import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
+import BasicMaterial = require("../../Materials/Base/BasicMaterial");
+import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
+import ContextComponents = require("../../../ContextComponents");
+import JThreeContext = require("../../../JThreeContext");
+import LightBase = require("./../LightBase");
+import Matrix = require("../../../Math/Matrix");
+
 /**
  * Point Light
- * Parameter order
- * 0:X:TypeID YZW:Color.RGB*Intencity
- * 1:XYZ:POSITION.XYZ W: UNUSED (0)
- * 2:X:Distance Y:Decay
  */
-class PointLight extends LightBase
-{
-	constructor(scene:Scene)
-	{
-		super(scene);
-	}
+class PointLight extends LightBase {
+  constructor() {
+    super();
+    this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("sphere");
+    const diffuseMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/PointLight.html"));
+    diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
+      this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
+      diffuseMaterial.materialVariables = {
+        lightColor: this.Color.toVector().multiplyWith(this.intensity),
+        decay: this.decay,
+        dist: this.distance,
+        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
+       };
+    });
+    const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/PointLight.html"));
+    specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
+      this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
+      specularMaterial.materialVariables = {
+        lightColor: this.Color.toVector().multiplyWith(this.intensity),
+        decay: this.decay,
+        dist: this.distance,
+        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
+      };
+    });
+    this.addMaterial(diffuseMaterial);
+    this.addMaterial(specularMaterial);
+  }
 
-	public distance:number=0.0;
+  public distance: number = 0.0;
 
-	public intensity:number=1.0;
+  public intensity: number = 1.0;
 
-	public decay:number=1;
-
-	public get LightType():string
-	{
-		return "jthree.lights.pointlight";
-    }
-
-    public getParameters(renderer:BasicRenderer): number[]
-    {
-			　var pos = this.Position;
-			  pos = Matrix.transformPoint(renderer.Camera.viewMatrix,pos);
-        return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
-            pos.X,pos.Y,pos.Z, 0,
-        this.distance,this.decay];
-    }
-
-    public static get TypeDefinition(): LightTypeDeclaration {
-        return {
-            typeName: "jthree.lights.pointlight",
-            requiredParamCount: 3,
-            shaderfuncName: "calcPointLight",
-            diffuseFragmentCode: require('../../Shaders/Light/Point/DiffuseChunk.glsl'),
-            specularFragmentCode:require("../../Shaders/Light/Point/SpecularChunk.glsl")
-        };
-    }
+  public decay: number = 1;
 }
 
 export = PointLight;

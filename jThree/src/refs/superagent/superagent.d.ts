@@ -6,7 +6,7 @@
 /// <reference path='../node/node.d.ts' />
 
 declare module "superagent" {
-  import stream = require('stream');
+  import stream = require("stream");
 
   type CallbackHandler = { (err: any, res: request.Response): void; }|{ (res: request.Response): void; };
 
@@ -111,4 +111,3 @@ declare module "superagent" {
 
   export = request;
 }
-
