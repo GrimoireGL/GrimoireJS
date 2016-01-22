@@ -41,7 +41,9 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   protected onMount() {
     super.onMount();
     this.targetMaterial = this.ConstructMaterial();
-    this._generateAttributeForPasses();
+    this.targetMaterial.on("ready", () => {
+      this._generateAttributeForPasses();
+    });
   }
 
   /**
@@ -59,7 +61,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   private _onNameAttrChanged(attr: GomlAttribute): void {
     const name = attr.Value;
     if (typeof name !== "string") {
-      throw Error(`${this.getTypeName()}: name attribute must be required.`);
+      throw Error(`${this.getTypeName() }: name attribute must be required.`);
     }
     this.nodeExport(name);
   }
@@ -70,7 +72,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       let passVariables = {};
       for (let i = 0; i < passes.length; i++) {
         const pass = passes[i];
-        const uniforms = pass.parsedProgram.uniforms;
+        const uniforms = pass.programDescription.uniforms;
         for (let variableName in uniforms) {
           if (variableName[0] === "_") {
             continue; // Ignore system variables

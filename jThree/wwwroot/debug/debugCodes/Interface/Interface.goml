@@ -3,7 +3,7 @@
     <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue" />
     <phong diffuse="red" specular="#CCC" specularpower="15" name="red" />
     <phong diffuse="green" specular="#CCC" specularposer="15" name="green" />
-    <solid name="matTest" solid="#00FF00FF" intensity="3" cubeTest="cubemap" />
+    <solid name="matTest" solid="#00FFFFFF" intensity="3"/>
     <cube name="cube" />
     <sphere name="sphere" />
     <grid hdiv="20" name="grid" vdiv="20" />
@@ -11,7 +11,7 @@
   </resources>
   <canvases>
     <canvas clearColor="purple" frame=".canvasContainer">
-      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" skybox="cubemap" backgroundType="skybox" />
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" />
     </canvas>
   </canvases>
   <scenes>

@@ -17,7 +17,7 @@
       varying vec4 vPosition;
 
       @vertonly{
-      //@import jthree.pmx.vertex
+      @import "jthree.pmx.vertex"
       uniform mat4 matL;
       @{register:2}
       uniform sampler2D boneMatriciesTexture;
@@ -30,7 +30,7 @@
       }
 
       @fragonly{
-      //@import jthree.builtin.shadowfragment
+      @import "jthree.builtin.shadowfragment"
       }
       ]]>
     </glsl>
