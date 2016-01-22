@@ -1,8 +1,8 @@
-import events = require('events');
-import Delegate = require('../Base/Delegates');
+import events = require("events");
+import Delegate = require("../Base/Delegates");
 
 interface IProps {
-  [key: string]: any
+  [key: string]: any;
 }
 
 class NodeProps extends events.EventEmitter {
@@ -18,7 +18,7 @@ class NodeProps extends events.EventEmitter {
    * @param  {any}    value [description]
    * @return {IProps}       [description]
    */
-  setProp(key: string, value: any): IProps {
+  public setProp(key: string, value: any): IProps {
     this.props[key] = value;
     this.emit(key, value);
     return { [key]: value };
@@ -32,7 +32,7 @@ class NodeProps extends events.EventEmitter {
    * @param  {boolean}               instantly_exec [description]
    * @return {Delegate.Action1<any>}                [description]
    */
-  setEventToProp(key: string, callbackfn: Delegate.Action1<any>, instantly_exec?: boolean): Delegate.Action1<any> {
+  public setEventToProp(key: string, callbackfn: Delegate.Action1<any>, instantly_exec?: boolean): Delegate.Action1<any> {
     this.on(key, callbackfn);
     if (instantly_exec && this.props[key] !== undefined) {
       callbackfn(this.props[key]);
@@ -48,7 +48,7 @@ class NodeProps extends events.EventEmitter {
    * @param  {string} key [description]
    * @return {any}        [description]
    */
-  getProp(key: string): any {
+  public getProp(key: string): any {
     return this.props[key];
   }
 }

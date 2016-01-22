@@ -26,7 +26,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * props for Node.
    * @type {NodeProps}
    */
-  public props: NodeProps;
+  public props: NodeProps = new NodeProps();
 
   /**
    * Group is named after groupPrefixes that supplied from parents.
