@@ -2,7 +2,7 @@ interface IVariableInfo {
   variableName: string;
   variableType: string;
   variablePrecision: string;
-  variableAnnotation: { [key: string]: string };
+  variableAnnotation: { [key: string]: any; };
   isArray: boolean;
   arrayLength: number;
 }

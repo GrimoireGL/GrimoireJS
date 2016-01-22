@@ -4,6 +4,7 @@ import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
 import JSON5 = require("json5");
+import Q = require("q");
 /**
  * Static parsing methods for XMML (eXtended Material Markup Language).
  * This class provides all useful methods for parsing XMML.
@@ -14,30 +15,34 @@ class ShaderParser {
    * @param  {string}               whole string code of XMML
    * @return {IParsedProgramResult} information of parsed codes.
    */
-  public static parseCombined(codeString: string): IParsedProgramResult {
-    const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-    const result = ShaderParser.parseImport(codeString, materialManager);
-    const uniforms = ShaderParser._parseVariables(codeString, "uniform");
-    const attributes = ShaderParser._parseVariables(codeString, "attribute");
-    let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vertonly"), "fragonly");
-    let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "fragonly"), "vertonly");
-    fragment = ShaderParser._removeAttributeVariables(fragment);
-    fragment = ShaderParser._removeVariableAnnotations(fragment);
-    vertex = ShaderParser._removeVariableAnnotations(vertex);
-    let fragPrecision = ShaderParser._obtainPrecisions(fragment);
-    let vertPrecision = ShaderParser._obtainPrecisions(vertex);
-    if (!fragPrecision["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
-      fragment = this._addPrecision(fragment, "float", "mediump");
-      fragPrecision["float"] = "mediump";
-    }
-    return {
-      attributes: attributes,
-      fragment: fragment,
-      vertex: vertex,
-      uniforms: uniforms,
-      fragmentPrecisions: fragPrecision,
-      vertexPrecisions: vertPrecision
-    };
+  public static parseCombined(codeString: string): Q.IPromise<IParsedProgramResult> {
+    const deferred = Q.defer<IParsedProgramResult>();
+    process.nextTick(() => {
+      const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+      const result = ShaderParser.parseImport(codeString, materialManager);
+      const uniforms = ShaderParser._parseVariables(codeString, "uniform");
+      const attributes = ShaderParser._parseVariables(codeString, "attribute");
+      let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vertonly"), "fragonly");
+      let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "fragonly"), "vertonly");
+      fragment = ShaderParser._removeAttributeVariables(fragment);
+      fragment = ShaderParser._removeVariableAnnotations(fragment);
+      vertex = ShaderParser._removeVariableAnnotations(vertex);
+      let fragPrecision = ShaderParser._obtainPrecisions(fragment);
+      let vertPrecision = ShaderParser._obtainPrecisions(vertex);
+      if (!fragPrecision["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
+        fragment = this._addPrecision(fragment, "float", "mediump");
+        fragPrecision["float"] = "mediump";
+      }
+      deferred.resolve({
+        attributes: attributes,
+        fragment: fragment,
+        vertex: vertex,
+        uniforms: uniforms,
+        fragmentPrecisions: fragPrecision,
+        vertexPrecisions: vertPrecision
+      });
+    });
+    return deferred.promise;
   }
 
   /**

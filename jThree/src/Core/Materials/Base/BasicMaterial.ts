@@ -7,7 +7,7 @@ import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import MaterialPass = require("./MaterialPass");
 import Delegates = require("../../../Base/Delegates");
 import IApplyMaterialArgument = require("./IApplyMaterialArgument");
-
+import Q = require("q");
 class BasicMaterial extends Material {
   private _passes: MaterialPass[] = [];
 
@@ -29,6 +29,9 @@ class BasicMaterial extends Material {
 * This is used for passing variables,using programs,binding index buffer.
 */
   public apply(matArg: IApplyMaterialArgument): void {
+    if (!this.Initialized) {
+      return;
+    }
     super.apply(matArg);
     const targetPass = this._passes[matArg.passIndex];
     targetPass.apply(matArg, this._uniformRegisters, this);
@@ -57,18 +60,20 @@ class BasicMaterial extends Material {
     if (!this._materialGroup) {
       console.error("Material group must be specified!");
     }
-    this._parsePasses(xmml);
     this._initializeUniformRegisters(xmml);
-    this.setLoaded();
+    this._parsePasses(xmml).then(() => {
+      this.setLoaded();
+    });
   }
 
-  private _parsePasses(doc: Document) {
+  private _parsePasses(doc: Document): Q.IPromise<void[]> {
     const passes = doc.querySelectorAll("material > passes > pass");
     for (let i = 0; i < passes.length; i++) {
       const pass = passes.item(i);
       this._passes.push(new MaterialPass(this, pass, this._materialName, i));
     }
     this._passCount = passes.length;
+    return Q.all(this._passes.map<Q.IPromise<void>>(e => e.initialize()));
   }
 
   private _initializeUniformRegisters(doc: Document) {

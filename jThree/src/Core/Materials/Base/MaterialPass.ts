@@ -15,13 +15,14 @@ import JThreeContext = require("../../../JThreeContext");
 import ResourceManager = require("../../ResourceManager");
 import ShaderParser = require("./ShaderParser");
 import Delegates = require("../../../Base/Delegates");
+import Q = require("q");
 class MaterialPass extends JThreeObjectWithID {
 
+  public ready: boolean = false;
+
+  public materialName: string;
+
   public passIndex: number;
-
-  public fragmentShaderSource: string;
-
-  public vertexShaderSource: string;
 
   public fragmentShader: Shader;
 
@@ -29,7 +30,7 @@ class MaterialPass extends JThreeObjectWithID {
 
   public program: Program;
 
-  public parsedProgram: IParsedProgramResult;
+  public programDescription: IParsedProgramResult;
 
   private _passDocument: Element;
 
@@ -44,10 +45,22 @@ class MaterialPass extends JThreeObjectWithID {
     this.passIndex = index;
     this._material = material;
     this._passDocument = passDocument;
-    this._parseGLSL();
-    this._constructProgram(materialName + index);
+    this.materialName = materialName;
   }
+
+  public initialize(): Q.IPromise<void> {
+    const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
+    return ShaderParser.parseCombined(shaderCode).then((result) => {
+      this.programDescription = result;
+      this._constructProgram(this.materialName + this.passIndex);
+      this.ready = true;
+    });
+  }
+
   public apply(matArg: IApplyMaterialArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>[], material: Material): void {
+    if (!this.ready) {
+      return;
+    }
     const gl = matArg.renderStage.GL;
     const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.Canvas);
     const renderConfig = this._fetchRenderConfigure(matArg);
@@ -55,12 +68,12 @@ class MaterialPass extends JThreeObjectWithID {
     // Declare using program before assigning material variables
     pWrapper.useProgram();
     // Apply attribute variables by geometries
-    matArg.object.Geometry.applyAttributeVariables(pWrapper, this.parsedProgram.attributes);
+    matArg.object.Geometry.applyAttributeVariables(pWrapper, this.programDescription.attributes);
     // Apply uniform variables
     uniformRegisters.forEach((r) => {
-      r(gl, pWrapper, matArg, this.parsedProgram.uniforms);
+      r(gl, pWrapper, matArg, this.programDescription.uniforms);
     });
-    material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.parsedProgram.uniforms);
+    material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.programDescription.uniforms);
   }
 
   private _fetchRenderConfigure(matArg: IApplyMaterialArgument): IRenderStageRenderConfigure {
@@ -83,19 +96,10 @@ class MaterialPass extends JThreeObjectWithID {
   }
 
 
-
-  private _parseGLSL(): void {
-    const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
-    const parsedCodes = ShaderParser.parseCombined(shaderCode);
-    this.parsedProgram = parsedCodes;
-    this.fragmentShaderSource = parsedCodes.fragment;
-    this.vertexShaderSource = parsedCodes.vertex;
-  }
-
   private _constructProgram(idPrefix: string): void {
     this._passId = idPrefix;
-    this.fragmentShader = MaterialPass._resourceManager.createShader(idPrefix + "-fs", this.fragmentShaderSource, ShaderType.FragmentShader);
-    this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs", this.vertexShaderSource, ShaderType.VertexShader);
+    this.fragmentShader = MaterialPass._resourceManager.createShader(idPrefix + "-fs", this.programDescription.fragment, ShaderType.FragmentShader);
+    this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs", this.programDescription.vertex, ShaderType.VertexShader);
     this.fragmentShader.loadAll();
     this.vertexShader.loadAll();
     this.program = MaterialPass._resourceManager.createProgram(idPrefix + "-program", [this.vertexShader, this.fragmentShader]);
