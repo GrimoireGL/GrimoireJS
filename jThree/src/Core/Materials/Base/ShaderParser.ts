@@ -16,10 +16,8 @@ class ShaderParser {
    * @return {IParsedProgramResult} information of parsed codes.
    */
   public static parseCombined(codeString: string): Q.IPromise<IParsedProgramResult> {
-    const deferred = Q.defer<IParsedProgramResult>();
-    process.nextTick(() => {
-      const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-      const result = ShaderParser.parseImport(codeString, materialManager);
+    const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    return ShaderParser.parseImport(codeString, materialManager).then<IParsedProgramResult>(result => {
       const uniforms = ShaderParser._parseVariables(codeString, "uniform");
       const attributes = ShaderParser._parseVariables(codeString, "attribute");
       let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vertonly"), "fragonly");
@@ -33,16 +31,15 @@ class ShaderParser {
         fragment = this._addPrecision(fragment, "float", "mediump");
         fragPrecision["float"] = "mediump";
       }
-      deferred.resolve({
+      return {
         attributes: attributes,
         fragment: fragment,
         vertex: vertex,
         uniforms: uniforms,
         fragmentPrecisions: fragPrecision,
         vertexPrecisions: vertPrecision
-      });
+      };
     });
-    return deferred.promise;
   }
 
   /**
@@ -51,9 +48,33 @@ class ShaderParser {
    * @param  {MaterialManager} materialManager the material manager instance containing imported codes.
    * @return {string}                          replaced codes.
    */
-  public static parseImport(source: string, materialManager: MaterialManager): string {
+  public static parseImport(source: string, materialManager: MaterialManager): Q.IPromise<string> {
+    let importArgs = [];
+    const importRegex = /\s*@import\s+"([^"]+)"/g;
     while (true) {
-      const regexResult = /\s*@import\s+"([a-zA-Z0-9.-]+)"/.exec(source);
+     const importEnum = importRegex.exec(source);
+      if (!importEnum) { break; }
+      importArgs.push(importEnum[1]);
+    }
+    return materialManager.loadChunks(importArgs).then<string>(() => {
+      while (true) {
+        const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
+        if (!regexResult) { break; }
+        let importContent;
+        importContent = materialManager.getShaderChunk(regexResult[1]);
+        if (!importContent) {
+          console.error(`Required shader chunk '${regexResult[1]}' was not found!!`);
+          importContent = "";
+        }
+        source = source.replace(regexResult[0], `\n${importContent}\n`);
+      }
+      return source;
+    });
+  }
+
+  public static parseInternalImport(source: string, materialManager: MaterialManager): string {
+    while (true) {
+      const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
       if (!regexResult) { break; }
       let importContent;
       importContent = materialManager.getShaderChunk(regexResult[1]);

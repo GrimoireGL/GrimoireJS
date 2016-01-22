@@ -10,19 +10,19 @@ import Delegates = require("../../../Base/Delegates");
 import BasicMatrixRegisterer = require("./Registerer/BasicMatrixReisterer");
 import TextureBufferRegisterer = require("./Registerer/TextureBufferRegisterer");
 import TimeRegisterer = require("./Registerer/TimeRegisterer");
+import AsyncLoader = require("../../Resources/AsyncLoader");
+import Q = require("q");
 /**
  * A ContextComponent provides the feature to manage materials.
  * @type {[type]}
  */
 class MaterialManager implements IContextComponent {
-  /**
-   * Registered shader chunk storage
-   */
-  private _shaderChunks: { [key: string]: string } = {};
 
   private _uniformRegisters: { [key: string]: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }> } = {};
 
   private _materialDocuments: { [key: string]: string } = {};
+
+  private _chunkLoader: AsyncLoader<string> = new AsyncLoader<string>();
 
   constructor() {
     this.addShaderChunk("jthree.builtin.vertex", require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
@@ -48,8 +48,14 @@ class MaterialManager implements IContextComponent {
    * @param {string} val shader chunk code
    */
   public addShaderChunk(key: string, val: string): void {
-    this._shaderChunks[key] = ShaderParser.parseImport(val, this);
+    this._chunkLoader.pushLoaded(key, ShaderParser.parseInternalImport(val, this));
   }
+
+  public loadChunks(srcs: string[]): Q.IPromise<string[]> {
+    return Q.all(srcs.map(src => this._loadChunk(src)));
+  }
+
+
 
   /**
    * Get shader chunk code from storage
@@ -57,7 +63,7 @@ class MaterialManager implements IContextComponent {
    * @return {string}     stored shader chunk code
    */
   public getShaderChunk(key: string): string {
-    return this._shaderChunks[key];
+    return this._chunkLoader.fromCache(key);
   }
 
   public addUniformRegister(key: string, register: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>) {
@@ -95,6 +101,23 @@ class MaterialManager implements IContextComponent {
     } else {
       return new BasicMaterial(matDoc);
     }
+  }
+
+  private _loadChunk(src: string): Q.IPromise<string> {
+    return this._chunkLoader.fetch(src, (absPath) => {
+      const deferred = Q.defer<string>();
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", absPath, true);
+      xhr.setRequestHeader("Accept", "text");
+      xhr.onload = () => {
+        deferred.resolve(xhr.responseText);
+      };
+      xhr.onerror = (err) => {
+        deferred.reject(err);
+      };
+      xhr.send(null);
+      return deferred.promise;
+    });
   }
 }
 

@@ -13,6 +13,14 @@ class AsyncLoader<T> {
     return aElem.href;
   }
 
+  public pushLoaded(url: string, content: T): void {
+    this._loadedResource[AsyncLoader.getAbsolutePath(url)] = content;
+  }
+
+  public fromCache(url: string): T {
+    return <T>this._loadedResource[AsyncLoader.getAbsolutePath(url)];
+  }
+
   public fetch(src: string, request: Delegates.Func1<string, Q.IPromise<T>>): Q.IPromise<T> {
     const absPath = AsyncLoader.getAbsolutePath(src);
     if (this._loadedResource[absPath] && typeof this._loadedResource[absPath]["then"] === "function") { // Assume this is Promise object
