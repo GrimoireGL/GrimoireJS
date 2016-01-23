@@ -354,7 +354,12 @@
     "./jThree/src/Wrapper/Texture/TextureRegister.ts",
     "./jThree/src/Wrapper/Texture/TextureWrapType.ts",
     "./jThree/src/Wrapper/TextureInternalFormatType.ts",
-    "./jThree/src/Wrapper/TextureType.ts"
+    "./jThree/src/Wrapper/TextureType.ts",
+    "./jThree/src/X/Core/XGeometry.ts",
+    "./jThree/src/X/Core/XMaterial.ts",
+    "./jThree/src/X/Core/XModel.ts",
+    "./jThree/src/X/IXMaterialData.ts",
+    "./jThree/src/X/XFileData.ts"
   ],
   "exclude": [],
   "atom": {

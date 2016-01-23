@@ -1,3 +1,4 @@
+import XFileData = require("./X/XFileData");
 import RenderStageRegistory = require("./Core/Renderers/RenderStageRegistory");
 import PrimitiveRegistory = require("./Core/Geometries/Base/PrimitiveRegistory");
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
@@ -106,6 +107,7 @@ class JThreeInit {
         JThreeInit.startInitialize();
       });
     }
+    XFileData.loadFile("/resource/model/X/town/ゲキド街Ver2.x");
   }
 
   private static startInitialize() {
