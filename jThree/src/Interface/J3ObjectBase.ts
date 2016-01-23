@@ -1,11 +1,15 @@
 import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
 
 class J3ObjectBase {
-  protected length: number = 0;
+  private length: number = 0;
 
-  protected set nodes(arr: GomlTreeNodeBase[]) {
+  protected setArray(arr: GomlTreeNodeBase[]): void {
     Array.prototype.splice.call(this, 0, this.length);
     Array.prototype.push.apply(this, arr);
+  }
+
+  protected getArray(): GomlTreeNodeBase[] {
+    return Array.prototype.map.call(this, (v) => v);
   }
 }
 

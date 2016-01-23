@@ -8,9 +8,9 @@ class GomlNodeMethods extends J3ObjectBase {
   public get(index?: number): any {
     let ret: GomlTreeNodeBase[] | GomlTreeNodeBase = null;
     if (index) {
-      ret = this.nodes[index];
+      ret = this[index];
     } else {
-      ret = this.nodes;
+      ret = this.getArray();
     }
     return ret;
   }

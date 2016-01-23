@@ -32,9 +32,9 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods {
       query = nodes_query;
     }
     if (nodes) {
-      this.nodes = nodes;
+      this.setArray(nodes);
     } else if (query) {
-      this.nodes = InterfaceSelector.find(query);
+      this.setArray(InterfaceSelector.find(query));
     } else {
       throw new Error("Something fatal ocuuered.");
     }

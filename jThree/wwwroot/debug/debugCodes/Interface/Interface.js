@@ -1,4 +1,8 @@
 j3(() => {
-  const obj = j3('#obj0');
-  console.log(obj);
+  const obj0 = j3('#obj0');
+  console.log(obj0);
+  const scene = j3('scene[name=mainScene]');
+  console.log(scene);
+  const cam = scene.find('#maincam');
+  console.log(cam);
 });

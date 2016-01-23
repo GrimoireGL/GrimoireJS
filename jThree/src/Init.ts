@@ -60,7 +60,9 @@ class JThreeInit {
       return new J3Object(argu);
     } else if (typeof argu === "function") {
       const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
-      loader.promise.then(argu);
+      loader.promise.then(argu).catch((e) => {
+        console.error(e);
+      });
       return;
     } else {
       throw new Error("Selector query must be string.");
