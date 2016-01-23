@@ -42,6 +42,17 @@ class ShaderParser {
     });
   }
 
+  public static getImports(source: string): string[] {
+   let importArgs = [];
+   const importRegex = /\s*@import\s+"([^"]+)"/g;
+   while (true) {
+     const importEnum = importRegex.exec(source);
+     if (!importEnum) { break; }
+     importArgs.push(importEnum[1]);
+   }
+   return importArgs;
+  }
+
   /**
    * Parse @import syntax and replace them with corresponded codes.
    * @param  {string}          source          source code XMML to be processed for @import.
@@ -49,14 +60,7 @@ class ShaderParser {
    * @return {string}                          replaced codes.
    */
   public static parseImport(source: string, materialManager: MaterialManager): Q.IPromise<string> {
-    let importArgs = [];
-    const importRegex = /\s*@import\s+"([^"]+)"/g;
-    while (true) {
-     const importEnum = importRegex.exec(source);
-      if (!importEnum) { break; }
-      importArgs.push(importEnum[1]);
-    }
-    return materialManager.loadChunks(importArgs).then<string>(() => {
+    return materialManager.loadChunks(ShaderParser.getImports(source)).then<string>(() => {
       while (true) {
         const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
         if (!regexResult) { break; }
