@@ -104,11 +104,12 @@ class XFileData {
     let faceCache: number[][] = [];
     const materialIndexRegex = /(\d+)/g;
     let materialGroupCount = parseInt(materialIndexRegex.exec(meshMaterialListSection)[1], 10);
-    materialIndexRegex.exec(meshMaterialListSection); // Discard count of material indicies
+    const matIndiciesCount = parseInt(materialIndexRegex.exec(meshMaterialListSection), 10);
     for (let i = 0; i < materialGroupCount; i++) {
       faceCache[i] = [];
     }
-    while ((faceRegexResult = faceRegex.exec(meshSection))) {
+    for (let i = 0; i < matIndiciesCount; i++) {
+      faceRegexResult = faceRegex.exec(meshSection);
       const materialIndex = parseInt(materialIndexRegex.exec(meshMaterialListSection)[1], 10);
       if (faceRegexResult[4]) {
         const f1 = parseInt(faceRegexResult[1], 10), f2 = parseInt(faceRegexResult[2], 10), f3 = parseInt(faceRegexResult[3], 10), f4 = parseInt(faceRegexResult[4], 10);
@@ -134,7 +135,7 @@ class XFileData {
     // Concat face Array
     let concattedFaceArray = [];
     for (let i = 0; i < faceCache.length; i++) {
-      concattedFaceArray.push.apply(concattedFaceArray, faceCache[i]);
+      concattedFaceArray = concattedFaceArray.concat(faceCache[i]);
     }
     this.indicies = new Uint32Array(concattedFaceArray);
   }
@@ -160,7 +161,7 @@ class XFileData {
         power: foundNumbers[4],
         specularColor: new Vector3(foundNumbers[5], foundNumbers[6], foundNumbers[7]),
         emissiveColor: new Vector3(foundNumbers[8], foundNumbers[9], foundNumbers[10]),
-        texture: this._directory + texturePath,
+        texture: texturePath ? this._directory + texturePath :undefined,
         indexCount: undefined,
         indexOffset: undefined
       };

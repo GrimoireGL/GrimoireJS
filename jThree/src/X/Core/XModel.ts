@@ -1,3 +1,4 @@
+import XPrimaryMaterial = require("./XPrimaryBufferMaterial");
 import XMaterial = require("./XMaterial");
 import XGeometry = require("./XGeometry");
 import XFileData = require("../XFileData");
@@ -10,8 +11,8 @@ class XModel extends SceneObject {
     this._modelData = modelData;
     this.Geometry = new XGeometry(modelData);
     this._modelData.materials.forEach((material) => {
-      const mat = new XMaterial(material);
-      this.addMaterial(mat);
+      this.addMaterial(new XMaterial(material));
+      this.addMaterial(new XPrimaryMaterial(material));
     });
   }
 }

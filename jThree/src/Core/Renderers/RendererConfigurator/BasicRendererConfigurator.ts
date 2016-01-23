@@ -65,9 +65,17 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         buffers: {
           DLIGHT: "light.diffuse",
           SLIGHT: "light.specular",
-          OUT: "default"
+          OUT: "main"
         },
         stage: "jthree.basic.foward"
+      },
+      {
+       buffers: {
+         MAIN: "main",
+         PRIMARY: "gbuffer.primary",
+         OUT: "default"
+       },
+       stage: "jthree.basic.distanceFog"
       }];
   }
 }

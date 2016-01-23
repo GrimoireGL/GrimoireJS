@@ -46,14 +46,18 @@
         @{register:3,flag:"_textureUsed"}
         uniform sampler2D texture;
         uniform int _textureUsed;
+        uniform vec3 emissiveColor;
+        uniform vec3 specularColor;
         void main(void)
         {
+          vec2 lUV = vPosition.xy/vPosition.w /2.0 + vec2(.5);
           gl_FragColor=faceColor;
-          gl_FragColor.a = 1.;
           if(_textureUsed == 1){
             gl_FragColor = texture2D(texture,vUv);
           }
-          //gl_FragColor.rgb+=ambient.rgb;
+          gl_FragColor.rgb *= texture2D(_dlBuffer,lUV).rgb;
+          gl_FragColor.rgb *= texture2D(_slBuffer,lUV).rgb * specularColor;
+          //gl_FragColor.rgb += emissiveColor;
           ////calculate light uv
         }
       }
