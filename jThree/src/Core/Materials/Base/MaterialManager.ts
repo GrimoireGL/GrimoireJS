@@ -110,7 +110,10 @@ class MaterialManager implements IContextComponent {
       xhr.open("GET", absPath, true);
       xhr.setRequestHeader("Accept", "text");
       xhr.onload = () => {
-        deferred.resolve(xhr.responseText);
+        this.loadChunks(ShaderParser.getImports(xhr.responseText));
+        ShaderParser.parseImport(xhr.responseText, this).then((source) => {
+          deferred.resolve(source);
+        });
       };
       xhr.onerror = (err) => {
         deferred.reject(err);
