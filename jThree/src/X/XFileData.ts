@@ -160,7 +160,7 @@ class XFileData {
         power: foundNumbers[4],
         specularColor: new Vector3(foundNumbers[5], foundNumbers[6], foundNumbers[7]),
         emissiveColor: new Vector3(foundNumbers[8], foundNumbers[9], foundNumbers[10]),
-        texture: texturePath,
+        texture: this._directory + texturePath,
         indexCount: undefined,
         indexOffset: undefined
       };
@@ -182,7 +182,7 @@ class XFileData {
     // Load textures
     for (let i = 0; i < this.materials.length; i++) {
       if (this.materials[i].texture) {
-        ImageLoader.loadImage(this._directory + this.materials[i].texture);
+        ImageLoader.loadImage(this.materials[i].texture);
       }
     }
   }

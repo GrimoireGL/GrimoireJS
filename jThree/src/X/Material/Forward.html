@@ -49,6 +49,10 @@
         void main(void)
         {
           gl_FragColor=faceColor;
+          gl_FragColor.a = 1.;
+          if(_textureUsed == 1){
+            gl_FragColor = texture2D(texture,vUv);
+          }
           //gl_FragColor.rgb+=ambient.rgb;
           ////calculate light uv
         }

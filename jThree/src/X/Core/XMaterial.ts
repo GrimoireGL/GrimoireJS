@@ -1,3 +1,6 @@
+import ContextComponents = require("../../ContextComponents");
+import ResourceManager = require("../../Core/ResourceManager");
+import JThreeContext = require("../../JThreeContext");
 import Geometry = require("../../Core/Geometries/Base/Geometry");
 import IXMaterialData = require("../IXMaterialData");
 import BasicMaterial = require("../../Core/Materials/Base/BasicMaterial");
@@ -10,6 +13,12 @@ class XMaterial extends BasicMaterial {
       specularColor: this._material.specularColor,
       emissiveColor: this._material.emissiveColor
     };
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    if (_material.texture) {
+      rm.loadTexture(_material.texture).then(texture => {
+        this.materialVariables["texture"] = texture;
+      });
+    }
   }
 
   public getDrawGeometryLength(geo: Geometry): number {
