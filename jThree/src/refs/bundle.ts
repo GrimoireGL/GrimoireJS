@@ -11,3 +11,9 @@
 /// <reference path="power-assert/power-assert.d.ts" />
 /// <reference path="ammo/ammo.d.ts"/>
 /// <reference path="q/q.d.ts"/>
+/// <reference path="lodash.is[type]/lodash.isarray.d.ts"/>
+/// <reference path="lodash.is[type]/lodash.isfunction.d.ts"/>
+/// <reference path="lodash.is[type]/lodash.isnumber.d.ts"/>
+/// <reference path="lodash.is[type]/lodash.isplainobject.d.ts"/>
+/// <reference path="lodash.is[type]/lodash.isstring.d.ts"/>
+/// <reference path="lodash.is[type]/lodash.isundefined.d.ts"/>

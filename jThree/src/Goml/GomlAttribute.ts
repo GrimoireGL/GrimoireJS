@@ -58,7 +58,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public get ValueStr(): string {
-    return this.value == null ? "" : this.converter.toStringAttr(this.value);
+    return this.value == null ? "" : this.Converter.toStringAttr(this.value);
   }
 
   public set Value(val: any) {

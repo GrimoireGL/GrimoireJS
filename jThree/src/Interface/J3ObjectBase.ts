@@ -1,7 +1,7 @@
 import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
 
 class J3ObjectBase {
-  private length: number = 0;
+  public length: number = 0;
 
   protected setArray(arr: GomlTreeNodeBase[]): void {
     Array.prototype.splice.call(this, 0, this.length);

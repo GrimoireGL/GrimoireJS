@@ -1,18 +1,21 @@
 import J3Object = require("../J3Object");
 import J3ObjectBase = require("../J3ObjectBase");
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
+import isNumber = require("lodash.isnumber");
+import isUndefiend = require("lodash.isundefined");
 
 class GomlNodeMethods extends J3ObjectBase {
   public get(): GomlTreeNodeBase[];
   public get(index: number): GomlTreeNodeBase;
   public get(argu?: number): any {
-    let ret: GomlTreeNodeBase[] | GomlTreeNodeBase = null;
-    if (argu) {
-      ret = this[argu];
-    } else {
-      ret = this.getArray();
+    switch (true) {
+      case (isNumber(argu)):
+        return this[argu];
+      case (isUndefiend(argu)):
+        return this.getArray();
+      default:
+        throw new Error("Argument type is not correct");
     }
-    return ret;
   }
 
   public index(): number;

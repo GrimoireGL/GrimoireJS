@@ -60,7 +60,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
   }
 
   public getElementByNode(node: GomlTreeNodeBase): HTMLElement {
-    return node.props.getProp("elem");
+    return node.props.getProp<HTMLElement>("elem");
   }
 
   /**
@@ -71,7 +71,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
    */
   public getNodeByQuery(query: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[] {
     const result = [];
-    const target = context ? context.props.getProp("elem") : this.htmlRoot;
+    const target = context ? context.props.getProp<HTMLElement>("elem") : this.htmlRoot;
     const found = target.querySelectorAll(query);
     for (let index = 0; index < found.length; index++) {
       const id = (<HTMLElement>found[index]).getAttribute("x-j3-id");

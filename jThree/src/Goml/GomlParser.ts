@@ -1,5 +1,6 @@
 import GomlTreeNodeBase = require("./GomlTreeNodeBase");
 import GomlConfigurator = require("./GomlConfigurator");
+import GomlAttribute = require("./GomlAttribute");
 
 /**
  * Parser of Goml to Node utilities.
@@ -92,12 +93,12 @@ class GomlParser {
         } else {
           gomlAttribute.Value = attrValue;
         }
-        gomlAttribute.on("changed", (ga) => {
-          elem.setAttribute(attrKey, ga.Value);
+        gomlAttribute.on("changed", (ga: GomlAttribute) => {
+          elem.setAttribute(attrKey, ga.ValueStr);
         });
       })(attr);
     }
-    newNode.props.setProp("elem", elem);
+    newNode.props.setProp<HTMLElement>("elem", elem);
     elem.setAttribute("x-j3-id", newNode.ID);
     // console.log("END");
     return newNode;

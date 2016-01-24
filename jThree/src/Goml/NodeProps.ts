@@ -18,7 +18,7 @@ class NodeProps extends events.EventEmitter {
    * @param  {any}    value [description]
    * @return {IProps}       [description]
    */
-  public setProp(key: string, value: any): IProps {
+  public setProp<T>(key: string, value: T): IProps {
     this.props[key] = value;
     this.emit(key, value);
     return { [key]: value };
@@ -32,7 +32,7 @@ class NodeProps extends events.EventEmitter {
    * @param  {boolean}               instantly_exec [description]
    * @return {Delegate.Action1<any>}                [description]
    */
-  public setEventToProp(key: string, callbackfn: Delegate.Action1<any>, instantly_exec?: boolean): Delegate.Action1<any> {
+  public setEventToProp<T>(key: string, callbackfn: Delegate.Action1<T>, instantly_exec?: boolean): Delegate.Action1<T> {
     this.on(key, callbackfn);
     if (instantly_exec && this.props[key] !== undefined) {
       callbackfn(this.props[key]);
@@ -48,7 +48,7 @@ class NodeProps extends events.EventEmitter {
    * @param  {string} key [description]
    * @return {any}        [description]
    */
-  public getProp(key: string): any {
+  public getProp<T>(key: string): T {
     return this.props[key];
   }
 }

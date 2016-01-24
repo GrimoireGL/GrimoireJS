@@ -6,5 +6,9 @@ j3(() => {
   // scene.index();
   const cam = scene.find('#maincam');
   console.log(cam);
+  setTimeout(() => {
+    obj0.attr('position', '3,6,-5');
+    console.log(obj0.attr('position'));
+  }, 3000);
+  console.log(obj0.attr('position'));
 });
-

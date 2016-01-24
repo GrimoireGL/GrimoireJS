@@ -1,14 +1,18 @@
 import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
 import J3ObjectBase = require("./J3ObjectBase");
 import InterfaceSelector = require("./InterfaceSelector");
+import isArray = require("lodash.isarray");
+import isString = require("lodash.isstring");
+import Delegate = require("../Base/Delegates");
 // for Implements
 import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
 import TreeTraversal = require("./Traversing/TreeTraversal");
+import GeneralAttributes = require("./Manipulation/GeneralAttributes");
 
 /**
  * Provides jQuery like API for jThree.
  */
-class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal {
+class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, GeneralAttributes {
   /**
    * Construct J3Object from Nodes.
    * @param {GomlTreeNodeBase[]} nodes [description]
@@ -23,22 +27,27 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal {
    * Construct J3Object from Nodes or selector query.
    * @param {GomlTreeNodeBase[]} nodes [description]
    */
-  constructor(nodes_query: GomlTreeNodeBase[] | string) {
+  constructor(argu: any) {
     super();
-    let nodes, query;
-    if (nodes_query instanceof GomlTreeNodeBase) {
-      nodes = [nodes_query];
-    } else if (nodes_query instanceof Array && nodes_query[0] instanceof GomlTreeNodeBase) {
-      nodes = nodes_query;
-    } else if (typeof nodes_query === "string") {
-      query = nodes_query;
+    let nodes: GomlTreeNodeBase[];
+    let query: string;
+    switch (true) {
+      case (isString(argu)):
+        query = argu;
+        break;
+      case (argu instanceof GomlTreeNodeBase):
+        nodes = [argu];
+        break;
+      case (isArray(argu) && (<GomlTreeNodeBase[]>argu).every((v) => v instanceof GomlTreeNodeBase)):
+        nodes = argu;
+        break;
+      default:
+        throw new Error("Argument type is not correct");
     }
     if (nodes) {
       this.setArray(nodes);
     } else if (query) {
       this.setArray(InterfaceSelector.find(query));
-    } else {
-      throw new Error("Selector query must be string.");
     }
   }
 
@@ -69,6 +78,25 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal {
     (node: GomlTreeNodeBase): J3Object;
     (j3obj: J3Object): J3Object;
     (argu: any): J3Object;
+  };
+
+  /**
+   * Manipulation/GeneralAttributes
+   */
+
+  public attr: {
+    (attributeName: string): string;
+    (attributeName: string, value: any): J3Object;
+    (attributes: Object): J3Object;
+    (attributeName: string, func: Delegate.Func2<number, string, string | number>): J3Object;
+    (argu0: any, argu1?: any): any;
+  };
+
+  public attrObj: {
+    (attributeName: string): any;
+    (attributeName: string, value: any): J3Object;
+    (attributes: Object): J3Object;
+    (argu0: any, argu1?: any): any;
   };
 }
 
