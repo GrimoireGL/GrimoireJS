@@ -2,11 +2,18 @@ import J3Object = require("./J3Object");
 import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
 import TreeTraversal = require("./Traversing/TreeTraversal");
 import GeneralAttributes = require("./Manipulation/GeneralAttributes");
+import CollectionManipulation = require("./Manipulation/CollectionManipulation");
+import Utilities = require("./Utilities/Utilities");
 
 const mixins = [
   GomlNodeMethods,
   TreeTraversal,
   GeneralAttributes,
+  CollectionManipulation,
+];
+
+const staticMixins = [
+  Utilities,
 ];
 
 function applyMixins(derivedCtor: any, baseCtors: any[]) {
@@ -17,4 +24,13 @@ function applyMixins(derivedCtor: any, baseCtors: any[]) {
   });
 }
 
+function applyStaticMixins(derivedCtor: any, baseCtors: any[]) {
+  baseCtors.forEach((baseCtor) => {
+    Object.keys(baseCtor).forEach((name) => {
+      derivedCtor[name] = baseCtor[name];
+    });
+  });
+}
+
 applyMixins(J3Object, mixins);
+applyStaticMixins(J3Object, staticMixins);

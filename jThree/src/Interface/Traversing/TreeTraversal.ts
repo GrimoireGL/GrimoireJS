@@ -1,6 +1,6 @@
 import J3Object = require("../J3Object");
 import J3ObjectBase = require("../J3ObjectBase");
-import InterfaceSelector = require("../InterfaceSelector");
+import InterfaceSelector = require("../Static/InterfaceSelector");
 import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
 import isString = require("lodash.isstring");
 

@@ -1,18 +1,18 @@
 import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
 import J3ObjectBase = require("./J3ObjectBase");
-import InterfaceSelector = require("./InterfaceSelector");
+import InterfaceSelector = require("./Static/InterfaceSelector");
 import isArray = require("lodash.isarray");
 import isString = require("lodash.isstring");
-import Delegate = require("../Base/Delegates");
 // for Implements
 import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
 import TreeTraversal = require("./Traversing/TreeTraversal");
 import GeneralAttributes = require("./Manipulation/GeneralAttributes");
+import CollectionManipulation = require("./Manipulation/CollectionManipulation");
 
 /**
  * Provides jQuery like API for jThree.
  */
-class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, GeneralAttributes {
+class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, GeneralAttributes, CollectionManipulation {
   /**
    * Construct J3Object from Nodes.
    * @param {GomlTreeNodeBase[]} nodes [description]
@@ -52,6 +52,14 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
   }
 
   /**
+   * Utilities/Utilities
+   */
+
+  public static each: {
+    (argu0: any, callback: (argu1: any, argu2: any) => any): any;
+  };
+
+  /**
    * Miscellaneous/GomlNodeMethods
    */
 
@@ -88,7 +96,8 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
     (attributeName: string): string;
     (attributeName: string, value: any): J3Object;
     (attributes: Object): J3Object;
-    (attributeName: string, func: Delegate.Func2<number, string, string | number>): J3Object;
+    (attributeName: string, func: (number, string) => string): J3Object;
+    (attributeName: string, func: (number, string) => number): J3Object;
     (argu0: any, argu1?: any): any;
   };
 
@@ -97,6 +106,14 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
     (attributeName: string, value: any): J3Object;
     (attributes: Object): J3Object;
     (argu0: any, argu1?: any): any;
+  };
+
+  /**
+   * Manipulation/CollectionManipulation
+   */
+
+  public each: {
+    (func: (index: number, node: GomlTreeNodeBase) => boolean): J3Object;
   };
 }
 
