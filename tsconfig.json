@@ -359,6 +359,7 @@
     "./jThree/src/X/Core/XMaterial.ts",
     "./jThree/src/X/Core/XModel.ts",
     "./jThree/src/X/Core/XPrimaryBufferMaterial.ts",
+    "./jThree/src/X/Goml/XNode.ts",
     "./jThree/src/X/IXMaterialData.ts",
     "./jThree/src/X/XFileData.ts"
   ],

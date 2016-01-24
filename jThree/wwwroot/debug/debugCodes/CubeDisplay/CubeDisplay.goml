@@ -32,6 +32,7 @@
       <mesh geo="cube" mat="matTest" position="-3,3,-5"/>
       <mesh geo="cube" mat="blue" scale="5"/>
       <mesh geo="grid" mat="matTest" scale="10"/>
+      <x src="/resource/model/X/town/ゲキド街Ver2.x" scale="0.2"/>
     </scene>
   </scenes>
 </goml>

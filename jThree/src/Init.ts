@@ -1,6 +1,3 @@
-import Vector3 = require("./Math/Vector3");
-import XModel = require("./X/Core/XModel");
-import XFileData = require("./X/XFileData");
 import RenderStageRegistory = require("./Core/Renderers/RenderStageRegistory");
 import PrimitiveRegistory = require("./Core/Geometries/Base/PrimitiveRegistory");
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
@@ -109,12 +106,6 @@ class JThreeInit {
         JThreeInit.startInitialize();
       });
     }
-    XFileData.loadFile("/resource/model/X/town/ゲキド街Ver2.x").then((data) => {
-      const sm = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
-      const model = new XModel(data);
-      model.Transformer.Scale = new Vector3(0.2, 0.2, 0.2);
-      sm.Scenes[0].addObject(model);
-    });
   }
 
   private static startInitialize() {

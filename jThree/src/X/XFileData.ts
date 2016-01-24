@@ -104,7 +104,7 @@ class XFileData {
     let faceCache: number[][] = [];
     const materialIndexRegex = /(\d+)/g;
     let materialGroupCount = parseInt(materialIndexRegex.exec(meshMaterialListSection)[1], 10);
-    const matIndiciesCount = parseInt(materialIndexRegex.exec(meshMaterialListSection), 10);
+    const matIndiciesCount = parseInt(materialIndexRegex.exec(meshMaterialListSection)[1], 10);
     for (let i = 0; i < materialGroupCount; i++) {
       faceCache[i] = [];
     }
@@ -161,7 +161,7 @@ class XFileData {
         power: foundNumbers[4],
         specularColor: new Vector3(foundNumbers[5], foundNumbers[6], foundNumbers[7]),
         emissiveColor: new Vector3(foundNumbers[8], foundNumbers[9], foundNumbers[10]),
-        texture: texturePath ? this._directory + texturePath :undefined,
+        texture: texturePath ? this._directory + texturePath : undefined,
         indexCount: undefined,
         indexOffset: undefined
       };
