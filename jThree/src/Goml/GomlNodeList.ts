@@ -82,6 +82,9 @@ var gomlList = [
       // "MORPHS": require("../PMX/Goml/PMXMorphsNode"),
       // "BONES": require("../PMX/Goml/PMXBonesNode"),
       "VMD": require("../VMD/Goml/VMDNode")
-    })
+    }),
+  new GomlNodeListElement("x", {
+    "X": require("../X/Goml/XNode")
+  })
 ];
 export = gomlList;
