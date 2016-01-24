@@ -10,7 +10,7 @@ const TextureBufferRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWra
       if (!bufferName || !matArg.textureResource[bufferName]) {
         continue;
       }
-      let register = parseInt(uniform.variableAnnotation["register"], 10);
+      let register: number = uniform.variableAnnotation["register"];
       if (!register) { register = 0; }
       pWrapper.uniformSampler(variableName, matArg.textureResource[bufferName], register);
     }

@@ -41,6 +41,9 @@ class Material extends JThreeObjectEEWithID {
   protected setLoaded(flag?: boolean) {
     flag = typeof flag === "undefined" ? true : flag;
     this._initialized = flag;
+    if (flag) {
+      this.emit("ready", this);
+    }
   }
 
   /**
@@ -79,6 +82,9 @@ class Material extends JThreeObjectEEWithID {
   * This is used for passing variables,using programs,binding index buffer.
   */
   public apply(matArg: IApplyMaterialArgument): void {
+    if (!this._initialized) {
+      return;
+    }
     this.emit("apply", matArg);
     return;
   }
