@@ -2,7 +2,8 @@ import RenderStageRegistory = require("./Core/Renderers/RenderStageRegistory");
 import PrimitiveRegistory = require("./Core/Geometries/Base/PrimitiveRegistory");
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
 import Timer = require("./Core/Timer");
-import J3Object = require("./Interface/J3Object");
+import J3Object = require("./Interface/J3Object"); // This must be the first time of import J3Object
+require("./Interface/J3ObjectMixins"); // Apply mixins
 import Delegates = require("./Base/Delegates");
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
 import BehaviorDeclarationBody = require("./Goml/Behaviors/BehaviorDeclarationBody");

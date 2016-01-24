@@ -1,12 +1,14 @@
-import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
 import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
 import J3ObjectBase = require("./J3ObjectBase");
 import InterfaceSelector = require("./InterfaceSelector");
+// for Implements
+import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
+import TreeTraversal = require("./Traversing/TreeTraversal");
 
 /**
  * Provides jQuery like API for jThree.
  */
-class J3Object extends J3ObjectBase implements GomlNodeMethods {
+class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal {
   /**
    * Construct J3Object from Nodes.
    * @param {GomlTreeNodeBase[]} nodes [description]
@@ -36,7 +38,7 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods {
     } else if (query) {
       this.setArray(InterfaceSelector.find(query));
     } else {
-      throw new Error("Something fatal ocuuered.");
+      throw new Error("Selector query must be string.");
     }
   }
 
@@ -57,16 +59,17 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods {
     (j3obj: J3Object): number;
     (arg?: string | GomlTreeNodeBase | J3Object): number
   };
-}
 
-function applyMixins(derivedCtor: any, baseCtors: any[]) {
-  baseCtors.forEach(baseCtor => {
-    Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
-      derivedCtor.prototype[name] = baseCtor.prototype[name];
-    });
-  });
-}
+  /**
+   * Traversing/TreeTraversal
+   */
 
-applyMixins(J3Object, [GomlNodeMethods]);
+  public find: {
+    (selector: string): J3Object;
+    (node: GomlTreeNodeBase): J3Object;
+    (j3obj: J3Object): J3Object;
+    (argu: any): J3Object;
+  };
+}
 
 export = J3Object;

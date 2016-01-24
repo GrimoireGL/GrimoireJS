@@ -3,6 +3,8 @@ j3(() => {
   console.log(obj0);
   const scene = j3('scene[name=mainScene]');
   console.log(scene);
+  // scene.index();
   const cam = scene.find('#maincam');
   console.log(cam);
 });
+
