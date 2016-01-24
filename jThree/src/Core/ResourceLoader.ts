@@ -18,7 +18,7 @@ class ResourceLoader implements IContextComponent {
 
   public currentLoadingMessage: string = "";
 
-  private resourceLoadingDeferred: Q.Deferred<IResourceLoaderEventArgs>;
+  private resourceLoadingDeferred: Q.Deferred<IResourceLoaderEventArgs> = Q.defer<IResourceLoaderEventArgs>();
 
   public get isLoading(): boolean {
     return !!this.resourceLoadingDeferred;
@@ -29,9 +29,6 @@ class ResourceLoader implements IContextComponent {
   }
 
   public getResourceLoadingDeffered<T>(): Q.Deferred<T> {
-    if (!this.isLoading) {
-      this.resourceLoadingDeferred = Q.defer<IResourceLoaderEventArgs>();
-    }
     this.resourceCount++;
     const d = Q.defer<T>();
     this.registerForResourceLoaded<T>(d.promise);

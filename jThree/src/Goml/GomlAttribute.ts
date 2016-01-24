@@ -1,8 +1,5 @@
 import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
 import AttributeConverterBase = require("./Converter/AttributeConverterBase");
-import Delegates = require("../Base/Delegates");
-import GomlTreeNodeBase = require("./GomlTreeNodeBase");
-import JThreeEvent = require("../Base/JThreeEvent");
 import StringAttributeConverter = require("./Converter/StringAttributeConverter");
 
 /**
@@ -42,10 +39,14 @@ class GomlAttribute extends JThreeObjectEEWithID {
    * このメソッドはGomlNodeのインスタンスが生成された後に呼ばれ、GomlNodeのコンストラクタ内でset:Valueが呼ばれてもeventは発生しません。
    */
   public initialize(): void {
-    if (this.value === undefined) console.warn(`Attribute ${this.Name} is undefined.`)
+    if (this.value === undefined) {
+      console.warn(`Attribute ${this.Name} is undefined.`);
+    }
     this.initialized = true;
-    console.log('initialized', this.ID, this.value);
-    if (!this.constant) this.emit('changed', this);
+    // console.log('initialized', this.ID, this.value);
+    if (!this.constant) {
+      this.emit("changed", this);
+    }
   }
 
   public get Name(): string {
@@ -57,16 +58,16 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public get ValueStr(): string {
-    return this.value == null ? '' : this.converter.toStringAttr(this.value);
+    return this.value == null ? "" : this.Converter.toStringAttr(this.value);
   }
 
   public set Value(val: any) {
-    // console.log('setattr', this.Name, val);
+    // // console.log("setattr", this.Name, val);
     if (this.constant && this.value !== undefined) {
-      console.warn(`attribute "${this.ID}" is immutable`)
+      console.warn(`attribute "${this.ID}" is immutable`);
       return;
     }
-    if (typeof val == 'string') {
+    if (typeof val === "string") {
       this.value = this.Converter.toObjectAttr(val);
     } else {
       try {
@@ -76,9 +77,9 @@ class GomlAttribute extends JThreeObjectEEWithID {
       }
       this.value = val;
     }
-    console.log('setattr_obj', this.Name, this.value);
+    // console.log("setattr_obj", this.Name, this.value);
     if (this.initialized) {
-      this.emit('changed', this);
+      this.emit("changed", this);
     }
   }
 
@@ -103,9 +104,11 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public notifyValueChanged() {
-    if (this.constant) return;
+    if (this.constant) {
+      return;
+    }
     if (this.initialized) {
-      this.emit('changed', this);
+      this.emit("changed", this);
     }
   }
 }

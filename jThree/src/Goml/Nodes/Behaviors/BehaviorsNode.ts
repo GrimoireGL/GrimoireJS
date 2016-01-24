@@ -2,6 +2,7 @@ import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 
 
 class BehaviorsNode extends GomlTreeNodeBase {
+  private componentTarget: GomlTreeNodeBase;
 
   constructor() {
     super();
@@ -11,8 +12,6 @@ class BehaviorsNode extends GomlTreeNodeBase {
     super.onMount();
     this.componentTarget = <GomlTreeNodeBase>this.parent;
   }
-
-  private componentTarget: GomlTreeNodeBase;
 
   public get ComponentTarget(): GomlTreeNodeBase {
     return this.componentTarget;

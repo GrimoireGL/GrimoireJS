@@ -29,4 +29,4 @@ class GomlNodeListElement extends JThreeObject {
   }
 }
 
-export =GomlNodeListElement;
+export = GomlNodeListElement;

@@ -5,6 +5,7 @@ import NodeManager = require("./NodeManager");
 import ContextComponents = require("../ContextComponents");
 import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
 import Delegates = require("../Base/Delegates");
+import NodeProps = require("./NodeProps");
 
 /**
  * This is the most base class in all GomlNode
@@ -20,6 +21,12 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * @type {NodeManager}
    */
   public nodeManager: NodeManager;
+
+  /**
+   * props for Node.
+   * @type {NodeProps}
+   */
+  public props: NodeProps = new NodeProps();
 
   /**
    * Group is named after groupPrefixes that supplied from parents.
@@ -53,7 +60,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
       Object.keys(attrs).forEach((v) => {
         attrs_kv[v] = attrs[v].Value;
       });
-      console.log("ga initialize", this.getTypeName(), attrs_kv);
+      // console.log("ga initialize", this.getTypeName(), attrs_kv);
       if (mounted) {
         this.attributes.forEachAttr((ga) => {
           ga.initialize();

@@ -2,8 +2,9 @@ import RenderStageRegistory = require("./Core/Renderers/RenderStageRegistory");
 import PrimitiveRegistory = require("./Core/Geometries/Base/PrimitiveRegistory");
 import MaterialManager = require("./Core/Materials/Base/MaterialManager");
 import Timer = require("./Core/Timer");
+import J3Object = require("./Interface/J3Object"); // This must be the first time of import J3Object
+require("./Interface/J3ObjectMixins"); // Apply mixins
 import Delegates = require("./Base/Delegates");
-import JThreeInterface = require("./Interface/JThreeInterface");
 import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
 import BehaviorDeclarationBody = require("./Goml/Behaviors/BehaviorDeclarationBody");
 import JThreeContext = require("./JThreeContext");
@@ -55,15 +56,18 @@ class JThreeInit {
   * 1, to use for select elements like jQuery in GOML.
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
-  public static j3(query: string | Delegates.Action0): JThreeInterface {
-    // var nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);//This is not string but it is for conviniesnce.
-    // if (typeof query === 'function') {//check whether this is function or not.
-    //     nodeManager.loadedHandler.addListener(query);
-    //     return undefined;//when function was subscribed, it is no need to return JThreeInterface.
-    // }
-    // var targetObject: NodeList = nodeManager.htmlRoot.querySelectorAll(<string>query); //call as query
-    // return new JThreeInterface(targetObject);
-    return;
+  public static j3(argu: string | Delegates.Action0): J3Object {
+    if (typeof argu === "string") {
+      return new J3Object(argu);
+    } else if (typeof argu === "function") {
+      const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
+      loader.promise.then(argu).catch((e) => {
+        console.error(e);
+      });
+      return;
+    } else {
+      throw new Error("Selector query must be string.");
+    }
   }
 
   /**

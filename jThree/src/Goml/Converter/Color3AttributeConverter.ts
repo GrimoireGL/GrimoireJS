@@ -1,5 +1,4 @@
 import AttributeConverterBase = require("./AttributeConverterBase");
-import Exceptions = require("../../Exceptions");
 import GomlAttribute = require("../GomlAttribute");
 import Delegates = require("../../Base/Delegates");
 import EasingFunctionBase = require("../Easing/EasingFunctionBase");

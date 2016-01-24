@@ -6,67 +6,61 @@ import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
 /**
  * container class for storeing BehaviorNode and TargetNode
  */
-class BehaviorNodePair extends JThreeObjectWithID
-{
-	/**
-	 * BehaviortNode contain the arguments of behavior.
-	 */
-	private behavior:BehaviorNode;
+class BehaviorNodePair extends JThreeObjectWithID {
+  /**
+   * BehaviortNode contain the arguments of behavior.
+   */
+  private behavior: BehaviorNode;
 
-	/**
-	 * TargetNode contain the ComponentNode
-	 */
-	private targetNode:GomlTreeNodeBase;
+  /**
+   * TargetNode contain the ComponentNode
+   */
+  private targetNode: GomlTreeNodeBase;
 
-	constructor(behavior:BehaviorNode,target:GomlTreeNodeBase)
-	{
-		super(behavior.ID);
-		this.behavior=behavior;
-		this.targetNode=target;
-	}
-	/**
-	 * getter for component node
-	 */
-	public get Behavior():BehaviorNode
-	{
-		return this.behavior;
-	}
-	/**
-	 * getter for target node
-	 */
-	public get Target():GomlTreeNodeBase
-	{
-		return this.targetNode;
-	}
+  constructor(behavior: BehaviorNode, target: GomlTreeNodeBase) {
+    super(behavior.ID);
+    this.behavior = behavior;
+    this.targetNode = target;
+  }
+  /**
+   * getter for component node
+   */
+  public get Behavior(): BehaviorNode {
+    return this.behavior;
+  }
+  /**
+   * getter for target node
+   */
+  public get Target(): GomlTreeNodeBase {
+    return this.targetNode;
+  }
 }
 
-class BehaviorRunner extends JThreeObject
-{
-	private dictionary:JThreeCollection<BehaviorNodePair> = new JThreeCollection<BehaviorNodePair>();
+class BehaviorRunner extends JThreeObject {
+  private dictionary: JThreeCollection<BehaviorNodePair> = new JThreeCollection<BehaviorNodePair>();
 
-	private sortedBehavior:BehaviorNodePair[] = [];
+  private sortedBehavior: BehaviorNodePair[] = [];
 
-	private sortBehaviors()
-	{
-		this.sortedBehavior.sort((v1,v2)=>v1.Behavior.order-v2.Behavior.order);
-	}
+  public addBehavior(node: BehaviorNode, target: GomlTreeNodeBase) {
+    const componentPair = new BehaviorNodePair(node, target);
+    this.dictionary.insert(componentPair);
+    this.sortedBehavior.push(componentPair);
+    this.sortBehaviors();
+    if (!node.awaken) {
+      node.awake.call(node, target);
+    }
+  }
 
-	public addBehavior(node:BehaviorNode,target:GomlTreeNodeBase)
-	{
-		var componentPair =new BehaviorNodePair(node,target);
-		this.dictionary.insert(componentPair);
-		this.sortedBehavior.push(componentPair);
-		this.sortBehaviors();
-		if(!node.awaken)node.awake.call(node,target);
+  public executeForAllBehaviors(behaviorName: string) {
+    this.sortedBehavior.forEach(v => {
+      if (v.Behavior.enabled) {
+        v.Behavior[behaviorName](v.Target);
+      }
+    });
+  }
 
-	}
-
-	public executeForAllBehaviors(behaviorName:string) {
-	    this.sortedBehavior.forEach(v => {
-	        if (v.Behavior.enabled) {
-	            v.Behavior[behaviorName](v.Target);
-	        }
-	    });
-	}
+  private sortBehaviors() {
+    this.sortedBehavior.sort((v1, v2) => v1.Behavior.order - v2.Behavior.order);
+  }
 }
 export = BehaviorRunner;

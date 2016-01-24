@@ -59,9 +59,20 @@ class NodeManager extends JThreeObject implements IContextComponent {
     return this.getNode(id);
   }
 
-  public getNodeByQuery(query: string): GomlTreeNodeBase[] {
+  public getElementByNode(node: GomlTreeNodeBase): HTMLElement {
+    return node.props.getProp<HTMLElement>("elem");
+  }
+
+  /**
+   * get Node by query inside context
+   * @param  {string}             query   query string.
+   * @param  {GomlTreeNodeBase}   context target Node that search for by query.
+   * @return {GomlTreeNodeBase[]}         result Node
+   */
+  public getNodeByQuery(query: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[] {
     const result = [];
-    const found = this.htmlRoot.querySelectorAll(query);
+    const target = context ? context.props.getProp<HTMLElement>("elem") : this.htmlRoot;
+    const found = target.querySelectorAll(query);
     for (let index = 0; index < found.length; index++) {
       const id = (<HTMLElement>found[index]).getAttribute("x-j3-id");
       result.push(this.getNode(id));

@@ -1,4 +1,3 @@
-import Exceptions = require("../../Exceptions");
 import AttributeConverterBase = require("./AttributeConverterBase");
 
 class StringAttributeConverter extends AttributeConverterBase {
