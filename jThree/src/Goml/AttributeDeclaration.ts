@@ -1,4 +1,3 @@
-import GomlAttribute = require("./GomlAttribute");
 import AttributeDeclarationBody = require("./AttributeDeclationBody");
 /**
  * The interface for declare attribute speciied in GOML.

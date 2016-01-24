@@ -176,7 +176,6 @@
 /// <reference path="Goml/GomlConverterList.ts" />
 /// <reference path="Goml/GomlLoader.ts" />
 /// <reference path="Goml/GomlNodeDictionary.ts" />
-/// <reference path="Goml/GomlNodeEventList.ts" />
 /// <reference path="Goml/GomlNodeList.ts" />
 /// <reference path="Goml/GomlNodeListElement.ts" />
 /// <reference path="Goml/GomlParser.ts" />

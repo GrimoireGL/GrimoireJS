@@ -11,17 +11,17 @@ class GomlConfigurator extends JThreeObject {
   /**
    * List of easing function to indicate how animation will be.
    */
-  private easingFunctions: {[key:string]:EasingFunction} = {};
+  private easingFunctions: { [key: string]: EasingFunction } = {};
   /**
    * List of converter function classes.
    */
-  private converters: {[key:string]:AttributeConvrterBase} = {};
+  private converters: { [key: string]: AttributeConvrterBase } = {};
   /**
    * All list of goml tags that will be parsed and instanciated when parse GOML.
    *
    * Keyはタグ名の文字列(大文字)、ValueはGomlNodeのコンストラクタ
    */
-  private gomlNodes: {[key:string]:GomlTreeNodeBase}= {};
+  private gomlNodes: { [key: string]: GomlTreeNodeBase } = {};
 
   public getConverter(name: string): AttributeConvrterBase {
     return this.converters[name];
@@ -58,9 +58,9 @@ class GomlConfigurator extends JThreeObject {
   */
   private initializeEasingFunctions() {
     const list = require("./EasingFunctionList");
-    for (var key in list) {
-      var type = list[key];
-      this.easingFunctions[key] =  new type();
+    for (let key in list) {
+      const type = list[key];
+      this.easingFunctions[key] = new type();
     }
   }
   /**
@@ -68,9 +68,9 @@ class GomlConfigurator extends JThreeObject {
    */
   private initializeConverters() {
     const list = require("./GomlConverterList");
-    for (var key in list) {
-      var type = list[key];
-      this.converters[key] =  new type();
+    for (let key in list) {
+      const type = list[key];
+      this.converters[key] = new type();
     }
   }
 
@@ -78,13 +78,13 @@ class GomlConfigurator extends JThreeObject {
    * タグ名とNodeの関連付けを行っています。
    */
   private initializeGomlNodes() {
-    var newList: GomlNodeListElement[] = require("./GomlNodeList");
+    const newList: GomlNodeListElement[] = require("./GomlNodeList");
     newList.forEach((v) => {
-      for (var key in v.NodeTypes) {
-        var keyInString: string = key;
+      for (let key in v.NodeTypes) {
+        let keyInString: string = key;
         keyInString = keyInString.toUpperCase(); // transform into upper case
-        var nodeType = v.NodeTypes[keyInString]; // nodeTypeはGomlNodeのコンストラクタ
-        this.gomlNodes[keyInString] =  nodeType;
+        const nodeType = v.NodeTypes[keyInString]; // nodeTypeはGomlNodeのコンストラクタ
+        this.gomlNodes[keyInString] = nodeType;
       }
     });
   }

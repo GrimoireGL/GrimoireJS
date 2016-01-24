@@ -33,16 +33,22 @@ class AnimaterBase extends JThreeObjectWithID {
   * Upate
   */
   public update(time: number): boolean {
-    var progress = (time - this.beginTime) / this.duration;
-    var isFinish = progress >= 1;
-    progress = Math.min(Math.max(progress, 0), 1);//clamp [0,1]
+    let progress = (time - this.beginTime) / this.duration;
+    const isFinish = progress >= 1;
+    progress = Math.min(Math.max(progress, 0), 1); // clamp [0,1]
     this.updateAnimation(progress);
-    if (isFinish && typeof this.onComplete === "function") this.onComplete();
+    if (isFinish && typeof this.onComplete === "function") {
+      this.onComplete();
+    }
     return isFinish;
   }
 
+  /**
+   * This methods should be overridden.
+   * @param {number} progress [description]
+   */
   protected updateAnimation(progress: number): void {
-
+    return;
   }
 }
 

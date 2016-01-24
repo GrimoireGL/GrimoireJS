@@ -1,5 +1,4 @@
 import JThreeObject = require("../../Base/JThreeObject");
-import Exceptions = require("../../Exceptions");
 import AttributeParser = require("../AttributeParser");
 import RotationAnimater = require("../Animater/RotationAnimater");
 import GomlAttribute = require("../GomlAttribute");
@@ -22,4 +21,4 @@ class RotationAttributeConverter extends JThreeObject {
   }
 }
 
-export =RotationAttributeConverter;
+export = RotationAttributeConverter;

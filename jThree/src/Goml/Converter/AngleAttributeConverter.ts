@@ -12,12 +12,12 @@ class AngleAttributeConverter extends AttributeConverterBase {
   }
 
   public FromInterface(val: any): any {
-    if (typeof val === 'string') {
+    if (typeof val === "string") {
       return this.toObjectAttr(val);
-    } else if (typeof val === 'number') {
+    } else if (typeof val === "number") {
       return val;
     }
-    //we should implememnt something here?
+    // we should implememnt something here?
     throw new Exceptions.InvalidArgumentException("val can't parse");
   }
 }

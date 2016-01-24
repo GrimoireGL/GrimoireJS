@@ -1,6 +1,6 @@
 import GomlNodeListElement = require("./GomlNodeListElement");
 
-var gomlList = [
+const gomlList = [
   new GomlNodeListElement("jthree.toplevel",
     {
       "CANVASES": require("./Nodes/TopLevel/CanvasesNode"),
@@ -82,6 +82,7 @@ var gomlList = [
       // "MORPHS": require("../PMX/Goml/PMXMorphsNode"),
       // "BONES": require("../PMX/Goml/PMXBonesNode"),
       "VMD": require("../VMD/Goml/VMDNode")
-    })
+    }),
 ];
+
 export = gomlList;

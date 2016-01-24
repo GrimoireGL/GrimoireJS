@@ -6,7 +6,7 @@ class BooleanAttributeConverter extends AttributeConverterBase {
   }
 
   public toObjectAttr(attr: string): any {
-    return attr === 'true';
+    return attr === "true";
   }
 }
 

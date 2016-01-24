@@ -138,18 +138,20 @@ class AttributeDictionary extends JThreeObject {
   public emitChangeAll() {
     Object.keys(this.attributes).forEach((k) => {
       let v = this.attributes[k];
-      if (typeof v.Value !== 'undefined') v.notifyValueChanged();
+      if (typeof v.Value !== "undefined") {
+        v.notifyValueChanged();
+      }
     });
   }
 
   public updateValue(attrName?: string) {
-    if (typeof attrName === 'undefined') {
+    if (typeof attrName === "undefined") {
       Object.keys(this.attributes).forEach((k) => {
         let v = this.attributes[k];
         v.notifyValueChanged();
       });
     } else {
-      var target = this.attributes[attrName];
+      const target = this.attributes[attrName];
       target.notifyValueChanged();
     }
   }

@@ -1,10 +1,5 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import SceneObjectNodeBase = require("./SceneObjectNodeBase");
-import SceneNode = require("../SceneNode");
 import SceneObject = require("../../../Core/SceneObject");
-import Mesh = require("../../../Shapes/Mesh");
-import TemplateNode = require("../Templates/TemplateNode");
-import Delegate = require("../../../Base/Delegates");
 // import GomlParser = require("../../GomlParser.ts");
 
 class ObjectNode extends SceneObjectNodeBase {
