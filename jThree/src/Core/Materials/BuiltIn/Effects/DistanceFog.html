@@ -37,7 +37,7 @@
             float depth = getDepth(rawBuffer);
             vec3 pos = getPosition(depth,vPosition,_matIP);
             vec2 uv = vPosition.xy/2. + vec2(0.5,0.5);
-            float d = 1.0 + pos.z/20.;
+            float d = 1.0 + pos.z/140.;
           	gl_FragColor=texture2D(_mainBuffer,uv);
             gl_FragColor.rgb = mix(vec3(1,1,1),gl_FragColor.rgb,d);
               gl_FragColor.a = 1.0;
