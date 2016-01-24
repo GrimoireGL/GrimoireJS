@@ -34,11 +34,11 @@
           vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
           vec3 normal = getNormal(rawBuffer);
           float depth = getDepth(rawBuffer);
-          vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
-          float d = distance(pos,lightPosition)/dist;
+          vec3 pos = getPosition( depth, vLightProjectedPosition, _matIP);
+          float d = distance( pos, lightPosition) / dist;
           if(d > 1.)discard;
-          float power = pow(d,decay);
-          float lambart = max(0.,dot(normal,normalize(lightPosition - pos)));
+          float power = pow(1. - d, decay);
+          float lambart = max( 0., dot( normal, normalize(lightPosition - pos)));
           gl_FragColor = vec4(lightColor * power * lambart,1.0);
         }
       }

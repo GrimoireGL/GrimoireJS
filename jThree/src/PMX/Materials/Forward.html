@@ -66,14 +66,14 @@
 
         vec2 calcLightUV(vec4 projectionSpacePos)
         {
-           return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;
+           return (projectionSpacePos.xy / projectionSpacePos.w + vec2(1,1)) / 2.;
         }
 
         vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
         {
-            vec4 result=texture2D(source,uv);
-            result.rgb=mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);
-            result.rgb=result.rgb*mulCoeff.rgb+addCoeff.rgb;
+            vec4 result = texture2D(source,uv);
+            result.rgb = mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);
+            result.rgb = result.rgb * mulCoeff.rgb + addCoeff.rgb;
             return result;
         }
 
@@ -87,7 +87,7 @@
           vec4 dc;
           if(textureUsed == 1)
           {
-            dc = vBaseColor * texture2D(texture,vUV);//blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
+            dc = vBaseColor * blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
           }
           if(sphereMode == 1){
             dc.rgb *= texture2D(sphere,vSphereUV).rgb;
@@ -97,7 +97,7 @@
           if(toonFlag==1)
           {
         		  float brightness = max(max(dlc.r,dlc.g),dlc.b);
-              dc.rgb = normalize(dlc) * blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
+              dc.rgb = dlc * blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
           }else
           {
               dc.rgb = dlc * dc.rgb;
@@ -129,14 +129,14 @@
         void main(void){
           mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
           mat4 matPVM = _matPV * boneTransform;
-          vec4 p0 = matPVM*vec4(position,1);
-          vec4 p1 = matPVM*vec4(position+normal,1);
-          p0.xy/=p0.w;
-          p1.xy/=p1.w;
-          float coeff=(512./2.0)*distance(p0.xy,p1.xy);
-          if(coeff > 1.0) coeff = 1.0/coeff;
-          coeff*=edgeSize*edgeScaling;
-          gl_Position = matPVM*vec4(position + coeff*normal,1);
+          vec4 p0 = matPVM * vec4(position ,1);
+          vec4 p1 = matPVM * vec4(position + normal ,1);
+          p0.xy /= p0.w;
+          p1.xy /= p1.w;
+          float coeff = (512./2.0) * distance(p0.xy,p1.xy);
+          if(coeff > 1.0) coeff = 1.0 / coeff;
+          coeff *= edgeSize * edgeScaling;
+          gl_Position = matPVM*vec4(position + coeff * normal,1);
         }
       }
       @fragonly{
