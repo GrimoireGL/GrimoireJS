@@ -17,616 +17,617 @@
       <mesh geo="quad" mat="matTest" scale="10" rotation="euler(-90d,0,0)" position="0,-0.1,0"/>
       <plight position="5,0,0" distance="5" decay="10" color="#FFF"/>
       <slight color="#FFF" scale="5" intensity="0.3" rotation="z(30d)" position="3,3,3"/>
+      <scenelight color="#666"/>
       <object position="0,0,0">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="0,0,4">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="0,0,-4">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="-4,0,0">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="4,0,0">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="4,0,4">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="-4,0,4">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="4,0,-4">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <object position="-4,0,-4">
         <object rotation="y(0d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(15d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(30d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(45d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(60d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
         <object rotation="y(75d)">
-          <plight color="#0000CC" decay="0.3" distance="1"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="3,0,0"/>
-          <plight color="#2200FF" decay="0.3" distance="1" position="-3,0,0"/>
-          <plight color="#3300CC" decay="0.3" distance="1" position="0,0,3"/>
-          <plight color="#00FFCC" decay="0.3" distance="1" position="0,0,-3"/>
-          <plight color="#0F00CC" decay="0.3" distance="1" position="3,0,3"/>
-          <plight color="#00F0CC" decay="0.3" distance="1" position="-3,0,3"/>
-          <plight color="#AA0000" decay="0.3" distance="1" position="3,0,-3"/>
-          <plight color="#00CC00" decay="0.3" distance="1" position="-3,0,-3"/>
+          <plight color="#0000CC" decay="1" distance="4"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="3,0,0"/>
+          <plight color="#2200FF" decay="1" distance="4" position="-3,0,0"/>
+          <plight color="#3300CC" decay="1" distance="4" position="0,0,3"/>
+          <plight color="#00FFCC" decay="1" distance="4" position="0,0,-3"/>
+          <plight color="#0F00CC" decay="1" distance="4" position="3,0,3"/>
+          <plight color="#00F0CC" decay="1" distance="4" position="-3,0,3"/>
+          <plight color="#AA0000" decay="1" distance="4" position="3,0,-3"/>
+          <plight color="#00CC00" decay="1" distance="4" position="-3,0,-3"/>
         </object>
       </object>
       <scenelight color="#101010"/>
