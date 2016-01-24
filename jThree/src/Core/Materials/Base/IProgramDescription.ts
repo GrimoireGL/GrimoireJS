@@ -1,5 +1,5 @@
 import IVariableInfo = require("./IVariableInfo");
-interface IParsedProgramResult {
+interface IProgramDescription {
   fragment: string;
   vertex: string;
   uniforms: { [name: string]: IVariableInfo };
@@ -7,4 +7,4 @@ interface IParsedProgramResult {
   fragmentPrecisions: { [type: string]: string };
   vertexPrecisions: { [type: string]: string };
 }
-export = IParsedProgramResult;
+export = IProgramDescription;

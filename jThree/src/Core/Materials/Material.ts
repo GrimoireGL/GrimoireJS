@@ -163,13 +163,13 @@ class Material extends JThreeObjectEEWithID {
     if (!uniform.isArray) {
       switch (uniform.variableType) {
         case "vec2":
-          pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
+          pWrapper.uniformVector(uniform.variableName, uniform.variableAnnotation["default"]);
           return;
         case "vec3":
-          pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
+          pWrapper.uniformVector(uniform.variableName, uniform.variableAnnotation["default"]);
           return;
         case "vec4":
-          pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 1));
+          pWrapper.uniformVector(uniform.variableName, uniform.variableAnnotation["default"]);
           return;
         case "sampler2D":
           let registerAnnotation = uniform.variableAnnotation["register"];

@@ -188,9 +188,13 @@ class Vector3 extends VectorBase {
     } else {
       return undefined;
     }
-    if (needNormalize) resultVec = resultVec.normalizeThis();
-    if (needNegate) resultVec = resultVec.negateThis();
-    if (isNaN(resultVec.X) || isNaN(resultVec.Y) || isNaN(resultVec.Y)) {
+    if (needNormalize) {
+      resultVec.normalizeThis();
+    }
+    if (needNegate) {
+      resultVec = resultVec.negateThis();
+    }
+    if (isNaN(resultVec.X) || isNaN(resultVec.Y) || isNaN(resultVec.Z)) {
       console.error("Element is NaN", resultVec);
     }
     return resultVec;

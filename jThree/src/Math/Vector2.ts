@@ -22,6 +22,50 @@ class Vector2 extends VectorBase {
     return new Vector2(vec.X, vec.Y);
   }
 
+  public static parse(str: string): Vector2 {
+    let resultVec: Vector2;
+    // 1,0,2.0
+    // -(1.0,2.0)
+    // n(1.0,2.0) normalized
+    // 1.0
+    // check attributes
+    const negativeMatch = str.match(/^-(n?\(.+\))$/);
+    let needNegate = false;
+    if (negativeMatch) {
+      needNegate = true;
+      str = negativeMatch[1];
+    }
+    const normalizeMatch = str.match(/^-?n(\(.+\))$/);
+    let needNormalize = false;
+    if (normalizeMatch) {
+      needNormalize = true;
+      str = normalizeMatch[1];
+    }
+    // check body
+    str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
+    const strNums = str.split(/,/g);
+    if (strNums.length === 1) {
+      let elemNum: number = parseFloat(strNums[0]);
+      if (isNaN(elemNum)) { return undefined; }
+      resultVec = new Vector2(elemNum, elemNum);
+    } else if (strNums.length === 2) {
+      resultVec = new Vector2(parseFloat(strNums[0]), parseFloat(strNums[1]));
+    } else {
+      return undefined;
+    }
+    if (needNormalize) {
+      resultVec = resultVec.normalizeThis();
+    }
+    if (needNegate) {
+      resultVec = resultVec.negateThis();
+    }
+
+    if (isNaN(resultVec.X) || isNaN(resultVec.Y)) {
+      console.error("Element is NaN", resultVec);
+    }
+    return resultVec;
+  }
+
   constructor(x: number, y: number);
   constructor(x: glm.GLM.IArray);
   constructor(x: number | glm.GLM.IArray, y?: number) {
@@ -86,11 +130,11 @@ class Vector2 extends VectorBase {
   }
 
   public static min(v1: Vector2, v2: Vector2): Vector2 {
-    return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.min(v1.rawElements[i], v2.rawElements[i])));
+    return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1_, v2_) => Math.min(v1_.rawElements[i], v2_.rawElements[i])));
   }
 
   public static max(v1: Vector2, v2: Vector2): Vector2 {
-    return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.max(v1.rawElements[i], v2.rawElements[i])));
+    return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1_, v2_) => Math.max(v1_.rawElements[i], v2_.rawElements[i])));
   }
 
   public static angle(v1: Vector2, v2: Vector2): number {
