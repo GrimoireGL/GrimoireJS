@@ -1,13 +1,13 @@
-import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
-import IParentSceneChangedEventArgs = require("./IParentSceneChangedEventArgs");
-import Material = require("./Materials/Material");
-import Delegates = require("../Base/Delegates");
-import Geometry = require("./Geometries/Base/Geometry");
-import Scene = require("./Scene");
-import JThreeCollection = require("../Base/JThreeCollection");
-import Transformer = require("./Transform/Transformer");
-import JThreeEvent = require("../Base/JThreeEvent");
-import ISceneObjectStructureChangedEventArgs = require("./ISceneObjectChangedEventArgs");
+import JThreeObjectEEWithID = require("../../Base/JThreeObjectEEWithID");
+import IParentSceneChangedEventArgs = require("../IParentSceneChangedEventArgs");
+import Material = require("../Materials/Material");
+import Delegates = require("../../Base/Delegates");
+import Geometry = require("../Geometries/Base/Geometry");
+import Scene = require("../Scene");
+import JThreeCollection = require("../../Base/JThreeCollection");
+import Transformer = require("../Transform/Transformer");
+import JThreeEvent = require("../../Base/JThreeEvent");
+import ISceneObjectStructureChangedEventArgs = require("../ISceneObjectChangedEventArgs");
 /**
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.

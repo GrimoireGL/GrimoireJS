@@ -1,5 +1,5 @@
 import RSMLRenderStageBase = require("./RSML/RSMLRenderStage");
-import SceneObject = require("../../SceneObject");
+import SceneObject = require("../../SceneObjects/SceneObject");
 import ResolvedChainInfo = require("../ResolvedChainInfo");
 import Scene = require("../../Scene");
 

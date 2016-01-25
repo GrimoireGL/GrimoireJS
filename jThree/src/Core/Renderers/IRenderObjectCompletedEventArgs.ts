@@ -1,6 +1,6 @@
 import RenderPathExecutor = require("./RenderPathExecutor");
 import RenderStageBase = require("./RenderStages/RenderStageBase");
-import SceneObject = require("../SceneObject");
+import SceneObject = require("../SceneObjects/SceneObject");
 import RenderStageChain = require("./RenderStageChain");
 import ResolvedChainInfo = require("./ResolvedChainInfo");
 

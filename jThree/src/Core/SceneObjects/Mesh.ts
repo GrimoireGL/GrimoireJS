@@ -1,6 +1,6 @@
-import SceneObject = require("../Core/SceneObject");
-import Geometry = require("../Core/Geometries/Base/Geometry");
-import Material = require("../Core/Materials/Material");
+import SceneObject = require("../SceneObjects/SceneObject");
+import Geometry = require("../Geometries/Base/Geometry");
+import Material = require("../Materials/Material");
 
 class Mesh extends SceneObject {
   constructor(geometry: Geometry, mat: Material) {

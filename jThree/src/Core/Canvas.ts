@@ -26,16 +26,18 @@ class Canvas extends CanvasRegion {
   }
 
   /**
-   * Attempts to try getting GLContext from canvas.
-   * @return {WebGLRenderingContext} [description]
+   * event cache for resize event.
    */
-  private _tryGetGLContext(): WebGLRenderingContext {
-    try {
-      return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
-    } catch (e) {
-      console.error("WebGL context generation failed" + e);
-    }
-  }
+  public canvasResized: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
+
+  /**
+  * backing field for ClearColor
+  */
+  public clearColor: Color4 = new Color4(1, 1, 1, 1);
+
+  public GL: WebGLRenderingContext;
+
+  public glExtensionManager: GLExtensionManager = new GLExtensionManager();
 
   /**
    * canvas height of last time
@@ -46,11 +48,6 @@ class Canvas extends CanvasRegion {
    * canvas width of last time
    */
   private _lastWidth: number;
-
-  /**
-   * event cache for resize event.
-   */
-  public canvasResized: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
 
   /**
    * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
@@ -77,14 +74,7 @@ class Canvas extends CanvasRegion {
   public get region(): Rectangle {
     return new Rectangle(0, 0, this._lastWidth, this._lastHeight);
   }
-  /**
-  * backing field for ClearColor
-  */
-  public clearColor: Color4 = new Color4(1, 1, 1, 1);
 
-  public GL: WebGLRenderingContext;
-
-  public glExtensionManager: GLExtensionManager = new GLExtensionManager();
   /**
    * apply gl context after webglrendering context initiated.
    */
@@ -95,6 +85,18 @@ class Canvas extends CanvasRegion {
 
   public applyClearColor() {
     this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.clearColor.B, this.clearColor.A);
+  }
+
+  /**
+   * Attempts to try getting GLContext from canvas.
+   * @return {WebGLRenderingContext} [description]
+   */
+  private _tryGetGLContext(): WebGLRenderingContext {
+    try {
+      return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
+    } catch (e) {
+      console.error("WebGL context generation failed" + e);
+    }
   }
 }
 

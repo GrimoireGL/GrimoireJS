@@ -1,7 +1,7 @@
 import Matrix = require("../../Math/Matrix");
 import Color3 = require("../../Math/Color3");
 import Vector3 = require("../../Math/Vector3");
-import SceneObject = require("../SceneObject");
+import SceneObject = require("../SceneObjects/SceneObject");
 class LightBase extends SceneObject {
 
   private color: Color3 = new Color3(0, 0, 0);

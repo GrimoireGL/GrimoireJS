@@ -1,6 +1,6 @@
 import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
 import SceneNode = require("../SceneNode");
-import SceneObject = require("../../../Core/SceneObject");
+import SceneObject = require("../../../Core/SceneObjects/SceneObject");
 import Vector3 = require("../../../Math/Vector3");
 import Quaternion = require("../../../Math/Quaternion");
 import GomlAttribute = require("../../GomlAttribute");

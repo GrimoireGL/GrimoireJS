@@ -1,4 +1,4 @@
-﻿import SceneObject = require("../SceneObject");
+﻿import SceneObject = require("../SceneObjects/SceneObject");
 import Matrix = require("../../Math/Matrix");
 import glm = require("gl-matrix");
 import PointList = require("../../Math/PointList");
