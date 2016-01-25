@@ -39,6 +39,9 @@
           vec3 normal = getNormal(rawBuffer);
           float depth = getDepth(rawBuffer);
           vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
+          if(dot(normal,normalize(lightPosition - pos)) < 0.){
+            discard;
+          }
           float power = pow(max(0.,1. - distance(pos,lightPosition)/dist),decay);
           vec3 hv = normalize(normalize(lightPosition-pos)+normalize(-pos));
           gl_FragColor = vec4(pow(dot(hv,normal),rawBuffer.w) * power * lightColor,1.0);

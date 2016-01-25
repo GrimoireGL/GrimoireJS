@@ -4,6 +4,8 @@
     <texture name="testTexture" src="/resource/texture/miku.png"/>
     <phong name="matTest" brightness="10" specular="#AAA" diffuse="#AAA"/>
     <sphere name="sphere"/>
+    <cone name="cone"/>
+    <cube name="cube"/>
   </resources>
   <canvases>
     <canvas clearColor="#11022A" frame=".canvasContainer">
@@ -15,9 +17,9 @@
       <object>
         <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
       </object>
-      <mesh geo="sphere" mat="matTest" position="3,3,0"/>
+      <mesh geo="cone" mat="matTest" position="3,3,0"/>
       <mesh geo="sphere" mat="matTest" position="-3,3,0"/>
-      <mesh geo="sphere" mat="matTest" position="0,3,3"/>
+      <mesh geo="cube" mat="matTest" position="0,3,3"/>
       <mesh geo="sphere" mat="matTest" position="0,3,-3"/>
       <mesh geo="quad" mat="matTest" scale="10" rotation="euler(-90d,0,0)" position="0,-0.1,0"/>
       <scenelight color="#666"/>

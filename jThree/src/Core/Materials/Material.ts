@@ -1,8 +1,5 @@
 import JThreeObjectEEWithID = require("../../Base/JThreeObjectEEWithID");
 import Geometry = require("../Geometries/Base/Geometry");
-import Vector4 = require("../../Math/Vector4");
-import Vector3 = require("../../Math/Vector3");
-import Vector2 = require("../../Math/Vector2");
 import IApplyMaterialArgument = require("./Base/IApplyMaterialArgument");
 import TextureBase = require("../Resources/Texture/TextureBase");
 import Matrix = require("../../Math/Matrix");
@@ -197,6 +194,11 @@ class Material extends JThreeObjectEEWithID {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
           }
           return;
+      }
+    } else {
+      switch (uniform.variableType) {
+        case "float":
+          pWrapper.uniformFloatArray(uniform.variableName, uniform.variableAnnotation["default"]);
       }
     }
   }

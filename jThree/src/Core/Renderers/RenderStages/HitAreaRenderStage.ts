@@ -22,9 +22,9 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
     this.___objectIndex = 0;
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo) {
     this.indexObjectPair[this.___objectIndex] = object;
-    super.render(scene, object, techniqueIndex, texs);
+    super.render(scene, object, techniqueCount, techniqueIndex, texs);
     this.___objectIndex++;
   }
 }

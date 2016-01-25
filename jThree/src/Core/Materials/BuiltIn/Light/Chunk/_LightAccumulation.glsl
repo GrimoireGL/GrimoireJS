@@ -32,3 +32,12 @@ vec4 readRawBuffer(sampler2D rawBuffer,vec4 projectedLightPoint)
 {
   return texture2D(rawBuffer,calcBufferPosition(projectedLightPoint));
 }
+
+float lambert(vec3 normal,vec3 p2l){
+  return max(0.0,dot(normal,p2l)) / 3.1415;
+}
+
+float halfLambert(vec3 normal,vec3 p2l){
+  float val = max( dot( normal, p2l ), 0.0 ) * 0.5 + 0.5;
+  return val * val * ( 3.0 / ( 4.0 * 3.1415 ) );
+}

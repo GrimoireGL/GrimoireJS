@@ -10,7 +10,9 @@ interface IApplyMaterialArgument {
   object: SceneObject;
   textureResource: ResolvedChainInfo;
   techniqueIndex: number;
+  techniqueCount: number;
   passIndex: number;
+  passCount: number;
 }
 
 export = IApplyMaterialArgument;

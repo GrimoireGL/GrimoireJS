@@ -37,18 +37,18 @@ class DefaultValuePreProcessor {
   }
 
   private static _forFloat(name: string, uniform: IVariableInfo): void {
-    if (!uniform["default"]) {
+    if (!uniform.variableAnnotation["default"]) {
       uniform.variableAnnotation["default"] = 0;
     }
   }
 
   private static _forFloatArray(name: string, uniform: IVariableInfo): void {
-    if (!uniform["default"]) {
+    if (!uniform.variableAnnotation["default"]) {
       const defaultValue = new Array(uniform.arrayLength);
       for (let i = 0; i < defaultValue.length; i++) {
         defaultValue[i] = 0; // [0,0,0.....0,0] will be used as default
       }
-      uniform.variableAnnotation["default"] = defaultValue;
+      uniform.variableAnnotation["default"] = defaultValue.slice(0, uniform.arrayLength);
     }
   }
 

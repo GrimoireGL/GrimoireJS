@@ -69,7 +69,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     this.Renderer.GL.flush();
   }
 
-  public abstract render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo);
+  public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo);
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
     return false;
@@ -83,23 +83,26 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     return "scene";
   }
 
-  public drawForMaterials(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
+  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
     const materials = object.getMaterials(materialGroup);
     for (let i = 0; i < materials.length; i++) {
-      this.drawForMaterial(scene, object, techniqueIndex, texs, materials[i]);
+      this.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, materials[i]);
     }
   }
 
-  public drawForMaterial(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo, material: Material): void {
+  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, material: Material): void {
     if (!material || !material.Initialized || !material.Enabled) { return; }
-    for (let pass = 0; pass < material.getPassCount(techniqueIndex); pass++) {
+    const passCount = material.getPassCount(techniqueIndex);
+    for (let pass = 0; pass < passCount; pass++) {
       material.apply({
         scene: scene,
         renderStage: this,
         object: object,
         textureResource: texs,
         techniqueIndex: techniqueIndex,
+        techniqueCount: techniqueCount,
         passIndex: pass,
+        passCount: passCount,
         camera: this.Renderer.Camera
       });
       object.Geometry.drawElements(this.Renderer.Canvas, material);

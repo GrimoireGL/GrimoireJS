@@ -1,7 +1,6 @@
 import Canvas = require("../../Canvas");
 import ResourceWrapper = require("../ResourceWrapper");
 import FrameBufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
-import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 import TextureBase = require("../Texture/TextureBase");
 import RBO = require("../RBO/RBO");
 class FBOWrapper extends ResourceWrapper {
