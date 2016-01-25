@@ -1,5 +1,5 @@
 // import BasicRenderer = require("../BasicRenderer");
-// import SceneObject = require("../../SceneObject");
+// import SceneObject = require("../../SceneObjects/SceneObject");
 // import RenderStageBase = require("./RenderStageBase");
 // import ClearTargetType = require("../../../Wrapper/ClearTargetType");
 // import Scene = require("../../Scene");

@@ -5,8 +5,8 @@ import JThreeContext = require("../../JThreeContext");
 import ContextComponents = require("../../ContextComponents");
 import BasicRenderer = require("./BasicRenderer");
 import RenderStageChain = require("./RenderStageChain");
-import SceneObject = require("../SceneObject");
-import Mesh = require("../../Shapes/Mesh");
+import SceneObject = require("../SceneObjects/SceneObject");
+import Mesh = require("../SceneObjects/Mesh");
 import Scene = require("../Scene");
 import ResolvedChainInfo = require("./ResolvedChainInfo");
 import RenderPath = require("./RenderPath");
@@ -52,7 +52,7 @@ class RenderPathExecutor extends JThreeObjectEE {
           }
           stage.stageVariables = chain.variables;
           stage.preTechnique(scene, techniqueIndex, texs);
-          this.renderObjects(targetObjects, stage, scene, techniqueIndex, texs, chain);
+          this.renderObjects(targetObjects, stage, scene, techniqueCount, techniqueIndex, texs, chain);
           stage.postTechnique(scene, techniqueIndex, texs);
         }
         stage.postStage(scene, texs);
@@ -73,11 +73,11 @@ class RenderPathExecutor extends JThreeObjectEE {
     });
   }
 
-  private renderObjects(targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo, chain: RenderStageChain): void {
+  private renderObjects(targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, chain: RenderStageChain): void {
     targetObjects.forEach(v => {
       v.callRecursive(_v => {
         if (_v.Geometry && stage.needRender(scene, _v, techniqueIndex)) {
-          stage.render(scene, _v, techniqueIndex, texs);
+          stage.render(scene, _v, techniqueCount, techniqueIndex, texs);
           this.emit("rendered-object", <IRenderObjectCompletedEventArgs>{
             owner: this,
             renderedObject: _v,

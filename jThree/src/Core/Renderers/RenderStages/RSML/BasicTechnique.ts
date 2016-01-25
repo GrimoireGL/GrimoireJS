@@ -5,7 +5,7 @@ import XMLRenderConfigUtility = require("../../../Materials/Base/XMLRenderConfig
 import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
 import MaterialManager = require("../../../Materials/Base/MaterialManager");
 import BasicMaterial = require("../../../Materials/Base/BasicMaterial");
-import SceneObject = require("../../../SceneObject");
+import SceneObject = require("../../../SceneObjects/SceneObject");
 import FrameBufferAttachmentType = require("../../../../Wrapper/FrameBufferAttachmentType");
 import FBO = require("../../../Resources/FBO/FBO");
 import JThreeObjectWithID = require("../../../../Base/JThreeObjectWithID");
@@ -62,16 +62,16 @@ class BasicTechnique extends JThreeObjectWithID {
     this._applyBufferConfiguration(scene, texs);
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
     switch (this.Target) {
       case "scene":
         const materialGroup = this._techniqueDocument.getAttribute("materialGroup");
-        this._renderStage.drawForMaterials(scene, object, techniqueIndex, texs, materialGroup);
+        this._renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup);
         break;
       default:
         this._defaultMaterial.materialVariables = this._renderStage.stageVariables;
         XMLRenderConfigUtility.applyAll(this._gl, this.defaultRenderConfigure);
-        this._renderStage.drawForMaterial(scene, object, techniqueIndex, texs, this._defaultMaterial);
+        this._renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this._defaultMaterial);
     }
   }
 

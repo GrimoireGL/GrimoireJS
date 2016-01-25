@@ -1,6 +1,6 @@
 import GomlAttribute = require("../../GomlAttribute");
 import SceneObjectNodeBase = require("./SceneObjectNodeBase");
-import BasicMeshObject = require("../../../Shapes/BasicMeshObject");
+import BasicMeshObject = require("../../../Core/SceneObjects/BasicMeshObject");
 import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
 import MaterialNode = require("../Materials/MaterialNodeBase");
 import Material = require("../../../Core/Materials/Material");

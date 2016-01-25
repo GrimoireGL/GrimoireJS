@@ -1,4 +1,4 @@
-import SceneObject = require("../../Core/SceneObject");
+import SceneObject = require("../../Core/SceneObjects/SceneObject");
 import PMXSkeleton = require("./PMXSkeleton");
 import PMXModel = require("./PMXModel");
 import PMXBoneTransformer = require("./PMXBoneTransformer");

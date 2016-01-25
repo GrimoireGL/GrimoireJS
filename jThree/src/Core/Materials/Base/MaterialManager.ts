@@ -1,3 +1,4 @@
+import RenderStageDescriptionRegister = require("./Registerer/RenderStageDescriptionRegisterer");
 import TextureRegister = require("./Registerer/TextureRegister");
 import BasicMaterial = require("./BasicMaterial");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
@@ -32,6 +33,7 @@ class MaterialManager implements IContextComponent {
     this.addUniformRegister("jthree.basic.time", TimeRegisterer);
     this.addUniformRegister("jthree.basic.texture", TextureRegister);
     this.addUniformRegister("jthree.basic.buffer", TextureBufferRegisterer);
+    this.addUniformRegister("jthree.basic.renderStage", RenderStageDescriptionRegister);
     this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SkyboxMaterial.html"));
