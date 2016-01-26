@@ -27,6 +27,12 @@ const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapp
   if (uniforms["_eyePosition"]) {
     pWrapper.uniformVector("_eyePosition", matArg.camera.Transformer.GlobalPosition);
   }
+  if (uniforms["_farClip"]) {
+    pWrapper.uniformFloat("_farClip", matArg.camera.Far);
+  }
+  if (uniforms["_nearClip"]) {
+    pWrapper.uniformFloat("_nearClip", matArg.camera.Near);
+  }
 };
 
 export = BasicMatrixRegisterer;

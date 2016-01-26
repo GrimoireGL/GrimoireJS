@@ -37,7 +37,8 @@ class MaterialManager implements IContextComponent {
     this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SkyboxMaterial.html"));
-    this.registerMaterial(require("../BuiltIn/Effects/DistanceFog.html"));
+    this.registerMaterial(require("../BuiltIn/Effects/Fog.html"));
+    this.registerMaterial(require("../BuiltIn/Effects/FogExp2.html"));
   }
 
   public getContextComponentIndex(): number {
