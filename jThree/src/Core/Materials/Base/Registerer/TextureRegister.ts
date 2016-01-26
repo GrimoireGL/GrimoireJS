@@ -2,9 +2,9 @@ import ResourceManager = require("../../../ResourceManager");
 import ContextComponents = require("../../../../ContextComponents");
 import JThreeContext = require("../../../../JThreeContext");
 import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableInfo = require("../IVariableInfo");
+import IVariableDescription = require("../IVariableDescription");
 import IApplyMaterialArgument = require("../IApplyMaterialArgument");
-const TextureRegister = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableInfo }) => {
+const TextureRegister = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     for (let key in uniforms) {
         const uniform = uniforms[key];

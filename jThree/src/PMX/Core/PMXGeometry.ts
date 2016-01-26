@@ -1,5 +1,5 @@
 import BasicGeometry = require("../../Core/Geometries/Base/BasicGeometry");
-import IVariableInfo = require("../../Core/Materials/Base/IVariableInfo");
+import IVariableDescription = require("../../Core/Materials/Base/IVariableDescription");
 import ProgramWrapper = require("../../Core/Resources/Program/ProgramWrapper");
 import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
 import BufferTargetType = require("../../Wrapper/BufferTargetType");
@@ -64,7 +64,7 @@ class PMXGeometry extends BasicGeometry {
   }
 
 
-  public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void {
+  public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
     super.applyAttributeVariables(pWrapper, attributes);
     this.__assignAttributeIfExists(pWrapper, attributes, "edgeScaling", this.edgeSizeBuffer);
     this.__assignAttributeIfExists(pWrapper, attributes, "boneIndicies", this.boneIndexBuffer);

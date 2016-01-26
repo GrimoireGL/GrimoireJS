@@ -5,7 +5,7 @@ import TextureBase = require("../Resources/Texture/TextureBase");
 import Matrix = require("../../Math/Matrix");
 import VectorBase = require("../../Math/VectorBase");
 import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
-import IVariableInfo = require("./Base/IVariableInfo");
+import IVariableDescription = require("./Base/IVariableDescription");
 import BasicRenderer = require("../Renderers/BasicRenderer");
 /**
 * Basement class for any Materials.
@@ -86,7 +86,7 @@ class Material extends JThreeObjectEEWithID {
     return;
   }
 
-  public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableInfo }): void {
+  public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableDescription }): void {
     for (let valName in uniforms) {
       let uniform = uniforms[valName];
       if (valName[0] === "_") { continue; }
@@ -156,7 +156,7 @@ class Material extends JThreeObjectEEWithID {
     return geo.GeometryOffset;
   }
 
-  private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableInfo): void {
+  private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableDescription): void {
     if (!uniform.isArray) {
       switch (uniform.variableType) {
         case "vec2":

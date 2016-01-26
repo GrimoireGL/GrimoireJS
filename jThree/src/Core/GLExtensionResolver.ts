@@ -4,7 +4,7 @@ import GLExtensionList = require("./GLExtensionList");
 /**
  * Provides the feature to require gl extension.
  */
-class GLExtensionManager extends JThreeObject {
+class GLExtensionResolver extends JThreeObject {
   private requiredExtensions =
   [
     GLExtensionList.ElementIndexUint,
@@ -51,4 +51,4 @@ class GLExtensionManager extends JThreeObject {
   }
 
 }
-export = GLExtensionManager;
+export = GLExtensionResolver;

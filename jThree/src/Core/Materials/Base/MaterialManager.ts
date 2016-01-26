@@ -2,7 +2,7 @@ import RenderStageDescriptionRegister = require("./Registerer/RenderStageDescrip
 import TextureRegister = require("./Registerer/TextureRegister");
 import BasicMaterial = require("./BasicMaterial");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
-import IVariableInfo = require("./IVariableInfo");
+import IVariableDescription = require("./IVariableDescription");
 import IApplyMaterialArgument = require("./IApplyMaterialArgument");
 import ShaderParser = require("./ShaderParser");
 import IContextComponent = require("../../../IContextComponent");
@@ -19,7 +19,7 @@ import Q = require("q");
  */
 class MaterialManager implements IContextComponent {
 
-  private _uniformRegisters: { [key: string]: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }> } = {};
+  private _uniformRegisters: { [key: string]: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }> } = {};
 
   private _materialDocuments: { [key: string]: string } = {};
 
@@ -68,7 +68,7 @@ class MaterialManager implements IContextComponent {
     return this._chunkLoader.fromCache(key);
   }
 
-  public addUniformRegister(key: string, register: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>) {
+  public addUniformRegister(key: string, register: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>) {
     this._uniformRegisters[key] = register;
   }
 

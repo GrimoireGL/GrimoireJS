@@ -1,5 +1,5 @@
 import Material = require("../Material");
-import IVariableInfo = require("./IVariableInfo");
+import IVariableDescription = require("./IVariableDescription");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
@@ -11,7 +11,7 @@ import Q = require("q");
 class BasicMaterial extends Material {
   private _passes: MaterialPass[] = [];
 
-  private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>[] = [];
+  private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[] = [];
 
   private _materialGroup: string;
 
