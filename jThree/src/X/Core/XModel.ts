@@ -2,7 +2,7 @@ import XPrimaryMaterial = require("./XPrimaryBufferMaterial");
 import XMaterial = require("./XMaterial");
 import XGeometry = require("./XGeometry");
 import XFileData = require("../XFileData");
-import SceneObject = require("../../Core/SceneObject");
+import SceneObject = require("../../Core/SceneObjects/SceneObject");
 import Q = require("q");
 class XModel extends SceneObject {
 

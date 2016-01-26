@@ -1,10 +1,11 @@
+import DefaultValuePreProcessor = require("./DefaultValuePreProcessor");
 import IConfigureEventArgs = require("../../IConfigureEventArgs");
 import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
 import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
 import Material = require("../Material");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import IVariableInfo = require("./IVariableInfo");
-import IParsedProgramResult = require("./IParsedProgramResult");
+import IProgramDescription = require("./IProgramDescription");
 import IApplyMaterialArgument = require("./IApplyMaterialArgument");
 import XMLRenderConfigUtility = require("./XMLRenderConfigUtility");
 import Program = require("../../Resources/Program/Program");
@@ -30,7 +31,7 @@ class MaterialPass extends JThreeObjectWithID {
 
   public program: Program;
 
-  public programDescription: IParsedProgramResult;
+  public programDescription: IProgramDescription;
 
   private _passDocument: Element;
 
@@ -52,6 +53,7 @@ class MaterialPass extends JThreeObjectWithID {
     const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
     return ShaderParser.parseCombined(shaderCode).then((result) => {
       this.programDescription = result;
+      DefaultValuePreProcessor.preprocess(this.programDescription.uniforms);
       this._constructProgram(this.materialName + this.passIndex);
       this.ready = true;
     });
@@ -74,6 +76,10 @@ class MaterialPass extends JThreeObjectWithID {
       r(gl, pWrapper, matArg, this.programDescription.uniforms);
     });
     material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.programDescription.uniforms);
+  }
+
+  protected __preprocessUniformVariables(): void {
+    // Preprocess default value for uniforms
   }
 
   private _fetchRenderConfigure(matArg: IApplyMaterialArgument): IRenderStageRenderConfigure {

@@ -1,5 +1,5 @@
 import SceneObjectNodeBase = require("./SceneObjectNodeBase");
-import SceneObject = require("../../../Core/SceneObject");
+import SceneObject = require("../../../Core/SceneObjects/SceneObject");
 // import GomlParser = require("../../GomlParser.ts");
 
 class ObjectNode extends SceneObjectNodeBase {

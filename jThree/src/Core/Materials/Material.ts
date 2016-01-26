@@ -1,8 +1,5 @@
 import JThreeObjectEEWithID = require("../../Base/JThreeObjectEEWithID");
 import Geometry = require("../Geometries/Base/Geometry");
-import Vector4 = require("../../Math/Vector4");
-import Vector3 = require("../../Math/Vector3");
-import Vector2 = require("../../Math/Vector2");
 import IApplyMaterialArgument = require("./Base/IApplyMaterialArgument");
 import TextureBase = require("../Resources/Texture/TextureBase");
 import Matrix = require("../../Math/Matrix");
@@ -163,13 +160,13 @@ class Material extends JThreeObjectEEWithID {
     if (!uniform.isArray) {
       switch (uniform.variableType) {
         case "vec2":
-          pWrapper.uniformVector(uniform.variableName, new Vector2(0, 0));
+          pWrapper.uniformVector(uniform.variableName, uniform.variableAnnotation["default"]);
           return;
         case "vec3":
-          pWrapper.uniformVector(uniform.variableName, new Vector3(0, 0, 0));
+          pWrapper.uniformVector(uniform.variableName, uniform.variableAnnotation["default"]);
           return;
         case "vec4":
-          pWrapper.uniformVector(uniform.variableName, new Vector4(0, 0, 0, 1));
+          pWrapper.uniformVector(uniform.variableName, uniform.variableAnnotation["default"]);
           return;
         case "sampler2D":
           let registerAnnotation = uniform.variableAnnotation["register"];
@@ -197,6 +194,11 @@ class Material extends JThreeObjectEEWithID {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
           }
           return;
+      }
+    } else {
+      switch (uniform.variableType) {
+        case "float":
+          pWrapper.uniformFloatArray(uniform.variableName, uniform.variableAnnotation["default"]);
       }
     }
   }

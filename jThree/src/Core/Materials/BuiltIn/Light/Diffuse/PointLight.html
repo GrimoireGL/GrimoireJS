@@ -38,7 +38,7 @@
           float d = distance( pos, lightPosition) / dist;
           if(d > 1.)discard;
           float power = pow(1. - d, decay);
-          float lambart = max( 0., dot( normal, normalize(lightPosition - pos)));
+          float lambart = halfLambert(normal, normalize(lightPosition - pos));
           gl_FragColor = vec4(lightColor * power * lambart,1.0);
         }
       }

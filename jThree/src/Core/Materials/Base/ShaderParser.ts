@@ -1,5 +1,5 @@
 import IVariableInfo = require("./IVariableInfo");
-import IParsedProgramResult = require("./IParsedProgramResult");
+import IProgramDescription = require("./IProgramDescription");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
 import MaterialManager = require("./MaterialManager");
@@ -13,11 +13,11 @@ class ShaderParser {
   /**
    * Parse raw XMML
    * @param  {string}               whole string code of XMML
-   * @return {IParsedProgramResult} information of parsed codes.
+   * @return {IProgramDescription} information of parsed codes.
    */
-  public static parseCombined(codeString: string): Q.IPromise<IParsedProgramResult> {
+  public static parseCombined(codeString: string): Q.IPromise<IProgramDescription> {
     const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-    return ShaderParser.parseImport(codeString, materialManager).then<IParsedProgramResult>(result => {
+    return ShaderParser.parseImport(codeString, materialManager).then<IProgramDescription>(result => {
       const uniforms = ShaderParser._parseVariables(codeString, "uniform");
       const attributes = ShaderParser._parseVariables(codeString, "attribute");
       let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vertonly"), "fragonly");

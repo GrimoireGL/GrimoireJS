@@ -1,7 +1,7 @@
 import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
 import BasicTechnique = require("./BasicTechnique");
 import BasicRenderer = require("../../BasicRenderer");
-import SceneObject = require("../../../SceneObject");
+import SceneObject = require("../../../SceneObjects/SceneObject");
 import RenderStageBase = require("../RenderStageBase");
 import Scene = require("../../../Scene");
 import ResolvedChainInfo = require("../../ResolvedChainInfo");
@@ -35,8 +35,8 @@ class RSMLRenderStage extends RenderStageBase {
     this.techniques[techniqueIndex].preTechnique(scene, texs);
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueIndex: number, texs: ResolvedChainInfo) {
-    this.techniques[techniqueIndex].render(scene, object, techniqueIndex, texs);
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo) {
+    this.techniques[techniqueIndex].render(scene, object, techniqueCount, techniqueIndex, texs);
   }
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
