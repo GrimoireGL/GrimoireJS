@@ -1,7 +1,7 @@
 <goml>
   <resources>
-    <phong diffuse="white" specular="#CCC" specularposer="15" name="grid" />
-    <phong name="matTest" brightness="10" specular="#AAA" diffuse="#AAA"/>
+    <solid solid="white" specular="#CCC" brightness="10" name="grid" />
+    <phong name="matTest" brightness="2" specular="#AAA" diffuse="#AAA"/>
     <cube name="cube" />
     <sphere name="sphere" />
     <grid hdiv="20" name="grid" vdiv="20" />
@@ -26,14 +26,14 @@
       <mesh id="obj6" geo="sphere" mat="matTest" position="0,3,3" />
       <mesh geo="grid" mat="grid" scale="10" />
       <scenelight color="#111"/>
-      <plight color="#00FFCC" decay="1" distance="4" position="3 , 5, 0"/>
-      <plight color="#2200FF" decay="1" distance="4" position="-3, 5, 0"/>
-      <plight color="#3300CC" decay="1" distance="4" position="0 , 5, 3"/>
-      <plight color="#00FFCC" decay="1" distance="4" position="0 , 5,-3"/>
-      <plight color="#0F00CC" decay="1" distance="4" position="3 , 5, 3"/>
-      <plight color="#00F0CC" decay="1" distance="4" position="-3, 5, 3"/>
-      <plight color="#AA0000" decay="1" distance="4" position="3 , 5,-3"/>
-      <plight color="#00CC00" decay="1" distance="4" position="-3, 5,-3"/>
+      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="3 , 5, 0"/>
+      <plight color="#2200FF" intensity="3" decay="1.5" distance="4" position="-3, 5, 0"/>
+      <plight color="#3300CC" intensity="3" decay="1.5" distance="4" position="0 , 5, 3"/>
+      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="0 , 5,-3"/>
+      <plight color="#0F00CC" intensity="3" decay="1.5" distance="4" position="3 , 5, 3"/>
+      <plight color="#00F0CC" intensity="3" decay="1.5" distance="4" position="-3, 5, 3"/>
+      <plight color="#AA0000" intensity="3" decay="1.5" distance="4" position="3 , 5,-3"/>
+      <plight color="#00CC00" intensity="3" decay="1.5" distance="4" position="-3, 5,-3"/>
     </scene>
   </scenes>
 </goml>

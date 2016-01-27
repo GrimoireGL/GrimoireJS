@@ -3,7 +3,8 @@ import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
 import TreeTraversal = require("./Traversing/TreeTraversal");
 import GeneralAttributes = require("./Manipulation/GeneralAttributes");
 import CollectionManipulation = require("./Manipulation/CollectionManipulation");
-import Utilities = require("./Utilities/Utilities");
+import Find = require("./Static/Find");
+import Utilities = require("./Static/Utilities");
 
 const mixins = [
   GomlNodeMethods,
@@ -13,6 +14,7 @@ const mixins = [
 ];
 
 const staticMixins = [
+  Find,
   Utilities,
 ];
 
