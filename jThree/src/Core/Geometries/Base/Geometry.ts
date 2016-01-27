@@ -1,4 +1,4 @@
-import IVariableInfo = require("../../Materials/Base/IVariableInfo");
+import IVariableDescription = require("../../Materials/Base/IVariableDescription");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
 import jThreeObject = require("../../../Base/JThreeObject");
 import Buffer = require("./../../Resources/Buffer/Buffer");
@@ -16,9 +16,9 @@ abstract class Geometry extends jThreeObject {
 
     public abstract drawElements(canvas: Canvas, material: Material);
 
-    public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }): void;
+    public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void;
 
-    protected __assignAttributeIfExists(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableInfo }, valName: string, buffer: Buffer): void {
+    protected __assignAttributeIfExists(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }, valName: string, buffer: Buffer): void {
         if (attributes[valName]) {
             pWrapper.assignAttributeVariable(valName, buffer);
         }

@@ -4,7 +4,7 @@ import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
 import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
 import Material = require("../Material");
 import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
-import IVariableInfo = require("./IVariableInfo");
+import IVariableDescription = require("./IVariableDescription");
 import IProgramDescription = require("./IProgramDescription");
 import IApplyMaterialArgument = require("./IApplyMaterialArgument");
 import XMLRenderConfigUtility = require("./XMLRenderConfigUtility");
@@ -59,7 +59,7 @@ class MaterialPass extends JThreeObjectWithID {
     });
   }
 
-  public apply(matArg: IApplyMaterialArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableInfo }>[], material: Material): void {
+  public apply(matArg: IApplyMaterialArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[], material: Material): void {
     if (!this.ready) {
       return;
     }

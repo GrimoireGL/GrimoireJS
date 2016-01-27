@@ -1,4 +1,4 @@
-import GLExtensionManager = require("./GLExtensionManager");
+import GLExtensionResolver = require("./GLExtensionResolver");
 import Rectangle = require("../Math/Rectangle");
 import BasicRenderer = require("./Renderers/BasicRenderer");
 import JThreeEvent = require("../Base/JThreeEvent");
@@ -37,7 +37,7 @@ class Canvas extends CanvasRegion {
 
   public GL: WebGLRenderingContext;
 
-  public glExtensionManager: GLExtensionManager = new GLExtensionManager();
+  public glExtensionResolver: GLExtensionResolver = new GLExtensionResolver();
 
   /**
    * canvas height of last time
@@ -80,7 +80,7 @@ class Canvas extends CanvasRegion {
    */
   protected __setGLContext(glContext: WebGLRenderingContext) {
     this.GL = glContext;
-    this.glExtensionManager.checkExtensions(glContext);
+    this.glExtensionResolver.checkExtensions(glContext);
   }
 
   public applyClearColor() {

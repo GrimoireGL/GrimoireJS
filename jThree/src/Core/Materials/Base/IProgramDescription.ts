@@ -1,9 +1,9 @@
-import IVariableInfo = require("./IVariableInfo");
+import IVariableDescription = require("./IVariableDescription");
 interface IProgramDescription {
   fragment: string;
   vertex: string;
-  uniforms: { [name: string]: IVariableInfo };
-  attributes: { [name: string]: IVariableInfo };
+  uniforms: { [name: string]: IVariableDescription };
+  attributes: { [name: string]: IVariableDescription };
   fragmentPrecisions: { [type: string]: string };
   vertexPrecisions: { [type: string]: string };
 }

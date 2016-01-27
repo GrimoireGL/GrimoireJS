@@ -1,8 +1,8 @@
 import Matrix = require("../../../../Math/Matrix");
 import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableInfo = require("../IVariableInfo");
+import IVariableDescription = require("../IVariableDescription");
 import IApplyMaterialArgument = require("../IApplyMaterialArgument");
-const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableInfo }) => {
+const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
   if (uniforms["_matM"]) {
     pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
   }
@@ -26,6 +26,12 @@ const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapp
   }
   if (uniforms["_eyePosition"]) {
     pWrapper.uniformVector("_eyePosition", matArg.camera.Transformer.GlobalPosition);
+  }
+  if (uniforms["_farClip"]) {
+    pWrapper.uniformFloat("_farClip", matArg.camera.Far);
+  }
+  if (uniforms["_nearClip"]) {
+    pWrapper.uniformFloat("_nearClip", matArg.camera.Near);
   }
 };
 

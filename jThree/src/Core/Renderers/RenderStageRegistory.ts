@@ -13,7 +13,8 @@ class RenderStageRegistory implements IContextComponent {
     this.register(require("./RenderStages/BuiltIn/GBuffer.html"));
     this.register(require("./RenderStages/BuiltIn/LightAccumulationStage.html"));
     this.register(require("./RenderStages/BuiltIn/ForwardShading.html"));
-    this.register(require("./RenderStages/BuiltIn/DistanceFog.html"));
+    this.register(require("./RenderStages/BuiltIn/Fog.html"));
+    this.register(require("./RenderStages/BuiltIn/FogExp2.html"));
     this.register(require("./RenderStages/BuiltIn/SkyBox.html"));
   }
 

@@ -1,4 +1,4 @@
-interface IVariableInfo {
+interface IVariableDescription {
   variableName: string;
   variableType: string;
   variablePrecision: string;
@@ -6,4 +6,4 @@ interface IVariableInfo {
   isArray: boolean;
   arrayLength: number;
 }
-export = IVariableInfo;
+export = IVariableDescription;

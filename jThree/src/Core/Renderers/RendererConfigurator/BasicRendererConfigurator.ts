@@ -1,3 +1,4 @@
+import Vector3 = require("../../../Math/Vector3");
 import StageChainTemplate = require("../StageChainTemplate");
 ﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfoChunk");
 import BasicRenderer = require("../BasicRenderer");
@@ -70,12 +71,16 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         stage: "jthree.basic.foward"
       },
       {
-       buffers: {
-         MAIN: "main",
-         PRIMARY: "gbuffer.primary",
-         OUT: "default"
-       },
-       stage: "jthree.basic.distanceFog"
+        buffers: {
+          MAIN: "main",
+          PRIMARY: "gbuffer.primary",
+          OUT: "default"
+        },
+        stage: "jthree.basic.fogExp2",
+        variables: {
+          density: 0,
+          fogColor: new Vector3(1.0, 1.0, 1.0)
+        }
       }];
   }
 }

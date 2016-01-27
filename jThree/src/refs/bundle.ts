@@ -9,8 +9,9 @@
 /// <reference path="empower/empower.d.ts" />
 /// <reference path="power-assert-formatter/power-assert-formatter.d.ts" />
 /// <reference path="power-assert/power-assert.d.ts" />
-/// <reference path="ammo/ammo.d.ts"/>
-/// <reference path="q/q.d.ts"/>
+/// <reference path="ammo/ammo.d.ts" />
+/// <reference path="q/q.d.ts" />
+/// <reference path="json5/json5.d.ts" />
 /// <reference path="lodash.is[type]/lodash.isarray.d.ts"/>
 /// <reference path="lodash.is[type]/lodash.isfunction.d.ts"/>
 /// <reference path="lodash.is[type]/lodash.isnumber.d.ts"/>
