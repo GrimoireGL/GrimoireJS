@@ -37,6 +37,9 @@
     },
     "power-assert-formatter/power-assert-formatter.d.ts": {
       "commit": "16134c168d021351acb1673ee9659644fc58c424"
+    },
+    "json5/json5.d.ts": {
+      "commit": "7b3d5a6ea5acda4a81f71309f1cc62354e63b681"
     }
   }
 }

@@ -3,7 +3,7 @@ import MaterialManager = require("../../../Core/Materials/Base/MaterialManager")
 import JThreeContext = require("../../../JThreeContext");
 import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
 import ContextComponents = require("../../../ContextComponents");
-import IVariableInfo = require("../../../Core/Materials/Base/IVariableInfo");
+import IVariableDescription = require("../../../Core/Materials/Base/IVariableDescription");
 import AttributeDeclationBody = require("../../AttributeDeclationBody");
 import Vector3 = require("../../../Math/Vector3");
 import Vector2 = require("../../../Math/Vector2");
@@ -101,7 +101,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     }
   }
 
-  private _generateAttributeForVariable(variableName: string, variableInfo: IVariableInfo): AttributeDeclationBody {
+  private _generateAttributeForVariable(variableName: string, variableInfo: IVariableDescription): AttributeDeclationBody {
     let converter;
     let initialValue;
     if (variableInfo.variableType === "vec2") { // TODO converter name should be vec2,vec3 or vec4, same as name of vector variable in GLSL.

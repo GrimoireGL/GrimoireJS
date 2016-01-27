@@ -1,4 +1,4 @@
-import IVariableInfo = require("./IVariableInfo");
+import IVariableDescription = require("./IVariableDescription");
 import IProgramDescription = require("./IProgramDescription");
 import ContextComponents = require("../../../ContextComponents");
 import JThreeContext = require("../../../JThreeContext");
@@ -99,8 +99,8 @@ class ShaderParser {
     return new RegExp(`(?:(?://)?@(\\{.+\\}))?\\s*${variableType}\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;`, "g");
   }
 
-  private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableInfo } {
-    const result = <{ [name: string]: IVariableInfo }>{};
+  private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableDescription } {
+    const result = <{ [name: string]: IVariableDescription }>{};
     const regex = ShaderParser._generateVariableFetchRegex(variableType);
     let regexResult;
     while ((regexResult = regex.exec(source))) {
@@ -108,7 +108,7 @@ class ShaderParser {
       let type = regexResult[3];
       let precision = regexResult[2];
       let rawAnnotations = regexResult[1];
-      result[name] = <IVariableInfo>{
+      result[name] = <IVariableDescription>{
         variableName: name,
         variableType: type,
         variablePrecision: precision,

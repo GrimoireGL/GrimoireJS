@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <material name="jthree.basic.distanceFog" group="jthree.materials.distanceFog" order="300">
+  <material name="jthree.basic.fog" group="jthree.materials.fog" order="300">
     <uniform-register>
       <register name="jthree.basic.buffer" />
       <register name="jthree.basic.matrix" />
@@ -27,20 +27,44 @@
 
           @{register:0,type:"buffer",name:"PRIMARY"}
           uniform mediump sampler2D _buffer;
+
           @{register:1,type:"buffer",name:"MAIN"}
           uniform sampler2D _mainBuffer;
+
           uniform mat4 _matIP;
+
+          @{default:0.4}
+          uniform float fogStart;
+
+          @{default:1.0}
+          uniform float fogEnd;
+
+          @{default:[1,1,1]}
+          uniform vec3 fogColor;
+
+          uniform float _nearClip;
+
+          uniform float _farClip;
 
           void main()
           {
             vec4 rawBuffer = readRawBuffer(_buffer,vPosition);
             float depth = getDepth(rawBuffer);
             vec3 pos = getPosition(depth,vPosition,_matIP);
-            vec2 uv = vPosition.xy/2. + vec2(0.5,0.5);
-            float d = 1.0 + pos.z/140.;
-          	gl_FragColor=texture2D(_mainBuffer,uv);
-            gl_FragColor.rgb = mix(vec3(1,1,1),gl_FragColor.rgb,d);
-              gl_FragColor.a = 1.0;
+            vec2 uv = vPosition.xy /2. + vec2(0.5,0.5);
+          	gl_FragColor=texture2D( _mainBuffer, uv);
+            float d = -pos.z / (_farClip - _nearClip);
+            float fogFactor;
+            if (d == 1.) {
+              fogFactor = 0.0;
+            } else {
+              if (fogEnd - fogStart <= 0.) {
+                fogFactor = d >= fogEnd ? 1.0 : 0.0;
+              } else {
+                fogFactor = max(0.,min(1.,d / (fogEnd - fogStart) - fogStart / (fogEnd - fogStart)));
+              }
+            }
+            gl_FragColor.rgb = mix(gl_FragColor.rgb,fogColor,fogFactor);
           }
         }
 

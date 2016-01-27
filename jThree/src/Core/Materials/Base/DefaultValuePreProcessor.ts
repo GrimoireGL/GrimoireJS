@@ -2,9 +2,9 @@ import Matrix = require("../../../Math/Matrix");
 import Vector2 = require("../../../Math/Vector2");
 import Vector3 = require("../../../Math/Vector3");
 import Vector4 = require("../../../Math/Vector4");
-import IVariableInfo = require("./IVariableInfo");
+import IVariableDescription = require("./IVariableDescription");
 class DefaultValuePreProcessor {
-  public static preprocess(uniforms: { [name: string]: IVariableInfo }): void {
+  public static preprocess(uniforms: { [name: string]: IVariableDescription }): void {
     for (let variableName in uniforms) {
       const uniform = uniforms[variableName];
       if (!uniform.isArray) { // When this uniform is not array , just a element.
@@ -36,13 +36,13 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forFloat(name: string, uniform: IVariableInfo): void {
+  private static _forFloat(name: string, uniform: IVariableDescription): void {
     if (!uniform.variableAnnotation["default"]) {
       uniform.variableAnnotation["default"] = 0;
     }
   }
 
-  private static _forFloatArray(name: string, uniform: IVariableInfo): void {
+  private static _forFloatArray(name: string, uniform: IVariableDescription): void {
     if (!uniform.variableAnnotation["default"]) {
       const defaultValue = new Array(uniform.arrayLength);
       for (let i = 0; i < defaultValue.length; i++) {
@@ -52,7 +52,7 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forVec2(name: string, uniform: IVariableInfo): void {
+  private static _forVec2(name: string, uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
@@ -69,7 +69,7 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forVec3(name: string, uniform: IVariableInfo): void {
+  private static _forVec3(name: string, uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
@@ -86,7 +86,7 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forVec4(name: string, uniform: IVariableInfo): void {
+  private static _forVec4(name: string, uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
@@ -103,7 +103,7 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forMat4(name: string, uniform: IVariableInfo): void {
+  private static _forMat4(name: string, uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
