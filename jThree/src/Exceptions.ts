@@ -19,12 +19,6 @@ export class JThreeException extends JThreeObject implements Error {
   }
 }
 
-export class IrregularElementAccessException extends JThreeException {
-  constructor(accessIndex: number) {
-    super("Irregular vector element was accessed.", `You attempted to access ${accessIndex} element. But,this vector have enough dimension.`);
-  }
-}
-
 export class InvalidArgumentException extends JThreeException {
   constructor(message: string) {
     super("Invalid argument was passed.", message);
@@ -40,11 +34,5 @@ export class SingularMatrixException extends JThreeException {
 export class AbstractClassMethodCalledException extends JThreeException {
   constructor() {
     super("Invalid method was called.", "This method is abstract method, cant call by this instance");
-  }
-}
-
-export class WebGLErrorException extends JThreeException {
-  constructor(text: string) {
-    super("WebGL reported error.", text);
   }
 }
