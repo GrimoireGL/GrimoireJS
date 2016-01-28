@@ -5,6 +5,7 @@ import JThreeEvent = require("../Base/JThreeEvent");
 import CanvasSizeChangedEventArgs = require("./CanvasSizeChangedEventArgs");
 import Color4 = require("../Math/Color4");
 import CanvasRegion = require("./CanvasRegion");
+import Exceptions = require("../Exceptions");
 /**
  * The class to manage HTMLCanvasElement.
  * Provides most of interfaces related to GLContext except the features resource manager providing.
@@ -95,7 +96,7 @@ class Canvas extends CanvasRegion {
     try {
       return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
     } catch (e) {
-      console.error("WebGL context generation failed" + e);
+      throw new Exceptions.WebGLNotSupportedException();
     }
   }
 }
