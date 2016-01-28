@@ -100,6 +100,7 @@
     "./jThree/src/Core/Renderers/RenderPathExecutor.ts",
     "./jThree/src/Core/Renderers/RenderStageChain.ts",
     "./jThree/src/Core/Renderers/RenderStageRegistory.ts",
+    "./jThree/src/Core/Renderers/RenderStages/BuiltIn/FXAA.ts",
     "./jThree/src/Core/Renderers/RenderStages/HitAreaRenderStage.ts",
     "./jThree/src/Core/Renderers/RenderStages/IRenderStageRendererConfigure.ts",
     "./jThree/src/Core/Renderers/RenderStages/RenderStageBase.ts",

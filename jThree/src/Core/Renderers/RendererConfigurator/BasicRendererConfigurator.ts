@@ -35,6 +35,12 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         generater: "rendererfit",
         internalFormat: "RGBA",
         element: "UBYTE"
+      },
+      {
+        name: "output",
+        generater: "rendererfit",
+        internalFormat: "RGBA",
+        element: "UBYTE"
       }
     ];
   }
@@ -74,11 +80,11 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         buffers: {
           MAIN: "main",
           PRIMARY: "gbuffer.primary",
-          OUT: "default"
+          OUT: "output"
         },
         stage: "jthree.basic.fogExp2",
         variables: {
-          density: 0,
+          density: 10.0,
           fogColor: new Vector3(1.0, 1.0, 1.0)
         }
       }];
