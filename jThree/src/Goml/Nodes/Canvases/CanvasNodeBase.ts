@@ -9,6 +9,7 @@ class CanvasNodeBase extends GomlTreeNodeBase {
         value: 640,
         converter: "float",
         onchanged: (v) => {
+          this.emit("resize");
           this.sizeChanged(v.Value, this.attributes.getValue("height"));
         },
       },
@@ -16,6 +17,7 @@ class CanvasNodeBase extends GomlTreeNodeBase {
         value: 480,
         converter: "float",
         onchanged: (v) => {
+          this.emit("resize");
           this.sizeChanged(this.attributes.getValue("width"), v.Value);
         },
       },
