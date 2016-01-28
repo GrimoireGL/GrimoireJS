@@ -1,16 +1,16 @@
-import AsyncLoader = require("../../Core/Resources/AsyncLoader");
-import PMXPrimaryBufferMaterial = require("./Materials/PMXPrimaryBufferMaterial");
-import PMXCoreInitializer = require("./PMXCoreInitializer");
-import PMXHitAreaMaterial = require("./Materials/PMXHitAreaMaterial");
-import SceneObject = require("../../Core/SceneObjects/SceneObject");
-import PMXModelData = require("../PMXLoader");
-import PMXGeometry = require("./PMXGeometry");
-import PMXMaterial = require("./Materials/PMXMaterial");
-import PMXSkeleton = require("./PMXSkeleton");
-import PMXMorphManager = require("./PMXMorphManager");
-import PMXShadowMapMaterial = require("./Materials/PMXShadowMapMaterial");
-import PMXTextureManager = require("./PMXTextureManager");
-import Q = require("q");
+import AsyncLoader from "../../Core/Resources/AsyncLoader";
+import PMXPrimaryBufferMaterial from "./Materials/PMXPrimaryBufferMaterial";
+import PMXCoreInitializer from "./PMXCoreInitializer";
+import PMXHitAreaMaterial from "./Materials/PMXHitAreaMaterial";
+import SceneObject from "../../Core/SceneObjects/SceneObject";
+import PMXModelData from "../PMXLoader";
+import PMXGeometry from "./PMXGeometry";
+import PMXMaterial from "./Materials/PMXMaterial";
+import PMXSkeleton from "./PMXSkeleton";
+import PMXMorphManager from "./PMXMorphManager";
+import PMXShadowMapMaterial from "./Materials/PMXShadowMapMaterial";
+import PMXTextureManager from "./PMXTextureManager";
+import Q from "q";
 class PMXModel extends SceneObject {
 
   private static _asyncLoader: AsyncLoader<PMXModelData> = new AsyncLoader<PMXModelData>();
@@ -132,4 +132,4 @@ class PMXModel extends SceneObject {
   }
 }
 
-export = PMXModel;
+export default PMXModel;

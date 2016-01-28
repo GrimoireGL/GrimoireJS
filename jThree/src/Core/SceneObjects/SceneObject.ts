@@ -1,13 +1,13 @@
-import JThreeObjectEEWithID = require("../../Base/JThreeObjectEEWithID");
-import IParentSceneChangedEventArgs = require("../IParentSceneChangedEventArgs");
-import Material = require("../Materials/Material");
-import Delegates = require("../../Base/Delegates");
-import Geometry = require("../Geometries/Base/Geometry");
-import Scene = require("../Scene");
-import JThreeCollection = require("../../Base/JThreeCollection");
-import Transformer = require("../Transform/Transformer");
-import JThreeEvent = require("../../Base/JThreeEvent");
-import ISceneObjectStructureChangedEventArgs = require("../ISceneObjectChangedEventArgs");
+import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import IParentSceneChangedEventArgs from "../IParentSceneChangedEventArgs";
+import Material from "../Materials/Material";
+import {Action1, Action2} from "../../Base/Delegates";
+import Geometry from "../Geometries/Base/Geometry";
+import Scene from "../Scene";
+import JThreeCollection from "../../Base/JThreeCollection";
+import Transformer from "../Transform/Transformer";
+import JThreeEvent from "../../Base/JThreeEvent";
+import ISceneObjectStructureChangedEventArgs from "../ISceneObjectChangedEventArgs";
 /**
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
@@ -21,7 +21,7 @@ class SceneObject extends JThreeObjectEEWithID {
 
   private onStructureChangedEvent: JThreeEvent<ISceneObjectStructureChangedEventArgs> = new JThreeEvent<ISceneObjectStructureChangedEventArgs>();
 
-  private materialChanagedHandler: Delegates.Action2<Material, SceneObject>[] = [];
+  private materialChanagedHandler: Action2<Material, SceneObject>[] = [];
 
   private materials: { [materialGroup: string]: JThreeCollection<Material> } = {};
 
@@ -143,13 +143,13 @@ class SceneObject extends JThreeObjectEEWithID {
     });
   }
 
-  public onMaterialChanged(func: Delegates.Action2<Material, SceneObject>): void {
+  public onMaterialChanged(func: Action2<Material, SceneObject>): void {
     this.materialChanagedHandler.push(func);
   }
   /**
    * すべてのマテリアルに対して処理を実行します。
    */
-  public eachMaterial(func: Delegates.Action1<Material>): void {
+  public eachMaterial(func: Action1<Material>): void {
     for (let material in this.materials) {
       this.materials[material].each((e) => func(e));
     }
@@ -194,7 +194,7 @@ class SceneObject extends JThreeObjectEEWithID {
     return this.transformer;
   }
 
-  public callRecursive(action: Delegates.Action1<SceneObject>) {
+  public callRecursive(action: Action1<SceneObject>) {
     if (this.children) {
       this.children.forEach(t => t.callRecursive(action));
     }
@@ -218,4 +218,4 @@ class SceneObject extends JThreeObjectEEWithID {
   }
 }
 
-export = SceneObject;
+export default SceneObject;

@@ -1,14 +1,14 @@
-import IDisposable = require("../../Base/IDisposable");
-import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
-import Canvas = require("../Canvas");
-import Delegates = require("../../Base/Delegates");
-import Exceptions = require("../../Exceptions");
-import CanvasListChangedEventArgs = require("../CanvasListChangedEventArgs");
-import ListStateChangedType = require("../ListStateChangedType");
-import ResourceWrapper = require("./ResourceWrapper");
-import JThreeContext = require("../../JThreeContext");
-import CanvasManager = require("../CanvasManager");
-import ContextComponents = require("../../ContextComponents");
+import IDisposable from "../../Base/IDisposable";
+import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
+import Canvas from "../Canvas";
+import {Action1} from "../../Base/Delegates";
+import {AbstractClassMethodCalledException} from "../../Exceptions";
+import CanvasListChangedEventArgs from "../CanvasListChangedEventArgs";
+import ListStateChangedType from "../ListStateChangedType";
+import ResourceWrapper from "./ResourceWrapper";
+import JThreeContext from "../../JThreeContext";
+import CanvasManager from "../CanvasManager";
+import ContextComponents from "../../ContextComponents";
 /**
  * Provides context difference abstraction.
  */
@@ -61,7 +61,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     return this.childWrapper[id];
   }
 
-  public each(act: Delegates.Action1<T>): void {
+  public each(act: Action1<T>): void {
     for (let key in this.childWrapper) {
       act(this.childWrapper[key]);
     }
@@ -83,12 +83,12 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
   }
 
   protected getInstanceForRenderer(renderer: Canvas): T {
-    throw new Exceptions.AbstractClassMethodCalledException();
+    throw new AbstractClassMethodCalledException();
   }
 
   protected disposeResource(resource: T): void {
-    throw new Exceptions.AbstractClassMethodCalledException();
+    throw new AbstractClassMethodCalledException();
   }
 }
 
-export = ContextSafeResourceContainer;
+export default ContextSafeResourceContainer;

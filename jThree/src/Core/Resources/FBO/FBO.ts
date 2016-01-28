@@ -1,6 +1,6 @@
-import FBOWrapper = require("./FBOWrapper");
-import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer");
-import Canvas = require("../../Canvas");
+import FBOWrapper from "./FBOWrapper";
+import ContextSafeResourceContainer from "./../ContextSafeResourceContainer";
+import Canvas from "../../Canvas";
 class FBO extends ContextSafeResourceContainer<FBOWrapper>
 {
   constructor() {
@@ -17,4 +17,4 @@ class FBO extends ContextSafeResourceContainer<FBOWrapper>
   }
 }
 
-export =FBO;
+export default FBO;

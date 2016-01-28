@@ -1,7 +1,7 @@
-import JThreeObject = require("../Base/JThreeObject");
-import Vector3 = require("./Vector3");
-import glm = require("gl-matrix");
-import Matrix = require("./Matrix");
+import JThreeObject from "../Base/JThreeObject";
+import Vector3 from "./Vector3";
+import {GLM, vec3, quat} from "gl-matrix";
+import Matrix from "./Matrix";
 /**
 * The class to maniplate quaternion.
 * Basically,you don't need to operate raw element.
@@ -13,19 +13,19 @@ import Matrix = require("./Matrix");
 */
 class Quaternion extends JThreeObject {
   public static get Identity(): Quaternion {
-    return new Quaternion(glm.quat.create());
+    return new Quaternion(quat.create());
   }
 
 
   /**
   * Constructor by specifing each elements.
   */
-  constructor(rawElements: glm.GLM.IArray) {
+  constructor(rawElements: GLM.IArray) {
     super();
     this.rawElements = rawElements;
   }
 
-  public rawElements: glm.GLM.IArray;
+  public rawElements: GLM.IArray;
 
   public get eularAngles() {
     const eular = this.FactoringQuaternionZXY();
@@ -76,57 +76,57 @@ class Quaternion extends JThreeObject {
   * Get the conjugate of this quaternion
   */
   public get Conjugate(): Quaternion {
-    const newQuat = glm.quat.create();
-    return new Quaternion(glm.quat.conjugate(newQuat, this.rawElements));
+    const newQuat = quat.create();
+    return new Quaternion(quat.conjugate(newQuat, this.rawElements));
   }
 
   /**
   * Get the length
   */
   public get Length(): number {
-    return glm.quat.len(this.rawElements);
+    return quat.len(this.rawElements);
   }
   /**
   * Get normalized quaternion
   */
   public Normalize(): Quaternion {
-    const newQuat = glm.quat.create();
-    return new Quaternion(glm.quat.normalize(newQuat, this.rawElements));
+    const newQuat = quat.create();
+    return new Quaternion(quat.normalize(newQuat, this.rawElements));
   }
 
 
   public Inverse(): Quaternion {
-    const newQuat = glm.quat.create();
-    return new Quaternion(glm.quat.invert(newQuat, this.rawElements));
+    const newQuat = quat.create();
+    return new Quaternion(quat.invert(newQuat, this.rawElements));
   }
 
   /**
   * Calculate add result of two quaternion
   */
   public static Add(q1: Quaternion, q2: Quaternion): Quaternion {
-    const newQuat = glm.quat.create();
+    const newQuat = quat.create();
 
-    return new Quaternion(glm.quat.add(newQuat, q1.rawElements, q2.rawElements));
+    return new Quaternion(quat.add(newQuat, q1.rawElements, q2.rawElements));
   }
 
   /**
   * Calculate Multiply result of two quaternion
   */
   public static Multiply(q1: Quaternion, q2: Quaternion): Quaternion {
-    const newQuat = glm.quat.create();
-    return new Quaternion(glm.quat.mul(newQuat, q1.rawElements, q2.rawElements));
+    const newQuat = quat.create();
+    return new Quaternion(quat.mul(newQuat, q1.rawElements, q2.rawElements));
   }
 
   /**
   * Calculate the rotation quaternion represented as pair of angle and axis.
   */
   public static AngleAxis(angle: number, axis: Vector3): Quaternion {
-    const axisVec = glm.vec3.create();
+    const axisVec = vec3.create();
     axisVec[0] = axis.X;
     axisVec[1] = axis.Y;
     axisVec[2] = axis.Z;
-    const newQuat = glm.quat.create();
-    return new Quaternion(glm.quat.setAxisAngle(newQuat, axisVec, +angle));
+    const newQuat = quat.create();
+    return new Quaternion(quat.setAxisAngle(newQuat, axisVec, +angle));
   }
 
   public static Euler(x: number, y: number, z: number): Quaternion {
@@ -139,8 +139,8 @@ class Quaternion extends JThreeObject {
 
 
   public static Slerp(q1: Quaternion, q2: Quaternion, t: number): Quaternion {
-    const newQuat = glm.quat.create();
-    return new Quaternion(glm.quat.slerp(newQuat, q1.rawElements, q2.rawElements, +t));
+    const newQuat = quat.create();
+    return new Quaternion(quat.slerp(newQuat, q1.rawElements, q2.rawElements, +t));
   }
 
   /**
@@ -244,4 +244,4 @@ class Quaternion extends JThreeObject {
   }
 }
 
-export = Quaternion;
+export default Quaternion;

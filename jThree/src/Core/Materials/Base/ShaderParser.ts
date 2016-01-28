@@ -1,10 +1,10 @@
-import IVariableDescription = require("./IVariableDescription");
-import IProgramDescription = require("./IProgramDescription");
-import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../JThreeContext");
-import MaterialManager = require("./MaterialManager");
-import JSON5 = require("json5");
-import Q = require("q");
+import IVariableDescription from "./IVariableDescription";
+import IProgramDescription from "./IProgramDescription";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+import MaterialManager from "./MaterialManager";
+import JSON5 from "json5";
+import Q from "q";
 /**
  * Static parsing methods for XMML (eXtended Material Markup Language).
  * This class provides all useful methods for parsing XMML.
@@ -240,4 +240,4 @@ class ShaderParser {
   }
 }
 
-export = ShaderParser;
+export default ShaderParser;

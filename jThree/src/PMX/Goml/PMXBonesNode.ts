@@ -1,5 +1,5 @@
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import PMXNode = require("./PMXNode");
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import PMXNode from "./PMXNode";
 class PMXBonesNode extends GomlTreeNodeBase {
   constructor(elem: HTMLElement, parent: GomlTreeNodeBase) {
     super();
@@ -14,4 +14,4 @@ class PMXBonesNode extends GomlTreeNodeBase {
   }
 }
 
-export =PMXBonesNode;
+export default PMXBonesNode;

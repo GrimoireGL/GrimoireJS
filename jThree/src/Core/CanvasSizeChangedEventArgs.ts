@@ -1,4 +1,4 @@
-import Canvas = require("./Canvas");
+import Canvas from "./Canvas";
 
 class CanvasSizeChangedEventArg {
   private canvas: Canvas;
@@ -35,4 +35,4 @@ class CanvasSizeChangedEventArg {
   }
 }
 
-export = CanvasSizeChangedEventArg;
+export default CanvasSizeChangedEventArg;

@@ -1,6 +1,6 @@
-import JThreeObject = require("../Base/JThreeObject");
-import RendererStateChangedType = require("./ListStateChangedType");
-import Canvas = require("./Canvas");
+import JThreeObject from "../Base/JThreeObject";
+import RendererStateChangedType from "./ListStateChangedType";
+import Canvas from "./Canvas";
 
 class CanvasListChangedEventArgs extends JThreeObject
 {
@@ -24,4 +24,4 @@ class CanvasListChangedEventArgs extends JThreeObject
   }
 }
 
-export=CanvasListChangedEventArgs;
+export default CanvasListChangedEventArgs;

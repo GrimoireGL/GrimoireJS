@@ -8,4 +8,4 @@
   CubeNegativeZ = 34074,
 }
 
-export =TargetTextureType;
+export default TargetTextureType;

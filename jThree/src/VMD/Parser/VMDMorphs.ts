@@ -1,7 +1,7 @@
-﻿import VmdMorph = require("./VMDMorph");
+﻿import VmdMorph from "./VMDMorph";
 
 interface VMDMorphs {
   [morphName: string]: VmdMorph[];
 }
 
-export = VMDMorphs;
+export default VMDMorphs;

@@ -1,8 +1,8 @@
-import Vector3 = require("./Vector3");
-import Matrix = require("./Matrix");
-import glm = require("gl-matrix");
-import JThreeLogger = require("../Base/JThreeLogger");
-import AABB = require("./AABB");
+import Vector3 from "./Vector3";
+import Matrix from "./Matrix";
+import {vec3} from "gl-matrix";
+import JThreeLogger from "../Base/JThreeLogger";
+import AABB from "./AABB";
 class PointList {
   public points: Vector3[];
 
@@ -23,7 +23,7 @@ class PointList {
 
   public transform(transformMatrix: Matrix) {
     for (let i = 0; i < this.points.length; i++) {
-      glm.vec3.transformMat4(this.points[i].rawElements, this.points[i].rawElements, transformMatrix.rawElements);
+      vec3.transformMat4(this.points[i].rawElements, this.points[i].rawElements, transformMatrix.rawElements);
     }
   }
 
@@ -71,4 +71,4 @@ class PointList {
   }
 }
 
-export = PointList;
+export default PointList;

@@ -8,4 +8,4 @@ enum PrimitiveTopology {
   Points = 0
 }
 
-export = PrimitiveTopology;
+export default PrimitiveTopology;

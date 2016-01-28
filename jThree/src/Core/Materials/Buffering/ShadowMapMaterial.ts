@@ -1,5 +1,5 @@
-import IApplyMaterialArgument = require("../Base/IApplyMaterialArgument");
-import BasicMaterial = require("../Base/BasicMaterial");
+import IApplyMaterialArgument from "../Base/IApplyMaterialArgument";
+import BasicMaterial from "../Base/BasicMaterial";
 /**
  * Provides shadow map rendering materials.
  * By this material, default meshes will be rendered as shadow map.
@@ -20,4 +20,4 @@ class ShadowMapMaterial extends BasicMaterial {
   }
 }
 
-export = ShadowMapMaterial;
+export default ShadowMapMaterial;

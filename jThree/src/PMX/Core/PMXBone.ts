@@ -1,8 +1,8 @@
-import SceneObject = require("../../Core/SceneObjects/SceneObject");
-import PMXSkeleton = require("./PMXSkeleton");
-import PMXModel = require("./PMXModel");
-import PMXBoneTransformer = require("./PMXBoneTransformer");
-import Vector3 = require("../../Math/Vector3");
+import SceneObject from "../../Core/SceneObjects/SceneObject";
+import PMXSkeleton from "./PMXSkeleton";
+import PMXModel from "./PMXModel";
+import PMXBoneTransformer from "./PMXBoneTransformer";
+import Vector3 from "../../Math/Vector3";
 class PMXBone extends SceneObject {
   private targetModel: PMXModel;
 
@@ -28,7 +28,8 @@ class PMXBone extends SceneObject {
   }
 
   constructor(model: PMXModel, skeleton: PMXSkeleton, boneIndex: number) {
-    super(new PMXBoneTransformer(this, model, boneIndex));
+    super();
+    this.transformer = new PMXBoneTransformer(this, model, boneIndex);
     this.targetModel = model;
     this.targetSkeleton = skeleton;
     this.boneIndex = boneIndex;
@@ -83,4 +84,4 @@ class PMXBone extends SceneObject {
   }
 }
 
-export = PMXBone;
+export default PMXBone;

@@ -1,9 +1,9 @@
-import IContextComponent = require("../IContextComponent");
-import ContextComponents = require("../ContextComponents");
-import Canvas = require("./Canvas");
-import JThreeEvent = require("../Base/JThreeEvent");
-import CanvasListChangedEventArgs = require("./CanvasListChangedEventArgs");
-import ListStateChangedType = require("./ListStateChangedType");
+import IContextComponent from "../IContextComponent";
+import ContextComponents from "../ContextComponents";
+import Canvas from "./Canvas";
+import JThreeEvent from "../Base/JThreeEvent";
+import CanvasListChangedEventArgs from "./CanvasListChangedEventArgs";
+import ListStateChangedType from "./ListStateChangedType";
 /**
  * A context component provides the feature to manage all of canvas.
  *
@@ -65,4 +65,4 @@ class CanvasManager implements IContextComponent {
   }
 }
 
-export = CanvasManager;
+export default CanvasManager;

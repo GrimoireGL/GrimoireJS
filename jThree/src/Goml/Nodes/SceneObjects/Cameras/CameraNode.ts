@@ -1,7 +1,7 @@
-import Camera = require("../../../../Core/Camera/Camera");
-import PerspectiveCamera = require("../../../../Core/Camera/PerspectiveCamera");
-import CameraNodeBase = require("./CameraNodeBase");
-import GomlAttribute = require("../../../GomlAttribute");
+import Camera from "../../../../Core/Camera/Camera";
+import PerspectiveCamera from "../../../../Core/Camera/PerspectiveCamera";
+import CameraNodeBase from "./CameraNodeBase";
+import GomlAttribute from "../../../GomlAttribute";
 
 class CameraNode extends CameraNodeBase {
 
@@ -86,4 +86,4 @@ class CameraNode extends CameraNodeBase {
   }
 }
 
-export = CameraNode;
+export default CameraNode;

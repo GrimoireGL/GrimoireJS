@@ -1,6 +1,6 @@
-import JThreeObject = require("../Base/JThreeObject");
-import JThreeLogger = require("../Base/JThreeLogger");
-import GLExtensionList = require("./GLExtensionList");
+import JThreeObject from "../Base/JThreeObject";
+import JThreeLogger from "../Base/JThreeLogger";
+import GLExtensionList from "./GLExtensionList";
 /**
  * Provides the feature to require gl extension.
  */
@@ -50,4 +50,4 @@ class GLExtensionResolver extends JThreeObject {
   }
 
 }
-export = GLExtensionResolver;
+export default GLExtensionResolver;

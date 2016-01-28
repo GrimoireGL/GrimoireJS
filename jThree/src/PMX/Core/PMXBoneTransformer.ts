@@ -1,11 +1,11 @@
-import Transformer = require("../../Core/Transform/Transformer");
-import SceneObject = require("../../Core/SceneObjects/SceneObject");
-import PMXModel = require("./PMXModel");
-import glm = require("gl-matrix");
-import Quaternion = require("../../Math/Quaternion");
-import Vector3 = require("../../Math/Vector3");
-import Matrix = require("../../Math/Matrix");
-import PMXIKLink = require("../PMXIKLink");
+import Transformer from "../../Core/Transform/Transformer";
+import SceneObject from "../../Core/SceneObjects/SceneObject";
+import PMXModel from "./PMXModel";
+import {quat, vec3} from "gl-matrix";
+import Quaternion from "../../Math/Quaternion";
+import Vector3 from "../../Math/Vector3";
+import Matrix from "../../Math/Matrix";
+import PMXIKLink from "../PMXIKLink";
 
 /**
  * Bone transformer for pmx
@@ -137,7 +137,7 @@ class PMXBoneTransformer extends Transformer {
 	 * @return {[type]} [description]
 	 */
   private updateLocalRotation() {
-    glm.quat.identity(this.Rotation.rawElements);
+    quat.identity(this.Rotation.rawElements);
     if (this.IsRotationProvidingBone) {
       if (this.IsLocalProvidingBone) {
         // TODO Do something when this bone is local providing bone
@@ -145,17 +145,17 @@ class PMXBoneTransformer extends Transformer {
       }
       if (this.ProvidingBoneTransformer.isIKLink) {
         // Interpolate ikLink rotation with providing rate
-        glm.quat.slerp(this.Rotation.rawElements, this.Rotation.rawElements, this.ProvidingBoneTransformer.ikLinkRotation.rawElements, this.BoneData.providingRate);
+        quat.slerp(this.Rotation.rawElements, this.Rotation.rawElements, this.ProvidingBoneTransformer.ikLinkRotation.rawElements, this.BoneData.providingRate);
       }
     }
     // Multiply local rotations of this bone
-    glm.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.userRotation.rawElements);
-    glm.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.morphRotation.rawElements);
+    quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.userRotation.rawElements);
+    quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.morphRotation.rawElements);
     if (this.IsRotationProvidingBone) { // Memorize providing rotation of this bone
-      glm.quat.copy(this.providingRotation.rawElements, this.Rotation.rawElements);
+      quat.copy(this.providingRotation.rawElements, this.Rotation.rawElements);
     }
     // Calculate IkLink rotation of this bone
-    glm.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.ikLinkRotation.rawElements);
+    quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.ikLinkRotation.rawElements);
   }
 
 	/**
@@ -172,12 +172,12 @@ class PMXBoneTransformer extends Transformer {
         // Do something when this bone is local providing bone
         console.error("Local providing is not implemented yet!");
       }
-      glm.vec3.lerp(this.Position.rawElements, this.Position.rawElements, this.ProvidingBone.Transformer.Position.rawElements, this.BoneData.providingRate);
+      vec3.lerp(this.Position.rawElements, this.Position.rawElements, this.ProvidingBone.Transformer.Position.rawElements, this.BoneData.providingRate);
     }
-    glm.vec3.add(this.Position.rawElements, this.Position.rawElements, this.userTranslation.rawElements);
-    glm.vec3.add(this.Position.rawElements, this.Position.rawElements, this.morphTranslation.rawElements);
+    vec3.add(this.Position.rawElements, this.Position.rawElements, this.userTranslation.rawElements);
+    vec3.add(this.Position.rawElements, this.Position.rawElements, this.morphTranslation.rawElements);
     if (this.IsTranslationProvidingBone) {
-      glm.vec3.copy(this.providingTranslation.rawElements, this.Position.rawElements);
+      vec3.copy(this.providingTranslation.rawElements, this.Position.rawElements);
     }
   }
 
@@ -195,7 +195,7 @@ class PMXBoneTransformer extends Transformer {
   private CCDIKOperation(it: number) {
     const effectorTransformer = <PMXBoneTransformer> this.pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;
     const TargetGlobalPos = Matrix.transformPoint(this.LocalToGlobal, this.LocalOrigin);
-    // glm.vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
+    // vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
     for (let i = 0; i < this.BoneData.ikLinkCount; i++) {
       const ikLinkData = this.BoneData.ikLinks[i];
       const ikLinkTransform = this.getIkLinkTransformerByIndex(i);
@@ -270,4 +270,4 @@ class PMXBoneTransformer extends Transformer {
   }
 }
 
-export = PMXBoneTransformer;
+export default PMXBoneTransformer;

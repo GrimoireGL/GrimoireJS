@@ -1,13 +1,13 @@
-import GeometryBuilder = require("./Base/GeometryBuilder");
-import BasicGeometry = require("./Base/BasicGeometry");
-import BufferTargetType = require("../../Wrapper/BufferTargetType");
-import BufferUsageType = require("../../Wrapper/BufferUsageType");
-import ElementType = require("../../Wrapper/ElementType");
-import Vector3 = require("../../Math/Vector3");
-import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import ResourceManager = require("../ResourceManager");
+import GeometryBuilder from "./Base/GeometryBuilder";
+import BasicGeometry from "./Base/BasicGeometry";
+import BufferTargetType from "../../Wrapper/BufferTargetType";
+import BufferUsageType from "../../Wrapper/BufferUsageType";
+import ElementType from "../../Wrapper/ElementType";
+import Vector3 from "../../Math/Vector3";
+import PrimitiveTopology from "../../Wrapper/PrimitiveTopology";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import ResourceManager from "../ResourceManager";
 class CylinderGeometry extends BasicGeometry {
 
     private divideCount: number = 10;
@@ -46,4 +46,4 @@ class CylinderGeometry extends BasicGeometry {
     }
 }
 
-export = CylinderGeometry;
+export default CylinderGeometry;

@@ -1,9 +1,9 @@
-﻿import BufferTargetType = require("../../../Wrapper/BufferTargetType");
-import BufferUsageType = require("../../../Wrapper/BufferUsageType");
-import Canvas = require("../../Canvas");
-import ElementType = require("../../../Wrapper/ElementType");
-import ContextSafeResourceContainer = require("../ContextSafeResourceContainer");
-import BufferWrapper = require("./BufferWrapper");
+﻿import BufferTargetType from "../../../Wrapper/BufferTargetType";
+import BufferUsageType from "../../../Wrapper/BufferUsageType";
+import Canvas from "../../Canvas";
+import ElementType from "../../../Wrapper/ElementType";
+import ContextSafeResourceContainer from "../ContextSafeResourceContainer";
+import BufferWrapper from "./BufferWrapper";
 /**
  * Provides buffer resource without considering context.
  */
@@ -134,4 +134,4 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
 }
 
 
-export = Buffer;
+export default Buffer;

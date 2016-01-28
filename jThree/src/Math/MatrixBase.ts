@@ -1,4 +1,4 @@
-import glm = require("gl-matrix");
+import {GLM} from "gl-matrix";
 class MatrixBase {
 
   protected static elementEqual(m1: MatrixBase, m2: MatrixBase): boolean {
@@ -26,6 +26,6 @@ class MatrixBase {
     throw new Error("Not implemented");
   }
 
-  public rawElements: glm.GLM.IArray;
+  public rawElements: GLM.IArray;
 }
-export =MatrixBase;
+export default MatrixBase;

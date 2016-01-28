@@ -1,15 +1,15 @@
-import events = require("events");
-import JThreeObject = require("./JThreeObject");
+import {EventEmitter} from "events";
+import JThreeObject from "./JThreeObject";
 
 /**
  * EventEmitterをmixinしたJThreeObject
  */
-class JThreeObjectEE extends JThreeObject implements events.EventEmitter {
-  public addListener: (event: string, listener: Function) => events.EventEmitter;
-  public on: (event: string, listener: Function) => events.EventEmitter;
-  public once: (event: string, listener: Function) => events.EventEmitter;
-  public removeListener: (event: string, listener: Function) => events.EventEmitter;
-  public removeAllListeners: (event?: string) => events.EventEmitter;
+class JThreeObjectEE extends JThreeObject implements EventEmitter {
+  public addListener: (event: string, listener: Function) => EventEmitter;
+  public on: (event: string, listener: Function) => EventEmitter;
+  public once: (event: string, listener: Function) => EventEmitter;
+  public removeListener: (event: string, listener: Function) => EventEmitter;
+  public removeAllListeners: (event?: string) => EventEmitter;
   public setMaxListeners: (n: number) => void;
   public listeners: (event: string) => Function[];
   public emit: (event: string, ...args: any[]) => boolean;
@@ -27,6 +27,6 @@ function applyMixins(derivedCtor: any, baseCtors: any[]) {
   });
 }
 
-applyMixins(JThreeObjectEE, [events.EventEmitter]);
+applyMixins(JThreeObjectEE, [EventEmitter]);
 
-export = JThreeObjectEE;
+export default JThreeObjectEE;

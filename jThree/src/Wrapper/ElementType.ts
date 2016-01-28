@@ -7,4 +7,4 @@ enum ElementType {
   Int = 5124 // WebGLRenderingContext.INT
 }
 
-export = ElementType;
+export default ElementType;

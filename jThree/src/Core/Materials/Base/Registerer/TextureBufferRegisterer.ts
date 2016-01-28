@@ -1,6 +1,6 @@
-import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("../IVariableDescription");
-import IApplyMaterialArgument = require("../IApplyMaterialArgument");
+import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../IVariableDescription";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
 const TextureBufferRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
   for (let variableName in uniforms) {
     const uniform = uniforms[variableName];
@@ -17,4 +17,4 @@ const TextureBufferRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWra
   }
 };
 
-export = TextureBufferRegisterer;
+export default TextureBufferRegisterer;

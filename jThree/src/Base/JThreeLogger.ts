@@ -32,4 +32,4 @@ class JThreeLogger {
         return ["%c jThree v3 %c▶ " + sectionName + " %c▶%c " + log, "background-color:#344F66;color:white;", "color:#344F66;background-color:#D1D4D7;", "color:#D1D4D7;", ""];
     }
 }
-export = JThreeLogger;
+export default JThreeLogger;

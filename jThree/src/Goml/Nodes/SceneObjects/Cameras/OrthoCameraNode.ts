@@ -1,7 +1,7 @@
-import Camera = require("../../../../Core/Camera/Camera");
-import OrthoCamera = require("../../../../Core/Camera/OrthoCamera");
-import GomlTreeCameraNodeBase = require("./CameraNodeBase");
-import GomlAttribute = require("../../../GomlAttribute");
+import Camera from "../../../../Core/Camera/Camera";
+import OrthoCamera from "../../../../Core/Camera/OrthoCamera";
+import GomlTreeCameraNodeBase from "./CameraNodeBase";
+import GomlAttribute from "../../../GomlAttribute";
 
 class OrthoCameraNode extends GomlTreeCameraNodeBase {
 
@@ -90,4 +90,4 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
   }
 }
 
-export = OrthoCameraNode;
+export default OrthoCameraNode;

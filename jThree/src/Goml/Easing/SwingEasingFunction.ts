@@ -1,4 +1,4 @@
-import EasingFunctionBase = require("./EasingFunctionBase");
+import EasingFunctionBase from "./EasingFunctionBase";
 
 class SwingEasingFunction extends EasingFunctionBase {
   public Ease(begin: number, end: number, progress: number): number {
@@ -6,4 +6,4 @@ class SwingEasingFunction extends EasingFunctionBase {
   }
 }
 
-export = SwingEasingFunction;
+export default SwingEasingFunction;

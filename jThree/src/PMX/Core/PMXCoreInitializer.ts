@@ -1,6 +1,6 @@
-import JThreeContext = require("../../JThreeContext");
-import MaterialManager = require("../../Core/Materials/Base/MaterialManager");
-import ContextComponents = require("../../ContextComponents");
+import JThreeContext from "../../JThreeContext";
+import MaterialManager from "../../Core/Materials/Base/MaterialManager";
+import ContextComponents from "../../ContextComponents";
 /**
  * Provide initializing methods for PMX.
  * @type {[type]}
@@ -20,4 +20,4 @@ class PMXCoreInitializer {
     mm.addShaderChunk("jthree.pmx.vertex", require("../ShaderChunk/_PMXVertexShader.glsl"));
   }
 }
-export = PMXCoreInitializer;
+export default PMXCoreInitializer;

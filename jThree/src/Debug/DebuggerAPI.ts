@@ -1,6 +1,6 @@
-import Scene = require("../Core/Scene");
-import BasicRenderer = require("../Core/Renderers/BasicRenderer");
-import RendererDebugger = require("./Modules/RendererDebugger");
+import Scene from "../Core/Scene";
+import BasicRenderer from "../Core/Renderers/BasicRenderer";
+import RendererDebugger from "./Modules/RendererDebugger";
 interface DebuggerInfomationAPI {
   setInfo(key: string, data: number|string);
 }
@@ -17,4 +17,4 @@ interface DebuggerAPI {
   renderers: DebuggerRendererAPI;
 }
 
-export = DebuggerAPI;
+export default DebuggerAPI;

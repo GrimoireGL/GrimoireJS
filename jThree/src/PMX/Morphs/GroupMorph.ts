@@ -3,4 +3,4 @@ interface GroupMorph {
   morphRate: number;
 }
 
-export = GroupMorph;
+export default GroupMorph;

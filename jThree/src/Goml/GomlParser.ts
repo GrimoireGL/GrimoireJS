@@ -1,6 +1,6 @@
-import GomlTreeNodeBase = require("./GomlTreeNodeBase");
-import GomlConfigurator = require("./GomlConfigurator");
-import GomlAttribute = require("./GomlAttribute");
+import GomlTreeNodeBase from "./GomlTreeNodeBase";
+import GomlConfigurator from "./GomlConfigurator";
+import GomlAttribute from "./GomlAttribute";
 
 /**
  * Parser of Goml to Node utilities.
@@ -105,4 +105,4 @@ class GomlParser {
   }
 }
 
-export = GomlParser;
+export default GomlParser;

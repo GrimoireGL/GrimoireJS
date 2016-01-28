@@ -1,7 +1,7 @@
-import BasicRenderer = require("./BasicRenderer");
-import GeneraterInfoChunk = require("./TextureGeneraters/GeneraterInfoChunk");
-import TextureBase = require("../Resources/Texture/TextureBase");
-import TextureGenerater = require("./TextureGenerater");
+import BasicRenderer from "./BasicRenderer";
+import GeneraterInfoChunk from "./TextureGeneraters/GeneraterInfoChunk";
+import TextureBase from "../Resources/Texture/TextureBase";
+import TextureGenerater from "./TextureGenerater";
 /**
  * The class managing all buffer textures used for rendering in a BasicRenderer.
  */
@@ -52,4 +52,4 @@ class BufferSet {
   }
 }
 
-export = BufferSet;
+export default BufferSet;

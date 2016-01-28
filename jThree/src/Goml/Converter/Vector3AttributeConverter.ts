@@ -1,10 +1,10 @@
-import AttributeConverterBase = require("./AttributeConverterBase");
-import GomlAttribute = require("../GomlAttribute");
-import Delegates = require("../../Base/Delegates");
-import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import AnimaterBase = require("../Animater/AnimaterBase");
-import Vector3 = require("../../Math/Vector3");
-import Vector3Animater = require("../Animater/Vector3Animater");
+import AttributeConverterBase from "./AttributeConverterBase";
+import GomlAttribute from "../GomlAttribute";
+import {Action0} from "../../Base/Delegates";
+import EasingFunctionBase from "../Easing/EasingFunctionBase";
+import AnimaterBase from "../Animater/AnimaterBase";
+import Vector3 from "../../Math/Vector3";
+import Vector3Animater from "../Animater/Vector3Animater";
 
 class Vector3AttributeConverter extends AttributeConverterBase {
   public toStringAttr(val: Vector3): string {
@@ -15,9 +15,9 @@ class Vector3AttributeConverter extends AttributeConverterBase {
     return Vector3.parse(attr);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Delegates.Action0): AnimaterBase {
+  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new Vector3Animater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }
 
-export = Vector3AttributeConverter;
+export default Vector3AttributeConverter;

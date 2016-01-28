@@ -1,6 +1,6 @@
-import Exceptions = require("../../Exceptions");
-import AttributeParser = require("../AttributeParser");
-import AttributeConverterBase = require("./AttributeConverterBase");
+import {InvalidArgumentException} from "../../Exceptions";
+import AttributeParser from "../AttributeParser";
+import AttributeConverterBase from "./AttributeConverterBase";
 
 class AngleAttributeConverter extends AttributeConverterBase {
   public toStringAttr(val: number): string {
@@ -18,8 +18,8 @@ class AngleAttributeConverter extends AttributeConverterBase {
       return val;
     }
     // we should implememnt something here?
-    throw new Exceptions.InvalidArgumentException("val can't parse");
+    throw new InvalidArgumentException("val can't parse");
   }
 }
 
-export = AngleAttributeConverter;
+export default AngleAttributeConverter;

@@ -1,11 +1,11 @@
-import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
-import LightBase = require("../LightBase");
-import BasicMaterial = require("../../Materials/Base/BasicMaterial");
-import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
-import Vector3 = require("../../../Math/Vector3");
-import Matrix = require("../../../Math/Matrix");
-import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../JThreeContext");
+import IApplyMaterialArgument from "../../Materials/Base/IApplyMaterialArgument";
+import LightBase from "../LightBase";
+import BasicMaterial from "../../Materials/Base/BasicMaterial";
+import PrimitiveRegistory from "../../Geometries/Base/PrimitiveRegistory";
+import Vector3 from "../../../Math/Vector3";
+import Matrix from "../../../Math/Matrix";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
 
 /**
  * Provides directional light feature.
@@ -175,4 +175,4 @@ class DirectionalLight extends LightBase {
   public bias: number = 0.2;
 }
 
-export = DirectionalLight;
+export default DirectionalLight;

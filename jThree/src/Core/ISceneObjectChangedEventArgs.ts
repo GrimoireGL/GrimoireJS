@@ -1,5 +1,5 @@
-import Scene = require("./Scene");
-import SceneObject = require("./SceneObjects/SceneObject");
+import Scene from "./Scene";
+import SceneObject from "./SceneObjects/SceneObject";
 interface ISceneObjectStructureChangedEventArgs {
   scene: Scene;
   owner: SceneObject;
@@ -8,4 +8,4 @@ interface ISceneObjectStructureChangedEventArgs {
   changedSceneObjectID: string;
 }
 
-export = ISceneObjectStructureChangedEventArgs;
+export default ISceneObjectStructureChangedEventArgs;

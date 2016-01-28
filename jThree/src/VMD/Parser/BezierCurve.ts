@@ -50,4 +50,4 @@ class BezierCurve {
   }
 }
 
-export = BezierCurve;
+export default BezierCurve;

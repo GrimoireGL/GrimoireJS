@@ -12,4 +12,4 @@ enum GetParameterType {
   MaxViewportDims = 3386
 }
 
-export = GetParameterType;
+export default GetParameterType;

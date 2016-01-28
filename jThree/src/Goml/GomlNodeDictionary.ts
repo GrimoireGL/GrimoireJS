@@ -1,6 +1,5 @@
-import jThreeObject = require("../Base/JThreeObject");
-import GomlTreeNodeBase = require("./GomlTreeNodeBase");
-import Delegates = require("../Base/Delegates");
+import jThreeObject from "../Base/JThreeObject";
+import GomlTreeNodeBase from "./GomlTreeNodeBase";
 
 /**
  * Dictionary class to cache GOML node objects.
@@ -11,7 +10,7 @@ class GomlNodeDictionary extends jThreeObject {
    * Assosiative array that indexed by group and name, which assosiate GomlTreeNodeBase and callback functions.
    * @type {GomlTreeNodeBase}
    */
-  private dictionary: { [key: string]: { [key: string]: { node: GomlTreeNodeBase, cb: Delegates.Action1<GomlTreeNodeBase>[] } } } = {};
+  private dictionary: { [key: string]: { [key: string]: { node: GomlTreeNodeBase, cb: ((node: GomlTreeNodeBase) => void)[] } } } = {};
 
   /**
    * Assosiative array that indexed by ID, which assosiate group and name string.
@@ -71,9 +70,9 @@ class GomlNodeDictionary extends jThreeObject {
    * get node. callback function is call when target node is changed.
    * @param {string}                              group      group string
    * @param {string}                              name       name string
-   * @param {Delegates.Action1<GomlTreeNodeBase>} callbackfn callback function for notifying node changes.
+   * @param {(node: GomlTreeNodeBase) => void} callbackfn callback function for notifying node changes.
    */
-  public getNode(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
+  public getNode(group: string, name: string, callbackfn: (node: GomlTreeNodeBase) => void): void {
     if (typeof group === "undefined" || typeof name === "undefined") {
       console.error(`group or name is undefined. group: ${group}, name: ${name}`);
     }
@@ -104,4 +103,4 @@ class GomlNodeDictionary extends jThreeObject {
 
 }
 
-export = GomlNodeDictionary;
+export default GomlNodeDictionary;

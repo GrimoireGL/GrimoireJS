@@ -1,4 +1,4 @@
 declare module "lodash.isnumber" {
   function isNumber(value: any): boolean;
-  export = isNumber;
+  export default isNumber;
 }

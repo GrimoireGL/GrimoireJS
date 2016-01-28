@@ -1,4 +1,4 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 
 
 class BehaviorsNode extends GomlTreeNodeBase {
@@ -18,4 +18,4 @@ class BehaviorsNode extends GomlTreeNodeBase {
   }
 }
 
-export = BehaviorsNode;
+export default BehaviorsNode;

@@ -1,7 +1,7 @@
-import GeometryNodeBase = require("./GeometryNodeBase");
-import Vector3 = require("../../../Math/Vector3");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import TriangleGeometry = require("../../../Core/Geometries/TriangleGeometry");
+import GeometryNodeBase from "./GeometryNodeBase";
+import Vector3 from "../../../Math/Vector3";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import TriangleGeometry from "../../../Core/Geometries/TriangleGeometry";
 
 class GomlTreeTriNode extends GeometryNodeBase {
   private geometry: TriangleGeometry;
@@ -46,4 +46,4 @@ class GomlTreeTriNode extends GeometryNodeBase {
   }
 }
 
-export = GomlTreeTriNode;
+export default GomlTreeTriNode;

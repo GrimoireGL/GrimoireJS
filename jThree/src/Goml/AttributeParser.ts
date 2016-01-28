@@ -1,6 +1,6 @@
-import jThreeObject = require("../Base/JThreeObject");
-import Quaternion = require("../Math/Quaternion");
-import Vector3 = require("../Math/Vector3");
+import jThreeObject from "../Base/JThreeObject";
+import Quaternion from "../Math/Quaternion";
+import Vector3 from "../Math/Vector3";
 /**
  * Utility class to parse the arguments of attributes.
  */
@@ -68,4 +68,4 @@ class AttributeParser extends jThreeObject {
   }
 }
 
-export = AttributeParser;
+export default AttributeParser;

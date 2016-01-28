@@ -7,4 +7,4 @@ enum TextureMinFilterType {
   LinearMipmapLinear = 9987
 }
 
-export = TextureMinFilterType;
+export default TextureMinFilterType;

@@ -1,13 +1,13 @@
-import Quaternion = require("../../Math/Quaternion");
-import Vector3 = require("../../Math/Vector3");
-import Matrix = require("../../Math/Matrix");
-import SceneObject = require("../SceneObjects/SceneObject");
-import JThreeObject = require("../../Base/JThreeObject");
-import Delegates = require("../../Base/Delegates");
-import glm = require("gl-matrix");
-import BasicRenderer = require("./../Renderers/BasicRenderer");
-import JThreeEvent = require("./../../Base/JThreeEvent");
-import Vector4 = require("../../Math/Vector4");
+import Quaternion from "../../Math/Quaternion";
+import Vector3 from "../../Math/Vector3";
+import Matrix from "../../Math/Matrix";
+import SceneObject from "../SceneObjects/SceneObject";
+import JThreeObject from "../../Base/JThreeObject";
+import {Action2} from "../../Base/Delegates";
+import {mat4, vec3, vec4} from "gl-matrix";
+import BasicRenderer from "./../Renderers/BasicRenderer";
+import JThreeEvent from "./../../Base/JThreeEvent";
+import Vector4 from "../../Math/Vector4";
 /**
  * Position,rotation and scale of scene object.
  * Every scene object in a scene has Toransformer.It's used to store and manipulate the position,rotation and scale ob the object.
@@ -86,7 +86,7 @@ class Transformer extends JThreeObject {
 
   private localToGlobalMatrix: Matrix = Matrix.identity();
 
-  private modelViewProjectionCaluculationCache = glm.mat4.create();
+  private modelViewProjectionCaluculationCache = mat4.create();
 
   private globalToLocalCache: Matrix = Matrix.identity();
 
@@ -100,7 +100,7 @@ class Transformer extends JThreeObject {
     if (this.g2lupdated) {
       return this.globalToLocalCache;
     }
-    glm.mat4.invert(this.globalToLocalCache.rawElements, this.localToGlobalMatrix.rawElements);
+    mat4.invert(this.globalToLocalCache.rawElements, this.localToGlobalMatrix.rawElements);
     this.g2lupdated = true;
   }
 
@@ -113,7 +113,7 @@ class Transformer extends JThreeObject {
    * Subscribe event handlers it will be called when this transformer's transform was changed.
    * @param action the event handler for this event.
    */
-  public onUpdateTransform(action: Delegates.Action2<Transformer, SceneObject>): void {
+  public onUpdateTransform(action: Action2<Transformer, SceneObject>): void {
     this.onUpdateTransformHandler.addListener(action);
   }
 
@@ -141,19 +141,19 @@ class Transformer extends JThreeObject {
    */
   protected updateTransformMatricies() {
     // initialize localTransformCache & localToGlobalMatrix.rawElements
-    glm.mat4.identity(this.localTransformMatrix.rawElements);
-    glm.mat4.identity(this.localToGlobalMatrix.rawElements);
+    mat4.identity(this.localTransformMatrix.rawElements);
+    mat4.identity(this.localToGlobalMatrix.rawElements);
     // generate local transofrm matrix
-    glm.mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+    mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
     if (this.linkedObject != null && this.linkedObject.Parent != null) {
       // Use LocalToGlobal matrix of parents to multiply with localTransformCache
-      glm.mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
+      mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
     } else {
       // If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
-      glm.mat4.identity(this.localToGlobalMatrix.rawElements);
+      mat4.identity(this.localToGlobalMatrix.rawElements);
     }
     // Multiply parent transform
-    glm.mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
+    mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
     this.updateDirections();
   }
 
@@ -168,16 +168,16 @@ class Transformer extends JThreeObject {
   }
 
   private updateDirection(rawElements: Vector3, sourceVector4: number[]) {
-    glm.vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobalMatrix.rawElements);
-    glm.vec3.normalize(rawElements.rawElements, rawElements.rawElements);
+    vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobalMatrix.rawElements);
+    vec3.normalize(rawElements.rawElements, rawElements.rawElements);
   }
 
   /**
    * Calculate Projection-View-Model matrix with renderer camera.
    */
   public calculateMVPMatrix(renderer: BasicRenderer): Matrix {
-    glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
-    glm.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this.modelViewProjectionCaluculationCache);
+    mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
+    mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this.modelViewProjectionCaluculationCache);
     return new Matrix(this.modelViewProjectionCaluculationCache);
   }
 
@@ -271,4 +271,4 @@ class Transformer extends JThreeObject {
   }
 }
 
-export = Transformer;
+export default Transformer;

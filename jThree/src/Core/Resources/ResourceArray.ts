@@ -1,12 +1,11 @@
-
-import JThreeObject = require("../../Base/JThreeObject");
-import Delegates = require("./../../Base/Delegates");
+import JThreeObject from "../../Base/JThreeObject";
+import {Action1, Func0} from "./../../Base/Delegates";
 class ResourceArray<T> extends JThreeObject {
   private resourceArray: { [key: string]: T } = {};
 
-  private handlerArray: { [id: string]: Delegates.Action1<T>[] } = {};
+  private handlerArray: { [id: string]: Action1<T>[] } = {};
 
-  public create(id: string, creationFunc: Delegates.Func0<T>) {
+  public create(id: string, creationFunc: Func0<T>) {
     let resource;
     if (this.resourceArray[id]) {
       resource = this.resourceArray[id];
@@ -30,7 +29,7 @@ class ResourceArray<T> extends JThreeObject {
     return !!this.resourceArray[id];
   }
 
-  public getHandler(id: string, handler: Delegates.Action1<T>) {
+  public getHandler(id: string, handler: Action1<T>) {
     if (this.has(id)) {
       handler(this.get(id));
     } else {
@@ -43,4 +42,4 @@ class ResourceArray<T> extends JThreeObject {
   }
 }
 
-export = ResourceArray;
+export default ResourceArray;

@@ -4,4 +4,4 @@ interface VMDBoneStatus {
   rotation: number[];
 }
 
-export = VMDBoneStatus;
+export default VMDBoneStatus;

@@ -1,6 +1,6 @@
-import JThreeObject = require("./JThreeObject");
-import Delegates = require("../Base/Delegates");
-import Exceptions = require("../Exceptions");
+import JThreeObject from "./JThreeObject";
+import {Action2} from "../Base/Delegates";
+import {InvalidArgumentException} from "../Exceptions";
 /**
 * The class for implementing in Event-Driven architecture.
 */
@@ -8,7 +8,7 @@ class JThreeEvent<T> extends JThreeObject {
     /**
     * The variable to contain handlers references.
     */
-    private _eventHandlers: Delegates.Action2<any, T>[] = [];
+    private _eventHandlers: Action2<any, T>[] = [];
 
     /**
     * Call all of handler you subscribed.
@@ -21,9 +21,9 @@ class JThreeEvent<T> extends JThreeObject {
     *Add the handler you pass.
     *@param handler the handler you want to add.
     */
-    public addListener(handler: Delegates.Action2<any, T>): void {
+    public addListener(handler: Action2<any, T>): void {
         if (typeof handler === "undefined") {
-            throw new Exceptions.InvalidArgumentException("you can not add undefined as event handler");
+            throw new InvalidArgumentException("you can not add undefined as event handler");
         }
         this._eventHandlers.push(handler);
     }
@@ -32,7 +32,7 @@ class JThreeEvent<T> extends JThreeObject {
     * Remove the handler you passing.
     * @param handler the handler you want to remove.
     */
-    public removeListener(handler: Delegates.Action2<any, T>): void {
+    public removeListener(handler: Action2<any, T>): void {
         for (let i = 0; i < this._eventHandlers.length; i++) {
             const val = this._eventHandlers[i];
             if (val === handler) {
@@ -43,4 +43,4 @@ class JThreeEvent<T> extends JThreeObject {
     }
 }
 
-export = JThreeEvent;
+export default JThreeEvent;

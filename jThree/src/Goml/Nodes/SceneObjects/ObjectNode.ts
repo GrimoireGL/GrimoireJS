@@ -1,6 +1,6 @@
-import SceneObjectNodeBase = require("./SceneObjectNodeBase");
-import SceneObject = require("../../../Core/SceneObjects/SceneObject");
-// import GomlParser = require("../../GomlParser.ts");
+import SceneObjectNodeBase from "./SceneObjectNodeBase";
+import SceneObject from "../../../Core/SceneObjects/SceneObject";
+// import GomlParser from "../../GomlParser.ts";
 
 class ObjectNode extends SceneObjectNodeBase {
   // private targetTemplate: TemplateNode;
@@ -22,4 +22,4 @@ class ObjectNode extends SceneObjectNodeBase {
   }
 }
 
-export = ObjectNode;
+export default ObjectNode;

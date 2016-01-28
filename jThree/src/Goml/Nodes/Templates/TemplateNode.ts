@@ -1,4 +1,4 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 
 class TemplateNode extends GomlTreeNodeBase {
   // private static parentIgnore: string[] = ["template"];
@@ -53,4 +53,4 @@ class TemplateNode extends GomlTreeNodeBase {
 
 }
 
-export = TemplateNode;
+export default TemplateNode;

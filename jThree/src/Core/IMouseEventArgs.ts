@@ -1,5 +1,5 @@
-import Vector2 = require("../Math/Vector2");
-import CanvasRegion = require("./CanvasRegion");
+import Vector2 from "../Math/Vector2";
+import CanvasRegion from "./CanvasRegion";
 /**
  * The event args object interface to be used in mouse related event in CanvasRegion
  *
@@ -46,4 +46,4 @@ interface IMouseEventArgs {
    */
   region: CanvasRegion;
 }
-export = IMouseEventArgs;
+export default IMouseEventArgs;

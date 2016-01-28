@@ -1,4 +1,4 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 
 class LoaderNode extends GomlTreeNodeBase {
   public loaderHTML: string;
@@ -21,4 +21,4 @@ class LoaderNode extends GomlTreeNodeBase {
   }
 }
 
-export = LoaderNode;
+export default LoaderNode;

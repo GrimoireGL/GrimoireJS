@@ -1,43 +1,46 @@
-import RenderStageRegistory = require("./Core/Renderers/RenderStageRegistory");
-import PrimitiveRegistory = require("./Core/Geometries/Base/PrimitiveRegistory");
-import MaterialManager = require("./Core/Materials/Base/MaterialManager");
-import Timer = require("./Core/Timer");
-import J3Object = require("./Interface/J3Object"); // This must be the first time of import J3Object
-require("./Interface/J3ObjectMixins"); // Apply mixins
-import Delegates = require("./Base/Delegates");
-import BehaviorDeclaration = require("./Goml/Behaviors/BehaviorDeclaration");
-import BehaviorDeclarationBody = require("./Goml/Behaviors/BehaviorDeclarationBody");
-import JThreeContext = require("./JThreeContext");
-import SceneManager = require("./Core/SceneManager");
-import CanvasManager = require("./Core/CanvasManager");
-import LoopManager = require("./Core/LoopManager");
-import ContextComponents = require("./ContextComponents");
-import ResourceManager = require("./Core/ResourceManager");
-import NodeManager = require("./Goml/NodeManager");
-import Debugger = require("./Debug/Debugger");
-import GomlLoader = require("./Goml/GomlLoader");
-import ResourceLoader = require("./Core/ResourceLoader");
+import RenderStageRegistory from "./Core/Renderers/RenderStageRegistory";
+import PrimitiveRegistory from "./Core/Geometries/Base/PrimitiveRegistory";
+import MaterialManager from "./Core/Materials/Base/MaterialManager";
+import Timer from "./Core/Timer";
+import J3Object from "./Interface/J3Object"; // This must be the first time of import J3Object
+import J3ObjectMixins from "./Interface/J3ObjectMixins"; // Apply mixins
+J3ObjectMixins();
+import {Action0} from "./Base/Delegates";
+import BehaviorDeclaration from "./Goml/Behaviors/BehaviorDeclaration";
+import BehaviorDeclarationBody from "./Goml/Behaviors/BehaviorDeclarationBody";
+import JThreeContext from "./JThreeContext";
+import SceneManager from "./Core/SceneManager";
+import CanvasManager from "./Core/CanvasManager";
+import LoopManager from "./Core/LoopManager";
+import ContextComponents from "./ContextComponents";
+import ResourceManager from "./Core/ResourceManager";
+import NodeManager from "./Goml/NodeManager";
+import Debugger from "./Debug/Debugger";
+import GomlLoader from "./Goml/GomlLoader";
+import ResourceLoader from "./Core/ResourceLoader";
+
+import Quaternion from "./Math/Quaternion";
+import Vector2 from "./Math/Vector2";
+import Vector3 from "./Math/Vector3";
+import Vector4 from "./Math/Vector4";
 
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
 */
 class JThreeStatic {
-  public defineBehavior(behaviorName: string, decl: BehaviorDeclarationBody | Delegates.Action0);
+  public defineBehavior(behaviorName: string, decl: BehaviorDeclarationBody | Action0);
   public defineBehavior(declarations: BehaviorDeclaration);
-  public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, declaration?: BehaviorDeclarationBody | Delegates.Action0) {
+  public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, declaration?: BehaviorDeclarationBody | Action0) {
     JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager).behaviorRegistry.defineBehavior(<string>nameOrDeclarations, declaration); // This is not string but it is for conviniesnce.
   }
 
   public get Math() {
     return {
-      Quaternion: require("./Math/Quaternion"),
-      Vector2:
-      require("./Math/Vector2"),
-      Vector3:
-      require("./Math/Vector3"),
-      Vector4:
-      require("./Math/Vector4")
+      Quaternion: Quaternion,
+      Vector2: Vector2,
+      Vector3: Vector3,
+      Vector4: Vector4,
     };
   }
 }
@@ -56,7 +59,7 @@ class JThreeInit {
   * 1, to use for select elements like jQuery in GOML.
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
-  public static j3(argu: string | Delegates.Action0): J3Object {
+  public static j3(argu: string | Action0): J3Object {
     if (typeof argu === "string") {
       return new J3Object(argu);
     } else if (typeof argu === "function") {
@@ -78,10 +81,21 @@ class JThreeInit {
     JThreeInit.SelfTag = scripts[scripts.length - 1];
     // register interfaces
     window["j3"] = JThreeInit.j3; // $(~~~)
-    const pro = Object.getPrototypeOf(window["j3"]);
-    for (let key in JThreeStatic.prototype) {
-      pro[key] = JThreeStatic.prototype[key];
-    }
+
+    const baseCtor = JThreeStatic;
+    Object.getOwnPropertyNames(baseCtor.prototype).forEach((name) => {
+      if (name !== "constructor") {
+        const org_descriptor = Object.getOwnPropertyDescriptor(baseCtor, name);
+        const descriptor = {
+          value: baseCtor.prototype[name],
+          enumerable: false,
+          configurable: true,
+          writable: true,
+        };
+        Object.defineProperty(Object.getPrototypeOf(window["j3"]), name, org_descriptor || descriptor);
+      }
+    });
+
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
     JThreeContext.init();
     JThreeContext.registerContextComponent(new Timer());
@@ -124,4 +138,4 @@ class JThreeInit {
     });
   }
 }
-export = JThreeInit;
+export default JThreeInit;

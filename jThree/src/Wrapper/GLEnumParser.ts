@@ -70,4 +70,4 @@ class GLEnumParser {
     }
   }
 }
-export = GLEnumParser;
+export default GLEnumParser;

@@ -1,12 +1,12 @@
-import ResourceWrapper = require("../ResourceWrapper");
-import TextureParameterType = require("../../../Wrapper/Texture/TextureParameterType");
-import TextureBase = require("./TextureBase");
-import Canvas = require("../../Canvas");
-import TextureRegister = require("../../../Wrapper/Texture/TextureRegister");
-import PixelStoreParamType = require("../../../Wrapper/Texture/PixelStoreParamType");
-import Delegates = require("../../../Base/Delegates");
-import TextureFormat = require("../../../Wrapper/TextureInternalFormatType");
-import ElementType = require("../../../Wrapper/TextureType");
+import ResourceWrapper from "../ResourceWrapper";
+import TextureParameterType from "../../../Wrapper/Texture/TextureParameterType";
+import TextureBase from "./TextureBase";
+import Canvas from "../../Canvas";
+import TextureRegister from "../../../Wrapper/Texture/TextureRegister";
+import PixelStoreParamType from "../../../Wrapper/Texture/PixelStoreParamType";
+import {Func3} from "../../../Base/Delegates";
+import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
+import ElementType from "../../../Wrapper/TextureType";
 class TextureWrapperBase extends ResourceWrapper {
 
   protected static altTextureBuffer: Float32Array = new Uint8Array([255, 0, 255, 255]);
@@ -77,11 +77,11 @@ class TextureWrapperBase extends ResourceWrapper {
     }
   }
 
-  public generateHtmlImage(encoder?: Delegates.Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
+  public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
     return null;
   }
 
-  protected encodeHtmlImage(width: number, height: number, encode?: Delegates.Func3<number, number, ArrayBufferView, Uint8Array>) {
+  protected encodeHtmlImage(width: number, height: number, encode?: Func3<number, number, ArrayBufferView, Uint8Array>) {
     const lastFBO = this.GL.getParameter(this.GL.FRAMEBUFFER_BINDING);
     // Create framebuffer to transfer texture data
     const framebuffer = this.GL.createFramebuffer();
@@ -188,4 +188,4 @@ class TextureWrapperBase extends ResourceWrapper {
     }
   }
 }
-export = TextureWrapperBase;
+export default TextureWrapperBase;

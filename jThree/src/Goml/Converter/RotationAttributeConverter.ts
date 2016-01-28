@@ -1,11 +1,11 @@
-import JThreeObject = require("../../Base/JThreeObject");
-import AttributeParser = require("../AttributeParser");
-import RotationAnimater = require("../Animater/RotationAnimater");
-import GomlAttribute = require("../GomlAttribute");
-import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import Delegates = require("../../Base/Delegates");
-import AnimaterBase = require("../Animater/AnimaterBase");
-import Quaternion = require("../../Math/Quaternion");
+import JThreeObject from "../../Base/JThreeObject";
+import AttributeParser from "../AttributeParser";
+import RotationAnimater from "../Animater/RotationAnimater";
+import GomlAttribute from "../GomlAttribute";
+import EasingFunctionBase from "../Easing/EasingFunctionBase";
+import {Action0} from "../../Base/Delegates";
+import AnimaterBase from "../Animater/AnimaterBase";
+import Quaternion from "../../Math/Quaternion";
 
 class RotationAttributeConverter extends JThreeObject {
   public toStringAttr(val: Quaternion): string {
@@ -16,9 +16,9 @@ class RotationAttributeConverter extends JThreeObject {
     return AttributeParser.ParseRotation3D(attr);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Delegates.Action0): AnimaterBase {
+  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new RotationAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }
 
-export = RotationAttributeConverter;
+export default RotationAttributeConverter;

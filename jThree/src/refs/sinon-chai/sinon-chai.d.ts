@@ -80,5 +80,5 @@ declare module Chai {
 
 declare module "sinon-chai" {
     function sinonChai(chai: any, utils: any): void;
-    export = sinonChai;
+    export default sinonChai;
 }

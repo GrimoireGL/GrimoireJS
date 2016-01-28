@@ -1,7 +1,7 @@
-import Buffer = require("./Buffer");
-import ElementType = require("../../../Wrapper/ElementType");
-import ResourceWrapper = require("../ResourceWrapper");
-import Canvas = require("../../Canvas");
+import Buffer from "./Buffer";
+import ElementType from "../../../Wrapper/ElementType";
+import ResourceWrapper from "../ResourceWrapper";
+import Canvas from "../../Canvas";
 /**
  * Buffer wrapper based on context.
  */
@@ -83,4 +83,4 @@ class BufferWrapper extends ResourceWrapper {
     }
   }
 }
-export = BufferWrapper;
+export default BufferWrapper;

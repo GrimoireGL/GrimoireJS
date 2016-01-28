@@ -5,4 +5,4 @@ interface StageChainTemplate {
   stage: string;
   variables?: {};
 }
-export = StageChainTemplate;
+export default StageChainTemplate;

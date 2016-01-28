@@ -1,8 +1,8 @@
-import VMDFrameData = require("./VMDFrameData");
+import VMDFrameData from "./VMDFrameData";
 
 
 interface VMDMorph extends VMDFrameData {
   frameNumber: number;
   morphValue: number;
 }
-export = VMDMorph;
+export default VMDMorph;

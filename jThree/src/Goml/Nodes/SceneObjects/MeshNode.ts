@@ -1,10 +1,10 @@
-import GomlAttribute = require("../../GomlAttribute");
-import SceneObjectNodeBase = require("./SceneObjectNodeBase");
-import BasicMeshObject = require("../../../Core/SceneObjects/BasicMeshObject");
-import GeometryNodeBase = require("../Geometries/GeometryNodeBase");
-import MaterialNode = require("../Materials/MaterialNodeBase");
-import Material = require("../../../Core/Materials/Material");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
+import GomlAttribute from "../../GomlAttribute";
+import SceneObjectNodeBase from "./SceneObjectNodeBase";
+import BasicMeshObject from "../../../Core/SceneObjects/BasicMeshObject";
+import GeometryNodeBase from "../Geometries/GeometryNodeBase";
+import MaterialNode from "../Materials/MaterialNodeBase";
+import Material from "../../../Core/Materials/Material";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
 
 class MeshNode extends SceneObjectNodeBase {
   constructor() {
@@ -84,4 +84,4 @@ class MeshNode extends SceneObjectNodeBase {
   }
 }
 
-export = MeshNode;
+export default MeshNode;

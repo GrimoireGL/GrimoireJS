@@ -1,8 +1,8 @@
-import JThreeObject = require("../../Base/JThreeObject");
-import JThreeCollection = require("../../Base/JThreeCollection");
-import BehaviorNode = require("../Nodes/Behaviors/BehaviorNode");
-import GomlTreeNodeBase = require("../GomlTreeNodeBase");
-import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
+import JThreeObject from "../../Base/JThreeObject";
+import JThreeCollection from "../../Base/JThreeCollection";
+import BehaviorNode from "../Nodes/Behaviors/BehaviorNode";
+import GomlTreeNodeBase from "../GomlTreeNodeBase";
+import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
 /**
  * container class for storeing BehaviorNode and TargetNode
  */
@@ -63,4 +63,4 @@ class BehaviorRunner extends JThreeObject {
     this.sortedBehavior.sort((v1, v2) => v1.Behavior.order - v2.Behavior.order);
   }
 }
-export = BehaviorRunner;
+export default BehaviorRunner;

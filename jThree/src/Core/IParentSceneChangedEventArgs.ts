@@ -1,7 +1,7 @@
-import Scene = require("./Scene");
+import Scene from "./Scene";
 interface IParentSceneChangedEventArgs {
   lastParentScene: Scene;
   currentParentScene: Scene;
 }
 
-export =  IParentSceneChangedEventArgs;
+export default IParentSceneChangedEventArgs;

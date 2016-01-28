@@ -431,5 +431,5 @@ declare module Sinon {
 declare var sinon: Sinon.SinonStatic;
 
 declare module "sinon" {
-    export = sinon;
+    export default sinon;
 }

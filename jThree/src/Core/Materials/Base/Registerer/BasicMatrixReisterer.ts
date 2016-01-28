@@ -1,8 +1,9 @@
-import Vector2 = require("../../../../Math/Vector2");
-import Matrix = require("../../../../Math/Matrix");
-import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("../IVariableDescription");
-import IApplyMaterialArgument = require("../IApplyMaterialArgument");
+import Matrix from "../../../../Math/Matrix";
+import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../IVariableDescription";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
+import Vector2 from "../../../../Math/Vector2";
+
 const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
   if (uniforms["_matM"]) {
     pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
@@ -40,4 +41,4 @@ const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapp
   }
 };
 
-export = BasicMatrixRegisterer;
+export default BasicMatrixRegisterer;

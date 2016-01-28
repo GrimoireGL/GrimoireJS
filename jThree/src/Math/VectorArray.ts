@@ -1,7 +1,7 @@
-import Vector4 = require("./Vector4");
-import Vector3 = require("./Vector3");
-import Vector2 = require("./Vector2");
-import VectorBase = require("./VectorBase");
+import Vector4 from "./Vector4";
+import Vector3 from "./Vector3";
+import Vector2 from "./Vector2";
+import VectorBase from "./VectorBase";
 class VectorArray {
 
   public rawElements: number[];
@@ -80,4 +80,4 @@ class VectorArray {
   }
 }
 
-export = VectorArray;
+export default VectorArray;

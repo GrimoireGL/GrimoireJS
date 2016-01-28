@@ -4,4 +4,4 @@ interface IRenderBufferBindingConfig {
   needClear: boolean;
   clearDepth: number;
 }
-export = IRenderBufferBindingConfig;
+export default IRenderBufferBindingConfig;

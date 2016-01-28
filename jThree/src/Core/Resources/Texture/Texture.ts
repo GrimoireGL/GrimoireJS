@@ -1,6 +1,6 @@
-import TextureWrapper = require("./TextureWrapper");
-import Canvas = require("../../Canvas");
-import TextureBase = require("./TextureBase");
+import TextureWrapper from "./TextureWrapper";
+import Canvas from "../../Canvas";
+import TextureBase from "./TextureBase";
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 class Texture extends TextureBase {
@@ -28,4 +28,4 @@ class Texture extends TextureBase {
 
 }
 
-export = Texture;
+export default Texture;

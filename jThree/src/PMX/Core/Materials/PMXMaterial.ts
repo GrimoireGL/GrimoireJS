@@ -1,19 +1,19 @@
-import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
-import IConfigureEventArgs = require("../../../Core/IConfigureEventArgs");
-import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
-import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import Material = require("../../../Core/Materials/Material");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import Vector4 = require("../../../Math/Vector4");
-import Color4 = require("../../../Math/Color4");
-import Color3 = require("../../../Math/Color3");
-import PMX = require("../../PMXLoader");
-import Texture = require("../../../Core/Resources/Texture/Texture");
-import PMXModel = require("./../PMXModel");
-import PmxMaterialMorphParamContainer = require("./../PMXMaterialMorphParamContainer");
-import ResourceManager = require("../../../Core/ResourceManager");
-import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../JThreeContext");
+import TextureBase from "../../../Core/Resources/Texture/TextureBase";
+import IConfigureEventArgs from "../../../Core/IConfigureEventArgs";
+import IApplyMaterialArgument from "../../../Core/Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
+import Material from "../../../Core/Materials/Material";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import Vector4 from "../../../Math/Vector4";
+import Color4 from "../../../Math/Color4";
+import Color3 from "../../../Math/Color3";
+import PMX from "../../PMXLoader";
+import Texture from "../../../Core/Resources/Texture/Texture";
+import PMXModel from "./../PMXModel";
+import PmxMaterialMorphParamContainer from "./../PMXMaterialMorphParamContainer";
+import ResourceManager from "../../../Core/ResourceManager";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
 
 /**
  * the materials for PMX.
@@ -207,4 +207,4 @@ class PMXMaterial extends Material {
   }
 }
 
-export = PMXMaterial;
+export default PMXMaterial;

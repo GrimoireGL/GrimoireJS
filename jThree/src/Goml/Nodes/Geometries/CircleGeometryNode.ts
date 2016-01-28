@@ -1,7 +1,7 @@
-import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import CircleGeometry = require("../../../Core/Geometries/CircleGeometry");
-import GomlAttribute = require("../../GomlAttribute");
+import GeometryNodeBase from "./GeometryNodeBase";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import CircleGeometry from "../../../Core/Geometries/CircleGeometry";
+import GomlAttribute from "../../GomlAttribute";
 
 class CircleGeometryNode extends GeometryNodeBase {
   constructor() {
@@ -28,4 +28,4 @@ class CircleGeometryNode extends GeometryNodeBase {
   }
 }
 
-export = CircleGeometryNode;
+export default CircleGeometryNode;

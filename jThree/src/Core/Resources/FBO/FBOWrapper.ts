@@ -1,8 +1,8 @@
-import Canvas = require("../../Canvas");
-import ResourceWrapper = require("../ResourceWrapper");
-import FrameBufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
-import TextureBase = require("../Texture/TextureBase");
-import RBO = require("../RBO/RBO");
+import Canvas from "../../Canvas";
+import ResourceWrapper from "../ResourceWrapper";
+import FrameBufferAttachmentType from "../../../Wrapper/FrameBufferAttachmentType";
+import TextureBase from "../Texture/TextureBase";
+import RBO from "../RBO/RBO";
 class FBOWrapper extends ResourceWrapper {
 
   constructor(renderer: Canvas) {
@@ -74,4 +74,4 @@ class FBOWrapper extends ResourceWrapper {
   }
 }
 
-export = FBOWrapper;
+export default FBOWrapper;

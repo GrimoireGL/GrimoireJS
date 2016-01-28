@@ -1,6 +1,6 @@
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import LightBase = require("../../../../Core/Light/LightBase");
-import GomlAttribute = require("../../../GomlAttribute");
+import SceneObjectNodeBase from "../SceneObjectNodeBase";
+import LightBase from "../../../../Core/Light/LightBase";
+import GomlAttribute from "../../../GomlAttribute";
 
 class LightNodeBase extends SceneObjectNodeBase {
   constructor() {
@@ -37,4 +37,4 @@ class LightNodeBase extends SceneObjectNodeBase {
   }
 }
 
-export = LightNodeBase;
+export default LightNodeBase;

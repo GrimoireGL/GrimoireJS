@@ -1,6 +1,6 @@
-import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("../IVariableDescription");
-import IApplyMaterialArgument = require("../IApplyMaterialArgument");
+import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../IVariableDescription";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
 const RenderStageDescriptionRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
   if (uniforms["_techniqueIndex"]) {
     pWrapper.uniformInt("_techniqueIndex", matArg.techniqueIndex);
@@ -16,4 +16,4 @@ const RenderStageDescriptionRegisterer = (gl: WebGLRenderingContext, pWrapper: P
   }
 };
 
-export = RenderStageDescriptionRegisterer;
+export default RenderStageDescriptionRegisterer;

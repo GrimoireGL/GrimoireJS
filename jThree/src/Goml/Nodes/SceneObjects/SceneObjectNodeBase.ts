@@ -1,9 +1,9 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import SceneNode = require("../SceneNode");
-import SceneObject = require("../../../Core/SceneObjects/SceneObject");
-import Vector3 = require("../../../Math/Vector3");
-import Quaternion = require("../../../Math/Quaternion");
-import GomlAttribute = require("../../GomlAttribute");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import SceneNode from "../SceneNode";
+import SceneObject from "../../../Core/SceneObjects/SceneObject";
+import Vector3 from "../../../Math/Vector3";
+import Quaternion from "../../../Math/Quaternion";
+import GomlAttribute from "../../GomlAttribute";
 
 class SceneObjectNodeBase extends GomlTreeNodeBase {
   /**
@@ -163,4 +163,4 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   }
 }
 
-export = SceneObjectNodeBase;
+export default SceneObjectNodeBase;

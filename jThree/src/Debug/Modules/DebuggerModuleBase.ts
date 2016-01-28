@@ -1,8 +1,8 @@
-import Debugger = require("../Debugger");
+import Debugger from "../Debugger";
 class DebuggerModuleBase {
   public attach(debug: Debugger): void {
    return;
   }
 }
 
-export = DebuggerModuleBase;
+export default DebuggerModuleBase;

@@ -1,6 +1,6 @@
-import GeneraterInfoChunk = require("../TextureGeneraters/GeneraterInfoChunk");
-import StageChainTemplate = require("../StageChainTemplate");
-import BasicRenderer = require("../BasicRenderer");
+import GeneraterInfoChunk from "../TextureGeneraters/GeneraterInfoChunk";
+import StageChainTemplate from "../StageChainTemplate";
+import BasicRenderer from "../BasicRenderer";
 
 class RendererConfiguratorBase {
   public get TextureBuffers(): GeneraterInfoChunk[] {
@@ -12,4 +12,4 @@ class RendererConfiguratorBase {
   }
 }
 
-export = RendererConfiguratorBase;
+export default RendererConfiguratorBase;

@@ -1,8 +1,8 @@
-import SceneManager = require("./SceneManager");
-import Scene = require("./Scene");
+import SceneManager from "./SceneManager";
+import Scene from "./Scene";
 interface ISceneListChangedEventArgs {
   owner: SceneManager;
   changedScene: Scene;
   isAdditionalChange: boolean;
 }
-export = ISceneListChangedEventArgs;
+export default ISceneListChangedEventArgs;

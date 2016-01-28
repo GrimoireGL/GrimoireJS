@@ -1,7 +1,7 @@
-import Scene = require("../Scene");
-import RenderPathExecutor = require("./RenderPathExecutor");
+import Scene from "../Scene";
+import RenderPathExecutor from "./RenderPathExecutor";
 interface IRenderPathCompletedEventArgs {
   owner: RenderPathExecutor;
   scene: Scene;
 }
-export = IRenderPathCompletedEventArgs;
+export default IRenderPathCompletedEventArgs;

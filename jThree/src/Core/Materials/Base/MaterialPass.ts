@@ -1,22 +1,22 @@
-import DefaultValuePreProcessor = require("./DefaultValuePreProcessor");
-import IConfigureEventArgs = require("../../IConfigureEventArgs");
-import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
-import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
-import Material = require("../Material");
-import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("./IVariableDescription");
-import IProgramDescription = require("./IProgramDescription");
-import IApplyMaterialArgument = require("./IApplyMaterialArgument");
-import XMLRenderConfigUtility = require("./XMLRenderConfigUtility");
-import Program = require("../../Resources/Program/Program");
-import Shader = require("../../Resources/Shader/Shader");
-import ShaderType = require("../../../Wrapper/ShaderType");
-import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../JThreeContext");
-import ResourceManager = require("../../ResourceManager");
-import ShaderParser = require("./ShaderParser");
-import Delegates = require("../../../Base/Delegates");
-import Q = require("q");
+import DefaultValuePreProcessor from "./DefaultValuePreProcessor";
+import IConfigureEventArgs from "../../IConfigureEventArgs";
+import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
+import IRenderStageRenderConfigure from "../../Renderers/RenderStages/IRenderStageRendererConfigure";
+import Material from "../Material";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "./IVariableDescription";
+import IProgramDescription from "./IProgramDescription";
+import IApplyMaterialArgument from "./IApplyMaterialArgument";
+import XMLRenderConfigUtility from "./XMLRenderConfigUtility";
+import Program from "../../Resources/Program/Program";
+import Shader from "../../Resources/Shader/Shader";
+import ShaderType from "../../../Wrapper/ShaderType";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+import ResourceManager from "../../ResourceManager";
+import ShaderParser from "./ShaderParser";
+import {Action4} from "../../../Base/Delegates";
+import Q from "q";
 class MaterialPass extends JThreeObjectWithID {
 
   public ready: boolean = false;
@@ -59,7 +59,7 @@ class MaterialPass extends JThreeObjectWithID {
     });
   }
 
-  public apply(matArg: IApplyMaterialArgument, uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[], material: Material): void {
+  public apply(matArg: IApplyMaterialArgument, uniformRegisters: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[], material: Material): void {
     if (!this.ready) {
       return;
     }
@@ -118,4 +118,4 @@ class MaterialPass extends JThreeObjectWithID {
   }
 }
 
-export = MaterialPass;
+export default MaterialPass;

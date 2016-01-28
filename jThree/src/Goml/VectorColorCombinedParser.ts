@@ -1,8 +1,8 @@
-import Vector4 = require("../Math/Vector4");
-import Color4 = require("../Math/Color4");
-import Vector3 = require("../Math/Vector3");
-import Color3 = require("../Math/Color3");
-import VectorBase = require("../Math/VectorBase");
+import Vector4 from "../Math/Vector4";
+import Color4 from "../Math/Color4";
+import Vector3 from "../Math/Vector3";
+import Color3 from "../Math/Color3";
+import VectorBase from "../Math/VectorBase";
 
 class VectorColorCombinedParser {
   public static parseTuple3(source: string): VectorBase {
@@ -22,4 +22,4 @@ class VectorColorCombinedParser {
   }
 }
 
-export = VectorColorCombinedParser;
+export default VectorColorCombinedParser;

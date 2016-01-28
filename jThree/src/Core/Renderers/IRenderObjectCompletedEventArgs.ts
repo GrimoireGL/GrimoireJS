@@ -1,8 +1,8 @@
-import RenderPathExecutor = require("./RenderPathExecutor");
-import RenderStageBase = require("./RenderStages/RenderStageBase");
-import SceneObject = require("../SceneObjects/SceneObject");
-import RenderStageChain = require("./RenderStageChain");
-import ResolvedChainInfo = require("./ResolvedChainInfo");
+import RenderPathExecutor from "./RenderPathExecutor";
+import RenderStageBase from "./RenderStages/RenderStageBase";
+import SceneObject from "../SceneObjects/SceneObject";
+import RenderStageChain from "./RenderStageChain";
+import ResolvedChainInfo from "./ResolvedChainInfo";
 
 interface IRenderObjectCompletedEventArgs {
   owner: RenderPathExecutor;
@@ -12,4 +12,4 @@ interface IRenderObjectCompletedEventArgs {
   bufferTextures: ResolvedChainInfo;
   technique: number;
 }
-export = IRenderObjectCompletedEventArgs;
+export default IRenderObjectCompletedEventArgs;

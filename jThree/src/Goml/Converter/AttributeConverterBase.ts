@@ -1,22 +1,22 @@
-import JThreeObject = require("../../Base/JThreeObject");
-import Exceptions = require("../../Exceptions");
-import AnimaterBase = require("../Animater/AnimaterBase");
-import GomlAttribute = require("../GomlAttribute");
-import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import Delegates = require("../../Base/Delegates");
+import JThreeObject from "../../Base/JThreeObject";
+import {AbstractClassMethodCalledException} from "../../Exceptions";
+import AnimaterBase from "../Animater/AnimaterBase";
+import GomlAttribute from "../GomlAttribute";
+import EasingFunctionBase from "../Easing/EasingFunctionBase";
+import {Action0} from "../../Base/Delegates";
 
 class AttributeConverterBase extends JThreeObject {
   public toStringAttr(val: any): string {
-    throw new Exceptions.AbstractClassMethodCalledException();
+    throw new AbstractClassMethodCalledException();
   }
 
   public toObjectAttr(attr: string): any {
-    throw new Exceptions.AbstractClassMethodCalledException();
+    throw new AbstractClassMethodCalledException();
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Delegates.Action0): AnimaterBase {
-    throw new Exceptions.AbstractClassMethodCalledException();
+  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
+    throw new AbstractClassMethodCalledException();
   }
 }
 
-export = AttributeConverterBase;
+export default AttributeConverterBase;

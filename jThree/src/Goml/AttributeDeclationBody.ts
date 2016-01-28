@@ -1,5 +1,4 @@
-﻿import Delegates = require("../Base/Delegates");
-import GomlAttribute = require("./GomlAttribute");
+﻿import GomlAttribute from "./GomlAttribute";
 
 interface AttributeDeclarationBody {
 	/**
@@ -15,7 +14,7 @@ interface AttributeDeclarationBody {
   /**
    * apply to event listener when attribute changed
    */
-  onchanged?: Delegates.Action1<GomlAttribute>;
+  onchanged?: (attr: GomlAttribute) => void;
 
   /**
    * Whether this attribute accept change by interface or not.
@@ -32,4 +31,4 @@ interface AttributeDeclarationBody {
   [other: string]: any;
 }
 
-export = AttributeDeclarationBody;
+export default AttributeDeclarationBody;

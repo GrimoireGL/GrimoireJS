@@ -1,4 +1,4 @@
-import AnimagterBase = require("./AnimaterBase");
+import AnimagterBase from "./AnimaterBase";
 
 class IntegerAnimater extends AnimagterBase {
 
@@ -13,4 +13,4 @@ class IntegerAnimater extends AnimagterBase {
   }
 }
 
-export = IntegerAnimater;
+export default IntegerAnimater;

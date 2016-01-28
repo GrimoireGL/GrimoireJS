@@ -1,10 +1,10 @@
-import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
-import BasicMaterial = require("../../Materials/Base/BasicMaterial");
-import ContextComponents = require("../../../ContextComponents");
-import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
-import JThreeContext = require("../../../JThreeContext");
-import LightBase = require("./../LightBase");
-import Matrix = require("../../../Math/Matrix");
+import IApplyMaterialArgument from "../../Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../Materials/Base/BasicMaterial";
+import ContextComponents from "../../../ContextComponents";
+import PrimitiveRegistory from "../../Geometries/Base/PrimitiveRegistory";
+import JThreeContext from "../../../JThreeContext";
+import LightBase from "./../LightBase";
+import Matrix from "../../../Math/Matrix";
 
 /**
  * Provides area light feature.
@@ -26,4 +26,4 @@ class AreaLight extends LightBase {
   public intensity: number = 1.0;
 }
 
-export = AreaLight;
+export default AreaLight;

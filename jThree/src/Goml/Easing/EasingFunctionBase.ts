@@ -1,4 +1,4 @@
-import JThreeObject = require("../../Base/JThreeObject");
+import JThreeObject from "../../Base/JThreeObject";
 
 class EasingFunctionBase extends JThreeObject {
   public Ease(begin: number, end: number, progress: number): number {
@@ -6,4 +6,4 @@ class EasingFunctionBase extends JThreeObject {
   }
 }
 
-export = EasingFunctionBase;
+export default EasingFunctionBase;

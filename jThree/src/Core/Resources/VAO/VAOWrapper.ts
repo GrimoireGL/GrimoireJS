@@ -1,7 +1,7 @@
-import ResourceWrapper = require("../ResourceWrapper");
-import Canvas = require("../../Canvas");
-import VAO = require("./VAO");
-import GLExtensionList = require("../../GLExtensionList");
+import ResourceWrapper from "../ResourceWrapper";
+import Canvas from "../../Canvas";
+import VAO from "./VAO";
+import GLExtensionList from "../../GLExtensionList";
 /**
  * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.
  * Most of user may have no reason to modify by themselves.
@@ -49,4 +49,4 @@ class VAOWrapper extends ResourceWrapper {
     }
   }
 }
-export = VAOWrapper;
+export default VAOWrapper;

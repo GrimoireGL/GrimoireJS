@@ -3,15 +3,25 @@
  * Converters manage how an attribute will be parsed, converted into string, or animated.
  */
 
+import AngleAttributeConverter from "./Converter/AngleAttributeConverter";
+import NumberAttributeConverter from "./Converter/NumberAttributeConverter";
+import IntegerAttributeConverter from "./Converter/IntegerAttributeConverter";
+import Vector3AttributeConverter from "./Converter/Vector3AttributeConverter";
+import RotationAttributeConverter from "./Converter/RotationAttributeConverter";
+import Color4AttributeConverter from "./Converter/Color4AttributeConverter";
+import Color3AttributeConverter from "./Converter/Color3AttributeConverter";
+import BooleanAttributeConverter from "./Converter/BooleanAttributeConverter";
+import StringAttributeConverter from "./Converter/StringAttributeConverter";
+
 const converterList = {
-  "angle": require("./Converter/AngleAttributeConverter"),
-  "float": require("./Converter/NumberAttributeConverter"),
-  "int": require("./Converter/IntegerAttributeConverter"),
-  "vec3": require("./Converter/Vector3AttributeConverter"),
-  "rotation": require("./Converter/RotationAttributeConverter"),
-  "color4": require("./Converter/Color4AttributeConverter"),
-  "color3": require("./Converter/Color3AttributeConverter"),
-  "boolean": require("./Converter/BooleanAttributeConverter"),
-  "string": require("./Converter/StringAttributeConverter")
+  "angle": AngleAttributeConverter,
+  "float": NumberAttributeConverter,
+  "int": IntegerAttributeConverter,
+  "vec3": Vector3AttributeConverter,
+  "rotation": RotationAttributeConverter,
+  "color4": Color4AttributeConverter,
+  "color3": Color3AttributeConverter,
+  "boolean": BooleanAttributeConverter,
+  "string": StringAttributeConverter,
 };
-export = converterList;
+export default converterList;

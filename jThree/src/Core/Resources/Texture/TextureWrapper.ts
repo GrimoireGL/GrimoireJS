@@ -1,10 +1,10 @@
-import TextureWrapperBase = require("./TextureWrapperBase");
-import Canvas = require("../../Canvas");
-import TextureTargetType = require("../../../Wrapper/TargetTextureType");
-import TextureInternalFormat = require("../../../Wrapper/TextureInternalFormatType");
-import Texture = require("./Texture");
-import TextureType = require("../../../Wrapper/TextureType");
-import TexImage2DTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
+import TextureWrapperBase from "./TextureWrapperBase";
+import Canvas from "../../Canvas";
+import TextureTargetType from "../../../Wrapper/TargetTextureType";
+import TextureInternalFormat from "../../../Wrapper/TextureInternalFormatType";
+import Texture from "./Texture";
+import TextureType from "../../../Wrapper/TextureType";
+import TexImage2DTargetType from "../../../Wrapper/Texture/TexImageTargetType";
 class TextureWrapper extends TextureWrapperBase {
   constructor(canvas: Canvas, parent: Texture) {
     super(canvas, parent);
@@ -29,4 +29,4 @@ class TextureWrapper extends TextureWrapperBase {
 }
 
 
-export = TextureWrapper;
+export default TextureWrapper;

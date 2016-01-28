@@ -1,13 +1,13 @@
-import GeometryBuilder = require("./Base/GeometryBuilder");
-import BasicGeometry = require("./Base/BasicGeometry");
-import BufferTargetType = require("../../Wrapper/BufferTargetType");
-import BufferUsageType = require("../../Wrapper/BufferUsageType");
-import ElementType = require("../../Wrapper/ElementType");
-import Vector3 = require("../../Math/Vector3");
-import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../JThreeContext");
-import ResourceManager = require("../ResourceManager");
+import GeometryBuilder from "./Base/GeometryBuilder";
+import BasicGeometry from "./Base/BasicGeometry";
+import BufferTargetType from "../../Wrapper/BufferTargetType";
+import BufferUsageType from "../../Wrapper/BufferUsageType";
+import ElementType from "../../Wrapper/ElementType";
+import Vector3 from "../../Math/Vector3";
+import PrimitiveTopology from "../../Wrapper/PrimitiveTopology";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
+import ResourceManager from "../ResourceManager";
 class CircleGeometry extends BasicGeometry {
     private divideCount: number = 30;
 
@@ -45,4 +45,4 @@ class CircleGeometry extends BasicGeometry {
     }
 }
 
-export = CircleGeometry;
+export default CircleGeometry;

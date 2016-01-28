@@ -1,5 +1,5 @@
-import AnimagterBase = require("./AnimaterBase");
-import Vector3 = require("../../Math/Vector3");
+import AnimagterBase from "./AnimaterBase";
+import Vector3 from "../../Math/Vector3";
 class Vector3Animater extends AnimagterBase {
 
   protected updateAnimation(progress: number): void {
@@ -11,4 +11,4 @@ class Vector3Animater extends AnimagterBase {
   }
 }
 
-export = Vector3Animater;
+export default Vector3Animater;

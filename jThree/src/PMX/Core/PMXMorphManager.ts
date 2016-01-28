@@ -1,5 +1,5 @@
-import PMXMorph = require("./PMXMorph");
-import PMXModel = require("./PMXModel");
+import PMXMorph from "./PMXMorph";
+import PMXModel from "./PMXModel";
 class PMXMorphManager {
   private morphs: PMXMorph[];
 
@@ -43,4 +43,4 @@ class PMXMorphManager {
   }
 }
 
-export = PMXMorphManager;
+export default PMXMorphManager;

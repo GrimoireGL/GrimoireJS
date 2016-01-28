@@ -1,7 +1,7 @@
-import JThreeLogger = require("../../../Base/JThreeLogger");
-import Shader = require("./Shader");
-import Canvas = require("../../Canvas");
-import ResourceWrapper = require("../ResourceWrapper");
+import JThreeLogger from "../../../Base/JThreeLogger";
+import Shader from "./Shader";
+import Canvas from "../../Canvas";
+import ResourceWrapper from "../ResourceWrapper";
 class ShaderWrapper extends ResourceWrapper {
 
   constructor(parent: Shader, canvas: Canvas) {
@@ -56,4 +56,4 @@ class ShaderWrapper extends ResourceWrapper {
   }
 }
 
-export = ShaderWrapper;
+export default ShaderWrapper;

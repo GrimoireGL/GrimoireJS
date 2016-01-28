@@ -1,6 +1,6 @@
-import IContextComponent = require("../IContextComponent");
-import ContextComponents = require("../ContextComponents");
-import Delegates = require("../Base/Delegates");
+import IContextComponent from "../IContextComponent";
+import ContextComponents from "../ContextComponents";
+import {Action0} from "../Base/Delegates";
 /**
  * The set of properties for loop action which will be executed in LoopManager
  *
@@ -20,9 +20,9 @@ interface LoopAction {
    * The function to be executed.
    *
    * 実行される関数
-   * @type {Delegates.Action0}
+   * @type {Action0}
    */
-  action: Delegates.Action0;
+  action: Action0;
 }
 
 /**
@@ -80,9 +80,9 @@ class LoopManager implements IContextComponent {
    *
    * アクションをループされるよう追加します。
    * @param  {number}           order  the execution order where is criteria for priorty of loop.
-   * @param  {Delegates.Action0} action the function where will be executed in the loop
+   * @param  {Action0} action the function where will be executed in the loop
    */
-  public addAction(order: number, action: Delegates.Action0): void {
+  public addAction(order: number, action: Action0): void {
     this._loopActions.push({
       order: order,
       action: action
@@ -103,4 +103,4 @@ class LoopManager implements IContextComponent {
   }
 }
 
-export = LoopManager;
+export default LoopManager;

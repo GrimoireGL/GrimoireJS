@@ -1,16 +1,16 @@
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import PMXNode = require("../../PMX/Goml/PMXNode");
-import PMXBone = require("../../PMX/Core/PMXBone");
-import VMDData = require("../Parser/VMDData");
-import Vector3 = require("../../Math/Vector3");
-import Quaternion = require("../../Math/Quaternion");
-import PMXMorph = require("../../PMX/Core/PMXMorph");
-import PMXBoneTransformer = require("../../PMX/Core/PMXBoneTransformer");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import Timer = require("../../Core/Timer");
-import Q = require("q");
-import ResourceLoader = require("../../Core/ResourceLoader");
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import PMXNode from "../../PMX/Goml/PMXNode";
+import PMXBone from "../../PMX/Core/PMXBone";
+import VMDData from "../Parser/VMDData";
+import Vector3 from "../../Math/Vector3";
+import Quaternion from "../../Math/Quaternion";
+import PMXMorph from "../../PMX/Core/PMXMorph";
+import PMXBoneTransformer from "../../PMX/Core/PMXBoneTransformer";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import Timer from "../../Core/Timer";
+import Q from "q";
+import ResourceLoader from "../../Core/ResourceLoader";
 
 class VMDNode extends GomlTreeNodeBase {
   private targetPMX: PMXNode;
@@ -113,4 +113,4 @@ class VMDNode extends GomlTreeNodeBase {
   }
 }
 
-export =VMDNode;
+export default VMDNode;

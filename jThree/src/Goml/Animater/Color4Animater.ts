@@ -1,5 +1,5 @@
-import AnimagterBase = require("./AnimaterBase");
-import Color4 = require("../../Math/Color4");
+import AnimagterBase from "./AnimaterBase";
+import Color4 from "../../Math/Color4";
 class Color4Animater extends AnimagterBase {
 
   protected updateAnimation(progress: number): void {
@@ -10,4 +10,4 @@ class Color4Animater extends AnimagterBase {
   }
 }
 
-export = Color4Animater;
+export default Color4Animater;

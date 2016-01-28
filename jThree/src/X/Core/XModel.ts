@@ -1,9 +1,9 @@
-import XPrimaryMaterial = require("./XPrimaryBufferMaterial");
-import XMaterial = require("./XMaterial");
-import XGeometry = require("./XGeometry");
-import XFileData = require("../XFileData");
-import SceneObject = require("../../Core/SceneObjects/SceneObject");
-import Q = require("q");
+import XPrimaryMaterial from "./XPrimaryBufferMaterial";
+import XMaterial from "./XMaterial";
+import XGeometry from "./XGeometry";
+import XFileData from "../XFileData";
+import SceneObject from "../../Core/SceneObjects/SceneObject";
+import Q from "q";
 class XModel extends SceneObject {
 
   public static fromUrl(src: string): Q.IPromise<XModel> {
@@ -25,4 +25,4 @@ class XModel extends SceneObject {
   }
 }
 
-export = XModel;
+export default XModel;

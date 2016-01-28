@@ -1,7 +1,7 @@
-import ResourceManager = require("../../../Core/ResourceManager");
-import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
-import TextureNodeBase = require("./TextureNodeBase");
-import Q = require("q");
+import ResourceManager from "../../../Core/ResourceManager";
+import TextureBase from "../../../Core/Resources/Texture/TextureBase";
+import TextureNodeBase from "./TextureNodeBase";
+import Q from "q";
 /**
  * Basic 2d texture resource node.
  */
@@ -33,4 +33,4 @@ class TextureNode extends TextureNodeBase {
   }
 }
 
-export = TextureNode;
+export default TextureNode;
