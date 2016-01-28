@@ -67,7 +67,7 @@ class FBOWrapper extends ResourceWrapper {
 
   public dispose() {
     if (this.Initialized) {
-      // TODO Dispose frame buffer
+      this.GL.deleteFramebuffer(this.targetFBO);
       this.targetFBO = null;
       this.setInitialized(false);
     }

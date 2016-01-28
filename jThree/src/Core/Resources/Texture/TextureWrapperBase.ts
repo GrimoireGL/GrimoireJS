@@ -179,5 +179,13 @@ class TextureWrapperBase extends ResourceWrapper {
     img.src = canvas.toDataURL();
     return img;
   }
+
+  public dispose(): void {
+    if (this.targetTexture) {
+      this.GL.deleteTexture(this.targetTexture);
+      this.setInitialized(false);
+      this.targetTexture = null;
+    }
+  }
 }
 export = TextureWrapperBase;
