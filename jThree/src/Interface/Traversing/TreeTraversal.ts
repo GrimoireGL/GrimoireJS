@@ -1,6 +1,5 @@
 import J3Object from "../J3Object";
 import J3ObjectBase from "../J3ObjectBase";
-import InterfaceSelector from "../Static/InterfaceSelector";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import isString from "lodash.isstring";
 
@@ -13,7 +12,7 @@ class TreeTraversal extends J3ObjectBase {
       case (isString(argu)):
         let ret_node: GomlTreeNodeBase[] = [];
         this.getArray().forEach((node) => {
-          ret_node = ret_node.concat(InterfaceSelector.find(<string>argu, node));
+          ret_node = ret_node.concat(J3Object.find(<string>argu, node));
         });
         return new J3Object(ret_node);
       case (argu instanceof GomlTreeNodeBase):

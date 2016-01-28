@@ -9,7 +9,6 @@ class GLExtensionResolver extends JThreeObject {
   [
     GLExtensionList.ElementIndexUint,
     GLExtensionList.TextureFloat,
-    GLExtensionList.TextureFilterAnisotropic,
     GLExtensionList.VertexArrayObject];
 
   private extensions: { [key: string]: any } = {};

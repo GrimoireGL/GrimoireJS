@@ -1,6 +1,5 @@
 import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
 import J3ObjectBase from "./J3ObjectBase";
-import InterfaceSelector from "./Static/InterfaceSelector";
 import isArray from "lodash.isarray";
 import isString from "lodash.isstring";
 // for Implements
@@ -47,7 +46,7 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
     if (nodes) {
       this.setArray(nodes);
     } else if (query) {
-      this.setArray(InterfaceSelector.find(query));
+      this.setArray(J3Object.find(query));
     }
   }
 
@@ -57,6 +56,14 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
 
   public static each: {
     (argu0: any, callback: (argu1: any, argu2: any) => any): any;
+  };
+
+  /**
+   * Static/Find
+   */
+
+  public static find: {
+    (selector: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[];
   };
 
   /**

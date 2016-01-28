@@ -3,7 +3,7 @@ import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import NodeManager from "../../Goml/NodeManager";
 
-class InterfaceSelector {
+class Find {
   /**
    * Search Node from selector query.
    * @param  {string}             selector selector query string.
@@ -15,4 +15,4 @@ class InterfaceSelector {
   }
 }
 
-export default InterfaceSelector;
+export default Find;

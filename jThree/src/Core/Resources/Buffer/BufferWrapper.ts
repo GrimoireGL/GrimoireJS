@@ -18,6 +18,14 @@ class BufferWrapper extends ResourceWrapper {
 
   }
 
+  public dispose(): void {
+    if (this.targetBuffer) {
+      this.GL.deleteBuffer(this.targetBuffer);
+      this.setInitialized(false);
+      this.targetBuffer = null;
+    }
+  }
+
   public get Length(): number {
     return this.length;
   }

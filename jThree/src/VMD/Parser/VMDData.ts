@@ -31,13 +31,15 @@ class VMDData {
     });
   }
 
-  private reader: jDataView;
+  private reader: DataView;
 
   private header: VMDHeader;
 
   private motions: VMDMotions;
 
   private morphs: VMDMorphs;
+
+  private _offset: number = 0;
 
   public get Motions() {
     return this.motions;
@@ -48,7 +50,7 @@ class VMDData {
   }
 
   constructor(data: ArrayBuffer) {
-    this.reader = new jDataView(data, 0, data.byteLength, true);
+    this.reader = new DataView(data, 0, data.byteLength);
     this.loadHeader();
     this.loadMotion();
     this.loadMorph();
@@ -64,14 +66,13 @@ class VMDData {
 
   private loadMotion() {
     this.motions = {};
-    const r = this.reader;
-    const frameCount = r.getUint32();
+    const frameCount = this._readUint32();
     for (let i = 0; i < frameCount; i++) {
       const frameName = this.loadString(15);
       const data = {
-        frameNumber: r.getUint32(),
-        position: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
-        rotation: [-r.getFloat32(), -r.getFloat32(), r.getFloat32(), r.getFloat32()],
+        frameNumber: this._readUint32(),
+        position: [this._readFloat32(), this._readFloat32(), -this._readFloat32()],
+        rotation: [-this._readFloat32(), -this._readFloat32(), this._readFloat32(), this._readFloat32()],
         interpolation: this.loadInterpolation()
       };
       if (typeof this.motions[frameName] === "undefined") {
@@ -86,13 +87,12 @@ class VMDData {
 
   private loadMorph() {
     this.morphs = {};
-    const r = this.reader;
-    const frameCount = r.getUint32();
+    const frameCount = this._readUint32();
     for (let i = 0; i < frameCount; i++) {
       const frameName = this.loadString(15);
       const data = {
-        frameNumber: r.getUint32(),
-        morphValue: r.getFloat32()
+        frameNumber: this._readUint32(),
+        morphValue: this._readFloat32()
       };
       if (typeof this.morphs[frameName] === "undefined") {
         this.morphs[frameName] = [];
@@ -108,7 +108,7 @@ class VMDData {
     let isPadding = false;
     const arr = [];
     for (let i = 0; i < byteLength; i++) {
-      const current = this.reader.getUint8();
+      const current = this._readUint8();
       if (current === 0x00) {
         isPadding = true;
       }
@@ -135,7 +135,7 @@ class VMDData {
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
         for (let k = 0; k < 4; k++) {
-          interpolation[i][j][k] = this.reader.getUint8();
+          interpolation[i][j][k] = this._readUint8();
         }
       }
     }
@@ -229,6 +229,24 @@ class VMDData {
         };
       }
     }
+  }
+
+  private _readUint8(): number {
+    const result = this.reader.getUint8(this._offset);
+    this._offset += 1;
+    return result;
+  }
+
+  private _readUint32(): number {
+    const result = this.reader.getUint32(this._offset, true);
+    this._offset += 4;
+    return result;
+  }
+
+  private _readFloat32(): number {
+    const result = this.reader.getFloat32(this._offset, true);
+    this._offset += 4;
+    return result;
   }
 }
 

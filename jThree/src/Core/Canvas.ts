@@ -5,11 +5,13 @@ import JThreeEvent from "../Base/JThreeEvent";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
 import Color4 from "../Math/Color4";
 import CanvasRegion from "./CanvasRegion";
+import {WebGLNotSupportedException} from "../Exceptions";
+
 /**
  * The class to manage HTMLCanvasElement.
  * Provides most of interfaces related to GLContext except the features resource manager providing.
  *
- * HTMLCanvasElementを管理するクラス
+ * HTMLCanvasElementを管理するクラスs
  * リソースマネージャーが提供する機能以外のGLContextが関連する機能のほとんどを内包します。
  */
 class Canvas extends CanvasRegion {
@@ -95,7 +97,7 @@ class Canvas extends CanvasRegion {
     try {
       return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
     } catch (e) {
-      console.error("WebGL context generation failed" + e);
+      throw new WebGLNotSupportedException();
     }
   }
 }

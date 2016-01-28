@@ -36,11 +36,13 @@ class CanvasNode extends CanvasNodeBase {
 
     this.canvasElement = document.createElement("canvas");
     this.canvasElement.style.position = "absolute";
+    this.canvasElement.setAttribute("antialias", "false");
     this.canvasElement.classList.add("x-j3-c-" + this.ID);
     resizeElement.appendChild(this.canvasElement);
 
     this.attributes.setValue("width", this.DefaultWidth);
     this.attributes.setValue("height", this.DefaultHeight);
+
 
     // initialize contexts
     this.setCanvas(new Canvas(this.canvasElement));
@@ -72,11 +74,11 @@ class CanvasNode extends CanvasNodeBase {
         loader.remove();
       }
     }, () => { return; }, (p) => {
-      for (let i = 0; i < progressLoaders.length; i++) {
-        const progress = <HTMLDivElement>progressLoaders.item(i);
-        progress.style.width = p.completedResource / p.resourceCount * 100 + "%";
-      }
-    });
+        for (let i = 0; i < progressLoaders.length; i++) {
+          const progress = <HTMLDivElement>progressLoaders.item(i);
+          progress.style.width = p.completedResource / p.resourceCount * 100 + "%";
+        }
+      });
   }
 
   public get Frame(): string {

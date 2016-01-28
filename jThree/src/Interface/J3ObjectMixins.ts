@@ -3,7 +3,8 @@ import GomlNodeMethods from "./Miscellaneous/GomlNodeMethods";
 import TreeTraversal from "./Traversing/TreeTraversal";
 import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
-import Utilities from "./Utilities/Utilities";
+import Utilities from "./Static/Utilities";
+import Find from "./Static/Find";
 
 function J3ObjectMixins() {
   const mixins = [
@@ -14,6 +15,7 @@ function J3ObjectMixins() {
   ];
 
   const staticMixins = [
+    Find,
     Utilities,
   ];
 

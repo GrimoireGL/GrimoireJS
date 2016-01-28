@@ -1,13 +1,11 @@
 <goml>
   <resources>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue" />
-    <phong diffuse="red" specular="#CCC" specularpower="15" name="red" />
-    <phong diffuse="green" specular="#CCC" specularposer="15" name="green" />
-    <solid name="matTest" solid="#00FFFFFF" intensity="3"/>
+    <solid solid="white" specular="#CCC" brightness="10" name="grid" />
+    <phong name="matTest" brightness="2" specular="#AAA" diffuse="#AAA"/>
     <cube name="cube" />
     <sphere name="sphere" />
     <grid hdiv="20" name="grid" vdiv="20" />
-    <cubetexture name="cubemap" srcs="/resource/cube/cube_PX.png /resource/cube/cube_NX.png /resource/cube/cube_PY.png /resource/cube/cube_NY.png /resource/cube/cube_PZ.png /resource/cube/cube_NZ.png" />
+    <!-- <cubetexture name="cubemap" srcs="/resource/cube/cube_PX.png /resource/cube/cube_NX.png /resource/cube/cube_PY.png /resource/cube/cube_NY.png /resource/cube/cube_PZ.png /resource/cube/cube_NZ.png" /> -->
   </resources>
   <canvases>
     <canvas clearColor="purple" frame=".canvasContainer">
@@ -26,9 +24,16 @@
       <mesh id="obj4" geo="cube" mat="matTest" position="-3,3,-5" />
       <mesh id="obj5" geo="cube" mat="matTest" position="5,3,4" />
       <mesh id="obj6" geo="sphere" mat="matTest" position="0,3,3" />
-      <mesh geo="grid" mat="matTest" scale="10" />
-      <alight color="#FFF" intensity="0.2"  top="40"  far="50" right="50" position="-10,-10,10" />
-      <dlight color="#F00" intensity="1" rotation="x(15d)" />
+      <mesh geo="grid" mat="grid" scale="10" />
+      <scenelight color="#111"/>
+      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="3 , 5, 0"/>
+      <plight color="#2200FF" intensity="3" decay="1.5" distance="4" position="-3, 5, 0"/>
+      <plight color="#3300CC" intensity="3" decay="1.5" distance="4" position="0 , 5, 3"/>
+      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="0 , 5,-3"/>
+      <plight color="#0F00CC" intensity="3" decay="1.5" distance="4" position="3 , 5, 3"/>
+      <plight color="#00F0CC" intensity="3" decay="1.5" distance="4" position="-3, 5, 3"/>
+      <plight color="#AA0000" intensity="3" decay="1.5" distance="4" position="3 , 5,-3"/>
+      <plight color="#00CC00" intensity="3" decay="1.5" distance="4" position="-3, 5,-3"/>
     </scene>
   </scenes>
 </goml>

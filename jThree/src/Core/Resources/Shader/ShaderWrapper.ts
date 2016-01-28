@@ -51,7 +51,7 @@ class ShaderWrapper extends ResourceWrapper {
   private _checkCompileStatus() {
     if (!this.GL.getShaderParameter(this.targetShader, this.GL.COMPILE_STATUS)) {
       console.error(`Compile error!:${this.GL.getShaderInfoLog(this.targetShader) }`);
-      JThreeLogger.sectionLongLog("COMPILE_ERROR",this.parentShader.ShaderSource);
+      JThreeLogger.sectionLongLog("COMPILE_ERROR", this.parentShader.ShaderSource);
     }
   }
 }

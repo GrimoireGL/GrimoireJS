@@ -25,7 +25,7 @@ class VAOWrapper extends ResourceWrapper {
   constructor(canvas: Canvas, parentVAO: VAO) {
     super(canvas);
     this.parent = parentVAO;
-   this.vaoInterface = canvas.glExtensionResolver.getExtension(GLExtensionList.VertexArrayObject);
+    this.vaoInterface = canvas.glExtensionResolver.getExtension(GLExtensionList.VertexArrayObject);
   }
 
   public init() {
@@ -39,6 +39,14 @@ class VAOWrapper extends ResourceWrapper {
   public bind() {
     // this.GL.bindRenderbuffer(this.targetVAO);
     this.vaoInterface.bindVertexArrayOES(this.targetVAO);
+  }
+
+  public dispose(): void {
+    if (this.targetVAO) {
+      this.vaoInterface.deleteVertexArrayOES(this.targetVAO);
+      this.setInitialized(false);
+      this.targetVAO = null;
+    }
   }
 }
 export default VAOWrapper;

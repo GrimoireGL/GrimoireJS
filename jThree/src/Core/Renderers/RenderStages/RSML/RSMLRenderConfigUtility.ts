@@ -11,11 +11,11 @@ class RSMLRenderConfigUtility {
     const primary = fboElement.getAttribute("primary");
     const colorNodes = fboElement.getElementsByTagName("color");
     const rboNode = fboElement.getElementsByTagName("rbo").item(0);
+    result.primaryName = primary;
     for (let i = 0; i < colorNodes.length; i++) {
       const colorBuffer = RSMLRenderConfigUtility._parseColorBuffer(colorNodes.item(i));
       result[colorBuffer.registerIndex] = colorBuffer;
       if (colorBuffer.name === primary) {
-        result.primaryName = colorBuffer.name;
         result.primaryIndex = colorBuffer.registerIndex;
       }
     }

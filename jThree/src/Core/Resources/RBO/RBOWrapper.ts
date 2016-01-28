@@ -42,5 +42,13 @@ class RBOWrapper extends ResourceWrapper {
       this.GL.renderbufferStorage(this.GL.RENDERBUFFER, this.parent.Format, this.parent.Width, this.parent.Height);
     }
   }
+
+  public dispose(): void {
+    if (this.targetRBO) {
+      this.GL.deleteRenderbuffer(this.targetRBO);
+      this.targetRBO = null;
+      this.setInitialized(false);
+    }
+  }
 }
 export default RBOWrapper;

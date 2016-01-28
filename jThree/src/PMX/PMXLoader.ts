@@ -8,7 +8,7 @@ import PMXRigidBody from "./PMXRigidBody";
 import PMXJoint from "./PMXJoint";
 import ImageLoader from "../Core/Resources/ImageLoader";
 class PMX {
-  private reader: jDataView;
+  private reader: DataView;
 
   private header: PMXHeader;
 
@@ -31,6 +31,8 @@ class PMX {
   private joints: PMXJoint[];
 
   private _resourceDirectory: string;
+
+  private _offset: number = 0;
 
   public get Header() {
     return this.header;
@@ -62,7 +64,7 @@ class PMX {
 
   constructor(data: ArrayBuffer, resourceDirectory: string) {
     this._resourceDirectory = resourceDirectory;
-    this.reader = new jDataView(data, 0, data.byteLength, true);
+    this.reader = new DataView(data, 0, data.byteLength);
     this.loadHeader();
     this.loadVerticies();
     this.loadSurfaces();
@@ -76,36 +78,26 @@ class PMX {
   }
 
   private readTextBuf(): string {
-    const length = this.reader.getInt32();
+    const length = this._readInt32();
     if (this.header.encoding === 0) {
-      // When this was UTF-16LE
-      const textArr = [];
-      for (let i = 0; i < length / 2; i++) {
-        const c = this.reader.getUint16();
-        if (c === 0) {
-          continue; //  To discard null char
-        }
-        textArr.push(c);
-      }
-      return String.fromCharCode.apply(null, textArr);
+     return this._readUTF16LEString(length);
     }
-    return this.reader.getString(length, this.reader.tell(), "utf8");
+    return this._readUTF8String(length);
   }
 
   private loadHeader() {
-    const r = this.reader;
-    this.reader.getUint32(); // pass magic
+    this._readUint32(); // pass magic
     this.header = {
-      version: r.getFloat32(),
-      headerByteSize: r.getUint8(),
-      encoding: r.getUint8(),
-      uvAddition: r.getUint8(),
-      vertexIndexSize: r.getUint8(),
-      textureIndexSize: r.getUint8(),
-      materialIndexSize: r.getUint8(),
-      boneIndexSize: r.getUint8(),
-      morphIndexSize: r.getUint8(),
-      rigidBodyIndexSize: r.getUint8(),
+      version: this._readFloat32(),
+      headerByteSize: this._readUint8(),
+      encoding: this._readUint8(),
+      uvAddition: this._readUint8(),
+      vertexIndexSize: this._readUint8(),
+      textureIndexSize: this._readUint8(),
+      materialIndexSize: this._readUint8(),
+      boneIndexSize: this._readUint8(),
+      morphIndexSize: this._readUint8(),
+      rigidBodyIndexSize: this._readUint8(),
       modelName: "",
       modelNameEn: "",
       comment: "",
@@ -139,28 +131,27 @@ class PMX {
   private readVertexIndex() {
     switch (this.header.vertexIndexSize) {
       case 1:
-        return this.reader.getUint8();
+        return this._readUint8();
       case 2:
-        return this.reader.getUint16();
+        return this._readUint16();
       case 4:
-        return this.reader.getInt32();
+        return this._readInt32();
     }
   }
 
   private readIndexExceptVertex(byte: number) {
     switch (byte) {
       case 1:
-        return this.reader.getInt8();
+        return this._readInt8();
       case 2:
-        return this.reader.getInt16();
+        return this._readInt16();
       case 4:
-        return this.reader.getInt32();
+        return this._readInt32();
     }
   }
 
   private loadVerticies() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     const uvCount = this.header.uvAddition;
     // allocate arrays
     const additionalUvs = new Array(uvCount);
@@ -183,21 +174,21 @@ class PMX {
     for (let i = 0; i < count; i++) {
       bi1 = 0; bi2 = 0; bi3 = 0; bi4 = 0;
       bw1 = 0; bw2 = 0; bw3 = 0; bw4 = 0;
-      result.positions[3 * i + 0] = r.getFloat32();
-      result.positions[3 * i + 1] = r.getFloat32();
-      result.positions[3 * i + 2] = -r.getFloat32();
-      result.normals[3 * i + 0] = r.getFloat32();
-      result.normals[3 * i + 1] = r.getFloat32();
-      result.normals[3 * i + 2] = -r.getFloat32();
-      result.uvs[2 * i + 0] = r.getFloat32();
-      result.uvs[2 * i + 1] = r.getFloat32();
+      result.positions[3 * i + 0] = this._readFloat32();
+      result.positions[3 * i + 1] = this._readFloat32();
+      result.positions[3 * i + 2] = -this._readFloat32();
+      result.normals[3 * i + 0] = this._readFloat32();
+      result.normals[3 * i + 1] = this._readFloat32();
+      result.normals[3 * i + 2] = -this._readFloat32();
+      result.uvs[2 * i + 0] = this._readFloat32();
+      result.uvs[2 * i + 1] = this._readFloat32();
       for (let j = 0; j < uvCount; j++) {
-        result.additionalUV[j][4 * i + 0] = r.getFloat32();
-        result.additionalUV[j][4 * i + 1] = r.getFloat32();
-        result.additionalUV[j][4 * i + 2] = r.getFloat32();
-        result.additionalUV[j][4 * i + 3] = r.getFloat32();
+        result.additionalUV[j][4 * i + 0] = this._readFloat32();
+        result.additionalUV[j][4 * i + 1] = this._readFloat32();
+        result.additionalUV[j][4 * i + 2] = this._readFloat32();
+        result.additionalUV[j][4 * i + 3] = this._readFloat32();
       }
-      result.verticies[i] = { weightTransform: r.getUint8() };
+      result.verticies[i] = { weightTransform: this._readUint8() };
       switch (result.verticies[i].weightTransform) {
         case 0: // BDEF
           bi1 = this.readBoneIndex();
@@ -206,7 +197,7 @@ class PMX {
         case 1: // BDEF2
           bi1 = this.readBoneIndex();
           bi2 = this.readBoneIndex();
-          bw1 = r.getFloat32();
+          bw1 = this._readFloat32();
           bw2 = 1 - bw1;
           break;
         case 2: // BDEF4
@@ -214,10 +205,10 @@ class PMX {
           bi2 = this.readBoneIndex();
           bi3 = this.readBoneIndex();
           bi4 = this.readBoneIndex();
-          bw1 = r.getFloat32();
-          bw2 = r.getFloat32();
-          bw3 = r.getFloat32();
-          bw4 = r.getFloat32();
+          bw1 = this._readFloat32();
+          bw2 = this._readFloat32();
+          bw3 = this._readFloat32();
+          bw4 = this._readFloat32();
           sumCache = bw1 + bw2 + bw3 + bw4;
           bw1 /= sumCache;
           bw2 /= sumCache;
@@ -227,19 +218,19 @@ class PMX {
         case 3: // SDEF
           bi1 = this.readBoneIndex();
           bi2 = this.readBoneIndex();
-          bw1 = r.getFloat32();
+          bw1 = this._readFloat32();
           bw2 = 1 - bw1;
           result.verticies[i].sdef = {
             boneParams: [
-              r.getFloat32(),
-              r.getFloat32(),
-              r.getFloat32(),
-              r.getFloat32(),
-              r.getFloat32(),
-              r.getFloat32(),
-              r.getFloat32(),
-              r.getFloat32(),
-              r.getFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
+              this._readFloat32(),
             ]
           };
           break;
@@ -252,14 +243,13 @@ class PMX {
       result.boneWeights[4 * i + 1] = bw2;
       result.boneWeights[4 * i + 2] = bw3;
       result.boneWeights[4 * i + 3] = bw4;
-      result.edgeScaling[i] = r.getFloat32();
+      result.edgeScaling[i] = this._readFloat32();
     }
     this.verticies = result;
   }
 
   private loadSurfaces() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     this.surfaces = new Array(count);
     for (let i = 0; i < count / 3; i++) {
       this.surfaces[3 * i + 0] = this.readVertexIndex();
@@ -269,8 +259,7 @@ class PMX {
   }
 
   private loadTextures() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     this.textures = new Array(count);
     for (let i = 0; i < count; i++) {
       this.textures[i] = this.readTextBuf().replace("\\", "/");
@@ -279,34 +268,32 @@ class PMX {
   }
 
   private loadMaterials() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     this.materials = new Array(count);
     let cache = 0;
     for (let i = 0; i < count; i++) {
       this.materials[i] = {
         materialName: this.readTextBuf(),
         materialNameEn: this.readTextBuf(),
-        diffuse: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-        specular: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-        ambient: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-        drawFlag: r.getUint8(),
-        edgeColor: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-        edgeSize: r.getFloat32(),
+        diffuse: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+        specular: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+        ambient: [this._readFloat32(), this._readFloat32(), this._readFloat32()],
+        drawFlag: this._readUint8(),
+        edgeColor: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+        edgeSize: this._readFloat32(),
         textureIndex: this.readTextureIndex(),
         sphereTextureIndex: this.readTextureIndex(),
-        sphereMode: r.getUint8(),
-        sharedToonFlag: cache = r.getUint8(),
-        targetToonIndex: cache === 0 ? this.readTextureIndex() : r.getUint8(),
+        sphereMode: this._readUint8(),
+        sharedToonFlag: cache = this._readUint8(),
+        targetToonIndex: cache === 0 ? this.readTextureIndex() : this._readUint8(),
         memo: this.readTextBuf(),
-        vertexCount: r.getInt32(),
+        vertexCount: this._readInt32(),
       };
     }
   }
 
   private loadBones() {
-    const r = this.reader;
-    const count = r.getUint32();
+    const count = this._readUint32();
     this.bones = new Array(count);
     let boneFlagCache = 0;
     let ikLinkCountCache = 0;
@@ -315,47 +302,46 @@ class PMX {
       this.bones[i] = {
         boneName: this.readTextBuf(),
         boneNameEn: this.readTextBuf(),
-        position: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
+        position: [this._readFloat32(), this._readFloat32(), -this._readFloat32()],
         parentBoneIndex: this.readBoneIndex(),
-        transformLayer: r.getInt32(),
-        boneFlag: boneFlagCache = r.getUint16(),
-        positionOffset: (boneFlagCache & 0x0001) === 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
+        transformLayer: this._readInt32(),
+        boneFlag: boneFlagCache = this._readUint16(),
+        positionOffset: (boneFlagCache & 0x0001) === 0 ? [this._readFloat32(), this._readFloat32(), -this._readFloat32()] : undefined,
         connectingBoneIndex: (boneFlagCache & 0x0001) > 0 ? this.readBoneIndex() : undefined,
         providingBoneIndex: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? this.readBoneIndex() : undefined,
-        providingRate: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? r.getFloat32() : undefined,
-        fixedAxis: (boneFlagCache & 0x0400) > 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
-        localAxisX: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), - r.getFloat32()] : undefined,
-        localAxisZ: (boneFlagCache & 0x0800) > 0 ? [r.getFloat32(), r.getFloat32(), -r.getFloat32()] : undefined,
-        externalParentTransformKey: (boneFlagCache & 0x2000) > 0 ? r.getInt32() : undefined,
+        providingRate: (boneFlagCache & 0x0100) > 0 || (boneFlagCache & 0x0200) > 0 ? this._readFloat32() : undefined,
+        fixedAxis: (boneFlagCache & 0x0400) > 0 ? [this._readFloat32(), this._readFloat32(), -this._readFloat32()] : undefined,
+        localAxisX: (boneFlagCache & 0x0800) > 0 ? [this._readFloat32(), this._readFloat32(), - this._readFloat32()] : undefined,
+        localAxisZ: (boneFlagCache & 0x0800) > 0 ? [this._readFloat32(), this._readFloat32(), -this._readFloat32()] : undefined,
+        externalParentTransformKey: (boneFlagCache & 0x2000) > 0 ? this._readInt32() : undefined,
         ikTargetBoneIndex: (boneFlagCache & 0x0020) > 0 ? this.readBoneIndex() : undefined,
-        ikLoopCount: (boneFlagCache & 0x0020) > 0 ? r.getInt32() : undefined,
-        ikLimitedRotation: (boneFlagCache & 0x0020) > 0 ? r.getFloat32() : undefined,
-        ikLinkCount: (boneFlagCache & 0x0020) > 0 ? ikLinkCountCache = r.getInt32() : ikLinkCountCache = undefined,
+        ikLoopCount: (boneFlagCache & 0x0020) > 0 ? this._readInt32() : undefined,
+        ikLimitedRotation: (boneFlagCache & 0x0020) > 0 ? this._readFloat32() : undefined,
+        ikLinkCount: (boneFlagCache & 0x0020) > 0 ? ikLinkCountCache = this._readInt32() : ikLinkCountCache = undefined,
         ikLinks: (boneFlagCache & 0x0020) > 0 ? new Array(ikLinkCountCache) : undefined
       };
       if (ikLinkCountCache) {
         for (let j = 0; j < ikLinkCountCache; j++) {
           this.bones[i].ikLinks[j] = {
             ikLinkBoneIndex: this.readBoneIndex(),
-            isLimitedRotation: ikLimitedCache = r.getUint8(),
-            limitedRotation: ikLimitedCache > 0 ? [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()] : undefined
+            isLimitedRotation: ikLimitedCache = this._readUint8(),
+            limitedRotation: ikLimitedCache > 0 ? [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()] : undefined
           };
         }
       }
     }
   }
   private loadMorphs() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     this.morphs = new Array(count);
     let morphCountCache = 0;
     for (let i = 0; i < count; i++) {
       this.morphs[i] = {
         morphName: this.readTextBuf(),
         morphNameEn: this.readTextBuf(),
-        editPanel: r.getUint8(),
-        morphKind: r.getUint8(),
-        morphOffsetCount: morphCountCache = r.getInt32()
+        editPanel: this._readUint8(),
+        morphKind: this._readUint8(),
+        morphOffsetCount: morphCountCache = this._readInt32()
       };
       switch (this.morphs[i].morphKind) {
         case 0:
@@ -364,7 +350,7 @@ class PMX {
           for (let j = 0; j < morphCountCache; j++) {
             this.morphs[i].groupMorph[j] = {
               morphIndex: this.readMorphIndex(),
-              morphRate: r.getFloat32()
+              morphRate: this._readFloat32()
             };
           }
           break;
@@ -373,7 +359,7 @@ class PMX {
           for (let j = 0; j < morphCountCache; j++) {
             this.morphs[i].vertexMorph[j] = {
               vertexIndex: this.readVertexIndex(),
-              vertexOffset: [r.getFloat32(), r.getFloat32(), -r.getFloat32()]
+              vertexOffset: [this._readFloat32(), this._readFloat32(), -this._readFloat32()]
             };
           }
           break;
@@ -383,8 +369,8 @@ class PMX {
             this.morphs[i].boneMorph[j]
             = {
               boneIndex: this.readBoneIndex(),
-              translationOffset: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
-              rotationOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+              translationOffset: [this._readFloat32(), this._readFloat32(), -this._readFloat32()],
+              rotationOffset: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()]
             };
           }
           break;
@@ -398,7 +384,7 @@ class PMX {
             this.morphs[i].uvMorph[j]
             = {
               vertexIndex: this.readVertexIndex(),
-              uvOffset: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+              uvOffset: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()]
             };
           }
           break;
@@ -408,15 +394,15 @@ class PMX {
             this.morphs[i].materialMorph[j]
             = {
               materialIndex: this.readMaterialIndex(),
-              operationType: r.getUint8(),
-              diffuse: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-              specular: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-              ambient: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-              edgeColor: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-              edgeSize: r.getFloat32(),
-              textureCoefficient: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-              sphereTextureCoefficient: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-              toonTextureCoefficient: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+              operationType: this._readUint8(),
+              diffuse: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+              specular: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+              ambient: [this._readFloat32(), this._readFloat32(), this._readFloat32()],
+              edgeColor: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+              edgeSize: this._readFloat32(),
+              textureCoefficient: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+              sphereTextureCoefficient: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+              toonTextureCoefficient: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()]
             };
           }
           break;
@@ -425,8 +411,7 @@ class PMX {
   }
 
   private loadDisplayFrames() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     this.displayFrames = new Array(count);
     let countCache = 0;
     let targetCache = 0;
@@ -434,65 +419,127 @@ class PMX {
       this.displayFrames[i] = {
         frameName: this.readTextBuf(),
         frameNameEn: this.readTextBuf(),
-        specialFrameFlag: r.getUint8(),
-        elementCount: countCache = r.getInt32(),
+        specialFrameFlag: this._readUint8(),
+        elementCount: countCache = this._readInt32(),
         targetElementTypes: new Array(countCache),
         targetIndex: new Array(countCache)
       };
       for (let j = 0; j < countCache; j++) {
-        this.displayFrames[i].targetElementTypes[j] = targetCache = r.getUint8();
+        this.displayFrames[i].targetElementTypes[j] = targetCache = this._readUint8();
         this.displayFrames[i].targetIndex[j] = targetCache > 0 ? this.readMorphIndex() : this.readBoneIndex();
       }
     }
   }
 
   private loadRigidBodies() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     this.rigidBodies = new Array(count);
     for (let i = 0; i < count; i++) {
       this.rigidBodies[i] = {
         rigidBodyName: this.readTextBuf(),
         rigidBodyNameEn: this.readTextBuf(),
         boneIndex: this.readBoneIndex(),
-        group: r.getUint8(),
-        unCollisionGroupFlag: r.getUint16(),
-        shape: r.getUint8(),
-        size: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-        position: [r.getFloat32(), r.getFloat32(), -r.getFloat32()],
-        rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-        mass: r.getFloat32(),
-        translationFraction: r.getFloat32(),
-        rotationFraction: r.getFloat32(),
-        boundness: r.getFloat32(),
-        fraction: r.getFloat32(),
-        calcType: r.getUint8(),
+        group: this._readUint8(),
+        unCollisionGroupFlag: this._readUint16(),
+        shape: this._readUint8(),
+        size: [this._readFloat32(), this._readFloat32(), this._readFloat32()],
+        position: [this._readFloat32(), this._readFloat32(), -this._readFloat32()],
+        rotation: [this._readFloat32(), this._readFloat32(), this._readFloat32()],
+        mass: this._readFloat32(),
+        translationFraction: this._readFloat32(),
+        rotationFraction: this._readFloat32(),
+        boundness: this._readFloat32(),
+        fraction: this._readFloat32(),
+        calcType: this._readUint8(),
       };
     }
   }
 
   private loadJoints() {
-    const r = this.reader;
-    const count = r.getInt32();
+    const count = this._readInt32();
     this.joints = new Array(count);
     let typeCache = 0;
     for (let i = 0; i < count; i++) {
       this.joints[i] = {
         jointName: this.readTextBuf(),
         jointNameEn: this.readTextBuf(),
-        jointType: typeCache = r.getUint8(),
+        jointType: typeCache = this._readUint8(),
         spring: typeCache === 0 ?
           {
             targetRigidBody1: this.readRigidBodyIndex(),
             targetRigidBody2: this.readRigidBodyIndex(),
-            position: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-            rotation: [r.getFloat32(), r.getFloat32(), r.getFloat32()],
-            translationLimit: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-            rotationLimit: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()],
-            springCoefficientLimit: [r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32(), r.getFloat32()]
+            position: [this._readFloat32(), this._readFloat32(), this._readFloat32()],
+            rotation: [this._readFloat32(), this._readFloat32(), this._readFloat32()],
+            translationLimit: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+            rotationLimit: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()],
+            springCoefficientLimit: [this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32(), this._readFloat32()]
           } : undefined
       };
     }
+  }
+
+  private _readUTF16LEString(length: number): string {
+    // When this was UTF-16LE
+    const textArr = [];
+    for (let i = 0; i < length / 2; i++) {
+      const c = this._readInt16();
+      if (c === 0) {
+        continue; //  To discard null char
+      }
+      textArr.push(c);
+    }
+    return String.fromCharCode.apply(null, textArr);
+  }
+
+  private _readUTF8String(length: number): string {
+    const utf16 = new ArrayBuffer(length * 2);
+    const utf16View = new Uint16Array(utf16);
+    for (let i = 0; i < length; ++i) {
+      utf16View[i] = this._readUint8();
+    }
+    return String.fromCharCode.apply(null, utf16View);
+  }
+
+  private _readUint8(): number {
+    const result = this.reader.getUint8(this._offset);
+    this._offset += 1;
+    return result;
+  }
+
+  private _readUint16(): number {
+    const result = this.reader.getUint16(this._offset, true);
+    this._offset += 2;
+    return result;
+  }
+
+  private _readUint32(): number {
+    const result = this.reader.getUint32(this._offset, true);
+    this._offset += 4;
+    return result;
+  }
+
+  private _readInt8(): number {
+    const result = this.reader.getInt8(this._offset);
+    this._offset += 1;
+    return result;
+  }
+
+  private _readInt16(): number {
+    const result = this.reader.getInt16(this._offset, true);
+    this._offset += 2;
+    return result;
+  }
+
+  private _readInt32(): number {
+    const result = this.reader.getInt32(this._offset, true);
+    this._offset += 4;
+    return result;
+  }
+
+  private _readFloat32(): number {
+    const result = this.reader.getFloat32(this._offset, true);
+    this._offset += 4;
+    return result;
   }
 }
 

@@ -18,7 +18,7 @@ class Utilities {
           }
         });
       } else {
-        Array.prototype.forEach.call(Object.keys(argu0), (propertyName: string, index: number) => {
+        Object.keys(argu0).forEach((propertyName: string, index: number) => {
           const valueOfProperty = argu0[propertyName];
           const ret = callback.bind(valueOfProperty)(propertyName, valueOfProperty);
           if (ret === false) {
@@ -31,7 +31,7 @@ class Utilities {
         throw e;
       }
     }
-    return <any>this;
+    return argu0;
   }
 }
 

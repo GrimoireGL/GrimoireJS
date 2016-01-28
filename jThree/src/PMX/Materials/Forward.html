@@ -84,10 +84,10 @@
           vec2 lightUV=calcLightUV(vPosition);
           vec3 dlc = texture2D(_dlBuffer,lightUV).rgb;
           vec3 slc = texture2D(_slBuffer,lightUV).rgb;
-          vec4 dc;
+          vec4 dc = vBaseColor;
           if(textureUsed == 1)
           {
-            dc = vBaseColor * blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
+            dc *= blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
           }
           if(sphereMode == 1){
             dc.rgb *= texture2D(sphere,vSphereUV).rgb;
@@ -96,7 +96,7 @@
           }
           if(toonFlag==1)
           {
-        		  float brightness = max(max(dlc.r,dlc.g),dlc.b);
+          	 float brightness = max(max(dlc.r,dlc.g),dlc.b);
               dc.rgb = dlc * blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
           }else
           {
