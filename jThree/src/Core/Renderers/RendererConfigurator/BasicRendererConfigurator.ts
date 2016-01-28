@@ -94,9 +94,10 @@ class BasicRendererConfigurator extends ConfiguratorBase {
           OUT: "default"
         },
         stage: "jthree.basic.fxaa",
-        variables:{
-         reduceMin:0.05,
-         reduceMul:0.1
+        variables: {
+          reduceMin: 0.05,
+          reduceMul: 0.1,
+          spanMax: 3
         }
       }];
   }
