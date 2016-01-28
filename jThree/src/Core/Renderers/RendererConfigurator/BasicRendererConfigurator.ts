@@ -84,8 +84,19 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         },
         stage: "jthree.basic.fogExp2",
         variables: {
-          density: 10.0,
+          density: 2.0,
           fogColor: new Vector3(1.0, 1.0, 1.0)
+        }
+      },
+      {
+        buffers: {
+          INPUT: "output",
+          OUT: "default"
+        },
+        stage: "jthree.basic.fxaa",
+        variables:{
+         reduceMin:0.05,
+         reduceMul:0.1
         }
       }];
   }
