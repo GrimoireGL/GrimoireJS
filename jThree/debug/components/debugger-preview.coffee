@@ -12,6 +12,4 @@ styles =
   container:
     background:Colors.main.n.light
     margin:"auto"
-    width:640
-    height:480
 module.exports = DebuggerPreview;
