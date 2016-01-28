@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mocha --compilers ts:espower-typescript/guess $1/*Test.ts

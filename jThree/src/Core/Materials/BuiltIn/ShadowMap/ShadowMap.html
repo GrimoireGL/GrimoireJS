@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.basic.shadowmap" group="jthree.materials.shadowmap" order="300">
+<uniform-register>
+  <register name="jthree.basic.matrix"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+
+      varying vec4 vPosition;
+
+      @vertonly{
+      uniform mat4 matL;
+      void main(void)
+      {
+        gl_Position = vPosition = matL * vec4(position,1.0);
+      }
+      }
+
+      @fragonly{
+      @import "jthree.builtin.shadowfragment"
+      }
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

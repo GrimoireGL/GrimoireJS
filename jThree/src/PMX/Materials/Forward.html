@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.pmx.forward" group="jthree.materials.forematerial" order="300">
+<uniform-register>
+  <register name="jthree.basic.matrix"/>
+  <register name="jthree.basic.buffer"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      attribute vec3 normal;
+      attribute vec2 uv;
+      attribute vec4 boneWeights;
+      attribute vec4 boneIndicies;
+      varying vec3 vNormal;
+      varying vec4 vPosition;
+      varying vec2 vUV;
+      varying vec2 vSphereUV;
+      varying vec4 vBaseColor;
+
+      @vertonly{
+        @import "jthree.pmx.vertex"
+        uniform mat4 _matV;
+        uniform mat4 _matPV;
+        @{register:2}
+        uniform sampler2D boneMatriciesTexture;
+        uniform float boneCount;
+        uniform vec4 diffuse;
+        uniform vec3 ambient;
+        uniform vec3 ambientCoefficient;
+
+        void main(void){
+          vUV = uv;
+          mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
+          vPosition=gl_Position = calcPosition(boneTransform,_matPV,position);
+          vNormal = calcNormal(boneTransform,_matV,normal);
+          vSphereUV = calcSphereUV(vNormal);
+          vBaseColor.rgb = diffuse.rgb + ambient.rgb;
+          vBaseColor.a = diffuse.a;
+          vBaseColor = clamp(vBaseColor,0.,1.);
+        }
+      }
+      @fragonly{
+        @{type:"buffer",name:"DLIGHT",register:0}
+        uniform sampler2D _dlBuffer;
+        @{type:"buffer",name:"SLIGHT",register:1}
+        uniform sampler2D _slBuffer;
+
+        uniform vec4 specular;
+        @{register:3}
+        uniform sampler2D texture;
+        @{register:4}
+        uniform sampler2D sphere;
+        @{register:5}
+        uniform sampler2D toon;
+        uniform int textureUsed;
+        uniform int sphereMode;
+        uniform int toonFlag;
+        uniform vec4 addTexCoeff;
+        uniform vec4 mulTexCoeff;
+        uniform vec4 addSphereCoeff;
+        uniform vec4 mulSphereCoeff;
+        uniform vec4 addToonCoeff;
+        uniform vec4 mulToonCoeff;
+
+        vec2 calcLightUV(vec4 projectionSpacePos)
+        {
+           return (projectionSpacePos.xy / projectionSpacePos.w + vec2(1,1)) / 2.;
+        }
+
+        vec4 blendPMXTexture(sampler2D source,vec2 uv,vec4 addCoeff,vec4 mulCoeff)
+        {
+            vec4 result = texture2D(source,uv);
+            result.rgb = mix(mix(result.rgb,vec3(0,0,0),addCoeff.a),vec3(1,1,1),1.-mulCoeff.a);
+            result.rgb = result.rgb * mulCoeff.rgb + addCoeff.rgb;
+            return result;
+        }
+
+
+
+        void main(void){
+          gl_FragColor = vec4(0,0,0,0);
+          vec2 lightUV=calcLightUV(vPosition);
+          vec3 dlc = texture2D(_dlBuffer,lightUV).rgb;
+          vec3 slc = texture2D(_slBuffer,lightUV).rgb;
+          vec4 dc = vBaseColor;
+          if(textureUsed == 1)
+          {
+            dc *= blendPMXTexture(texture,vUV,addTexCoeff,mulTexCoeff);
+          }
+          if(sphereMode == 1){
+            dc.rgb *= texture2D(sphere,vSphereUV).rgb;
+          }else if(sphereMode == 2){
+            dc.rgb += texture2D(sphere,vSphereUV).rgb;
+          }
+          if(toonFlag==1)
+          {
+          	 float brightness = max(max(dlc.r,dlc.g),dlc.b);
+              dc.rgb = dlc * blendPMXTexture(toon,vec2(0,1.-brightness),addToonCoeff ,mulToonCoeff ).rgb * dc.rgb;
+          }else
+          {
+              dc.rgb = dlc * dc.rgb;
+          }
+          dc.rgb += slc * specular.rgb;
+          gl_FragColor = dc;
+        }
+
+      }
+      ]]>
+    </glsl>
+  </pass>
+  <pass>
+    <cull mode="front"/>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      attribute vec3 normal;
+      attribute vec4 boneWeights;
+      attribute vec4 boneIndicies;
+      attribute float edgeScaling;
+      @vertonly{
+        @import "jthree.pmx.vertex"
+        uniform mat4 _matPV;
+        @{register:2}
+        uniform sampler2D boneMatriciesTexture;
+        uniform float boneCount;
+        uniform float edgeSize;
+        void main(void){
+          mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
+          mat4 matPVM = _matPV * boneTransform;
+          vec4 p0 = matPVM * vec4(position ,1);
+          vec4 p1 = matPVM * vec4(position + normal ,1);
+          p0.xy /= p0.w;
+          p1.xy /= p1.w;
+          float coeff = (512./2.0) * distance(p0.xy,p1.xy);
+          if(coeff > 1.0) coeff = 1.0 / coeff;
+          coeff *= edgeSize * edgeScaling;
+          gl_Position = matPVM*vec4(position + coeff * normal,1);
+        }
+      }
+      @fragonly{
+
+        uniform vec4 edgeColor;
+
+        void main()
+        {
+          gl_FragColor = edgeColor;
+        }
+      }
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>
