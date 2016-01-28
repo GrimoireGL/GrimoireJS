@@ -28,7 +28,8 @@ class PMXBone extends SceneObject {
   }
 
   constructor(model: PMXModel, skeleton: PMXSkeleton, boneIndex: number) {
-    super(new PMXBoneTransformer(this, model, boneIndex));
+    super();
+    this.transformer = new PMXBoneTransformer(this, model, boneIndex);
     this.targetModel = model;
     this.targetSkeleton = skeleton;
     this.boneIndex = boneIndex;

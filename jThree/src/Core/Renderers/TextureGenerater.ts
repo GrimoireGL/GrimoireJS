@@ -4,6 +4,7 @@ import GeneraterBase from "./TextureGeneraters/GeneraterBase";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
+import GeneraterList from "./TextureGeneraters/GeneraterList";
 
 class TextureGenerater {
 
@@ -27,7 +28,7 @@ class TextureGenerater {
 
   private static initializeGeneraters(renderer: BasicRenderer) {
     const targetArray = <{ [key: string]: GeneraterBase }>{};
-    const generaters = require("./TextureGeneraters/GeneraterList");
+    const generaters = GeneraterList;
     for (let key in generaters) {
       if (generaters.hasOwnProperty(key)) {
         const element = generaters[key];

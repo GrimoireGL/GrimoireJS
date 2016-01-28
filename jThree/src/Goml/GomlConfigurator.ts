@@ -3,6 +3,9 @@ import JThreeObject from "../Base/JThreeObject";
 import EasingFunction from "./Easing/EasingFunctionBase";
 import AttributeConvrterBase from "./Converter/AttributeConverterBase";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
+import EasingFunctionList from "./EasingFunctionList";
+import GomlConverterList from "./GomlConverterList";
+import GomlNodeList from "./GomlNodeList";
 /**
  * Provides configurations that will be used when parse GOML.
  * These properties is intended to be used for extending by plugin feature.
@@ -57,7 +60,7 @@ class GomlConfigurator extends JThreeObject {
   * Initialize associative array for easing functions that will be used for animation in goml.
   */
   private initializeEasingFunctions() {
-    const list = require("./EasingFunctionList");
+    const list = EasingFunctionList;
     for (let key in list) {
       const type = list[key];
       this.easingFunctions[key] = new type();
@@ -67,7 +70,7 @@ class GomlConfigurator extends JThreeObject {
    * Initialize converters from list.
    */
   private initializeConverters() {
-    const list = require("./GomlConverterList");
+    const list = GomlConverterList;
     for (let key in list) {
       const type = list[key];
       this.converters[key] = new type();
@@ -78,7 +81,7 @@ class GomlConfigurator extends JThreeObject {
    * タグ名とNodeの関連付けを行っています。
    */
   private initializeGomlNodes() {
-    const newList: GomlNodeListElement[] = require("./GomlNodeList");
+    const newList: GomlNodeListElement[] = GomlNodeList;
     newList.forEach((v) => {
       for (let key in v.NodeTypes) {
         let keyInString: string = key;

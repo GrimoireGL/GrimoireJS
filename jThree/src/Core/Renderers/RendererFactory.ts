@@ -1,10 +1,13 @@
 import Canvas from "../Canvas";
 import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "./BasicRenderer";
+import BasicRendererConfigurator from "./RendererConfigurator/BasicRendererConfigurator";
+import SpriteRendererConfigurator from "./RendererConfigurator/SpriteRendererConfigurator";
+
 class RendererFactory {
   public static rendererConfigurations = {
-    "default": require("./RendererConfigurator/BasicRendererConfigurator"),
-    "sprite": require("./RendererConfigurator/SpriteRendererConfigurator")
+    "default": BasicRendererConfigurator,
+    "sprite": SpriteRendererConfigurator
   };
 
   public static generateRenderer(canvas: Canvas, drawRect: Rectangle, configureName: string) {

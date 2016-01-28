@@ -1,3 +1,5 @@
-export = {
-  "rendererfit": require("./RendererFit")
+import RendererFit from "./RendererFit";
+
+export default {
+  "rendererfit": RendererFit
 };

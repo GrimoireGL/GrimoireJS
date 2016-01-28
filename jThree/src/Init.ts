@@ -19,6 +19,11 @@ import Debugger from "./Debug/Debugger";
 import GomlLoader from "./Goml/GomlLoader";
 import ResourceLoader from "./Core/ResourceLoader";
 
+import Quaternion from "./Math/Quaternion";
+import Vector2 from "./Math/Vector2";
+import Vector3 from "./Math/Vector3";
+import Vector4 from "./Math/Vector4";
+
 /**
 * the methods having the syntax like j3.SOMETHING() should be contained in this class.
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
@@ -32,13 +37,10 @@ class JThreeStatic {
 
   public get Math() {
     return {
-      Quaternion: require("./Math/Quaternion"),
-      Vector2:
-      require("./Math/Vector2"),
-      Vector3:
-      require("./Math/Vector3"),
-      Vector4:
-      require("./Math/Vector4")
+      Quaternion: Quaternion,
+      Vector2: Vector2,
+      Vector3: Vector3,
+      Vector4: Vector4,
     };
   }
 }
@@ -79,10 +81,21 @@ class JThreeInit {
     JThreeInit.SelfTag = scripts[scripts.length - 1];
     // register interfaces
     window["j3"] = JThreeInit.j3; // $(~~~)
-    const pro = Object.getPrototypeOf(window["j3"]);
-    for (let key in JThreeStatic.prototype) {
-      pro[key] = JThreeStatic.prototype[key];
-    }
+
+    const baseCtor = JThreeStatic;
+    Object.getOwnPropertyNames(baseCtor.prototype).forEach((name) => {
+      if (name !== "constructor") {
+        const org_descriptor = Object.getOwnPropertyDescriptor(baseCtor, name);
+        const descriptor = {
+          value: baseCtor.prototype[name],
+          enumerable: false,
+          configurable: true,
+          writable: true,
+        };
+        Object.defineProperty(Object.getPrototypeOf(window["j3"]), name, org_descriptor || descriptor);
+      }
+    });
+
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
     JThreeContext.init();
     JThreeContext.registerContextComponent(new Timer());

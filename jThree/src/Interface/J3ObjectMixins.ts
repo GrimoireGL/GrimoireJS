@@ -20,15 +20,31 @@ function J3ObjectMixins() {
   function applyMixins(derivedCtor: any, baseCtors: any[]) {
     baseCtors.forEach((baseCtor) => {
       Object.getOwnPropertyNames(baseCtor.prototype).forEach((name) => {
-        derivedCtor.prototype[name] = baseCtor.prototype[name];
+        if (name !== "constructor") {
+          const descriptor = {
+            value: baseCtor.prototype[name],
+            enumerable: false,
+            configurable: true,
+            writable: true,
+          };
+          Object.defineProperty(derivedCtor.prototype, name, descriptor);
+        }
       });
     });
   }
 
   function applyStaticMixins(derivedCtor: any, baseCtors: any[]) {
     baseCtors.forEach((baseCtor) => {
-      Object.keys(baseCtor).forEach((name) => {
-        derivedCtor[name] = baseCtor[name];
+      Object.getOwnPropertyNames(baseCtor).forEach((name) => {
+        if (name !== "prototype" && name !== "name" && name !== "length") {
+          const descriptor = {
+            value: baseCtor[name],
+            enumerable: false,
+            configurable: true,
+            writable: true,
+          };
+          Object.defineProperty(derivedCtor, name, descriptor);
+        }
       });
     });
   }

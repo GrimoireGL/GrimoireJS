@@ -1,91 +1,133 @@
 import GomlNodeListElement from "./GomlNodeListElement";
+import CanvasesNode from "./Nodes/TopLevel/CanvasesNode";
+import ResourcesNode from "./Nodes/TopLevel/ResourcesNode";
+import ScenesNode from "./Nodes/TopLevel/ScenesNode";
+import TemplatesNode from "./Nodes/TopLevel/TemplatesNode";
+import LoadersNode from "./Nodes/TopLevel/LoadersNode";
+import GomlNode from "./Nodes/TopLevel/GomlNode";
+import TriangleGeometryNode from "./Nodes/Geometries/TriangleGeometryNode";
+import GridGeometryNode from "./Nodes/Geometries/GridGeometryNode";
+import CubeGeometryNode from "./Nodes/Geometries/CubeGeometryNode";
+import SphereGeometryNode from "./Nodes/Geometries/SphereGeometryNode";
+import CircleGeometryNode from "./Nodes/Geometries/CircleGeometryNode";
+import CylinderGeometryNode from "./Nodes/Geometries/CylinderGeometryNode";
+import QuadGeometryNode from "./Nodes/Geometries/QuadGeometryNode";
+import ConeGeometryNode from "./Nodes/Geometries/ConeGeometryNode";
+import CanvasNode from "./Nodes/Canvases/CanvasNode";
+import ViewPortNode from "./Nodes/Renderers/ViewPortNode";
+import SceneNode from "./Nodes/SceneNode";
+import SolidColorNode from "./Nodes/Materials/SolidColorNode";
+import PhongNode from "./Nodes/Materials/PhongNode";
+import CameraNode from "./Nodes/SceneObjects/Cameras/CameraNode";
+import OrthoCameraNode from "./Nodes/SceneObjects/Cameras/OrthoCameraNode";
+import MeshNode from "./Nodes/SceneObjects/MeshNode";
+import ObjectNode from "./Nodes/SceneObjects/ObjectNode";
+import PointLightNode from "./Nodes/SceneObjects/Lights/PointLightNode";
+import DirectionalLightNode from "./Nodes/SceneObjects/Lights/DirectionalLightNode";
+import AreaLightNode from "./Nodes/SceneObjects/Lights/AreaLightNode";
+import SpotLightNode from "./Nodes/SceneObjects/Lights/SpotLightNode";
+import SceneLightNode from "./Nodes/SceneObjects/Lights/SceneLightNode";
+import PMXNode from "../PMX/Goml/PMXNode";
+import TextureNode from "./Nodes/Texture/TextureNode";
+import CubeTextureNode from "./Nodes/Texture/CubeTextureNode";
+import BehaviorsNode from "./Nodes/Behaviors/BehaviorsNode";
+import BehaviorNode from "./Nodes/Behaviors/BehaviorNode";
+import TemplateNode from "./Nodes/Templates/TemplateNode";
+import LoaderNode from "./Nodes/Loaders/LoaderNode";
+// import PMXMorphNode from "../PMX/Goml/PMXMorphNode";
+// import PMXBoneNode from "../PMX/Goml/PMXBoneNode";
+// import PMXMorphsNode from "../PMX/Goml/PMXMorphsNode";
+// import PMXBonesNode from "../PMX/Goml/PMXBonesNode";
+import VMDNode from "../VMD/Goml/VMDNode";
+import XNode from "../X/Goml/XNode";
+
 
 const gomlList = [
   new GomlNodeListElement("jthree.toplevel",
     {
-      "CANVASES": require("./Nodes/TopLevel/CanvasesNode"),
-      "RESOURCES": require("./Nodes/TopLevel/ResourcesNode"),
-      "SCENES": require("./Nodes/TopLevel/ScenesNode"),
-      "TEMPLATES": require("./Nodes/TopLevel/TemplatesNode"),
-      "LOADERS": require("./Nodes/TopLevel/LoadersNode"),
-      "GOML": require("./Nodes/TopLevel/GomlNode")
+      "CANVASES": CanvasesNode,
+      "RESOURCES": ResourcesNode,
+      "SCENES": ScenesNode,
+      "TEMPLATES": TemplatesNode,
+      "LOADERS": LoadersNode,
+      "GOML": GomlNode
     }),
   new GomlNodeListElement("jthree.geometries",
     {
-      "TRI": require("./Nodes/Geometries/TriangleGeometryNode"),
-      "GRID": require("./Nodes/Geometries/GridGeometryNode"),
-      "CUBE": require("./Nodes/Geometries/CubeGeometryNode"),
-      "SPHERE": require("./Nodes/Geometries/SphereGeometryNode"),
-      "CIRCLE": require("./Nodes/Geometries/CircleGeometryNode"),
-      "CYLINDER": require("./Nodes/Geometries/CylinderGeometryNode"),
-      "QUAD": require("./Nodes/Geometries/QuadGeometryNode"),
-      "CONE": require("./Nodes/Geometries/ConeGeometryNode")
+      "TRI": TriangleGeometryNode,
+      "GRID": GridGeometryNode,
+      "CUBE": CubeGeometryNode,
+      "SPHERE": SphereGeometryNode,
+      "CIRCLE": CircleGeometryNode,
+      "CYLINDER": CylinderGeometryNode,
+      "QUAD": QuadGeometryNode,
+      "CONE": ConeGeometryNode
     }),
   new GomlNodeListElement("jthree.basic",
     {
-      "CANVAS": require("./Nodes/Canvases/CanvasNode"),
-      "VIEWPORT": require("./Nodes/Renderers/ViewPortNode"),
-      "SCENE": require("./Nodes/SceneNode"),
+      "CANVAS": CanvasNode,
+      "VIEWPORT": ViewPortNode,
+      "SCENE": SceneNode,
     }),
   new GomlNodeListElement(
     "jthree.materials",
     {
-      "SOLID": require("./Nodes/Materials/SolidColorNode"),
-      "PHONG": require("./Nodes/Materials/PhongNode")
+      "SOLID": SolidColorNode,
+      "PHONG": PhongNode
     }),
   new GomlNodeListElement(
     "jthree.sceneobject",
     {
-      "CAMERA": require("./Nodes/SceneObjects/Cameras/CameraNode"),
-      "OCAMERA": require("./Nodes/SceneObjects/Cameras/OrthoCameraNode"),
-      "MESH": require("./Nodes/SceneObjects/MeshNode"),
-      "OBJECT": require("./Nodes/SceneObjects/ObjectNode"),
-      "PLIGHT": require("./Nodes/SceneObjects/Lights/PointLightNode"),
-      "DLIGHT": require("./Nodes/SceneObjects/Lights/DirectionalLightNode"),
-      "ALIGHT": require("./Nodes/SceneObjects/Lights/AreaLightNode"),
-      "SLIGHT": require("./Nodes/SceneObjects/Lights/SpotLightNode"),
-      "SCENELIGHT": require("./Nodes/SceneObjects/Lights/SceneLightNode"),
-      "PMX": require("../PMX/Goml/PMXNode")
+      "CAMERA": CameraNode,
+      "OCAMERA": OrthoCameraNode,
+      "MESH": MeshNode,
+      "OBJECT": ObjectNode,
+      "PLIGHT": PointLightNode,
+      "DLIGHT": DirectionalLightNode,
+      "ALIGHT": AreaLightNode,
+      "SLIGHT": SpotLightNode,
+      "SCENELIGHT": SceneLightNode,
+      "PMX": PMXNode
     }),
   new GomlNodeListElement(
     "jthree.textures",
     {
-      "TEXTURE": require("./Nodes/Texture/TextureNode"),
-      "CUBETEXTURE": require("./Nodes/Texture/CubeTextureNode")
+      "TEXTURE": TextureNode,
+      "CUBETEXTURE": CubeTextureNode
     }),
   new GomlNodeListElement("jthree.behaviors",
     {
-      "BEHAVIORS": require("./Nodes/Behaviors/BehaviorsNode"),
+      "BEHAVIORS": BehaviorsNode,
     }),
   new GomlNodeListElement("jthree.behavior",
     {
-      "BEHAVIOR": require("./Nodes/Behaviors/BehaviorNode")
+      "BEHAVIOR": BehaviorNode
     }),
   new GomlNodeListElement("jthree.template",
     {
-      "TEMPLATE": require("./Nodes/Templates/TemplateNode")
+      "TEMPLATE": TemplateNode
     }),
   new GomlNodeListElement("jthree.loader",
     {
-      "LOADER": require("./Nodes/Loaders/LoaderNode")
+      "LOADER": LoaderNode
     }),
   // new GomlNodeListElement("jthree.pmx.morph",
   //   {
-  //     "MORPH": require("../PMX/Goml/PMXMorphNode"),
+  //     "MORPH": PMXMorphNode,
   //   }),
   // new GomlNodeListElement("jthree.pmx.bone",
   //   {
-  //     "BONE": require("../PMX/Goml/PMXBoneNode"),
+  //     "BONE": PMXBoneNode,
   //   }),
   new GomlNodeListElement("jthree.pmx.contents",
     {
-      // "MORPHS": require("../PMX/Goml/PMXMorphsNode"),
-      // "BONES": require("../PMX/Goml/PMXBonesNode"),
-      "VMD": require("../VMD/Goml/VMDNode")
+      // "MORPHS": PMXMorphsNode,
+      // "BONES": PMXBonesNode,
+      "VMD": VMDNode
     }),
   new GomlNodeListElement("x",
     {
-      "X": require("../X/Goml/XNode")
+      "X": XNode
     }),
 ];
 
