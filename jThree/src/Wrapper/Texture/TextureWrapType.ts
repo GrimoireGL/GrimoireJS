@@ -4,4 +4,4 @@ enum TextureWrapType {
   Repeat = 10497
 }
 
-export = TextureWrapType;
+export default TextureWrapType;

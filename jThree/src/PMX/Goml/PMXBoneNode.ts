@@ -1,5 +1,5 @@
-import PMXNode = require("./PMXNode");
-import SceneObjectNodeBase = require("../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
+import PMXNode from "./PMXNode";
+import SceneObjectNodeBase from "../../Goml/Nodes/SceneObjects/SceneObjectNodeBase";
 
 class PMXBoneNode extends SceneObjectNodeBase {
 
@@ -43,4 +43,4 @@ class PMXBoneNode extends SceneObjectNodeBase {
   // }
 }
 
-export = PMXBoneNode;
+export default PMXBoneNode;

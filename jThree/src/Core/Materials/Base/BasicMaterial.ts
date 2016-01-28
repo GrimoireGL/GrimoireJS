@@ -1,17 +1,17 @@
-import Material = require("../Material");
-import IVariableDescription = require("./IVariableDescription");
-import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../JThreeContext");
-import MaterialManager = require("./MaterialManager");
-import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
-import MaterialPass = require("./MaterialPass");
-import Delegates = require("../../../Base/Delegates");
-import IApplyMaterialArgument = require("./IApplyMaterialArgument");
-import Q = require("q");
+import Material from "../Material";
+import IVariableDescription from "./IVariableDescription";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+import MaterialManager from "./MaterialManager";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import MaterialPass from "./MaterialPass";
+import {Action4} from "../../../Base/Delegates";
+import IApplyMaterialArgument from "./IApplyMaterialArgument";
+import Q from "q";
 class BasicMaterial extends Material {
   private _passes: MaterialPass[] = [];
 
-  private _uniformRegisters: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[] = [];
+  private _uniformRegisters: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[] = [];
 
   private _materialGroup: string;
 
@@ -91,4 +91,4 @@ class BasicMaterial extends Material {
   }
 }
 
-export = BasicMaterial;
+export default BasicMaterial;

@@ -1,6 +1,6 @@
-import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import CubeGeometry = require("../../../Core/Geometries/CubeGeometry");
+import GeometryNodeBase from "./GeometryNodeBase";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import CubeGeometry from "../../../Core/Geometries/CubeGeometry";
 
 class CubeGeometryNode extends GeometryNodeBase {
   constructor() {
@@ -16,4 +16,4 @@ class CubeGeometryNode extends GeometryNodeBase {
   }
 }
 
-export = CubeGeometryNode;
+export default CubeGeometryNode;

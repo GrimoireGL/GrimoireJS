@@ -1,4 +1,4 @@
-import AttributeDeclarationBody = require("./AttributeDeclationBody");
+import AttributeDeclarationBody from "./AttributeDeclationBody";
 /**
  * The interface for declare attribute speciied in GOML.
  */
@@ -9,4 +9,4 @@ interface AttributeDeclation {
   [name: string]: AttributeDeclarationBody;
 }
 
-export = AttributeDeclation;
+export default AttributeDeclation;

@@ -1,7 +1,7 @@
-import Canvas = require("../../Canvas");
-import Material = require("../../Materials/Material");
-import Geometry = require("./Geometry");
-import Buffer = require("../../Resources/Buffer/Buffer");
+import Canvas from "../../Canvas";
+import Material from "../../Materials/Material";
+import Geometry from "./Geometry";
+import Buffer from "../../Resources/Buffer/Buffer";
 /**
  * The abstract class for the geometries having index buffer(ELEMENT_ARRAY_BUFFER) for drawing.
  *
@@ -53,4 +53,4 @@ abstract class IndexedGeometry extends Geometry {
     }
 }
 
-export = IndexedGeometry;
+export default IndexedGeometry;

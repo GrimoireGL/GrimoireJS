@@ -3,4 +3,4 @@
   vertexOffset: number[];
 }
 
-export = VertexMorph;
+export default VertexMorph;

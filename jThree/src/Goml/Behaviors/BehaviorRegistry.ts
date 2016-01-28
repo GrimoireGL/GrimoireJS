@@ -1,7 +1,7 @@
-import JThreeObject = require("../../Base/JThreeObject");
-import BehaviorDeclaration = require("./BehaviorDeclaration");
-import BehaviorDeclarationBody = require("./BehaviorDeclarationBody");
-import Delegates = require("../../Base/Delegates");
+import JThreeObject from "../../Base/JThreeObject";
+import BehaviorDeclaration from "./BehaviorDeclaration";
+import BehaviorDeclarationBody from "./BehaviorDeclarationBody";
+import {Action0} from "../../Base/Delegates";
 /**
 * Provides feature to register behavior.
 */
@@ -12,9 +12,9 @@ class BehaviorRegistry extends JThreeObject {
 
   private behaviorInstances: { [id: string]: BehaviorDeclarationBody } = {};
 
-  public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody | Delegates.Action0);
+  public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody | Action0);
   public defineBehavior(behaviorDeclarations: BehaviorDeclaration);
-  public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, behaviorDeclaration?: BehaviorDeclarationBody | Delegates.Action0) {
+  public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, behaviorDeclaration?: BehaviorDeclarationBody | Action0) {
     if (typeof nameOrDeclarations === "string") {
       const behaviorName = <string>nameOrDeclarations;
       this.behaviorInstances[behaviorName] = this.generateBehaviorInstance(behaviorDeclaration);
@@ -31,10 +31,10 @@ class BehaviorRegistry extends JThreeObject {
     return this.behaviorInstances[behaviorName];
   }
 
-  private generateBehaviorInstance(behaviorDecl: BehaviorDeclarationBody | Delegates.Action0): BehaviorDeclarationBody {
+  private generateBehaviorInstance(behaviorDecl: BehaviorDeclarationBody | Action0): BehaviorDeclarationBody {
     if (typeof behaviorDecl === "function") {
       // Assume generation seed is constructor of behavior
-      return <BehaviorDeclarationBody>(new (<Delegates.Action0>behaviorDecl)());
+      return <BehaviorDeclarationBody>(new (<Action0>behaviorDecl)());
     } else {
       return this.copyObject(behaviorDecl);
     }
@@ -60,4 +60,4 @@ class BehaviorRegistry extends JThreeObject {
   }
 }
 
-export = BehaviorRegistry;
+export default BehaviorRegistry;

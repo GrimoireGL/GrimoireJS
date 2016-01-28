@@ -3,4 +3,4 @@ interface VMDMorphStatus {
   value: number;
 }
 
-export = VMDMorphStatus;
+export default VMDMorphStatus;

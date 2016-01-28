@@ -1,15 +1,17 @@
-import GLExtensionResolver = require("./GLExtensionResolver");
-import Rectangle = require("../Math/Rectangle");
-import BasicRenderer = require("./Renderers/BasicRenderer");
-import JThreeEvent = require("../Base/JThreeEvent");
-import CanvasSizeChangedEventArgs = require("./CanvasSizeChangedEventArgs");
-import Color4 = require("../Math/Color4");
-import CanvasRegion = require("./CanvasRegion");
+import GLExtensionResolver from "./GLExtensionResolver";
+import Rectangle from "../Math/Rectangle";
+import BasicRenderer from "./Renderers/BasicRenderer";
+import JThreeEvent from "../Base/JThreeEvent";
+import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
+import Color4 from "../Math/Color4";
+import CanvasRegion from "./CanvasRegion";
+import {WebGLNotSupportedException} from "../Exceptions";
+
 /**
  * The class to manage HTMLCanvasElement.
  * Provides most of interfaces related to GLContext except the features resource manager providing.
  *
- * HTMLCanvasElementを管理するクラス
+ * HTMLCanvasElementを管理するクラスs
  * リソースマネージャーが提供する機能以外のGLContextが関連する機能のほとんどを内包します。
  */
 class Canvas extends CanvasRegion {
@@ -95,10 +97,10 @@ class Canvas extends CanvasRegion {
     try {
       return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
     } catch (e) {
-      console.error("WebGL context generation failed" + e);
+      throw new WebGLNotSupportedException();
     }
   }
 }
 
 
-export = Canvas;
+export default Canvas;

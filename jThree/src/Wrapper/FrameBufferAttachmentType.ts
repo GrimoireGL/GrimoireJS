@@ -23,4 +23,4 @@ enum FrameBufferAttachmentType {
   StencilAttachment = 36128,
   DepthStencilAttachment = 33306
 }
-export = FrameBufferAttachmentType;
+export default FrameBufferAttachmentType;

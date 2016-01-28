@@ -11,4 +11,4 @@ interface GeneraterInfoChunk {
   [others: string]: any;
 }
 
-export = GeneraterInfoChunk;
+export default GeneraterInfoChunk;

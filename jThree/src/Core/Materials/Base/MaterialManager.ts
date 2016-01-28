@@ -1,25 +1,25 @@
-import RenderStageDescriptionRegister = require("./Registerer/RenderStageDescriptionRegisterer");
-import TextureRegister = require("./Registerer/TextureRegister");
-import BasicMaterial = require("./BasicMaterial");
-import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("./IVariableDescription");
-import IApplyMaterialArgument = require("./IApplyMaterialArgument");
-import ShaderParser = require("./ShaderParser");
-import IContextComponent = require("../../../IContextComponent");
-import ContextComponents = require("../../../ContextComponents");
-import Delegates = require("../../../Base/Delegates");
-import BasicMatrixRegisterer = require("./Registerer/BasicMatrixReisterer");
-import TextureBufferRegisterer = require("./Registerer/TextureBufferRegisterer");
-import TimeRegisterer = require("./Registerer/TimeRegisterer");
-import AsyncLoader = require("../../Resources/AsyncLoader");
-import Q = require("q");
+import RenderStageDescriptionRegister from "./Registerer/RenderStageDescriptionRegisterer";
+import TextureRegister from "./Registerer/TextureRegister";
+import BasicMaterial from "./BasicMaterial";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "./IVariableDescription";
+import IApplyMaterialArgument from "./IApplyMaterialArgument";
+import ShaderParser from "./ShaderParser";
+import IContextComponent from "../../../IContextComponent";
+import ContextComponents from "../../../ContextComponents";
+import {Action4} from "../../../Base/Delegates";
+import BasicMatrixRegisterer from "./Registerer/BasicMatrixReisterer";
+import TextureBufferRegisterer from "./Registerer/TextureBufferRegisterer";
+import TimeRegisterer from "./Registerer/TimeRegisterer";
+import AsyncLoader from "../../Resources/AsyncLoader";
+import Q from "q";
 /**
  * A ContextComponent provides the feature to manage materials.
  * @type {[type]}
  */
 class MaterialManager implements IContextComponent {
 
-  private _uniformRegisters: { [key: string]: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }> } = {};
+  private _uniformRegisters: { [key: string]: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }> } = {};
 
   private _materialDocuments: { [key: string]: string } = {};
 
@@ -39,6 +39,7 @@ class MaterialManager implements IContextComponent {
     this.registerMaterial(require("../BuiltIn/Materials/SkyboxMaterial.html"));
     this.registerMaterial(require("../BuiltIn/Effects/Fog.html"));
     this.registerMaterial(require("../BuiltIn/Effects/FogExp2.html"));
+    this.registerMaterial(require("../BuiltIn/FXAA.html"));
   }
 
   public getContextComponentIndex(): number {
@@ -69,7 +70,7 @@ class MaterialManager implements IContextComponent {
     return this._chunkLoader.fromCache(key);
   }
 
-  public addUniformRegister(key: string, register: Delegates.Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>) {
+  public addUniformRegister(key: string, register: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>) {
     this._uniformRegisters[key] = register;
   }
 
@@ -127,4 +128,4 @@ class MaterialManager implements IContextComponent {
   }
 }
 
-export = MaterialManager;
+export default MaterialManager;

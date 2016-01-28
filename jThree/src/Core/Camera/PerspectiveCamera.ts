@@ -1,5 +1,5 @@
-import ViewCamera = require("./ViewCameraBase");
-import glm = require("gl-matrix");
+import ViewCamera from "./ViewCameraBase";
+import {mat4} from "gl-matrix";
 class PerspectiveCamera extends ViewCamera {
   private _fovy: number = Math.PI / 4;
   private _aspect: number = 1;
@@ -7,8 +7,8 @@ class PerspectiveCamera extends ViewCamera {
   private _far: number = 10;
 
   private _updateProjectionMatrix() {
-    glm.mat4.perspective(this.projectionMatrix.rawElements, this._fovy, this._aspect, this._near, this._far);
-    glm.mat4.invert(this.invProjectionMatrix.rawElements, this.projectionMatrix.rawElements);
+    mat4.perspective(this.projectionMatrix.rawElements, this._fovy, this._aspect, this._near, this._far);
+    mat4.invert(this.invProjectionMatrix.rawElements, this.projectionMatrix.rawElements);
     this.__updateViewProjectionMatrix();
   }
 
@@ -49,4 +49,4 @@ class PerspectiveCamera extends ViewCamera {
   }
 }
 
-export = PerspectiveCamera;
+export default PerspectiveCamera;

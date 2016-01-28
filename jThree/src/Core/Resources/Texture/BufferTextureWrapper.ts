@@ -1,11 +1,9 @@
-import Canvas = require("../../Canvas")
-import TargetTextureType = require("../../../Wrapper/TargetTextureType");
-import BufferTexture = require("./BufferTexture");
-import TextureWrapperBase = require("./TextureWrapperBase");
-import TexImage2DTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
-import FramebufferAttachmentType = require("../../../Wrapper/FrameBufferAttachmentType");
-import ElementType = require("../../../Wrapper/ElementType");
-import Delegates = require("../../../Base/Delegates");
+import Canvas from "../../Canvas";
+import TargetTextureType from "../../../Wrapper/TargetTextureType";
+import BufferTexture from "./BufferTexture";
+import TextureWrapperBase from "./TextureWrapperBase";
+import TexImage2DTargetType from "../../../Wrapper/Texture/TexImageTargetType";
+import {Func3} from "../../../Base/Delegates";
 class BufferTextureWrapper extends TextureWrapperBase {
   constructor(ownerCanvas: Canvas, parent: BufferTexture) {
     super(ownerCanvas, parent);
@@ -44,10 +42,10 @@ class BufferTextureWrapper extends TextureWrapperBase {
     this.unbind();
   }
 
-  public generateHtmlImage(encoder?: Delegates.Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
+  public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
     var parent = <BufferTexture>this.Parent;
     return this.encodeHtmlImage(parent.Width, parent.Height, encoder);
   }
 }
 
-export = BufferTextureWrapper;
+export default BufferTextureWrapper;

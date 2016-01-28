@@ -1,9 +1,9 @@
-import ResourceManager = require("../../../ResourceManager");
-import ContextComponents = require("../../../../ContextComponents");
-import JThreeContext = require("../../../../JThreeContext");
-import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("../IVariableDescription");
-import IApplyMaterialArgument = require("../IApplyMaterialArgument");
+import ResourceManager from "../../../ResourceManager";
+import ContextComponents from "../../../../ContextComponents";
+import JThreeContext from "../../../../JThreeContext";
+import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../IVariableDescription";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
 const TextureRegister = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     for (let key in uniforms) {
@@ -25,4 +25,4 @@ const TextureRegister = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, ma
     }
 };
 
-export = TextureRegister;
+export default TextureRegister;

@@ -1,10 +1,10 @@
-import IContextComponent = require("../IContextComponent");
-import ContextComponents = require("../ContextComponents");
-import DebuggerModuleBase = require("./Modules/DebuggerModuleBase");
-import SceneStructureDebugger = require("./Modules/SceneStructureDebugger");
-import GLSpecDebugger = require("./Modules/GLSpecDebugger");
-import RendererDebugger = require("./Modules/RendererDebugger");
-import DebuggerAPI = require("./DebuggerAPI");
+import IContextComponent from "../IContextComponent";
+import ContextComponents from "../ContextComponents";
+import DebuggerModuleBase from "./Modules/DebuggerModuleBase";
+import SceneStructureDebugger from "./Modules/SceneStructureDebugger";
+import GLSpecDebugger from "./Modules/GLSpecDebugger";
+import RendererDebugger from "./Modules/RendererDebugger";
+import DebuggerAPI from "./DebuggerAPI";
 class Debugger implements IContextComponent {
   public debuggerAPI: DebuggerAPI;
 
@@ -42,4 +42,4 @@ class Debugger implements IContextComponent {
   }
 }
 
-export = Debugger;
+export default Debugger;

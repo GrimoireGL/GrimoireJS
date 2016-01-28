@@ -1,7 +1,7 @@
-import IRenderBufferBindingConfig = require("./IRenderBufferBindingConfig");
-import IColorBufferBindingConfig = require("./IColorBufferBindingConfig");
-import Vector4 = require("../../../../Math/Vector4");
-import IFBOBindingConfig = require("./IFBOBindingConfig");
+import IRenderBufferBindingConfig from "./IRenderBufferBindingConfig";
+import IColorBufferBindingConfig from "./IColorBufferBindingConfig";
+import Vector4 from "../../../../Math/Vector4";
+import IFBOBindingConfig from "./IFBOBindingConfig";
 class RSMLRenderConfigUtility {
   public static parseFBOConfiguration(fboElement: Element): IFBOBindingConfig {
     if (!fboElement) {
@@ -11,11 +11,11 @@ class RSMLRenderConfigUtility {
     const primary = fboElement.getAttribute("primary");
     const colorNodes = fboElement.getElementsByTagName("color");
     const rboNode = fboElement.getElementsByTagName("rbo").item(0);
+    result.primaryName = primary;
     for (let i = 0; i < colorNodes.length; i++) {
       const colorBuffer = RSMLRenderConfigUtility._parseColorBuffer(colorNodes.item(i));
       result[colorBuffer.registerIndex] = colorBuffer;
       if (colorBuffer.name === primary) {
-        result.primaryName = colorBuffer.name;
         result.primaryIndex = colorBuffer.registerIndex;
       }
     }
@@ -91,4 +91,4 @@ class RSMLRenderConfigUtility {
   }
 }
 
-export = RSMLRenderConfigUtility;
+export default RSMLRenderConfigUtility;

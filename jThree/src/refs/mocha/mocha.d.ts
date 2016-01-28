@@ -232,5 +232,5 @@ declare module Mocha {
 }
 
 declare module "mocha" {
-    export = Mocha;
+    export default Mocha;
 }

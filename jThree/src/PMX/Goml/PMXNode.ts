@@ -1,9 +1,9 @@
-import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
-import PMXModel = require("../Core/PMXModel");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import ResourceLoader = require("../../Core/ResourceLoader");
-import Q = require("q");
+import SceneObjectNodeBase from "./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase";
+import PMXModel from "../Core/PMXModel";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import ResourceLoader from "../../Core/ResourceLoader";
+import Q from "q";
 
 class PMXNode extends SceneObjectNodeBase {
   private pmxModel: PMXModel = null;
@@ -40,4 +40,4 @@ class PMXNode extends SceneObjectNodeBase {
   }
 }
 
-export = PMXNode;
+export default PMXNode;

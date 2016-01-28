@@ -1,9 +1,9 @@
-import ContextComponents = require("../../ContextComponents");
-import ResourceManager = require("../../Core/ResourceManager");
-import JThreeContext = require("../../JThreeContext");
-import Geometry = require("../../Core/Geometries/Base/Geometry");
-import IXMaterialData = require("../IXMaterialData");
-import BasicMaterial = require("../../Core/Materials/Base/BasicMaterial");
+import ContextComponents from "../../ContextComponents";
+import ResourceManager from "../../Core/ResourceManager";
+import JThreeContext from "../../JThreeContext";
+import Geometry from "../../Core/Geometries/Base/Geometry";
+import IXMaterialData from "../IXMaterialData";
+import BasicMaterial from "../../Core/Materials/Base/BasicMaterial";
 class XMaterial extends BasicMaterial {
   constructor(private _material: IXMaterialData) {
     super(require("../Material/Forward.html"));
@@ -29,4 +29,4 @@ class XMaterial extends BasicMaterial {
     return this._material.indexOffset * 4;
   }
 }
-export = XMaterial;
+export default XMaterial;

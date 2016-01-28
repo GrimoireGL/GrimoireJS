@@ -1,12 +1,12 @@
-import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
-import IMouseEventArgs = require("./IMouseEventArgs");
-import JThreeEvent = require("../Base/JThreeEvent");
-import IDisposable = require("../Base/IDisposable");
-import Rectangle = require("../Math/Rectangle");
-import Vector2 = require("../Math/Vector2");
-import JThreeContext = require("../JThreeContext");
-import Debugger = require("../Debug/Debugger");
-import ContextComponents = require("../ContextComponents");
+import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import IMouseEventArgs from "./IMouseEventArgs";
+import JThreeEvent from "../Base/JThreeEvent";
+import IDisposable from "../Base/IDisposable";
+import Rectangle from "../Math/Rectangle";
+import Vector2 from "../Math/Vector2";
+import JThreeContext from "../JThreeContext";
+import Debugger from "../Debug/Debugger";
+import ContextComponents from "../ContextComponents";
 /**
  * Abstract class to provide mouse tracking feature on a part of region on canvas.
  * This class is intended to be used in Canvas and viewport renderer.
@@ -144,4 +144,4 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
   }
 }
 
-export = CanvasRegion;
+export default CanvasRegion;

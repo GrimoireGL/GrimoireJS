@@ -1,6 +1,6 @@
-import ConeGeometry = require("../../../Core/Geometries/ConeGeometry");
-import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
+import ConeGeometry from "../../../Core/Geometries/ConeGeometry";
+import GeometryNodeBase from "./GeometryNodeBase";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
 
 class ConeGeometryNode extends GeometryNodeBase {
   constructor() {
@@ -16,4 +16,4 @@ class ConeGeometryNode extends GeometryNodeBase {
   }
 }
 
-export = ConeGeometryNode;
+export default ConeGeometryNode;

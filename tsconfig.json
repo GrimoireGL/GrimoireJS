@@ -1,20 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": false,
+    "target": "es6",
     "noImplicitAny": false,
-    "removeComments": true,
-    "noLib": false,
-    "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true
+    "sourceMap": true
   },
   "filesGlob": [
     "./jThree/refs/**/*.ts",
     "./jThree/src/**/*.ts"
   ],
   "files": [
-    "./jThree/src/Base/Collections/AssociativeArray.ts",
     "./jThree/src/Base/Delegates.ts",
     "./jThree/src/Base/IDisposable.ts",
     "./jThree/src/Base/JThreeCollection.ts",

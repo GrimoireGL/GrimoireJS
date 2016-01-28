@@ -1,5 +1,5 @@
-﻿import JThreeObject = require("./JThreeObject");
-import JThreeID = require("./JThreeID");
+﻿import JThreeObject from "./JThreeObject";
+import JThreeID from "./JThreeID";
 
 /**
  * JThree object with unique ID to identify object instancies.
@@ -28,4 +28,4 @@ class JThreeObjectWithID extends JThreeObject {
     }
 }
 
-export = JThreeObjectWithID;
+export default JThreeObjectWithID;

@@ -1,11 +1,11 @@
-import XFileData = require("../XFileData");
-import ResourceManager = require("../../Core/ResourceManager");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import ElementType = require("../../Wrapper/ElementType");
-import BufferUsageType = require("../../Wrapper/BufferUsageType");
-import BufferTargetType = require("../../Wrapper/BufferTargetType");
-import BasicGeometry = require("../../Core/Geometries/Base/BasicGeometry");
+import XFileData from "../XFileData";
+import ResourceManager from "../../Core/ResourceManager";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import ElementType from "../../Wrapper/ElementType";
+import BufferUsageType from "../../Wrapper/BufferUsageType";
+import BufferTargetType from "../../Wrapper/BufferTargetType";
+import BasicGeometry from "../../Core/Geometries/Base/BasicGeometry";
 class XGeometry extends BasicGeometry {
   constructor(x: XFileData) {
     super();
@@ -28,4 +28,4 @@ class XGeometry extends BasicGeometry {
   }
 }
 
-export = XGeometry;
+export default XGeometry;

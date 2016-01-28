@@ -1,7 +1,9 @@
-import Matrix = require("../../../../Math/Matrix");
-import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("../IVariableDescription");
-import IApplyMaterialArgument = require("../IApplyMaterialArgument");
+import Matrix from "../../../../Math/Matrix";
+import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../IVariableDescription";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
+import Vector2 from "../../../../Math/Vector2";
+
 const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
   if (uniforms["_matM"]) {
     pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
@@ -33,6 +35,10 @@ const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapp
   if (uniforms["_nearClip"]) {
     pWrapper.uniformFloat("_nearClip", matArg.camera.Near);
   }
+  if (uniforms["_resolution"]) {
+    const region = matArg.renderStage.Renderer.region;
+    pWrapper.uniformVector("_resolution", new Vector2(region.Width, region.Height));
+  }
 };
 
-export = BasicMatrixRegisterer;
+export default BasicMatrixRegisterer;

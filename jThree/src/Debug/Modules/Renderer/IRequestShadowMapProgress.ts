@@ -1,10 +1,10 @@
-import Q = require("q");
-import Delegates = require("../../../Base/Delegates");
+import Q from "q";
+import {Func3} from "../../../Base/Delegates";
 interface IRequestShadowMapProgress {
   deffered: Q.Deferred<HTMLImageElement>;
   rendererID: string;
-  generator: Delegates.Func3<number, number, ArrayBufferView, Uint8Array>;
+  generator: Func3<number, number, ArrayBufferView, Uint8Array>;
   begin: boolean;
 }
 
-export = IRequestShadowMapProgress;
+export default IRequestShadowMapProgress;

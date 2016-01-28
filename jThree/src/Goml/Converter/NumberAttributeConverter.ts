@@ -1,9 +1,9 @@
-import AttributeConverterBase = require("./AttributeConverterBase");
-import GomlAttribute = require("../GomlAttribute");
-import Delegates = require("../../Base/Delegates");
-import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import AnimaterBase = require("../Animater/AnimaterBase");
-import NumberAnimater = require("../Animater/NumberAnimater");
+import AttributeConverterBase from "./AttributeConverterBase";
+import GomlAttribute from "../GomlAttribute";
+import {Action0} from "../../Base/Delegates";
+import EasingFunctionBase from "../Easing/EasingFunctionBase";
+import AnimaterBase from "../Animater/AnimaterBase";
+import NumberAnimater from "../Animater/NumberAnimater";
 
 class NumberAttributeConverter extends AttributeConverterBase {
   public toStringAttr(val: number): string {
@@ -14,9 +14,9 @@ class NumberAttributeConverter extends AttributeConverterBase {
     return Number(attr);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Delegates.Action0): AnimaterBase {
+  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new NumberAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }
 
-export = NumberAttributeConverter;
+export default NumberAttributeConverter;

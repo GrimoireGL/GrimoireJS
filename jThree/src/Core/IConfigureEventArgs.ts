@@ -1,6 +1,6 @@
-import IRenderStageRendererConfigure = require("./Renderers/RenderStages/IRenderStageRendererConfigure");
-import Material = require("./Materials/Material");
-import MaterialPass = require("./Materials/Base/MaterialPass");
+import IRenderStageRendererConfigure from "./Renderers/RenderStages/IRenderStageRendererConfigure";
+import Material from "./Materials/Material";
+import MaterialPass from "./Materials/Base/MaterialPass";
 interface IConfigureEventArgs {
   pass: MaterialPass;
   passIndex: number;
@@ -8,4 +8,4 @@ interface IConfigureEventArgs {
   configure: IRenderStageRendererConfigure;
 }
 
-export = IConfigureEventArgs;
+export default IConfigureEventArgs;

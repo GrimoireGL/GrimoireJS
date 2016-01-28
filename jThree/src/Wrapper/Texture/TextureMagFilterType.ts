@@ -3,4 +3,4 @@ enum TextureMagFilterType {
   Linear = 9729
 }
 
-export = TextureMagFilterType;
+export default TextureMagFilterType;

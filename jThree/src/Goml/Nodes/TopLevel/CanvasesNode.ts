@@ -1,4 +1,4 @@
-import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
+import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
 
 class CanvasesNode extends OrderedTopLevelNodeBase {
   constructor() {
@@ -11,4 +11,4 @@ class CanvasesNode extends OrderedTopLevelNodeBase {
 
 }
 
-export = CanvasesNode;
+export default CanvasesNode;

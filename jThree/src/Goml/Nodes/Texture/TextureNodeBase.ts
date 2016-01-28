@@ -1,11 +1,11 @@
-﻿import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
-import ResourceManager = require("../../../Core/ResourceManager");
-import MinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
-import MagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
-import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
-import JThreeContext = require("../../../JThreeContext");
-import ContextComponents = require("../../../ContextComponents");
+﻿import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import TextureBase from "../../../Core/Resources/Texture/TextureBase";
+import ResourceManager from "../../../Core/ResourceManager";
+import MinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
+import MagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
+import TextureWrapType from "../../../Wrapper/Texture/TextureWrapType";
+import JThreeContext from "../../../JThreeContext";
+import ContextComponents from "../../../ContextComponents";
 /**
  * All texture resource node class inherit this class.
  */
@@ -150,4 +150,4 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
   }
 }
 
-export = TextureNodeBase;
+export default TextureNodeBase;

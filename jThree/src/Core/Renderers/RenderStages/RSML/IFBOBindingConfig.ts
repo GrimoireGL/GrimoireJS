@@ -1,9 +1,9 @@
-import IRenderBufferBindingConfig = require("./IRenderBufferBindingConfig");
-import IColorBufferBindingConfig = require("./IColorBufferBindingConfig");
+import IRenderBufferBindingConfig from "./IRenderBufferBindingConfig";
+import IColorBufferBindingConfig from "./IColorBufferBindingConfig";
 interface IFBOBindingConfig {
   [colorIndex: number]: IColorBufferBindingConfig;
   rbo?: IRenderBufferBindingConfig;
   primaryIndex?: number;
   primaryName?: string;
 }
-export = IFBOBindingConfig;
+export default IFBOBindingConfig;

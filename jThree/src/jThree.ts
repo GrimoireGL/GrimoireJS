@@ -1,2 +1,3 @@
 /// <reference path="bundle.ts" />
-require("./Init").Init();
+import Init from "./Init";
+Init.Init();

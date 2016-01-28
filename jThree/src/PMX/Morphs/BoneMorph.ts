@@ -6,4 +6,4 @@ interface BoneMorph {
 }
 
 
-export = BoneMorph;
+export default BoneMorph;

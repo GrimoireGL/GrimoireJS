@@ -1,5 +1,5 @@
-import GeneraterInfoChunk = require("./GeneraterInfoChunk");
-import BasicRenderer = require("../BasicRenderer");
+import GeneraterInfoChunk from "./GeneraterInfoChunk";
+import BasicRenderer from "../BasicRenderer";
 /**
  * Provides abstraction for texture generation.
  * By overriding, it is able to manage texture buffer in your way.
@@ -18,4 +18,4 @@ abstract class GeneraterBase {
   public abstract generate(texInfo: GeneraterInfoChunk);
 }
 
-export = GeneraterBase;
+export default GeneraterBase;

@@ -1,15 +1,15 @@
-import BasicGeometry = require("../../Core/Geometries/Base/BasicGeometry");
-import IVariableDescription = require("../../Core/Materials/Base/IVariableDescription");
-import ProgramWrapper = require("../../Core/Resources/Program/ProgramWrapper");
-import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import BufferTargetType = require("../../Wrapper/BufferTargetType");
-import BufferUsageType = require("../../Wrapper/BufferUsageType");
-import ElementType = require("../../Wrapper/ElementType");
-import PMX = require("../PMXLoader");
-import Buffer = require("../../Core/Resources/Buffer/Buffer");
-import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../JThreeContext");
-import ResourceManager = require("../../Core/ResourceManager");
+import BasicGeometry from "../../Core/Geometries/Base/BasicGeometry";
+import IVariableDescription from "../../Core/Materials/Base/IVariableDescription";
+import ProgramWrapper from "../../Core/Resources/Program/ProgramWrapper";
+import PrimitiveTopology from "../../Wrapper/PrimitiveTopology";
+import BufferTargetType from "../../Wrapper/BufferTargetType";
+import BufferUsageType from "../../Wrapper/BufferUsageType";
+import ElementType from "../../Wrapper/ElementType";
+import PMX from "../PMXLoader";
+import Buffer from "../../Core/Resources/Buffer/Buffer";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
+import ResourceManager from "../../Core/ResourceManager";
 
 class PMXGeometry extends BasicGeometry {
 
@@ -72,4 +72,4 @@ class PMXGeometry extends BasicGeometry {
   }
 }
 
-export = PMXGeometry;
+export default PMXGeometry;

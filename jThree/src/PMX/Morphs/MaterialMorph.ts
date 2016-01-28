@@ -12,4 +12,4 @@ interface MaterialMorph {
   toonTextureCoefficient: number[];
 }
 
-export = MaterialMorph;
+export default MaterialMorph;

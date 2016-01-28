@@ -1,8 +1,8 @@
-import VertexMorph = require("./Morphs/VertexMorph");
-import UVMorph = require("./Morphs/UVMorph");
-import BoneMorph = require("./Morphs/BoneMorph");
-import MaterialMorph = require("./Morphs/MaterialMorph");
-import GroupMorph = require("./Morphs/GroupMorph");
+import VertexMorph from "./Morphs/VertexMorph";
+import UVMorph from "./Morphs/UVMorph";
+import BoneMorph from "./Morphs/BoneMorph";
+import MaterialMorph from "./Morphs/MaterialMorph";
+import GroupMorph from "./Morphs/GroupMorph";
 
 interface PMXMorph {
   morphName: string;
@@ -17,4 +17,4 @@ interface PMXMorph {
   groupMorph?: GroupMorph[];
 }
 
-export = PMXMorph;
+export default PMXMorph;

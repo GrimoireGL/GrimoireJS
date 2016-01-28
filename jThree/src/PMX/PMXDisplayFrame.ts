@@ -7,4 +7,4 @@ interface PMXDisplayFrame {
   targetIndex: number[];
 }
 
-export =PMXDisplayFrame;
+export default PMXDisplayFrame;

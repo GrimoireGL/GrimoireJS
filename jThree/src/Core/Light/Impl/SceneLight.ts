@@ -1,9 +1,9 @@
-import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
-import BasicMaterial = require("../../Materials/Base/BasicMaterial");
-import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
-import JThreeContext = require("../../../JThreeContext");
-import ContextComponents = require("../../../ContextComponents");
-import LightBase = require("./../LightBase");
+import IApplyMaterialArgument from "../../Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../Materials/Base/BasicMaterial";
+import PrimitiveRegistory from "../../Geometries/Base/PrimitiveRegistory";
+import JThreeContext from "../../../JThreeContext";
+import ContextComponents from "../../../ContextComponents";
+import LightBase from "./../LightBase";
 
 /**
  * Provides area light feature.
@@ -27,4 +27,4 @@ class SceneLight extends LightBase {
 
 }
 
-export = SceneLight;
+export default SceneLight;

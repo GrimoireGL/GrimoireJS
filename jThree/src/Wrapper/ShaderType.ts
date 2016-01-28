@@ -3,4 +3,4 @@ enum ShaderType {
   FragmentShader = 35632 // FRAGMENT_SHADER
 }
 
-export = ShaderType;
+export default ShaderType;

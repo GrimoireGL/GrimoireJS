@@ -1,12 +1,12 @@
-import HitAreaRenderStage = require("./RenderStages/HitAreaRenderStage");
-import RSMLRenderStage = require("./RenderStages/RSML/RSMLRenderStage");
-import BasicRenderer = require("./BasicRenderer");
-import RenderStageBase = require("./RenderStages/RenderStageBase");
-import ContextComponents = require("../../ContextComponents");
-import IContextComponent = require("../../IContextComponent");
-import Delegates = require("../../Base/Delegates");
+import HitAreaRenderStage from "./RenderStages/HitAreaRenderStage";
+import RSMLRenderStage from "./RenderStages/RSML/RSMLRenderStage";
+import BasicRenderer from "./BasicRenderer";
+import RenderStageBase from "./RenderStages/RenderStageBase";
+import ContextComponents from "../../ContextComponents";
+import IContextComponent from "../../IContextComponent";
+import {Func1} from "../../Base/Delegates";
 class RenderStageRegistory implements IContextComponent {
-  private _renderStageFactoryFunctions: { [key: string]: Delegates.Func1<BasicRenderer, RenderStageBase> } = {};
+  private _renderStageFactoryFunctions: { [key: string]: Func1<BasicRenderer, RenderStageBase> } = {};
 
   constructor() {
     this.register("jthree.hitarea", (renderer) => new HitAreaRenderStage(renderer));
@@ -16,6 +16,7 @@ class RenderStageRegistory implements IContextComponent {
     this.register(require("./RenderStages/BuiltIn/Fog.html"));
     this.register(require("./RenderStages/BuiltIn/FogExp2.html"));
     this.register(require("./RenderStages/BuiltIn/SkyBox.html"));
+    this.register(require("./RenderStages/BuiltIn/FXAA.html"));
   }
 
   public getContextComponentIndex(): number {
@@ -31,10 +32,10 @@ class RenderStageRegistory implements IContextComponent {
    * Register new render stage factory from delegate function.
    * This overload mainly used for registering custum overrided class.
    * @param {string}                            name              the key to be used for constructing the render stage
-   * @param {Delegates.Func1<BasicRenderer, RenderStageBase>} factory       factory function for constructing the render stage
+   * @param {Func1<BasicRenderer, RenderStageBase>} factory       factory function for constructing the render stage
    */
-  public register(name: string, factory: Delegates.Func1<BasicRenderer, RenderStageBase>): void;
-  public register(nameOrsource: string, factory?: Delegates.Func1<BasicRenderer, RenderStageBase>): void {
+  public register(name: string, factory: Func1<BasicRenderer, RenderStageBase>): void;
+  public register(nameOrsource: string, factory?: Func1<BasicRenderer, RenderStageBase>): void {
     if (factory) {
       this._renderStageFactoryFunctions[nameOrsource] = factory;
       return;
@@ -60,4 +61,4 @@ class RenderStageRegistory implements IContextComponent {
     return this._renderStageFactoryFunctions[name](renderer);
   }
 }
-export = RenderStageRegistory;
+export default RenderStageRegistory;

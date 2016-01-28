@@ -1,7 +1,7 @@
-import RSMLRenderStageBase = require("./RSML/RSMLRenderStage");
-import SceneObject = require("../../SceneObjects/SceneObject");
-import ResolvedChainInfo = require("../ResolvedChainInfo");
-import Scene = require("../../Scene");
+import RSMLRenderStageBase from "./RSML/RSMLRenderStage";
+import SceneObject from "../../SceneObjects/SceneObject";
+import ResolvedChainInfo from "../ResolvedChainInfo";
+import Scene from "../../Scene";
 
 class HitAreaRenderStage extends RSMLRenderStageBase {
   constructor(renderer) {
@@ -29,4 +29,4 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
   }
 }
 
-export = HitAreaRenderStage;
+export default HitAreaRenderStage;

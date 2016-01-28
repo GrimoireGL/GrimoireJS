@@ -4,4 +4,4 @@ interface UVMorph {
   uvOffset: number[];
 }
 
-export = UVMorph;
+export default UVMorph;

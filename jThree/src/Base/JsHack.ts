@@ -14,4 +14,4 @@ class JsHack {
     }
 }
 
-export = JsHack;
+export default JsHack;

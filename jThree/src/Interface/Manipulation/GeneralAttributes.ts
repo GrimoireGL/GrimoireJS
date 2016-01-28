@@ -1,10 +1,10 @@
-import J3Object = require("../J3Object");
-import J3ObjectBase = require("../J3ObjectBase");
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import isString = require("lodash.isstring");
-import isUndefined = require("lodash.isundefined");
-import isPlainObject = require("lodash.isplainobject");
-import isFunction = require("lodash.isfunction");
+import J3Object from "../J3Object";
+import J3ObjectBase from "../J3ObjectBase";
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import isString from "lodash.isstring";
+import isUndefined from "lodash.isundefined";
+import isPlainObject from "lodash.isplainobject";
+import isFunction from "lodash.isfunction";
 
 class GeneralAttribute extends J3ObjectBase {
   private static _setAttr(node: GomlTreeNodeBase, attributeName: string, value: any): void {
@@ -78,4 +78,4 @@ class GeneralAttribute extends J3ObjectBase {
   }
 }
 
-export = GeneralAttribute;
+export default GeneralAttribute;

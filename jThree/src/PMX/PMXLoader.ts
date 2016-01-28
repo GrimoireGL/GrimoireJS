@@ -1,12 +1,12 @@
-import PMXHeader = require("./PMXHeader");
-import PMXVerticies = require("./PMXVerticies");
-import PMXMaterial = require("./PMXMaterial");
-import PMXBone = require("./PMXBone");
-import PMXMorph = require("./PMXMorph");
-import PMXDisplayFrame = require("./PMXDisplayFrame");
-import PMXRigidBody = require("./PMXRigidBody");
-import PMXJoint = require("./PMXJoint");
-import ImageLoader = require("../Core/Resources/ImageLoader");
+import PMXHeader from "./PMXHeader";
+import PMXVerticies from "./PMXVerticies";
+import PMXMaterial from "./PMXMaterial";
+import PMXBone from "./PMXBone";
+import PMXMorph from "./PMXMorph";
+import PMXDisplayFrame from "./PMXDisplayFrame";
+import PMXRigidBody from "./PMXRigidBody";
+import PMXJoint from "./PMXJoint";
+import ImageLoader from "../Core/Resources/ImageLoader";
 class PMX {
   private reader: DataView;
 
@@ -543,4 +543,4 @@ class PMX {
   }
 }
 
-export = PMX;
+export default PMX;

@@ -1,7 +1,7 @@
-import IVariableDescription = require("../../Materials/Base/IVariableDescription");
-import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
-import IndexedGeometry = require("./IndexedGeometry");
-import Buffer = require("../../Resources/Buffer/Buffer");
+import IVariableDescription from "../../Materials/Base/IVariableDescription";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import IndexedGeometry from "./IndexedGeometry";
+import Buffer from "../../Resources/Buffer/Buffer";
 /**
  * Basic geometry for builtin primitives. This geometry contains position,normal,uv as buffer.
  *
@@ -32,4 +32,4 @@ class BasicGeometry extends IndexedGeometry {
     }
 }
 
-export = BasicGeometry;
+export default BasicGeometry;

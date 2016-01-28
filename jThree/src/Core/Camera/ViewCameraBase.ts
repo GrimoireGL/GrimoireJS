@@ -1,6 +1,6 @@
-import Camera = require("./Camera");
-import Vector3 = require("../../Math/Vector3");
-import glm = require("gl-matrix");
+import Camera from "./Camera";
+import Vector3 from "../../Math/Vector3";
+import {mat4} from "gl-matrix";
 /**
  * The abstract class to be overridden by camera related class having view matrix.
  *
@@ -33,8 +33,8 @@ abstract class ViewCameraBase extends Camera {
      * ビュー行列を生成します。
      */
     private _generateViewMatrix(): void {
-        glm.mat4.lookAt(this.viewMatrix.rawElements, this.Transformer.GlobalPosition.rawElements, Vector3.add(this.Transformer.forward, this.Transformer.GlobalPosition).rawElements, this.Transformer.up.rawElements);
+        mat4.lookAt(this.viewMatrix.rawElements, this.Transformer.GlobalPosition.rawElements, Vector3.add(this.Transformer.forward, this.Transformer.GlobalPosition).rawElements, this.Transformer.up.rawElements);
     }
 }
 
-export = ViewCameraBase;
+export default ViewCameraBase;

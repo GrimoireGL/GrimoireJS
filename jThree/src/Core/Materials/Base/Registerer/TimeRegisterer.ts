@@ -1,10 +1,10 @@
-import Vector4 = require("../../../../Math/Vector4");
-import JThreeContext = require("../../../../JThreeContext");
-import ContextComponents = require("../../../../ContextComponents");
-import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("../IVariableDescription");
-import IApplyMaterialArgument = require("../IApplyMaterialArgument");
-import Timer = require("../../../Timer");
+import Vector4 from "../../../../Math/Vector4";
+import JThreeContext from "../../../../JThreeContext";
+import ContextComponents from "../../../../ContextComponents";
+import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../IVariableDescription";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
+import Timer from "../../../Timer";
 const TimeRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
     if (uniforms["_Time"]) {
         const timer: Timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
@@ -36,4 +36,4 @@ const TimeRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, mat
     }
 };
 
-export = TimeRegisterer;
+export default TimeRegisterer;

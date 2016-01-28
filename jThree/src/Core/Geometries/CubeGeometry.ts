@@ -1,13 +1,13 @@
-import GeometryBuilder = require("./Base/GeometryBuilder");
-import BasicGeometry = require("./Base/BasicGeometry");
-import BufferTargetType = require("../../Wrapper/BufferTargetType");
-import BufferUsageType = require("../../Wrapper/BufferUsageType");
-import ElementType = require("../../Wrapper/ElementType");
-import Vector3 = require("../../Math/Vector3");
-import PrimitiveTopology = require("../../Wrapper/PrimitiveTopology");
-import ResourceManager = require("../ResourceManager");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
+import GeometryBuilder from "./Base/GeometryBuilder";
+import BasicGeometry from "./Base/BasicGeometry";
+import BufferTargetType from "../../Wrapper/BufferTargetType";
+import BufferUsageType from "../../Wrapper/BufferUsageType";
+import ElementType from "../../Wrapper/ElementType";
+import Vector3 from "../../Math/Vector3";
+import PrimitiveTopology from "../../Wrapper/PrimitiveTopology";
+import ResourceManager from "../ResourceManager";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
 class CubeGeometry extends BasicGeometry {
     constructor(name: string) {
         super();
@@ -40,4 +40,4 @@ class CubeGeometry extends BasicGeometry {
 
 }
 
-export = CubeGeometry;
+export default CubeGeometry;

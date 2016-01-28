@@ -1,8 +1,8 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Delegates = require("../../../Base/Delegates");
-import GomlAttribute = require("../../GomlAttribute");
-import AttributeDeclaration = require("../../AttributeDeclaration");
-import BehaviorsNode = require("./BehaviorsNode");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import {Action1} from "../../../Base/Delegates";
+import GomlAttribute from "../../GomlAttribute";
+import AttributeDeclaration from "../../AttributeDeclaration";
+import BehaviorsNode from "./BehaviorsNode";
 
 class BehaviorNode extends GomlTreeNodeBase {
   private static ignoreNode: string[] = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "element"];
@@ -19,11 +19,11 @@ class BehaviorNode extends GomlTreeNodeBase {
   private awakenCache: boolean = false;
   private startCalled: boolean = false;
 
-  private updateDelegate: Delegates.Action1<GomlTreeNodeBase> = () => { return; };
-  private startDelegate: Delegates.Action1<GomlTreeNodeBase> = () => { return; };
-  private awakeDelegate: Delegates.Action1<GomlTreeNodeBase> = () => { return; };
-  private onEnabledDelegate: Delegates.Action1<GomlTreeNodeBase> = () => { return; };
-  private onDisabledDelegate: Delegates.Action1<GomlTreeNodeBase> = () => { return; };
+  private updateDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private startDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private awakeDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private onEnabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private onDisabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
 
   constructor() {
     super();
@@ -190,4 +190,4 @@ class BehaviorNode extends GomlTreeNodeBase {
   }
 }
 
-export = BehaviorNode;
+export default BehaviorNode;

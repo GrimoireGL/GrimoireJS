@@ -1,11 +1,11 @@
-import ConeGeometry = require("../ConeGeometry");
-import CylinderGeometry = require("../CylinderGeometry");
-import CubeGeometry = require("../CubeGeometry");
-import SphereGeometry = require("../SphereGeometry");
-import QuadGeometry = require("../QuadGeometry");
-import Geometry = require("./Geometry");
-import ContextComponents = require("../../../ContextComponents");
-import IContextComponent = require("../../../IContextComponent");
+import ConeGeometry from "../ConeGeometry";
+import CylinderGeometry from "../CylinderGeometry";
+import CubeGeometry from "../CubeGeometry";
+import SphereGeometry from "../SphereGeometry";
+import QuadGeometry from "../QuadGeometry";
+import Geometry from "./Geometry";
+import ContextComponents from "../../../ContextComponents";
+import IContextComponent from "../../../IContextComponent";
 class PrimitiveRegistory implements IContextComponent {
   /**
    * Registered primitives
@@ -35,4 +35,4 @@ class PrimitiveRegistory implements IContextComponent {
     return this._primitives[key];
   }
 }
-export = PrimitiveRegistory;
+export default PrimitiveRegistory;

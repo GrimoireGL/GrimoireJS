@@ -1,8 +1,8 @@
-import Camera = require("../../Camera/Camera");
-import RenderStageBase = require("../../Renderers/RenderStages/RenderStageBase");
-import ResolvedChainInfo = require("../../Renderers/ResolvedChainInfo");
-import SceneObject = require("../../SceneObjects/SceneObject");
-import Scene = require("../../Scene");
+import Camera from "../../Camera/Camera";
+import RenderStageBase from "../../Renderers/RenderStages/RenderStageBase";
+import ResolvedChainInfo from "../../Renderers/ResolvedChainInfo";
+import SceneObject from "../../SceneObjects/SceneObject";
+import Scene from "../../Scene";
 interface IApplyMaterialArgument {
   scene: Scene;
   camera: Camera;
@@ -15,4 +15,4 @@ interface IApplyMaterialArgument {
   passCount: number;
 }
 
-export = IApplyMaterialArgument;
+export default IApplyMaterialArgument;

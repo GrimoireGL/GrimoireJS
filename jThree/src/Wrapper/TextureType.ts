@@ -10,4 +10,4 @@ enum TextureType {
   UnsignedInt24_8WebGL = 0x84FA
 }
 
-export = TextureType;
+export default TextureType;

@@ -1,5 +1,5 @@
-import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
-import Delegates = require("../Base/Delegates");
+import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import {Action1} from "../Base/Delegates";
 
 /**
  * The most base class for GOML Tree
@@ -55,7 +55,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
   /**
    * Execute delegate in each nodes recursively.
    */
-  public callRecursive(act: Delegates.Action1<TreeNodeBase>) {
+  public callRecursive(act: Action1<TreeNodeBase>) {
     act(this);
     this.children.forEach((v) => v.callRecursive(act));
   }
@@ -166,4 +166,4 @@ class TreeNodeBase extends JThreeObjectEEWithID {
   };
 }
 
-export = TreeNodeBase;
+export default TreeNodeBase;

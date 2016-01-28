@@ -1,8 +1,8 @@
-import SceneObject = require("../../../Core/SceneObjects/SceneObject");
+import SceneObject from "../../../Core/SceneObjects/SceneObject";
 
 interface INotifyTextureProgress {
   object: SceneObject;
   technique: number;
 }
 
-export = INotifyTextureProgress;
+export default INotifyTextureProgress;

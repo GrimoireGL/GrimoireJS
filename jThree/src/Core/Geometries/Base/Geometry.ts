@@ -1,10 +1,10 @@
-import IVariableDescription = require("../../Materials/Base/IVariableDescription");
-import ProgramWrapper = require("../../Resources/Program/ProgramWrapper");
-import jThreeObject = require("../../../Base/JThreeObject");
-import Buffer = require("./../../Resources/Buffer/Buffer");
-import PrimitiveTopology = require("../../../Wrapper/PrimitiveTopology");
-import Canvas = require("./../../Canvas");
-import Material = require("./../../Materials/Material");
+import IVariableDescription from "../../Materials/Base/IVariableDescription";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import jThreeObject from "../../../Base/JThreeObject";
+import Buffer from "./../../Resources/Buffer/Buffer";
+import PrimitiveTopology from "../../../Wrapper/PrimitiveTopology";
+import Canvas from "./../../Canvas";
+import Material from "./../../Materials/Material";
 /**
  * Base abstraction for geometry.
  */
@@ -27,4 +27,4 @@ abstract class Geometry extends jThreeObject {
     public abstract getDrawLength(): number;
 
 }
-export = Geometry;
+export default Geometry;

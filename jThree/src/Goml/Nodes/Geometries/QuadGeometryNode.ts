@@ -1,6 +1,6 @@
-import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import QuadGeometry = require("../../../Core/Geometries/QuadGeometry");
+import GeometryNodeBase from "./GeometryNodeBase";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import QuadGeometry from "../../../Core/Geometries/QuadGeometry";
 
 class QuadGeometryNode extends GeometryNodeBase {
   private geometry: QuadGeometry;
@@ -18,4 +18,4 @@ class QuadGeometryNode extends GeometryNodeBase {
   }
 }
 
-export = QuadGeometryNode;
+export default QuadGeometryNode;

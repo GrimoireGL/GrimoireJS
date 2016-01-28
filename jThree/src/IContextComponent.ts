@@ -1,4 +1,4 @@
 interface IContextComponent {
   getContextComponentIndex(): number;
 }
-export =  IContextComponent;
+export default IContextComponent;

@@ -1,4 +1,4 @@
-import JThreeObject = require("./JThreeObject");
+import JThreeObject from "./JThreeObject";
 /**
  * Unique ID generator for jThree objects.
  * @type {[type]}
@@ -24,4 +24,4 @@ class JThreeID extends JThreeObject {
     }
 }
 
-export = JThreeID;
+export default JThreeID;

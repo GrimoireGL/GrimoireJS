@@ -1,12 +1,12 @@
-import JThreeObjectEEWithID = require("../../Base/JThreeObjectEEWithID");
-import Geometry = require("../Geometries/Base/Geometry");
-import IApplyMaterialArgument = require("./Base/IApplyMaterialArgument");
-import TextureBase = require("../Resources/Texture/TextureBase");
-import Matrix = require("../../Math/Matrix");
-import VectorBase = require("../../Math/VectorBase");
-import ProgramWrapper = require("../Resources/Program/ProgramWrapper");
-import IVariableDescription = require("./Base/IVariableDescription");
-import BasicRenderer = require("../Renderers/BasicRenderer");
+import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import Geometry from "../Geometries/Base/Geometry";
+import IApplyMaterialArgument from "./Base/IApplyMaterialArgument";
+import TextureBase from "../Resources/Texture/TextureBase";
+import Matrix from "../../Math/Matrix";
+import VectorBase from "../../Math/VectorBase";
+import ProgramWrapper from "../Resources/Program/ProgramWrapper";
+import IVariableDescription from "./Base/IVariableDescription";
+import BasicRenderer from "../Renderers/BasicRenderer";
 /**
 * Basement class for any Materials.
 * Material is basically meaning what shader will be used or what shader variable will passed.
@@ -216,4 +216,4 @@ class Material extends JThreeObjectEEWithID {
 
 }
 
-export = Material;
+export default Material;

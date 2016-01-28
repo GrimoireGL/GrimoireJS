@@ -1,11 +1,11 @@
-import jThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
-import JThreeEvent = require("../Base/JThreeEvent");
-import BasicRenderer = require("./Renderers/BasicRenderer");
-import SceneObject = require("./SceneObjects/SceneObject");
-import Camera = require("./Camera/Camera");
-import Color3 = require("../Math/Color3");
-import ISceneObjectChangedEventArgs = require("./ISceneObjectChangedEventArgs");
-import RendererListChangedEventArgs = require("./RendererListChangedEventArgs");
+import jThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import JThreeEvent from "../Base/JThreeEvent";
+import BasicRenderer from "./Renderers/BasicRenderer";
+import SceneObject from "./SceneObjects/SceneObject";
+import Camera from "./Camera/Camera";
+import Color3 from "../Math/Color3";
+import ISceneObjectChangedEventArgs from "./ISceneObjectChangedEventArgs";
+import RendererListChangedEventArgs from "./RendererListChangedEventArgs";
 
 /**
  * Provides scene feature.
@@ -131,4 +131,4 @@ class Scene extends jThreeObjectEEWithID {
   }
 }
 
-export = Scene;
+export default Scene;

@@ -2,4 +2,4 @@ interface IDisposable {
   dispose();
 }
 
-export = IDisposable;
+export default IDisposable;

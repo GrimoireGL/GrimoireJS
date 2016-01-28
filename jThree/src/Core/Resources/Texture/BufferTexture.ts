@@ -1,10 +1,10 @@
-import BufferTextureWrapper = require("./BufferTextureWrapper");
-import TextureFormat = require("../../../Wrapper/TextureInternalFormatType");
-import ElementFormat = require("../../../Wrapper/TextureType");
-import TextureMinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
-import TextureMagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
-import Canvas = require("../../Canvas");
-import TextureBase = require("./TextureBase");
+import BufferTextureWrapper from "./BufferTextureWrapper";
+import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
+import ElementFormat from "../../../Wrapper/TextureType";
+import TextureMinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
+import TextureMagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
+import Canvas from "../../Canvas";
+import TextureBase from "./TextureBase";
 /**
  * Buffer texture is a texture created from array programatically.
  */
@@ -53,4 +53,4 @@ class BufferTexture extends TextureBase {
 
 }
 
-export = BufferTexture;
+export default BufferTexture;

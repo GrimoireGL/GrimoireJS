@@ -1,11 +1,11 @@
-import IApplyMaterialArgument = require("../../Materials/Base/IApplyMaterialArgument");
-import BasicMaterial = require("../../Materials/Base/BasicMaterial");
-import PrimitiveRegistory = require("../../Geometries/Base/PrimitiveRegistory");
-import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../JThreeContext");
-import LightBase = require("./../LightBase");
-import Matrix = require("../../../Math/Matrix");
-import Vector3 = require("../../../Math/Vector3");
+import IApplyMaterialArgument from "../../Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../Materials/Base/BasicMaterial";
+import PrimitiveRegistory from "../../Geometries/Base/PrimitiveRegistory";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+import LightBase from "./../LightBase";
+import Matrix from "../../../Math/Matrix";
+import Vector3 from "../../../Math/Vector3";
 /**
  * Point Light
  */
@@ -42,4 +42,4 @@ class SpotLight extends LightBase {
   public distanceDecay: number = 1.0;
 }
 
-export = SpotLight;
+export default SpotLight;

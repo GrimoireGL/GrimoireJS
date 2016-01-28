@@ -1,6 +1,6 @@
-import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import CylinderGeometry = require("../../../Core/Geometries/CylinderGeometry");
+import GeometryNodeBase from "./GeometryNodeBase";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import CylinderGeometry from "../../../Core/Geometries/CylinderGeometry";
 
 class CylinderGeometryNode extends GeometryNodeBase {
   private geometry: CylinderGeometry;
@@ -30,4 +30,4 @@ class CylinderGeometryNode extends GeometryNodeBase {
   }
 }
 
-export = CylinderGeometryNode;
+export default CylinderGeometryNode;

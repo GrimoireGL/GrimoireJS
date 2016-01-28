@@ -1,5 +1,5 @@
-import IApplyMaterialArgument = require("../Base/IApplyMaterialArgument");
-import BasicMaterial = require("../Base/BasicMaterial");
+import IApplyMaterialArgument from "../Base/IApplyMaterialArgument";
+import BasicMaterial from "../Base/BasicMaterial";
 class PrimaryBufferMaterial extends BasicMaterial {
   constructor() {
     super(require("../BuiltIn/GBuffer/PrimaryBuffer.html"));
@@ -17,4 +17,4 @@ class PrimaryBufferMaterial extends BasicMaterial {
   }
 }
 
-export = PrimaryBufferMaterial;
+export default PrimaryBufferMaterial;

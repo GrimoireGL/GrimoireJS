@@ -1,9 +1,9 @@
-import BasicRenderer = require("./BasicRenderer");
-import ContextComponents = require("../../ContextComponents");
-import RenderStageRegistory = require("./RenderStageRegistory");
-import JThreeContext = require("../../JThreeContext");
-import StageChainTemplate = require("./StageChainTemplate");
-import RenderStageChain = require("./RenderStageChain");
+import BasicRenderer from "./BasicRenderer";
+import ContextComponents from "../../ContextComponents";
+import RenderStageRegistory from "./RenderStageRegistory";
+import JThreeContext from "../../JThreeContext";
+import StageChainTemplate from "./StageChainTemplate";
+import RenderStageChain from "./RenderStageChain";
 class RenderPath {
   public path: RenderStageChain[] = [];
 
@@ -64,4 +64,4 @@ class RenderPath {
   }
 }
 
-export = RenderPath;
+export default RenderPath;

@@ -1,6 +1,6 @@
-import SceneObject = require("../SceneObjects/SceneObject");
-import Geometry = require("../Geometries/Base/Geometry");
-import Material = require("../Materials/Material");
+import SceneObject from "../SceneObjects/SceneObject";
+import Geometry from "../Geometries/Base/Geometry";
+import Material from "../Materials/Material";
 
 class Mesh extends SceneObject {
   constructor(geometry: Geometry, mat: Material) {
@@ -14,4 +14,4 @@ class Mesh extends SceneObject {
   }
 }
 
-export = Mesh;
+export default Mesh;

@@ -1,7 +1,7 @@
-import ContextComponents = require("../ContextComponents");
-import IContextComponent = require("../IContextComponent");
-import IResourceLoaderEventArgs = require("./IResourceLoaderEventArgs");
-import Q = require("q");
+import ContextComponents from "../ContextComponents";
+import IContextComponent from "../IContextComponent";
+import IResourceLoaderEventArgs from "./IResourceLoaderEventArgs";
+import Q from "q";
 
 class ResourceLoader implements IContextComponent {
   public getContextComponentIndex() {
@@ -86,4 +86,4 @@ class ResourceLoader implements IContextComponent {
     }
   }
 }
-export = ResourceLoader;
+export default ResourceLoader;

@@ -22,7 +22,6 @@ globArray = require 'glob-array'
 del = require 'del'
 args = require('yargs').argv
 reactify = require 'coffee-reactify'
-envify = require 'envify/custom'
 notifier = require 'node-notifier'
 formatter = require 'pretty-hrtime'
 runSequence = require 'run-sequence'
@@ -47,6 +46,9 @@ TASK SUMMARY
 ###
 configure
 ###
+# environment
+env_production = false
+
 branch = args.branch || 'unknown'
 gutil.log "branch: #{branch}"
 
@@ -112,7 +114,12 @@ config =
     dest: ['./jThree/wwwroot', './jThree/bin/product']
     target: 'web'
     minify: false
-    transform: ['shaderify', 'txtify']
+    transform: [
+      'shaderify'
+      'txtify'
+      {name: 'babelify', opt: {presets: 'es2015'}}
+      {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
+    ]
     detectGlobals: true
   debug:
     entries: './jThree/debug/debug.coffee'
@@ -121,14 +128,15 @@ config =
     dest:['./jThree/wwwroot/debug']
     target: 'web'
     minify: false
-    transform: ['coffee-reactify']
+    transform: [
+      'coffee-reactify'
+      {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
+    ]
     detectGlobals: true
 
 # files for clean task
 cleaner_files = ['./jThree/src/**/*.js']
 cleaner_files_silent = ['./jThree/lib/**/*']
-
-env_production = false
 
 ###
 default task
@@ -225,12 +233,14 @@ Object.keys(config).forEach (suffix) ->
       packageCache: {}
       extensions: c.extensions
       debug: true
-      transform: c.transform
       detectGlobals: c.detectGlobals
       bundleExternal: c.target == 'web'
     b = getBundler opt
-      .transform envify
-        NODE_ENV: if env_production then 'production' else 'development'
+    c.transform.forEach (v) ->
+      if _.isString v
+        b = b.transform v
+      else if _.isPlainObject v
+        b = b.transform v.name, v.opt
     bundle = ->
       time = process.hrtime()
       gutil.log "Bundling... (#{suffix}) #{if watching then '(watch mode)' else ''}"
@@ -410,11 +420,15 @@ clean directories task
 
 gulp.task 'clean', ->
   del_entries = []
-  Object.keys(config).forEach (k) ->
-    c = config[k]
-    c.dest.forEach (d) ->
-      del_entries.push path.resolve(__dirname, d, c.name)
-      del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
+  # Object.keys(config).forEach (k) ->
+  #   c = config[k]
+  #   c.dest.forEach (d) ->
+  #     del_entries.push path.resolve(__dirname, d, c.name)
+  #     del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
+  c = config['main']
+  c.dest.forEach (d) ->
+    del_entries.push path.resolve(__dirname, d, c.name)
+    del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
   del_entries = del_entries.concat cleaner_files
   del_entries_silent = cleaner_files_silent
   del(del_entries).then (paths) ->

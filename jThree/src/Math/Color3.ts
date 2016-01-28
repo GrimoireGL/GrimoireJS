@@ -1,7 +1,7 @@
-import VectorBase = require("../Math/VectorBase");
-import Vector3 = require("./Vector3");
-import Color4 = require("./Color4");
-import Vector4 = require("./Vector4");
+import VectorBase from "../Math/VectorBase";
+import Vector3 from "./Vector3";
+import Color4 from "./Color4";
+import Vector4 from "./Vector4";
 
 class Color3 extends VectorBase {
   constructor(r: number, g: number, b: number) {
@@ -102,4 +102,4 @@ class Color3 extends VectorBase {
 }
 
 
-export = Color3;
+export default Color3;

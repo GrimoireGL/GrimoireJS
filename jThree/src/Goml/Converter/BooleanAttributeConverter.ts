@@ -1,4 +1,4 @@
-import AttributeConverterBase = require("./AttributeConverterBase");
+import AttributeConverterBase from "./AttributeConverterBase";
 
 class BooleanAttributeConverter extends AttributeConverterBase {
   public toStringAttr(val: boolean): string {
@@ -10,4 +10,4 @@ class BooleanAttributeConverter extends AttributeConverterBase {
   }
 }
 
-export = BooleanAttributeConverter;
+export default BooleanAttributeConverter;

@@ -1,4 +1,3 @@
-/// <reference path="Base/Collections/AssociativeArray.ts" />
 /// <reference path="Base/Delegates.ts" />
 /// <reference path="Base/IDisposable.ts" />
 /// <reference path="Base/JThreeCollection.ts" />

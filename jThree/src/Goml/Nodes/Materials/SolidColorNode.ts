@@ -1,5 +1,5 @@
-import MaterialNodeBase = require("./MaterialNodeBase");
-import Material = require("../../../Core/Materials/Material");
+import MaterialNodeBase from "./MaterialNodeBase";
+import Material from "../../../Core/Materials/Material";
 
 class SolidColorNode extends MaterialNodeBase {
   constructor() {
@@ -15,4 +15,4 @@ class SolidColorNode extends MaterialNodeBase {
   }
 }
 
-export = SolidColorNode;
+export default SolidColorNode;

@@ -1,8 +1,8 @@
-import Vector3 = require("../../../Math/Vector3");
-import StageChainTemplate = require("../StageChainTemplate");
-﻿import GeneraterInfo = require("../TextureGeneraters/GeneraterInfoChunk");
-import BasicRenderer = require("../BasicRenderer");
-import ConfiguratorBase = require("./RendererConfiguratorBase");
+import Vector3 from "../../../Math/Vector3";
+import StageChainTemplate from "../StageChainTemplate";
+﻿import GeneraterInfo from "../TextureGeneraters/GeneraterInfoChunk";
+import BasicRenderer from "../BasicRenderer";
+import ConfiguratorBase from "./RendererConfiguratorBase";
 class BasicRendererConfigurator extends ConfiguratorBase {
   public get TextureBuffers(): GeneraterInfo[] {
     return [
@@ -32,6 +32,12 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       },
       {
         name: "main",
+        generater: "rendererfit",
+        internalFormat: "RGBA",
+        element: "UBYTE"
+      },
+      {
+        name: "output",
         generater: "rendererfit",
         internalFormat: "RGBA",
         element: "UBYTE"
@@ -74,15 +80,27 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         buffers: {
           MAIN: "main",
           PRIMARY: "gbuffer.primary",
-          OUT: "default"
+          OUT: "output"
         },
         stage: "jthree.basic.fogExp2",
         variables: {
-          density: 0,
+          density: 2.0,
           fogColor: new Vector3(1.0, 1.0, 1.0)
+        }
+      },
+      {
+        buffers: {
+          INPUT: "output",
+          OUT: "default"
+        },
+        stage: "jthree.basic.fxaa",
+        variables: {
+          reduceMin: 0.05,
+          reduceMul: 0.1,
+          spanMax: 3
         }
       }];
   }
 }
 
-export = BasicRendererConfigurator;
+export default BasicRendererConfigurator;

@@ -1,5 +1,5 @@
-import JThreeObject = require("./Base/JThreeObject");
-import Matrix = require("./Math/Matrix");
+import JThreeObject from "./Base/JThreeObject";
+import Matrix from "./Math/Matrix";
 
 /**
 * This class is root class perform as exception arguments in jThree.
@@ -34,5 +34,11 @@ export class SingularMatrixException extends JThreeException {
 export class AbstractClassMethodCalledException extends JThreeException {
   constructor() {
     super("Invalid method was called.", "This method is abstract method, cant call by this instance");
+  }
+}
+
+export class WebGLNotSupportedException extends JThreeException {
+  constructor() {
+    super("WebGL is not supported", "This browser not supported WebGL. Context generation for WebGL was failed.");
   }
 }

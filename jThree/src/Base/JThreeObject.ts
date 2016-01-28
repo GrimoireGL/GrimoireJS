@@ -1,4 +1,4 @@
-import JsHack = require("./JsHack");
+import JsHack from "./JsHack";
 /**
  * Most based object for any jthree related classes.
  * @type {[type]}
@@ -22,4 +22,4 @@ class JThreeObject {
     }
 }
 
-export = JThreeObject;
+export default JThreeObject;

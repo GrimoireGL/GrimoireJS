@@ -1,5 +1,5 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Canvas = require("../../../Core/Canvas");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import Canvas from "../../../Core/Canvas";
 
 class CanvasNodeBase extends GomlTreeNodeBase {
   constructor() {
@@ -9,6 +9,7 @@ class CanvasNodeBase extends GomlTreeNodeBase {
         value: 640,
         converter: "float",
         onchanged: (v) => {
+          this.emit("resize");
           this.sizeChanged(v.Value, this.attributes.getValue("height"));
         },
       },
@@ -16,6 +17,7 @@ class CanvasNodeBase extends GomlTreeNodeBase {
         value: 480,
         converter: "float",
         onchanged: (v) => {
+          this.emit("resize");
           this.sizeChanged(this.attributes.getValue("width"), v.Value);
         },
       },
@@ -57,4 +59,4 @@ class CanvasNodeBase extends GomlTreeNodeBase {
   }
 }
 
-export = CanvasNodeBase;
+export default CanvasNodeBase;

@@ -1,5 +1,5 @@
-import JThreeObjectWithID = require("./JThreeObjectWithID");
-import Delegates = require("../Base/Delegates");
+import JThreeObjectWithID from "./JThreeObjectWithID";
+import {Action3} from "../Base/Delegates";
 /**
  * Collections for JThreeObjectWithID
  */
@@ -65,7 +65,7 @@ class JThreeCollection<T extends JThreeObjectWithID> {
      * Execute passed function for each objects.
      * @param  {Delegates.Action3<T,string,JThreeCollection<T>>} act the function to exuecute for
      */
-    public each(act: Delegates.Action3<T, string, JThreeCollection<T>>): void {
+    public each(act: Action3<T, string, JThreeCollection<T>>): void {
         for (let elem in this._collection) {
             act(this._collection[elem], elem, this);
         }
@@ -92,4 +92,4 @@ class JThreeCollection<T extends JThreeObjectWithID> {
     }
 }
 
-export = JThreeCollection;
+export default JThreeCollection;

@@ -8,4 +8,4 @@
   springCoefficientLimit: number[]; // [minX,minY,minZ,maxX,maxY,maxZ]
 }
 
-export = SpringJoint;
+export default SpringJoint;

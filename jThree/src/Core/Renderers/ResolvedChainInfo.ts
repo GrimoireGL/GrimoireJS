@@ -1,6 +1,6 @@
-import TextureBase = require("../Resources/Texture/TextureBase");
+import TextureBase from "../Resources/Texture/TextureBase";
 interface ResolvedChainInfo {
   [name: string]: TextureBase;
 }
 
-export = ResolvedChainInfo;
+export default ResolvedChainInfo;

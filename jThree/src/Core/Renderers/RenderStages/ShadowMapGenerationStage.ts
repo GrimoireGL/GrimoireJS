@@ -1,12 +1,12 @@
-// import BasicRenderer = require("../BasicRenderer");
-// import SceneObject = require("../../SceneObjects/SceneObject");
-// import RenderStageBase = require("./RenderStageBase");
-// import ClearTargetType = require("../../../Wrapper/ClearTargetType");
-// import Scene = require("../../Scene");
-// import ResolvedChainInfo = require("../ResolvedChainInfo");
-// import Program = require("../../Resources/Program/Program");
-// import Matrix = require("../../../Math/Matrix");
-// import CubeTexture = require("../../Resources/Texture/CubeTexture");
+// import BasicRenderer from "../BasicRenderer";
+// import SceneObject from "../../SceneObjects/SceneObject";
+// import RenderStageBase from "./RenderStageBase";
+// import ClearTargetType from "../../../Wrapper/ClearTargetType";
+// import Scene from "../../Scene";
+// import ResolvedChainInfo from "../ResolvedChainInfo";
+// import Program from "../../Resources/Program/Program";
+// import Matrix from "../../../Math/Matrix";
+// import CubeTexture from "../../Resources/Texture/CubeTexture";
 // class ShadowMapGenerationStage extends RenderStageBase
 // {
 //     constructor(renderer: BasicRenderer)
@@ -78,4 +78,4 @@
 //         };
 //     }
 // }
-// export = ShadowMapGenerationStage;
+// export default ShadowMapGenerationStage;

@@ -1,5 +1,5 @@
-import BasicRenderer = require("../BasicRenderer");
-import RSMLRenderStage = require("./RSML/RSMLRenderStage");
+import BasicRenderer from "../BasicRenderer";
+import RSMLRenderStage from "./RSML/RSMLRenderStage";
 class SkyBoxStage extends RSMLRenderStage
 {
     constructor(renderer: BasicRenderer)
@@ -7,4 +7,4 @@ class SkyBoxStage extends RSMLRenderStage
         super(renderer,require("./BuiltIn/Skybox.html"));
     }
 }
-export = SkyBoxStage;
+export default SkyBoxStage;

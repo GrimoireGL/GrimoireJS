@@ -1,14 +1,14 @@
-import JThreeObject = require("../Base/JThreeObject");
-import GomlNodeDictionary = require("../Goml/GomlNodeDictionary");
-import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
-import IContextComponent = require("../IContextComponent");
-import ContextComponents = require("../ContextComponents");
-import BehaviorRegistry = require("./Behaviors/BehaviorRegistry");
-import GomlConfigurator = require("./GomlConfigurator");
-import BehaviorRunner = require("./Behaviors/BehaviorRunner");
-import JThreeEvent = require("../Base/JThreeEvent");
-import JThreeContext = require("../JThreeContext");
-import LoopManager = require("../Core/LoopManager");
+import JThreeObject from "../Base/JThreeObject";
+import GomlNodeDictionary from "../Goml/GomlNodeDictionary";
+import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
+import IContextComponent from "../IContextComponent";
+import ContextComponents from "../ContextComponents";
+import BehaviorRegistry from "./Behaviors/BehaviorRegistry";
+import GomlConfigurator from "./GomlConfigurator";
+import BehaviorRunner from "./Behaviors/BehaviorRunner";
+import JThreeEvent from "../Base/JThreeEvent";
+import JThreeContext from "../JThreeContext";
+import LoopManager from "../Core/LoopManager";
 
 class NodeManager extends JThreeObject implements IContextComponent {
   /**
@@ -101,4 +101,4 @@ class NodeManager extends JThreeObject implements IContextComponent {
   // }
 }
 
-export = NodeManager;
+export default NodeManager;

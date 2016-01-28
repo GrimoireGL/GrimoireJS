@@ -1,6 +1,6 @@
-import SceneObjectNodeBase = require("../SceneObjectNodeBase");
-import Camera = require("../../../../Core/Camera/Camera");
-import GomlAttribute = require("../../../GomlAttribute");
+import SceneObjectNodeBase from "../SceneObjectNodeBase";
+import Camera from "../../../../Core/Camera/Camera";
+import GomlAttribute from "../../../GomlAttribute";
 
 class CameraNodeBase extends SceneObjectNodeBase {
   protected groupPrefix: string = "camera";
@@ -44,4 +44,4 @@ class CameraNodeBase extends SceneObjectNodeBase {
   }
 }
 
-export = CameraNodeBase;
+export default CameraNodeBase;

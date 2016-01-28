@@ -1,10 +1,10 @@
-import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
-import BasicTechnique = require("./BasicTechnique");
-import BasicRenderer = require("../../BasicRenderer");
-import SceneObject = require("../../../SceneObjects/SceneObject");
-import RenderStageBase = require("../RenderStageBase");
-import Scene = require("../../../Scene");
-import ResolvedChainInfo = require("../../ResolvedChainInfo");
+import IRenderStageRendererConfigure from "../IRenderStageRendererConfigure";
+import BasicTechnique from "./BasicTechnique";
+import BasicRenderer from "../../BasicRenderer";
+import SceneObject from "../../../SceneObjects/SceneObject";
+import RenderStageBase from "../RenderStageBase";
+import Scene from "../../../Scene";
+import ResolvedChainInfo from "../../ResolvedChainInfo";
 class RSMLRenderStage extends RenderStageBase {
   public techniques: BasicTechnique[];
 
@@ -68,4 +68,4 @@ class RSMLRenderStage extends RenderStageBase {
   }
 }
 
-export = RSMLRenderStage;
+export default RSMLRenderStage;

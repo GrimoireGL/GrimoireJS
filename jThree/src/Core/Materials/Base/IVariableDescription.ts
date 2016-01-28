@@ -6,4 +6,4 @@ interface IVariableDescription {
   isArray: boolean;
   arrayLength: number;
 }
-export = IVariableDescription;
+export default IVariableDescription;

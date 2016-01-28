@@ -1,4 +1,4 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 
 class OrderedTopLevelNodeBase extends GomlTreeNodeBase {
   constructor() {
@@ -10,4 +10,4 @@ class OrderedTopLevelNodeBase extends GomlTreeNodeBase {
   }
 }
 
-export = OrderedTopLevelNodeBase;
+export default OrderedTopLevelNodeBase;

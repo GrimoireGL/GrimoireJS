@@ -5,4 +5,4 @@ enum TextureParameterType {
   WrapT = 10243
 }
 
-export = TextureParameterType;
+export default TextureParameterType;

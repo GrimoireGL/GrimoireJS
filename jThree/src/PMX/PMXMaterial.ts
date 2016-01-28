@@ -15,4 +15,4 @@ interface PMXMaterial {
   memo: string;
   vertexCount: number;
 }
-export = PMXMaterial;
+export default PMXMaterial;

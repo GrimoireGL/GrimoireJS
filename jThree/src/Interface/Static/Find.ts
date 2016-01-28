@@ -1,7 +1,7 @@
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import NodeManager = require("../../Goml/NodeManager");
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import NodeManager from "../../Goml/NodeManager";
 
 class Find {
   /**
@@ -15,4 +15,4 @@ class Find {
   }
 }
 
-export = Find;
+export default Find;

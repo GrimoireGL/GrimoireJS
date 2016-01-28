@@ -1,12 +1,12 @@
-import PMXModel = require("./PMXModel");
-import PMXBone = require("./PMXBone");
-import TextureBuffer = require("../../Core/Resources/Texture/BufferTexture");
-import TextureFormat = require("../../Wrapper/TextureInternalFormatType");
-import ElementFormat = require("../../Wrapper/TextureType");
-import PMXBoneTransformer = require("./PMXBoneTransformer");
-import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../JThreeContext");
-import ResourceManager = require("../../Core/ResourceManager");
+import PMXModel from "./PMXModel";
+import PMXBone from "./PMXBone";
+import TextureBuffer from "../../Core/Resources/Texture/BufferTexture";
+import TextureFormat from "../../Wrapper/TextureInternalFormatType";
+import ElementFormat from "../../Wrapper/TextureType";
+import PMXBoneTransformer from "./PMXBoneTransformer";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
+import ResourceManager from "../../Core/ResourceManager";
 class PMXSkeleton {
   constructor(model: PMXModel) {
     model.skeleton = this;
@@ -78,4 +78,4 @@ class PMXSkeleton {
   }
 }
 
-export = PMXSkeleton;
+export default PMXSkeleton;
