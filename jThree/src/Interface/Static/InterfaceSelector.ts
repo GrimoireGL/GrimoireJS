@@ -1,7 +1,7 @@
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import NodeManager = require("../../Goml/NodeManager");
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import NodeManager from "../../Goml/NodeManager";
 
 class InterfaceSelector {
   /**
@@ -15,4 +15,4 @@ class InterfaceSelector {
   }
 }
 
-export = InterfaceSelector;
+export default InterfaceSelector;

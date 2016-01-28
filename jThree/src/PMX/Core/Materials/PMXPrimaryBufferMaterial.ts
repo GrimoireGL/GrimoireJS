@@ -1,7 +1,7 @@
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import PMXMaterial = require("./PMXMaterial");
-import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
-import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import PMXMaterial from "./PMXMaterial";
+import IApplyMaterialArgument from "../../../Core/Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
 class PMXPrimaryBufferMaterial extends BasicMaterial {
   private _associatedMaterial: PMXMaterial;
 
@@ -44,4 +44,4 @@ class PMXPrimaryBufferMaterial extends BasicMaterial {
   }
 
 }
-export = PMXPrimaryBufferMaterial;
+export default PMXPrimaryBufferMaterial;

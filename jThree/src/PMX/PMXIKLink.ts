@@ -5,4 +5,4 @@ interface PMXIKLink {
   limitedRotation?: number[]; // [minX,minY,minZ,maxX,maxY,maxZ]
 }
 
-export = PMXIKLink;
+export default PMXIKLink;

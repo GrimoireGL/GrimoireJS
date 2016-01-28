@@ -1,4 +1,4 @@
-import IContextComponent = require("./IContextComponent");
+import IContextComponent from "./IContextComponent";
 
 interface JThreeWindow extends Window {
   j3: { context: any; };
@@ -52,4 +52,4 @@ class JThreeContext {
   }
 }
 
-export = JThreeContext;
+export default JThreeContext;

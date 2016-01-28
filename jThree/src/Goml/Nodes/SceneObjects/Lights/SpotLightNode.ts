@@ -1,8 +1,8 @@
-import SpotLight = require("../../../../Core/Light/Impl/SpotLight");
-import LightNodeBase = require("./LightNodeBase");
+import SpotLight from "../../../../Core/Light/Impl/SpotLight";
+import LightNodeBase from "./LightNodeBase";
 // import SpotLight = require('../../../../Core/Light/Impl/SpotLight');
-import LightBase = require("../../../../Core/Light/LightBase");
-import GomlAttribute = require("../../../GomlAttribute");
+import LightBase from "../../../../Core/Light/LightBase";
+import GomlAttribute from "../../../GomlAttribute";
 
 class SpotLightNode extends LightNodeBase {
   constructor() {
@@ -102,4 +102,4 @@ class SpotLightNode extends LightNodeBase {
   }
 }
 
-export = SpotLightNode;
+export default SpotLightNode;

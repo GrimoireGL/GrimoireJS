@@ -1,5 +1,5 @@
-import VectorBase = require("./VectorBase");
-import glm = require("gl-matrix");
+import VectorBase from "./VectorBase";
+import {GLM, vec2} from "gl-matrix";
 class Vector2 extends VectorBase {
 
   public static get XUnit(): Vector2 {
@@ -67,11 +67,11 @@ class Vector2 extends VectorBase {
   }
 
   constructor(x: number, y: number);
-  constructor(x: glm.GLM.IArray);
-  constructor(x: number | glm.GLM.IArray, y?: number) {
+  constructor(x: GLM.IArray);
+  constructor(x: number | GLM.IArray, y?: number) {
     super();
     if (typeof y === "undefined") {
-      this.rawElements = <glm.GLM.IArray>x;
+      this.rawElements = <GLM.IArray>x;
       return;
     }
     this.rawElements = [<number>x, y];
@@ -98,22 +98,22 @@ class Vector2 extends VectorBase {
   }
 
   public static dot(v1: Vector2, v2: Vector2): number {
-    return glm.vec2.dot(v1.rawElements, v2.rawElements);
+    return vec2.dot(v1.rawElements, v2.rawElements);
   }
 
   public static add(v1: Vector2, v2: Vector2): Vector2 {
-    const newVec = glm.vec2.create();
-    return new Vector2(glm.vec2.add(newVec, v1.rawElements, v2.rawElements));
+    const newVec = vec2.create();
+    return new Vector2(vec2.add(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static subtract(v1: Vector2, v2: Vector2): Vector2 {
-    const newVec = glm.vec2.create();
-    return new Vector2(glm.vec2.sub(newVec, v1.rawElements, v2.rawElements));
+    const newVec = vec2.create();
+    return new Vector2(vec2.sub(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static multiply(s: number, v: Vector2): Vector2 {
-    const newVec = glm.vec2.create();
-    return new Vector2(glm.vec2.scale(newVec, v.rawElements, s));
+    const newVec = vec2.create();
+    return new Vector2(vec2.scale(newVec, v.rawElements, s));
   }
 
   public static negate(v1: Vector2): Vector2 {
@@ -125,8 +125,8 @@ class Vector2 extends VectorBase {
   }
 
   public static normalize(v1: Vector2): Vector2 {
-    const newVec = glm.vec2.create();
-    return new Vector2(glm.vec2.normalize(newVec, v1.rawElements));
+    const newVec = vec2.create();
+    return new Vector2(vec2.normalize(newVec, v1.rawElements));
   }
 
   public static min(v1: Vector2, v2: Vector2): Vector2 {
@@ -184,4 +184,4 @@ class Vector2 extends VectorBase {
   }
 }
 
-export = Vector2;
+export default Vector2;

@@ -5,4 +5,4 @@ enum RBOInternalFormat {
   DepthComponent16 = 33189
 }
 
-export = RBOInternalFormat;
+export default RBOInternalFormat;

@@ -1,9 +1,9 @@
-import PrimaryBufferMaterial = require("../Materials/Buffering/PrimaryBufferMaterial");
-import Geometry = require("../Geometries/Base/Geometry");
-import Material = require("../Materials/Material");
-import Mesh = require("./Mesh");
-import ShadowMapMaterial = require("../Materials/Buffering/ShadowMapMaterial");
-import HitAreaTestMaterial = require("../Materials/Buffering/HitAreaMaterial");
+import PrimaryBufferMaterial from "../Materials/Buffering/PrimaryBufferMaterial";
+import Geometry from "../Geometries/Base/Geometry";
+import Material from "../Materials/Material";
+import Mesh from "./Mesh";
+import ShadowMapMaterial from "../Materials/Buffering/ShadowMapMaterial";
+import HitAreaTestMaterial from "../Materials/Buffering/HitAreaMaterial";
 class BasicMeshObject extends Mesh {
   constructor(geometry: Geometry, mat: Material) {
     super(geometry, mat);
@@ -13,4 +13,4 @@ class BasicMeshObject extends Mesh {
   }
 }
 
-export = BasicMeshObject;
+export default BasicMeshObject;

@@ -1,6 +1,6 @@
-import PMXModel = require("./PMXModel");
-import PMXGeometry = require("./PMXGeometry");
-import PMXMorphManager = require("./PMXMorphManager");
+import PMXModel from "./PMXModel";
+import PMXGeometry from "./PMXGeometry";
+import PMXMorphManager from "./PMXMorphManager";
 abstract class PMXMorph {
   public static CreateMorph(model: PMXModel, index: number, morphManager: PMXMorphManager): PMXMorph {
     const morphData = model.ModelData.Morphs[index];
@@ -149,4 +149,4 @@ class PMXMaterialMorph extends PMXMorph {
   }
 }
 
-export = PMXMorph;
+export default PMXMorph;

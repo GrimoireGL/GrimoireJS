@@ -3,4 +3,4 @@ enum TargetTextureType {
   CubeTexture = 34067
 }
 
-export = TargetTextureType;
+export default TargetTextureType;

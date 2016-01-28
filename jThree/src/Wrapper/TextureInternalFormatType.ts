@@ -8,4 +8,4 @@ enum TextureInternalFormatType {
   DEPTH_COMPONENT = 6402,
   DEPTH_STENCIL = 34041
 }
-export = TextureInternalFormatType;
+export default TextureInternalFormatType;

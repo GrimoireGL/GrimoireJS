@@ -1,5 +1,5 @@
-import IRenderStageRenderConfigure = require("../../Renderers/RenderStages/IRenderStageRendererConfigure");
-import GLEnumParser = require("../../../Wrapper/GLEnumParser");
+import IRenderStageRenderConfigure from "../../Renderers/RenderStages/IRenderStageRendererConfigure";
+import GLEnumParser from "../../../Wrapper/GLEnumParser";
 class XMLRenderConfigureUtility {
 
   /**
@@ -131,4 +131,4 @@ class XMLRenderConfigureUtility {
   }
 }
 
-export = XMLRenderConfigureUtility;
+export default XMLRenderConfigureUtility;

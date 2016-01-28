@@ -44,4 +44,4 @@ class ContextComponents {
   }
 }
 
-export = ContextComponents;
+export default ContextComponents;

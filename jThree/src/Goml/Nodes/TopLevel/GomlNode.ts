@@ -1,6 +1,6 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import TreeNodeBase = require("../../TreeNodeBase");
-import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import TreeNodeBase from "../../TreeNodeBase";
+import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
 
 class GomlNode extends GomlTreeNodeBase {
   constructor() {
@@ -16,4 +16,4 @@ class GomlNode extends GomlTreeNodeBase {
   }
 }
 
-export = GomlNode;
+export default GomlNode;

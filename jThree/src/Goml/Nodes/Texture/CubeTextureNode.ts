@@ -1,7 +1,7 @@
-﻿import TextureNodeBase = require("./TextureNodeBase");
-import ResourceManager = require("../../../Core/ResourceManager");
-import TextureBase = require("../../../Core/Resources/Texture/TextureBase");
-import Q = require("q");
+﻿import TextureNodeBase from "./TextureNodeBase";
+import ResourceManager from "../../../Core/ResourceManager";
+import TextureBase from "../../../Core/Resources/Texture/TextureBase";
+import Q from "q";
 /**
  * Cube texture resource node.
  */
@@ -38,4 +38,4 @@ class CubeTextureNode extends TextureNodeBase {
   }
 }
 
-export = CubeTextureNode;
+export default CubeTextureNode;

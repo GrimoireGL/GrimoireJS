@@ -1,4 +1,4 @@
-import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
+import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
 
 class J3ObjectBase {
   public length: number = 0;
@@ -13,4 +13,4 @@ class J3ObjectBase {
   }
 }
 
-export = J3ObjectBase;
+export default J3ObjectBase;

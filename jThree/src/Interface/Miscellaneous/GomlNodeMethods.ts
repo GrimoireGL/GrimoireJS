@@ -1,8 +1,8 @@
-import J3Object = require("../J3Object");
-import J3ObjectBase = require("../J3ObjectBase");
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import isNumber = require("lodash.isnumber");
-import isUndefiend = require("lodash.isundefined");
+import J3Object from "../J3Object";
+import J3ObjectBase from "../J3ObjectBase";
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import isNumber from "lodash.isnumber";
+import isUndefiend from "lodash.isundefined";
 
 class GomlNodeMethods extends J3ObjectBase {
   public get(): GomlTreeNodeBase[];
@@ -27,4 +27,4 @@ class GomlNodeMethods extends J3ObjectBase {
   }
 }
 
-export = GomlNodeMethods;
+export default GomlNodeMethods;

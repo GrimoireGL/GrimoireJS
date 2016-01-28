@@ -1,7 +1,7 @@
-import DirectionalLight = require("../../../../Core/Light/Impl/DirectionalLight");
-import LightNodeBase = require("./LightNodeBase");
-import LightBase = require("../../../../Core/Light/LightBase");
-import GomlAttribute = require("../../../GomlAttribute");
+import DirectionalLight from "../../../../Core/Light/Impl/DirectionalLight";
+import LightNodeBase from "./LightNodeBase";
+import LightBase from "../../../../Core/Light/LightBase";
+import GomlAttribute from "../../../GomlAttribute";
 
 class DirectionalLightNode extends LightNodeBase {
   constructor() {
@@ -40,4 +40,4 @@ class DirectionalLightNode extends LightNodeBase {
     }
   }
 }
-export = DirectionalLightNode;
+export default DirectionalLightNode;

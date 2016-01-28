@@ -1,10 +1,10 @@
-import JThreeObject = require("../Base/JThreeObject");
-import GomlAttribute = require("./GomlAttribute");
-import Delegates = require("../Base/Delegates");
-import EasingFunctionBase = require("./Easing/EasingFunctionBase");
-import GomlTreeNodeBase = require("./GomlTreeNodeBase");
-import AttributeDeclaration = require("./AttributeDeclaration");
-import isUndefined = require("lodash.isundefined");
+import JThreeObject from "../Base/JThreeObject";
+import GomlAttribute from "./GomlAttribute";
+import {Action0} from "../Base/Delegates";
+import EasingFunctionBase from "./Easing/EasingFunctionBase";
+import GomlTreeNodeBase from "./GomlTreeNodeBase";
+import AttributeDeclaration from "./AttributeDeclaration";
+import isUndefined from "lodash.isundefined";
 
 /**
  * The class managing attributes of a node.
@@ -74,7 +74,7 @@ class AttributeDictionary extends JThreeObject {
     return this.attributes;
   }
 
-  public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Delegates.Action0) {
+  public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Action0) {
     const attr = this.attributes[attrName];
     if (attr === undefined) {
       console.warn(`attribute \"${attrName}\" is not found.`);
@@ -170,4 +170,4 @@ class AttributeDictionary extends JThreeObject {
   }
 }
 
-export = AttributeDictionary;
+export default AttributeDictionary;

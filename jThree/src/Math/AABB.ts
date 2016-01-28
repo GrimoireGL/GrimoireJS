@@ -1,4 +1,4 @@
-import Vector3 = require("./Vector3");
+import Vector3 from "./Vector3";
 /**
  * Axis-Aligned Bounding Box implementation
  */
@@ -65,4 +65,4 @@ class AABB {
   }
 }
 
-export = AABB;
+export default AABB;

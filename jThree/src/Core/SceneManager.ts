@@ -1,9 +1,9 @@
-import jThreeObjectEE = require("../Base/JThreeObjectEE");
-import Scene = require("./Scene");
-import IContextComponent = require("../IContextComponent");
-import ContextComponents = require("../ContextComponents");
-import JThreeEvent = require("../Base/JThreeEvent");
-import ISceneListChangedEventArgs = require("./ISceneListChangedEventArgs");
+import jThreeObjectEE from "../Base/JThreeObjectEE";
+import Scene from "./Scene";
+import IContextComponent from "../IContextComponent";
+import ContextComponents from "../ContextComponents";
+import JThreeEvent from "../Base/JThreeEvent";
+import ISceneListChangedEventArgs from "./ISceneListChangedEventArgs";
 
 /**
 * The class for managing entire scenes.
@@ -73,4 +73,4 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
 
 }
 
-export = SceneManager;
+export default SceneManager;

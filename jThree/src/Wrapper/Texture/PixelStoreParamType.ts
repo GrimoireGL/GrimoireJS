@@ -6,4 +6,4 @@ enum PixelStoreParamType {
   UnpackColorSpaceConversionWebGL = 37443
 }
 
-export = PixelStoreParamType;
+export default PixelStoreParamType;

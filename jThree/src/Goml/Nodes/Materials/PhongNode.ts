@@ -1,6 +1,6 @@
-import MaterialNodeBase = require("./MaterialNodeBase");
-import Material = require("../../../Core/Materials/Material");
-// import TextureNode = require("../Texture/TextureNode");
+import MaterialNodeBase from "./MaterialNodeBase";
+import Material from "../../../Core/Materials/Material";
+// import TextureNode from "../Texture/TextureNode";
 
 class PhongNode extends MaterialNodeBase {
   constructor() {
@@ -16,4 +16,4 @@ class PhongNode extends MaterialNodeBase {
   }
 }
 
-export = PhongNode;
+export default PhongNode;

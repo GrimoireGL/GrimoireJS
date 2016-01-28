@@ -1,7 +1,7 @@
-import VmdMotion = require("./VMDMotion");
+import VmdMotion from "./VMDMotion";
 
 interface VMDMotions {
   [boneName: string]: VmdMotion[];
 }
 
-export = VMDMotions;
+export default VMDMotions;

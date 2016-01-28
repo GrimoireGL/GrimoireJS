@@ -1,16 +1,16 @@
-import DebuggerModuleBase = require("./DebuggerModuleBase");
-import Debugger = require("../Debugger");
-import SceneManager = require("../../Core/SceneManager");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import Scene = require("../../Core/Scene");
-import BasicRenderer = require("../../Core/Renderers/BasicRenderer");
-import Q = require("q");
-import Canvas = require("../../Core/Canvas");
-import IRequestBufferTexture = require("./Renderer/IRequestBufferTexture");
-import IRequestShadowMapTexture = require("./Renderer/IRequestShadowMapTexture");
-import IRequestBufferTextureProgress = require("./Renderer/IRequestBufferTextureProgress");
-import IRequestShadowMapProgress = require("./Renderer/IRequestShadowMapProgress");
+import DebuggerModuleBase from "./DebuggerModuleBase";
+import Debugger from "../Debugger";
+import SceneManager from "../../Core/SceneManager";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import Scene from "../../Core/Scene";
+import BasicRenderer from "../../Core/Renderers/BasicRenderer";
+import Q from "q";
+import Canvas from "../../Core/Canvas";
+import IRequestBufferTexture from "./Renderer/IRequestBufferTexture";
+import IRequestShadowMapTexture from "./Renderer/IRequestShadowMapTexture";
+import IRequestBufferTextureProgress from "./Renderer/IRequestBufferTextureProgress";
+import IRequestShadowMapProgress from "./Renderer/IRequestShadowMapProgress";
 class RendererDebugger extends DebuggerModuleBase {
   private bufferTextureRequest: IRequestBufferTexture;
 
@@ -162,4 +162,4 @@ class RendererDebugger extends DebuggerModuleBase {
   }
 }
 
-export = RendererDebugger;
+export default RendererDebugger;

@@ -1,5 +1,5 @@
-import AnimagterBase = require("./AnimaterBase");
-import Quaternion = require("../../Math/Quaternion");
+import AnimagterBase from "./AnimaterBase";
+import Quaternion from "../../Math/Quaternion";
 class RotationAnimater extends AnimagterBase {
 
   protected updateAnimation(progress: number): void {
@@ -10,4 +10,4 @@ class RotationAnimater extends AnimagterBase {
   }
 }
 
-export = RotationAnimater;
+export default RotationAnimater;

@@ -1,8 +1,8 @@
-import GomlTreeNodeBase = require("../GomlTreeNodeBase");
-import Scene = require("../../Core/Scene");
-import JThreeContext = require("../../JThreeContext");
-import SceneManager = require("../../Core/SceneManager");
-import ContextComponents = require("../../ContextComponents");
+import GomlTreeNodeBase from "../GomlTreeNodeBase";
+import Scene from "../../Core/Scene";
+import JThreeContext from "../../JThreeContext";
+import SceneManager from "../../Core/SceneManager";
+import ContextComponents from "../../ContextComponents";
 
 class SceneNode extends GomlTreeNodeBase {
   public targetScene: Scene; // TODO pnly: this should be private.
@@ -37,4 +37,4 @@ class SceneNode extends GomlTreeNodeBase {
   }
 }
 
-export = SceneNode;
+export default SceneNode;

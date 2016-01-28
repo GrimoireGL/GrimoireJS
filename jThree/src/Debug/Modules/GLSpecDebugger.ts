@@ -1,9 +1,9 @@
-import DebuggerModuleBase = require("./DebuggerModuleBase");
-import Debugger = require("../Debugger");
-import GLSpecResolver = require("../../Core/GLSpecResolver");
-import CanvasManager = require("../../Core/CanvasManager");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
+import DebuggerModuleBase from "./DebuggerModuleBase";
+import Debugger from "../Debugger";
+import GLSpecResolver from "../../Core/GLSpecResolver";
+import CanvasManager from "../../Core/CanvasManager";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
 class GLSpecDebugger extends DebuggerModuleBase {
   public attach(debug: Debugger) {
     JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).canvasListChanged.addListener(() => {
@@ -22,4 +22,4 @@ class GLSpecDebugger extends DebuggerModuleBase {
   }
 }
 
-export = GLSpecDebugger;
+export default GLSpecDebugger;

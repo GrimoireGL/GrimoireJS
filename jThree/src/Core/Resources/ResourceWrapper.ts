@@ -1,8 +1,8 @@
-import IDisposable = require("../../Base/IDisposable");
-import JThreeObject = require("../../Base/JThreeObject");
-import ContextManager = require("../Canvas");
-import JThreeEvent = require("../../Base/JThreeEvent");
-import Delegates = require("../../Base/Delegates");
+import IDisposable from "../../Base/IDisposable";
+import JThreeObject from "../../Base/JThreeObject";
+import ContextManager from "../Canvas";
+import JThreeEvent from "../../Base/JThreeEvent";
+import {Action2} from "../../Base/Delegates";
 class ResourceWrapper extends JThreeObject implements IDisposable {
   constructor(ownerCanvas: ContextManager) {
     super();
@@ -43,7 +43,7 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
   /**
    * add event handler for changing initialized state changed.
    */
-  public onInitializeChanged(handler: Delegates.Action2<ResourceWrapper, boolean>) {
+  public onInitializeChanged(handler: Action2<ResourceWrapper, boolean>) {
     this.onInitializeChangedEvent.addListener(handler);
   }
 
@@ -66,4 +66,4 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
   }
 }
 
-export = ResourceWrapper;
+export default ResourceWrapper;

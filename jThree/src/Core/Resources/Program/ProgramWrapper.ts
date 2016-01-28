@@ -1,11 +1,11 @@
-import VectorArray = require("../../../Math/VectorArray");
-import TextureBase = require("../Texture/TextureBase");
-import VectorBase = require("../../../Math/VectorBase");
-import Matrix = require("../../../Math/Matrix");
-import Program = require("./Program");
-import Canvas = require("../../Canvas");
-import ResourceWrapper = require("../ResourceWrapper");
-import Buffer = require("../Buffer/Buffer");
+import VectorArray from "../../../Math/VectorArray";
+import TextureBase from "../Texture/TextureBase";
+import VectorBase from "../../../Math/VectorBase";
+import Matrix from "../../../Math/Matrix";
+import Program from "./Program";
+import Canvas from "../../Canvas";
+import ResourceWrapper from "../ResourceWrapper";
+import Buffer from "../Buffer/Buffer";
 class ProgramWrapper extends ResourceWrapper {
   constructor(parent: Program, canvas: Canvas) {
     super(canvas);
@@ -200,4 +200,4 @@ class ProgramWrapper extends ResourceWrapper {
   }
 }
 
-export = ProgramWrapper;
+export default ProgramWrapper;

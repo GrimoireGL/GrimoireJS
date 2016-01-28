@@ -1,4 +1,4 @@
-import Vector3 = require("../../../Math/Vector3");
+import Vector3 from "../../../Math/Vector3";
 class GeometryBuilder {
   public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {
     const startIndex = pos.length / 3;
@@ -150,4 +150,4 @@ class GeometryBuilder {
   }
 }
 
-export = GeometryBuilder;
+export default GeometryBuilder;

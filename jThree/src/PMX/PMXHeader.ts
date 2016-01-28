@@ -14,4 +14,4 @@ interface PMXHeader {
   comment: string;
   commentEn: string;
 }
-export = PMXHeader;
+export default PMXHeader;

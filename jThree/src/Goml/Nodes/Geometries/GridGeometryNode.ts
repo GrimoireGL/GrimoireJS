@@ -1,6 +1,6 @@
-import GeometryNodeBase = require("./GeometryNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import GridGeometry = require("../../../Core/Geometries/GridGeometry");
+import GeometryNodeBase from "./GeometryNodeBase";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import GridGeometry from "../../../Core/Geometries/GridGeometry";
 
 class GridGeometryNode extends GeometryNodeBase {
   private geometry: GridGeometry;
@@ -38,4 +38,4 @@ class GridGeometryNode extends GeometryNodeBase {
   }
 }
 
-export = GridGeometryNode;
+export default GridGeometryNode;

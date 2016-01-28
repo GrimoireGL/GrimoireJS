@@ -1,5 +1,5 @@
-﻿import VMDFrameData = require("./VMDFrameData");
-import BezierCurve = require("./BezierCurve");
+﻿import VMDFrameData from "./VMDFrameData";
+import BezierCurve from "./BezierCurve";
 interface VMDMotion extends VMDFrameData {
   frameNumber: number;
   position: number[];
@@ -7,4 +7,4 @@ interface VMDMotion extends VMDFrameData {
   interpolation: BezierCurve[];
 }
 
-export = VMDMotion;
+export default VMDMotion;

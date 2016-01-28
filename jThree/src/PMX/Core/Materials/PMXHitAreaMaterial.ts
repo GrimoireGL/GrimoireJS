@@ -1,8 +1,8 @@
-import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import PMXMaterial = require("./PMXMaterial");
-import Vector4 = require("../../../Math/Vector4");
+import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
+import IApplyMaterialArgument from "../../../Core/Materials/Base/IApplyMaterialArgument";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import PMXMaterial from "./PMXMaterial";
+import Vector4 from "../../../Math/Vector4";
 /**
  * the materials for PMX.
  */
@@ -51,4 +51,4 @@ class PMXHitAreaMaterial extends BasicMaterial {
   }
 }
 
-export = PMXHitAreaMaterial;
+export default PMXHitAreaMaterial;

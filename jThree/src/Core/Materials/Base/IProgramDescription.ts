@@ -1,4 +1,4 @@
-import IVariableDescription = require("./IVariableDescription");
+import IVariableDescription from "./IVariableDescription";
 interface IProgramDescription {
   fragment: string;
   vertex: string;
@@ -7,4 +7,4 @@ interface IProgramDescription {
   fragmentPrecisions: { [type: string]: string };
   vertexPrecisions: { [type: string]: string };
 }
-export = IProgramDescription;
+export default IProgramDescription;

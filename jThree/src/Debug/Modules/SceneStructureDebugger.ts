@@ -1,8 +1,8 @@
-import DebuggerModuleBase = require("./DebuggerModuleBase");
-import Debugger = require("../Debugger");
-import SceneManager = require("../../Core/SceneManager");
-import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../JThreeContext");
+import DebuggerModuleBase from "./DebuggerModuleBase";
+import Debugger from "../Debugger";
+import SceneManager from "../../Core/SceneManager";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
 
 class SceneStructureDebugger extends DebuggerModuleBase {
   public attach(debug: Debugger) {
@@ -20,4 +20,4 @@ class SceneStructureDebugger extends DebuggerModuleBase {
   }
 }
 
-export = SceneStructureDebugger;
+export default SceneStructureDebugger;

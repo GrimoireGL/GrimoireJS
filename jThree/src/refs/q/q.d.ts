@@ -331,5 +331,5 @@ declare module Q
 }
 
 declare module "q" {
-    export = Q;
-} 
+    export default Q;
+}

@@ -1,15 +1,15 @@
-import Canvas = require("../../../Core/Canvas");
-import JThreeContext = require("../../../JThreeContext");
-import ContextComponents = require("../../../ContextComponents");
-import CanvasManager = require("../../../Core/CanvasManager");
-import CanvasNodeBase = require("./CanvasNodeBase");
-import Delegates = require("../../../Base/Delegates");
-import ResourceLoader = require("../../../Core/ResourceLoader");
+import Canvas from "../../../Core/Canvas";
+import JThreeContext from "../../../JThreeContext";
+import ContextComponents from "../../../ContextComponents";
+import CanvasManager from "../../../Core/CanvasManager";
+import CanvasNodeBase from "./CanvasNodeBase";
+import {Action1} from "../../../Base/Delegates";
+import ResourceLoader from "../../../Core/ResourceLoader";
 
 class CanvasNode extends CanvasNodeBase {
   public canvasElement: HTMLCanvasElement;
   public targetFrame: HTMLElement;
-  private resizedFunctions: Delegates.Action1<CanvasNode>[] = [];
+  private resizedFunctions: Action1<CanvasNode>[] = [];
 
   constructor() {
     super();
@@ -84,8 +84,8 @@ class CanvasNode extends CanvasNodeBase {
   }
 
   public resize();
-  public resize(func: Delegates.Action1<CanvasNode>);
-  public resize(func?: Delegates.Action1<CanvasNode>) {
+  public resize(func: Action1<CanvasNode>);
+  public resize(func?: Action1<CanvasNode>) {
     if (typeof arguments[0] === "function") {
       if (this.resizedFunctions.indexOf(arguments[0]) === -1) {
         this.resizedFunctions.push(arguments[0]);
@@ -113,4 +113,4 @@ class CanvasNode extends CanvasNodeBase {
   }
 }
 
-export = CanvasNode;
+export default CanvasNode;

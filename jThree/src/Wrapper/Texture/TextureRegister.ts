@@ -15,4 +15,4 @@ enum TextureRegister {
   Texture13 = 33997, // TODO Add texture enum element ....troublesome
 }
 
-export = TextureRegister;
+export default TextureRegister;

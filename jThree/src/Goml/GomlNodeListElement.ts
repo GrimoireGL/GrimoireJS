@@ -1,4 +1,4 @@
-import JThreeObject = require("../Base/JThreeObject");
+import JThreeObject from "../Base/JThreeObject";
 
 /**
  * GomlNodeをグループとしてまとめて管理します
@@ -29,4 +29,4 @@ class GomlNodeListElement extends JThreeObject {
   }
 }
 
-export = GomlNodeListElement;
+export default GomlNodeListElement;

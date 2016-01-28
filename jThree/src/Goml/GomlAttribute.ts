@@ -1,6 +1,6 @@
-import JThreeObjectEEWithID = require("../Base/JThreeObjectEEWithID");
-import AttributeConverterBase = require("./Converter/AttributeConverterBase");
-import StringAttributeConverter = require("./Converter/StringAttributeConverter");
+import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import AttributeConverterBase from "./Converter/AttributeConverterBase";
+import StringAttributeConverter from "./Converter/StringAttributeConverter";
 
 /**
  * Provides the feature to manage attribute of GOML.
@@ -113,4 +113,4 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 }
 
-export = GomlAttribute;
+export default GomlAttribute;

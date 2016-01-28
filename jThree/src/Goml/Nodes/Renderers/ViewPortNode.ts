@@ -1,15 +1,15 @@
-import StageChainTemplate = require("../../../Core/Renderers/StageChainTemplate");
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import BasicRenderer = require("../../../Core/Renderers/BasicRenderer");
-import Rectangle = require("../../../Math/Rectangle");
-import Scene = require("../../../Core/Scene");
-import CameraNodeBase = require("../SceneObjects/Cameras/CameraNodeBase");
-import CanvasNode = require("../Canvases/CanvasNode");
-import PerspectiveCamera = require("../../../Core/Camera/PerspectiveCamera");
-import CubeTextureNode = require("../Texture/CubeTextureNode");
-import CubeTexture = require("../../../Core/Resources/Texture/CubeTexture");
-import RendererFactory = require("../../../Core/Renderers/RendererFactory");
-import GomlAttribute = require("../../GomlAttribute");
+import StageChainTemplate from "../../../Core/Renderers/StageChainTemplate";
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import BasicRenderer from "../../../Core/Renderers/BasicRenderer";
+import Rectangle from "../../../Math/Rectangle";
+import Scene from "../../../Core/Scene";
+import CameraNodeBase from "../SceneObjects/Cameras/CameraNodeBase";
+import CanvasNode from "../Canvases/CanvasNode";
+import PerspectiveCamera from "../../../Core/Camera/PerspectiveCamera";
+import CubeTextureNode from "../Texture/CubeTextureNode";
+import CubeTexture from "../../../Core/Resources/Texture/CubeTexture";
+import RendererFactory from "../../../Core/Renderers/RendererFactory";
+import GomlAttribute from "../../GomlAttribute";
 
 class ViewPortNode extends GomlTreeNodeBase {
   private left: number;
@@ -178,4 +178,4 @@ class ViewPortNode extends GomlTreeNodeBase {
   }
 }
 
-export = ViewPortNode;
+export default ViewPortNode;

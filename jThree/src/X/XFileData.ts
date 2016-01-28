@@ -1,9 +1,9 @@
-import ImageLoader = require("../Core/Resources/ImageLoader");
-import Vector3 = require("../Math/Vector3");
-import Vector4 = require("../Math/Vector4");
-import IXMaterial = require("./IXMaterialData");
-import AsyncLoader = require("../Core/Resources/AsyncLoader");
-import Q = require("q");
+import ImageLoader from "../Core/Resources/ImageLoader";
+import Vector3 from "../Math/Vector3";
+import Vector4 from "../Math/Vector4";
+import IXMaterial from "./IXMaterialData";
+import AsyncLoader from "../Core/Resources/AsyncLoader";
+import Q from "q";
 class XFileData {
 
   private static _loader: AsyncLoader<XFileData> = new AsyncLoader<XFileData>();
@@ -215,4 +215,4 @@ class XFileData {
   }
 }
 
-export = XFileData;
+export default XFileData;

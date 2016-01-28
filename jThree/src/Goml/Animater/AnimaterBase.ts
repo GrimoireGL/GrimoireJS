@@ -1,12 +1,12 @@
-import JThreeObjectWithID = require("../../Base/JThreeObjectWithID");
-import GomlAttribute = require("../GomlAttribute");
-import EasingFunctionBase = require("../Easing/EasingFunctionBase");
-import Delegates = require("../../Base/Delegates");
+import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
+import GomlAttribute from "../GomlAttribute";
+import EasingFunctionBase from "../Easing/EasingFunctionBase";
+import {Action0} from "../../Base/Delegates";
 
 class AnimaterBase extends JThreeObjectWithID {
   protected targetAttribute: GomlAttribute;
 
-  protected onComplete: Delegates.Action0;
+  protected onComplete: Action0;
 
   protected duration: number;
 
@@ -18,7 +18,7 @@ class AnimaterBase extends JThreeObjectWithID {
 
   protected endValue: any;
 
-  constructor(targetAttribute: GomlAttribute, begintime: number, duration: number, beginValue: any, endValue: any, easing: EasingFunctionBase, onComplete?: Delegates.Action0) {
+  constructor(targetAttribute: GomlAttribute, begintime: number, duration: number, beginValue: any, endValue: any, easing: EasingFunctionBase, onComplete?: Action0) {
     super();
     this.targetAttribute = targetAttribute;
     this.beginTime = begintime;
@@ -52,4 +52,4 @@ class AnimaterBase extends JThreeObjectWithID {
   }
 }
 
-export = AnimaterBase;
+export default AnimaterBase;

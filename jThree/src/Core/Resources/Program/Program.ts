@@ -1,7 +1,7 @@
-import ContextSafeContainer = require("../ContextSafeResourceContainer");
-import Shader = require("../Shader/Shader");
-import Canvas = require("../../Canvas");
-import ProgramWrapper = require("./ProgramWrapper");
+import ContextSafeContainer from "../ContextSafeResourceContainer";
+import Shader from "../Shader/Shader";
+import Canvas from "../../Canvas";
+import ProgramWrapper from "./ProgramWrapper";
 
 class Program extends ContextSafeContainer<ProgramWrapper> {
   constructor() {
@@ -52,4 +52,4 @@ class Program extends ContextSafeContainer<ProgramWrapper> {
   }
 }
 
-export = Program;
+export default Program;

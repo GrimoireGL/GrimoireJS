@@ -1,13 +1,13 @@
-import GeneraterInfoChunk = require("./GeneraterInfoChunk");
-import BasicRenderer = require("../BasicRenderer");
-import GeneraterBase = require("./GeneraterBase");
-import TextureInternalFormatType = require("../../../Wrapper/TextureInternalFormatType");
-import TextureType = require("../../../Wrapper/TextureType");
-import Rectangle = require("../../../Math/Rectangle");
-import BufferTexture = require("../../Resources/Texture/BufferTexture");
-import ContextComponents = require("../../../ContextComponents");
-import ResourceManager = require("../../ResourceManager");
-import JThreeContext = require("../../../JThreeContext");
+import GeneraterInfoChunk from "./GeneraterInfoChunk";
+import BasicRenderer from "../BasicRenderer";
+import GeneraterBase from "./GeneraterBase";
+import TextureInternalFormatType from "../../../Wrapper/TextureInternalFormatType";
+import TextureType from "../../../Wrapper/TextureType";
+import Rectangle from "../../../Math/Rectangle";
+import BufferTexture from "../../Resources/Texture/BufferTexture";
+import ContextComponents from "../../../ContextComponents";
+import ResourceManager from "../../ResourceManager";
+import JThreeContext from "../../../JThreeContext";
 class RendererFit extends GeneraterBase {
   constructor(parent: BasicRenderer) {
     super(parent);
@@ -93,4 +93,4 @@ class RendererFit extends GeneraterBase {
   }
 }
 
-export = RendererFit;
+export default RendererFit;

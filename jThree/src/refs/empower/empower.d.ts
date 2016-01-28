@@ -15,5 +15,5 @@ declare module empower {
 }
 
 declare module "empower" {
-    export = empower;
+    export default empower;
 }

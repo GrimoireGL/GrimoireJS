@@ -1,4 +1,4 @@
-import jThreeObject = require("../Base/JThreeObject");
+import jThreeObject from "../Base/JThreeObject";
 class Rectangle extends jThreeObject {
   constructor(left: number, top: number, width: number, height: number) {
     super();
@@ -52,4 +52,4 @@ class Rectangle extends jThreeObject {
     return r1.Width === r2.Width && r1.Height === r2.Height;
   }
 }
-export =Rectangle;
+export default Rectangle;

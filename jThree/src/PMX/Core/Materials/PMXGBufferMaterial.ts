@@ -1,10 +1,10 @@
-import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
-import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-﻿import Material = require("../../../Core/Materials/Material");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import PMXMaterial = require("./PMXMaterial");
-import Vector4 = require("../../../Math/Vector4");
-import PMXMaterialParamContainer = require("./../PMXMaterialMorphParamContainer");
+import IApplyMaterialArgument from "../../../Core/Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
+﻿import Material from "../../../Core/Materials/Material";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import PMXMaterial from "./PMXMaterial";
+import Vector4 from "../../../Math/Vector4";
+import PMXMaterialParamContainer from "./../PMXMaterialMorphParamContainer";
 /**
  * the materials for PMX.
  */
@@ -100,4 +100,4 @@ class PMXGBufferMaterial extends Material {
   }
 }
 
-export = PMXGBufferMaterial;
+export default PMXGBufferMaterial;

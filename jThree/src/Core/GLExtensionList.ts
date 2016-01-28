@@ -8,4 +8,4 @@ class GLExtensionList {
   public static TextureFilterAnisotropic: string = "EXT_texture_filter_anisotropic";
 }
 
-export = GLExtensionList;
+export default GLExtensionList;

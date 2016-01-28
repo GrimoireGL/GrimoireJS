@@ -1,4 +1,4 @@
-import AnimagterBase = require("./AnimaterBase");
+import AnimagterBase from "./AnimaterBase";
 class NumberAnimater extends AnimagterBase {
 
   protected updateAnimation(progress: number): void {
@@ -6,4 +6,4 @@ class NumberAnimater extends AnimagterBase {
   }
 }
 
-export = NumberAnimater;
+export default NumberAnimater;

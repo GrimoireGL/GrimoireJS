@@ -1,10 +1,10 @@
-import TextureBase = require("../../Core/Resources/Texture/TextureBase");
-import ContextComponents = require("../../ContextComponents");
-import ResourceManager = require("../../Core/ResourceManager");
-import JThreeContext = require("../../JThreeContext");
-import PMXModel = require("./PMXModel");
-import JThreeLogger = require("../../Base/JThreeLogger");
-import Q = require("q");
+import TextureBase from "../../Core/Resources/Texture/TextureBase";
+import ContextComponents from "../../ContextComponents";
+import ResourceManager from "../../Core/ResourceManager";
+import JThreeContext from "../../JThreeContext";
+import PMXModel from "./PMXModel";
+import JThreeLogger from "../../Base/JThreeLogger";
+import Q from "q";
 class PMXTextureManager {
   public static _imgConvertedToons: HTMLImageElement[] = [];
 
@@ -73,4 +73,4 @@ class PMXTextureManager {
   }
 }
 
-export = PMXTextureManager;
+export default PMXTextureManager;

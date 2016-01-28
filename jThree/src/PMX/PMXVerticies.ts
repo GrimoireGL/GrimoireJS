@@ -1,4 +1,4 @@
-import PmxVertex = require("./PMXVertex");
+import PmxVertex from "./PMXVertex";
 
 interface PMXVerticies {
   positions: number[];
@@ -11,4 +11,4 @@ interface PMXVerticies {
   verticies: PmxVertex[];
 }
 
-export = PMXVerticies;
+export default PMXVerticies;

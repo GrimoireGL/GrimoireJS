@@ -1,4 +1,4 @@
-import RenderStage = require("./RenderStages/RenderStageBase");
+import RenderStage from "./RenderStages/RenderStageBase";
 interface RenderStageChain {
   buffers: {
     [name: string]: string
@@ -7,4 +7,4 @@ interface RenderStageChain {
   variables: {};
 }
 
-export = RenderStageChain;
+export default RenderStageChain;

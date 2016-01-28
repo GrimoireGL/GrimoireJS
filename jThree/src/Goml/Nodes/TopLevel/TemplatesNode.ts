@@ -1,4 +1,4 @@
-import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
+import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
 
 class TemplatesNode extends OrderedTopLevelNodeBase {
   constructor() {
@@ -11,4 +11,4 @@ class TemplatesNode extends OrderedTopLevelNodeBase {
 
 }
 
-export = TemplatesNode;
+export default TemplatesNode;

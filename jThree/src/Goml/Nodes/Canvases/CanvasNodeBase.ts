@@ -1,5 +1,5 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Canvas = require("../../../Core/Canvas");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import Canvas from "../../../Core/Canvas";
 
 class CanvasNodeBase extends GomlTreeNodeBase {
   constructor() {
@@ -57,4 +57,4 @@ class CanvasNodeBase extends GomlTreeNodeBase {
   }
 }
 
-export = CanvasNodeBase;
+export default CanvasNodeBase;

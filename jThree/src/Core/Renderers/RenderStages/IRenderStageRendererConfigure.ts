@@ -12,4 +12,4 @@ interface IRenderStageRendererConfigure {
   depthMask: boolean;
 }
 
-export = IRenderStageRendererConfigure;
+export default IRenderStageRendererConfigure;

@@ -1,26 +1,26 @@
-import AsyncLoader = require("./Resources/AsyncLoader");
-import ImageLoader = require("./Resources/ImageLoader");
-﻿import BufferTargetType = require("../Wrapper/BufferTargetType");
-import BufferUsageType = require("../Wrapper/BufferUsageType");
-import ElementType = require("../Wrapper/ElementType");
-import ShaderType = require("../Wrapper/ShaderType");
-import Delegates = require("../Base/Delegates");
-import jThreeObject = require("../Base/JThreeObject");
-import Buffer = require("./Resources/Buffer/Buffer");
-import Shader = require("./Resources/Shader/Shader");
-import Program = require("./Resources/Program/Program");
-import Texture = require("./Resources/Texture/Texture");
-import RBO = require("./Resources/RBO/RBO");
-import ResourceArray = require("./Resources/ResourceArray");
-import FBO = require("./Resources/FBO/FBO");
-import BufferTexture = require("./Resources/Texture/BufferTexture");
-import TextureFormat = require("../Wrapper/TextureInternalFormatType");
-import ElementFormat = require("../Wrapper/TextureType");
-import TextureBase = require("./Resources/Texture/TextureBase");
-import CubeTexture = require("./Resources/Texture/CubeTexture");
-import IContextComponent = require("../IContextComponent");
-import ContextComponents = require("../ContextComponents");
-import Q = require("q");
+import AsyncLoader from "./Resources/AsyncLoader";
+import ImageLoader from "./Resources/ImageLoader";
+﻿import BufferTargetType from "../Wrapper/BufferTargetType";
+import BufferUsageType from "../Wrapper/BufferUsageType";
+import ElementType from "../Wrapper/ElementType";
+import ShaderType from "../Wrapper/ShaderType";
+import {Action1} from "../Base/Delegates";
+import jThreeObject from "../Base/JThreeObject";
+import Buffer from "./Resources/Buffer/Buffer";
+import Shader from "./Resources/Shader/Shader";
+import Program from "./Resources/Program/Program";
+import Texture from "./Resources/Texture/Texture";
+import RBO from "./Resources/RBO/RBO";
+import ResourceArray from "./Resources/ResourceArray";
+import FBO from "./Resources/FBO/FBO";
+import BufferTexture from "./Resources/Texture/BufferTexture";
+import TextureFormat from "../Wrapper/TextureInternalFormatType";
+import ElementFormat from "../Wrapper/TextureType";
+import TextureBase from "./Resources/Texture/TextureBase";
+import CubeTexture from "./Resources/Texture/CubeTexture";
+import IContextComponent from "../IContextComponent";
+import ContextComponents from "../ContextComponents";
+import Q from "q";
 type ImageSource = HTMLCanvasElement | HTMLImageElement | ImageData | ArrayBufferView;
 
 /**
@@ -135,7 +135,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     });
   }
 
-  public getTextureHandler(id: string, handler: Delegates.Action1<Texture>) {
+  public getTextureHandler(id: string, handler: Action1<Texture>) {
     this.textures.getHandler(id, handler);
   }
 
@@ -180,4 +180,4 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return `buffer:${this.buffers.toString() }\nshader:${this.shaders.toString() }\nprograms:${this.programs.toString() }\ntexture:${this.textures.toString() }`;
   }
 }
-export = ResourceManager;
+export default ResourceManager;

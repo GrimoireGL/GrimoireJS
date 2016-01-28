@@ -16,4 +16,4 @@ interface PMXRigidBody {
   calcType: number;
 }
 
-export =PMXRigidBody;
+export default PMXRigidBody;

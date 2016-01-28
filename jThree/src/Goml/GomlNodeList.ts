@@ -1,4 +1,4 @@
-import GomlNodeListElement = require("./GomlNodeListElement");
+import GomlNodeListElement from "./GomlNodeListElement";
 
 const gomlList = [
   new GomlNodeListElement("jthree.toplevel",
@@ -89,4 +89,4 @@ const gomlList = [
     }),
 ];
 
-export = gomlList;
+export default gomlList;

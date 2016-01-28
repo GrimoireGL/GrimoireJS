@@ -1,6 +1,6 @@
-import ResourceWrapper = require("../ResourceWrapper");
-import Canvas = require("../../Canvas");
-import RBO = require("./RBO");
+import ResourceWrapper from "../ResourceWrapper";
+import Canvas from "../../Canvas";
+import RBO from "./RBO";
 /**
  * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.
  * Most of user may have no reason to modify by themselves.
@@ -43,4 +43,4 @@ class RBOWrapper extends ResourceWrapper {
     }
   }
 }
-export = RBOWrapper;
+export default RBOWrapper;

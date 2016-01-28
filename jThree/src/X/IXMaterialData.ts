@@ -1,5 +1,5 @@
-import Vector3 = require("../Math/Vector3");
-import Vector4 = require("../Math/Vector4");
+import Vector3 from "../Math/Vector3";
+import Vector4 from "../Math/Vector4";
 interface IXMaterialData {
   faceColor: Vector4;
   power: number;
@@ -9,4 +9,4 @@ interface IXMaterialData {
   indexOffset: number;
   texture?: string;
 }
-export = IXMaterialData;
+export default IXMaterialData;

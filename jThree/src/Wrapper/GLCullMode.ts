@@ -4,4 +4,4 @@ enum GLCullMode {
   FrontBack = 1032
 }
 
-export = GLCullMode;
+export default GLCullMode;

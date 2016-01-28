@@ -1,9 +1,9 @@
-﻿import ContextSafeContainer = require("../ContextSafeResourceContainer");
-import ShaderType = require("../../../Wrapper/ShaderType");
-import Canvas = require("../../Canvas");
-import ShaderWrapper = require("./ShaderWrapper");
-import Delegates = require("../../../Base/Delegates");
-import JThreeEvent = require("../../../Base/JThreeEvent");
+﻿import ContextSafeContainer from "../ContextSafeResourceContainer";
+import ShaderType from "../../../Wrapper/ShaderType";
+import Canvas from "../../Canvas";
+import ShaderWrapper from "./ShaderWrapper";
+import {Action2} from "../../../Base/Delegates";
+import JThreeEvent from "../../../Base/JThreeEvent";
 class Shader extends ContextSafeContainer<ShaderWrapper> {
 
   private shaderSource: string;
@@ -76,7 +76,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
    * Register the handler to handle when shader source code is changed.
    * @param handler the handler for shader changing
    */
-  public onUpdate(handler: Delegates.Action2<Shader, string>) {
+  public onUpdate(handler: Action2<Shader, string>) {
     this.onUpdateEvent.addListener(handler);
   }
 
@@ -85,4 +85,4 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
   }
 }
 
-export = Shader;
+export default Shader;

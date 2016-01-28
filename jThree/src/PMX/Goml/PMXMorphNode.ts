@@ -1,5 +1,5 @@
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import PMXNode = require("./PMXNode");
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import PMXNode from "./PMXNode";
 class PMXMorphNode extends GomlTreeNodeBase {
 
 	private targetPMX: PMXNode;
@@ -32,4 +32,4 @@ class PMXMorphNode extends GomlTreeNodeBase {
 	}
 }
 
-export =PMXMorphNode;
+export default PMXMorphNode;

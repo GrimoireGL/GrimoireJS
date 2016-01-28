@@ -10,4 +10,4 @@ enum BufferUsageType {
   DynamicDraw = 35048 // WebGLRenderingContext.DYNAMIC_DRAW
 }
 
-export = BufferUsageType;
+export default BufferUsageType;

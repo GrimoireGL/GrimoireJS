@@ -1,11 +1,10 @@
-import AttributeDictionary = require("./AttributeDictionary");
-import TreeNodeBase = require("./TreeNodeBase");
-import JThreeContext = require("../JThreeContext");
-import NodeManager = require("./NodeManager");
-import ContextComponents = require("../ContextComponents");
-import BehaviorNode = require("./Nodes/Behaviors/BehaviorNode");
-import Delegates = require("../Base/Delegates");
-import NodeProps = require("./NodeProps");
+import AttributeDictionary from "./AttributeDictionary";
+import TreeNodeBase from "./TreeNodeBase";
+import JThreeContext from "../JThreeContext";
+import NodeManager from "./NodeManager";
+import ContextComponents from "../ContextComponents";
+import BehaviorNode from "./Nodes/Behaviors/BehaviorNode";
+import NodeProps from "./NodeProps";
 
 /**
  * This is the most base class in all GomlNode
@@ -100,9 +99,9 @@ class GomlTreeNodeBase extends TreeNodeBase {
    *
    * @param {string}                              group      group string that group prefixes array joined with '.'.
    * @param {string}                              name       name identify among specified group.
-   * @param {Delegates.Action1<GomlTreeNodeBase>} callbackfn callback function called with required node.
+   * @param {(node: GomlTreeNodeBase) => void} callbackfn callback function called with required node.
    */
-  public nodeImport(group: string, name: string, callbackfn: Delegates.Action1<GomlTreeNodeBase>): void {
+  public nodeImport(group: string, name: string, callbackfn: (node: GomlTreeNodeBase) => void): void {
     this.nodeManager.nodeRegister.getNode(group, name, callbackfn);
   }
 
@@ -122,4 +121,4 @@ class GomlTreeNodeBase extends TreeNodeBase {
   }
 }
 
-export = GomlTreeNodeBase;
+export default GomlTreeNodeBase;

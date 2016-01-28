@@ -1,14 +1,14 @@
-import Material = require("../../Materials/Material");
-import IRenderStageRendererConfigure = require("./IRenderStageRendererConfigure");
-import JThreeObjectWithID = require("../../../Base/JThreeObjectWithID");
-import BasicRenderer = require("../BasicRenderer");
-import SceneObject = require("../../SceneObjects/SceneObject");
-import Scene = require("../../Scene");
-import ResolvedChainInfo = require("../ResolvedChainInfo");
-import RBO = require("../../Resources/RBO/RBO");
-import ContextComponents = require("../../../ContextComponents");
-import JThreeContext = require("../../../JThreeContext");
-import ResourceManager = require("../../ResourceManager");
+import Material from "../../Materials/Material";
+import IRenderStageRendererConfigure from "./IRenderStageRendererConfigure";
+import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
+import BasicRenderer from "../BasicRenderer";
+import SceneObject from "../../SceneObjects/SceneObject";
+import Scene from "../../Scene";
+import ResolvedChainInfo from "../ResolvedChainInfo";
+import RBO from "../../Resources/RBO/RBO";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+import ResourceManager from "../../ResourceManager";
 abstract class RenderStageBase extends JThreeObjectWithID {
 
   private renderer: BasicRenderer;
@@ -118,4 +118,4 @@ abstract class RenderStageBase extends JThreeObjectWithID {
   }
 }
 
-export = RenderStageBase;
+export default RenderStageBase;

@@ -1,4 +1,4 @@
-import AttributeConverterBase = require("./AttributeConverterBase");
+import AttributeConverterBase from "./AttributeConverterBase";
 
 class StringAttributeConverter extends AttributeConverterBase {
   public toStringAttr(val: string): string {
@@ -10,4 +10,4 @@ class StringAttributeConverter extends AttributeConverterBase {
   }
 }
 
-export = StringAttributeConverter;
+export default StringAttributeConverter;

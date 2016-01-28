@@ -1,11 +1,11 @@
-import jThreeObject = require("../Base/JThreeObject");
-import Exceptions = require("../Exceptions");
-import JThreeLogger = require("../Base/JThreeLogger");
-import GomlParser = require("./GomlParser");
-import NodeManager = require("./NodeManager");
-import JThreeContext = require("../JThreeContext");
-import ResourceLoader = require("../Core/ResourceLoader");
-import ContextComponent = require("../ContextComponents");
+import jThreeObject from "../Base/JThreeObject";
+import {InvalidArgumentException} from "../Exceptions";
+import JThreeLogger from "../Base/JThreeLogger";
+import GomlParser from "./GomlParser";
+import NodeManager from "./NodeManager";
+import JThreeContext from "../JThreeContext";
+import ResourceLoader from "../Core/ResourceLoader";
+import ContextComponent from "../ContextComponents";
 
 /**
  * The class for loading goml.
@@ -117,7 +117,7 @@ class GomlLoader extends jThreeObject {
       JThreeLogger.sectionLongLog("Goml loader", catched.innerHTML);
     }
     if (catched === undefined || catched.tagName.toUpperCase() !== "GOML") {
-      throw new Exceptions.InvalidArgumentException("Root should be goml");
+      throw new InvalidArgumentException("Root should be goml");
     }
     const parsedNode = GomlParser.parse(source, this.nodeManager.configurator);
     parsedNode.Mounted = true;
@@ -130,4 +130,4 @@ class GomlLoader extends jThreeObject {
   }
 }
 
-export = GomlLoader;
+export default GomlLoader;

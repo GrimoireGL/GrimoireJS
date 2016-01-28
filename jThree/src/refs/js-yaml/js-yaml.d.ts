@@ -48,5 +48,5 @@ declare module jsyaml {
 }
 
 declare module 'js-yaml' {
-	export = jsyaml;
+	export default jsyaml;
 }

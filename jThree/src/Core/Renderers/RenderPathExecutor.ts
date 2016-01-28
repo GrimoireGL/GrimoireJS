@@ -1,18 +1,18 @@
-import JThreeObjectEE = require("../../Base/JThreeObjectEE");
-import RenderStageBase = require("./RenderStages/RenderStageBase");
-import PrimitiveRegistory = require("../Geometries/Base/PrimitiveRegistory");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import BasicRenderer = require("./BasicRenderer");
-import RenderStageChain = require("./RenderStageChain");
-import SceneObject = require("../SceneObjects/SceneObject");
-import Mesh = require("../SceneObjects/Mesh");
-import Scene = require("../Scene");
-import ResolvedChainInfo = require("./ResolvedChainInfo");
-import RenderPath = require("./RenderPath");
-import IRenderStageCompletedEventArgs = require("./IRenderStageCompletedEventArgs");
-import IRenderPathCompletedEventArgs = require("./IRenderPathCompletedEventArgs");
-import IRenderObjectCompletedEventArgs = require("./IRenderObjectCompletedEventArgs");
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import RenderStageBase from "./RenderStages/RenderStageBase";
+import PrimitiveRegistory from "../Geometries/Base/PrimitiveRegistory";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import BasicRenderer from "./BasicRenderer";
+import RenderStageChain from "./RenderStageChain";
+import SceneObject from "../SceneObjects/SceneObject";
+import Mesh from "../SceneObjects/Mesh";
+import Scene from "../Scene";
+import ResolvedChainInfo from "./ResolvedChainInfo";
+import RenderPath from "./RenderPath";
+import IRenderStageCompletedEventArgs from "./IRenderStageCompletedEventArgs";
+import IRenderPathCompletedEventArgs from "./IRenderPathCompletedEventArgs";
+import IRenderObjectCompletedEventArgs from "./IRenderObjectCompletedEventArgs";
 /**
  * All rendering path should be executed with this class.
  *
@@ -107,4 +107,4 @@ class RenderPathExecutor extends JThreeObjectEE {
 
 }
 
-export = RenderPathExecutor;
+export default RenderPathExecutor;

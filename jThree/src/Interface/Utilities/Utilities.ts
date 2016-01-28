@@ -1,5 +1,5 @@
-import isArray = require("lodash.isarray");
-import J3Object = require("../J3Object");
+import isArray from "lodash.isarray";
+import J3Object from "../J3Object";
 
 const BreakException = {};
 
@@ -35,4 +35,4 @@ class Utilities {
   }
 }
 
-export = Utilities;
+export default Utilities;

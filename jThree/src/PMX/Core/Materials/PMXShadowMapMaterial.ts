@@ -1,7 +1,7 @@
-import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import IApplyMaterialArgument = require("../../../Core/Materials/Base/IApplyMaterialArgument");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import PMXMaterial = require("./PMXMaterial");
+import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
+import IApplyMaterialArgument from "../../../Core/Materials/Base/IApplyMaterialArgument";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import PMXMaterial from "./PMXMaterial";
 /**
  * the materials for PMX.
  */
@@ -54,4 +54,4 @@ class PMXShadowMapMaterial extends BasicMaterial {
   }
 }
 
-export =PMXShadowMapMaterial;
+export default PMXShadowMapMaterial;

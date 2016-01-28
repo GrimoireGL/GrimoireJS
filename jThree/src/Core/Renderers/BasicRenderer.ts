@@ -1,19 +1,19 @@
-import BufferSet = require("./BufferSet");
-import CubeTexture = require("../Resources/Texture/CubeTexture");
-import BufferTexture = require("../Resources/Texture/BufferTexture");
-import TextureBase = require("../Resources/Texture/TextureBase");
-import Camera = require("./../Camera/Camera");
-import RenderPathExecutor = require("./RenderPathExecutor");
-import Rectangle = require("../../Math/Rectangle");
-import RendererConfiguratorBase = require("./RendererConfigurator/RendererConfiguratorBase");
-import RendererConfigurator = require("./RendererConfigurator/BasicRendererConfigurator");
-import JThreeContext = require("../../JThreeContext");
-import ContextComponents = require("../../ContextComponents");
-import ResourceManager = require("../ResourceManager");
-import Scene = require("../Scene");
-import RenderPath = require("./RenderPath");
-import Canvas = require("../Canvas");
-import CanvasRegion = require("../CanvasRegion");
+import BufferSet from "./BufferSet";
+import CubeTexture from "../Resources/Texture/CubeTexture";
+import BufferTexture from "../Resources/Texture/BufferTexture";
+import TextureBase from "../Resources/Texture/TextureBase";
+import Camera from "./../Camera/Camera";
+import RenderPathExecutor from "./RenderPathExecutor";
+import Rectangle from "../../Math/Rectangle";
+import RendererConfiguratorBase from "./RendererConfigurator/RendererConfiguratorBase";
+import RendererConfigurator from "./RendererConfigurator/BasicRendererConfigurator";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+import ResourceManager from "../ResourceManager";
+import Scene from "../Scene";
+import RenderPath from "./RenderPath";
+import Canvas from "../Canvas";
+import CanvasRegion from "../CanvasRegion";
 /**
 * Provides base class feature for renderer classes.
 */
@@ -188,4 +188,4 @@ class BasicRenderer extends CanvasRegion {
 }
 
 
-export = BasicRenderer;
+export default BasicRenderer;

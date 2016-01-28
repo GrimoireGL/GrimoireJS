@@ -1,8 +1,8 @@
-import ResourceLoader = require("../ResourceLoader");
-import ContextComponents = require("../../ContextComponents");
-import JThreeContext = require("../../JThreeContext");
-import Q = require("q");
-import Delegates = require("../../Base/Delegates");
+import ResourceLoader from "../ResourceLoader";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
+import Q from "q";
+import {Func1} from "../../Base/Delegates";
 class AsyncLoader<T> {
 
   private _loadedResource: { [url: string]: T|Q.IPromise<T> } = {};
@@ -21,7 +21,7 @@ class AsyncLoader<T> {
     return <T>this._loadedResource[AsyncLoader.getAbsolutePath(url)];
   }
 
-  public fetch(src: string, request: Delegates.Func1<string, Q.IPromise<T>>): Q.IPromise<T> {
+  public fetch(src: string, request: Func1<string, Q.IPromise<T>>): Q.IPromise<T> {
     const absPath = AsyncLoader.getAbsolutePath(src);
     if (this._loadedResource[absPath] && typeof this._loadedResource[absPath]["then"] === "function") { // Assume this is Promise object
       return <Q.IPromise<T>>this._loadedResource[absPath];
@@ -46,4 +46,4 @@ class AsyncLoader<T> {
   }
 }
 
-export = AsyncLoader;
+export default AsyncLoader;

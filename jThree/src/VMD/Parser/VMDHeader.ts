@@ -3,4 +3,4 @@ interface VMDHeader {
   modelName: string;
 }
 
-export = VMDHeader;
+export default VMDHeader;

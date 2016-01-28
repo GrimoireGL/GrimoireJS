@@ -1,6 +1,6 @@
-import J3Object = require("../J3Object");
-import J3ObjectBase = require("../J3ObjectBase");
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
+import J3Object from "../J3Object";
+import J3ObjectBase from "../J3ObjectBase";
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 
 const BreakException = {};
 
@@ -22,4 +22,4 @@ class CollectionManipulation extends J3ObjectBase {
   }
 }
 
-export = CollectionManipulation;
+export default CollectionManipulation;

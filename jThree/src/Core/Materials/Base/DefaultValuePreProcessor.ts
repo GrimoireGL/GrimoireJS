@@ -1,8 +1,8 @@
-import Matrix = require("../../../Math/Matrix");
-import Vector2 = require("../../../Math/Vector2");
-import Vector3 = require("../../../Math/Vector3");
-import Vector4 = require("../../../Math/Vector4");
-import IVariableDescription = require("./IVariableDescription");
+import Matrix from "../../../Math/Matrix";
+import Vector2 from "../../../Math/Vector2";
+import Vector3 from "../../../Math/Vector3";
+import Vector4 from "../../../Math/Vector4";
+import IVariableDescription from "./IVariableDescription";
 class DefaultValuePreProcessor {
   public static preprocess(uniforms: { [name: string]: IVariableDescription }): void {
     for (let variableName in uniforms) {
@@ -119,4 +119,4 @@ class DefaultValuePreProcessor {
   }
 }
 
-export = DefaultValuePreProcessor;
+export default DefaultValuePreProcessor;

@@ -1,8 +1,8 @@
-﻿import Sdef = require("./SDEF");
+﻿import Sdef from "./SDEF";
 
 interface PMXVertex {
   weightTransform: number;
   sdef?: Sdef;
 }
 
-export = PMXVertex;
+export default PMXVertex;

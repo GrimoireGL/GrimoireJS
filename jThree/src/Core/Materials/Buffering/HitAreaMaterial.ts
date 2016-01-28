@@ -1,6 +1,6 @@
-import BasicMaterial = require("../Base/BasicMaterial");
-import IApplyMaterialArgument = require("../Base/IApplyMaterialArgument");
-import Vector4 = require("../../../Math/Vector4");
+import BasicMaterial from "../Base/BasicMaterial";
+import IApplyMaterialArgument from "../Base/IApplyMaterialArgument";
+import Vector4 from "../../../Math/Vector4";
 
 class HitAreaMaterial extends BasicMaterial {
   constructor() {
@@ -15,4 +15,4 @@ class HitAreaMaterial extends BasicMaterial {
   }
 }
 
-export = HitAreaMaterial;
+export default HitAreaMaterial;

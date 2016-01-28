@@ -1,5 +1,5 @@
-import AsyncLoader = require("./AsyncLoader");
-import Q = require("q");
+import AsyncLoader from "./AsyncLoader";
+import Q from "q";
 class ImageLoader {
 
   private static _loader: AsyncLoader<HTMLImageElement> = new AsyncLoader<HTMLImageElement>();
@@ -20,4 +20,4 @@ class ImageLoader {
   }
 }
 
-export = ImageLoader;
+export default ImageLoader;

@@ -1,13 +1,13 @@
-import GomlTreeNodeBase = require("../Goml/GomlTreeNodeBase");
-import J3ObjectBase = require("./J3ObjectBase");
-import InterfaceSelector = require("./Static/InterfaceSelector");
-import isArray = require("lodash.isarray");
-import isString = require("lodash.isstring");
+import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
+import J3ObjectBase from "./J3ObjectBase";
+import InterfaceSelector from "./Static/InterfaceSelector";
+import isArray from "lodash.isarray";
+import isString from "lodash.isstring";
 // for Implements
-import GomlNodeMethods = require("./Miscellaneous/GomlNodeMethods");
-import TreeTraversal = require("./Traversing/TreeTraversal");
-import GeneralAttributes = require("./Manipulation/GeneralAttributes");
-import CollectionManipulation = require("./Manipulation/CollectionManipulation");
+import GomlNodeMethods from "./Miscellaneous/GomlNodeMethods";
+import TreeTraversal from "./Traversing/TreeTraversal";
+import GeneralAttributes from "./Manipulation/GeneralAttributes";
+import CollectionManipulation from "./Manipulation/CollectionManipulation";
 
 /**
  * Provides jQuery like API for jThree.
@@ -117,4 +117,4 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
   };
 }
 
-export = J3Object;
+export default J3Object;

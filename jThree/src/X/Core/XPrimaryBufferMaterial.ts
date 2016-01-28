@@ -1,6 +1,6 @@
-import Geometry = require("../../Core/Geometries/Base/Geometry");
-import IXMaterialData = require("../IXMaterialData");
-import BasicMaterial = require("../../Core/Materials/Base/BasicMaterial");
+import Geometry from "../../Core/Geometries/Base/Geometry";
+import IXMaterialData from "../IXMaterialData";
+import BasicMaterial from "../../Core/Materials/Base/BasicMaterial";
 class XPrimaryMaterial extends BasicMaterial {
   constructor(private _material: IXMaterialData) {
     super(require("../Material/Primary.html"));
@@ -17,4 +17,4 @@ class XPrimaryMaterial extends BasicMaterial {
     return this._material.indexOffset * 4;
   }
 }
-export = XPrimaryMaterial;
+export default XPrimaryMaterial;

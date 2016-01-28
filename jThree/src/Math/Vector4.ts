@@ -1,5 +1,5 @@
-import VectorBase = require("./VectorBase");
-import glm = require("gl-matrix");
+import VectorBase from "./VectorBase";
+import {GLM, vec4} from "gl-matrix";
 
 class Vector4 extends VectorBase {
   /*
@@ -34,12 +34,12 @@ class Vector4 extends VectorBase {
     return new Vector4(vec.X, vec.Y, vec.Z, vec.W);
   }
 
-  constructor(x: glm.GLM.IArray);
+  constructor(x: GLM.IArray);
   constructor(x: number, y: number, z: number, w: number);
-  constructor(x: number | glm.GLM.IArray, y?: number, z?: number, w?: number) {
+  constructor(x: number | GLM.IArray, y?: number, z?: number, w?: number) {
     super();
     if (typeof y === "undefined") {
-      this.rawElements = <glm.GLM.IArray>x;
+      this.rawElements = <GLM.IArray>x;
       return;
     }
     this.rawElements = [<number>x, y, z, w];
@@ -82,22 +82,22 @@ class Vector4 extends VectorBase {
   }
 
   public static dot(v1: Vector4, v2: Vector4) {
-    return glm.vec4.dot(v1.rawElements, v2.rawElements);
+    return vec4.dot(v1.rawElements, v2.rawElements);
   }
 
   public static add(v1: Vector4, v2: Vector4): Vector4 {
-    const newVec = glm.vec4.create();
-    return new Vector4(glm.vec4.add(newVec, v1.rawElements, v2.rawElements));
+    const newVec = vec4.create();
+    return new Vector4(vec4.add(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static subtract(v1: Vector4, v2: Vector4): Vector4 {
-    const newVec = glm.vec4.create();
-    return new Vector4(glm.vec4.sub(newVec, v1.rawElements, v2.rawElements));
+    const newVec = vec4.create();
+    return new Vector4(vec4.sub(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static multiply(s: number, v: Vector4): Vector4 {
-    const newVec = glm.vec4.create();
-    return new Vector4(glm.vec4.scale(newVec, v.rawElements, s));
+    const newVec = vec4.create();
+    return new Vector4(vec4.scale(newVec, v.rawElements, s));
   }
 
   public static negate(v1: Vector4): Vector4 {
@@ -109,8 +109,8 @@ class Vector4 extends VectorBase {
   }
 
   public static normalize(v1: Vector4): Vector4 {
-    const newVec = glm.vec4.create();
-    return new Vector4(glm.vec4.normalize(newVec, v1.rawElements));
+    const newVec = vec4.create();
+    return new Vector4(vec4.normalize(newVec, v1.rawElements));
   }
 
 
@@ -210,4 +210,4 @@ class Vector4 extends VectorBase {
 }
 
 
-export = Vector4;
+export default Vector4;

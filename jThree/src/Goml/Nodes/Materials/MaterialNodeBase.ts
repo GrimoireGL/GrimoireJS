@@ -1,19 +1,19 @@
-import Color4 = require("../../../Math/Color4");
-import MaterialManager = require("../../../Core/Materials/Base/MaterialManager");
-import JThreeContext = require("../../../JThreeContext");
-import BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");
-import ContextComponents = require("../../../ContextComponents");
-import IVariableDescription = require("../../../Core/Materials/Base/IVariableDescription");
-import AttributeDeclationBody = require("../../AttributeDeclationBody");
-import Vector3 = require("../../../Math/Vector3");
-import Vector2 = require("../../../Math/Vector2");
-import AttributeDeclaration = require("../../AttributeDeclaration");
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Material = require("../../../Core/Materials/Material");
-import MaterialPass = require("../../../Core/Materials/Base/MaterialPass");
-import GomlAttribute = require("../../GomlAttribute");
-import TextureNode = require("../../Nodes/Texture/TextureNode");
-import CubeTextureNode = require("../../Nodes/Texture/CubeTextureNode");
+import Color4 from "../../../Math/Color4";
+import MaterialManager from "../../../Core/Materials/Base/MaterialManager";
+import JThreeContext from "../../../JThreeContext";
+import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
+import ContextComponents from "../../../ContextComponents";
+import IVariableDescription from "../../../Core/Materials/Base/IVariableDescription";
+import AttributeDeclationBody from "../../AttributeDeclationBody";
+import Vector3 from "../../../Math/Vector3";
+import Vector2 from "../../../Math/Vector2";
+import AttributeDeclaration from "../../AttributeDeclaration";
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import Material from "../../../Core/Materials/Material";
+import MaterialPass from "../../../Core/Materials/Base/MaterialPass";
+import GomlAttribute from "../../GomlAttribute";
+import TextureNode from "../../Nodes/Texture/TextureNode";
+import CubeTextureNode from "../../Nodes/Texture/CubeTextureNode";
 
 class MaterialNodeBase extends GomlTreeNodeBase {
   protected groupPrefix: string = "material";
@@ -168,4 +168,4 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   }
 }
 
-export = MaterialNodeBase;
+export default MaterialNodeBase;

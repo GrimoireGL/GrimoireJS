@@ -1,10 +1,10 @@
-﻿import TextureWrapperBase = require("./TextureWrapperBase");
-import Canvas = require("../../Canvas");
-import CubeTexture = require("./CubeTexture");
-import TextureTargetType = require("../../../Wrapper/TargetTextureType");
-import TexImageTargetType = require("../../../Wrapper/Texture/TexImageTargetType");
-import TextureInternalFormat = require("../../../Wrapper/TextureInternalFormatType");
-import TextureType = require("../../../Wrapper/TextureType");
+﻿import TextureWrapperBase from "./TextureWrapperBase";
+import Canvas from "../../Canvas";
+import CubeTexture from "./CubeTexture";
+import TextureTargetType from "../../../Wrapper/TargetTextureType";
+import TexImageTargetType from "../../../Wrapper/Texture/TexImageTargetType";
+import TextureInternalFormat from "../../../Wrapper/TextureInternalFormatType";
+import TextureType from "../../../Wrapper/TextureType";
 
 class CubeTextureWrapper extends TextureWrapperBase {
   constructor(canvas: Canvas, parent: CubeTexture) {
@@ -38,4 +38,4 @@ class CubeTextureWrapper extends TextureWrapperBase {
 
 }
 
-export = CubeTextureWrapper;
+export default CubeTextureWrapper;

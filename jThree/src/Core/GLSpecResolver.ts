@@ -1,7 +1,7 @@
-import GetParameterType = require("../Wrapper/GetParameterType");
-import JThreeContext = require("../JThreeContext");
-import CanvasManager = require("./CanvasManager");
-import ContextComponents = require("../ContextComponents");
+import GetParameterType from "../Wrapper/GetParameterType";
+import JThreeContext from "../JThreeContext";
+import CanvasManager from "./CanvasManager";
+import ContextComponents from "../ContextComponents";
 class GLSpecResolver {
 
   private static maxCombinedTextureUnits;
@@ -85,4 +85,4 @@ class GLSpecResolver {
   }
 }
 
-export = GLSpecResolver;
+export default GLSpecResolver;

@@ -1,5 +1,5 @@
-import XModel = require("../Core/XModel");
-import SceneObjectNodeBase = require("./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase");
+import XModel from "../Core/XModel";
+import SceneObjectNodeBase from "./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase";
 
 class XNode extends SceneObjectNodeBase {
 
@@ -25,4 +25,4 @@ class XNode extends SceneObjectNodeBase {
   }
 }
 
-export = XNode;
+export default XNode;

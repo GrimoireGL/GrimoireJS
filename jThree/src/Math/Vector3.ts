@@ -1,5 +1,5 @@
-import VectorBase = require("./VectorBase");
-import glm = require("gl-matrix");
+import VectorBase from "./VectorBase";
+import {GLM, vec3} from "gl-matrix";
 
 class Vector3 extends VectorBase {
   public static get XUnit(): Vector3 {
@@ -27,11 +27,11 @@ class Vector3 extends VectorBase {
   }
 
   constructor(x: number, y: number, z: number);
-  constructor(x: glm.GLM.IArray);
-  constructor(x: number | glm.GLM.IArray, y?: number, z?: number) {
+  constructor(x: GLM.IArray);
+  constructor(x: number | GLM.IArray, y?: number, z?: number) {
     super();
     if (typeof y === "undefined") {
-      this.rawElements = <glm.GLM.IArray>x;
+      this.rawElements = <GLM.IArray>x;
       return;
     }
     this.rawElements = [<number>x, y, z];
@@ -66,22 +66,22 @@ class Vector3 extends VectorBase {
   }
 
   public static dot(v1: Vector3, v2: Vector3): number {
-    return glm.vec3.dot(v1.rawElements, v2.rawElements);
+    return vec3.dot(v1.rawElements, v2.rawElements);
   }
 
   public static add(v1: Vector3, v2: Vector3): Vector3 {
-    const newVec = glm.vec3.create();
-    return new Vector3(glm.vec3.add(newVec, v1.rawElements, v2.rawElements));
+    const newVec = vec3.create();
+    return new Vector3(vec3.add(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static subtract(v1: Vector3, v2: Vector3): Vector3 {
-    const newVec = glm.vec3.create();
-    return new Vector3(glm.vec3.sub(newVec, v1.rawElements, v2.rawElements));
+    const newVec = vec3.create();
+    return new Vector3(vec3.sub(newVec, v1.rawElements, v2.rawElements));
   }
 
   public static multiply(s: number, v: Vector3): Vector3 {
-    const newVec = glm.vec3.create();
-    return new Vector3(glm.vec3.scale(newVec, v.rawElements, s));
+    const newVec = vec3.create();
+    return new Vector3(vec3.scale(newVec, v.rawElements, s));
   }
 
   public static negate(v1: Vector3): Vector3 {
@@ -93,13 +93,13 @@ class Vector3 extends VectorBase {
   }
 
   public static normalize(v1: Vector3): Vector3 {
-    const newVec = glm.vec3.create();
-    return new Vector3(glm.vec3.normalize(newVec, v1.rawElements));
+    const newVec = vec3.create();
+    return new Vector3(vec3.normalize(newVec, v1.rawElements));
   }
 
   public static cross(v1: Vector3, v2: Vector3): Vector3 {
-    const newVec = glm.vec3.create();
-    return new Vector3(glm.vec3.cross(newVec, v1.rawElements, v2.rawElements));
+    const newVec = vec3.create();
+    return new Vector3(vec3.cross(newVec, v1.rawElements, v2.rawElements));
   }
 
 
@@ -205,4 +205,4 @@ class Vector3 extends VectorBase {
   }
 }
 
-export = Vector3;
+export default Vector3;

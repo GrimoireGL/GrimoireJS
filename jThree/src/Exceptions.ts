@@ -1,5 +1,5 @@
-import JThreeObject = require("./Base/JThreeObject");
-import Matrix = require("./Math/Matrix");
+import JThreeObject from "./Base/JThreeObject";
+import Matrix from "./Math/Matrix";
 
 /**
 * This class is root class perform as exception arguments in jThree.

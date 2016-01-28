@@ -1,6 +1,6 @@
-import Canvas = require("../Canvas");
-import Rectangle = require("../../Math/Rectangle");
-import BasicRenderer = require("./BasicRenderer");
+import Canvas from "../Canvas";
+import Rectangle from "../../Math/Rectangle";
+import BasicRenderer from "./BasicRenderer";
 class RendererFactory {
   public static rendererConfigurations = {
     "default": require("./RendererConfigurator/BasicRendererConfigurator"),
@@ -15,4 +15,4 @@ class RendererFactory {
   }
 }
 
-export = RendererFactory;
+export default RendererFactory;

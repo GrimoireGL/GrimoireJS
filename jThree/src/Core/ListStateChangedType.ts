@@ -3,4 +3,4 @@ enum ListStateChangedType {
   Delete
 }
 
-export = ListStateChangedType;
+export default ListStateChangedType;

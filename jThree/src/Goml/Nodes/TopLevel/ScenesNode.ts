@@ -1,4 +1,4 @@
-import OrderedTopLevelNodeBase = require("./OrderedTopLevelNodeBase");
+import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
 class ScenesNode extends OrderedTopLevelNodeBase {
   protected groupPrefix: string = "scene";
 
@@ -11,4 +11,4 @@ class ScenesNode extends OrderedTopLevelNodeBase {
   }
 }
 
-export = ScenesNode;
+export default ScenesNode;

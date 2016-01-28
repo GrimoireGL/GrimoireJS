@@ -1,7 +1,7 @@
-﻿import SceneObject = require("../SceneObjects/SceneObject");
-import Matrix = require("../../Math/Matrix");
-import glm = require("gl-matrix");
-import PointList = require("../../Math/PointList");
+﻿import SceneObject from "../SceneObjects/SceneObject";
+import Matrix from "../../Math/Matrix";
+import {mat4} from "gl-matrix";
+import PointList from "../../Math/PointList";
 
 /**
  * Basement class of Camera. These class related to camera are one of SceneObject in jThree.
@@ -32,8 +32,8 @@ abstract class Camera extends SceneObject {
   public invProjectionMatrix: Matrix = new Matrix();
 
   protected __updateViewProjectionMatrix() {
-    glm.mat4.mul(this.viewProjectionMatrix.rawElements, this.projectionMatrix.rawElements, this.viewMatrix.rawElements);
-    glm.mat4.invert(this.viewProjectionInvMatrix.rawElements, this.viewProjectionMatrix.rawElements);
+    mat4.mul(this.viewProjectionMatrix.rawElements, this.projectionMatrix.rawElements, this.viewMatrix.rawElements);
+    mat4.invert(this.viewProjectionInvMatrix.rawElements, this.viewProjectionMatrix.rawElements);
     PointList.initializeWithCube(this.frustumPoints);
     this.frustumPoints.transform(this.viewProjectionInvMatrix);
   }
@@ -47,4 +47,4 @@ abstract class Camera extends SceneObject {
   }
 }
 
-export = Camera;
+export default Camera;

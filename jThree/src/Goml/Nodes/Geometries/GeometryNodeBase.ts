@@ -1,6 +1,6 @@
-import GomlTreeNodeBase = require("../../GomlTreeNodeBase");
-import Geometry = require("../../../Core/Geometries/Base/Geometry");
-import GomlAttribute = require("../../GomlAttribute");
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import Geometry from "../../../Core/Geometries/Base/Geometry";
+import GomlAttribute from "../../GomlAttribute";
 /**
 * Base class for managing geometry node.
 */
@@ -48,4 +48,4 @@ class GeometryNodeBase extends GomlTreeNodeBase {
     this.nodeExport(name);
   }
 }
-export = GeometryNodeBase;
+export default GeometryNodeBase;

@@ -1,14 +1,14 @@
-import ContextSafeResourceContainer = require("../ContextSafeResourceContainer");
-import TextureWrapperBase = require("./TextureWrapperBase");
-import TextureParameterType = require("../../../Wrapper/Texture/TextureParameterType");
-import TextureMinFilterType = require("../../../Wrapper/Texture/TextureMinFilterType");
-import TextureMagFilterType = require("../../../Wrapper/Texture/TextureMagFilterType");
-import TextureWrapType = require("../../../Wrapper/Texture/TextureWrapType");
-import JThreeEvent = require("../../../Base/JThreeEvent");
-import Delegates = require("../../../Base/Delegates");
-import TextureTargetType = require("../../../Wrapper/TargetTextureType");
-import ElementFormat = require("../../../Wrapper/TextureType");
-import TextureFormat = require("../../../Wrapper/TextureInternalFormatType");
+import ContextSafeResourceContainer from "../ContextSafeResourceContainer";
+import TextureWrapperBase from "./TextureWrapperBase";
+import TextureParameterType from "../../../Wrapper/Texture/TextureParameterType";
+import TextureMinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
+import TextureMagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
+import TextureWrapType from "../../../Wrapper/Texture/TextureWrapType";
+import JThreeEvent from "../../../Base/JThreeEvent";
+import {Action2} from "../../../Base/Delegates";
+import TextureTargetType from "../../../Wrapper/TargetTextureType";
+import ElementFormat from "../../../Wrapper/TextureType";
+import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
 /**
  *
  */
@@ -109,7 +109,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
     this.onFilterParameterChangedHandler.fire(this, TextureParameterType.WrapT);
   }
 
-  public onFilterParameterChanged(handler: Delegates.Action2<TextureBase, TextureParameterType>): void {
+  public onFilterParameterChanged(handler: Action2<TextureBase, TextureParameterType>): void {
     this.onFilterParameterChangedHandler.addListener(handler);
   }
 
@@ -135,4 +135,4 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
   }
 }
 
-export = TextureBase;
+export default TextureBase;

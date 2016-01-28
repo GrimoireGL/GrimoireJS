@@ -1,8 +1,8 @@
-import GomlNodeListElement = require("./GomlNodeListElement");
-import JThreeObject = require("../Base/JThreeObject");
-import EasingFunction = require("./Easing/EasingFunctionBase");
-import AttributeConvrterBase = require("./Converter/AttributeConverterBase");
-import GomlTreeNodeBase = require("./GomlTreeNodeBase");
+import GomlNodeListElement from "./GomlNodeListElement";
+import JThreeObject from "../Base/JThreeObject";
+import EasingFunction from "./Easing/EasingFunctionBase";
+import AttributeConvrterBase from "./Converter/AttributeConverterBase";
+import GomlTreeNodeBase from "./GomlTreeNodeBase";
 /**
  * Provides configurations that will be used when parse GOML.
  * These properties is intended to be used for extending by plugin feature.
@@ -89,4 +89,4 @@ class GomlConfigurator extends JThreeObject {
     });
   }
 }
-export = GomlConfigurator;
+export default GomlConfigurator;

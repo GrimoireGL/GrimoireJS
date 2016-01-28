@@ -1,6 +1,6 @@
-﻿import TextureBase = require("./TextureBase");
-import CubeTextureWrapper = require("./CubeTextureWrapper");
-import Canvas = require("../../Canvas");
+﻿import TextureBase from "./TextureBase";
+import CubeTextureWrapper from "./CubeTextureWrapper";
+import Canvas from "../../Canvas";
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 class CubeTexture extends TextureBase {
   constructor(source: ImageSource[], textureName: string, flipY: boolean) {
@@ -26,4 +26,4 @@ class CubeTexture extends TextureBase {
   }
 }
 
-export = CubeTexture;
+export default CubeTexture;

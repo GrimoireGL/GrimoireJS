@@ -1,8 +1,8 @@
-import J3Object = require("../J3Object");
-import J3ObjectBase = require("../J3ObjectBase");
-import InterfaceSelector = require("../Static/InterfaceSelector");
-import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
-import isString = require("lodash.isstring");
+import J3Object from "../J3Object";
+import J3ObjectBase from "../J3ObjectBase";
+import InterfaceSelector from "../Static/InterfaceSelector";
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import isString from "lodash.isstring";
 
 class TreeTraversal extends J3ObjectBase {
   public find(selector: string): J3Object;
@@ -26,4 +26,4 @@ class TreeTraversal extends J3ObjectBase {
   }
 }
 
-export = TreeTraversal;
+export default TreeTraversal;

@@ -1,6 +1,6 @@
-import Delegates = require("../../Base/Delegates");
-import GomlTreeNodeBase = require("../GomlTreeNodeBase");
-import GomlAttributeDeclaration = require("../AttributeDeclaration");
+import {Action1} from "../../Base/Delegates";
+import GomlTreeNodeBase from "../GomlTreeNodeBase";
+import GomlAttributeDeclaration from "../AttributeDeclaration";
 
 interface BehaviorDeclarationBody {
   /**
@@ -18,24 +18,24 @@ interface BehaviorDeclarationBody {
    */
   enabled?: boolean;
 
-  onEnabled?: Delegates.Action1<GomlTreeNodeBase>;
+  onEnabled?: Action1<GomlTreeNodeBase>;
 
-  onDisabled?: Delegates.Action1<GomlTreeNodeBase>;
+  onDisabled?: Action1<GomlTreeNodeBase>;
 
   /**
    * The handler to process when this component is loaded.
    */
-  awake?: Delegates.Action1<GomlTreeNodeBase>;
+  awake?: Action1<GomlTreeNodeBase>;
 
   /**
    * This handler will be
    */
-  start?: Delegates.Action1<GomlTreeNodeBase>;
+  start?: Action1<GomlTreeNodeBase>;
 
   /**
    * The handler to process when frame will be update.
    */
-  update?: Delegates.Action1<GomlTreeNodeBase>;
+  update?: Action1<GomlTreeNodeBase>;
 }
 
-export = BehaviorDeclarationBody;
+export default BehaviorDeclarationBody;

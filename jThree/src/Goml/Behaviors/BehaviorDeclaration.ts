@@ -1,8 +1,8 @@
-import BehaviorDeclarationBody = require("./BehaviorDeclarationBody");
-import Delegates = require("../../Base/Delegates");
+import BehaviorDeclarationBody from "./BehaviorDeclarationBody";
+import {Action0} from "../../Base/Delegates";
 
 interface BehaviorDeclaration {
-  [name: string]: BehaviorDeclarationBody | Delegates.Action0;
+  [name: string]: BehaviorDeclarationBody | Action0;
 }
 
-export = BehaviorDeclaration;
+export default BehaviorDeclaration;

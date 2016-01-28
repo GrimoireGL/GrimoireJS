@@ -8,4 +8,4 @@ const easingFunction = {
   "linear": require("./Easing/LinearEasingFunction"),
   "swing": require("./Easing/SwingEasingFunction")
 };
-export = easingFunction;
+export default easingFunction;

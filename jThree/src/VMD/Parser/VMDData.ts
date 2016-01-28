@@ -1,13 +1,13 @@
-import AsyncLoader = require("../../Core/Resources/AsyncLoader");
-import VMDHeader = require("./VMDHeader");
-import VMDMotions = require("./VMDMotions");
-import VMDMorphs = require("./VMDMorphs");
-import VMDFrameData = require("./VMDFrameData");
-import VMDBoneStatus = require("./VMDBoneStatus");
-import VMDMorphStatus = require("./VMDMorphStatus");
-import glm = require("gl-matrix");
-import BezierCurve = require("./BezierCurve");
-import Q = require("q");
+import AsyncLoader from "../../Core/Resources/AsyncLoader";
+import VMDHeader from "./VMDHeader";
+import VMDMotions from "./VMDMotions";
+import VMDMorphs from "./VMDMorphs";
+import VMDFrameData from "./VMDFrameData";
+import VMDBoneStatus from "./VMDBoneStatus";
+import VMDMorphStatus from "./VMDMorphStatus";
+import {quat} from "gl-matrix";
+import BezierCurve from "./BezierCurve";
+import Q from "q";
 class VMDData {
 
   private static _asyncLoader: AsyncLoader<VMDData> = new AsyncLoader<VMDData>();
@@ -188,7 +188,7 @@ class VMDData {
         return {
           frameNumber: frame,
           position: this.complementBoneTranslation(currentFrame.position, nextFrame.position, progress, currentFrame.interpolation),
-          rotation: <number[]>glm.quat.slerp([0, 0, 0, 0], currentFrame.rotation, nextFrame.rotation, currentFrame.interpolation[3].evaluate(progress))
+          rotation: <number[]>quat.slerp([0, 0, 0, 0], currentFrame.rotation, nextFrame.rotation, currentFrame.interpolation[3].evaluate(progress))
         };
       } else {
         return {
@@ -232,4 +232,4 @@ class VMDData {
   }
 }
 
-export = VMDData;
+export default VMDData;

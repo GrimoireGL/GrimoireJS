@@ -50,4 +50,4 @@ class AssociativeArray<T> implements Map<string, T> {
 
 }
 
-export = AssociativeArray;
+export default AssociativeArray;

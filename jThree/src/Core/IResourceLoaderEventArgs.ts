@@ -7,4 +7,4 @@ interface IResourceLoaderEventArgs {
   resourceCount: number;
 }
 
-export = IResourceLoaderEventArgs;
+export default IResourceLoaderEventArgs;

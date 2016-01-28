@@ -1,6 +1,6 @@
-import JThreeObject = require("../Base/JThreeObject");
-import IContextComponent = require("../IContextComponent");
-import ContextComponent = require("../ContextComponents");
+import JThreeObject from "../Base/JThreeObject";
+import IContextComponent from "../IContextComponent";
+import ContextComponent from "../ContextComponents";
 class Timer extends JThreeObject implements IContextComponent {
   public getContextComponentIndex() {
     return ContextComponent.Timer;
@@ -27,4 +27,4 @@ class Timer extends JThreeObject implements IContextComponent {
   public timeFromLast: number = 0;
 }
 
-export = Timer;
+export default Timer;

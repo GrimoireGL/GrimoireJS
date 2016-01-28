@@ -1,20 +1,20 @@
-import RSMLRenderConfigUtility = require("./RSMLRenderConfigUtility");
-import IFBOBindingConfig = require("./IFBOBindingConfig");
-import RSMLRenderStage = require("./RSMLRenderStage");
-import XMLRenderConfigUtility = require("../../../Materials/Base/XMLRenderConfigUtility");
-import IRenderStageRendererConfigure = require("../IRenderStageRendererConfigure");
-import MaterialManager = require("../../../Materials/Base/MaterialManager");
-import BasicMaterial = require("../../../Materials/Base/BasicMaterial");
-import SceneObject = require("../../../SceneObjects/SceneObject");
-import FrameBufferAttachmentType = require("../../../../Wrapper/FrameBufferAttachmentType");
-import FBO = require("../../../Resources/FBO/FBO");
-import JThreeObjectWithID = require("../../../../Base/JThreeObjectWithID");
-import ContextComponents = require("../../../../ContextComponents");
-import ResourceManager = require("../../../ResourceManager");
-import JThreeContext = require("../../../../JThreeContext");
-import FBOWrapper = require("../../../Resources/FBO/FBOWrapper");
-import ResolvedChainInfo = require("../../ResolvedChainInfo");
-import Scene = require("../../../Scene");
+import RSMLRenderConfigUtility from "./RSMLRenderConfigUtility";
+import IFBOBindingConfig from "./IFBOBindingConfig";
+import RSMLRenderStage from "./RSMLRenderStage";
+import XMLRenderConfigUtility from "../../../Materials/Base/XMLRenderConfigUtility";
+import IRenderStageRendererConfigure from "../IRenderStageRendererConfigure";
+import MaterialManager from "../../../Materials/Base/MaterialManager";
+import BasicMaterial from "../../../Materials/Base/BasicMaterial";
+import SceneObject from "../../../SceneObjects/SceneObject";
+import FrameBufferAttachmentType from "../../../../Wrapper/FrameBufferAttachmentType";
+import FBO from "../../../Resources/FBO/FBO";
+import JThreeObjectWithID from "../../../../Base/JThreeObjectWithID";
+import ContextComponents from "../../../../ContextComponents";
+import ResourceManager from "../../../ResourceManager";
+import JThreeContext from "../../../../JThreeContext";
+import FBOWrapper from "../../../Resources/FBO/FBOWrapper";
+import ResolvedChainInfo from "../../ResolvedChainInfo";
+import Scene from "../../../Scene";
 class BasicTechnique extends JThreeObjectWithID {
 
   public _defaultMaterial: BasicMaterial;
@@ -169,4 +169,4 @@ class BasicTechnique extends JThreeObjectWithID {
   }
 }
 
-export = BasicTechnique;
+export default BasicTechnique;

@@ -14,4 +14,4 @@ const converterList = {
   "boolean": require("./Converter/BooleanAttributeConverter"),
   "string": require("./Converter/StringAttributeConverter")
 };
-export = converterList;
+export default converterList;

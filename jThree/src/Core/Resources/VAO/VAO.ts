@@ -1,7 +1,7 @@
-import ContextSafeResourceContainer = require("./../ContextSafeResourceContainer");
-import VAOWrapper = require("./VAOWrapper");
-import RBOInternalFormatType = require("../../../Wrapper/RBO/RBOInternalFormat");
-import Canvas = require("../../../Core/Canvas");
+import ContextSafeResourceContainer from "./../ContextSafeResourceContainer";
+import VAOWrapper from "./VAOWrapper";
+import RBOInternalFormatType from "../../../Wrapper/RBO/RBOInternalFormat";
+import Canvas from "../../../Core/Canvas";
 class VAO extends ContextSafeResourceContainer<VAOWrapper>
 {
   constructor() {
@@ -18,4 +18,4 @@ class VAO extends ContextSafeResourceContainer<VAOWrapper>
   }
 }
 
-export = VAO;
+export default VAO;

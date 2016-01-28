@@ -1,7 +1,7 @@
-import AreaLight = require("../../../../Core/Light/Impl/AreaLight");
-import LightNodeBase = require("./LightNodeBase");
-import LightBase = require("../../../../Core/Light/LightBase");
-import GomlAttribute = require("../../../GomlAttribute");
+import AreaLight from "../../../../Core/Light/Impl/AreaLight";
+import LightNodeBase from "./LightNodeBase";
+import LightBase from "../../../../Core/Light/LightBase";
+import GomlAttribute from "../../../GomlAttribute";
 
 class AreaLightNode extends LightNodeBase {
   constructor() {
@@ -29,4 +29,4 @@ class AreaLightNode extends LightNodeBase {
   }
 }
 
-export = AreaLightNode;
+export default AreaLightNode;

@@ -1,4 +1,4 @@
-import SpringJoint = require("./Joints/SpringJoint");
+import SpringJoint from "./Joints/SpringJoint";
 
 interface PMXJoint {
   jointName: string;
@@ -8,4 +8,4 @@ interface PMXJoint {
 }
 
 
-export =PMXJoint;
+export default PMXJoint;
