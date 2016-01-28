@@ -1,3 +1,4 @@
+import Vector2 = require("../../../../Math/Vector2");
 import Matrix = require("../../../../Math/Matrix");
 import ProgramWrapper = require("../../../Resources/Program/ProgramWrapper");
 import IVariableDescription = require("../IVariableDescription");
@@ -32,6 +33,10 @@ const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapp
   }
   if (uniforms["_nearClip"]) {
     pWrapper.uniformFloat("_nearClip", matArg.camera.Near);
+  }
+  if (uniforms["_resolution"]) {
+    const region = matArg.renderStage.Renderer.region;
+    pWrapper.uniformVector("_resolution", new Vector2(region.Width, region.Height));
   }
 };
 
