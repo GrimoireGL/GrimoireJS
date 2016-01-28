@@ -80,16 +80,7 @@ class PMX {
   private readTextBuf(): string {
     const length = this._readInt32();
     if (this.header.encoding === 0) {
-      // When this was UTF-16LE
-      const textArr = [];
-      for (let i = 0; i < length / 2; i++) {
-        const c = this._readInt16();
-        if (c === 0) {
-          continue; //  To discard null char
-        }
-        textArr.push(c);
-      }
-      return String.fromCharCode.apply(null, textArr);
+     return this._readUTF16LEString(length);
     }
     return this._readUTF8String(length);
   }
@@ -485,6 +476,19 @@ class PMX {
           } : undefined
       };
     }
+  }
+
+  private _readUTF16LEString(length: number): string {
+    // When this was UTF-16LE
+    const textArr = [];
+    for (let i = 0; i < length / 2; i++) {
+      const c = this._readInt16();
+      if (c === 0) {
+        continue; //  To discard null char
+      }
+      textArr.push(c);
+    }
+    return String.fromCharCode.apply(null, textArr);
   }
 
   private _readUTF8String(length: number): string {
