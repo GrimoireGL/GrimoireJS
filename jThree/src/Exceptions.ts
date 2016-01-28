@@ -36,3 +36,9 @@ export class AbstractClassMethodCalledException extends JThreeException {
     super("Invalid method was called.", "This method is abstract method, cant call by this instance");
   }
 }
+
+export class WebGLNotSupportedException extends JThreeException {
+  constructor() {
+    super("WebGL is not supported", "This browser not supported WebGL. Context generation for WebGL was failed.");
+  }
+}
