@@ -1,0 +1,28 @@
+{
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				"node_modules",
+				"bower_components",
+				".settings",
+				"ci",
+				"atom",
+				"scripts",
+				"bin",
+				"lib"
+			],
+			"path": "."
+		}
+	],
+	"settings":
+	{
+		"ignored_packages":
+		[
+			"SublimeCodeIntel"
+		],
+		"tab_size": 2,
+		"translate_tabs_to_spaces": true
+	}
+}

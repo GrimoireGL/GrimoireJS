@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.gbuffer.1" group="jthree.basic.gbuffer.1" order="300">
+<uniform-register>
+  <register name="jthree.basic.matrix"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec4 position;
+      attribute vec3 normal;
+      varying vec3 vNormal;
+      varying vec4 vPosition;
+
+      @vertonly{
+        uniform mat4 _matVM;
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+        	gl_Position = vPosition =_matPVM * position;
+        	vNormal =normalize(( _matVM * vec4(normal,0)).xyz);
+        }
+      }
+
+      @fragonly{
+        uniform float brightness;
+        vec2 compressNormal()
+        {
+        	float p = sqrt(vNormal.z * 8. + 8.);
+        	return vNormal.xy/p + 0.5;
+        }
+
+        float calcDepth()
+        {
+        	return vPosition.z/vPosition.w;
+        }
+
+        void main(void)
+        {
+        	gl_FragColor = vec4(compressNormal(),calcDepth(),brightness);
+        }
+      }
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

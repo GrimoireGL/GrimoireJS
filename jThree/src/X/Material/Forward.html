@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.x.basic" group="jthree.materials.forematerial" order="300">
+<uniform-register>
+  <register name="jthree.basic.matrix"/>
+  <register name="jthree.basic.buffer"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      attribute vec3 normal;
+      attribute vec2 uv;
+
+      @vertonly {
+      @import "jthree.builtin.vertex"
+        uniform mat4 _matPVM;
+        uniform mat4 _matVM;
+      }
+
+      varying vec3 vNormal;
+      varying vec2 vUv;
+      varying vec4 vPosition;
+
+      vec2 calcLightUV(vec4 projectionSpacePos)
+      {
+         return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;
+      }
+
+      @vertonly{
+        void main(void)
+        {
+          BasicVertexTransformOutput o =  basicVertexTransform(position,normal,uv,_matPVM,_matVM);
+          gl_Position = vPosition = o.position;
+          vNormal = o.normal;
+          vUv = o.uv;
+        }
+      }
+
+      @fragonly{
+        @{register:1,type:"buffer",name:"DLIGHT"}
+        uniform sampler2D _dlBuffer;
+        @{register:2,type:"buffer",name:"SLIGHT"}
+        uniform sampler2D _slBuffer;
+        uniform vec4 faceColor;
+        @{register:3,flag:"_textureUsed"}
+        uniform sampler2D texture;
+        uniform int _textureUsed;
+        uniform vec3 emissiveColor;
+        uniform vec3 specularColor;
+        void main(void)
+        {
+          vec2 lUV = vPosition.xy/vPosition.w /2.0 + vec2(.5);
+          gl_FragColor=faceColor;
+          if(_textureUsed == 1){
+            gl_FragColor = texture2D(texture,vUv);
+          }
+          gl_FragColor.rgb *= texture2D(_dlBuffer,lUV).rgb;
+          gl_FragColor.rgb *= texture2D(_slBuffer,lUV).rgb * specularColor;
+          //gl_FragColor.rgb += emissiveColor;
+          ////calculate light uv
+        }
+      }
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

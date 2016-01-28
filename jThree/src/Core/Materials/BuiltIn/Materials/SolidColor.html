@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.basic.solid" group="jthree.materials.forematerial" order="300">
+<uniform-register>
+  <register name="jthree.basic.matrix"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      varying vec4 vPosition;
+
+      @vertonly {
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+          gl_Position = vPosition = _matPVM * vec4(position,1.0);
+        }
+      }
+
+      @fragonly {
+        uniform vec4 solid;
+        @{default:[1,0,0]}
+        uniform float testArray[6];
+
+        void main(void)
+        {
+          gl_FragColor = vec4(testArray[0],testArray[1],testArray[2],1);
+        }
+      }
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

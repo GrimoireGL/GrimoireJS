@@ -1,0 +1,3 @@
+export = {
+  "rendererfit": require("./RendererFit")
+};
