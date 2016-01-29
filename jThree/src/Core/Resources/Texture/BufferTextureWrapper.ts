@@ -19,14 +19,14 @@ class BufferTextureWrapper extends TextureWrapperBase {
   }
 
   public unbind() {
-    //TODO consider is it really need to implement unbind
+    // TODO consider is it really need to implement unbind
     this.GL.bindTexture(TargetTextureType.Texture2D, null);
   }
 
   public resize(width: number, height: number) {
     this.bind();
     if (this.Initialized) {
-      var parent = <BufferTexture>this.Parent;
+      const parent = <BufferTexture>this.Parent;
       this.preTextureUpload();
       this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);
     }
@@ -35,7 +35,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
   public updateTexture(buffer: ArrayBufferView) {
     this.bind();
     if (this.Initialized) {
-      var parent = <BufferTexture>this.Parent;
+      const parent = <BufferTexture>this.Parent;
       this.preTextureUpload();
       this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, buffer);
     }
@@ -43,7 +43,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
   }
 
   public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
-    var parent = <BufferTexture>this.Parent;
+    const parent = <BufferTexture>this.Parent;
     return this.encodeHtmlImage(parent.Width, parent.Height, encoder);
   }
 }

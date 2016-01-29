@@ -12,32 +12,18 @@ import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
 /**
  *
  */
-class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
-{
-  private targetTextureType: TextureTargetType = TextureTargetType.Texture2D;
-
-  public get TargetTextureType() {
-    return this.targetTextureType;
-  }
+class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
 
   protected textureFormat: TextureFormat = TextureFormat.RGBA;
-
-  public get TextureFormat(): TextureFormat {
-    return this.textureFormat;
-  }
-
   protected elementFormat: ElementFormat = ElementFormat.UnsignedByte;
-
-  public get ElementFormat(): ElementFormat {
-    return this.elementFormat;
-  }
-
+  private targetTextureType: TextureTargetType = TextureTargetType.Texture2D;
   private onFilterParameterChangedHandler: JThreeEvent<TextureParameterType> = new JThreeEvent<TextureParameterType>();
   private minFilter: TextureMinFilterType = TextureMinFilterType.Nearest;
   private magFilter: TextureMagFilterType = TextureMagFilterType.Nearest;
   private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
   private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
   private flipY: boolean = false;
+  private textureName: string;
 
   constructor(textureName: string);
   constructor(textureName: string, flipY: boolean, isCubeTexture: boolean);
@@ -54,6 +40,17 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
     this.initializeForFirst();
   }
 
+  public get TargetTextureType() {
+    return this.targetTextureType;
+  }
+
+  public get TextureFormat(): TextureFormat {
+    return this.textureFormat;
+  }
+
+  public get ElementFormat(): ElementFormat {
+    return this.elementFormat;
+  }
 
   public get FlipY(): boolean {
     return this.flipY;
@@ -127,8 +124,6 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase>
       default:
     }
   }
-
-  private textureName: string;
 
   public get TextureName(): string {
     return this.textureName;

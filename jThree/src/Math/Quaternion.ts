@@ -12,10 +12,9 @@ import Matrix from "./Matrix";
 *
 */
 class Quaternion extends JThreeObject {
-  
 
   public rawElements: GLM.IArray;
-  
+
   /**
   * Constructor by specifing each elements.
   */

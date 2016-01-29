@@ -37,6 +37,8 @@ class BasicRenderer extends CanvasRegion {
 
   public renderPath: RenderPath = new RenderPath(this);
 
+  public bufferSet: BufferSet;
+
   /**
    * The camera reference this renderer using for draw.
    */
@@ -53,8 +55,6 @@ class BasicRenderer extends CanvasRegion {
   * Provides render stage abstraction
   */
   private renderPathExecutor: RenderPathExecutor;
-
-  public bufferSet: BufferSet;
 
 
   /**
@@ -87,24 +87,6 @@ class BasicRenderer extends CanvasRegion {
     this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
   }
 
-  /**
-   * Initialize and obtain the buffer texture which will be used when any texture sampler2D variable in GLSL was not assigned.
-   * This method will be called when RendererFactory called initialize method to construct instance.
-   * Basically,this method is not intended to be called from user.
-   * @return {TextureBase} Constructed texture buffer.
-   */
-  protected __initializeAlternativeTexture(): TextureBase {
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    let tex = <BufferTexture>rm.createTexture("jthree.alt.texture2D." + this.ID, 1, 1);
-    tex.updateTexture(new Uint8Array([255, 0, 255, 255])); // Use purple color as the color of default buffer texture.
-    return tex;
-  }
-
-  protected __initializeAlternativeCubeTexture(): CubeTexture {
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    let tex = rm.createCubeTextureWithSource("jthree.alt.textureCube." + this.ID, null);
-    return tex;
-  }
   /**
    * The camera reference this renderer using for draw.
    */
@@ -185,6 +167,27 @@ class BasicRenderer extends CanvasRegion {
   public applyViewportConfigure(): void {
     this.GL.viewport(this._viewport.Left, this._viewport.Top, this._viewport.Width, this._viewport.Height);
   }
+
+
+  /**
+   * Initialize and obtain the buffer texture which will be used when any texture sampler2D variable in GLSL was not assigned.
+   * This method will be called when RendererFactory called initialize method to construct instance.
+   * Basically,this method is not intended to be called from user.
+   * @return {TextureBase} Constructed texture buffer.
+   */
+  protected __initializeAlternativeTexture(): TextureBase {
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    let tex = <BufferTexture>rm.createTexture("jthree.alt.texture2D." + this.ID, 1, 1);
+    tex.updateTexture(new Uint8Array([255, 0, 255, 255])); // Use purple color as the color of default buffer texture.
+    return tex;
+  }
+
+  protected __initializeAlternativeCubeTexture(): CubeTexture {
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    let tex = rm.createCubeTextureWithSource("jthree.alt.textureCube." + this.ID, null);
+    return tex;
+  }
+
 }
 
 

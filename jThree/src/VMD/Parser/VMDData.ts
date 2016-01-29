@@ -8,9 +8,27 @@ import VMDMorphStatus from "./VMDMorphStatus";
 import {quat} from "gl-matrix";
 import BezierCurve from "./BezierCurve";
 import Q from "q";
+
 class VMDData {
 
   private static _asyncLoader: AsyncLoader<VMDData> = new AsyncLoader<VMDData>();
+
+  private reader: DataView;
+
+  private header: VMDHeader;
+
+  private motions: VMDMotions;
+
+  private morphs: VMDMorphs;
+
+  private _offset: number = 0;
+
+  constructor(data: ArrayBuffer) {
+    this.reader = new DataView(data, 0, data.byteLength);
+    this.loadHeader();
+    this.loadMotion();
+    this.loadMorph();
+  }
 
   public static LoadFromUrl(url: string): Q.IPromise<VMDData> {
     return VMDData._asyncLoader.fetch(url, (path) => {
@@ -31,15 +49,6 @@ class VMDData {
     });
   }
 
-  private reader: DataView;
-
-  private header: VMDHeader;
-
-  private motions: VMDMotions;
-
-  private morphs: VMDMorphs;
-
-  private _offset: number = 0;
 
   public get Motions() {
     return this.motions;
@@ -49,12 +58,54 @@ class VMDData {
     return this.morphs;
   }
 
-  constructor(data: ArrayBuffer) {
-    this.reader = new DataView(data, 0, data.byteLength);
-    this.loadHeader();
-    this.loadMotion();
-    this.loadMorph();
+  public getBoneFrame(frame: number, boneName: string): VMDBoneStatus {
+    const frames = this.motions[boneName];
+    if (typeof frames === "undefined") {
+      return null;
+    } else {
+      const index = this.binaryframeSearch(frames, frame);
+      if (index + 1 < frames.length) {
+        const nextFrame = frames[index + 1];
+        const currentFrame = frames[index];
+        const progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);
+        return {
+          frameNumber: frame,
+          position: this.complementBoneTranslation(currentFrame.position, nextFrame.position, progress, currentFrame.interpolation),
+          rotation: <number[]>quat.slerp([0, 0, 0, 0], currentFrame.rotation, nextFrame.rotation, currentFrame.interpolation[3].evaluate(progress))
+        };
+      } else {
+        return {
+          frameNumber: frame,
+          position: frames[index].position,
+          rotation: frames[index].rotation
+        };
+      }
+    }
   }
+
+  public getMorphFrame(frame: number, morphName: string): VMDMorphStatus {
+    const frames = this.morphs[morphName];
+    if (typeof frames === "undefined") {
+      return null;
+    } else {
+      const index = this.binaryframeSearch(frames, frame);
+      if (index + 1 < frames.length) {
+        const nextFrame = frames[index + 1];
+        const currentFrame = frames[index];
+        const progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);
+        return {
+          frameNumber: frame,
+          value: currentFrame.morphValue + (nextFrame.morphValue - currentFrame.morphValue) * progress,
+        };
+      } else {
+        return {
+          frameNumber: frame,
+          value: frames[index].morphValue,
+        };
+      }
+    }
+  }
+
 
   private loadHeader() {
     this.header
@@ -175,30 +226,6 @@ class VMDData {
     return currentIndex;
   }
 
-  public getBoneFrame(frame: number, boneName: string): VMDBoneStatus {
-    const frames = this.motions[boneName];
-    if (typeof frames === "undefined") {
-      return null;
-    } else {
-      const index = this.binaryframeSearch(frames, frame);
-      if (index + 1 < frames.length) {
-        const nextFrame = frames[index + 1];
-        const currentFrame = frames[index];
-        const progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);
-        return {
-          frameNumber: frame,
-          position: this.complementBoneTranslation(currentFrame.position, nextFrame.position, progress, currentFrame.interpolation),
-          rotation: <number[]>quat.slerp([0, 0, 0, 0], currentFrame.rotation, nextFrame.rotation, currentFrame.interpolation[3].evaluate(progress))
-        };
-      } else {
-        return {
-          frameNumber: frame,
-          position: frames[index].position,
-          rotation: frames[index].rotation
-        };
-      }
-    }
-  }
 
   private complementBoneTranslation(begin: number[], end: number[], progress: number, bezierCurves: BezierCurve[]) {
     const result = [0, 0, 0]; // TODO optimize this
@@ -208,28 +235,6 @@ class VMDData {
     return result;
   }
 
-  public getMorphFrame(frame: number, morphName: string): VMDMorphStatus {
-    const frames = this.morphs[morphName];
-    if (typeof frames === "undefined") {
-      return null;
-    } else {
-      const index = this.binaryframeSearch(frames, frame);
-      if (index + 1 < frames.length) {
-        const nextFrame = frames[index + 1];
-        const currentFrame = frames[index];
-        const progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);
-        return {
-          frameNumber: frame,
-          value: currentFrame.morphValue + (nextFrame.morphValue - currentFrame.morphValue) * progress,
-        };
-      } else {
-        return {
-          frameNumber: frame,
-          value: frames[index].morphValue,
-        };
-      }
-    }
-  }
 
   private _readUint8(): number {
     const result = this.reader.getUint8(this._offset);

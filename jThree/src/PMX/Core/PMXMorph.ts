@@ -2,6 +2,13 @@ import PMXModel from "./PMXModel";
 import PMXGeometry from "./PMXGeometry";
 import PMXMorphManager from "./PMXMorphManager";
 abstract class PMXMorph {
+
+  protected morphManager: PMXMorphManager;
+  protected model: PMXModel;
+  protected morphIndex: number;
+  private progress: number = 0;
+  private progressCurrentCache: number = 0;
+
   public static CreateMorph(model: PMXModel, index: number, morphManager: PMXMorphManager): PMXMorph {
     const morphData = model.ModelData.Morphs[index];
     switch (morphData.morphKind) {
@@ -29,9 +36,6 @@ abstract class PMXMorph {
     }
   }
 
-  protected morphManager: PMXMorphManager;
-  private progress: number = 0;
-  private progressCurrentCache: number = 0;
 
   public get Progress(): number {
     return this.progress;
@@ -47,8 +51,6 @@ abstract class PMXMorph {
     return this.TargetMorphData.morphName;
   }
 
-  protected model: PMXModel;
-  protected morphIndex: number;
   protected get TargetMorphData() {
     return this.model.ModelData.Morphs[this.morphIndex];
   }

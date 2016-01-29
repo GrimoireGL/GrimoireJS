@@ -4,12 +4,13 @@ import TextureBase from "./TextureBase";
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 
 class Texture extends TextureBase {
+
+  private imageSource: ImageSource = null;
+
   constructor(source: ImageSource, textureName: string) {
     super(textureName);
     this.imageSource = source;
   }
-
-  private imageSource: ImageSource = null;
 
   public get ImageSource(): ImageSource {
     return this.imageSource;
@@ -22,7 +23,7 @@ class Texture extends TextureBase {
   }
 
   protected getInstanceForRenderer(canvas: Canvas): TextureWrapper {
-    var textureWrapper = new TextureWrapper(canvas, this);
+    const textureWrapper = new TextureWrapper(canvas, this);
     return textureWrapper;
   }
 

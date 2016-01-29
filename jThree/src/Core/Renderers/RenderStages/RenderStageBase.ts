@@ -11,9 +11,16 @@ import JThreeContext from "../../../JThreeContext";
 import ResourceManager from "../../ResourceManager";
 abstract class RenderStageBase extends JThreeObjectWithID {
 
+  public stageVariables: {} = {};
+
   private renderer: BasicRenderer;
 
-  public stageVariables: {} = {};
+
+  constructor(renderer: BasicRenderer) {
+    super();
+
+    this.renderer = renderer;
+  }
 
   public getDefaultRendererConfigure(techniqueIndex: number): IRenderStageRendererConfigure {
     return {
@@ -40,12 +47,6 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 
   public get GL() {
     return this.Renderer.GL;
-  }
-
-  constructor(renderer: BasicRenderer) {
-    super();
-
-    this.renderer = renderer;
   }
 
   public preStage(scene: Scene, texs: ResolvedChainInfo) {

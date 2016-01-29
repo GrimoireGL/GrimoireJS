@@ -1,4 +1,3 @@
-import Vector3 from "../../../Math/Vector3";
 import StageChainTemplate from "../StageChainTemplate";
 ﻿import GeneraterInfo from "../TextureGeneraters/GeneraterInfoChunk";
 import BasicRenderer from "../BasicRenderer";

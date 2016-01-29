@@ -10,40 +10,21 @@ import ElementType from "../../../Wrapper/TextureType";
 class TextureWrapperBase extends ResourceWrapper {
 
   protected static altTextureBuffer: Float32Array = new Uint8Array([255, 0, 255, 255]);
+  private targetTexture: WebGLTexture = null;
+  private parent: TextureBase;
 
   constructor(owner: Canvas, parent: TextureBase) {
     super(owner);
     this.parent = parent;
     this.parent.onFilterParameterChanged(this.applyTextureParameter.bind(this));
   }
-  private parent: TextureBase;
 
   public get Parent(): TextureBase {
     return this.parent;
   }
 
-  private targetTexture: WebGLTexture = null;
-
-  protected setTargetTexture(texture: WebGLTexture) {
-    this.targetTexture = texture;
-  }
-
   public get TargetTexture(): WebGLTexture {
     return this.targetTexture;
-  }
-
-  /**
-   * apply texture parameters
-   */
-  private applyTextureParameter() {
-    if (this.targetTexture == null) {
-      return;
-    }
-    this.bind();
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.MinFilter, this.parent.MinFilter);
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.MagFilter, this.parent.MagFilter);
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.WrapS, this.parent.SWrap);
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.WrapT, this.parent.TWrap);
   }
 
   public bind() {
@@ -80,6 +61,19 @@ class TextureWrapperBase extends ResourceWrapper {
   public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
     return null;
   }
+
+  public dispose(): void {
+    if (this.targetTexture) {
+      this.GL.deleteTexture(this.targetTexture);
+      this.setInitialized(false);
+      this.targetTexture = null;
+    }
+  }
+
+  protected setTargetTexture(texture: WebGLTexture) {
+    this.targetTexture = texture;
+  }
+
 
   protected encodeHtmlImage(width: number, height: number, encode?: Func3<number, number, ArrayBufferView, Uint8Array>) {
     const lastFBO = this.GL.getParameter(this.GL.FRAMEBUFFER_BINDING);
@@ -180,12 +174,19 @@ class TextureWrapperBase extends ResourceWrapper {
     return img;
   }
 
-  public dispose(): void {
-    if (this.targetTexture) {
-      this.GL.deleteTexture(this.targetTexture);
-      this.setInitialized(false);
-      this.targetTexture = null;
+  /**
+   * apply texture parameters
+   */
+  private applyTextureParameter() {
+    if (this.targetTexture == null) {
+      return;
     }
+    this.bind();
+    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.MinFilter, this.parent.MinFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.MagFilter, this.parent.MagFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.WrapS, this.parent.SWrap);
+    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.WrapT, this.parent.TWrap);
   }
+
 }
 export default TextureWrapperBase;
