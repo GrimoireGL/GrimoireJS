@@ -23,7 +23,6 @@ This library depends on the following libraries. We appreciate these contributor
 
 |Name|Purpose|URL|Memo|
 |:-:|:-:|:-:|:-:|
-|superagent|Use for ajax to resolve plugins|https://visionmedia.github.io/superagent/||
 |gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
 
 
@@ -62,4 +61,3 @@ npm run build
 |npm start|only run simple web server(under wwwroot)|
 
 (simple web server supported LiveReload)
-

@@ -329,7 +329,6 @@
     "./jThree/src/refs/q/q.d.ts",
     "./jThree/src/refs/sinon-chai/sinon-chai.d.ts",
     "./jThree/src/refs/sinon/sinon.d.ts",
-    "./jThree/src/refs/superagent/superagent.d.ts",
     "./jThree/src/VMD/Goml/VMDNode.ts",
     "./jThree/src/VMD/Parser/BezierCurve.ts",
     "./jThree/src/VMD/Parser/VMDBoneStatus.ts",
