@@ -1,3 +1,5 @@
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import Canvas from "../../../Core/Canvas/Canvas";
 
@@ -40,6 +42,7 @@ class CanvasNodeBase extends GomlTreeNodeBase {
   protected setCanvas(canvas: Canvas) {
     this.canvas = canvas;
     this.sizeChanged(this.DefaultWidth, this.DefaultHeight);
+    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(canvas);
   }
 
   public get Canvas(): Canvas {

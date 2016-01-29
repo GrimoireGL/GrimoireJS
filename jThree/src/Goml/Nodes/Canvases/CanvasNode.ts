@@ -1,3 +1,5 @@
+import ICanvasElementStructure from "../../../Core/Canvas/ICanvasElementStructure";
+import CanvasElementBuilder from "../../../Core/Canvas/CanvasElementBuilder";
 import Canvas from "../../../Core/Canvas/Canvas";
 import JThreeContext from "../../../JThreeContext";
 import ContextComponents from "../../../ContextComponents";
@@ -7,8 +9,8 @@ import {Action1} from "../../../Base/Delegates";
 import ResourceLoader from "../../../Core/ResourceLoader";
 
 class CanvasNode extends CanvasNodeBase {
-  public canvasElement: HTMLCanvasElement;
-  public targetFrame: HTMLElement;
+  public canvasFrames: ICanvasElementStructure;
+
   private resizedFunctions: Action1<CanvasNode>[] = [];
 
   constructor() {
@@ -25,37 +27,11 @@ class CanvasNode extends CanvasNodeBase {
   protected onMount(): void {
     super.onMount();
     // generate canvas
-    this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
-    const wrappingFrame = document.createElement("div");
-    wrappingFrame.style.marginLeft = "auto";
-    wrappingFrame.style.marginRight = "auto";
-    wrappingFrame.style.width = this.attributes.getValue("width") + "px";
-    wrappingFrame.style.height = this.attributes.getValue("height") + "px";
-    this.on("resize", () => {
-     wrappingFrame.style.width = this.attributes.getValue("width") + "px";
-     wrappingFrame.style.height = this.attributes.getValue("height") + "px";
-    });
-    const resizeElement = document.createElement("div");
-    resizeElement.style.position = "relative";
-    resizeElement.style.margin = "0";
-    resizeElement.style.padding = "0";
-    resizeElement.style.height = "100%";
-    wrappingFrame.appendChild(resizeElement);
-    this.targetFrame.appendChild(wrappingFrame);
-
-    this.canvasElement = document.createElement("canvas");
-    this.canvasElement.style.position = "absolute";
-    this.canvasElement.setAttribute("antialias", "false");
-    this.canvasElement.classList.add("x-j3-c-" + this.ID);
-    resizeElement.appendChild(this.canvasElement);
-
-    // this.attributes.setValue("width", this.DefaultWidth);
-    // this.attributes.setValue("height", this.DefaultHeight);
-
+    const canvas = <HTMLElement>document.querySelector(this.Frame);
+    this.canvasFrames = CanvasElementBuilder.generate(canvas, this.attributes.getValue("width"), this.attributes.getValue("height"));
 
     // initialize contexts
-    this.setCanvas(new Canvas(this.canvasElement));
-    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);
+    this.setCanvas(new Canvas(this.canvasFrames.canvas));
 
     // construct loader
     let defaultLoader;
@@ -67,17 +43,11 @@ class CanvasNode extends CanvasNodeBase {
     if (!defaultLoader) {
       defaultLoader = require("../../../static/defaultLoader.html");
     }
-    const loaderContainer = document.createElement("div");
-    loaderContainer.style.position = "absolute";
-    loaderContainer.style.width = this.attributes.getValue("width") + "px";
-    loaderContainer.style.height = this.attributes.getValue("height") + "px";
-    loaderContainer.classList.add("x-j3-loader-container");
-    loaderContainer.innerHTML = defaultLoader;
-    resizeElement.appendChild(loaderContainer);
+    this.canvasFrames.loaderContainer.innerHTML = defaultLoader;
 
-    const progressLoaders = loaderContainer.querySelectorAll(".x-j3-loader-progress");
+    const progressLoaders = this.canvasFrames.loaderContainer.querySelectorAll(".x-j3-loader-progress");
     JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).promise.then(() => {
-      const loaders = resizeElement.querySelectorAll(".x-j3-loader-container");
+      const loaders = this.canvasFrames.resizeDetecter.querySelectorAll(".x-j3-loader-container");
       for (let i = 0; i < loaders.length; i++) {
         const loader = loaders.item(i);
         loader.remove();
@@ -111,16 +81,16 @@ class CanvasNode extends CanvasNodeBase {
   }
 
   protected get DefaultWidth(): number {
-    return this.targetFrame.clientWidth;
+    return this.canvasFrames.container.clientWidth;
   }
 
   protected get DefaultHeight(): number {
-    return this.targetFrame.clientHeight;
+    return this.canvasFrames.container.clientHeight;
   }
 
   protected sizeChanged(width: number, height: number) {
-    this.canvasElement.width = width;
-    this.canvasElement.height = height;
+    this.canvasFrames.canvas.width = width;
+    this.canvasFrames.canvas.height = height;
   }
 }
 
