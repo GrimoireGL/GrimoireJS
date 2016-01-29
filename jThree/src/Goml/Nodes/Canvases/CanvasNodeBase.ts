@@ -1,3 +1,4 @@
+import CanvasManager from "../../../Core/Canvas/CanvasManager";
 import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
