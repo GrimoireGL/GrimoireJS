@@ -3,6 +3,7 @@ import Scene from "./Scene";
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
 
+
 /**
 * The class for managing entire scenes.
 */
@@ -30,6 +31,7 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
       });
     }
   }
+
 
   /**
    * All scene list this class is managing.
