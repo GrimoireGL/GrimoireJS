@@ -62,12 +62,30 @@ class VMDNode extends GomlTreeNodeBase {
   protected onMount(): void {
     super.onMount();
     this.targetPMX = <PMXNode>this.parent;
-    this.targetPMX.on('loaded', () => { this.attributes.updateValue(); });
+    this.targetPMX.on("loaded", () => { this.attributes.updateValue(); });
+  }
+
+  public update() {
+    if (this.enabled && this.autoSpeed !== 0) {
+      const timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
+      if (this.lastTime === null) {
+        this.lastTime = timer.time;
+        return;
+      } else {
+        const dt = timer.time - this.lastTime;
+        this.lastTime = timer.time;
+        this.attributes.setValue("frame", this.frame + dt / 1000 * 30 * this.autoSpeed);
+      }
+    }
   }
 
   private _onSrcAttrChanged(attr): void {
-    if (!attr.Value || attr.Value == this.lastURL) return;
-    if (this.vmdLoadingDeferred) this.vmdLoadingDeferred.resolve(null);
+    if (!attr.Value || attr.Value === this.lastURL) {
+      return;
+    }
+    if (this.vmdLoadingDeferred) {
+      this.vmdLoadingDeferred.resolve(null);
+    }
     this.vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
     VMDData.LoadFromUrl(attr.Value).then((data) => {
       this.lastURL = attr.Value;
@@ -78,36 +96,26 @@ class VMDNode extends GomlTreeNodeBase {
 
   private _onFrameAttrChanged(attr): void {
     this.frame = Math.max(0, attr.Value);
-    if (!this.attributes.getValue("enabled")) return;
+    if (!this.attributes.getValue("enabled")) {
+      return;
+    }
     if (this.targetPMX.PMXModelReady && this.targetVMD) {
-      for (var boneName in this.targetVMD.Motions) {
-        var bone: PMXBone;
+      for (let boneName in this.targetVMD.Motions) {
+        let bone: PMXBone;
         if (bone = this.targetPMX.PMXModel.skeleton.getBoneByName(boneName)) {
-          var current = this.targetVMD.getBoneFrame(this.frame, boneName);
+          const current = this.targetVMD.getBoneFrame(this.frame, boneName);
           bone.Transformer.Position = new Vector3(current.position);
           (<PMXBoneTransformer>bone.Transformer).userRotation = new Quaternion(current.rotation);
         }
       }
-      for (var morphName in this.targetVMD.Morphs) {
-        var morph: PMXMorph;
+      for (let morphName in this.targetVMD.Morphs) {
+        let morph: PMXMorph;
         if (morph = this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {
-          var morphCurrent = this.targetVMD.getMorphFrame(this.frame, morphName);
-          if (morph) morph.Progress = morphCurrent.value;
+          const morphCurrent = this.targetVMD.getMorphFrame(this.frame, morphName);
+          if (morph) {
+           morph.Progress = morphCurrent.value;
+          }
         }
-      }
-    }
-  }
-
-  public update() {
-    if (this.enabled && this.autoSpeed !== 0) {
-      var timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
-      if (this.lastTime === null) {
-        this.lastTime = timer.time;
-        return;
-      } else {
-        var dt = timer.time - this.lastTime;
-        this.lastTime = timer.time;
-        this.attributes.setValue("frame", this.frame + dt / 1000 * 30 * this.autoSpeed);
       }
     }
   }

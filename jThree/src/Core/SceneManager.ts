@@ -2,8 +2,6 @@ import jThreeObjectEE from "../Base/JThreeObjectEE";
 import Scene from "./Scene";
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
-import JThreeEvent from "../Base/JThreeEvent";
-import ISceneListChangedEventArgs from "./ISceneListChangedEventArgs";
 
 /**
 * The class for managing entire scenes.
