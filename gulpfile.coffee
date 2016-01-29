@@ -26,7 +26,7 @@ notifier = require 'node-notifier'
 formatter = require 'pretty-hrtime'
 runSequence = require 'run-sequence'
 ts = require 'gulp-typescript'
-changed = require 'gulp-changed'
+cached = require 'gulp-cached'
 tslint = require 'gulp-tslint'
 mkdir = require 'mkdirp'
 
@@ -167,10 +167,11 @@ gulp.task 'build:main:ts', (done) ->
   c = config.main
   gulp
     .src tsEntries
-    .pipe changed tsDest
     .pipe sourcemaps.init()
     .pipe ts tsProject, undefined, reporter
     .js
+    .pipe cached
+      title: "ts"
     .pipe sourcemaps.write()
     .pipe gulp.dest tsDest
     .on 'end', ->
@@ -188,7 +189,8 @@ gulp.task 'build:main:others', (done) ->
     .map (v) -> "#{tsBase}/**/*#{v}"
   gulp
     .src othersEntries
-    .pipe changed tsDest
+    .pipe cached
+      title:"others"
     .pipe gulp.dest tsDest
     .on 'end', ->
       done()
