@@ -1,16 +1,16 @@
+import CanvasManager from "../../../Core/Canvas/CanvasManager";
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import ICanvasElementStructure from "../../../Core/Canvas/ICanvasElementStructure";
 import CanvasElementBuilder from "../../../Core/Canvas/CanvasElementBuilder";
 import Canvas from "../../../Core/Canvas/Canvas";
 import JThreeContext from "../../../JThreeContext";
 import ContextComponents from "../../../ContextComponents";
-import CanvasNodeBase from "./CanvasNodeBase";
-import {Action1} from "../../../Base/Delegates";
 import ResourceLoader from "../../../Core/ResourceLoader";
 
-class CanvasNode extends CanvasNodeBase {
+class CanvasNode extends GomlTreeNodeBase {
   public canvasFrames: ICanvasElementStructure;
 
-  private resizedFunctions: Action1<CanvasNode>[] = [];
+  public canvas: Canvas;
 
   constructor() {
     super();
@@ -19,6 +19,26 @@ class CanvasNode extends CanvasNodeBase {
         value: undefined,
         converter: "string",
         // TODO pnly: frame onchange handler
+      },
+      "width": {
+        value: 640,
+        converter: "float",
+        onchanged: (v) => {
+          this.emit("resize");
+          this.sizeChanged(v.Value, this.attributes.getValue("height"));
+        },
+      },
+      "height": {
+        value: 480,
+        converter: "float",
+        onchanged: (v) => {
+          this.emit("resize");
+          this.sizeChanged(this.attributes.getValue("width"), v.Value);
+        },
+      },
+      "loader": {
+        value: undefined,
+        converter: "string",
       }
     });
   }
@@ -28,22 +48,6 @@ class CanvasNode extends CanvasNodeBase {
     return this.attributes.getValue("frame") || "body";
   }
 
-  public resize();
-  public resize(func: Action1<CanvasNode>);
-  public resize(func?: Action1<CanvasNode>) {
-    if (typeof arguments[0] === "function") {
-      if (this.resizedFunctions.indexOf(arguments[0]) === -1) {
-        this.resizedFunctions.push(arguments[0]);
-      }
-    } else {
-      this.sizeChanged(this.DefaultWidth, this.DefaultHeight);
-      this.resizedFunctions.forEach(function(f) {
-        f(this);
-      }.bind(this));
-    }
-
-  }
-
   protected onMount(): void {
     super.onMount();
     // generate canvas
@@ -51,7 +55,8 @@ class CanvasNode extends CanvasNodeBase {
     this.canvasFrames = CanvasElementBuilder.generate(canvas, this.attributes.getValue("width"), this.attributes.getValue("height"));
 
     // initialize contexts
-    this.setCanvas(new Canvas(this.canvasFrames.canvas));
+    this.canvas = new Canvas(this.canvasFrames.canvas);
+    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.canvas);
 
     // construct loader
     let defaultLoader;
