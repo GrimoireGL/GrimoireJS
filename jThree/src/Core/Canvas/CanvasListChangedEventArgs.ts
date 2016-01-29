@@ -1,6 +1,6 @@
 import JThreeObject from "../../Base/JThreeObject";
 import RendererStateChangedType from "../ListStateChangedType";
-import Canvas from "./Canvas/Canvas";
+import Canvas from "./Canvas";
 
 class CanvasListChangedEventArgs extends JThreeObject {
   constructor(private changeType: RendererStateChangedType, private affectedRenderer: Canvas) {

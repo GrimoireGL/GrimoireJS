@@ -60,7 +60,7 @@ typedocDest = 'ci/docs'
 tsdSrc = './jThree/refs/**/*.d.ts'
 
 # test target (Array)
-testTarget = './jThree/test/build/test.js'
+testTarget = './jThree/test/**/*.js'
 
 # templete convertion root (for entries of jade and haml)
 templeteRoot = 'jThree/wwwroot'
@@ -368,7 +368,9 @@ mocha task
 gulp.task 'mocha', ->
   gulp
     .src testTarget
-    .pipe mocha()
+    .pipe mocha
+      compilers:
+        js: 'espower-babel/guess'
 
 
 ###
