@@ -80,7 +80,6 @@
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "source-map-support": "^0.4.0",
-    "superagent": "^1.6.1",
     "ts-loader": "^0.7.2",
     "tsify": "^0.13.2",
     "tslint": "^3.2.1",
