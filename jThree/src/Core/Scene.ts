@@ -11,10 +11,6 @@ import RendererListChangedEventArgs from "./RendererListChangedEventArgs";
  * Provides scene feature.
  */
 class Scene extends jThreeObjectEEWithID {
-  constructor(id?: string) {
-    super(id);
-    this.enabled = true;
-  }
 
   public sceneObjectStructureChanged: JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
 
@@ -24,13 +20,31 @@ class Scene extends jThreeObjectEEWithID {
    */
   public enabled: boolean;
 
+  public children: SceneObject[] = [];
+
+  /**
+   * Scene ambient coefficients
+   */
+  public sceneAmbient: Color3 = new Color3(1.0, 1.0, 1.0);
+
+  private _renderers: BasicRenderer[] = [];
+
+  private cameras: { [id: string]: Camera } = {};
+
+  constructor(id?: string) {
+    super(id);
+    this.enabled = true;
+  }
+
   /**
    * Scene will be updated by this method.
    * This method is intended to be called by jThree system.
    * You don't need to call this method manually in most of use case.
    */
   public update(): void {
-    if (!this.enabled) return;
+    if (!this.enabled) {
+      return;
+    }
     this.children.forEach(v => v.update());
   }
 
@@ -46,8 +60,6 @@ class Scene extends jThreeObjectEEWithID {
       r.afterRender();
     });
   }
-
-  private _renderers: BasicRenderer[] = [];
 
   public addRenderer(renderer: BasicRenderer): void {
     this._renderers.push(renderer);
@@ -74,9 +86,6 @@ class Scene extends jThreeObjectEEWithID {
   public get Renderers(): BasicRenderer[] {
     return this._renderers;
   }
-
-  public children: SceneObject[] = [];
-
 
   public addObject(targetObject: SceneObject): void {
     this.children.push(targetObject);
@@ -105,8 +114,6 @@ class Scene extends jThreeObjectEEWithID {
     }
   }
 
-  private cameras: { [id: string]: Camera } = {};
-
   /**
    * Append the camera to this scene as managed
    */
@@ -120,11 +127,6 @@ class Scene extends jThreeObjectEEWithID {
   public getCamera(id: string): Camera {
     return this.cameras[id];
   }
-
-  /**
-   * Scene ambient coefficients
-   */
-  public sceneAmbient: Color3 = new Color3(1.0, 1.0, 1.0);
 
   public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs) {
     this.sceneObjectStructureChanged.fire(this, eventArg);

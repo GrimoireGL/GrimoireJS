@@ -2,6 +2,21 @@ import JThreeObject from "../Base/JThreeObject";
 import IContextComponent from "../IContextComponent";
 import ContextComponent from "../ContextComponents";
 class Timer extends JThreeObject implements IContextComponent {
+
+
+  public currentFrame: number = 0;
+
+  public time: number = 0;
+
+  public timeFromLast: number = 0;
+
+  private _initializedTime: number = 0;
+
+  constructor() {
+    super();
+    this._initializedTime = Date.now();
+  }
+
   public getContextComponentIndex() {
     return ContextComponent.Timer;
   }
@@ -13,18 +28,6 @@ class Timer extends JThreeObject implements IContextComponent {
     this.time = currentTime;
   }
 
-  constructor() {
-    super();
-    this._initializedTime = Date.now();
-  }
-
-  private _initializedTime: number = 0;
-
-  public currentFrame: number = 0;
-
-  public time: number = 0;
-
-  public timeFromLast: number = 0;
 }
 
 export default Timer;

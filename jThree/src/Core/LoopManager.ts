@@ -32,10 +32,6 @@ interface LoopAction {
  * @type {[type]}
  */
 class LoopManager implements IContextComponent {
-  public getContextComponentIndex(): number {
-    return ContextComponents.LoopManager;
-  }
-
   /**
    * The function to register next loop calling in next frame.
    *
@@ -88,6 +84,10 @@ class LoopManager implements IContextComponent {
       action: action
     });
     this._loopActions.sort((a1, a2) => a1.order - a2.order);
+  }
+
+  public getContextComponentIndex(): number {
+    return ContextComponents.LoopManager;
   }
 
   /**

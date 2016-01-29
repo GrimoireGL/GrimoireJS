@@ -3,7 +3,6 @@ import CanvasElementBuilder from "../../../Core/Canvas/CanvasElementBuilder";
 import Canvas from "../../../Core/Canvas/Canvas";
 import JThreeContext from "../../../JThreeContext";
 import ContextComponents from "../../../ContextComponents";
-import CanvasManager from "../../../Core/Canvas/CanvasManager";
 import CanvasNodeBase from "./CanvasNodeBase";
 import {Action1} from "../../../Base/Delegates";
 import ResourceLoader from "../../../Core/ResourceLoader";
@@ -22,6 +21,27 @@ class CanvasNode extends CanvasNodeBase {
         // TODO pnly: frame onchange handler
       }
     });
+  }
+
+
+  public get Frame(): string {
+    return this.attributes.getValue("frame") || "body";
+  }
+
+  public resize();
+  public resize(func: Action1<CanvasNode>);
+  public resize(func?: Action1<CanvasNode>) {
+    if (typeof arguments[0] === "function") {
+      if (this.resizedFunctions.indexOf(arguments[0]) === -1) {
+        this.resizedFunctions.push(arguments[0]);
+      }
+    } else {
+      this.sizeChanged(this.DefaultWidth, this.DefaultHeight);
+      this.resizedFunctions.forEach(function(f) {
+        f(this);
+      }.bind(this));
+    }
+
   }
 
   protected onMount(): void {
@@ -58,26 +78,6 @@ class CanvasNode extends CanvasNodeBase {
           progress.style.width = p.completedResource / p.resourceCount * 100 + "%";
         }
       });
-  }
-
-  public get Frame(): string {
-    return this.attributes.getValue("frame") || "body";
-  }
-
-  public resize();
-  public resize(func: Action1<CanvasNode>);
-  public resize(func?: Action1<CanvasNode>) {
-    if (typeof arguments[0] === "function") {
-      if (this.resizedFunctions.indexOf(arguments[0]) === -1) {
-        this.resizedFunctions.push(arguments[0]);
-      }
-    } else {
-      this.sizeChanged(this.DefaultWidth, this.DefaultHeight);
-      this.resizedFunctions.forEach(function(f) {
-        f(this);
-      }.bind(this));
-    }
-
   }
 
   protected get DefaultWidth(): number {

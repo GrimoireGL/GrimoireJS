@@ -128,7 +128,9 @@ class SceneObject extends JThreeObjectEEWithID {
   */
 
   public set ParentScene(scene: Scene) {
-    if (scene === this.parentScene) return;
+    if (scene === this.parentScene) {
+      return;
+    }
     const lastScene = this.parentScene;
     this.parentScene = scene;
     // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)

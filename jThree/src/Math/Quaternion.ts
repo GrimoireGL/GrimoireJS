@@ -12,11 +12,10 @@ import Matrix from "./Matrix";
 *
 */
 class Quaternion extends JThreeObject {
-  public static get Identity(): Quaternion {
-    return new Quaternion(quat.create());
-  }
+  
 
-
+  public rawElements: GLM.IArray;
+  
   /**
   * Constructor by specifing each elements.
   */
@@ -25,80 +24,6 @@ class Quaternion extends JThreeObject {
     this.rawElements = rawElements;
   }
 
-  public rawElements: GLM.IArray;
-
-  public get eularAngles() {
-    const eular = this.FactoringQuaternionZXY();
-    return new Vector3(eular.x, eular.y, eular.z);
-  }
-
-  public set eularAngles(v: Vector3) {
-    this.rawElements = Quaternion.Euler(v.X, v.Y, v.Z).rawElements;
-  }
-
-  /**
-  * Getter for X.
-  */
-  public get X(): number {
-    return this.rawElements[0];
-  }
-
-  /**
-  * Getter for Y.
-  */
-  public get Y(): number {
-    return this.rawElements[1];
-  }
-
-  /**
-  * Getter for Z.
-  */
-  public get Z(): number {
-    return this.rawElements[2];
-  }
-
-  /**
-  * Getter for W.
-  */
-  public get W(): number {
-    return this.rawElements[3];
-  }
-
-  /**
-  * Getter for imaginary part vector.
-  * It returns the vector (x,y,z)
-  */
-  public get ImaginaryPart(): Vector3 {
-    return new Vector3(this.X, this.Y, this.Z);
-  }
-
-  /**
-  * Get the conjugate of this quaternion
-  */
-  public get Conjugate(): Quaternion {
-    const newQuat = quat.create();
-    return new Quaternion(quat.conjugate(newQuat, this.rawElements));
-  }
-
-  /**
-  * Get the length
-  */
-  public get Length(): number {
-    return quat.len(this.rawElements);
-  }
-  /**
-  * Get normalized quaternion
-  */
-  public Normalize(): Quaternion {
-    const newQuat = quat.create();
-    return new Quaternion(quat.normalize(newQuat, this.rawElements));
-  }
-
-
-  public Inverse(): Quaternion {
-    const newQuat = quat.create();
-    return new Quaternion(quat.invert(newQuat, this.rawElements));
-  }
 
   /**
   * Calculate add result of two quaternion
@@ -192,6 +117,83 @@ class Quaternion extends JThreeObject {
     }
     const num5 = Math.sqrt(1 + m22 - m00 - m11);
     return new Quaternion([(m20 + m02) * 0.5 / num5, (m21 + m12) * 0.5 / num5, 0.5 * num5, (m01 - m10) * 0.5 / num5]);
+  }
+
+  public static get Identity(): Quaternion {
+    return new Quaternion(quat.create());
+  }
+
+  public get eularAngles() {
+    const eular = this.FactoringQuaternionZXY();
+    return new Vector3(eular.x, eular.y, eular.z);
+  }
+
+  public set eularAngles(v: Vector3) {
+    this.rawElements = Quaternion.Euler(v.X, v.Y, v.Z).rawElements;
+  }
+
+  /**
+  * Getter for X.
+  */
+  public get X(): number {
+    return this.rawElements[0];
+  }
+
+  /**
+  * Getter for Y.
+  */
+  public get Y(): number {
+    return this.rawElements[1];
+  }
+
+  /**
+  * Getter for Z.
+  */
+  public get Z(): number {
+    return this.rawElements[2];
+  }
+
+  /**
+  * Getter for W.
+  */
+  public get W(): number {
+    return this.rawElements[3];
+  }
+
+  /**
+  * Getter for imaginary part vector.
+  * It returns the vector (x,y,z)
+  */
+  public get ImaginaryPart(): Vector3 {
+    return new Vector3(this.X, this.Y, this.Z);
+  }
+
+  /**
+  * Get the conjugate of this quaternion
+  */
+  public get Conjugate(): Quaternion {
+    const newQuat = quat.create();
+    return new Quaternion(quat.conjugate(newQuat, this.rawElements));
+  }
+
+  /**
+  * Get the length
+  */
+  public get Length(): number {
+    return quat.len(this.rawElements);
+  }
+  /**
+  * Get normalized quaternion
+  */
+  public Normalize(): Quaternion {
+    const newQuat = quat.create();
+    return new Quaternion(quat.normalize(newQuat, this.rawElements));
+  }
+
+
+  public Inverse(): Quaternion {
+    const newQuat = quat.create();
+    return new Quaternion(quat.invert(newQuat, this.rawElements));
   }
 
   public toAngleAxisString() {
