@@ -1,7 +1,7 @@
 import ContextSafeResourceContainer from "./../ContextSafeResourceContainer";
 import VAOWrapper from "./VAOWrapper";
 import RBOInternalFormatType from "../../../Wrapper/RBO/RBOInternalFormat";
-import Canvas from "../../../Core/Canvas";
+import Canvas from "../../../Core/Canvas/Canvas";
 class VAO extends ContextSafeResourceContainer<VAOWrapper>
 {
   constructor() {

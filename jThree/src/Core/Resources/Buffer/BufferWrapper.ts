@@ -1,7 +1,7 @@
 import Buffer from "./Buffer";
 import ElementType from "../../../Wrapper/ElementType";
 import ResourceWrapper from "../ResourceWrapper";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 /**
  * Buffer wrapper based on context.
  */

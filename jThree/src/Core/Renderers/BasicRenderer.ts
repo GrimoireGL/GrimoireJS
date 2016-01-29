@@ -12,8 +12,8 @@ import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 import Scene from "../Scene";
 import RenderPath from "./RenderPath";
-import Canvas from "../Canvas";
-import CanvasRegion from "../CanvasRegion";
+import Canvas from "../Canvas/Canvas";
+import CanvasRegion from "../Canvas/CanvasRegion";
 /**
 * Provides base class feature for renderer classes.
 */

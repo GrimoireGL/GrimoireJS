@@ -1,13 +1,13 @@
 import IDisposable from "../../Base/IDisposable";
 import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
-import Canvas from "../Canvas";
+import Canvas from "../Canvas/Canvas";
 import {Action1} from "../../Base/Delegates";
 import {AbstractClassMethodCalledException} from "../../Exceptions";
-import CanvasListChangedEventArgs from "../CanvasListChangedEventArgs";
+import CanvasListChangedEventArgs from "../Canvas/CanvasListChangedEventArgs";
 import ListStateChangedType from "../ListStateChangedType";
 import ResourceWrapper from "./ResourceWrapper";
 import JThreeContext from "../../JThreeContext";
-import CanvasManager from "../CanvasManager";
+import CanvasManager from "../Canvas/CanvasManager";
 import ContextComponents from "../../ContextComponents";
 /**
  * Provides context difference abstraction.

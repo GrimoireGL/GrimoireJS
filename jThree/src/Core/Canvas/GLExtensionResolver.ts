@@ -1,5 +1,5 @@
-import JThreeObject from "../Base/JThreeObject";
-import JThreeLogger from "../Base/JThreeLogger";
+import JThreeObject from "../../Base/JThreeObject";
+import JThreeLogger from "../../Base/JThreeLogger";
 import GLExtensionList from "./GLExtensionList";
 /**
  * Provides the feature to require gl extension.

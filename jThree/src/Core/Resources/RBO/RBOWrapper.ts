@@ -1,5 +1,5 @@
 import ResourceWrapper from "../ResourceWrapper";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import RBO from "./RBO";
 /**
  * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.

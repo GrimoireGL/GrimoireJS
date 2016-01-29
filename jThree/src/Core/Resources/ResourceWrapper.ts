@@ -1,6 +1,6 @@
 import IDisposable from "../../Base/IDisposable";
 import JThreeObject from "../../Base/JThreeObject";
-import ContextManager from "../Canvas";
+import ContextManager from "../Canvas/Canvas";
 import JThreeEvent from "../../Base/JThreeEvent";
 import {Action2} from "../../Base/Delegates";
 class ResourceWrapper extends JThreeObject implements IDisposable {

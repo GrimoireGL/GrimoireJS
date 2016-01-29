@@ -1,4 +1,4 @@
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import ResourceWrapper from "../ResourceWrapper";
 import FrameBufferAttachmentType from "../../../Wrapper/FrameBufferAttachmentType";
 import TextureBase from "../Texture/TextureBase";

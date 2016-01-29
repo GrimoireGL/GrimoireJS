@@ -1,6 +1,6 @@
 ﻿import BufferTargetType from "../../../Wrapper/BufferTargetType";
 import BufferUsageType from "../../../Wrapper/BufferUsageType";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import ElementType from "../../../Wrapper/ElementType";
 import ContextSafeResourceContainer from "../ContextSafeResourceContainer";
 import BufferWrapper from "./BufferWrapper";

@@ -1,4 +1,4 @@
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import TargetTextureType from "../../../Wrapper/TargetTextureType";
 import BufferTexture from "./BufferTexture";
 import TextureWrapperBase from "./TextureWrapperBase";

@@ -3,7 +3,7 @@ import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
 import ElementFormat from "../../../Wrapper/TextureType";
 import TextureMinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
 import TextureMagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import TextureBase from "./TextureBase";
 /**
  * Buffer texture is a texture created from array programatically.

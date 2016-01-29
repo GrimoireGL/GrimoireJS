@@ -1,6 +1,6 @@
 import ContextSafeContainer from "../ContextSafeResourceContainer";
 import Shader from "../Shader/Shader";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import ProgramWrapper from "./ProgramWrapper";
 
 class Program extends ContextSafeContainer<ProgramWrapper> {

@@ -1,5 +1,5 @@
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
-import Canvas from "../../../Core/Canvas";
+import Canvas from "../../../Core/Canvas/Canvas";
 
 class CanvasNodeBase extends GomlTreeNodeBase {
   constructor() {

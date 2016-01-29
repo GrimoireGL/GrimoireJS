@@ -1,6 +1,6 @@
 ﻿import ContextSafeContainer from "../ContextSafeResourceContainer";
 import ShaderType from "../../../Wrapper/ShaderType";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import ShaderWrapper from "./ShaderWrapper";
 import {Action2} from "../../../Base/Delegates";
 import JThreeEvent from "../../../Base/JThreeEvent";

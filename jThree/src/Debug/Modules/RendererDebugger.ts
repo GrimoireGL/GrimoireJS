@@ -6,7 +6,7 @@ import ContextComponents from "../../ContextComponents";
 import Scene from "../../Core/Scene";
 import BasicRenderer from "../../Core/Renderers/BasicRenderer";
 import Q from "q";
-import Canvas from "../../Core/Canvas";
+import Canvas from "../../Core/Canvas/Canvas";
 import IRequestBufferTexture from "./Renderer/IRequestBufferTexture";
 import IRequestShadowMapTexture from "./Renderer/IRequestShadowMapTexture";
 import IRequestBufferTextureProgress from "./Renderer/IRequestBufferTextureProgress";

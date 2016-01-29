@@ -1,4 +1,4 @@
-import Canvas from "./Canvas";
+import Canvas from "./Canvas/Canvas";
 
 class CanvasSizeChangedEventArg {
   private canvas: Canvas;

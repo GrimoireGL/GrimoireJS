@@ -1,5 +1,5 @@
 import TextureWrapperBase from "./TextureWrapperBase";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import TextureTargetType from "../../../Wrapper/TargetTextureType";
 import TextureInternalFormat from "../../../Wrapper/TextureInternalFormatType";
 import Texture from "./Texture";

@@ -1,7 +1,7 @@
 import DebuggerModuleBase from "./DebuggerModuleBase";
 import Debugger from "../Debugger";
-import GLSpecResolver from "../../Core/GLSpecResolver";
-import CanvasManager from "../../Core/CanvasManager";
+import GLSpecResolver from "../../Core/Canvas/GLSpecResolver";
+import CanvasManager from "../../Core/Canvas/CanvasManager";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 class GLSpecDebugger extends DebuggerModuleBase {

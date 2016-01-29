@@ -1,7 +1,7 @@
 import ResourceWrapper from "../ResourceWrapper";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import VAO from "./VAO";
-import GLExtensionList from "../../GLExtensionList";
+import GLExtensionList from "../../Canvas/GLExtensionList";
 /**
  * Provides wrapper class for Render Buffer Object depending on particular WebGLRenderingContext.
  * Most of user may have no reason to modify by themselves.

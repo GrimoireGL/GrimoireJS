@@ -1,7 +1,7 @@
 import ContextSafeResourceContainer from "./../ContextSafeResourceContainer";
 import RBOWrapper from "./RBOWrapper";
 import RBOInternalFormatType from "../../../Wrapper/RBO/RBOInternalFormat";
-import Canvas from "../../../Core/Canvas";
+import Canvas from "../../../Core/Canvas/Canvas";
 class RBO extends ContextSafeResourceContainer<RBOWrapper> {
   constructor(width: number, height: number, format: RBOInternalFormatType = RBOInternalFormatType.DepthComponent16) {
     super();

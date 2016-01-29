@@ -1,5 +1,5 @@
 import TextureWrapper from "./TextureWrapper";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import TextureBase from "./TextureBase";
 type ImageSource = HTMLCanvasElement|HTMLImageElement|ImageData|ArrayBufferView;
 

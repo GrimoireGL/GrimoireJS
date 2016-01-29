@@ -3,7 +3,7 @@ import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import jThreeObject from "../../../Base/JThreeObject";
 import Buffer from "./../../Resources/Buffer/Buffer";
 import PrimitiveTopology from "../../../Wrapper/PrimitiveTopology";
-import Canvas from "./../../Canvas";
+import Canvas from "./../../Canvas/Canvas";
 import Material from "./../../Materials/Material";
 /**
  * Base abstraction for geometry.

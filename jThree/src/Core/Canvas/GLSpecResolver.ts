@@ -1,7 +1,7 @@
-import GetParameterType from "../Wrapper/GetParameterType";
-import JThreeContext from "../JThreeContext";
+import GetParameterType from "../../Wrapper/GetParameterType";
+import JThreeContext from "../../JThreeContext";
 import CanvasManager from "./CanvasManager";
-import ContextComponents from "../ContextComponents";
+import ContextComponents from "../../ContextComponents";
 class GLSpecResolver {
 
   private static maxCombinedTextureUnits;
