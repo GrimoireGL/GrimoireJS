@@ -15,6 +15,53 @@ class PMXModel extends SceneObject {
 
   private static _asyncLoader: AsyncLoader<PMXModelData> = new AsyncLoader<PMXModelData>();
 
+  public skeleton: PMXSkeleton;
+
+  public loadingTextureCount: number = 0;
+
+  public loadedTextureCount: number = 0;
+
+  public pmxTextureManager: PMXTextureManager;
+
+  public modelDirectory: string;
+
+  public loaded: boolean = false;
+
+  private morphManager: PMXMorphManager;
+
+  private materialDictionary: { [materialName: string]: PMXMaterial } = {};
+
+  private pmxMaterials: PMXMaterial[];
+
+  private modelData: PMXModelData;
+
+
+  constructor(pmx: PMXModelData, resourceDirectory: string) {
+    super();
+    PMXCoreInitializer.init();
+    this.on("load", () => { this.loaded = true; });
+    this.modelData = pmx;
+    this.modelDirectory = resourceDirectory;
+    this.pmxTextureManager = new PMXTextureManager(this);
+    this.geometry = new PMXGeometry(pmx);
+    this.skeleton = new PMXSkeleton(this);
+    this.pmxMaterials = new Array(pmx.Materials.length);
+    this.name = pmx.Header.modelName;
+    let offset = 0;
+    for (let materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
+      const currentMat = pmx.Materials[materialCount];
+      const mat = new PMXMaterial(this, materialCount, offset);
+      this.addMaterial(mat);
+      this.addMaterial(new PMXPrimaryBufferMaterial(mat));
+      this.addMaterial(new PMXShadowMapMaterial(mat));
+      this.addMaterial(new PMXHitAreaMaterial(mat));
+      this.pmxMaterials[materialCount] = mat;
+      this.materialDictionary[currentMat.materialName] = mat;
+      offset += currentMat.vertexCount;
+    }
+    this.morphManager = new PMXMorphManager(this);
+  }
+
   public static LoadFromUrl(url: string): Q.IPromise<PMXModel> {
     const directory = url.substr(0, url.lastIndexOf("/") + 1);
     return PMXModel._loadDataFromUrl(url, directory).then<PMXModel>((modelData) => {
@@ -31,9 +78,10 @@ class PMXModel extends SceneObject {
       }
       return deferred.promise;
     }, (err) => {
-        return err;
+      return err;
       });
   }
+
   /**
    * Request model data to specified url.
    * @param  {string}                   url the url pmx model being placed.
@@ -58,25 +106,6 @@ class PMXModel extends SceneObject {
     });
   }
 
-
-  private modelData: PMXModelData;
-
-  public skeleton: PMXSkeleton;
-
-  private morphManager: PMXMorphManager;
-
-  private materialDictionary: { [materialName: string]: PMXMaterial } = {};
-
-  private pmxMaterials: PMXMaterial[];
-
-  public loadingTextureCount: number = 0;
-
-  public loadedTextureCount: number = 0;
-
-  public pmxTextureManager: PMXTextureManager;
-
-  public modelDirectory: string;
-
   public getPMXMaterialByName(name: string) {
     return this.materialDictionary[name];
   }
@@ -96,34 +125,6 @@ class PMXModel extends SceneObject {
 
   public get MorphManager(): PMXMorphManager {
     return this.morphManager;
-  }
-
-  public loaded: boolean = false;
-
-  constructor(pmx: PMXModelData, resourceDirectory: string) {
-    super();
-    PMXCoreInitializer.init();
-    this.on("load", () => { this.loaded = true });
-    this.modelData = pmx;
-    this.modelDirectory = resourceDirectory;
-    this.pmxTextureManager = new PMXTextureManager(this);
-    this.geometry = new PMXGeometry(pmx);
-    this.skeleton = new PMXSkeleton(this);
-    this.pmxMaterials = new Array(pmx.Materials.length);
-    this.name = pmx.Header.modelName;
-    let offset = 0;
-    for (let materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
-      const currentMat = pmx.Materials[materialCount];
-      const mat = new PMXMaterial(this, materialCount, offset);
-      this.addMaterial(mat);
-      this.addMaterial(new PMXPrimaryBufferMaterial(mat));
-      this.addMaterial(new PMXShadowMapMaterial(mat));
-      this.addMaterial(new PMXHitAreaMaterial(mat));
-      this.pmxMaterials[materialCount] = mat;
-      this.materialDictionary[currentMat.materialName] = mat;
-      offset += currentMat.vertexCount;
-    }
-    this.morphManager = new PMXMorphManager(this);
   }
 
   public update() {

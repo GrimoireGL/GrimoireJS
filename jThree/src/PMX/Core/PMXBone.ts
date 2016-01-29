@@ -4,11 +4,19 @@ import PMXModel from "./PMXModel";
 import PMXBoneTransformer from "./PMXBoneTransformer";
 import Vector3 from "../../Math/Vector3";
 class PMXBone extends SceneObject {
+  public boneIndex: number;
   private targetModel: PMXModel;
-
   private targetSkeleton: PMXSkeleton;
 
-  public boneIndex: number;
+  constructor(model: PMXModel, skeleton: PMXSkeleton, boneIndex: number) {
+    super();
+    this.transformer = new PMXBoneTransformer(this, model, boneIndex);
+    this.targetModel = model;
+    this.targetSkeleton = skeleton;
+    this.boneIndex = boneIndex;
+    this.name = this.TargetBoneData.boneName;
+  }
+
 
   public get TargetBoneData() {
     return this.targetModel.ModelData.Bones[this.boneIndex];
@@ -27,15 +35,6 @@ class PMXBone extends SceneObject {
     return (this.TargetBoneData.boneFlag & 0x1000) > 0;
   }
 
-  constructor(model: PMXModel, skeleton: PMXSkeleton, boneIndex: number) {
-    super();
-    this.transformer = new PMXBoneTransformer(this, model, boneIndex);
-    this.targetModel = model;
-    this.targetSkeleton = skeleton;
-    this.boneIndex = boneIndex;
-    this.name = this.TargetBoneData.boneName;
-  }
-
 	/**
 	 * This method is intended to use by PMXSkeleton.
 	 * No need to call this method by user.
@@ -48,9 +47,11 @@ class PMXBone extends SceneObject {
     }
     this.Transformer.LocalOrigin = new Vector3(this.TargetBoneData.position);
     const transformer = <PMXBoneTransformer>this.transformer;
-    if (transformer.IsIKBone)
-      for (let i = 0; i < this.TargetBoneData.ikLinkCount; i++)
+    if (transformer.IsIKBone) {
+      for (let i = 0; i < this.TargetBoneData.ikLinkCount; i++) {
         (<PMXBoneTransformer>this.targetSkeleton.getBoneByIndex(this.TargetBoneData.ikLinks[i].ikLinkBoneIndex).transformer).isIKLink = true;
+      }
+    }
   }
 
   public updateBoneTransform() {
@@ -60,7 +61,9 @@ class PMXBone extends SceneObject {
 
   public structureToString(layer: number) {
     let result = "";
-    for (let i = 0; i < layer; i++)result += "  ";
+    for (let i = 0; i < layer; i++) {
+      result += "  ";
+    }
     result += this.toString() + "\n";
     let arr = this.Children;
     for (let index = 0; index < arr.length; index++) {

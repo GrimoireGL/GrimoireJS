@@ -8,6 +8,12 @@ import PMXMaterial from "./PMXMaterial";
 class PMXShadowMapMaterial extends BasicMaterial {
   protected associatedMaterial: PMXMaterial;
 
+  constructor(material: PMXMaterial) {
+    super(require("../../Materials/ShadowMap.html"));
+    this.associatedMaterial = material;
+    this.setLoaded();
+  }
+
   /**
    * Count of verticies
    */
@@ -22,14 +28,10 @@ class PMXShadowMapMaterial extends BasicMaterial {
     return this.associatedMaterial.VerticiesOffset;
   }
 
-  constructor(material: PMXMaterial) {
-    super(require("../../Materials/ShadowMap.html"));
-    this.associatedMaterial = material;
-    this.setLoaded();
-  }
-
   public apply(matArg: IApplyMaterialArgument): void {
-    if (this.associatedMaterial.Diffuse.A < 1.0E-3) return;
+    if (this.associatedMaterial.Diffuse.A < 1.0E-3) {
+      return;
+    }
     // var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
     // const skeleton = this.associatedMaterial.ParentModel.skeleton;
     // this.materialVariables = {

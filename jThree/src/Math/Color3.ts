@@ -84,7 +84,7 @@ class Color3 extends VectorBase {
   public get B(): number {
     return this.rawElements[2];
   }
-  
+
   public get ElementCount(): number {
     return 3;
   }

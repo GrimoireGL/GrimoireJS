@@ -2,20 +2,6 @@
 import Vector3 from "../../Math/Vector3";
 import {Func1} from "../../Base/Delegates";
 class PMXMaterialMorphParamContainer {
-  constructor(calcFlag: number) {
-    this.calcFlag = calcFlag;
-    const def = 1 - calcFlag;
-    this.diffuse = [def, def, def, def];
-    this.specular = [def, def, def, def];
-    this.ambient = [def, def, def];
-    this.edgeColor = [def, def, def, def];
-    this.edgeSize = def;
-    this.textureCoeff = [def, def, def, def];
-    this.sphereCoeff = [def, def, def, def];
-    this.toonCoeff = [def, def, def, def];
-  }
-
-  private calcFlag: number;
 
   public diffuse: number[];
 
@@ -32,6 +18,21 @@ class PMXMaterialMorphParamContainer {
   public sphereCoeff: number[];
 
   public toonCoeff: number[];
+
+  private calcFlag: number;
+
+  constructor(calcFlag: number) {
+    this.calcFlag = calcFlag;
+    const def = 1 - calcFlag;
+    this.diffuse = [def, def, def, def];
+    this.specular = [def, def, def, def];
+    this.ambient = [def, def, def];
+    this.edgeColor = [def, def, def, def];
+    this.edgeSize = def;
+    this.textureCoeff = [def, def, def, def];
+    this.sphereCoeff = [def, def, def, def];
+    this.toonCoeff = [def, def, def, def];
+  }
 
   public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Func1<PMXMaterialMorphParamContainer, number>) {
     return base * target(mul) + target(add);

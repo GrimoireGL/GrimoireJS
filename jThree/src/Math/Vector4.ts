@@ -2,7 +2,6 @@ import VectorBase from "./VectorBase";
 import {GLM, vec4} from "gl-matrix";
 
 class Vector4 extends VectorBase {
-  
   /*
    * Static properties
    */

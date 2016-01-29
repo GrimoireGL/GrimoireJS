@@ -1,13 +1,13 @@
 import PMXMorph from "./PMXMorph";
 import PMXModel from "./PMXModel";
 class PMXMorphManager {
+  public postProcessFlag: boolean[] = [false, false, false, false, false, false, false, false, false];
+
   private morphs: PMXMorph[];
 
   private model: PMXModel;
 
   private morphsDictionary: { [morphName: string]: PMXMorph } = {};
-
-  public postProcessFlag: boolean[] = [false, false, false, false, false, false, false, false, false];
 
   constructor(model: PMXModel) {
     this.model = model;
