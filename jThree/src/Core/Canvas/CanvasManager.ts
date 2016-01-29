@@ -1,6 +1,6 @@
 import IContextComponent from "../../IContextComponent";
 import ContextComponents from "../../ContextComponents";
-import Canvas from "./Canvas/Canvas";
+import Canvas from "./Canvas";
 import JThreeEvent from "../../Base/JThreeEvent";
 import CanvasListChangedEventArgs from "./CanvasListChangedEventArgs";
 import ListStateChangedType from "../ListStateChangedType";
