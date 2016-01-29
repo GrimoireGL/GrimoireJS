@@ -4,9 +4,6 @@ import IResourceLoaderEventArgs from "./IResourceLoaderEventArgs";
 import Q from "q";
 
 class ResourceLoader implements IContextComponent {
-  public getContextComponentIndex() {
-    return ContextComponents.ResourceLoader;
-  }
 
   public resourceCount: number = 0;
 
@@ -33,6 +30,10 @@ class ResourceLoader implements IContextComponent {
     const d = Q.defer<T>();
     this.registerForResourceLoaded<T>(d.promise);
     return d;
+  }
+
+  public getContextComponentIndex() {
+    return ContextComponents.ResourceLoader;
   }
 
   /**

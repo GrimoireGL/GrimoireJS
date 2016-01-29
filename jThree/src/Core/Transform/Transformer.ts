@@ -14,38 +14,28 @@ import Vector4 from "../../Math/Vector4";
  * Every Transformer can have a parent, each parent Transformer affect children's Transformer hierachically.
  */
 class Transformer extends JThreeObject {
-  /**
-   * Constructor of Transformer
-   * @param sceneObj the scene object this transformer attached to.
-   */
-  constructor(sceneObj: SceneObject) {
-    super();
-    this.linkedObject = sceneObj;
-    this.position = Vector3.Zero;
-    this.rotation = Quaternion.Identity;
-    this.scale = new Vector3(1, 1, 1);
-    this.localOrigin = new Vector3(0, 0, 0);
-    this.updateTransform();
-  }
-
-  public get hasParent() {
-    return !!this.linkedObject.Parent;
-  }
-
-  public get parent() {
-    return this.hasParent ? this.linkedObject.Parent.Transformer : null;
-  }
-
-  public get childrenCount() {
-    return this.linkedObject.Children.length;
-  }
 
   public hasChanged: boolean = false;
+
+  /**
+   * forward direction of transform in world space
+   */
+  public forward: Vector3 = Vector3.ZUnit.negateThis();
 
   /**
    * Scene oject reference this transformer related to.
    */
   public linkedObject: SceneObject;
+
+  /**
+  * up direction of transform in world space
+  */
+  public up: Vector3 = Vector3.YUnit;
+
+  /**
+  * right direction of transform in world space
+  */
+  public right: Vector3 = Vector3.XUnit;
 
   /**
    * backing field of Rotation.
@@ -65,21 +55,6 @@ class Transformer extends JThreeObject {
   private scale: Vector3;
 
   /**
-   * forward direction of transform in world space
-   */
-  public forward: Vector3 = Vector3.ZUnit.negateThis();
-
-  /**
-  * up direction of transform in world space
-  */
-  public up: Vector3 = Vector3.YUnit;
-
-  /**
-  * right direction of transform in world space
-  */
-  public right: Vector3 = Vector3.XUnit;
-
-  /**
    * calculation cache
    */
   private localTransformMatrix: Matrix = Matrix.identity();
@@ -92,6 +67,26 @@ class Transformer extends JThreeObject {
 
   private g2lupdated: boolean = false;
 
+  /**
+   * properties for storeing event handlers
+   */
+  private onUpdateTransformHandler: JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
+
+
+  /**
+   * Constructor of Transformer
+   * @param sceneObj the scene object this transformer attached to.
+   */
+  constructor(sceneObj: SceneObject) {
+    super();
+    this.linkedObject = sceneObj;
+    this.position = Vector3.Zero;
+    this.rotation = Quaternion.Identity;
+    this.scale = new Vector3(1, 1, 1);
+    this.localOrigin = new Vector3(0, 0, 0);
+    this.updateTransform();
+  }
+
   public get NeedUpdateChildren(): boolean {
     return true;
   }
@@ -103,11 +98,6 @@ class Transformer extends JThreeObject {
     mat4.invert(this.globalToLocalCache.rawElements, this.localToGlobalMatrix.rawElements);
     this.g2lupdated = true;
   }
-
-  /**
-   * properties for storeing event handlers
-   */
-  private onUpdateTransformHandler: JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
 
   /**
    * Subscribe event handlers it will be called when this transformer's transform was changed.
@@ -135,41 +125,16 @@ class Transformer extends JThreeObject {
     this.onUpdateTransformHandler.fire(this, this.linkedObject);
   }
 
-  /**
-   * Update transform matricies
-   * @return {[type]} [description]
-   */
-  protected updateTransformMatricies() {
-    // initialize localTransformCache & localToGlobalMatrix.rawElements
-    mat4.identity(this.localTransformMatrix.rawElements);
-    mat4.identity(this.localToGlobalMatrix.rawElements);
-    // generate local transofrm matrix
-    mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
-    if (this.linkedObject != null && this.linkedObject.Parent != null) {
-      // Use LocalToGlobal matrix of parents to multiply with localTransformCache
-      mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
-    } else {
-      // If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
-      mat4.identity(this.localToGlobalMatrix.rawElements);
-    }
-    // Multiply parent transform
-    mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
-    this.updateDirections();
+  public get hasParent() {
+    return !!this.linkedObject.Parent;
   }
 
-  /**
-   * Update directions by this transform
-   */
-  protected updateDirections() {
-    // Calculate direction vectors
-    this.updateDirection(this.right, [1, 0, 0, 0]); // need to reduce memory allocation
-    this.updateDirection(this.up, [0, 1, 0, 0]);
-    this.updateDirection(this.forward, [0, 0, -1, 0]);
+  public get parent() {
+    return this.hasParent ? this.linkedObject.Parent.Transformer : null;
   }
 
-  private updateDirection(rawElements: Vector3, sourceVector4: number[]) {
-    vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobalMatrix.rawElements);
-    vec3.normalize(rawElements.rawElements, rawElements.rawElements);
+  public get childrenCount() {
+    return this.linkedObject.Children.length;
   }
 
   /**
@@ -268,6 +233,43 @@ class Transformer extends JThreeObject {
 
   public inverseTransformVector(vector: Vector4) {
     return Matrix.transform(this.globalToLocal, vector);
+  }
+
+  /**
+  * Update transform matricies
+  * @return {[type]} [description]
+  */
+  protected updateTransformMatricies() {
+    // initialize localTransformCache & localToGlobalMatrix.rawElements
+    mat4.identity(this.localTransformMatrix.rawElements);
+    mat4.identity(this.localToGlobalMatrix.rawElements);
+    // generate local transofrm matrix
+    mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+    if (this.linkedObject != null && this.linkedObject.Parent != null) {
+      // Use LocalToGlobal matrix of parents to multiply with localTransformCache
+      mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
+    } else {
+      // If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
+      mat4.identity(this.localToGlobalMatrix.rawElements);
+    }
+    // Multiply parent transform
+    mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
+    this.updateDirections();
+  }
+
+  /**
+   * Update directions by this transform
+   */
+  protected updateDirections() {
+    // Calculate direction vectors
+    this.updateDirection(this.right, [1, 0, 0, 0]); // need to reduce memory allocation
+    this.updateDirection(this.up, [0, 1, 0, 0]);
+    this.updateDirection(this.forward, [0, 0, -1, 0]);
+  }
+
+  private updateDirection(rawElements: Vector3, sourceVector4: number[]) {
+    vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobalMatrix.rawElements);
+    vec3.normalize(rawElements.rawElements, rawElements.rawElements);
   }
 }
 

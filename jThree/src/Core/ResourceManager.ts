@@ -27,6 +27,19 @@ type ImageSource = HTMLCanvasElement | HTMLImageElement | ImageData | ArrayBuffe
  * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
  */
 class ResourceManager extends jThreeObject implements IContextComponent {
+
+  private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
+
+  private shaders: ResourceArray<Shader> = new ResourceArray<Shader>();
+
+  private programs: ResourceArray<Program> = new ResourceArray<Program>();
+
+  private textures: ResourceArray<TextureBase> = new ResourceArray<TextureBase>();
+
+  private rbos: ResourceArray<RBO> = new ResourceArray<RBO>();
+
+  private fbos: ResourceArray<FBO> = new ResourceArray<FBO>();
+
   public getContextComponentIndex(): number {
     return ContextComponents.ResourceManager;
   }
@@ -72,8 +85,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return deferred.promise;
   }
 
-  private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
-
   public createBuffer(id: string, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType): Buffer {
     return this.buffers.create(id, () => {
       return new Buffer(target, usage, unitCount, elementType);
@@ -83,8 +94,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   public getBuffer(id: string): Buffer {
     return this.buffers.get(id);
   }
-
-  private shaders: ResourceArray<Shader> = new ResourceArray<Shader>();
 
   public createShader(id: string, source: string, shaderType: ShaderType): Shader {
     return this.shaders.create(id, () => {
@@ -100,8 +109,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return this.shaders.has(id);
   }
 
-  private programs: ResourceArray<Program> = new ResourceArray<Program>();
-
   public createProgram(id: string, shaders: Shader[]): Program {
     return this.programs.create(id, () => {
       return Program.CreateProgram(shaders);
@@ -111,8 +118,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   public getProgram(id: string): Program {
     return this.programs.get(id);
   }
-
-  private textures: ResourceArray<TextureBase> = new ResourceArray<TextureBase>();
 
   public createTextureWithSource(id: string, source: ImageSource): Texture {
     return <Texture>this.textures.create(id, () => {
@@ -139,9 +144,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     this.textures.getHandler(id, handler);
   }
 
-  private rbos: ResourceArray<RBO> = new ResourceArray<RBO>(
-    );
-
   public createRBO(id: string, width: number, height: number): RBO {
     return this.rbos.create(id, () => {
       const r = new RBO(width, height);
@@ -153,8 +155,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   public getRBO(id: string): RBO {
     return this.rbos.get(id);
   }
-
-  private fbos: ResourceArray<FBO> = new ResourceArray<FBO>();
 
   public createFBO(id: string): FBO {
     return this.fbos.create(id, () => {

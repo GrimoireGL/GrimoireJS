@@ -2,38 +2,10 @@ import VectorBase from "./VectorBase";
 import {GLM, vec4} from "gl-matrix";
 
 class Vector4 extends VectorBase {
+  
   /*
    * Static properties
    */
-
-  public static get XUnit(): Vector4 {
-    return new Vector4(1, 0, 0, 0);
-  }
-
-  public static get YUnit(): Vector4 {
-    return new Vector4(0, 1, 0, 0);
-  }
-
-  public static get ZUnit(): Vector4 {
-    return new Vector4(0, 0, 1, 0);
-  }
-
-  public static get WUnit(): Vector4 {
-    return new Vector4(0, 0, 0, 1);
-  }
-
-  public static get One(): Vector4 {
-    return new Vector4(1, 1, 1, 1);
-  }
-
-  public static get Zero(): Vector4 {
-    return new Vector4(0, 0, 0, 0);
-  }
-
-  public static copy(vec: Vector4): Vector4 {
-    return new Vector4(vec.X, vec.Y, vec.Z, vec.W);
-  }
-
   constructor(x: GLM.IArray);
   constructor(x: number, y: number, z: number, w: number);
   constructor(x: number | GLM.IArray, y?: number, z?: number, w?: number) {
@@ -81,6 +53,34 @@ class Vector4 extends VectorBase {
     this.rawElements[3] = +w;
   }
 
+  public static get XUnit(): Vector4 {
+    return new Vector4(1, 0, 0, 0);
+  }
+
+  public static get YUnit(): Vector4 {
+    return new Vector4(0, 1, 0, 0);
+  }
+
+  public static get ZUnit(): Vector4 {
+    return new Vector4(0, 0, 1, 0);
+  }
+
+  public static get WUnit(): Vector4 {
+    return new Vector4(0, 0, 0, 1);
+  }
+
+  public static get One(): Vector4 {
+    return new Vector4(1, 1, 1, 1);
+  }
+
+  public static get Zero(): Vector4 {
+    return new Vector4(0, 0, 0, 0);
+  }
+
+  public static copy(vec: Vector4): Vector4 {
+    return new Vector4(vec.X, vec.Y, vec.Z, vec.W);
+  }
+
   public static dot(v1: Vector4, v2: Vector4) {
     return vec4.dot(v1.rawElements, v2.rawElements);
   }
@@ -115,15 +115,57 @@ class Vector4 extends VectorBase {
 
 
   public static min(v1: Vector4, v2: Vector4): Vector4 {
-    return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.min(v1.rawElements[i], v2.rawElements[i])));
+    return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.min(_v1.rawElements[i], _v2.rawElements[i])));
   }
 
   public static max(v1: Vector4, v2: Vector4): Vector4 {
-    return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.max(v1.rawElements[i], v2.rawElements[i])));
+    return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.max(_v1.rawElements[i], _v2.rawElements[i])));
   }
 
   public static angle(v1: Vector4, v2: Vector4): number {
     return Math.acos(Vector4.dot(v1.normalized, v2.normalized));
+  }
+
+  public static parse(str: string): Vector4 {
+    let resultVec: Vector4;
+    // 1,0,2.0,3.0
+    // -(1.0,2.0,3.0)
+    // n(1.0,2.0,3.0) normalized
+    // 1.0
+    // check attributes
+    const negativeMatch = str.match(/^-(n?\(.+\))$/);
+    let needNegate = false;
+    if (negativeMatch) {
+      needNegate = true;
+      str = negativeMatch[1];
+    }
+    const normalizeMatch = str.match(/^-?n(\(.+\))$/);
+    let needNormalize = false;
+    if (normalizeMatch) {
+      needNormalize = true;
+      str = normalizeMatch[1];
+    }
+    // check body
+    str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
+    const strNums = str.split(/,/g);
+    if (strNums.length === 1) {
+      let elemNum: number = parseFloat(strNums[0]);
+      if (isNaN(elemNum)) {
+        return undefined;
+      }
+      resultVec = new Vector4(elemNum, elemNum, elemNum, elemNum);
+    } else if (strNums.length === 4) {
+      resultVec = new Vector4(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]), parseFloat(strNums[3]));
+    } else {
+      return undefined;
+    }
+    if (needNormalize) {
+      resultVec = resultVec.normalizeThis();
+    }
+    if (needNegate) {
+      resultVec = resultVec.negateThis();
+    }
+    return resultVec;
   }
 
   public normalizeThis(): Vector4 {
@@ -168,45 +210,6 @@ class Vector4 extends VectorBase {
     return `{${this.X},${this.Y},${this.Z},${this.W}}`;
   }
 
-  public static parse(str: string): Vector4 {
-    let resultVec: Vector4;
-    // 1,0,2.0,3.0
-    // -(1.0,2.0,3.0)
-    // n(1.0,2.0,3.0) normalized
-    // 1.0
-    // check attributes
-    const negativeMatch = str.match(/^-(n?\(.+\))$/);
-    let needNegate = false;
-    if (negativeMatch) {
-      needNegate = true;
-      str = negativeMatch[1];
-    }
-    const normalizeMatch = str.match(/^-?n(\(.+\))$/);
-    let needNormalize = false;
-    if (normalizeMatch) {
-      needNormalize = true;
-      str = normalizeMatch[1];
-    }
-    // check body
-    str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
-    const strNums = str.split(/,/g);
-    if (strNums.length === 1) {
-      let elemNum: number = parseFloat(strNums[0]);
-      if (isNaN(elemNum)) return undefined;
-      resultVec = new Vector4(elemNum, elemNum, elemNum, elemNum);
-    } else if (strNums.length === 4) {
-      resultVec = new Vector4(parseFloat(strNums[0]), parseFloat(strNums[1]), parseFloat(strNums[2]), parseFloat(strNums[3]));
-    } else {
-      return undefined;
-    }
-    if (needNormalize) {
-      resultVec = resultVec.normalizeThis();
-    }
-    if (needNegate) {
-      resultVec = resultVec.negateThis();
-    }
-    return resultVec;
-  }
 }
 
 

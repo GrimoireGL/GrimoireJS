@@ -34,6 +34,50 @@ class RendererDebugger extends DebuggerModuleBase {
     });
   }
 
+  public getShadowMapImage(rendererID: string, generator?: any): Q.IPromise<HTMLImageElement> {
+    const d = Q.defer<HTMLImageElement>();
+    this.shadowMapRequest = {
+      deffered: d,
+      rendererID: rendererID,
+      generator: generator
+    };
+    return d.promise;
+  }
+
+  public getShadowMapProgressImage(rendererID: string, generator?: any): Q.IPromise<HTMLImageElement> {
+    const d = Q.defer<HTMLImageElement>();
+    this.shadowMapProgressRequest = {
+      deffered: d,
+      rendererID: rendererID,
+      generator: generator,
+      begin: false
+    };
+    return d.promise;
+  }
+
+  public getTextureHtmlImage(stageID: string, bufferTextureID: string, generator?: any): Q.IPromise<HTMLImageElement> {
+    const d = Q.defer<HTMLImageElement>();
+    this.bufferTextureRequest = {
+      deffered: d,
+      stageID: stageID,
+      bufferTextureID: bufferTextureID,
+      generator: generator
+    };
+    return d.promise;
+  }
+
+  public getTextureProgressHtmlImage(stageID: string, bufferTextureID: string, generator?: any): Q.IPromise<HTMLImageElement> {
+    const d = Q.defer<HTMLImageElement>();
+    this.bufferTextureProgressRequest = {
+      deffered: d,
+      stageID: stageID,
+      bufferTextureID: bufferTextureID,
+      generator: generator,
+      begin: false
+    };
+    return d.promise;
+  }
+
   private attachToScene(scene: Scene, debug: Debugger) {
     scene.Renderers.forEach(r => {
       this.attachToRenderer(r, debug);
@@ -117,49 +161,6 @@ class RendererDebugger extends DebuggerModuleBase {
     });
   }
 
-  public getShadowMapImage(rendererID: string, generator?: any): Q.IPromise<HTMLImageElement> {
-    const d = Q.defer<HTMLImageElement>();
-    this.shadowMapRequest = {
-      deffered: d,
-      rendererID: rendererID,
-      generator: generator
-    };
-    return d.promise;
-  }
-
-  public getShadowMapProgressImage(rendererID: string, generator?: any): Q.IPromise<HTMLImageElement> {
-    const d = Q.defer<HTMLImageElement>();
-    this.shadowMapProgressRequest = {
-      deffered: d,
-      rendererID: rendererID,
-      generator: generator,
-      begin: false
-    };
-    return d.promise;
-  }
-
-  public getTextureHtmlImage(stageID: string, bufferTextureID: string, generator?: any): Q.IPromise<HTMLImageElement> {
-    const d = Q.defer<HTMLImageElement>();
-    this.bufferTextureRequest = {
-      deffered: d,
-      stageID: stageID,
-      bufferTextureID: bufferTextureID,
-      generator: generator
-    };
-    return d.promise;
-  }
-
-  public getTextureProgressHtmlImage(stageID: string, bufferTextureID: string, generator?: any): Q.IPromise<HTMLImageElement> {
-    const d = Q.defer<HTMLImageElement>();
-    this.bufferTextureProgressRequest = {
-      deffered: d,
-      stageID: stageID,
-      bufferTextureID: bufferTextureID,
-      generator: generator,
-      begin: false
-    };
-    return d.promise;
-  }
 }
 
 export default RendererDebugger;
