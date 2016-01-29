@@ -71,9 +71,6 @@ jadeExtention = '.jdgoml'
 # path to tsconfig.json
 tsconfigPath = './tsconfig.json'
 
-# path to bundle.ts for references
-tsbundlePath = './jThree/src/bundle.ts'
-
 # path to tsd.json
 tsdPath = './tsd.json'
 
@@ -382,15 +379,6 @@ gulp.task 'update-tsconfig-files', ->
   files = _(globArray.sync(json.filesGlob)).uniq(true)
   json.files = files
   fs.writeFileSync path.resolve(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
-  refs = _(files)
-    .map (v) ->
-      rpath = path.relative(path.dirname(tsbundlePath), v)
-      if rpath != 'bundle.ts'
-        "/// <reference path=\"#{rpath}\" />"
-      else
-        null
-    .compact()
-  fs.writeFileSync path.resolve(__dirname, tsbundlePath), (refs.join('\n') + '\n')
 
 gulp.task 'tscfg', ['update-tsconfig-files']
 
