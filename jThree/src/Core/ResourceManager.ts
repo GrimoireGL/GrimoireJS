@@ -1,10 +1,5 @@
 import AsyncLoader from "./Resources/AsyncLoader";
 import ImageLoader from "./Resources/ImageLoader";
-﻿import BufferTargetType from "../Wrapper/BufferTargetType";
-import BufferUsageType from "../Wrapper/BufferUsageType";
-import ElementType from "../Wrapper/ElementType";
-import ShaderType from "../Wrapper/ShaderType";
-import {Action1} from "../Base/Delegates";
 import jThreeObject from "../Base/JThreeObject";
 import Buffer from "./Resources/Buffer/Buffer";
 import Shader from "./Resources/Shader/Shader";
@@ -14,8 +9,6 @@ import RBO from "./Resources/RBO/RBO";
 import ResourceArray from "./Resources/ResourceArray";
 import FBO from "./Resources/FBO/FBO";
 import BufferTexture from "./Resources/Texture/BufferTexture";
-import TextureFormat from "../Wrapper/TextureInternalFormatType";
-import ElementFormat from "../Wrapper/TextureType";
 import TextureBase from "./Resources/Texture/TextureBase";
 import CubeTexture from "./Resources/Texture/CubeTexture";
 import IContextComponent from "../IContextComponent";
@@ -85,7 +78,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return deferred.promise;
   }
 
-  public createBuffer(id: string, target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType): Buffer {
+  public createBuffer(id: string, target: number, usage: number, unitCount: number, elementType: number): Buffer {
     return this.buffers.create(id, () => {
       return new Buffer(target, usage, unitCount, elementType);
     });
@@ -95,7 +88,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return this.buffers.get(id);
   }
 
-  public createShader(id: string, source: string, shaderType: ShaderType): Shader {
+  public createShader(id: string, source: string, shaderType: number): Shader {
     return this.shaders.create(id, () => {
       return Shader.CreateShader(source, shaderType);
     });
@@ -140,10 +133,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     });
   }
 
-  public getTextureHandler(id: string, handler: Action1<Texture>) {
-    this.textures.getHandler(id, handler);
-  }
-
   public createRBO(id: string, width: number, height: number): RBO {
     return this.rbos.create(id, () => {
       const r = new RBO(width, height);
@@ -168,7 +157,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return this.fbos.get(id);
   }
 
-  public createTexture(id: string, width: number, height: number, texType: TextureFormat = TextureFormat.RGBA, elemType: ElementFormat = ElementFormat.UnsignedByte) {
+  public createTexture(id: string, width: number, height: number, texType: number = WebGLRenderingContext.RGBA, elemType: number = WebGLRenderingContext.UNSIGNED_BYTE) {
     return this.textures.create(id, () => {
       const bt = new BufferTexture(width, height, texType, elemType, id);
       bt.each(v => v.init());

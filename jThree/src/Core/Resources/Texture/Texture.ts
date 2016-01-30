@@ -22,7 +22,7 @@ class Texture extends TextureBase {
     this.generateMipmapIfNeed();
   }
 
-  protected getInstanceForRenderer(canvas: Canvas): TextureWrapper {
+  protected createWrapperForCanvas(canvas: Canvas): TextureWrapper {
     const textureWrapper = new TextureWrapper(canvas, this);
     return textureWrapper;
   }

@@ -1,6 +1,5 @@
 import Canvas from "../../Canvas/Canvas";
 import ResourceWrapper from "../ResourceWrapper";
-import FrameBufferAttachmentType from "../../../Wrapper/FrameBufferAttachmentType";
 import TextureBase from "../Texture/TextureBase";
 import RBO from "../RBO/RBO";
 class FBOWrapper extends ResourceWrapper {
@@ -9,8 +8,8 @@ class FBOWrapper extends ResourceWrapper {
 
   private textures: TextureBase[] = [];
 
-  constructor(renderer: Canvas) {
-    super(renderer);
+  constructor(canvas: Canvas) {
+    super(canvas);
   }
 
   public get TargetShader(): WebGLShader {
@@ -39,7 +38,7 @@ class FBOWrapper extends ResourceWrapper {
             });*/
   }
 
-  public attachTexture(attachmentType: FrameBufferAttachmentType, tex: TextureBase) {
+  public attachTexture(attachmentType: number, tex: TextureBase) {
     if (!this.Initialized) {
       this.init();
     }
@@ -59,7 +58,7 @@ class FBOWrapper extends ResourceWrapper {
     this.GL.bindTexture(tex.TargetTextureType, null);
   }
 
-  public attachRBO(attachmentType: FrameBufferAttachmentType, rbo: RBO) {
+  public attachRBO(attachmentType: number, rbo: RBO) {
     if (!this.Initialized) {
       this.init();
     }

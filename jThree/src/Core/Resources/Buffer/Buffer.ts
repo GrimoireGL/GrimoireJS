@@ -1,7 +1,4 @@
-﻿import BufferTargetType from "../../../Wrapper/BufferTargetType";
-import BufferUsageType from "../../../Wrapper/BufferUsageType";
 import Canvas from "../../Canvas/Canvas";
-import ElementType from "../../../Wrapper/ElementType";
 import ContextSafeResourceContainer from "../ContextSafeResourceContainer";
 import BufferWrapper from "./BufferWrapper";
 /**
@@ -9,7 +6,7 @@ import BufferWrapper from "./BufferWrapper";
  */
 class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
 
-  constructor(target: BufferTargetType, usage: BufferUsageType, unitCount: number, elementType: ElementType) {
+  constructor(target: number, usage: number, unitCount: number, elementType: number) {
     super();
     this.target = target;
     this.usage = usage;
@@ -22,30 +19,30 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
    * Buffer target.
    * ArrayBuffer => VertexBuffer, ArrayElementBuffer => IndexBuffer
    */
-  private target: BufferTargetType;
+  private target: number;
   /**
   * Buffer target.
   * ArrayBuffer => VertexBuffer, ArrayElementBuffer => IndexBuffer
   */
-  public get Target(): BufferTargetType {
+  public get Target(): number {
     return this.target;
   }
   /**
    * Buffer usage.
    * StaticDraw,DynamicDraw,StreamDraw
    */
-  private usage: BufferUsageType;
+  private usage: number;
   /**
   * Buffer usage.
   * StaticDraw,DynamicDraw,StreamDraw
   */
-  public get Usage(): BufferUsageType {
+  public get Usage(): number {
     return this.usage;
   }
 
-  private elementType: ElementType;
+  private elementType: number;
 
-  public get ElementType(): ElementType {
+  public get ElementType(): number {
     return this.elementType;
   }
 
@@ -106,9 +103,9 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
   /**
    * Cached source for buffer.
    */
-  private elementCache: Float32Array;
+  private elementCache: ArrayBuffer|ArrayBufferView;
 
-  public get ElementCache(): Float32Array {
+  public get ElementCache(): ArrayBuffer|ArrayBufferView {
     return this.elementCache;
   }
   /**
@@ -122,14 +119,14 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
     return this.length;
   }
 
-  public update(array: Float32Array, length: number): void {
+  public update(array: ArrayBuffer|ArrayBufferView, length: number): void {
     this.elementCache = array;
     this.length = length;
     this.each((a) => a.update(array, length));
   }
 
-  protected getInstanceForRenderer(renderer: Canvas): BufferWrapper {
-    return new BufferWrapper(this, renderer);
+  protected createWrapperForCanvas(canvas: Canvas): BufferWrapper {
+    return new BufferWrapper(this, canvas);
   }
 }
 

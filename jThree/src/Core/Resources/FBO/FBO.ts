@@ -7,8 +7,8 @@ class FBO extends ContextSafeResourceContainer<FBOWrapper> {
     this.initializeForFirst();
   }
 
-  protected getInstanceForRenderer(renderer: Canvas): FBOWrapper {
-    return new FBOWrapper(renderer);
+  protected createWrapperForCanvas(canvas: Canvas): FBOWrapper {
+    return new FBOWrapper(canvas);
   }
 }
 
