@@ -128,8 +128,8 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
     this.each((a) => a.update(array, length));
   }
 
-  protected getInstanceForRenderer(renderer: Canvas): BufferWrapper {
-    return new BufferWrapper(this, renderer);
+  protected createWrapperForCanvas(canvas: Canvas): BufferWrapper {
+    return new BufferWrapper(this, canvas);
   }
 }
 

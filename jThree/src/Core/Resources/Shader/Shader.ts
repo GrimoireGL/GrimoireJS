@@ -56,8 +56,8 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
     });
   }
 
-  protected getInstanceForRenderer(renderer: Canvas): ShaderWrapper {
-    return new ShaderWrapper(this, renderer);
+  protected createWrapperForCanvas(canvas: Canvas): ShaderWrapper {
+    return new ShaderWrapper(this, canvas);
   }
 
   /**
@@ -80,9 +80,6 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
     this.onUpdateEvent.addListener(handler);
   }
 
-  protected disposeResource(resource: ShaderWrapper): void {
-    resource.dispose();
-  }
 }
 
 export default Shader;

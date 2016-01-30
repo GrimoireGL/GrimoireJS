@@ -30,12 +30,8 @@ class Program extends ContextSafeContainer<ProgramWrapper> {
 
   }
 
-  protected disposeResource(resource: ProgramWrapper): void {
-    resource.dispose();
-  }
-
-  protected getInstanceForRenderer(renderer: Canvas): ProgramWrapper {
-    return new ProgramWrapper(this, renderer);
+  protected createWrapperForCanvas(canvas: Canvas): ProgramWrapper {
+    return new ProgramWrapper(this, canvas);
   }
 
   public uniformExists(valName: string): boolean {

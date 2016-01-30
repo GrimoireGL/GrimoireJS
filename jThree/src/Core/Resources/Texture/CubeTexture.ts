@@ -20,7 +20,7 @@ class CubeTexture extends TextureBase {
     this.generateMipmapIfNeed();
   }
 
-  protected getInstanceForRenderer(canvas: Canvas): CubeTextureWrapper {
+  protected createWrapperForCanvas(canvas: Canvas): CubeTextureWrapper {
     const textureWrapper = new CubeTextureWrapper(canvas, this);
     return textureWrapper;
   }

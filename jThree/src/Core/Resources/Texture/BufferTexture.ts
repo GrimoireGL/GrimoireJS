@@ -33,7 +33,7 @@ class BufferTexture extends TextureBase {
     }
   }
 
-  protected getInstanceForRenderer(canvas: Canvas): BufferTextureWrapper {
+  protected createWrapperForCanvas(canvas: Canvas): BufferTextureWrapper {
     return new BufferTextureWrapper(canvas, this);
   }
 

@@ -26,12 +26,8 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper> {
     return this.format;
   }
 
-  protected getInstanceForRenderer(renderer: Canvas): RBOWrapper {
-    return new RBOWrapper(renderer, this);
-  }
-
-  protected disposeResource(resource: RBOWrapper): void {
-    return;
+  protected createWrapperForCanvas(canvas: Canvas): RBOWrapper {
+    return new RBOWrapper(canvas, this);
   }
 
   public resize(width: number, height: number) {

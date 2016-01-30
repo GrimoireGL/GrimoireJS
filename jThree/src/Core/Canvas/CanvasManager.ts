@@ -39,7 +39,7 @@ class CanvasManager implements IContextComponent {
       this.canvasListChanged.fire(this, {
         isAdditionalChange: true,
         canvas: canvas
-      }));
+      });
     }
   }
 

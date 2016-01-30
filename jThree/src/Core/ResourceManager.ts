@@ -4,7 +4,6 @@ import ImageLoader from "./Resources/ImageLoader";
 import BufferUsageType from "../Wrapper/BufferUsageType";
 import ElementType from "../Wrapper/ElementType";
 import ShaderType from "../Wrapper/ShaderType";
-import {Action1} from "../Base/Delegates";
 import jThreeObject from "../Base/JThreeObject";
 import Buffer from "./Resources/Buffer/Buffer";
 import Shader from "./Resources/Shader/Shader";
@@ -138,10 +137,6 @@ class ResourceManager extends jThreeObject implements IContextComponent {
       cubeTexture.each(v => v.init());
       return cubeTexture;
     });
-  }
-
-  public getTextureHandler(id: string, handler: Action1<Texture>) {
-    this.textures.getHandler(id, handler);
   }
 
   public createRBO(id: string, width: number, height: number): RBO {

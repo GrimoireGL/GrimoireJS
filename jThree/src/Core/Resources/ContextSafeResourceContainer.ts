@@ -3,8 +3,7 @@ import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
 import Canvas from "../Canvas/Canvas";
 import {Action1} from "../../Base/Delegates";
 import {AbstractClassMethodCalledException} from "../../Exceptions";
-import CanvasListChangedEventArgs from "../Canvas/CanvasListChangedEventArgs";
-import ListStateChangedType from "../ListStateChangedType";
+import CanvasListChangedEventArgs from "../Canvas/ICanvasListChangedEventArgs";
 import ResourceWrapper from "./ResourceWrapper";
 import JThreeContext from "../../JThreeContext";
 import CanvasManager from "../Canvas/CanvasManager";
@@ -60,33 +59,27 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     }
   }
 
-  protected getInstanceForRenderer(renderer: Canvas): T {
+  protected createWrapperForCanvas(canvas: Canvas): T {
     throw new AbstractClassMethodCalledException();
   }
 
-  protected disposeResource(resource: T): void {
-    throw new AbstractClassMethodCalledException();
-  }
   protected initializeForFirst() {
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     canvasManager.canvases.forEach((v) => {
-      this.childWrapper[v.ID] = this.getInstanceForRenderer(v);
+      this.childWrapper[v.ID] = this.createWrapperForCanvas(v);
       this.wrapperLength++;
     });
   }
 
   private rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
-    switch (arg.ChangeType) {
-      case ListStateChangedType.Add:
-        this.childWrapper[arg.AffectedRenderer.ID] = this.getInstanceForRenderer(arg.AffectedRenderer);
-        this.wrapperLength++;
-        break;
-      case ListStateChangedType.Delete:
-        const delTarget: T = this.childWrapper[arg.AffectedRenderer.ID];
-        delete this.childWrapper[arg.AffectedRenderer.ID];
-        this.disposeResource(delTarget);
-        this.wrapperLength--;
-        break;
+    if (arg.isAdditionalChange) {
+      this.childWrapper[arg.canvas.ID] = this.createWrapperForCanvas(arg.canvas);
+      this.wrapperLength++;
+    } else { // TODO should be tested
+      const delTarget: T = this.childWrapper[arg.canvas.ID];
+      delete this.childWrapper[arg.canvas.ID];
+      delTarget.dispose();
+      this.wrapperLength--;
     }
   }
 

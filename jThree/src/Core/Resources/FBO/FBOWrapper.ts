@@ -9,8 +9,8 @@ class FBOWrapper extends ResourceWrapper {
 
   private textures: TextureBase[] = [];
 
-  constructor(renderer: Canvas) {
-    super(renderer);
+  constructor(canvas: Canvas) {
+    super(canvas);
   }
 
   public get TargetShader(): WebGLShader {
