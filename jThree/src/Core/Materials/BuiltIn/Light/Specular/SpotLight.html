@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <material name="jthree.basic.light.specular.point" group="jthree.light.specular" order="300">
+  <material name="jthree.basic.light.specular.spot" group="jthree.light.specular" order="300">
     <uniform-register>
       <register name="jthree.basic.matrix" />
       <register name="jthree.basic.buffer" />
@@ -15,16 +15,18 @@
 
         void main(void)
         {
-          gl_Position = vLightProjectedPosition = _matPVM * vec4(position,1.0);
+          gl_Position = vLightProjectedPosition = _matPVM * vec4(position + vec3(0,-1,0),1.0);
         }
       }
 
       @fragonly{
         uniform vec3 lightColor;
+        uniform float angle;
+        uniform vec3 lightPosition;//ライトの位置
+        uniform vec3 lightDirection;//ライトの向き
         uniform float decay;
         uniform float dist;
         uniform mat4 _matIP;
-        uniform vec3 lightPosition;
         @{type:"buffer",register:0,name:"PRIMARY"}
         uniform sampler2D _gBuffer;
 
@@ -33,20 +35,32 @@
         void main(void)
         {
           vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
-          if(rawBuffer.w == 0.){
+          if(rawBuffer.w == 0.){//反射係数
             discard;
           }
           vec3 normal = getNormal(rawBuffer);
           float depth = getDepth(rawBuffer);
           vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
+
           if(dot(normal,normalize(lightPosition - pos)) < 0.){
             discard;
           }
-          float d=distance(pos,lightPosition)/dist;
-          if(d>1.)discard;
-          float power = pow(1. - d,decay);
-          vec3 hv = normalize(normalize(lightPosition-pos)+normalize(-pos));
-          gl_FragColor = vec4(pow(dot(hv,normal),rawBuffer.w) * power * lightColor,1.0);
+
+          //範囲外を除外
+          vec3 l2p=normalize(pos-lightPosition);
+          if(dot(l2p,lightDirection)<cos(angle)){
+            discard;
+          }
+
+          //距離外を除外
+          float d=distance(pos,lightPosition);
+          if(d>dist){
+            discard;
+          }
+
+          float power = pow(1. - distance(pos,lightPosition)/dist,decay);
+          vec3 hv = normalize(normalize(-pos)-l2p);
+          gl_FragColor = vec4(pow(dot(hv,normal),rawBuffer.w) * power * lightColor*10.,1.0);
         }
       }
       ]]>

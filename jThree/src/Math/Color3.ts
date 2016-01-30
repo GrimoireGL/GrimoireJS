@@ -4,36 +4,22 @@ import Color4 from "./Color4";
 import Vector4 from "./Vector4";
 
 class Color3 extends VectorBase {
+
+  public static colorTable: { [key: string]: string } = require("../static/color.json");
+
   constructor(r: number, g: number, b: number) {
     super();
     this.rawElements = [r, g, b];
   }
 
-  public get R(): number {
-    return this.rawElements[0];
-  }
-
-  public get G(): number {
-    return this.rawElements[1];
-  }
-
-  public get B(): number {
-    return this.rawElements[2];
-  }
-
   public static FromColor4(col: Color4): Color3 {
     return new Color3(col.R, col.G, col.B);
   }
-  public toVector(): Vector3 {
-    return new Vector3(this.R, this.G, this.B);
+
+  public static parse(color: string): Color3 {
+    return Color3.internalParse(color, true);
   }
 
-  public toVector4(a?: number): Vector4 {
-    if (typeof a === "undefined") a = 0;
-    return new Vector4(this.R, this.G, this.B, a);
-  }
-
-  public static colorTable: { [key: string]: string } = require("../static/color.json");
   /// Color parser for css like syntax
   public static internalParse(color: string, isFirst: boolean): Color3 {
     if (isFirst && Color4.colorTable[color]) {
@@ -50,7 +36,7 @@ class Color3 extends VectorBase {
           parseInt(s.charAt(0), 16) / 0xf,
           parseInt(s.charAt(1), 16) / 0xf,
           parseInt(s.charAt(2), 16) / 0xf
-          );
+        );
       }
     }
 
@@ -62,7 +48,7 @@ class Color3 extends VectorBase {
         parseInt(s.substr(0, 2), 16) / 0xff,
         parseInt(s.substr(2, 2), 16) / 0xff,
         parseInt(s.substr(4, 2), 16) / 0xff
-        );
+      );
     }
 
     const n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
@@ -72,16 +58,35 @@ class Color3 extends VectorBase {
     return undefined;
   }
 
-  public static parse(color: string): Color3 {
-    return Color3.internalParse(color, true);
+  public static equals(col1: Color3, col2: Color3): boolean {
+    return VectorBase.elementEqual(col1, col2);
+  }
+
+  public toVector(): Vector3 {
+    return new Vector3(this.R, this.G, this.B);
+  }
+
+  public toVector4(a?: number): Vector4 {
+    if (typeof a === "undefined") {
+      a = 0;
+    }
+    return new Vector4(this.R, this.G, this.B, a);
+  }
+
+  public get R(): number {
+    return this.rawElements[0];
+  }
+
+  public get G(): number {
+    return this.rawElements[1];
+  }
+
+  public get B(): number {
+    return this.rawElements[2];
   }
 
   public get ElementCount(): number {
     return 3;
-  }
-
-  public static equals(col1: Color3, col2: Color3): boolean {
-    return VectorBase.elementEqual(col1, col2);
   }
 
   public equalWith(col: Color3): boolean {

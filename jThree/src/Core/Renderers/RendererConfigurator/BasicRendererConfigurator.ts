@@ -1,4 +1,3 @@
-import Vector3 from "../../../Math/Vector3";
 import StageChainTemplate from "../StageChainTemplate";
 ﻿import GeneraterInfo from "../TextureGeneraters/GeneraterInfoChunk";
 import BasicRenderer from "../BasicRenderer";
@@ -78,19 +77,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       },
       {
         buffers: {
-          MAIN: "main",
-          PRIMARY: "gbuffer.primary",
-          OUT: "output"
-        },
-        stage: "jthree.basic.fogExp2",
-        variables: {
-          density: 2.0,
-          fogColor: new Vector3(1.0, 1.0, 1.0)
-        }
-      },
-      {
-        buffers: {
-          INPUT: "output",
+          INPUT: "main",
           OUT: "default"
         },
         stage: "jthree.basic.fxaa",

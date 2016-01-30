@@ -1,7 +1,6 @@
 import Buffer from "./Buffer";
-import ElementType from "../../../Wrapper/ElementType";
 import ResourceWrapper from "../ResourceWrapper";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 /**
  * Buffer wrapper based on context.
  */
@@ -34,7 +33,7 @@ class BufferWrapper extends ResourceWrapper {
     return this.parentBuffer.UnitCount;
   }
 
-  public get ElementType(): ElementType {
+  public get ElementType(): number {
     return this.parentBuffer.ElementType;
   }
 
@@ -50,12 +49,12 @@ class BufferWrapper extends ResourceWrapper {
     return this.parentBuffer.Offset;
   }
 
-  public update(array: Float32Array, length: number): void {
+  public update(array: ArrayBuffer|ArrayBufferView, length: number): void {
     if (!this.Initialized) {
       this.init();
     }
     this.bindBuffer();
-    this.GL.bufferData(this.parentBuffer.Target, array.buffer, this.parentBuffer.Usage);
+    this.GL.bufferData(this.parentBuffer.Target, array, this.parentBuffer.Usage);
     this.unbindBuffer();
     this.length = length;
   }

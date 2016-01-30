@@ -1,15 +1,16 @@
-import Canvas from "../../../Core/Canvas";
+import CanvasManager from "../../../Core/Canvas/CanvasManager";
+import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import ICanvasElementStructure from "../../../Core/Canvas/ICanvasElementStructure";
+import CanvasElementBuilder from "../../../Core/Canvas/CanvasElementBuilder";
+import Canvas from "../../../Core/Canvas/Canvas";
 import JThreeContext from "../../../JThreeContext";
 import ContextComponents from "../../../ContextComponents";
-import CanvasManager from "../../../Core/CanvasManager";
-import CanvasNodeBase from "./CanvasNodeBase";
-import {Action1} from "../../../Base/Delegates";
 import ResourceLoader from "../../../Core/ResourceLoader";
 
-class CanvasNode extends CanvasNodeBase {
-  public canvasElement: HTMLCanvasElement;
-  public targetFrame: HTMLElement;
-  private resizedFunctions: Action1<CanvasNode>[] = [];
+class CanvasNode extends GomlTreeNodeBase {
+  public canvasFrames: ICanvasElementStructure;
+
+  public canvas: Canvas;
 
   constructor() {
     super();
@@ -18,44 +19,44 @@ class CanvasNode extends CanvasNodeBase {
         value: undefined,
         converter: "string",
         // TODO pnly: frame onchange handler
+      },
+      "width": {
+        value: 640,
+        converter: "float",
+        onchanged: (v) => {
+          this.emit("resize");
+          this.sizeChanged(v.Value, this.attributes.getValue("height"));
+        },
+      },
+      "height": {
+        value: 480,
+        converter: "float",
+        onchanged: (v) => {
+          this.emit("resize");
+          this.sizeChanged(this.attributes.getValue("width"), v.Value);
+        },
+      },
+      "loader": {
+        value: undefined,
+        converter: "string",
       }
     });
+  }
+
+
+  public get Frame(): string {
+    return this.attributes.getValue("frame") || "body";
   }
 
   protected onMount(): void {
     super.onMount();
     // generate canvas
-    this.targetFrame = <HTMLElement>document.querySelector(this.Frame);
-    const wrappingFrame = document.createElement("div");
-    wrappingFrame.style.marginLeft = "auto";
-    wrappingFrame.style.marginRight = "auto";
-    wrappingFrame.style.width = this.attributes.getValue("width") + "px";
-    wrappingFrame.style.height = this.attributes.getValue("height") + "px";
-    this.on("resize", () => {
-     wrappingFrame.style.width = this.attributes.getValue("width") + "px";
-     wrappingFrame.style.height = this.attributes.getValue("height") + "px";
-    });
-    const resizeElement = document.createElement("div");
-    resizeElement.style.position = "relative";
-    resizeElement.style.margin = "0";
-    resizeElement.style.padding = "0";
-    resizeElement.style.height = "100%";
-    wrappingFrame.appendChild(resizeElement);
-    this.targetFrame.appendChild(wrappingFrame);
-
-    this.canvasElement = document.createElement("canvas");
-    this.canvasElement.style.position = "absolute";
-    this.canvasElement.setAttribute("antialias", "false");
-    this.canvasElement.classList.add("x-j3-c-" + this.ID);
-    resizeElement.appendChild(this.canvasElement);
-
-    // this.attributes.setValue("width", this.DefaultWidth);
-    // this.attributes.setValue("height", this.DefaultHeight);
-
+    const canvas = <HTMLElement>document.querySelector(this.Frame);
+    this.canvasFrames = CanvasElementBuilder.generate(canvas, this.attributes.getValue("width"), this.attributes.getValue("height"));
 
     // initialize contexts
-    this.setCanvas(new Canvas(this.canvasElement));
-    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.Canvas);
+    this.canvas = new Canvas(this.canvasFrames.canvas);
+    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.canvas);
 
     // construct loader
     let defaultLoader;
@@ -67,17 +68,11 @@ class CanvasNode extends CanvasNodeBase {
     if (!defaultLoader) {
       defaultLoader = require("../../../static/defaultLoader.html");
     }
-    const loaderContainer = document.createElement("div");
-    loaderContainer.style.position = "absolute";
-    loaderContainer.style.width = this.attributes.getValue("width") + "px";
-    loaderContainer.style.height = this.attributes.getValue("height") + "px";
-    loaderContainer.classList.add("x-j3-loader-container");
-    loaderContainer.innerHTML = defaultLoader;
-    resizeElement.appendChild(loaderContainer);
+    this.canvasFrames.loaderContainer.innerHTML = defaultLoader;
 
-    const progressLoaders = loaderContainer.querySelectorAll(".x-j3-loader-progress");
+    const progressLoaders = this.canvasFrames.loaderContainer.querySelectorAll(".x-j3-loader-progress");
     JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).promise.then(() => {
-      const loaders = resizeElement.querySelectorAll(".x-j3-loader-container");
+      const loaders = this.canvasFrames.resizeDetecter.querySelectorAll(".x-j3-loader-container");
       for (let i = 0; i < loaders.length; i++) {
         const loader = loaders.item(i);
         loader.remove();
@@ -90,37 +85,17 @@ class CanvasNode extends CanvasNodeBase {
       });
   }
 
-  public get Frame(): string {
-    return this.attributes.getValue("frame") || "body";
-  }
-
-  public resize();
-  public resize(func: Action1<CanvasNode>);
-  public resize(func?: Action1<CanvasNode>) {
-    if (typeof arguments[0] === "function") {
-      if (this.resizedFunctions.indexOf(arguments[0]) === -1) {
-        this.resizedFunctions.push(arguments[0]);
-      }
-    } else {
-      this.sizeChanged(this.DefaultWidth, this.DefaultHeight);
-      this.resizedFunctions.forEach(function(f) {
-        f(this);
-      }.bind(this));
-    }
-
-  }
-
   protected get DefaultWidth(): number {
-    return this.targetFrame.clientWidth;
+    return this.canvasFrames.container.clientWidth;
   }
 
   protected get DefaultHeight(): number {
-    return this.targetFrame.clientHeight;
+    return this.canvasFrames.container.clientHeight;
   }
 
   protected sizeChanged(width: number, height: number) {
-    this.canvasElement.width = width;
-    this.canvasElement.height = height;
+    this.canvasFrames.canvas.width = width;
+    this.canvasFrames.canvas.height = height;
   }
 }
 

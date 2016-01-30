@@ -3,7 +3,7 @@ import TextureBase from "../Texture/TextureBase";
 import VectorBase from "../../../Math/VectorBase";
 import Matrix from "../../../Math/Matrix";
 import Program from "./Program";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import ResourceWrapper from "../ResourceWrapper";
 import Buffer from "../Buffer/Buffer";
 class ProgramWrapper extends ResourceWrapper {

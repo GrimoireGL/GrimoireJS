@@ -1,8 +1,6 @@
 import GeneraterInfoChunk from "./GeneraterInfoChunk";
 import BasicRenderer from "../BasicRenderer";
 import GeneraterBase from "./GeneraterBase";
-import TextureInternalFormatType from "../../../Wrapper/TextureInternalFormatType";
-import TextureType from "../../../Wrapper/TextureType";
 import Rectangle from "../../../Math/Rectangle";
 import BufferTexture from "../../Resources/Texture/BufferTexture";
 import ContextComponents from "../../../ContextComponents";
@@ -24,60 +22,60 @@ class RendererFit extends GeneraterBase {
   public generate(texInfo: GeneraterInfoChunk) {
     const rect = this.ParentRenderRectangle;
     const width = rect.Width, height = rect.Height;
-    let internalFormat: TextureInternalFormatType;
+    let internalFormat: number;
     texInfo["internalFormat"] = texInfo["internalFormat"] || "RGBA";
     switch ((<string>texInfo["internalFormat"]).toUpperCase()) {
       case "ALPHA":
-        internalFormat = TextureInternalFormatType.Alpha;
+        internalFormat = WebGLRenderingContext.ALPHA;
         break;
       case "RGB":
-        internalFormat = TextureInternalFormatType.RGB;
+        internalFormat = WebGLRenderingContext.RGB;
         break;
       case "DEPTH":
-        internalFormat = TextureInternalFormatType.DEPTH_COMPONENT;
+        internalFormat = WebGLRenderingContext.DEPTH_COMPONENT;
         break;
       case "LUMINANCE":
-        internalFormat = TextureInternalFormatType.Luminance;
+        internalFormat = WebGLRenderingContext.LUMINANCE;
         break;
       case "LUMINANCE_ALPHA":
-        internalFormat = TextureInternalFormatType.LuminanceAlpha;
+        internalFormat = WebGLRenderingContext.LUMINANCE_ALPHA;
         break;
       case "DEPTH_STENCIL":
-        internalFormat = TextureInternalFormatType.DEPTH_STENCIL;
+        internalFormat = WebGLRenderingContext.DEPTH_STENCIL;
         break;
       case "RGBA":
-        internalFormat = TextureInternalFormatType.RGBA;
+        internalFormat = WebGLRenderingContext.RGBA;
         break;
       default:
         console.error("the given parameter was invalid : texture format " + texInfo["internalFormat"]);
     }
-    let elementFormat: TextureType;
+    let elementFormat: number;
     texInfo["element"] = texInfo["element"] || "UBYTE";
     switch ((<string>texInfo["element"]).toUpperCase()) {
       case "UBYTE":
-        elementFormat = TextureType.UnsignedByte;
+        elementFormat = WebGLRenderingContext.UNSIGNED_BYTE;
         break;
       case "FLOAT":
-        elementFormat = TextureType.Float;
+        elementFormat = WebGLRenderingContext.FLOAT;
         break;
       case "USHORT565":
-        elementFormat = TextureType.UnsignedShort565;
+        elementFormat = WebGLRenderingContext.UNSIGNED_SHORT_5_6_5;
         break;
       case "USHORT4444":
-        elementFormat = TextureType.UnsignedShort4444;
+        elementFormat = WebGLRenderingContext.UNSIGNED_SHORT_4_4_4_4;
         break;
       case "USHORT5551":
-        elementFormat = TextureType.UnsignedShort5551;
+        elementFormat = WebGLRenderingContext.UNSIGNED_SHORT_5_5_5_1;
         break;
       case "UINT":
-        elementFormat = TextureType.UnsignedInt;
+        elementFormat = WebGLRenderingContext.UNSIGNED_INT;
         break;
       case "USHORT":
-        elementFormat = TextureType.UnsignedShort;
+        elementFormat = WebGLRenderingContext.UNSIGNED_SHORT;
         break;
-      case "UINT24_8":
-        elementFormat = TextureType.UnsignedInt24_8WebGL;
-        break;
+      // case "UINT24_8": // TODO Depth texture
+      //   elementFormat = WebGLRenderingContext.UNSIGNED;
+      // break;
       default:
         console.error("the given parameter was invalid : element format " + texInfo["element"]);
     }

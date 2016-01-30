@@ -2,14 +2,13 @@ import IVariableDescription from "../../Materials/Base/IVariableDescription";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import jThreeObject from "../../../Base/JThreeObject";
 import Buffer from "./../../Resources/Buffer/Buffer";
-import PrimitiveTopology from "../../../Wrapper/PrimitiveTopology";
-import Canvas from "./../../Canvas";
+import Canvas from "./../../Canvas/Canvas";
 import Material from "./../../Materials/Material";
 /**
  * Base abstraction for geometry.
  */
 abstract class Geometry extends jThreeObject {
-    public primitiveTopology: PrimitiveTopology = PrimitiveTopology.Triangles;
+    public primitiveTopology: number = WebGLRenderingContext.TRIANGLES;
     public get GeometryOffset() {
         return 0;
     }

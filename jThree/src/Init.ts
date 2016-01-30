@@ -10,7 +10,7 @@ import BehaviorDeclaration from "./Goml/Behaviors/BehaviorDeclaration";
 import BehaviorDeclarationBody from "./Goml/Behaviors/BehaviorDeclarationBody";
 import JThreeContext from "./JThreeContext";
 import SceneManager from "./Core/SceneManager";
-import CanvasManager from "./Core/CanvasManager";
+import CanvasManager from "./Core/Canvas/CanvasManager";
 import LoopManager from "./Core/LoopManager";
 import ContextComponents from "./ContextComponents";
 import ResourceManager from "./Core/ResourceManager";

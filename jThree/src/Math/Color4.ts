@@ -2,31 +2,14 @@ import VectorBase from "./VectorBase";
 import Vector4 from "./Vector4";
 
 class Color4 extends VectorBase {
+
+  public static colorTable: { [key: string]: string } = require("../static/color.json");
+
   constructor(r: number, g: number, b: number, a: number) {
     super();
     this.rawElements = [r, g, b, a];
   }
 
-  public get R(): number {
-    return this.rawElements[0];
-  }
-
-  public get G(): number {
-    return this.rawElements[1];
-  }
-
-  public get B(): number {
-    return this.rawElements[2];
-  }
-
-  public get A(): number {
-    return this.rawElements[3];
-  }
-  public toVector(): Vector4 {
-    return new Vector4(this.R, this.G, this.B, this.A);
-  }
-
-  public static colorTable: { [key: string]: string } = require("../static/color.json");
   /// Color parser for css like syntax
   public static internalParse(color: string, isFirst: boolean): Color4 {
     if (isFirst && Color4.colorTable[color]) {
@@ -100,6 +83,29 @@ class Color4 extends VectorBase {
     return Color4.internalParse(color, true);
   }
 
+  public static equals(col1: Color4, col2: Color4): boolean {
+    return VectorBase.elementEqual(col1, col2);
+  }
+
+  public get R(): number {
+    return this.rawElements[0];
+  }
+
+  public get G(): number {
+    return this.rawElements[1];
+  }
+
+  public get B(): number {
+    return this.rawElements[2];
+  }
+
+  public get A(): number {
+    return this.rawElements[3];
+  }
+  public toVector(): Vector4 {
+    return new Vector4(this.R, this.G, this.B, this.A);
+  }
+
   public get ElementCount(): number {
     return 4;
   }
@@ -108,16 +114,12 @@ class Color4 extends VectorBase {
     return Color4.equals(col, this);
   }
 
-  public static equals(col1: Color4, col2: Color4): boolean {
-    return VectorBase.elementEqual(col1, col2);
-  }
-
   public toString(): string {
     return `rgba(${Math.round(this.R * 255) }, ${Math.round(this.G * 255) }, ${Math.round(this.B * 255) }, ${Math.round(this.A * 255) })`;
   }
 
   public toDisplayString(): string {
-    var st = "#";
+    let st = "#";
     st += Math.round(this.R * 0xff).toString(16).toUpperCase();
     st += Math.round(this.G * 0xff).toString(16).toUpperCase();
     st += Math.round(this.B * 0xff).toString(16).toUpperCase();
@@ -125,6 +127,5 @@ class Color4 extends VectorBase {
     return `Color4(${this.R}, ${this.G}, ${this.B}, ${this.A}, ${st})`;
   }
 }
-
 
 export default Color4;

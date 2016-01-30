@@ -1,6 +1,6 @@
 import JThreeLogger from "../../../Base/JThreeLogger";
 import Shader from "./Shader";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import ResourceWrapper from "../ResourceWrapper";
 class ShaderWrapper extends ResourceWrapper {
 

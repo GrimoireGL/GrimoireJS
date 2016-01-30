@@ -2,6 +2,18 @@ import VectorBase from "./VectorBase";
 import {GLM, vec3} from "gl-matrix";
 
 class Vector3 extends VectorBase {
+
+  constructor(x: number, y: number, z: number);
+  constructor(x: GLM.IArray);
+  constructor(x: number | GLM.IArray, y?: number, z?: number) {
+    super();
+    if (typeof y === "undefined") {
+      this.rawElements = <GLM.IArray>x;
+      return;
+    }
+    this.rawElements = [<number>x, y, z];
+  }
+
   public static get XUnit(): Vector3 {
     return new Vector3(1, 0, 0);
   }
@@ -24,45 +36,6 @@ class Vector3 extends VectorBase {
 
   public static copy(source: Vector3) {
     return new Vector3(source.X, source.Y, source.Z);
-  }
-
-  constructor(x: number, y: number, z: number);
-  constructor(x: GLM.IArray);
-  constructor(x: number | GLM.IArray, y?: number, z?: number) {
-    super();
-    if (typeof y === "undefined") {
-      this.rawElements = <GLM.IArray>x;
-      return;
-    }
-    this.rawElements = [<number>x, y, z];
-  }
-
-  public get normalized() {
-    return this.multiplyWith(1 / this.magnitude);
-  }
-
-  public get X(): number {
-    return this.rawElements[0];
-  }
-
-  public get Y(): number {
-    return this.rawElements[1];
-  }
-
-  public get Z(): number {
-    return this.rawElements[2];
-  }
-
-  public set X(x: number) {
-    this.rawElements[0] = +x;
-  }
-
-  public set Y(y: number) {
-    this.rawElements[1] = +y;
-  }
-
-  public set Z(z: number) {
-    this.rawElements[2] = +z;
   }
 
   public static dot(v1: Vector3, v2: Vector3): number {
@@ -104,58 +77,15 @@ class Vector3 extends VectorBase {
 
 
   public static min(v1: Vector3, v2: Vector3): Vector3 {
-    return new Vector3(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.min(v1.rawElements[i], v2.rawElements[i])));
+    return new Vector3(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.min(_v1.rawElements[i], _v2.rawElements[i])));
   }
   public static max(v1: Vector3, v2: Vector3): Vector3 {
-    return new Vector3(VectorBase.fromGenerationFunction(v1, v2, (i, v1, v2) => Math.max(v1.rawElements[i], v2.rawElements[i])));
+    return new Vector3(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.max(_v1.rawElements[i], _v2.rawElements[i])));
   }
 
   public static angle(v1: Vector3, v2: Vector3): number {
     return Math.acos(Vector3.dot(v1.normalized, v2.normalized));
   }
-
-
-  public normalizeThis(): Vector3 {
-    return Vector3.normalize(this);
-  }
-
-  public dotWith(v: Vector3): number {
-    return Vector3.dot(this, v);
-  }
-
-  public addWith(v: Vector3): Vector3 {
-    return Vector3.add(this, v);
-  }
-
-  public subtractWith(v: Vector3): Vector3 {
-    return Vector3.subtract(this, v);
-  }
-
-  public multiplyWith(s: number): Vector3 {
-    return Vector3.multiply(s, this);
-  }
-
-  public negateThis(): Vector3 {
-    return Vector3.negate(this);
-  }
-
-  public equalWith(v: Vector3): boolean {
-    return Vector3.equal(this, v);
-  }
-
-  public crossWith(v: Vector3): Vector3 {
-    return Vector3.cross(this, v);
-  }
-
-  public toString(): string {
-    return `(${this.X}, ${this.Y}, ${this.Z})`;
-  }
-
-  public toDisplayString(): string {
-    return `Vector3${this.toString() }`;
-  }
-
-  public get ElementCount(): number { return 3; }
 
   public static parse(str: string): Vector3 {
     let resultVec: Vector3;
@@ -203,6 +133,77 @@ class Vector3 extends VectorBase {
   public toMathematicaString(): string {
     return `{${this.X},${this.Y},${this.Z}}`;
   }
+
+  public get normalized() {
+    return this.multiplyWith(1 / this.magnitude);
+  }
+
+  public get X(): number {
+    return this.rawElements[0];
+  }
+
+  public get Y(): number {
+    return this.rawElements[1];
+  }
+
+  public get Z(): number {
+    return this.rawElements[2];
+  }
+
+  public set X(x: number) {
+    this.rawElements[0] = +x;
+  }
+
+  public set Y(y: number) {
+    this.rawElements[1] = +y;
+  }
+
+  public set Z(z: number) {
+    this.rawElements[2] = +z;
+  }
+
+  public normalizeThis(): Vector3 {
+    return Vector3.normalize(this);
+  }
+
+  public dotWith(v: Vector3): number {
+    return Vector3.dot(this, v);
+  }
+
+  public addWith(v: Vector3): Vector3 {
+    return Vector3.add(this, v);
+  }
+
+  public subtractWith(v: Vector3): Vector3 {
+    return Vector3.subtract(this, v);
+  }
+
+  public multiplyWith(s: number): Vector3 {
+    return Vector3.multiply(s, this);
+  }
+
+  public negateThis(): Vector3 {
+    return Vector3.negate(this);
+  }
+
+  public equalWith(v: Vector3): boolean {
+    return Vector3.equal(this, v);
+  }
+
+  public crossWith(v: Vector3): Vector3 {
+    return Vector3.cross(this, v);
+  }
+
+  public toString(): string {
+    return `(${this.X}, ${this.Y}, ${this.Z})`;
+  }
+
+  public toDisplayString(): string {
+    return `Vector3${this.toString() }`;
+  }
+
+  public get ElementCount(): number { return 3; }
+
 }
 
 export default Vector3;

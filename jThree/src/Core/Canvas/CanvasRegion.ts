@@ -1,12 +1,12 @@
-import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
-import IMouseEventArgs from "./IMouseEventArgs";
-import JThreeEvent from "../Base/JThreeEvent";
-import IDisposable from "../Base/IDisposable";
-import Rectangle from "../Math/Rectangle";
-import Vector2 from "../Math/Vector2";
-import JThreeContext from "../JThreeContext";
-import Debugger from "../Debug/Debugger";
-import ContextComponents from "../ContextComponents";
+import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import IMouseEventArgs from "./../IMouseEventArgs";
+import JThreeEvent from "../../Base/JThreeEvent";
+import IDisposable from "../../Base/IDisposable";
+import Rectangle from "../../Math/Rectangle";
+import Vector2 from "../../Math/Vector2";
+import JThreeContext from "../../JThreeContext";
+import Debugger from "../../Debug/Debugger";
+import ContextComponents from "../../ContextComponents";
 /**
  * Abstract class to provide mouse tracking feature on a part of region on canvas.
  * This class is intended to be used in Canvas and viewport renderer.

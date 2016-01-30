@@ -26,7 +26,7 @@ notifier = require 'node-notifier'
 formatter = require 'pretty-hrtime'
 runSequence = require 'run-sequence'
 ts = require 'gulp-typescript'
-changed = require 'gulp-changed'
+cached = require 'gulp-cached'
 tslint = require 'gulp-tslint'
 mkdir = require 'mkdirp'
 
@@ -60,7 +60,7 @@ typedocDest = 'ci/docs'
 tsdSrc = './jThree/refs/**/*.d.ts'
 
 # test target (Array)
-testTarget = './jThree/test/build/test.js'
+testTarget = './jThree/test/**/*.js'
 
 # templete convertion root (for entries of jade and haml)
 templeteRoot = 'jThree/wwwroot'
@@ -70,9 +70,6 @@ jadeExtention = '.jdgoml'
 
 # path to tsconfig.json
 tsconfigPath = './tsconfig.json'
-
-# path to bundle.ts for references
-tsbundlePath = './jThree/src/bundle.ts'
 
 # path to tsd.json
 tsdPath = './tsd.json'
@@ -167,10 +164,11 @@ gulp.task 'build:main:ts', (done) ->
   c = config.main
   gulp
     .src tsEntries
-    .pipe changed tsDest
     .pipe sourcemaps.init()
     .pipe ts tsProject, undefined, reporter
     .js
+    .pipe cached
+      title: "ts"
     .pipe sourcemaps.write()
     .pipe gulp.dest tsDest
     .on 'end', ->
@@ -188,7 +186,8 @@ gulp.task 'build:main:others', (done) ->
     .map (v) -> "#{tsBase}/**/*#{v}"
   gulp
     .src othersEntries
-    .pipe changed tsDest
+    .pipe cached
+      title:"others"
     .pipe gulp.dest tsDest
     .on 'end', ->
       done()
@@ -369,7 +368,9 @@ mocha task
 gulp.task 'mocha', ->
   gulp
     .src testTarget
-    .pipe mocha()
+    .pipe mocha
+      compilers:
+        js: 'espower-babel/guess'
 
 
 ###
@@ -380,15 +381,6 @@ gulp.task 'update-tsconfig-files', ->
   files = _(globArray.sync(json.filesGlob)).uniq(true)
   json.files = files
   fs.writeFileSync path.resolve(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
-  refs = _(files)
-    .map (v) ->
-      rpath = path.relative(path.dirname(tsbundlePath), v)
-      if rpath != 'bundle.ts'
-        "/// <reference path=\"#{rpath}\" />"
-      else
-        null
-    .compact()
-  fs.writeFileSync path.resolve(__dirname, tsbundlePath), (refs.join('\n') + '\n')
 
 gulp.task 'tscfg', ['update-tsconfig-files']
 

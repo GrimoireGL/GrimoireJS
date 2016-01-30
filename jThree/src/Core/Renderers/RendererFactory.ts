@@ -1,4 +1,4 @@
-import Canvas from "../Canvas";
+import Canvas from "../Canvas/Canvas";
 import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "./BasicRenderer";
 import BasicRendererConfigurator from "./RendererConfigurator/BasicRendererConfigurator";

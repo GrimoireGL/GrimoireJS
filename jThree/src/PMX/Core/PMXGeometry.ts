@@ -1,10 +1,6 @@
 import BasicGeometry from "../../Core/Geometries/Base/BasicGeometry";
 import IVariableDescription from "../../Core/Materials/Base/IVariableDescription";
 import ProgramWrapper from "../../Core/Resources/Program/ProgramWrapper";
-import PrimitiveTopology from "../../Wrapper/PrimitiveTopology";
-import BufferTargetType from "../../Wrapper/BufferTargetType";
-import BufferUsageType from "../../Wrapper/BufferUsageType";
-import ElementType from "../../Wrapper/ElementType";
 import PMX from "../PMXLoader";
 import Buffer from "../../Core/Resources/Buffer/Buffer";
 import ContextComponents from "../../ContextComponents";
@@ -27,14 +23,13 @@ class PMXGeometry extends BasicGeometry {
     super();
     const name = `${pmx.Header.modelName}(${pmx.Header.modelNameEn})`;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    this.primitiveTopology = PrimitiveTopology.Triangles;
-    this.indexBuffer = rm.createBuffer(name + "-index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedInt);
-    this.positionBuffer = rm.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
-    this.normalBuffer = rm.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
-    this.uvBuffer = rm.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
-    this.edgeSizeBuffer = rm.createBuffer(name + "-edgeSize", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.Float);
-    this.boneIndexBuffer = rm.createBuffer(name + "-boneIndex", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 4, ElementType.Float);
-    this.boneWeightBuffer = rm.createBuffer(name + "-boneWeight", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 4, ElementType.Float);
+    this.indexBuffer = rm.createBuffer(name + "-index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_INT);
+    this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
+    this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
+    this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
+    this.edgeSizeBuffer = rm.createBuffer(name + "-edgeSize", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.FLOAT);
+    this.boneIndexBuffer = rm.createBuffer(name + "-boneIndex", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 4, WebGLRenderingContext.FLOAT);
+    this.boneWeightBuffer = rm.createBuffer(name + "-boneWeight", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 4, WebGLRenderingContext.FLOAT);
     this.updateBuffers(pmx);
   }
 

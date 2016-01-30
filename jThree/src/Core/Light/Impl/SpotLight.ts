@@ -30,7 +30,22 @@ class SpotLight extends LightBase {
         lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis()
       };
     });
+    const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/SpotLight.html"));
+    specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
+      const tan = Math.tan(this.outerAngle);
+      this.Transformer.Scale = new Vector3(tan * this.outerDistance, this.outerDistance / 2, tan * this.outerDistance);
+
+      specularMaterial.materialVariables = {
+        lightColor: this.Color.toVector().multiplyWith(this.intensity),
+        angle: this.outerAngle,
+        dist: this.outerDistance,
+        decay: this.distanceDecay,
+        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis(),
+        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
+      };
+    });
     this.addMaterial(diffuseMaterial);
+    this.addMaterial(specularMaterial);
   }
 
   public intensity: number = 1;

@@ -19,11 +19,87 @@ import JThreeContext from "../../../JThreeContext";
  * the materials for PMX.
  */
 class PMXMaterial extends Material {
+
+  public edgeColor: Color4 = null;
+
+  public materialIndex: number;
+
+  public cullEnabled: boolean;
+
+  public Name: string;
+
+  public addMorphParam: PmxMaterialMorphParamContainer;
+
+  public mulMorphParam: PmxMaterialMorphParamContainer;
+
   protected __innerMaterial: BasicMaterial;
 
   private _verticiesCount;
 
   private _verticiesOffset;
+
+  private ambient: Color3;
+
+  private diffuse: Color4;
+
+  private edgeSize: number;
+
+  private sphere: TextureBase = null;
+
+  private texture: TextureBase = null;
+
+  private toon: TextureBase = null;
+
+  private pmxData: PMX;
+
+  private parentModel: PMXModel;
+
+  private sphereMode: number;
+
+  private specular: Vector4;
+
+  constructor(pmx: PMXModel, index: number, offset: number) {
+    super();
+    this.addMorphParam = new PmxMaterialMorphParamContainer(1);
+    this.mulMorphParam = new PmxMaterialMorphParamContainer(0);
+    this.parentModel = pmx;
+    this.pmxData = pmx.ModelData;
+    this.materialIndex = index;
+    let materialData = this.pmxData.Materials[index];
+    this._verticiesCount = materialData.vertexCount;
+    this._verticiesOffset = offset;
+    this.Name = materialData.materialName;
+    this.cullEnabled = !((materialData.drawFlag & 0x01) > 0); // each side draw flag
+    this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
+    this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
+    if ((materialData.drawFlag & 0x10) > 0) {
+      this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);
+    }
+    this.specular = new Vector4(materialData.specular);
+    this.edgeSize = materialData.edgeSize;
+    this.sphereMode = materialData.sphereMode;
+    this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
+    const tm = this.parentModel.pmxTextureManager;
+    tm.loadTexture(materialData.sphereTextureIndex).then((texture) => {
+      this.sphere = texture;
+    });
+    tm.loadTexture(materialData.textureIndex).then((texture) => {
+      this.texture = texture;
+    });
+    if (materialData.sharedToonFlag === 0) { // not shared texture
+      tm.loadTexture(materialData.targetToonIndex).then((texture) => {
+        this.toon = texture;
+      });
+    } else {
+      this.toon = this.loadSharedTexture(materialData.targetToonIndex);
+    }
+    this.setLoaded();
+    this.__innerMaterial.on("configure", (v: IConfigureEventArgs) => {
+      if (v.passIndex === 0) {
+        v.configure.cullOrientation = this.cullEnabled ? "BACK" : "NONE";
+      }
+    });
+  }
 
   /**
    * Count of verticies
@@ -64,87 +140,12 @@ class PMXMaterial extends Material {
     return this.specular;
   }
 
-  private ambient: Color3;
-
-  private diffuse: Color4;
-
-  public edgeColor: Color4 = null;
-
-  private edgeSize: number;
-
-  private sphere: TextureBase = null;
-
-  private texture: TextureBase = null;
-
-  private toon: TextureBase = null;
-
-  private pmxData: PMX;
-
-  private parentModel: PMXModel;
-
-  private sphereMode: number;
-
-  public materialIndex: number;
-
-  public cullEnabled: boolean;
-
-  private specular: Vector4;
-
-  public Name: string;
-
-  public addMorphParam: PmxMaterialMorphParamContainer;
-
-  public mulMorphParam: PmxMaterialMorphParamContainer;
-
-  private textureCaches: HTMLImageElement[] = [];
-
   public getPassCount(techniqueIndex: number): number {
     return this.edgeColor == null ? 1 : 2;
   }
 
   public get SelfShadow(): boolean {
     return (this.pmxData.Materials[this.materialIndex].drawFlag & 0x04) > 0;
-  }
-
-  constructor(pmx: PMXModel, index: number, offset: number) {
-    super();
-    this.addMorphParam = new PmxMaterialMorphParamContainer(1);
-    this.mulMorphParam = new PmxMaterialMorphParamContainer(0);
-    this.parentModel = pmx;
-    this.pmxData = pmx.ModelData;
-    this.materialIndex = index;
-    var materialData = this.pmxData.Materials[index];
-    this._verticiesCount = materialData.vertexCount;
-    this._verticiesOffset = offset;
-    this.Name = materialData.materialName;
-    this.cullEnabled = !((materialData.drawFlag & 0x01) > 0); // each side draw flag
-    this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
-    this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
-    if ((materialData.drawFlag & 0x10) > 0) this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);
-    this.specular = new Vector4(materialData.specular);
-    this.edgeSize = materialData.edgeSize;
-    this.sphereMode = materialData.sphereMode;
-    this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
-    const tm = this.parentModel.pmxTextureManager;
-    tm.loadTexture(materialData.sphereTextureIndex).then((texture) => {
-      this.sphere = texture;
-    });
-    tm.loadTexture(materialData.textureIndex).then((texture) => {
-      this.texture = texture;
-    });
-    if (materialData.sharedToonFlag === 0) { // not shared texture
-      tm.loadTexture(materialData.targetToonIndex).then((texture) => {
-        this.toon = texture;
-      });
-    } else {
-      this.toon = this.loadSharedTexture(materialData.targetToonIndex);
-    }
-    this.setLoaded();
-    this.__innerMaterial.on("configure", (v: IConfigureEventArgs) => {
-      if (v.passIndex === 0) {
-        v.configure.cullOrientation = this.cullEnabled ? "BACK" : "NONE";
-      }
-    });
   }
 
   public apply(matArg: IApplyMaterialArgument): void {
@@ -181,19 +182,6 @@ class PMXMaterial extends Material {
     this.__innerMaterial.apply(matArg);
   }
 
-  private loadSharedTexture(index: number): Texture {
-    if (index < 0) return null;
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    const resName = "jthree.pmx.sharedtoon." + index;
-    if (rm.getTexture(resName)) {
-      return <Texture>rm.getTexture(resName);
-    } else {
-      const tex = rm.createTextureWithSource(resName, this.parentModel.pmxTextureManager.generateSharedToonImg(index));
-      return tex;
-    }
-  }
-
-
   public get Priorty(): number {
     return 100 + this.materialIndex;
   }
@@ -204,6 +192,20 @@ class PMXMaterial extends Material {
 
   public getDrawGeometryOffset(geo: Geometry): number {
     return this.VerticiesOffset * 4;
+  }
+
+  private loadSharedTexture(index: number): Texture {
+    if (index < 0) {
+      return null;
+    }
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const resName = "jthree.pmx.sharedtoon." + index;
+    if (rm.getTexture(resName)) {
+      return <Texture>rm.getTexture(resName);
+    } else {
+      const tex = rm.createTextureWithSource(resName, this.parentModel.pmxTextureManager.generateSharedToonImg(index));
+      return tex;
+    }
   }
 }
 

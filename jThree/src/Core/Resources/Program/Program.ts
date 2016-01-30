@@ -1,6 +1,6 @@
 import ContextSafeContainer from "../ContextSafeResourceContainer";
 import Shader from "../Shader/Shader";
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import ProgramWrapper from "./ProgramWrapper";
 
 class Program extends ContextSafeContainer<ProgramWrapper> {
@@ -30,12 +30,8 @@ class Program extends ContextSafeContainer<ProgramWrapper> {
 
   }
 
-  protected disposeResource(resource: ProgramWrapper): void {
-    resource.dispose();
-  }
-
-  protected getInstanceForRenderer(renderer: Canvas): ProgramWrapper {
-    return new ProgramWrapper(this, renderer);
+  protected createWrapperForCanvas(canvas: Canvas): ProgramWrapper {
+    return new ProgramWrapper(this, canvas);
   }
 
   public uniformExists(valName: string): boolean {

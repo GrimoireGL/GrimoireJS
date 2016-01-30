@@ -107,9 +107,8 @@ class ViewPortNode extends GomlTreeNodeBase {
       throw Error("viewport must be the direct child of canvas");
     }
     this.parentCanvas = <CanvasNode>this.parent;
-    const defaultRect = this.parentCanvas.Canvas.region;
-    this.targetRenderer = RendererFactory.generateRenderer(this.parentCanvas.Canvas, defaultRect, attr.Value);
-    this.parentCanvas.resize(this.updateViewportArea.bind(this));
+    const defaultRect = this.parentCanvas.canvas.region;
+    this.targetRenderer = RendererFactory.generateRenderer(this.parentCanvas.canvas, defaultRect, attr.Value);
   }
 
   private _onCamAttrChanged(attr: GomlAttribute): void {
@@ -139,9 +138,9 @@ class ViewPortNode extends GomlTreeNodeBase {
   private updateViewportArea() {
     // console.log("updateViewportArea");
     if (this.parentCanvas) {
-      if (this.parentCanvas.targetFrame) {
+      if (this.parentCanvas.canvasFrames.container) {
         // when canvas HTMLElement is applied
-        const frame = this.parentCanvas.targetFrame;
+        const frame = this.parentCanvas.canvasFrames.container;
         const W = frame.clientWidth;
         const H = frame.clientHeight;
         const left = this.left > 1 ? this.left : W * this.left;

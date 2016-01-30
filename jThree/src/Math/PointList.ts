@@ -17,6 +17,19 @@ class PointList {
     }
   }
 
+  public static initializeWithCube(list: PointList) {
+    list.clear();
+    list.addPoint(new Vector3(-1.0, +1.0, -1.0));
+    list.addPoint(new Vector3(-1.0, -1.0, -1.0));
+    list.addPoint(new Vector3(+1.0, -1.0, -1.0));
+    list.addPoint(new Vector3(+1.0, +1.0, -1.0));
+    list.addPoint(new Vector3(-1.0, +1.0, +1.0));
+    list.addPoint(new Vector3(-1.0, -1.0, +1.0));
+    list.addPoint(new Vector3(+1.0, -1.0, +1.0));
+    list.addPoint(new Vector3(+1.0, +1.0, +1.0));
+    return list;
+  }
+
   public addPoint(point: Vector3) {
     this.points.push(point);
   }
@@ -32,7 +45,7 @@ class PointList {
   }
 
   public debugShow() {
-    var log = "";
+    let log = "";
     for (let i = 0; i < this.points.length; i++) {
       log += `${this.points[i]}
 `;
@@ -41,30 +54,19 @@ class PointList {
   }
 
   public getBoundingBox() {
-    var aabb = new AABB();
+    let aabb = new AABB();
     for (let i = 0; i < this.points.length; i++) {
       aabb.expandAABB(this.points[i]);
     }
     return aabb;
   }
 
-  public static initializeWithCube(list: PointList) {
-    list.clear();
-    list.addPoint(new Vector3(-1.0, +1.0, -1.0));
-    list.addPoint(new Vector3(-1.0, -1.0, -1.0));
-    list.addPoint(new Vector3(+1.0, -1.0, -1.0));
-    list.addPoint(new Vector3(+1.0, +1.0, -1.0));
-    list.addPoint(new Vector3(-1.0, +1.0, +1.0));
-    list.addPoint(new Vector3(-1.0, -1.0, +1.0));
-    list.addPoint(new Vector3(+1.0, -1.0, +1.0));
-    list.addPoint(new Vector3(+1.0, +1.0, +1.0));
-    return list;
-  }
-
   public toMathematicaPoints() {
-    var points = "";
+    let points = "";
     for (let i = 0; i < this.points.length; i++) {
-      if (i != 0) points += `,`;
+      if (i !== 0) {
+        points += `,`;
+      }
       points += this.points[i].toMathematicaString();
     }
     return `Point[{${points}}]`;

@@ -8,9 +8,6 @@
     "jquery/jquery.d.ts": {
       "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },
-    "superagent/superagent.d.ts": {
-      "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
-    },
     "node/node.d.ts": {
       "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
     },

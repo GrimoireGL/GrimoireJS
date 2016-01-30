@@ -10,7 +10,6 @@ import IApplyMaterialArgument from "./IApplyMaterialArgument";
 import XMLRenderConfigUtility from "./XMLRenderConfigUtility";
 import Program from "../../Resources/Program/Program";
 import Shader from "../../Resources/Shader/Shader";
-import ShaderType from "../../../Wrapper/ShaderType";
 import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
 import ResourceManager from "../../ResourceManager";
@@ -104,8 +103,8 @@ class MaterialPass extends JThreeObjectWithID {
 
   private _constructProgram(idPrefix: string): void {
     this._passId = idPrefix;
-    this.fragmentShader = MaterialPass._resourceManager.createShader(idPrefix + "-fs", this.programDescription.fragment, ShaderType.FragmentShader);
-    this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs", this.programDescription.vertex, ShaderType.VertexShader);
+    this.fragmentShader = MaterialPass._resourceManager.createShader(idPrefix + "-fs", this.programDescription.fragment, WebGLRenderingContext.FRAGMENT_SHADER);
+    this.vertexShader = MaterialPass._resourceManager.createShader(idPrefix + "-vs", this.programDescription.vertex, WebGLRenderingContext.VERTEX_SHADER);
     this.fragmentShader.loadAll();
     this.vertexShader.loadAll();
     this.program = MaterialPass._resourceManager.createProgram(idPrefix + "-program", [this.vertexShader, this.fragmentShader]);

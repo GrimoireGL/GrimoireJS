@@ -1,8 +1,4 @@
 import BasicGeometry from "./Base/BasicGeometry";
-import BufferTargetType from "../../Wrapper/BufferTargetType";
-import BufferUsageType from "../../Wrapper/BufferUsageType";
-import ElementType from "../../Wrapper/ElementType";
-import PrimitiveTopology from "../../Wrapper/PrimitiveTopology";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
@@ -10,11 +6,11 @@ class GridGeometry extends BasicGeometry {
     constructor(name: string) {
         super();
         const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        this.primitiveTopology = PrimitiveTopology.Lines;
-        this.indexBuffer = rm.createBuffer(name + "index", BufferTargetType.ElementArrayBuffer, BufferUsageType.StaticDraw, 1, ElementType.UnsignedShort);
-        this.positionBuffer = rm.createBuffer(name + "-pos", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
-        this.normalBuffer = rm.createBuffer(name + "-nor", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 3, ElementType.Float);
-        this.uvBuffer = rm.createBuffer(name + "-uv", BufferTargetType.ArrayBuffer, BufferUsageType.StaticDraw, 2, ElementType.Float);
+        this.primitiveTopology = WebGLRenderingContext.LINES;
+        this.indexBuffer = rm.createBuffer(name + "index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_SHORT);
+        this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
+        this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
+        this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
         this.updateBuffers();
     }
 

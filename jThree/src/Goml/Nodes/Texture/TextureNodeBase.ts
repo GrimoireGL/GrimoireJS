@@ -1,9 +1,6 @@
 ﻿import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import ResourceManager from "../../../Core/ResourceManager";
-import MinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
-import MagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
-import TextureWrapType from "../../../Wrapper/Texture/TextureWrapType";
 import JThreeContext from "../../../JThreeContext";
 import ContextComponents from "../../../ContextComponents";
 /**
@@ -93,23 +90,23 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
    * @param  {string}        Attribute string
    * @return {MinFilterType} Enum value being passed into gl context.
    */
-  private toMinFilterParameter(attr: string): MinFilterType {
+  private toMinFilterParameter(attr: string): number {
     attr = attr.toUpperCase();
     switch (attr) {
       case "NEARESTMIPLINEAR":
-        return MinFilterType.NearestMipmapLinear;
+        return WebGLRenderingContext.NEAREST_MIPMAP_LINEAR;
       case "NEARESTMIPNEAREST":
-        return MinFilterType.NearestMipmapNearest;
+        return WebGLRenderingContext.NEAREST_MIPMAP_NEAREST;
       case "LINEARMIPLINEAR":
-        return MinFilterType.LinearMipmapLinear;
+        return WebGLRenderingContext.LINEAR_MIPMAP_LINEAR;
       case "LINEARMIPNEAREST":
-        return MinFilterType.LinearMipmapNearest;
+        return WebGLRenderingContext.LINEAR_MIPMAP_NEAREST;
       case "NEAREST":
-        return MinFilterType.Nearest;
+        return WebGLRenderingContext.NEAREST;
       case "LINEAR":
-        return MinFilterType.Linear;
+        return WebGLRenderingContext.LINEAR;
       default:
-        return MinFilterType.Linear;
+        return WebGLRenderingContext.LINEAR;
     }
   }
 
@@ -118,15 +115,15 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
    * @param  {string}        attr Attribute string
    * @return {MagFilterType}      Enum value being passed into gl context.
    */
-  private toMagFilterParameter(attr: string): MagFilterType {
+  private toMagFilterParameter(attr: string): number {
     attr = attr.toUpperCase();
     switch (attr) {
       case "NEAREST":
-        return MagFilterType.Nearest;
+        return WebGLRenderingContext.NEAREST;
       case "LINEAR":
-        return MagFilterType.Linear;
+        return WebGLRenderingContext.LINEAR;
       default:
-        return MagFilterType.Linear;
+        return WebGLRenderingContext.LINEAR;
     }
   }
 
@@ -139,13 +136,13 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
     attr = attr.toUpperCase();
     switch (attr) {
       case "REPEAT":
-        return TextureWrapType.Repeat;
+        return WebGLRenderingContext.REPEAT;
       case "MIRRORED_REPEAT":
-        return TextureWrapType.MirroredRepeat;
+        return WebGLRenderingContext.MIRRORED_REPEAT;
       case "CLAMP":
-        return TextureWrapType.ClampToEdge;
+        return WebGLRenderingContext.CLAMP_TO_EDGE;
       default:
-        return TextureWrapType.ClampToEdge;
+        return WebGLRenderingContext.CLAMP_TO_EDGE;
     }
   }
 }

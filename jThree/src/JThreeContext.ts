@@ -30,7 +30,9 @@ class JThreeContext {
    * @param  {IContextComponent} contextComponent context component you want to register
    */
   public static registerContextComponent(contextComponent: IContextComponent): void {
-    if (JThreeContext.context.contextComponents[contextComponent.getContextComponentIndex()]) console.warn("Reregisteration of context component");
+    if (JThreeContext.context.contextComponents[contextComponent.getContextComponentIndex()]) {
+      console.warn("Reregisteration of context component");
+    }
     JThreeContext.context.contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
   }
 

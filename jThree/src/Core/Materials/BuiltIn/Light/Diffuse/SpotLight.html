@@ -45,6 +45,10 @@
           float depth = getDepth(rawBuffer);
           vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
 
+          //法線反射係数
+          float lambart = dot(normal,normalize(lightPosition - pos));
+          if(lambart<0.)discard;
+
           float outCos=cos(outerAngle);
           float innCos=cos(innerAngle);
 
@@ -84,13 +88,7 @@
             }
           }
 
-
-
-          //法線反射係数
-          //float lambart = dot(normal,normalize(lightPosition - pos));
-          //if(lambart<0.)discard;
-
-          gl_FragColor = vec4(lightColor*k,1.0);
+          gl_FragColor = vec4(lightColor*k*lambart,1.0);
 
         }
       }

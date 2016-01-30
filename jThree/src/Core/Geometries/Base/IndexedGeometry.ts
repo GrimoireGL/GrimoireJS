@@ -1,4 +1,4 @@
-import Canvas from "../../Canvas";
+import Canvas from "../../Canvas/Canvas";
 import Material from "../../Materials/Material";
 import Geometry from "./Geometry";
 import Buffer from "../../Resources/Buffer/Buffer";

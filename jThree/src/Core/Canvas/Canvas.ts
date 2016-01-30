@@ -1,11 +1,11 @@
 import GLExtensionResolver from "./GLExtensionResolver";
-import Rectangle from "../Math/Rectangle";
-import BasicRenderer from "./Renderers/BasicRenderer";
-import JThreeEvent from "../Base/JThreeEvent";
+import Rectangle from "../../Math/Rectangle";
+import BasicRenderer from "../Renderers/BasicRenderer";
+import JThreeEvent from "../../Base/JThreeEvent";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
-import Color4 from "../Math/Color4";
+import Color4 from "../../Math/Color4";
 import CanvasRegion from "./CanvasRegion";
-import {WebGLNotSupportedException} from "../Exceptions";
+import {WebGLNotSupportedException} from "../../Exceptions";
 
 /**
  * The class to manage HTMLCanvasElement.
