@@ -1,9 +1,5 @@
 import ContextSafeResourceContainer from "../ContextSafeResourceContainer";
 import TextureWrapperBase from "./TextureWrapperBase";
-import TextureParameterType from "../../../Wrapper/Texture/TextureParameterType";
-import TextureMinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
-import TextureMagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
-import TextureWrapType from "../../../Wrapper/Texture/TextureWrapType";
 import JThreeEvent from "../../../Base/JThreeEvent";
 import {Action2} from "../../../Base/Delegates";
 /**
@@ -14,11 +10,11 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
   protected textureFormat: number = WebGLRenderingContext.RGBA;
   protected elementFormat: number = WebGLRenderingContext.UNSIGNED_BYTE;
   private targetTextureType: number = WebGLRenderingContext.TEXTURE_2D;
-  private onFilterParameterChangedHandler: JThreeEvent<TextureParameterType> = new JThreeEvent<TextureParameterType>();
-  private minFilter: TextureMinFilterType = TextureMinFilterType.Nearest;
-  private magFilter: TextureMagFilterType = TextureMagFilterType.Nearest;
-  private tWrap: TextureWrapType = TextureWrapType.ClampToEdge;
-  private sWrap: TextureWrapType = TextureWrapType.ClampToEdge;
+  private onFilterParameterChangedHandler: JThreeEvent<number> = new JThreeEvent<number>();
+  private minFilter: number = WebGLRenderingContext.NEAREST;
+  private magFilter: number = WebGLRenderingContext.NEAREST;
+  private tWrap: number = WebGLRenderingContext.CLAMP_TO_EDGE;
+  private sWrap: number = WebGLRenderingContext.CLAMP_TO_EDGE;
   private flipY: boolean = false;
   private textureName: string;
 
@@ -57,62 +53,62 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
     this.flipY = val;
   }
 
-  public get MinFilter(): TextureMinFilterType {
+  public get MinFilter(): number {
     return this.minFilter;
   }
-  public set MinFilter(value: TextureMinFilterType) {
+  public set MinFilter(value: number) {
     if (value === this.minFilter) {
       return;
     }
     this.minFilter = value;
-    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.MinFilter);
+    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MIN_FILTER);
   }
 
-  public get MagFilter(): TextureMagFilterType {
+  public get MagFilter(): number {
     return this.magFilter;
   }
-  public set MagFilter(value: TextureMagFilterType) {
+  public set MagFilter(value: number) {
     if (value === this.magFilter) {
       return;
     }
     this.magFilter = value;
-    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.MagFilter);
+    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MAG_FILTER);
   }
 
-  public get SWrap(): TextureWrapType {
+  public get SWrap(): number {
     return this.sWrap;
   }
 
-  public set SWrap(value: TextureWrapType) {
+  public set SWrap(value: number) {
     if (this.sWrap === value) {
       return;
     }
     this.sWrap = value;
-    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.WrapS);
+    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_S);
   }
 
-  public get TWrap(): TextureWrapType {
+  public get TWrap(): number {
     return this.tWrap;
   }
 
-  public set TWrap(value: TextureWrapType) {
+  public set TWrap(value: number) {
     if (this.tWrap === value) {
       return;
     }
     this.tWrap = value;
-    this.onFilterParameterChangedHandler.fire(this, TextureParameterType.WrapT);
+    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_T);
   }
 
-  public onFilterParameterChanged(handler: Action2<TextureBase, TextureParameterType>): void {
+  public onFilterParameterChanged(handler: Action2<TextureBase, number>): void {
     this.onFilterParameterChangedHandler.addListener(handler);
   }
 
   public generateMipmapIfNeed() {
     switch (this.MinFilter) {
-      case TextureMinFilterType.LinearMipmapLinear:
-      case TextureMinFilterType.LinearMipmapNearest:
-      case TextureMinFilterType.NearestMipmapLinear:
-      case TextureMinFilterType.NearestMipmapNearest:
+      case WebGLRenderingContext.LINEAR_MIPMAP_LINEAR:
+      case WebGLRenderingContext.LINEAR_MIPMAP_NEAREST:
+      case WebGLRenderingContext.NEAREST_MIPMAP_LINEAR:
+      case WebGLRenderingContext.NEAREST_MIPMAP_NEAREST:
         this.each((v) => {
           v.bind();
           v.GL.generateMipmap(this.TargetTextureType);

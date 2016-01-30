@@ -1,6 +1,4 @@
 import BufferTextureWrapper from "./BufferTextureWrapper";
-import TextureMinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
-import TextureMagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
 import Canvas from "../../Canvas/Canvas";
 import TextureBase from "./TextureBase";
 /**
@@ -26,8 +24,8 @@ class BufferTexture extends TextureBase {
     this.textureFormat = textureFormat;
     this.elementFormat = elementFormat;
     if (this.elementFormat === WebGLRenderingContext.FLOAT) {
-      this.MinFilter = TextureMinFilterType.Nearest;
-      this.MagFilter = TextureMagFilterType.Nearest;
+      this.MinFilter = WebGLRenderingContext.NEAREST;
+      this.MagFilter = WebGLRenderingContext.NEAREST;
     }
   }
 

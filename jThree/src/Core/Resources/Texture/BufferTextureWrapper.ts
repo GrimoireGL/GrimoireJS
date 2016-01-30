@@ -1,7 +1,6 @@
 import Canvas from "../../Canvas/Canvas";
 import BufferTexture from "./BufferTexture";
 import TextureWrapperBase from "./TextureWrapperBase";
-import TexImage2DTargetType from "../../../Wrapper/Texture/TexImageTargetType";
 import {Func3} from "../../../Base/Delegates";
 class BufferTextureWrapper extends TextureWrapperBase {
   constructor(ownerCanvas: Canvas, parent: BufferTexture) {
@@ -13,7 +12,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
     const parent = <BufferTexture>this.Parent;
     this.setTargetTexture(this.GL.createTexture());
     this.bind();
-    this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);
+    this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);
     this.setInitialized();
   }
 
@@ -27,7 +26,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
     if (this.Initialized) {
       const parent = <BufferTexture>this.Parent;
       this.preTextureUpload();
-      this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);
+      this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);
     }
   }
 
@@ -36,7 +35,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
     if (this.Initialized) {
       const parent = <BufferTexture>this.Parent;
       this.preTextureUpload();
-      this.GL.texImage2D(TexImage2DTargetType.Texture2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, buffer);
+      this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, buffer);
     }
     this.unbind();
   }

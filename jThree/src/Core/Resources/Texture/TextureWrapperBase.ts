@@ -1,9 +1,6 @@
 import ResourceWrapper from "../ResourceWrapper";
-import TextureParameterType from "../../../Wrapper/Texture/TextureParameterType";
 import TextureBase from "./TextureBase";
 import Canvas from "../../Canvas/Canvas";
-import TextureRegister from "../../../Wrapper/Texture/TextureRegister";
-import PixelStoreParamType from "../../../Wrapper/Texture/PixelStoreParamType";
 import {Func3} from "../../../Base/Delegates";
 class TextureWrapperBase extends ResourceWrapper {
 
@@ -35,11 +32,11 @@ class TextureWrapperBase extends ResourceWrapper {
 
   public registerTexture(registerIndex: number): boolean {
     if (this.TargetTexture == null) {
-      this.GL.activeTexture(TextureRegister.Texture0 + registerIndex);
+      this.GL.activeTexture(WebGLRenderingContext.TEXTURE0 + registerIndex);
       this.GL.bindTexture(this.parent.TargetTextureType, null);
       return false;
     }
-    this.GL.activeTexture(TextureRegister.Texture0 + registerIndex);
+    this.GL.activeTexture(WebGLRenderingContext.TEXTURE0 + registerIndex);
     this.applyTextureParameter();
     return true;
   }
@@ -50,9 +47,9 @@ class TextureWrapperBase extends ResourceWrapper {
 
   public preTextureUpload() {
     if (this.parent.FlipY) {
-      this.GL.pixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 1);
+      this.GL.pixelStorei(WebGLRenderingContext.UNPACK_FLIP_Y_WEBGL, 1);
     } else {
-      this.GL.pixelStorei(PixelStoreParamType.UnpackFlipYWebGL, 0);
+      this.GL.pixelStorei(WebGLRenderingContext.UNPACK_FLIP_Y_WEBGL, 0);
     }
   }
 
@@ -180,10 +177,10 @@ class TextureWrapperBase extends ResourceWrapper {
       return;
     }
     this.bind();
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.MinFilter, this.parent.MinFilter);
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.MagFilter, this.parent.MagFilter);
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.WrapS, this.parent.SWrap);
-    this.GL.texParameteri(this.Parent.TargetTextureType, TextureParameterType.WrapT, this.parent.TWrap);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MIN_FILTER, this.parent.MinFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MAG_FILTER, this.parent.MagFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_S, this.parent.SWrap);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_T, this.parent.TWrap);
   }
 
 }
