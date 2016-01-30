@@ -1,9 +1,8 @@
 import ContextSafeResourceContainer from "./../ContextSafeResourceContainer";
 import RBOWrapper from "./RBOWrapper";
-import RBOInternalFormatType from "../../../Wrapper/RBO/RBOInternalFormat";
 import Canvas from "../../../Core/Canvas/Canvas";
 class RBO extends ContextSafeResourceContainer<RBOWrapper> {
-  constructor(width: number, height: number, format: RBOInternalFormatType = RBOInternalFormatType.DepthComponent16) {
+  constructor(width: number, height: number, format: number = WebGLRenderingContext.DEPTH_COMPONENT16) {
     super();
     this.width = width;
     this.height = height;
@@ -13,7 +12,7 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper> {
 
   private width: number;
   private height: number;
-  private format: RBOInternalFormatType;
+  private format: number;
   public get Width(): number {
     return this.width;
   }
@@ -22,7 +21,7 @@ class RBO extends ContextSafeResourceContainer<RBOWrapper> {
     return this.height;
   }
 
-  public get Format(): RBOInternalFormatType {
+  public get Format(): number {
     return this.format;
   }
 

@@ -6,17 +6,14 @@ import TextureMagFilterType from "../../../Wrapper/Texture/TextureMagFilterType"
 import TextureWrapType from "../../../Wrapper/Texture/TextureWrapType";
 import JThreeEvent from "../../../Base/JThreeEvent";
 import {Action2} from "../../../Base/Delegates";
-import TextureTargetType from "../../../Wrapper/TargetTextureType";
-import ElementFormat from "../../../Wrapper/TextureType";
-import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
 /**
  *
  */
 class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
 
-  protected textureFormat: TextureFormat = TextureFormat.RGBA;
-  protected elementFormat: ElementFormat = ElementFormat.UnsignedByte;
-  private targetTextureType: TextureTargetType = TextureTargetType.Texture2D;
+  protected textureFormat: number = WebGLRenderingContext.RGBA;
+  protected elementFormat: number = WebGLRenderingContext.UNSIGNED_BYTE;
+  private targetTextureType: number = WebGLRenderingContext.TEXTURE_2D;
   private onFilterParameterChangedHandler: JThreeEvent<TextureParameterType> = new JThreeEvent<TextureParameterType>();
   private minFilter: TextureMinFilterType = TextureMinFilterType.Nearest;
   private magFilter: TextureMagFilterType = TextureMagFilterType.Nearest;
@@ -36,7 +33,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
       isCubeTexture = false;
     }
     this.flipY = flipY;
-    this.targetTextureType = isCubeTexture ? TextureTargetType.CubeTexture : TextureTargetType.Texture2D;
+    this.targetTextureType = isCubeTexture ? WebGLRenderingContext.TEXTURE_CUBE_MAP : WebGLRenderingContext.TEXTURE_2D;
     this.initializeForFirst();
   }
 
@@ -44,11 +41,11 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
     return this.targetTextureType;
   }
 
-  public get TextureFormat(): TextureFormat {
+  public get TextureFormat(): number {
     return this.textureFormat;
   }
 
-  public get ElementFormat(): ElementFormat {
+  public get ElementFormat(): number {
     return this.elementFormat;
   }
 

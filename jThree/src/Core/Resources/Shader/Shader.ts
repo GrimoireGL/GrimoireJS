@@ -1,5 +1,4 @@
 ﻿import ContextSafeContainer from "../ContextSafeResourceContainer";
-import ShaderType from "../../../Wrapper/ShaderType";
 import Canvas from "../../Canvas/Canvas";
 import ShaderWrapper from "./ShaderWrapper";
 import {Action2} from "../../../Base/Delegates";
@@ -10,7 +9,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
 
   private onUpdateEvent: JThreeEvent<string> = new JThreeEvent<string>();
 
-  private shaderType: ShaderType;
+  private shaderType: number;
   /**
    * コンストラクタ
    * (Should not be called by new,You should use CreateShader static method instead.)
@@ -23,7 +22,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
   /**
    * シェーダークラスを作成する。
    */
-  public static CreateShader(source: string, shaderType: ShaderType): Shader {
+  public static CreateShader(source: string, shaderType: number): Shader {
     const shader: Shader = new Shader();
     shader.shaderSource = source;
     shader.shaderType = shaderType;
@@ -35,7 +34,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
    * Shader Type
    * (VertexShader or FragmentShader)
    */
-  public get ShaderType(): ShaderType {
+  public get ShaderType(): number {
     return this.shaderType;
   }
 

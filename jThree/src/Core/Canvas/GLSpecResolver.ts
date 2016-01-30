@@ -30,57 +30,57 @@ class GLSpecResolver {
 
 
   public static get MaxCombinedTextureUnits() {
-    return GLSpecResolver.maxCombinedTextureUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxCombinedTextureUnits, GLSpecResolver.GL.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+    return GLSpecResolver.maxCombinedTextureUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxCombinedTextureUnits, WebGLRenderingContext.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
   }
 
 
   public static get MaxCubeMapTextureSize() {
-    return GLSpecResolver.maxCubeMapTextureSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxCubeMapTextureSize, GLSpecResolver.GL.MAX_CUBE_MAP_TEXTURE_SIZE);
+    return GLSpecResolver.maxCubeMapTextureSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxCubeMapTextureSize, WebGLRenderingContext.MAX_CUBE_MAP_TEXTURE_SIZE);
   }
 
 
   public static get MaxFragmentUniformVectors() {
-    return GLSpecResolver.maxFragmentUniformVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxFragmentUniformVectors, GLSpecResolver.GL.MAX_FRAGMENT_UNIFORM_VECTORS);
+    return GLSpecResolver.maxFragmentUniformVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxFragmentUniformVectors, WebGLRenderingContext.MAX_FRAGMENT_UNIFORM_VECTORS);
   }
 
 
   public static get MaxRenderbufferSize() {
-    return GLSpecResolver.maxRenderbufferSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxRenderbufferSize, GLSpecResolver.GL.MAX_RENDERBUFFER_SIZE);
+    return GLSpecResolver.maxRenderbufferSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxRenderbufferSize, WebGLRenderingContext.MAX_RENDERBUFFER_SIZE);
   }
 
 
   public static get MaxTextureImageUnits() {
-    return GLSpecResolver.maxTextureImageUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxTextureImageUnits, GLSpecResolver.GL.MAX_TEXTURE_IMAGE_UNITS);
+    return GLSpecResolver.maxTextureImageUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxTextureImageUnits, WebGLRenderingContext.MAX_TEXTURE_IMAGE_UNITS);
   }
 
 
   public static get MaxTextureSize() {
-    return GLSpecResolver.maxTextureSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxTextureSize, GLSpecResolver.GL.MAX_TEXTURE_SIZE);
+    return GLSpecResolver.maxTextureSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxTextureSize, WebGLRenderingContext.MAX_TEXTURE_SIZE);
   }
 
 
   public static get MaxVaryingVectors() {
-    return GLSpecResolver.maxVaryingVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVaryingVectors, GLSpecResolver.GL.MAX_VARYING_VECTORS);
+    return GLSpecResolver.maxVaryingVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVaryingVectors, WebGLRenderingContext.MAX_VARYING_VECTORS);
   }
 
 
   public static get MaxVertexAttribs() {
-    return GLSpecResolver.maxVertexAttribs = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexAttribs, GLSpecResolver.GL.MAX_VERTEX_ATTRIBS);
+    return GLSpecResolver.maxVertexAttribs = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexAttribs, WebGLRenderingContext.MAX_VERTEX_ATTRIBS);
   }
 
 
   public static get MaxVertexTextureImageUnits() {
-    return GLSpecResolver.maxVertexTextureImageUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexTextureImageUnits, GLSpecResolver.GL.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
+    return GLSpecResolver.maxVertexTextureImageUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexTextureImageUnits, WebGLRenderingContext.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
   }
 
 
   public static get MaxVertexUniformVectors() {
-    return GLSpecResolver.maxVertexUniformVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexUniformVectors, GLSpecResolver.GL.MAX_VERTEX_UNIFORM_VECTORS);
+    return GLSpecResolver.maxVertexUniformVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexUniformVectors, WebGLRenderingContext.MAX_VERTEX_UNIFORM_VECTORS);
   }
 
 
   public static get MaxViewportDims() {
-    return GLSpecResolver.maxViewportDims = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxViewportDims, GLSpecResolver.GL.MAX_VIEWPORT_DIMS);
+    return GLSpecResolver.maxViewportDims = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxViewportDims, WebGLRenderingContext.MAX_VIEWPORT_DIMS);
   }
 }
 

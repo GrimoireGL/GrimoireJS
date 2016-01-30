@@ -5,11 +5,9 @@ import Canvas from "../../Canvas/Canvas";
 import TextureRegister from "../../../Wrapper/Texture/TextureRegister";
 import PixelStoreParamType from "../../../Wrapper/Texture/PixelStoreParamType";
 import {Func3} from "../../../Base/Delegates";
-import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
-import ElementType from "../../../Wrapper/TextureType";
 class TextureWrapperBase extends ResourceWrapper {
 
-  protected static altTextureBuffer: Float32Array = new Uint8Array([255, 0, 255, 255]);
+  protected static altTextureBuffer: Uint8Array = new Uint8Array([255, 0, 255, 255]);
   private targetTexture: WebGLTexture = null;
   private parent: TextureBase;
 
@@ -85,18 +83,18 @@ class TextureWrapperBase extends ResourceWrapper {
     let dataArrayConstructor: any;
     let transformFunc;
     switch (this.Parent.ElementFormat) {
-      case ElementType.Float:
+      case WebGLRenderingContext.FLOAT:
         dataArrayConstructor = Float32Array;
         break;
 
-      case ElementType.UnsignedByte:
+      case WebGLRenderingContext.UNSIGNED_BYTE:
         dataArrayConstructor = Uint8Array;
         break;
 
-      case ElementType.UnsignedShort:
-      case ElementType.UnsignedShort565:
-      case ElementType.UnsignedShort4444:
-      case ElementType.UnsignedShort5551:
+      case WebGLRenderingContext.UNSIGNED_SHORT:
+      case WebGLRenderingContext.UNSIGNED_SHORT_5_6_5:
+      case WebGLRenderingContext.UNSIGNED_SHORT_4_4_4_4:
+      case WebGLRenderingContext.UNSIGNED_SHORT_5_5_5_1:
         dataArrayConstructor = Uint16Array;
         break;
       default:
@@ -104,7 +102,7 @@ class TextureWrapperBase extends ResourceWrapper {
         return;
     }
     switch (this.Parent.TextureFormat) {
-      case TextureFormat.RGB:
+      case WebGLRenderingContext.RGB:
         data = new dataArrayConstructor(width * height * 4);
         transformFunc = (w, h, arr) => {
           const ret = new Uint8Array(w * h * 4);
@@ -119,7 +117,7 @@ class TextureWrapperBase extends ResourceWrapper {
           return ret;
         };
         break;
-      case TextureFormat.RGBA:
+      case WebGLRenderingContext.RGBA:
         data = new dataArrayConstructor(width * height * 4);
         transformFunc = (w, h, arr) => {
           const ret = new Uint8Array(w * h * 4);
@@ -134,7 +132,7 @@ class TextureWrapperBase extends ResourceWrapper {
           return ret;
         };
         break;
-      case TextureFormat.Alpha:
+      case WebGLRenderingContext.ALPHA:
         data = new dataArrayConstructor(width * height * 4);
         transformFunc = (w, h, arr) => {
           const ret = new Uint8Array(w * h * 4);
@@ -151,12 +149,12 @@ class TextureWrapperBase extends ResourceWrapper {
 
         break;
       default:
-        console.error("TextureFormat is unsupported!");
+        console.error("Specified texture format is unsupported!");
         return;
     }
     transformFunc = encode || transformFunc;
     // read pixels from framebuffer
-    this.GL.readPixels(0, 0, width, height, TextureFormat.RGBA, this.Parent.ElementFormat, data);
+    this.GL.readPixels(0, 0, width, height, WebGLRenderingContext.RGBA, this.Parent.ElementFormat, data);
     this.GL.deleteFramebuffer(framebuffer);
     this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, lastFBO);
     // generate canvas for result

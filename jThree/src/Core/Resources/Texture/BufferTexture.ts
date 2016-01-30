@@ -1,6 +1,4 @@
 import BufferTextureWrapper from "./BufferTextureWrapper";
-import TextureFormat from "../../../Wrapper/TextureInternalFormatType";
-import ElementFormat from "../../../Wrapper/TextureType";
 import TextureMinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
 import TextureMagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
 import Canvas from "../../Canvas/Canvas";
@@ -21,13 +19,13 @@ class BufferTexture extends TextureBase {
     return this.height;
   }
 
-  constructor(width: number, height: number, textureFormat: TextureFormat, elementFormat: ElementFormat, textureName: string) {
+  constructor(width: number, height: number, textureFormat: number, elementFormat: number, textureName: string) {
     super(textureName);
     this.width = width;
     this.height = height;
     this.textureFormat = textureFormat;
     this.elementFormat = elementFormat;
-    if (this.elementFormat === ElementFormat.Float) {
+    if (this.elementFormat === WebGLRenderingContext.FLOAT) {
       this.MinFilter = TextureMinFilterType.Nearest;
       this.MagFilter = TextureMagFilterType.Nearest;
     }

@@ -1,5 +1,4 @@
 import Canvas from "../../Canvas/Canvas";
-import TargetTextureType from "../../../Wrapper/TargetTextureType";
 import BufferTexture from "./BufferTexture";
 import TextureWrapperBase from "./TextureWrapperBase";
 import TexImage2DTargetType from "../../../Wrapper/Texture/TexImageTargetType";
@@ -20,7 +19,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
 
   public unbind() {
     // TODO consider is it really need to implement unbind
-    this.GL.bindTexture(TargetTextureType.Texture2D, null);
+    this.GL.bindTexture(WebGLRenderingContext.TEXTURE_2D, null);
   }
 
   public resize(width: number, height: number) {

@@ -6,7 +6,6 @@ import IRenderStageRendererConfigure from "../IRenderStageRendererConfigure";
 import MaterialManager from "../../../Materials/Base/MaterialManager";
 import BasicMaterial from "../../../Materials/Base/BasicMaterial";
 import SceneObject from "../../../SceneObjects/SceneObject";
-import FrameBufferAttachmentType from "../../../../Wrapper/FrameBufferAttachmentType";
 import FBO from "../../../Resources/FBO/FBO";
 import JThreeObjectWithID from "../../../../Base/JThreeObjectWithID";
 import ContextComponents from "../../../../ContextComponents";
@@ -87,7 +86,7 @@ class BasicTechnique extends JThreeObjectWithID {
   private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo) {
     // TODO support for multiple rendering buffer
     const colorConfigure = this._fboBindingInfo[0];
-    fboWrapper.attachTexture(FrameBufferAttachmentType.ColorAttachment0, texs[colorConfigure.name]);
+    fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, texs[colorConfigure.name]);
   }
 
   private _attachRBOConfigure(fboWrapper: FBOWrapper) {
@@ -101,14 +100,14 @@ class BasicTechnique extends JThreeObjectWithID {
       }
       switch (rboConfigure.type) {
         case "stencil":
-          fboWrapper.attachRBO(FrameBufferAttachmentType.StencilAttachment, targetBuffer);
+          fboWrapper.attachRBO(WebGLRenderingContext.STENCIL_ATTACHMENT, targetBuffer);
           break;
         case "depthstencil":
-          fboWrapper.attachRBO(FrameBufferAttachmentType.DepthStencilAttachment, targetBuffer);
+          fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_STENCIL_ATTACHMENT, targetBuffer);
           break;
         default:
         case "depth":
-          fboWrapper.attachRBO(FrameBufferAttachmentType.DepthAttachment, targetBuffer);
+          fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, targetBuffer);
           break;
       }
     }
