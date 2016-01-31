@@ -120,25 +120,16 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
     // TODO fix bug here
     const r = this.region;
     const rect = this.canvasElement.getBoundingClientRect();
-    const cWidth = rect.right - rect.left;
-    const cHeight = rect.bottom - rect.top;
-    const x = (e.clientX - rect.left) / cWidth * this.canvasElement.width;
-    const y = (e.clientY - rect.top) / cHeight * this.canvasElement.height;
-    this.mouseOver = mouseState && r.contains(x, y);
-    if (this.mouseOver) {
-      this.mousePosition.X = (x - r.Left) / r.Width;
-      this.mousePosition.Y = (y - r.Top) / r.Height;
-    } else {
-      this.mousePosition.X = -1;
-      this.mousePosition.Y = -1;
-    }
+    const canvasX = e.clientX - rect.left;
+    const canvasY = e.clientY - rect.top;
+
     const debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
     debug.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
       mouseOver: this.mouseOver,
       mousePositionX: this.mousePosition.X,
       mousePositionY: this.mousePosition.Y,
-      rawX: (x - r.Left),
-      rawY: (y - r.Top)
+      rawX: canvasX,
+      rawY: canvasY
     });
     return this.mouseOver;
   }
