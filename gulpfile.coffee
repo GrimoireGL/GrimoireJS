@@ -56,9 +56,6 @@ gutil.log "branch: #{branch}"
 typedocSrc = ['./jThree/src/**/*.ts']
 typedocDest = 'ci/docs'
 
-# tsd file sources (Array)
-tsdSrc = './jThree/refs/**/*.d.ts'
-
 # test target (Array)
 testTarget = './jThree/test/**/*.js'
 
@@ -76,22 +73,6 @@ tsdPath = './tsd.json'
 
 # root path for simple server
 serverRoot = './jThree/wwwroot'
-
-# webpack output stats config
-defaultStatsOptions =
-  colors: gutil.colors.supportsColor
-  hash: false
-  timings: true
-  chunks: false
-  chunkModules: false
-  modules: false
-  children: true
-  version: true
-  cached: false
-  cachedAssets: false
-  reasons: false
-  source: false
-  errorDetails: false
 
 # ts compilcation config
 tsEntries = './jThree/src/**/*.ts'
@@ -260,10 +241,9 @@ Object.keys(config).forEach (suffix) ->
           else
             process.exit 1 unless watching
           if buildSuccess && bundleSuccess
-            notifier.notify({
-              message: "BUILD SUCCESS (#{suffix})",
+            notifier.notify
+              message: "BUILD SUCCESS (#{suffix})"
               title: 'jThree'
-            });
           buildSuccess = true
           bundleSuccess = true
         .pipe source c.name
@@ -333,10 +313,9 @@ document generation task
 ###
 gulp.task 'doc', (cb) ->
   gulp
-    .src [].concat typedocSrc, tsdSrc
+    .src [].concat typedocSrc
     .pipe typedoc
-      module: 'commonjs'
-      target: 'es5'
+      target: 'es6'
       out: path.join(typedocDest, branch)
       name: 'jThree'
       json: path.join(typedocDest, "#{branch}.json")
@@ -365,6 +344,8 @@ gulp.task 'mocha', ->
   require 'espower-babel/guess'
   gulp
     .src testTarget
+    .src debug
+      title: 'mocha'
     .pipe mocha()
 
 
