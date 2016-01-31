@@ -98,8 +98,8 @@ class JThreeInit {
 
     window["j3"]["lateStart"] = JThreeInit.startInitialize;
     JThreeContext.init();
-    JThreeContext.registerContextComponent(new Timer());
     JThreeContext.registerContextComponent(new LoopManager());
+    JThreeContext.registerContextComponent(new Timer());
     JThreeContext.registerContextComponent(new ResourceLoader());
     JThreeContext.registerContextComponent(new SceneManager());
     JThreeContext.registerContextComponent(new CanvasManager());
@@ -109,16 +109,6 @@ class JThreeInit {
     JThreeContext.registerContextComponent(new MaterialManager());
     JThreeContext.registerContextComponent(new PrimitiveRegistory());
     JThreeContext.registerContextComponent(new RenderStageRegistory());
-    const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
-    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
-    const timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
-    const sceneManager = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
-    loopManager.addAction(1000, () => timer.updateTimer());
-    // loopManager.addAction(2000,()=>this.updateAnimation());
-    // loopManager.addAction(3000,()=>this.gomlLoader.update());
-    loopManager.addAction(4000, () => canvasManager.beforeRenderAll());
-    loopManager.addAction(5000, () => sceneManager.renderAll());
-    loopManager.addAction(6000, () => canvasManager.afterRenderAll());
     if (JThreeInit.SelfTag.getAttribute("x-lateLoad") !== "true") {
       window.addEventListener("DOMContentLoaded", () => {
         JThreeInit.startInitialize();
