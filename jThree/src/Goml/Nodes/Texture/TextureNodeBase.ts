@@ -1,3 +1,4 @@
+import GLEnumParser from "../../../Core/Canvas/GLEnumParser";
 ﻿import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import ResourceManager from "../../../Core/ResourceManager";
@@ -33,7 +34,7 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.MinFilter = this.toMinFilterParameter(attr.Value);
+            this.targetTexture.MinFilter = GLEnumParser.parseTextureMinFilter(attr.Value);
           }
         }
       },
@@ -42,25 +43,25 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.MagFilter = this.toMagFilterParameter(attr.Value);
+            this.targetTexture.MagFilter = GLEnumParser.parseTextureMagFilter(attr.Value);
           }
         }
       },
       twrap: {
-        value: "clamp",
+        value: "CLAMP_TO_EDGE",
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.TWrap = this.toWrapParameter(attr.Value);
+            this.targetTexture.TWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
           }
         }
       },
       swrap: {
-        value: "clamp",
+        value: "CLAMP_TO_EDGE",
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.SWrap = this.toWrapParameter(attr.Value);
+            this.targetTexture.SWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
           }
         }
       }
@@ -84,67 +85,6 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
    * @return {TextureBase}          [description]
    */
   protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase>;
-
-  /**
-   * Min filter attribute string is changed into enum by this method.
-   * @param  {string}        Attribute string
-   * @return {MinFilterType} Enum value being passed into gl context.
-   */
-  private toMinFilterParameter(attr: string): number {
-    attr = attr.toUpperCase();
-    switch (attr) {
-      case "NEARESTMIPLINEAR":
-        return WebGLRenderingContext.NEAREST_MIPMAP_LINEAR;
-      case "NEARESTMIPNEAREST":
-        return WebGLRenderingContext.NEAREST_MIPMAP_NEAREST;
-      case "LINEARMIPLINEAR":
-        return WebGLRenderingContext.LINEAR_MIPMAP_LINEAR;
-      case "LINEARMIPNEAREST":
-        return WebGLRenderingContext.LINEAR_MIPMAP_NEAREST;
-      case "NEAREST":
-        return WebGLRenderingContext.NEAREST;
-      case "LINEAR":
-        return WebGLRenderingContext.LINEAR;
-      default:
-        return WebGLRenderingContext.LINEAR;
-    }
-  }
-
-  /**
-   * Mag filter attribute string is changed into enum by this method.
-   * @param  {string}        attr Attribute string
-   * @return {MagFilterType}      Enum value being passed into gl context.
-   */
-  private toMagFilterParameter(attr: string): number {
-    attr = attr.toUpperCase();
-    switch (attr) {
-      case "NEAREST":
-        return WebGLRenderingContext.NEAREST;
-      case "LINEAR":
-        return WebGLRenderingContext.LINEAR;
-      default:
-        return WebGLRenderingContext.LINEAR;
-    }
-  }
-
-  /**
-   * Wrap attribute string is changed into enum by this method.
-   * @param  {string} attr Attribute string
-   * @return {[type]}      Enum value being passed into gl context.
-   */
-  private toWrapParameter(attr: string) {
-    attr = attr.toUpperCase();
-    switch (attr) {
-      case "REPEAT":
-        return WebGLRenderingContext.REPEAT;
-      case "MIRRORED_REPEAT":
-        return WebGLRenderingContext.MIRRORED_REPEAT;
-      case "CLAMP":
-        return WebGLRenderingContext.CLAMP_TO_EDGE;
-      default:
-        return WebGLRenderingContext.CLAMP_TO_EDGE;
-    }
-  }
 }
 
 export default TextureNodeBase;
