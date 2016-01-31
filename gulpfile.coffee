@@ -29,7 +29,6 @@ ts = require 'gulp-typescript'
 cached = require 'gulp-cached'
 tslint = require 'gulp-tslint'
 mkdir = require 'mkdirp'
-debug = require 'gulp-debug'
 
 ###
 TASK SUMMARY
@@ -343,11 +342,8 @@ mocha task
 ###
 gulp.task 'mocha', ->
   require 'espower-babel/guess'
-  console.log testTarget
   gulp
     .src testTarget
-    .pipe debug
-      title: 'mocha'
     .pipe mocha()
 
 
