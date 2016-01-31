@@ -22,14 +22,15 @@
   "scripts": {
     "start": "./node_modules/.bin/gulp --require coffee-script/register server",
     "build": "./node_modules/.bin/gulp --require coffee-script/register build",
+    "debug": "./node_modules/.bin/gulp --require coffee-script/register build:debug",
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
-    "test": "./node_modules/.bin/mocha --compilers js:espower-babel/guess jThree/test/**/*.js",
+    "test": "./node_modules/.bin/gulp --require coffee-script/register mocha",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
-    "lint": "./node_modules/.bin?gulp --require coffee-script/register tslint"
+    "lint": "./node_modules/.bin/gulp --require coffee-script/register tslint"
   },
   "directories": {
-    "test": "jThree/test_"
+    "test": "jThree/test"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",

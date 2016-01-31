@@ -366,11 +366,10 @@ gulp.task 'watch-mocha', ->
 mocha task
 ###
 gulp.task 'mocha', ->
+  require 'espower-babel/guess'
   gulp
     .src testTarget
-    .pipe mocha
-      compilers:
-        js: 'espower-babel/guess'
+    .pipe mocha()
 
 
 ###
