@@ -67,7 +67,7 @@ class VectorBase {
       return {
         needNormalize: matches[3] === "n",
         needNegate: matches[1] === "-",
-        coefficient:parseFloat(matches[2]),
+        coefficient: parseFloat(matches[2]),
         elements: VectorBase.__parseRawVector(matches[4])
       };
     } else {
