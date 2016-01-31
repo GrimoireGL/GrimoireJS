@@ -58,7 +58,7 @@ typedocSrc = ['./jThree/src/**/*.ts']
 typedocDest = 'ci/docs'
 
 # test target (Array)
-testTarget = './jThree/test/**/*.js'
+testTarget = ['./jThree/test/**/*.js']
 
 # templete convertion root (for entries of jade and haml)
 templeteRoot = 'jThree/wwwroot'
@@ -76,8 +76,8 @@ tsdPath = './tsd.json'
 serverRoot = './jThree/wwwroot'
 
 # ts compilcation config
-tsEntries = './jThree/src/**/*.ts'
-refsEntries = './jThree/src/refs/**/*.ts'
+tsEntries = ['./jThree/src/**/*.ts']
+refsEntries = ['./jThree/src/refs/**/*.ts']
 tsDest = './jThree/lib'
 tsBase = './jThree/src'
 
@@ -314,7 +314,7 @@ document generation task
 ###
 gulp.task 'doc', (cb) ->
   gulp
-    .src [].concat typedocSrc
+    .src typedocSrc
     .pipe typedoc
       target: 'es6'
       out: path.join(typedocDest, branch)
@@ -343,6 +343,7 @@ mocha task
 ###
 gulp.task 'mocha', ->
   require 'espower-babel/guess'
+  console.log testTarget
   gulp
     .src testTarget
     .pipe debug
@@ -405,28 +406,29 @@ gulp.task 'clean', ->
   del(del_entries_silent)
 
 gulp.task 'tslint', ->
-  gulp.src [tsEntries,'!' + refsEntries,'!./jThree/src/bundle-notdoc.ts']
+  ignoreEntries = [].concat refsEntries, ['./jThree/src/bundle-notdoc.ts']
+  gulp.src [].concat tsEntries, ignoreEntries.map((v) -> "!#{v}")
     .pipe tslint
-      configuration:"./tslint.json"
-    .pipe tslint.report "verbose"
+      configuration: './tslint.json'
+    .pipe tslint.report 'verbose'
 
 gulp.task 'sample', ->
   sampleName = args.name
   debugDir = "./jThree/wwwroot/debug/";
-  dirName =  debugDir  + "debugCodes/" + sampleName
-  gomlPath = (dirName + "/" + sampleName + ".goml")
-  jsPath = (dirName + "/" + sampleName + ".js")
-  mkdir dirName,(err)=>
+  dirName =  "#{debugDir}debugCodes/#{sampleName}"
+  gomlPath = "#{dirName}/#{sampleName}.goml"
+  jsPath = "#{dirName}/#{sampleName}.js"
+  mkdir dirName, (err) ->
     if err
       console.error err
       return
-    fs.createReadStream debugDir + "Template.goml"
+    fs.createReadStream "#{debugDir}Template.goml"
       .pipe fs.createWriteStream gomlPath
-    fs.createReadStream debugDir + "Template.js"
+    fs.createReadStream "#{debugDir}Template.js"
       .pipe fs.createWriteStream jsPath
-    fs.readFile debugDir + "debug.json","utf-8",(err,data)=>
+    fs.readFile "#{debugDir}debug.json", 'utf-8', (err, data) ->
       jsonData = JSON.parse data
       jsonData.codes[sampleName] =
-        goml: sampleName + "/" + sampleName + ".goml"
-        js: [sampleName + "/" + sampleName + ".js"]
-      fs.writeFile debugDir + "debug.json", JSON.stringify jsonData,null,4
+        goml: "#{sampleName}/#{sampleName}.goml"
+        js: ["#{sampleName}/#{sampleName}.js"]
+      fs.writeFile "#{debugDir}debug.json", JSON.stringify(jsonData, null, 2)
