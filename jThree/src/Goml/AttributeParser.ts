@@ -20,7 +20,11 @@ class AttributeParser extends jThreeObject {
     const needPiMultiply = input.match(/[0-9E/\(\)\.-]+p/);
     // http://regexper.com/#%2F%5E%5B0-9E%2F%5C(%5C)%5C.-%5D%2Bp%3Fd%3F%24%2F
     const replaced = input.replace(/^([0-9E/\(\)\.-]+)p?d?$/, "$1");
+
+    /* tslint:disable */
     let evalued = eval(replaced);
+    /* tslint:enable */
+
     if (isDegree !== null) {
       evalued *= 2 * Math.PI / 360;
     }
