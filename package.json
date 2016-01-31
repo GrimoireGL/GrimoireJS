@@ -72,6 +72,8 @@
     "node-notifier": "^4.4.0",
     "power-assert": "^1.2.0",
     "pretty-hrtime": "^1.0.1",
+    "radium": "^0.16.5",
+    "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-simpletabs": "^0.7.0",
     "react-tap-event-plugin": "^0.2.2",
@@ -81,7 +83,6 @@
     "shader-loader": "^1.1.4",
     "shaderify": "pnlybubbles/shaderify#0fcdf2aa0140253170cbbc608ade68d34f78e448",
     "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
     "source-map-support": "^0.4.0",
     "superagent": "^1.7.2",
     "ternary-stream": "^2.0.0",
@@ -95,9 +96,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
-    "yargs": "^3.32.0",
-    "radium": "^0.16.5",
-    "react": "^0.14.7"
+    "yargs": "^3.32.0"
   },
   "keywords": [],
   "dependencies": {
