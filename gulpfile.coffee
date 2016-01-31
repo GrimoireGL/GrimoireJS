@@ -345,7 +345,7 @@ gulp.task 'mocha', ->
   require 'espower-babel/guess'
   gulp
     .src testTarget
-    .src debug
+    .pipe debug
       title: 'mocha'
     .pipe mocha()
 
