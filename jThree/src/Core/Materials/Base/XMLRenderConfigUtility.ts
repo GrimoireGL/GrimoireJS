@@ -1,5 +1,5 @@
 import IRenderStageRenderConfigure from "../../Renderers/RenderStages/IRenderStageRendererConfigure";
-import GLEnumParser from "../../../Wrapper/GLEnumParser";
+import GLEnumParser from "../../Canvas/GLEnumParser";
 class XMLRenderConfigureUtility {
 
   /**
@@ -101,7 +101,7 @@ class XMLRenderConfigureUtility {
   private static _applyCullConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, mode: string): void {
     if (enabled) {
       gl.enable(gl.CULL_FACE);
-      gl.cullFace(GLEnumParser.parseCullMode(gl, mode));
+      gl.cullFace(GLEnumParser.parseCullMode(mode));
     } else {
       gl.disable(gl.CULL_FACE);
     }
@@ -110,7 +110,7 @@ class XMLRenderConfigureUtility {
   private static _applyDepthTestConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, mode: string): void {
     if (enabled) {
       gl.enable(gl.DEPTH_TEST);
-      gl.depthFunc(GLEnumParser.parseDepthFunc(gl, mode));
+      gl.depthFunc(GLEnumParser.parseDepthFunc(mode));
     } else {
       gl.disable(gl.DEPTH_TEST);
     }
@@ -119,7 +119,7 @@ class XMLRenderConfigureUtility {
   private static _applyBlendFunConfigureToGL(gl: WebGLRenderingContext, enabled: boolean, src: string, dst: string): void {
     if (enabled) {
       gl.enable(gl.BLEND);
-      gl.blendFunc(GLEnumParser.parseBlendFunc(gl, src), GLEnumParser.parseBlendFunc(gl, dst));
+      gl.blendFunc(GLEnumParser.parseBlendFunc(src), GLEnumParser.parseBlendFunc(dst));
     } else {
       gl.disable(gl.BLEND);
     }
