@@ -174,6 +174,7 @@ gulp.task 'build:main:ts', (done) ->
     .on 'end', ->
       unless buildSuccess
         gutil.log gutil.colors.black.bgRed " [COMPILATION FAILED] (main) #{c.name} "
+        process.exit 1 unless watching
       done()
   if watching
     gulp.watch tsEntries, ['build:main:ts']
@@ -256,6 +257,8 @@ Object.keys(config).forEach (suffix) ->
           if bundleSuccess
             taskTime = formatter process.hrtime time
             gutil.log(gutil.colors.black.bgGreen(" [BUNDLING SUCCESS] (#{suffix}) ") + gutil.colors.magenta(" #{taskTime}"))
+          else
+            process.exit 1 unless watching
           if buildSuccess && bundleSuccess
             notifier.notify({
               message: "BUILD SUCCESS (#{suffix})",
@@ -325,13 +328,6 @@ gulp.task 'server', ->
     root: serverRoot
     livereload: true
 
-
-###
-travis task
-###
-gulp.task 'travis', ['build:main'], ->
-
-
 ###
 document generation task
 ###
@@ -349,14 +345,14 @@ gulp.task 'doc', (cb) ->
 ###
 test task
 ###
-gulp.task 'test', ['build:test'], ->
+gulp.task 'test', ['build:main'], ->
   gulp.start ['mocha']
 
 
 ###
 test watch task
 ###
-gulp.task 'watch:test', ['enable-watch-mode', 'build:test', 'watch-mocha']
+gulp.task 'watch:test', ['enable-watch-mode', 'build:main', 'watch-mocha']
 
 gulp.task 'watch-mocha', ->
   gulp.watch testTarget, ['mocha']
