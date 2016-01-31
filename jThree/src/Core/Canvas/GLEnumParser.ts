@@ -101,13 +101,13 @@ class GLEnumParser {
   public static parseTextureMinFilter(val: string): number {
     val = val.toUpperCase();
     switch (val) {
-      case "NEARESTMIPLINEAR":
+      case "NEAREST_MIPMAP_LINEAR":
         return WebGLRenderingContext.NEAREST_MIPMAP_LINEAR;
-      case "NEARESTMIPNEAREST":
+      case "NEAREST_MIPMAP_NEAREST":
         return WebGLRenderingContext.NEAREST_MIPMAP_NEAREST;
-      case "LINEARMIPLINEAR":
+      case "LINEAR_MIPMAP_LINEAR":
         return WebGLRenderingContext.LINEAR_MIPMAP_LINEAR;
-      case "LINEARMIPNEAREST":
+      case "LINEAR_MIPMAP_NEAREST":
         return WebGLRenderingContext.LINEAR_MIPMAP_NEAREST;
       case "NEAREST":
         return WebGLRenderingContext.NEAREST;

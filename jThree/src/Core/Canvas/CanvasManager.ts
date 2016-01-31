@@ -1,3 +1,5 @@
+import LoopManager from "../LoopManager";
+import JThreeContext from "../../JThreeContext";
 import IContextComponent from "../../IContextComponent";
 import ContextComponents from "../../ContextComponents";
 import Canvas from "./Canvas";
@@ -10,6 +12,12 @@ import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
  * @type {[type]}
  */
 class CanvasManager implements IContextComponent {
+
+  constructor() {
+    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    loopManager.addAction(4000, () => this.beforeRenderAll());
+    loopManager.addAction(6000, () => this.afterRenderAll());
+  }
 
   /**
    * All canvas managed by jThree

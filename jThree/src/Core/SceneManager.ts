@@ -2,6 +2,8 @@ import jThreeObjectEE from "../Base/JThreeObjectEE";
 import Scene from "./Scene";
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
+import LoopManager from "./LoopManager";
+import JThreeContext from "../JThreeContext";
 
 
 /**
@@ -9,6 +11,11 @@ import ContextComponents from "../ContextComponents";
 */
 class SceneManager extends jThreeObjectEE implements IContextComponent {
 
+  constructor() {
+    super();
+    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    loopManager.addAction(5000, () => this.renderAll());
+  }
   /**
    * All scene map. Hold by Scene.ID.
    */
