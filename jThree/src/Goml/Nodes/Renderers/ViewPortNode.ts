@@ -137,7 +137,7 @@ class ViewPortNode extends GomlTreeNodeBase {
 
   private updateViewportArea() {
     // console.log("updateViewportArea");
-    if (this.parentCanvas) {
+    if (this.parentCanvas) { // ここ何やってるんだっけ
       if (this.parentCanvas.canvasFrames.container) {
         // when canvas HTMLElement is applied
         const frame = this.parentCanvas.canvasFrames.container;
