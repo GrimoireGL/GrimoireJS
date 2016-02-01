@@ -9,6 +9,7 @@
   </resources>
   <canvases>
     <canvas clearColor="purple" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main2" width="320" height="480" left="120" top="120" name="MAIN2" backgroundType="skybox" skybox="cubemap"/>
       <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" backgroundType="skybox" skybox="cubemap"/>
     </canvas>
   </canvases>

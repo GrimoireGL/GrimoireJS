@@ -152,14 +152,13 @@ class BasicTechnique extends JThreeObjectWithID {
    */
   private _onPrimaryBufferFail(): void {
     this._applyViewport(true);
-    const primaryBuffer = this._fboBindingInfo[this._fboBindingInfo.primaryIndex];
     this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
-    if (primaryBuffer.needClear) {
-      this._gl.colorMask(true, true, true, true);
-      const col = primaryBuffer.clearColor;
-      this._gl.clearColor(col.X, col.Y, col.Z, col.W);
-      this._gl.clear(this._gl.COLOR_BUFFER_BIT);
-    }
+    // if (primaryBuffer.needClear) {  // this code might cause bug when multiple viewports were used
+    //   this._gl.colorMask(true, true, true, true);
+    //   const col = primaryBuffer.clearColor;
+    //   this._gl.clearColor(col.X, col.Y, col.Z, col.W);
+    //   this._gl.clear(this._gl.COLOR_BUFFER_BIT);
+    // }
     if (this._fboBindingInfo.rbo && this._fboBindingInfo.rbo.needClear) {
       this._gl.depthMask(true);
       this._gl.clearDepth(this._fboBindingInfo.rbo.clearDepth);

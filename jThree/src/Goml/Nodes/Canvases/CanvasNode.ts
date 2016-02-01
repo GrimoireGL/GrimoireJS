@@ -39,6 +39,13 @@ class CanvasNode extends GomlTreeNodeBase {
       "loader": {
         value: undefined,
         converter: "string",
+      },
+      "clearColor": {
+        value: "#0000",
+        converter: "color4",
+        onchanged: (v) => {
+          this.canvas.clearColor = v.Value;
+        }
       }
     });
   }

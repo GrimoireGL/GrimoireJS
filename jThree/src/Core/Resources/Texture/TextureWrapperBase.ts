@@ -65,6 +65,16 @@ class TextureWrapperBase extends ResourceWrapper {
     }
   }
 
+  public getPixel(x: number, y: number): ArrayBufferView {
+    const result = new Uint8Array(4);
+    const frameBuffer = this.GL.createFramebuffer();
+    this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, frameBuffer);
+    this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this.targetTexture, 0);
+    this.GL.readPixels(x, y, 1, 1, this.GL.RGBA, this.Parent.ElementFormat, result);
+    this.GL.deleteFramebuffer(frameBuffer);
+    return result;
+  }
+
   protected setTargetTexture(texture: WebGLTexture) {
     this.targetTexture = texture;
   }

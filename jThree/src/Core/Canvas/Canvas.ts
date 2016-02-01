@@ -70,6 +70,7 @@ class Canvas extends CanvasRegion {
       this.canvasResized.fire(this, new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
       this._lastHeight = this.canvasElement.height; this._lastWidth = this.canvasElement.width;
     }
+    this._clearCanvas();
   }
 
 
@@ -85,8 +86,12 @@ class Canvas extends CanvasRegion {
     this.glExtensionResolver.checkExtensions(glContext);
   }
 
-  public applyClearColor() {
-    this.GL.clearColor(this.clearColor.R, this.clearColor.G, this.clearColor.B, this.clearColor.A);
+  private _clearCanvas(): void {
+    this.GL.colorMask(true, true, true, true);
+    this.GL.clearColor.apply(this.GL, this.clearColor.rawElements);
+    this.GL.depthMask(true);
+    this.GL.clearDepth(1.0);
+    this.GL.clear(WebGLRenderingContext.COLOR_BUFFER_BIT | WebGLRenderingContext.DEPTH_BUFFER_BIT);
   }
 
   /**

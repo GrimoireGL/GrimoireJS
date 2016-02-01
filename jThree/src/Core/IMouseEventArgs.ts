@@ -30,13 +30,9 @@ interface IMouseEventArgs {
    */
   mouseOver: boolean;
 
-  /**
-   * Mouse position normalized in [0,1]
-   *
-   * 　閉区間[0,1]に正規化されているマウス座標
-   * @type {Vector2}
-   */
-  mousePosition: Vector2;
+  mouseX: number;
+
+  mouseY: number;
 
   /**
    * The region this event rised
