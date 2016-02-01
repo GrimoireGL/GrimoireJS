@@ -7,22 +7,26 @@ class TextureWrapper extends TextureWrapperBase {
   }
 
   public init(isChanged?: boolean) {
-    const parent = <Texture>this.Parent;
     if (this.Initialized && !isChanged) {
       return;
     }
     if (this.TargetTexture == null) {
       this.setTargetTexture(this.GL.createTexture());
     }
+    this.updateTexture();
+    this.GL.bindTexture(WebGLRenderingContext.TEXTURE_2D, null);
+    this.setInitialized();
+  }
+
+  public updateTexture(): void {
+    const parentTexture = this.Parent as Texture;
     this.GL.bindTexture(WebGLRenderingContext.TEXTURE_2D, this.TargetTexture);
-    if (parent.ImageSource == null) {
+    if (parentTexture.ImageSource == null) {
       this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, WebGLRenderingContext.RGBA, 1, 1, 0, WebGLRenderingContext.RGBA, WebGLRenderingContext.UNSIGNED_BYTE, TextureWrapperBase.altTextureBuffer);
     } else {
       this.preTextureUpload();
-      this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, WebGLRenderingContext.RGBA, WebGLRenderingContext.RGBA, WebGLRenderingContext.UNSIGNED_BYTE, <ImageData>parent.ImageSource);
+      this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, WebGLRenderingContext.RGBA, WebGLRenderingContext.RGBA, WebGLRenderingContext.UNSIGNED_BYTE, parentTexture.ImageSource as ImageData);
     }
-    this.GL.bindTexture(WebGLRenderingContext.TEXTURE_2D, null);
-    this.setInitialized();
   }
 
 }

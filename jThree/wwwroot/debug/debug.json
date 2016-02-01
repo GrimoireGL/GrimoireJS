@@ -12,7 +12,9 @@
         },
         "CubeDisplay": {
             "goml": "CubeDisplay/CubeDisplay.goml",
-            "js": []
+            "js": [
+                "CubeDisplay/CubeDisplay.js"
+            ]
         },
         "Stage": {
             "goml": "Stage/Stage.goml",
