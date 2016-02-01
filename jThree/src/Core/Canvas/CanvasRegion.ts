@@ -1,6 +1,4 @@
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
-import IMouseEventArgs from "./../IMouseEventArgs";
-import JThreeEvent from "../../Base/JThreeEvent";
 import IDisposable from "../../Base/IDisposable";
 import Rectangle from "../../Math/Rectangle";
 import JThreeContext from "../../JThreeContext";

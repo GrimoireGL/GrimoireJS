@@ -1,4 +1,3 @@
-import Vector2 from "../Math/Vector2";
 import CanvasRegion from "./Canvas/CanvasRegion";
 /**
  * The event args object interface to be used in mouse related event in CanvasRegion
