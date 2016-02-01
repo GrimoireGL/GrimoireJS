@@ -64,7 +64,7 @@ class RenderPathExecutor extends JThreeObjectEE {
         });
         stageIndex++;
       } catch (e) {
-        debugger;
+        // debugger;
       }
     });
     this.emit("rendered-path", <IRenderPathCompletedEventArgs> {

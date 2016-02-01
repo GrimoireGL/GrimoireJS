@@ -23,47 +23,27 @@ class Vector2 extends VectorBase {
   }
 
   public static parse(str: string): Vector2 {
-    let resultVec: Vector2;
-    // 1,0,2.0
-    // -(1.0,2.0)
-    // n(1.0,2.0) normalized
-    // 1.0
-    // check attributes
-    const negativeMatch = str.match(/^-(n?\(.+\))$/);
-    let needNegate = false;
-    if (negativeMatch) {
-      needNegate = true;
-      str = negativeMatch[1];
-    }
-    const normalizeMatch = str.match(/^-?n(\(.+\))$/);
-    let needNormalize = false;
-    if (normalizeMatch) {
-      needNormalize = true;
-      str = normalizeMatch[1];
-    }
-    // check body
-    str = str.match(/^n?\(?([^\)]+)\)?$/)[1];
-    const strNums = str.split(/,/g);
-    if (strNums.length === 1) {
-      let elemNum: number = parseFloat(strNums[0]);
-      if (isNaN(elemNum)) { return undefined; }
-      resultVec = new Vector2(elemNum, elemNum);
-    } else if (strNums.length === 2) {
-      resultVec = new Vector2(parseFloat(strNums[0]), parseFloat(strNums[1]));
-    } else {
+    const parseResult = VectorBase.__parse(str);
+    const elements = parseResult.elements;
+    if (elements.length !== 1 && elements.length !== 2) {
       return undefined;
     }
-    if (needNormalize) {
-      resultVec = resultVec.normalizeThis();
+    let result;
+    if (elements.length === 1) {
+      result = new Vector2(elements[0], elements[0]);
+    } else {
+      result = new Vector2(elements[0], elements[1]);
     }
-    if (needNegate) {
-      resultVec = resultVec.negateThis();
+    if (parseResult.needNormalize) {
+      result = result.normalizeThis();
     }
-
-    if (isNaN(resultVec.X) || isNaN(resultVec.Y)) {
-      console.error("Element is NaN", resultVec);
+    if (parseResult.coefficient) {
+      result = result.multiplyWith(parseResult.coefficient);
     }
-    return resultVec;
+    if (parseResult.needNegate) {
+      result = result.negateThis();
+    }
+    return result;
   }
 
   constructor(x: number, y: number);

@@ -25,6 +25,12 @@ export class InvalidArgumentException extends JThreeException {
   }
 }
 
+export class InvalidStringException extends JThreeException {
+  constructor(message: string) {
+    super("Invalid string was passed.", message);
+  }
+}
+
 export class SingularMatrixException extends JThreeException {
   constructor(m: Matrix) {
     super("Passed matrix is singular matrix", `passed matrix:${m.toString() }`);

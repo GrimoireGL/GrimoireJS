@@ -63,7 +63,7 @@ class RSMLRenderStage extends RenderStageBase {
     this._techniqueCount = techniqueTags.length;
     this.techniques = new Array(this._techniqueCount);
     for (let techniqueIndex = 0; techniqueIndex < this._techniqueCount; techniqueIndex++) {
-      this.techniques[techniqueIndex] = new BasicTechnique(this, techniqueTags.item(techniqueIndex));
+      this.techniques[techniqueIndex] = new BasicTechnique(this, techniqueTags.item(techniqueIndex), techniqueIndex);
     }
   }
 }

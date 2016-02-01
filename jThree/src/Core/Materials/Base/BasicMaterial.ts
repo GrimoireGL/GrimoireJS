@@ -19,9 +19,9 @@ class BasicMaterial extends Material {
 
   private _passCount: number = 0;
 
-  constructor(sourceString: string) {
+  constructor(sourceString: string, name?: string) {
     super();
-    this._parseMaterialDocument(sourceString);
+    this._parseMaterialDocument(sourceString, name);
   }
 
   /**
@@ -50,16 +50,14 @@ class BasicMaterial extends Material {
     return this._materialGroup;
   }
 
-  private _parseMaterialDocument(source: string): void {
+  private _parseMaterialDocument(source: string, name?: string): void {
     const xmml = (new DOMParser()).parseFromString(source, "text/xml");
     this._materialName = xmml.querySelector("material").getAttribute("name");
     this._materialGroup = xmml.querySelector("material").getAttribute("group");
-    if (!this._materialName) {
+    if (!this._materialName && !name) {
       console.error("Material name must be specified");
     }
-    if (!this._materialGroup) {
-      console.error("Material group must be specified!");
-    }
+    this._materialName = this._materialName || name;
     this._initializeUniformRegisters(xmml);
     this._parsePasses(xmml).then(() => {
       this.setLoaded();
