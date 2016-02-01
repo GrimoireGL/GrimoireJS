@@ -7,7 +7,6 @@ env:
   global:
     secure: C3UQt4RiLQWzugbiTzw00lg8+/lCUPK3FjSxck4BnU7+uB3wdh7qaZp88mG/hUrrB5tASW316UowzRCYTItPtsNuEOLK3x+KxKZBW5fpyvaSOZrSlPV7qv1kJjGQirskgZxH1aH/g/fHknBXsifawPT6it63INk/SVE/szfEHfg=
 before_install:
-- rm ci -r -f
 - mkdir ci
 - cd ci
 - git init
@@ -16,27 +15,21 @@ before_install:
 - git remote add github https://github.com/jThreeJS/jThree
 - git pull github gh-pages
 - git checkout gh-pages
-- ls
 - cd ..
-- ls
 install:
 - npm install
 script:
 - npm run build -- --branch=$TRAVIS_BRANCH
 - npm run doc -- --branch=$TRAVIS_BRANCH
-- npm test
+- npm run lint -- --branch=$TRAVIS_BRANCH
+- npm test -- --branch=$TRAVIS_BRANCH
 after_script:
-- if $TRAVIS_BRANCH -ne "gh-pages"; then
 - cd ci
 - git checkout gh-pages
 - git add -A
 - git commit -m "document update by travis"
 - git push --force https://$GHTOKEN@github.com/jThreeJS/jThree gh-pages:gh-pages
 - cd ..
-- else
-- echo "gh-pages publish was skipped."
-- fi
-- tree -a
 language: node_js
 node_js:
 - 4.1
