@@ -16,6 +16,8 @@ class ShaderParser {
    * @return {IProgramDescription} information of parsed codes.
    */
   public static parseCombined(codeString: string): Q.IPromise<IProgramDescription> {
+    codeString = ShaderParser._removeMultiLineComment(codeString);
+    codeString = ShaderParser._removeLineComment(codeString);
     const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
     return ShaderParser.parseImport(codeString, materialManager).then<IProgramDescription>(result => {
       const uniforms = ShaderParser._parseVariables(codeString, "uniform");
@@ -43,14 +45,14 @@ class ShaderParser {
   }
 
   public static getImports(source: string): string[] {
-   let importArgs = [];
-   const importRegex = /\s*@import\s+"([^"]+)"/g;
-   while (true) {
-     const importEnum = importRegex.exec(source);
-     if (!importEnum) { break; }
-     importArgs.push(importEnum[1]);
-   }
-   return importArgs;
+    let importArgs = [];
+    const importRegex = /\s*@import\s+"([^"]+)"/g;
+    while (true) {
+      const importEnum = importRegex.exec(source);
+      if (!importEnum) { break; }
+      importArgs.push(importEnum[1]);
+    }
+    return importArgs;
   }
 
   /**
@@ -129,6 +131,73 @@ class ShaderParser {
     return source;
   }
 
+  private static _removeLineComment(source: string): string {
+    let text: string = source;
+    const regex = /(\/\/.*)/g;
+    while (true) {
+      const found = regex.exec(text);
+      if (!found) {
+        break;
+      }
+      let beginPoint = found.index;
+      text = text.substr(0, beginPoint) + text.substring(beginPoint + found[0].length, text.length);
+    }
+    return text;
+  }
+  private static _removeMultiLineComment(source: string): string {
+    while (true) {
+      const found = source.indexOf("/*", 0);
+      if (found < 0) {
+        break; // When there was no more found
+      }
+      let beginPoint = found;
+      const endPoint: number = source.indexOf("*/", beginPoint)
+      if (endPoint < 1) {
+        // error no bracket matching
+        console.error("Invalid bracket matching!");
+        return source;
+      }
+
+      source = source.substr(0, beginPoint) + source.substring(endPoint + 2, source.length);
+    }
+    return source;
+  }
+
+  private static _getEndBracketIndex(source: string, startIndex: number, beginBracket: string, endBracket: string): number {
+    // get index of matching endBracket
+    let index = startIndex;
+
+    let bracketCount = 1;
+    while (true) { // find matching bracket
+      if (bracketCount === 0) {
+        break;
+      }
+      index++;
+      const nextEndBlacket = source.indexOf(endBracket, index);
+      const nextBeginBlacket = source.indexOf(beginBracket, index);
+      if (nextEndBlacket < 0) {
+        // error no bracket matching
+        console.error("Invalid bracket matching!");
+        return -1;
+      }
+      if (nextBeginBlacket < 0) {
+        index = nextEndBlacket;
+        bracketCount--;
+        continue;
+      }
+      if (nextEndBlacket < nextBeginBlacket) {
+        index = nextEndBlacket;
+        bracketCount--;
+        continue;
+      } else {
+        index = nextBeginBlacket;
+        bracketCount++;
+        continue;
+      }
+    }
+    return index;
+  }
+
   private static _removeOtherPart(source: string, partFlag: string): string {
     const regex = new RegExp(`\s*(?:\/\/+)?\s*@${partFlag}`, "g");
     while (true) {
@@ -137,33 +206,13 @@ class ShaderParser {
         break; // When there was no more found
       }
       let beginPoint = found.index;
-      let index = beginPoint;
-      while (true) { // ignore next {
-        index++;
-        if (source[index] === "{") {
-          break;
-        }
+      let index = source.indexOf("{", beginPoint); // ignore next {
+      const endPoint: number = this._getEndBracketIndex(source, index, "{", "}") + 1;
+      if (endPoint < 1) {
+        // error no bracket matching
+        console.error("Invalid bracket matching!");
+        return source;
       }
-
-      let bracketCount = 1;
-      while (true) { // find matching bracket
-        index++;
-        if (index === source.length) {
-          // error no bracket matching
-          console.error("Invalid bracket matching!");
-          return source;
-        }
-        if (source[index] === "{") {
-          bracketCount++;
-        }
-        if (source[index] === "}") {
-          bracketCount--;
-        }
-        if (bracketCount === 0) {
-          break;
-        }
-      }
-      const endPoint = index + 1;
 
       source = source.substr(0, beginPoint) + source.substring(endPoint, source.length);
     }
@@ -177,34 +226,14 @@ class ShaderParser {
       if (!found) {
         break; // When there was no more found
       }
-      let beginPoint = found.index;
-      let index = beginPoint;
-      while (true) { // ignore next {
-        index++;
-        if (source[index] === "{") {
-          break;
-        }
+      let index = source.indexOf("{", found.index); // ignore next {
+      let beginPoint = index;
+      const endPoint: number = this._getEndBracketIndex(source, index, "{", "}") + 1;
+      if (endPoint < 1) {
+        // error no bracket matching
+        console.error("Invalid bracket matching!");
+        return source;
       }
-      beginPoint = index;
-      let bracketCount = 1;
-      while (true) {  // find matching bracket
-        index++;
-        if (index === source.length) {
-          // error no bracket matching
-          console.error("Invalid bracket matching!");
-          return source;
-        }
-        if (source[index] === "{") {
-          bracketCount++;
-        }
-        if (source[index] === "}") {
-          bracketCount--;
-        }
-        if (bracketCount === 0) {
-          break;
-        }
-      }
-      const endPoint = index + 1;
       source = source.substr(0, found.index) + source.substring(beginPoint + 1, endPoint - 1) + source.substring(endPoint + 1, source.length);
     }
     return source;
