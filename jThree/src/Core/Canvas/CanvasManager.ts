@@ -1,9 +1,10 @@
+import LoopManager from "../LoopManager";
+import JThreeContext from "../../JThreeContext";
 import IContextComponent from "../../IContextComponent";
 import ContextComponents from "../../ContextComponents";
 import Canvas from "./Canvas";
 import JThreeEvent from "../../Base/JThreeEvent";
-import CanvasListChangedEventArgs from "./CanvasListChangedEventArgs";
-import ListStateChangedType from "../ListStateChangedType";
+import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
 /**
  * A context component provides the feature to manage all of canvas.
  *
@@ -11,6 +12,12 @@ import ListStateChangedType from "../ListStateChangedType";
  * @type {[type]}
  */
 class CanvasManager implements IContextComponent {
+
+  constructor() {
+    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    loopManager.addAction(4000, () => this.beforeRenderAll());
+    loopManager.addAction(6000, () => this.afterRenderAll());
+  }
 
   /**
    * All canvas managed by jThree
@@ -22,7 +29,7 @@ class CanvasManager implements IContextComponent {
    * Event object notifying when canvas list is changed
    * @type {JThreeEvent<CanvasListChangedEventArgs>}
    */
-  public canvasListChanged: JThreeEvent<CanvasListChangedEventArgs> = new JThreeEvent<CanvasListChangedEventArgs>();
+  public canvasListChanged: JThreeEvent<ICanvasListChangedEventArgs> = new JThreeEvent<ICanvasListChangedEventArgs>();
 
   /**
    * Implementation for IContextComponent
@@ -37,7 +44,10 @@ class CanvasManager implements IContextComponent {
   public addCanvas(canvas: Canvas): void {
     if (this.canvases.indexOf(canvas) === -1) {
       this.canvases.push(canvas);
-      this.canvasListChanged.fire(this, new CanvasListChangedEventArgs(ListStateChangedType.Add, canvas));
+      this.canvasListChanged.fire(this, {
+        isAdditionalChange: true,
+        canvas: canvas
+      });
     }
   }
 
@@ -52,7 +62,10 @@ class CanvasManager implements IContextComponent {
           break;
         }
       }
-      this.canvasListChanged.fire(this, new CanvasListChangedEventArgs(ListStateChangedType.Delete, canvas));
+      this.canvasListChanged.fire(this, {
+        isAdditionalChange: true,
+        canvas: canvas
+      });
     }
   }
 

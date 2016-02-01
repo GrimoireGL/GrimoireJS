@@ -12,34 +12,26 @@ import PMXIKLink from "../PMXIKLink";
  */
 class PMXBoneTransformer extends Transformer {
 	/**
-	 * Reference to PMXModel managing all dynamic features.
-	 * @type {PMXModel}
-	 */
-  private pmx: PMXModel;
-
-  /**
-   * Bone index for bone array of skeleton.
-   * @type {number}
-   */
-  private boneIndex: number;
-
-  /**
-   * Quaternion produced from rotation of IK link.
-   * @type {Quaternion}
-   */
-  private ikLinkRotation: Quaternion = Quaternion.Identity;
-
-	/**
 	 * Quaternion produced from manual operation,bone animation.(except bone morphs)
 	 * @type {Quaternion}
 	 */
   public userRotation: Quaternion = Quaternion.Identity;
 
-	/**
+  public transformUpdated = false;
+
+  /**
 	 * Translation vector produced from manual operation,bone animation.
 	 * @type {Vector3}
 	 */
   public userTranslation: Vector3 = Vector3.Zero;
+
+
+  /**
+   * Whether this bone transformer is IKLink or not.
+   * This variable will be assigned by PMXSkeleton after loading all bones.
+   * @type {boolean}
+   */
+  public isIKLink: boolean = false;
 
 	/**
 	 * Quaternion produced from bone morphs.
@@ -65,9 +57,34 @@ class PMXBoneTransformer extends Transformer {
 	 */
   private providingTranslation: Vector3 = Vector3.Zero;
 
-	/**
-	 * Reference to static model data.
-	 */
+  /**
+   * Reference to PMXModel managing all dynamic features.
+   * @type {PMXModel}
+   */
+  private pmx: PMXModel;
+
+  /**
+   * Bone index for bone array of skeleton.
+   * @type {number}
+   */
+  private boneIndex: number;
+
+  /**
+   * Quaternion produced from rotation of IK link.
+   * @type {Quaternion}
+   */
+  private ikLinkRotation: Quaternion = Quaternion.Identity;
+
+  constructor(sceneObj: SceneObject, pmx: PMXModel, index: number) {
+    super(sceneObj);
+    this.pmx = pmx;
+    this.boneIndex = index;
+  }
+
+
+  /**
+   * Reference to static model data.
+   */
   public get PMXModelData() {
     return this.pmx.ModelData;
   }
@@ -99,21 +116,6 @@ class PMXBoneTransformer extends Transformer {
   public get IsIKBone() {
     return (this.BoneData.boneFlag & 0x0020) > 0;
   }
-
-	/**
-	 * Whether this bone transformer is IKLink or not.
-	 * This variable will be assigned by PMXSkeleton after loading all bones.
-	 * @type {boolean}
-	 */
-  public isIKLink: boolean = false;
-
-  constructor(sceneObj: SceneObject, pmx: PMXModel, index: number) {
-    super(sceneObj);
-    this.pmx = pmx;
-    this.boneIndex = index;
-  }
-
-  public transformUpdated = false;
 
   public updateTransform(): void {
     super.updateTransform();

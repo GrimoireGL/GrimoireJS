@@ -1,9 +1,7 @@
+import GLEnumParser from "../../../Core/Canvas/GLEnumParser";
 ﻿import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import ResourceManager from "../../../Core/ResourceManager";
-import MinFilterType from "../../../Wrapper/Texture/TextureMinFilterType";
-import MagFilterType from "../../../Wrapper/Texture/TextureMagFilterType";
-import TextureWrapType from "../../../Wrapper/Texture/TextureWrapType";
 import JThreeContext from "../../../JThreeContext";
 import ContextComponents from "../../../ContextComponents";
 /**
@@ -36,7 +34,7 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.MinFilter = this.toMinFilterParameter(attr.Value);
+            this.targetTexture.MinFilter = GLEnumParser.parseTextureMinFilter(attr.Value);
           }
         }
       },
@@ -45,25 +43,25 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.MagFilter = this.toMagFilterParameter(attr.Value);
+            this.targetTexture.MagFilter = GLEnumParser.parseTextureMagFilter(attr.Value);
           }
         }
       },
       twrap: {
-        value: "clamp",
+        value: "CLAMP_TO_EDGE",
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.TWrap = this.toWrapParameter(attr.Value);
+            this.targetTexture.TWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
           }
         }
       },
       swrap: {
-        value: "clamp",
+        value: "CLAMP_TO_EDGE",
         converter: "string",
         onchanged: (attr) => {
           if (this.targetTexture) {
-            this.targetTexture.SWrap = this.toWrapParameter(attr.Value);
+            this.targetTexture.SWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
           }
         }
       }
@@ -87,67 +85,6 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
    * @return {TextureBase}          [description]
    */
   protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase>;
-
-  /**
-   * Min filter attribute string is changed into enum by this method.
-   * @param  {string}        Attribute string
-   * @return {MinFilterType} Enum value being passed into gl context.
-   */
-  private toMinFilterParameter(attr: string): MinFilterType {
-    attr = attr.toUpperCase();
-    switch (attr) {
-      case "NEARESTMIPLINEAR":
-        return MinFilterType.NearestMipmapLinear;
-      case "NEARESTMIPNEAREST":
-        return MinFilterType.NearestMipmapNearest;
-      case "LINEARMIPLINEAR":
-        return MinFilterType.LinearMipmapLinear;
-      case "LINEARMIPNEAREST":
-        return MinFilterType.LinearMipmapNearest;
-      case "NEAREST":
-        return MinFilterType.Nearest;
-      case "LINEAR":
-        return MinFilterType.Linear;
-      default:
-        return MinFilterType.Linear;
-    }
-  }
-
-  /**
-   * Mag filter attribute string is changed into enum by this method.
-   * @param  {string}        attr Attribute string
-   * @return {MagFilterType}      Enum value being passed into gl context.
-   */
-  private toMagFilterParameter(attr: string): MagFilterType {
-    attr = attr.toUpperCase();
-    switch (attr) {
-      case "NEAREST":
-        return MagFilterType.Nearest;
-      case "LINEAR":
-        return MagFilterType.Linear;
-      default:
-        return MagFilterType.Linear;
-    }
-  }
-
-  /**
-   * Wrap attribute string is changed into enum by this method.
-   * @param  {string} attr Attribute string
-   * @return {[type]}      Enum value being passed into gl context.
-   */
-  private toWrapParameter(attr: string) {
-    attr = attr.toUpperCase();
-    switch (attr) {
-      case "REPEAT":
-        return TextureWrapType.Repeat;
-      case "MIRRORED_REPEAT":
-        return TextureWrapType.MirroredRepeat;
-      case "CLAMP":
-        return TextureWrapType.ClampToEdge;
-      default:
-        return TextureWrapType.ClampToEdge;
-    }
-  }
 }
 
 export default TextureNodeBase;

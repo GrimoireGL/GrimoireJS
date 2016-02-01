@@ -1,31 +1,12 @@
+git:
+  submodules: false
+cache:
+  directories:
+    - node_modules
 env:
   global:
     secure: C3UQt4RiLQWzugbiTzw00lg8+/lCUPK3FjSxck4BnU7+uB3wdh7qaZp88mG/hUrrB5tASW316UowzRCYTItPtsNuEOLK3x+KxKZBW5fpyvaSOZrSlPV7qv1kJjGQirskgZxH1aH/g/fHknBXsifawPT6it63INk/SVE/szfEHfg=
 before_install:
-- echo "        /$$$$$$$$ /$$                                                       /$$$$$$      /$$$$$$   /$$$$$$                           " >> .travis.sh
-- echo "       |__  $$__/| $$                                                      /$$__  $$    /$$$_  $$ /$$$_  $$                          " >> .travis.sh
-- echo "       /$$| $$   | $$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$        /$$    /$$|__/  \ $$   | $$$$\ $$| $$$$\ $$                          " >> .travis.sh
-- echo "      |__/| $$   | $$__  $$ /$$__  $$ /$$__  $$ /$$__  $$      |  $$  /$$/   /$$$$$/   | $$ $$ $$| $$ $$ $$                          " >> .travis.sh
-- echo "       /$$| $$   | $$  \ $$| $$  \__/| $$$$$$$$| $$$$$$$$       \  $$/$$/   |___  $$   | $$\ $$$$| $$\ $$$$                          " >> .travis.sh
-- echo "      | $$| $$   | $$  | $$| $$      | $$_____/| $$_____/        \  $$$/   /$$  \ $$   | $$ \ $$$| $$ \ $$$                          " >> .travis.sh
-- echo "      | $$| $$   | $$  | $$| $$      |  $$$$$$$|  $$$$$$$         \  $/   |  $$$$$$//$$|  $$$$$$/|  $$$$$$/                          " >> .travis.sh
-- echo "      | $$|__/   |__/  |__/|__/       \_______/ \_______/          \_/     \______/|__/ \______/  \______/                           " >> .travis.sh
-- echo " /$$  | $$                                                                                                                           " >> .travis.sh
-- echo "|  $$$$$$/                                                                                                                           " >> .travis.sh
-- echo " \______/                                                                                                                            " >> .travis.sh
-- echo " /$$   /$$                                /$$$$$$                                                     /$$     /$$                    " >> .travis.sh
-- echo "| $$$ | $$                               /$$__  $$                                                   | $$    |__/                    " >> .travis.sh
-- echo "| $$$$| $$  /$$$$$$  /$$  /$$  /$$      | $$  \__/  /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$  /$$$$$$   /$$  /$$$$$$  /$$$$$$$ " >> .travis.sh
-- echo "| $$ $$ $$ /$$__  $$| $$ | $$ | $$      | $$ /$$$$ /$$__  $$| $$__  $$ /$$__  $$ /$$__  $$|____  $$|_  $$_/  | $$ /$$__  $$| $$__  $$" >> .travis.sh
-- echo "| $$  $$$$| $$$$$$$$| $$ | $$ | $$      | $$|_  $$| $$$$$$$$| $$  \ $$| $$$$$$$$| $$  \__/ /$$$$$$$  | $$    | $$| $$  \ $$| $$  \ $$" >> .travis.sh
-- echo "| $$\  $$$| $$_____/| $$ | $$ | $$      | $$  \ $$| $$_____/| $$  | $$| $$_____/| $$      /$$__  $$  | $$ /$$| $$| $$  | $$| $$  | $$" >> .travis.sh
-- echo "| $$ \  $$|  $$$$$$$|  $$$$$/$$$$/      |  $$$$$$/|  $$$$$$$| $$  | $$|  $$$$$$$| $$     |  $$$$$$$  |  $$$$/| $$|  $$$$$$/| $$  | $$" >> .travis.sh
-- echo "|__/  \__/ \_______/ \_____/\___/        \______/  \_______/|__/  |__/ \_______/|__/      \_______/   \___/  |__/ \______/ |__/  |__/" >> .travis.sh
-- echo "                                                                                                                                     " >> .travis.sh
-- echo "                                                                                                                                     " >> .travis.sh
-- echo "                                                                                                                                     " >> .travis.sh
-- cat .travis.sh
-- rm ci -r -f
 - mkdir ci
 - cd ci
 - git init
@@ -34,30 +15,24 @@ before_install:
 - git remote add github https://github.com/jThreeJS/jThree
 - git pull github gh-pages
 - git checkout gh-pages
-- ls
 - cd ..
-- ls
 install:
 - npm install
 script:
 - npm run build -- --branch=$TRAVIS_BRANCH
 - npm run doc -- --branch=$TRAVIS_BRANCH
-- npm test
+- npm run lint -- --branch=$TRAVIS_BRANCH
+- npm test -- --branch=$TRAVIS_BRANCH
 after_script:
-- if $TRAVIS_BRANCH -ne "gh-pages"; then
 - cd ci
 - git checkout gh-pages
 - git add -A
 - git commit -m "document update by travis"
 - git push --force https://$GHTOKEN@github.com/jThreeJS/jThree gh-pages:gh-pages
 - cd ..
-- else
-- echo "gh-pages publish was skipped."
-- fi
-- tree -a
 language: node_js
 node_js:
-- 0.12
+- 4.1
 notifications:
   slack:
     secure: JQPxyKx9YYx0AgG2ZwFJdd3P/wEQ3HLksKgBF7IWUVwFkHifhJNRG608EiJf6JK/pJoebMt9gSJGEcTIrko3f5qlrNBdRXKvqUR57G0He84wL1QyZl4AZ5PPeesf352dr2zYKvX/TeWM5EDYuzjv4io5mgRR914hBON4GdpCOA4=

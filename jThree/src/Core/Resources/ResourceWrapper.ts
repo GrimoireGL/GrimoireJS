@@ -11,7 +11,7 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
    */
   private initialized: boolean;
   private ownerCanvas: ContextManager;
- 
+
   constructor(ownerCanvas: ContextManager) {
     super();
     this.ownerCanvas = ownerCanvas;

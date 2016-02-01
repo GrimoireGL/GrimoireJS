@@ -11,7 +11,9 @@ class PMXPrimaryBufferMaterial extends BasicMaterial {
   }
 
   public apply(matArg: IApplyMaterialArgument): void {
-    if (this._associatedMaterial.Diffuse.A < 1.0E-3) return;
+    if (this._associatedMaterial.Diffuse.A < 1.0E-3) {
+      return;
+    }
     const skeleton = this._associatedMaterial.ParentModel.skeleton;
     this.materialVariables = {
       boneMatriciesTexture: skeleton.MatrixTexture,

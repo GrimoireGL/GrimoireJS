@@ -1,6 +1,10 @@
+import ContextComponents from "../ContextComponents";
 import JThreeObject from "../Base/JThreeObject";
 import IContextComponent from "../IContextComponent";
-import ContextComponent from "../ContextComponents";
+import LoopManager from "./LoopManager";
+import JThreeContext from "../JThreeContext";
+
+
 class Timer extends JThreeObject implements IContextComponent {
 
 
@@ -15,10 +19,12 @@ class Timer extends JThreeObject implements IContextComponent {
   constructor() {
     super();
     this._initializedTime = Date.now();
+    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    loopManager.addAction(1000, () => this.updateTimer());
   }
 
   public getContextComponentIndex() {
-    return ContextComponent.Timer;
+    return ContextComponents.Timer;
   }
 
   public updateTimer(): void {

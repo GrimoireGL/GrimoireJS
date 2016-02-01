@@ -9,7 +9,9 @@ class PMXCoreInitializer {
   private static _initialized = false;
 
   public static init() {
-    if (PMXCoreInitializer._initialized) return;
+    if (PMXCoreInitializer._initialized) {
+      return;
+    }
 
     PMXCoreInitializer._registerShaderChunk();
     PMXCoreInitializer._initialized = true;

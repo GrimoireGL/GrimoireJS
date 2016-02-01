@@ -1,13 +1,24 @@
 import PMXModel from "./PMXModel";
 import PMXBone from "./PMXBone";
 import TextureBuffer from "../../Core/Resources/Texture/BufferTexture";
-import TextureFormat from "../../Wrapper/TextureInternalFormatType";
-import ElementFormat from "../../Wrapper/TextureType";
-import PMXBoneTransformer from "./PMXBoneTransformer";
 import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import ResourceManager from "../../Core/ResourceManager";
+
 class PMXSkeleton {
+
+  private rootBones: PMXBone[] = [];
+
+  private bones: PMXBone[];
+
+  private bonesInTransformOrder: PMXBone[];
+
+  private boneDictionary: { [boneName: string]: PMXBone } = {};
+
+  private matricies: Float32Array;
+
+  private matrixTexture: TextureBuffer;
+
   constructor(model: PMXModel) {
     model.skeleton = this;
     const bones = model.ModelData.Bones;
@@ -25,20 +36,8 @@ class PMXSkeleton {
     }
     this.bones.forEach((v) => v.boneDictionaryConstructed());
     this.bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
-    this.matrixTexture = <TextureBuffer>JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).createTexture("jthree.pmx.bonetransform" + model.ID, 4, this.bones.length, TextureFormat.RGBA, ElementFormat.Float);
+    this.matrixTexture = <TextureBuffer>JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).createTexture("jthree.pmx.bonetransform" + model.ID, 4, this.bones.length, WebGLRenderingContext.RGBA, WebGLRenderingContext.FLOAT);
   }
-
-  private rootBones: PMXBone[] = [];
-
-  private bones: PMXBone[];
-
-  private bonesInTransformOrder: PMXBone[];
-
-  private boneDictionary: { [boneName: string]: PMXBone } = {};
-
-  private matricies: Float32Array;
-
-  private matrixTexture: TextureBuffer;
 
   public get MatrixTexture() {
     return this.matrixTexture;

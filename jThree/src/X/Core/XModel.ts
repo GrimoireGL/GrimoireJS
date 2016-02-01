@@ -6,12 +6,6 @@ import SceneObject from "../../Core/SceneObjects/SceneObject";
 import Q from "q";
 class XModel extends SceneObject {
 
-  public static fromUrl(src: string): Q.IPromise<XModel> {
-    return XFileData.loadFile(src).then(data => {
-      return new XModel(data);
-    });
-  }
-
   private _modelData: XFileData;
 
   constructor(modelData: XFileData) {
@@ -23,6 +17,13 @@ class XModel extends SceneObject {
       this.addMaterial(new XPrimaryMaterial(material));
     });
   }
+
+  public static fromUrl(src: string): Q.IPromise<XModel> {
+    return XFileData.loadFile(src).then(data => {
+      return new XModel(data);
+    });
+  }
+
 }
 
 export default XModel;
