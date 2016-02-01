@@ -151,7 +151,7 @@ class ShaderParser {
         break; // When there was no more found
       }
       let beginPoint = found;
-      const endPoint: number = source.indexOf("*/", beginPoint)
+      const endPoint: number = source.indexOf("*/", beginPoint);
       if (endPoint < 1) {
         // error no bracket matching
         console.error("Invalid bracket matching!");
