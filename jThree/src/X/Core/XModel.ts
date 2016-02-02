@@ -1,3 +1,4 @@
+import HitAreaMaterial from "../../Core/Materials/Buffering/HitAreaMaterial";
 import XPrimaryMaterial from "./XPrimaryBufferMaterial";
 import XMaterial from "./XMaterial";
 import XGeometry from "./XGeometry";
@@ -14,6 +15,7 @@ class XModel extends SceneObject {
     this.Geometry = new XGeometry(modelData);
     this._modelData.materials.forEach((material) => {
       this.addMaterial(new XMaterial(material));
+      this.addMaterial(new HitAreaMaterial());
       this.addMaterial(new XPrimaryMaterial(material));
     });
   }

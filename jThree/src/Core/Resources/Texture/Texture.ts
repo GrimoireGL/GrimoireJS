@@ -18,7 +18,7 @@ class Texture extends TextureBase {
 
   public set ImageSource(img: ImageSource) {
     this.imageSource = img;
-    this.each((v) => (<TextureWrapper>v).init(true));
+    this.each((v) => (v as TextureWrapper).updateTexture());
     this.generateMipmapIfNeed();
   }
 
