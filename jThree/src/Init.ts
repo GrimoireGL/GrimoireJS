@@ -118,6 +118,9 @@ class JThreeInit {
   }
 
   private static copyGLConstants(): void {
+    if (WebGLRenderingContext.ONE) {
+      return;
+    }
     for (let propName in WebGLRenderingContext.prototype) {
       const property = WebGLRenderingContext.prototype[propName];
       if (typeof property !== "function" && /^[A-Z]/.test(propName)) {
