@@ -38,7 +38,7 @@ function J3ObjectMixins() {
   function applyStaticMixins(derivedCtor: any, baseCtors: any[]) {
     baseCtors.forEach((baseCtor) => {
       Object.getOwnPropertyNames(baseCtor).forEach((name) => {
-        if (name !== "prototype" && name !== "name" && name !== "length") {
+        if (name !== "prototype" && name !== "name" && name !== "length" && name !== "arguments" && name !== "caller") {
           const descriptor = {
             value: baseCtor[name],
             enumerable: false,
