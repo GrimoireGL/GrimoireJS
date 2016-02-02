@@ -7,8 +7,8 @@
     <grid hdiv="20" name="grid" vdiv="20"/>
   </resources>
   <canvases>
-    <canvas clearColor="purple" frame=".canvasContainer">
-      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+    <canvas clearColor="purple" frame=".canvasContainer" width="1920" height="1920" >
+      <viewport cam="CAM1" id="main" width="1920" height="1920" name="MAIN"/>
     </canvas>
   </canvases>
   <scenes>
@@ -16,15 +16,15 @@
       <object rotation="y(30d)">
         <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
       </object>
-      <mesh geo="grid" mat="red" scale="10" position="1,0,0"/>
-      <mesh geo="grid" mat="green" scale="10" rotation="z(90d)" position="1,0,0"/>
-      <mesh geo="grid" mat="blue" scale="10" rotation="x(90d)"/>
       <plight distance="10.0" position="0,0,-2"/>
       <!-- <alight color="#FFF" intensity="1"  top="40"  far="50" right="50" position="-10,-10,10"/> -->
       <scenelight color="white" intensity="1"/>
       <!-- <pmx scale="0.2" src="/resource/model/stage/stage.pmx" position="0,3,0"/> -->
-      <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx">
-        <vmd id="melt" frame="0" src="/resource/motion/menf.vmd" enabled="true" autoSpeed="1"/>
+      <pmx scale="0.5" src="/resource/model/milbox/mil.pmx" position="-3,0,0">
+        <vmd id="melt" frame="20" src="/resource/motion/melt2.vmd" enabled="true" autoSpeed="1"/>
+      </pmx>
+      <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx" position="3,0,0">
+        <vmd id="melt" frame="20" src="/resource/motion/melt2.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
     </scene>
   </scenes>
