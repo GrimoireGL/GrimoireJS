@@ -45,6 +45,6 @@ export class AbstractClassMethodCalledException extends JThreeException {
 
 export class WebGLNotSupportedException extends JThreeException {
   constructor() {
-    super("WebGL is not supported", "This browser not supported WebGL. Context generation for WebGL was failed.");
+    super("WebGL is not supported", "This browser is not supporting WebGL. Context generation for WebGL was failed.");
   }
 }

@@ -1,9 +1,6 @@
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
-import IMouseEventArgs from "./../IMouseEventArgs";
-import JThreeEvent from "../../Base/JThreeEvent";
 import IDisposable from "../../Base/IDisposable";
 import Rectangle from "../../Math/Rectangle";
-import Vector2 from "../../Math/Vector2";
 import JThreeContext from "../../JThreeContext";
 import Debugger from "../../Debug/Debugger";
 import ContextComponents from "../../ContextComponents";
@@ -51,46 +48,42 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
    */
   public mouseOver: boolean = false;
 
-  /**
-   * Mouse position in this region.
-   * This position value is normalized in [0,1]
-   *
-   * この領域内におけるマウスの座標。
-   * この値のX及びYは閉区間[0,1]に正規化されている。
-   */
-  public mousePosition: Vector2 = new Vector2(0, 0);
+  public mouseX: number = 0;
 
-  public mouseEvent: JThreeEvent<IMouseEventArgs> = new JThreeEvent<IMouseEventArgs>();
+  public mouseY: number = 0;
 
   private _mouseMoveHandler = ((e: MouseEvent): void => {
     this._checkMouseInside(e, true);
-    this.mouseEvent.fire(this, {
+    this.emit("mouse-move", {
       enter: false,
       leave: false,
       mouseOver: this.mouseOver,
-      mousePosition: this.mousePosition,
-      region: this
+      region: this,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY
     });
   }).bind(this);
 
   private _mouseLeaveHandler = ((e: MouseEvent): void => {
     this._checkMouseInside(e, false);
-    this.mouseEvent.fire(this, {
+    this.emit("mouse-leave", {
       enter: false,
       leave: true,
       mouseOver: this.mouseOver,
-      mousePosition: this.mousePosition,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY,
       region: this
     });
   }).bind(this);
 
   private _mouseEnterHandler = ((e: MouseEvent): void => {
     this._checkMouseInside(e, true);
-    this.mouseEvent.fire(this, {
+    this.emit("mouse-enter", {
       enter: true,
       leave: false,
       mouseOver: this.mouseOver,
-      mousePosition: this.mousePosition,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY,
       region: this
     });
   }).bind(this);
@@ -118,27 +111,17 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
 
   private _checkMouseInside(e: MouseEvent, mouseState: boolean): boolean {
     // TODO fix bug here
-    const r = this.region;
     const rect = this.canvasElement.getBoundingClientRect();
-    const cWidth = rect.right - rect.left;
-    const cHeight = rect.bottom - rect.top;
-    const x = (e.clientX - rect.left) / cWidth * this.canvasElement.width;
-    const y = (e.clientY - rect.top) / cHeight * this.canvasElement.height;
-    this.mouseOver = mouseState && r.contains(x, y);
-    if (this.mouseOver) {
-      this.mousePosition.X = (x - r.Left) / r.Width;
-      this.mousePosition.Y = (y - r.Top) / r.Height;
-    } else {
-      this.mousePosition.X = -1;
-      this.mousePosition.Y = -1;
-    }
+    this.mouseX = e.clientX - rect.left;
+    this.mouseY = e.clientY - rect.top;
+    this.mouseOver = this.region.contains(this.mouseX, this.mouseY);
     const debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
     debug.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
       mouseOver: this.mouseOver,
-      mousePositionX: this.mousePosition.X,
-      mousePositionY: this.mousePosition.Y,
-      rawX: (x - r.Left),
-      rawY: (y - r.Top)
+      mousePositionX: this.mouseX,
+      mousePositionY: this.mouseY,
+      rawX: this.mouseX,
+      rawY: this.mouseY
     });
     return this.mouseOver;
   }

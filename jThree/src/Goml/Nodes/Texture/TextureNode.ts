@@ -1,3 +1,5 @@
+import Texture from "../../../Core/Resources/Texture/Texture";
+import ImageLoader from "../../../Core/Resources/ImageLoader";
 import ResourceManager from "../../../Core/ResourceManager";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import TextureNodeBase from "./TextureNodeBase";
@@ -13,23 +15,28 @@ class TextureNode extends TextureNodeBase {
     this.attributes.defineAttribute({
       src: {
         converter: "string",
-        src: ""
+        src: "",
+        onchanged: (v) => {
+          ImageLoader.loadImage(v.Value).then(imgTag => {
+            (this.TargetTexture as Texture).ImageSource = imgTag;
+        });
+       }
       }
     });
   }
 
-  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
-    const deferred = Q.defer<TextureBase>();
-    if (this.attributes.getValue("src")) {
-      rm.loadTexture(this.attributes.getValue("src")).then((texture) => {
-        deferred.resolve(texture);
-      });
-    } else {
-      process.nextTick(() => {
-        deferred.resolve(null);
-      });
-    }
-    return deferred.promise;
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise < TextureBase > {
+  const deferred = Q.defer<TextureBase>();
+  if (this.attributes.getValue("src")) {
+   rm.loadTexture(this.attributes.getValue("src")).then((texture) => {
+     deferred.resolve(texture);
+    });
+   } else {
+    process.nextTick(() => {
+     deferred.resolve(null);
+    });
+   }
+   return deferred.promise;
   }
 }
 
