@@ -56,11 +56,8 @@ gutil.log "branch: #{branch}"
 typedocSrc = ['./jThree/src/**/*.ts']
 typedocDest = 'ci/docs'
 
-# tsd file sources (Array)
-tsdSrc = './jThree/refs/**/*.d.ts'
-
 # test target (Array)
-testTarget = './jThree/test/**/*.js'
+testTarget = ['./jThree/test/**/*.js']
 
 # templete convertion root (for entries of jade and haml)
 templeteRoot = 'jThree/wwwroot'
@@ -77,25 +74,9 @@ tsdPath = './tsd.json'
 # root path for simple server
 serverRoot = './jThree/wwwroot'
 
-# webpack output stats config
-defaultStatsOptions =
-  colors: gutil.colors.supportsColor
-  hash: false
-  timings: true
-  chunks: false
-  chunkModules: false
-  modules: false
-  children: true
-  version: true
-  cached: false
-  cachedAssets: false
-  reasons: false
-  source: false
-  errorDetails: false
-
 # ts compilcation config
-tsEntries = './jThree/src/**/*.ts'
-refsEntries = './jThree/src/refs/**/*.ts'
+tsEntries = ['./jThree/src/**/*.ts']
+refsEntries = ['./jThree/src/refs/**/*.ts']
 tsDest = './jThree/lib'
 tsBase = './jThree/src'
 
@@ -174,6 +155,7 @@ gulp.task 'build:main:ts', (done) ->
     .on 'end', ->
       unless buildSuccess
         gutil.log gutil.colors.black.bgRed " [COMPILATION FAILED] (main) #{c.name} "
+        process.exit 1 unless watching
       done()
   if watching
     gulp.watch tsEntries, ['build:main:ts']
@@ -256,11 +238,12 @@ Object.keys(config).forEach (suffix) ->
           if bundleSuccess
             taskTime = formatter process.hrtime time
             gutil.log(gutil.colors.black.bgGreen(" [BUNDLING SUCCESS] (#{suffix}) ") + gutil.colors.magenta(" #{taskTime}"))
+          else
+            process.exit 1 unless watching
           if buildSuccess && bundleSuccess
-            notifier.notify({
-              message: "BUILD SUCCESS (#{suffix})",
+            notifier.notify
+              message: "BUILD SUCCESS (#{suffix})"
               title: 'jThree'
-            });
           buildSuccess = true
           bundleSuccess = true
         .pipe source c.name
@@ -325,22 +308,14 @@ gulp.task 'server', ->
     root: serverRoot
     livereload: true
 
-
-###
-travis task
-###
-gulp.task 'travis', ['build:main'], ->
-
-
 ###
 document generation task
 ###
 gulp.task 'doc', (cb) ->
   gulp
-    .src [].concat typedocSrc, tsdSrc
+    .src typedocSrc
     .pipe typedoc
-      module: 'commonjs'
-      target: 'es5'
+      target: 'es6'
       out: path.join(typedocDest, branch)
       name: 'jThree'
       json: path.join(typedocDest, "#{branch}.json")
@@ -349,14 +324,14 @@ gulp.task 'doc', (cb) ->
 ###
 test task
 ###
-gulp.task 'test', ['build:test'], ->
+gulp.task 'test', ['build:main'], ->
   gulp.start ['mocha']
 
 
 ###
 test watch task
 ###
-gulp.task 'watch:test', ['enable-watch-mode', 'build:test', 'watch-mocha']
+gulp.task 'watch:test', ['enable-watch-mode', 'build:main', 'watch-mocha']
 
 gulp.task 'watch-mocha', ->
   gulp.watch testTarget, ['mocha']
@@ -366,11 +341,10 @@ gulp.task 'watch-mocha', ->
 mocha task
 ###
 gulp.task 'mocha', ->
+  require 'espower-babel/guess'
   gulp
     .src testTarget
-    .pipe mocha
-      compilers:
-        js: 'espower-babel/guess'
+    .pipe mocha()
 
 
 ###
@@ -428,28 +402,29 @@ gulp.task 'clean', ->
   del(del_entries_silent)
 
 gulp.task 'tslint', ->
-  gulp.src [tsEntries,'!' + refsEntries,'!./jThree/src/bundle-notdoc.ts']
+  ignoreEntries = [].concat refsEntries, ['./jThree/src/bundle-notdoc.ts']
+  gulp.src [].concat tsEntries, ignoreEntries.map((v) -> "!#{v}")
     .pipe tslint
-      configuration:"./tslint.json"
-    .pipe tslint.report "verbose"
+      configuration: './tslint.json'
+    .pipe tslint.report 'verbose'
 
 gulp.task 'sample', ->
   sampleName = args.name
   debugDir = "./jThree/wwwroot/debug/";
-  dirName =  debugDir  + "debugCodes/" + sampleName
-  gomlPath = (dirName + "/" + sampleName + ".goml")
-  jsPath = (dirName + "/" + sampleName + ".js")
-  mkdir dirName,(err)=>
+  dirName =  "#{debugDir}debugCodes/#{sampleName}"
+  gomlPath = "#{dirName}/#{sampleName}.goml"
+  jsPath = "#{dirName}/#{sampleName}.js"
+  mkdir dirName, (err) ->
     if err
       console.error err
       return
-    fs.createReadStream debugDir + "Template.goml"
+    fs.createReadStream "#{debugDir}Template.goml"
       .pipe fs.createWriteStream gomlPath
-    fs.createReadStream debugDir + "Template.js"
+    fs.createReadStream "#{debugDir}Template.js"
       .pipe fs.createWriteStream jsPath
-    fs.readFile debugDir + "debug.json","utf-8",(err,data)=>
+    fs.readFile "#{debugDir}debug.json", 'utf-8', (err, data) ->
       jsonData = JSON.parse data
       jsonData.codes[sampleName] =
-        goml: sampleName + "/" + sampleName + ".goml"
-        js: [sampleName + "/" + sampleName + ".js"]
-      fs.writeFile debugDir + "debug.json", JSON.stringify jsonData,null,4
+        goml: "#{sampleName}/#{sampleName}.goml"
+        js: ["#{sampleName}/#{sampleName}.js"]
+      fs.writeFile "#{debugDir}debug.json", JSON.stringify(jsonData, null, 2)

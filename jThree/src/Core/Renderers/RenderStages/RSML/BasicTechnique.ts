@@ -130,6 +130,7 @@ class BasicTechnique extends JThreeObjectWithID {
   private _applyBufferConfiguration(scene: Scene, texs: ResolvedChainInfo): void {
     if (!this._fboBindingInfo || !this._fboBindingInfo[0]) { // When fbo configuration was not specified
       // if there was no fbo configuration, use screen buffer as default
+      this._applyViewport(true);
       this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
       return;
     } else { // Process fbo binding here
@@ -138,6 +139,7 @@ class BasicTechnique extends JThreeObjectWithID {
         this._onPrimaryBufferFail();
         return;
       }
+      this._applyViewport(false);
       if (!this.__fboInitialized) {
         this.__initializeFBO(texs);
       }
@@ -149,14 +151,14 @@ class BasicTechnique extends JThreeObjectWithID {
    * When primary buffer was failed to bind, this method bind default buffer as drawing target.
    */
   private _onPrimaryBufferFail(): void {
-    const primaryBuffer = this._fboBindingInfo[this._fboBindingInfo.primaryIndex];
+    this._applyViewport(true);
     this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
-    if (primaryBuffer.needClear) {
-      this._gl.colorMask(true, true, true, true);
-      const col = primaryBuffer.clearColor;
-      this._gl.clearColor(col.X, col.Y, col.Z, col.W);
-      this._gl.clear(this._gl.COLOR_BUFFER_BIT);
-    }
+    // if (primaryBuffer.needClear) {  // this code might cause bug when multiple viewports were used
+    //   this._gl.colorMask(true, true, true, true);
+    //   const col = primaryBuffer.clearColor;
+    //   this._gl.clearColor(col.X, col.Y, col.Z, col.W);
+    //   this._gl.clear(this._gl.COLOR_BUFFER_BIT);
+    // }
     if (this._fboBindingInfo.rbo && this._fboBindingInfo.rbo.needClear) {
       this._gl.depthMask(true);
       this._gl.clearDepth(this._fboBindingInfo.rbo.clearDepth);
@@ -178,6 +180,14 @@ class BasicTechnique extends JThreeObjectWithID {
       this._gl.depthMask(true);
       this._gl.clearDepth(this._fboBindingInfo.rbo.clearDepth);
       this._gl.clear(this._gl.DEPTH_BUFFER_BIT);
+    }
+  }
+
+  private _applyViewport(isDefault: boolean): void {
+    if (isDefault) {
+      this._renderStage.Renderer.applyDefaultBufferViewport();
+    } else {
+      this._renderStage.Renderer.applyRendererBufferViewport();
     }
   }
 }

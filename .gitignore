@@ -17,9 +17,6 @@ jThree/src/**/*.js.map
 jThree/lib
 jThree/bin/**/*.*
 jThree/docs/**.*
-jThree/test/build/
-jThree/test/**/*.js
-jThree/test/**/*.js.map
 # User-specific files
 *.suo
 *.user

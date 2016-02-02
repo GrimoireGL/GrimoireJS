@@ -120,7 +120,7 @@ class BasicRenderer extends CanvasRegion {
    * If you need to override this method, you need to call same method of super class first.
    */
   public beforeRender() {
-    this.applyViewportConfigure();
+    this.applyDefaultBufferViewport();
     this.Canvas.beforeRender(this);
   }
 
@@ -152,11 +152,13 @@ class BasicRenderer extends CanvasRegion {
    * @param area {Rectangle} the rectangle to render.
    */
   public set region(area: Rectangle) {
-    if (!Rectangle.Equals(area, this._viewport) && (typeof area.Width !== "undefined") && (typeof area.Height !== "undefined")) {
-      if (isNaN(area.Height + area.Width)) { return; }
+    if (!Rectangle.Equals(area, this._viewport) && (typeof area.Width !== "undefined") && (typeof area.Height !== "undefined")) { // Check specified area is valid and modified
+      if (isNaN(area.Height + area.Width)) {
+        return;
+      }
       this._viewport = area;
       JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
-      this.emit("resize", area);
+      this.emit("resize", area); // This should be moved in canvas region
     }
 
   }
@@ -164,8 +166,12 @@ class BasicRenderer extends CanvasRegion {
   /**
    * Apply viewport configuration
    */
-  public applyViewportConfigure(): void {
-    this.GL.viewport(this._viewport.Left, this._viewport.Top, this._viewport.Width, this._viewport.Height);
+  public applyDefaultBufferViewport(): void {
+    this.GL.viewport(this._viewport.Left, this.canvas.region.Height - this._viewport.Bottom, this._viewport.Width, this._viewport.Height);
+  }
+
+  public applyRendererBufferViewport(): void {
+    this.GL.viewport(0, 0, this._viewport.Width, this._viewport.Height);
   }
 
 
