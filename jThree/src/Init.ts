@@ -77,6 +77,7 @@ class JThreeInit {
   * This method should be called when Jthree loaded.
   */
   public static Init(): void {
+    JThreeInit.copyGLConstants();
     const scripts = document.getElementsByTagName("script");
     JThreeInit.SelfTag = scripts[scripts.length - 1];
     // register interfaces
@@ -113,6 +114,15 @@ class JThreeInit {
       window.addEventListener("DOMContentLoaded", () => {
         JThreeInit.startInitialize();
       });
+    }
+  }
+
+  private static copyGLConstants(): void {
+    for (let propName in WebGLRenderingContext.prototype) {
+      const property = WebGLRenderingContext.prototype[propName];
+      if (typeof property !== "function" && /^[A-Z]/.test(propName)) {
+        WebGLRenderingContext[propName] = property;
+      }
     }
   }
 

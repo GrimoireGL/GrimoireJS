@@ -16,6 +16,7 @@ class XMaterial extends BasicMaterial {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     if (_material.texture) {
       rm.loadTexture(_material.texture).then(texture => {
+        texture.MagFilter = WebGLRenderingContext.LINEAR;
         this.materialVariables["texture"] = texture;
       });
     }

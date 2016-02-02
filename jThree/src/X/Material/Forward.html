@@ -55,9 +55,8 @@
           if(_textureUsed == 1){
             gl_FragColor = texture2D(texture,vUv);
           }
-          gl_FragColor.rgb *= texture2D(_dlBuffer,lUV).rgb;
+          gl_FragColor.rgb *= (texture2D(_dlBuffer,lUV).rgb + emissiveColor);
           gl_FragColor.rgb *= texture2D(_slBuffer,lUV).rgb * specularColor;
-          //gl_FragColor.rgb += emissiveColor;
           ////calculate light uv
         }
       }
