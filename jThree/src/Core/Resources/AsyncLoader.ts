@@ -23,7 +23,7 @@ class AsyncLoader<T> {
 
   public fetch(src: string, request: Func1<string, Q.IPromise<T>>): Q.IPromise<T> {
     const absPath = AsyncLoader.getAbsolutePath(src);
-    if (this._loadedResource[absPath] && typeof this._loadedResource[absPath]["then"] === "function") { // Assume this is Promise object
+    if (this._loadedResource[absPath] && this._loadedResource[absPath] instanceof Q.Promise) { // Assume this is Promise object
       return <Q.IPromise<T>>this._loadedResource[absPath];
     } else {
       const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
