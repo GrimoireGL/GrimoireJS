@@ -1,9 +1,8 @@
 import GeometryNodeBase from "./GeometryNodeBase";
-import Geometry from "../../../Core/Geometries/Base/Geometry";
 import CircleGeometry from "../../../Core/Geometries/CircleGeometry";
 import GomlAttribute from "../../GomlAttribute";
 
-class CircleGeometryNode extends GeometryNodeBase {
+class CircleGeometryNode extends GeometryNodeBase<CircleGeometry> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -19,12 +18,12 @@ class CircleGeometryNode extends GeometryNodeBase {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): Geometry {
+  protected ConstructGeometry(name: string): CircleGeometry {
     return new CircleGeometry(name);
   }
 
   private _onDivideAttrChanged(attr: GomlAttribute): void {
-    (<CircleGeometry>this.TargetGeometry).DiviceCount = attr.Value;
+    this.target.DiviceCount = attr.Value;
   }
 }
 

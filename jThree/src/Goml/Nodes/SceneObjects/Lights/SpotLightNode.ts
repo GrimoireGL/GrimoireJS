@@ -1,9 +1,8 @@
-import SpotLight from "../../../../Core/Light/Impl/SpotLight";
+import SpotLight from "../../../../Core/SceneObjects/Light/Impl/SpotLight";
 import LightNodeBase from "./LightNodeBase";
-import LightBase from "../../../../Core/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class SpotLightNode extends LightNodeBase {
+class SpotLightNode extends LightNodeBase<SpotLight> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -54,7 +53,7 @@ class SpotLightNode extends LightNodeBase {
     });
   }
 
-  protected constructLight(): LightBase {
+  protected constructLight(): SpotLight {
     return new SpotLight();
   }
 

@@ -1,13 +1,9 @@
 import SceneObjectNodeBase from "../SceneObjectNodeBase";
-import Camera from "../../../../Core/Camera/Camera";
+import Camera from "../../../../Core/SceneObjects/Camera/Camera";
 import GomlAttribute from "../../../GomlAttribute";
 
-class CameraNodeBase extends SceneObjectNodeBase {
+class CameraNodeBase<T extends Camera> extends SceneObjectNodeBase<T> {
   protected groupPrefix: string = "camera";
-
-  public get TargetCamera(): Camera {
-    return <Camera>this.TargetSceneObject;
-  }
 
   constructor() {
     super();
@@ -18,7 +14,7 @@ class CameraNodeBase extends SceneObjectNodeBase {
    * Construct camera. This method should be overridden.
    * @return {Camera} [description]
    */
-  protected ConstructCamera(): Camera {
+  protected ConstructCamera(): T {
     return null;
   }
 

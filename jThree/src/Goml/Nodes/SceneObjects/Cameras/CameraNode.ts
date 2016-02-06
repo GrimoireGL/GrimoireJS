@@ -1,9 +1,8 @@
-import Camera from "../../../../Core/Camera/Camera";
-import PerspectiveCamera from "../../../../Core/Camera/PerspectiveCamera";
+import PerspectiveCamera from "../../../../Core/SceneObjects/Camera/PerspectiveCamera";
 import CameraNodeBase from "./CameraNodeBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class CameraNode extends CameraNodeBase {
+class CameraNode extends CameraNodeBase<PerspectiveCamera> {
 
   constructor() {
     super();
@@ -37,7 +36,7 @@ class CameraNode extends CameraNodeBase {
     });
   }
 
-  protected ConstructCamera(): Camera {
+  protected ConstructCamera(): PerspectiveCamera {
     return new PerspectiveCamera();
   }
 

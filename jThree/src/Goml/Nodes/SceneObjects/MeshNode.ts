@@ -6,7 +6,7 @@ import MaterialNode from "../Materials/MaterialNodeBase";
 import Material from "../../../Core/Materials/Material";
 import Geometry from "../../../Core/Geometries/Base/Geometry";
 
-class MeshNode extends SceneObjectNodeBase {
+class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -49,9 +49,9 @@ class MeshNode extends SceneObjectNodeBase {
     this.geo = attr.Value;
     this.geo_instance = null;
     // console.warn("onGeoAttrChanged", attr.Value);
-    this.nodeImport("jthree.resource.geometry", this.geo, (geo: GeometryNodeBase) => {
+    this.nodeImport("jthree.resource.geometry", this.geo, (geo: GeometryNodeBase<Geometry>) => {
       if (geo) {
-        this.geo_instance = geo.TargetGeometry;
+        this.geo_instance = geo.target;
       } else {
         this.geo_instance = null;
       }
@@ -67,9 +67,9 @@ class MeshNode extends SceneObjectNodeBase {
     this.mat = attr.Value;
     this.mat_instance = null;
     // console.warn("onMatAttrChanged", attr.Value);
-    this.nodeImport("jthree.resource.material", this.mat, (mat: MaterialNode) => {
+    this.nodeImport("jthree.resource.material", this.mat, (mat: MaterialNode<Material>) => {
       if (mat) {
-        this.mat_instance = mat.TargetMaterial;
+        this.mat_instance = mat.target;
       } else {
         this.mat_instance = null;
       }

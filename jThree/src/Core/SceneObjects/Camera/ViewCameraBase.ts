@@ -1,5 +1,5 @@
 import Camera from "./Camera";
-import Vector3 from "../../Math/Vector3";
+import Vector3 from "../../../Math/Vector3";
 import {mat4} from "gl-matrix";
 /**
  * The abstract class to be overridden by camera related class having view matrix.

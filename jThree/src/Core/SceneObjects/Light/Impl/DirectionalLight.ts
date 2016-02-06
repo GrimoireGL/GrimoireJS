@@ -1,11 +1,11 @@
-import IApplyMaterialArgument from "../../Materials/Base/IApplyMaterialArgument";
+import IApplyMaterialArgument from "../../../Materials/Base/IApplyMaterialArgument";
 import LightBase from "../LightBase";
-import BasicMaterial from "../../Materials/Base/BasicMaterial";
-import PrimitiveRegistory from "../../Geometries/Base/PrimitiveRegistory";
-import Vector3 from "../../../Math/Vector3";
-import Matrix from "../../../Math/Matrix";
-import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
+import BasicMaterial from "../../../Materials/Base/BasicMaterial";
+import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
+import Vector3 from "../../../../Math/Vector3";
+import Matrix from "../../../../Math/Matrix";
+import ContextComponents from "../../../../ContextComponents";
+import JThreeContext from "../../../../JThreeContext";
 
 /**
  * Provides directional light feature.
@@ -14,14 +14,14 @@ class DirectionalLight extends LightBase {
   constructor() {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
-    const diffuseMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.html"));
+    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.html"));
     diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       diffuseMaterial.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.Renderer.Camera.viewMatrix, this.transformer.forward))
       };
     });
-    const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/DirectionalLight.html"));
+    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/DirectionalLight.html"));
     specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       specularMaterial.materialVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),

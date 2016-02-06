@@ -1,4 +1,4 @@
-import Camera from "../../Camera/Camera";
+import Camera from "../../SceneObjects/Camera/Camera";
 import RenderStageBase from "../../Renderers/RenderStages/RenderStageBase";
 import ResolvedChainInfo from "../../Renderers/ResolvedChainInfo";
 import SceneObject from "../../SceneObjects/SceneObject";

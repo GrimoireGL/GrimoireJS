@@ -1,9 +1,8 @@
-import DirectionalLight from "../../../../Core/Light/Impl/DirectionalLight";
+import DirectionalLight from "../../../../Core/SceneObjects/Light/Impl/DirectionalLight";
 import LightNodeBase from "./LightNodeBase";
-import LightBase from "../../../../Core/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class DirectionalLightNode extends LightNodeBase {
+class DirectionalLightNode extends LightNodeBase<DirectionalLight> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -24,7 +23,7 @@ class DirectionalLightNode extends LightNodeBase {
     });
   }
 
-  protected constructLight(): LightBase {
+  protected constructLight(): DirectionalLight {
     return new DirectionalLight();
   }
 

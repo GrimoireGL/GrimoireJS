@@ -2,7 +2,7 @@ import jThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
 import JThreeEvent from "../Base/JThreeEvent";
 import BasicRenderer from "./Renderers/BasicRenderer";
 import SceneObject from "./SceneObjects/SceneObject";
-import Camera from "./Camera/Camera";
+import Camera from "./SceneObjects/Camera/Camera";
 import Color3 from "../Math/Color3";
 import ISceneObjectChangedEventArgs from "./ISceneObjectChangedEventArgs";
 import RendererListChangedEventArgs from "./RendererListChangedEventArgs";

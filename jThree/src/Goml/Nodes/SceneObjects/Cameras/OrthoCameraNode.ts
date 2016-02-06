@@ -1,9 +1,8 @@
-import Camera from "../../../../Core/Camera/Camera";
-import OrthoCamera from "../../../../Core/Camera/OrthoCamera";
-import GomlTreeCameraNodeBase from "./CameraNodeBase";
+import OrthoCamera from "../../../../Core/SceneObjects/Camera/OrthoCamera";
+import CameraNodeBase from "./CameraNodeBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class OrthoCameraNode extends GomlTreeCameraNodeBase {
+class OrthoCameraNode extends CameraNodeBase<OrthoCamera> {
 
   constructor() {
     super();
@@ -49,7 +48,7 @@ class OrthoCameraNode extends GomlTreeCameraNodeBase {
     });
   }
 
-  protected ConstructCamera(): Camera {
+  protected ConstructCamera(): OrthoCamera {
     return new OrthoCamera();
   }
 
