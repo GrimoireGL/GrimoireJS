@@ -1,7 +1,7 @@
-﻿import SceneObject from "../SceneObjects/SceneObject";
-import Matrix from "../../Math/Matrix";
+﻿import SceneObject from "../SceneObject";
+import Matrix from "../../../Math/Matrix";
 import {mat4} from "gl-matrix";
-import PointList from "../../Math/PointList";
+import PointList from "../../../Math/PointList";
 
 /**
  * Basement class of Camera. These class related to camera are one of SceneObject in jThree.

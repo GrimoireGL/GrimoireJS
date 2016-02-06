@@ -1,11 +1,11 @@
-import Vector3 from "../../../Math/Vector3";
-import IApplyMaterialArgument from "../../Materials/Base/IApplyMaterialArgument";
-import BasicMaterial from "../../Materials/Base/BasicMaterial";
-import PrimitiveRegistory from "../../Geometries/Base/PrimitiveRegistory";
-import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
+import Vector3 from "../../../../Math/Vector3";
+import IApplyMaterialArgument from "../../../Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../../Materials/Base/BasicMaterial";
+import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
+import ContextComponents from "../../../../ContextComponents";
+import JThreeContext from "../../../../JThreeContext";
 import LightBase from "./../LightBase";
-import Matrix from "../../../Math/Matrix";
+import Matrix from "../../../../Math/Matrix";
 
 /**
  * Point Light
@@ -14,7 +14,7 @@ class PointLight extends LightBase {
   constructor() {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("sphere");
-    const diffuseMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Diffuse/PointLight.html"));
+    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/PointLight.html"));
     diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
       diffuseMaterial.materialVariables = {
@@ -24,7 +24,7 @@ class PointLight extends LightBase {
         lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
        };
     });
-    const specularMaterial = new BasicMaterial(require("../../Materials/BuiltIn/Light/Specular/PointLight.html"));
+    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/PointLight.html"));
     specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
       specularMaterial.materialVariables = {

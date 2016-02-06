@@ -2,7 +2,7 @@ import BufferSet from "./BufferSet";
 import CubeTexture from "../Resources/Texture/CubeTexture";
 import BufferTexture from "../Resources/Texture/BufferTexture";
 import TextureBase from "../Resources/Texture/TextureBase";
-import Camera from "./../Camera/Camera";
+import Camera from "./../SceneObjects/Camera/Camera";
 import RenderPathExecutor from "./RenderPathExecutor";
 import Rectangle from "../../Math/Rectangle";
 import RendererConfiguratorBase from "./RendererConfigurator/RendererConfiguratorBase";
