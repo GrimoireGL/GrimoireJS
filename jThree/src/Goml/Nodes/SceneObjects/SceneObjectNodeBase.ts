@@ -10,7 +10,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    * Scene Object that will be applied to Scene.
    * @type {SceneObject}
    */
-  private targetSceneObject: T = null;
+  private sceneObject: T = null;
 
   /**
   * SceneObjectNode directly containing this node
@@ -47,10 +47,10 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
       }
     });
     this.on("update-scene-object", (obj: SceneObject) => {
-      this._onPositionAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("position"));
-      this._onScaleAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("scale"));
-      this._onRotationAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("rotation"));
-      this._onNameAttrChanged__SceneObjectNodeBase.bind(this)(this.attributes.getAttribute("name"));
+      this._onPositionAttrChanged__SceneObjectNodeBase.call(this, this.attributes.getAttribute("position"));
+      this._onScaleAttrChanged__SceneObjectNodeBase.call(this, this.attributes.getAttribute("scale"));
+      this._onRotationAttrChanged__SceneObjectNodeBase.call(this, this.attributes.getAttribute("rotation"));
+      this._onNameAttrChanged__SceneObjectNodeBase.call(this, this.attributes.getAttribute("name"));
     });
   }
 
@@ -73,7 +73,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
     } else {
       // check parent extends SceneObjectNodeBase or not.
       if (typeof (<SceneObjectNodeBase<SceneObject>>this.parent).ContainedSceneNode === "undefined") {
-        console.error(`${this.parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
+        console.error(`${this.parent.toString() } is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
         return;
       } else {
         parentSceneObjectNode = <SceneObjectNodeBase<SceneObject>>this.parent;
@@ -89,47 +89,47 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   }
 
   private _onPositionAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.targetSceneObject) {
-      this.targetSceneObject.Transformer.Position = <Vector3>attr.Value;
+    if (this.sceneObject) {
+      this.sceneObject.Transformer.Position = <Vector3>attr.Value;
     }
   }
 
   private _onScaleAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.targetSceneObject) {
-      this.targetSceneObject.Transformer.Scale = <Vector3>attr.Value;
+    if (this.sceneObject) {
+      this.sceneObject.Transformer.Scale = <Vector3>attr.Value;
     }
   }
 
   private _onRotationAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.targetSceneObject) {
-      this.targetSceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+    if (this.sceneObject) {
+      this.sceneObject.Transformer.Rotation = <Quaternion>attr.Value;
     }
   }
 
   private _onNameAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.targetSceneObject) {
-      this.targetSceneObject.name = attr.Value;
+    if (this.sceneObject) {
+      this.sceneObject.name = attr.Value;
     }
   }
 
   /**
-   * update SceneObject child. using this.targetSceneObject to previus object, so do not change it before call this method.
+   * update SceneObject child. using this.sceneObject to previus object, so do not change it before call this method.
    * @param {SceneObject} obj [description]
    */
   private _updateSceneObjectChild(obj: SceneObject): void {
     if (typeof obj === "undefined") {
-      console.error(`${this.getTypeName()}: targetSceneObject is undefined. It must be null or instance.`);
+      console.error(`${this.getTypeName() }: sceneObject is undefined. It must be null or instance.`);
       obj = null;
     }
     // previus object is exist in child, remove child
-    if (this.targetSceneObject !== null) {
+    if (this.sceneObject !== null) {
       if (this.ParentSceneObjectNode === null) { // this is root object of scene
-        this.containedSceneNode.target.removeObject(this.targetSceneObject);
+        this.containedSceneNode.target.removeObject(this.sceneObject);
       } else {
         if (this.parentSceneObjectNode.TargetSceneObject === null) {
           return;
         }
-        this.parentSceneObjectNode.TargetSceneObject.removeChild(this.targetSceneObject);
+        this.parentSceneObjectNode.TargetSceneObject.removeChild(this.sceneObject);
       }
     }
     if (obj !== null) {
@@ -150,7 +150,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    */
   protected set TargetSceneObject(obj: T) {
     this._updateSceneObjectChild(obj);
-    this.targetSceneObject = obj;
+    this.sceneObject = obj;
     this.emit("update-scene-object", obj);
     this.target = obj;
   }
@@ -160,7 +160,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    * @return {SceneObject} [description]
    */
   protected get TargetSceneObject(): T {
-    return this.targetSceneObject;
+    return this.sceneObject;
   }
 }
 

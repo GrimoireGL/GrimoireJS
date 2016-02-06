@@ -36,7 +36,6 @@ class MaterialManager implements IContextComponent {
     this.addUniformRegister("jthree.basic.renderStage", RenderStageDescriptionRegister);
     this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
-    this.registerMaterial(require("../BuiltIn/Materials/SkyboxMaterial.html"));
   }
 
   public getContextComponentIndex(): number {
