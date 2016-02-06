@@ -1,5 +1,5 @@
-import Camera from "../../../../Core/Camera/Camera";
-import PerspectiveCamera from "../../../../Core/Camera/PerspectiveCamera";
+import Camera from "../../../../Core/SceneObjects/Camera/Camera";
+import PerspectiveCamera from "../../../../Core/SceneObjects/Camera/PerspectiveCamera";
 import CameraNodeBase from "./CameraNodeBase";
 import GomlAttribute from "../../../GomlAttribute";
 

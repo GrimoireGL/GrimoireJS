@@ -1,6 +1,6 @@
 import LightNodeBase from "./LightNodeBase";
-import SceneLight from "../../../../Core/Light/Impl/SceneLight";
-import LightBase from "../../../../Core/Light/LightBase";
+import SceneLight from "../../../../Core/SceneObjects/Light/Impl/SceneLight";
+import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
 class SceneLightNode extends LightNodeBase {

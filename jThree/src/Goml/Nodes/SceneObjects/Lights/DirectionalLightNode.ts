@@ -1,6 +1,6 @@
-import DirectionalLight from "../../../../Core/Light/Impl/DirectionalLight";
+import DirectionalLight from "../../../../Core/SceneObjects/Light/Impl/DirectionalLight";
 import LightNodeBase from "./LightNodeBase";
-import LightBase from "../../../../Core/Light/LightBase";
+import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
 class DirectionalLightNode extends LightNodeBase {

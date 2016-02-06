@@ -1,5 +1,5 @@
 import SceneObjectNodeBase from "../SceneObjectNodeBase";
-import Camera from "../../../../Core/Camera/Camera";
+import Camera from "../../../../Core/SceneObjects/Camera/Camera";
 import GomlAttribute from "../../../GomlAttribute";
 
 class CameraNodeBase extends SceneObjectNodeBase {

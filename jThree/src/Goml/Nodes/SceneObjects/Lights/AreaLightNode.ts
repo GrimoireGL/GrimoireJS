@@ -1,6 +1,6 @@
-import AreaLight from "../../../../Core/Light/Impl/AreaLight";
+import AreaLight from "../../../../Core/SceneObjects/Light/Impl/AreaLight";
 import LightNodeBase from "./LightNodeBase";
-import LightBase from "../../../../Core/Light/LightBase";
+import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
 class AreaLightNode extends LightNodeBase {

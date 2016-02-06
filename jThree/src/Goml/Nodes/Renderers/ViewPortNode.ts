@@ -5,7 +5,7 @@ import Rectangle from "../../../Math/Rectangle";
 import Scene from "../../../Core/Scene";
 import CameraNodeBase from "../SceneObjects/Cameras/CameraNodeBase";
 import CanvasNode from "../Canvases/CanvasNode";
-import PerspectiveCamera from "../../../Core/Camera/PerspectiveCamera";
+import PerspectiveCamera from "../../../Core/SceneObjects/Camera/PerspectiveCamera";
 import CubeTextureNode from "../Texture/CubeTextureNode";
 import CubeTexture from "../../../Core/Resources/Texture/CubeTexture";
 import RendererFactory from "../../../Core/Renderers/RendererFactory";

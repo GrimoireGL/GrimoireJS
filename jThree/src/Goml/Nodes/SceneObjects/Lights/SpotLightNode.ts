@@ -1,6 +1,6 @@
-import SpotLight from "../../../../Core/Light/Impl/SpotLight";
+import SpotLight from "../../../../Core/SceneObjects/Light/Impl/SpotLight";
 import LightNodeBase from "./LightNodeBase";
-import LightBase from "../../../../Core/Light/LightBase";
+import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
 class SpotLightNode extends LightNodeBase {

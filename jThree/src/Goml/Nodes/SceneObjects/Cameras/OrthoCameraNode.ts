@@ -1,5 +1,5 @@
-import Camera from "../../../../Core/Camera/Camera";
-import OrthoCamera from "../../../../Core/Camera/OrthoCamera";
+import Camera from "../../../../Core/SceneObjects/Camera/Camera";
+import OrthoCamera from "../../../../Core/SceneObjects/Camera/OrthoCamera";
 import GomlTreeCameraNodeBase from "./CameraNodeBase";
 import GomlAttribute from "../../../GomlAttribute";
 

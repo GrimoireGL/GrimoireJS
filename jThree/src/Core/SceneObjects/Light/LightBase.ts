@@ -1,7 +1,7 @@
-import Matrix from "../../Math/Matrix";
-import Color3 from "../../Math/Color3";
-import Vector3 from "../../Math/Vector3";
-import SceneObject from "../SceneObjects/SceneObject";
+import Matrix from "../../../Math/Matrix";
+import Color3 from "../../../Math/Color3";
+import Vector3 from "../../../Math/Vector3";
+import SceneObject from "../SceneObject";
 class LightBase extends SceneObject {
 
   private color: Color3 = new Color3(0, 0, 0);
