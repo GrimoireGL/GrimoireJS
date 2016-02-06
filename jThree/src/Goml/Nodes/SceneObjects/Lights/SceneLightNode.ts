@@ -1,9 +1,8 @@
 import LightNodeBase from "./LightNodeBase";
 import SceneLight from "../../../../Core/SceneObjects/Light/Impl/SceneLight";
-import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class SceneLightNode extends LightNodeBase {
+class SceneLightNode extends LightNodeBase<SceneLight> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -18,7 +17,7 @@ class SceneLightNode extends LightNodeBase {
     });
   }
 
-  protected constructLight(): LightBase {
+  protected constructLight(): SceneLight {
     return new SceneLight();
   }
 

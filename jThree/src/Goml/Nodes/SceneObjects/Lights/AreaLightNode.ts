@@ -1,9 +1,8 @@
 import AreaLight from "../../../../Core/SceneObjects/Light/Impl/AreaLight";
 import LightNodeBase from "./LightNodeBase";
-import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class AreaLightNode extends LightNodeBase {
+class AreaLightNode extends LightNodeBase<AreaLight> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -18,7 +17,7 @@ class AreaLightNode extends LightNodeBase {
     });
   }
 
-  protected constructLight(): LightBase {
+  protected constructLight(): AreaLight {
     return new AreaLight();
   }
 

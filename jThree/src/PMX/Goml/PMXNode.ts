@@ -5,7 +5,7 @@ import ContextComponents from "../../ContextComponents";
 import ResourceLoader from "../../Core/ResourceLoader";
 import Q from "q";
 
-class PMXNode extends SceneObjectNodeBase {
+class PMXNode extends SceneObjectNodeBase<PMXModel> {
   private pmxModel: PMXModel = null;
 
   public get PMXModel() {

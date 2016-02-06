@@ -1,8 +1,7 @@
 import SphereGeometry from "../../../Core/Geometries/SphereGeometry";
 import GeometryNodeBase from "./GeometryNodeBase";
-import Geometry from "../../../Core/Geometries/Base/Geometry";
 
-class CubeGeometryNode extends GeometryNodeBase {
+class CubeGeometryNode extends GeometryNodeBase<SphereGeometry> {
   constructor() {
     super();
   }
@@ -11,7 +10,7 @@ class CubeGeometryNode extends GeometryNodeBase {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): Geometry {
+  protected ConstructGeometry(name: string): SphereGeometry {
     return new SphereGeometry(name);
   }
 

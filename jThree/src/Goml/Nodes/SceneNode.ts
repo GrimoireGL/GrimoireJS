@@ -1,12 +1,10 @@
-import GomlTreeNodeBase from "../GomlTreeNodeBase";
+import CoreRelatedNodeBase from "../CoreRelatedNodeBase";
 import Scene from "../../Core/Scene";
 import JThreeContext from "../../JThreeContext";
 import SceneManager from "../../Core/SceneManager";
 import ContextComponents from "../../ContextComponents";
 
-class SceneNode extends GomlTreeNodeBase {
-  public targetScene: Scene; // TODO pnly: this should be private.
-
+class SceneNode extends CoreRelatedNodeBase<Scene> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -28,12 +26,12 @@ class SceneNode extends GomlTreeNodeBase {
     if (sceneName === "") {
       sceneName = null;
     }
-    this.targetScene = new Scene(sceneName);
-    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.targetScene);
+    this.target = new Scene(sceneName);
+    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.target);
   }
 
   private _onAmbientAttrChanged(attr): void {
-    this.targetScene.sceneAmbient = attr.Value;
+    this.target.sceneAmbient = attr.Value;
   }
 }
 

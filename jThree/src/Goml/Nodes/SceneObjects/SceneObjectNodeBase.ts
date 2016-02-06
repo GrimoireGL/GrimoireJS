@@ -1,21 +1,21 @@
-import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import SceneNode from "../SceneNode";
 import SceneObject from "../../../Core/SceneObjects/SceneObject";
 import Vector3 from "../../../Math/Vector3";
 import Quaternion from "../../../Math/Quaternion";
 import GomlAttribute from "../../GomlAttribute";
 
-class SceneObjectNodeBase extends GomlTreeNodeBase {
+class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> {
   /**
    * Scene Object that will be applied to Scene.
    * @type {SceneObject}
    */
-  private targetSceneObject: SceneObject = null;
+  private targetSceneObject: T = null;
 
   /**
   * SceneObjectNode directly containing this node
   */
-  private parentSceneObjectNode: SceneObjectNodeBase = null;
+  private parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
 
   /**
   * SceneNode containing this node
@@ -54,7 +54,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  public get ParentSceneObjectNode(): SceneObjectNodeBase {
+  public get ParentSceneObjectNode(): SceneObjectNodeBase<SceneObject> {
     return this.parentSceneObjectNode;
   }
 
@@ -65,18 +65,18 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
   protected onMount(): void {
     super.onMount();
     let containedSceneNode: SceneNode = null;
-    let parentSceneObjectNode: SceneObjectNodeBase = null;
+    let parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
     // This parent node is scene node.
     if (this.parent.getTypeName() === "SceneNode") {
       containedSceneNode = <SceneNode>this.parent;
       parentSceneObjectNode = null;
     } else {
       // check parent extends SceneObjectNodeBase or not.
-      if (typeof (<SceneObjectNodeBase>this.parent).ContainedSceneNode === "undefined") {
+      if (typeof (<SceneObjectNodeBase<SceneObject>>this.parent).ContainedSceneNode === "undefined") {
         console.error(`${this.parent.toString()} is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
         return;
       } else {
-        parentSceneObjectNode = <SceneObjectNodeBase>this.parent;
+        parentSceneObjectNode = <SceneObjectNodeBase<SceneObject>>this.parent;
         containedSceneNode = parentSceneObjectNode.ContainedSceneNode;
       }
     }
@@ -124,7 +124,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     // previus object is exist in child, remove child
     if (this.targetSceneObject !== null) {
       if (this.ParentSceneObjectNode === null) { // this is root object of scene
-        this.containedSceneNode.targetScene.removeObject(this.targetSceneObject);
+        this.containedSceneNode.target.removeObject(this.targetSceneObject);
       } else {
         if (this.parentSceneObjectNode.TargetSceneObject === null) {
           return;
@@ -134,7 +134,7 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
     }
     if (obj !== null) {
       if (this.ParentSceneObjectNode === null) { // this is root object of scene
-        this.containedSceneNode.targetScene.addObject(obj);
+        this.containedSceneNode.target.addObject(obj);
       } else {
         if (this.parentSceneObjectNode.TargetSceneObject === null) {
           return;
@@ -148,17 +148,18 @@ class SceneObjectNodeBase extends GomlTreeNodeBase {
    * Change the SceneObject that is applied to Scene Hierarchy.
    * @param {SceneObject} obj [description]
    */
-  protected set TargetSceneObject(obj: SceneObject) {
+  protected set TargetSceneObject(obj: T) {
     this._updateSceneObjectChild(obj);
     this.targetSceneObject = obj;
     this.emit("update-scene-object", obj);
+    this.target = obj;
   }
 
   /**
    * Get the SceneObject that is applied to Scene Hierarchy.
    * @return {SceneObject} [description]
    */
-  protected get TargetSceneObject(): SceneObject {
+  protected get TargetSceneObject(): T {
     return this.targetSceneObject;
   }
 }

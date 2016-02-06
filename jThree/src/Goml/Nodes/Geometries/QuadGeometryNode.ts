@@ -1,9 +1,7 @@
 import GeometryNodeBase from "./GeometryNodeBase";
-import Geometry from "../../../Core/Geometries/Base/Geometry";
 import QuadGeometry from "../../../Core/Geometries/QuadGeometry";
 
-class QuadGeometryNode extends GeometryNodeBase {
-  private geometry: QuadGeometry;
+class QuadGeometryNode extends GeometryNodeBase<QuadGeometry> {
 
   constructor() {
     super();
@@ -13,8 +11,8 @@ class QuadGeometryNode extends GeometryNodeBase {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): Geometry {
-    return this.geometry = new QuadGeometry(name);
+  protected ConstructGeometry(name: string): QuadGeometry {
+    return new QuadGeometry(name);
   }
 }
 

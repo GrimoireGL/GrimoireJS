@@ -1,8 +1,7 @@
 import GeometryNodeBase from "./GeometryNodeBase";
-import Geometry from "../../../Core/Geometries/Base/Geometry";
 import CubeGeometry from "../../../Core/Geometries/CubeGeometry";
 
-class CubeGeometryNode extends GeometryNodeBase {
+class CubeGeometryNode extends GeometryNodeBase<CubeGeometry> {
   constructor() {
     super();
   }
@@ -11,7 +10,7 @@ class CubeGeometryNode extends GeometryNodeBase {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): Geometry {
+  protected ConstructGeometry(name: string): CubeGeometry {
     return new CubeGeometry(name);
   }
 }

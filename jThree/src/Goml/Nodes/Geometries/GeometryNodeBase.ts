@@ -1,13 +1,11 @@
-import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import Geometry from "../../../Core/Geometries/Base/Geometry";
 import GomlAttribute from "../../GomlAttribute";
 /**
 * Base class for managing geometry node.
 */
-class GeometryNodeBase extends GomlTreeNodeBase {
+class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<T> {
   protected groupPrefix: string = "geometry";
-
-  private targetGeometry: Geometry;
 
   constructor() {
     super();
@@ -20,12 +18,6 @@ class GeometryNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  /**
-  * The geometry this node managing.
-  */
-  public get TargetGeometry(): Geometry {
-    return this.targetGeometry;
-  }
 
   protected onMount(): void {
     super.onMount();
@@ -35,7 +27,7 @@ class GeometryNodeBase extends GomlTreeNodeBase {
   * Generate geometry instance for the geometry.
   * This methods must be overridden.
   */
-  protected ConstructGeometry(name: string): Geometry {
+  protected ConstructGeometry(name: string): T {
     return null;
   }
 
@@ -44,7 +36,7 @@ class GeometryNodeBase extends GomlTreeNodeBase {
     if (typeof name !== "string") {
       throw Error(`${this.getTypeName()}: name attribute must be required.`);
     }
-    this.targetGeometry = this.ConstructGeometry(attr.Value);
+    this.target = this.ConstructGeometry(attr.Value);
     this.nodeExport(name);
   }
 }

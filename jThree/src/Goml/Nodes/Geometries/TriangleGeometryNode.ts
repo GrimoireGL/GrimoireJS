@@ -1,10 +1,8 @@
 import GeometryNodeBase from "./GeometryNodeBase";
 import Vector3 from "../../../Math/Vector3";
-import Geometry from "../../../Core/Geometries/Base/Geometry";
 import TriangleGeometry from "../../../Core/Geometries/TriangleGeometry";
 
-class GomlTreeTriNode extends GeometryNodeBase {
-  private geometry: TriangleGeometry;
+class GomlTreeTriNode extends GeometryNodeBase<TriangleGeometry> {
 
   constructor() {
     super();
@@ -31,18 +29,18 @@ class GomlTreeTriNode extends GeometryNodeBase {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): Geometry {
-    return this.geometry = new TriangleGeometry(name);
+  protected ConstructGeometry(name: string): TriangleGeometry {
+    return new TriangleGeometry(name);
   }
 
   private _onFirstAttrChanged(attr): void {
-    this.geometry.First = attr.Value;
+    this.target.First = attr.Value;
   }
   private _onSecondAttrChanged(attr): void {
-    this.geometry.Second = attr.Value;
+    this.target.Second = attr.Value;
   }
   private _onThirdAttrChanged(attr): void {
-    this.geometry.Third = attr.Value;
+    this.target.Third = attr.Value;
   }
 }
 
