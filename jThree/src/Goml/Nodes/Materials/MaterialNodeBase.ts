@@ -18,6 +18,8 @@ import CubeTextureNode from "../../Nodes/Texture/CubeTextureNode";
 class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
   protected groupPrefix: string = "material";
 
+  private name: string = "";
+
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -31,18 +33,22 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
 
   protected onMount() {
     super.onMount();
-    this.target = this.ConstructMaterial();
-    this.target.on("ready", () => {
-      this._generateAttributeForPasses();
-    });
   }
 
   /**
    * Construct material. This method must be overridden.
    * @return {Material} [description]
    */
-  protected ConstructMaterial(): T {
-    return null;
+  protected set Material(material: T) {
+    this.target = material;
+    this.target.on("ready", () => {
+      this._generateAttributeForPasses();
+      this.nodeExport(this.name);
+    });
+  }
+
+  protected get Material(): T {
+    return this.target;
   }
 
   protected __getMaterialFromMatName(name: string): BasicMaterial {
@@ -54,7 +60,10 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
     if (typeof name !== "string") {
       throw Error(`${this.getTypeName() }: name attribute must be required.`);
     }
-    this.nodeExport(name);
+    this.name = name;
+    if (this.target && this.target.Initialized) {
+      this.nodeExport(this.name);
+    }
   }
 
   private _generateAttributeForPasses(): void {

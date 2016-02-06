@@ -6,7 +6,7 @@ class OrderedTopLevelNodeBase extends GomlTreeNodeBase {
   }
 
   public get loadPriorty(): number {
-    return void 0;
+    return 0;
   }
 }
 
