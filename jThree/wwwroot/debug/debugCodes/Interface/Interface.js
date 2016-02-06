@@ -17,4 +17,7 @@ j3(function(){
     console.log('obj4', obj4.attrObj('position'));
   }, 3000);
   console.log('obj4', obj4.attrObj('position'));
+  console.log('getObj', j3('mesh').getObj());
+  console.log('getObj', j3('mesh').getObj(2));
+  console.log('getObj', j3('#obj1').getObj());
 });
