@@ -1,9 +1,13 @@
-// import GomlTreeNodeBase = require("../../Goml/GomlTreeNodeBase");
+import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import J3Object from "../J3Object";
 
-// class Filter {
-//   public static filter(target: GomlTreeNodeBase[], selector: string): GomlTreeNodeBase[] {
-//     return;
-//   }
-// }
+class Filter {
+  public static filter(filter: GomlTreeNodeBase[], selector: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[] {
+    const found_nodes = J3Object.find(selector, context);
+    return found_nodes.filter((node) => {
+      return filter.indexOf(node) !== -1;
+    });
+  }
+}
 
-// export = Filter;
+export default Filter;

@@ -76,6 +76,12 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
     (index?: number): any;
   };
 
+  public getObj: {
+    <T>(): T[];
+    <T>(index: number): T;
+    <T>(argu?: number): any;
+  };
+
   public index: {
     (): number;
     (selector: string): number;
