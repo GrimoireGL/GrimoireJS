@@ -2,7 +2,7 @@ import MaterialNodeBase from "./MaterialNodeBase";
 import Material from "../../../Core/Materials/Material";
 // import TextureNode from "../Texture/TextureNode";
 
-class PhongNode extends MaterialNodeBase {
+class PhongNode extends MaterialNodeBase<Material> {
   constructor() {
     super();
   }

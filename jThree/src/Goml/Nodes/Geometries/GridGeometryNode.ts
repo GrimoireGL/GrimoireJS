@@ -1,9 +1,7 @@
 import GeometryNodeBase from "./GeometryNodeBase";
-import Geometry from "../../../Core/Geometries/Base/Geometry";
 import GridGeometry from "../../../Core/Geometries/GridGeometry";
 
-class GridGeometryNode extends GeometryNodeBase {
-  private geometry: GridGeometry;
+class GridGeometryNode extends GeometryNodeBase<GridGeometry> {
 
   constructor() {
     super();
@@ -25,16 +23,16 @@ class GridGeometryNode extends GeometryNodeBase {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): Geometry {
-    return this.geometry = new GridGeometry(name);
+  protected ConstructGeometry(name: string): GridGeometry {
+    return new GridGeometry(name);
   }
 
   private _onHdivAttrChanged(attr): void {
-    this.geometry.HolizontalDivide = attr.Value;
+    this.target.HolizontalDivide = attr.Value;
   }
 
   private _onVdivAttrChanged(attr): void {
-    this.geometry.VerticalDivide = attr.Value;
+    this.target.VerticalDivide = attr.Value;
   }
 }
 

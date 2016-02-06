@@ -1,11 +1,11 @@
+import CubeTexture from "../../../Core/Resources/Texture/CubeTexture";
 ﻿import TextureNodeBase from "./TextureNodeBase";
 import ResourceManager from "../../../Core/ResourceManager";
-import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import Q from "q";
 /**
  * Cube texture resource node.
  */
-class CubeTextureNode extends TextureNodeBase {
+class CubeTextureNode extends TextureNodeBase<CubeTexture> {
   protected groupPrefix: string = "TextureCube";
 
   constructor() {
@@ -21,8 +21,8 @@ class CubeTextureNode extends TextureNodeBase {
     });
   }
 
-  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase> {
-    const deferred = Q.defer<TextureBase>();
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<CubeTexture> {
+    const deferred = Q.defer<CubeTexture>();
     const srcsv = this.attributes.getValue("srcs");
     if (srcsv) {
       const srcs = srcsv.split(" ");

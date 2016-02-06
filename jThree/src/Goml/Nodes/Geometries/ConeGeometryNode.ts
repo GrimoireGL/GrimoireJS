@@ -1,8 +1,7 @@
 import ConeGeometry from "../../../Core/Geometries/ConeGeometry";
 import GeometryNodeBase from "./GeometryNodeBase";
-import Geometry from "../../../Core/Geometries/Base/Geometry";
 
-class ConeGeometryNode extends GeometryNodeBase {
+class ConeGeometryNode extends GeometryNodeBase<ConeGeometry> {
   constructor() {
     super();
   }
@@ -11,7 +10,7 @@ class ConeGeometryNode extends GeometryNodeBase {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): Geometry {
+  protected ConstructGeometry(name: string): ConeGeometry {
     return new ConeGeometry(name);
   }
 }

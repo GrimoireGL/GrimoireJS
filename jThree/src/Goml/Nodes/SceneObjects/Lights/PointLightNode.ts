@@ -1,9 +1,8 @@
 import LightNodeBase from "./LightNodeBase";
 import PointLight from "../../../../Core/SceneObjects/Light/Impl/PointLight";
-import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class PointLightNode extends LightNodeBase {
+class PointLightNode extends LightNodeBase<PointLight> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -32,7 +31,7 @@ class PointLightNode extends LightNodeBase {
     });
   }
 
-  protected constructLight(): LightBase {
+  protected constructLight(): PointLight {
     return new PointLight();
   }
 

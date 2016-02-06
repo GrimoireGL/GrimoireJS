@@ -2,7 +2,7 @@ import SceneObjectNodeBase from "../SceneObjectNodeBase";
 import LightBase from "../../../../Core/SceneObjects/Light/LightBase";
 import GomlAttribute from "../../../GomlAttribute";
 
-class LightNodeBase extends SceneObjectNodeBase {
+class LightNodeBase<T extends LightBase> extends SceneObjectNodeBase<T> {
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -21,7 +21,7 @@ class LightNodeBase extends SceneObjectNodeBase {
 	 * Construct target light object when this method was called.
    * This method should be overridden.
 	 */
-  protected constructLight(): LightBase {
+  protected constructLight(): T {
     return null;
   }
 

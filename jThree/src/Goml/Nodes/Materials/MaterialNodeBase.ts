@@ -1,3 +1,4 @@
+import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import Color4 from "../../../Math/Color4";
 import MaterialManager from "../../../Core/Materials/Base/MaterialManager";
 import JThreeContext from "../../../JThreeContext";
@@ -8,17 +9,14 @@ import AttributeDeclationBody from "../../AttributeDeclationBody";
 import Vector3 from "../../../Math/Vector3";
 import Vector2 from "../../../Math/Vector2";
 import AttributeDeclaration from "../../AttributeDeclaration";
-import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import Material from "../../../Core/Materials/Material";
 import MaterialPass from "../../../Core/Materials/Base/MaterialPass";
 import GomlAttribute from "../../GomlAttribute";
 import TextureNode from "../../Nodes/Texture/TextureNode";
 import CubeTextureNode from "../../Nodes/Texture/CubeTextureNode";
 
-class MaterialNodeBase extends GomlTreeNodeBase {
+class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
   protected groupPrefix: string = "material";
-
-  private targetMaterial: Material;
 
   constructor() {
     super();
@@ -31,17 +29,10 @@ class MaterialNodeBase extends GomlTreeNodeBase {
     });
   }
 
-  /**
-  * The material this node managing.
-  */
-  public get TargetMaterial(): Material {
-    return this.targetMaterial;
-  }
-
   protected onMount() {
     super.onMount();
-    this.targetMaterial = this.ConstructMaterial();
-    this.targetMaterial.on("ready", () => {
+    this.target = this.ConstructMaterial();
+    this.target.on("ready", () => {
       this._generateAttributeForPasses();
     });
   }
@@ -50,7 +41,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
    * Construct material. This method must be overridden.
    * @return {Material} [description]
    */
-  protected ConstructMaterial(): Material {
+  protected ConstructMaterial(): T {
     return null;
   }
 
@@ -67,8 +58,8 @@ class MaterialNodeBase extends GomlTreeNodeBase {
   }
 
   private _generateAttributeForPasses(): void {
-    if (this.targetMaterial["_passes"]) {
-      let passes = <MaterialPass[]>this.targetMaterial["_passes"];
+    if (this.target["_passes"]) {
+      let passes = <MaterialPass[]>this.target["_passes"];
       let passVariables = {};
       for (let i = 0; i < passes.length; i++) {
         const pass = passes[i];
@@ -128,7 +119,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
           if (v.Value) {
             this.nodeImport("jthree.resource.Texture2D", v.Value, (node: TextureNode) => {
               if (node) {
-                this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+                this.target.materialVariables[variableName] = node.target;
               } else {
                 // when texture node removed
               }
@@ -145,7 +136,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
           if (v.Value) {
             this.nodeImport("jthree.resource.TextureCube", v.Value, (node: CubeTextureNode) => {
               if (node) {
-                this.targetMaterial.materialVariables[variableName] = node.TargetTexture;
+                this.target.materialVariables[variableName] = node.target;
               } else {
                 // when texture node removed
               }
@@ -162,7 +153,7 @@ class MaterialNodeBase extends GomlTreeNodeBase {
       converter: converter,
       value: initialValue,
       onchanged: (v) => {
-        this.targetMaterial.materialVariables[variableName] = v.Value;
+        this.target.materialVariables[variableName] = v.Value;
       }
     };
   }

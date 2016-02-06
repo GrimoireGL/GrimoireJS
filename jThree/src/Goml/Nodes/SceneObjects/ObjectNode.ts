@@ -2,7 +2,7 @@ import SceneObjectNodeBase from "./SceneObjectNodeBase";
 import SceneObject from "../../../Core/SceneObjects/SceneObject";
 // import GomlParser from "../../GomlParser.ts";
 
-class ObjectNode extends SceneObjectNodeBase {
+class ObjectNode extends SceneObjectNodeBase<SceneObject> {
   // private targetTemplate: TemplateNode;
 
   constructor() {

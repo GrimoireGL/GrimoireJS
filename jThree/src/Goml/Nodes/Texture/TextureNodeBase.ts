@@ -1,5 +1,5 @@
+import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import GLEnumParser from "../../../Core/Canvas/GLEnumParser";
-﻿import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import ResourceManager from "../../../Core/ResourceManager";
 import JThreeContext from "../../../JThreeContext";
@@ -7,19 +7,7 @@ import ContextComponents from "../../../ContextComponents";
 /**
  * All texture resource node class inherit this class.
  */
-abstract class TextureNodeBase extends GomlTreeNodeBase {
-  /**
-   * Texture reference being managed by this node.
-   * @type {TextureBase}
-   */
-  private targetTexture: TextureBase;
-
-  /**
-   * Texture reference being managed by this node.
-   */
-  public get TargetTexture() {
-    return this.targetTexture;
-  }
+abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBase<T> {
 
   constructor() {
     super();
@@ -33,8 +21,8 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         value: "LINEAR",
         converter: "string",
         onchanged: (attr) => {
-          if (this.targetTexture) {
-            this.targetTexture.MinFilter = GLEnumParser.parseTextureMinFilter(attr.Value);
+          if (this.target) {
+            this.target.MinFilter = GLEnumParser.parseTextureMinFilter(attr.Value);
           }
         }
       },
@@ -42,8 +30,8 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         value: "LINEAR",
         converter: "string",
         onchanged: (attr) => {
-          if (this.targetTexture) {
-            this.targetTexture.MagFilter = GLEnumParser.parseTextureMagFilter(attr.Value);
+          if (this.target) {
+            this.target.MagFilter = GLEnumParser.parseTextureMagFilter(attr.Value);
           }
         }
       },
@@ -51,8 +39,8 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         value: "CLAMP_TO_EDGE",
         converter: "string",
         onchanged: (attr) => {
-          if (this.targetTexture) {
-            this.targetTexture.TWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
+          if (this.target) {
+            this.target.TWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
           }
         }
       },
@@ -60,8 +48,8 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
         value: "CLAMP_TO_EDGE",
         converter: "string",
         onchanged: (attr) => {
-          if (this.targetTexture) {
-            this.targetTexture.SWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
+          if (this.target) {
+            this.target.SWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
           }
         }
       }
@@ -73,7 +61,7 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const name = this.attributes.getValue("name");
     this.constructTexture(name, rm).then((texture) => {
-      this.targetTexture = texture;
+      this.target = texture;
       this.nodeExport(name);
     });
   }
@@ -84,7 +72,7 @@ abstract class TextureNodeBase extends GomlTreeNodeBase {
    * @param  {ResourceManager} rm   [description]
    * @return {TextureBase}          [description]
    */
-  protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<TextureBase>;
+  protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<T>;
 }
 
 export default TextureNodeBase;

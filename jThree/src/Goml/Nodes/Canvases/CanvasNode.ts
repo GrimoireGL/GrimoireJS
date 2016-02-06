@@ -1,5 +1,5 @@
+import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import CanvasManager from "../../../Core/Canvas/CanvasManager";
-import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import ICanvasElementStructure from "../../../Core/Canvas/ICanvasElementStructure";
 import CanvasElementBuilder from "../../../Core/Canvas/CanvasElementBuilder";
 import Canvas from "../../../Core/Canvas/Canvas";
@@ -7,10 +7,8 @@ import JThreeContext from "../../../JThreeContext";
 import ContextComponents from "../../../ContextComponents";
 import ResourceLoader from "../../../Core/ResourceLoader";
 
-class CanvasNode extends GomlTreeNodeBase {
+class CanvasNode extends CoreRelatedNodeBase<Canvas> {
   public canvasFrames: ICanvasElementStructure;
-
-  public canvas: Canvas;
 
   constructor() {
     super();
@@ -44,7 +42,7 @@ class CanvasNode extends GomlTreeNodeBase {
         value: "#0000",
         converter: "color4",
         onchanged: (v) => {
-          this.canvas.clearColor = v.Value;
+          this.target.clearColor = v.Value;
         }
       }
     });
@@ -62,8 +60,8 @@ class CanvasNode extends GomlTreeNodeBase {
     this.canvasFrames = CanvasElementBuilder.generate(canvas, this.attributes.getValue("width"), this.attributes.getValue("height"));
 
     // initialize contexts
-    this.canvas = new Canvas(this.canvasFrames.canvas);
-    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.canvas);
+    this.target = new Canvas(this.canvasFrames.canvas);
+    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.target);
 
     // construct loader
     let defaultLoader;
