@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DirectionalLight | jThree</title>
+	<title>SpotLight | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_core_light_impl_directionallight_.html">&quot;Core/Light/Impl/DirectionalLight&quot;</a>
+					<a href="../modules/_core_sceneobjects_light_impl_spotlight_.html">&quot;Core/SceneObjects/Light/Impl/SpotLight&quot;</a>
 				</li>
 				<li>
-					<a href="_core_light_impl_directionallight_.directionallight.html">DirectionalLight</a>
+					<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html">SpotLight</a>
 				</li>
 			</ul>
-			<h1>Class DirectionalLight</h1>
+			<h1>Class SpotLight</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Provides directional light feature.</p>
+						<p>Point Light</p>
 					</div>
 				</div>
 			</section>
@@ -81,10 +81,10 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_core_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a>
+						<a href="_core_sceneobjects_light_lightbase_.lightbase.html" class="tsd-signature-type">LightBase</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">DirectionalLight</span>
+								<span class="target">SpotLight</span>
 							</li>
 						</ul>
 					</li>
@@ -103,58 +103,63 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#bias" class="tsd-kind-icon">bias</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#emit" class="tsd-kind-icon">emit</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#geometry" class="tsd-kind-icon">geometry</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#intensity" class="tsd-kind-icon">intensity</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#listeners" class="tsd-kind-icon">listeners</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#on" class="tsd-kind-icon">on</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#once" class="tsd-kind-icon">once</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#transformer" class="tsd-kind-icon">transformer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#angledecay" class="tsd-kind-icon">angle<wbr>Decay</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#distancedecay" class="tsd-kind-icon">distance<wbr>Decay</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#emit" class="tsd-kind-icon">emit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#geometry" class="tsd-kind-icon">geometry</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#innerangle" class="tsd-kind-icon">inner<wbr>Angle</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#innerdistance" class="tsd-kind-icon">inner<wbr>Distance</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#intensity" class="tsd-kind-icon">intensity</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#listeners" class="tsd-kind-icon">listeners</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#once" class="tsd-kind-icon">once</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#outerangle" class="tsd-kind-icon">outer<wbr>Angle</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#outerdistance" class="tsd-kind-icon">outer<wbr>Distance</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#transformer" class="tsd-kind-icon">transformer</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited tsd-is-not-exported">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#children" class="tsd-kind-icon">Children</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#color" class="tsd-kind-icon">Color</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#geometry-1" class="tsd-kind-icon">Geometry</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#id" class="tsd-kind-icon">ID</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#parent" class="tsd-kind-icon">Parent</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#position" class="tsd-kind-icon">Position</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#transformer-1" class="tsd-kind-icon">Transformer</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#children" class="tsd-kind-icon">Children</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#color" class="tsd-kind-icon">Color</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#geometry-1" class="tsd-kind-icon">Geometry</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#id" class="tsd-kind-icon">ID</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#parent" class="tsd-kind-icon">Parent</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#position" class="tsd-kind-icon">Position</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#transformer-1" class="tsd-kind-icon">Transformer</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited tsd-is-not-exported">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#remove" class="tsd-kind-icon">remove</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#removechild" class="tsd-kind-icon">remove<wbr>Child</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_light_impl_directionallight_.directionallight.html#update" class="tsd-kind-icon">update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#remove" class="tsd-kind-icon">remove</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#removechild" class="tsd-kind-icon">remove<wbr>Child</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -166,17 +171,17 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Directional<wbr>Light<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_light_impl_directionallight_.directionallight.html" class="tsd-signature-type">DirectionalLight</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Spot<wbr>Light<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html" class="tsd-signature-type">SpotLight</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_core_sceneobjects_sceneobject_.sceneobject.html">SceneObject</a>.<a href="_core_sceneobjects_sceneobject_.sceneobject.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/DirectionalLight.ts#L13">Core/Light/Impl/DirectionalLight.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L12">Core/SceneObjects/Light/Impl/SpotLight.ts:12</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_core_light_impl_directionallight_.directionallight.html" class="tsd-signature-type">DirectionalLight</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html" class="tsd-signature-type">SpotLight</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -219,12 +224,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-					<a name="bias" class="tsd-anchor"></a>
-					<h3>bias</h3>
-					<div class="tsd-signature tsd-kind-icon">bias<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="angledecay" class="tsd-anchor"></a>
+					<h3>angle<wbr>Decay</h3>
+					<div class="tsd-signature tsd-kind-icon">angle<wbr>Decay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/DirectionalLight.ts#L175">Core/Light/Impl/DirectionalLight.ts:175</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L56">Core/SceneObjects/Light/Impl/SpotLight.ts:56</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="distancedecay" class="tsd-anchor"></a>
+					<h3>distance<wbr>Decay</h3>
+					<div class="tsd-signature tsd-kind-icon">distance<wbr>Decay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L57">Core/SceneObjects/Light/Impl/SpotLight.ts:57</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -275,12 +290,32 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="innerangle" class="tsd-anchor"></a>
+					<h3>inner<wbr>Angle</h3>
+					<div class="tsd-signature tsd-kind-icon">inner<wbr>Angle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L52">Core/SceneObjects/Light/Impl/SpotLight.ts:52</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="innerdistance" class="tsd-anchor"></a>
+					<h3>inner<wbr>Distance</h3>
+					<div class="tsd-signature tsd-kind-icon">inner<wbr>Distance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L54">Core/SceneObjects/Light/Impl/SpotLight.ts:54</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 					<a name="intensity" class="tsd-anchor"></a>
 					<h3>intensity</h3>
 					<div class="tsd-signature tsd-kind-icon">intensity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/Impl/DirectionalLight.ts#L173">Core/Light/Impl/DirectionalLight.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L51">Core/SceneObjects/Light/Impl/SpotLight.ts:51</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -396,6 +431,26 @@
 							</li>
 						</ul>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="outerangle" class="tsd-anchor"></a>
+					<h3>outer<wbr>Angle</h3>
+					<div class="tsd-signature tsd-kind-icon">outer<wbr>Angle<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L53">Core/SceneObjects/Light/Impl/SpotLight.ts:53</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="outerdistance" class="tsd-anchor"></a>
+					<h3>outer<wbr>Distance</h3>
+					<div class="tsd-signature tsd-kind-icon">outer<wbr>Distance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/Impl/SpotLight.ts#L55">Core/SceneObjects/Light/Impl/SpotLight.ts:55</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
 					<a name="removealllisteners" class="tsd-anchor"></a>
@@ -543,18 +598,18 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_light_lightbase_.lightbase.html#color-1">Color</a></p>
+								<p>Inherited from <a href="_core_sceneobjects_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_sceneobjects_light_lightbase_.lightbase.html#color-1">Color</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L9">Core/Light/LightBase.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/LightBase.ts#L9">Core/SceneObjects/Light/LightBase.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_light_lightbase_.lightbase.html#color-1">Color</a></p>
+								<p>Inherited from <a href="_core_sceneobjects_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_sceneobjects_light_lightbase_.lightbase.html#color-1">Color</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L13">Core/Light/LightBase.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/LightBase.ts#L13">Core/SceneObjects/Light/LightBase.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -716,9 +771,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_core_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_light_lightbase_.lightbase.html#position">Position</a></p>
+								<p>Inherited from <a href="_core_sceneobjects_light_lightbase_.lightbase.html">LightBase</a>.<a href="_core_sceneobjects_light_lightbase_.lightbase.html#position">Position</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Light/LightBase.ts#L17">Core/Light/LightBase.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/SceneObjects/Light/LightBase.ts#L17">Core/SceneObjects/Light/LightBase.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h4>
@@ -1109,7 +1164,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_core_light_impl_directionallight_.html">"<wbr>Core/<wbr>Light/<wbr>Impl/<wbr>Directional<wbr>Light"</a>
+						<a href="../modules/_core_sceneobjects_light_impl_spotlight_.html">"<wbr>Core/<wbr>Scene<wbr>Objects/<wbr>Light/<wbr>Impl/<wbr>Spot<wbr>Light"</a>
 					</li>
 				</ul>
 			</nav>
@@ -1118,118 +1173,133 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_core_light_impl_directionallight_.directionallight.html" class="tsd-kind-icon">Directional<wbr>Light</a>
+						<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html" class="tsd-kind-icon">Spot<wbr>Light</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#bias" class="tsd-kind-icon">bias</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#emit" class="tsd-kind-icon">emit</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#geometry" class="tsd-kind-icon">geometry</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#angledecay" class="tsd-kind-icon">angle<wbr>Decay</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#intensity" class="tsd-kind-icon">intensity</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#distancedecay" class="tsd-kind-icon">distance<wbr>Decay</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#listeners" class="tsd-kind-icon">listeners</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#once" class="tsd-kind-icon">once</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#emit" class="tsd-kind-icon">emit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#transformer" class="tsd-kind-icon">transformer</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#geometry" class="tsd-kind-icon">geometry</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#innerangle" class="tsd-kind-icon">inner<wbr>Angle</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#innerdistance" class="tsd-kind-icon">inner<wbr>Distance</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#intensity" class="tsd-kind-icon">intensity</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#listeners" class="tsd-kind-icon">listeners</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#on" class="tsd-kind-icon">on</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#once" class="tsd-kind-icon">once</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#outerangle" class="tsd-kind-icon">outer<wbr>Angle</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#outerdistance" class="tsd-kind-icon">outer<wbr>Distance</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#setmaxlisteners" class="tsd-kind-icon">set<wbr>Max<wbr>Listeners</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#transformer" class="tsd-kind-icon">transformer</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#children" class="tsd-kind-icon">Children</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#children" class="tsd-kind-icon">Children</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#color" class="tsd-kind-icon">Color</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#color" class="tsd-kind-icon">Color</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#geometry-1" class="tsd-kind-icon">Geometry</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#geometry-1" class="tsd-kind-icon">Geometry</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#id" class="tsd-kind-icon">ID</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#id" class="tsd-kind-icon">ID</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#parent" class="tsd-kind-icon">Parent</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#parent" class="tsd-kind-icon">Parent</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#parentscene" class="tsd-kind-icon">Parent<wbr>Scene</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#position" class="tsd-kind-icon">Position</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#position" class="tsd-kind-icon">Position</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#transformer-1" class="tsd-kind-icon">Transformer</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#transformer-1" class="tsd-kind-icon">Transformer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#addchild" class="tsd-kind-icon">add<wbr>Child</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#addchild" class="tsd-kind-icon">add<wbr>Child</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#addmaterial" class="tsd-kind-icon">add<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#callrecursive" class="tsd-kind-icon">call<wbr>Recursive</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#eachmaterial" class="tsd-kind-icon">each<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#getmaterial" class="tsd-kind-icon">get<wbr>Material</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#getmaterials" class="tsd-kind-icon">get<wbr>Materials</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onchildrenchanged" class="tsd-kind-icon">on<wbr>Children<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onmaterialchanged" class="tsd-kind-icon">on<wbr>Material<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onparentchanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#onparentscenechanged" class="tsd-kind-icon">on<wbr>Parent<wbr>Scene<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#remove" class="tsd-kind-icon">remove</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#remove" class="tsd-kind-icon">remove</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#removechild" class="tsd-kind-icon">remove<wbr>Child</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#removechild" class="tsd-kind-icon">remove<wbr>Child</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_core_light_impl_directionallight_.directionallight.html#update" class="tsd-kind-icon">update</a>
+								<a href="_core_sceneobjects_light_impl_spotlight_.spotlight.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>
