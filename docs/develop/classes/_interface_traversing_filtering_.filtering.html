@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GomlNodeMethods | jThree</title>
+	<title>Filtering | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_interface_miscellaneous_gomlnodemethods_.html">&quot;Interface/Miscellaneous/GomlNodeMethods&quot;</a>
+					<a href="../modules/_interface_traversing_filtering_.html">&quot;Interface/Traversing/Filtering&quot;</a>
 				</li>
 				<li>
-					<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html">GomlNodeMethods</a>
+					<a href="_interface_traversing_filtering_.filtering.html">Filtering</a>
 				</li>
 			</ul>
-			<h1>Class GomlNodeMethods</h1>
+			<h1>Class Filtering</h1>
 		</div>
 	</div>
 </header>
@@ -77,16 +77,10 @@
 						<a href="_interface_j3objectbase_.j3objectbase.html" class="tsd-signature-type">J3ObjectBase</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">GomlNodeMethods</span>
+								<span class="target">Filtering</span>
 							</li>
 						</ul>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implemented by</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="_interface_j3object_.j3object.html" class="tsd-signature-type">J3Object</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -96,17 +90,15 @@
 						<section class="tsd-index-section tsd-is-inherited tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_interface_traversing_filtering_.filtering.html#length" class="tsd-kind-icon">length</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#getarray" class="tsd-kind-icon">get<wbr>Array</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-not-exported"><a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#getobj" class="tsd-kind-icon">get<wbr>Obj</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#index" class="tsd-kind-icon">index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#setarray" class="tsd-kind-icon">set<wbr>Array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_interface_traversing_filtering_.filtering.html#filter" class="tsd-kind-icon">filter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_interface_traversing_filtering_.filtering.html#getarray" class="tsd-kind-icon">get<wbr>Array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_interface_traversing_filtering_.filtering.html#setarray" class="tsd-kind-icon">set<wbr>Array</a></li>
 							</ul>
 						</section>
 					</div>
@@ -129,34 +121,106 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-					<a name="get" class="tsd-anchor"></a>
-					<h3>get</h3>
+					<a name="filter" class="tsd-anchor"></a>
+					<h3>filter</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">[]</span></li>
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></li>
+						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>nodes<span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>nodes<span class="tsd-signature-symbol">: </span><a href="_interface_j3object_.j3object.html" class="tsd-signature-type">J3Object</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L9">Interface/Miscellaneous/GomlNodeMethods.ts:9</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L10">Interface/Miscellaneous/GomlNodeMethods.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Traversing/Filtering.ts#L8">Interface/Traversing/Filtering.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<h5>selector: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Traversing/Filtering.ts#L9">Interface/Traversing/Filtering.ts:9</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>func: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, node<span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>index: <span class="tsd-signature-type">number</span></h5>
+														</li>
+														<li>
+															<h5>node: <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Traversing/Filtering.ts#L10">Interface/Traversing/Filtering.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>node: <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Traversing/Filtering.ts#L11">Interface/Traversing/Filtering.ts:11</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>nodes: <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Traversing/Filtering.ts#L12">Interface/Traversing/Filtering.ts:12</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>nodes: <a href="_interface_j3object_.j3object.html" class="tsd-signature-type">J3Object</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -175,112 +239,6 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-not-exported">
-					<a name="getobj" class="tsd-anchor"></a>
-					<h3>get<wbr>Obj</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Obj&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></li>
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Obj&lt;T&gt;<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L22">Interface/Miscellaneous/GomlNodeMethods.ts:22</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>T</h4>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L23">Interface/Miscellaneous/GomlNodeMethods.ts:23</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>T</h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>index: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-					<a name="index" class="tsd-anchor"></a>
-					<h3>index</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">index<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon">index<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon">index<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon">index<span class="tsd-signature-symbol">(</span>j3obj<span class="tsd-signature-symbol">: </span><a href="_interface_j3object_.j3object.html" class="tsd-signature-type">J3Object</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L38">Interface/Miscellaneous/GomlNodeMethods.ts:38</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L39">Interface/Miscellaneous/GomlNodeMethods.ts:39</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>selector: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L40">Interface/Miscellaneous/GomlNodeMethods.ts:40</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>node: <a href="_goml_gomltreenodebase_.gomltreenodebase.html" class="tsd-signature-type">GomlTreeNodeBase</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Interface/Miscellaneous/GomlNodeMethods.ts#L41">Interface/Miscellaneous/GomlNodeMethods.ts:41</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>j3obj: <a href="_interface_j3object_.j3object.html" class="tsd-signature-type">J3Object</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -317,7 +275,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_interface_miscellaneous_gomlnodemethods_.html">"<wbr>Interface/<wbr>Miscellaneous/<wbr>Goml<wbr>Node<wbr>Methods"</a>
+						<a href="../modules/_interface_traversing_filtering_.html">"<wbr>Interface/<wbr>Traversing/<wbr>Filtering"</a>
 					</li>
 				</ul>
 			</nav>
@@ -326,25 +284,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html" class="tsd-kind-icon">Goml<wbr>Node<wbr>Methods</a>
+						<a href="_interface_traversing_filtering_.filtering.html" class="tsd-kind-icon">Filtering</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
-								<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#length" class="tsd-kind-icon">length</a>
+								<a href="_interface_traversing_filtering_.filtering.html#length" class="tsd-kind-icon">length</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#get" class="tsd-kind-icon">get</a>
+								<a href="_interface_traversing_filtering_.filtering.html#filter" class="tsd-kind-icon">filter</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
-								<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#getarray" class="tsd-kind-icon">get<wbr>Array</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-not-exported">
-								<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#getobj" class="tsd-kind-icon">get<wbr>Obj</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#index" class="tsd-kind-icon">index</a>
+								<a href="_interface_traversing_filtering_.filtering.html#getarray" class="tsd-kind-icon">get<wbr>Array</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
-								<a href="_interface_miscellaneous_gomlnodemethods_.gomlnodemethods.html#setarray" class="tsd-kind-icon">set<wbr>Array</a>
+								<a href="_interface_traversing_filtering_.filtering.html#setarray" class="tsd-kind-icon">set<wbr>Array</a>
 							</li>
 						</ul>
 					</li>
