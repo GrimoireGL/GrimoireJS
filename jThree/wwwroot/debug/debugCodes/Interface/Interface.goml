@@ -30,13 +30,13 @@
       <mesh id="obj5" geo="cube" mat="matSample" position="5,3,4" />
       <mesh id="obj6" geo="sphere" mat="matTest" position="0,3,3" />
       <scenelight color="#111"/>
-      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="3 , 5, 0"/>
+      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position=" 3, 5, 0"/>
       <plight color="#2200FF" intensity="3" decay="1.5" distance="4" position="-3, 5, 0"/>
-      <plight color="#3300CC" intensity="3" decay="1.5" distance="4" position="0 , 5, 3"/>
-      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="0 , 5,-3"/>
-      <plight color="#0F00CC" intensity="3" decay="1.5" distance="4" position="3 , 5, 3"/>
+      <plight color="#3300CC" intensity="3" decay="1.5" distance="4" position=" 0, 5, 3"/>
+      <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position=" 0, 5,-3"/>
+      <plight color="#0F00CC" intensity="3" decay="1.5" distance="4" position=" 3, 5, 3"/>
       <plight color="#00F0CC" intensity="3" decay="1.5" distance="4" position="-3, 5, 3"/>
-      <plight color="#AA0000" intensity="3" decay="1.5" distance="4" position="3 , 5,-3"/>
+      <plight color="#AA0000" intensity="3" decay="1.5" distance="4" position=" 3, 5,-3"/>
       <plight color="#00CC00" intensity="3" decay="1.5" distance="4" position="-3, 5,-3"/>
     </scene>
   </scenes>

@@ -63,7 +63,6 @@ class ImportNode extends GomlTreeNodeBase {
         switch (this.type) {
           case "material":
             const matName = this.materialManager.registerMaterial(xhr.responseText);
-            console.log(matName);
             exportName = `material-${matName}`;
             break;
         }
