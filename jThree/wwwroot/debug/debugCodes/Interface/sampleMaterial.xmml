@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <material name="sampleMaterial" group="jthree.materials.forematerial" order="300">
 <uniform-register>
-  <register name="jthree.basic.matrix"/>
-  <register name="jthree.basic.time"/>
+  <register name="builtin.basic"/>
+  <register name="builtin.time"/>
 </uniform-register>
 <passes>
   <pass>
     <glsl>
       <![CDATA[
       attribute vec3 position;
-      varying vec4 vPosition;
+      varying vec3 vPosition;
 
       @vertonly {
         uniform mat4 _matPVM;
 
         void main(void)
         {
-          gl_Position = vPosition = _matPVM * vec4(position,1.0);
+          vPosition = position;
+          gl_Position =  _matPVM * vec4(position,1.0);
         }
       }
 
@@ -25,7 +26,7 @@
 
         void main(void)
         {
-          gl_FragColor = vec4(sin(_Time / 1000.0).xyz, 1.0);
+          gl_FragColor = vec4(sin(_Time / 1000.0).xyz + vPosition, 1.0);
         }
       }
       ]]>
