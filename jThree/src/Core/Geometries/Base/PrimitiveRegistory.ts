@@ -25,9 +25,6 @@ class PrimitiveRegistory implements IContextComponent {
   }
 
   public registerPrimitive(key: string, geo: Geometry): void {
-    if (this._primitives[key]) {
-      console.warn(`The geometry '${key}' is already assigned. The old geometry will be replaced, this might lead some bug.`);
-    }
     this._primitives[key] = geo;
   }
 
