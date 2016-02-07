@@ -15,6 +15,8 @@ abstract class Geometry extends jThreeObject {
 
     public abstract drawElements(canvas: Canvas, material: Material);
 
+    public abstract drawWireframe(canvas: Canvas, material: Material);
+
     public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void;
 
     protected __assignAttributeIfExists(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }, valName: string, buffer: Buffer): void {

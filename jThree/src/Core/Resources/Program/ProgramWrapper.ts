@@ -128,7 +128,7 @@ class ProgramWrapper extends ResourceWrapper {
   public uniformVectorArray(variableName: string, vectors: VectorArray): void {
     const location = this._fetchUniformLocation(variableName);
     if (!location) { return; }
-    switch (vectors.unitSize) {
+    switch (vectors.dimension) {
       case 2:
         this.GL.uniform2fv(location, new Float32Array(vectors.rawElements));
         return;

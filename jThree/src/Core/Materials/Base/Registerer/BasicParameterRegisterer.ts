@@ -4,7 +4,7 @@ import IVariableDescription from "../IVariableDescription";
 import IApplyMaterialArgument from "../IApplyMaterialArgument";
 import Vector2 from "../../../../Math/Vector2";
 
-const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
+const BasicParameterRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }) => {
   if (uniforms["_matM"]) {
     pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
   }
@@ -41,4 +41,4 @@ const BasicMatrixRegisterer = (gl: WebGLRenderingContext, pWrapper: ProgramWrapp
   }
 };
 
-export default BasicMatrixRegisterer;
+export default BasicParameterRegisterer;

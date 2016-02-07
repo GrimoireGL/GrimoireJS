@@ -29,7 +29,6 @@
       <mesh id="obj4" geo="cube" mat="matTest" position="-3,3,-5" />
       <mesh id="obj5" geo="cube" mat="matSample" position="5,3,4" />
       <mesh id="obj6" geo="sphere" mat="matTest" position="0,3,3" />
-      <mesh geo="grid" mat="grid" scale="10" />
       <scenelight color="#111"/>
       <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="3 , 5, 0"/>
       <plight color="#2200FF" intensity="3" decay="1.5" distance="4" position="-3, 5, 0"/>
