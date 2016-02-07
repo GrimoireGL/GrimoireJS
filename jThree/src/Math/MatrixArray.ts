@@ -1,6 +1,6 @@
 import Matrix from "./Matrix";
 class MatrixArray {
-  public rawElements: number[];
+  public rawElements: Float32Array;
 
   public static getIdentityMatrixArray(length: number): MatrixArray {
     const matArray = new MatrixArray(length);
@@ -15,7 +15,7 @@ class MatrixArray {
   }
 
   constructor(length: number) {
-    this.rawElements = new Array(length * 16);
+    this.rawElements = new Float32Array(length * 16);
   }
 
   public getAt(index: number): Matrix {
