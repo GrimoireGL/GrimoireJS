@@ -118,6 +118,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_geometries_cylindergeometry_.cylindergeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_cylindergeometry_.cylindergeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_cylindergeometry_.cylindergeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_cylindergeometry_.cylindergeometry.html#drawwireframe" class="tsd-kind-icon">draw<wbr>Wireframe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_cylindergeometry_.cylindergeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_cylindergeometry_.cylindergeometry.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_cylindergeometry_.cylindergeometry.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
@@ -328,7 +329,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#___assignattributeifexists">___assignAttributeIfExists</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/Geometry.ts#L20">Core/Geometries/Base/Geometry.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/Geometry.ts#L22">Core/Geometries/Base/Geometry.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -366,7 +367,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html">IndexedGeometry</a>.<a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html#___bindindexbuffer">___bindIndexBuffer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/IndexedGeometry.ts#L51">Core/Geometries/Base/IndexedGeometry.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/IndexedGeometry.ts#L72">Core/Geometries/Base/IndexedGeometry.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -438,7 +439,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Draw this material for specified material.</p>
+									<p>Draw this geometry for specified material.</p>
 								</div>
 								<p>渡されたマテリアル用にジオメトリを描画します。</p>
 							</div>
@@ -454,6 +455,41 @@
 									<h5>material: <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the material should be used for rendering this geometry.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
+					<a name="drawwireframe" class="tsd-anchor"></a>
+					<h3>draw<wbr>Wireframe</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">draw<wbr>Wireframe<span class="tsd-signature-symbol">(</span>canvas<span class="tsd-signature-symbol">: </span><a href="_core_canvas_canvas_.canvas.html" class="tsd-signature-type">Canvas</a>, material<span class="tsd-signature-symbol">: </span><a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html">IndexedGeometry</a>.<a href="_core_geometries_base_indexedgeometry_.indexedgeometry.html#drawwireframe">drawWireframe</a></p>
+								<p>Overwrites <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#drawwireframe">drawWireframe</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/IndexedGeometry.ts#L46">Core/Geometries/Base/IndexedGeometry.ts:46</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Draw this geometry as wireframe for specified material.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>canvas: <a href="_core_canvas_canvas_.canvas.html" class="tsd-signature-type">Canvas</a></h5>
+								</li>
+								<li>
+									<h5>material: <a href="_core_materials_material_.material.html" class="tsd-signature-type">Material</a></h5>
+									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
 							</ul>
@@ -611,6 +647,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
 								<a href="_core_geometries_cylindergeometry_.cylindergeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
+								<a href="_core_geometries_cylindergeometry_.cylindergeometry.html#drawwireframe" class="tsd-kind-icon">draw<wbr>Wireframe</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
 								<a href="_core_geometries_cylindergeometry_.cylindergeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a>
