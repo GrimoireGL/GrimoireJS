@@ -17,14 +17,14 @@ class PrimitiveRegistory implements IContextComponent {
   }
 
   public registerDefaultPrimitives(): void {
-    this.addPrimitive("quad", new QuadGeometry("quad"));
-    this.addPrimitive("sphere", new SphereGeometry("sphere"));
-    this.addPrimitive("cube", new CubeGeometry("cube"));
-    this.addPrimitive("cylinder", new CylinderGeometry("cylinder"));
-    this.addPrimitive("cone", new ConeGeometry("cone"));
+    this.registerPrimitive("quad", new QuadGeometry("quad"));
+    this.registerPrimitive("sphere", new SphereGeometry("sphere"));
+    this.registerPrimitive("cube", new CubeGeometry("cube"));
+    this.registerPrimitive("cylinder", new CylinderGeometry("cylinder"));
+    this.registerPrimitive("cone", new ConeGeometry("cone"));
   }
 
-  public addPrimitive(key: string, geo: Geometry): void {
+  public registerPrimitive(key: string, geo: Geometry): void {
     if (this._primitives[key]) {
       console.warn(`The geometry '${key}' is already assigned. The old geometry will be replaced, this might lead some bug.`);
     }

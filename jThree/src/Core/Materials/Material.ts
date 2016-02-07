@@ -202,6 +202,12 @@ class Material extends JThreeObjectEEWithID {
       switch (uniform.variableType) {
         case "float":
           pWrapper.uniformFloatArray(uniform.variableName, uniform.variableAnnotation["default"]);
+          break;
+        case "vec2":
+        case "vec3":
+        case "vec4":
+          pWrapper.uniformVectorArray(uniform.variableName, uniform.variableAnnotation["default"]);
+          break;
       }
     }
   }

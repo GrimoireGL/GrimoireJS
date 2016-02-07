@@ -122,8 +122,8 @@ class JThreeInit {
       return;
     }
     for (let propName in WebGLRenderingContext.prototype) {
-      const property = WebGLRenderingContext.prototype[propName];
-      if (typeof property !== "function" && /^[A-Z]/.test(propName)) {
+      if (/^[A-Z]/.test(propName)) {
+       const property = WebGLRenderingContext.prototype[propName];
         WebGLRenderingContext[propName] = property;
       }
     }

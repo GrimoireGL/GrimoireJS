@@ -84,14 +84,14 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     return "scene";
   }
 
-  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string) {
+  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string, isWireframed: boolean) {
     const materials = object.getMaterials(materialGroup);
     for (let i = 0; i < materials.length; i++) {
-      this.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, materials[i]);
+      this.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, materials[i], isWireframed);
     }
   }
 
-  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, material: Material): void {
+  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, material: Material, isWireframed: boolean): void {
     if (!material || !material.Initialized || !material.Enabled) { return; }
     const passCount = material.getPassCount(techniqueIndex);
     for (let pass = 0; pass < passCount; pass++) {
@@ -106,6 +106,10 @@ abstract class RenderStageBase extends JThreeObjectWithID {
         passCount: passCount,
         camera: this.Renderer.Camera
       });
+      if (isWireframed) {
+        object.Geometry.drawWireframe(this.Renderer.Canvas, material);
+        return;
+      }
       object.Geometry.drawElements(this.Renderer.Canvas, material);
     }
   }

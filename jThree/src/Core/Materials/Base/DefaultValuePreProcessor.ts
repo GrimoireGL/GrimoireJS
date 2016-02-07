@@ -1,8 +1,10 @@
+import VectorArray from "../../../Math/VectorArray";
 import Matrix from "../../../Math/Matrix";
 import Vector2 from "../../../Math/Vector2";
 import Vector3 from "../../../Math/Vector3";
 import Vector4 from "../../../Math/Vector4";
 import IVariableDescription from "./IVariableDescription";
+import isArray from "lodash.isarray";
 class DefaultValuePreProcessor {
   public static preprocess(uniforms: { [name: string]: IVariableDescription }): void {
     for (let variableName in uniforms) {
@@ -31,6 +33,16 @@ class DefaultValuePreProcessor {
           case "float":
             DefaultValuePreProcessor._forFloatArray(variableName, uniform);
             continue;
+          case "vec2":
+            DefaultValuePreProcessor._forVectorarray(variableName, 2, uniform);
+            continue;
+          case "vec3":
+            DefaultValuePreProcessor._forVectorarray(variableName, 3, uniform);
+            continue;
+          case "vec4":
+            DefaultValuePreProcessor._forVectorarray(variableName, 4, uniform);
+            continue;
+
         }
       }
     }
@@ -50,6 +62,23 @@ class DefaultValuePreProcessor {
       }
       uniform.variableAnnotation["default"] = defaultValue.slice(0, uniform.arrayLength);
     }
+  }
+
+  private static _forVectorarray(name: string, dimension: number, uniform: IVariableDescription) {
+    const defaultArray = VectorArray.zeroVectorArray(dimension, uniform.arrayLength);
+    const defaultValue = uniform.variableAnnotation["default"];
+    if (isArray(defaultValue)) {
+      if (isArray(defaultValue[0])) {
+        for (let i = 0; i < defaultValue.length; i++) {
+          defaultArray.setRawArray(i, defaultValue[i]);
+        }
+      } else {
+        for (let i = 0; i < defaultValue.length; i++) {
+          defaultArray.rawElements[i] = defaultValue[i];
+        }
+      }
+    }
+    uniform.variableAnnotation["defualt"] = defaultArray;
   }
 
   private static _forVec2(name: string, uniform: IVariableDescription): void {

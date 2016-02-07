@@ -78,7 +78,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       {
         buffers: {
           INPUT: "output",
-          OUT: "main"
+          OUT: "default"
         },
         stage: "jthree.basic.fxaa",
         variables: {
@@ -86,13 +86,6 @@ class BasicRendererConfigurator extends ConfiguratorBase {
           reduceMul: 0.1,
           spanMax: 3
         }
-      },
-      {
-        buffers: {
-          INPUT: "main",
-          OUT: "default"
-        },
-        stage: "jthree.basic.sobel"
       }];
     // },
     // {

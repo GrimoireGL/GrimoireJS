@@ -26,6 +26,8 @@ class BasicTechnique extends JThreeObjectWithID {
 
   protected __fboInitialized: boolean = false;
 
+  private _wireFramed: boolean = false;
+
   private _techniqueDocument: Element;
 
   private _target: string;
@@ -46,6 +48,7 @@ class BasicTechnique extends JThreeObjectWithID {
     this._techniqueIndex = techniqueIndex;
     this.defaultRenderConfigure = XMLRenderConfigUtility.parseRenderConfig(technique, this._renderStage.getSuperRendererConfigure());
     this._target = this._techniqueDocument.getAttribute("target");
+    this._wireFramed = this._techniqueDocument.getAttribute("wireframe") === "true";
     if (!this._target) { this._target = "scene"; }
     this._fboBindingInfo = RSMLRenderConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0));
     if (this._target !== "scene") {
@@ -65,12 +68,12 @@ class BasicTechnique extends JThreeObjectWithID {
     switch (this.Target) {
       case "scene":
         const materialGroup = this._techniqueDocument.getAttribute("materialGroup");
-        this._renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup);
+        this._renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup, this._wireFramed);
         break;
       default:
         this._defaultMaterial.materialVariables = this._renderStage.stageVariables;
         XMLRenderConfigUtility.applyAll(this._gl, this.defaultRenderConfigure);
-        this._renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this._defaultMaterial);
+        this._renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this._defaultMaterial, this._wireFramed);
     }
   }
 
