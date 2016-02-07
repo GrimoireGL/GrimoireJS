@@ -60,6 +60,11 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ]
+    ],
+    "private-method-name":true,
+    "public-method-name":true,
+    "protected-method-name":true,
+    "no-implicit-return-type":true,
+    "no-unprivate-method-without-comment":true
   }
 }

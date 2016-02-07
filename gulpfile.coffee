@@ -406,6 +406,7 @@ gulp.task 'tslint', ->
   gulp.src [].concat tsEntries, ignoreEntries.map((v) -> "!#{v}")
     .pipe tslint
       configuration: './tslint.json'
+      rulesDirectory: './lint/rules/'
     .pipe tslint.report 'verbose'
 
 gulp.task 'sample', ->

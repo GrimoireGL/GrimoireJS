@@ -94,7 +94,7 @@ class VMDNode extends GomlTreeNodeBase {
     });
   }
 
-  private _onFrameAttrChanged(attr): void {
+  private _onFrameAttrChanged(attr) {
     this.frame = Math.max(0, attr.Value);
     if (!this.attributes.getValue("enabled")) {
       return;
