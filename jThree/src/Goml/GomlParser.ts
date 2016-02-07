@@ -25,7 +25,7 @@ class GomlParser {
       const children = elem.childNodes;
       if (children && children.length !== 0) {
         for (let i = 0; i < children.length; i++) {
-          if (!(<HTMLElement>children[i]).tagName) {
+          if (children[i].nodeType !== 1) {
             continue;
           }
           // generate instances for every children nodes
