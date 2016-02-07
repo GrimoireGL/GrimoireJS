@@ -77,8 +77,9 @@ class MaterialManager implements IContextComponent {
   /**
    * Register material document(XMML) in material manager
    * @param {string} matDocument Raw xmml parsable string
+   * @return {string}             material tag's name attribute
    */
-  public registerMaterial(matDocument: string): void {
+  public registerMaterial(matDocument: string): string {
     const dom = (new DOMParser()).parseFromString(matDocument, "text/xml");
     const matTag = dom.querySelector("material");
     const matName = matTag.getAttribute("name");
@@ -87,6 +88,7 @@ class MaterialManager implements IContextComponent {
     } else {
       this._materialDocuments[matName] = matDocument;
     }
+    return matName;
   }
   /**
    * Construct BasicMaterial instance with registered xmml
@@ -96,7 +98,7 @@ class MaterialManager implements IContextComponent {
   public constructMaterial(matName: string): BasicMaterial {
     const matDoc = this._materialDocuments[matName];
     if (!matDoc) {
-      console.error(`Specified material name '${matName}' was not found!`);
+      // console.error(`Specified material name '${matName}' was not found!`);
       return undefined;
     } else {
       return new BasicMaterial(matDoc);

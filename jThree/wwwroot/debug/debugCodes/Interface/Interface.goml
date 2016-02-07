@@ -1,7 +1,11 @@
 <goml>
+  <imports>
+    <import type="material" src="/debug/debugCodes/Interface/sampleMaterial.xmml" />
+  </imports>
   <resources>
-    <solid solid="white" specular="#CCC" brightness="10" name="grid" />
-    <phong name="matTest" brightness="2" specular="#AAA" diffuse="#AAA"/>
+    <material type="jthree.basic.solid" solid="white" specular="#CCC" brightness="10" name="grid" />
+    <material type="jthree.basic.phong" name="matTest" brightness="2" specular="#AAA" diffuse="#AAA"/>
+    <material type="sampleMaterial" name="matSample" brightness="2" specular="#AAA" diffuse="#AAA"/>
     <cube name="cube" />
     <sphere name="sphere" />
     <grid hdiv="20" name="grid" vdiv="20" />
@@ -9,6 +13,7 @@
   </resources>
   <canvases>
     <canvas clearColor="purple" frame=".canvasContainer">
+      <!-- <viewport cam="CAM1" id="main2" width="320" height="480" left="120" top="120" name="MAIN2" backgroundType="skybox" skybox="cubemap"/> -->
       <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" backgroundType="skybox" skybox="cubemap"/>
     </canvas>
   </canvases>
@@ -22,7 +27,7 @@
       <mesh id="obj2" geo="cube" mat="matTest" rotation="z(90d)" position="3,3,0" />
       <mesh id="obj3" geo="cube" mat="matTest" rotation="x(90d)" position="-3,3,0" />
       <mesh id="obj4" geo="cube" mat="matTest" position="-3,3,-5" />
-      <mesh id="obj5" geo="cube" mat="matTest" position="5,3,4" />
+      <mesh id="obj5" geo="cube" mat="matSample" position="5,3,4" />
       <mesh id="obj6" geo="sphere" mat="matTest" position="0,3,3" />
       <scenelight color="#111"/>
       <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position="3 , 5, 0"/>

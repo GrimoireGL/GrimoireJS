@@ -16,8 +16,7 @@ import ConeGeometryNode from "./Nodes/Geometries/ConeGeometryNode";
 import CanvasNode from "./Nodes/Canvases/CanvasNode";
 import ViewPortNode from "./Nodes/Renderers/ViewPortNode";
 import SceneNode from "./Nodes/SceneNode";
-import SolidColorNode from "./Nodes/Materials/SolidColorNode";
-import PhongNode from "./Nodes/Materials/PhongNode";
+import MaterialNode from "./Nodes/Materials/MaterialNode";
 import CameraNode from "./Nodes/SceneObjects/Cameras/CameraNode";
 import OrthoCameraNode from "./Nodes/SceneObjects/Cameras/OrthoCameraNode";
 import MeshNode from "./Nodes/SceneObjects/MeshNode";
@@ -40,6 +39,8 @@ import LoaderNode from "./Nodes/Loaders/LoaderNode";
 // import PMXBonesNode from "../PMX/Goml/PMXBonesNode";
 import VMDNode from "../VMD/Goml/VMDNode";
 import XNode from "../X/Goml/XNode";
+import ImportNode from "./Nodes/Imports/ImportNode";
+import ImportsNode from "./Nodes/TopLevel/ImportsNode";
 
 
 const gomlList = [
@@ -50,7 +51,8 @@ const gomlList = [
       "SCENES": ScenesNode,
       "TEMPLATES": TemplatesNode,
       "LOADERS": LoadersNode,
-      "GOML": GomlNode
+      "IMPORTS": ImportsNode,
+      "GOML": GomlNode,
     }),
   new GomlNodeListElement("jthree.geometries",
     {
@@ -69,14 +71,11 @@ const gomlList = [
       "VIEWPORT": ViewPortNode,
       "SCENE": SceneNode,
     }),
-  new GomlNodeListElement(
-    "jthree.materials",
+  new GomlNodeListElement("jthree.materials",
     {
-      "SOLID": SolidColorNode,
-      "PHONG": PhongNode
+      "MATERIAL": MaterialNode,
     }),
-  new GomlNodeListElement(
-    "jthree.sceneobject",
+  new GomlNodeListElement("jthree.sceneobject",
     {
       "CAMERA": CameraNode,
       "OCAMERA": OrthoCameraNode,
@@ -89,8 +88,7 @@ const gomlList = [
       "SCENELIGHT": SceneLightNode,
       "PMX": PMXNode
     }),
-  new GomlNodeListElement(
-    "jthree.textures",
+  new GomlNodeListElement("jthree.textures",
     {
       "TEXTURE": TextureNode,
       "CUBETEXTURE": CubeTextureNode
@@ -128,6 +126,10 @@ const gomlList = [
   new GomlNodeListElement("x",
     {
       "X": XNode
+    }),
+  new GomlNodeListElement("jthree.import",
+    {
+      "IMPORT": ImportNode
     }),
 ];
 
