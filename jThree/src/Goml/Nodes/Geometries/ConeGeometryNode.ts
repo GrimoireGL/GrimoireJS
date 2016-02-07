@@ -10,7 +10,7 @@ class ConeGeometryNode extends GeometryNodeBase<ConeGeometry> {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): ConeGeometry {
+  protected constructGeometry(name: string): ConeGeometry {
     return new ConeGeometry(name);
   }
 }

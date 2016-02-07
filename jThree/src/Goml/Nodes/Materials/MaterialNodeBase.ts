@@ -58,7 +58,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
   private _onNameAttrChanged(attr: GomlAttribute): void {
     const name = attr.Value;
     if (typeof name !== "string") {
-      throw Error(`${this.getTypeName() }: name attribute must be required.`);
+      throw Error(`${this.getTypeName()}: name attribute must be required.`);
     }
     this.name = name;
     if (this.target && this.target.Initialized) {

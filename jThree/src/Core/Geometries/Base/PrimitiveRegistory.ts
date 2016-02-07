@@ -28,6 +28,10 @@ class PrimitiveRegistory implements IContextComponent {
     this._primitives[key] = geo;
   }
 
+  public deregisterPrimitive(key: string): void {
+    delete this._primitives[key];
+  }
+
   public getPrimitive(key: string): Geometry {
     return this._primitives[key];
   }

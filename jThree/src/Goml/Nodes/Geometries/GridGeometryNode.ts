@@ -23,7 +23,7 @@ class GridGeometryNode extends GeometryNodeBase<GridGeometry> {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): GridGeometry {
+  protected constructGeometry(name: string): GridGeometry {
     return new GridGeometry(name);
   }
 
