@@ -1,9 +1,9 @@
 
-interface BoneMorph {
+interface BoneMorphData {
   boneIndex: number;
   translationOffset: number[];
   rotationOffset: number[];
 }
 
 
-export default BoneMorph;
+export default BoneMorphData;

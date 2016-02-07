@@ -7,7 +7,7 @@ import Geometry from "../../../Core/Geometries/Base/Geometry";
 import Vector4 from "../../../Math/Vector4";
 import Color4 from "../../../Math/Color4";
 import Color3 from "../../../Math/Color3";
-import PMX from "../../PMXLoader";
+import PMX from "../../PMXData";
 import Texture from "../../../Core/Resources/Texture/Texture";
 import PMXModel from "./../PMXModel";
 import PmxMaterialMorphParamContainer from "./../PMXMaterialMorphParamContainer";

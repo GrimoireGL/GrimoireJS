@@ -65,6 +65,6 @@
     "public-method-name":true,
     "protected-method-name":true,
     "no-implicit-return-type":true,
-    "no-unprivate-method-without-comment":true
+    "no-unprivate-method-without-comment":false
   }
 }

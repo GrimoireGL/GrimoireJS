@@ -5,7 +5,7 @@ import {quat, vec3} from "gl-matrix";
 import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
-import PMXIKLink from "../PMXIKLink";
+import PMXIKLink from "../PMXIKLinkData";
 
 /**
  * Bone transformer for pmx
@@ -246,8 +246,8 @@ class PMXBoneTransformer extends Transformer {
     // RestrictedRotation = Rotation * ikLinkAdjust
     // ikLinkAdust = (Rotation) ^ -1 * RestrictedRotation
     const restrictedRotation = this.RestrictRotation(ikLink, link.Rotation);
-    const ikLinkAdust = Quaternion.Multiply(link.Rotation.Inverse(), restrictedRotation);
-    link.ikLinkRotation = Quaternion.Multiply(link.ikLinkRotation, ikLinkAdust);
+    const ikLinkAdust = Quaternion.multiply(link.Rotation.Inverse(), restrictedRotation);
+    link.ikLinkRotation = Quaternion.multiply(link.ikLinkRotation, ikLinkAdust);
     link.updateTransformForPMX();
     // link.updateTransformMatricies();
   }

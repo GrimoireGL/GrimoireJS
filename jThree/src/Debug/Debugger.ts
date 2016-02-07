@@ -18,7 +18,7 @@ class Debugger implements IContextComponent {
     }
   }
 
-  public getContextComponentIndex() {
+  public getContextComponentIndex(): number {
     return ContextComponents.Debugger;
   }
 
@@ -29,7 +29,7 @@ class Debugger implements IContextComponent {
     };
   }
 
-  public setInfo(key: string, val: any) {
+  public setInfo(key: string, val: any): void {
     if (typeof val === "object") {
       let stringfied = "";
       for (let k in val) {

@@ -1,13 +1,13 @@
-import PMXHeader from "./PMXHeader";
-import PMXVerticies from "./PMXVerticies";
-import PMXMaterial from "./PMXMaterial";
-import PMXBone from "./PMXBone";
-import PMXMorph from "./PMXMorph";
-import PMXDisplayFrame from "./PMXDisplayFrame";
-import PMXRigidBody from "./PMXRigidBody";
-import PMXJoint from "./PMXJoint";
+import PMXHeader from "./PMXHeaderData";
+import PMXVerticies from "./PMXVerticiesData";
+import PMXMaterial from "./PMXMaterialData";
+import PMXBone from "./PMXBoneData";
+import PMXMorph from "./PMXMorphData";
+import PMXDisplayFrame from "./PMXDisplayFrameData";
+import PMXRigidBody from "./PMXRigidBodyData";
+import PMXJoint from "./PMXJointData";
 import ImageLoader from "../Core/Resources/ImageLoader";
-class PMX {
+class PMXData {
   private reader: DataView;
 
   private header: PMXHeader;
@@ -543,4 +543,4 @@ class PMX {
   }
 }
 
-export default PMX;
+export default PMXData;

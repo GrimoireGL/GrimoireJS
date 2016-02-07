@@ -26,6 +26,7 @@ var NoImplicitReturnTypeWalker = (function (_super) {
         if (!node.type) {
             this.addFailure(this.createFailure(node.getStart(), node.getWidth(), Rule.FAILURE_STRING + " at: " + node.name.text));
         }
+        //if(node.type)console.log(this.sourceFile.text.substring(node.type.pos,node.type.end));
         // call the base version of this visitor to actually parse this node
         _super.prototype.visitMethodDeclaration.call(this, node);
     };

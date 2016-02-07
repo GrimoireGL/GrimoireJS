@@ -6,8 +6,6 @@ import J3Object from "./Interface/J3Object"; // This must be the first time of i
 import J3ObjectMixins from "./Interface/J3ObjectMixins"; // Apply mixins
 J3ObjectMixins();
 import {Action0} from "./Base/Delegates";
-import BehaviorDeclaration from "./Goml/Behaviors/BehaviorDeclaration";
-import BehaviorDeclarationBody from "./Goml/Behaviors/BehaviorDeclarationBody";
 import JThreeContext from "./JThreeContext";
 import SceneManager from "./Core/SceneManager";
 import CanvasManager from "./Core/Canvas/CanvasManager";
@@ -29,11 +27,6 @@ import Vector4 from "./Math/Vector4";
 * These methods declared inside of this class will be subscribed in JThreeInit.Init(),it means the first time.
 */
 class JThreeStatic {
-  public defineBehavior(behaviorName: string, decl: BehaviorDeclarationBody | Action0);
-  public defineBehavior(declarations: BehaviorDeclaration);
-  public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, declaration?: BehaviorDeclarationBody | Action0) {
-    JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager).behaviorRegistry.defineBehavior(<string>nameOrDeclarations, declaration); // This is not string but it is for conviniesnce.
-  }
 
   public get Math() {
     return {
@@ -51,7 +44,7 @@ class JThreeStatic {
 */
 class JThreeInit {
 
-  public static SelfTag: HTMLScriptElement;
+  public static selfTag: HTMLScriptElement;
 
   /**
   * Actual definition of j3("selector") syntax.
@@ -76,10 +69,10 @@ class JThreeInit {
   /**
   * This method should be called when Jthree loaded.
   */
-  public static Init(): void {
-    JThreeInit.copyGLConstants();
+  public static init(): void {
+    JThreeInit._copyGLConstants();
     const scripts = document.getElementsByTagName("script");
-    JThreeInit.SelfTag = scripts[scripts.length - 1];
+    JThreeInit.selfTag = scripts[scripts.length - 1];
     // register interfaces
     window["j3"] = JThreeInit.j3; // $(~~~)
 
@@ -97,7 +90,7 @@ class JThreeInit {
       }
     });
 
-    window["j3"]["lateStart"] = JThreeInit.startInitialize;
+    window["j3"]["lateStart"] = JThreeInit._startInitialize;
     JThreeContext.init();
     JThreeContext.registerContextComponent(new LoopManager());
     JThreeContext.registerContextComponent(new Timer());
@@ -110,28 +103,28 @@ class JThreeInit {
     JThreeContext.registerContextComponent(new MaterialManager());
     JThreeContext.registerContextComponent(new PrimitiveRegistory());
     JThreeContext.registerContextComponent(new RenderStageRegistory());
-    if (JThreeInit.SelfTag.getAttribute("x-lateLoad") !== "true") {
+    if (JThreeInit.selfTag.getAttribute("x-lateLoad") !== "true") {
       window.addEventListener("DOMContentLoaded", () => {
-        JThreeInit.startInitialize();
+        JThreeInit._startInitialize();
       });
     }
   }
 
-  private static copyGLConstants(): void {
+  private static _copyGLConstants(): void {
     if (WebGLRenderingContext.ONE) {
       return;
     }
     for (let propName in WebGLRenderingContext.prototype) {
       if (/^[A-Z]/.test(propName)) {
-       const property = WebGLRenderingContext.prototype[propName];
+        const property = WebGLRenderingContext.prototype[propName];
         WebGLRenderingContext[propName] = property;
       }
     }
   }
 
-  private static startInitialize() {
+  private static _startInitialize(): void {
     const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager); // This is not string but it is for conviniesnce.
-    const loader = new GomlLoader(nodeManager, JThreeInit.SelfTag);
+    const loader = new GomlLoader(nodeManager, JThreeInit.selfTag);
     loader.initForPage();
     JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).registerDefaultPrimitives();
     JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger).attach();

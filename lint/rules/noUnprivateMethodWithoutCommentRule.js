@@ -13,7 +13,7 @@ var Rule = (function (_super) {
     Rule.prototype.apply = function (sourceFile) {
         return this.applyWithWalker(new NoPublicMemberWithoutCommentWalker(sourceFile, this.getOptions()));
     };
-    Rule.FAILURE_STRING = "No implicit return value type is forbidden";
+    Rule.FAILURE_STRING = "public or protected method must have doc comment";
     return Rule;
 })(Lint.Rules.AbstractRule);
 exports.Rule = Rule;
