@@ -34,7 +34,7 @@ abstract class RegistererBase {
     const defer = Q.defer<void>();
     process.nextTick(() => {
       defer.resolve(null);
-    })
+    });
     return defer.promise;
   }
 }
