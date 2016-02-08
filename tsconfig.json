@@ -56,6 +56,8 @@
     "./jThree/src/Core/Materials/Base/BasicMaterial.ts",
     "./jThree/src/Core/Materials/Base/DefaultValuePreProcessor.ts",
     "./jThree/src/Core/Materials/Base/IApplyMaterialArgument.ts",
+    "./jThree/src/Core/Materials/Base/IArgumentDescription.ts",
+    "./jThree/src/Core/Materials/Base/IFunctionDescription.ts",
     "./jThree/src/Core/Materials/Base/IProgramDescription.ts",
     "./jThree/src/Core/Materials/Base/IVariableDescription.ts",
     "./jThree/src/Core/Materials/Base/MaterialManager.ts",
