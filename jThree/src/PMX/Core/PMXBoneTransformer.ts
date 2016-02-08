@@ -239,15 +239,12 @@ class PMXBoneTransformer extends Transformer {
 
     // Generate the rotation matrix rotating along the axis
     const rotation = Quaternion.AngleAxis(rotationAngle, rotationAxis);
-    link.ikLinkRotation = rotation;
-    link.updateTransformForPMX();
     // link.updateTransform();
     // Rotation = (providingRotation) * userRotation * morphRotation * ikLinkRotation
     // RestrictedRotation = Rotation * ikLinkAdjust
     // ikLinkAdust = (Rotation) ^ -1 * RestrictedRotation
-    const restrictedRotation = this.RestrictRotation(ikLink, link.Rotation);
-    const ikLinkAdust = Quaternion.Multiply(link.Rotation.Inverse(), restrictedRotation);
-    link.ikLinkRotation = Quaternion.Multiply(link.ikLinkRotation, ikLinkAdust);
+    const restrictedRotation = this.RestrictRotation(ikLink, rotation);
+    link.ikLinkRotation = Quaternion.Multiply(link.ikLinkRotation, restrictedRotation);
     link.updateTransformForPMX();
     // link.updateTransformMatricies();
   }
