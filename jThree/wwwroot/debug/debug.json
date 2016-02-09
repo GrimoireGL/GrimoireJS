@@ -68,6 +68,12 @@
       "js": [
         "MouseOperation/MouseOperation.js"
       ]
+    },
+    "Gaussian": {
+      "goml": "Gaussian/Gaussian.goml",
+      "js": [
+        "Gaussian/Gaussian.js"
+      ]
     }
   }
 }
