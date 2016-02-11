@@ -17,7 +17,7 @@ class GeometryBuilder {
       for (let j = 0; j < divY; j++) {
         const p0 = i * (divY + 1) + j + startIndex;
         const p1 = p0 + 1;
-        const p3 = p0 + divY + 1
+        const p3 = p0 + divY + 1;
         const p2 = p3 + 1;
         index.push(p0, p1, p3, p3, p1, p2);
       }

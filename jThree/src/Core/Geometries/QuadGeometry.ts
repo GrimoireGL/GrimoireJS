@@ -1,6 +1,5 @@
 import GeometryBuilder from "./Base/GeometryBuilder";
 import BasicGeometry from "./Base/BasicGeometry";
-import Vector3 from "../../Math/Vector3";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 import JThreeContext from "../../JThreeContext";
