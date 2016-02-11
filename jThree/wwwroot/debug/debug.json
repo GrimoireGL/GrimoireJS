@@ -68,6 +68,12 @@
       "js": [
         "MouseOperation/MouseOperation.js"
       ]
+    },
+    "GeometryTest": {
+      "goml": "GeometryTest/GeometryTest.goml",
+      "js": [
+        "GeometryTest/GeometryTest.js"
+      ]
     }
   }
 }
