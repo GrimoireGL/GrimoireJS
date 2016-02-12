@@ -94,12 +94,6 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_glextensionresolver_.glextensionresolver.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
@@ -110,6 +104,7 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_core_canvas_glextensionresolver_.glextensionresolver.html#_checkwebglcolorbufferfloat" class="tsd-kind-icon">_check<wbr>Webgl<wbr>Color<wbr>Buffer<wbr>Float</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_glextensionresolver_.glextensionresolver.html#checkextensions" class="tsd-kind-icon">check<wbr>Extensions</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_glextensionresolver_.glextensionresolver.html#getextension" class="tsd-kind-icon">get<wbr>Extension</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_canvas_glextensionresolver_.glextensionresolver.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
@@ -120,26 +115,6 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">new GLExtension<wbr>Resolver<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_core_canvas_glextensionresolver_.glextensionresolver.html" class="tsd-signature-type">GLExtensionResolver</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L14">Core/Canvas/GLExtensionResolver.ts:14</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_core_canvas_glextensionresolver_.glextensionresolver.html" class="tsd-signature-type">GLExtensionResolver</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
@@ -148,7 +123,7 @@
 					<div class="tsd-signature tsd-kind-icon">extensions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L14">Core/Canvas/GLExtensionResolver.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L16">Core/Canvas/GLExtensionResolver.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -173,23 +148,51 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-					<a name="checkextensions" class="tsd-anchor"></a>
-					<h3>check<wbr>Extensions</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">check<wbr>Extensions<span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
+					<a name="_checkwebglcolorbufferfloat" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _check<wbr>Webgl<wbr>Color<wbr>Buffer<wbr>Float</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">_check<wbr>Webgl<wbr>Color<wbr>Buffer<wbr>Float<span class="tsd-signature-symbol">(</span>gl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L20">Core/Canvas/GLExtensionResolver.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L49">Core/Canvas/GLExtensionResolver.ts:49</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>To check being able to use float value texture as rendering target, just calling getExtension is not sufficient.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>gl: <span class="tsd-signature-type">WebGLRenderingContext</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="checkextensions" class="tsd-anchor"></a>
+					<h3>check<wbr>Extensions</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Extensions<span class="tsd-signature-symbol">(</span>gl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L18">Core/Canvas/GLExtensionResolver.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>context: <span class="tsd-signature-type">WebGLRenderingContext</span></h5>
+									<h5>gl: <span class="tsd-signature-type">WebGLRenderingContext</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -206,7 +209,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L44">Core/Canvas/GLExtensionResolver.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L38">Core/Canvas/GLExtensionResolver.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -253,7 +256,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L48">Core/Canvas/GLExtensionResolver.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Canvas/GLExtensionResolver.ts#L42">Core/Canvas/GLExtensionResolver.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -311,14 +314,14 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_core_canvas_glextensionresolver_.glextensionresolver.html" class="tsd-kind-icon">GLExtension<wbr>Resolver</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_core_canvas_glextensionresolver_.glextensionresolver.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 								<a href="_core_canvas_glextensionresolver_.glextensionresolver.html#extensions" class="tsd-kind-icon">extensions</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 								<a href="_core_canvas_glextensionresolver_.glextensionresolver.html#requiredextensions" class="tsd-kind-icon">required<wbr>Extensions</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
+								<a href="_core_canvas_glextensionresolver_.glextensionresolver.html#_checkwebglcolorbufferfloat" class="tsd-kind-icon">_check<wbr>Webgl<wbr>Color<wbr>Buffer<wbr>Float</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_core_canvas_glextensionresolver_.glextensionresolver.html#checkextensions" class="tsd-kind-icon">check<wbr>Extensions</a>
