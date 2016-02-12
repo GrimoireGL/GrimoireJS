@@ -1,6 +1,29 @@
 import Vector3 from "../../../Math/Vector3";
 class GeometryBuilder {
-  public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {
+  public static addDividedQuad(pos: number[], normal: number[], uv: number[], index: number[], divX: number, divY: number): void {
+    const startIndex = pos.length / 3;
+    const xP = 2.0 / divX;
+    const yP = 2.0 / divY;
+    for (let i = 0; i < divX + 1; i++) {
+      const x = xP * i - 1;
+      for (let j = 0; j < divY + 1; j++) {
+        const y = 1 - yP * j;
+        pos.push(x, y, 0);
+        normal.push(0, 0, 1);
+        uv.push(0, 0);
+      }
+    }
+    for (let i = 0; i < divX; i++) {
+      for (let j = 0; j < divY; j++) {
+        const p0 = i * (divY + 1) + j + startIndex;
+        const p1 = p0 + 1;
+        const p3 = p0 + divY + 1;
+        const p2 = p3 + 1;
+        index.push(p0, p1, p3, p3, p1, p2);
+      }
+    }
+  }
+  public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]) {
     const startIndex = pos.length / 3;
     const v0 = points[0], v1 = points[1], v3 = points[2];
     const v02v1 = v1.subtractWith(v0);
