@@ -1,3 +1,4 @@
+import Vector2 from "./Vector2";
 import jThreeObject from "../Base/JThreeObject";
 class Rectangle extends jThreeObject {
 
@@ -18,7 +19,7 @@ class Rectangle extends jThreeObject {
     return r1.Left === r2.Left && r1.Right === r2.Right && r1.Top === r2.Top && r1.Bottom === r2.Bottom;
   }
 
-  public static EdgeEquals(r1: Rectangle, r2: Rectangle) {
+  public static EdgeSizeEquals(r1: Rectangle, r2: Rectangle) {
     return r1.Width === r2.Width && r1.Height === r2.Height;
   }
 
@@ -46,8 +47,33 @@ class Rectangle extends jThreeObject {
     return this.height;
   }
 
-  public contains(x: number, y: number): boolean {
+  public contains(point: Vector2): boolean;
+  public contains(x: number, y: number): boolean;
+  public contains(xOrPoint: number|Vector2, y?: number): boolean {
+    let x;
+    if (xOrPoint instanceof Vector2) {
+      x = xOrPoint.X;
+      y = xOrPoint.Y;
+    } else {
+      x = xOrPoint;
+    }
     return this.Left <= x && this.Right >= x && this.Top <= y && this.Bottom >= y;
+  }
+
+  public toLocal(x: Vector2): Vector2;
+  public toLocal(x: number, y: number): number[];
+  public toLocal(xOrPoint: Vector2 | number, y?: number): any {
+    let x;
+    if (xOrPoint instanceof Vector2) {
+      x = xOrPoint.X;
+      y = xOrPoint.Y;
+    } else {
+      x = xOrPoint;
+    }
+    x -= this.Left;
+    y -= this.Top;
+
+    return xOrPoint instanceof Vector2 ? new Vector2(x, y) : [x, y];
   }
 
   public toString(): string {

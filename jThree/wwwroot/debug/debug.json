@@ -74,6 +74,24 @@
       "js": [
         "Gaussian/Gaussian.js"
       ]
+    },
+    "Valentine": {
+      "goml": "Valentine/Valentine.goml",
+      "js": [
+        "Valentine/Valentine.js"
+      ]
+    },
+    "Valentine2": {
+      "goml": "Valentine2/Valentine.goml",
+      "js": [
+        "Valentine2/Valentine.js"
+      ]
+    },
+    "OfficialSite": {
+      "goml": "OfficialSite/OfficialSite.goml",
+      "js": [
+        "OfficialSite/OfficialSite.js"
+      ]
     }
   }
 }

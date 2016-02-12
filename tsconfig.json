@@ -64,6 +64,7 @@
     "./jThree/src/Core/Materials/Base/MaterialPass.ts",
     "./jThree/src/Core/Materials/Base/Registerer/BasicRegisterer.ts",
     "./jThree/src/Core/Materials/Base/Registerer/BufferRegisterer.ts",
+    "./jThree/src/Core/Materials/Base/Registerer/MouseRegisterer.ts",
     "./jThree/src/Core/Materials/Base/Registerer/RegistererBase.ts",
     "./jThree/src/Core/Materials/Base/Registerer/StageDescriptionRegisterer.ts",
     "./jThree/src/Core/Materials/Base/Registerer/TextureRegister.ts",
