@@ -1,3 +1,4 @@
+import BasicRenderer from "../../Renderers/BasicRenderer";
 import Camera from "../../SceneObjects/Camera/Camera";
 import RenderStageBase from "../../Renderers/RenderStages/RenderStageBase";
 import ResolvedChainInfo from "../../Renderers/ResolvedChainInfo";
@@ -6,6 +7,7 @@ import Scene from "../../Scene";
 interface IApplyMaterialArgument {
   scene: Scene;
   camera: Camera;
+  renderer: BasicRenderer;
   renderStage: RenderStageBase;
   object: SceneObject;
   textureResource: ResolvedChainInfo;

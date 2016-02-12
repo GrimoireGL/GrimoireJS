@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.basic.phong" group="jthree.materials.forematerial" order="300">
+<material name="jthree.basic.phong" group="builtin.forward" order="300">
 <uniform-register>
   <register name="builtin.basic"/>
   <register name="builtin.buffer"/>
@@ -54,7 +54,7 @@
         void main(void)
         {
           gl_FragColor=vec4(0,0,0,1);
-          //gl_FragColor.rgb+=ambient.rgb;
+          gl_FragColor.rgb+=ambient.rgb;
           ////calculate light uv
           vec2 lightUV=calcLightUV(vPosition);
           vec3 d = _textureUsed == 1 ? texture2D(texture,vUv).rgb : diffuse.rgb;

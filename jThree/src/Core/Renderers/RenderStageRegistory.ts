@@ -18,6 +18,7 @@ class RenderStageRegistory implements IContextComponent {
     this.register(require("./RenderStages/BuiltIn/Skybox.html"));
     this.register(require("./RenderStages/BuiltIn/FXAA.html"));
     this.register(require("./RenderStages/BuiltIn/Sobel.html"));
+    this.register(require("./RenderStages/BuiltIn/Gaussian.html"));
   }
 
   public getContextComponentIndex(): number {

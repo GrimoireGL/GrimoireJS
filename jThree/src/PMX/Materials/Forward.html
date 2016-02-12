@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.pmx.forward" group="jthree.materials.forematerial" order="300">
+<material name="jthree.pmx.forward" group="builtin.forward" order="300">
 <uniform-register>
   <register name="builtin.basic"/>
   <register name="builtin.buffer"/>
@@ -122,6 +122,7 @@
       @vertonly{
         @import "jthree.pmx.vertex"
         uniform mat4 _matPV;
+        uniform vec2 _resolution;
         @{register:2}
         uniform sampler2D boneMatriciesTexture;
         uniform float boneCount;
@@ -133,10 +134,10 @@
           vec4 p1 = matPVM * vec4(position + normal ,1);
           p0.xy /= p0.w;
           p1.xy /= p1.w;
-          float coeff = (512./2.0) * distance(p0.xy,p1.xy);
-          if(coeff > 1.0) coeff = 1.0 / coeff;
+          float coeff = length(_resolution/2.0 * abs(p0.xy - p1.xy));
+          coeff = 1.0 / coeff;
           coeff *= edgeSize * edgeScaling;
-          gl_Position = matPVM*vec4(position + coeff * normal,1);
+          gl_Position = matPVM * vec4(position + coeff * normal,1);
         }
       }
       @fragonly{

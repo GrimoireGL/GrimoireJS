@@ -69,6 +69,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       },
       {
         buffers: {
+          GBUFFER: "gbuffer.primary",
           DLIGHT: "light.diffuse",
           SLIGHT: "light.specular",
           OUT: "output"
@@ -97,9 +98,6 @@ class BasicRendererConfigurator extends ConfiguratorBase {
     //   stage: "jthree.basic.fogExp2",
     //   variables: {
     //     density: 2.0,
-    //     reduceMin: 0.05,
-    //     reduceMul: 0.1,
-    //     spanMax: 3
     //   }
     // },
     // {

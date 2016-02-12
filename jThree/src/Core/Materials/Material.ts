@@ -63,7 +63,7 @@ class Material extends JThreeObjectEEWithID {
   * This main purpose is mainly intended to be used in RenderStage for filtering materials by puropse of material.
   */
   public get MaterialGroup(): string {
-    return "jthree.materials.forematerial";
+    return "builtin.forward";
   }
   /**
   * Should return how many times required to render this material.
