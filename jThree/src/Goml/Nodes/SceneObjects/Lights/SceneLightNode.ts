@@ -13,7 +13,7 @@ class SceneLightNode extends LightNodeBase<SceneLight> {
       }
     });
     this.on("update-scene-object", (obj: SceneLight) => {
-      this._onIntensityAttrChanged.bind(this)(this.attributes.getAttribute("intensity"));
+      this._onIntensityAttrChanged.call(this, this.attributes.getAttribute("intensity"));
     });
   }
 
@@ -24,6 +24,7 @@ class SceneLightNode extends LightNodeBase<SceneLight> {
   private _onIntensityAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<SceneLight>this.TargetSceneObject).intensity = attr.Value;
+      attr.done();
     }
   }
 }

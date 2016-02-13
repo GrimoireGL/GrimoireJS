@@ -16,27 +16,30 @@ class TextureNode extends TextureNodeBase<Texture> {
       src: {
         converter: "string",
         src: "",
-        onchanged: (v) => {
-          ImageLoader.loadImage(v.Value).then(imgTag => {
-            this.target.ImageSource = imgTag;
-        });
-       }
+        onchanged: (attr) => {
+          if (this.target) {
+            ImageLoader.loadImage(attr.Value).then(imgTag => {
+              this.target.ImageSource = imgTag;
+            });
+            attr.done();
+          }
+        }
       }
     });
   }
 
   protected constructTexture(name: string, rm: ResourceManager): Q.IPromise <Texture> {
-  const deferred = Q.defer<TextureBase>();
-  if (this.attributes.getValue("src")) {
-   rm.loadTexture(this.attributes.getValue("src")).then((texture) => {
-     deferred.resolve(texture);
-    });
-   } else {
-    process.nextTick(() => {
-     deferred.resolve(null);
-    });
-   }
-   return deferred.promise;
+    const deferred = Q.defer<TextureBase>();
+    if (this.attributes.getValue("src")) {
+      rm.loadTexture(this.attributes.getValue("src")).then((texture) => {
+        deferred.resolve(texture);
+      });
+    } else {
+      process.nextTick(() => {
+        deferred.resolve(null);
+      });
+    }
+    return deferred.promise;
   }
 }
 

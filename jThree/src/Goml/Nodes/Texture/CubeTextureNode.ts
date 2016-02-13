@@ -16,7 +16,8 @@ class CubeTextureNode extends TextureNodeBase<CubeTexture> {
         // src urls should be arranged in the layout below.
         // PositiveX NegativeX PositiveY NegativeY PositiveZ NegativeZ
         converter: "string",
-        src: ""
+        src: "",
+        constant: true,
       }
     });
   }

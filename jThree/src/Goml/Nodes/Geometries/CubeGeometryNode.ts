@@ -10,7 +10,7 @@ class CubeGeometryNode extends GeometryNodeBase<CubeGeometry> {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): CubeGeometry {
+  protected constructGeometry(name: string): CubeGeometry {
     return new CubeGeometry(name);
   }
 }

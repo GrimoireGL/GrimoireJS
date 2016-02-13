@@ -13,7 +13,7 @@ class LightNodeBase<T extends LightBase> extends SceneObjectNodeBase<T> {
       }
     });
     this.on("update-scene-object", (obj: LightBase) => {
-      this._onColorAttrChanged.bind(this)(this.attributes.getAttribute("color"));
+      this._onColorAttrChanged.call(this, this.attributes.getAttribute("color"));
     });
   }
 
@@ -33,6 +33,7 @@ class LightNodeBase<T extends LightBase> extends SceneObjectNodeBase<T> {
   private _onColorAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<LightBase>this.TargetSceneObject).Color = attr.Value;
+      attr.done();
     }
   }
 }

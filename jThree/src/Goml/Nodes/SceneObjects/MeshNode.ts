@@ -5,6 +5,9 @@ import GeometryNodeBase from "../Geometries/GeometryNodeBase";
 import MaterialNode from "../Materials/MaterialNodeBase";
 import Material from "../../../Core/Materials/Material";
 import Geometry from "../../../Core/Geometries/Base/Geometry";
+import ContextComponents from "../../../ContextComponents";
+import PrimitiveRegistory from "../../../Core/Geometries/Base/PrimitiveRegistory";
+import JThreeContext from "../../../JThreeContext";
 
 class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
   constructor() {
@@ -49,14 +52,25 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
     this.geo = attr.Value;
     this.geo_instance = null;
     // console.warn("onGeoAttrChanged", attr.Value);
-    this.nodeImport("jthree.resource.geometry", this.geo, (geo: GeometryNodeBase<Geometry>) => {
-      if (geo) {
-        this.geo_instance = geo.target;
-      } else {
-        this.geo_instance = null;
-      }
+    this.geo_instance = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive(this.geo);
+    if (this.geo_instance) {
+      // console.log("primitive exist", this.geo);
       this._updateTarget();
-    });
+      attr.done();
+    } else {
+      // console.log("primitive not exist", this.geo);
+      this.geo_instance = null;
+      this.nodeImport("jthree.resource.geometry", this.geo, (geo: GeometryNodeBase<Geometry>) => {
+        if (geo) {
+          // console.log("geometry reseived", this.geo);
+          this.geo_instance = geo.target;
+        } else {
+          this.geo_instance = null;
+        }
+        this._updateTarget();
+        attr.done();
+      });
+    }
   }
 
   /**
@@ -74,6 +88,7 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
         this.mat_instance = null;
       }
       this._updateTarget();
+      attr.done();
     });
   }
 

@@ -23,16 +23,18 @@ class GridGeometryNode extends GeometryNodeBase<GridGeometry> {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): GridGeometry {
+  protected constructGeometry(name: string): GridGeometry {
     return new GridGeometry(name);
   }
 
   private _onHdivAttrChanged(attr): void {
     this.target.HolizontalDivide = attr.Value;
+    attr.done();
   }
 
   private _onVdivAttrChanged(attr): void {
     this.target.VerticalDivide = attr.Value;
+    attr.done();
   }
 }
 
