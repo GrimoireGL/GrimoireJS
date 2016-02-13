@@ -95,12 +95,6 @@ class GomlNodeDictionary extends jThreeObject {
     // console.log("callWithNode(on-get)", target.node ? (target.node.Mounted ? target.node : null) : undefined, `cb:${target.cb.length}`);
     callbackfn(target.node ? (target.node.Mounted ? target.node : null) : null);
   }
-
-  // this method will be removed.
-  public checkUncalled(): void {
-    return;
-  }
-
 }
 
 export default GomlNodeDictionary;

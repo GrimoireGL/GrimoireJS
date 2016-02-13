@@ -25,9 +25,9 @@ class PointLightNode extends LightNodeBase<PointLight> {
       }
     });
     this.on("update-scene-object", (obj: PointLight) => {
-      this._onIntensityAttrChanged.bind(this)(this.attributes.getAttribute("intensity"));
-      this._onDecayAttrChanged.bind(this)(this.attributes.getAttribute("decay"));
-      this._onDistanceAttrChanged.bind(this)(this.attributes.getAttribute("distance"));
+      this._onIntensityAttrChanged.call(this, this.attributes.getAttribute("intensity"));
+      this._onDecayAttrChanged.call(this, this.attributes.getAttribute("decay"));
+      this._onDistanceAttrChanged.call(this, this.attributes.getAttribute("distance"));
     });
   }
 
@@ -38,18 +38,21 @@ class PointLightNode extends LightNodeBase<PointLight> {
   private _onIntensityAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<PointLight>this.TargetSceneObject).intensity = attr.Value;
+      attr.done();
     }
   }
 
   private _onDecayAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<PointLight>this.TargetSceneObject).decay = attr.Value;
+      attr.done();
     }
   }
 
   private _onDistanceAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<PointLight>this.TargetSceneObject).distance = attr.Value;
+      attr.done();
     }
   }
 }

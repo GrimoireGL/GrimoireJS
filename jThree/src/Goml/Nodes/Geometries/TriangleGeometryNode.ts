@@ -29,18 +29,21 @@ class GomlTreeTriNode extends GeometryNodeBase<TriangleGeometry> {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): TriangleGeometry {
+  protected constructGeometry(name: string): TriangleGeometry {
     return new TriangleGeometry(name);
   }
 
   private _onFirstAttrChanged(attr): void {
     this.target.First = attr.Value;
+    attr.done();
   }
   private _onSecondAttrChanged(attr): void {
     this.target.Second = attr.Value;
+    attr.done();
   }
   private _onThirdAttrChanged(attr): void {
     this.target.Third = attr.Value;
+    attr.done();
   }
 }
 

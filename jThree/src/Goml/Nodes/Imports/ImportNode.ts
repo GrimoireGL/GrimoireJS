@@ -34,6 +34,7 @@ class ImportNode extends GomlTreeNodeBase {
   private _onTypeAttrChanged(attr: GomlAttribute): void {
     if (["material"].indexOf(attr.Value) !== -1) {
       this.type = attr.Value;
+      attr.done();
     } else {
       throw new Error(`Unknown type: ${attr.Value}`);
     }
@@ -49,11 +50,11 @@ class ImportNode extends GomlTreeNodeBase {
       }
     }
     if (this.type) {
-      this._getImport(path);
+      this._getImport(path, attr.done.bind(attr));
     }
   }
 
-  private _getImport(path): void {
+  private _getImport(path: string, done: () => void): void {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", path, true);
     xhr.setRequestHeader("Accept", "text");
@@ -68,9 +69,11 @@ class ImportNode extends GomlTreeNodeBase {
         }
         this.nodeExport(exportName);
       }
+      done();
     };
     xhr.onerror = (err) => {
       console.error(err);
+      done();
     };
     xhr.send(null);
   }

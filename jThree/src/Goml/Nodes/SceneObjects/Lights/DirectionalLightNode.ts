@@ -18,8 +18,8 @@ class DirectionalLightNode extends LightNodeBase<DirectionalLight> {
       }
     });
     this.on("update-scene-object", (obj: DirectionalLight) => {
-      this._onIntensityAttrChanged.bind(this)(this.attributes.getAttribute("intensity"));
-      this._onBiasAttrChanged.bind(this)(this.attributes.getAttribute("bias"));
+      this._onIntensityAttrChanged.call(this, this.attributes.getAttribute("intensity"));
+      this._onBiasAttrChanged.call(this, this.attributes.getAttribute("bias"));
     });
   }
 
@@ -30,12 +30,14 @@ class DirectionalLightNode extends LightNodeBase<DirectionalLight> {
   private _onIntensityAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<DirectionalLight>this.TargetSceneObject).intensity = attr.Value;
+      attr.done();
     }
   }
 
   private _onBiasAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<DirectionalLight>this.TargetSceneObject).bias = attr.Value;
+      attr.done();
     }
   }
 }

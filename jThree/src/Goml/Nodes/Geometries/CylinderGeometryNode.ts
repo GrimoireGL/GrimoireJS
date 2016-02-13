@@ -16,15 +16,15 @@ class CylinderGeometryNode extends GeometryNodeBase<CylinderGeometry> {
 
   protected onMount() {
     super.onMount();
-    this.target.DivideCount = this.attributes.getValue("divide");
   }
 
-  protected ConstructGeometry(name: string): CylinderGeometry {
+  protected constructGeometry(name: string): CylinderGeometry {
     return  new CylinderGeometry(name);
   }
 
   private _onDivideAttrChanged(attr): void {
     this.target.DivideCount = attr.Value;
+    attr.done();
   }
 }
 
