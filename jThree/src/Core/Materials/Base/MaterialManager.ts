@@ -1,15 +1,11 @@
-import RenderStageDescriptionRegister from "./Registerer/RenderStageDescriptionRegisterer";
-import TextureRegister from "./Registerer/TextureRegister";
+import BasicRegisterer from "./Registerer/BasicRegisterer";
+import RegistererBase from "./Registerer/RegistererBase";
+import StageDescriptionRegisterer from "./Registerer/StageDescriptionRegisterer";
 import BasicMaterial from "./BasicMaterial";
-import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
-import IVariableDescription from "./IVariableDescription";
-import IApplyMaterialArgument from "./IApplyMaterialArgument";
 import ShaderParser from "./ShaderParser";
 import IContextComponent from "../../../IContextComponent";
 import ContextComponents from "../../../ContextComponents";
-import {Action4} from "../../../Base/Delegates";
-import BasicParameterRegisterer from "./Registerer/BasicParameterRegisterer";
-import TextureBufferRegisterer from "./Registerer/TextureBufferRegisterer";
+import BufferRegisterer from "./Registerer/BufferRegisterer";
 import TimeRegisterer from "./Registerer/TimeRegisterer";
 import AsyncLoader from "../../Resources/AsyncLoader";
 import Q from "q";
@@ -19,7 +15,7 @@ import Q from "q";
  */
 class MaterialManager implements IContextComponent {
 
-  private _uniformRegisters: { [key: string]: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }> } = {};
+  private _uniformRegisters: { [key: string]: new () => RegistererBase } = {};
 
   private _materialDocuments: { [key: string]: string } = {};
 
@@ -28,12 +24,12 @@ class MaterialManager implements IContextComponent {
   constructor() {
     this.addShaderChunk("jthree.builtin.vertex", require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
     this.addShaderChunk("jthree.builtin.shadowfragment", require("../BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));
-    this.addShaderChunk("jthree.builtin.light.bufferreader", require("../BuiltIn/Light/Chunk/_LightAccumulation.glsl"));
-    this.addUniformRegister("builtin.basic", BasicParameterRegisterer);
-    this.addUniformRegister("jthree.basic.time", TimeRegisterer);
-    this.addUniformRegister("jthree.basic.texture", TextureRegister);
-    this.addUniformRegister("builtin.buffer", TextureBufferRegisterer);
-    this.addUniformRegister("jthree.basic.renderStage", RenderStageDescriptionRegister);
+    this.addShaderChunk("builtin.gbuffer-reader", require("../BuiltIn/Light/Chunk/_LightAccumulation.glsl"));
+    this.addUniformRegister(BasicRegisterer);
+    this.addUniformRegister(TimeRegisterer);
+    // this.addUniformRegister(TextureRegister);
+    this.addUniformRegister(BufferRegisterer);
+    this.addUniformRegister(StageDescriptionRegisterer);
     this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
     this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
   }
@@ -66,11 +62,11 @@ class MaterialManager implements IContextComponent {
     return this._chunkLoader.fromCache(key);
   }
 
-  public addUniformRegister(key: string, register: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>) {
-    this._uniformRegisters[key] = register;
+  public addUniformRegister(registerer: new () => RegistererBase) {
+    this._uniformRegisters[registerer.prototype["getName"]() as string] = registerer;
   }
 
-  public getUniformRegister(key: string): any {
+  public getUniformRegister(key: string): new () => RegistererBase {
     return this._uniformRegisters[key];
   }
 

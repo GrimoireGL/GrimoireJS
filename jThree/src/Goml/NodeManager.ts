@@ -39,7 +39,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
     if (!this.ready) {
       return;
     }
-    // this.gomlRoot.callRecursive(v=> v.update());
+    this.gomlRoot.callRecursive((v: GomlTreeNodeBase) => v.update());
     this.behaviorRunner.executeForAllBehaviors("updateBehavior");
   }
 

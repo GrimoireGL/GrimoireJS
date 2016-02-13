@@ -1,8 +1,8 @@
 <goml>
   <resources>
-    <phong diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
-    <phong diffuse="red" specular="#CCC" specularpower="15" name="red"/>
-    <phong diffuse="green" specular="#CCC" specularposer="15" name="green"/>
+    <material type="jthree.basic.phong" diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
+    <material type="jthree.basic.phong" diffuse="red" specular="#CCC" specularpower="15" name="red"/>
+    <material type="jthree.basic.phong" diffuse="green" specular="#CCC" specularposer="15" name="green"/>
     <cube name="cube"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
   </resources>
@@ -26,6 +26,7 @@
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx" position="3,0,0">
         <vmd id="melt" frame="20" src="/resource/motion/melt2.vmd" enabled="true" autoSpeed="1"/>
       </pmx>
+      <mesh geo="grid" mat="blue" scale="5"/>
     </scene>
   </scenes>
 </goml>

@@ -121,6 +121,10 @@ class GomlTreeNodeBase extends TreeNodeBase {
   public getBehaviors(behaviorName: string): BehaviorNode[] {
     return this.behaviors[behaviorName];
   }
+
+  public update(): void {
+    return;
+  }
 }
 
 export default GomlTreeNodeBase;

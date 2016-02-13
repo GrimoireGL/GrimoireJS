@@ -1,0 +1,23 @@
+<goml>
+  <imports>
+    <import type="material" src="debugCodes/Valentine/Valentine.xmml"/>
+  </imports>
+  <resources>
+    <cube name="cube"/>
+    <material type="valentine" name="phong" color="yellow" edgeSize="5"/>
+  </resources>
+  <canvases>
+    <canvas clearColor="#11022A" frame=".canvasContainer" width="1440" height="810">
+      <viewport cam="CAM1" id="main" width="1440" height="810" name="MAIN"/>
+    </canvas>
+  </canvases>
+  <scenes>
+    <scene name="mainScene">
+      <object>
+        <camera id="maincam" aspect="1.777" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
+      </object>
+      <mesh geo="cube" mat="phong" scale="4" rotation="euler(0,60d,15d)"/>
+      <dlight rotation="euler(0d,45d,45d)"  />
+    </scene>
+  </scenes>
+</goml>

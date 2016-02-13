@@ -1,17 +1,15 @@
+import BasicRegisterer from "./Registerer/BasicRegisterer";
 import Material from "../Material";
-import IVariableDescription from "./IVariableDescription";
 import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
 import MaterialManager from "./MaterialManager";
-import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import MaterialPass from "./MaterialPass";
-import {Action4} from "../../../Base/Delegates";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
 import Q from "q";
 class BasicMaterial extends Material {
   private _passes: MaterialPass[] = [];
 
-  private _uniformRegisters: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[] = [];
+  private _uniformRegisters: BasicRegisterer[] = [];
 
   private _materialGroup: string;
 
@@ -71,16 +69,16 @@ class BasicMaterial extends Material {
       this._passes.push(new MaterialPass(this, pass, this._materialName, i));
     }
     this._passCount = passes.length;
-    return Q.all(this._passes.map<Q.IPromise<void>>(e => e.initialize()));
+    return Q.all(this._passes.map<Q.IPromise<void>>(e => e.initialize(this._uniformRegisters)));
   }
 
   private _initializeUniformRegisters(doc: Document) {
     const registersDOM = doc.querySelectorAll("material > uniform-register > register");
     for (let i = 0; i < registersDOM.length; i++) {
       const registerDOM = registersDOM.item(i);
-      const registerFunction = this._materialManager.getUniformRegister(registerDOM.attributes.getNamedItem("name").value);
-      if (!registerFunction) { continue; }
-      this._uniformRegisters.push(registerFunction);
+      const registererConstructor = this._materialManager.getUniformRegister(registerDOM.attributes.getNamedItem("name").value);
+      if (!registererConstructor) { continue; }
+      this._uniformRegisters.push(new registererConstructor());
     }
   }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="valentine" group="builtin.forward" order="300">
+  <uniform-register>
+    <register name="builtin.basic"/>
+  </uniform-register>
+  <passes>
+    <pass>
+      <glsl>
+        <![CDATA[
+      attribute vec3 position;
+
+      @vertonly {
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+          gl_Position =  _matPVM * vec4(position,1.0);
+        }
+      }
+
+      @fragonly {
+        void main(void)
+        {
+          gl_FragColor = vec4(1,0,0,1);
+        }
+      }
+      ]]>
+      </glsl>
+    </pass>
+  </passes>
+</material>

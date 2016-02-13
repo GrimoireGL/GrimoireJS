@@ -63,7 +63,7 @@ const gomlList = [
       "CIRCLE": CircleGeometryNode,
       "CYLINDER": CylinderGeometryNode,
       "QUAD": QuadGeometryNode,
-      "CONE": ConeGeometryNode
+      "CONE": ConeGeometryNode,
     }),
   new GomlNodeListElement("jthree.basic",
     {

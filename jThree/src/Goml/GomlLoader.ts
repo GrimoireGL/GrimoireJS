@@ -105,8 +105,12 @@ class GomlLoader extends jThreeObject {
       xhr.responseType = "text";
       xhr.send();
     } else { // when src is not specified
-      // get innerText of script tag
-      this.scriptLoaded(<HTMLElement>scriptTag.childNodes[0]);
+      for (let i = 0; i + 1 <= scriptTag.childNodes.length; i++) {
+        const gomlElement = scriptTag.childNodes[i];
+        if (gomlElement.nodeType === 1) {
+          this.scriptLoaded(<HTMLElement>gomlElement);
+        }
+      }
     }
   }
 
@@ -116,12 +120,12 @@ class GomlLoader extends jThreeObject {
    * @param {HTMLElement} source goml source
    */
   private scriptLoaded(source: HTMLElement): void {
-    const catched = this.nodeManager.htmlRoot = source;
-    if (catched.children[0].tagName.toUpperCase() === "PARSERERROR") {
-      JThreeLogger.sectionError("Goml loader", `Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
-      JThreeLogger.sectionLongLog("Goml loader", catched.innerHTML);
-    }
-    if (catched === undefined || catched.tagName.toUpperCase() !== "GOML") {
+    this.nodeManager.htmlRoot = source;
+    // if ((<Element>catched.childNodes[0]).tagName.toUpperCase() === "PARSERERROR") {
+    //   JThreeLogger.sectionError("Goml loader", `Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
+    //   JThreeLogger.sectionLongLog("Goml loader", catched.innerHTML);
+    // }
+    if (source === undefined || source.tagName.toUpperCase() !== "GOML") {
       throw new InvalidArgumentException("Root should be goml");
     }
     const parsedNode = GomlParser.parse(source, this.nodeManager.configurator);

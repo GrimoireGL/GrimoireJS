@@ -1,3 +1,4 @@
+import GomlTreeNodeBase from "./GomlTreeNodeBase";
 import JThreeObject from "../Base/JThreeObject";
 
 /**
@@ -6,7 +7,7 @@ import JThreeObject from "../Base/JThreeObject";
 class GomlNodeListElement extends JThreeObject {
   private group: string;
 
-  private nodeTypes: { [key: string]: any };
+  private nodeTypes: { [key: string]: new () => GomlTreeNodeBase };
 
   /**
    * constructor
@@ -14,7 +15,7 @@ class GomlNodeListElement extends JThreeObject {
    * @param {string} group    グループ識別用の文字列。すべて大文字で管理されています。
    * @param {any}}  nodeTypes グループ内のGomlNodeのconstructorをまとめるObject。Tag名がKeyとなっています。
    */
-  constructor(group: string, nodeTypes: { [key: string]: any }) {
+  constructor(group: string, nodeTypes: { [key: string]: new () => GomlTreeNodeBase }) {
     super();
     this.group = group;
     this.nodeTypes = nodeTypes;
@@ -24,7 +25,7 @@ class GomlNodeListElement extends JThreeObject {
     return this.group;
   }
 
-  public get NodeTypes(): { [key: string]: any } {
+  public get NodeTypes(): { [key: string]: new () => GomlTreeNodeBase } {
     return this.nodeTypes;
   }
 }

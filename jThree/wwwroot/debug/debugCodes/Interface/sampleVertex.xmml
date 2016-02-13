@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="sampleVertex" group="builtin.forward" order="300">
+<uniform-register>
+  <register name="builtin.basic"/>
+  <register name="builtin.time"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      attribute vec3 normal;
+      varying vec3 vPosition;
+      uniform mediump vec4 _Time;
+
+      @vertonly {
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+          vPosition = position * sin(_Time.z/1000. + position.y * 5.);
+          gl_Position =  _matPVM * vec4(vPosition,1.0);
+        }
+      }
+
+      @fragonly {
+        @{default:[1.0,0,0,1.0]}
+        uniform vec4 color;
+
+        void main(void)
+        {
+          gl_FragColor = color;
+        }
+      }
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

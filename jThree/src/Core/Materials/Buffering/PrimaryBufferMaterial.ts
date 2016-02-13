@@ -6,7 +6,7 @@ class PrimaryBufferMaterial extends BasicMaterial {
   }
 
   public apply(matArg: IApplyMaterialArgument): void {
-    const fm = matArg.object.getMaterial("jthree.materials.forematerial"); // brightness
+    const fm = matArg.object.getMaterial("builtin.forward"); // brightness
     let brightness = 0;
     const fmArgs = fm.materialVariables;
     if (fmArgs["brightness"]) {

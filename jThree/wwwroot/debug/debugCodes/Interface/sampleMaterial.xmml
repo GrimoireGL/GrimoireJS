@@ -1,31 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="sampleMaterial" group="jthree.materials.forematerial" order="300">
+<material name="sampleMaterial" group="builtin.forward" order="300">
 <uniform-register>
   <register name="builtin.basic"/>
-  <register name="jthree.basic.time"/>
+  <register name="builtin.time"/>
 </uniform-register>
 <passes>
   <pass>
+    <depth enable="true" mode="ALWAYS"/>
     <glsl>
       <![CDATA[
       attribute vec3 position;
-      varying vec4 vPosition;
+      varying vec3 vPosition;
 
       @vertonly {
         uniform mat4 _matPVM;
 
         void main(void)
         {
-          gl_Position = vPosition = _matPVM * vec4(position,1.0);
+          vPosition = position;
+          gl_Position =  _matPVM * vec4(position,1.0);
         }
       }
 
       @fragonly {
         uniform vec4 _Time;
+        @{default:[1.0,0,0,1.0]}
+        uniform vec4 color;
 
         void main(void)
         {
-          gl_FragColor = vec4(sin(_Time / 1000.0).xyz, 1.0);
+          gl_FragColor = color * abs(sin(_Time.y/1000.));
+        }
+      }
+      ]]>
+    </glsl>
+  </pass>
+  <pass>
+    <cull enable="true" mode="FRONT"/>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      varying vec3 vPosition;
+
+      @vertonly {
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+
+          vPosition = position * 1.1;
+          gl_Position =  _matPVM * vec4(vPosition,1.0);
+        }
+      }
+
+      @fragonly {
+        uniform vec4 _Time;
+        @{default:[1.0,0,0,1.0]}
+        uniform vec4 edgeColor;
+
+        void main(void)
+        {
+          gl_FragColor = edgeColor;
         }
       }
       ]]>
