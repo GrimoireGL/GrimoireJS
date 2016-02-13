@@ -88,6 +88,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#addcircle" class="tsd-kind-icon">add<wbr>Circle</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#addcone" class="tsd-kind-icon">add<wbr>Cone</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#addcylinder" class="tsd-kind-icon">add<wbr>Cylinder</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#adddividedquad" class="tsd-kind-icon">add<wbr>Divided<wbr>Quad</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#addquad" class="tsd-kind-icon">add<wbr>Quad</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#addsphere" class="tsd-kind-icon">add<wbr>Sphere</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static tsd-is-not-exported"><a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#calcnextpointincircle" class="tsd-kind-icon">calc<wbr>Next<wbr>Point<wbr>InCircle</a></li>
@@ -109,7 +110,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L16">Core/Geometries/Base/GeometryBuilder.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L39">Core/Geometries/Base/GeometryBuilder.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -153,7 +154,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L110">Core/Geometries/Base/GeometryBuilder.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L133">Core/Geometries/Base/GeometryBuilder.ts:133</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -188,7 +189,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L34">Core/Geometries/Base/GeometryBuilder.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L57">Core/Geometries/Base/GeometryBuilder.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -226,6 +227,44 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="adddividedquad" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> add<wbr>Divided<wbr>Quad</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Divided<wbr>Quad<span class="tsd-signature-symbol">(</span>pos<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, normal<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, uv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, divX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, divY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L3">Core/Geometries/Base/GeometryBuilder.ts:3</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pos: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>normal: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>uv: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>divX: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>divY: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 					<a name="addquad" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> add<wbr>Quad</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
@@ -235,7 +274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L3">Core/Geometries/Base/GeometryBuilder.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L26">Core/Geometries/Base/GeometryBuilder.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -270,7 +309,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L59">Core/Geometries/Base/GeometryBuilder.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L82">Core/Geometries/Base/GeometryBuilder.ts:82</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -311,7 +350,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L146">Core/Geometries/Base/GeometryBuilder.ts:146</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L169">Core/Geometries/Base/GeometryBuilder.ts:169</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -346,7 +385,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L140">Core/Geometries/Base/GeometryBuilder.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Geometries/Base/GeometryBuilder.ts#L163">Core/Geometries/Base/GeometryBuilder.ts:163</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -390,6 +429,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#addcylinder" class="tsd-kind-icon">add<wbr>Cylinder</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#adddividedquad" class="tsd-kind-icon">add<wbr>Divided<wbr>Quad</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_core_geometries_base_geometrybuilder_.geometrybuilder.html#addquad" class="tsd-kind-icon">add<wbr>Quad</a>
