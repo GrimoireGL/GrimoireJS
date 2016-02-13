@@ -47,6 +47,7 @@ class VMDNode extends GomlTreeNodeBase {
         converter: "boolean",
         onchanged: (attr) => {
           this.enabled = attr.Value;
+          attr.done();
         },
       },
       "autoSpeed": {
@@ -54,6 +55,7 @@ class VMDNode extends GomlTreeNodeBase {
         converter: "float",
         onchanged: (attr) => {
           this.autoSpeed = attr.Value;
+          attr.done();
         },
       }
     });
@@ -81,22 +83,26 @@ class VMDNode extends GomlTreeNodeBase {
 
   private _onSrcAttrChanged(attr): void {
     if (!attr.Value || attr.Value === this.lastURL) {
+      attr.done();
       return;
     }
     if (this.vmdLoadingDeferred) {
       this.vmdLoadingDeferred.resolve(null);
+      attr.done();
     }
     this.vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
     VMDData.LoadFromUrl(attr.Value).then((data) => {
       this.lastURL = attr.Value;
       this.targetVMD = data;
       this.vmdLoadingDeferred.resolve(null);
+      attr.done();
     });
   }
 
   private _onFrameAttrChanged(attr): void {
     this.frame = Math.max(0, attr.Value);
     if (!this.attributes.getValue("enabled")) {
+      attr.done();
       return;
     }
     if (this.targetPMX.PMXModelReady && this.targetVMD) {
@@ -113,10 +119,13 @@ class VMDNode extends GomlTreeNodeBase {
         if (morph = this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {
           const morphCurrent = this.targetVMD.getMorphFrame(this.frame, morphName);
           if (morph) {
-           morph.Progress = morphCurrent.value;
+            morph.Progress = morphCurrent.value;
           }
         }
       }
+      attr.done();
+    } else {
+      attr.done();
     }
   }
 }
