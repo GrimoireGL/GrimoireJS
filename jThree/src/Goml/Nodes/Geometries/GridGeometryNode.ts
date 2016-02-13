@@ -29,10 +29,12 @@ class GridGeometryNode extends GeometryNodeBase<GridGeometry> {
 
   private _onHdivAttrChanged(attr): void {
     this.target.HolizontalDivide = attr.Value;
+    attr.done();
   }
 
   private _onVdivAttrChanged(attr): void {
     this.target.VerticalDivide = attr.Value;
+    attr.done();
   }
 }
 

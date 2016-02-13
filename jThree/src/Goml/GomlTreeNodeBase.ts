@@ -5,6 +5,8 @@ import NodeManager from "./NodeManager";
 import ContextComponents from "../ContextComponents";
 import BehaviorNode from "./Nodes/Behaviors/BehaviorNode";
 import NodeProps from "./NodeProps";
+import GomlAttribute from "./GomlAttribute";
+import Q from "q";
 
 /**
  * This is the most base class in all GomlNode

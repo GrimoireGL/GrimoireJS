@@ -37,6 +37,7 @@ class CameraNodeBase<T extends Camera> extends SceneObjectNodeBase<T> {
       throw Error(`${this.getTypeName()}: name attribute must be required.`);
     }
     this.nodeExport(name);
+    attr.done();
   }
 }
 

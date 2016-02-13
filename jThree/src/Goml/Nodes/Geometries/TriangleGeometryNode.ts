@@ -35,12 +35,15 @@ class GomlTreeTriNode extends GeometryNodeBase<TriangleGeometry> {
 
   private _onFirstAttrChanged(attr): void {
     this.target.First = attr.Value;
+    attr.done();
   }
   private _onSecondAttrChanged(attr): void {
     this.target.Second = attr.Value;
+    attr.done();
   }
   private _onThirdAttrChanged(attr): void {
     this.target.Third = attr.Value;
+    attr.done();
   }
 }
 

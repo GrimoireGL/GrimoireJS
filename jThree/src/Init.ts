@@ -59,7 +59,9 @@ class JThreeInit {
   * 1, to use for select elements like jQuery in GOML.
   * 2, to use for subscribing eventhandler to be called when j3 is loaded.
   */
-  public static j3(argu: string | Action0): J3Object {
+  public static j3(selector: string): J3Object;
+  public static j3(callbackfn: () => void): void;
+  public static j3(argu: any): any {
     if (typeof argu === "string") {
       return new J3Object(argu);
     } else if (typeof argu === "function") {

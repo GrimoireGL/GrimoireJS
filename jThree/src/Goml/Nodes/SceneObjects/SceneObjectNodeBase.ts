@@ -91,24 +91,28 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   private _onPositionAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
     if (this.sceneObject) {
       this.sceneObject.Transformer.Position = <Vector3>attr.Value;
+      attr.done();
     }
   }
 
   private _onScaleAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
     if (this.sceneObject) {
       this.sceneObject.Transformer.Scale = <Vector3>attr.Value;
+      attr.done();
     }
   }
 
   private _onRotationAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
     if (this.sceneObject) {
       this.sceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+      attr.done();
     }
   }
 
   private _onNameAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
     if (this.sceneObject) {
       this.sceneObject.name = attr.Value;
+      attr.done();
     }
   }
 
@@ -151,8 +155,8 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   protected set TargetSceneObject(obj: T) {
     this._updateSceneObjectChild(obj);
     this.sceneObject = obj;
-    this.emit("update-scene-object", obj);
     this.target = obj;
+    this.emit("update-scene-object", this.target);
   }
 
   /**

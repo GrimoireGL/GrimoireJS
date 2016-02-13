@@ -16,6 +16,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
       "frame": {
         value: undefined,
         converter: "string",
+        constant: true,
         // TODO pnly: frame onchange handler
       },
       "width": {
@@ -24,6 +25,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
         onchanged: (v) => {
           this.emit("resize");
           this.sizeChanged(v.Value, this.attributes.getValue("height"));
+          v.done();
         },
       },
       "height": {
@@ -32,17 +34,20 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
         onchanged: (v) => {
           this.emit("resize");
           this.sizeChanged(this.attributes.getValue("width"), v.Value);
+          v.done();
         },
       },
       "loader": {
         value: undefined,
         converter: "string",
+        constant: true,
       },
       "clearColor": {
         value: "#0000",
         converter: "color4",
         onchanged: (v) => {
           this.target.clearColor = v.Value;
+          v.done();
         }
       }
     });

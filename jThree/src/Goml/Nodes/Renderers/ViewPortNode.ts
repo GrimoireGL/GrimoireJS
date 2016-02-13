@@ -36,6 +36,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         onchanged: (attr) => {
           this.width = attr.Value;
           this.updateViewportArea();
+          attr.done();
         },
       },
       "height": {
@@ -44,6 +45,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         onchanged: (attr) => {
           this.height = attr.Value;
           this.updateViewportArea();
+          attr.done();
         },
       },
       "left": {
@@ -52,6 +54,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         onchanged: (attr) => {
           this.left = attr.Value;
           this.updateViewportArea();
+          attr.done();
         },
       },
       "top": {
@@ -60,6 +63,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         onchanged: (attr) => {
           this.top = attr.Value;
           this.updateViewportArea();
+          attr.done();
         },
       },
       "backgroundType": {
@@ -70,6 +74,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
             // this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain); TODO fix this
             this.skyBoxStageChain = null;
           }
+          attr.done();
         },
       },
       "skybox": {
@@ -87,6 +92,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         value: undefined,
         onchanged: (attr) => {
           this.target.name = attr.Value;
+          attr.done();
         }
       },
     });
@@ -103,10 +109,11 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
     this.parentCanvas = <CanvasNode>this.parent;
     const defaultRect = this.parentCanvas.target.region;
     this.target = RendererFactory.generateRenderer(this.parentCanvas.target, defaultRect, attr.Value);
+    attr.done();
   }
 
   private _onCamAttrChanged(attr: GomlAttribute): void {
-    this.resolveCamera(attr.Value);
+    this.resolveCamera(attr.Value, attr.done.bind(attr));
   }
 
   private _onSkyboxAttrChanged(attr): void {
@@ -124,6 +131,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
             this.target.renderPath.insertWithIndex(0, this.skyBoxStageChain);
           }
           this.skyBoxStageChain.variables["skybox"] = node.target;
+          attr.done();
         }
       });
     }
@@ -152,7 +160,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
     }
   }
 
-  private resolveCamera(cam) {
+  private resolveCamera(cam: string, done: () => void) {
     this.nodeImport("jthree.scene.camera", cam, (cameraNode: CameraNodeBase<Camera>) => {
       //
       // remove camera here
@@ -167,6 +175,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
           console.error("cant retrieve scene!");
         }
       }
+      done();
     });
   }
 }

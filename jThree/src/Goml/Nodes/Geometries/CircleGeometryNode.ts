@@ -24,6 +24,7 @@ class CircleGeometryNode extends GeometryNodeBase<CircleGeometry> {
 
   private _onDivideAttrChanged(attr: GomlAttribute): void {
     this.target.DiviceCount = attr.Value;
+    attr.done();
   }
 }
 

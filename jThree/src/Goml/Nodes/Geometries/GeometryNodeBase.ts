@@ -48,6 +48,7 @@ abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<
         this.nodeExport(this.name);
       }
     }
+    attr.done();
   }
 }
 export default GeometryNodeBase;

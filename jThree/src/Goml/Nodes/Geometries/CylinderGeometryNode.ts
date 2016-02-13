@@ -24,6 +24,7 @@ class CylinderGeometryNode extends GeometryNodeBase<CylinderGeometry> {
 
   private _onDivideAttrChanged(attr): void {
     this.target.DivideCount = attr.Value;
+    attr.done();
   }
 }
 

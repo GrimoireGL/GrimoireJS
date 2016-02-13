@@ -23,6 +23,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
         onchanged: (attr) => {
           if (this.target) {
             this.target.MinFilter = GLEnumParser.parseTextureMinFilter(attr.Value);
+            attr.done();
           }
         }
       },
@@ -32,6 +33,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
         onchanged: (attr) => {
           if (this.target) {
             this.target.MagFilter = GLEnumParser.parseTextureMagFilter(attr.Value);
+            attr.done();
           }
         }
       },
@@ -41,6 +43,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
         onchanged: (attr) => {
           if (this.target) {
             this.target.TWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
+            attr.done();
           }
         }
       },
@@ -50,9 +53,16 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
         onchanged: (attr) => {
           if (this.target) {
             this.target.SWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
+            attr.done();
           }
         }
       }
+    });
+    this.on("update-target", (obj: T) => {
+      this._onMinFilterAttrChanged.call(this, this.attributes.getAttribute("minFilter"));
+      this._onMagFilterAttrChanged.call(this, this.attributes.getAttribute("magFilter"));
+      this._onTWrapAttrChanged.call(this, this.attributes.getAttribute("twrap"));
+      this._onSWrapAttrChanged.call(this, this.attributes.getAttribute("swrap"));
     });
   }
 
@@ -62,6 +72,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
     const name = this.attributes.getValue("name");
     this.constructTexture(name, rm).then((texture) => {
       this.target = texture;
+      this.emit("update-target", this.target);
       this.nodeExport(name);
     });
   }
@@ -73,6 +84,34 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
    * @return {TextureBase}          [description]
    */
   protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<T>;
+
+  private _onMinFilterAttrChanged(attr): void {
+    if (this.target) {
+      this.target.MinFilter = GLEnumParser.parseTextureMinFilter(attr.Value);
+      attr.done();
+    }
+  }
+
+  private _onMagFilterAttrChanged(attr): void {
+    if (this.target) {
+      this.target.MagFilter = GLEnumParser.parseTextureMagFilter(attr.Value);
+      attr.done();
+    }
+  }
+
+  private _onTWrapAttrChanged(attr): void {
+    if (this.target) {
+      this.target.TWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
+      attr.done();
+    }
+  }
+
+  private _onSWrapAttrChanged(attr): void {
+    if (this.target) {
+      this.target.SWrap = GLEnumParser.parseTextureWrapMode(attr.Value);
+      attr.done();
+    }
+  }
 }
 
 export default TextureNodeBase;

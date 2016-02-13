@@ -6,6 +6,7 @@ import NodeManager from "./NodeManager";
 import JThreeContext from "../JThreeContext";
 import ResourceLoader from "../Core/ResourceLoader";
 import ContextComponent from "../ContextComponents";
+import Q from "q";
 
 /**
  * The class for loading goml.
@@ -28,13 +29,17 @@ class GomlLoader extends jThreeObject {
     const resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponent.ResourceLoader);
     this.gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered<void>();
     resourceLoader.promise.then(() => {
-      // console.log("load finished!!");
+      console.log("load finished!!");
     }, undefined,
       (v) => {
         // console.log(`loading resource...${v.completedResource / v.resourceCount * 100}%`);
       });
   }
 
+  /**
+   * NodeManager instance
+   * @type {NodeManager}
+   */
   private nodeManager: NodeManager;
 
   /**
@@ -121,12 +126,14 @@ class GomlLoader extends jThreeObject {
     }
     const parsedNode = GomlParser.parse(source, this.nodeManager.configurator);
     parsedNode.Mounted = true;
-    this.nodeManager.nodeRegister.checkUncalled();
     this.nodeManager.gomlRoot = parsedNode;
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
     this.nodeManager.ready = true;
-    this.nodeManager.loadedHandler.fire(this, source);
-    this.gomlLoadingDeferred.resolve(null);
+    this.nodeManager.attributePromiseRegistry.async(() => {
+      // onfullfilled
+      console.log("all attribute initialized");
+      this.gomlLoadingDeferred.resolve(null);
+    });
   }
 }
 

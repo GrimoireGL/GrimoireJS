@@ -74,16 +74,14 @@ class ResourceLoader implements IContextComponent {
       });
       this.resourceLoadingDeferred = null;
     } else {
-      this.resourceLoadingDeferred.notify(
-        {
-          hasNoError: this.erroredResourceCount > 0,
-          erroredResource: this.erroredResourceCount,
-          loadedResource: this.loadedResourceCount,
-          completedResource: this.completedResourceCount,
-          lastLoadMessage: this.currentLoadingMessage,
-          resourceCount: this.resourceCount
-        }
-        );
+      this.resourceLoadingDeferred.notify({
+        hasNoError: this.erroredResourceCount > 0,
+        erroredResource: this.erroredResourceCount,
+        loadedResource: this.loadedResourceCount,
+        completedResource: this.completedResourceCount,
+        lastLoadMessage: this.currentLoadingMessage,
+        resourceCount: this.resourceCount
+      });
     }
   }
 }
