@@ -8,7 +8,8 @@ class XNode extends SceneObjectNodeBase<XModel> {
     this.attributes.defineAttribute({
       "src": {
         converter: "string",
-        value: "",
+        value: undefined,
+        constant: true,
       }
     });
   }
