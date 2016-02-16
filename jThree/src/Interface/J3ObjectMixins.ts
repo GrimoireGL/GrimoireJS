@@ -5,6 +5,7 @@ import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import Utilities from "./Static/Utilities";
 import Find from "./Static/Find";
+import Filter from "./Static/Filter";
 
 function J3ObjectMixins() {
   const mixins = [
@@ -15,8 +16,9 @@ function J3ObjectMixins() {
   ];
 
   const staticMixins = [
-    Find,
     Utilities,
+    Find,
+    Filter,
   ];
 
   function applyMixins(derivedCtor: any, baseCtors: any[]) {

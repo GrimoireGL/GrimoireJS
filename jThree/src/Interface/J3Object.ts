@@ -67,6 +67,14 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
   };
 
   /**
+   * Static/Filter
+   */
+
+  public static filter: {
+    (filter: GomlTreeNodeBase[], selector: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[];
+  };
+
+  /**
    * Miscellaneous/GomlNodeMethods
    */
 
