@@ -16,23 +16,8 @@ class TextureNode extends TextureNodeBase<Texture> {
     this.attributes.defineAttribute({
       src: {
         converter: "string",
-<<<<<<< HEAD
-        src: "",
-        onchanged: (attr) => {
-          if (this.target) {
-            ImageLoader.loadImage(attr.Value).then(imgTag => {
-              this.target.ImageSource = imgTag;
-              attr.done();
-            });
-            attr.done();
-          } else {
-            attr.done();
-          }
-        }
-=======
         src: undefined,
         onchanged: this._onSrcAttrChanged.bind(this),
->>>>>>> origin/develop
       }
     });
     this.on("update-target", (obj: Texture) => {
