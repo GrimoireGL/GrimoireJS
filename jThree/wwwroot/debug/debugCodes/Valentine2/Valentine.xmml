@@ -10,7 +10,7 @@
         <![CDATA[
       attribute vec3 position;
 
-      @vertonly {
+      @vert {
         uniform mat4 _matPVM;
 
         void main(void)
@@ -19,7 +19,7 @@
         }
       }
 
-      @fragonly {
+      @frag {
         void main(void)
         {
           gl_FragColor = vec4(0,0,1,1);
@@ -37,7 +37,7 @@
       uniform mediump vec2 _resolution;
       varying vec4 vPosition;
 
-      @vertonly {
+      @vert {
         uniform mat4 _matPVM;
         @{default:5.0}
         uniform float edgeSize;
@@ -48,7 +48,7 @@
         }
       }
 
-      @fragonly {
+      @frag {
         @import "builtin.gbuffer-reader"
 
         @{name:"PRIMARY",register:0,type:"buffer"}
@@ -104,7 +104,7 @@
       attribute vec3 position;
       attribute vec3 normal;
 
-      @vertonly {
+      @vert {
         uniform mat4 _matPVM;
         @{default:5.0}
         uniform float edgeSize;
@@ -123,7 +123,7 @@
       }
 
 
-      @fragonly {
+      @frag {
         @{default:[1,0,0,1]}
         uniform vec4 edgeColor;
         void main(void)

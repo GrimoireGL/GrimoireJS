@@ -13,7 +13,7 @@
       varying vec3 vPosition;
       uniform mediump vec4 _Time;
 
-      @vertonly {
+      @vert {
         uniform mat4 _matPVM;
 
         void main(void)
@@ -23,7 +23,7 @@
         }
       }
 
-      @fragonly {
+      @frag {
         @{default:[1.0,0,0,1.0]}
         uniform vec4 color;
 

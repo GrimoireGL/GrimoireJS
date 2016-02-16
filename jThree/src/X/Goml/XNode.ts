@@ -9,7 +9,7 @@ class XNode extends SceneObjectNodeBase<XModel> {
       "src": {
         converter: "string",
         value: undefined,
-        constant: true,
+        constant: true
       }
     });
   }

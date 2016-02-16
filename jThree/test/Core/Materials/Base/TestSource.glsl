@@ -10,14 +10,14 @@ uniform mediump sampler2D precTexture;
 
 varying vec3 test;
 
-@vertonly{
+@vert{
   void main(void)
   {
     gl_Position = vec4(position,1);
   }
 }
 
-@fragonly{
+@frag{
   void main(void)
   {
     gl_FragColor = vec4(1,0,0,1);

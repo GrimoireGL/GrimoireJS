@@ -8,7 +8,7 @@ class MaterialNode extends MaterialNodeBase<Material> {
     super();
     this.attributes.defineAttribute({
       "type": {
-        value: "jthree.basic.phong",
+        value: "builtin.phong",
         converter: "string",
         onchanged: this._onTypeAttrChanged,
       }

@@ -2,71 +2,53 @@
 <material name="valentine" group="builtin.forward" order="300">
   <uniform-register>
     <register name="builtin.basic"/>
-    <register name="builtin.buffer"/>
   </uniform-register>
   <passes>
     <pass>
-      <cull enable="true" mode="FRONT"/>
       <glsl>
         <![CDATA[
-      attribute vec3 position;
-      attribute vec3 normal;
+          attribute vec3 position;
 
-      @vertonly {
-        uniform mat4 _matPVM;
+          @vert{
+            uniform mat4 _matPVM;
 
-        void main(void)
-        {
-          gl_Position =  _matPVM * vec4(position,1.0);
-        }
-      }
+            void main(void){
+              gl_Position = _matPVM * vec4(position,1.0);
+            }
+          }
 
-      @fragonly {
-        @import "builtin.gbuffer-reader"
-        
-        uniform vec4 edgeColor;
+          @frag{
+          uniform vec4 color;
+            void main(void){
+              gl_FragColor = color;
+            }
+          }
+        ]]>
+      </glsl>
+    </pass>
+    <pass>
+      <cull enabled="true" mode="FRONT"/>
+      <glsl>
+        <![CDATA[
+          attribute vec3 position;
 
-        uniform vec2 _resolution;
+          @vert{
+            uniform mat4 _matPVM;
 
-        @{type:"buffer",register:0,name:"GBUFFER"}
-        uniform sampler2D _normal;
+            void main(void){
+            vec3 pos = position;
+            pos*=1.1;
+              gl_Position = _matPVM * vec4(pos,1.0);
+            }
+          }
 
-        @{default:[1,0,-1,2,0,-2,1,0,-1]}
-        uniform float xKernel[9];
-
-        @{default:[1,2,1,0,0,0,-1,-2,-1]}
-        uniform float yKernel[9];
-
-        vec3 fetchNormal(vec2 scPos){
-          return getNormal(texture2D(_normal,scPos/_resolution));
-        }
-
-        void main(void)
-        {
-        vec3 xDiff = vec3(0);
-        vec3 yDiff = vec3(0);
-        vec2 coords[9];
-        coords[0] = vec2(-1,1);
-        coords[1] = vec2(0,1);
-        coords[2] = vec2(1,1);
-        coords[3] = vec2(-1,0);
-        coords[4] = vec2(0,0);
-        coords[5] = vec2(1,0);
-        coords[6] = vec2(-1,-1);
-        coords[7] = vec2(0,-1);
-        coords[8] = vec2(1,-1);
-        for(int i = 0; i < 9; i++){
-          xDiff += xKernel[i] * fetchNormal(gl_FragCoord.xy + coords[i]);
-          yDiff += yKernel[i] * fetchNormal(gl_FragCoord.xy + coords[i]);
-        }
-        vec2 diff = vec2(length(xDiff),length(yDiff));
-        if(length(diff) > 0.1){
-          gl_FragColor = edgeColor;
-          return;
-        }
-        }
-      }
-      ]]>
+          @frag{
+          uniform vec4 edgeColor;
+            void main(void){
+              gl_FragColor = edgeColor;
+            }
+          }
+        ]]>
       </glsl>
     </pass>
   </passes>

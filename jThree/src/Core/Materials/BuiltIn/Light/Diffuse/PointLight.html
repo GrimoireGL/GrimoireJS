@@ -10,7 +10,7 @@
           <![CDATA[
       attribute vec3 position;
       varying vec4 vLightProjectedPosition;
-      @vertonly{
+      @vert{
         uniform mat4 _matPVM;
         void main(void)
         {
@@ -18,7 +18,7 @@
         }
       }
 
-      @fragonly{
+      @frag{
         uniform vec3 lightColor;
         uniform float decay;
         uniform float dist;

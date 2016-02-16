@@ -1,8 +1,11 @@
 <goml>
+  <imports>
+    <import type="material" src="/debug/debugCodes/MouseOperation/THETA.xmml"/>
+  </imports>
   <resources>
-    <material name="default" type="jthree.basic.phong" diffuse="white"/>
-    <cube name="cube"/>
-    <grid name="grid"/>
+    <material name="default" type="theta" texture="theta"/>
+    <texture name="theta" src="/resource/texture/theta.jpg"/>
+    <sphere name="sphere"/>
   </resources>
   <canvases>
     <canvas clearColor="#11022A" frame=".canvasContainer">
@@ -12,10 +15,9 @@
   <scenes>
     <scene name="mainScene">
       <object id="camera-axis">
-        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
+        <camera id="maincam" aspect="1" far="200" fovy="1/2p" name="CAM1" near="0.1" position="(0,0,0)" rotation="x(-30d)"></camera>
       </object>
-      <mesh mat="default" geo="cube"/>
-      <mesh mat="default" geo="grid" scale="10"/>
+      <mesh geo="sphere" mat="default" scale="10"/>
       <dlight color="white" rotation="y(45d)"/>
     </scene>
   </scenes>
