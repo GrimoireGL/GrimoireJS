@@ -16,7 +16,7 @@
 
       varying vec4 vPosition;
 
-      @vertonly{
+      @vert{
       @import "jthree.pmx.vertex"
       uniform mat4 matL;
       @{register:2}
@@ -29,7 +29,7 @@
       }
       }
 
-      @fragonly{
+      @frag{
       @import "jthree.builtin.shadowfragment"
       }
       ]]>

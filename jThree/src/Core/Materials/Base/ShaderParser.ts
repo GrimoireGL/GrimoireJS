@@ -25,8 +25,8 @@ class ShaderParser {
       const uniforms = ShaderParser._parseVariables(codeString, "uniform");
       const attributes = ShaderParser._parseVariables(codeString, "attribute");
       const functions = ShaderParser._parseFunctions(codeString);
-      let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vertonly"), "fragonly");
-      let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "fragonly"), "vertonly");
+      let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vert"), "frag");
+      let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "frag"), "vert");
       fragment = ShaderParser._removeAttributeVariables(fragment);
       fragment = ShaderParser._removeVariableAnnotations(fragment);
       vertex = ShaderParser._removeVariableAnnotations(vertex);

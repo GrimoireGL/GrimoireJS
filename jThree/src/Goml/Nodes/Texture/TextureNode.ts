@@ -20,7 +20,10 @@ class TextureNode extends TextureNodeBase<Texture> {
           if (this.target) {
             ImageLoader.loadImage(attr.Value).then(imgTag => {
               this.target.ImageSource = imgTag;
+              attr.done();
             });
+            attr.done();
+          } else {
             attr.done();
           }
         }
@@ -28,7 +31,7 @@ class TextureNode extends TextureNodeBase<Texture> {
     });
   }
 
-  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise <Texture> {
+  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<Texture> {
     const deferred = Q.defer<TextureBase>();
     if (this.attributes.getValue("src")) {
       rm.loadTexture(this.attributes.getValue("src")).then((texture) => {

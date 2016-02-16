@@ -1,6 +1,6 @@
 <goml>
   <resources>
-    <material name="default" type="jthree.basic.phong" diffuse="white"/>
+    <material name="default" type="builtin.phong" diffuse="white"/>
     <cube name="cube"/>
     <grid name="grid"/>
   </resources>

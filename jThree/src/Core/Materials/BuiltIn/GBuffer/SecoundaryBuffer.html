@@ -16,7 +16,7 @@
       varying vec4 vPosition;
       varying vec2 vUV;
 
-      @vertonly{
+      @vert{
         uniform mat4 _matVM;
         uniform mat4 _matPVM;
 
@@ -30,7 +30,7 @@
       }
 
 
-      @fragonly{
+      @frag{
         @{register:0}
         uniform sampler2D texture;
 

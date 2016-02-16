@@ -2,7 +2,7 @@
   <resources>
     <quad name="quad"/>
     <texture name="testTexture" src="/resource/texture/miku.png"/>
-    <material type="jthree.basic.phong" name="matTest" brightness="10" specular="#AAA" diffuse="#AAA"/>
+    <material type="builtin.phong" name="matTest" brightness="10" specular="#AAA" diffuse="#AAA"/>
     <sphere name="sphere"/>
     <cone name="cone"/>
     <cube name="cube"/>

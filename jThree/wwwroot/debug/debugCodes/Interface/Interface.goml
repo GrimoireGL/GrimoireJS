@@ -5,7 +5,7 @@
   </imports>
   <resources>
     <material type="jthree.basic.solid" name="grid" brightness="10" specular="#CCC" solid="white" />
-    <material type="jthree.basic.phong" name="matTest" brightness="2" specular="#AAA" diffuse="#AAA" />
+    <material type="builtin.phong" name="matTest" brightness="2" specular="#AAA" diffuse="#AAA" />
     <material type="sampleMaterial" name="matSample" brightness="2" specular="#AAA" diffuse="#AAA" />
     <material type="sampleVertex" name="sample2"/>
     <grid hdiv="20" name="grid" vdiv="20" />
