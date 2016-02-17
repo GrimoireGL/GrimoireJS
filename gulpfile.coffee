@@ -1,7 +1,6 @@
 path = require 'path'
 gulp = require 'gulp'
-connect = require 'gulp-connect'
-typedoc = require 'gulp-typedoc'
+args = require('yargs').argv
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
 plumber = require 'gulp-plumber'
@@ -18,23 +17,19 @@ txtify = require 'txtify'
 jade = require 'gulp-jade'
 fs = require 'fs'
 _ = require 'lodash'
-globArray = require 'glob-array'
-del = require 'del'
-args = require('yargs').argv
 reactify = require 'coffee-reactify'
 notifier = require 'node-notifier'
 formatter = require 'pretty-hrtime'
 runSequence = require 'run-sequence'
 ts = require 'gulp-typescript'
 cached = require 'gulp-cached'
-tslint = require 'gulp-tslint'
-mkdir = require 'mkdirp'
 TaskManager = require './build/task-manager'
 CleanTask = require './build/task/clean'
 SampleTask = require './build/task/sample'
 TsLintTask = require './build/task/tslint'
 DocTask = require './build/task/doc'
-
+TsConfig = require './build/task/tsconfig'
+ServerTask = require './build/task/server'
 
 
 ###
@@ -84,6 +79,9 @@ config =
   branch : args.branch || 'unknown'
   typedocSrc : ['./src/**/*.ts']
   typedocDest : 'ci/docs'
+  tsconfigPath : './tsconfig.json'
+  gulpDir:__dirname
+  serverRoot : './wwwroot'
 
 ###
 configure
@@ -102,14 +100,10 @@ templeteRoot = './wwwroot'
 # # extention of jade
 # jadeExtention = '.jdgoml'
 
-# path to tsconfig.json
-tsconfigPath = './tsconfig.json'
-
 # path to tsd.json
 tsdPath = './tsd.json'
 
 # root path for simple server
-serverRoot = './wwwroot'
 
 # ts compilcation config
 tsEntries = ['./src/**/*.ts']
@@ -119,35 +113,7 @@ tsBase = './src'
 
 # watch src for liveReload
 watchForReload = ['./wwwroot/**/*.js', './wwwroot/**/*.html', './wwwroot/**/*.goml']
-#
-# # individual config for bundling
-# config =
-#   main:
-#     entries: './lib/jThree.js'
-#     name: 'j3.js'
-#     extensions: ['.js', '.json', '.glsl', '.html','.xmml']
-#     dest: ['./wwwroot', './bin/product']
-#     target: 'web'
-#     minify: false
-#     transform: [
-#       'shaderify'
-#       'txtify'
-#       {name: 'babelify', opt: {presets: 'es2015'}}
-#       {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
-#     ]
-#     detectGlobals: true
-#   debug:
-#     entries: './debug/debug.coffee'
-#     name: 'j3-debug.js'
-#     extensions: ['.json', '.coffee']
-#     dest:['./wwwroot/debug']
-#     target: 'web'
-#     minify: false
-#     transform: [
-#       'coffee-reactify'
-#       {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
-#     ]
-#     detectGlobals: true
+
 
 
 ###
@@ -167,7 +133,9 @@ TaskManager.register config,[
   CleanTask,
   SampleTask,
   TsLintTask,
-  DocTask
+  DocTask,
+  TsConfig,
+  ServerTask
 ]
 
 ###
@@ -181,7 +149,7 @@ reporter.error = (error) ->
   buildSuccess = false
   ts.reporter.defaultReporter().error error
 
-tsProject = ts.createProject tsconfigPath, {noExternalResolve: true}
+tsProject = ts.createProject config.tsconfigPath, {noExternalResolve: true}
 
 gulp.task 'build:main:ts', (done) ->
   c = config.main
@@ -341,28 +309,6 @@ gulp.task 'reload', ->
     .src watchForReload
     .pipe connect.reload()
 
-
-###
-server task
-###
-gulp.task 'server', ->
-  connect.server
-    root: serverRoot
-    livereload: true
-
-###
-document generation task
-###
-# gulp.task 'doc', (cb) ->
-#   gulp
-#     .src typedocSrc
-#     .pipe typedoc
-#       target: 'es6'
-#       out: path.join(typedocDest, branch)
-#       name: 'jThree'
-#       json: path.join(typedocDest, "#{branch}.json")
-
-
 ###
 test task
 ###
@@ -387,44 +333,3 @@ gulp.task 'mocha', ->
   gulp
     .src testTarget
     .pipe mocha()
-
-
-###
-update tsconfig files (if your editor does not adapt to 'filesGlob')
-###
-gulp.task 'update-tsconfig-files', ->
-  json = JSON.parse fs.readFileSync path.resolve(__dirname, tsconfigPath)
-  files = _(globArray.sync(json.filesGlob)).uniq(true)
-  json.files = files
-  fs.writeFileSync path.resolve(__dirname, tsconfigPath), JSON.stringify(json, null, 2)
-
-gulp.task 'tscfg', ['update-tsconfig-files']
-
-
-# ###
-# jade Task
-# ###
-# jadeCompile = (src, dest) ->
-#   gutil.log("Jade Compiling " + gutil.colors.magenta(src.toString()))
-#   gulp
-#     .src src
-#     .pipe jade
-#       pretty: true
-#     .pipe rename
-#       extname: ".goml"
-#     .pipe gulp.dest dest
-#
-# gulp.task 'jade', ->
-#   jadeCompile path.join(templeteRoot, '**', "*#{jadeExtention}"), templeteRoot
-#
-# gulp.task 'watch:jade', ['jade'], ->
-#   gulp.watch path.join(templeteRoot, '**', "*#{jadeExtention}"), (e) ->
-#     jadeCompile e.path, path.dirname(e.path)
-
-#
-# gulp.task 'tslint', ->
-#   ignoreEntries = [].concat refsEntries, ['./src/bundle-notdoc.ts']
-#   gulp.src [].concat tsEntries, ignoreEntries.map((v) -> "!#{v}")
-#     .pipe tslint
-#       configuration: './tslint.json'
-#     .pipe tslint.report 'verbose'
