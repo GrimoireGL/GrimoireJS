@@ -1,13 +1,13 @@
 path = require 'path'
 gulp = require 'gulp'
 args = require('yargs').argv
+sourcemaps = require 'gulp-sourcemaps'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
 plumber = require 'gulp-plumber'
 rename = require 'gulp-rename'
 watchify = require 'watchify'
 browserify = require 'browserify'
-sourcemaps = require 'gulp-sourcemaps'
 source = require 'vinyl-source-stream'
 buffer = require 'vinyl-buffer'
 uglify = require 'gulp-uglify'
@@ -20,7 +20,6 @@ _ = require 'lodash'
 reactify = require 'coffee-reactify'
 notifier = require 'node-notifier'
 formatter = require 'pretty-hrtime'
-runSequence = require 'run-sequence'
 ts = require 'gulp-typescript'
 cached = require 'gulp-cached'
 TaskManager = require './build/task-manager'
@@ -30,6 +29,8 @@ TsLintTask = require './build/task/tslint'
 DocTask = require './build/task/doc'
 TsConfig = require './build/task/tsconfig'
 ServerTask = require './build/task/server'
+BuildTask = require './build/task/build'
+ReloadTask = require './build/task/reload'
 
 
 ###
@@ -75,6 +76,8 @@ config =
   cleaner_files : ['./src/**/*.js']
   cleaner_files_silent : ['./lib/**/*']
   tsEntries:['./src/**/*.ts']
+  tsDest:'./lib'
+  tsBase:'./src'
   refsEntries:['./src/refs/**/*.ts']
   branch : args.branch || 'unknown'
   typedocSrc : ['./src/**/*.ts']
@@ -82,6 +85,11 @@ config =
   tsconfigPath : './tsconfig.json'
   gulpDir:__dirname
   serverRoot : './wwwroot'
+  watchForReload:['./wwwroot/**/*.js', './wwwroot/**/*.html', './wwwroot/**/*.goml']
+  watching:false
+  buildSuccess:true
+
+config.tsProject = ts.createProject config.tsconfigPath, {noExternalResolve: true}
 
 ###
 configure
@@ -109,10 +117,7 @@ tsdPath = './tsd.json'
 tsEntries = ['./src/**/*.ts']
 refsEntries = ['./src/refs/**/*.ts']
 tsDest = './lib'
-tsBase = './src'
 
-# watch src for liveReload
-watchForReload = ['./wwwroot/**/*.js', './wwwroot/**/*.html', './wwwroot/**/*.goml']
 
 
 
@@ -122,12 +127,6 @@ default task
 gulp.task 'default', ['build']
 
 
-###
-build task
-###
-# gulp.task 'build', ['build:main', 'build:debug']
-gulp.task 'build', ['build:main']
-
 ### TASK REGISTRATION###
 TaskManager.register config,[
   CleanTask,
@@ -135,67 +134,10 @@ TaskManager.register config,[
   TsLintTask,
   DocTask,
   TsConfig,
-  ServerTask
+  ServerTask,
+  BuildTask,
+  ReloadTask
 ]
-
-###
-main build task
-###
-
-buildSuccess = true
-
-reporter = ts.reporter.defaultReporter()
-reporter.error = (error) ->
-  buildSuccess = false
-  ts.reporter.defaultReporter().error error
-
-tsProject = ts.createProject config.tsconfigPath, {noExternalResolve: true}
-
-gulp.task 'build:main:ts', (done) ->
-  c = config.main
-  gulp
-    .src tsEntries
-    .pipe sourcemaps.init()
-    .pipe ts tsProject, undefined, reporter
-    .js
-    .pipe cached
-      title: "ts"
-    .pipe sourcemaps.write()
-    .pipe gulp.dest tsDest
-    .on 'end', ->
-      unless buildSuccess
-        gutil.log gutil.colors.black.bgRed " [COMPILATION FAILED] (main) #{c.name} "
-        process.exit 1 unless watching
-      done()
-  if watching
-    gulp.watch tsEntries, ['build:main:ts']
-
-gulp.task 'build:main:others', (done) ->
-  c = config.main
-  othersEntries = c
-    .extensions
-    .filter (v) -> v != '.js'
-    .map (v) -> "#{tsBase}/**/*#{v}"
-  gulp
-    .src othersEntries
-    .pipe cached
-      title:"others"
-    .pipe gulp.dest tsDest
-    .on 'end', ->
-      done()
-  if watching
-    gulp.watch othersEntries, ['build:main:others','build:main:ts']
-
-gulp.task 'build:main', ->
-  runSequence(['build:main:ts', 'build:main:others'], 'bundle:main');
-
-
-###
-debugger build task
-###
-
-gulp.task 'build:debug', ['bundle:debug']
-
 
 ###
 bundling task
@@ -215,8 +157,8 @@ debugger build task
 
 bundleSuccess = true
 
-Object.keys(config).forEach (suffix) ->
-  c = config[suffix]
+Object.keys(config.entries).forEach (suffix) ->
+  c = config.entries[suffix]
   gulp.task "bundle:#{suffix}", ->
     opt =
       entries: path.resolve(__dirname, c.entries)
@@ -249,21 +191,21 @@ Object.keys(config).forEach (suffix) ->
             taskTime = formatter process.hrtime time
             gutil.log(gutil.colors.black.bgGreen(" [BUNDLING SUCCESS] (#{suffix}) ") + gutil.colors.magenta(" #{taskTime}"))
           else
-            process.exit 1 unless watching
-          if buildSuccess && bundleSuccess
+            process.exit 1 unless config.watching
+          if config.buildSuccess && bundleSuccess
             notifier.notify
               message: "BUILD SUCCESS (#{suffix})"
               title: 'jThree'
-          buildSuccess = true
+          config.buildSuccess = true
           bundleSuccess = true
         .pipe source c.name
         .pipe buffer()
         .pipe sourcemaps.init
           loadMaps: true
-        .pipe gulpif(!watching, gulpif(c.minify, uglify()))
+        .pipe gulpif(!config.watching, gulpif(c.minify, uglify()))
         .pipe sourcemaps.write('./')
         .pipe gulp.dest(c.dest[0])
-    if watching
+    if config.watching
       b.on 'update', bundle
     bundle()
 
@@ -292,22 +234,9 @@ main watch task
 gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'server', 'watch:reload']
 
 gulp.task 'watch:reload', ->
-  gulp.watch watchForReload, ['reload']
+  gulp.watch config.watchForReload, ['reload']
 
-gulp.task 'watch:templete', ['watch:jade']
-
-gulp.task 'watch:debug'
-
-gulp.task 'watch', ['watch:main', 'watch:templete']
-
-
-###
-reload task
-###
-gulp.task 'reload', ->
-  gulp
-    .src watchForReload
-    .pipe connect.reload()
+gulp.task 'watch', ['watch:main']
 
 ###
 test task
