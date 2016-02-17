@@ -30,7 +30,7 @@
     "lint": "./node_modules/.bin/gulp --require coffee-script/register tslint"
   },
   "directories": {
-    "test": "jThree/test"
+    "test": "test"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",

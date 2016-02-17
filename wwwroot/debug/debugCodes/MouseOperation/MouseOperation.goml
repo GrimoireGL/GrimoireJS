@@ -8,8 +8,8 @@
     <sphere name="sphere"/>
   </resources>
   <canvases>
-    <canvas clearColor="#11022A" frame=".canvasContainer">
-      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+    <canvas clearColor="#11022A" frame=".canvasContainer" width="1920" height="1240">
+      <viewport cam="CAM1" id="main" width="1920" height="1240" name="MAIN"/>
     </canvas>
   </canvases>
   <scenes>

@@ -2,7 +2,6 @@ path = require 'path'
 gulp = require 'gulp'
 args = require('yargs').argv
 sourcemaps = require 'gulp-sourcemaps'
-mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
 plumber = require 'gulp-plumber'
 rename = require 'gulp-rename'
@@ -31,6 +30,8 @@ TsConfig = require './build/task/tsconfig'
 ServerTask = require './build/task/server'
 BuildTask = require './build/task/build'
 ReloadTask = require './build/task/reload'
+WatchTask = require './build/task/watch'
+TestTask = require './build/task/test'
 
 
 ###
@@ -88,6 +89,7 @@ config =
   watchForReload:['./wwwroot/**/*.js', './wwwroot/**/*.html', './wwwroot/**/*.goml']
   watching:false
   buildSuccess:true
+  testTarget:['./test/**/*.js']
 
 config.tsProject = ts.createProject config.tsconfigPath, {noExternalResolve: true}
 
@@ -99,26 +101,8 @@ env_production = false
 
 gutil.log "branch: #{config.branch}"
 
-# test target (Array)
-testTarget = ['./test/**/*.js']
-
-# templete convertion root (for entries of jade and haml)
-templeteRoot = './wwwroot'
-
-# # extention of jade
-# jadeExtention = '.jdgoml'
-
 # path to tsd.json
 tsdPath = './tsd.json'
-
-# root path for simple server
-
-# ts compilcation config
-tsEntries = ['./src/**/*.ts']
-refsEntries = ['./src/refs/**/*.ts']
-tsDest = './lib'
-
-
 
 
 ###
@@ -136,7 +120,9 @@ TaskManager.register config,[
   TsConfig,
   ServerTask,
   BuildTask,
-  ReloadTask
+  ReloadTask,
+  WatchTask,
+  TestTask
 ]
 
 ###
@@ -144,10 +130,10 @@ bundling task
 ###
 
 getBundler = (opt) ->
-  if watching
+  if config.watching
     opt = _.merge opt, watchify.args
   b = browserify opt
-  if watching
+  if config.watching
     b = watchify b, opt
   return b
 
@@ -176,7 +162,7 @@ Object.keys(config.entries).forEach (suffix) ->
         b = b.transform v.name, v.opt
     bundle = ->
       time = process.hrtime()
-      gutil.log "Bundling... (#{suffix}) #{if watching then '(watch mode)' else ''}"
+      gutil.log "Bundling... (#{suffix}) #{if config.watching then '(watch mode)' else ''}"
       b
         .bundle()
         .on 'error', (err) ->
@@ -218,47 +204,3 @@ copyFiles = (src, dest) ->
     gulp
       .src src
       .pipe gulp.dest(d)
-
-
-###
-watch-mode
-###
-watching = false
-gulp.task 'enable-watch-mode', -> watching = true
-
-
-###
-main watch task
-###
-# gulp.task 'watch:main', ['enable-watch-mode', 'build:debug', 'build:main', 'server', 'watch:reload']
-gulp.task 'watch:main', ['enable-watch-mode', 'build:main', 'server', 'watch:reload']
-
-gulp.task 'watch:reload', ->
-  gulp.watch config.watchForReload, ['reload']
-
-gulp.task 'watch', ['watch:main']
-
-###
-test task
-###
-gulp.task 'test', ['build:main'], ->
-  gulp.start ['mocha']
-
-
-###
-test watch task
-###
-gulp.task 'watch:test', ['enable-watch-mode', 'build:main', 'watch-mocha']
-
-gulp.task 'watch-mocha', ->
-  gulp.watch testTarget, ['mocha']
-
-
-###
-mocha task
-###
-gulp.task 'mocha', ->
-  require 'espower-babel/guess'
-  gulp
-    .src testTarget
-    .pipe mocha()
