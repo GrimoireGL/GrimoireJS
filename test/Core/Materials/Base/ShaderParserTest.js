@@ -1,7 +1,7 @@
 import assert from 'power-assert';
 import sinon from 'sinon';
 
-import ShaderSource from './TestSource.glsl'
+//import ShaderSource from './TestSource.glsl'
 import JThreeContext from '../../../../lib/JThreeContext'
 import ShaderParser from '../../../../lib/Core/Materials/Base/ShaderParser'
 import MaterialManager from '../../../../lib/Core/Materials/Base/MaterialManager'
