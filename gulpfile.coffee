@@ -29,6 +29,7 @@ ts = require 'gulp-typescript'
 cached = require 'gulp-cached'
 tslint = require 'gulp-tslint'
 mkdir = require 'mkdirp'
+testTransform = require './test-transform'
 
 ###
 TASK SUMMARY
@@ -344,6 +345,7 @@ gulp.task 'mocha', ->
   require 'espower-babel/guess'
   gulp
     .src testTarget
+    .pipe testTransform()
     .pipe mocha()
 
 

@@ -86,7 +86,7 @@
     "source-map-support": "^0.4.0",
     "superagent": "^1.7.2",
     "ternary-stream": "^2.0.0",
-    "through2": "^2.0.0",
+    "through2": "^2.0.1",
     "tsify": "^0.13.2",
     "tslint": "^3.3.0",
     "txtify": "jThreeJS/txtify#ab4d0fe28e3b1e94e349504688f6011143ad622c",

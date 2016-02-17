@@ -1,5 +1,4 @@
-const source =
-`attribute vec3 position;
+attribute vec3 position;
 
 uniform mat4 _matPVM;
 
@@ -23,6 +22,3 @@ varying vec3 test;
     gl_FragColor = vec4(1,0,0,1);
   }
 }
-`;
-
-export default source;
