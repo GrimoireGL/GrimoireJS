@@ -19,7 +19,7 @@
       varying vec2 vSphereUV;
       varying vec4 vBaseColor;
 
-      @vertonly{
+      @vert{
         @import "jthree.pmx.vertex"
         uniform mat4 _matV;
         uniform mat4 _matPV;
@@ -41,7 +41,7 @@
           vBaseColor = clamp(vBaseColor,0.,1.);
         }
       }
-      @fragonly{
+      @frag{
         @{type:"buffer",name:"DLIGHT",register:0}
         uniform sampler2D _dlBuffer;
         @{type:"buffer",name:"SLIGHT",register:1}
@@ -119,7 +119,7 @@
       attribute vec4 boneWeights;
       attribute vec4 boneIndicies;
       attribute float edgeScaling;
-      @vertonly{
+      @vert{
         @import "jthree.pmx.vertex"
         uniform mat4 _matPV;
         uniform vec2 _resolution;
@@ -140,7 +140,7 @@
           gl_Position = matPVM * vec4(position + coeff * normal,1);
         }
       }
-      @fragonly{
+      @frag{
 
         uniform vec4 edgeColor;
 

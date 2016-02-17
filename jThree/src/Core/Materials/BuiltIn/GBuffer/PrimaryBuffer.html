@@ -12,7 +12,7 @@
       varying vec3 vNormal;
       varying vec4 vPosition;
 
-      @vertonly{
+      @vert{
         uniform mat4 _matVM;
         uniform mat4 _matPVM;
 
@@ -23,7 +23,7 @@
         }
       }
 
-      @fragonly{
+      @frag{
         uniform float brightness;
         vec2 compressNormal()
         {

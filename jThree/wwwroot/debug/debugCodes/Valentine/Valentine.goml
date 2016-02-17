@@ -1,10 +1,9 @@
 <goml>
   <imports>
-    <import type="material" src="debugCodes/Valentine/Valentine.xmml"/>
+    <import type="material" src="/debug/debugCodes/Valentine/Valentine.xmml"/>
   </imports>
   <resources>
-    <cube name="cube"/>
-    <material type="valentine" name="phong" color="yellow" edgeSize="5"/>
+    <material type="valentine" name="phong" diffuse="yellow" color="green" edgeColor="blue" edgeSize="1" />
   </resources>
   <canvases>
     <canvas clearColor="#11022A" frame=".canvasContainer" width="1440" height="810">

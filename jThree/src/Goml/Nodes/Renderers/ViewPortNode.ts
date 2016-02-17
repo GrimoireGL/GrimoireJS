@@ -131,6 +131,9 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
             this.target.renderPath.insertWithIndex(0, this.skyBoxStageChain);
           }
           this.skyBoxStageChain.variables["skybox"] = node.target;
+          attr.done();
+        } else {
+          attr.done();
         }
       });
     } else {

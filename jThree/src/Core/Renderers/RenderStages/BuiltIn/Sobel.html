@@ -17,7 +17,7 @@
             attribute vec3 position;
             varying vec4 vPosition;
 
-            @vertonly{
+            @vert{
               uniform mat4 _matV;
 
               void main(void)
@@ -27,7 +27,7 @@
               }
             }
 
-            @fragonly{
+            @frag{
 
               uniform vec2 _resolution;
 

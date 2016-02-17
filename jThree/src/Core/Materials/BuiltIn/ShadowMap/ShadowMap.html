@@ -11,7 +11,7 @@
 
       varying vec4 vPosition;
 
-      @vertonly{
+      @vert{
       uniform mat4 matL;
       void main(void)
       {
@@ -19,7 +19,7 @@
       }
       }
 
-      @fragonly{
+      @frag{
       @import "jthree.builtin.shadowfragment"
       }
       ]]>

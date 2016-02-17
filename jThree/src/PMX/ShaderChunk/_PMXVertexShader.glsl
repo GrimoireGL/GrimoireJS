@@ -31,9 +31,3 @@ vec2 calcSphereUV(vec3 viewSpaceNormal)
 {
   return viewSpaceNormal.xy/2.+vec2(0.5,0.5);
 }
-
-
-void main(void)
-{
-  gl_FragColor = vec4(1,0,0,1);
-}

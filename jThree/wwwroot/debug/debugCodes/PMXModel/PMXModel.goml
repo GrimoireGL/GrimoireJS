@@ -1,8 +1,8 @@
 <goml>
   <resources>
-    <material type="jthree.basic.phong" diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
-    <material type="jthree.basic.phong" diffuse="red" specular="#CCC" specularpower="15" name="red"/>
-    <material type="jthree.basic.phong" diffuse="green" specular="#CCC" specularposer="15" name="green"/>
+    <material type="builtin.phong" diffuse="blue" specular="#CCC" specularpower="15" name="blue"/>
+    <material type="builtin.phong" diffuse="red" specular="#CCC" specularpower="15" name="red"/>
+    <material type="builtin.phong" diffuse="green" specular="#CCC" specularposer="15" name="green"/>
     <cube name="cube"/>
     <grid hdiv="20" name="grid" vdiv="20"/>
   </resources>

@@ -7,24 +7,48 @@
     <pass>
       <glsl>
         <![CDATA[
-      attribute vec3 position;
+          attribute vec3 position;
 
-      @vertonly {
-        uniform mat4 _matPVM;
+          @vert{
+            uniform mat4 _matPVM;
 
-        void main(void)
-        {
-          gl_Position =  _matPVM * vec4(position,1.0);
-        }
-      }
+            void main(void){
+              gl_Position = _matPVM * vec4(position,1.0);
+            }
+          }
 
-      @fragonly {
-        void main(void)
-        {
-          gl_FragColor = vec4(1,0,0,1);
-        }
-      }
-      ]]>
+          @frag{
+          uniform vec4 color;
+            void main(void){
+              gl_FragColor = color;
+            }
+          }
+        ]]>
+      </glsl>
+    </pass>
+    <pass>
+      <cull enabled="true" mode="FRONT"/>
+      <glsl>
+        <![CDATA[
+          attribute vec3 position;
+
+          @vert{
+            uniform mat4 _matPVM;
+
+            void main(void){
+            vec3 pos = position;
+            pos*=1.1;
+              gl_Position = _matPVM * vec4(pos,1.0);
+            }
+          }
+
+          @frag{
+          uniform vec4 edgeColor;
+            void main(void){
+              gl_FragColor = edgeColor;
+            }
+          }
+        ]]>
       </glsl>
     </pass>
   </passes>

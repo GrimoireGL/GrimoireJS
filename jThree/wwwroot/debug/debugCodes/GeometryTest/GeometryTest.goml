@@ -1,7 +1,7 @@
 <goml>
   <resources>
     <quad name="quad"/>
-    <material type="jthree.basic.phong" name="matTest" brightness="50.0" specular="#AAA" diffuse="#AAA"/>
+    <material type="builtin.phong" name="matTest" brightness="50.0" specular="#AAA" diffuse="#AAA"/>
     <cube name="cube"/>
   </resources>
   <canvases>
