@@ -17,7 +17,7 @@ class Build
 
   getTaskNames:(config)=>
     @config = config
-    ["build:main:ts","build:main:others","build:debug","build:main"]
+    ["build:main:ts","build:main:others","build:debug","build:main","build"]
 
   dependentTask:(name,config)=>
     switch name
@@ -29,6 +29,8 @@ class Build
         return ["bundle:debug"]
       when "build:main"
         return [];
+      when "build"
+        return ["build:main","build:debug"]
       else
         console.error("Unknown build flags");
 

@@ -27,7 +27,7 @@
     "test": "./node_modules/.bin/gulp --require coffee-script/register mocha",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
-    "lint": "./node_modules/.bin/gulp --require coffee-script/register tslint"
+    "lint": "./node_modules/.bin/gulp --require coffee-script/register lint:ts"
   },
   "directories": {
     "test": "test"
