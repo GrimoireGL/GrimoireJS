@@ -80,7 +80,7 @@ class PMX {
   private readTextBuf(): string {
     const length = this._readInt32();
     if (this.header.encoding === 0) {
-     return this._readUTF16LEString(length);
+      return this._readUTF16LEString(length);
     }
     return this._readUTF8String(length);
   }
@@ -262,7 +262,7 @@ class PMX {
     const count = this._readInt32();
     this.textures = new Array(count);
     for (let i = 0; i < count; i++) {
-      this.textures[i] = this.readTextBuf().replace("\\", "/");
+      this.textures[i] = this.readTextBuf().replace("\\", "/").replace("%5C;%5C;", "/");
       ImageLoader.loadImage(this._resourceDirectory + this.textures[i]);
     }
   }

@@ -10,7 +10,7 @@
           <![CDATA[
       attribute vec3 position;
       varying vec4 vLightProjectedPosition;
-      @vertonly{
+      @vert{
         uniform mat4 _matPVM;
 
         void main(void)
@@ -19,14 +19,14 @@
         }
       }
 
-      @fragonly{
+      @frag{
         uniform vec3 lightColor;
         uniform vec3 lightDirection;
         @{type:"buffer",register:0,name:"PRIMARY"}
         uniform sampler2D _gBuffer;
         uniform mat4 _matIP;
 
-        @import "jthree.builtin.light.bufferreader"
+        @import "builtin.gbuffer-reader"
 
         void main(void)
         {

@@ -1,4 +1,6 @@
 import IVariableDescription from "./IVariableDescription";
+import IFunctionDescription from "./IFunctionDescription";
+import IArgumentDescription from "./IArgumentDescription";
 import IProgramDescription from "./IProgramDescription";
 import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
@@ -22,8 +24,9 @@ class ShaderParser {
     return ShaderParser.parseImport(codeString, materialManager).then<IProgramDescription>(result => {
       const uniforms = ShaderParser._parseVariables(codeString, "uniform");
       const attributes = ShaderParser._parseVariables(codeString, "attribute");
-      let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vertonly"), "fragonly");
-      let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "fragonly"), "vertonly");
+      const functions = ShaderParser._parseFunctions(codeString);
+      let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vert"), "frag");
+      let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "frag"), "vert");
       fragment = ShaderParser._removeAttributeVariables(fragment);
       fragment = ShaderParser._removeVariableAnnotations(fragment);
       vertex = ShaderParser._removeVariableAnnotations(vertex);
@@ -39,7 +42,8 @@ class ShaderParser {
         vertex: vertex,
         uniforms: uniforms,
         fragmentPrecisions: fragPrecision,
-        vertexPrecisions: vertPrecision
+        vertexPrecisions: vertPrecision,
+        functions: functions
       };
     });
   }
@@ -91,6 +95,57 @@ class ShaderParser {
       source = source.replace(regexResult[0], `\n${importContent}\n`);
     }
     return source;
+  }
+
+  private static _parseFunctions(source: string): { [name: string]: IFunctionDescription } {
+    const regex = /([a-zA-Z]\w*)\s+([a-zA-Z]\w*)\s*\(([^\)]*?)\)\s*(?=\{)/g;
+    const result = <{ [name: string]: IFunctionDescription }>{};
+    let regexResult;
+    while ((regexResult = regex.exec(source))) {
+      let returnType = regexResult[1];
+      let functionName = regexResult[2];
+      let args = regexResult[3];
+      // console.log("returnType:" + returnType);
+      // console.log("funcName:" + functionName);
+      // console.log("args:" + args);
+
+
+      let argumentDescriptions: IArgumentDescription[] = [];
+
+      // parse arguments
+      if (args !== "void" && args !== "") {
+        let argsArray = args.split(",");
+        for (let i = 0; i < argsArray.length; i++) {
+          console.log("arg" + i + ":" + argsArray[i]);
+          let spl = argsArray[i].split(" ");
+          if (spl.length === 3) {
+            let argType = spl[0];
+            let argP = spl[1];
+            let argName = spl[2];
+            argumentDescriptions.push(<IArgumentDescription>{
+              variableName: argName,
+              variableType: argType,
+              variablePrecision: argP
+            });
+          } else {
+            let argType = spl[0];
+            let argName = spl[1];
+            argumentDescriptions.push(<IArgumentDescription>{
+              variableName: argName,
+              variableType: argType,
+            });
+          }
+        }
+      }
+
+      result[name] = <IFunctionDescription>{
+        functionName: functionName,
+        functionType: returnType,
+        functionPrecision: undefined,
+        functionArgments: argumentDescriptions
+      };
+    }
+    return result;
   }
 
   private static _parseVariableAttributes(attributes: string): { [key: string]: string } {

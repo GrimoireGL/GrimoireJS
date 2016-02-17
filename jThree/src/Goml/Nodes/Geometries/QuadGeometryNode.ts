@@ -11,7 +11,7 @@ class QuadGeometryNode extends GeometryNodeBase<QuadGeometry> {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): QuadGeometry {
+  protected constructGeometry(name: string): QuadGeometry {
     return new QuadGeometry(name);
   }
 }

@@ -153,7 +153,7 @@ class XFileData {
       const textureSection = this._sliceSection(materialSection, "TextureFilename", 0);
       let texturePath;
       if (textureSection) {
-        texturePath = /"([^"]+)"/.exec(textureSection)[1];
+        texturePath = /"([^"]+)"/.exec(textureSection)[1].replace(/\\/g, "/");
         texturePath = texturePath.replace(".tga", ".tga.png");
       }
       this.materials[materialIndex] = {

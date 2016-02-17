@@ -98,6 +98,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
       material.apply({
         scene: scene,
         renderStage: this,
+        renderer: this.Renderer,
         object: object,
         textureResource: texs,
         techniqueIndex: techniqueIndex,

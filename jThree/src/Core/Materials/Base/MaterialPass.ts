@@ -1,10 +1,9 @@
+import BasicRegisterer from "./Registerer/BasicRegisterer";
 import DefaultValuePreProcessor from "./DefaultValuePreProcessor";
 import IConfigureEventArgs from "../../IConfigureEventArgs";
 import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
 import IRenderStageRenderConfigure from "../../Renderers/RenderStages/IRenderStageRendererConfigure";
 import Material from "../Material";
-import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
-import IVariableDescription from "./IVariableDescription";
 import IProgramDescription from "./IProgramDescription";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
 import XMLRenderConfigUtility from "./XMLRenderConfigUtility";
@@ -14,7 +13,6 @@ import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
 import ResourceManager from "../../ResourceManager";
 import ShaderParser from "./ShaderParser";
-import {Action4} from "../../../Base/Delegates";
 import Q from "q";
 class MaterialPass extends JThreeObjectWithID {
 
@@ -48,19 +46,21 @@ class MaterialPass extends JThreeObjectWithID {
     this.materialName = materialName;
   }
 
-  public initialize(): Q.IPromise<void> {
+  public initialize(uniformRegisters: BasicRegisterer[]): Q.IPromise<void> {
     const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
     return ShaderParser.parseCombined(shaderCode).then((result) => {
       this.programDescription = result;
       DefaultValuePreProcessor.preprocess(this.programDescription.uniforms);
       this._constructProgram(this.materialName + this.passIndex);
+      return Q.all(uniformRegisters.map(m => m.preprocess(this, this.programDescription.uniforms)));
+    }).then(() => {
       this.ready = true;
     });
   }
 
-  public apply(matArg: IApplyMaterialArgument, uniformRegisters: Action4<WebGLRenderingContext, ProgramWrapper, IApplyMaterialArgument, { [key: string]: IVariableDescription }>[], material: Material): void {
+  public apply(matArg: IApplyMaterialArgument, uniformRegisters: BasicRegisterer[], material: Material): void {
     if (!this.ready) {
-      return;
+      throw new Error("initialization was not completed yet!");
     }
     const gl = matArg.renderStage.GL;
     const pWrapper = this.program.getForContext(matArg.renderStage.Renderer.Canvas);
@@ -72,7 +72,7 @@ class MaterialPass extends JThreeObjectWithID {
     matArg.object.Geometry.applyAttributeVariables(pWrapper, this.programDescription.attributes);
     // Apply uniform variables
     uniformRegisters.forEach((r) => {
-      r(gl, pWrapper, matArg, this.programDescription.uniforms);
+      r.register(gl, pWrapper, matArg, this.programDescription.uniforms);
     });
     material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.programDescription.uniforms);
   }

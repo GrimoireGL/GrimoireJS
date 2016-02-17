@@ -1,4 +1,5 @@
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
+import GomlAttribute from "../../GomlAttribute";
 
 class LoaderNode extends GomlTreeNodeBase {
   public loaderHTML: string;
@@ -16,8 +17,9 @@ class LoaderNode extends GomlTreeNodeBase {
     });
   }
 
-  private _onNameAttrChanged(): void {
+  private _onNameAttrChanged(attr: GomlAttribute): void {
     this.nodeExport(this.attributes.getValue("name"));
+    attr.done();
   }
 }
 

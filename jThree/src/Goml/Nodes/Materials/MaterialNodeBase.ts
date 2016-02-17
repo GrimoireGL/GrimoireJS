@@ -39,11 +39,12 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
    * Construct material. This method must be overridden.
    * @return {Material} [description]
    */
-  protected set Material(material: T) {
+  protected setMaterial(material: T, callbackfn: () => void): void {
     this.target = material;
     this.target.on("ready", () => {
       this._generateAttributeForPasses();
       this.nodeExport(this.name);
+      callbackfn();
     });
   }
 
@@ -58,12 +59,13 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
   private _onNameAttrChanged(attr: GomlAttribute): void {
     const name = attr.Value;
     if (typeof name !== "string") {
-      throw Error(`${this.getTypeName() }: name attribute must be required.`);
+      throw Error(`${this.getTypeName()}: name attribute must be required.`);
     }
     this.name = name;
     if (this.target && this.target.Initialized) {
       this.nodeExport(this.name);
     }
+    attr.done();
   }
 
   private _generateAttributeForPasses(): void {
@@ -124,11 +126,12 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
       return {
         converter: "string",
         value: "",
-        onchanged: (v) => {
-          if (v.Value) {
-            this.nodeImport("jthree.resource.Texture2D", v.Value, (node: TextureNode) => {
+        onchanged: (attr) => {
+          if (attr.Value) {
+            this.nodeImport("jthree.resource.Texture2D", attr.Value, (node: TextureNode) => {
               if (node) {
                 this.target.materialVariables[variableName] = node.target;
+                attr.done();
               } else {
                 // when texture node removed
               }
@@ -141,11 +144,12 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
       return {
         converter: "string",
         value: "",
-        onchanged: (v) => {
-          if (v.Value) {
-            this.nodeImport("jthree.resource.TextureCube", v.Value, (node: CubeTextureNode) => {
+        onchanged: (attr) => {
+          if (attr.Value) {
+            this.nodeImport("jthree.resource.TextureCube", attr.Value, (node: CubeTextureNode) => {
               if (node) {
                 this.target.materialVariables[variableName] = node.target;
+                attr.done();
               } else {
                 // when texture node removed
               }
@@ -161,8 +165,9 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
     return {
       converter: converter,
       value: initialValue,
-      onchanged: (v) => {
-        this.target.materialVariables[variableName] = v.Value;
+      onchanged: (attr) => {
+        this.target.materialVariables[variableName] = attr.Value;
+        attr.done();
       }
     };
   }

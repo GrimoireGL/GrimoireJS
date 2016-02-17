@@ -1,4 +1,4 @@
-// jthree.builtin.light.bufferreader
+// builtin.gbuffer-reader
 // Get depth from texture
 float getDepth(vec4 rawBuffer)
 {

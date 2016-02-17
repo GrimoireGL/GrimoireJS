@@ -18,7 +18,7 @@
             attribute vec3 position;
             varying vec4 vPosition;
 
-            @vertonly{
+            @vert{
               uniform mat4 _matV;
 
               void main(void)
@@ -28,8 +28,8 @@
               }
             }
 
-            @fragonly{
-              @import "jthree.builtin.light.bufferreader"
+            @frag{
+              @import "builtin.gbuffer-reader"
 
               @{register:0,type:"buffer",name:"PRIMARY"}
               uniform mediump sampler2D _buffer;

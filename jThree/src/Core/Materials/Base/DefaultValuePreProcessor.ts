@@ -1,3 +1,4 @@
+import MatrixArray from "../../../Math/MatrixArray";
 import VectorArray from "../../../Math/VectorArray";
 import Matrix from "../../../Math/Matrix";
 import Vector2 from "../../../Math/Vector2";
@@ -41,6 +42,9 @@ class DefaultValuePreProcessor {
             continue;
           case "vec4":
             DefaultValuePreProcessor._forVectorarray(variableName, 4, uniform);
+            continue;
+          case "mat4":
+            DefaultValuePreProcessor._forMat4Array(variableName, uniform);
             continue;
 
         }
@@ -144,6 +148,18 @@ class DefaultValuePreProcessor {
       }
     } else {
       annotations["default"] = Matrix.identity();
+    }
+  }
+
+  private static _forMat4Array(name: string, uniform: IVariableDescription): void {
+    const defaultValue = uniform.variableAnnotation["default"];
+    uniform.variableAnnotation["default"] = MatrixArray.getIdentityMatrixArray(uniform.arrayLength);
+    if (defaultValue) {
+      if (isArray(defaultValue)) {
+        for (let i = 0; i < defaultValue.length; i++) {
+          uniform.variableAnnotation["default"].rawElements[i] = defaultValue[i];
+        }
+      }
     }
   }
 }

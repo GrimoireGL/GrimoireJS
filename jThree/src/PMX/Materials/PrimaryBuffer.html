@@ -16,7 +16,7 @@
       varying vec3 vNormal;
       varying vec4 vPosition;
 
-      @vertonly{
+      @vert{
         @import "jthree.pmx.vertex"
         uniform mat4 _matV;
         uniform mat4 _matPV;
@@ -30,7 +30,7 @@
           vNormal= calcNormal(boneTransform,_matV,normal);
         }
       }
-      @fragonly{
+      @frag{
         uniform float brightness;
 
         vec2 compressNormal()

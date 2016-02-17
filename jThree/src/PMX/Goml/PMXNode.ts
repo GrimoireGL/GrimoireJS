@@ -25,6 +25,9 @@ class PMXNode extends SceneObjectNodeBase<PMXModel> {
       "src": {
         converter: "string",
         value: "",
+        onchanged: (attr) => {
+          attr.done();
+        }
       }
     });
   }
@@ -33,10 +36,10 @@ class PMXNode extends SceneObjectNodeBase<PMXModel> {
     super.onMount();
     PMXModel.LoadFromUrl(this.attributes.getValue("src"))
       .then((m) => {
-        this.pmxModel = m;
-        this.TargetSceneObject = this.pmxModel;
-        this.pmxLoadingDeferred.resolve(null);
-      });
+      this.pmxModel = m;
+      this.TargetSceneObject = this.pmxModel;
+      this.pmxLoadingDeferred.resolve(null);
+    });
   }
 }
 

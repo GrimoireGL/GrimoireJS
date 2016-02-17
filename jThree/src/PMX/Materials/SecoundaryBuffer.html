@@ -17,7 +17,7 @@
       varying vec2 vUV;
       varying vec2 vSphereUV;
 
-      @vertonly{
+      @vert{
         @import "jthree.pmx.vertex"
         uniform mat4 _matV;
         uniform mat4 _matPV;
@@ -33,7 +33,7 @@
           vSphereUV = calcSphereUV(vNormal);
         }
       }
-      @fragonly{
+      @frag{
         uniform vec4 diffuse;
         @{register:3}
         uniform sampler2D texture;

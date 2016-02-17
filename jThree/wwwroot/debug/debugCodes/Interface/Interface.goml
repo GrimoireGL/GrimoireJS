@@ -1,34 +1,34 @@
 <goml>
   <imports>
-    <import type="material" src="/debug/debugCodes/Interface/sampleMaterial.xmml" />
+    <import type="material" src="/debug/debugCodes/Interface/sampleMaterial.xmml"/>
+    <import type="material" src="/debug/debugCodes/Interface/sampleVertex.xmml"/>
   </imports>
   <resources>
-    <material type="jthree.basic.solid" solid="white" specular="#CCC" brightness="10" name="grid" />
-    <material type="jthree.basic.phong" name="matTest" brightness="2" specular="#AAA" diffuse="#AAA"/>
-    <material type="sampleMaterial" name="matSample" brightness="2" specular="#AAA" diffuse="#AAA"/>
-    <cube name="cube" />
-    <sphere name="sphere" />
+    <material type="jthree.basic.solid" name="grid" brightness="10" specular="#CCC" solid="white" />
+    <material type="builtin.phong" name="matTest" brightness="2" specular="#AAA" diffuse="#AAA" />
+    <material type="sampleMaterial" name="matSample" brightness="2" specular="#AAA" diffuse="#AAA" />
+    <material type="sampleVertex" name="sample2"/>
     <grid hdiv="20" name="grid" vdiv="20" />
     <cubetexture name="cubemap" srcs="/resource/cube/cube_PX.png /resource/cube/cube_NX.png /resource/cube/cube_PY.png /resource/cube/cube_NY.png /resource/cube/cube_PZ.png /resource/cube/cube_NZ.png" />
   </resources>
   <canvases>
     <canvas clearColor="purple" frame=".canvasContainer">
       <!-- <viewport cam="CAM1" id="main2" width="320" height="480" left="120" top="120" name="MAIN2" backgroundType="skybox" skybox="cubemap"/> -->
-      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" backgroundType="skybox" skybox="cubemap"/>
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN" backgroundType="skybox" skybox="cubemap" />
     </canvas>
   </canvases>
   <scenes>
     <scene name="mainScene">
       <object>
-        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
+        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)" />
       </object>
-      <mesh id="obj0" geo="cube" mat="matTest" position="3,3,-5" />
-      <mesh id="obj1" geo="cube" mat="matTest" position="-5,3,4" />
-      <mesh id="obj2" geo="cube" mat="matTest" rotation="z(90d)" position="3,3,0" />
-      <mesh id="obj3" geo="cube" mat="matTest" rotation="x(90d)" position="-3,3,0" />
-      <mesh id="obj4" geo="cube" mat="matTest" position="-3,3,-5" />
-      <mesh id="obj5" geo="cube" mat="matSample" position="5,3,4" />
-      <mesh id="obj6" geo="sphere" mat="matTest" position="0,3,3" />
+      <mesh id="obj6" geo="sphere" mat="sample2" position="0,3,3" scale="5"/>
+      <mesh id="obj0" geo="cube" mat="matTest" position="3,3,-5"/>
+      <mesh id="obj1" geo="cube" mat="matTest" position="-5,3,4"/>
+      <mesh id="obj2" geo="cube" mat="matTest" rotation="z(90d)" position="3,3,0"/>
+      <mesh id="obj3" geo="cube" mat="matTest" rotation="x(90d)" position="-3,3,0"/>
+      <mesh id="obj4" geo="cube" mat="matTest" position="-3,3,-5"/>
+      <mesh id="obj5" geo="cube" mat="matSample" position="5,3,4"/>
       <scenelight color="#111"/>
       <plight color="#00FFCC" intensity="3" decay="1.5" distance="4" position=" 3, 5, 0"/>
       <plight color="#2200FF" intensity="3" decay="1.5" distance="4" position="-3, 5, 0"/>
@@ -38,6 +38,7 @@
       <plight color="#00F0CC" intensity="3" decay="1.5" distance="4" position="-3, 5, 3"/>
       <plight color="#AA0000" intensity="3" decay="1.5" distance="4" position=" 3, 5,-3"/>
       <plight color="#00CC00" intensity="3" decay="1.5" distance="4" position="-3, 5,-3"/>
+      <mesh geo="grid" mat="grid" scale="10"/>
     </scene>
   </scenes>
 </goml>

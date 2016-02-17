@@ -67,7 +67,7 @@ class GomlParser {
       // Process is cut off here.
       // This will be deal by pass or create mock instance.
     }
-    const newNode = <GomlTreeNodeBase>new (<any>nodeType)();
+    const newNode = new nodeType();
     /**
      * HTMLElementのattributeとのバインディング
      *

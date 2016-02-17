@@ -8,7 +8,7 @@ class MaterialNode extends MaterialNodeBase<Material> {
     super();
     this.attributes.defineAttribute({
       "type": {
-        value: "jthree.basic.phong",
+        value: "builtin.phong",
         converter: "string",
         onchanged: this._onTypeAttrChanged,
       }
@@ -22,13 +22,18 @@ class MaterialNode extends MaterialNodeBase<Material> {
   private _onTypeAttrChanged(attr: GomlAttribute): void {
     let material = this.__getMaterialFromMatName(attr.Value);
     if (material) {
-      this.Material = material;
+      this.setMaterial(material, () => {
+        attr.done();
+      });
     } else {
       this.nodeImport("jthree.import", `material-${attr.Value}`, (node: GomlTreeNodeBase) => {
         if (node) {
           material = this.__getMaterialFromMatName(attr.Value);
-          this.Material = material;
+          this.setMaterial(material, () => {
+            attr.done();
+          });
         }
+        attr.done();
       });
     }
   }

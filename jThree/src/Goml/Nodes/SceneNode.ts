@@ -15,7 +15,8 @@ class SceneNode extends CoreRelatedNodeBase<Scene> {
       },
       "name": {
         value: "",
-        converter: "string"
+        converter: "string",
+        onchanged: this._onNameAttrChanged,
       }
     });
   }
@@ -30,8 +31,14 @@ class SceneNode extends CoreRelatedNodeBase<Scene> {
     JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.target);
   }
 
+  private _onNameAttrChanged(attr): void {
+    this.target.ID = attr.Value;
+    attr.done();
+  }
+
   private _onAmbientAttrChanged(attr): void {
     this.target.sceneAmbient = attr.Value;
+    attr.done();
   }
 }
 

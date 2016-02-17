@@ -9,7 +9,8 @@ j3(function() {
       accumX += e.diffX;
       accumY += e.diffY;
       console.log(accumX,accumY);
-      axis.Transformer.Rotation = j3m.Quaternion.Euler(-accumY/300,-accumX/300,0);
+      var diff = j3m.Quaternion.Multiply(j3m.Quaternion.AngleAxis(-e.diffY/100,axis.Transformer.right),j3m.Quaternion.AngleAxis(e.diffX/100,axis.Transformer.up));
+      axis.Transformer.Rotation = j3m.Quaternion.Multiply(axis.Transformer.Rotation,diff);
     }
   });
   viewport.canvasElement.addEventListener("mousewheel",function(e){

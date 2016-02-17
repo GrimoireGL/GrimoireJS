@@ -18,12 +18,13 @@ class CircleGeometryNode extends GeometryNodeBase<CircleGeometry> {
     super.onMount();
   }
 
-  protected ConstructGeometry(name: string): CircleGeometry {
+  protected constructGeometry(name: string): CircleGeometry {
     return new CircleGeometry(name);
   }
 
   private _onDivideAttrChanged(attr: GomlAttribute): void {
     this.target.DiviceCount = attr.Value;
+    attr.done();
   }
 }
 

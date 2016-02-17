@@ -18,7 +18,7 @@
             attribute vec3 position;
             varying vec3 vPosition;
 
-            @vertonly{
+            @vert{
               uniform mat4 _matV;
 
               void main(void)
@@ -28,7 +28,7 @@
               }
             }
 
-            @fragonly{
+            @frag{
               @{register:0}
               uniform samplerCube skybox;
 

@@ -1,3 +1,4 @@
+import MatrixArray from "../../../Math/MatrixArray";
 import VectorArray from "../../../Math/VectorArray";
 import TextureBase from "../Texture/TextureBase";
 import VectorBase from "../../../Math/VectorBase";
@@ -100,6 +101,14 @@ class ProgramWrapper extends ResourceWrapper {
     this.GL.uniform4fv(location, buffer);
   }
 
+  public uniformMatrixArray(variableName: string, matArray: MatrixArray): void {
+    const location = this._fetchUniformLocation(variableName);
+    if (!location) {
+      return;
+    }
+    this.GL.uniform4fv(location, matArray.rawElements);
+  }
+
   public uniformMatrix(variableName: string, mat: Matrix): void {
     const location = this._fetchUniformLocation(variableName);
     if (!location) { return; }
@@ -193,7 +202,7 @@ class ProgramWrapper extends ResourceWrapper {
     if (!this._attributeLocations[valName]) {
       this._attributeLocations[valName] = this.GL.getAttribLocation(this.TargetProgram, valName);
       if (this._attributeLocations[valName] >= 0) {
-       this.GL.enableVertexAttribArray(this._attributeLocations[valName]);
+        this.GL.enableVertexAttribArray(this._attributeLocations[valName]);
       }
     }
     return this._attributeLocations[valName];

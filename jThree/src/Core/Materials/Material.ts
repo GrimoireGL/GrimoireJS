@@ -63,7 +63,7 @@ class Material extends JThreeObjectEEWithID {
   * This main purpose is mainly intended to be used in RenderStage for filtering materials by puropse of material.
   */
   public get MaterialGroup(): string {
-    return "jthree.materials.forematerial";
+    return "builtin.forward";
   }
   /**
   * Should return how many times required to render this material.
@@ -141,6 +141,9 @@ class Material extends JThreeObjectEEWithID {
           case "int":
             pWrapper.uniformIntArray(valName, val);
             continue;
+          case "mat4":
+            pWrapper.uniformMatrixArray(valName, val);
+            continue;
           default:
             console.warn(`Unknown array variable type ${uniform.variableType}[]`);
         }
@@ -207,6 +210,9 @@ class Material extends JThreeObjectEEWithID {
         case "vec3":
         case "vec4":
           pWrapper.uniformVectorArray(uniform.variableName, uniform.variableAnnotation["default"]);
+          break;
+        case "mat4":
+          pWrapper.uniformMatrixArray(uniform.variableName, uniform.variableAnnotation["default"]);
           break;
       }
     }

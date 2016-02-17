@@ -39,12 +39,12 @@ class OrthoCameraNode extends CameraNodeBase<OrthoCamera> {
       }
     });
     this.on("update-scene-object", (obj: OrthoCamera) => {
-      this._onLeftAttrChanged.bind(this)(this.attributes.getAttribute("left"));
-      this._onRightAttrChanged.bind(this)(this.attributes.getAttribute("right"));
-      this._onBottomAttrChanged.bind(this)(this.attributes.getAttribute("bottom"));
-      this._onTopAttrChanged.bind(this)(this.attributes.getAttribute("top"));
-      this._onNearAttrChanged.bind(this)(this.attributes.getAttribute("near"));
-      this._onFarAttrChanged.bind(this)(this.attributes.getAttribute("far"));
+      this._onLeftAttrChanged.call(this, this.attributes.getAttribute("left"));
+      this._onRightAttrChanged.call(this, this.attributes.getAttribute("right"));
+      this._onBottomAttrChanged.call(this, this.attributes.getAttribute("bottom"));
+      this._onTopAttrChanged.call(this, this.attributes.getAttribute("top"));
+      this._onNearAttrChanged.call(this, this.attributes.getAttribute("near"));
+      this._onFarAttrChanged.call(this, this.attributes.getAttribute("far"));
     });
   }
 
@@ -55,36 +55,42 @@ class OrthoCameraNode extends CameraNodeBase<OrthoCamera> {
   private _onLeftAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<OrthoCamera>this.TargetSceneObject).Left = attr.Value;
+      attr.done();
     }
   }
 
   private _onRightAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<OrthoCamera>this.TargetSceneObject).Right = attr.Value;
+      attr.done();
     }
   }
 
   private _onBottomAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<OrthoCamera>this.TargetSceneObject).Bottom = attr.Value;
+      attr.done();
     }
   }
 
   private _onTopAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<OrthoCamera>this.TargetSceneObject).Top = attr.Value;
+      attr.done();
     }
   }
 
   private _onNearAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<OrthoCamera>this.TargetSceneObject).Near = attr.Value;
+      attr.done();
     }
   }
 
   private _onFarAttrChanged(attr: GomlAttribute): void {
     if (this.TargetSceneObject) {
       (<OrthoCamera>this.TargetSceneObject).Far = attr.Value;
+      attr.done();
     }
   }
 }

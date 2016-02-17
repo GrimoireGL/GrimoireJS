@@ -1,5 +1,4 @@
 import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
-import {Action1} from "../Base/Delegates";
 
 /**
  * The most base class for GOML Tree
@@ -54,10 +53,25 @@ class TreeNodeBase extends JThreeObjectEEWithID {
 
   /**
    * Execute delegate in each nodes recursively.
+   * @param {TreeNodeBase) => void} act [description]
    */
-  public callRecursive(act: Action1<TreeNodeBase>) {
+  public callRecursive(act: (node: TreeNodeBase) => void): void {
     act(this);
-    this.children.forEach((v) => v.callRecursive(act));
+    this.children.forEach((v) => {
+      v.callRecursive(act);
+    });
+  }
+
+  /**
+   * Execute delegate in each nodes recursively with return value
+   */
+  public callRecursiveWithReturn<T>(act: (node: TreeNodeBase) => T): T[] {
+    let ret: T[] = [];
+    ret.push(act(this));
+    this.children.forEach((v) => {
+      ret = ret.concat(v.callRecursiveWithReturn<T>(act));
+    });
+    return ret;
   }
 
   /**

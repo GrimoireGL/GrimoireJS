@@ -6,20 +6,13 @@ import ContextComponents from "../ContextComponents";
 import BehaviorRegistry from "./Behaviors/BehaviorRegistry";
 import GomlConfigurator from "./GomlConfigurator";
 import BehaviorRunner from "./Behaviors/BehaviorRunner";
-import JThreeEvent from "../Base/JThreeEvent";
 import JThreeContext from "../JThreeContext";
 import LoopManager from "../Core/LoopManager";
+import AttributePromiseRegistry from "./AttributePromiseRegistry";
 
 class NodeManager extends JThreeObject implements IContextComponent {
-  /**
-   * The event it will be called when GomlLoader complete loading
-   *
-   * @type {JThreeEvent<HTMLElement>}
-   */
-  public loadedHandler: JThreeEvent<HTMLElement> = new JThreeEvent<HTMLElement>();
-
-
   public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
+  public attributePromiseRegistry: AttributePromiseRegistry = new AttributePromiseRegistry();
   public gomlRoot: GomlTreeNodeBase;
   public htmlRoot: HTMLElement;
   public NodesById: {[nodeId: string] : GomlTreeNodeBase} =  {};
@@ -46,7 +39,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
     if (!this.ready) {
       return;
     }
-    // this.gomlRoot.callRecursive(v=> v.update());
+    this.gomlRoot.callRecursive((v: GomlTreeNodeBase) => v.update());
     this.behaviorRunner.executeForAllBehaviors("updateBehavior");
   }
 

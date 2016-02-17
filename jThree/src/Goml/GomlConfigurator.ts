@@ -24,7 +24,7 @@ class GomlConfigurator extends JThreeObject {
    *
    * Keyはタグ名の文字列(大文字)、ValueはGomlNodeのコンストラクタ
    */
-  private gomlNodes: { [key: string]: GomlTreeNodeBase } = {};
+  private gomlNodes: { [key: string]: new () => GomlTreeNodeBase } = {};
 
   public getConverter(name: string): AttributeConvrterBase {
     return this.converters[name];
@@ -40,7 +40,7 @@ class GomlConfigurator extends JThreeObject {
    * @param  {string} tagName タグ名
    * @return {GomlTreeNodeBase}
    */
-  public getGomlNode(tagName: string): GomlTreeNodeBase {
+  public getGomlNode(tagName: string): new () => GomlTreeNodeBase {
     return this.gomlNodes[tagName.toUpperCase()];
   }
 

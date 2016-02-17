@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.basic.phong" group="jthree.materials.forematerial" order="300">
+<material name="builtin.phong" group="builtin.forward" order="300">
 <uniform-register>
   <register name="builtin.basic"/>
   <register name="builtin.buffer"/>
@@ -12,7 +12,7 @@
       attribute vec3 normal;
       attribute vec2 uv;
 
-      @vertonly {
+      @vert {
       @import "jthree.builtin.vertex"
         uniform mat4 _matPVM;
         uniform mat4 _matVM;
@@ -27,7 +27,7 @@
          return (projectionSpacePos.xy/projectionSpacePos.w+vec2(1,1))/2.;
       }
 
-      @vertonly{
+      @vert{
         void main(void)
         {
           BasicVertexTransformOutput o =  basicVertexTransform(position,normal,uv,_matPVM,_matVM);
@@ -38,7 +38,7 @@
         }
       }
 
-      @fragonly{
+      @frag{
         @{register:1,type:"buffer",name:"DLIGHT"}
         uniform sampler2D _dlBuffer;
         @{register:2,type:"buffer",name:"SLIGHT"}
@@ -54,7 +54,7 @@
         void main(void)
         {
           gl_FragColor=vec4(0,0,0,1);
-          //gl_FragColor.rgb+=ambient.rgb;
+          gl_FragColor.rgb+=ambient.rgb;
           ////calculate light uv
           vec2 lightUV=calcLightUV(vPosition);
           vec3 d = _textureUsed == 1 ? texture2D(texture,vUv).rgb : diffuse.rgb;

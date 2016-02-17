@@ -64,6 +64,10 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
 
   public mouseDownTracking: boolean = false;
 
+  public mouseLocalX: number = 0;
+
+  public mouseLocalY: number = 0;
+
   private _mouseMoveHandler = ((e: MouseEvent): void => {
     this._checkMouseInside(e);
     this.emit("mouse-move", {
@@ -180,6 +184,9 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
     this.mouseX = e.clientX - rect.left;
     this.mouseY = e.clientY - rect.top;
     this.mouseOver = this.region.contains(this.mouseX, this.mouseY);
+    const localPos = this.region.toLocal(this.mouseX, this.mouseY);
+    this.mouseLocalX = localPos[0];
+    this.mouseLocalY = localPos[1];
     const debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
     debug.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
       mouseOver: this.mouseOver,
