@@ -1,26 +1,5 @@
-path = require 'path'
-gulp = require 'gulp'
 args = require('yargs').argv
-sourcemaps = require 'gulp-sourcemaps'
-gutil = require 'gulp-util'
-plumber = require 'gulp-plumber'
-rename = require 'gulp-rename'
-watchify = require 'watchify'
-browserify = require 'browserify'
-source = require 'vinyl-source-stream'
-buffer = require 'vinyl-buffer'
-uglify = require 'gulp-uglify'
-gulpif = require 'gulp-if'
-shaderify = require 'shaderify'
-txtify = require 'txtify'
-jade = require 'gulp-jade'
-fs = require 'fs'
-_ = require 'lodash'
-reactify = require 'coffee-reactify'
-notifier = require 'node-notifier'
-formatter = require 'pretty-hrtime'
 ts = require 'gulp-typescript'
-cached = require 'gulp-cached'
 TaskManager = require './build/task-manager'
 CleanTask = require './build/task/clean'
 SampleTask = require './build/task/sample'
@@ -33,6 +12,9 @@ ReloadTask = require './build/task/reload'
 WatchTask = require './build/task/watch'
 TestTask = require './build/task/test'
 BundleTask = require './build/task/bundle'
+
+env_production = false
+
 
 
 ###
@@ -92,26 +74,7 @@ config =
   buildSuccess:true
   testTarget:['./test/**/*.js']
   bundleSuccess:true
-
 config.tsProject = ts.createProject config.tsconfigPath, {noExternalResolve: true}
-
-###
-configure
-###
-# environment
-env_production = false
-
-gutil.log "branch: #{config.branch}"
-
-# path to tsd.json
-tsdPath = './tsd.json'
-
-
-###
-default task
-###
-gulp.task 'default', ['build']
-
 
 ### TASK REGISTRATION###
 TaskManager.register config,[

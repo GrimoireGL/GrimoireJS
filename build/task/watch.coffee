@@ -2,7 +2,7 @@ gulp = require 'gulp'
 class Watch
 
   getTaskNames:()=>
-    ['watch','watch:main','watch:reload','watch:test','watch:enable']
+    ['watch','watch:main','watch:reload','watch:test','watch:enable','default']
 
   dependentTask:(name,config)=>
     switch name
@@ -12,6 +12,8 @@ class Watch
         return ['watch:enable', 'build:main', 'server', 'watch:reload']
       when 'watch:test'
         return ['watch:enable', 'build:main', 'watch-mocha']
+      when 'default'
+        return ['watch:main']
       else
         return []
 
