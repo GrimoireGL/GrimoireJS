@@ -32,6 +32,8 @@ mkdir = require 'mkdirp'
 TaskManager = require './build/task-manager'
 CleanTask = require './build/task/clean'
 SampleTask = require './build/task/sample'
+TsLintTask = require './build/task/tslint'
+DocTask = require './build/task/doc'
 
 
 
@@ -77,6 +79,11 @@ config =
       detectGlobals: true
   cleaner_files : ['./src/**/*.js']
   cleaner_files_silent : ['./lib/**/*']
+  tsEntries:['./src/**/*.ts']
+  refsEntries:['./src/refs/**/*.ts']
+  branch : args.branch || 'unknown'
+  typedocSrc : ['./src/**/*.ts']
+  typedocDest : 'ci/docs'
 
 ###
 configure
@@ -84,12 +91,7 @@ configure
 # environment
 env_production = false
 
-branch = args.branch || 'unknown'
-gutil.log "branch: #{branch}"
-
-# typedoc sources (Array), dest
-typedocSrc = ['./src/**/*.ts']
-typedocDest = 'ci/docs'
+gutil.log "branch: #{config.branch}"
 
 # test target (Array)
 testTarget = ['./test/**/*.js']
@@ -97,8 +99,8 @@ testTarget = ['./test/**/*.js']
 # templete convertion root (for entries of jade and haml)
 templeteRoot = './wwwroot'
 
-# extention of jade
-jadeExtention = '.jdgoml'
+# # extention of jade
+# jadeExtention = '.jdgoml'
 
 # path to tsconfig.json
 tsconfigPath = './tsconfig.json'
@@ -163,7 +165,9 @@ gulp.task 'build', ['build:main']
 ### TASK REGISTRATION###
 TaskManager.register config,[
   CleanTask,
-  SampleTask
+  SampleTask,
+  TsLintTask,
+  DocTask
 ]
 
 ###
@@ -349,14 +353,14 @@ gulp.task 'server', ->
 ###
 document generation task
 ###
-gulp.task 'doc', (cb) ->
-  gulp
-    .src typedocSrc
-    .pipe typedoc
-      target: 'es6'
-      out: path.join(typedocDest, branch)
-      name: 'jThree'
-      json: path.join(typedocDest, "#{branch}.json")
+# gulp.task 'doc', (cb) ->
+#   gulp
+#     .src typedocSrc
+#     .pipe typedoc
+#       target: 'es6'
+#       out: path.join(typedocDest, branch)
+#       name: 'jThree'
+#       json: path.join(typedocDest, "#{branch}.json")
 
 
 ###
@@ -417,10 +421,10 @@ gulp.task 'tscfg', ['update-tsconfig-files']
 #   gulp.watch path.join(templeteRoot, '**', "*#{jadeExtention}"), (e) ->
 #     jadeCompile e.path, path.dirname(e.path)
 
-
-gulp.task 'tslint', ->
-  ignoreEntries = [].concat refsEntries, ['./src/bundle-notdoc.ts']
-  gulp.src [].concat tsEntries, ignoreEntries.map((v) -> "!#{v}")
-    .pipe tslint
-      configuration: './tslint.json'
-    .pipe tslint.report 'verbose'
+#
+# gulp.task 'tslint', ->
+#   ignoreEntries = [].concat refsEntries, ['./src/bundle-notdoc.ts']
+#   gulp.src [].concat tsEntries, ignoreEntries.map((v) -> "!#{v}")
+#     .pipe tslint
+#       configuration: './tslint.json'
+#     .pipe tslint.report 'verbose'

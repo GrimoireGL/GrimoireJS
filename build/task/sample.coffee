@@ -3,7 +3,7 @@ mkdir = require 'mkdirp'
 fs = require 'fs'
 class SampleGenerator
 
-  getTaskNames:()=>
+  getTaskNames:(config)=>
     'sample'
 
   task:(name,config)=>

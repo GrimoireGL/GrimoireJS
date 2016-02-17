@@ -2,7 +2,7 @@ path = require 'path'
 del = require 'del'
 class Clean
 
-  getTaskNames:()=>
+  getTaskNames:(config)=>
     "clean"
 
   task:(name,config)=>

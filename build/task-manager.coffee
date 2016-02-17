@@ -10,7 +10,7 @@ class TaskManager
       taskContainerArray.push new containerConstructor()
     taskContainerArray.forEach (taskContainer)=>
       # Fetch names of the task
-      taskNames = taskContainer.getTaskNames()
+      taskNames = taskContainer.getTaskNames(config)
       if !Array.isArray taskNames
         taskNames = [taskNames]
       taskNames.forEach (taskName)=>
