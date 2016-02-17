@@ -32,6 +32,7 @@ BuildTask = require './build/task/build'
 ReloadTask = require './build/task/reload'
 WatchTask = require './build/task/watch'
 TestTask = require './build/task/test'
+BundleTask = require './build/task/bundle'
 
 
 ###
@@ -90,6 +91,7 @@ config =
   watching:false
   buildSuccess:true
   testTarget:['./test/**/*.js']
+  bundleSuccess:true
 
 config.tsProject = ts.createProject config.tsconfigPath, {noExternalResolve: true}
 
@@ -122,85 +124,6 @@ TaskManager.register config,[
   BuildTask,
   ReloadTask,
   WatchTask,
-  TestTask
+  TestTask,
+  BundleTask
 ]
-
-###
-bundling task
-###
-
-getBundler = (opt) ->
-  if config.watching
-    opt = _.merge opt, watchify.args
-  b = browserify opt
-  if config.watching
-    b = watchify b, opt
-  return b
-
-###
-debugger build task
-###
-
-bundleSuccess = true
-
-Object.keys(config.entries).forEach (suffix) ->
-  c = config.entries[suffix]
-  gulp.task "bundle:#{suffix}", ->
-    opt =
-      entries: path.resolve(__dirname, c.entries)
-      cache: {}
-      packageCache: {}
-      extensions: c.extensions
-      debug: true
-      detectGlobals: c.detectGlobals
-      bundleExternal: c.target == 'web'
-    b = getBundler opt
-    c.transform.forEach (v) ->
-      if _.isString v
-        b = b.transform v
-      else if _.isPlainObject v
-        b = b.transform v.name, v.opt
-    bundle = ->
-      time = process.hrtime()
-      gutil.log "Bundling... (#{suffix}) #{if config.watching then '(watch mode)' else ''}"
-      b
-        .bundle()
-        .on 'error', (err) ->
-          bundleSuccess = false
-          gutil.log gutil.colors.black.bgRed " [BUNDLING FAILED] (#{suffix}) #{c.name} "
-          gutil.log err.message
-          @emit 'end'
-        .on 'end', ->
-          copyFiles(path.join(c.dest[0], c.name), c.dest[1..])
-          copyFiles(path.join(c.dest[0], c.name + '.map'), c.dest[1..])
-          if bundleSuccess
-            taskTime = formatter process.hrtime time
-            gutil.log(gutil.colors.black.bgGreen(" [BUNDLING SUCCESS] (#{suffix}) ") + gutil.colors.magenta(" #{taskTime}"))
-          else
-            process.exit 1 unless config.watching
-          if config.buildSuccess && bundleSuccess
-            notifier.notify
-              message: "BUILD SUCCESS (#{suffix})"
-              title: 'jThree'
-          config.buildSuccess = true
-          bundleSuccess = true
-        .pipe source c.name
-        .pipe buffer()
-        .pipe sourcemaps.init
-          loadMaps: true
-        .pipe gulpif(!config.watching, gulpif(c.minify, uglify()))
-        .pipe sourcemaps.write('./')
-        .pipe gulp.dest(c.dest[0])
-    if config.watching
-      b.on 'update', bundle
-    bundle()
-
-
-###
-copy files
-###
-copyFiles = (src, dest) ->
-  for d in dest
-    gulp
-      .src src
-      .pipe gulp.dest(d)

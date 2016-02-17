@@ -68,7 +68,7 @@ class Build
           if config.watching
             gulp.watch othersEntries, ['build:main:others','build:main:ts']
         when "build:main"
-            return runSequence(['build:main:ts', 'build:main:others'], 'bundle:main');
+            return runSequence(['build:main:ts', 'build:main:others'], 'bundle:main',done);
 
 
 module.exports = Build
