@@ -92,6 +92,12 @@
       "js": [
         "OfficialSite/OfficialSite.js"
       ]
+    },
+    "TASK": {
+      "goml": "TASK/TASK.goml",
+      "js": [
+        "TASK/TASK.js"
+      ]
     }
   }
 }

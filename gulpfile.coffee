@@ -29,6 +29,11 @@ ts = require 'gulp-typescript'
 cached = require 'gulp-cached'
 tslint = require 'gulp-tslint'
 mkdir = require 'mkdirp'
+TaskManager = require './build/task-manager'
+CleanTask = require './build/task/clean'
+SampleTask = require './build/task/sample'
+
+
 
 ###
 TASK SUMMARY
@@ -42,6 +47,36 @@ TASK SUMMARY
 * tscfg     update tscofig.json by filesGlob in itself
 ###
 
+config =
+  entries:
+    main:
+      entries: './lib/jThree.js'
+      name: 'j3.js'
+      extensions: ['.js', '.json', '.glsl', '.html','.xmml']
+      dest: ['./wwwroot', './bin/product']
+      target: 'web'
+      minify: false
+      transform: [
+        'shaderify'
+        'txtify'
+        {name: 'babelify', opt: {presets: 'es2015'}}
+        {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
+      ]
+      detectGlobals: true
+    debug:
+      entries: './debug/debug.coffee'
+      name: 'j3-debug.js'
+      extensions: ['.json', '.coffee']
+      dest:['./wwwroot/debug']
+      target: 'web'
+      minify: false
+      transform: [
+        'coffee-reactify'
+        {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
+      ]
+      detectGlobals: true
+  cleaner_files : ['./src/**/*.js']
+  cleaner_files_silent : ['./lib/**/*']
 
 ###
 configure
@@ -82,39 +117,36 @@ tsBase = './src'
 
 # watch src for liveReload
 watchForReload = ['./wwwroot/**/*.js', './wwwroot/**/*.html', './wwwroot/**/*.goml']
+#
+# # individual config for bundling
+# config =
+#   main:
+#     entries: './lib/jThree.js'
+#     name: 'j3.js'
+#     extensions: ['.js', '.json', '.glsl', '.html','.xmml']
+#     dest: ['./wwwroot', './bin/product']
+#     target: 'web'
+#     minify: false
+#     transform: [
+#       'shaderify'
+#       'txtify'
+#       {name: 'babelify', opt: {presets: 'es2015'}}
+#       {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
+#     ]
+#     detectGlobals: true
+#   debug:
+#     entries: './debug/debug.coffee'
+#     name: 'j3-debug.js'
+#     extensions: ['.json', '.coffee']
+#     dest:['./wwwroot/debug']
+#     target: 'web'
+#     minify: false
+#     transform: [
+#       'coffee-reactify'
+#       {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
+#     ]
+#     detectGlobals: true
 
-# individual config for bundling
-config =
-  main:
-    entries: './lib/jThree.js'
-    name: 'j3.js'
-    extensions: ['.js', '.json', '.glsl', '.html','.xmml']
-    dest: ['./wwwroot', './bin/product']
-    target: 'web'
-    minify: false
-    transform: [
-      'shaderify'
-      'txtify'
-      {name: 'babelify', opt: {presets: 'es2015'}}
-      {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
-    ]
-    detectGlobals: true
-  debug:
-    entries: './debug/debug.coffee'
-    name: 'j3-debug.js'
-    extensions: ['.json', '.coffee']
-    dest:['./wwwroot/debug']
-    target: 'web'
-    minify: false
-    transform: [
-      'coffee-reactify'
-      {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
-    ]
-    detectGlobals: true
-
-# files for clean task
-cleaner_files = ['./src/**/*.js']
-cleaner_files_silent = ['./lib/**/*']
 
 ###
 default task
@@ -127,6 +159,12 @@ build task
 ###
 # gulp.task 'build', ['build:main', 'build:debug']
 gulp.task 'build', ['build:main']
+
+### TASK REGISTRATION###
+TaskManager.register config,[
+  CleanTask,
+  SampleTask
+]
 
 ###
 main build task
@@ -359,47 +397,26 @@ gulp.task 'update-tsconfig-files', ->
 gulp.task 'tscfg', ['update-tsconfig-files']
 
 
-###
-jade Task
-###
-jadeCompile = (src, dest) ->
-  gutil.log("Jade Compiling " + gutil.colors.magenta(src.toString()))
-  gulp
-    .src src
-    .pipe jade
-      pretty: true
-    .pipe rename
-      extname: ".goml"
-    .pipe gulp.dest dest
+# ###
+# jade Task
+# ###
+# jadeCompile = (src, dest) ->
+#   gutil.log("Jade Compiling " + gutil.colors.magenta(src.toString()))
+#   gulp
+#     .src src
+#     .pipe jade
+#       pretty: true
+#     .pipe rename
+#       extname: ".goml"
+#     .pipe gulp.dest dest
+#
+# gulp.task 'jade', ->
+#   jadeCompile path.join(templeteRoot, '**', "*#{jadeExtention}"), templeteRoot
+#
+# gulp.task 'watch:jade', ['jade'], ->
+#   gulp.watch path.join(templeteRoot, '**', "*#{jadeExtention}"), (e) ->
+#     jadeCompile e.path, path.dirname(e.path)
 
-gulp.task 'jade', ->
-  jadeCompile path.join(templeteRoot, '**', "*#{jadeExtention}"), templeteRoot
-
-gulp.task 'watch:jade', ['jade'], ->
-  gulp.watch path.join(templeteRoot, '**', "*#{jadeExtention}"), (e) ->
-    jadeCompile e.path, path.dirname(e.path)
-
-
-###
-clean directories task
-###
-
-gulp.task 'clean', ->
-  del_entries = []
-  # Object.keys(config).forEach (k) ->
-  #   c = config[k]
-  #   c.dest.forEach (d) ->
-  #     del_entries.push path.resolve(__dirname, d, c.name)
-  #     del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
-  c = config['main']
-  c.dest.forEach (d) ->
-    del_entries.push path.resolve(__dirname, d, c.name)
-    del_entries.push path.resolve(__dirname, d, "#{c.name}.map")
-  del_entries = del_entries.concat cleaner_files
-  del_entries_silent = cleaner_files_silent
-  del(del_entries).then (paths) ->
-    paths.forEach (p) -> gutil.log "deleted: \"#{p}\""
-  del(del_entries_silent)
 
 gulp.task 'tslint', ->
   ignoreEntries = [].concat refsEntries, ['./src/bundle-notdoc.ts']
@@ -407,24 +424,3 @@ gulp.task 'tslint', ->
     .pipe tslint
       configuration: './tslint.json'
     .pipe tslint.report 'verbose'
-
-gulp.task 'sample', ->
-  sampleName = args.name
-  debugDir = "./wwwroot/debug/";
-  dirName =  "#{debugDir}debugCodes/#{sampleName}"
-  gomlPath = "#{dirName}/#{sampleName}.goml"
-  jsPath = "#{dirName}/#{sampleName}.js"
-  mkdir dirName, (err) ->
-    if err
-      console.error err
-      return
-    fs.createReadStream "#{debugDir}Template.goml"
-      .pipe fs.createWriteStream gomlPath
-    fs.createReadStream "#{debugDir}Template.js"
-      .pipe fs.createWriteStream jsPath
-    fs.readFile "#{debugDir}debug.json", 'utf-8', (err, data) ->
-      jsonData = JSON.parse data
-      jsonData.codes[sampleName] =
-        goml: "#{sampleName}/#{sampleName}.goml"
-        js: ["#{sampleName}/#{sampleName}.js"]
-      fs.writeFile "#{debugDir}debug.json", JSON.stringify(jsonData, null, 2)
