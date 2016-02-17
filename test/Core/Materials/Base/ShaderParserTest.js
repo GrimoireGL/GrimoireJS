@@ -1,17 +1,20 @@
 import assert from 'power-assert';
 import sinon from 'sinon';
-
-//import ShaderSource from './TestSource.glsl'
+import ShaderSource from './TestSource.glsl'
 import JThreeContext from '../../../../lib/JThreeContext'
 import ShaderParser from '../../../../lib/Core/Materials/Base/ShaderParser'
 import MaterialManager from '../../../../lib/Core/Materials/Base/MaterialManager'
-
+import XMLDom from 'xmldom'
 function removeAllSpace(str) {
   return str.replace(/\s/g, "");
 }
 
 function coreTestInitialize(){
   global.window = global;
+  global.location = {
+    pathname:"http://localhost:8080/index.html",
+  }
+  global.DOMParser = XMLDom.DOMParser;
   global.j3 = {};
   JThreeContext.init();
 }
@@ -76,10 +79,13 @@ const idealParsedUniforms = {
 };
 
 describe('ShaderParser transforming and parsing', () => {
+  // console.log(document)
+  // global.document = document
   coreTestInitialize();
-  //JThreeContext.registerContextComponent(new MaterialManager());
+  JThreeContext.registerContextComponent(new MaterialManager());
   //const parsedResult = ShaderParser.parseCombined(ShaderSource);
-  // it('Transforming vertex shader',()=>{
-  //   assertTransformed(parsedResult.vertex,idealParsedVertex);
-  // });
+  it('Transforming vertex shader',()=>{
+    //console.log(document)
+    //assertTransformed(parsedResult.vertex,idealParsedVertex);
+  });
 });

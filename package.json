@@ -64,6 +64,7 @@
     "gulp-util": "^3.0.7",
     "js-cookie": "^2.1.0",
     "js-yaml": "^3.5.2",
+    "jsdom": "^8.0.3",
     "json-loader": "^0.5.4",
     "json5": "^0.4.0",
     "lodash": "^4.1.0",
@@ -96,6 +97,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
+    "xmldom": "^0.1.22",
     "yargs": "^3.32.0"
   },
   "keywords": [],
