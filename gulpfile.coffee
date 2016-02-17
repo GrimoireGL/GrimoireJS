@@ -54,14 +54,14 @@ branch = args.branch || 'unknown'
 gutil.log "branch: #{branch}"
 
 # typedoc sources (Array), dest
-typedocSrc = ['./jThree/src/**/*.ts']
+typedocSrc = ['./src/**/*.ts']
 typedocDest = 'ci/docs'
 
 # test target (Array)
-testTarget = ['./jThree/test/**/*.js']
+testTarget = ['./test/**/*.js']
 
 # templete convertion root (for entries of jade and haml)
-templeteRoot = 'jThree/wwwroot'
+templeteRoot = './wwwroot'
 
 # extention of jade
 jadeExtention = '.jdgoml'
@@ -73,24 +73,24 @@ tsconfigPath = './tsconfig.json'
 tsdPath = './tsd.json'
 
 # root path for simple server
-serverRoot = './jThree/wwwroot'
+serverRoot = './wwwroot'
 
 # ts compilcation config
-tsEntries = ['./jThree/src/**/*.ts']
-refsEntries = ['./jThree/src/refs/**/*.ts']
-tsDest = './jThree/lib'
-tsBase = './jThree/src'
+tsEntries = ['./src/**/*.ts']
+refsEntries = ['./src/refs/**/*.ts']
+tsDest = './lib'
+tsBase = './src'
 
 # watch src for liveReload
-watchForReload = ['./jThree/wwwroot/**/*.js', './jThree/wwwroot/**/*.html', './jThree/wwwroot/**/*.goml']
+watchForReload = ['./wwwroot/**/*.js', './wwwroot/**/*.html', './wwwroot/**/*.goml']
 
 # individual config for bundling
 config =
   main:
-    entries: './jThree/lib/jThree.js'
+    entries: './lib/jThree.js'
     name: 'j3.js'
     extensions: ['.js', '.json', '.glsl', '.html','.xmml']
-    dest: ['./jThree/wwwroot', './jThree/bin/product']
+    dest: ['./wwwroot', './bin/product']
     target: 'web'
     minify: false
     transform: [
@@ -101,10 +101,10 @@ config =
     ]
     detectGlobals: true
   debug:
-    entries: './jThree/debug/debug.coffee'
+    entries: './debug/debug.coffee'
     name: 'j3-debug.js'
     extensions: ['.json', '.coffee']
-    dest:['./jThree/wwwroot/debug']
+    dest:['./wwwroot/debug']
     target: 'web'
     minify: false
     transform: [
@@ -114,8 +114,8 @@ config =
     detectGlobals: true
 
 # files for clean task
-cleaner_files = ['./jThree/src/**/*.js']
-cleaner_files_silent = ['./jThree/lib/**/*']
+cleaner_files = ['./src/**/*.js']
+cleaner_files_silent = ['./lib/**/*']
 
 ###
 default task
@@ -404,7 +404,7 @@ gulp.task 'clean', ->
   del(del_entries_silent)
 
 gulp.task 'tslint', ->
-  ignoreEntries = [].concat refsEntries, ['./jThree/src/bundle-notdoc.ts']
+  ignoreEntries = [].concat refsEntries, ['./src/bundle-notdoc.ts']
   gulp.src [].concat tsEntries, ignoreEntries.map((v) -> "!#{v}")
     .pipe tslint
       configuration: './tslint.json'
@@ -412,7 +412,7 @@ gulp.task 'tslint', ->
 
 gulp.task 'sample', ->
   sampleName = args.name
-  debugDir = "./jThree/wwwroot/debug/";
+  debugDir = "./wwwroot/debug/";
   dirName =  "#{debugDir}debugCodes/#{sampleName}"
   gomlPath = "#{dirName}/#{sampleName}.goml"
   jsPath = "#{dirName}/#{sampleName}.js"

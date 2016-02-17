@@ -123,11 +123,11 @@ sftp-config.json
 ci/
 
 ##Build Outputs##
-jThree/bin/
-jThree/lib/
-jThree/src/**/*.js.map
-jThree/src/**/*.js
-jThree/wwwroot/j3.js
-jThree/wwwroot/j3.js.map
-jThree/wwwroot/debug/j3-debug.js
-jThree/wwwroot/debug/j3-debug.js.map
+bin/
+lib/
+src/**/*.js.map
+src/**/*.js
+wwwroot/j3.js
+wwwroot/j3.js.map
+wwwroot/debug/j3-debug.js
+wwwroot/debug/j3-debug.js.map
