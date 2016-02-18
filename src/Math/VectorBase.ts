@@ -86,6 +86,9 @@ class VectorBase {
     const result = new Array(splitted.length);
     for (let i = 0; i < splitted.length; i++) {
       result[i] = parseFloat(splitted[i]);
+      if (isNaN(result[i])) {
+        return undefined;
+      }
     }
     return result;
   }

@@ -90,7 +90,8 @@ class Vector3 extends VectorBase {
   public static parse(str: string): Vector3 {
     const parseResult = VectorBase.__parse(str);
     const elements = parseResult.elements;
-    if (elements.length !== 1 && elements.length !== 3) {
+
+    if (!elements || (elements.length !== 1 && elements.length !== 3)) {
       return undefined;
     }
     let result;
