@@ -128,7 +128,7 @@ class Vector4 extends VectorBase {
   public static parse(str: string): Vector4 {
     const parseResult = VectorBase.__parse(str);
     const elements = parseResult.elements;
-    if (elements.length !== 1 && elements.length !== 4) {
+    if (!elements || (elements.length !== 1 && elements.length !== 4)) {
       return undefined;
     }
     let result;
