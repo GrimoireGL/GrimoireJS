@@ -1,3 +1,5 @@
+import RBO from "../../../Resources/RBO/RBO";
+import TextureBase from "../../../Resources/Texture/TextureBase";
 import RSMLRenderConfigUtility from "./RSMLRenderConfigUtility";
 import IFBOBindingConfig from "./IFBOBindingConfig";
 import RSMLRenderStage from "./RSMLRenderStage";
@@ -82,7 +84,7 @@ class BasicTechnique extends JThreeObjectWithID {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.__fbo = rm.createFBO("jthree.technique." + this.ID);
     const fboWrapper = this.__fbo.getForContext(this._renderStage.Renderer.Canvas);
-    this._attachRBOConfigure(fboWrapper);
+    this._attachRBOConfigure(fboWrapper, texs);
     this._attachTextureConfigure(fboWrapper, texs);
   }
 
@@ -103,29 +105,53 @@ class BasicTechnique extends JThreeObjectWithID {
   private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo) {
     // TODO support for multiple rendering buffer
     const colorConfigure = this._fboBindingInfo[0];
-    fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, texs[colorConfigure.name]);
+    fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, texs[colorConfigure.name] as TextureBase);
   }
 
-  private _attachRBOConfigure(fboWrapper: FBOWrapper) {
+  private _attachRBOConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo) {
     if (!this._fboBindingInfo.rbo) {// When there was no rbo tag in fbo tag.
-      // fboWrapper.attachRBO(FrameBufferAttachmentType.DepthStencilAttachment, null);//Unbind render buffer
+      // fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, null); // Unbind render buffer
     } else {
       const rboConfigure = this._fboBindingInfo.rbo;
-      let targetBuffer;
+      let targetBuffer: TextureBase | RBO;
+      let isRBO = true;
       if (rboConfigure.name === "default") {
         targetBuffer = this._renderStage.DefaultRBO;
+      } else {
+        if (!texs[rboConfigure.name]) {
+          throw new Error("Specified render buffer was not found");
+        } else {
+          targetBuffer = texs[rboConfigure.name];
+          isRBO = false;
+        }
       }
-      switch (rboConfigure.type) {
-        case "stencil":
-          fboWrapper.attachRBO(WebGLRenderingContext.STENCIL_ATTACHMENT, targetBuffer);
-          break;
-        case "depthstencil":
-          fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_STENCIL_ATTACHMENT, targetBuffer);
-          break;
-        default:
-        case "depth":
-          fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, targetBuffer);
-          break;
+      if (isRBO) {
+        switch (rboConfigure.type) {
+          case "stencil":
+            fboWrapper.attachRBO(WebGLRenderingContext.STENCIL_ATTACHMENT, targetBuffer as RBO);
+            break;
+          case "depthstencil":
+            fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_STENCIL_ATTACHMENT, targetBuffer as RBO);
+            break;
+          default:
+          case "depth":
+            fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, targetBuffer as RBO);
+            break;
+        }
+      } else {
+        switch (rboConfigure.type) {
+          case "stencil":
+            fboWrapper.attachTexture(WebGLRenderingContext.STENCIL_ATTACHMENT, targetBuffer as TextureBase);
+            break;
+          case "depthstencil":
+            fboWrapper.attachTexture(WebGLRenderingContext.DEPTH_STENCIL_ATTACHMENT, targetBuffer as TextureBase);
+            break;
+          default:
+          case "depth":
+            debugger;
+            fboWrapper.attachTexture(WebGLRenderingContext.DEPTH_ATTACHMENT, targetBuffer as TextureBase);
+            break;
+        }
       }
     }
   }
@@ -156,12 +182,6 @@ class BasicTechnique extends JThreeObjectWithID {
   private _onPrimaryBufferFail(): void {
     this._applyViewport(true);
     this._gl.bindFramebuffer(this._gl.FRAMEBUFFER, null);
-    // if (primaryBuffer.needClear) {  // this code might cause bug when multiple viewports were used
-    //   this._gl.colorMask(true, true, true, true);
-    //   const col = primaryBuffer.clearColor;
-    //   this._gl.clearColor(col.X, col.Y, col.Z, col.W);
-    //   this._gl.clear(this._gl.COLOR_BUFFER_BIT);
-    // }
     if (this._fboBindingInfo.rbo && this._fboBindingInfo.rbo.needClear) {
       this._gl.depthMask(true);
       this._gl.clearDepth(this._fboBindingInfo.rbo.clearDepth);

@@ -9,7 +9,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         name: "depth",
         generater: "rendererfit",
         internalFormat: "DEPTH",
-        element: "UINT"
+        element: "USHORT"
       },
       {
         name: "gbuffer.primary",
@@ -55,6 +55,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       {
         buffers:
         {
+          DEPTH: "depth",
           OUT: "hitarea"
         },
         stage: "jthree.hitarea"
