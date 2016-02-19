@@ -73,8 +73,8 @@ class RendererFit extends GeneraterBase {
       case "USHORT":
         elementFormat = WebGLRenderingContext.UNSIGNED_SHORT;
         break;
-      // case "UINT24_8": // TODO Depth texture
-      //   elementFormat = WebGLRenderingContext.UNSIGNED;
+      // case "UINT24_8":
+      //   elementFormat = WebGLRenderingContext.UINT;
       // break;
       default:
         console.error("the given parameter was invalid : element format " + texInfo["element"]);

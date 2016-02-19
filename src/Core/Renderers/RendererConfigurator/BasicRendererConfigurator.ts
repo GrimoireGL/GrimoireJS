@@ -6,6 +6,12 @@ class BasicRendererConfigurator extends ConfiguratorBase {
   public get TextureBuffers(): GeneraterInfo[] {
     return [
       {
+        name: "depth",
+        generater: "rendererfit",
+        internalFormat: "DEPTH",
+        element: "UINT"
+      },
+      {
         name: "gbuffer.primary",
         generater: "rendererfit",
         internalFormat: "RGBA",
