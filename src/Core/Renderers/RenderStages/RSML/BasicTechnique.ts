@@ -110,7 +110,7 @@ class BasicTechnique extends JThreeObjectWithID {
 
   private _attachRBOConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo) {
     if (!this._fboBindingInfo.rbo) {// When there was no rbo tag in fbo tag.
-      // fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, null); // Unbind render buffer
+       fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, null); // Unbind render buffer
     } else {
       const rboConfigure = this._fboBindingInfo.rbo;
       let targetBuffer: TextureBase | RBO;
@@ -148,7 +148,6 @@ class BasicTechnique extends JThreeObjectWithID {
             break;
           default:
           case "depth":
-            debugger;
             fboWrapper.attachTexture(WebGLRenderingContext.DEPTH_ATTACHMENT, targetBuffer as TextureBase);
             break;
         }

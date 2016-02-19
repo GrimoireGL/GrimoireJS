@@ -9,43 +9,43 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         name: "depth",
         generater: "rendererfit",
         elementLayout: "DEPTH",
-        element: "USHORT"
+        elementFormat: "USHORT"
       },
       {
         name: "gbuffer.primary",
         generater: "rendererfit",
         elementLayout: "RGBA",
-        element: "FLOAT"
+        elementFormat: "FLOAT"
       },
       {
         name: "light.diffuse",
         generater: "rendererfit",
         elementLayout: "RGB",
-        element: "UBYTE"
+        elementFormat: "UBYTE"
       },
       {
         name: "light.specular",
         generater: "rendererfit",
         elementLayout: "RGB",
-        element: "UBYTE"
+        elementFormat: "UBYTE"
       },
       {
         name: "hitarea",
         generater: "rendererfit",
         elementLayout: "RGBA",
-        element: "UBYTE"
+        elementFormat: "UBYTE"
       },
       {
         name: "main",
         generater: "rendererfit",
         elementLayout: "RGBA",
-        element: "UBYTE"
+        elementFormat: "UBYTE"
       },
       {
         name: "output",
         generater: "rendererfit",
         elementLayout: "RGBA",
-        element: "UBYTE"
+        elementFormat: "UBYTE"
       }
     ];
   }

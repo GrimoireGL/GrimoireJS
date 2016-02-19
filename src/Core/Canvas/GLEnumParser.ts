@@ -117,5 +117,49 @@ class GLEnumParser {
         return WebGLRenderingContext.LINEAR;
     }
   }
+
+  public static parseTextureElementLayout(val: string): number {
+    switch (val.toUpperCase()) {
+      case "ALPHA":
+        return WebGLRenderingContext.ALPHA;
+      case "RGB":
+        return WebGLRenderingContext.RGB;
+      case "DEPTH":
+        return WebGLRenderingContext.DEPTH_COMPONENT;
+      case "LUMINANCE":
+        return WebGLRenderingContext.LUMINANCE;
+      case "LUMINANCE_ALPHA":
+        return WebGLRenderingContext.LUMINANCE_ALPHA;
+      case "DEPTH_STENCIL":
+        return WebGLRenderingContext.DEPTH_STENCIL;
+      case "RGBA":
+        return WebGLRenderingContext.RGBA;
+      default:
+        console.error("the given parameter was invalid : texture format " + val);
+    }
+  }
+
+  public static parseTextureElementFormat(val: string): number {
+    switch (val.toUpperCase()) {
+      case "UBYTE":
+        return WebGLRenderingContext.UNSIGNED_BYTE;
+      case "FLOAT":
+        return WebGLRenderingContext.FLOAT;
+      case "USHORT565":
+        return WebGLRenderingContext.UNSIGNED_SHORT_5_6_5;
+      case "USHORT4444":
+        return WebGLRenderingContext.UNSIGNED_SHORT_4_4_4_4;
+      case "USHORT5551":
+        return WebGLRenderingContext.UNSIGNED_SHORT_5_5_5_1;
+      case "UINT":
+        return WebGLRenderingContext.UNSIGNED_INT;
+      case "USHORT":
+        return WebGLRenderingContext.UNSIGNED_SHORT;
+      // case "UINT24_8":
+      //   return WebGLRenderingContext.UINT;
+      default:
+        console.error("the given parameter was invalid : element format " + val);
+    }
+  }
 }
 export default GLEnumParser;
