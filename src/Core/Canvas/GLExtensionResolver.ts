@@ -10,6 +10,7 @@ class GLExtensionResolver extends JThreeObject {
     GLExtensionList.ElementIndexUint,
     GLExtensionList.TextureFloat,
     GLExtensionList.VertexArrayObject,
+    GLExtensionList.DepthTexture,
     "WEBGL_color_buffer_float"
    ];
 

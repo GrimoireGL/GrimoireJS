@@ -93,11 +93,13 @@ class PMXMaterial extends Material {
     } else {
       this.toon = this.loadSharedTexture(materialData.targetToonIndex);
     }
-    this.setLoaded();
     this.__innerMaterial.on("configure", (v: IConfigureEventArgs) => {
       if (v.passIndex === 0) {
         v.configure.cullOrientation = this.cullEnabled ? "BACK" : "NONE";
       }
+    });
+    this.__innerMaterial.on("ready", () => {
+      this.setLoaded();
     });
   }
 

@@ -6,6 +6,8 @@ class GLExtensionList {
   public static VertexArrayObject: string = "OES_vertex_array_object";
 
   public static TextureFilterAnisotropic: string = "EXT_texture_filter_anisotropic";
+
+  public static DepthTexture: string = "WEBGL_depth_texture";
 }
 
 export default GLExtensionList;

@@ -25,7 +25,7 @@
 // }
 
 interface WebGLRenderingContext {
-  texImage2D(target: number, level: number, internalFormat: number, width: number, height: number, border: number, format: number, type: number, pixels?: ArrayBufferView)
+  texImage2D(target: number, level: number, elementLayout: number, width: number, height: number, border: number, format: number, type: number, pixels?: ArrayBufferView)
 }
 
 declare var jDataView: {

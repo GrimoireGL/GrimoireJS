@@ -6,40 +6,46 @@ class BasicRendererConfigurator extends ConfiguratorBase {
   public get TextureBuffers(): GeneraterInfo[] {
     return [
       {
+        name: "depth",
+        generater: "rendererfit",
+        elementLayout: "DEPTH",
+        elementFormat: "USHORT"
+      },
+      {
         name: "gbuffer.primary",
         generater: "rendererfit",
-        internalFormat: "RGBA",
-        element: "FLOAT"
+        elementLayout: "RGBA",
+        elementFormat: "FLOAT"
       },
       {
         name: "light.diffuse",
         generater: "rendererfit",
-        internalFormat: "RGB",
-        element: "UBYTE"
+        elementLayout: "RGB",
+        elementFormat: "UBYTE"
       },
       {
         name: "light.specular",
         generater: "rendererfit",
-        internalFormat: "RGB",
-        element: "UBYTE"
+        elementLayout: "RGB",
+        elementFormat: "UBYTE"
       },
       {
         name: "hitarea",
         generater: "rendererfit",
-        internalFormat: "RGBA",
-        element: "UBYTE"
+        elementLayout: "RGBA",
+        elementFormat: "UBYTE"
       },
       {
         name: "main",
         generater: "rendererfit",
-        internalFormat: "RGBA",
-        element: "UBYTE"
+        elementLayout: "RGBA",
+        elementFormat: "UBYTE"
       },
       {
         name: "output",
         generater: "rendererfit",
-        internalFormat: "RGBA",
-        element: "UBYTE"
+        elementLayout: "RGBA",
+        elementFormat: "UBYTE"
       }
     ];
   }
@@ -49,6 +55,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       {
         buffers:
         {
+          DEPTH: "depth",
           OUT: "hitarea"
         },
         stage: "jthree.hitarea"
