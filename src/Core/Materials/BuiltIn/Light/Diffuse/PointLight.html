@@ -27,13 +27,16 @@
         @{type:"buffer",register:0,name:"PRIMARY"}
         uniform sampler2D _gBuffer;
 
+        @{type:"buffer",register:1,name:"DEPTH"}
+        uniform sampler2D _depthBuffer;
+
         @import "builtin.gbuffer-reader"
 
         void main(void)
         {
           vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
           vec3 normal = getNormal(rawBuffer);
-          float depth = getDepth(rawBuffer);
+          float depth = 2. * texture2D(_depthBuffer,calcBufferPosition(vLightProjectedPosition)).r -1.;
           vec3 pos = getPosition( depth, vLightProjectedPosition, _matIP);
           float d = distance( pos, lightPosition) / dist;
           if(d > 1.)discard;

@@ -68,6 +68,7 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       },
       {
         buffers: {
+          DEPTH: "depth",
           PRIMARY: "gbuffer.primary",
           DIFFUSE: "light.diffuse",
           SPECULAR: "light.specular"

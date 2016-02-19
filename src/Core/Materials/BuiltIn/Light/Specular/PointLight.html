@@ -25,8 +25,12 @@
         uniform float dist;
         uniform mat4 _matIP;
         uniform vec3 lightPosition;
+
         @{type:"buffer",register:0,name:"PRIMARY"}
         uniform sampler2D _gBuffer;
+
+        @{type:"buffer",register:1,name:"DEPTH"}
+        uniform sampler2D _depthBuffer;
 
         @import "builtin.gbuffer-reader"
 
@@ -37,7 +41,7 @@
             discard;
           }
           vec3 normal = getNormal(rawBuffer);
-          float depth = getDepth(rawBuffer);
+          float depth = 2. * texture2D(_depthBuffer,calcBufferPosition(vLightProjectedPosition)).r - 1.;
           vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
           if(dot(normal,normalize(lightPosition - pos)) < 0.){
             discard;
