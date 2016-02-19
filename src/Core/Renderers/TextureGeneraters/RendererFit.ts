@@ -22,32 +22,32 @@ class RendererFit extends GeneraterBase {
   public generate(texInfo: GeneraterInfoChunk) {
     const rect = this.ParentRenderRectangle;
     const width = rect.Width, height = rect.Height;
-    let internalFormat: number;
-    texInfo["internalFormat"] = texInfo["internalFormat"] || "RGBA";
-    switch ((<string>texInfo["internalFormat"]).toUpperCase()) {
+    let elementLayout: number;
+    texInfo["elementLayout"] = texInfo["elementLayout"] || "RGBA";
+    switch ((<string>texInfo["elementLayout"]).toUpperCase()) {
       case "ALPHA":
-        internalFormat = WebGLRenderingContext.ALPHA;
+        elementLayout = WebGLRenderingContext.ALPHA;
         break;
       case "RGB":
-        internalFormat = WebGLRenderingContext.RGB;
+        elementLayout = WebGLRenderingContext.RGB;
         break;
       case "DEPTH":
-        internalFormat = WebGLRenderingContext.DEPTH_COMPONENT;
+        elementLayout = WebGLRenderingContext.DEPTH_COMPONENT;
         break;
       case "LUMINANCE":
-        internalFormat = WebGLRenderingContext.LUMINANCE;
+        elementLayout = WebGLRenderingContext.LUMINANCE;
         break;
       case "LUMINANCE_ALPHA":
-        internalFormat = WebGLRenderingContext.LUMINANCE_ALPHA;
+        elementLayout = WebGLRenderingContext.LUMINANCE_ALPHA;
         break;
       case "DEPTH_STENCIL":
-        internalFormat = WebGLRenderingContext.DEPTH_STENCIL;
+        elementLayout = WebGLRenderingContext.DEPTH_STENCIL;
         break;
       case "RGBA":
-        internalFormat = WebGLRenderingContext.RGBA;
+        elementLayout = WebGLRenderingContext.RGBA;
         break;
       default:
-        console.error("the given parameter was invalid : texture format " + texInfo["internalFormat"]);
+        console.error("the given parameter was invalid : texture format " + texInfo["elementLayout"]);
     }
     let elementFormat: number;
     texInfo["element"] = texInfo["element"] || "UBYTE";
@@ -80,7 +80,7 @@ class RendererFit extends GeneraterBase {
         console.error("the given parameter was invalid : element format " + texInfo["element"]);
     }
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    const resource = rm.createTexture(this.parentRenderer.ID + "." + texInfo.name, width, height, internalFormat, elementFormat);
+    const resource = rm.createTexture(this.parentRenderer.ID + "." + texInfo.name, width, height, elementLayout, elementFormat);
     this.parentRenderer.on("resize", (s: Rectangle) => {
       const bufTex = <BufferTexture>resource;
       if (s.Width !== bufTex.Width || s.Height !== bufTex.Height) {
