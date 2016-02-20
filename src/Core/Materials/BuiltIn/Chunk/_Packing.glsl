@@ -45,10 +45,10 @@ highp float unpackRanged24(const vec3 value,const highp float minimum,const high
   return unpackUNorm24(value) * (maximum - minimum) + minimum;
 }
 
-vec3 packUNorm16(const highp float value){
+vec2 packUNorm16(const highp float value){
   const highp vec2 bitSh = vec2(256.0, 1.0);
   const highp vec2 bitMsk = vec2(0.0, 1.0/256.0);
-  vec3 res = fract(value * bitSh);
+  vec2 res = fract(value * bitSh);
   res -= res.xx * bitMsk;
   return res;
 }
@@ -63,6 +63,6 @@ highp float unpackUNorm16(const highp vec2 value)
   return(dot(value, bitSh));
 }
 
-highp float unpackRanged16(const vec3 value,const highp float minimum,const highp float maximum){
+highp float unpackRanged16(const vec2 value,const highp float minimum,const highp float maximum){
   return unpackUNorm16(value) * (maximum - minimum) + minimum;
 }
