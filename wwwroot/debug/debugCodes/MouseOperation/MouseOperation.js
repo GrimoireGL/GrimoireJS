@@ -5,10 +5,10 @@ j3(function() {
   const camera = j3("camera").getObj(0);
   var accumX = 0;var accumY = 0;
   viewport.on("mouse-move", function(e) {
+    e.eventSource.preventDefault();
     if (e.mouseDownTracking) {
       accumX += e.diffX;
       accumY += e.diffY;
-      console.log(accumX,accumY);
       var diff = j3m.Quaternion.Multiply(j3m.Quaternion.AngleAxis(-e.diffY/100,axis.Transformer.right),j3m.Quaternion.AngleAxis(e.diffX/100,axis.Transformer.up));
       axis.Transformer.Rotation = j3m.Quaternion.Multiply(axis.Transformer.Rotation,diff);
     }

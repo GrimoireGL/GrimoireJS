@@ -1,0 +1,2 @@
+#define CNOR_MIN 0.1464466
+#define CNOR_MAX 0.8535534

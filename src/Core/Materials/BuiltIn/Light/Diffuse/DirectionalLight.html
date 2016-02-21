@@ -27,8 +27,14 @@
 
         @import "builtin.gbuffer-reader"
 
+        @{type:"buffer",register:1,name:"DEPTH"}
+        uniform sampler2D _depthBuffer;
+
         void main(void)
         {
+          //gl_FragColor.rgb = packRanged24(texture2D(_depthBuffer,calcBufferPosition(vLightProjectedPosition)).r,-1.,1.);
+          //gl_FragColor.a = 1.;
+          //return;
           vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
           vec3 normal = getNormal(rawBuffer);
           float power = dot(-lightDirection,normal);
