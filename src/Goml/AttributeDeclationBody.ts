@@ -12,11 +12,6 @@ interface AttributeDeclarationBody {
   value?: any;
 
   /**
-   * apply to event listener when attribute changed
-   */
-  onchanged?: (attr: GomlAttribute) => void;
-
-  /**
    * Whether this attribute accept change by interface or not.
    * default: false
    */
@@ -29,6 +24,11 @@ interface AttributeDeclarationBody {
   reserved?: boolean;
 
   [other: string]: any;
+
+  /**
+   * apply to event listener when attribute changed
+   */
+  onchanged?: (attr: GomlAttribute) => void;
 }
 
 export default AttributeDeclarationBody;
