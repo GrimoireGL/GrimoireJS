@@ -49,6 +49,19 @@ class VectorBase {
     return true;
   }
 
+  protected static nearlyElementEqual(v1: VectorBase, v2: VectorBase): boolean {
+    if( v1.ElementCount !== v2.ElementCount){
+      return false;
+    }
+    let error = 0.01;
+    for (let i = 0; i < v1.ElementCount; i++){
+      if(Math.abs(v1.rawElements[i] - v2.rawElements[i]) > error){
+        return false;
+      }
+    }
+    return true;
+  }
+
   protected static fromGenerationFunction<T extends VectorBase>(v1: T, v2: T, gen: Func3<number, T, T, number>): GLM.IArray {
     let f = new Float32Array(v1.ElementCount);
     for (let i = 0; i < f.length; i++) {

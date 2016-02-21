@@ -104,6 +104,10 @@ class Vector2 extends VectorBase {
     return VectorBase.elementEqual(v1, v2);
   }
 
+  public static nearlyEqual(v1: Vector2, v2: Vector2):boolean{
+    return VectorBase.nearlyElementEqual(v1,v2);
+  }
+
   public static normalize(v1: Vector2): Vector2 {
     const newVec = vec2.create();
     return new Vector2(vec2.normalize(newVec, v1.rawElements));
@@ -145,12 +149,18 @@ class Vector2 extends VectorBase {
     return Vector2.equal(this, v);
   }
 
+  public nearlyEqualWith(v: Vector2): boolean{
+    return Vector2.nearlyEqual(this,v);
+  }
+
+
+
   public normalizeThis(): Vector2 {
     return Vector2.normalize(this);
   }
 
   public toString(): string {
-    return `(${this.X}}, ${this.Y})`;
+    return `(${this.X}, ${this.Y})`;
   }
 
   public toDisplayString(): string {
@@ -160,7 +170,7 @@ class Vector2 extends VectorBase {
   public get ElementCount(): number { return 2; }
 
   public toMathematicaString() {
-    return `{${this.X},${this.Y}}`;
+    return `{${this.X}, ${this.Y}}`;
   }
 }
 
