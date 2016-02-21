@@ -104,8 +104,8 @@ class Vector2 extends VectorBase {
     return VectorBase.elementEqual(v1, v2);
   }
 
-  public static nearlyEqual(v1: Vector2, v2: Vector2):boolean{
-    return VectorBase.nearlyElementEqual(v1,v2);
+  public static nearlyEqual(v1: Vector2, v2: Vector2): boolean {
+    return VectorBase.nearlyElementEqual(v1, v2);
   }
 
   public static normalize(v1: Vector2): Vector2 {
@@ -149,11 +149,9 @@ class Vector2 extends VectorBase {
     return Vector2.equal(this, v);
   }
 
-  public nearlyEqualWith(v: Vector2): boolean{
-    return Vector2.nearlyEqual(this,v);
+  public nearlyEqualWith(v: Vector2): boolean {
+    return Vector2.nearlyEqual(this, v);
   }
-
-
 
   public normalizeThis(): Vector2 {
     return Vector2.normalize(this);

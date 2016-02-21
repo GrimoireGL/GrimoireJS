@@ -50,12 +50,12 @@ class VectorBase {
   }
 
   protected static nearlyElementEqual(v1: VectorBase, v2: VectorBase): boolean {
-    if( v1.ElementCount !== v2.ElementCount){
+    if (v1.ElementCount !== v2.ElementCount) {
       return false;
     }
     let error = 0.01;
-    for (let i = 0; i < v1.ElementCount; i++){
-      if(Math.abs(v1.rawElements[i] - v2.rawElements[i]) > error){
+    for (let i = 0; i < v1.ElementCount; i++) {
+      if (Math.abs(v1.rawElements[i] - v2.rawElements[i]) > error) {
         return false;
       }
     }
