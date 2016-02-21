@@ -14,8 +14,8 @@ describe("Vector2 test",()=>{
   it("nearly equal with is correct",()=>{
     assert((new Vector2(1,1)).nearlyEqualWith(new Vector2(1.001,0.999)));
   });
-  
-  it("Get the nunber of elements of a vector test",()=>{
+
+  it("Get the number of elements of a vector test",()=>{
     assert((new Vector2(1,2)).ElementCount === 2);
   });
 
