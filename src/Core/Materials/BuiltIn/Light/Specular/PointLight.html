@@ -9,7 +9,7 @@
         <glsl>
           <![CDATA[
       attribute vec3 position;
-      varying vec4 vLightProjectedPosition;
+      varying highp vec4 vLightProjectedPosition;
       @vert{
         uniform mat4 _matPVM;
 
@@ -22,8 +22,8 @@
       @frag{
         uniform vec3 lightColor;
         uniform float decay;
-        uniform float dist;
-        uniform mat4 _matIP;
+        uniform highp float dist;
+        uniform highp mat4 _matIP;
         uniform vec3 lightPosition;
 
         @{type:"buffer",register:0,name:"PRIMARY"}
@@ -34,25 +34,20 @@
 
         @import "builtin.gbuffer-reader"
 
-        @import "builtin.packing"
-
         void main(void)
         {
           vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
-          if(rawBuffer.w == 0.){
-            discard;
-          }
           vec3 normal = getNormal(rawBuffer);
-          float depth = 2. * texture2D(_depthBuffer,calcBufferPosition(vLightProjectedPosition)).r - 1.;
-          vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
+          highp float depth = 2. * texture2D(_depthBuffer,calcBufferPosition(vLightProjectedPosition)).g - 1.;
+          highp vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
           if(dot(normal,normalize(lightPosition - pos)) < 0.){
             discard;
           }
-          float d=distance(pos,lightPosition)/dist;
+          highp float d=distance(pos,lightPosition)/dist;
           if(d>1.)discard;
-          float power = pow(1. - d,decay);
+          highp float power = pow(1. - d,decay);
           vec3 hv = normalize(normalize(lightPosition-pos)+normalize(-pos));
-          gl_FragColor = vec4(pow(dot(hv,normal),rawBuffer.w) * power * lightColor,1.0);
+          gl_FragColor = vec4(pow(dot(hv,normal),5.0) * power * lightColor,1.0);
         }
       }
       ]]>

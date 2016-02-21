@@ -26,7 +26,7 @@ highp float unpackRanged32(const vec4 value,const highp float minimum,const high
 vec3 packUNorm24(const highp float value){
   const vec3 bitSh = vec3(256.0*256.0, 256.0, 1.0);
   const vec3 bitMsk = vec3(0.0, 1.0/256.0, 1.0/256.0);
-  vec3 res = fract(value * bitSh);
+  highp vec3 res = fract(value * bitSh);
   res -= res.xxy * bitMsk;
   return res;
 }

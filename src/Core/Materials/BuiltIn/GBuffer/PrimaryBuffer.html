@@ -10,7 +10,6 @@
       attribute vec4 position;
       attribute vec3 normal;
       varying vec3 vNormal;
-      varying vec4 vPosition;
 
       @vert{
         uniform mat4 _matVM;
@@ -18,27 +17,30 @@
 
         void main(void)
         {
-        	gl_Position = vPosition =_matPVM * position;
+        	gl_Position  = _matPVM * position;
         	vNormal =normalize(( _matVM * vec4(normal,0)).xyz);
         }
       }
 
       @frag{
-        uniform float brightness;
+        @import "builtin.packing"
+        @import "builtin.gbuffer-packing"
+
         vec2 compressNormal()
         {
         	float p = sqrt(vNormal.z * 8. + 8.);
         	return vNormal.xy/p + 0.5;
         }
 
-        float calcDepth()
+        vec4 packedNormal()
         {
-        	return vPosition.z/vPosition.w;
+          vec2 cNor = compressNormal();
+          return vec4(packRanged16(cNor.x,CNOR_MIN,CNOR_MAX),packRanged16(cNor.y,CNOR_MIN,CNOR_MAX));
         }
 
         void main(void)
         {
-        	gl_FragColor = vec4(compressNormal(),calcDepth(),brightness);
+        	gl_FragColor = packedNormal();
         }
       }
 

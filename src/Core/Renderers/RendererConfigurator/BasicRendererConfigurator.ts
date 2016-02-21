@@ -9,13 +9,13 @@ class BasicRendererConfigurator extends ConfiguratorBase {
         name: "depth",
         generater: "rendererfit",
         elementLayout: "DEPTH",
-        elementFormat: "USHORT"
+        elementFormat: "UINT"
       },
       {
         name: "gbuffer.primary",
         generater: "rendererfit",
         elementLayout: "RGBA",
-        elementFormat: "FLOAT"
+        elementFormat: "UBYTE"
       },
       {
         name: "light.diffuse",
