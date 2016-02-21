@@ -14,11 +14,22 @@ describe("Vector2 test",()=>{
   it("nearly equal with is correct",()=>{
     assert((new Vector2(1,1)).nearlyEqualWith(new Vector2(1.001,0.999)));
   });
-  it("zero vector test",()=>{
-    assert((new Vector2(0,0)).equalWith(new Vector2(0,0)));
-  });
+  
   it("Get the nunber of elements of a vector test",()=>{
     assert((new Vector2(1,2)).ElementCount === 2);
+  });
+
+  it("XUnit test",()=>{
+    assert(Vector2.XUnit.equalWith(new Vector2(1,0)));
+  });
+  it("YUnit test",()=>{
+    assert(Vector2.YUnit.equalWith(new Vector2(0,1)));
+  });
+  it("One Vector test",()=>{
+    assert(Vector2.One.equalWith(new Vector2(1,1)));
+  });
+  it("Zero vector test",()=>{
+    assert(Vector2.Zero.equalWith(new Vector2(0,0)));
   });
   it("copying vector test",()=>{
     assert(Vector2.copy(new Vector2(1,2)).equalWith(new Vector2(1,2)));
