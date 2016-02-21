@@ -153,7 +153,6 @@ class TextureWrapperBase extends ResourceWrapper {
           }
           return ret;
         };
-
         break;
       default:
         console.error("Specified texture format is unsupported!");

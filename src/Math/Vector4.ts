@@ -107,6 +107,10 @@ class Vector4 extends VectorBase {
     return VectorBase.elementEqual(v1, v2);
   }
 
+  public static nearlyEqual(v1: Vector4, v2: Vector4): boolean {
+    return VectorBase.nearlyElementEqual(v1, v2);
+  }
+
   public static normalize(v1: Vector4): Vector4 {
     const newVec = vec4.create();
     return new Vector4(vec4.normalize(newVec, v1.rawElements));
@@ -162,7 +166,7 @@ class Vector4 extends VectorBase {
   }
 
   public subtractWith(v: Vector4): Vector4 {
-    return Vector4.subtract(v, this);
+    return Vector4.subtract(this, v);
   }
 
   public multiplyWith(s: number): Vector4 {
@@ -175,6 +179,10 @@ class Vector4 extends VectorBase {
 
   public equalWith(v: Vector4): boolean {
     return Vector4.equal(this, v);
+  }
+
+  public nearlyEqualWith(v: Vector4): boolean {
+    return Vector4.nearlyEqual(this, v);
   }
 
   public get ElementCount(): number { return 4; }

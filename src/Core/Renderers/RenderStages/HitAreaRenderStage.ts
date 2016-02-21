@@ -1,3 +1,4 @@
+import TextureBase from "../../Resources/Texture/TextureBase";
 import RSMLRenderStageBase from "./RSML/RSMLRenderStage";
 import SceneObject from "../../SceneObjects/SceneObject";
 import ResolvedChainInfo from "../ResolvedChainInfo";
@@ -15,7 +16,7 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
     super(renderer, require("./BuiltIn/HitAreaRenderingStage.html"));
     this.Renderer.on("mouse-move", (e) => {
       this.queryHitTest(e.mouseX, e.mouseY).then((object) => {
-       console.log(object);
+        console.log(object);
       });
     });
   }
@@ -44,10 +45,13 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
 
   public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
     if (texs["OUT"]) {
+      if (!(texs["OUT"] instanceof TextureBase)) {
+       throw new Error("OUT argument cannnot acceptable except TextureBase");
+      }
       const canvas = this.Renderer.Canvas;
       for (let i = 0; i < this.hitTestQueries.length; i++) {
         const query = this.hitTestQueries[i];
-        const fetchedPixel = texs["OUT"].getForContext(canvas).getPixel(query.x, this.Renderer.region.Height - query.y);
+        const fetchedPixel = (texs["OUT"] as TextureBase).getForContext(canvas).getPixel(query.x, this.Renderer.region.Height - query.y);
         const object = this._fetchRelatedObject(fetchedPixel);
         query.deferred.resolve(object);
       }

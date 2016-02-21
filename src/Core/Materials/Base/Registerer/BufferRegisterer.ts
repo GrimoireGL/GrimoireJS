@@ -1,3 +1,5 @@
+import TextureBase from "../../../Resources/Texture/TextureBase";
+import RBO from "../../../Resources/RBO/RBO";
 import RegistererBase from "./RegistererBase";
 import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
 import IVariableDescription from "../IVariableDescription";
@@ -19,7 +21,10 @@ class BufferRegitserer extends RegistererBase {
         }
         let register: number = uniform.variableAnnotation["register"];
         if (!register) { register = 0; }
-        pWrapper.uniformSampler(variableName, matArg.textureResource[bufferName], register);
+        if (matArg.textureResource[bufferName] instanceof RBO) {
+          throw new Error("RBO can not be acceptable for shader argument");
+        }
+        pWrapper.uniformSampler(variableName, matArg.textureResource[bufferName] as TextureBase, register);
       }
     }
   }

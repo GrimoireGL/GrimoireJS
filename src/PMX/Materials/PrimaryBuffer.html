@@ -13,8 +13,8 @@
       attribute vec2 uv;
       attribute vec4 boneWeights;
       attribute vec4 boneIndicies;
-      varying vec3 vNormal;
       varying vec4 vPosition;
+      varying vec3 vNormal;
 
       @vert{
         @import "jthree.pmx.vertex"
@@ -26,12 +26,13 @@
 
         void main(void){
           mat4 boneTransform=calcBoneTransform(boneMatriciesTexture,boneCount,boneWeights,boneIndicies);
-          vPosition=gl_Position = calcPosition(boneTransform,_matPV,position);
+          gl_Position = calcPosition(boneTransform,_matPV,position);
           vNormal= calcNormal(boneTransform,_matV,normal);
         }
       }
       @frag{
-        uniform float brightness;
+        @import "builtin.packing"
+        @import "builtin.gbuffer-packing"
 
         vec2 compressNormal()
         {
@@ -39,14 +40,15 @@
         	return vNormal.xy/p + 0.5;
         }
 
-        float calcDepth()
+        vec4 packedNormal()
         {
-        	return vPosition.z/vPosition.w;
+          vec2 cNor = compressNormal();
+          return vec4(packRanged16(cNor.x,CNOR_MIN,CNOR_MAX),packRanged16(cNor.y,CNOR_MIN,CNOR_MAX));
         }
 
         void main(void)
         {
-        	gl_FragColor = vec4(compressNormal(),calcDepth(),brightness);
+        	gl_FragColor = packedNormal();
         }
       }
       ]]>

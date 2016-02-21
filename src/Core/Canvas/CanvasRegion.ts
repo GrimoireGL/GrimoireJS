@@ -19,11 +19,14 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
   constructor(canvasElement: HTMLCanvasElement) {
     super();
     this.canvasElement = canvasElement;
-    this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler, false);
-    this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler, false);
-    this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler, false);
-    this.canvasElement.addEventListener("mousedown", this._mouseDownHandler, false);
-    this.canvasElement.addEventListener("mouseup", this._mouseUpHandler, false);
+    this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler.bind(this), false);
+    this.canvasElement.addEventListener("mousedown", this._mouseDownHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseup", this._mouseUpHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
     this.name = this.ID;
   }
 
@@ -71,6 +74,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
   private _mouseMoveHandler = ((e: MouseEvent): void => {
     this._checkMouseInside(e);
     this.emit("mouse-move", {
+      eventSource: e,
       enter: false,
       leave: false,
       mouseOver: this.mouseOver,
@@ -91,6 +95,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
       this.mouseDownTracking = false;
     }
     this.emit("mouse-leave", {
+      eventSource: e,
       enter: false,
       leave: true,
       mouseOver: this.mouseOver,
@@ -105,6 +110,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
   private _mouseEnterHandler = ((e: MouseEvent): void => {
     this._checkMouseInside(e);
     this.emit("mouse-enter", {
+      eventSource: e,
       enter: true,
       leave: false,
       mouseOver: this.mouseOver,
@@ -176,13 +182,25 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
     this.canvasElement.removeEventListener("mouseleave", this._mouseLeaveHandler, false);
   }
 
-  private _checkMouseInside(e: MouseEvent): boolean {
+  private _checkMouseInside(e: MouseEvent|TouchEvent): boolean {
     // TODO fix bug here
     const rect = this.canvasElement.getBoundingClientRect();
     this.lastMouseX = this.mouseX;
     this.lastMouseY = this.mouseY;
-    this.mouseX = e.clientX - rect.left;
-    this.mouseY = e.clientY - rect.top;
+    let clientX;
+    if (typeof (<MouseEvent>e).clientX === "undefined") {
+      clientX = (<TouchEvent>e).touches[0].clientX;
+    } else {
+      clientX = (<MouseEvent>e).clientX;
+    }
+    let clientY;
+    if (typeof (<MouseEvent>e).clientY === "undefined") {
+      clientY = (<TouchEvent>e).touches[0].clientY;
+    } else {
+      clientY = (<MouseEvent>e).clientY;
+    }
+    this.mouseX = clientX - rect.left;
+    this.mouseY = clientY - rect.top;
     this.mouseOver = this.region.contains(this.mouseX, this.mouseY);
     const localPos = this.region.toLocal(this.mouseX, this.mouseY);
     this.mouseLocalX = localPos[0];
