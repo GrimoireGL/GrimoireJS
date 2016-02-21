@@ -19,6 +19,7 @@ class BehaviorNode extends GomlTreeNodeBase {
   private awakenCache: boolean = false;
   private startCalled: boolean = false;
 
+
   private updateDelegate: Action1<GomlTreeNodeBase> = () => { return; };
   private startDelegate: Action1<GomlTreeNodeBase> = () => { return; };
   private awakeDelegate: Action1<GomlTreeNodeBase> = () => { return; };
