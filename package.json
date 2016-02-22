@@ -25,7 +25,7 @@
     "debug": "./node_modules/.bin/gulp --require coffee-script/register build:debug",
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "./node_modules/.bin/gulp --require coffee-script/register mocha",
-    "test": "./node_modules/.bin/gulp --require coffee-script/register ci:cover",
+    "cover": "./node_modules/.bin/gulp --require coffee-script/register ci:cover",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
     "lint": "./node_modules/.bin/gulp --require coffee-script/register lint:ts"
