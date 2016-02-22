@@ -15,7 +15,7 @@ import ISceneObjectStructureChangedEventArgs from "../ISceneObjectChangedEventAr
 class SceneObject extends JThreeObjectEEWithID {
   public name: string;
 
-  public isVisible: boolean;
+  public isVisible: boolean = true;
 
   protected geometry: Geometry;
 
