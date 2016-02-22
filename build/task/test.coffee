@@ -2,6 +2,7 @@ gulp = require 'gulp'
 mocha = require 'gulp-mocha'
 runSequence = require 'run-sequence'
 fs = require('fs')
+istanbul = require 'gulp-istanbul'
 class TestTask
 
   requireAsString:(exts)=>
