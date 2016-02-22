@@ -2,8 +2,8 @@
   <resources>
   </resources>
   <canvases>
-    <canvas clearColor="purple" frame=".canvasContainer" width="1920" height="1080" >
-      <viewport cam="CAM1" id="main" width="1920" height="1080" name="MAIN"/>
+    <canvas clearColor="purple" frame=".canvasContainer" width="640" height="480" >
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
     </canvas>
   </canvases>
   <scenes>

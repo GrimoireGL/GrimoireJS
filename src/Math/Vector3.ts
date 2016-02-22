@@ -65,6 +65,10 @@ class Vector3 extends VectorBase {
     return VectorBase.elementEqual(v1, v2);
   }
 
+  public static nearlyEqual(v1: Vector3, v2: Vector3): boolean {
+    return VectorBase.nearlyElementEqual(v1, v2);
+  }
+
   public static normalize(v1: Vector3): Vector3 {
     const newVec = vec3.create();
     return new Vector3(vec3.normalize(newVec, v1.rawElements));
@@ -170,6 +174,10 @@ class Vector3 extends VectorBase {
 
   public equalWith(v: Vector3): boolean {
     return Vector3.equal(this, v);
+  }
+
+  public nearlyEqualWith(v: Vector3): boolean {
+    return Vector3.nearlyEqual(this, v);
   }
 
   public crossWith(v: Vector3): Vector3 {
