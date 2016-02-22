@@ -2,7 +2,6 @@ gulp = require 'gulp'
 istanbul = require 'gulp-istanbul'
 babel = require 'gulp-babel'
 mocha = require 'gulp-mocha'
-debug = require 'gulp-debug'
 class CoverTask
   getTaskNames:()=>
     ['cover:pre:babel:core','cover:pre:babel:test','cover:pre','cover','ci:cover']
