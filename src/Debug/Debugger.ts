@@ -30,6 +30,9 @@ class Debugger implements IContextComponent {
   }
 
   public setInfo(key: string, val: any) {
+    if (!this.debuggerAPI) {
+      return;
+    }
     if (typeof val === "object") {
       let stringfied = "";
       for (let k in val) {
