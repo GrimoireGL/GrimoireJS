@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Goml/GomlParser.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/Goml/</a> GomlParser.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.76% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>3/63</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.38% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/47</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+/**
+ * Parser of Goml to Node utilities.
+ * This class do not store any nodes and goml properties.
+ */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var GomlParser = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="fstat-no" title="function not covered" >    function GomlParser() {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, GomlParser);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(GomlParser, null, [{</span>
+        key: "parse",
+&nbsp;
+        /**
+         * Parse Goml to Node
+         * @param {HTMLElement} soruce [description]
+         */
+        value: <span class="fstat-no" title="function not covered" >function parse(soruce, configurator) {</span>
+<span class="cstat-no" title="statement not covered" >            return GomlParser.parseChild(soruce, configurator);</span>
+        }
+    }, {
+        key: "parseChild",
+        value: <span class="fstat-no" title="function not covered" >function parseChild(child, configurator) {</span>
+            // obtain factory class for the node
+<span class="cstat-no" title="statement not covered" >            var elem = child;</span>
+<span class="cstat-no" title="statement not covered" >            var newNode = GomlParser.createNode(elem, configurator);</span>
+            // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
+<span class="cstat-no" title="statement not covered" >            if (newNode) {</span>
+                // call this function recursive
+<span class="cstat-no" title="statement not covered" >                var children = elem.childNodes;</span>
+<span class="cstat-no" title="statement not covered" >                if (children &amp;&amp; children.length !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >                    for (var i = 0; i &lt; children.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (children[i].nodeType !== 1) {</span>
+<span class="cstat-no" title="statement not covered" >                            continue;</span>
+                        }
+                        // generate instances for every children nodes
+<span class="cstat-no" title="statement not covered" >                        var e = children[i];</span>
+<span class="cstat-no" title="statement not covered" >                        var newChildNode = GomlParser.parseChild(e, configurator);</span>
+<span class="cstat-no" title="statement not covered" >                        if (newChildNode) {</span>
+<span class="cstat-no" title="statement not covered" >                            newNode.addChild(newChildNode);</span>
+                        }
+                    }
+                }
+                // console.log("parseChild finish:", newNode);
+<span class="cstat-no" title="statement not covered" >                return newNode;</span>
+            } else {
+                // when specified node could not be found
+<span class="cstat-no" title="statement not covered" >                console.warn("\"" + elem.tagName + "\" was not parsed.");</span>
+<span class="cstat-no" title="statement not covered" >                return null;</span>
+            }
+        }
+        /**
+         * GomlNodeの生成、初期化を行います。
+         *
+         * GomlNodeの生成のライフサイクルを定義しています。
+         * @param  {HTMLElement}      elem         [description]
+         * @param  {GomlConfigurator} configurator [description]
+         * @return {GomlTreeNodeBase}              [description]
+         */
+&nbsp;
+    }, {
+        key: "createNode",
+        value: <span class="fstat-no" title="function not covered" >function createNode(elem, configurator) {</span>
+            // console.log("START");
+<span class="cstat-no" title="statement not covered" >            var tagName = elem.tagName;</span>
+            // console.log(`createNode: ${tagName}`);
+<span class="cstat-no" title="statement not covered" >            var nodeType = configurator.getGomlNode(tagName);</span>
+            /**
+             * インスタンス生成
+             * それぞれのGomlNodeのattributeの定義、attribute更新時のイベント、child, parent更新時のイベントの定義
+             */
+<span class="cstat-no" title="statement not covered" >            if (nodeType === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                throw new Error("Tag " + tagName + " is not found.");</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var newNode = new nodeType();</span>
+            /**
+             * HTMLElementのattributeとのバインディング
+             *
+             * Nodeの必須Attributes一覧を取得し、HTMLElementに存在しなければ追加。
+             * HTMLElementのすべてのattributesを取得し、NodeのAttributesに反映。なかった場合にはreserveする。
+             */
+            // console.log(elem.outerHTML);
+<span class="cstat-no" title="statement not covered" >            newNode.attributes.forEachAttr(<span class="fstat-no" title="function not covered" >function (attr, key) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (!elem.getAttribute(key)) {</span>
+                    // console.log("add essential attr:", key, attr.ValueStr, attr.Value);
+<span class="cstat-no" title="statement not covered" >                    elem.setAttribute(key, attr.ValueStr);</span>
+                }
+            });
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt;= elem.attributes.length - 1; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var attr = elem.attributes[i];</span>
+<span class="cstat-no" title="statement not covered" >                (<span class="fstat-no" title="function not covered" >function (attr_) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    var attrKey = attr_.nodeName;</span>
+<span class="cstat-no" title="statement not covered" >                    var attrValue = attr_.nodeValue;</span>
+<span class="cstat-no" title="statement not covered" >                    var gomlAttribute = newNode.attributes.getAttribute(attrKey);</span>
+                    // console.log("attribute_binding", attrKey, attrValue, gomlAttribute);
+<span class="cstat-no" title="statement not covered" >                    if (!gomlAttribute) {</span>
+<span class="cstat-no" title="statement not covered" >                        gomlAttribute = newNode.attributes.reserveAttribute(attrKey, attrValue);</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        gomlAttribute.Value = attrValue;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    gomlAttribute.on("changed", <span class="fstat-no" title="function not covered" >function (ga) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        elem.setAttribute(attrKey, ga.ValueStr);</span>
+                    });
+                })(attr);
+            }
+<span class="cstat-no" title="statement not covered" >            newNode.props.setProp("elem", elem);</span>
+<span class="cstat-no" title="statement not covered" >            elem.setAttribute("x-j3-id", newNode.ID);</span>
+            // console.log("END");
+<span class="cstat-no" title="statement not covered" >            return newNode;</span>
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return GomlParser;</span>
+}();
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = GomlParser;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 22 2016 16:20:03 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

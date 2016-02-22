@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/Geometries/Base/GeometryBuilder.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">lib/Core/Geometries/Base/</a> GeometryBuilder.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.61% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/153</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.94% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/136</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector = require("../../../Math/Vector3");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector2 = _interopRequireDefault(_Vector);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var GeometryBuilder = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="fstat-no" title="function not covered" >    function GeometryBuilder() {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, GeometryBuilder);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(GeometryBuilder, null, [{</span>
+        key: "addDividedQuad",
+        value: <span class="fstat-no" title="function not covered" >function addDividedQuad(pos, normal, uv, index, divX, divY) {</span>
+<span class="cstat-no" title="statement not covered" >            var startIndex = pos.length / 3;</span>
+<span class="cstat-no" title="statement not covered" >            var xP = 2.0 / divX;</span>
+<span class="cstat-no" title="statement not covered" >            var yP = 2.0 / divY;</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; divX + 1; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var x = xP * i - 1;</span>
+<span class="cstat-no" title="statement not covered" >                for (var j = 0; j &lt; divY + 1; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                    var y = 1 - yP * j;</span>
+<span class="cstat-no" title="statement not covered" >                    pos.push(x, y, 0);</span>
+<span class="cstat-no" title="statement not covered" >                    normal.push(0, 0, 1);</span>
+<span class="cstat-no" title="statement not covered" >                    uv.push(0, 0);</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; divX; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                for (var j = 0; j &lt; divY; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                    var p0 = i * (divY + 1) + j + startIndex;</span>
+<span class="cstat-no" title="statement not covered" >                    var p1 = p0 + 1;</span>
+<span class="cstat-no" title="statement not covered" >                    var p3 = p0 + divY + 1;</span>
+<span class="cstat-no" title="statement not covered" >                    var p2 = p3 + 1;</span>
+<span class="cstat-no" title="statement not covered" >                    index.push(p0, p1, p3, p3, p1, p2);</span>
+                }
+            }
+        }
+    }, {
+        key: "addQuad",
+        value: <span class="fstat-no" title="function not covered" >function addQuad(pos, normal, uv, index, points) {</span>
+<span class="cstat-no" title="statement not covered" >            var startIndex = pos.length / 3;</span>
+<span class="cstat-no" title="statement not covered" >            var v0 = points[0],</span>
+                v1 = points[1],
+                v3 = points[2];
+<span class="cstat-no" title="statement not covered" >            var v02v1 = v1.subtractWith(v0);</span>
+<span class="cstat-no" title="statement not covered" >            var v02v3 = v3.subtractWith(v0);</span>
+<span class="cstat-no" title="statement not covered" >            var v2 = v0.addWith(v02v1).addWith(v02v3);</span>
+<span class="cstat-no" title="statement not covered" >            var nV = v02v1.crossWith(v02v3).normalizeThis();</span>
+<span class="cstat-no" title="statement not covered" >            normal.push(nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z, nV.X, nV.Y, nV.Z);</span>
+<span class="cstat-no" title="statement not covered" >            uv.push(0, 1, 0, 0, 1, 0, 1, 1);</span>
+<span class="cstat-no" title="statement not covered" >            pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v2.X, v2.Y, v2.Z, v3.X, v3.Y, v3.Z);</span>
+<span class="cstat-no" title="statement not covered" >            index.push(startIndex, startIndex + 1, startIndex + 3, startIndex + 3, startIndex + 1, startIndex + 2);</span>
+        }
+    }, {
+        key: "addCircle",
+        value: <span class="fstat-no" title="function not covered" >function addCircle(pos, normal, uv, index, divide, center, normalVector, tangentVector) {</span>
+<span class="cstat-no" title="statement not covered" >            var tan2 = _Vector2.default.cross(tangentVector, normalVector);</span>
+<span class="cstat-no" title="statement not covered" >            var vecCount = 2 + divide;</span>
+<span class="cstat-no" title="statement not covered" >            var baseIndex = uv.length / 2;</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; vecCount; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var v = GeometryBuilder.calcNextPointInCircle(i, divide, center, tangentVector, tan2);</span>
+<span class="cstat-no" title="statement not covered" >                var u = GeometryBuilder.calcUVInCircle(i, divide);</span>
+<span class="cstat-no" title="statement not covered" >                pos.push(v.X, v.Y, v.Z);</span>
+<span class="cstat-no" title="statement not covered" >                normal.push(normalVector.X, normalVector.Y, normalVector.Z);</span>
+<span class="cstat-no" title="statement not covered" >                uv.push(u[0], u[1]);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; divide; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                index.push(baseIndex);</span>
+<span class="cstat-no" title="statement not covered" >                index.push(baseIndex + i + 2);</span>
+<span class="cstat-no" title="statement not covered" >                index.push(baseIndex + i + 1);</span>
+            }
+        }
+    }, {
+        key: "addCylinder",
+        value: <span class="fstat-no" title="function not covered" >function addCylinder(pos, normal, uv, index, divide, start, end, tangent, radius) {</span>
+<span class="cstat-no" title="statement not covered" >            var dest = _Vector2.default.subtract(end, start);</span>
+<span class="cstat-no" title="statement not covered" >            var tangentNormalized = tangent.normalizeThis();</span>
+<span class="cstat-no" title="statement not covered" >            var tan2 = _Vector2.default.cross(dest.normalizeThis(), tangentNormalized);</span>
+<span class="cstat-no" title="statement not covered" >            tangentNormalized = tangentNormalized.multiplyWith(radius);</span>
+<span class="cstat-no" title="statement not covered" >            tan2 = tan2.multiplyWith(radius);</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; divide; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var angle = (i - 1) * 2 * Math.PI / divide;</span>
+<span class="cstat-no" title="statement not covered" >                var angleTo = i * 2 * Math.PI / divide;</span>
+<span class="cstat-no" title="statement not covered" >                var currentNormal = _Vector2.default.add(tan2.multiplyWith(Math.cos(angle)), tangentNormalized.multiplyWith(Math.sin(angle)));</span>
+<span class="cstat-no" title="statement not covered" >                var nextNormal = _Vector2.default.add(tan2.multiplyWith(Math.cos(angleTo)), tangentNormalized.multiplyWith(Math.sin(angleTo)));</span>
+<span class="cstat-no" title="statement not covered" >                var v0 = _Vector2.default.add(start, currentNormal);</span>
+<span class="cstat-no" title="statement not covered" >                var v1 = _Vector2.default.add(start, nextNormal);</span>
+<span class="cstat-no" title="statement not covered" >                var v2 = _Vector2.default.add(v0, dest);</span>
+<span class="cstat-no" title="statement not covered" >                var v3 = v1.addWith(dest);</span>
+<span class="cstat-no" title="statement not covered" >                var startIndex = pos.length / 3;</span>
+<span class="cstat-no" title="statement not covered" >                normal.push(currentNormal.X, currentNormal.Y, currentNormal.Z, nextNormal.X, nextNormal.Y, nextNormal.Z, nextNormal.X, nextNormal.Y, nextNormal.Z, currentNormal.X, currentNormal.Y, currentNormal.Z);</span>
+<span class="cstat-no" title="statement not covered" >                uv.push(0, 1, 1, 0, 1, 0, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" >                pos.push(v0.X, v0.Y, v0.Z, v1.X, v1.Y, v1.Z, v3.X, v3.Y, v3.Z, v2.X, v2.Y, v2.Z);</span>
+<span class="cstat-no" title="statement not covered" >                index.push(startIndex + 2, startIndex + 1, startIndex, startIndex + 3, startIndex + 2, startIndex);</span>
+            }
+        }
+    }, {
+        key: "addSphere",
+        value: <span class="fstat-no" title="function not covered" >function addSphere(pos, normal, uv, index, divide1, divide2, center) {</span>
+<span class="cstat-no" title="statement not covered" >            var vt = _Vector2.default.add(center, new _Vector2.default(0, 1, 0));</span>
+<span class="cstat-no" title="statement not covered" >            var vb = _Vector2.default.add(center, new _Vector2.default(0, -1, 0));</span>
+<span class="cstat-no" title="statement not covered" >            pos.push(vt.X, vt.Y, vt.Z);</span>
+<span class="cstat-no" title="statement not covered" >            normal.push(0, 1, 0);</span>
+<span class="cstat-no" title="statement not covered" >            uv.push(0, 1);</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; divide1 - 1; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var angle_y = (i + 1) * Math.PI / divide1;</span>
+<span class="cstat-no" title="statement not covered" >                var d = Math.sin(angle_y);</span>
+<span class="cstat-no" title="statement not covered" >                var h = Math.cos(angle_y);</span>
+<span class="cstat-no" title="statement not covered" >                for (var j = 0; j &lt; divide2; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                    var angle_x = j * 2 * Math.PI / divide2;</span>
+<span class="cstat-no" title="statement not covered" >                    var v0 = new _Vector2.default(d * Math.sin(angle_x), h, d * Math.cos(angle_x));</span>
+<span class="cstat-no" title="statement not covered" >                    var v0_n = v0.normalizeThis();</span>
+<span class="cstat-no" title="statement not covered" >                    var _startIndex = pos.length / 3;</span>
+<span class="cstat-no" title="statement not covered" >                    pos.push(v0.X, v0.Y, v0.Z);</span>
+<span class="cstat-no" title="statement not covered" >                    normal.push(v0_n.X, v0_n.Y, v0_n.Z);</span>
+<span class="cstat-no" title="statement not covered" >                    uv.push(0, 1);</span>
+<span class="cstat-no" title="statement not covered" >                    if (i === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (j !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >                            index.push(0, _startIndex - 1, _startIndex);</span>
+<span class="cstat-no" title="statement not covered" >                            if (j === divide2 - 1) {</span>
+<span class="cstat-no" title="statement not covered" >                                index.push(0, _startIndex, 1);</span>
+                            }
+                        }
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        if (j === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                            index.push(_startIndex - divide2, _startIndex, _startIndex - divide2 + 1);</span>
+                        } else <span class="cstat-no" title="statement not covered" >if (j === divide2 - 1) {</span>
+<span class="cstat-no" title="statement not covered" >                            index.push(_startIndex - divide2, _startIndex - 1, _startIndex);</span>
+<span class="cstat-no" title="statement not covered" >                            index.push(_startIndex - divide2 + 1, _startIndex - divide2 - divide2 + 1, _startIndex);</span>
+<span class="cstat-no" title="statement not covered" >                            index.push(_startIndex - divide2 - divide2 + 1, _startIndex - divide2, _startIndex);</span>
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            index.push(_startIndex - divide2, _startIndex - 1, _startIndex);</span>
+<span class="cstat-no" title="statement not covered" >                            index.push(_startIndex - divide2 + 1, _startIndex - divide2, _startIndex);</span>
+                        }
+                    }
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            var startIndex = pos.length / 3;</span>
+<span class="cstat-no" title="statement not covered" >            pos.push(vb.X, vb.Y, vb.Z);</span>
+<span class="cstat-no" title="statement not covered" >            normal.push(0, -1, 0);</span>
+<span class="cstat-no" title="statement not covered" >            uv.push(0, 1);</span>
+<span class="cstat-no" title="statement not covered" >            for (var j = 0; j &lt; divide2 - 1; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                index.push(startIndex, startIndex - 1 - j, startIndex - 2 - j);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            index.push(startIndex, startIndex - divide2, startIndex - 1);</span>
+        }
+    }, {
+        key: "addCone",
+        value: <span class="fstat-no" title="function not covered" >function addCone(pos, normal, uv, index, divide) {</span>
+<span class="cstat-no" title="statement not covered" >            pos.push(0, -1, 0);</span>
+<span class="cstat-no" title="statement not covered" >            normal.push(0, -1, 0);</span>
+<span class="cstat-no" title="statement not covered" >            uv.push(0, 1);</span>
+<span class="cstat-no" title="statement not covered" >            var angle = 2 * Math.PI / divide;</span>
+<span class="cstat-no" title="statement not covered" >            var y = Math.sqrt(5) / 5.0;</span>
+<span class="cstat-no" title="statement not covered" >            var k = y * 2;</span>
+<span class="cstat-no" title="statement not covered" >            var startIndex = undefined;</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; divide; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var d1 = Math.sin(angle * i);</span>
+<span class="cstat-no" title="statement not covered" >                var d2 = Math.cos(angle * i);</span>
+<span class="cstat-no" title="statement not covered" >                var v = new _Vector2.default(d1, -1, d2);</span>
+<span class="cstat-no" title="statement not covered" >                var vn = new _Vector2.default(d1 * k, y, d2 * k);</span>
+<span class="cstat-no" title="statement not covered" >                startIndex = pos.length / 3;</span>
+<span class="cstat-no" title="statement not covered" >                pos.push(v.X, v.Y, v.Z, v.X, v.Y, v.Z, 0, 1, 0);</span>
+<span class="cstat-no" title="statement not covered" >                uv.push(0, 1, 0, 1, 0, 1);</span>
+<span class="cstat-no" title="statement not covered" >                normal.push(vn.X, vn.Y, vn.Z, 0, -1, 0, vn.X, vn.Y, vn.Z);</span>
+<span class="cstat-no" title="statement not covered" >                if (i !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >                    index.push(startIndex - 1, startIndex - 3, startIndex);</span>
+<span class="cstat-no" title="statement not covered" >                    index.push(0, startIndex + 1, startIndex - 2);</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            startIndex = pos.length / 3 - 1;</span>
+<span class="cstat-no" title="statement not covered" >            index.push(startIndex, startIndex - 2, 1);</span>
+<span class="cstat-no" title="statement not covered" >            index.push(0, 2, startIndex - 1);</span>
+        }
+    }, {
+        key: "calcUVInCircle",
+        value: <span class="fstat-no" title="function not covered" >function calcUVInCircle(index, divCount) {</span>
+<span class="cstat-no" title="statement not covered" >            if (index === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                return [0, 0];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var angle = (index - 1) * 2 * Math.PI / divCount;</span>
+<span class="cstat-no" title="statement not covered" >            return [Math.cos(angle), Math.sin(angle)];</span>
+        }
+    }, {
+        key: "calcNextPointInCircle",
+        value: <span class="fstat-no" title="function not covered" >function calcNextPointInCircle(index, divCount, center, tan, tan2) {</span>
+<span class="cstat-no" title="statement not covered" >            var angle = (index - 1) * 2 * Math.PI / divCount;</span>
+<span class="cstat-no" title="statement not covered" >            return index === 0 ? center : _Vector2.default.add(center, _Vector2.default.add(tan.multiplyWith(Math.sin(angle)), tan2.multiplyWith(Math.cos(angle))));</span>
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return GeometryBuilder;</span>
+}();
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = GeometryBuilder;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 22 2016 16:20:03 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>
