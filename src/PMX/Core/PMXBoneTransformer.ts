@@ -5,7 +5,7 @@ import {quat, vec3} from "gl-matrix";
 import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
-import PMXIKLink from "../PMXIKLink";
+import PMXIKLink from "../PMXIKLinkData";
 
 /**
  * Bone transformer for pmx
@@ -17,7 +17,7 @@ class PMXBoneTransformer extends Transformer {
 	 */
   public userRotation: Quaternion = Quaternion.Identity;
 
-  public transformUpdated = false;
+  public transformUpdated: boolean = false;
 
   /**
 	 * Translation vector produced from manual operation,bone animation.
@@ -37,37 +37,37 @@ class PMXBoneTransformer extends Transformer {
 	 * Quaternion produced from bone morphs.
 	 * @type {Quaternion}
 	 */
-  private morphRotation: Quaternion = Quaternion.Identity;
+  private _morphRotation: Quaternion = Quaternion.Identity;
 
 	/**
 	 * Translation vector produced from bone morphs.
 	 * @type {Vector3}
 	 */
-  private morphTranslation: Vector3 = Vector3.Zero;
+  private _morphTranslation: Vector3 = Vector3.Zero;
 
 	/**
 	 * Quaternion that will be used for calculating rotation providing for child bones.
 	 * @type {Quaternion}
 	 */
-  private providingRotation: Quaternion = Quaternion.Identity;
+  private _providingBoneRotation: Quaternion = Quaternion.Identity;
 
 	/**
 	 * Translation vector that will be used for calculating translation providing for child bones.
 	 * @type {Vector3}
 	 */
-  private providingTranslation: Vector3 = Vector3.Zero;
+  private _providingBoneTranslation: Vector3 = Vector3.Zero;
 
   /**
    * Reference to PMXModel managing all dynamic features.
    * @type {PMXModel}
    */
-  private pmx: PMXModel;
+  private _pmx: PMXModel;
 
   /**
    * Bone index for bone array of skeleton.
    * @type {number}
    */
-  private boneIndex: number;
+  private _boneIndex: number;
 
   /**
    * Quaternion produced from rotation of IK link.
@@ -77,8 +77,8 @@ class PMXBoneTransformer extends Transformer {
 
   constructor(sceneObj: SceneObject, pmx: PMXModel, index: number) {
     super(sceneObj);
-    this.pmx = pmx;
-    this.boneIndex = index;
+    this._pmx = pmx;
+    this._boneIndex = index;
   }
 
 
@@ -86,15 +86,15 @@ class PMXBoneTransformer extends Transformer {
    * Reference to static model data.
    */
   public get PMXModelData() {
-    return this.pmx.ModelData;
+    return this._pmx.ModelData;
   }
 
   public get BoneData() {
-    return this.PMXModelData.Bones[this.boneIndex];
+    return this.PMXModelData.Bones[this._boneIndex];
   }
 
   public get ProvidingBone() {
-    return this.pmx.skeleton.getBoneByIndex(this.BoneData.providingBoneIndex);
+    return this._pmx.skeleton.getBoneByIndex(this.BoneData.providingBoneIndex);
   }
 
   public get ProvidingBoneTransformer() {
@@ -122,14 +122,14 @@ class PMXBoneTransformer extends Transformer {
   }
 
   public updateTransformForPMX() {
-    if (this.pmx == null) {
+    if (this._pmx == null) {
       return;
     }
     this.updateLocalTranslation();
-    if (this.IsIKBone && this.pmx.skeleton) {
+    if (this.IsIKBone && this._pmx.skeleton) {
       this.applyCCDIK();
     } else {
-      this.updateLocalRotation();
+      this._updateLocalRotation();
       super.updateTransform();
     }
   }
@@ -138,7 +138,7 @@ class PMXBoneTransformer extends Transformer {
 	 * This operation not affects any other bones.(Even if the bone was child bone)
 	 * @return {[type]} [description]
 	 */
-  private updateLocalRotation() {
+  private _updateLocalRotation() {
     quat.identity(this.Rotation.rawElements);
     if (this.IsRotationProvidingBone) {
       if (this.IsLocalProvidingBone) {
@@ -152,9 +152,9 @@ class PMXBoneTransformer extends Transformer {
     }
     // Multiply local rotations of this bone
     quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.userRotation.rawElements);
-    quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.morphRotation.rawElements);
+    quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this._morphRotation.rawElements);
     if (this.IsRotationProvidingBone) { // Memorize providing rotation of this bone
-      quat.copy(this.providingRotation.rawElements, this.Rotation.rawElements);
+      quat.copy(this._providingBoneRotation.rawElements, this.Rotation.rawElements);
     }
     // Calculate IkLink rotation of this bone
     quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.ikLinkRotation.rawElements);
@@ -177,9 +177,9 @@ class PMXBoneTransformer extends Transformer {
       vec3.lerp(this.Position.rawElements, this.Position.rawElements, this.ProvidingBone.Transformer.Position.rawElements, this.BoneData.providingRate);
     }
     vec3.add(this.Position.rawElements, this.Position.rawElements, this.userTranslation.rawElements);
-    vec3.add(this.Position.rawElements, this.Position.rawElements, this.morphTranslation.rawElements);
+    vec3.add(this.Position.rawElements, this.Position.rawElements, this._morphTranslation.rawElements);
     if (this.IsTranslationProvidingBone) {
-      vec3.copy(this.providingTranslation.rawElements, this.Position.rawElements);
+      vec3.copy(this._providingBoneTranslation.rawElements, this.Position.rawElements);
     }
   }
 
@@ -195,9 +195,9 @@ class PMXBoneTransformer extends Transformer {
   }
 
   private CCDIKOperation(it: number) {
-    const effectorTransformer = <PMXBoneTransformer> this.pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;
+    const effectorTransformer = <PMXBoneTransformer> this._pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;
     const TargetGlobalPos = Matrix.transformPoint(this.LocalToGlobal, this.LocalOrigin);
-    // vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
+    // vec3.transformMat4(this._pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
     for (let i = 0; i < this.BoneData.ikLinkCount; i++) {
       const ikLinkData = this.BoneData.ikLinks[i];
       const ikLinkTransform = this.getIkLinkTransformerByIndex(i);
@@ -240,17 +240,17 @@ class PMXBoneTransformer extends Transformer {
     // Generate the rotation matrix rotating along the axis
     const rotation = Quaternion.AngleAxis(rotationAngle, rotationAxis);
     // link.updateTransform();
-    // Rotation = (providingRotation) * userRotation * morphRotation * ikLinkRotation
+    // Rotation = (_providingBoneRotation) * userRotation * _morphRotation * ikLinkRotation
     // RestrictedRotation = Rotation * ikLinkAdjust
     // ikLinkAdust = (Rotation) ^ -1 * RestrictedRotation
     const restrictedRotation = this.RestrictRotation(ikLink, rotation);
-    link.ikLinkRotation = Quaternion.Multiply(link.ikLinkRotation, restrictedRotation);
+    link.ikLinkRotation = Quaternion.multiply(link.ikLinkRotation, restrictedRotation);
     link.updateTransformForPMX();
     // link.updateTransformMatricies();
   }
 
   private getIkLinkTransformerByIndex(index: number): PMXBoneTransformer {
-    return <PMXBoneTransformer>this.pmx.skeleton.getBoneByIndex(this.BoneData.ikLinks[index].ikLinkBoneIndex).Transformer;
+    return <PMXBoneTransformer>this._pmx.skeleton.getBoneByIndex(this.BoneData.ikLinks[index].ikLinkBoneIndex).Transformer;
   }
 
   private RestrictRotation(link: PMXIKLink, rot: Quaternion): Quaternion {

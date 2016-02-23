@@ -1,4 +1,4 @@
-interface PMXDisplayFrame {
+interface PMXDisplayFrameData {
   frameName: string;
   frameNameEn: string;
   specialFrameFlag: number;
@@ -7,4 +7,4 @@ interface PMXDisplayFrame {
   targetIndex: number[];
 }
 
-export default PMXDisplayFrame;
+export default PMXDisplayFrameData;

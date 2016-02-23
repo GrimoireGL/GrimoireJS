@@ -117,7 +117,7 @@ class Scene extends jThreeObjectEEWithID {
   /**
    * Append the camera to this scene as managed
    */
-  public addCamera(camera: Camera) {
+  public addCamera(camera: Camera): void {
     this.cameras[camera.ID] = camera;
   }
 
@@ -128,7 +128,7 @@ class Scene extends jThreeObjectEEWithID {
     return this.cameras[id];
   }
 
-  public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs) {
+  public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs): void {
     this.sceneObjectStructureChanged.fire(this, eventArg);
   }
 }

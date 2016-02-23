@@ -3,7 +3,7 @@ import PMXPrimaryBufferMaterial from "./Materials/PMXPrimaryBufferMaterial";
 import PMXCoreInitializer from "./PMXCoreInitializer";
 import PMXHitAreaMaterial from "./Materials/PMXHitAreaMaterial";
 import SceneObject from "../../Core/SceneObjects/SceneObject";
-import PMXModelData from "../PMXLoader";
+import PMXModelData from "../PMXData";
 import PMXGeometry from "./PMXGeometry";
 import PMXMaterial from "./Materials/PMXMaterial";
 import PMXSkeleton from "./PMXSkeleton";

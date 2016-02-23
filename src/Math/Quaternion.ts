@@ -36,16 +36,16 @@ class Quaternion extends JThreeObject {
   /**
   * Calculate add result of two quaternion
   */
-  public static Add(q1: Quaternion, q2: Quaternion): Quaternion {
+  public static add(q1: Quaternion, q2: Quaternion): Quaternion {
     const newQuat = quat.create();
 
     return new Quaternion(quat.add(newQuat, q1.rawElements, q2.rawElements));
   }
 
   /**
-  * Calculate Multiply result of two quaternion
+  * Calculate multiply result of two quaternion
   */
-  public static Multiply(q1: Quaternion, q2: Quaternion): Quaternion {
+  public static multiply(q1: Quaternion, q2: Quaternion): Quaternion {
     const newQuat = quat.create();
     return new Quaternion(quat.mul(newQuat, q1.rawElements, q2.rawElements));
   }
@@ -63,11 +63,11 @@ class Quaternion extends JThreeObject {
   }
 
   public static Euler(x: number, y: number, z: number): Quaternion {
-    return Quaternion.Multiply(Quaternion.AngleAxis(z, Vector3.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(x, Vector3.XUnit), Quaternion.AngleAxis(y, Vector3.YUnit)));
+    return Quaternion.multiply(Quaternion.AngleAxis(z, Vector3.ZUnit), Quaternion.multiply(Quaternion.AngleAxis(x, Vector3.XUnit), Quaternion.AngleAxis(y, Vector3.YUnit)));
   }
 
   public static EulerXYZ(x: number, y: number, z: number): Quaternion {
-    return Quaternion.Multiply(Quaternion.AngleAxis(z, Vector3.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(y, Vector3.YUnit), Quaternion.AngleAxis(x, Vector3.XUnit)));
+    return Quaternion.multiply(Quaternion.AngleAxis(z, Vector3.ZUnit), Quaternion.multiply(Quaternion.AngleAxis(y, Vector3.YUnit), Quaternion.AngleAxis(x, Vector3.XUnit)));
   }
 
 
@@ -83,7 +83,7 @@ class Quaternion extends JThreeObject {
    * @returns {number} angle represented in radians.
    */
   public static Angle(q1: Quaternion, q2: Quaternion): number {
-    let delta = Quaternion.Multiply(q2, q1.Inverse());
+    let delta = Quaternion.multiply(q2, q1.Inverse());
     delta = delta.Normalize();
     return 2 * Math.acos(delta.W);
   }

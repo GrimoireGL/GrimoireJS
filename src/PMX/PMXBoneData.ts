@@ -1,5 +1,5 @@
-import PMXIKLink from "./PMXIKLink";
-interface PMXBone {
+import PMXIKLink from "./PMXIKLinkData";
+interface PMXBoneData {
   boneName: string;
   boneNameEn: string;
   position: number[];
@@ -22,4 +22,4 @@ interface PMXBone {
 }
 
 
-export default PMXBone;
+export default PMXBoneData;
