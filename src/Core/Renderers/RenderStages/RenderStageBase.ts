@@ -49,34 +49,34 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     return this.Renderer.GL;
   }
 
-  public preStage(scene: Scene, texs: ResolvedChainInfo) {
+  public preStage(scene: Scene, texs: ResolvedChainInfo): void {
     return;
   }
 
-  public postStage(scene: Scene, texs: ResolvedChainInfo) {
+  public postStage(scene: Scene, texs: ResolvedChainInfo): void {
     return;
   }
 
 	/**
 	 * This method will be called before process render in each pass
 	 */
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
     return;
   }
 	/**
 	 * This method will be called after process render in each pass.
 	 */
-  public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
     this.Renderer.GL.flush();
   }
 
-  public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo);
+  public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void;
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
     return false;
   }
 
-  public getTechniqueCount(scene: Scene) {
+  public getTechniqueCount(scene: Scene): number {
     return 1;
   }
 
@@ -84,7 +84,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     return "scene";
   }
 
-  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string, isWireframed: boolean) {
+  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string, isWireframed: boolean): void {
     if (!object.isVisible) {
       return;
     }

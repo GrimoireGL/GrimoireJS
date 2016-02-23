@@ -32,21 +32,21 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
 
   public hitTestQueries: HitTestQuery[] = [];
 
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
     super.preTechnique(scene, techniqueIndex, texs);
     this.___objectIndex = 1;
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
     this.indexObjectPair[this.___objectIndex] = object;
     super.render(scene, object, techniqueCount, techniqueIndex, texs);
     this.___objectIndex++;
   }
 
-  public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
     if (texs["OUT"]) {
       if (!(texs["OUT"] instanceof TextureBase)) {
-       throw new Error("OUT argument cannnot acceptable except TextureBase");
+        throw new Error("OUT argument cannnot acceptable except TextureBase");
       }
       const canvas = this.Renderer.Canvas;
       for (let i = 0; i < this.hitTestQueries.length; i++) {

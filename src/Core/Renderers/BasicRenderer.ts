@@ -119,7 +119,7 @@ class BasicRenderer extends CanvasRegion {
    * It will be called before processing renderer.
    * If you need to override this method, you need to call same method of super class first.
    */
-  public beforeRender() {
+  public beforeRender(): void {
     this.applyDefaultBufferViewport();
     this.Canvas.beforeRender(this);
   }
@@ -128,7 +128,7 @@ class BasicRenderer extends CanvasRegion {
    * It will be called after processing renderer.
    * If you need to override this method, you need to call same method of super class first.
    */
-  public afterRender() {
+  public afterRender(): void {
     this.GL.flush();
     this.Canvas.afterRender(this);
   }

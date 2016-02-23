@@ -23,7 +23,7 @@ class GeometryBuilder {
       }
     }
   }
-  public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]) {
+  public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]):void {
     const startIndex = pos.length / 3;
     const v0 = points[0], v1 = points[1], v3 = points[2];
     const v02v1 = v1.subtractWith(v0);

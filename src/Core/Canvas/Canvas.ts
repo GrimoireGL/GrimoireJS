@@ -81,9 +81,10 @@ class Canvas extends CanvasRegion {
   /**
    * apply gl context after webglrendering context initiated.
    */
-  protected __setGLContext(glContext: WebGLRenderingContext) {
+  protected __setGLContext(glContext: WebGLRenderingContext): void {
     this.GL = glContext;
     this.glExtensionResolver.checkExtensions(glContext);
+    return;
   }
 
   private _clearCanvas(): void {

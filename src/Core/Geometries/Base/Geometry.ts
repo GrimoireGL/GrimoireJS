@@ -14,9 +14,9 @@ abstract class Geometry extends jThreeObject implements IDisposable {
     return 0;
   }
 
-  public abstract drawElements(canvas: Canvas, material: Material);
+  public abstract drawElements(canvas: Canvas, material: Material): void;
 
-  public abstract drawWireframe(canvas: Canvas, material: Material);
+  public abstract drawWireframe(canvas: Canvas, material: Material): void;
 
   public abstract applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void;
 

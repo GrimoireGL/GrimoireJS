@@ -16,7 +16,7 @@ class GLExtensionResolver extends JThreeObject {
 
   private extensions: { [key: string]: any } = {};
 
-  public checkExtensions(gl: WebGLRenderingContext) {
+  public checkExtensions(gl: WebGLRenderingContext): void {
     for (let i = 0; i < this.requiredExtensions.length; i++) {
       const element = this.requiredExtensions[i];
       let ext;

@@ -87,6 +87,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
       diffX: this.mouseX - this.lastMouseX,
       diffY: this.mouseY - this.lastMouseY
     });
+    return;
   }).bind(this);
 
   private _mouseLeaveHandler = ((e: MouseEvent): void => {
@@ -105,6 +106,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
       diffX: this.mouseX - this.lastMouseX,
       diffY: this.mouseY - this.lastMouseY
     });
+    return;
   }).bind(this);
 
   private _mouseEnterHandler = ((e: MouseEvent): void => {
@@ -120,6 +122,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
       diffX: this.mouseX - this.lastMouseX,
       diffY: this.mouseY - this.lastMouseY
     });
+    return;
   }).bind(this);
 
   private _mouseDownHandler = ((e: MouseEvent): void => {
@@ -139,6 +142,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
       diffX: this.mouseX - this.lastMouseX,
       diffY: this.mouseY - this.lastMouseY
     });
+    return;
   });
 
   private _mouseUpHandler = ((e: MouseEvent): void => {
@@ -159,6 +163,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
       diffX: this.mouseX - this.lastMouseX,
       diffY: this.mouseY - this.lastMouseY
     });
+    return;
   });
 
 
@@ -176,10 +181,11 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
    *
    *使ったオブジェクトやイベントハンドラの破棄
    */
-  public dispose() {
+  public dispose():void {
     this.canvasElement.removeEventListener("mousemove", this._mouseMoveHandler, false);
     this.canvasElement.removeEventListener("mouseenter", this._mouseEnterHandler, false);
     this.canvasElement.removeEventListener("mouseleave", this._mouseLeaveHandler, false);
+    return;
   }
 
   private _checkMouseInside(e: MouseEvent|TouchEvent): boolean {
