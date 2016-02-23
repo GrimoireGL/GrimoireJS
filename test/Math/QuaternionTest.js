@@ -31,9 +31,6 @@ describe('Quaternion', ()=>{
   it('To Do Quaternion Slerp',()=>{
 
   });
-  it('To Do Quaternion ',()=>{
-
-  });
   it('To Do Quaternion Angle',()=>{
 
   });
@@ -43,7 +40,36 @@ describe('Quaternion', ()=>{
   it('To Do Quaternion LookRotation',()=>{
 
   });
-  it('To Do Quaternion identity',()=>{
-    Matrix.
+  it('Quaternion identity',()=>{
+    assert(Matrix.equal(Matrix.RotationQuaternion(Quaternion.Identity),Matrix.identity()));
+  });
+  it('Quaternion get X',()=>{
+    assert(new Quaternion([10,20,20,10]).X === 10 );
+  });
+  it('Quaternion get Y',()=>{
+    assert(new Quaternion([10,20,20,10]).Y === 20 );
+  });
+  it('Quaternion get Z',()=>{
+    assert(new Quaternion([10,20,20,10]).Z === 20 );
+  });
+  it('Quaternion get W',()=>{
+    assert(new Quaternion([10,20,20,10]).W === 10 );
+  });
+  it('Quaternion get ImaginaryPart',()=>{
+   assert(Vector3.equal(new Quaternion([10,20,20,10]).ImaginaryPart,
+   new Vector3([10,20,20])));
+  });
+  it('Quaternion get Conjugate',()=>{
+   assert(Quaternion.equals(new Quaternion([10,20,20,10]).Conjugate,
+   new Quaternion([-10,-20,-20,10])));
+  });
+  it('Quaternion get Length',()=>{
+  assert(new Quaternion([1,1,1,1]).Length===2);
+  });
+  it('Quaternion get Normalize',()=>{
+    assert(Quaternion.equals(new Quaternion([1,1,1,1]).Normalize(),new Quaternion([0.5,0.5,0.5,0.5])));
+  });
+  it('Quaternion get Normalize',()=>{
+    assert(Quaternion.equals(new Quaternion([1,1,1,1]).Inverse(),new Quaternion([-0.25,-0.25,-0.25,0.25])));
   });
 });
