@@ -44,5 +44,6 @@ class CoverTask
         gulp.src ['coverage/**/*.*'],
             base:'coverage'
           .pipe gulp.dest 'ci/cover/'+config.branch
+        gulp.src ['ci/cover/' + config.branch + '/']
 
 module.exports = CoverTask

@@ -97,6 +97,7 @@
     "typedoc": "^0.3.12",
     "typescript": "^1.7.5",
     "underscore": "^1.8.3",
+    "underscore.string": "^3.2.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
