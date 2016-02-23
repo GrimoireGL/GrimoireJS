@@ -162,13 +162,13 @@
 117
 118</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,13 +279,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};</span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
     value: true
 });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _GomlTreeNodeBase2 = require("../../GomlTreeNodeBase");</span>
 &nbsp;
@@ -400,7 +400,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 02:54:26 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:08:20 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>
