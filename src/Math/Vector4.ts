@@ -80,7 +80,7 @@ class Vector4 extends VectorBase {
     return new Vector4(vec.X, vec.Y, vec.Z, vec.W);
   }
 
-  public static dot(v1: Vector4, v2: Vector4) {
+  public static dot(v1: Vector4, v2: Vector4): number {
     return vec4.dot(v1.rawElements, v2.rawElements);
   }
 
@@ -103,12 +103,12 @@ class Vector4 extends VectorBase {
     return Vector4.multiply(-1, v1);
   }
 
-  public static equal(v1: Vector4, v2: Vector4): boolean {
-    return VectorBase.elementEqual(v1, v2);
+  public static equals(v1: Vector4, v2: Vector4): boolean {
+    return VectorBase.__elementEquals(v1, v2);
   }
 
-  public static nearlyEqual(v1: Vector4, v2: Vector4): boolean {
-    return VectorBase.nearlyElementEqual(v1, v2);
+  public static nearlyEquals(v1: Vector4, v2: Vector4): boolean {
+    return VectorBase.__nearlyElementEquals(v1, v2);
   }
 
   public static normalize(v1: Vector4): Vector4 {
@@ -118,11 +118,11 @@ class Vector4 extends VectorBase {
 
 
   public static min(v1: Vector4, v2: Vector4): Vector4 {
-    return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.min(_v1.rawElements[i], _v2.rawElements[i])));
+    return new Vector4(VectorBase.__fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.min(_v1.rawElements[i], _v2.rawElements[i])));
   }
 
   public static max(v1: Vector4, v2: Vector4): Vector4 {
-    return new Vector4(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.max(_v1.rawElements[i], _v2.rawElements[i])));
+    return new Vector4(VectorBase.__fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.max(_v1.rawElements[i], _v2.rawElements[i])));
   }
 
   public static angle(v1: Vector4, v2: Vector4): number {
@@ -178,11 +178,11 @@ class Vector4 extends VectorBase {
   }
 
   public equalWith(v: Vector4): boolean {
-    return Vector4.equal(this, v);
+    return Vector4.equals(this, v);
   }
 
   public nearlyEqualWith(v: Vector4): boolean {
-    return Vector4.nearlyEqual(this, v);
+    return Vector4.nearlyEquals(this, v);
   }
 
   public get ElementCount(): number { return 4; }
@@ -195,7 +195,7 @@ class Vector4 extends VectorBase {
     return `Vector4${this.toString() }`;
   }
 
-  public toMathematicaString() {
+  public toMathematicaString(): string {
     return `{${this.X},${this.Y},${this.Z},${this.W}}`;
   }
 

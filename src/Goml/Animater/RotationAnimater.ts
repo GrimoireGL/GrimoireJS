@@ -6,7 +6,7 @@ class RotationAnimater extends AnimagterBase {
     const b = <Quaternion>this.beginValue;
     const e = <Quaternion>this.endValue;
     const ef = this.easingFunction.Ease;
-    this.targetAttribute.Value = Quaternion.Slerp(b, e, ef(0, 1, progress));
+    this.targetAttribute.Value = Quaternion.slerp(b, e, ef(0, 1, progress));
   }
 }
 

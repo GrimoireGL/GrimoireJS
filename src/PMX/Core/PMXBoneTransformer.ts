@@ -238,7 +238,7 @@ class PMXBoneTransformer extends Transformer {
     const rotationAxis = Vector3.cross(effector, target).normalizeThis();
 
     // Generate the rotation matrix rotating along the axis
-    const rotation = Quaternion.AngleAxis(rotationAngle, rotationAxis);
+    const rotation = Quaternion.angleAxis(rotationAngle, rotationAxis);
     // link.updateTransform();
     // Rotation = (_providingBoneRotation) * userRotation * _morphRotation * ikLinkRotation
     // RestrictedRotation = Rotation * ikLinkAdjust
@@ -257,11 +257,11 @@ class PMXBoneTransformer extends Transformer {
     if (!link.isLimitedRotation) {
       return rot; // If this link bone is not enabled with rotation limit,just return.
     }
-    const decomposed = rot.FactoringQuaternionXYZ();
+    const decomposed = rot.factoringQuaternionXYZ();
     const xRotation = Math.max(link.limitedRotation[0], Math.min(link.limitedRotation[3], -decomposed.x));
     const yRotation = Math.max(link.limitedRotation[1], Math.min(link.limitedRotation[4], -decomposed.y));
     const zRotation = Math.max(link.limitedRotation[2], Math.min(link.limitedRotation[5], decomposed.z));
-    return Quaternion.EulerXYZ(-xRotation, -yRotation, zRotation);
+    return Quaternion.eulerXYZ(-xRotation, -yRotation, zRotation);
   }
 
   private clampFloat(f: number, limit: number) {

@@ -152,7 +152,7 @@ class BasicRenderer extends CanvasRegion {
    * @param area {Rectangle} the rectangle to render.
    */
   public set region(area: Rectangle) {
-    if (!Rectangle.Equals(area, this._viewport) && (typeof area.Width !== "undefined") && (typeof area.Height !== "undefined")) { // Check specified area is valid and modified
+    if (!Rectangle.equals(area, this._viewport) && (typeof area.Width !== "undefined") && (typeof area.Height !== "undefined")) { // Check specified area is valid and modified
       if (isNaN(area.Height + area.Width)) {
         return;
       }
