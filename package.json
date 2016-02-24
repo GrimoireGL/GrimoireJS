@@ -89,7 +89,7 @@
     "ternary-stream": "^2.0.0",
     "through2": "^2.0.1",
     "tsify": "^0.13.2",
-    "tslint": "^3.3.0",
+    "tslint": "^3.4.0",
     "txtify": "jThreeJS/txtify#ab4d0fe28e3b1e94e349504688f6011143ad622c",
     "typedoc": "^0.3.12",
     "typescript": "^1.7.5",

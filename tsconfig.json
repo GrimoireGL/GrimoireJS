@@ -33,6 +33,7 @@
     "./src/Core/Canvas/GLSpecResolver.ts",
     "./src/Core/Canvas/ICanvasElementStructure.ts",
     "./src/Core/Canvas/ICanvasListChangedEventArgs.ts",
+    "./src/Core/Canvas/IGLPrecision.ts",
     "./src/Core/Geometries/Base/BasicGeometry.ts",
     "./src/Core/Geometries/Base/Geometry.ts",
     "./src/Core/Geometries/Base/GeometryBuilder.ts",
