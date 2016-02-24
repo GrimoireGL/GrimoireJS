@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Goml/GomlAttribute.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/Goml/</a> GomlAttribute.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.77% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/104</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/67</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.59% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/79</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObjectEEWithID2 = require("../Base/JThreeObjectEEWithID");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObjectEEWithID3 = _interopRequireDefault(_JThreeObjectEEWithID2);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _StringAttributeConverter = require("./Converter/StringAttributeConverter");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _StringAttributeConverter2 = _interopRequireDefault(_StringAttributeConverter);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeContext = require("../JThreeContext");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeContext2 = _interopRequireDefault(_JThreeContext);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents = require("../ContextComponents");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents2 = _interopRequireDefault(_ContextComponents);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q = require("q");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q2 = _interopRequireDefault(_q);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _possibleConstructorReturn(self, call) {</span> <span class="cstat-no" title="statement not covered" >if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} <span class="cstat-no" title="statement not covered" ></span>return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
+&nbsp;
+/**
+ * Provides the feature to manage attribute of GOML.
+ */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var GomlAttribute = <span class="fstat-no" title="function not covered" >function (_JThreeObjectEEWithID) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(GomlAttribute, _JThreeObjectEEWithID);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function GomlAttribute(name, value, converter, reserved, constant) {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, GomlAttribute);</span>
+&nbsp;
+        /**
+         * falseの時はattributeが更新された際のeventは呼ばれません。trueの時、attributeが初期化されていることを示します。
+         * @type {boolean}
+         */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GomlAttribute).call(this, name));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _this.initialized = false;</span>
+        /**
+         * When reserved flag is true, this attribute is not defined from Node's constructor and expected to be defined in Node.
+         * This attribute will be true when it is defined not in Node but in Element.
+         * @type {boolean}
+         */
+<span class="cstat-no" title="statement not covered" >        _this.reserved = false;</span>
+        /**
+         * deferred for handling async initializing of attribute.
+         * @type {boolean}
+         */
+<span class="cstat-no" title="statement not covered" >        _this.deferred = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this.defer_type = "";</span>
+<span class="cstat-no" title="statement not covered" >        _this.initializeSequence = false;</span>
+<span class="cstat-no" title="statement not covered" >        _this.nodeManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.NodeManager);</span>
+<span class="cstat-no" title="statement not covered" >        _this.constant = constant !== undefined ? constant : false;</span>
+<span class="cstat-no" title="statement not covered" >        _this.reserved = reserved !== undefined ? reserved : false;</span>
+<span class="cstat-no" title="statement not covered" >        _this.Converter = converter;</span>
+<span class="cstat-no" title="statement not covered" >        _this.Value = value;</span>
+<span class="cstat-no" title="statement not covered" >        return _this;</span>
+    }
+    /**
+     * Attributeが初期化されていることを示すinitializedのフラグを建て、attributeが更新された際のeventが有効になるようにします。
+     *
+     * このメソッドはGomlNodeのインスタンスが生成された後に呼ばれ、GomlNodeのコンストラクタ内でset:Valueが呼ばれてもeventは発生しません。
+     */
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(GomlAttribute, [{</span>
+        key: "initialize",
+        value: <span class="fstat-no" title="function not covered" >function initialize() {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.value === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                console.warn("Attribute " + this.Name + " is undefined.");</span>
+            }
+            // console.log("initialized", this.ID, this.value);
+<span class="cstat-no" title="statement not covered" >            if (this.reserved) {</span>
+                // overrideが期待されているattributeの初期化
+                // notifyValueChangedでdeferredが解決される
+                // temp時にinitializeSequenceが開始される
+                // 一箇所でpromiseを集めるための処置
+<span class="cstat-no" title="statement not covered" >                this.initializeSequence = true;</span>
+<span class="cstat-no" title="statement not covered" >                this.defer_type = "reserved";</span>
+            } else <span class="cstat-no" title="statement not covered" >if (!this.constant &amp;&amp; this.listeners("changed").length !== 0) {</span>
+                // 通常時のAttributeの初期化
+                // onchangeのイベントのコールバック内でdoneでdeferredが解決される
+<span class="cstat-no" title="statement not covered" >                this.initializeSequence = true;</span>
+<span class="cstat-no" title="statement not covered" >                this.deferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >                this.nodeManager.attributePromiseRegistry.register(this.deferred.promise, this);</span>
+<span class="cstat-no" title="statement not covered" >                this.defer_type = "not constant, has changed";</span>
+<span class="cstat-no" title="statement not covered" >                this.emit("changed", this);</span>
+            } else {
+                // onchangeハンドラが無い、又は定数の場合はpromiseを生成しない。
+<span class="cstat-no" title="statement not covered" >                this.initialized = true;</span>
+                // console.log("resolve attribute (inst)", this.Name);
+<span class="cstat-no" title="statement not covered" >                this.defer_type = "constant or no changed, not reserved";</span>
+            }
+        }
+        /**
+         * This method must be called inside onchange event callback.
+         */
+&nbsp;
+    }, {
+        key: "done",
+        value: <span class="fstat-no" title="function not covered" >function done() {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.initializeSequence) {</span>
+<span class="cstat-no" title="statement not covered" >                this.initialized = true;</span>
+<span class="cstat-no" title="statement not covered" >                this.initializeSequence = false;</span>
+                // console.log("resolve attribute (done)", this.Name);
+<span class="cstat-no" title="statement not covered" >                this.deferred.resolve(this);</span>
+            }
+        }
+    }, {
+        key: "notifyValueChanged",
+&nbsp;
+        /**
+         * Use this method when you emit chenge event.
+         * Do not use #emit()
+         *
+         * on change event will be fired when #initialized property is true.
+         * When this attribute is reserved and #initializeSequence is true, change event will also be fired even if not initilized.
+         */
+        value: <span class="fstat-no" title="function not covered" >function notifyValueChanged() {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.constant) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (this.initialized || this.initializeSequence) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this.initializeSequence) {</span>
+<span class="cstat-no" title="statement not covered" >                    this.deferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >                    this.nodeManager.attributePromiseRegistry.register(this.deferred.promise, this);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                this.emit("changed", this);</span>
+            }
+        }
+    }, {
+        key: "Name",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.ID;</span>
+        }
+    }, {
+        key: "Value",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.value;</span>
+        },
+        set: <span class="fstat-no" title="function not covered" >function set(val) {</span>
+            // console.log("setattr", this.Name, val);
+<span class="cstat-no" title="statement not covered" >            if (this.constant &amp;&amp; this.value !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                console.warn("attribute \"" + this.ID + "\" is immutable");</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (typeof val === "string") {</span>
+<span class="cstat-no" title="statement not covered" >                this.value = this.Converter.toObjectAttr(val);</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                try {</span>
+<span class="cstat-no" title="statement not covered" >                    this.Converter.toStringAttr(val);</span>
+                } catch (e) {
+<span class="cstat-no" title="statement not covered" >                    console.warn("type of attribute: " + this.Name + "(" + val + ") is not adapt to converter: " + this.Converter.getTypeName(), val);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                this.value = val;</span>
+            }
+            // console.log("setattr_obj", this.Name, this.value);
+<span class="cstat-no" title="statement not covered" >            if (this.initialized) {</span>
+<span class="cstat-no" title="statement not covered" >                this.emit("changed", this);</span>
+            }
+        }
+        /**
+         * Get converter
+         *
+         * If converter is undefined, string converter will be used as default.
+         * @return {AttributeConverterBase} converter
+         */
+&nbsp;
+    }, {
+        key: "ValueStr",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.value == null ? "" : this.Converter.toStringAttr(this.value);</span>
+        }
+    }, {
+        key: "Converter",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.converter ? this.converter : new _StringAttributeConverter2.default();</span>
+        },
+        set: <span class="fstat-no" title="function not covered" >function set(converter) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.converter === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                this.converter = converter;</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                var attr_value = this.Converter.toStringAttr(this.Value);</span>
+<span class="cstat-no" title="statement not covered" >                this.converter = converter;</span>
+<span class="cstat-no" title="statement not covered" >                this.Value = attr_value;</span>
+            }
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return GomlAttribute;</span>
+}(_JThreeObjectEEWithID3.default);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = GomlAttribute;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 07:09:34 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
