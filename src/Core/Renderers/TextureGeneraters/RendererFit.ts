@@ -20,7 +20,7 @@ class RendererFit extends GeneraterBase {
     }
   }
 
-  public generate(texInfo: GeneraterInfoChunk) {
+  public generate(texInfo: GeneraterInfoChunk): void {
     const rect = this.ParentRenderRectangle;
     const width = rect.Width, height = rect.Height;
     let elementLayout: number;

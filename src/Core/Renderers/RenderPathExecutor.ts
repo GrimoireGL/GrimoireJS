@@ -26,7 +26,7 @@ class RenderPathExecutor extends JThreeObjectEE {
     this.renderer = parent;
   }
 
-  public processRender(scene: Scene, renderPath: RenderPath) {
+  public processRender(scene: Scene, renderPath: RenderPath): void {
     let stageIndex = 0;
     renderPath.path.forEach(chain => {
       try {

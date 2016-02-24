@@ -102,7 +102,7 @@ class BasicTechnique extends JThreeObjectWithID {
     return mm.constructMaterial(matName);
   }
 
-  private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo) {
+  private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo): void {
     // TODO support for multiple rendering buffer
     const colorConfigure = this._fboBindingInfo[0];
     fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, texs[colorConfigure.name] as TextureBase);
