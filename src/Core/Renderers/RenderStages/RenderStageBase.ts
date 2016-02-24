@@ -85,6 +85,9 @@ abstract class RenderStageBase extends JThreeObjectWithID {
   }
 
   public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string, isWireframed: boolean) {
+    if (!object.isVisible) {
+      return;
+    }
     const materials = object.getMaterials(materialGroup);
     for (let i = 0; i < materials.length; i++) {
       this.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, materials[i], isWireframed);
@@ -92,7 +95,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
   }
 
   public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, material: Material, isWireframed: boolean): void {
-    if (!material || !material.Initialized || !material.Enabled) { return; }
+    if (!material || !material.Initialized || !material.Enabled || !object.isVisible) { return; }
     const passCount = material.getPassCount(techniqueIndex);
     for (let pass = 0; pass < passCount; pass++) {
       material.apply({
