@@ -1,10 +1,10 @@
-import JThreeObject from "../../Base/JThreeObject";
-import JThreeLogger from "../../Base/JThreeLogger";
-import GLExtensionList from "./GLExtensionList";
+import JThreeObject from "../../../Base/JThreeObject";
+import JThreeLogger from "../../../Base/JThreeLogger";
+import GLExtensionList from "./../GLExtensionList";
 /**
  * Provides the feature to require gl extension.
  */
-class GLExtensionResolver extends JThreeObject {
+class GLExtensionRegistory extends JThreeObject {
   private requiredExtensions =
   [
     GLExtensionList.ElementIndexUint,
@@ -70,4 +70,4 @@ class GLExtensionResolver extends JThreeObject {
   }
 
 }
-export default GLExtensionResolver;
+export default GLExtensionRegistory;
