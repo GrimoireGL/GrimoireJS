@@ -4,3 +4,5 @@ class DepthTextureExtensionResolver extends ExtensionResolverBase {
     return this.requestExtensionWithWarning(gl, "WEBGL_depth_texture");
   }
 }
+
+export default DepthTextureExtensionResolver;

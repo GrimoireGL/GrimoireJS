@@ -1,6 +1,6 @@
 import ExtensionResolverBase from "./ExtensionResolverBase";
 class ColorBufferFloatExtensionResolver extends ExtensionResolverBase {
-  request(gl: WebGLRenderingContext): { [key: string]: any; } {
+  public request(gl: WebGLRenderingContext): { [key: string]: any; } {
     const isSupported = this._checkWebglColorBufferFloat(gl);
     if (isSupported) {
       return {};

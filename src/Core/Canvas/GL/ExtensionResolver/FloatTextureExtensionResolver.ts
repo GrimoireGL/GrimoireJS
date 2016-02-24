@@ -5,3 +5,5 @@ class FloatTextureExtensionResolver extends ExtensionResolverBase {
     return this.requestExtensionWithWarning(gl, "OES_texture_float");
   }
 }
+
+export default FloatTextureExtensionResolver;

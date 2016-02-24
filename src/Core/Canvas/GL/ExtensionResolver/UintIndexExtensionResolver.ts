@@ -4,3 +4,4 @@ class UintIndexExtensionResolver extends ExtensionResolverBase {
     return this.requestExtensionWithWarning(gl, "OES_element_index_uint");
   }
 }
+export default UintIndexExtensionResolver;
