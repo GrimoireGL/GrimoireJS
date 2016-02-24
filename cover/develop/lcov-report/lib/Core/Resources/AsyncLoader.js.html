@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">51.67% </span>
+        <span class="strong">47.27% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>31/60</span>
+        <span class='fraction'>26/55</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">36.36% </span>
+        <span class="strong">27.59% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>12/33</span>
+        <span class='fraction'>8/29</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">29.41% </span>
+        <span class="strong">25% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/17</span>
+        <span class='fraction'>4/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/40</span>
+        <span class='fraction'>12/36</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -118,24 +118,7 @@
 73
 74
 75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+76</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,17 +127,7 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -219,31 +192,18 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-&nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 &nbsp;
 var _typeof = typeof Symbol === "function" &amp;&amp; typeof Symbol.iterator === "symbol" ? <span class="fstat-no" title="function not covered" >function (obj) {</span> <span class="cstat-no" title="statement not covered" >return typeof obj; </span>} : <span class="fstat-no" title="function not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >function (obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; typeof Symbol === "function" &amp;&amp; obj.constructor === Symbol ? "symbol" : typeof obj; </span>};</span>
 &nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 &nbsp;
-var _ContextComponents = require("../../ContextComponents");
-&nbsp;
-var _ContextComponents2 = _interopRequireDefault(_ContextComponents);
-&nbsp;
-var _JThreeContext = require("../../JThreeContext");
-&nbsp;
-var _JThreeContext2 = _interopRequireDefault(_JThreeContext);
-&nbsp;
-var _q = require("q");
-&nbsp;
-var _q2 = _interopRequireDefault(_q);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
-&nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+var ContextComponents_1 = require("../../ContextComponents");
+var JThreeContext_1 = require("../../JThreeContext");
+var q_1 = require("q");
 &nbsp;
 var AsyncLoader = function () {
 <span class="fstat-no" title="function not covered" >    function AsyncLoader() {</span>
@@ -268,11 +228,11 @@ var AsyncLoader = function () {
 <span class="cstat-no" title="statement not covered" >            var _this = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            var absPath = AsyncLoader.getAbsolutePath(src);</span>
-<span class="cstat-no" title="statement not covered" >            if (this._loadedResource[absPath] &amp;&amp; this._loadedResource[absPath] instanceof _q2.default.Promise) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._loadedResource[absPath] &amp;&amp; this._loadedResource[absPath] instanceof q_1.default.Promise) {</span>
 <span class="cstat-no" title="statement not covered" >                return this._loadedResource[absPath];</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                var _ret = <span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                    var loader = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceLoader);</span>
+<span class="cstat-no" title="statement not covered" >                    var loader = JThreeContext_1.default.getContextComponent(ContextComponents_1.default.ResourceLoader);</span>
 <span class="cstat-no" title="statement not covered" >                    var deferred = loader.getResourceLoadingDeffered();</span>
 <span class="cstat-no" title="statement not covered" >                    if (_this._loadedResource[absPath]) {</span>
 <span class="cstat-no" title="statement not covered" >                        process.nextTick(<span class="fstat-no" title="function not covered" >function () {</span></span>
@@ -307,13 +267,14 @@ var AsyncLoader = function () {
     return AsyncLoader;
 }();
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = AsyncLoader;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:42:23 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 09:55:49 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

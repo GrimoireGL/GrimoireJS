@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">9.23% </span>
+        <span class="strong">8.06% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/65</span>
+        <span class='fraction'>5/62</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/31</span>
+        <span class='fraction'>0/27</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/18</span>
+        <span class='fraction'>0/17</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">15% </span>
+        <span class="strong">13.16% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>6/40</span>
+        <span class='fraction'>5/38</span>
       </div>
     </div>
   </div>
@@ -126,35 +126,18 @@
 81
 82
 83
-84
-85
-86
-87
-88
-89
-90
-91
-92</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+84</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -225,21 +208,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
-    value: true
-});
-&nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _ViewCameraBase = require("./ViewCameraBase");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _ViewCameraBase2 = _interopRequireDefault(_ViewCameraBase);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _glMatrix = require("gl-matrix");</span>
-&nbsp;
-<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -247,8 +219,11 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var PerspectiveCamera = <span class="fstat-no" title="function not covered" >function (_ViewCamera) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(PerspectiveCamera, _ViewCamera);</span>
+<span class="cstat-no" title="statement not covered" >var ViewCameraBase_1 = require("./ViewCameraBase");</span>
+<span class="cstat-no" title="statement not covered" >var gl_matrix_1 = require("gl-matrix");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var PerspectiveCamera = <span class="fstat-no" title="function not covered" >function (_ViewCameraBase_1$def) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(PerspectiveCamera, _ViewCameraBase_1$def);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function PerspectiveCamera() {</span>
 <span class="cstat-no" title="statement not covered" >        var _Object$getPrototypeO;</span>
@@ -271,8 +246,8 @@
 <span class="cstat-no" title="statement not covered" >    _createClass(PerspectiveCamera, [{</span>
         key: "_updateProjectionMatrix",
         value: <span class="fstat-no" title="function not covered" >function _updateProjectionMatrix() {</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.perspective(this.projectionMatrix.rawElements, this._fovy, this._aspect, this._near, this._far);</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.invert(this.invProjectionMatrix.rawElements, this.projectionMatrix.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            gl_matrix_1.mat4.perspective(this.projectionMatrix.rawElements, this._fovy, this._aspect, this._near, this._far);</span>
+<span class="cstat-no" title="statement not covered" >            gl_matrix_1.mat4.invert(this.invProjectionMatrix.rawElements, this.projectionMatrix.rawElements);</span>
 <span class="cstat-no" title="statement not covered" >            this.__updateViewProjectionMatrix();</span>
         }
     }, {
@@ -314,15 +289,16 @@
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return PerspectiveCamera;</span>
-}(_ViewCameraBase2.default);
+}(ViewCameraBase_1.default);
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = PerspectiveCamera;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:42:23 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 09:55:49 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

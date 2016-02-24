@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">24.75% </span>
+        <span class="strong">22.45% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>25/101</span>
+        <span class='fraction'>22/98</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">20% </span>
+        <span class="strong">13.89% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>8/40</span>
+        <span class='fraction'>5/36</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">27.78% </span>
+        <span class="strong">23.53% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/18</span>
+        <span class='fraction'>4/17</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">13.1% </span>
+        <span class="strong">10.98% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/84</span>
+        <span class='fraction'>9/82</span>
       </div>
     </div>
   </div>
@@ -204,18 +204,7 @@
 159
 160
 161
-162
-163
-164
-165
-166
-167
-168
-169</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+162</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,10 +213,6 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -379,21 +364,14 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-&nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 &nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="if path not taken" >I</span>if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span></span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 &nbsp;
-var _GLEnumParser = require("../../Canvas/GLEnumParser");
-&nbsp;
-var _GLEnumParser2 = _interopRequireDefault(_GLEnumParser);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
-&nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+var GLEnumParser_1 = require("../../Canvas/GLEnumParser");
 &nbsp;
 var XMLRenderConfigureUtility = function () {
 <span class="fstat-no" title="function not covered" >    function XMLRenderConfigureUtility() {</span>
@@ -511,7 +489,7 @@ var XMLRenderConfigureUtility = function () {
         value: <span class="fstat-no" title="function not covered" >function _applyCullConfigureToGL(gl, enabled, mode) {</span>
 <span class="cstat-no" title="statement not covered" >            if (enabled) {</span>
 <span class="cstat-no" title="statement not covered" >                gl.enable(gl.CULL_FACE);</span>
-<span class="cstat-no" title="statement not covered" >                gl.cullFace(_GLEnumParser2.default.parseCullMode(mode));</span>
+<span class="cstat-no" title="statement not covered" >                gl.cullFace(GLEnumParser_1.default.parseCullMode(mode));</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                gl.disable(gl.CULL_FACE);</span>
             }
@@ -521,7 +499,7 @@ var XMLRenderConfigureUtility = function () {
         value: <span class="fstat-no" title="function not covered" >function _applyDepthTestConfigureToGL(gl, enabled, mode) {</span>
 <span class="cstat-no" title="statement not covered" >            if (enabled) {</span>
 <span class="cstat-no" title="statement not covered" >                gl.enable(gl.DEPTH_TEST);</span>
-<span class="cstat-no" title="statement not covered" >                gl.depthFunc(_GLEnumParser2.default.parseDepthFunc(mode));</span>
+<span class="cstat-no" title="statement not covered" >                gl.depthFunc(GLEnumParser_1.default.parseDepthFunc(mode));</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                gl.disable(gl.DEPTH_TEST);</span>
             }
@@ -531,7 +509,7 @@ var XMLRenderConfigureUtility = function () {
         value: <span class="fstat-no" title="function not covered" >function _applyBlendFunConfigureToGL(gl, enabled, src, dst) {</span>
 <span class="cstat-no" title="statement not covered" >            if (enabled) {</span>
 <span class="cstat-no" title="statement not covered" >                gl.enable(gl.BLEND);</span>
-<span class="cstat-no" title="statement not covered" >                gl.blendFunc(_GLEnumParser2.default.parseBlendFunc(src), _GLEnumParser2.default.parseBlendFunc(dst));</span>
+<span class="cstat-no" title="statement not covered" >                gl.blendFunc(GLEnumParser_1.default.parseBlendFunc(src), GLEnumParser_1.default.parseBlendFunc(dst));</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                gl.disable(gl.BLEND);</span>
             }
@@ -547,13 +525,14 @@ var XMLRenderConfigureUtility = function () {
     return XMLRenderConfigureUtility;
 }();
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = XMLRenderConfigureUtility;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:42:23 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 09:55:49 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

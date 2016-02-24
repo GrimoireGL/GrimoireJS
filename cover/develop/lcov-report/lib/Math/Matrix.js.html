@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">95.65% </span>
+        <span class="strong">95.49% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>132/138</span>
+        <span class='fraction'>127/133</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60.61% </span>
+        <span class="strong">58.62% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>20/33</span>
+        <span class='fraction'>17/29</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">95.74% </span>
+        <span class="strong">95.65% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>45/47</span>
+        <span class='fraction'>44/46</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">97.35% </span>
+        <span class="strong">97.25% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>110/113</span>
+        <span class='fraction'>106/109</span>
       </div>
     </div>
   </div>
@@ -342,48 +342,19 @@
 297
 298
 299
-300
-301
-302
-303
-304
-305
-306
-307
-308
-309
-310
-311
-312
-313
-314</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+300</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">74×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">74×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -669,29 +640,10 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-&nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-&nbsp;
-var _MatrixBase2 = require("./MatrixBase");
-&nbsp;
-var _MatrixBase3 = _interopRequireDefault(_MatrixBase2);
-&nbsp;
-var _Vector = require("./Vector3");
-&nbsp;
-var _Vector2 = _interopRequireDefault(_Vector);
-&nbsp;
-var _Vector3 = require("./Vector4");
-&nbsp;
-var _Vector4 = _interopRequireDefault(_Vector3);
-&nbsp;
-var _glMatrix = require("gl-matrix");
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
 &nbsp;
 function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
 &nbsp;
@@ -699,8 +651,13 @@ function _possibleConstructorReturn(self, call) { <span class="missing-if-branch
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
-var Matrix = function (_MatrixBase) {
-    _inherits(Matrix, _MatrixBase);
+var MatrixBase_1 = require("./MatrixBase");
+var Vector3_1 = require("./Vector3");
+var Vector4_1 = require("./Vector4");
+var gl_matrix_1 = require("gl-matrix");
+&nbsp;
+var Matrix = function (_MatrixBase_1$default) {
+    _inherits(Matrix, _MatrixBase_1$default);
 &nbsp;
     function Matrix(arr) {
         _classCallCheck(this, Matrix);
@@ -710,7 +667,7 @@ var Matrix = function (_MatrixBase) {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (arr) {
             _this.rawElements = arr;
         } else {
-<span class="cstat-no" title="statement not covered" >            _this.rawElements = _glMatrix.mat4.create();</span>
+<span class="cstat-no" title="statement not covered" >            _this.rawElements = gl_matrix_1.mat4.create();</span>
         }
         return _this;
     }
@@ -733,7 +690,7 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "getColmun",
         value: function getColmun(col) {
-            return new _Vector4.default(this.rawElements[col * 4], this.rawElements[col * 4 + 1], this.rawElements[col * 4 + 2], this.rawElements[col * 4 + 3]);
+            return new Vector4_1.default(this.rawElements[col * 4], this.rawElements[col * 4 + 1], this.rawElements[col * 4 + 2], this.rawElements[col * 4 + 3]);
         }
         /**
         * Get row
@@ -743,7 +700,7 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "getRow",
         value: function getRow(row) {
-            return new _Vector4.default(this.rawElements[row], this.rawElements[row + 4], this.rawElements[row + 8], this.rawElements[row + 12]);
+            return new Vector4_1.default(this.rawElements[row], this.rawElements[row + 4], this.rawElements[row + 8], this.rawElements[row + 12]);
         }
     }, {
         key: "multiplyWith",
@@ -783,7 +740,7 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "identity",
         value: function identity() {
-            return new Matrix(_glMatrix.mat4.create());
+            return new Matrix(gl_matrix_1.mat4.create());
         }
     }, {
         key: "fromElements",
@@ -803,7 +760,7 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "add",
         value: function add(m1, m2) {
-            var mat = _glMatrix.mat4.create();
+            var mat = gl_matrix_1.mat4.create();
             for (var i = 0; i &lt; 16; i++) {
                 mat[i] = m1.rawElements[i] + m2.rawElements[i];
             }
@@ -817,23 +774,23 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "scalarMultiply",
         value: function scalarMultiply(s, m) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.multiply(newMat, [s, 0, 0, 0, 0, s, 0, 0, 0, 0, s, 0, 0, 0, 0, s], m.rawElements);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.multiply(newMat, [s, 0, 0, 0, 0, s, 0, 0, 0, 0, s, 0, 0, 0, 0, s], m.rawElements);
             return new Matrix(newMat);
         }
     }, {
         key: "multiply",
         value: function multiply(m1, m2) {
-            var newMat = _glMatrix.mat4.create();
-            return new Matrix(_glMatrix.mat4.mul(newMat, m1.rawElements, m2.rawElements));
+            var newMat = gl_matrix_1.mat4.create();
+            return new Matrix(gl_matrix_1.mat4.mul(newMat, m1.rawElements, m2.rawElements));
         }
     }, {
         key: "TRS",
         value: function TRS(t, rot, s) {
-            var newMat = _glMatrix.mat4.create();
-            var cacheMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.mul(newMat, _glMatrix.mat4.translate(newMat, _glMatrix.mat4.create(), t.rawElements), _glMatrix.mat4.fromQuat(cacheMat, rot.rawElements));
-            _glMatrix.mat4.scale(newMat, newMat, s.rawElements);
+            var newMat = gl_matrix_1.mat4.create();
+            var cacheMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.mul(newMat, gl_matrix_1.mat4.translate(newMat, gl_matrix_1.mat4.create(), t.rawElements), gl_matrix_1.mat4.fromQuat(cacheMat, rot.rawElements));
+            gl_matrix_1.mat4.scale(newMat, newMat, s.rawElements);
             return new Matrix(newMat);
         }
     }, {
@@ -844,39 +801,39 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "transpose",
         value: function transpose(m) {
-            var newMat = _glMatrix.mat4.create();
-            return new Matrix(_glMatrix.mat4.transpose(newMat, m.rawElements));
+            var newMat = gl_matrix_1.mat4.create();
+            return new Matrix(gl_matrix_1.mat4.transpose(newMat, m.rawElements));
         }
     }, {
         key: "transformPoint",
         value: function transformPoint(m, t) {
-            var newVec = _glMatrix.vec3.create();
-            _glMatrix.vec3.transformMat4(newVec, t.rawElements, m.rawElements);
-            return new _Vector2.default(newVec);
+            var newVec = gl_matrix_1.vec3.create();
+            gl_matrix_1.vec3.transformMat4(newVec, t.rawElements, m.rawElements);
+            return new Vector3_1.default(newVec);
         }
     }, {
         key: "transformNormal",
         value: function transformNormal(m, t) {
-            var newVec = _glMatrix.vec4.create();
-            var trans = _glMatrix.vec4.create();
+            var newVec = gl_matrix_1.vec4.create();
+            var trans = gl_matrix_1.vec4.create();
             trans[0] = t.X;
             trans[1] = t.Y;
             trans[2] = t.Z;
             trans[3] = 0;
-            _glMatrix.vec4.transformMat4(newVec, trans, m.rawElements);
-            return new _Vector2.default(newVec[0], newVec[1], newVec[2]);
+            gl_matrix_1.vec4.transformMat4(newVec, trans, m.rawElements);
+            return new Vector3_1.default(newVec[0], newVec[1], newVec[2]);
         }
     }, {
         key: "transform",
         value: function transform(m, t) {
-            var newVec = _glMatrix.vec4.create();
-            var trans = _glMatrix.vec4.create();
+            var newVec = gl_matrix_1.vec4.create();
+            var trans = gl_matrix_1.vec4.create();
             trans[0] = t.X;
             trans[1] = t.Y;
             trans[2] = t.Z;
             trans[3] = t.W;
-            _glMatrix.vec4.transformMat4(newVec, trans, m.rawElements);
-            return new _Vector4.default(newVec[0], newVec[1], newVec[2], newVec[3]);
+            gl_matrix_1.vec4.transformMat4(newVec, trans, m.rawElements);
+            return new Vector4_1.default(newVec[0], newVec[1], newVec[2], newVec[3]);
         }
         /**
          * Retrieve determinant of passed matrix
@@ -885,7 +842,7 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "determinant",
         value: function determinant(m) {
-            return _glMatrix.mat4.determinant(m.rawElements);
+            return gl_matrix_1.mat4.determinant(m.rawElements);
         }
         /**
          * Compute inverted passed matrix.
@@ -894,8 +851,8 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "inverse",
         value: function inverse(m) {
-            var newMat = _glMatrix.mat4.create();
-            return new Matrix(_glMatrix.mat4.invert(newMat, m.rawElements));
+            var newMat = gl_matrix_1.mat4.create();
+            return new Matrix(gl_matrix_1.mat4.invert(newMat, m.rawElements));
         }
         /**
          * Generate linear translation transform matrix.
@@ -904,8 +861,8 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "translate",
         value: function translate(v) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.translate(newMat, newMat, v.rawElements);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.translate(newMat, newMat, v.rawElements);
             return new Matrix(newMat);
         }
         /**
@@ -915,80 +872,81 @@ var Matrix = function (_MatrixBase) {
     }, {
         key: "scale",
         value: function scale(v) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.scale(newMat, newMat, v.rawElements);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.scale(newMat, newMat, v.rawElements);
             return new Matrix(newMat);
         }
     }, {
         key: "rotateX",
         value: function rotateX(angle) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.rotateX(newMat, newMat, angle);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.rotateX(newMat, newMat, angle);
             return new Matrix(newMat);
         }
     }, {
         key: "rotateY",
         value: function rotateY(angle) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.rotateY(newMat, newMat, angle);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.rotateY(newMat, newMat, angle);
             return new Matrix(newMat);
         }
     }, {
         key: "rotateZ",
         value: function rotateZ(angle) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.rotateZ(newMat, newMat, angle);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.rotateZ(newMat, newMat, angle);
             return new Matrix(newMat);
         }
     }, {
         key: "RotationQuaternion",
         value: function RotationQuaternion(quat_) {
-            var quaternion = _glMatrix.quat.create();
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.quat.normalize(quaternion, quat_.rawElements);
-            _glMatrix.mat4.fromQuat(newMat, quaternion);
+            var quaternion = gl_matrix_1.quat.create();
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.quat.normalize(quaternion, quat_.rawElements);
+            gl_matrix_1.mat4.fromQuat(newMat, quaternion);
             return new Matrix(newMat);
         }
     }, {
         key: "frustum",
         value: function frustum(left, right, bottom, top, near, far) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.frustum(newMat, left, right, bottom, top, near, far);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.frustum(newMat, left, right, bottom, top, near, far);
             return new Matrix(newMat);
         }
     }, {
         key: "ortho",
         value: function ortho(left, right, bottom, top, near, far) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.ortho(newMat, left, right, bottom, top, near, far);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.ortho(newMat, left, right, bottom, top, near, far);
             return new Matrix(newMat);
         }
     }, {
         key: "perspective",
         value: function perspective(fovy, aspect, near, far) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.perspective(newMat, fovy, aspect, near, far);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.perspective(newMat, fovy, aspect, near, far);
             return new Matrix(newMat);
         }
     }, {
         key: "lookAt",
         value: function lookAt(eye, _lookAt, up) {
-            var newMat = _glMatrix.mat4.create();
-            _glMatrix.mat4.lookAt(newMat, eye.rawElements, _lookAt.rawElements, up.rawElements);
+            var newMat = gl_matrix_1.mat4.create();
+            gl_matrix_1.mat4.lookAt(newMat, eye.rawElements, _lookAt.rawElements, up.rawElements);
             return new Matrix(newMat);
         }
     }]);
 &nbsp;
     return Matrix;
-}(_MatrixBase3.default);
+}(MatrixBase_1.default);
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Matrix;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:42:23 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 09:55:49 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80% </span>
+        <span class="strong">78.48% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>68/85</span>
+        <span class='fraction'>62/79</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">63.83% </span>
+        <span class="strong">62.79% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>30/47</span>
+        <span class='fraction'>27/43</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.18% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>15/22</span>
+        <span class='fraction'>14/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">76.67% </span>
+        <span class="strong">74.55% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>46/60</span>
+        <span class='fraction'>41/55</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -174,52 +174,19 @@
 129
 130
 131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+132</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -337,31 +304,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-&nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-&nbsp;
-var _VectorBase2 = require("../Math/VectorBase");
-&nbsp;
-var _VectorBase3 = _interopRequireDefault(_VectorBase2);
-&nbsp;
-var _Vector = require("./Vector3");
-&nbsp;
-var _Vector2 = _interopRequireDefault(_Vector);
-&nbsp;
-var _Color = require("./Color4");
-&nbsp;
-var _Color2 = _interopRequireDefault(_Color);
-&nbsp;
-var _Vector3 = require("./Vector4");
-&nbsp;
-var _Vector4 = _interopRequireDefault(_Vector3);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
 &nbsp;
 function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
 &nbsp;
@@ -369,8 +315,13 @@ function _possibleConstructorReturn(self, call) { <span class="missing-if-branch
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
-var Color3 = function (_VectorBase) {
-    _inherits(Color3, _VectorBase);
+var VectorBase_1 = require("../Math/VectorBase");
+var Vector3_1 = require("./Vector3");
+var Color4_1 = require("./Color4");
+var Vector4_1 = require("./Vector4");
+&nbsp;
+var Color3 = function (_VectorBase_1$default) {
+    _inherits(Color3, _VectorBase_1$default);
 &nbsp;
     function Color3(r, g, b) {
         _classCallCheck(this, Color3);
@@ -384,7 +335,7 @@ var Color3 = function (_VectorBase) {
     _createClass(Color3, [{
         key: "toVector",
         value: <span class="fstat-no" title="function not covered" >function toVector() {</span>
-<span class="cstat-no" title="statement not covered" >            return new _Vector2.default(this.R, this.G, this.B);</span>
+<span class="cstat-no" title="statement not covered" >            return new Vector3_1.default(this.R, this.G, this.B);</span>
         }
     }, {
         key: "toVector4",
@@ -392,7 +343,7 @@ var Color3 = function (_VectorBase) {
 <span class="cstat-no" title="statement not covered" >            if (typeof a === "undefined") {</span>
 <span class="cstat-no" title="statement not covered" >                a = 0;</span>
             }
-<span class="cstat-no" title="statement not covered" >            return new _Vector4.default(this.R, this.G, this.B, a);</span>
+<span class="cstat-no" title="statement not covered" >            return new Vector4_1.default(this.R, this.G, this.B, a);</span>
         }
     }, {
         key: "equalWith",
@@ -448,8 +399,8 @@ var Color3 = function (_VectorBase) {
     }, {
         key: "internalParse",
         value: function internalParse(color, isFirst) {
-            if (isFirst &amp;&amp; _Color2.default.colorTable[color]) {
-                var col = _Color2.default.internalParse(_Color2.default.colorTable[color], false);
+            if (isFirst &amp;&amp; Color4_1.default.colorTable[color]) {
+                var col = Color4_1.default.internalParse(Color4_1.default.colorTable[color], false);
                 return Color3.FromColor4(col);
             }
             var m = undefined;
@@ -476,21 +427,22 @@ var Color3 = function (_VectorBase) {
     }, {
         key: "equals",
         value: function equals(col1, col2) {
-            return _VectorBase3.default.elementEqual(col1, col2);
+            return VectorBase_1.default.elementEqual(col1, col2);
         }
     }]);
 &nbsp;
     return Color3;
-}(_VectorBase3.default);
+}(VectorBase_1.default);
 &nbsp;
 Color3.colorTable = require("../static/color.json");
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Color3;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:42:23 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 09:55:49 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

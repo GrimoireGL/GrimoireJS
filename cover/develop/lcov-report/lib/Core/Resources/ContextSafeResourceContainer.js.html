@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">47.44% </span>
+        <span class="strong">43.84% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>37/78</span>
+        <span class='fraction'>32/73</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">42.86% </span>
+        <span class="strong">38.71% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>15/35</span>
+        <span class='fraction'>12/31</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">26.32% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/20</span>
+        <span class='fraction'>5/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.85% </span>
+        <span class="strong">30.61% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>19/53</span>
+        <span class='fraction'>15/49</span>
       </div>
     </div>
   </div>
@@ -150,26 +150,7 @@
 105
 106
 107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+108</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,21 +161,9 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,29 +256,10 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-&nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="if path not taken" >I</span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); </span>return Constructor; }; }();
-&nbsp;
-var _JThreeObjectWithID2 = require("../../Base/JThreeObjectWithID");
-&nbsp;
-var _JThreeObjectWithID3 = _interopRequireDefault(_JThreeObjectWithID2);
-&nbsp;
-var _Exceptions = require("../../Exceptions");
-&nbsp;
-var _JThreeContext = require("../../JThreeContext");
-&nbsp;
-var _JThreeContext2 = _interopRequireDefault(_JThreeContext);
-&nbsp;
-var _ContextComponents = require("../../ContextComponents");
-&nbsp;
-var _ContextComponents2 = _interopRequireDefault(_ContextComponents);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -317,12 +267,16 @@ function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? ob
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
+var JThreeObjectWithID_1 = require("../../Base/JThreeObjectWithID");
+var Exceptions_1 = require("../../Exceptions");
+var JThreeContext_1 = require("../../JThreeContext");
+var ContextComponents_1 = require("../../ContextComponents");
 /**
  * Provides context difference abstraction.
  */
 &nbsp;
-var ContextSafeResourceContainer = function (_JThreeObjectWithID) {
-    _inherits(ContextSafeResourceContainer, _JThreeObjectWithID);
+var ContextSafeResourceContainer = function (_JThreeObjectWithID_) {
+    _inherits(ContextSafeResourceContainer, _JThreeObjectWithID_);
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function ContextSafeResourceContainer() {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, ContextSafeResourceContainer);</span>
@@ -331,7 +285,7 @@ var ContextSafeResourceContainer = function (_JThreeObjectWithID) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        _this.childWrapper = {};</span>
 <span class="cstat-no" title="statement not covered" >        _this.wrapperLength = 0;</span>
-<span class="cstat-no" title="statement not covered" >        var canvasManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.CanvasManager);</span>
+<span class="cstat-no" title="statement not covered" >        var canvasManager = JThreeContext_1.default.getContextComponent(ContextComponents_1.default.CanvasManager);</span>
         // Initialize resources for the renderers already subscribed.
 <span class="cstat-no" title="statement not covered" >        canvasManager.canvasListChanged.addListener(_this.rendererChanged.bind(_this));</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
@@ -367,14 +321,14 @@ var ContextSafeResourceContainer = function (_JThreeObjectWithID) {
     }, {
         key: "createWrapperForCanvas",
         value: <span class="fstat-no" title="function not covered" >function createWrapperForCanvas(canvas) {</span>
-<span class="cstat-no" title="statement not covered" >            throw new _Exceptions.AbstractClassMethodCalledException();</span>
+<span class="cstat-no" title="statement not covered" >            throw new Exceptions_1.AbstractClassMethodCalledException();</span>
         }
     }, {
         key: "initializeForFirst",
         value: <span class="fstat-no" title="function not covered" >function initializeForFirst() {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            var canvasManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.CanvasManager);</span>
+<span class="cstat-no" title="statement not covered" >            var canvasManager = JThreeContext_1.default.getContextComponent(ContextComponents_1.default.CanvasManager);</span>
 <span class="cstat-no" title="statement not covered" >            canvasManager.canvases.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                _this2.childWrapper[v.ID] = _this2.createWrapperForCanvas(v);</span>
 <span class="cstat-no" title="statement not covered" >                _this2.wrapperLength++;</span>
@@ -407,15 +361,16 @@ var ContextSafeResourceContainer = function (_JThreeObjectWithID) {
     }]);
 &nbsp;
     return ContextSafeResourceContainer;
-}(_JThreeObjectWithID3.default);
+}(JThreeObjectWithID_1.default);
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = ContextSafeResourceContainer;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:42:23 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 09:55:49 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

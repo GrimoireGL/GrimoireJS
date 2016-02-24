@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">29.37% </span>
+        <span class="strong">23.93% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>37/126</span>
+        <span class='fraction'>28/117</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">15% </span>
+        <span class="strong">8.93% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>9/60</span>
+        <span class='fraction'>5/56</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">31.25% </span>
+        <span class="strong">26.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/16</span>
+        <span class='fraction'>4/15</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">21.1% </span>
+        <span class="strong">14.85% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>23/109</span>
+        <span class='fraction'>15/101</span>
       </div>
     </div>
   </div>
@@ -232,69 +232,18 @@
 187
 188
 189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+190</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -471,45 +420,20 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-&nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 &nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="if path not taken" >I</span>if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span></span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 &nbsp;
-var _MatrixArray = require("../../../Math/MatrixArray");
-&nbsp;
-var _MatrixArray2 = _interopRequireDefault(_MatrixArray);
-&nbsp;
-var _VectorArray = require("../../../Math/VectorArray");
-&nbsp;
-var _VectorArray2 = _interopRequireDefault(_VectorArray);
-&nbsp;
-var _Matrix = require("../../../Math/Matrix");
-&nbsp;
-var _Matrix2 = _interopRequireDefault(_Matrix);
-&nbsp;
-var _Vector = require("../../../Math/Vector2");
-&nbsp;
-var _Vector2 = _interopRequireDefault(_Vector);
-&nbsp;
-var _Vector3 = require("../../../Math/Vector3");
-&nbsp;
-var _Vector4 = _interopRequireDefault(_Vector3);
-&nbsp;
-var _Vector5 = require("../../../Math/Vector4");
-&nbsp;
-var _Vector6 = _interopRequireDefault(_Vector5);
-&nbsp;
-var _lodash = require("lodash.isarray");
-&nbsp;
-var _lodash2 = _interopRequireDefault(_lodash);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
-&nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+var MatrixArray_1 = require("../../../Math/MatrixArray");
+var VectorArray_1 = require("../../../Math/VectorArray");
+var Matrix_1 = require("../../../Math/Matrix");
+var Vector2_1 = require("../../../Math/Vector2");
+var Vector3_1 = require("../../../Math/Vector3");
+var Vector4_1 = require("../../../Math/Vector4");
+var lodash_isarray_1 = require("lodash.isarray");
 &nbsp;
 var DefaultValuePreProcessor = function () {
 <span class="fstat-no" title="function not covered" >    function DefaultValuePreProcessor() {</span>
@@ -582,10 +506,10 @@ var DefaultValuePreProcessor = function () {
     }, {
         key: "_forVectorarray",
         value: <span class="fstat-no" title="function not covered" >function _forVectorarray(name, dimension, uniform) {</span>
-<span class="cstat-no" title="statement not covered" >            var defaultArray = _VectorArray2.default.zeroVectorArray(dimension, uniform.arrayLength);</span>
+<span class="cstat-no" title="statement not covered" >            var defaultArray = VectorArray_1.default.zeroVectorArray(dimension, uniform.arrayLength);</span>
 <span class="cstat-no" title="statement not covered" >            var defaultValue = uniform.variableAnnotation["default"];</span>
-<span class="cstat-no" title="statement not covered" >            if ((0, _lodash2.default)(defaultValue)) {</span>
-<span class="cstat-no" title="statement not covered" >                if ((0, _lodash2.default)(defaultValue[0])) {</span>
+<span class="cstat-no" title="statement not covered" >            if (lodash_isarray_1.default(defaultValue)) {</span>
+<span class="cstat-no" title="statement not covered" >                if (lodash_isarray_1.default(defaultValue[0])) {</span>
 <span class="cstat-no" title="statement not covered" >                    for (var i = 0; i &lt; defaultValue.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                        defaultArray.setRawArray(i, defaultValue[i]);</span>
                     }
@@ -604,15 +528,15 @@ var DefaultValuePreProcessor = function () {
 <span class="cstat-no" title="statement not covered" >            var annotations = uniform.variableAnnotation;</span>
 <span class="cstat-no" title="statement not covered" >            if (defaultValue) {</span>
 <span class="cstat-no" title="statement not covered" >                if (Array.isArray(defaultValue)) {</span>
-<span class="cstat-no" title="statement not covered" >                    annotations["default"] = new _Vector2.default(defaultValue[0], defaultValue[1]); </span>// parse array as vector
+<span class="cstat-no" title="statement not covered" >                    annotations["default"] = new Vector2_1.default(defaultValue[0], defaultValue[1]); </span>// parse array as vector
                 } else <span class="cstat-no" title="statement not covered" >if (typeof defaultValue === "string") {</span>
-<span class="cstat-no" title="statement not covered" >                        annotations["default"] = _Vector2.default.parse(defaultValue); </span>// parse string representation as vector
+<span class="cstat-no" title="statement not covered" >                        annotations["default"] = Vector2_1.default.parse(defaultValue); </span>// parse string representation as vector
                     } else {
 <span class="cstat-no" title="statement not covered" >                            console.error("Unknown default value " + defaultValue);</span>
-<span class="cstat-no" title="statement not covered" >                            annotations["default"] = new _Vector2.default(0, 0);</span>
+<span class="cstat-no" title="statement not covered" >                            annotations["default"] = new Vector2_1.default(0, 0);</span>
                         }
             } else {
-<span class="cstat-no" title="statement not covered" >                annotations["default"] = new _Vector2.default(0, 0); </span>// use (0,0) as default when the default annotation was not specified
+<span class="cstat-no" title="statement not covered" >                annotations["default"] = new Vector2_1.default(0, 0); </span>// use (0,0) as default when the default annotation was not specified
             }
         }
     }, {
@@ -622,15 +546,15 @@ var DefaultValuePreProcessor = function () {
 <span class="cstat-no" title="statement not covered" >            var annotations = uniform.variableAnnotation;</span>
 <span class="cstat-no" title="statement not covered" >            if (defaultValue) {</span>
 <span class="cstat-no" title="statement not covered" >                if (Array.isArray(defaultValue)) {</span>
-<span class="cstat-no" title="statement not covered" >                    annotations["default"] = new _Vector4.default(defaultValue[0], defaultValue[1], defaultValue[2]); </span>// parse array as vector
+<span class="cstat-no" title="statement not covered" >                    annotations["default"] = new Vector3_1.default(defaultValue[0], defaultValue[1], defaultValue[2]); </span>// parse array as vector
                 } else <span class="cstat-no" title="statement not covered" >if (typeof defaultValue === "string") {</span>
-<span class="cstat-no" title="statement not covered" >                        annotations["default"] = _Vector4.default.parse(defaultValue); </span>// parse string representation as vector
+<span class="cstat-no" title="statement not covered" >                        annotations["default"] = Vector3_1.default.parse(defaultValue); </span>// parse string representation as vector
                     } else {
 <span class="cstat-no" title="statement not covered" >                            console.error("Unknown default value " + defaultValue);</span>
-<span class="cstat-no" title="statement not covered" >                            annotations["default"] = new _Vector4.default(0, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" >                            annotations["default"] = new Vector3_1.default(0, 0, 0);</span>
                         }
             } else {
-<span class="cstat-no" title="statement not covered" >                annotations["default"] = new _Vector4.default(0, 0, 0); </span>// use (0,0,0) as default when the default annotation was not specified
+<span class="cstat-no" title="statement not covered" >                annotations["default"] = new Vector3_1.default(0, 0, 0); </span>// use (0,0,0) as default when the default annotation was not specified
             }
         }
     }, {
@@ -640,15 +564,15 @@ var DefaultValuePreProcessor = function () {
 <span class="cstat-no" title="statement not covered" >            var annotations = uniform.variableAnnotation;</span>
 <span class="cstat-no" title="statement not covered" >            if (defaultValue) {</span>
 <span class="cstat-no" title="statement not covered" >                if (Array.isArray(defaultValue)) {</span>
-<span class="cstat-no" title="statement not covered" >                    annotations["default"] = new _Vector6.default(defaultValue[0], defaultValue[1], defaultValue[2], defaultValue[3]); </span>// parse array as vector
+<span class="cstat-no" title="statement not covered" >                    annotations["default"] = new Vector4_1.default(defaultValue[0], defaultValue[1], defaultValue[2], defaultValue[3]); </span>// parse array as vector
                 } else <span class="cstat-no" title="statement not covered" >if (typeof defaultValue === "string") {</span>
-<span class="cstat-no" title="statement not covered" >                        annotations["default"] = _Vector6.default.parse(defaultValue); </span>// parse string representation as vector
+<span class="cstat-no" title="statement not covered" >                        annotations["default"] = Vector4_1.default.parse(defaultValue); </span>// parse string representation as vector
                     } else {
 <span class="cstat-no" title="statement not covered" >                            console.error("Unknown default value " + defaultValue);</span>
-<span class="cstat-no" title="statement not covered" >                            annotations["default"] = new _Vector6.default(0, 0, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" >                            annotations["default"] = new Vector4_1.default(0, 0, 0, 0);</span>
                         }
             } else {
-<span class="cstat-no" title="statement not covered" >                annotations["default"] = new _Vector6.default(0, 0, 0, 0); </span>// use (0,0,0,0) as default when the default annotation was not specified
+<span class="cstat-no" title="statement not covered" >                annotations["default"] = new Vector4_1.default(0, 0, 0, 0); </span>// use (0,0,0,0) as default when the default annotation was not specified
             }
         }
     }, {
@@ -658,22 +582,22 @@ var DefaultValuePreProcessor = function () {
 <span class="cstat-no" title="statement not covered" >            var annotations = uniform.variableAnnotation;</span>
 <span class="cstat-no" title="statement not covered" >            if (defaultValue) {</span>
 <span class="cstat-no" title="statement not covered" >                if (Array.isArray(defaultValue)) {</span>
-<span class="cstat-no" title="statement not covered" >                    annotations["default"] = _Matrix2.default.fromElements.apply(defaultValue);</span>
+<span class="cstat-no" title="statement not covered" >                    annotations["default"] = Matrix_1.default.fromElements.apply(defaultValue);</span>
                 } else {
 <span class="cstat-no" title="statement not covered" >                    console.error("Unknown default value " + defaultValue);</span>
-<span class="cstat-no" title="statement not covered" >                    annotations["default"] = _Matrix2.default.identity();</span>
+<span class="cstat-no" title="statement not covered" >                    annotations["default"] = Matrix_1.default.identity();</span>
                 }
             } else {
-<span class="cstat-no" title="statement not covered" >                annotations["default"] = _Matrix2.default.identity();</span>
+<span class="cstat-no" title="statement not covered" >                annotations["default"] = Matrix_1.default.identity();</span>
             }
         }
     }, {
         key: "_forMat4Array",
         value: <span class="fstat-no" title="function not covered" >function _forMat4Array(name, uniform) {</span>
 <span class="cstat-no" title="statement not covered" >            var defaultValue = uniform.variableAnnotation["default"];</span>
-<span class="cstat-no" title="statement not covered" >            uniform.variableAnnotation["default"] = _MatrixArray2.default.getIdentityMatrixArray(uniform.arrayLength);</span>
+<span class="cstat-no" title="statement not covered" >            uniform.variableAnnotation["default"] = MatrixArray_1.default.getIdentityMatrixArray(uniform.arrayLength);</span>
 <span class="cstat-no" title="statement not covered" >            if (defaultValue) {</span>
-<span class="cstat-no" title="statement not covered" >                if ((0, _lodash2.default)(defaultValue)) {</span>
+<span class="cstat-no" title="statement not covered" >                if (lodash_isarray_1.default(defaultValue)) {</span>
 <span class="cstat-no" title="statement not covered" >                    for (var i = 0; i &lt; defaultValue.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                        uniform.variableAnnotation["default"].rawElements[i] = defaultValue[i];</span>
                     }
@@ -685,13 +609,14 @@ var DefaultValuePreProcessor = function () {
     return DefaultValuePreProcessor;
 }();
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = DefaultValuePreProcessor;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 23 2016 03:42:23 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 09:55:49 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>
