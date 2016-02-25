@@ -29,7 +29,7 @@ class Scene extends jThreeObjectEEWithID {
 
   private _renderers: BasicRenderer[] = [];
 
-  private cameras: { [id: string]: Camera } = {};
+  private _cameras: { [id: string]: Camera } = {};
 
   constructor(id?: string) {
     super(id);
@@ -118,14 +118,14 @@ class Scene extends jThreeObjectEEWithID {
    * Append the camera to this scene as managed
    */
   public addCamera(camera: Camera): void {
-    this.cameras[camera.ID] = camera;
+    this._cameras[camera.ID] = camera;
   }
 
   /**
    * Get the camera managed in this scene.
    */
   public getCamera(id: string): Camera {
-    return this.cameras[id];
+    return this._cameras[id];
   }
 
   public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs): void {
