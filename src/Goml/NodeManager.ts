@@ -15,7 +15,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
   public attributePromiseRegistry: AttributePromiseRegistry = new AttributePromiseRegistry();
   public gomlRoot: GomlTreeNodeBase;
   public htmlRoot: HTMLElement;
-  public NodesById: {[nodeId: string]: GomlTreeNodeBase} =  {};
+  public nodesById: {[nodeId: string]: GomlTreeNodeBase} =  {};
   public behaviorRegistry: BehaviorRegistry = new BehaviorRegistry();
   public behaviorRunner: BehaviorRunner = new BehaviorRunner();
   public ready: boolean = false;
@@ -44,7 +44,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
   }
 
   public getNode(id: string): GomlTreeNodeBase {
-    return this.NodesById[id];
+    return this.nodesById[id];
   }
 
   public getNodeByElement(elem: HTMLElement): GomlTreeNodeBase {

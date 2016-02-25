@@ -46,7 +46,7 @@ class AttributeParser extends jThreeObject {
    * @param input the string to be parsed as angle in 3D.
    * @returns {Quaternion} parsed rotation in Quaternion.
    */
-  public static ParseRotation3D(input: string): Quaternion {
+  public static parseRotation3D(input: string): Quaternion {
     input = input.replace(/\s/g, "");
     if (input.match(/^[xyz]\(.+\)$/)) {
       const signature = input.replace(/^([xyz])\(.+\)$/, "$1");

@@ -5,9 +5,9 @@ import JThreeContext from "../../../JThreeContext";
 import GomlAttribute from "../../GomlAttribute";
 
 class ImportNode extends GomlTreeNodeBase {
-  private materialManager: MaterialManager;
+  private _materialManager: MaterialManager;
 
-  private type: string = null;
+  private _type: string = null;
 
   constructor() {
     super();
@@ -23,7 +23,7 @@ class ImportNode extends GomlTreeNodeBase {
         onchanged: this._onSrcAttrChanged.bind(this),
       }
     });
-    this.materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    this._materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
   }
 
 
@@ -33,7 +33,7 @@ class ImportNode extends GomlTreeNodeBase {
 
   private _onTypeAttrChanged(attr: GomlAttribute): void {
     if (["material"].indexOf(attr.Value) !== -1) {
-      this.type = attr.Value;
+      this._type = attr.Value;
       attr.done();
     } else {
       throw new Error(`Unknown type: ${attr.Value}`);
@@ -42,14 +42,14 @@ class ImportNode extends GomlTreeNodeBase {
 
   private _onSrcAttrChanged(attr: GomlAttribute): void {
     const path: string = attr.Value;
-    if (!this.type) {
+    if (!this._type) {
       switch (path.match(/\.(\w+?)$/)[1]) {
         case "xmml":
-          this.type = "material";
+          this._type = "material";
           break;
       }
     }
-    if (this.type) {
+    if (this._type) {
       this._getImport(path, attr.done.bind(attr));
     }
   }
@@ -61,9 +61,9 @@ class ImportNode extends GomlTreeNodeBase {
     xhr.onload = () => {
       if (xhr.status === 200) {
         let exportName = null;
-        switch (this.type) {
+        switch (this._type) {
           case "material":
-            const matName = this.materialManager.registerMaterial(xhr.responseText);
+            const matName = this._materialManager.registerMaterial(xhr.responseText);
             exportName = `material-${matName}`;
             break;
         }

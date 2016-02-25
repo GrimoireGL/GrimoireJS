@@ -16,9 +16,9 @@ import TextureNode from "../../Nodes/Texture/TextureNode";
 import CubeTextureNode from "../../Nodes/Texture/CubeTextureNode";
 
 class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
-  protected groupPrefix: string = "material";
+  protected __groupPrefix: string = "material";
 
-  private name: string = "";
+  private _name: string = "";
 
   constructor() {
     super();
@@ -31,7 +31,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
     });
   }
 
-  protected onMount() {
+  protected __onMount(): void {
     super.onMount();
   }
 
@@ -39,11 +39,11 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
    * Construct material. This method must be overridden.
    * @return {Material} [description]
    */
-  protected setMaterial(material: T, callbackfn: () => void): void {
+  protected __setMaterial(material: T, callbackfn: () => void): void {
     this.target = material;
     this.target.on("ready", () => {
       this._generateAttributeForPasses();
-      this.nodeExport(this.name);
+      this.nodeExport(this._name);
       callbackfn();
     });
   }
@@ -61,9 +61,9 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
     if (typeof name !== "string") {
       throw Error(`${this.getTypeName()}: name attribute must be required.`);
     }
-    this.name = name;
+    this._name = name;
     if (this.target && this.target.Initialized) {
-      this.nodeExport(this.name);
+      this.nodeExport(this._name);
     }
     attr.done();
   }

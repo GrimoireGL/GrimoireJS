@@ -14,7 +14,7 @@ class AttributeConverterBase extends JThreeObject {
     throw new AbstractClassMethodCalledException();
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
+  public getAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     throw new AbstractClassMethodCalledException();
   }
 }

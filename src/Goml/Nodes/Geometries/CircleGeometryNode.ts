@@ -14,7 +14,7 @@ class CircleGeometryNode extends GeometryNodeBase<CircleGeometry> {
     });
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
   }
 

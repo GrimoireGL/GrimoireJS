@@ -66,7 +66,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
     });
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const name = this.attributes.getValue("name");

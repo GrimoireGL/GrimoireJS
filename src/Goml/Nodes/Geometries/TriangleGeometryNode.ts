@@ -25,7 +25,7 @@ class GomlTreeTriNode extends GeometryNodeBase<TriangleGeometry> {
     });
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
   }
 

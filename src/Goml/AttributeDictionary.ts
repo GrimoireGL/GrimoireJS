@@ -16,23 +16,23 @@ class AttributeDictionary extends JThreeObject {
    */
   constructor(node: GomlTreeNodeBase) {
     super();
-    this.node = node;
+    this._node = node;
   }
 
-  private node: GomlTreeNodeBase;
+  private _node: GomlTreeNodeBase;
 
-  private attributes: { [key: string]: GomlAttribute } = {};
+  private _attributes: { [key: string]: GomlAttribute } = {};
 
   public forEachAttr(callbackfn: (value: GomlAttribute, key: string, attributes: { [key: string]: GomlAttribute }) => void): AttributeDictionary {
-    Object.keys(this.attributes).forEach((k) => {
-      let v = this.attributes[k];
-      callbackfn(v, k, this.attributes);
+    Object.keys(this._attributes).forEach((k) => {
+      let v = this._attributes[k];
+      callbackfn(v, k, this._attributes);
     }, this);
     return this;
   }
 
   public getValue(attrName: string): any {
-    const attr = this.attributes[attrName];
+    const attr = this._attributes[attrName];
     if (attr === undefined) {
       console.warn(`attribute "${attrName}" is not found.`);
     } else {
@@ -41,7 +41,7 @@ class AttributeDictionary extends JThreeObject {
   }
 
   public getValueStr(attrName: string): string {
-    const attr = this.attributes[attrName];
+    const attr = this._attributes[attrName];
     if (attr === undefined) {
       console.warn(`attribute "${attrName}" is not found.`);
     } else {
@@ -50,7 +50,7 @@ class AttributeDictionary extends JThreeObject {
   }
 
   public setValue(attrName: string, value: any): void {
-    const attr = this.attributes[attrName];
+    const attr = this._attributes[attrName];
     if (attr === undefined) {
       console.warn(`attribute "${attrName}" is not found.`);
     } else {
@@ -67,19 +67,19 @@ class AttributeDictionary extends JThreeObject {
   }
 
   public getAttribute(attrName: string): GomlAttribute {
-    return this.attributes[attrName];
+    return this._attributes[attrName];
   }
 
   public getAllAttributes(): { [key: string]: GomlAttribute } {
-    return this.attributes;
+    return this._attributes;
   }
 
   public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Action0) {
-    const attr = this.attributes[attrName];
+    const attr = this._attributes[attrName];
     if (attr === undefined) {
       console.warn(`attribute \"${attrName}\" is not found.`);
     } else {
-      return attr.Converter.GetAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete);
+      return attr.Converter.getAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete);
     }
   }
 
@@ -87,7 +87,7 @@ class AttributeDictionary extends JThreeObject {
    * Check the attribute passed is defined or not.
    */
   public isDefined(attrName: string): boolean {
-    return this.attributes[attrName] !== undefined;
+    return this._attributes[attrName] !== undefined;
   }
 
   /**
@@ -100,7 +100,7 @@ class AttributeDictionary extends JThreeObject {
     // console.log("attributes_declaration", attributes);
     for (let key in attributes) {
       const attribute = attributes[key];
-      const converter = this.node.nodeManager.configurator.getConverter(attribute.converter);
+      const converter = this._node.nodeManager.configurator.getConverter(attribute.converter);
       if (!converter && (!attribute.reserved || !isUndefined(attribute.converter))) {
         throw new Error(`Converter \"${attribute.converter}\" is not found`);
       }
@@ -113,7 +113,7 @@ class AttributeDictionary extends JThreeObject {
         gomlAttribute.constant = attribute.constant;
         gomlAttribute.Value = gomlAttribute.ValueStr;
         gomlAttribute.reserved = false;
-        gomlAttribute.on("changed", attribute.onchanged.bind(this.node));
+        gomlAttribute.on("changed", attribute.onchanged.bind(this._node));
       } else {
         gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.reserved, attribute.constant);
         if (attribute.reserved) {
@@ -121,14 +121,14 @@ class AttributeDictionary extends JThreeObject {
         } else {
           // console.log("define_attribute", key, attribute, this.node.getTypeName());
           if (attribute.onchanged) {
-            gomlAttribute.on("changed", attribute.onchanged.bind(this.node));
+            gomlAttribute.on("changed", attribute.onchanged.bind(this._node));
           } else {
             console.warn(`attribute "${key}" does not have onchange event handler. this causes lack of attribute's consistency.`);
           }
         }
-        this.attributes[key] = gomlAttribute;
+        this._attributes[key] = gomlAttribute;
       }
-      if (this.node.Mounted && !gomlAttribute.reserved) {
+      if (this._node.Mounted && !gomlAttribute.reserved) {
         gomlAttribute.notifyValueChanged();
       }
     }
@@ -149,8 +149,8 @@ class AttributeDictionary extends JThreeObject {
    * Emit change events to all attributes
    */
   public emitChangeAll() {
-    Object.keys(this.attributes).forEach((k) => {
-      let v = this.attributes[k];
+    Object.keys(this._attributes).forEach((k) => {
+      let v = this._attributes[k];
       if (typeof v.Value !== "undefined") {
         v.notifyValueChanged();
       }
@@ -159,12 +159,12 @@ class AttributeDictionary extends JThreeObject {
 
   public updateValue(attrName?: string) {
     if (typeof attrName === "undefined") {
-      Object.keys(this.attributes).forEach((k) => {
-        let v = this.attributes[k];
+      Object.keys(this._attributes).forEach((k) => {
+        let v = this._attributes[k];
         v.notifyValueChanged();
       });
     } else {
-      const target = this.attributes[attrName];
+      const target = this._attributes[attrName];
       target.notifyValueChanged();
     }
   }

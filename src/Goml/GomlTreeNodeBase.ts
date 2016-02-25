@@ -32,12 +32,12 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * If this property is not overridden, no prefix will be added.
    * @type {string}
    */
-  protected groupPrefix: string = "";
+  protected __groupPrefix: string = "";
 
   /**
    * components that is attached to this node.
    */
-  protected behaviors: {[key: string]: BehaviorNode[]} = {};
+  protected __behaviors: {[key: string]: BehaviorNode[]} = {};
 
   /**
    * コンストラクタ内ではattributeの定義、attributeの変化時のイベント、child, parentが更新された際のイベントを設定します。
@@ -49,7 +49,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
     this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
     // after configuration, this node is going to add to NodesById
-    this.nodeManager.NodesById[this.ID] =  this;
+    this.nodeManager.nodesById[this.ID] =  this;
     this.attributes = new AttributeDictionary(this);
 
     // apply attributes
@@ -77,8 +77,8 @@ class GomlTreeNodeBase extends TreeNodeBase {
     if (this.parent) {
       groupPrefixArray = (<GomlTreeNodeBase>this.parent).GroupPrefix;
     }
-    if (this.groupPrefix !== "") {
-      groupPrefixArray.push(this.groupPrefix);
+    if (this.__groupPrefix !== "") {
+      groupPrefixArray.push(this.__groupPrefix);
     }
     return groupPrefixArray;
   }
@@ -110,14 +110,14 @@ class GomlTreeNodeBase extends TreeNodeBase {
    */
   public addBehavior(behaviors: BehaviorNode): void {
     this.nodeManager.behaviorRunner.addBehavior(behaviors, this);
-    if (!this.behaviors[behaviors.BehaviorName]) {
-      this.behaviors[behaviors.BehaviorName] = [];
+    if (!this.__behaviors[behaviors.BehaviorName]) {
+      this.__behaviors[behaviors.BehaviorName] = [];
     }
-    this.behaviors[behaviors.BehaviorName].push(behaviors);
+    this.__behaviors[behaviors.BehaviorName].push(behaviors);
   }
 
   public getBehaviors(behaviorName: string): BehaviorNode[] {
-    return this.behaviors[behaviorName];
+    return this.__behaviors[behaviorName];
   }
 
   public update(): void {

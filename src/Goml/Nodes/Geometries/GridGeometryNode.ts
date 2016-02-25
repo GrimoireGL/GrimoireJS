@@ -19,7 +19,7 @@ class GridGeometryNode extends GeometryNodeBase<GridGeometry> {
     });
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
   }
 

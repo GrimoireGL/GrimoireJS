@@ -9,7 +9,7 @@ import Q from "q";
  * Basic 2d texture resource node.
  */
 class TextureNode extends TextureNodeBase<Texture> {
-  protected groupPrefix: string = "Texture2D";
+  protected __groupPrefix: string = "Texture2D";
 
   constructor() {
     super();

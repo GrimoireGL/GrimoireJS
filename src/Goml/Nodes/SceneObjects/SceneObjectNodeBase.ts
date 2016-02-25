@@ -10,7 +10,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    * Scene Object that will be applied to Scene.
    * @type {SceneObject}
    */
-  private sceneObject: T = null;
+  private _sceneObject: T = null;
 
   /**
   * SceneObjectNode directly containing this node
@@ -89,29 +89,29 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   }
 
   private _onPositionAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.sceneObject) {
-      this.sceneObject.Transformer.Position = <Vector3>attr.Value;
+    if (this._sceneObject) {
+      this._sceneObject.Transformer.Position = <Vector3>attr.Value;
       attr.done();
     }
   }
 
   private _onScaleAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.sceneObject) {
-      this.sceneObject.Transformer.Scale = <Vector3>attr.Value;
+    if (this._sceneObject) {
+      this._sceneObject.Transformer.Scale = <Vector3>attr.Value;
       attr.done();
     }
   }
 
   private _onRotationAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.sceneObject) {
-      this.sceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+    if (this._sceneObject) {
+      this._sceneObject.Transformer.Rotation = <Quaternion>attr.Value;
       attr.done();
     }
   }
 
   private _onNameAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this.sceneObject) {
-      this.sceneObject.name = attr.Value;
+    if (this._sceneObject) {
+      this._sceneObject.name = attr.Value;
       attr.done();
     }
   }
@@ -126,14 +126,14 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
       obj = null;
     }
     // previus object is exist in child, remove child
-    if (this.sceneObject !== null) {
+    if (this._sceneObject !== null) {
       if (this.ParentSceneObjectNode === null) { // this is root object of scene
-        this.containedSceneNode.target.removeObject(this.sceneObject);
+        this.containedSceneNode.target.removeObject(this._sceneObject);
       } else {
         if (this.parentSceneObjectNode.TargetSceneObject === null) {
           return;
         }
-        this.parentSceneObjectNode.TargetSceneObject.removeChild(this.sceneObject);
+        this.parentSceneObjectNode.TargetSceneObject.removeChild(this._sceneObject);
       }
     }
     if (obj !== null) {
@@ -154,7 +154,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    */
   protected set TargetSceneObject(obj: T) {
     this._updateSceneObjectChild(obj);
-    this.sceneObject = obj;
+    this._sceneObject = obj;
     this.target = obj;
     this.emit("update-scene-object", this.target);
   }
@@ -164,7 +164,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    * @return {SceneObject} [description]
    */
   protected get TargetSceneObject(): T {
-    return this.sceneObject;
+    return this._sceneObject;
   }
 }
 

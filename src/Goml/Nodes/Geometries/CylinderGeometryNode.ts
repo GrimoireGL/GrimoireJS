@@ -14,7 +14,7 @@ class CylinderGeometryNode extends GeometryNodeBase<CylinderGeometry> {
     });
   }
 
-  protected onMount() {
+  protected __onMount() {
     super.onMount();
   }
 

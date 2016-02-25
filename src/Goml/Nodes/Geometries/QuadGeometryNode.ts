@@ -7,7 +7,7 @@ class QuadGeometryNode extends GeometryNodeBase<QuadGeometry> {
     super();
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
   }
 

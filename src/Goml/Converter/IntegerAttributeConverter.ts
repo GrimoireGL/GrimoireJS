@@ -14,7 +14,7 @@ class IntegerAttributeConverter extends AttributeConverterBase {
     return parseInt(attr, 10);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
+  public getAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new IntegerAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }

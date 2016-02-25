@@ -2,19 +2,19 @@ import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 
 
 class BehaviorsNode extends GomlTreeNodeBase {
-  private componentTarget: GomlTreeNodeBase;
+  private _componentTarget: GomlTreeNodeBase;
 
   constructor() {
     super();
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
-    this.componentTarget = <GomlTreeNodeBase>this.parent;
+    this._componentTarget = <GomlTreeNodeBase>this.parent;
   }
 
   public get ComponentTarget(): GomlTreeNodeBase {
-    return this.componentTarget;
+    return this._componentTarget;
   }
 }
 

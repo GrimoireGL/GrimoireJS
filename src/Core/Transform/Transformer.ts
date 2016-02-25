@@ -113,12 +113,12 @@ class Transformer extends JThreeObject {
    */
   public updateTransform(): void {
     this.hasChanged = true;
-    this.updateTransformMatricies();
+    this.__updateTransformMatricies();
     // notify update to childrens
     if (this.linkedObject.Children && this.NeedUpdateChildren) {
-    this.linkedObject.Children.forEach((v) => {
-      v.Transformer.updateTransform();
-    });
+      this.linkedObject.Children.forEach((v) => {
+        v.Transformer.updateTransform();
+      });
     }
     this._g2lupdated = false;
     // fire updated event
@@ -211,27 +211,27 @@ class Transformer extends JThreeObject {
     this.updateTransform();
   }
 
-  public transformDirection(direction: Vector3) {
+  public transformDirection(direction: Vector3): Vector3 {
     return Matrix.transformNormal(this.LocalToGlobal, direction);
   }
 
-  public transformPoint(point: Vector3) {
+  public transformPoint(point: Vector3): Vector3 {
     return Matrix.transformPoint(this._localToGlobalMatrix, point);
   }
 
-  public transformVector(vector: Vector4) {
+  public transformVector(vector: Vector4): Vector4 {
     return Matrix.transform(this._localToGlobalMatrix, vector);
   }
 
-  public inverseTransformDirection(direction: Vector3) {
+  public inverseTransformDirection(direction: Vector3): Vector3 {
     return Matrix.transformNormal(this.globalToLocal, direction);
   }
 
-  public inverseTransformPoint(point: Vector3) {
+  public inverseTransformPoint(point: Vector3): Vector3 {
     return Matrix.transformPoint(this.globalToLocal, point);
   }
 
-  public inverseTransformVector(vector: Vector4) {
+  public inverseTransformVector(vector: Vector4): Vector4 {
     return Matrix.transform(this.globalToLocal, vector);
   }
 
@@ -239,7 +239,7 @@ class Transformer extends JThreeObject {
   * Update transform matricies
   * @return {[type]} [description]
   */
-  protected updateTransformMatricies() {
+  protected __updateTransformMatricies(): void {
     // initialize localTransformCache & localToGlobalMatrix.rawElements
     mat4.identity(this._localTransformMatrix.rawElements);
     mat4.identity(this._localToGlobalMatrix.rawElements);
@@ -254,20 +254,20 @@ class Transformer extends JThreeObject {
     }
     // Multiply parent transform
     mat4.multiply(this._localToGlobalMatrix.rawElements, this._localToGlobalMatrix.rawElements, this._localTransformMatrix.rawElements);
-    this.updateDirections();
+    this.__updateDirections();
   }
 
   /**
    * Update directions by this transform
    */
-  protected updateDirections() {
+  protected __updateDirections(): void {
     // Calculate direction vectors
-    this.updateDirection(this.right, [1, 0, 0, 0]); // need to reduce memory allocation
-    this.updateDirection(this.up, [0, 1, 0, 0]);
-    this.updateDirection(this.forward, [0, 0, -1, 0]);
+    this._updateDirection(this.right, [1, 0, 0, 0]); // need to reduce memory allocation
+    this._updateDirection(this.up, [0, 1, 0, 0]);
+    this._updateDirection(this.forward, [0, 0, -1, 0]);
   }
 
-  private updateDirection(rawElements: Vector3, sourceVector4: number[]) {
+  private _updateDirection(rawElements: Vector3, sourceVector4: number[]): void {
     vec4.transformMat4(rawElements.rawElements, sourceVector4, this._localToGlobalMatrix.rawElements);
     vec3.normalize(rawElements.rawElements, rawElements.rawElements);
   }

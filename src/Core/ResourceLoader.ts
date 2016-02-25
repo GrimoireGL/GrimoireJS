@@ -32,7 +32,7 @@ class ResourceLoader implements IContextComponent {
     return d;
   }
 
-  public getContextComponentIndex() {
+  public getContextComponentIndex(): number {
     return ContextComponents.ResourceLoader;
   }
 

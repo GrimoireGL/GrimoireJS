@@ -10,7 +10,7 @@ class GomlNodeDictionary extends jThreeObject {
    * Assosiative array that indexed by group and name, which assosiate GomlTreeNodeBase and callback functions.
    * @type {GomlTreeNodeBase}
    */
-  private dictionary: { [key: string]: { [key: string]: { node: GomlTreeNodeBase, cb: ((node: GomlTreeNodeBase) => void)[] } } } = {};
+  private _dictionary: { [key: string]: { [key: string]: { node: GomlTreeNodeBase, cb: ((node: GomlTreeNodeBase) => void)[] } } } = {};
 
   /**
    * Assosiative array that indexed by ID, which assosiate group and name string.
@@ -30,13 +30,13 @@ class GomlNodeDictionary extends jThreeObject {
     }
     // console.log("addNode", group, name, node);
     // register
-    if (!this.dictionary[group]) {
-      this.dictionary[group] = {};
+    if (!this._dictionary[group]) {
+      this._dictionary[group] = {};
     }
-    if (!this.dictionary[group][name]) {
-      this.dictionary[group][name] = { node: void 0, cb: [] };
+    if (!this._dictionary[group][name]) {
+      this._dictionary[group][name] = { node: void 0, cb: [] };
     }
-    const target = this.dictionary[group][name];
+    const target = this._dictionary[group][name];
     const group_name = this.IDDictionary[node.ID];
     target.node = node;
     // when node is exist in other group and name
@@ -44,9 +44,9 @@ class GomlNodeDictionary extends jThreeObject {
       if (!(group_name.group === group && group_name.name === name)) {
         if (target.node.Mounted) {
           // notify remove
-          this.dictionary[group_name.group][group_name.name].cb.forEach((fn) => { fn(null); });
+          this._dictionary[group_name.group][group_name.name].cb.forEach((fn) => { fn(null); });
           // console.log("callWithNode(notify-remove)", null, `cb:${this.dictionary[group_name.group][group_name.name].cb.length}`);
-          delete this.dictionary[group_name.group][group_name.name];
+          delete this._dictionary[group_name.group][group_name.name];
         }
       }
     }
@@ -78,14 +78,14 @@ class GomlNodeDictionary extends jThreeObject {
     }
     // console.log("getNode", group, name);
     // register
-    if (!this.dictionary[group]) {
-      this.dictionary[group] = {};
+    if (!this._dictionary[group]) {
+      this._dictionary[group] = {};
     }
-    if (!this.dictionary[group][name]) {
-      this.dictionary[group][name] = { node: void 0, cb: [] };
+    if (!this._dictionary[group][name]) {
+      this._dictionary[group][name] = { node: void 0, cb: [] };
     }
     // console.log(this.dictionary);
-    const target = this.dictionary[group][name];
+    const target = this._dictionary[group][name];
     if (target.cb.length >= 10) {
       throw new Error("registered listeners count is over 10.");
     } else {

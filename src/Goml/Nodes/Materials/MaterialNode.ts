@@ -15,21 +15,21 @@ class MaterialNode extends MaterialNodeBase<Material> {
     });
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
   }
 
   private _onTypeAttrChanged(attr: GomlAttribute): void {
     let material = this.__getMaterialFromMatName(attr.Value);
     if (material) {
-      this.setMaterial(material, () => {
+      this.__setMaterial(material, () => {
         attr.done();
       });
     } else {
       this.nodeImport("jthree.import", `material-${attr.Value}`, (node: GomlTreeNodeBase) => {
         if (node) {
           material = this.__getMaterialFromMatName(attr.Value);
-          this.setMaterial(material, () => {
+          this.__setMaterial(material, () => {
             attr.done();
           });
         }

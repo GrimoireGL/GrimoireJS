@@ -36,11 +36,11 @@ class CameraNode extends CameraNodeBase<PerspectiveCamera> {
     });
   }
 
-  protected ConstructCamera(): PerspectiveCamera {
+  protected __constructCamera(): PerspectiveCamera {
     return new PerspectiveCamera();
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
   }
 

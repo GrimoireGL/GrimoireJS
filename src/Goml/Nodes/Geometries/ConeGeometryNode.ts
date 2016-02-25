@@ -6,7 +6,7 @@ class ConeGeometryNode extends GeometryNodeBase<ConeGeometry> {
     super();
   }
 
-  protected onMount(): void {
+  protected __onMount(): void {
     super.onMount();
   }
 

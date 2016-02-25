@@ -10,33 +10,33 @@ class BehaviorRegistry extends JThreeObject {
     super();
   }
 
-  private behaviorInstances: { [id: string]: BehaviorDeclarationBody } = {};
+  private _behaviorInstances: { [id: string]: BehaviorDeclarationBody } = {};
 
   public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody | Action0);
   public defineBehavior(behaviorDeclarations: BehaviorDeclaration);
   public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, behaviorDeclaration?: BehaviorDeclarationBody | Action0) {
     if (typeof nameOrDeclarations === "string") {
       const behaviorName = <string>nameOrDeclarations;
-      this.behaviorInstances[behaviorName] = this.generateBehaviorInstance(behaviorDeclaration);
+      this._behaviorInstances[behaviorName] = this._generateBehaviorInstance(behaviorDeclaration);
     } else {
       // assume arguments are object.
       const behaviorDeclarations = <BehaviorDeclaration>nameOrDeclarations;
       for (let behaviorKey in behaviorDeclarations) {
-        this.behaviorInstances[behaviorKey] = this.generateBehaviorInstance(behaviorDeclarations[behaviorKey]);
+        this._behaviorInstances[behaviorKey] = this._generateBehaviorInstance(behaviorDeclarations[behaviorKey]);
       }
     }
   }
 
   public getBehavior(behaviorName: string): BehaviorDeclarationBody {
-    return this.behaviorInstances[behaviorName];
+    return this._behaviorInstances[behaviorName];
   }
 
-  private generateBehaviorInstance(behaviorDecl: BehaviorDeclarationBody | Action0): BehaviorDeclarationBody {
+  private _generateBehaviorInstance(behaviorDecl: BehaviorDeclarationBody | Action0): BehaviorDeclarationBody {
     if (typeof behaviorDecl === "function") {
       // Assume generation seed is constructor of behavior
       return <BehaviorDeclarationBody>(new (<Action0>behaviorDecl)());
     } else {
-      return this.copyObject(behaviorDecl);
+      return this._copyObject(behaviorDecl);
     }
   }
   /**
@@ -44,13 +44,13 @@ class BehaviorRegistry extends JThreeObject {
    * @param targetObject the object you want to copy
    * @returns {}
    */
-  private copyObject(targetObject: any) {
+  private _copyObject(targetObject: any) {
     if (typeof targetObject === "object") {
       const newObject = {};
       for (let key in targetObject) {
         if (targetObject.hasOwnProperty(key)) {
           const property = targetObject[key];
-          newObject[key] = this.copyObject(property);
+          newObject[key] = this._copyObject(property);
         }
       }
       return newObject;
