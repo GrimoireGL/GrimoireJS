@@ -103,10 +103,10 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
   }
 
   private _onConfigAttrChanged(attr: GomlAttribute): void {
-    if (this.parent.getTypeName() !== "CanvasNode") {
+    if (this.__parent.getTypeName() !== "CanvasNode") {
       throw Error("viewport must be the direct child of canvas");
     }
-    this._parentCanvas = <CanvasNode>this.parent;
+    this._parentCanvas = <CanvasNode>this.__parent;
     const defaultRect = this._parentCanvas.target.region;
     this.target = RendererFactory.generateRenderer(this._parentCanvas.target, defaultRect, attr.Value);
     attr.done();

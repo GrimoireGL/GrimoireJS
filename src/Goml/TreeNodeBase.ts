@@ -18,18 +18,18 @@ class TreeNodeBase extends JThreeObjectEEWithID {
   /**
    * the parent node of this node
    */
-  protected parent: TreeNodeBase;
+  protected __parent: TreeNodeBase;
 
   /**
    * the node array of this node
    */
-  protected children: TreeNodeBase[] = [];
+  protected __children: TreeNodeBase[] = [];
 
   /**
    * this property is true when this node is mouted to available tree.
    * @type {boolean}
    */
-  private mounted: boolean = false;
+  private _mounted: boolean = false;
 
   constructor() {
     super();
@@ -57,7 +57,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    */
   public callRecursive(act: (node: TreeNodeBase) => void): void {
     act(this);
-    this.children.forEach((v) => {
+    this.__children.forEach((v) => {
       v.callRecursive(act);
     });
   }
@@ -68,7 +68,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
   public callRecursiveWithReturn<T>(act: (node: TreeNodeBase) => T): T[] {
     let ret: T[] = [];
     ret.push(act(this));
-    this.children.forEach((v) => {
+    this.__children.forEach((v) => {
       ret = ret.concat(v.callRecursiveWithReturn<T>(act));
     });
     return ret;
@@ -79,7 +79,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * @return {boolean} [description]
    */
   public get Mounted(): boolean {
-    return this.mounted;
+    return this._mounted;
   }
 
   /**
@@ -87,18 +87,18 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * @param {boolean} mounted [description]
    */
   public set Mounted(mounted: boolean) {
-    if (mounted && !this.mounted) {
-      this.mounted = mounted;
-      if (this.mounted) {
+    if (mounted && !this._mounted) {
+      this._mounted = mounted;
+      if (this._mounted) {
         this.emit("on-mount");
-        this.emit("node-mount-process-finished", this.mounted); // this will be move
-        this.children.forEach((child) => {
+        this.emit("node-mount-process-finished", this._mounted); // this will be move
+        this.__children.forEach((child) => {
           child.Mounted = true;
         });
       } else {
         this.emit("on-unmount");
-        this.emit("node-mount-process-finished", this.mounted); // this will be move
-        this.children.forEach((child) => {
+        this.emit("node-mount-process-finished", this._mounted); // this will be move
+        this.__children.forEach((child) => {
           child.Mounted = false;
         });
       }
@@ -109,8 +109,8 @@ class TreeNodeBase extends JThreeObjectEEWithID {
 	 * Add child to this node
 	 */
   public addChild(child: TreeNodeBase): void {
-    child.parent = this;
-    this.children.push(child);
+    child.__parent = this;
+    this.__children.push(child);
     if (this.Mounted) {
       child.Mounted = true;
       this.emit("child-added", child);
@@ -122,11 +122,11 @@ class TreeNodeBase extends JThreeObjectEEWithID {
 	 * @param  {TreeNodeBase} child
 	 */
   public removeChild(child: TreeNodeBase): void {
-    for (let i = 0; i < this.children.length; i++) {
-      let v = this.children[i];
+    for (let i = 0; i < this.__children.length; i++) {
+      let v = this.__children[i];
       if (v === child) {
-        child.parent = null;
-        this.children.splice(i, 1);
+        child.__parent = null;
+        this.__children.splice(i, 1);
         if (this.Mounted) {
           child.Mounted = false;
           this.emit("child-removed", child);
@@ -142,7 +142,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * remove myself
    */
   public remove(): void {
-    this.parent.removeChild(this);
+    this.__parent.removeChild(this);
   }
 
   /**

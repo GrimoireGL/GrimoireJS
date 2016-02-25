@@ -13,7 +13,7 @@ class PMXMorphManager {
     this.model = model;
     this.morphs = new Array(model.ModelData.Morphs.length);
     for (let i = 0; i < model.ModelData.Morphs.length; ++i) {
-      this.morphs[i] = PMXMorph.CreateMorph(model, i, this);
+      this.morphs[i] = PMXMorph.createMorph(model, i, this);
       if (this.morphs[i] != null) {
         this.morphsDictionary[this.morphs[i].MorphName] = this.morphs[i];
       }
@@ -28,7 +28,7 @@ class PMXMorphManager {
     }
     for (let i = 0; i < this.postProcessFlag.length; i++) {
       if (this.postProcessFlag[i]) {
-        PMXMorph.PostProcess(this.model, i);
+        PMXMorph.postProcess(this.model, i);
         this.postProcessFlag[i] = false;
       }
     }

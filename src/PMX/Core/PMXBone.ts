@@ -5,21 +5,21 @@ import PMXBoneTransformer from "./PMXBoneTransformer";
 import Vector3 from "../../Math/Vector3";
 class PMXBone extends SceneObject {
   public boneIndex: number;
-  private targetModel: PMXModel;
-  private targetSkeleton: PMXSkeleton;
+  private _targetModel: PMXModel;
+  private _targetSkeleton: PMXSkeleton;
 
   constructor(model: PMXModel, skeleton: PMXSkeleton, boneIndex: number) {
     super();
     this.__transformer = new PMXBoneTransformer(this, model, boneIndex);
-    this.targetModel = model;
-    this.targetSkeleton = skeleton;
+    this._targetModel = model;
+    this._targetSkeleton = skeleton;
     this.boneIndex = boneIndex;
     this.name = this.TargetBoneData.boneName;
   }
 
 
   public get TargetBoneData() {
-    return this.targetModel.ModelData.Bones[this.boneIndex];
+    return this._targetModel.ModelData.Bones[this.boneIndex];
   }
 
   public get IsRootBone() {
@@ -27,7 +27,7 @@ class PMXBone extends SceneObject {
   }
 
   public get OrderCriteria() {
-    const latex = this.targetModel.ModelData.Bones.length;
+    const latex = this._targetModel.ModelData.Bones.length;
     return this.boneIndex + this.TargetBoneData.transformLayer * latex + (this.AfterPhysics ? latex * latex : 0);
   }
 
@@ -41,22 +41,22 @@ class PMXBone extends SceneObject {
 	 */
   public boneDictionaryConstructed() {
     if (this.IsRootBone) {
-      this.targetModel.addChild(this);
+      this._targetModel.addChild(this);
     } else {
-      this.targetSkeleton.getBoneByIndex(this.TargetBoneData.parentBoneIndex).addChild(this);
+      this._targetSkeleton.getBoneByIndex(this.TargetBoneData.parentBoneIndex).addChild(this);
     }
     this.Transformer.LocalOrigin = new Vector3(this.TargetBoneData.position);
     const transformer = <PMXBoneTransformer>this.__transformer;
     if (transformer.IsIKBone) {
       for (let i = 0; i < this.TargetBoneData.ikLinkCount; i++) {
-        (<PMXBoneTransformer>this.targetSkeleton.getBoneByIndex(this.TargetBoneData.ikLinks[i].ikLinkBoneIndex).__transformer).isIKLink = true;
+        (<PMXBoneTransformer>this._targetSkeleton.getBoneByIndex(this.TargetBoneData.ikLinks[i].ikLinkBoneIndex).__transformer).isIKLink = true;
       }
     }
   }
 
   public updateBoneTransform() {
     const t = <PMXBoneTransformer>this.__transformer;
-    t.updateTransformForPMX();
+    t._updateTransformForPMX();
   }
 
   public structureToString(layer: number) {

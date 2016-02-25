@@ -5,7 +5,6 @@ import Timer from "./Core/Timer";
 import J3Object from "./Interface/J3Object"; // This must be the first time of import J3Object
 import J3ObjectMixins from "./Interface/J3ObjectMixins"; // Apply mixins
 J3ObjectMixins();
-import {Action0} from "./Base/Delegates";
 import JThreeContext from "./JThreeContext";
 import SceneManager from "./Core/SceneManager";
 import CanvasManager from "./Core/Canvas/CanvasManager";

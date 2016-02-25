@@ -67,16 +67,16 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
     let containedSceneNode: SceneNode = null;
     let parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
     // This parent node is scene node.
-    if (this.parent.getTypeName() === "SceneNode") {
-      containedSceneNode = <SceneNode>this.parent;
+    if (this.__parent.getTypeName() === "SceneNode") {
+      containedSceneNode = <SceneNode>this.__parent;
       parentSceneObjectNode = null;
     } else {
       // check parent extends SceneObjectNodeBase or not.
-      if (typeof (<SceneObjectNodeBase<SceneObject>>this.parent).ContainedSceneNode === "undefined") {
-        console.error(`${this.parent.toString() } is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
+      if (typeof (<SceneObjectNodeBase<SceneObject>>this.__parent).ContainedSceneNode === "undefined") {
+        console.error(`${this.__parent.toString() } is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?`);
         return;
       } else {
-        parentSceneObjectNode = <SceneObjectNodeBase<SceneObject>>this.parent;
+        parentSceneObjectNode = <SceneObjectNodeBase<SceneObject>>this.__parent;
         containedSceneNode = parentSceneObjectNode.ContainedSceneNode;
       }
     }

@@ -7,72 +7,72 @@ import ResourceManager from "../../Core/ResourceManager";
 
 class PMXSkeleton {
 
-  private rootBones: PMXBone[] = [];
+  private _rootBones: PMXBone[] = [];
 
-  private bones: PMXBone[];
+  private _bones: PMXBone[];
 
-  private bonesInTransformOrder: PMXBone[];
+  private _bonesInTransformOrder: PMXBone[];
 
-  private boneDictionary: { [boneName: string]: PMXBone } = {};
+  private _boneDictionary: { [boneName: string]: PMXBone } = {};
 
-  private matricies: Float32Array;
+  private _matricies: Float32Array;
 
-  private matrixTexture: TextureBuffer;
+  private _matrixTexture: TextureBuffer;
 
   constructor(model: PMXModel) {
     model.skeleton = this;
     const bones = model.ModelData.Bones;
-    this.bones = new Array(model.ModelData.Bones.length);
-    this.bonesInTransformOrder = new Array(model.ModelData.Bones.length);
-    this.matricies = new Float32Array(model.ModelData.Bones.length * 16);
+    this._bones = new Array(model.ModelData.Bones.length);
+    this._bonesInTransformOrder = new Array(model.ModelData.Bones.length);
+    this._matricies = new Float32Array(model.ModelData.Bones.length * 16);
     for (let i = 0; i < bones.length; i++) {
       const bone = bones[i];
       const pmxBone = new PMXBone(model, this, i);
       if (bone.parentBoneIndex === -1) {
-        this.rootBones.push(pmxBone);
+        this._rootBones.push(pmxBone);
       }
-      this.bonesInTransformOrder[i] = this.bones[i] = pmxBone;
-      this.boneDictionary[bone.boneName] = pmxBone;
+      this._bonesInTransformOrder[i] = this._bones[i] = pmxBone;
+      this._boneDictionary[bone.boneName] = pmxBone;
     }
-    this.bones.forEach((v) => v.boneDictionaryConstructed());
-    this.bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
-    this.matrixTexture = <TextureBuffer>JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).createTexture("jthree.pmx.bonetransform" + model.ID, 4, this.bones.length, WebGLRenderingContext.RGBA, WebGLRenderingContext.FLOAT);
+    this._bones.forEach((v) => v.boneDictionaryConstructed());
+    this._bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
+    this._matrixTexture = <TextureBuffer>JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).createTexture("jthree.pmx.bonetransform" + model.ID, 4, this._bones.length, WebGLRenderingContext.RGBA, WebGLRenderingContext.FLOAT);
   }
 
   public get MatrixTexture() {
-    return this.matrixTexture;
+    return this._matrixTexture;
   }
 
   public get BoneCount() {
-    return this.bones.length;
+    return this._bones.length;
   }
 
   public getBoneByName(name: string): PMXBone {
-    return this.boneDictionary[name];
+    return this._boneDictionary[name];
   }
 
   public getBoneByIndex(index: number): PMXBone {
-    return this.bones[index];
+    return this._bones[index];
   }
 
-  public updateMatricies() {
+  public updateMatricies(): void {
     this.updateBoneTransforms();
-    for (let i = 0; i < this.bones.length; i++) {
-      this.bones[i].applyMatrixToBuffer(this.matricies);
+    for (let i = 0; i < this._bones.length; i++) {
+      this._bones[i].applyMatrixToBuffer(this._matricies);
     }
-    this.matrixTexture.updateTexture(this.matricies);
+    this._matrixTexture.updateTexture(this._matricies);
   }
 
-  public updateBoneTransforms() {
+  public updateBoneTransforms(): void {
     // this.rootBones.forEach(v=>v.callRecursive(l=>{
     // 	if(l["updateBoneTransform"])(<PMXBone>l).updateBoneTransform();
     // }));
-    this.bonesInTransformOrder.forEach(v => (v.updateBoneTransform()));
+    this._bonesInTransformOrder.forEach(v => (v.updateBoneTransform()));
   }
 
   public structureToString() {
     let result = "";
-    this.rootBones.forEach(v => result += v.structureToString(0));
+    this._rootBones.forEach(v => result += v.structureToString(0));
     return result;
   }
 }

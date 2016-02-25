@@ -74,8 +74,8 @@ class GomlTreeNodeBase extends TreeNodeBase {
    */
   public get GroupPrefix(): string[] {
     let groupPrefixArray: string[] = [];
-    if (this.parent) {
-      groupPrefixArray = (<GomlTreeNodeBase>this.parent).GroupPrefix;
+    if (this.__parent) {
+      groupPrefixArray = (<GomlTreeNodeBase>this.__parent).GroupPrefix;
     }
     if (this.__groupPrefix !== "") {
       groupPrefixArray.push(this.__groupPrefix);

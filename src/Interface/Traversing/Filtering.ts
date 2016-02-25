@@ -10,7 +10,7 @@ class Filtering extends J3ObjectBase {
   public filter(node: GomlTreeNodeBase);
   public filter(nodes: GomlTreeNodeBase[]);
   public filter(nodes: J3Object);
-  public filter(argu: any) {
+  public filter(argu: any): void {
     switch (true) {
       case (isString(argu)):
         return;

@@ -6,21 +6,21 @@ import ResourceLoader from "../../Core/ResourceLoader";
 import Q from "q";
 
 class PMXNode extends SceneObjectNodeBase<PMXModel> {
-  private pmxModel: PMXModel = null;
+  private _pmxModel: PMXModel = null;
 
   public get PMXModel() {
-    return this.pmxModel;
+    return this._pmxModel;
   }
 
   public get PMXModelReady() {
     return this.PMXModel != null;
   }
 
-  private pmxLoadingDeferred: Q.Deferred<void>;
+  private _pmxLoadingDeferred: Q.Deferred<void>;
 
   constructor() {
     super();
-    this.pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
+    this._pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
     this.attributes.defineAttribute({
       "src": {
         converter: "string",
@@ -34,11 +34,11 @@ class PMXNode extends SceneObjectNodeBase<PMXModel> {
 
   public onMount(): void {
     super.onMount();
-    PMXModel.LoadFromUrl(this.attributes.getValue("src"))
+    PMXModel.loadFromUrl(this.attributes.getValue("src"))
       .then((m) => {
-      this.pmxModel = m;
-      this.TargetSceneObject = this.pmxModel;
-      this.pmxLoadingDeferred.resolve(null);
+      this._pmxModel = m;
+      this.TargetSceneObject = this._pmxModel;
+      this._pmxLoadingDeferred.resolve(null);
     });
   }
 }

@@ -82,7 +82,7 @@ class BehaviorNode extends GomlTreeNodeBase {
   }
 
   protected __onMount(): void {
-    this._componentTarget = (<BehaviorsNode>this.parent).ComponentTarget;
+    this._componentTarget = (<BehaviorsNode>this.__parent).ComponentTarget;
     this._initializeBehavior();
   }
 

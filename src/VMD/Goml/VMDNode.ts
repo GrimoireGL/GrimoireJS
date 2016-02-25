@@ -63,7 +63,7 @@ class VMDNode extends GomlTreeNodeBase {
 
   protected onMount(): void {
     super.onMount();
-    this.targetPMX = <PMXNode>this.parent;
+    this.targetPMX = <PMXNode>this.__parent;
     this.targetPMX.on("loaded", () => { this.attributes.updateValue(); });
   }
 
