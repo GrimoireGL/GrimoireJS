@@ -4,35 +4,35 @@ import Canvas from "../../../Core/Canvas/Canvas";
 class RBO extends ContextSafeResourceContainer<RBOWrapper> {
   constructor(width: number, height: number, format: number = WebGLRenderingContext.DEPTH_COMPONENT16) {
     super();
-    this.width = width;
-    this.height = height;
-    this.format = format;
+    this._width = width;
+    this._height = height;
+    this._format = format;
     this.initializeForFirst();
   }
 
-  private width: number;
-  private height: number;
-  private format: number;
+  private _width: number;
+  private _height: number;
+  private _format: number;
   public get Width(): number {
-    return this.width;
+    return this._width;
   }
 
   public get Height(): number {
-    return this.height;
+    return this._height;
   }
 
   public get Format(): number {
-    return this.format;
+    return this._format;
   }
 
-  protected createWrapperForCanvas(canvas: Canvas): RBOWrapper {
+  protected __createWrapperForCanvas(canvas: Canvas): RBOWrapper {
     return new RBOWrapper(canvas, this);
   }
 
-  public resize(width: number, height: number) {
-    if (this.width !== width || this.height !== height) {
-      this.width = width;
-      this.height = height;
+  public resize(width: number, height: number): void {
+    if (this._width !== width || this._height !== height) {
+      this._width = width;
+      this._height = height;
       this.each(v => (<RBOWrapper>v).resize(width, height));
     }
   }

@@ -7,7 +7,7 @@ class CubeTextureWrapper extends TextureWrapperBase {
     super(canvas, parent);
   }
 
-  public init(isChanged?: boolean) {
+  public init(isChanged?: boolean): void {
     const parent = <CubeTexture>this.Parent;
     if (this.Initialized && !isChanged) {
       return;

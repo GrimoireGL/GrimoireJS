@@ -42,19 +42,19 @@ class BasicRenderer extends CanvasRegion {
   /**
    * The camera reference this renderer using for draw.
    */
-  private camera: Camera;
+  private _camera: Camera;
 
   /**
    * Canvas managing this renderer.
    */
-  private canvas: Canvas;
+  private _canvas: Canvas;
 
   private _viewport: Rectangle = new Rectangle(0, 0, 256, 256);
 
   /**
   * Provides render stage abstraction
   */
-  private renderPathExecutor: RenderPathExecutor;
+  private _renderPathExecutor: RenderPathExecutor;
 
 
   /**
@@ -66,8 +66,8 @@ class BasicRenderer extends CanvasRegion {
   constructor(canvas: Canvas, viewportArea: Rectangle, configurator?: RendererConfiguratorBase) {
     super(canvas.canvasElement);
     configurator = configurator || new RendererConfigurator();
-    this.canvas = canvas;
-    this.renderPathExecutor = new RenderPathExecutor(this);
+    this._canvas = canvas;
+    this._renderPathExecutor = new RenderPathExecutor(this);
     this._viewport = viewportArea;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     if (this._viewport) { rm.createRBO(this.ID + ".rbo.default", this._viewport.Width, this._viewport.Height); }
@@ -91,28 +91,28 @@ class BasicRenderer extends CanvasRegion {
    * The camera reference this renderer using for draw.
    */
   public get Camera(): Camera {
-    return this.camera;
+    return this._camera;
   }
   /**
    * The camera reference this renderer using for draw.
    */
   public set Camera(camera: Camera) {
-    this.camera = camera;
+    this._camera = camera;
   }
 
   public render(scene: Scene): void {
-    this.renderPathExecutor.processRender(scene, this.renderPath);
+    this._renderPathExecutor.processRender(scene, this.renderPath);
   }
 
   /**
    * Canvas managing this renderer.
    */
   public get Canvas(): Canvas {
-    return this.canvas;
+    return this._canvas;
   }
 
   public get GL(): WebGLRenderingContext {
-    return this.canvas.GL;
+    return this._canvas.gL;
   }
 
   /**
@@ -137,7 +137,7 @@ class BasicRenderer extends CanvasRegion {
    * Provides render stage abstraction
    */
   public get RenderPathExecutor(): RenderPathExecutor {
-    return this.renderPathExecutor;
+    return this._renderPathExecutor;
   }
 
   /**
@@ -167,7 +167,7 @@ class BasicRenderer extends CanvasRegion {
    * Apply viewport configuration
    */
   public applyDefaultBufferViewport(): void {
-    this.GL.viewport(this._viewport.Left, this.canvas.region.Height - this._viewport.Bottom, this._viewport.Width, this._viewport.Height);
+    this.GL.viewport(this._viewport.Left, this._canvas.region.Height - this._viewport.Bottom, this._viewport.Width, this._viewport.Height);
   }
 
   public applyRendererBufferViewport(): void {

@@ -11,35 +11,35 @@ class GridGeometry extends BasicGeometry {
     this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
     this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
     this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
-    this.updateBuffers();
+    this.__updateBuffers();
   }
 
-  private holizontalDivide: number = 10;
-  private verticalDivide: number = 10;
+  private _holizontalDivide: number = 10;
+  private _verticalDivide: number = 10;
 
   public get HolizontalDivide(): number {
-    return this.holizontalDivide;
+    return this._holizontalDivide;
   }
 
   public get VerticalDivide(): number {
-    return this.verticalDivide;
+    return this._verticalDivide;
   }
 
   public set HolizontalDivide(num: number) {
-    this.holizontalDivide = num;
-    this.updateBuffers();
+    this._holizontalDivide = num;
+    this.__updateBuffers();
   }
 
   public set VerticalDivide(num: number) {
-    this.verticalDivide = num;
-    this.updateBuffers();
+    this._verticalDivide = num;
+    this.__updateBuffers();
   }
 
 
   private get VerticiesCount(): number {
     return (this.HolizontalDivide + 1) * 2 + (this.VerticalDivide + 1) * 2;
   }
-  protected updatePositionBuffer(): void {
+  protected __updatePositionBuffer(): void {
     const arr: number[] = [];
     for (let i = 0; i < this.HolizontalDivide + 1; i++) {
       const num = -1 + 1 / this.HolizontalDivide * i * 2;
@@ -52,15 +52,15 @@ class GridGeometry extends BasicGeometry {
     this.positionBuffer.update(new Float32Array(arr), arr.length);
   }
 
-  protected updateNormalBuffer(): void {
+  protected __updateNormalBuffer(): void {
     this.normalBuffer.update(new Float32Array(new Array(this.VerticiesCount * 3)), this.VerticiesCount * 3);
   }
 
-  protected updateUvBuffer(): void {
+  protected __updateUvBuffer(): void {
     this.uvBuffer.update(new Float32Array(new Array(this.VerticiesCount * 2)), this.VerticiesCount * 2);
   }
 
-  protected updateIndexBuffer(): void {
+  protected __updateIndexBuffer(): void {
     const arr: number[] = [];
     for (let v = 0; v < this.VerticiesCount; v++) {
       arr.push(v);
@@ -68,11 +68,11 @@ class GridGeometry extends BasicGeometry {
     this.indexBuffer.update(new Uint16Array(arr), this.VerticiesCount);
   }
 
-  protected updateBuffers(): void {
-    this.updatePositionBuffer();
-    this.updateNormalBuffer();
-    this.updateUvBuffer();
-    this.updateIndexBuffer();
+  protected __updateBuffers(): void {
+    this.__updatePositionBuffer();
+    this.__updateNormalBuffer();
+    this.__updateUvBuffer();
+    this.__updateIndexBuffer();
   }
 }
 

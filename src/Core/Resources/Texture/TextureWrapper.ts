@@ -6,7 +6,7 @@ class TextureWrapper extends TextureWrapperBase {
     super(canvas, parent);
   }
 
-  public init(isChanged?: boolean) {
+  public init(isChanged?: boolean): void {
     if (this.Initialized && !isChanged) {
       return;
     }

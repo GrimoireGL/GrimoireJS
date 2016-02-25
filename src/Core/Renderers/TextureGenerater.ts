@@ -8,10 +8,10 @@ import GeneraterList from "./TextureGeneraters/GeneraterList";
 
 class TextureGenerater {
 
-  private static generaters: { [key: string]: { [id: string]: GeneraterBase } } = {};
+  private static _generaters: { [key: string]: { [id: string]: GeneraterBase } } = {};
 
   public static generateTexture(renderer: BasicRenderer, generaterInfo: GeneraterInfoChunk) {
-    const generaters = TextureGenerater.getGeneraters(renderer);
+    const generaters = TextureGenerater._getGeneraters(renderer);
     const generater = generaters[generaterInfo.generater];
     generater.generate(generaterInfo);
     return TextureGenerater.getTexture(renderer, generaterInfo.name);
@@ -21,12 +21,12 @@ class TextureGenerater {
     return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTexture(renderer.ID + "." + bufferName);
   }
 
-  private static getGeneraters(renderer: BasicRenderer) {
-    if (TextureGenerater.generaters[renderer.ID]) { return TextureGenerater.generaters[renderer.ID]; }
-    return TextureGenerater.initializeGeneraters(renderer);
+  private static _getGeneraters(renderer: BasicRenderer) {
+    if (TextureGenerater._generaters[renderer.ID]) { return TextureGenerater._generaters[renderer.ID]; }
+    return TextureGenerater._initializeGeneraters(renderer);
   }
 
-  private static initializeGeneraters(renderer: BasicRenderer) {
+  private static _initializeGeneraters(renderer: BasicRenderer) {
     const targetArray = <{ [key: string]: GeneraterBase }>{};
     const generaters = GeneraterList;
     for (let key in generaters) {
@@ -35,7 +35,7 @@ class TextureGenerater {
         targetArray[key] = new element(renderer);
       }
     }
-    TextureGenerater.generaters[renderer.ID] = targetArray;
+    TextureGenerater._generaters[renderer.ID] = targetArray;
     return targetArray;
   }
 }

@@ -10,27 +10,27 @@ class Program extends ContextSafeContainer<ProgramWrapper> {
   }
 
 
-  private attachedShaders: Shader[] = [];
+  private _attachedShaders: Shader[] = [];
 
-  public static CreateProgram(attachShaders: Shader[]): Program {
+  public static createProgram(attachShaders: Shader[]): Program {
     const program: Program = new Program();
-    program.attachedShaders = attachShaders;
+    program._attachedShaders = attachShaders;
     return program;
   }
 
   public get AttachedShaders(): Shader[] {
-    return this.attachedShaders;
+    return this._attachedShaders;
   }
 
-  public attachShader(shader: Shader) {
-    this.attachedShaders.push(shader);
+  public attachShader(shader: Shader): void {
+    this._attachedShaders.push(shader);
     shader.onUpdate(() => {
-      this.relinkShader();
+      this._relinkShader();
     });
 
   }
 
-  protected createWrapperForCanvas(canvas: Canvas): ProgramWrapper {
+  protected __createWrapperForCanvas(canvas: Canvas): ProgramWrapper {
     return new ProgramWrapper(this, canvas);
   }
 
@@ -41,7 +41,7 @@ class Program extends ContextSafeContainer<ProgramWrapper> {
     throw new Error("Any program was not initialized!");
   }
 
-  private relinkShader() {
+  private _relinkShader(): void {
     this.each((v) => {
       v.relink();
     });

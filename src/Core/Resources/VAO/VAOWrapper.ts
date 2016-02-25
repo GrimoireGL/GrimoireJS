@@ -10,42 +10,42 @@ class VAOWrapper extends ResourceWrapper {
 	/**
 	 *	Reference to the WebGLRenderbuffer this class managing.
 	  */
-  private targetVAO: WebGLVertexArrayObject;
+  private _targetVAO: WebGLVertexArrayObject;
 
   public get Target(): WebGLVertexArrayObject {
-    return this.targetVAO;
+    return this._targetVAO;
   }
 
-  private vaoInterface: WebGLVertexArrayObjectExtension;
+  private _vaoInterface: WebGLVertexArrayObjectExtension;
 	/**
 	 * The parent VAOWrapper container class.
 	 */
-  private parent: VAO;
+  private _parent: VAO;
 
   constructor(canvas: Canvas, parentVAO: VAO) {
     super(canvas);
-    this.parent = parentVAO;
-    this.vaoInterface = canvas.glExtensionResolver.getExtension(GLExtensionList.VertexArrayObject);
+    this._parent = parentVAO;
+    this._vaoInterface = canvas.glExtensionResolver.getExtension(GLExtensionList.vertexArrayObject);
   }
 
-  public init() {
+  public init(): void {
     if (this.Initialized) {
       return;
     }
-    this.targetVAO = this.vaoInterface.createVertexArrayOES();
+    this._targetVAO = this._vaoInterface.createVertexArrayOES();
     this.setInitialized();
   }
 
-  public bind() {
+  public bind(): void {
     // this.GL.bindRenderbuffer(this.targetVAO);
-    this.vaoInterface.bindVertexArrayOES(this.targetVAO);
+    this._vaoInterface.bindVertexArrayOES(this._targetVAO);
   }
 
   public dispose(): void {
-    if (this.targetVAO) {
-      this.vaoInterface.deleteVertexArrayOES(this.targetVAO);
+    if (this._targetVAO) {
+      this._vaoInterface.deleteVertexArrayOES(this._targetVAO);
       this.setInitialized(false);
-      this.targetVAO = null;
+      this._targetVAO = null;
     }
   }
 }

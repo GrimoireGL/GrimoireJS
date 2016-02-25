@@ -23,7 +23,7 @@ class GeometryBuilder {
       }
     }
   }
-  public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]):void {
+  public static addQuad(pos: number[], normal: number[], uv: number[], index: number[], points: Vector3[]): void {
     const startIndex = pos.length / 3;
     const v0 = points[0], v1 = points[1], v3 = points[2];
     const v02v1 = v1.subtractWith(v0);
@@ -41,8 +41,8 @@ class GeometryBuilder {
     const vecCount = 2 + divide;
     const baseIndex = uv.length / 2;
     for (let i = 0; i < vecCount; i++) {
-      const v: Vector3 = GeometryBuilder.calcNextPointInCircle(i, divide, center, tangentVector, tan2);
-      const u = GeometryBuilder.calcUVInCircle(i, divide);
+      const v: Vector3 = GeometryBuilder._calcNextPointInCircle(i, divide, center, tangentVector, tan2);
+      const u = GeometryBuilder._calcUVInCircle(i, divide);
       pos.push(v.X, v.Y, v.Z);
       normal.push(normalVector.X, normalVector.Y, normalVector.Z);
       uv.push(u[0], u[1]);
@@ -160,13 +160,13 @@ class GeometryBuilder {
     index.push(0, 2, startIndex - 1);
   }
 
-  private static calcUVInCircle(index: number, divCount: number): number[] {
+  private static _calcUVInCircle(index: number, divCount: number): number[] {
     if (index === 0) { return [0, 0]; }
     const angle = (index - 1) * 2 * Math.PI / divCount;
     return [Math.cos(angle), Math.sin(angle)];
   }
 
-  private static calcNextPointInCircle(index: number, divCount: number, center: Vector3, tan: Vector3, tan2: Vector3): Vector3 {
+  private static _calcNextPointInCircle(index: number, divCount: number, center: Vector3, tan: Vector3, tan2: Vector3): Vector3 {
     const angle = (index - 1) * 2 * Math.PI / divCount;
     return index === 0 ? center :
       Vector3.add(center, Vector3.add(tan.multiplyWith(Math.sin(angle)), tan2.multiplyWith(Math.cos(angle))));

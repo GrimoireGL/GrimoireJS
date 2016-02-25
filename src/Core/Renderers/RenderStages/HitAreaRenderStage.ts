@@ -26,7 +26,7 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
    * (This is internal use)
    * @type {number}
    */
-  public ___objectIndex: number = 1;
+  public objectIndex: number = 1;
 
   public indexObjectPair: { [key: number]: SceneObject } = {};
 
@@ -34,13 +34,13 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
 
   public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
     super.preTechnique(scene, techniqueIndex, texs);
-    this.___objectIndex = 1;
+    this.objectIndex = 1;
   }
 
   public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
-    this.indexObjectPair[this.___objectIndex] = object;
+    this.indexObjectPair[this.objectIndex] = object;
     super.render(scene, object, techniqueCount, techniqueIndex, texs);
-    this.___objectIndex++;
+    this.objectIndex++;
   }
 
   public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {

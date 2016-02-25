@@ -37,7 +37,7 @@ class ProgramWrapper extends ResourceWrapper {
     }
   }
 
-  public dispose() {
+  public dispose(): void {
     if (this.Initialized) {
       this.GL.deleteProgram(this._targetProgram);
       this.setInitialized(false);
@@ -74,7 +74,7 @@ class ProgramWrapper extends ResourceWrapper {
   /**
    * Relink shader for shader source changing
    */
-  public relink() {
+  public relink(): void {
     this.GL.deleteProgram(this.TargetProgram);
     this._targetProgram = this.GL.createProgram();
     this._parentProgram.AttachedShaders.forEach((v, i, a) => {

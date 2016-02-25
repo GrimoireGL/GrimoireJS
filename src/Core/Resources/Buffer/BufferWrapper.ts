@@ -5,48 +5,48 @@ import Canvas from "../../Canvas/Canvas";
  * Buffer wrapper based on context.
  */
 class BufferWrapper extends ResourceWrapper {
-  private targetBuffer: WebGLBuffer = null;
+  private _targetBuffer: WebGLBuffer = null;
 
-  private length: number = 0;
+  private _length: number = 0;
 
-  private parentBuffer: Buffer;
+  private _parentBuffer: Buffer;
 
   constructor(parentBuffer: Buffer, canvas: Canvas) {
     super(canvas);
-    this.parentBuffer = parentBuffer;
+    this._parentBuffer = parentBuffer;
 
   }
 
   public dispose(): void {
-    if (this.targetBuffer) {
-      this.GL.deleteBuffer(this.targetBuffer);
+    if (this._targetBuffer) {
+      this.GL.deleteBuffer(this._targetBuffer);
       this.setInitialized(false);
-      this.targetBuffer = null;
+      this._targetBuffer = null;
     }
   }
 
   public get Length(): number {
-    return this.length;
+    return this._length;
   }
 
   public get UnitCount(): number {
-    return this.parentBuffer.UnitCount;
+    return this._parentBuffer.UnitCount;
   }
 
   public get ElementType(): number {
-    return this.parentBuffer.ElementType;
+    return this._parentBuffer.ElementType;
   }
 
   public get Normalized(): boolean {
-    return this.parentBuffer.Normalized;
+    return this._parentBuffer.Normalized;
   }
 
   public get Stride(): number {
-    return this.parentBuffer.Stride;
+    return this._parentBuffer.Stride;
   }
 
   public get Offset(): number {
-    return this.parentBuffer.Offset;
+    return this._parentBuffer.Offset;
   }
 
   public update(array: ArrayBuffer|ArrayBufferView, length: number): void {
@@ -54,31 +54,31 @@ class BufferWrapper extends ResourceWrapper {
       this.init();
     }
     this.bindBuffer();
-    this.GL.bufferData(this.parentBuffer.Target, array, this.parentBuffer.Usage);
+    this.GL.bufferData(this._parentBuffer.Target, array, this._parentBuffer.Usage);
     this.unbindBuffer();
-    this.length = length;
+    this._length = length;
   }
 
   public init(): void {
-    if (this.targetBuffer == null) {
-      this.targetBuffer = this.GL.createBuffer();
+    if (this._targetBuffer == null) {
+      this._targetBuffer = this.GL.createBuffer();
       this.setInitialized();
     }
   }
 
   public bindBuffer(): void {
     if (this.Initialized) {
-      this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);
+      this.GL.bindBuffer(this._parentBuffer.Target, this._targetBuffer);
     } else {
       this.init();
-      this.update(this.parentBuffer.ElementCache, this.parentBuffer.Length);
-      this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);
+      this.update(this._parentBuffer.ElementCache, this._parentBuffer.Length);
+      this.GL.bindBuffer(this._parentBuffer.Target, this._targetBuffer);
     }
   }
 
   public unbindBuffer(): void {
     if (this.Initialized) {
-      this.GL.bindBuffer(this.parentBuffer.Target, null);
+      this.GL.bindBuffer(this._parentBuffer.Target, null);
     }
   }
 }

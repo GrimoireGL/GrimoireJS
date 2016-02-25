@@ -8,6 +8,7 @@ class RendererFactory {
   public static rendererConfigurations = {
     "default": BasicRendererConfigurator,
     "sprite": SpriteRendererConfigurator
+
   };
 
   public static generateRenderer(canvas: Canvas, drawRect: Rectangle, configureName: string) {

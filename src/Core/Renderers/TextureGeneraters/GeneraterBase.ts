@@ -5,10 +5,10 @@ import BasicRenderer from "../BasicRenderer";
  * By overriding, it is able to manage texture buffer in your way.
  */
 abstract class GeneraterBase {
-  protected parentRenderer: BasicRenderer;
+  protected __parentRenderer: BasicRenderer;
 
   constructor(parent: BasicRenderer) {
-    this.parentRenderer = parent;
+    this.__parentRenderer = parent;
   }
 
 	/**

@@ -18,11 +18,11 @@ import ResolvedChainInfo from "../../ResolvedChainInfo";
 import Scene from "../../../Scene";
 class BasicTechnique extends JThreeObjectWithID {
 
-  public _defaultMaterial: BasicMaterial;
+  public defaultMaterial: BasicMaterial;
 
   public defaultRenderConfigure: IRenderStageRendererConfigure;
 
-  protected _renderStage: RSMLRenderStage;
+  protected __renderStage: RSMLRenderStage;
 
   protected __fbo: FBO;
 
@@ -40,21 +40,21 @@ class BasicTechnique extends JThreeObjectWithID {
 
 
   protected get _gl(): WebGLRenderingContext {
-    return this._renderStage.GL;
+    return this.__renderStage.GL;
   }
 
   constructor(renderStage: RSMLRenderStage, technique: Element, techniqueIndex: number) {
     super();
-    this._renderStage = renderStage;
+    this.__renderStage = renderStage;
     this._techniqueDocument = technique;
     this._techniqueIndex = techniqueIndex;
-    this.defaultRenderConfigure = XMLRenderConfigUtility.parseRenderConfig(technique, this._renderStage.getSuperRendererConfigure());
+    this.defaultRenderConfigure = XMLRenderConfigUtility.parseRenderConfig(technique, this.__renderStage.getSuperRendererConfigure());
     this._target = this._techniqueDocument.getAttribute("target");
     this._wireFramed = this._techniqueDocument.getAttribute("wireframe") === "true";
     if (!this._target) { this._target = "scene"; }
     this._fboBindingInfo = RSMLRenderConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0));
     if (this._target !== "scene") {
-      this._defaultMaterial = this._getMaterial();
+      this.defaultMaterial = this._getMaterial();
     }
   }
 
@@ -70,12 +70,12 @@ class BasicTechnique extends JThreeObjectWithID {
     switch (this.Target) {
       case "scene":
         const materialGroup = this._techniqueDocument.getAttribute("materialGroup");
-        this._renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup, this._wireFramed);
+        this.__renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup, this._wireFramed);
         break;
       default:
-        this._defaultMaterial.materialVariables = this._renderStage.stageVariables;
+        this.defaultMaterial.materialVariables = this.__renderStage.stageVariables;
         XMLRenderConfigUtility.applyAll(this._gl, this.defaultRenderConfigure);
-        this._renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this._defaultMaterial, this._wireFramed);
+        this.__renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this.defaultMaterial, this._wireFramed);
     }
   }
 
@@ -83,7 +83,7 @@ class BasicTechnique extends JThreeObjectWithID {
     this.__fboInitialized = true;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.__fbo = rm.createFBO("jthree.technique." + this.ID);
-    const fboWrapper = this.__fbo.getForContext(this._renderStage.Renderer.Canvas);
+    const fboWrapper = this.__fbo.getForContext(this.__renderStage.Renderer.Canvas);
     this._attachRBOConfigure(fboWrapper, texs);
     this._attachTextureConfigure(fboWrapper, texs);
   }
@@ -92,7 +92,7 @@ class BasicTechnique extends JThreeObjectWithID {
     const rawMaterials = this._techniqueDocument.getElementsByTagName("material");
     if (rawMaterials.length > 0) {
       const materialDocument = <HTMLElement>rawMaterials.item(0);
-      return new BasicMaterial(materialDocument.outerHTML, this._renderStage.stageName + this._techniqueIndex);
+      return new BasicMaterial(materialDocument.outerHTML, this.__renderStage.stageName + this._techniqueIndex);
     }
     const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
     const matName = this._techniqueDocument.getAttribute("material");
@@ -108,15 +108,15 @@ class BasicTechnique extends JThreeObjectWithID {
     fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, texs[colorConfigure.name] as TextureBase);
   }
 
-  private _attachRBOConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo) {
+  private _attachRBOConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo): void {
     if (!this._fboBindingInfo.rbo) {// When there was no rbo tag in fbo tag.
-       fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, null); // Unbind render buffer
+      fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, null); // Unbind render buffer
     } else {
       const rboConfigure = this._fboBindingInfo.rbo;
       let targetBuffer: TextureBase | RBO;
       let isRBO = true;
       if (rboConfigure.name === "default") {
-        targetBuffer = this._renderStage.DefaultRBO;
+        targetBuffer = this.__renderStage.DefaultRBO;
       } else {
         if (!texs[rboConfigure.name]) {
           throw new Error("Specified render buffer was not found");
@@ -171,7 +171,7 @@ class BasicTechnique extends JThreeObjectWithID {
       if (!this.__fboInitialized) {
         this.__initializeFBO(texs);
       }
-      this.__fbo.getForContext(this._renderStage.Renderer.Canvas).bind();
+      this.__fbo.getForContext(this.__renderStage.Renderer.Canvas).bind();
       this._clearBuffers();
     }
   }
@@ -207,9 +207,9 @@ class BasicTechnique extends JThreeObjectWithID {
 
   private _applyViewport(isDefault: boolean): void {
     if (isDefault) {
-      this._renderStage.Renderer.applyDefaultBufferViewport();
+      this.__renderStage.Renderer.applyDefaultBufferViewport();
     } else {
-      this._renderStage.Renderer.applyRendererBufferViewport();
+      this.__renderStage.Renderer.applyRendererBufferViewport();
     }
   }
 }

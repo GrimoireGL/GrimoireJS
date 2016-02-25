@@ -6,34 +6,34 @@ class ShaderWrapper extends ResourceWrapper {
 
   constructor(parent: Shader, canvas: Canvas) {
     super(canvas);
-    this.parentShader = parent;
+    this._parentShader = parent;
   }
 
-  private targetShader: WebGLShader = null;
+  private _targetShader: WebGLShader = null;
 
-  private parentShader: Shader;
+  private _parentShader: Shader;
 
   public get TargetShader(): WebGLShader {
     if (!this.Initialized) {
       this.init();
     }
-    return this.targetShader;
+    return this._targetShader;
   }
 
   public init(): void {
     if (!this.Initialized) {
-      this.targetShader = this.GL.createShader(this.parentShader.ShaderType);
-      this.GL.shaderSource(this.targetShader, this.parentShader.ShaderSource);
-      this.GL.compileShader(this.targetShader);
+      this._targetShader = this.GL.createShader(this._parentShader.ShaderType);
+      this.GL.shaderSource(this._targetShader, this._parentShader.ShaderSource);
+      this.GL.compileShader(this._targetShader);
       this._checkCompileStatus();
       this.setInitialized(true);
     }
   }
 
-  public dispose() {
+  public dispose(): void {
     if (this.Initialized) {
-      this.GL.deleteShader(this.targetShader);
-      this.targetShader = null;
+      this.GL.deleteShader(this._targetShader);
+      this._targetShader = null;
       this.setInitialized(false);
     }
   }
@@ -41,17 +41,17 @@ class ShaderWrapper extends ResourceWrapper {
   /**
    * Update shader source from Shader class.
    */
-  public update() {
-    this.GL.deleteShader(this.targetShader);
-    this.targetShader = this.GL.createShader(this.parentShader.ShaderType);
-    this.GL.shaderSource(this.TargetShader, this.parentShader.ShaderSource);
+  public update(): void {
+    this.GL.deleteShader(this._targetShader);
+    this._targetShader = this.GL.createShader(this._parentShader.ShaderType);
+    this.GL.shaderSource(this.TargetShader, this._parentShader.ShaderSource);
     this.GL.compileShader(this.TargetShader);
   }
 
-  private _checkCompileStatus() {
-    if (!this.GL.getShaderParameter(this.targetShader, this.GL.COMPILE_STATUS)) {
-      console.error(`Compile error!:${this.GL.getShaderInfoLog(this.targetShader) }`);
-      JThreeLogger.sectionLongLog("COMPILE_ERROR", this.parentShader.ShaderSource);
+  private _checkCompileStatus(): void {
+    if (!this.GL.getShaderParameter(this._targetShader, this.GL.COMPILE_STATUS)) {
+      console.error(`Compile error!:${this.GL.getShaderInfoLog(this._targetShader) }`);
+      JThreeLogger.sectionLongLog("COMPILE_ERROR", this._parentShader.ShaderSource);
     }
   }
 }

@@ -7,7 +7,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
     super(ownerCanvas, parent);
   }
 
-  public init() {
+  public init(): void {
     if (this.Initialized) { return; }
     const parent = <BufferTexture>this.Parent;
     this.setTargetTexture(this.GL.createTexture());
@@ -16,12 +16,12 @@ class BufferTextureWrapper extends TextureWrapperBase {
     this.setInitialized();
   }
 
-  public unbind() {
+  public unbind(): void {
     // TODO consider is it really need to implement unbind
     this.GL.bindTexture(WebGLRenderingContext.TEXTURE_2D, null);
   }
 
-  public resize(width: number, height: number) {
+  public resize(width: number, height: number): void {
     this.bind();
     if (this.Initialized) {
       const parent = <BufferTexture>this.Parent;
@@ -30,7 +30,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
     }
   }
 
-  public updateTexture(buffer: ArrayBufferView) {
+  public updateTexture(buffer: ArrayBufferView): void {
     this.bind();
     if (this.Initialized) {
       const parent = <BufferTexture>this.Parent;

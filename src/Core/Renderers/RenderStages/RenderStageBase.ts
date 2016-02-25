@@ -13,13 +13,13 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 
   public stageVariables: {} = {};
 
-  private renderer: BasicRenderer;
+  private _renderer: BasicRenderer;
 
 
   constructor(renderer: BasicRenderer) {
     super();
 
-    this.renderer = renderer;
+    this._renderer = renderer;
   }
 
   public getDefaultRendererConfigure(techniqueIndex: number): IRenderStageRendererConfigure {
@@ -42,7 +42,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
 	 * Getter for renderer having this renderstage
 	 */
   public get Renderer(): BasicRenderer {
-    return this.renderer;
+    return this._renderer;
   }
 
   public get GL() {

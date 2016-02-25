@@ -8,10 +8,10 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
 
   constructor(target: number, usage: number, unitCount: number, elementType: number) {
     super();
-    this.target = target;
-    this.usage = usage;
-    this.unitCount = unitCount;
-    this.elementType = elementType;
+    this._target = target;
+    this._usage = usage;
+    this._unitCount = unitCount;
+    this._elementType = elementType;
     this.initializeForFirst();
 
   }
@@ -19,45 +19,45 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
    * Buffer target.
    * ArrayBuffer => VertexBuffer, ArrayElementBuffer => IndexBuffer
    */
-  private target: number;
+  private _target: number;
   /**
   * Buffer target.
   * ArrayBuffer => VertexBuffer, ArrayElementBuffer => IndexBuffer
   */
   public get Target(): number {
-    return this.target;
+    return this._target;
   }
   /**
    * Buffer usage.
    * StaticDraw,DynamicDraw,StreamDraw
    */
-  private usage: number;
+  private _usage: number;
   /**
   * Buffer usage.
   * StaticDraw,DynamicDraw,StreamDraw
   */
   public get Usage(): number {
-    return this.usage;
+    return this._usage;
   }
 
-  private elementType: number;
+  private _elementType: number;
 
   public get ElementType(): number {
-    return this.elementType;
+    return this._elementType;
   }
 
   /**
    * This elements are normalized or not.
    * It must be false in WebGL1.0.
    */
-  private normalized: boolean = false;
+  private _normalized: boolean = false;
 
   /**
   * This elements are normalized or not.
   * It must be false in WebGL1.0.
   */
   public get Normalized(): boolean {
-    return this.normalized;
+    return this._normalized;
   }
 
   /**
@@ -65,67 +65,67 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
   * It must be false in WebGL1.0.
   */
   public set Normalized(normalized: boolean) {
-    this.normalized = normalized;
+    this._normalized = normalized;
   }
 
-  private stride: number = 0;
+  private _stride: number = 0;
 
-  private offset: number = 0;
+  private _offset: number = 0;
 
   public get Stride(): number {
-    return this.stride;
+    return this._stride;
   }
 
   public set Stride(stride: number) {
-    this.stride = stride;
+    this._stride = stride;
   }
 
   public get Offset(): number {
-    return this.offset;
+    return this._offset;
   }
 
   public set Offset(offset: number) {
-    this.offset = offset;
+    this._offset = offset;
   }
 
   /**
    * Element count per 1 vertex.
    */
-  private unitCount: number;
+  private _unitCount: number;
   /**
 * Element count per 1 vertex.
 * This accessor is readonly.
 */
   public get UnitCount(): number {
-    return this.unitCount;
+    return this._unitCount;
   }
 
   /**
    * Cached source for buffer.
    */
-  private elementCache: ArrayBuffer|ArrayBufferView;
+  private _elementCache: ArrayBuffer|ArrayBufferView;
 
   public get ElementCache(): ArrayBuffer|ArrayBufferView {
-    return this.elementCache;
+    return this._elementCache;
   }
   /**
 * Length of this buffer.
 */
-  private length: number = 0;
+  private _length: number = 0;
   /**
    * Length of this buffer.
    */
   public get Length(): number {
-    return this.length;
+    return this._length;
   }
 
   public update(array: ArrayBuffer|ArrayBufferView, length: number): void {
-    this.elementCache = array;
-    this.length = length;
+    this._elementCache = array;
+    this._length = length;
     this.each((a) => a.update(array, length));
   }
 
-  protected createWrapperForCanvas(canvas: Canvas): BufferWrapper {
+  protected __createWrapperForCanvas(canvas: Canvas): BufferWrapper {
     return new BufferWrapper(this, canvas);
   }
 }

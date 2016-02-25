@@ -5,20 +5,20 @@ import GLExtensionList from "./GLExtensionList";
  * Provides the feature to require gl extension.
  */
 class GLExtensionResolver extends JThreeObject {
-  private requiredExtensions =
+  private _requiredExtensions =
   [
-    GLExtensionList.ElementIndexUint,
-    GLExtensionList.TextureFloat,
-    GLExtensionList.VertexArrayObject,
-    GLExtensionList.DepthTexture,
+    GLExtensionList.elementIndexUint,
+    GLExtensionList.textureFloat,
+    GLExtensionList.vertexArrayObject,
+    GLExtensionList.depthTexture,
     "WEBGL_color_buffer_float"
    ];
 
-  private extensions: { [key: string]: any } = {};
+  private _extensions: { [key: string]: any } = {};
 
   public checkExtensions(gl: WebGLRenderingContext): void {
-    for (let i = 0; i < this.requiredExtensions.length; i++) {
-      const element = this.requiredExtensions[i];
+    for (let i = 0; i < this._requiredExtensions.length; i++) {
+      const element = this._requiredExtensions[i];
       let ext;
       switch (element) {
         case "WEBGL_color_buffer_float":
@@ -31,17 +31,17 @@ class GLExtensionResolver extends JThreeObject {
         JThreeLogger.sectionError("GL Extension", `WebGL Extension:${element} was requested,but your browser is not supporting this feature.`);
       } else {
         JThreeLogger.sectionLog("GL Extension", `${element} was instanciated successfully`);
-        this.extensions[element] = ext;
+        this._extensions[element] = ext;
       }
     }
   }
 
   public getExtension(extName: string): any {
-    return this.extensions[extName];
+    return this._extensions[extName];
   }
 
   public hasExtension(extName: string): boolean {
-    return !!this.extensions[extName];
+    return !!this._extensions[extName];
   }
 
   /**
