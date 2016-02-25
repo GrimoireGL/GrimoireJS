@@ -6,7 +6,7 @@ import ProgramWrapper from "./ProgramWrapper";
 class Program extends ContextSafeContainer<ProgramWrapper> {
   constructor() {
     super();
-    this.initializeForFirst();
+    this.__initializeForFirst();
   }
 
 

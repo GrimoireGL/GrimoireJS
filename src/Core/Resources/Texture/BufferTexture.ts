@@ -21,9 +21,9 @@ class BufferTexture extends TextureBase {
     super(textureName);
     this._width = width;
     this._height = height;
-    this.textureFormat = textureFormat;
-    this.elementFormat = elementFormat;
-    if (this.elementFormat === WebGLRenderingContext.FLOAT) {
+    this.__textureFormat = textureFormat;
+    this.__elementFormat = elementFormat;
+    if (this.__elementFormat === WebGLRenderingContext.FLOAT) {
       this.MinFilter = WebGLRenderingContext.NEAREST;
       this.MagFilter = WebGLRenderingContext.NEAREST;
     }

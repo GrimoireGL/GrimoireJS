@@ -99,7 +99,7 @@ class PMXMaterial extends Material {
       }
     });
     this.__innerMaterial.on("ready", () => {
-      this.setLoaded();
+      this.__setLoaded();
     });
   }
 

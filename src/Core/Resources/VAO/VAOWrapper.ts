@@ -33,7 +33,7 @@ class VAOWrapper extends ResourceWrapper {
       return;
     }
     this._targetVAO = this._vaoInterface.createVertexArrayOES();
-    this.setInitialized();
+    this.__setInitialized();
   }
 
   public bind(): void {
@@ -44,7 +44,7 @@ class VAOWrapper extends ResourceWrapper {
   public dispose(): void {
     if (this._targetVAO) {
       this._vaoInterface.deleteVertexArrayOES(this._targetVAO);
-      this.setInitialized(false);
+      this.__setInitialized(false);
       this._targetVAO = null;
     }
   }

@@ -4,7 +4,7 @@ import Canvas from "../../Canvas/Canvas";
 class FBO extends ContextSafeResourceContainer<FBOWrapper> {
   constructor() {
     super();
-    this.initializeForFirst();
+    this.__initializeForFirst();
   }
 
   protected __createWrapperForCanvas(canvas: Canvas): FBOWrapper {

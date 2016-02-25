@@ -29,7 +29,7 @@ class RBOWrapper extends ResourceWrapper {
     this._targetRBO = this.GL.createRenderbuffer();
     this.bind();
     this.GL.renderbufferStorage(this.GL.RENDERBUFFER, this._parent.Format, this._parent.Width, this._parent.Height);
-    this.setInitialized();
+    this.__setInitialized();
   }
 
   public bind(): void {
@@ -47,7 +47,7 @@ class RBOWrapper extends ResourceWrapper {
     if (this._targetRBO) {
       this.GL.deleteRenderbuffer(this._targetRBO);
       this._targetRBO = null;
-      this.setInitialized(false);
+      this.__setInitialized(false);
     }
   }
 }

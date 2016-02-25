@@ -12,7 +12,7 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
     this._usage = usage;
     this._unitCount = unitCount;
     this._elementType = elementType;
-    this.initializeForFirst();
+    this.__initializeForFirst();
 
   }
   /**

@@ -43,7 +43,7 @@ class PMXModel extends SceneObject {
     this.modelData = pmx;
     this.modelDirectory = resourceDirectory;
     this.pmxTextureManager = new PMXTextureManager(this);
-    this.geometry = new PMXGeometry(pmx);
+    this.__geometry = new PMXGeometry(pmx);
     this.skeleton = new PMXSkeleton(this);
     this.pmxMaterials = new Array(pmx.Materials.length);
     this.name = pmx.Header.modelName;

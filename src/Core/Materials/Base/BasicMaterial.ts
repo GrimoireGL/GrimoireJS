@@ -58,7 +58,7 @@ class BasicMaterial extends Material {
     this._materialName = this._materialName || name;
     this._initializeUniformRegisters(xmml);
     this._parsePasses(xmml).then(() => {
-      this.setLoaded();
+      this.__setLoaded();
     });
   }
 

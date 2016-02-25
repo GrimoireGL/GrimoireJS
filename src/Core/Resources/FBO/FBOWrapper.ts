@@ -21,7 +21,7 @@ class FBOWrapper extends ResourceWrapper {
     if (!this.Initialized) {
       this._targetFBO = this.GL.createFramebuffer();
       this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, this._targetFBO);
-      this.setInitialized();
+      this.__setInitialized();
     }
   }
 
@@ -75,7 +75,7 @@ class FBOWrapper extends ResourceWrapper {
     if (this.Initialized) {
       this.GL.deleteFramebuffer(this._targetFBO);
       this._targetFBO = null;
-      this.setInitialized(false);
+      this.__setInitialized(false);
     }
   }
 }

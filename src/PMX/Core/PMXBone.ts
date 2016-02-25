@@ -10,7 +10,7 @@ class PMXBone extends SceneObject {
 
   constructor(model: PMXModel, skeleton: PMXSkeleton, boneIndex: number) {
     super();
-    this.transformer = new PMXBoneTransformer(this, model, boneIndex);
+    this.__transformer = new PMXBoneTransformer(this, model, boneIndex);
     this.targetModel = model;
     this.targetSkeleton = skeleton;
     this.boneIndex = boneIndex;
@@ -46,16 +46,16 @@ class PMXBone extends SceneObject {
       this.targetSkeleton.getBoneByIndex(this.TargetBoneData.parentBoneIndex).addChild(this);
     }
     this.Transformer.LocalOrigin = new Vector3(this.TargetBoneData.position);
-    const transformer = <PMXBoneTransformer>this.transformer;
+    const transformer = <PMXBoneTransformer>this.__transformer;
     if (transformer.IsIKBone) {
       for (let i = 0; i < this.TargetBoneData.ikLinkCount; i++) {
-        (<PMXBoneTransformer>this.targetSkeleton.getBoneByIndex(this.TargetBoneData.ikLinks[i].ikLinkBoneIndex).transformer).isIKLink = true;
+        (<PMXBoneTransformer>this.targetSkeleton.getBoneByIndex(this.TargetBoneData.ikLinks[i].ikLinkBoneIndex).__transformer).isIKLink = true;
       }
     }
   }
 
   public updateBoneTransform() {
-    const t = <PMXBoneTransformer>this.transformer;
+    const t = <PMXBoneTransformer>this.__transformer;
     t.updateTransformForPMX();
   }
 

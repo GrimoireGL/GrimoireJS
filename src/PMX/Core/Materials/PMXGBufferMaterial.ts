@@ -38,7 +38,7 @@ class PMXGBufferMaterial extends Material {
     this.__primaryMaterial = new BasicMaterial(require("../../Materials/PrimaryBuffer.html"));
     this.__secoundaryMaterial = new BasicMaterial(require("../../Materials/SecoundaryBuffer.html"));
     this.__thirdMaterial = new BasicMaterial(require("../../Materials/ThirdBuffer.html"));
-    this.setLoaded();
+    this.__setLoaded();
   }
 
   public apply(matArg: IApplyMaterialArgument): void {

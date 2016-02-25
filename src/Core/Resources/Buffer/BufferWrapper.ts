@@ -20,7 +20,7 @@ class BufferWrapper extends ResourceWrapper {
   public dispose(): void {
     if (this._targetBuffer) {
       this.GL.deleteBuffer(this._targetBuffer);
-      this.setInitialized(false);
+      this.__setInitialized(false);
       this._targetBuffer = null;
     }
   }
@@ -62,7 +62,7 @@ class BufferWrapper extends ResourceWrapper {
   public init(): void {
     if (this._targetBuffer == null) {
       this._targetBuffer = this.GL.createBuffer();
-      this.setInitialized();
+      this.__setInitialized();
     }
   }
 

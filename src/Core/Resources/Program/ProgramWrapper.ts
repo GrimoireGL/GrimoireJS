@@ -33,14 +33,14 @@ class ProgramWrapper extends ResourceWrapper {
       this._parentProgram.AttachedShaders.forEach((v, i, a) => {
         this.GL.attachShader(this._targetProgram, v.getForContextID(this.OwnerID).TargetShader);
       });
-      this.setInitialized();
+      this.__setInitialized();
     }
   }
 
   public dispose(): void {
     if (this.Initialized) {
       this.GL.deleteProgram(this._targetProgram);
-      this.setInitialized(false);
+      this.__setInitialized(false);
       this._targetProgram = null;
       this._islinked = false;
     }

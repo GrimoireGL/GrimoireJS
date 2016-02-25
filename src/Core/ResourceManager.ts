@@ -90,7 +90,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
 
   public createShader(id: string, source: string, shaderType: number): Shader {
     return this._shaders.create(id, () => {
-      return Shader.CreateShader(source, shaderType);
+      return Shader.createShader(source, shaderType);
     });
   }
 
@@ -104,7 +104,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
 
   public createProgram(id: string, shaders: Shader[]): Program {
     return this._programs.create(id, () => {
-      return Program.CreateProgram(shaders);
+      return Program.createProgram(shaders);
     });
   }
 

@@ -95,7 +95,7 @@ class Transformer extends JThreeObject {
     if (this._g2lupdated) {
       return this._globalToLocalCache;
     }
-    mat4.invert(this.localTransformMatrixglobalToLocalCache.rawElements, this._localToGlobalMatrix.rawElements);
+    mat4.invert(this._localTransformMatrix.rawElements, this._localToGlobalMatrix.rawElements);
     this._g2lupdated = true;
   }
 

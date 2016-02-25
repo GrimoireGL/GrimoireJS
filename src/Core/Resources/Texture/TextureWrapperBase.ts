@@ -60,7 +60,7 @@ class TextureWrapperBase extends ResourceWrapper {
   public dispose(): void {
     if (this._targetTexture) {
       this.GL.deleteTexture(this._targetTexture);
-      this.setInitialized(false);
+      this.__setInitialized(false);
       this._targetTexture = null;
     }
   }

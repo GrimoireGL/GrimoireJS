@@ -26,7 +26,7 @@ class ShaderWrapper extends ResourceWrapper {
       this.GL.shaderSource(this._targetShader, this._parentShader.ShaderSource);
       this.GL.compileShader(this._targetShader);
       this._checkCompileStatus();
-      this.setInitialized(true);
+      this.__setInitialized(true);
     }
   }
 
@@ -34,7 +34,7 @@ class ShaderWrapper extends ResourceWrapper {
     if (this.Initialized) {
       this.GL.deleteShader(this._targetShader);
       this._targetShader = null;
-      this.setInitialized(false);
+      this.__setInitialized(false);
     }
   }
 

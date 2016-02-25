@@ -10,10 +10,10 @@ class BufferTextureWrapper extends TextureWrapperBase {
   public init(): void {
     if (this.Initialized) { return; }
     const parent = <BufferTexture>this.Parent;
-    this.setTargetTexture(this.GL.createTexture());
+    this.__setTargetTexture(this.GL.createTexture());
     this.bind();
     this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);
-    this.setInitialized();
+    this.__setInitialized();
   }
 
   public unbind(): void {
@@ -42,7 +42,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
 
   public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
     const parent = <BufferTexture>this.Parent;
-    return this.encodeHtmlImage(parent.Width, parent.Height, encoder);
+    return this.__encodeHtmlImage(parent.Width, parent.Height, encoder);
   }
 }
 

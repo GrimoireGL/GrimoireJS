@@ -16,7 +16,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
    */
   constructor() {
     super();
-    this.initializeForFirst();
+    this.__initializeForFirst();
   }
 
   /**

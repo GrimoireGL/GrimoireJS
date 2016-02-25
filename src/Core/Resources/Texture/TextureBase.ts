@@ -30,10 +30,10 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
     }
     this._flipY = flipY;
     this._targetTextureType = isCubeTexture ? WebGLRenderingContext.TEXTURE_CUBE_MAP : WebGLRenderingContext.TEXTURE_2D;
-    this.initializeForFirst();
+    this.__initializeForFirst();
   }
 
-  public get TargetTextureType() {
+  public get TargetTextureType(): number {
     return this._targetTextureType;
   }
 
