@@ -67,10 +67,10 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const name = this.attributes.getValue("name");
-    this.constructTexture(name, rm).then((texture) => {
+    this.__constructTexture(name, rm).then((texture) => {
       this.target = texture;
       this.emit("update-target", this.target);
       this.nodeExport(name);
@@ -83,7 +83,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
    * @param  {ResourceManager} rm   [description]
    * @return {TextureBase}          [description]
    */
-  protected abstract constructTexture(name: string, rm: ResourceManager): Q.IPromise<T>;
+  protected abstract __constructTexture(name: string, rm: ResourceManager): Q.IPromise<T>;
 
   private _onMinFilterAttrChanged(attr): void {
     if (this.target) {

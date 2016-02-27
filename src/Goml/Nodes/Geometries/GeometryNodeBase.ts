@@ -25,11 +25,11 @@ abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<
     });
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
-  protected abstract constructGeometry(name: string);
+  protected abstract __constructGeometry(name: string): any;
 
   private _onNameAttrChanged(attr: GomlAttribute): void {
     const name = attr.Value;
@@ -41,7 +41,7 @@ abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<
         this._primitiveRegistory.deregisterPrimitive(this._name);
       }
       this._name = name;
-      this.target = this.constructGeometry(this._name);
+      this.target = this.__constructGeometry(this._name);
       if (this.target) {
         this._primitiveRegistory.registerPrimitive(this._name, this.target);
         console.log("registered", this._name);

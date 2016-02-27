@@ -7,10 +7,10 @@ class CubeGeometryNode extends GeometryNodeBase<SphereGeometry> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
-  protected constructGeometry(name: string): SphereGeometry {
+  protected __constructGeometry(name: string): SphereGeometry {
     return new SphereGeometry(name);
   }
 

@@ -23,7 +23,7 @@ class CameraNodeBase<T extends Camera> extends SceneObjectNodeBase<T> {
    * This Node is exported.
    */
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
     this.TargetSceneObject = this.__constructCamera();
   }
 

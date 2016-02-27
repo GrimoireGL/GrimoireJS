@@ -33,7 +33,7 @@ class PMXNode extends SceneObjectNodeBase<PMXModel> {
   }
 
   public onMount(): void {
-    super.onMount();
+    super.__onMount();
     PMXModel.loadFromUrl(this.attributes.getValue("src"))
       .then((m) => {
       this._pmxModel = m;

@@ -2,7 +2,7 @@ import AnimagterBase from "./AnimaterBase";
 
 class IntegerAnimater extends AnimagterBase {
 
-  protected updateAnimation(progress: number): void {
+  protected __updateAnimation(progress: number): void {
     const b = <number>this.__beginValue;
     const e = <number>this.__endValue;
     const ef = this.__easingFunction.ease;

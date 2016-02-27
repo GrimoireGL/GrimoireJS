@@ -41,7 +41,7 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
   private _mat_instance: Material = null;
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
   /**

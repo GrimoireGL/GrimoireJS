@@ -61,7 +61,7 @@ class Transformer extends JThreeObject {
 
   private _localToGlobalMatrix: Matrix = Matrix.identity();
 
-  private _modelViewProjectionCaluculationCache = mat4.create();
+  private _modelViewProjectionCaluculationCache: any = mat4.create();
 
   private _globalToLocalCache: Matrix = Matrix.identity();
 

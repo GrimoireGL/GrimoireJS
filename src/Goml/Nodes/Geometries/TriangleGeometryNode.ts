@@ -26,10 +26,10 @@ class GomlTreeTriNode extends GeometryNodeBase<TriangleGeometry> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
-  protected constructGeometry(name: string): TriangleGeometry {
+  protected __constructGeometry(name: string): TriangleGeometry {
     return new TriangleGeometry(name);
   }
 

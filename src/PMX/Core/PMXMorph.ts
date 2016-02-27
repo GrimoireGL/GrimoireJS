@@ -25,13 +25,13 @@ abstract class PMXMorph {
     }
   }
 
-  public static postProcess(model: PMXModel, morphType: number) {
+  public static postProcess(model: PMXModel, morphType: number): void {
     switch (morphType) {
       case 1:
-        PMXVertexMorph.PostProcess(model);
+        PMXVertexMorph.postProcess(model);
         return;
       case 2:
-        PMXUVMorph.PostProcess(model);
+        PMXUVMorph.postProcess(model);
         return;
     }
   }
@@ -61,23 +61,23 @@ abstract class PMXMorph {
     this.__morphManager = morphManager;
   }
 
-  public update() {
+  public update(): void {
     if (this._progress !== this._progressCurrentCache) {
-      this.updateProgress(this._progressCurrentCache, this._progress);
+      this.__updateProgress(this._progressCurrentCache, this._progress);
       this._progress = this._progressCurrentCache;
       this.__morphManager.postProcessFlag[this.TargetMorphData.morphKind] = true;
     }
   }
 
-  protected abstract updateProgress(current: number, last: number);
+  protected abstract __updateProgress(current: number, last: number): void;
 }
 
 class PMXVertexMorph extends PMXMorph {
-  public static PostProcess(model: PMXModel) {
+  public static postProcess(model: PMXModel): void {
     (<PMXGeometry>model.Geometry).updatePositionBuffer();
   }
 
-  protected updateProgress(current: number, last: number) {
+  protected __updateProgress(current: number, last: number): void {
     const ratio = current - last;
     for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
       const vm = this.TargetMorphData.vertexMorph[i];
@@ -89,10 +89,10 @@ class PMXVertexMorph extends PMXMorph {
 }
 
 class PMXUVMorph extends PMXMorph {
-  public static PostProcess(model: PMXModel) {
+  public static postProcess(model: PMXModel): void {
     (<PMXGeometry>model.Geometry).updateUVBuffer();
   }
-  protected updateProgress(current: number, last: number) {
+  protected __updateProgress(current: number, last: number): void {
     const ratio = current - last;
     for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
       const vm = this.TargetMorphData.uvMorph[i];
@@ -104,7 +104,7 @@ class PMXUVMorph extends PMXMorph {
 }
 
 class PMXGroupMorph extends PMXMorph {
-  protected updateProgress(current: number, last: number) {
+  protected __updateProgress(current: number, last: number): void {
     const ratio = current - last;
     for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
       const vm = this.TargetMorphData.groupMorph[i];
@@ -117,7 +117,7 @@ class PMXGroupMorph extends PMXMorph {
 }
 
 class PMXMaterialMorph extends PMXMorph {
-  protected updateProgress(current: number, last: number) {
+  protected __updateProgress(current: number, last: number): void {
 
     const ratio = current - last;
     for (let i = 0; i < this.TargetMorphData.morphOffsetCount; ++i) {
@@ -144,7 +144,7 @@ class PMXMaterialMorph extends PMXMorph {
     }
   }
 
-  private _assignMorphValues(vecLength: number, target: number[], morphValues: number[], ratio: number, opType: number) {
+  private _assignMorphValues(vecLength: number, target: number[], morphValues: number[], ratio: number, opType: number): void {
     for (let i = 0; i < vecLength; i++) {
       target[i] += ratio * (morphValues[i] + opType - 1);
     }

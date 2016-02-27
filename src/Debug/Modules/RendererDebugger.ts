@@ -80,25 +80,25 @@ class RendererDebugger extends DebuggerModuleBase {
 
   private _attachToScene(scene: Scene, debug: Debugger): void {
     scene.Renderers.forEach(r => {
-      this.attachToRenderer(r, debug);
+      this._attachToRenderer(r, debug);
     });
     scene.on("changed-renderer", (h) => {
       if (h.isAdditionalChange) {
-        this.attachToRenderer(h.renderer, debug);
+        this._attachToRenderer(h.renderer, debug);
       } else {
         // TODO add code for delete
       }
     });
   }
 
-  private _canvasToimg(renderer: BasicRenderer) {
+  private _canvasToimg(renderer: BasicRenderer): HTMLImageElement {
     const canvas = <Canvas>renderer.Canvas;
     const img = new Image(canvas.canvasElement.width, canvas.canvasElement.height);
     img.src = canvas.canvasElement.toDataURL();
     return img;
   }
 
-  private attachToRenderer(renderer: BasicRenderer, debug: Debugger) {
+  private _attachToRenderer(renderer: BasicRenderer, debug: Debugger): void {
     debug.debuggerAPI.renderers.addRenderer(renderer, this);
     renderer.RenderPathExecutor.on("rendered-stage", (v) => {
       if (this._bufferTextureRequest && v.completedChain.stage.ID === this._bufferTextureRequest.stageID) {

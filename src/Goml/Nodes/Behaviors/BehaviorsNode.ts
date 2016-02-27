@@ -9,7 +9,7 @@ class BehaviorsNode extends GomlTreeNodeBase {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
     this._componentTarget = <GomlTreeNodeBase>this.__parent;
   }
 

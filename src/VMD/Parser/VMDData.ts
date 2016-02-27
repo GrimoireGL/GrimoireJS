@@ -13,24 +13,24 @@ class VMDData {
 
   private static _asyncLoader: AsyncLoader<VMDData> = new AsyncLoader<VMDData>();
 
-  private reader: DataView;
+  private _reader: DataView;
 
-  private header: VMDHeader;
+  private _header: VMDHeader;
 
-  private motions: VMDMotions;
+  private _motions: VMDMotions;
 
-  private morphs: VMDMorphs;
+  private _morphs: VMDMorphs;
 
   private _offset: number = 0;
 
   constructor(data: ArrayBuffer) {
-    this.reader = new DataView(data, 0, data.byteLength);
-    this.loadHeader();
-    this.loadMotion();
-    this.loadMorph();
+    this._reader = new DataView(data, 0, data.byteLength);
+    this._loadHeader();
+    this._loadMotion();
+    this._loadMorph();
   }
 
-  public static LoadFromUrl(url: string): Q.IPromise<VMDData> {
+  public static loadFromUrl(url: string): Q.IPromise<VMDData> {
     return VMDData._asyncLoader.fetch(url, (path) => {
       const d = Q.defer<VMDData>();
       const oReq = new XMLHttpRequest();
@@ -51,26 +51,26 @@ class VMDData {
 
 
   public get Motions() {
-    return this.motions;
+    return this._motions;
   }
 
   public get Morphs() {
-    return this.morphs;
+    return this._morphs;
   }
 
   public getBoneFrame(frame: number, boneName: string): VMDBoneStatus {
-    const frames = this.motions[boneName];
+    const frames = this._motions[boneName];
     if (typeof frames === "undefined") {
       return null;
     } else {
-      const index = this.binaryframeSearch(frames, frame);
+      const index = this._binaryframeSearch(frames, frame);
       if (index + 1 < frames.length) {
         const nextFrame = frames[index + 1];
         const currentFrame = frames[index];
         const progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);
         return {
           frameNumber: frame,
-          position: this.complementBoneTranslation(currentFrame.position, nextFrame.position, progress, currentFrame.interpolation),
+          position: this._complementBoneTranslation(currentFrame.position, nextFrame.position, progress, currentFrame.interpolation),
           rotation: <number[]>quat.slerp([0, 0, 0, 0], currentFrame.rotation, nextFrame.rotation, currentFrame.interpolation[3].evaluate(progress))
         };
       } else {
@@ -84,11 +84,11 @@ class VMDData {
   }
 
   public getMorphFrame(frame: number, morphName: string): VMDMorphStatus {
-    const frames = this.morphs[morphName];
+    const frames = this._morphs[morphName];
     if (typeof frames === "undefined") {
       return null;
     } else {
-      const index = this.binaryframeSearch(frames, frame);
+      const index = this._binaryframeSearch(frames, frame);
       if (index + 1 < frames.length) {
         const nextFrame = frames[index + 1];
         const currentFrame = frames[index];
@@ -107,55 +107,55 @@ class VMDData {
   }
 
 
-  private loadHeader() {
-    this.header
+  private _loadHeader(): void {
+    this._header
     = {
-      header: this.loadString(30),
-      modelName: this.loadString(20)
+      header: this._loadString(30),
+      modelName: this._loadString(20)
     };
   }
 
-  private loadMotion() {
-    this.motions = {};
+  private _loadMotion(): void {
+    this._motions = {};
     const frameCount = this._readUint32();
     for (let i = 0; i < frameCount; i++) {
-      const frameName = this.loadString(15);
+      const frameName = this._loadString(15);
       const data = {
         frameNumber: this._readUint32(),
         position: [this._readFloat32(), this._readFloat32(), -this._readFloat32()],
         rotation: [-this._readFloat32(), -this._readFloat32(), this._readFloat32(), this._readFloat32()],
-        interpolation: this.loadInterpolation()
+        interpolation: this._loadInterpolation()
       };
-      if (typeof this.motions[frameName] === "undefined") {
-        this.motions[frameName] = [];
+      if (typeof this._motions[frameName] === "undefined") {
+        this._motions[frameName] = [];
       }
-      this.motions[frameName].push(data);
+      this._motions[frameName].push(data);
     }
-    for (let motion in this.motions) { // sort each bone frames
-      this.motions[motion].sort((i1, i2) => i1.frameNumber - i2.frameNumber);
+    for (let motion in this._motions) { // sort each bone frames
+      this._motions[motion].sort((i1, i2) => i1.frameNumber - i2.frameNumber);
     }
   }
 
-  private loadMorph() {
-    this.morphs = {};
+  private _loadMorph(): void {
+    this._morphs = {};
     const frameCount = this._readUint32();
     for (let i = 0; i < frameCount; i++) {
-      const frameName = this.loadString(15);
+      const frameName = this._loadString(15);
       const data = {
         frameNumber: this._readUint32(),
         morphValue: this._readFloat32()
       };
-      if (typeof this.morphs[frameName] === "undefined") {
-        this.morphs[frameName] = [];
+      if (typeof this._morphs[frameName] === "undefined") {
+        this._morphs[frameName] = [];
       }
-      this.morphs[frameName].push(data);
+      this._morphs[frameName].push(data);
     }
-    for (let morph in this.morphs) {
-      this.morphs[morph].sort((i1, i2) => i1.frameNumber - i2.frameNumber);
+    for (let morph in this._morphs) {
+      this._morphs[morph].sort((i1, i2) => i1.frameNumber - i2.frameNumber);
     }
   }
 
-  private loadBytes(byteLength: number) {
+  private _loadBytes(byteLength: number): Uint8Array {
     let isPadding = false;
     const arr = [];
     for (let i = 0; i < byteLength; i++) {
@@ -170,12 +170,12 @@ class VMDData {
     return new Uint8Array(arr);
   }
 
-  private loadString(length: number) {
+  private _loadString(length: number): any {
     const decoder = new TextDecoder("shift-jis");
-    return decoder.decode(this.loadBytes(length));
+    return decoder.decode(this._loadBytes(length));
   }
 
-  private loadInterpolation(): BezierCurve[] {
+  private _loadInterpolation(): BezierCurve[] {
     const interpolation = new Array(4);
     for (let i = 0; i < 4; i++) {
       interpolation[i] = new Array(4);
@@ -197,7 +197,7 @@ class VMDData {
     return result;
   }
 
-  private binaryframeSearch(source: VMDFrameData[], frame: number) {
+  private _binaryframeSearch(source: VMDFrameData[], frame: number): number {
     let minIndex = 0;
     let maxIndex = source.length - 1;
     let currentIndex = -1;
@@ -227,7 +227,7 @@ class VMDData {
   }
 
 
-  private complementBoneTranslation(begin: number[], end: number[], progress: number, bezierCurves: BezierCurve[]) {
+  private _complementBoneTranslation(begin: number[], end: number[], progress: number, bezierCurves: BezierCurve[]): number[] {
     const result = [0, 0, 0]; // TODO optimize this
     for (let i = 0; i < 3; i++) {
       result[i] = begin[i] + (end[i] - begin[i]) * bezierCurves[i].evaluate(progress);
@@ -237,19 +237,19 @@ class VMDData {
 
 
   private _readUint8(): number {
-    const result = this.reader.getUint8(this._offset);
+    const result = this._reader.getUint8(this._offset);
     this._offset += 1;
     return result;
   }
 
   private _readUint32(): number {
-    const result = this.reader.getUint32(this._offset, true);
+    const result = this._reader.getUint32(this._offset, true);
     this._offset += 4;
     return result;
   }
 
   private _readFloat32(): number {
-    const result = this.reader.getFloat32(this._offset, true);
+    const result = this._reader.getFloat32(this._offset, true);
     this._offset += 4;
     return result;
   }

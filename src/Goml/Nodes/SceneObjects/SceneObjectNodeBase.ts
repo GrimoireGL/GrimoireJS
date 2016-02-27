@@ -15,12 +15,12 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   /**
   * SceneObjectNode directly containing this node
   */
-  private parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
+  private _parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
 
   /**
   * SceneNode containing this node
   */
-  private containedSceneNode: SceneNode = null;
+  private _containedSceneNode: SceneNode = null;
 
   constructor() {
     super();
@@ -55,15 +55,15 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   }
 
   public get ParentSceneObjectNode(): SceneObjectNodeBase<SceneObject> {
-    return this.parentSceneObjectNode;
+    return this._parentSceneObjectNode;
   }
 
   public get ContainedSceneNode(): SceneNode {
-    return this.containedSceneNode;
+    return this._containedSceneNode;
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
     let containedSceneNode: SceneNode = null;
     let parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
     // This parent node is scene node.
@@ -80,12 +80,12 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
         containedSceneNode = parentSceneObjectNode.ContainedSceneNode;
       }
     }
-    this.containedSceneNode = containedSceneNode;
-    this.parentSceneObjectNode = parentSceneObjectNode;
+    this._containedSceneNode = containedSceneNode;
+    this._parentSceneObjectNode = parentSceneObjectNode;
   }
 
-  protected onUnmount(): void {
-    super.onUnmount();
+  protected __onUnmount(): void {
+    super.__onUnmount();
   }
 
   private _onPositionAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
@@ -128,22 +128,22 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
     // previus object is exist in child, remove child
     if (this._sceneObject !== null) {
       if (this.ParentSceneObjectNode === null) { // this is root object of scene
-        this.containedSceneNode.target.removeObject(this._sceneObject);
+        this._containedSceneNode.target.removeObject(this._sceneObject);
       } else {
-        if (this.parentSceneObjectNode.TargetSceneObject === null) {
+        if (this._parentSceneObjectNode.TargetSceneObject === null) {
           return;
         }
-        this.parentSceneObjectNode.TargetSceneObject.removeChild(this._sceneObject);
+        this._parentSceneObjectNode.TargetSceneObject.removeChild(this._sceneObject);
       }
     }
     if (obj !== null) {
       if (this.ParentSceneObjectNode === null) { // this is root object of scene
-        this.containedSceneNode.target.addObject(obj);
+        this._containedSceneNode.target.addObject(obj);
       } else {
-        if (this.parentSceneObjectNode.TargetSceneObject === null) {
+        if (this._parentSceneObjectNode.TargetSceneObject === null) {
           return;
         }
-        this.parentSceneObjectNode.TargetSceneObject.addChild(obj);
+        this._parentSceneObjectNode.TargetSceneObject.addChild(obj);
       }
     }
   }

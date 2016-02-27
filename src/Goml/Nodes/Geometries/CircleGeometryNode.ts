@@ -15,10 +15,10 @@ class CircleGeometryNode extends GeometryNodeBase<CircleGeometry> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
-  protected constructGeometry(name: string): CircleGeometry {
+  protected __constructGeometry(name: string): CircleGeometry {
     return new CircleGeometry(name);
   }
 

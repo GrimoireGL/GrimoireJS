@@ -13,21 +13,21 @@ import Q from "q";
 import ResourceLoader from "../../Core/ResourceLoader";
 
 class VMDNode extends GomlTreeNodeBase {
-  private targetPMX: PMXNode;
+  private _targetPMX: PMXNode;
 
-  private targetVMD: VMDData;
+  private _targetVMD: VMDData;
 
-  private lastURL: string;
+  private _lastURL: string;
 
-  private enabled: boolean;
+  private _enabled: boolean;
 
-  private autoSpeed: number = 0;
+  private _autoSpeed: number = 0;
 
-  private lastTime: number = null;
+  private _lastTime: number = null;
 
-  private frame: number = 0;
+  private _frame: number = 0;
 
-  private vmdLoadingDeferred: Q.Deferred<void>;
+  private _vmdLoadingDeferred: Q.Deferred<void>;
 
   constructor() {
     super();
@@ -46,7 +46,7 @@ class VMDNode extends GomlTreeNodeBase {
         value: false,
         converter: "boolean",
         onchanged: (attr) => {
-          this.enabled = attr.Value;
+          this._enabled = attr.Value;
           attr.done();
         },
       },
@@ -54,70 +54,70 @@ class VMDNode extends GomlTreeNodeBase {
         value: "0",
         converter: "float",
         onchanged: (attr) => {
-          this.autoSpeed = attr.Value;
+          this._autoSpeed = attr.Value;
           attr.done();
         },
       }
     });
   }
 
-  protected onMount(): void {
-    super.onMount();
-    this.targetPMX = <PMXNode>this.__parent;
-    this.targetPMX.on("loaded", () => { this.attributes.updateValue(); });
+  protected __onMount(): void {
+    super.__onMount();
+    this._targetPMX = <PMXNode>this.__parent;
+    this._targetPMX.on("loaded", () => { this.attributes.updateValue(); });
   }
 
-  public update() {
-    if (this.enabled && this.autoSpeed !== 0) {
+  public update(): void {
+    if (this._enabled && this._autoSpeed !== 0) {
       const timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
-      if (this.lastTime === null) {
-        this.lastTime = timer.time;
+      if (this._lastTime === null) {
+        this._lastTime = timer.time;
         return;
       } else {
-        const dt = timer.time - this.lastTime;
-        this.lastTime = timer.time;
-        this.attributes.setValue("frame", this.frame + dt / 1000 * 30 * this.autoSpeed);
+        const dt = timer.time - this._lastTime;
+        this._lastTime = timer.time;
+        this.attributes.setValue("frame", this._frame + dt / 1000 * 30 * this._autoSpeed);
       }
     }
   }
 
   private _onSrcAttrChanged(attr): void {
-    if (!attr.Value || attr.Value === this.lastURL) {
+    if (!attr.Value || attr.Value === this._lastURL) {
       attr.done();
       return;
     }
-    if (this.vmdLoadingDeferred) {
-      this.vmdLoadingDeferred.resolve(null);
+    if (this._vmdLoadingDeferred) {
+      this._vmdLoadingDeferred.resolve(null);
       attr.done();
     }
-    this.vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
-    VMDData.LoadFromUrl(attr.Value).then((data) => {
-      this.lastURL = attr.Value;
-      this.targetVMD = data;
-      this.vmdLoadingDeferred.resolve(null);
+    this._vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
+    VMDData.loadFromUrl(attr.Value).then((data) => {
+      this._lastURL = attr.Value;
+      this._targetVMD = data;
+      this._vmdLoadingDeferred.resolve(null);
       attr.done();
     });
   }
 
-  private _onFrameAttrChanged(attr) {
-    this.frame = Math.max(0, attr.Value);
+  private _onFrameAttrChanged(attr): void {
+    this._frame = Math.max(0, attr.Value);
     if (!this.attributes.getValue("enabled")) {
       attr.done();
       return;
     }
-    if (this.targetPMX.PMXModelReady && this.targetVMD) {
-      for (let boneName in this.targetVMD.Motions) {
+    if (this._targetPMX.PMXModelReady && this._targetVMD) {
+      for (let boneName in this._targetVMD.Motions) {
         let bone: PMXBone;
-        if (bone = this.targetPMX.PMXModel.skeleton.getBoneByName(boneName)) {
-          const current = this.targetVMD.getBoneFrame(this.frame, boneName);
+        if (bone = this._targetPMX.PMXModel.skeleton.getBoneByName(boneName)) {
+          const current = this._targetVMD.getBoneFrame(this._frame, boneName);
           bone.Transformer.Position = new Vector3(current.position);
           (<PMXBoneTransformer>bone.Transformer).userRotation = new Quaternion(current.rotation);
         }
       }
-      for (let morphName in this.targetVMD.Morphs) {
+      for (let morphName in this._targetVMD.Morphs) {
         let morph: PMXMorph;
-        if (morph = this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {
-          const morphCurrent = this.targetVMD.getMorphFrame(this.frame, morphName);
+        if (morph = this._targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {
+          const morphCurrent = this._targetVMD.getMorphFrame(this._frame, morphName);
           if (morph) {
             morph.Progress = morphCurrent.value;
           }

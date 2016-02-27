@@ -80,7 +80,7 @@ class TextureWrapperBase extends ResourceWrapper {
   }
 
 
-  protected __encodeHtmlImage(width: number, height: number, encode?: Func3<number, number, ArrayBufferView, Uint8Array>) {
+  protected __encodeHtmlImage(width: number, height: number, encode?: Func3<number, number, ArrayBufferView, Uint8Array>): any {
     const lastFBO = this.GL.getParameter(this.GL.FRAMEBUFFER_BINDING);
     // Create framebuffer to transfer texture data
     const framebuffer = this.GL.createFramebuffer();

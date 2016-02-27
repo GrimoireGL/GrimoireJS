@@ -8,10 +8,10 @@ class QuadGeometryNode extends GeometryNodeBase<QuadGeometry> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
-  protected constructGeometry(name: string): QuadGeometry {
+  protected __constructGeometry(name: string): QuadGeometry {
     return new QuadGeometry(name);
   }
 }

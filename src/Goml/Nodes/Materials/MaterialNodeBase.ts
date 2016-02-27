@@ -32,7 +32,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
   /**

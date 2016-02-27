@@ -3,43 +3,43 @@ import PMXModel from "./PMXModel";
 class PMXMorphManager {
   public postProcessFlag: boolean[] = [false, false, false, false, false, false, false, false, false];
 
-  private morphs: PMXMorph[];
+  private _morphs: PMXMorph[];
 
-  private model: PMXModel;
+  private _model: PMXModel;
 
-  private morphsDictionary: { [morphName: string]: PMXMorph } = {};
+  private _morphsDictionary: { [morphName: string]: PMXMorph } = {};
 
   constructor(model: PMXModel) {
-    this.model = model;
-    this.morphs = new Array(model.ModelData.Morphs.length);
+    this._model = model;
+    this._morphs = new Array(model.ModelData.Morphs.length);
     for (let i = 0; i < model.ModelData.Morphs.length; ++i) {
-      this.morphs[i] = PMXMorph.createMorph(model, i, this);
-      if (this.morphs[i] != null) {
-        this.morphsDictionary[this.morphs[i].MorphName] = this.morphs[i];
+      this._morphs[i] = PMXMorph.createMorph(model, i, this);
+      if (this._morphs[i] != null) {
+        this._morphsDictionary[this._morphs[i].MorphName] = this._morphs[i];
       }
     }
   }
 
-  public applyMorph() {
-    for (let i = 0; i < this.morphs.length; ++i) {
-      if (this.morphs[i] != null) {
-        this.morphs[i].update();
+  public applyMorph(): void {
+    for (let i = 0; i < this._morphs.length; ++i) {
+      if (this._morphs[i] != null) {
+        this._morphs[i].update();
       }
     }
     for (let i = 0; i < this.postProcessFlag.length; i++) {
       if (this.postProcessFlag[i]) {
-        PMXMorph.postProcess(this.model, i);
+        PMXMorph.postProcess(this._model, i);
         this.postProcessFlag[i] = false;
       }
     }
   }
 
-  public getMorphByName(name: string) {
-    return this.morphsDictionary[name];
+  public getMorphByName(name: string): PMXMorph {
+    return this._morphsDictionary[name];
   }
 
-  public getMorphByIndex(index: number) {
-    return this.morphs[index];
+  public getMorphByIndex(index: number): PMXMorph {
+    return this._morphs[index];
   }
 }
 

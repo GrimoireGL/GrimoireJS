@@ -16,7 +16,7 @@ class MaterialNode extends MaterialNodeBase<Material> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
   private _onTypeAttrChanged(attr: GomlAttribute): void {

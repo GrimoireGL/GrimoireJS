@@ -56,7 +56,7 @@ class PMXBone extends SceneObject {
 
   public updateBoneTransform(): void {
     const t = <PMXBoneTransformer>this.__transformer;
-    t._updateTransformForPMX();
+    t.updateTransformForPMX();
   }
 
   public structureToString(layer: number): string {

@@ -6,7 +6,7 @@ import ContextComponents from "../../ContextComponents";
  * @type {[type]}
  */
 class PMXCoreInitializer {
-  private static _initialized = false;
+  private static _initialized: boolean = false;
 
   public static init(): void {
     if (PMXCoreInitializer._initialized) {

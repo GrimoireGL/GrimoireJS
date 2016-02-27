@@ -34,7 +34,7 @@ class PMXMaterialMorphParamContainer {
     this.toonCoeff = [def, def, def, def];
   }
 
-  public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Func1<PMXMaterialMorphParamContainer, number>) {
+  public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Func1<PMXMaterialMorphParamContainer, number>): number {
     return base * target(mul) + target(add);
   }
 

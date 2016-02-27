@@ -106,11 +106,11 @@ class PMXModel extends SceneObject {
     });
   }
 
-  public getPMXMaterialByName(name: string) {
+  public getPMXMaterialByName(name: string): PMXMaterial {
     return this._materialDictionary[name];
   }
 
-  public getPMXMaterialByIndex(index: number) {
+  public getPMXMaterialByIndex(index: number): PMXMaterial {
     return this._pmxMaterials[index];
   }
 
@@ -127,7 +127,7 @@ class PMXModel extends SceneObject {
     return this._morphManager;
   }
 
-  public update() {
+  public update(): void {
     this._morphManager.applyMorph();
     this.skeleton.updateMatricies();
   }

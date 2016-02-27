@@ -5,14 +5,14 @@ import GLExtensionList from "./GLExtensionList";
  * Provides the feature to require gl extension.
  */
 class GLExtensionResolver extends JThreeObject {
-  private _requiredExtensions =
+  private _requiredExtensions: string[] =
   [
     GLExtensionList.elementIndexUint,
     GLExtensionList.textureFloat,
     GLExtensionList.vertexArrayObject,
     GLExtensionList.depthTexture,
     "WEBGL_color_buffer_float"
-   ];
+  ];
 
   private _extensions: { [key: string]: any } = {};
 

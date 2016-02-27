@@ -99,7 +99,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
   private _onConfigAttrChanged(attr: GomlAttribute): void {

@@ -35,7 +35,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
     return ContextComponents.NodeManager;
   }
 
-  public update() {
+  public update(): void {
     if (!this.ready) {
       return;
     }

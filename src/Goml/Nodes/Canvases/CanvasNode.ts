@@ -59,7 +59,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
     // generate canvas
     const canvas = <HTMLElement>document.querySelector(this.Frame);
     this.canvasFrames = CanvasElementBuilder.generate(canvas, this.attributes.getValue("width"), this.attributes.getValue("height"));

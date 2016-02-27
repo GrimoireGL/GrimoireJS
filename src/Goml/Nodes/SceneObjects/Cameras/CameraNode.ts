@@ -41,7 +41,7 @@ class CameraNode extends CameraNodeBase<PerspectiveCamera> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
   }
 
   public get Fovy(): number {

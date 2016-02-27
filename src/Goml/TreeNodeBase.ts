@@ -38,15 +38,15 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       if (cb) { cb.bind(this)(child); }
     });
     this.on("child-removed", (child) => {
-      const cb = this.onChildRemoved;
+      const cb = this.__onChildRemoved;
       if (cb) { cb.bind(this)(child); }
     });
     this.on("on-mount", () => {
-      const cb = this.onMount;
+      const cb = this.__onMount;
       if (cb) { cb.bind(this)(); }
     });
     this.on("on-unmount", () => {
-      const cb = this.onUnmount;
+      const cb = this.__onUnmount;
       if (cb) { cb.bind(this)(); }
     });
   }
@@ -157,7 +157,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * This method is called when child is removed
    * This method should be overridden.
    */
-  protected onChildRemoved(child: TreeNodeBase): void {
+  protected __onChildRemoved(child: TreeNodeBase): void {
     return;
   };
 
@@ -166,7 +166,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * If you change attribute here, no events are fired.
    * This method should be overridden.
    */
-  protected onMount(): void {
+  protected __onMount(): void {
     return;
   };
 
@@ -175,7 +175,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * You can still access parent.
    * This method should be overridden.
    */
-  protected onUnmount(): void {
+  protected __onUnmount(): void {
     return;
   };
 }

@@ -26,7 +26,7 @@ class LightNodeBase<T extends LightBase> extends SceneObjectNodeBase<T> {
   }
 
   protected __onMount(): void {
-    super.onMount();
+    super.__onMount();
     this.TargetSceneObject = this.__constructLight();
   }
 

@@ -5,7 +5,7 @@ class ResourceArray<T> extends JThreeObject {
 
   private _handlerArray: { [id: string]: Action1<T>[] } = {};
 
-  public create(id: string, creationFunc: Func0<T>) {
+  public create(id: string, creationFunc: Func0<T>): any {
     let resource;
     if (this._resourceArray[id]) {
       resource = this._resourceArray[id];

@@ -44,7 +44,7 @@ class BehaviorRegistry extends JThreeObject {
    * @param targetObject the object you want to copy
    * @returns {}
    */
-  private _copyObject(targetObject: any) {
+  private _copyObject(targetObject: any): {} {
     if (typeof targetObject === "object") {
       const newObject = {};
       for (let key in targetObject) {

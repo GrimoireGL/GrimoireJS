@@ -70,7 +70,7 @@ class PMXSkeleton {
     this._bonesInTransformOrder.forEach(v => (v.updateBoneTransform()));
   }
 
-  public structureToString() {
+  public structureToString(): string {
     let result = "";
     this._rootBones.forEach(v => result += v.structureToString(0));
     return result;

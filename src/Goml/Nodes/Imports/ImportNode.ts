@@ -27,8 +27,8 @@ class ImportNode extends GomlTreeNodeBase {
   }
 
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
   private _onTypeAttrChanged(attr: GomlAttribute): void {
