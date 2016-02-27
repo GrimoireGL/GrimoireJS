@@ -1,4 +1,3 @@
-import Q from "q";
 import IConditionChecker from "./IConditionChecker";
 
 interface IConditionRegister {

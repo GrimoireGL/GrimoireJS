@@ -90,10 +90,11 @@ class MaterialManager implements IContextComponent {
     return matName;
   }
   public registerCondition(type: string, checker: IConditionChecker) {
-    //TODO:implement
+    // TODO:implement
   }
   public getConditionChecker(type: string): IConditionChecker {
-    return null;//todo:implement
+    return null;
+    // todo:implement
   }
   /**
    * Construct BasicMaterial instance with registered xmml
