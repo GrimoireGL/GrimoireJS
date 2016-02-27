@@ -125,6 +125,7 @@ ci/
 ##Build Outputs##
 bin/
 lib/
+lib-test/
 src/**/*.js.map
 src/**/*.js
 wwwroot/j3.js

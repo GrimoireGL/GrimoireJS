@@ -12,6 +12,7 @@ ReloadTask = require './build/task/reload'
 WatchTask = require './build/task/watch'
 TestTask = require './build/task/test'
 BundleTask = require './build/task/bundle'
+CoverTask = require './build/task/cover'
 
 env_production = false
 
@@ -61,6 +62,7 @@ config =
   cleaner_files_silent : ['./lib/**/*']
   tsEntries:['./src/**/*.ts']
   tsDest:'./lib'
+  jsEntries:['./lib/**/*.js']
   tsBase:'./src'
   refsEntries:['./src/refs/**/*.ts']
   branch : args.branch || 'unknown'
@@ -88,5 +90,6 @@ TaskManager.register config,[
   ReloadTask,
   WatchTask,
   TestTask,
-  BundleTask
+  BundleTask,
+  CoverTask
 ]

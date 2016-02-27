@@ -19,13 +19,6 @@ class BehaviorNode extends GomlTreeNodeBase {
   private awakenCache: boolean = false;
   private startCalled: boolean = false;
 
-
-  private updateDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private startDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private awakeDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private onEnabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private onDisabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-
   constructor() {
     super();
     this.attributes.defineAttribute({
@@ -89,7 +82,7 @@ class BehaviorNode extends GomlTreeNodeBase {
   }
 
   protected onMount(): void {
-    this.componentTarget =  (<BehaviorsNode>this.parent).ComponentTarget;
+    this.componentTarget = (<BehaviorsNode>this.parent).ComponentTarget;
     this._initializeBehavior();
   }
 
@@ -189,6 +182,12 @@ class BehaviorNode extends GomlTreeNodeBase {
       }
     });
   }
+
+  private updateDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private startDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private awakeDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private onEnabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private onDisabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
 }
 
 export default BehaviorNode;

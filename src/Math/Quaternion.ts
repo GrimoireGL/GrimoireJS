@@ -23,6 +23,15 @@ class Quaternion extends JThreeObject {
     this.rawElements = rawElements;
   }
 
+  public static equals(q1: Quaternion, q2: Quaternion): boolean {
+    for (let i = 0; i < 4; i++) {
+      if (q1.rawElements[i] !== q2.rawElements[i]) {
+        return false;
+        }
+    }
+    return true;
+  }
+
 
   /**
   * Calculate add result of two quaternion
