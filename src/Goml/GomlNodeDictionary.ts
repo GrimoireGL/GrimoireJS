@@ -16,7 +16,7 @@ class GomlNodeDictionary extends jThreeObject {
    * Assosiative array that indexed by ID, which assosiate group and name string.
    * @type {string}
    */
-  private IDDictionary: { [key: string]: { group: string, name: string } } = {};
+  private _iDDictionary: { [key: string]: { group: string, name: string } } = {};
 
   /**
    * add or update Object by group and name
@@ -37,7 +37,7 @@ class GomlNodeDictionary extends jThreeObject {
       this._dictionary[group][name] = { node: void 0, cb: [] };
     }
     const target = this._dictionary[group][name];
-    const group_name = this.IDDictionary[node.ID];
+    const group_name = this._iDDictionary[node.ID];
     target.node = node;
     // when node is exist in other group and name
     if (group_name) {
@@ -50,7 +50,7 @@ class GomlNodeDictionary extends jThreeObject {
         }
       }
     }
-    this.IDDictionary[target.node.ID] = { group: group, name: name };
+    this._iDDictionary[target.node.ID] = { group: group, name: name };
     if (target.node.Mounted) {
       // console.log("callWithNode(on-add)", target.node.getTypeName(), `cb:${target.cb.length}`);
       target.cb.forEach((fn) => { fn(target.node); });

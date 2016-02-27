@@ -157,7 +157,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
     return this._fbos.get(id);
   }
 
-  public createTexture(id: string, width: number, height: number, texType: number = WebGLRenderingContext.RGBA, elemType: number = WebGLRenderingContext.UNSIGNED_BYTE) {
+  public createTexture(id: string, width: number, height: number, texType: number = WebGLRenderingContext.RGBA, elemType: number = WebGLRenderingContext.UNSIGNED_BYTE): BufferTexture {
     return this._textures.create(id, () => {
       const bt = new BufferTexture(width, height, texType, elemType, id);
       bt.each(v => v.init());

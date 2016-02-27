@@ -51,15 +51,15 @@ class GomlConfigurator extends JThreeObject {
    */
   constructor() {
     super();
-    this.initializeEasingFunctions();
-    this.initializeConverters();
-    this.initializeGomlNodes();
+    this._initializeEasingFunctions();
+    this._initializeConverters();
+    this._initializeGomlNodes();
   }
 
   /*
   * Initialize associative array for easing functions that will be used for animation in goml.
   */
-  private initializeEasingFunctions(): void {
+  private _initializeEasingFunctions(): void {
     const list = EasingFunctionList;
     for (let key in list) {
       const type = list[key];
@@ -69,7 +69,7 @@ class GomlConfigurator extends JThreeObject {
   /**
    * Initialize converters from list.
    */
-  private initializeConverters(): void {
+  private _initializeConverters(): void {
     const list = GomlConverterList;
     for (let key in list) {
       const type = list[key];
@@ -80,7 +80,7 @@ class GomlConfigurator extends JThreeObject {
   /**
    * タグ名とNodeの関連付けを行っています。
    */
-  private initializeGomlNodes() {
+  private _initializeGomlNodes(): void {
     const newList: GomlNodeListElement[] = GomlNodeList;
     newList.forEach((v) => {
       for (let key in v.NodeTypes) {

@@ -1,3 +1,4 @@
+import AnimaterBase from "./Animater/AnimaterBase";
 import JThreeObject from "../Base/JThreeObject";
 import GomlAttribute from "./GomlAttribute";
 import {Action0} from "../Base/Delegates";
@@ -74,7 +75,7 @@ class AttributeDictionary extends JThreeObject {
     return this._attributes;
   }
 
-  public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Action0) {
+  public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     const attr = this._attributes[attrName];
     if (attr === undefined) {
       console.warn(`attribute \"${attrName}\" is not found.`);
@@ -148,7 +149,7 @@ class AttributeDictionary extends JThreeObject {
   /**
    * Emit change events to all attributes
    */
-  public emitChangeAll() {
+  public emitChangeAll(): void {
     Object.keys(this._attributes).forEach((k) => {
       let v = this._attributes[k];
       if (typeof v.Value !== "undefined") {
@@ -157,7 +158,7 @@ class AttributeDictionary extends JThreeObject {
     });
   }
 
-  public updateValue(attrName?: string) {
+  public updateValue(attrName?: string): void {
     if (typeof attrName === "undefined") {
       Object.keys(this._attributes).forEach((k) => {
         let v = this._attributes[k];

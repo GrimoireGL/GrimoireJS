@@ -5,11 +5,11 @@ import isString from "lodash.isstring";
 import isArray from "lodash.isarray";
 
 class Filtering extends J3ObjectBase {
-  public filter(selector: string);
-  public filter(func: (index: number, node: GomlTreeNodeBase) => boolean);
-  public filter(node: GomlTreeNodeBase);
-  public filter(nodes: GomlTreeNodeBase[]);
-  public filter(nodes: J3Object);
+  public filter(selector: string): void;
+  public filter(func: (index: number, node: GomlTreeNodeBase) => boolean): void;
+  public filter(node: GomlTreeNodeBase): void;
+  public filter(nodes: GomlTreeNodeBase[]): void;
+  public filter(nodes: J3Object): void;
   public filter(argu: any): void {
     switch (true) {
       case (isString(argu)):

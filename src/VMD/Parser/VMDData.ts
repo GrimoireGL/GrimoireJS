@@ -175,7 +175,7 @@ class VMDData {
     return decoder.decode(this.loadBytes(length));
   }
 
-  private loadInterpolation() {
+  private loadInterpolation(): BezierCurve[] {
     const interpolation = new Array(4);
     for (let i = 0; i < 4; i++) {
       interpolation[i] = new Array(4);

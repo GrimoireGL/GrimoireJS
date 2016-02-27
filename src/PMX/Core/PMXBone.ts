@@ -39,7 +39,7 @@ class PMXBone extends SceneObject {
 	 * This method is intended to use by PMXSkeleton.
 	 * No need to call this method by user.
 	 */
-  public boneDictionaryConstructed() {
+  public boneDictionaryConstructed(): void {
     if (this.IsRootBone) {
       this._targetModel.addChild(this);
     } else {
@@ -54,12 +54,12 @@ class PMXBone extends SceneObject {
     }
   }
 
-  public updateBoneTransform() {
+  public updateBoneTransform(): void {
     const t = <PMXBoneTransformer>this.__transformer;
     t._updateTransformForPMX();
   }
 
-  public structureToString(layer: number) {
+  public structureToString(layer: number): string {
     let result = "";
     for (let i = 0; i < layer; i++) {
       result += "  ";
@@ -74,11 +74,11 @@ class PMXBone extends SceneObject {
     return result;
   }
 
-  public toString() {
+  public toString(): string {
     return `${this.TargetBoneData.boneName}(${this.TargetBoneData.boneNameEn})`;
   }
 
-  public applyMatrixToBuffer(buffer: Float32Array) {
+  public applyMatrixToBuffer(buffer: Float32Array): void {
     // if (!(<PMXBoneTransformer>this.Transformer).transformUpdated) return;
     for (let i = 0; i < 16; i++) {
       buffer[16 * this.boneIndex + i] = this.Transformer.LocalToGlobal.rawElements[i];

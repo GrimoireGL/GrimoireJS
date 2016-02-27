@@ -34,7 +34,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
   constructor() {
     super();
     this.on("child-added", (child) => {
-      const cb = this.onChildAdded;
+      const cb = this.__onChildAdded;
       if (cb) { cb.bind(this)(child); }
     });
     this.on("child-removed", (child) => {
@@ -149,7 +149,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * This method is called when child is added
    * This method should be overridden.
    */
-  protected onChildAdded(child: TreeNodeBase): void {
+  protected __onChildAdded(child: TreeNodeBase): void {
     return;
   };
 

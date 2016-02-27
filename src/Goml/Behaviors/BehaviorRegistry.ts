@@ -12,9 +12,9 @@ class BehaviorRegistry extends JThreeObject {
 
   private _behaviorInstances: { [id: string]: BehaviorDeclarationBody } = {};
 
-  public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody | Action0);
-  public defineBehavior(behaviorDeclarations: BehaviorDeclaration);
-  public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, behaviorDeclaration?: BehaviorDeclarationBody | Action0) {
+  public defineBehavior(behaviorName: string, behaviorDeclaration: BehaviorDeclarationBody | Action0): void;
+  public defineBehavior(behaviorDeclarations: BehaviorDeclaration): void;
+  public defineBehavior(nameOrDeclarations: string | BehaviorDeclaration, behaviorDeclaration?: BehaviorDeclarationBody | Action0): void {
     if (typeof nameOrDeclarations === "string") {
       const behaviorName = <string>nameOrDeclarations;
       this._behaviorInstances[behaviorName] = this._generateBehaviorInstance(behaviorDeclaration);
