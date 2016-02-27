@@ -1,6 +1,7 @@
 import JThreeContext from "../../JThreeContext";
 import CanvasManager from "./CanvasManager";
 import ContextComponents from "../../ContextComponents";
+import IGLPrecisions from "./IGLPrecisions";
 class GLSpecResolver {
 
   private static maxCombinedTextureUnits;
@@ -14,6 +15,7 @@ class GLSpecResolver {
   private static maxVertexTextureImageUnits;
   private static maxVertexUniformVectors;
   private static maxViewportDims;
+  private static allShaderPrecisionFormat;
 
   private static get GL() {
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
@@ -82,6 +84,33 @@ class GLSpecResolver {
   public static get MaxViewportDims() {
     return GLSpecResolver.maxViewportDims = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxViewportDims, WebGLRenderingContext.MAX_VIEWPORT_DIMS);
   }
+
+  public static get ShaderPrecisions() {
+    return GLSpecResolver.allShaderPrecisionFormat = GLSpecResolver.allShaderPrecisionFormat || GLSpecResolver.getShaderPrecisions();
+  }
+
+  private static getShaderPrecisions(): IGLPrecisions {
+    /* For Vertex Shaders */
+    const vLOW_FLOAT: WebGLShaderPrecisionFormat  = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.LOW_FLOAT);
+    const vMEDIUM_FLOAT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.MEDIUM_FLOAT);
+    const vHIGH_FLOAT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.HIGH_FLOAT);
+    const vLOW_INT: WebGLShaderPrecisionFormat  = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.LOW_INT);
+    const vMEDIUM_INT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.MEDIUM_INT);
+    const vHIGH_INT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.HIGH_INT);
+    const fLOW_FLOAT: WebGLShaderPrecisionFormat  = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.LOW_FLOAT);
+    const fMEDIUM_FLOAT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.MEDIUM_FLOAT);
+    const fHIGH_FLOAT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.HIGH_FLOAT);
+    const fLOW_INT: WebGLShaderPrecisionFormat  = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.LOW_INT);
+    const fMEDIUM_INT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.MEDIUM_INT);
+    const fHIGH_INT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.HIGH_INT);
+    return <IGLPrecisions>{vLOW_FLOAT: vLOW_FLOAT, vMEDIUM_FLOAT: vMEDIUM_FLOAT, vHIGH_FLOAT: vHIGH_FLOAT,
+            vLOW_INT  : vLOW_INT  , vMEDIUM_INT  : vMEDIUM_INT  , vHIGH_INT  : vHIGH_INT,
+            fLOW_FLOAT: fLOW_FLOAT, fMEDIUM_FLOAT: fMEDIUM_FLOAT, fHIGH_FLOAT: fHIGH_FLOAT,
+            fLOW_INT  : fLOW_INT  , fMEDIUM_INT  : fMEDIUM_INT  , fHIGH_INT  : fHIGH_INT
+          };
+  }
+
+
 }
 
 export default GLSpecResolver;

@@ -38,9 +38,6 @@ class VectorBase {
   }
 
   protected static elementEqual(v1: VectorBase, v2: VectorBase): boolean {
-    if (v1.ElementCount !== v2.ElementCount) {
-      return false;
-    }
     for (let i = 0; i < v1.ElementCount; i++) {
       if (v1.rawElements[i] !== v2.rawElements[i]) {
         return false;
