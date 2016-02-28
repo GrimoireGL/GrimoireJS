@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "noImplicitAny": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "module": "commonjs"
   },
   "filesGlob": [
     "./refs/**/*.ts",
