@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GLExtensionList | jThree</title>
+	<title>HalfFloatTextureExtensionResolver | jThree</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_core_canvas_glextensionlist_.html">&quot;Core/Canvas/GLExtensionList&quot;</a>
+					<a href="../modules/_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.html">&quot;Core/Canvas/GL/ExtensionResolver/HalfFloatTextureExtensionResolver&quot;</a>
 				</li>
 				<li>
-					<a href="_core_canvas_glextensionlist_.glextensionlist.html">GLExtensionList</a>
+					<a href="_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.halffloattextureextensionresolver.html">HalfFloatTextureExtensionResolver</a>
 				</li>
 			</ul>
-			<h1>Class GLExtensionList</h1>
+			<h1>Class HalfFloatTextureExtensionResolver</h1>
 		</div>
 	</div>
 </header>
@@ -74,7 +74,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">GLExtensionList</span>
+						<a href="_core_canvas_gl_extensionresolver_extensionresolverbase_.extensionresolverbase.html" class="tsd-signature-type">ExtensionResolverBase</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">HalfFloatTextureExtensionResolver</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -83,69 +88,77 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Properties</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_canvas_glextensionlist_.glextensionlist.html#depthtexture" class="tsd-kind-icon">Depth<wbr>Texture</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_canvas_glextensionlist_.glextensionlist.html#elementindexuint" class="tsd-kind-icon">Element<wbr>Index<wbr>Uint</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_canvas_glextensionlist_.glextensionlist.html#texturefilteranisotropic" class="tsd-kind-icon">Texture<wbr>Filter<wbr>Anisotropic</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_canvas_glextensionlist_.glextensionlist.html#texturefloat" class="tsd-kind-icon">Texture<wbr>Float</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_core_canvas_glextensionlist_.glextensionlist.html#vertexarrayobject" class="tsd-kind-icon">Vertex<wbr>Array<wbr>Object</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.halffloattextureextensionresolver.html#request" class="tsd-kind-icon">request</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.halffloattextureextensionresolver.html#requestextensionwithwarning" class="tsd-kind-icon">request<wbr>Extension<wbr>With<wbr>Warning</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="depthtexture" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Depth<wbr>Texture</h3>
-					<div class="tsd-signature tsd-kind-icon">Depth<wbr>Texture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/GLExtensionList.ts#L10">Core/Canvas/GLExtensionList.ts:10</a></li>
-						</ul>
-					</aside>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+					<a name="request" class="tsd-anchor"></a>
+					<h3>request</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">request<span class="tsd-signature-symbol">(</span>gl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overwrites <a href="_core_canvas_gl_extensionresolver_extensionresolverbase_.extensionresolverbase.html">ExtensionResolverBase</a>.<a href="_core_canvas_gl_extensionresolver_extensionresolverbase_.extensionresolverbase.html#request">request</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/GL/ExtensionResolver/HalfFloatTextureExtensionResolver.ts#L3">Core/Canvas/GL/ExtensionResolver/HalfFloatTextureExtensionResolver.ts:3</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>gl: <span class="tsd-signature-type">WebGLRenderingContext</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-index-signature">
+									<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="elementindexuint" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Element<wbr>Index<wbr>Uint</h3>
-					<div class="tsd-signature tsd-kind-icon">Element<wbr>Index<wbr>Uint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/GLExtensionList.ts#L2">Core/Canvas/GLExtensionList.ts:2</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="texturefilteranisotropic" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Texture<wbr>Filter<wbr>Anisotropic</h3>
-					<div class="tsd-signature tsd-kind-icon">Texture<wbr>Filter<wbr>Anisotropic<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/GLExtensionList.ts#L8">Core/Canvas/GLExtensionList.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="texturefloat" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Texture<wbr>Float</h3>
-					<div class="tsd-signature tsd-kind-icon">Texture<wbr>Float<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/GLExtensionList.ts#L4">Core/Canvas/GLExtensionList.ts:4</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="vertexarrayobject" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Vertex<wbr>Array<wbr>Object</h3>
-					<div class="tsd-signature tsd-kind-icon">Vertex<wbr>Array<wbr>Object<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/GLExtensionList.ts#L6">Core/Canvas/GLExtensionList.ts:6</a></li>
-						</ul>
-					</aside>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+					<a name="requestextensionwithwarning" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> request<wbr>Extension<wbr>With<wbr>Warning</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">request<wbr>Extension<wbr>With<wbr>Warning<span class="tsd-signature-symbol">(</span>gl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebGLRenderingContext</span>, extKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_core_canvas_gl_extensionresolver_extensionresolverbase_.extensionresolverbase.html">ExtensionResolverBase</a>.<a href="_core_canvas_gl_extensionresolver_extensionresolverbase_.extensionresolverbase.html#requestextensionwithwarning">requestExtensionWithWarning</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/GL/ExtensionResolver/ExtensionResolverBase.ts#L11">Core/Canvas/GL/ExtensionResolver/ExtensionResolverBase.ts:11</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>gl: <span class="tsd-signature-type">WebGLRenderingContext</span></h5>
+								</li>
+								<li>
+									<h5>extKey: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-index-signature">
+									<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -156,7 +169,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_core_canvas_glextensionlist_.html">"<wbr>Core/<wbr>Canvas/GLExtension<wbr>List"</a>
+						<a href="../modules/_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.html">"<wbr>Core/<wbr>Canvas/GL/<wbr>Extension<wbr>Resolver/<wbr>Half<wbr>Float<wbr>Texture<wbr>Extension<wbr>Resolver"</a>
 					</li>
 				</ul>
 			</nav>
@@ -165,22 +178,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_core_canvas_glextensionlist_.glextensionlist.html" class="tsd-kind-icon">GLExtension<wbr>List</a>
+						<a href="_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.halffloattextureextensionresolver.html" class="tsd-kind-icon">Half<wbr>Float<wbr>Texture<wbr>Extension<wbr>Resolver</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_core_canvas_glextensionlist_.glextensionlist.html#depthtexture" class="tsd-kind-icon">Depth<wbr>Texture</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+								<a href="_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.halffloattextureextensionresolver.html#request" class="tsd-kind-icon">request</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_core_canvas_glextensionlist_.glextensionlist.html#elementindexuint" class="tsd-kind-icon">Element<wbr>Index<wbr>Uint</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_core_canvas_glextensionlist_.glextensionlist.html#texturefilteranisotropic" class="tsd-kind-icon">Texture<wbr>Filter<wbr>Anisotropic</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_core_canvas_glextensionlist_.glextensionlist.html#texturefloat" class="tsd-kind-icon">Texture<wbr>Float</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_core_canvas_glextensionlist_.glextensionlist.html#vertexarrayobject" class="tsd-kind-icon">Vertex<wbr>Array<wbr>Object</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
+								<a href="_core_canvas_gl_extensionresolver_halffloattextureextensionresolver_.halffloattextureextensionresolver.html#requestextensionwithwarning" class="tsd-kind-icon">request<wbr>Extension<wbr>With<wbr>Warning</a>
 							</li>
 						</ul>
 					</li>
