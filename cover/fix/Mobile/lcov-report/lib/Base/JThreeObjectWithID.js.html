@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.23% </span>
+        <span class="strong">86.05% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>41/47</span>
+        <span class='fraction'>37/43</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60.61% </span>
+        <span class="strong">58.62% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>20/33</span>
+        <span class='fraction'>17/29</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">90.91% </span>
+        <span class="strong">90% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>10/11</span>
+        <span class='fraction'>9/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">95.45% </span>
+        <span class="strong">94.74% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>21/22</span>
+        <span class='fraction'>18/19</span>
       </div>
     </div>
   </div>
@@ -90,34 +90,9 @@
 45
 46
 47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+48</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,6 +100,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,23 +136,10 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-&nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="if path not taken" >I</span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; </span>Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="if path not taken" >I</span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); </span>return Constructor; }; }();
-&nbsp;
-var _JThreeObject2 = require("./JThreeObject");
-&nbsp;
-var _JThreeObject3 = _interopRequireDefault(_JThreeObject2);
-&nbsp;
-var _JThreeID = require("./JThreeID");
-&nbsp;
-var _JThreeID2 = _interopRequireDefault(_JThreeID);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
 &nbsp;
 function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
 &nbsp;
@@ -183,20 +147,22 @@ function _possibleConstructorReturn(self, call) { <span class="missing-if-branch
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
+var JThreeObject_1 = require("./JThreeObject");
+var JThreeID_1 = require("./JThreeID");
 /**
  * JThree object with unique ID to identify object instancies.
  * @type {[type]}
  */
 &nbsp;
-var JThreeObjectWithID = function (_JThreeObject) {
-    _inherits(JThreeObjectWithID, _JThreeObject);
+var JThreeObjectWithID = function (_JThreeObject_1$defau) {
+    _inherits(JThreeObjectWithID, _JThreeObject_1$defau);
 &nbsp;
     function JThreeObjectWithID(id) {
         _classCallCheck(this, JThreeObjectWithID);
 &nbsp;
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(JThreeObjectWithID).call(this));
 &nbsp;
-        _this._id = id || _JThreeID2.default.getUniqueRandom(10);
+        _this._id = id || JThreeID_1.default.getUniqueRandom(10);
         return _this;
     }
     /**
@@ -215,15 +181,16 @@ var JThreeObjectWithID = function (_JThreeObject) {
     }]);
 &nbsp;
     return JThreeObjectWithID;
-}(_JThreeObject3.default);
+}(JThreeObject_1.default);
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = JThreeObjectWithID;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 07:09:34 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

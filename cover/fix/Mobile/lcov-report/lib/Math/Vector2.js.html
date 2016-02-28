@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">82.18% </span>
+        <span class="strong">81.63% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>83/101</span>
+        <span class='fraction'>80/98</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">46.67% </span>
+        <span class="strong">43.9% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>21/45</span>
+        <span class='fraction'>18/41</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">97.78% </span>
+        <span class="strong">97.73% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>44/45</span>
+        <span class='fraction'>43/44</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80.26% </span>
+        <span class="strong">79.73% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>61/76</span>
+        <span class='fraction'>59/74</span>
       </div>
     </div>
   </div>
@@ -272,34 +272,17 @@
 227
 228
 229
-230
-231
-232
-233
-234
-235
-236
-237
-238</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+230</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">32×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">84×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">99×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -517,21 +500,10 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-&nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-&nbsp;
-var _VectorBase2 = require("./VectorBase");
-&nbsp;
-var _VectorBase3 = _interopRequireDefault(_VectorBase2);
-&nbsp;
-var _glMatrix = require("gl-matrix");
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
 &nbsp;
 function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
 &nbsp;
@@ -539,8 +511,11 @@ function _possibleConstructorReturn(self, call) { <span class="missing-if-branch
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
-var Vector2 = function (_VectorBase) {
-    _inherits(Vector2, _VectorBase);
+var VectorBase_1 = require("./VectorBase");
+var gl_matrix_1 = require("gl-matrix");
+&nbsp;
+var Vector2 = function (_VectorBase_1$default) {
+    _inherits(Vector2, _VectorBase_1$default);
 &nbsp;
     function Vector2(x, y) {
         _classCallCheck(this, Vector2);
@@ -644,7 +619,7 @@ var Vector2 = function (_VectorBase) {
     }, {
         key: "parse",
         value: <span class="fstat-no" title="function not covered" >function parse(str) {</span>
-<span class="cstat-no" title="statement not covered" >            var parseResult = _VectorBase3.default.__parse(str);</span>
+<span class="cstat-no" title="statement not covered" >            var parseResult = VectorBase_1.default.__parse(str);</span>
 <span class="cstat-no" title="statement not covered" >            var elements = parseResult.elements;</span>
 <span class="cstat-no" title="statement not covered" >            if (elements.length !== 1 &amp;&amp; elements.length !== 2) {</span>
 <span class="cstat-no" title="statement not covered" >                return undefined;</span>
@@ -669,25 +644,25 @@ var Vector2 = function (_VectorBase) {
     }, {
         key: "dot",
         value: function dot(v1, v2) {
-            return _glMatrix.vec2.dot(v1.rawElements, v2.rawElements);
+            return gl_matrix_1.vec2.dot(v1.rawElements, v2.rawElements);
         }
     }, {
         key: "add",
         value: function add(v1, v2) {
-            var newVec = _glMatrix.vec2.create();
-            return new Vector2(_glMatrix.vec2.add(newVec, v1.rawElements, v2.rawElements));
+            var newVec = gl_matrix_1.vec2.create();
+            return new Vector2(gl_matrix_1.vec2.add(newVec, v1.rawElements, v2.rawElements));
         }
     }, {
         key: "subtract",
         value: function subtract(v1, v2) {
-            var newVec = _glMatrix.vec2.create();
-            return new Vector2(_glMatrix.vec2.sub(newVec, v1.rawElements, v2.rawElements));
+            var newVec = gl_matrix_1.vec2.create();
+            return new Vector2(gl_matrix_1.vec2.sub(newVec, v1.rawElements, v2.rawElements));
         }
     }, {
         key: "multiply",
         value: function multiply(s, v) {
-            var newVec = _glMatrix.vec2.create();
-            return new Vector2(_glMatrix.vec2.scale(newVec, v.rawElements, s));
+            var newVec = gl_matrix_1.vec2.create();
+            return new Vector2(gl_matrix_1.vec2.scale(newVec, v.rawElements, s));
         }
     }, {
         key: "negate",
@@ -697,30 +672,30 @@ var Vector2 = function (_VectorBase) {
     }, {
         key: "equal",
         value: function equal(v1, v2) {
-            return _VectorBase3.default.elementEqual(v1, v2);
+            return VectorBase_1.default.elementEqual(v1, v2);
         }
     }, {
         key: "nearlyEqual",
         value: function nearlyEqual(v1, v2) {
-            return _VectorBase3.default.nearlyElementEqual(v1, v2);
+            return VectorBase_1.default.nearlyElementEqual(v1, v2);
         }
     }, {
         key: "normalize",
         value: function normalize(v1) {
-            var newVec = _glMatrix.vec2.create();
-            return new Vector2(_glMatrix.vec2.normalize(newVec, v1.rawElements));
+            var newVec = gl_matrix_1.vec2.create();
+            return new Vector2(gl_matrix_1.vec2.normalize(newVec, v1.rawElements));
         }
     }, {
         key: "min",
         value: function min(v1, v2) {
-            return new Vector2(_VectorBase3.default.fromGenerationFunction(v1, v2, function (i, v1_, v2_) {
+            return new Vector2(VectorBase_1.default.fromGenerationFunction(v1, v2, function (i, v1_, v2_) {
                 return Math.min(v1_.rawElements[i], v2_.rawElements[i]);
             }));
         }
     }, {
         key: "max",
         value: function max(v1, v2) {
-            return new Vector2(_VectorBase3.default.fromGenerationFunction(v1, v2, function (i, v1_, v2_) {
+            return new Vector2(VectorBase_1.default.fromGenerationFunction(v1, v2, function (i, v1_, v2_) {
                 return Math.max(v1_.rawElements[i], v2_.rawElements[i]);
             }));
         }
@@ -752,15 +727,16 @@ var Vector2 = function (_VectorBase) {
     }]);
 &nbsp;
     return Vector2;
-}(_VectorBase3.default);
+}(VectorBase_1.default);
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Vector2;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 07:09:34 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

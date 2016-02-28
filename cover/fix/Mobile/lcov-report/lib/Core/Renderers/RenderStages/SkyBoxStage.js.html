@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">20% </span>
+        <span class="strong">18.18% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/25</span>
+        <span class='fraction'>4/22</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/23</span>
+        <span class='fraction'>0/19</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/6</span>
+        <span class='fraction'>0/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.71% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/14</span>
+        <span class='fraction'>4/12</span>
       </div>
     </div>
   </div>
@@ -66,30 +66,15 @@
 21
 22
 23
-24
-25
-26
-27
-28
-29
-30
-31</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+24</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -103,17 +88,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-&nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
-    value: true
-});
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _RSMLRenderStage2 = require("./RSML/RSMLRenderStage");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _RSMLRenderStage3 = _interopRequireDefault(_RSMLRenderStage2);</span>
-&nbsp;
-<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -121,8 +97,10 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var SkyBoxStage = <span class="fstat-no" title="function not covered" >function (_RSMLRenderStage) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(SkyBoxStage, _RSMLRenderStage);</span>
+<span class="cstat-no" title="statement not covered" >var RSMLRenderStage_1 = require("./RSML/RSMLRenderStage");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var SkyBoxStage = <span class="fstat-no" title="function not covered" >function (_RSMLRenderStage_1$de) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(SkyBoxStage, _RSMLRenderStage_1$de);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function SkyBoxStage(renderer) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, SkyBoxStage);</span>
@@ -131,15 +109,16 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return SkyBoxStage;</span>
-}(_RSMLRenderStage3.default);
+}(RSMLRenderStage_1.default);
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = SkyBoxStage;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 07:09:34 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

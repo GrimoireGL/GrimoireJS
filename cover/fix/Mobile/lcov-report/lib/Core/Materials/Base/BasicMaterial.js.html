@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40.2% </span>
+        <span class="strong">35.79% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>41/102</span>
+        <span class='fraction'>34/95</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">31.37% </span>
+        <span class="strong">25.53% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>16/51</span>
+        <span class='fraction'>12/47</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">31.58% </span>
+        <span class="strong">27.78% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/19</span>
+        <span class='fraction'>5/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">36.51% </span>
+        <span class="strong">29.82% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>23/63</span>
+        <span class='fraction'>17/57</span>
       </div>
     </div>
   </div>
@@ -163,30 +163,7 @@
 118
 119
 120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+121</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,25 +176,9 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -321,37 +282,12 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-&nbsp;
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 &nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="if path not taken" >I</span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); </span>return Constructor; }; }();
 &nbsp;
 var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};
-&nbsp;
-var _Material2 = require("../Material");
-&nbsp;
-var _Material3 = _interopRequireDefault(_Material2);
-&nbsp;
-var _ContextComponents = require("../../../ContextComponents");
-&nbsp;
-var _ContextComponents2 = _interopRequireDefault(_ContextComponents);
-&nbsp;
-var _JThreeContext = require("../../../JThreeContext");
-&nbsp;
-var _JThreeContext2 = _interopRequireDefault(_JThreeContext);
-&nbsp;
-var _MaterialPass = require("./MaterialPass");
-&nbsp;
-var _MaterialPass2 = _interopRequireDefault(_MaterialPass);
-&nbsp;
-var _q = require("q");
-&nbsp;
-var _q2 = _interopRequireDefault(_q);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -359,8 +295,14 @@ function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? ob
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
-var BasicMaterial = function (_Material) {
-    _inherits(BasicMaterial, _Material);
+var Material_1 = require("../Material");
+var ContextComponents_1 = require("../../../ContextComponents");
+var JThreeContext_1 = require("../../../JThreeContext");
+var MaterialPass_1 = require("./MaterialPass");
+var q_1 = require("q");
+&nbsp;
+var BasicMaterial = function (_Material_1$default) {
+    _inherits(BasicMaterial, _Material_1$default);
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function BasicMaterial(sourceString, name) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, BasicMaterial);</span>
@@ -425,10 +367,10 @@ var BasicMaterial = function (_Material) {
 <span class="cstat-no" title="statement not covered" >            var passes = doc.querySelectorAll("material &gt; passes &gt; pass");</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; passes.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                var pass = passes.item(i);</span>
-<span class="cstat-no" title="statement not covered" >                this._passes.push(new _MaterialPass2.default(this, pass, this._materialName, i));</span>
+<span class="cstat-no" title="statement not covered" >                this._passes.push(new MaterialPass_1.default(this, pass, this._materialName, i));</span>
             }
 <span class="cstat-no" title="statement not covered" >            this._passCount = passes.length;</span>
-<span class="cstat-no" title="statement not covered" >            return _q2.default.all(this._passes.map(<span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >            return q_1.default.all(this._passes.map(<span class="fstat-no" title="function not covered" >function (e) {</span></span>
 <span class="cstat-no" title="statement not covered" >                return e.initialize(_this3._uniformRegisters);</span>
             }));
         }
@@ -453,20 +395,21 @@ var BasicMaterial = function (_Material) {
     }, {
         key: "_materialManager",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return _JThreeContext2.default.getContextComponent(_ContextComponents2.default.MaterialManager);</span>
+<span class="cstat-no" title="statement not covered" >            return JThreeContext_1.default.getContextComponent(ContextComponents_1.default.MaterialManager);</span>
         }
     }]);
 &nbsp;
     return BasicMaterial;
-}(_Material3.default);
+}(Material_1.default);
 &nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = BasicMaterial;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 07:09:34 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

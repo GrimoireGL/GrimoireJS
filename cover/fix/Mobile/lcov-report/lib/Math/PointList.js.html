@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5.97% </span>
+        <span class="strong">4.84% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>4/67</span>
+        <span class='fraction'>3/62</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/18</span>
+        <span class='fraction'>0/14</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/14</span>
+        <span class='fraction'>0/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">8% </span>
+        <span class="strong">6.52% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>4/50</span>
+        <span class='fraction'>3/46</span>
       </div>
     </div>
   </div>
@@ -135,45 +135,16 @@
 90
 91
 92
-93
-94
-95
-96
-97
-98
-99
-100
-101
-102
-103
-104
-105
-106
-107</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+93</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -255,31 +226,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
-&nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
-    value: true
-});
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var _Vector = require("./Vector3");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _Vector2 = _interopRequireDefault(_Vector);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _glMatrix = require("gl-matrix");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _JThreeLogger = require("../Base/JThreeLogger");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _JThreeLogger2 = _interopRequireDefault(_JThreeLogger);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _AABB = require("./AABB");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var _AABB2 = _interopRequireDefault(_AABB);</span>
-&nbsp;
-<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
-&nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var Vector3_1 = require("./Vector3");</span>
+<span class="cstat-no" title="statement not covered" >var gl_matrix_1 = require("gl-matrix");</span>
+<span class="cstat-no" title="statement not covered" >var JThreeLogger_1 = require("../Base/JThreeLogger");</span>
+<span class="cstat-no" title="statement not covered" >var AABB_1 = require("./AABB");</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var PointList = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="fstat-no" title="function not covered" >    function PointList(pointList) {</span>
@@ -288,7 +245,7 @@
 <span class="cstat-no" title="statement not covered" >        if (pointList) {</span>
 <span class="cstat-no" title="statement not covered" >            this.points = new Array(pointList.points.length);</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; pointList.points.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >                this.points[i] = _Vector2.default.copy(pointList.points[i]);</span>
+<span class="cstat-no" title="statement not covered" >                this.points[i] = Vector3_1.default.copy(pointList.points[i]);</span>
             }
         } else {
 <span class="cstat-no" title="statement not covered" >            this.points = [];</span>
@@ -304,7 +261,7 @@
         key: "transform",
         value: <span class="fstat-no" title="function not covered" >function transform(transformMatrix) {</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.points.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >                _glMatrix.vec3.transformMat4(this.points[i].rawElements, this.points[i].rawElements, transformMatrix.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >                gl_matrix_1.vec3.transformMat4(this.points[i].rawElements, this.points[i].rawElements, transformMatrix.rawElements);</span>
             }
         }
     }, {
@@ -319,12 +276,12 @@
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.points.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                log += this.points[i] + "\n";</span>
             }
-<span class="cstat-no" title="statement not covered" >            _JThreeLogger2.default.sectionLongLog("Pointlist", log);</span>
+<span class="cstat-no" title="statement not covered" >            JThreeLogger_1.default.sectionLongLog("Pointlist", log);</span>
         }
     }, {
         key: "getBoundingBox",
         value: <span class="fstat-no" title="function not covered" >function getBoundingBox() {</span>
-<span class="cstat-no" title="statement not covered" >            var aabb = new _AABB2.default();</span>
+<span class="cstat-no" title="statement not covered" >            var aabb = new AABB_1.default();</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.points.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                aabb.expandAABB(this.points[i]);</span>
             }
@@ -346,14 +303,14 @@
         key: "initializeWithCube",
         value: <span class="fstat-no" title="function not covered" >function initializeWithCube(list) {</span>
 <span class="cstat-no" title="statement not covered" >            list.clear();</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(-1.0, +1.0, -1.0));</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(-1.0, -1.0, -1.0));</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(+1.0, -1.0, -1.0));</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(+1.0, +1.0, -1.0));</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(-1.0, +1.0, +1.0));</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(-1.0, -1.0, +1.0));</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(+1.0, -1.0, +1.0));</span>
-<span class="cstat-no" title="statement not covered" >            list.addPoint(new _Vector2.default(+1.0, +1.0, +1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(-1.0, +1.0, -1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(-1.0, -1.0, -1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(+1.0, -1.0, -1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(+1.0, +1.0, -1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(-1.0, +1.0, +1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(-1.0, -1.0, +1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(+1.0, -1.0, +1.0));</span>
+<span class="cstat-no" title="statement not covered" >            list.addPoint(new Vector3_1.default(+1.0, +1.0, +1.0));</span>
 <span class="cstat-no" title="statement not covered" >            return list;</span>
         }
     }]);
@@ -361,13 +318,14 @@
 <span class="cstat-no" title="statement not covered" >    return PointList;</span>
 }();
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = PointList;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 07:09:34 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

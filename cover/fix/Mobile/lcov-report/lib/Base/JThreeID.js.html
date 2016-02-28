@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80.43% </span>
+        <span class="strong">79.07% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>37/46</span>
+        <span class='fraction'>34/43</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">45.16% </span>
+        <span class="strong">40.74% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>14/31</span>
+        <span class='fraction'>11/27</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/10</span>
+        <span class='fraction'>6/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">90.48% </span>
+        <span class="strong">89.47% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>19/21</span>
+        <span class='fraction'>17/19</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -95,19 +95,7 @@
 50
 51
 52
-53
-54
-55
-56
-57
-58
-59
-60
-61</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+53</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -118,11 +106,6 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,19 +146,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-&nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="if path not taken" >I</span>if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span></span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-&nbsp;
-var _JThreeObject2 = require("./JThreeObject");
-&nbsp;
-var _JThreeObject3 = _interopRequireDefault(_JThreeObject2);
-&nbsp;
-function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -183,13 +157,14 @@ function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? ob
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
+var JThreeObject_1 = require("./JThreeObject");
 /**
  * Unique ID generator for jThree objects.
  * @type {[type]}
  */
 &nbsp;
-var JThreeID = function (_JThreeObject) {
-  _inherits(JThreeID, _JThreeObject);
+var JThreeID = function (_JThreeObject_1$defau) {
+  _inherits(JThreeID, _JThreeObject_1$defau);
 &nbsp;
 <span class="fstat-no" title="function not covered" >  function JThreeID() {</span>
 <span class="cstat-no" title="statement not covered" >    _classCallCheck(this, JThreeID);</span>
@@ -215,7 +190,7 @@ var JThreeID = function (_JThreeObject) {
   }]);
 &nbsp;
   return JThreeID;
-}(_JThreeObject3.default);
+}(JThreeObject_1.default);
 /**
  * Random characters being used for generating unique id.
  * @type {string}
@@ -223,13 +198,14 @@ var JThreeID = function (_JThreeObject) {
 &nbsp;
 &nbsp;
 JThreeID._randomChars = "abcdefghijklmnopqrstuvwxyzABCDEFHIJKLMNOPQRSTUVWXYZ1234567890-";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = JThreeID;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 24 2016 07:09:34 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>
