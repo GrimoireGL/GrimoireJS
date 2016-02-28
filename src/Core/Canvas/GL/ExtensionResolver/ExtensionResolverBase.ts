@@ -14,7 +14,8 @@ abstract class ExtensionResolverBase {
     console.warn(`The WebGL extension ${extKey} was requested. But, this browser seems not supporting the feature.`);
   }
   return requestResult;
-}
+  }
+
 }
 
 export default ExtensionResolverBase;
