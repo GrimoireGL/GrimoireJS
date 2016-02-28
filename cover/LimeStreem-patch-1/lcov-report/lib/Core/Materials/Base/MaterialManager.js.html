@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/Materials/Base/MaterialManager.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">lib/Core/Materials/Base/</a> MaterialManager.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.04% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>30/81</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.71% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">26.15% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>17/65</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="if path not taken" >I</span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); </span>return Constructor; }; }();
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+var BasicRegisterer_1 = require("./Registerer/BasicRegisterer");
+var StageDescriptionRegisterer_1 = require("./Registerer/StageDescriptionRegisterer");
+var BasicMaterial_1 = require("./BasicMaterial");
+var ShaderParser_1 = require("./ShaderParser");
+var ContextComponents_1 = require("../../../ContextComponents");
+var BufferRegisterer_1 = require("./Registerer/BufferRegisterer");
+var TimeRegisterer_1 = require("./Registerer/TimeRegisterer");
+var AsyncLoader_1 = require("../../Resources/AsyncLoader");
+var q_1 = require("q");
+/**
+ * A ContextComponent provides the feature to manage materials.
+ * @type {[type]}
+ */
+&nbsp;
+var MaterialManager = function () {
+<span class="fstat-no" title="function not covered" >    function MaterialManager() {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, MaterialManager);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this._uniformRegisters = {};</span>
+<span class="cstat-no" title="statement not covered" >        this._materialDocuments = {};</span>
+<span class="cstat-no" title="statement not covered" >        this._chunkLoader = new AsyncLoader_1.default();</span>
+<span class="cstat-no" title="statement not covered" >        this.addShaderChunk("builtin.packing", require("../BuiltIn/Chunk/_Packing.glsl"));</span>
+<span class="cstat-no" title="statement not covered" >        this.addShaderChunk("builtin.gbuffer-packing", require("../BuiltIn/GBuffer/_GBufferPacking.glsl"));</span>
+<span class="cstat-no" title="statement not covered" >        this.addShaderChunk("jthree.builtin.vertex", require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));</span>
+<span class="cstat-no" title="statement not covered" >        this.addShaderChunk("jthree.builtin.shadowfragment", require("../BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));</span>
+<span class="cstat-no" title="statement not covered" >        this.addShaderChunk("builtin.gbuffer-reader", require("../BuiltIn/Light/Chunk/_LightAccumulation.glsl"));</span>
+<span class="cstat-no" title="statement not covered" >        this.addUniformRegister(BasicRegisterer_1.default);</span>
+<span class="cstat-no" title="statement not covered" >        this.addUniformRegister(TimeRegisterer_1.default);</span>
+        // this.addUniformRegister(TextureRegister);
+<span class="cstat-no" title="statement not covered" >        this.addUniformRegister(BufferRegisterer_1.default);</span>
+<span class="cstat-no" title="statement not covered" >        this.addUniformRegister(StageDescriptionRegisterer_1.default);</span>
+<span class="cstat-no" title="statement not covered" >        this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));</span>
+<span class="cstat-no" title="statement not covered" >        this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));</span>
+    }
+&nbsp;
+    _createClass(MaterialManager, [{
+        key: "getContextComponentIndex",
+        value: <span class="fstat-no" title="function not covered" >function getContextComponentIndex() {</span>
+<span class="cstat-no" title="statement not covered" >            return ContextComponents_1.default.MaterialManager;</span>
+        }
+        /**
+         * Add shader chunk code to be stored.
+         * @param {string} key shader chunk key
+         * @param {string} val shader chunk code
+         */
+&nbsp;
+    }, {
+        key: "addShaderChunk",
+        value: <span class="fstat-no" title="function not covered" >function addShaderChunk(key, val) {</span>
+<span class="cstat-no" title="statement not covered" >            this._chunkLoader.pushLoaded(key, ShaderParser_1.default.parseInternalImport(val, this));</span>
+        }
+    }, {
+        key: "loadChunks",
+        value: <span class="fstat-no" title="function not covered" >function loadChunks(srcs) {</span>
+<span class="cstat-no" title="statement not covered" >            var _this = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return q_1.default.all(srcs.map(<span class="fstat-no" title="function not covered" >function (src) {</span></span>
+<span class="cstat-no" title="statement not covered" >                return _this._loadChunk(src);</span>
+            }));
+        }
+        /**
+         * Get shader chunk code from storage
+         * @param  {string} key shader chunk key
+         * @return {string}     stored shader chunk code
+         */
+&nbsp;
+    }, {
+        key: "getShaderChunk",
+        value: <span class="fstat-no" title="function not covered" >function getShaderChunk(key) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._chunkLoader.fromCache(key);</span>
+        }
+    }, {
+        key: "addUniformRegister",
+        value: <span class="fstat-no" title="function not covered" >function addUniformRegister(registerer) {</span>
+<span class="cstat-no" title="statement not covered" >            this._uniformRegisters[registerer.prototype["getName"]()] = registerer;</span>
+        }
+    }, {
+        key: "getUniformRegister",
+        value: <span class="fstat-no" title="function not covered" >function getUniformRegister(key) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._uniformRegisters[key];</span>
+        }
+        /**
+         * Register material document(XMML) in material manager
+         * @param {string} matDocument Raw xmml parsable string
+         * @return {string}             material tag's name attribute
+         */
+&nbsp;
+    }, {
+        key: "registerMaterial",
+        value: <span class="fstat-no" title="function not covered" >function registerMaterial(matDocument) {</span>
+<span class="cstat-no" title="statement not covered" >            var dom = new DOMParser().parseFromString(matDocument, "text/xml");</span>
+<span class="cstat-no" title="statement not covered" >            var matTag = dom.querySelector("material");</span>
+<span class="cstat-no" title="statement not covered" >            var matName = matTag.getAttribute("name");</span>
+<span class="cstat-no" title="statement not covered" >            if (!matName) {</span>
+<span class="cstat-no" title="statement not covered" >                console.error("Material name is required attribute,but name was not specified!");</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                this._materialDocuments[matName] = matDocument;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return matName;</span>
+        }
+        /**
+         * Construct BasicMaterial instance with registered xmml
+         * @param  {string}        matName name of the xmml
+         * @return {BasicMaterial}         [description]
+         */
+&nbsp;
+    }, {
+        key: "constructMaterial",
+        value: <span class="fstat-no" title="function not covered" >function constructMaterial(matName) {</span>
+<span class="cstat-no" title="statement not covered" >            var matDoc = this._materialDocuments[matName];</span>
+<span class="cstat-no" title="statement not covered" >            if (!matDoc) {</span>
+                // console.error(`Specified material name '${matName}' was not found!`);
+<span class="cstat-no" title="statement not covered" >                return undefined;</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                return new BasicMaterial_1.default(matDoc);</span>
+            }
+        }
+    }, {
+        key: "_loadChunk",
+        value: <span class="fstat-no" title="function not covered" >function _loadChunk(src) {</span>
+<span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this._chunkLoader.fetch(src, <span class="fstat-no" title="function not covered" >function (absPath) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var deferred = q_1.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >                var xhr = new XMLHttpRequest();</span>
+<span class="cstat-no" title="statement not covered" >                xhr.open("GET", absPath, true);</span>
+<span class="cstat-no" title="statement not covered" >                xhr.setRequestHeader("Accept", "text");</span>
+<span class="cstat-no" title="statement not covered" >                xhr.onload = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    _this2.loadChunks(ShaderParser_1.default.getImports(xhr.responseText));</span>
+<span class="cstat-no" title="statement not covered" >                    ShaderParser_1.default.parseImport(xhr.responseText, _this2).then(<span class="fstat-no" title="function not covered" >function (source) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        deferred.resolve(source);</span>
+                    });
+                };
+<span class="cstat-no" title="statement not covered" >                xhr.onerror = <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    deferred.reject(err);</span>
+                };
+<span class="cstat-no" title="statement not covered" >                xhr.send(null);</span>
+<span class="cstat-no" title="statement not covered" >                return deferred.promise;</span>
+            });
+        }
+    }]);
+&nbsp;
+    return MaterialManager;
+}();
+&nbsp;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = MaterialManager;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 08:09:52 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>
