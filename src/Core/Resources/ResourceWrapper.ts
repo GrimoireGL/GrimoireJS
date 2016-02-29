@@ -35,7 +35,7 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
   }
 
   public get GL() {
-    return this._ownerCanvas.gL;
+    return this._ownerCanvas.gl;
   }
 
   /**

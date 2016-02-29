@@ -37,7 +37,7 @@ class Canvas extends CanvasRegion {
   */
   public clearColor: Color4 = new Color4(1, 1, 1, 1);
 
-  public gL: WebGLRenderingContext;
+  public gl: WebGLRenderingContext;
 
   public glExtensionResolver: GLExtensionRegistory = new GLExtensionRegistory();
 
@@ -82,17 +82,17 @@ class Canvas extends CanvasRegion {
    * apply gl context after webglrendering context initiated.
    */
   protected __setGLContext(glContext: WebGLRenderingContext): void {
-    this.gL = glContext;
+    this.gl = glContext;
     this.glExtensionResolver.checkExtensions(glContext);
     return;
   }
 
   private _clearCanvas(): void {
-    this.gL.colorMask(true, true, true, true);
-    this.gL.clearColor.apply(this.gL, this.clearColor.rawElements);
-    this.gL.depthMask(true);
-    this.gL.clearDepth(1.0);
-    this.gL.clear(WebGLRenderingContext.COLOR_BUFFER_BIT | WebGLRenderingContext.DEPTH_BUFFER_BIT);
+    this.gl.colorMask(true, true, true, true);
+    this.gl.clearColor.apply(this.gl, this.clearColor.rawElements);
+    this.gl.depthMask(true);
+    this.gl.clearDepth(1.0);
+    this.gl.clear(WebGLRenderingContext.COLOR_BUFFER_BIT | WebGLRenderingContext.DEPTH_BUFFER_BIT);
   }
 
   /**

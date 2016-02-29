@@ -3,8 +3,7 @@
     "target": "es6",
     "module": "es6",
     "noImplicitAny": false,
-    "sourceMap": true,
-    "module": "es6"
+    "sourceMap": true
   },
   "filesGlob": [
     "./src/**/*.ts"
