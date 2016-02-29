@@ -1,4 +1,4 @@
-interface PMXRigidBody {
+interface PMXRigidBodyData {
   rigidBodyName: string;
   rigidBodyNameEn: string;
   boneIndex: number;
@@ -16,4 +16,4 @@ interface PMXRigidBody {
   calcType: number;
 }
 
-export default PMXRigidBody;
+export default PMXRigidBodyData;

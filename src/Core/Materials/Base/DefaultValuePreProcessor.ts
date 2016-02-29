@@ -68,7 +68,7 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forVectorarray(name: string, dimension: number, uniform: IVariableDescription) {
+  private static _forVectorarray(name: string, dimension: number, uniform: IVariableDescription): void {
     const defaultArray = VectorArray.zeroVectorArray(dimension, uniform.arrayLength);
     const defaultValue = uniform.variableAnnotation["default"];
     if (isArray(defaultValue)) {

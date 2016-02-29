@@ -3,7 +3,7 @@ class MatrixBase {
 
   public rawElements: GLM.IArray;
 
-  protected static elementEqual(m1: MatrixBase, m2: MatrixBase): boolean {
+  protected static __elementEquals(m1: MatrixBase, m2: MatrixBase): boolean {
     if (m1.RowCount !== m2.RowCount || m1.ColmunCount !== m2.ColmunCount) {
       return false;
     }

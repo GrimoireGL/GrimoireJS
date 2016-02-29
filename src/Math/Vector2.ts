@@ -18,7 +18,7 @@ class Vector2 extends VectorBase {
     return new Vector2(0, 0);
   }
 
-  public static copy(vec: Vector2) {
+  public static copy(vec: Vector2): Vector2 {
     return new Vector2(vec.X, vec.Y);
   }
 
@@ -100,12 +100,12 @@ class Vector2 extends VectorBase {
     return Vector2.multiply(-1, v1);
   }
 
-  public static equal(v1: Vector2, v2: Vector2): boolean {
-    return VectorBase.elementEqual(v1, v2);
+  public static equals(v1: Vector2, v2: Vector2): boolean {
+    return VectorBase.__elementEquals(v1, v2);
   }
 
-  public static nearlyEqual(v1: Vector2, v2: Vector2): boolean {
-    return VectorBase.nearlyElementEqual(v1, v2);
+  public static nearlyEquals(v1: Vector2, v2: Vector2): boolean {
+    return VectorBase.__nearlyElementEquals(v1, v2);
   }
 
   public static normalize(v1: Vector2): Vector2 {
@@ -114,11 +114,11 @@ class Vector2 extends VectorBase {
   }
 
   public static min(v1: Vector2, v2: Vector2): Vector2 {
-    return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1_, v2_) => Math.min(v1_.rawElements[i], v2_.rawElements[i])));
+    return new Vector2(VectorBase.__fromGenerationFunction(v1, v2, (i, v1_, v2_) => Math.min(v1_.rawElements[i], v2_.rawElements[i])));
   }
 
   public static max(v1: Vector2, v2: Vector2): Vector2 {
-    return new Vector2(VectorBase.fromGenerationFunction(v1, v2, (i, v1_, v2_) => Math.max(v1_.rawElements[i], v2_.rawElements[i])));
+    return new Vector2(VectorBase.__fromGenerationFunction(v1, v2, (i, v1_, v2_) => Math.max(v1_.rawElements[i], v2_.rawElements[i])));
   }
 
   public static angle(v1: Vector2, v2: Vector2): number {
@@ -146,11 +146,11 @@ class Vector2 extends VectorBase {
   }
 
   public equalWith(v: Vector2): boolean {
-    return Vector2.equal(this, v);
+    return Vector2.equals(this, v);
   }
 
   public nearlyEqualWith(v: Vector2): boolean {
-    return Vector2.nearlyEqual(this, v);
+    return Vector2.nearlyEquals(this, v);
   }
 
   public normalizeThis(): Vector2 {
@@ -167,7 +167,7 @@ class Vector2 extends VectorBase {
 
   public get ElementCount(): number { return 2; }
 
-  public toMathematicaString() {
+  public toMathematicaString(): string {
     return `{${this.X}, ${this.Y}}`;
   }
 }

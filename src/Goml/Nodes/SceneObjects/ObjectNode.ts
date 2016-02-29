@@ -16,8 +16,8 @@ class ObjectNode extends SceneObjectNodeBase<SceneObject> {
     // }
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
     this.TargetSceneObject = new SceneObject();
   }
 }

@@ -14,24 +14,24 @@ class GomlConfigurator extends JThreeObject {
   /**
    * List of easing function to indicate how animation will be.
    */
-  private easingFunctions: { [key: string]: EasingFunction } = {};
+  private _easingFunctions: { [key: string]: EasingFunction } = {};
   /**
    * List of converter function classes.
    */
-  private converters: { [key: string]: AttributeConvrterBase } = {};
+  private _converters: { [key: string]: AttributeConvrterBase } = {};
   /**
    * All list of goml tags that will be parsed and instanciated when parse GOML.
    *
    * Keyはタグ名の文字列(大文字)、ValueはGomlNodeのコンストラクタ
    */
-  private gomlNodes: { [key: string]: new () => GomlTreeNodeBase } = {};
+  private _gomlNodes: { [key: string]: new () => GomlTreeNodeBase } = {};
 
   public getConverter(name: string): AttributeConvrterBase {
-    return this.converters[name];
+    return this._converters[name];
   }
 
   public getEasingFunction(name: string): EasingFunction {
-    return this.easingFunctions[name];
+    return this._easingFunctions[name];
   }
 
   /**
@@ -41,7 +41,7 @@ class GomlConfigurator extends JThreeObject {
    * @return {GomlTreeNodeBase}
    */
   public getGomlNode(tagName: string): new () => GomlTreeNodeBase {
-    return this.gomlNodes[tagName.toUpperCase()];
+    return this._gomlNodes[tagName.toUpperCase()];
   }
 
   /**
@@ -51,43 +51,43 @@ class GomlConfigurator extends JThreeObject {
    */
   constructor() {
     super();
-    this.initializeEasingFunctions();
-    this.initializeConverters();
-    this.initializeGomlNodes();
+    this._initializeEasingFunctions();
+    this._initializeConverters();
+    this._initializeGomlNodes();
   }
 
   /*
   * Initialize associative array for easing functions that will be used for animation in goml.
   */
-  private initializeEasingFunctions() {
+  private _initializeEasingFunctions(): void {
     const list = EasingFunctionList;
     for (let key in list) {
       const type = list[key];
-      this.easingFunctions[key] = new type();
+      this._easingFunctions[key] = new type();
     }
   }
   /**
    * Initialize converters from list.
    */
-  private initializeConverters() {
+  private _initializeConverters(): void {
     const list = GomlConverterList;
     for (let key in list) {
       const type = list[key];
-      this.converters[key] = new type();
+      this._converters[key] = new type();
     }
   }
 
   /**
    * タグ名とNodeの関連付けを行っています。
    */
-  private initializeGomlNodes() {
+  private _initializeGomlNodes(): void {
     const newList: GomlNodeListElement[] = GomlNodeList;
     newList.forEach((v) => {
       for (let key in v.NodeTypes) {
         let keyInString: string = key;
         keyInString = keyInString.toUpperCase(); // transform into upper case
         const nodeType = v.NodeTypes[keyInString]; // nodeTypeはGomlNodeのコンストラクタ
-        this.gomlNodes[keyInString] = nodeType;
+        this._gomlNodes[keyInString] = nodeType;
       }
     });
   }

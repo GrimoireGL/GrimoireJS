@@ -21,13 +21,13 @@ class LightNodeBase<T extends LightBase> extends SceneObjectNodeBase<T> {
 	 * Construct target light object when this method was called.
    * This method should be overridden.
 	 */
-  protected constructLight(): T {
+  protected __constructLight(): T {
     return null;
   }
 
-  protected onMount(): void {
-    super.onMount();
-    this.TargetSceneObject = this.constructLight();
+  protected __onMount(): void {
+    super.__onMount();
+    this.TargetSceneObject = this.__constructLight();
   }
 
   private _onColorAttrChanged(attr: GomlAttribute): void {

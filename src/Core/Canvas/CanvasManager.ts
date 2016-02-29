@@ -69,12 +69,14 @@ class CanvasManager implements IContextComponent {
     }
   }
 
-  public beforeRenderAll() {
+  public beforeRenderAll(): void {
     this.canvases.forEach((c) => c.beforeRenderAll());
+    return;
   }
 
-  public afterRenderAll() {
+  public afterRenderAll(): void {
     this.canvases.forEach((c) => c.afterRenderAll());
+    return;
   }
 }
 

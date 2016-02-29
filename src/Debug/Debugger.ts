@@ -8,7 +8,7 @@ import DebuggerAPI from "./DebuggerAPI";
 class Debugger implements IContextComponent {
   public debuggerAPI: DebuggerAPI;
 
-  private debuggerModules: DebuggerModuleBase[] = [new SceneStructureDebugger(), new GLSpecDebugger(), new RendererDebugger()];
+  private _debuggerModules: DebuggerModuleBase[] = [new SceneStructureDebugger(), new GLSpecDebugger(), new RendererDebugger()];
 
 
   constructor() {
@@ -18,18 +18,18 @@ class Debugger implements IContextComponent {
     }
   }
 
-  public getContextComponentIndex() {
+  public getContextComponentIndex(): number {
     return ContextComponents.Debugger;
   }
 
   public attach(): void {
     if (this.debuggerAPI) {
-      this.debuggerModules.forEach(m => m.attach(this));
+      this._debuggerModules.forEach(m => m.attach(this));
       console.info("Debugger API was attached.");
     };
   }
 
-  public setInfo(key: string, val: any) {
+  public setInfo(key: string, val: any): void {
     if (!this.debuggerAPI) {
       return;
     }

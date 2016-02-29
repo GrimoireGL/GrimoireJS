@@ -1,4 +1,4 @@
-﻿interface SpringJoint {
+﻿interface SpringJointData {
   targetRigidBody1: number;
   targetRigidBody2: number;
   position: number[];
@@ -8,4 +8,4 @@
   springCoefficientLimit: number[]; // [minX,minY,minZ,maxX,maxY,maxZ]
 }
 
-export default SpringJoint;
+export default SpringJointData;

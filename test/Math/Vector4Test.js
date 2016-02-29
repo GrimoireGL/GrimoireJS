@@ -5,13 +5,13 @@ import sinon from "sinon";
 import Vector4 from "../../lib/Math/Vector4";
 
 describe("Vector4 test",()=>{
-  it("equal with is correct",()=>{
+  it("equals with is correct",()=>{
     assert((new Vector4(0,1,1,0)).equalWith(new Vector4(0,1,1,0)));
   });
-  it("equal with is correct 2",()=>{
+  it("equals with is correct 2",()=>{
     assert(!(new Vector4(0,1,2,0)).equalWith(new Vector4(0,1,1,0)));
   });
-  it("nearly equal with is correct",()=>{
+  it("nearly equals with is correct",()=>{
     assert((new Vector4(0,1,1,1)).nearlyEqualWith(new Vector4(0.001,1.001,1.001,0.999)));
   });
   it("Get the number of elements of a vector test",()=>{
@@ -91,10 +91,10 @@ describe("Vector4 test",()=>{
     assert(Vector4.negate(new Vector4(0,1,1,2)).equalWith(new Vector4(0,-1,-1,-2)));
   });
   it("Compare vectors test",()=>{
-    assert(Vector4.equal(new Vector4(0,1,1,2),new Vector4(0,1,1,2))===true);
+    assert(Vector4.equals(new Vector4(0,1,1,2),new Vector4(0,1,1,2))===true);
   });
   it("Roughly compare vectors test",()=>{
-    assert(Vector4.nearlyEqual(new Vector4(0,1,1,2),new Vector4(0.0000001,1,1.009,2.001))===true);
+    assert(Vector4.nearlyEquals(new Vector4(0,1,1,2),new Vector4(0.0000001,1,1.009,2.001))===true);
   });
   it("Normalize a vector test for x axis",()=>{
     assert(Vector4.normalize(new Vector4(0,2,0,0)).equalWith(new Vector4(0,1,0,0)));

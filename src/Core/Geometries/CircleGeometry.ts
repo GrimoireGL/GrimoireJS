@@ -5,15 +5,15 @@ import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import ResourceManager from "../ResourceManager";
 class CircleGeometry extends BasicGeometry {
-    private divideCount: number = 30;
+    private _divideCount: number = 30;
 
     public get DiviceCount(): number {
-        return this.divideCount;
+        return this._divideCount;
     }
 
     public set DiviceCount(count: number) {
-        this.divideCount = count;
-        this.updateBuffers();
+        this._divideCount = count;
+        this.__updateBuffers();
     }
 
     constructor(name: string) {
@@ -23,16 +23,16 @@ class CircleGeometry extends BasicGeometry {
         this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
         this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
         this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
-        this.updateBuffers();
+        this.__updateBuffers();
     }
 
 
-    protected updateBuffers(): void {
+    protected __updateBuffers(): void {
         const pos: number[] = [];
         const normal: number[] = [];
         const uv: number[] = [];
         const index: number[] = [];
-        GeometryBuilder.addCircle(pos, normal, uv, index, this.divideCount, Vector3.Zero, Vector3.YUnit, new Vector3(0, 0, -1));
+        GeometryBuilder.addCircle(pos, normal, uv, index, this._divideCount, Vector3.Zero, Vector3.YUnit, new Vector3(0, 0, -1));
         this.indexBuffer.update(new Uint8Array(index), index.length);
         this.normalBuffer.update(new Float32Array(normal), normal.length);
         this.uvBuffer.update(new Float32Array(uv), uv.length);

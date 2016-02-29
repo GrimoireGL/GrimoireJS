@@ -17,7 +17,7 @@ class SceneLightNode extends LightNodeBase<SceneLight> {
     });
   }
 
-  protected constructLight(): SceneLight {
+  protected __constructLight(): SceneLight {
     return new SceneLight();
   }
 

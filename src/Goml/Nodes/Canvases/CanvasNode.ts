@@ -24,7 +24,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
         converter: "float",
         onchanged: (v) => {
           this.emit("resize");
-          this.sizeChanged(v.Value, this.attributes.getValue("height"));
+          this.__sizeChanged(v.Value, this.attributes.getValue("height"));
           v.done();
         },
       },
@@ -33,7 +33,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
         converter: "float",
         onchanged: (v) => {
           this.emit("resize");
-          this.sizeChanged(this.attributes.getValue("width"), v.Value);
+          this.__sizeChanged(this.attributes.getValue("width"), v.Value);
           v.done();
         },
       },
@@ -58,8 +58,8 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
     return this.attributes.getValue("frame") || "body";
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
     // generate canvas
     const canvas = <HTMLElement>document.querySelector(this.Frame);
     this.canvasFrames = CanvasElementBuilder.generate(canvas, this.attributes.getValue("width"), this.attributes.getValue("height"));
@@ -103,7 +103,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
     return this.canvasFrames.container.clientHeight;
   }
 
-  protected sizeChanged(width: number, height: number) {
+  protected __sizeChanged(width: number, height: number): void {
     this.canvasFrames.canvas.width = width;
     this.canvasFrames.canvas.height = height;
   }
