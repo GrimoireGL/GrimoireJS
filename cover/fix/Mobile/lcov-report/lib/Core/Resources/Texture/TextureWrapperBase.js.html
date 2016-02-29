@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">3.45% </span>
+        <span class="strong">4.05% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/145</span>
+        <span class='fraction'>6/148</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/50</span>
+        <span class='fraction'>0/54</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/23</span>
+        <span class='fraction'>0/24</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.13% </span>
+        <span class="strong">4.88% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/121</span>
+        <span class='fraction'>6/123</span>
       </div>
     </div>
   </div>
@@ -263,7 +263,24 @@
 218
 219
 220
-221</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+221
+222
+223
+224
+225
+226
+227
+228</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,8 +291,6 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -481,11 +496,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ResourceWrapper2 = require("../ResourceWrapper");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ResourceWrapper3 = _interopRequireDefault(_ResourceWrapper2);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -493,27 +517,25 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var ResourceWrapper_1 = require("../ResourceWrapper");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var TextureWrapperBase = <span class="fstat-no" title="function not covered" >function (_ResourceWrapper_1$de) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(TextureWrapperBase, _ResourceWrapper_1$de);</span>
+<span class="cstat-no" title="statement not covered" >var TextureWrapperBase = <span class="fstat-no" title="function not covered" >function (_ResourceWrapper) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(TextureWrapperBase, _ResourceWrapper);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function TextureWrapperBase(owner, parent) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, TextureWrapperBase);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TextureWrapperBase).call(this, owner));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.targetTexture = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.parent = parent;</span>
-<span class="cstat-no" title="statement not covered" >        _this.parent.onFilterParameterChanged(_this.applyTextureParameter.bind(_this));</span>
+<span class="cstat-no" title="statement not covered" >        _this._targetTexture = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._parent = parent;</span>
+<span class="cstat-no" title="statement not covered" >        _this._parent.onFilterParameterChanged(_this._applyTextureParameter.bind(_this));</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(TextureWrapperBase, [{</span>
         key: "bind",
         value: <span class="fstat-no" title="function not covered" >function bind() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.targetTexture != null) {</span>
-<span class="cstat-no" title="statement not covered" >                this.GL.bindTexture(this.Parent.TargetTextureType, this.targetTexture);</span>
+<span class="cstat-no" title="statement not covered" >            if (this._targetTexture != null) {</span>
+<span class="cstat-no" title="statement not covered" >                this.GL.bindTexture(this.Parent.TargetTextureType, this._targetTexture);</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                this.GL.bindTexture(this.Parent.TargetTextureType, null);</span>
             }
@@ -523,11 +545,11 @@
         value: <span class="fstat-no" title="function not covered" >function registerTexture(registerIndex) {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.TargetTexture == null) {</span>
 <span class="cstat-no" title="statement not covered" >                this.GL.activeTexture(WebGLRenderingContext.TEXTURE0 + registerIndex);</span>
-<span class="cstat-no" title="statement not covered" >                this.GL.bindTexture(this.parent.TargetTextureType, null);</span>
+<span class="cstat-no" title="statement not covered" >                this.GL.bindTexture(this._parent.TargetTextureType, null);</span>
 <span class="cstat-no" title="statement not covered" >                return false;</span>
             }
 <span class="cstat-no" title="statement not covered" >            this.GL.activeTexture(WebGLRenderingContext.TEXTURE0 + registerIndex);</span>
-<span class="cstat-no" title="statement not covered" >            this.applyTextureParameter();</span>
+<span class="cstat-no" title="statement not covered" >            this._applyTextureParameter();</span>
 <span class="cstat-no" title="statement not covered" >            return true;</span>
         }
     }, {
@@ -538,7 +560,7 @@
     }, {
         key: "preTextureUpload",
         value: <span class="fstat-no" title="function not covered" >function preTextureUpload() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.parent.FlipY) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._parent.FlipY) {</span>
 <span class="cstat-no" title="statement not covered" >                this.GL.pixelStorei(WebGLRenderingContext.UNPACK_FLIP_Y_WEBGL, 1);</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                this.GL.pixelStorei(WebGLRenderingContext.UNPACK_FLIP_Y_WEBGL, 0);</span>
@@ -552,10 +574,10 @@
     }, {
         key: "dispose",
         value: <span class="fstat-no" title="function not covered" >function dispose() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.targetTexture) {</span>
-<span class="cstat-no" title="statement not covered" >                this.GL.deleteTexture(this.targetTexture);</span>
-<span class="cstat-no" title="statement not covered" >                this.setInitialized(false);</span>
-<span class="cstat-no" title="statement not covered" >                this.targetTexture = null;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._targetTexture) {</span>
+<span class="cstat-no" title="statement not covered" >                this.GL.deleteTexture(this._targetTexture);</span>
+<span class="cstat-no" title="statement not covered" >                this.__setInitialized(false);</span>
+<span class="cstat-no" title="statement not covered" >                this._targetTexture = null;</span>
             }
         }
     }, {
@@ -564,24 +586,24 @@
 <span class="cstat-no" title="statement not covered" >            var result = new Uint8Array(4);</span>
 <span class="cstat-no" title="statement not covered" >            var frameBuffer = this.GL.createFramebuffer();</span>
 <span class="cstat-no" title="statement not covered" >            this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, frameBuffer);</span>
-<span class="cstat-no" title="statement not covered" >            this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this.targetTexture, 0);</span>
+<span class="cstat-no" title="statement not covered" >            this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this._targetTexture, 0);</span>
 <span class="cstat-no" title="statement not covered" >            this.GL.readPixels(x, y, 1, 1, this.GL.RGBA, this.Parent.ElementFormat, result);</span>
 <span class="cstat-no" title="statement not covered" >            this.GL.deleteFramebuffer(frameBuffer);</span>
 <span class="cstat-no" title="statement not covered" >            return result;</span>
         }
     }, {
-        key: "setTargetTexture",
-        value: <span class="fstat-no" title="function not covered" >function setTargetTexture(texture) {</span>
-<span class="cstat-no" title="statement not covered" >            this.targetTexture = texture;</span>
+        key: "__setTargetTexture",
+        value: <span class="fstat-no" title="function not covered" >function __setTargetTexture(texture) {</span>
+<span class="cstat-no" title="statement not covered" >            this._targetTexture = texture;</span>
         }
     }, {
-        key: "encodeHtmlImage",
-        value: <span class="fstat-no" title="function not covered" >function encodeHtmlImage(width, height, encode) {</span>
+        key: "__encodeHtmlImage",
+        value: <span class="fstat-no" title="function not covered" >function __encodeHtmlImage(width, height, encode) {</span>
 <span class="cstat-no" title="statement not covered" >            var lastFBO = this.GL.getParameter(this.GL.FRAMEBUFFER_BINDING);</span>
             // Create framebuffer to transfer texture data
 <span class="cstat-no" title="statement not covered" >            var framebuffer = this.GL.createFramebuffer();</span>
 <span class="cstat-no" title="statement not covered" >            this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, framebuffer);</span>
-<span class="cstat-no" title="statement not covered" >            this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this.targetTexture, 0);</span>
+<span class="cstat-no" title="statement not covered" >            this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this._targetTexture, 0);</span>
 <span class="cstat-no" title="statement not covered" >            var data = undefined;</span>
 <span class="cstat-no" title="statement not covered" >            var dataArrayConstructor = undefined;</span>
 <span class="cstat-no" title="statement not covered" >            var transformFunc = undefined;</span>
@@ -675,41 +697,40 @@
          */
 &nbsp;
     }, {
-        key: "applyTextureParameter",
-        value: <span class="fstat-no" title="function not covered" >function applyTextureParameter() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.targetTexture == null) {</span>
+        key: "_applyTextureParameter",
+        value: <span class="fstat-no" title="function not covered" >function _applyTextureParameter() {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._targetTexture == null) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
 <span class="cstat-no" title="statement not covered" >            this.bind();</span>
-<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MIN_FILTER, this.parent.MinFilter);</span>
-<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MAG_FILTER, this.parent.MagFilter);</span>
-<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_S, this.parent.SWrap);</span>
-<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_T, this.parent.TWrap);</span>
+<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MIN_FILTER, this._parent.MinFilter);</span>
+<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MAG_FILTER, this._parent.MagFilter);</span>
+<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_S, this._parent.SWrap);</span>
+<span class="cstat-no" title="statement not covered" >            this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_T, this._parent.TWrap);</span>
         }
     }, {
         key: "Parent",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parent;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parent;</span>
         }
     }, {
         key: "TargetTexture",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.targetTexture;</span>
+<span class="cstat-no" title="statement not covered" >            return this._targetTexture;</span>
         }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return TextureWrapperBase;</span>
-}(ResourceWrapper_1.default);
+}(_ResourceWrapper3.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >TextureWrapperBase.altTextureBuffer = new Uint8Array([255, 0, 255, 255]);</span>
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
+<span class="cstat-no" title="statement not covered" >TextureWrapperBase.__altTextureBuffer = new Uint8Array([255, 0, 255, 255]);</span>
 <span class="cstat-no" title="statement not covered" >exports.default = TextureWrapperBase;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

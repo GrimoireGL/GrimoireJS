@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5.26% </span>
+        <span class="strong">5.94% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/95</span>
+        <span class='fraction'>6/101</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/53</span>
+        <span class='fraction'>0/57</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/20</span>
+        <span class='fraction'>0/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">8.77% </span>
+        <span class="strong">9.68% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/57</span>
+        <span class='fraction'>6/62</span>
       </div>
     </div>
   </div>
@@ -179,22 +179,57 @@
 134
 135
 136
-137</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,12 +349,33 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _CoreRelatedNodeBase2 = require("../../CoreRelatedNodeBase");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _CoreRelatedNodeBase3 = _interopRequireDefault(_CoreRelatedNodeBase2);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _GLEnumParser = require("../../../Core/Canvas/GLEnumParser");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _GLEnumParser2 = _interopRequireDefault(_GLEnumParser);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeContext = require("../../../JThreeContext");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeContext2 = _interopRequireDefault(_JThreeContext);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents = require("../../../ContextComponents");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents2 = _interopRequireDefault(_ContextComponents);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -327,16 +383,12 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var CoreRelatedNodeBase_1 = require("../../CoreRelatedNodeBase");</span>
-<span class="cstat-no" title="statement not covered" >var GLEnumParser_1 = require("../../../Core/Canvas/GLEnumParser");</span>
-<span class="cstat-no" title="statement not covered" >var JThreeContext_1 = require("../../../JThreeContext");</span>
-<span class="cstat-no" title="statement not covered" >var ContextComponents_1 = require("../../../ContextComponents");</span>
 /**
  * All texture resource node class inherit this class.
  */
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var TextureNodeBase = <span class="fstat-no" title="function not covered" >function (_CoreRelatedNodeBase_) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(TextureNodeBase, _CoreRelatedNodeBase_);</span>
+<span class="cstat-no" title="statement not covered" >var TextureNodeBase = <span class="fstat-no" title="function not covered" >function (_CoreRelatedNodeBase) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(TextureNodeBase, _CoreRelatedNodeBase);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function TextureNodeBase() {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, TextureNodeBase);</span>
@@ -354,7 +406,7 @@
                 converter: "string",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >                    if (_this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                        _this.target.MinFilter = GLEnumParser_1.default.parseTextureMinFilter(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                        _this.target.MinFilter = _GLEnumParser2.default.parseTextureMinFilter(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                        attr.done();</span>
                     }
                 }
@@ -364,7 +416,7 @@
                 converter: "string",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >                    if (_this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                        _this.target.MagFilter = GLEnumParser_1.default.parseTextureMagFilter(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                        _this.target.MagFilter = _GLEnumParser2.default.parseTextureMagFilter(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                        attr.done();</span>
                     }
                 }
@@ -374,7 +426,7 @@
                 converter: "string",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >                    if (_this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                        _this.target.TWrap = GLEnumParser_1.default.parseTextureWrapMode(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                        _this.target.TWrap = _GLEnumParser2.default.parseTextureWrapMode(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                        attr.done();</span>
                     }
                 }
@@ -384,7 +436,7 @@
                 converter: "string",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >                    if (_this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                        _this.target.SWrap = GLEnumParser_1.default.parseTextureWrapMode(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                        _this.target.SWrap = _GLEnumParser2.default.parseTextureWrapMode(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                        attr.done();</span>
                     }
                 }
@@ -400,14 +452,14 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(TextureNodeBase, [{</span>
-        key: "onMount",
-        value: <span class="fstat-no" title="function not covered" >function onMount() {</span>
+        key: "__onMount",
+        value: <span class="fstat-no" title="function not covered" >function __onMount() {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(TextureNodeBase.prototype), "onMount", this).call(this);</span>
-<span class="cstat-no" title="statement not covered" >            var rm = JThreeContext_1.default.getContextComponent(ContextComponents_1.default.ResourceManager);</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(TextureNodeBase.prototype), "__onMount", this).call(this);</span>
+<span class="cstat-no" title="statement not covered" >            var rm = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceManager);</span>
 <span class="cstat-no" title="statement not covered" >            var name = this.attributes.getValue("name");</span>
-<span class="cstat-no" title="statement not covered" >            this.constructTexture(name, rm).then(<span class="fstat-no" title="function not covered" >function (texture) {</span></span>
+<span class="cstat-no" title="statement not covered" >            this.__constructTexture(name, rm).then(<span class="fstat-no" title="function not covered" >function (texture) {</span></span>
 <span class="cstat-no" title="statement not covered" >                _this2.target = texture;</span>
 <span class="cstat-no" title="statement not covered" >                _this2.emit("update-target", _this2.target);</span>
 <span class="cstat-no" title="statement not covered" >                _this2.nodeExport(name);</span>
@@ -417,7 +469,7 @@
         key: "_onMinFilterAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onMinFilterAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                this.target.MinFilter = GLEnumParser_1.default.parseTextureMinFilter(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                this.target.MinFilter = _GLEnumParser2.default.parseTextureMinFilter(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
@@ -425,7 +477,7 @@
         key: "_onMagFilterAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onMagFilterAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                this.target.MagFilter = GLEnumParser_1.default.parseTextureMagFilter(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                this.target.MagFilter = _GLEnumParser2.default.parseTextureMagFilter(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
@@ -433,7 +485,7 @@
         key: "_onTWrapAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onTWrapAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                this.target.TWrap = GLEnumParser_1.default.parseTextureWrapMode(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                this.target.TWrap = _GLEnumParser2.default.parseTextureWrapMode(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
@@ -441,23 +493,22 @@
         key: "_onSWrapAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onSWrapAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.target) {</span>
-<span class="cstat-no" title="statement not covered" >                this.target.SWrap = GLEnumParser_1.default.parseTextureWrapMode(attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >                this.target.SWrap = _GLEnumParser2.default.parseTextureWrapMode(attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return TextureNodeBase;</span>
-}(CoreRelatedNodeBase_1.default);
+}(_CoreRelatedNodeBase3.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = TextureNodeBase;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

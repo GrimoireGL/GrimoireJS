@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">8.93% </span>
+        <span class="strong">10% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/56</span>
+        <span class='fraction'>6/60</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/29</span>
+        <span class='fraction'>0/33</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/16</span>
+        <span class='fraction'>0/17</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">15.63% </span>
+        <span class="strong">17.14% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/32</span>
+        <span class='fraction'>6/35</span>
       </div>
     </div>
   </div>
@@ -117,7 +117,31 @@
 72
 73
 74
-75</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,9 +154,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,10 +211,23 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextSafeResourceContainer = require("../ContextSafeResourceContainer");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextSafeResourceContainer2 = _interopRequireDefault(_ContextSafeResourceContainer);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ProgramWrapper = require("./ProgramWrapper");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ProgramWrapper2 = _interopRequireDefault(_ProgramWrapper);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -201,19 +235,16 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var ContextSafeResourceContainer_1 = require("../ContextSafeResourceContainer");</span>
-<span class="cstat-no" title="statement not covered" >var ProgramWrapper_1 = require("./ProgramWrapper");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var Program = <span class="fstat-no" title="function not covered" >function (_ContextSafeResourceC) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(Program, _ContextSafeResourceC);</span>
+<span class="cstat-no" title="statement not covered" >var Program = <span class="fstat-no" title="function not covered" >function (_ContextSafeContainer) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(Program, _ContextSafeContainer);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function Program() {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, Program);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Program).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.attachedShaders = [];</span>
-<span class="cstat-no" title="statement not covered" >        _this.initializeForFirst();</span>
+<span class="cstat-no" title="statement not covered" >        _this._attachedShaders = [];</span>
+<span class="cstat-no" title="statement not covered" >        _this.__initializeForFirst();</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
@@ -222,15 +253,15 @@
         value: <span class="fstat-no" title="function not covered" >function attachShader(shader) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            this.attachedShaders.push(shader);</span>
+<span class="cstat-no" title="statement not covered" >            this._attachedShaders.push(shader);</span>
 <span class="cstat-no" title="statement not covered" >            shader.onUpdate(<span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                _this2.relinkShader();</span>
+<span class="cstat-no" title="statement not covered" >                _this2._relinkShader();</span>
             });
         }
     }, {
-        key: "createWrapperForCanvas",
-        value: <span class="fstat-no" title="function not covered" >function createWrapperForCanvas(canvas) {</span>
-<span class="cstat-no" title="statement not covered" >            return new ProgramWrapper_1.default(this, canvas);</span>
+        key: "__createWrapperForCanvas",
+        value: <span class="fstat-no" title="function not covered" >function __createWrapperForCanvas(canvas) {</span>
+<span class="cstat-no" title="statement not covered" >            return new _ProgramWrapper2.default(this, canvas);</span>
         }
     }, {
         key: "uniformExists",
@@ -241,8 +272,8 @@
 <span class="cstat-no" title="statement not covered" >            throw new Error("Any program was not initialized!");</span>
         }
     }, {
-        key: "relinkShader",
-        value: <span class="fstat-no" title="function not covered" >function relinkShader() {</span>
+        key: "_relinkShader",
+        value: <span class="fstat-no" title="function not covered" >function _relinkShader() {</span>
 <span class="cstat-no" title="statement not covered" >            this.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                v.relink();</span>
             });
@@ -250,28 +281,27 @@
     }, {
         key: "AttachedShaders",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.attachedShaders;</span>
+<span class="cstat-no" title="statement not covered" >            return this._attachedShaders;</span>
         }
     }], [{
-        key: "CreateProgram",
-        value: <span class="fstat-no" title="function not covered" >function CreateProgram(attachShaders) {</span>
+        key: "createProgram",
+        value: <span class="fstat-no" title="function not covered" >function createProgram(attachShaders) {</span>
 <span class="cstat-no" title="statement not covered" >            var program = new Program();</span>
-<span class="cstat-no" title="statement not covered" >            program.attachedShaders = attachShaders;</span>
+<span class="cstat-no" title="statement not covered" >            program._attachedShaders = attachShaders;</span>
 <span class="cstat-no" title="statement not covered" >            return program;</span>
         }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return Program;</span>
-}(ContextSafeResourceContainer_1.default);
+}(_ContextSafeResourceContainer2.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = Program;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

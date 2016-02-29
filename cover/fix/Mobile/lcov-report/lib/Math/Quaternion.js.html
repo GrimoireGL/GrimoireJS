@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">48.55% </span>
+        <span class="strong">50.35% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>67/138</span>
+        <span class='fraction'>72/143</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">34.69% </span>
+        <span class="strong">37.74% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>17/49</span>
+        <span class='fraction'>20/53</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">67.65% </span>
+        <span class="strong">68.57% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>23/34</span>
+        <span class='fraction'>24/35</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40.35% </span>
+        <span class="strong">42.37% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>46/114</span>
+        <span class='fraction'>50/118</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -349,20 +349,51 @@
 304
 305
 306
-307</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">50×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">50×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">50×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -654,10 +685,29 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+&nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+&nbsp;
+var _JThreeObject2 = require("../Base/JThreeObject");
+&nbsp;
+var _JThreeObject3 = _interopRequireDefault(_JThreeObject2);
+&nbsp;
+var _Vector = require("./Vector3");
+&nbsp;
+var _Vector2 = _interopRequireDefault(_Vector);
+&nbsp;
+var _glMatrix = require("gl-matrix");
+&nbsp;
+var _Matrix = require("./Matrix");
+&nbsp;
+var _Matrix2 = _interopRequireDefault(_Matrix);
+&nbsp;
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
 &nbsp;
 function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
 &nbsp;
@@ -665,10 +715,6 @@ function _possibleConstructorReturn(self, call) { <span class="missing-if-branch
 &nbsp;
 function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
 &nbsp;
-var JThreeObject_1 = require("../Base/JThreeObject");
-var Vector3_1 = require("./Vector3");
-var gl_matrix_1 = require("gl-matrix");
-var Matrix_1 = require("./Matrix");
 /**
 * The class to maniplate quaternion.
 * Basically,you don't need to operate raw element.
@@ -679,8 +725,8 @@ var Matrix_1 = require("./Matrix");
 *
 */
 &nbsp;
-var Quaternion = function (_JThreeObject_1$defau) {
-    _inherits(Quaternion, _JThreeObject_1$defau);
+var Quaternion = function (_JThreeObject) {
+    _inherits(Quaternion, _JThreeObject);
 &nbsp;
     /**
     * Constructor by specifing each elements.
@@ -696,20 +742,20 @@ var Quaternion = function (_JThreeObject_1$defau) {
     }
 &nbsp;
     _createClass(Quaternion, [{
-        key: "Normalize",
+        key: "normalize",
 &nbsp;
         /**
         * Get normalized quaternion
         */
-        value: function Normalize() {
-            var newQuat = gl_matrix_1.quat.create();
-            return new Quaternion(gl_matrix_1.quat.normalize(newQuat, this.rawElements));
+        value: function normalize() {
+            var newQuat = _glMatrix.quat.create();
+            return new Quaternion(_glMatrix.quat.normalize(newQuat, this.rawElements));
         }
     }, {
-        key: "Inverse",
-        value: function Inverse() {
-            var newQuat = gl_matrix_1.quat.create();
-            return new Quaternion(gl_matrix_1.quat.invert(newQuat, this.rawElements));
+        key: "inverse",
+        value: function inverse() {
+            var newQuat = _glMatrix.quat.create();
+            return new Quaternion(_glMatrix.quat.invert(newQuat, this.rawElements));
         }
     }, {
         key: "toAngleAxisString",
@@ -730,10 +776,10 @@ var Quaternion = function (_JThreeObject_1$defau) {
 <span class="cstat-no" title="statement not covered" >            return this.toAngleAxisString();</span>
         }
     }, {
-        key: "FactoringQuaternionZXY",
-        value: <span class="fstat-no" title="function not covered" >function FactoringQuaternionZXY() {</span>
+        key: "factoringQuaternionZXY",
+        value: <span class="fstat-no" title="function not covered" >function factoringQuaternionZXY() {</span>
 <span class="cstat-no" title="statement not covered" >            var result = { x: 0, y: 0, z: 0 };</span>
-<span class="cstat-no" title="statement not covered" >            var mat = Matrix_1.default.RotationQuaternion(this);</span>
+<span class="cstat-no" title="statement not covered" >            var mat = _Matrix2.default.rotationQuaternion(this);</span>
 <span class="cstat-no" title="statement not covered" >            var sx = mat.rawElements[6];</span>
 <span class="cstat-no" title="statement not covered" >            if (Math.abs(sx) &lt; 1 - 1.0E-4) {</span>
 <span class="cstat-no" title="statement not covered" >                result.x = Math.asin(sx);</span>
@@ -747,10 +793,10 @@ var Quaternion = function (_JThreeObject_1$defau) {
 <span class="cstat-no" title="statement not covered" >            return result;</span>
         }
     }, {
-        key: "FactoringQuaternionXYZ",
-        value: <span class="fstat-no" title="function not covered" >function FactoringQuaternionXYZ() {</span>
+        key: "factoringQuaternionXYZ",
+        value: <span class="fstat-no" title="function not covered" >function factoringQuaternionXYZ() {</span>
 <span class="cstat-no" title="statement not covered" >            var result = { x: 0, y: 0, z: 0 };</span>
-<span class="cstat-no" title="statement not covered" >            var mat = Matrix_1.default.RotationQuaternion(this);</span>
+<span class="cstat-no" title="statement not covered" >            var mat = _Matrix2.default.rotationQuaternion(this);</span>
 <span class="cstat-no" title="statement not covered" >            var sy = -mat.rawElements[2];</span>
 <span class="cstat-no" title="statement not covered" >            if (Math.abs(sy) &lt; 1 - 1.0E-4) {</span>
 <span class="cstat-no" title="statement not covered" >                result.x = Math.atan2(mat.rawElements[6], mat.rawElements[10]);</span>
@@ -766,11 +812,11 @@ var Quaternion = function (_JThreeObject_1$defau) {
     }, {
         key: "eularAngles",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            var eular = this.FactoringQuaternionZXY();</span>
-<span class="cstat-no" title="statement not covered" >            return new Vector3_1.default(eular.x, eular.y, eular.z);</span>
+<span class="cstat-no" title="statement not covered" >            var eular = this.factoringQuaternionZXY();</span>
+<span class="cstat-no" title="statement not covered" >            return new _Vector2.default(eular.x, eular.y, eular.z);</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(v) {</span>
-<span class="cstat-no" title="statement not covered" >            this.rawElements = Quaternion.Euler(v.X, v.Y, v.Z).rawElements;</span>
+<span class="cstat-no" title="statement not covered" >            this.rawElements = Quaternion.euler(v.X, v.Y, v.Z).rawElements;</span>
         }
         /**
         * Getter for X.
@@ -816,7 +862,7 @@ var Quaternion = function (_JThreeObject_1$defau) {
     }, {
         key: "ImaginaryPart",
         get: function get() {
-            return new Vector3_1.default(this.X, this.Y, this.Z);
+            return new _Vector2.default(this.X, this.Y, this.Z);
         }
         /**
         * Get the conjugate of this quaternion
@@ -825,8 +871,8 @@ var Quaternion = function (_JThreeObject_1$defau) {
     }, {
         key: "Conjugate",
         get: function get() {
-            var newQuat = gl_matrix_1.quat.create();
-            return new Quaternion(gl_matrix_1.quat.conjugate(newQuat, this.rawElements));
+            var newQuat = _glMatrix.quat.create();
+            return new Quaternion(_glMatrix.quat.conjugate(newQuat, this.rawElements));
         }
         /**
         * Get the length
@@ -835,7 +881,7 @@ var Quaternion = function (_JThreeObject_1$defau) {
     }, {
         key: "Length",
         get: function get() {
-            return gl_matrix_1.quat.len(this.rawElements);
+            return _glMatrix.quat.len(this.rawElements);
         }
     }], [{
         key: "equals",
@@ -852,50 +898,50 @@ var Quaternion = function (_JThreeObject_1$defau) {
         */
 &nbsp;
     }, {
-        key: "Add",
-        value: function Add(q1, q2) {
-            var newQuat = gl_matrix_1.quat.create();
-            return new Quaternion(gl_matrix_1.quat.add(newQuat, q1.rawElements, q2.rawElements));
+        key: "add",
+        value: function add(q1, q2) {
+            var newQuat = _glMatrix.quat.create();
+            return new Quaternion(_glMatrix.quat.add(newQuat, q1.rawElements, q2.rawElements));
         }
         /**
-        * Calculate Multiply result of two quaternion
+        * Calculate multiply result of two quaternion
         */
 &nbsp;
     }, {
-        key: "Multiply",
-        value: function Multiply(q1, q2) {
-            var newQuat = gl_matrix_1.quat.create();
-            return new Quaternion(gl_matrix_1.quat.mul(newQuat, q1.rawElements, q2.rawElements));
+        key: "multiply",
+        value: function multiply(q1, q2) {
+            var newQuat = _glMatrix.quat.create();
+            return new Quaternion(_glMatrix.quat.mul(newQuat, q1.rawElements, q2.rawElements));
         }
         /**
         * Calculate the rotation quaternion represented as pair of angle and axis.
         */
 &nbsp;
     }, {
-        key: "AngleAxis",
-        value: function AngleAxis(angle, axis) {
-            var axisVec = gl_matrix_1.vec3.create();
+        key: "angleAxis",
+        value: function angleAxis(angle, axis) {
+            var axisVec = _glMatrix.vec3.create();
             axisVec[0] = axis.X;
             axisVec[1] = axis.Y;
             axisVec[2] = axis.Z;
-            var newQuat = gl_matrix_1.quat.create();
-            return new Quaternion(gl_matrix_1.quat.setAxisAngle(newQuat, axisVec, +angle));
+            var newQuat = _glMatrix.quat.create();
+            return new Quaternion(_glMatrix.quat.setAxisAngle(newQuat, axisVec, +angle));
         }
     }, {
-        key: "Euler",
-        value: function Euler(x, y, z) {
-            return Quaternion.Multiply(Quaternion.AngleAxis(z, Vector3_1.default.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(x, Vector3_1.default.XUnit), Quaternion.AngleAxis(y, Vector3_1.default.YUnit)));
+        key: "euler",
+        value: function euler(x, y, z) {
+            return Quaternion.multiply(Quaternion.angleAxis(z, _Vector2.default.ZUnit), Quaternion.multiply(Quaternion.angleAxis(x, _Vector2.default.XUnit), Quaternion.angleAxis(y, _Vector2.default.YUnit)));
         }
     }, {
-        key: "EulerXYZ",
-        value: <span class="fstat-no" title="function not covered" >function EulerXYZ(x, y, z) {</span>
-<span class="cstat-no" title="statement not covered" >            return Quaternion.Multiply(Quaternion.AngleAxis(z, Vector3_1.default.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(y, Vector3_1.default.YUnit), Quaternion.AngleAxis(x, Vector3_1.default.XUnit)));</span>
+        key: "eulerXYZ",
+        value: <span class="fstat-no" title="function not covered" >function eulerXYZ(x, y, z) {</span>
+<span class="cstat-no" title="statement not covered" >            return Quaternion.multiply(Quaternion.angleAxis(z, _Vector2.default.ZUnit), Quaternion.multiply(Quaternion.angleAxis(y, _Vector2.default.YUnit), Quaternion.angleAxis(x, _Vector2.default.XUnit)));</span>
         }
     }, {
-        key: "Slerp",
-        value: <span class="fstat-no" title="function not covered" >function Slerp(q1, q2, t) {</span>
-<span class="cstat-no" title="statement not covered" >            var newQuat = gl_matrix_1.quat.create();</span>
-<span class="cstat-no" title="statement not covered" >            return new Quaternion(gl_matrix_1.quat.slerp(newQuat, q1.rawElements, q2.rawElements, +t));</span>
+        key: "slerp",
+        value: <span class="fstat-no" title="function not covered" >function slerp(q1, q2, t) {</span>
+<span class="cstat-no" title="statement not covered" >            var newQuat = _glMatrix.quat.create();</span>
+<span class="cstat-no" title="statement not covered" >            return new Quaternion(_glMatrix.quat.slerp(newQuat, q1.rawElements, q2.rawElements, +t));</span>
         }
         /**
          * Returns the angle in degrees between two rotations q1 and q2.
@@ -905,26 +951,26 @@ var Quaternion = function (_JThreeObject_1$defau) {
          */
 &nbsp;
     }, {
-        key: "Angle",
-        value: <span class="fstat-no" title="function not covered" >function Angle(q1, q2) {</span>
-<span class="cstat-no" title="statement not covered" >            var delta = Quaternion.Multiply(q2, q1.Inverse());</span>
-<span class="cstat-no" title="statement not covered" >            delta = delta.Normalize();</span>
+        key: "angle",
+        value: <span class="fstat-no" title="function not covered" >function angle(q1, q2) {</span>
+<span class="cstat-no" title="statement not covered" >            var delta = Quaternion.multiply(q2, q1.inverse());</span>
+<span class="cstat-no" title="statement not covered" >            delta = delta.normalize();</span>
 <span class="cstat-no" title="statement not covered" >            return 2 * Math.acos(delta.W);</span>
         }
     }, {
-        key: "FromToRotation",
-        value: <span class="fstat-no" title="function not covered" >function FromToRotation(from, to) {</span>
-<span class="cstat-no" title="statement not covered" >            var crossed = Vector3_1.default.cross(from.normalized, to.normalized);</span>
-<span class="cstat-no" title="statement not covered" >            var angle = Vector3_1.default.dot(from.normalized, to.normalized);</span>
-<span class="cstat-no" title="statement not covered" >            return Quaternion.AngleAxis(angle, crossed);</span>
+        key: "fromToRotation",
+        value: <span class="fstat-no" title="function not covered" >function fromToRotation(from, to) {</span>
+<span class="cstat-no" title="statement not covered" >            var crossed = _Vector2.default.cross(from.normalized, to.normalized);</span>
+<span class="cstat-no" title="statement not covered" >            var angle = _Vector2.default.dot(from.normalized, to.normalized);</span>
+<span class="cstat-no" title="statement not covered" >            return Quaternion.angleAxis(angle, crossed);</span>
         }
     }, {
-        key: "LookRotation",
-        value: <span class="fstat-no" title="function not covered" >function LookRotation(forward, upVec) {</span>
-<span class="cstat-no" title="statement not covered" >            upVec = upVec || Vector3_1.default.YUnit;</span>
+        key: "lookRotation",
+        value: <span class="fstat-no" title="function not covered" >function lookRotation(forward, upVec) {</span>
+<span class="cstat-no" title="statement not covered" >            upVec = upVec || _Vector2.default.YUnit;</span>
 <span class="cstat-no" title="statement not covered" >            var normalizedForward = forward.normalized;</span>
-<span class="cstat-no" title="statement not covered" >            var upForwardCross = Vector3_1.default.cross(upVec, normalizedForward).normalized;</span>
-<span class="cstat-no" title="statement not covered" >            var thirdAxis = Vector3_1.default.cross(normalizedForward, upForwardCross);</span>
+<span class="cstat-no" title="statement not covered" >            var upForwardCross = _Vector2.default.cross(upVec, normalizedForward).normalized;</span>
+<span class="cstat-no" title="statement not covered" >            var thirdAxis = _Vector2.default.cross(normalizedForward, upForwardCross);</span>
 <span class="cstat-no" title="statement not covered" >            var m00 = upForwardCross.X;</span>
 <span class="cstat-no" title="statement not covered" >            var m01 = upForwardCross.Y;</span>
 <span class="cstat-no" title="statement not covered" >            var m02 = upForwardCross.Z;</span>
@@ -953,21 +999,20 @@ var Quaternion = function (_JThreeObject_1$defau) {
     }, {
         key: "Identity",
         get: function get() {
-            return new Quaternion(gl_matrix_1.quat.create());
+            return new Quaternion(_glMatrix.quat.create());
         }
     }]);
 &nbsp;
     return Quaternion;
-}(JThreeObject_1.default);
+}(_JThreeObject3.default);
 &nbsp;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Quaternion;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

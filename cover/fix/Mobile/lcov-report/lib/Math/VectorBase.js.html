@@ -165,13 +165,20 @@
 120
 121
 122
-123</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+123
+124
+125
+126</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">382×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">382×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
@@ -286,30 +293,33 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 &nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 &nbsp;
-function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
+var _Exceptions = require("../Exceptions");
 &nbsp;
-var Exceptions_1 = require("../Exceptions");
+function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
 &nbsp;
 var VectorBase = function () {
     function VectorBase() {
         _classCallCheck(this, VectorBase);
 &nbsp;
-        this.magnitudeSquaredCache = -1;
-        this.magnitudeCache = -1;
+        this._magnitudeSquaredCache = -1;
+        this._magnitudeCache = -1;
     }
 &nbsp;
     _createClass(VectorBase, [{
         key: "magnitude",
         get: function get() {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.magnitudeCache &lt; 0) {
-                this.magnitudeCache = Math.sqrt(this.sqrMagnitude);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (this._magnitudeCache &lt; 0) {
+                this._magnitudeCache = Math.sqrt(this.sqrMagnitude);
             }
-            return this.magnitudeCache;
+            return this._magnitudeCache;
         }
     }, {
         key: "ElementCount",
@@ -319,19 +329,19 @@ var VectorBase = function () {
     }, {
         key: "sqrMagnitude",
         get: function get() {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (this.magnitudeSquaredCache &lt; 0) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (this._magnitudeSquaredCache &lt; 0) {
                 var sum = 0;
                 var r = this.rawElements;
                 for (var i = 0; i &lt; this.ElementCount; i++) {
                     sum += r[i] * r[i];
                 }
-                this.magnitudeSquaredCache = sum;
+                this._magnitudeSquaredCache = sum;
             }
-            return this.magnitudeSquaredCache;
+            return this._magnitudeSquaredCache;
         }
     }], [{
-        key: "elementEqual",
-        value: function elementEqual(v1, v2) {
+        key: "__elementEquals",
+        value: function __elementEquals(v1, v2) {
             <span class="missing-if-branch" title="if path not taken" >I</span>if (v1.ElementCount !== v2.ElementCount) {
 <span class="cstat-no" title="statement not covered" >                return false;</span>
             }
@@ -343,8 +353,8 @@ var VectorBase = function () {
             return true;
         }
     }, {
-        key: "nearlyElementEqual",
-        value: function nearlyElementEqual(v1, v2) {
+        key: "__nearlyElementEquals",
+        value: function __nearlyElementEquals(v1, v2) {
             <span class="missing-if-branch" title="if path not taken" >I</span>if (v1.ElementCount !== v2.ElementCount) {
 <span class="cstat-no" title="statement not covered" >                return false;</span>
             }
@@ -357,8 +367,8 @@ var VectorBase = function () {
             return true;
         }
     }, {
-        key: "fromGenerationFunction",
-        value: function fromGenerationFunction(v1, v2, gen) {
+        key: "__fromGenerationFunction",
+        value: function __fromGenerationFunction(v1, v2, gen) {
             var f = new Float32Array(v1.ElementCount);
             for (var i = 0; i &lt; f.length; i++) {
                 f[i] = gen(i, v1, v2);
@@ -372,27 +382,27 @@ var VectorBase = function () {
             var matches = checkRegex.exec(str);
             if (matches) {
                 <span class="missing-if-branch" title="if path not taken" >I</span>if (!matches[4]) {
-<span class="cstat-no" title="statement not covered" >                    throw new Exceptions_1.InvalidStringException("The specified string '" + str + "' is not containing braced vector.");</span>
+<span class="cstat-no" title="statement not covered" >                    throw new _Exceptions.InvalidStringException("The specified string '" + str + "' is not containing braced vector.");</span>
                 }
                 return {
                     needNormalize: matches[3] === "n",
                     needNegate: matches[1] === "-",
                     coefficient: parseFloat(matches[2]),
-                    elements: VectorBase.__parseRawVector(matches[4])
+                    elements: VectorBase._parseRawVector(matches[4])
                 };
             } else {
                 // Assume this is simplified format.
                 return {
                     needNormalize: false,
                     needNegate: false,
-                    elements: VectorBase.__parseRawVector(str),
+                    elements: VectorBase._parseRawVector(str),
                     coefficient: undefined
                 };
             }
         }
     }, {
-        key: "__parseRawVector",
-        value: function __parseRawVector(str) {
+        key: "_parseRawVector",
+        value: function _parseRawVector(str) {
             var splitted = str.split(",");
             var result = new Array(splitted.length);
             for (var i = 0; i &lt; splitted.length; i++) {
@@ -408,14 +418,13 @@ var VectorBase = function () {
     return VectorBase;
 }();
 &nbsp;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = VectorBase;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

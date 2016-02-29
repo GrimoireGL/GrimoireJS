@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">11.63% </span>
+        <span class="strong">12.5% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/43</span>
+        <span class='fraction'>6/48</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/27</span>
+        <span class='fraction'>0/31</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/11</span>
+        <span class='fraction'>0/12</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">26.32% </span>
+        <span class="strong">26.09% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/19</span>
+        <span class='fraction'>6/23</span>
       </div>
     </div>
   </div>
@@ -87,7 +87,38 @@
 42
 43
 44
-45</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -99,10 +130,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -130,10 +157,27 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject2 = require("../../Base/JThreeObject");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject3 = _interopRequireDefault(_JThreeObject2);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _AttributeParser = require("../AttributeParser");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _AttributeParser2 = _interopRequireDefault(_AttributeParser);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RotationAnimater = require("../Animater/RotationAnimater");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RotationAnimater2 = _interopRequireDefault(_RotationAnimater);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -141,12 +185,8 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var JThreeObject_1 = require("../../Base/JThreeObject");</span>
-<span class="cstat-no" title="statement not covered" >var AttributeParser_1 = require("../AttributeParser");</span>
-<span class="cstat-no" title="statement not covered" >var RotationAnimater_1 = require("../Animater/RotationAnimater");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var RotationAttributeConverter = <span class="fstat-no" title="function not covered" >function (_JThreeObject_1$defau) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(RotationAttributeConverter, _JThreeObject_1$defau);</span>
+<span class="cstat-no" title="statement not covered" >var RotationAttributeConverter = <span class="fstat-no" title="function not covered" >function (_JThreeObject) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(RotationAttributeConverter, _JThreeObject);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function RotationAttributeConverter() {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, RotationAttributeConverter);</span>
@@ -162,26 +202,25 @@
     }, {
         key: "toObjectAttr",
         value: <span class="fstat-no" title="function not covered" >function toObjectAttr(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            return AttributeParser_1.default.ParseRotation3D(attr);</span>
+<span class="cstat-no" title="statement not covered" >            return _AttributeParser2.default.parseRotation3D(attr);</span>
         }
     }, {
-        key: "GetAnimater",
-        value: <span class="fstat-no" title="function not covered" >function GetAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete) {</span>
-<span class="cstat-no" title="statement not covered" >            return new RotationAnimater_1.default(attr, beginTime, duration, beginVal, endVal, easing, onComplete);</span>
+        key: "getAnimater",
+        value: <span class="fstat-no" title="function not covered" >function getAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete) {</span>
+<span class="cstat-no" title="statement not covered" >            return new _RotationAnimater2.default(attr, beginTime, duration, beginVal, endVal, easing, onComplete);</span>
         }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return RotationAttributeConverter;</span>
-}(JThreeObject_1.default);
+}(_JThreeObject3.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = RotationAttributeConverter;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

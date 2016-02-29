@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">6.1% </span>
+        <span class="strong">6.9% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/82</span>
+        <span class='fraction'>6/87</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/41</span>
+        <span class='fraction'>0/45</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/16</span>
+        <span class='fraction'>0/17</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">11.36% </span>
+        <span class="strong">12.5% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/44</span>
+        <span class='fraction'>6/48</span>
       </div>
     </div>
   </div>
@@ -137,21 +137,48 @@
 92
 93
 94
-95</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -230,12 +257,29 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _TextureBase = require("../../Resources/Texture/TextureBase");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _TextureBase2 = _interopRequireDefault(_TextureBase);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RSMLRenderStage = require("./RSML/RSMLRenderStage");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RSMLRenderStage2 = _interopRequireDefault(_RSMLRenderStage);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q = require("q");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q2 = _interopRequireDefault(_q);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -243,12 +287,8 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var TextureBase_1 = require("../../Resources/Texture/TextureBase");</span>
-<span class="cstat-no" title="statement not covered" >var RSMLRenderStage_1 = require("./RSML/RSMLRenderStage");</span>
-<span class="cstat-no" title="statement not covered" >var q_1 = require("q");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var HitAreaRenderStage = <span class="fstat-no" title="function not covered" >function (_RSMLRenderStage_1$de) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(HitAreaRenderStage, _RSMLRenderStage_1$de);</span>
+<span class="cstat-no" title="statement not covered" >var HitAreaRenderStage = <span class="fstat-no" title="function not covered" >function (_RSMLRenderStageBase) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(HitAreaRenderStage, _RSMLRenderStageBase);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function HitAreaRenderStage(renderer) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, HitAreaRenderStage);</span>
@@ -261,7 +301,7 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(HitAreaRenderStage).call(this, renderer, require("./BuiltIn/HitAreaRenderingStage.html")));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.___objectIndex = 1;</span>
+<span class="cstat-no" title="statement not covered" >        _this.objectIndex = 1;</span>
 <span class="cstat-no" title="statement not covered" >        _this.indexObjectPair = {};</span>
 <span class="cstat-no" title="statement not covered" >        _this.hitTestQueries = [];</span>
 <span class="cstat-no" title="statement not covered" >        _this.Renderer.on("mouse-move", <span class="fstat-no" title="function not covered" >function (e) {</span></span>
@@ -276,20 +316,20 @@
         key: "preTechnique",
         value: <span class="fstat-no" title="function not covered" >function preTechnique(scene, techniqueIndex, texs) {</span>
 <span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(HitAreaRenderStage.prototype), "preTechnique", this).call(this, scene, techniqueIndex, texs);</span>
-<span class="cstat-no" title="statement not covered" >            this.___objectIndex = 1;</span>
+<span class="cstat-no" title="statement not covered" >            this.objectIndex = 1;</span>
         }
     }, {
         key: "render",
         value: <span class="fstat-no" title="function not covered" >function render(scene, object, techniqueCount, techniqueIndex, texs) {</span>
-<span class="cstat-no" title="statement not covered" >            this.indexObjectPair[this.___objectIndex] = object;</span>
+<span class="cstat-no" title="statement not covered" >            this.indexObjectPair[this.objectIndex] = object;</span>
 <span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(HitAreaRenderStage.prototype), "render", this).call(this, scene, object, techniqueCount, techniqueIndex, texs);</span>
-<span class="cstat-no" title="statement not covered" >            this.___objectIndex++;</span>
+<span class="cstat-no" title="statement not covered" >            this.objectIndex++;</span>
         }
     }, {
         key: "postTechnique",
         value: <span class="fstat-no" title="function not covered" >function postTechnique(scene, techniqueIndex, texs) {</span>
 <span class="cstat-no" title="statement not covered" >            if (texs["OUT"]) {</span>
-<span class="cstat-no" title="statement not covered" >                if (!(texs["OUT"] instanceof TextureBase_1.default)) {</span>
+<span class="cstat-no" title="statement not covered" >                if (!(texs["OUT"] instanceof _TextureBase2.default)) {</span>
 <span class="cstat-no" title="statement not covered" >                    throw new Error("OUT argument cannnot acceptable except TextureBase");</span>
                 }
 <span class="cstat-no" title="statement not covered" >                var canvas = this.Renderer.Canvas;</span>
@@ -305,7 +345,7 @@
     }, {
         key: "queryHitTest",
         value: <span class="fstat-no" title="function not covered" >function queryHitTest(x, y) {</span>
-<span class="cstat-no" title="statement not covered" >            var deferred = q_1.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >            var deferred = _q2.default.defer();</span>
 <span class="cstat-no" title="statement not covered" >            this.hitTestQueries.push({</span>
                 x: x,
                 y: y,
@@ -322,16 +362,15 @@
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return HitAreaRenderStage;</span>
-}(RSMLRenderStage_1.default);
+}(_RSMLRenderStage2.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = HitAreaRenderStage;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

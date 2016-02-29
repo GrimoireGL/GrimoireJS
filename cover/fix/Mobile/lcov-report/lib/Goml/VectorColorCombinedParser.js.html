@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">78.38% </span>
+        <span class="strong">81.4% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>29/37</span>
+        <span class='fraction'>35/43</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">55.56% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>7/14</span>
+        <span class='fraction'>10/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.5% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/8</span>
+        <span class='fraction'>6/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">76.19% </span>
+        <span class="strong">80.77% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/21</span>
+        <span class='fraction'>21/26</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -83,15 +83,48 @@
 38
 39
 40
-41</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -122,17 +155,33 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 &nbsp;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="if path not taken" >I</span>if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span></span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 &nbsp;
-<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+var _Vector = require("../Math/Vector4");
 &nbsp;
-var Vector4_1 = require("../Math/Vector4");
-var Color4_1 = require("../Math/Color4");
-var Vector3_1 = require("../Math/Vector3");
-var Color3_1 = require("../Math/Color3");
+var _Vector2 = _interopRequireDefault(_Vector);
+&nbsp;
+var _Color = require("../Math/Color4");
+&nbsp;
+var _Color2 = _interopRequireDefault(_Color);
+&nbsp;
+var _Vector3 = require("../Math/Vector3");
+&nbsp;
+var _Vector4 = _interopRequireDefault(_Vector3);
+&nbsp;
+var _Color3 = require("../Math/Color3");
+&nbsp;
+var _Color4 = _interopRequireDefault(_Color3);
+&nbsp;
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
 var VectorColorCombinedParser = function () {
 <span class="fstat-no" title="function not covered" >    function VectorColorCombinedParser() {</span>
@@ -142,34 +191,33 @@ var VectorColorCombinedParser = function () {
     _createClass(VectorColorCombinedParser, null, [{
         key: "parseTuple3",
         value: function parseTuple3(source) {
-            var asColor = Color3_1.default.parse(source);
+            var asColor = _Color4.default.parse(source);
             if (typeof asColor !== "undefined") {
                 return asColor;
             }
-            return Vector3_1.default.parse(source);
+            return _Vector4.default.parse(source);
         }
     }, {
         key: "parseTuple4",
         value: <span class="fstat-no" title="function not covered" >function parseTuple4(source) {</span>
-<span class="cstat-no" title="statement not covered" >            var asColor = Color4_1.default.parse(source);</span>
+<span class="cstat-no" title="statement not covered" >            var asColor = _Color2.default.parse(source);</span>
 <span class="cstat-no" title="statement not covered" >            if (typeof asColor !== "undefined") {</span>
 <span class="cstat-no" title="statement not covered" >                return asColor;</span>
             }
-<span class="cstat-no" title="statement not covered" >            return Vector4_1.default.parse(source);</span>
+<span class="cstat-no" title="statement not covered" >            return _Vector2.default.parse(source);</span>
         }
     }]);
 &nbsp;
     return VectorColorCombinedParser;
 }();
 &nbsp;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = VectorColorCombinedParser;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

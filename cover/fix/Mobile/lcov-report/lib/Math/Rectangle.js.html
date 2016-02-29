@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">7.46% </span>
+        <span class="strong">8.45% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/67</span>
+        <span class='fraction'>6/71</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/43</span>
+        <span class='fraction'>0/47</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/19</span>
+        <span class='fraction'>0/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">11.63% </span>
+        <span class="strong">13.04% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/43</span>
+        <span class='fraction'>6/46</span>
       </div>
     </div>
   </div>
@@ -148,7 +148,31 @@
 103
 104
 105
-106</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,9 +185,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,10 +273,23 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector = require("./Vector2");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector2 = _interopRequireDefault(_Vector);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject = require("../Base/JThreeObject");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject2 = _interopRequireDefault(_JThreeObject);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -263,21 +297,18 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var Vector2_1 = require("./Vector2");</span>
-<span class="cstat-no" title="statement not covered" >var JThreeObject_1 = require("../Base/JThreeObject");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var Rectangle = <span class="fstat-no" title="function not covered" >function (_JThreeObject_1$defau) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(Rectangle, _JThreeObject_1$defau);</span>
+<span class="cstat-no" title="statement not covered" >var Rectangle = <span class="fstat-no" title="function not covered" >function (_jThreeObject) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(Rectangle, _jThreeObject);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function Rectangle(left, top, width, height) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, Rectangle);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Rectangle).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.left = left;</span>
-<span class="cstat-no" title="statement not covered" >        _this.top = top;</span>
-<span class="cstat-no" title="statement not covered" >        _this.width = width;</span>
-<span class="cstat-no" title="statement not covered" >        _this.height = height;</span>
+<span class="cstat-no" title="statement not covered" >        _this._left = left;</span>
+<span class="cstat-no" title="statement not covered" >        _this._top = top;</span>
+<span class="cstat-no" title="statement not covered" >        _this._width = width;</span>
+<span class="cstat-no" title="statement not covered" >        _this._height = height;</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
@@ -285,7 +316,7 @@
         key: "contains",
         value: <span class="fstat-no" title="function not covered" >function contains(xOrPoint, y) {</span>
 <span class="cstat-no" title="statement not covered" >            var x = undefined;</span>
-<span class="cstat-no" title="statement not covered" >            if (xOrPoint instanceof Vector2_1.default) {</span>
+<span class="cstat-no" title="statement not covered" >            if (xOrPoint instanceof _Vector2.default) {</span>
 <span class="cstat-no" title="statement not covered" >                x = xOrPoint.X;</span>
 <span class="cstat-no" title="statement not covered" >                y = xOrPoint.Y;</span>
             } else {
@@ -297,7 +328,7 @@
         key: "toLocal",
         value: <span class="fstat-no" title="function not covered" >function toLocal(xOrPoint, y) {</span>
 <span class="cstat-no" title="statement not covered" >            var x = undefined;</span>
-<span class="cstat-no" title="statement not covered" >            if (xOrPoint instanceof Vector2_1.default) {</span>
+<span class="cstat-no" title="statement not covered" >            if (xOrPoint instanceof _Vector2.default) {</span>
 <span class="cstat-no" title="statement not covered" >                x = xOrPoint.X;</span>
 <span class="cstat-no" title="statement not covered" >                y = xOrPoint.Y;</span>
             } else {
@@ -305,66 +336,65 @@
             }
 <span class="cstat-no" title="statement not covered" >            x -= this.Left;</span>
 <span class="cstat-no" title="statement not covered" >            y -= this.Top;</span>
-<span class="cstat-no" title="statement not covered" >            return xOrPoint instanceof Vector2_1.default ? new Vector2_1.default(x, y) : [x, y];</span>
+<span class="cstat-no" title="statement not covered" >            return xOrPoint instanceof _Vector2.default ? new _Vector2.default(x, y) : [x, y];</span>
         }
     }, {
         key: "toString",
         value: <span class="fstat-no" title="function not covered" >function toString() {</span>
-<span class="cstat-no" title="statement not covered" >            return "Rectangle(" + this.left + "," + this.top + "-" + this.Right + "," + this.Bottom + ")";</span>
+<span class="cstat-no" title="statement not covered" >            return "Rectangle(" + this.Left + "," + this.Top + "-" + this.Right + "," + this.Bottom + ")";</span>
         }
     }, {
         key: "Left",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.left;</span>
+<span class="cstat-no" title="statement not covered" >            return this._left;</span>
         }
     }, {
         key: "Right",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.left + this.width;</span>
+<span class="cstat-no" title="statement not covered" >            return this.Left + this.Width;</span>
         }
     }, {
         key: "Top",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.top;</span>
+<span class="cstat-no" title="statement not covered" >            return this._top;</span>
         }
     }, {
         key: "Bottom",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.top + this.height;</span>
+<span class="cstat-no" title="statement not covered" >            return this._top + this._height;</span>
         }
     }, {
         key: "Width",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.width;</span>
+<span class="cstat-no" title="statement not covered" >            return this._width;</span>
         }
     }, {
         key: "Height",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.height;</span>
+<span class="cstat-no" title="statement not covered" >            return this._height;</span>
         }
     }], [{
-        key: "Equals",
-        value: <span class="fstat-no" title="function not covered" >function Equals(r1, r2) {</span>
+        key: "equals",
+        value: <span class="fstat-no" title="function not covered" >function equals(r1, r2) {</span>
 <span class="cstat-no" title="statement not covered" >            return r1.Left === r2.Left &amp;&amp; r1.Right === r2.Right &amp;&amp; r1.Top === r2.Top &amp;&amp; r1.Bottom === r2.Bottom;</span>
         }
     }, {
-        key: "EdgeSizeEquals",
-        value: <span class="fstat-no" title="function not covered" >function EdgeSizeEquals(r1, r2) {</span>
+        key: "edgeSizeEquals",
+        value: <span class="fstat-no" title="function not covered" >function edgeSizeEquals(r1, r2) {</span>
 <span class="cstat-no" title="statement not covered" >            return r1.Width === r2.Width &amp;&amp; r1.Height === r2.Height;</span>
         }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return Rectangle;</span>
-}(JThreeObject_1.default);
+}(_JThreeObject2.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = Rectangle;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">8.2% </span>
+        <span class="strong">9.38% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/61</span>
+        <span class='fraction'>6/64</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/46</span>
+        <span class='fraction'>0/50</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/14</span>
+        <span class='fraction'>0/15</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">14.29% </span>
+        <span class="strong">16.22% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/35</span>
+        <span class='fraction'>6/37</span>
       </div>
     </div>
   </div>
@@ -129,7 +129,25 @@
 84
 85
 86
-87</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+87
+88
+89
+90
+91
+92
+93
+94
+95</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,7 +159,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,12 +231,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _typeof = typeof Symbol === "function" &amp;&amp; typeof Symbol.iterator === "symbol" ? <span class="fstat-no" title="function not covered" >function (obj) {</span> <span class="cstat-no" title="statement not covered" >return typeof obj; </span>} : <span class="fstat-no" title="function not covered" >function (obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; typeof Symbol === "function" &amp;&amp; obj.constructor === Symbol ? "symbol" : typeof obj; </span>};</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject2 = require("../../Base/JThreeObject");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject3 = _interopRequireDefault(_JThreeObject2);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -227,20 +253,19 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var JThreeObject_1 = require("../../Base/JThreeObject");</span>
 /**
 * Provides feature to register behavior.
 */
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var BehaviorRegistry = <span class="fstat-no" title="function not covered" >function (_JThreeObject_1$defau) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(BehaviorRegistry, _JThreeObject_1$defau);</span>
+<span class="cstat-no" title="statement not covered" >var BehaviorRegistry = <span class="fstat-no" title="function not covered" >function (_JThreeObject) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(BehaviorRegistry, _JThreeObject);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function BehaviorRegistry() {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, BehaviorRegistry);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BehaviorRegistry).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.behaviorInstances = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._behaviorInstances = {};</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
@@ -249,28 +274,28 @@
         value: <span class="fstat-no" title="function not covered" >function defineBehavior(nameOrDeclarations, behaviorDeclaration) {</span>
 <span class="cstat-no" title="statement not covered" >            if (typeof nameOrDeclarations === "string") {</span>
 <span class="cstat-no" title="statement not covered" >                var behaviorName = nameOrDeclarations;</span>
-<span class="cstat-no" title="statement not covered" >                this.behaviorInstances[behaviorName] = this.generateBehaviorInstance(behaviorDeclaration);</span>
+<span class="cstat-no" title="statement not covered" >                this._behaviorInstances[behaviorName] = this._generateBehaviorInstance(behaviorDeclaration);</span>
             } else {
                 // assume arguments are object.
 <span class="cstat-no" title="statement not covered" >                var behaviorDeclarations = nameOrDeclarations;</span>
 <span class="cstat-no" title="statement not covered" >                for (var behaviorKey in behaviorDeclarations) {</span>
-<span class="cstat-no" title="statement not covered" >                    this.behaviorInstances[behaviorKey] = this.generateBehaviorInstance(behaviorDeclarations[behaviorKey]);</span>
+<span class="cstat-no" title="statement not covered" >                    this._behaviorInstances[behaviorKey] = this._generateBehaviorInstance(behaviorDeclarations[behaviorKey]);</span>
                 }
             }
         }
     }, {
         key: "getBehavior",
         value: <span class="fstat-no" title="function not covered" >function getBehavior(behaviorName) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.behaviorInstances[behaviorName];</span>
+<span class="cstat-no" title="statement not covered" >            return this._behaviorInstances[behaviorName];</span>
         }
     }, {
-        key: "generateBehaviorInstance",
-        value: <span class="fstat-no" title="function not covered" >function generateBehaviorInstance(behaviorDecl) {</span>
+        key: "_generateBehaviorInstance",
+        value: <span class="fstat-no" title="function not covered" >function _generateBehaviorInstance(behaviorDecl) {</span>
 <span class="cstat-no" title="statement not covered" >            if (typeof behaviorDecl === "function") {</span>
                 // Assume generation seed is constructor of behavior
 <span class="cstat-no" title="statement not covered" >                return new behaviorDecl();</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                return this.copyObject(behaviorDecl);</span>
+<span class="cstat-no" title="statement not covered" >                return this._copyObject(behaviorDecl);</span>
             }
         }
         /**
@@ -280,14 +305,14 @@
          */
 &nbsp;
     }, {
-        key: "copyObject",
-        value: <span class="fstat-no" title="function not covered" >function copyObject(targetObject) {</span>
+        key: "_copyObject",
+        value: <span class="fstat-no" title="function not covered" >function _copyObject(targetObject) {</span>
 <span class="cstat-no" title="statement not covered" >            if ((typeof targetObject === "undefined" ? "undefined" : _typeof(targetObject)) === "object") {</span>
 <span class="cstat-no" title="statement not covered" >                var newObject = {};</span>
 <span class="cstat-no" title="statement not covered" >                for (var key in targetObject) {</span>
 <span class="cstat-no" title="statement not covered" >                    if (targetObject.hasOwnProperty(key)) {</span>
 <span class="cstat-no" title="statement not covered" >                        var property = targetObject[key];</span>
-<span class="cstat-no" title="statement not covered" >                        newObject[key] = this.copyObject(property);</span>
+<span class="cstat-no" title="statement not covered" >                        newObject[key] = this._copyObject(property);</span>
                     }
                 }
 <span class="cstat-no" title="statement not covered" >                return newObject;</span>
@@ -298,16 +323,15 @@
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return BehaviorRegistry;</span>
-}(JThreeObject_1.default);
+}(_JThreeObject3.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = BehaviorRegistry;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

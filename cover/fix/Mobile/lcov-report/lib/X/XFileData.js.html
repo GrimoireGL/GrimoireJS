@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">1.86% </span>
+        <span class="strong">2.38% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/161</span>
+        <span class='fraction'>4/168</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/32</span>
+        <span class='fraction'>0/36</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/18</span>
+        <span class='fraction'>0/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">2.07% </span>
+        <span class="strong">2.65% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/145</span>
+        <span class='fraction'>4/151</span>
       </div>
     </div>
   </div>
@@ -276,19 +276,58 @@
 231
 232
 233
-234</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -507,19 +546,38 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
 &nbsp;
-<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+<span class="cstat-no" title="statement not covered" >var _ImageLoader = require("../Core/Resources/ImageLoader");</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var ImageLoader_1 = require("../Core/Resources/ImageLoader");</span>
-<span class="cstat-no" title="statement not covered" >var Vector3_1 = require("../Math/Vector3");</span>
-<span class="cstat-no" title="statement not covered" >var Vector4_1 = require("../Math/Vector4");</span>
-<span class="cstat-no" title="statement not covered" >var AsyncLoader_1 = require("../Core/Resources/AsyncLoader");</span>
-<span class="cstat-no" title="statement not covered" >var q_1 = require("q");</span>
+<span class="cstat-no" title="statement not covered" >var _ImageLoader2 = _interopRequireDefault(_ImageLoader);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector = require("../Math/Vector3");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector2 = _interopRequireDefault(_Vector);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector3 = require("../Math/Vector4");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector4 = _interopRequireDefault(_Vector3);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _AsyncLoader = require("../Core/Resources/AsyncLoader");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _AsyncLoader2 = _interopRequireDefault(_AsyncLoader);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q = require("q");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q2 = _interopRequireDefault(_q);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var XFileData = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="fstat-no" title="function not covered" >    function XFileData(dataSource, directory) {</span>
@@ -650,10 +708,10 @@
 <span class="cstat-no" title="statement not covered" >                    texturePath = texturePath.replace(".tga", ".tga.png");</span>
                 }
 <span class="cstat-no" title="statement not covered" >                this.materials[materialIndex] = {</span>
-                    faceColor: new Vector4_1.default(foundNumbers[0], foundNumbers[1], foundNumbers[2], foundNumbers[3]),
+                    faceColor: new _Vector4.default(foundNumbers[0], foundNumbers[1], foundNumbers[2], foundNumbers[3]),
                     power: foundNumbers[4],
-                    specularColor: new Vector3_1.default(foundNumbers[5], foundNumbers[6], foundNumbers[7]),
-                    emissiveColor: new Vector3_1.default(foundNumbers[8], foundNumbers[9], foundNumbers[10]),
+                    specularColor: new _Vector2.default(foundNumbers[5], foundNumbers[6], foundNumbers[7]),
+                    emissiveColor: new _Vector2.default(foundNumbers[8], foundNumbers[9], foundNumbers[10]),
                     texture: texturePath ? this._directory + texturePath : undefined,
                     indexCount: undefined,
                     indexOffset: undefined
@@ -678,7 +736,7 @@
             // Load textures
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.materials.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                if (this.materials[i].texture) {</span>
-<span class="cstat-no" title="statement not covered" >                    ImageLoader_1.default.loadImage(this.materials[i].texture);</span>
+<span class="cstat-no" title="statement not covered" >                    _ImageLoader2.default.loadImage(this.materials[i].texture);</span>
                 }
             }
         }
@@ -721,7 +779,7 @@
         value: <span class="fstat-no" title="function not covered" >function loadFile(src) {</span>
 <span class="cstat-no" title="statement not covered" >            var directory = src.substr(0, src.lastIndexOf("/") + 1);</span>
 <span class="cstat-no" title="statement not covered" >            return this._loader.fetch(src, <span class="fstat-no" title="function not covered" >function (absPath) {</span></span>
-<span class="cstat-no" title="statement not covered" >                var deferred = q_1.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >                var deferred = _q2.default.defer();</span>
 <span class="cstat-no" title="statement not covered" >                var xhr = new XMLHttpRequest();</span>
 <span class="cstat-no" title="statement not covered" >                xhr.open("GET", absPath, true);</span>
 <span class="cstat-no" title="statement not covered" >                xhr.setRequestHeader("Accept", "text");</span>
@@ -740,15 +798,14 @@
 <span class="cstat-no" title="statement not covered" >    return XFileData;</span>
 }();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >XFileData._loader = new AsyncLoader_1.default();</span>
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
+<span class="cstat-no" title="statement not covered" >XFileData._loader = new _AsyncLoader2.default();</span>
 <span class="cstat-no" title="statement not covered" >exports.default = XFileData;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 04:04:36 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 10:54:45 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

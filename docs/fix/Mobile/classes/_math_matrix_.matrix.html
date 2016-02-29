@@ -118,12 +118,10 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_math_matrix_.matrix.html#setat" class="tsd-kind-icon">set<wbr>At</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_math_matrix_.matrix.html#tomathematicastring" class="tsd-kind-icon">to<wbr>Mathematica<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_math_matrix_.matrix.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#rotationquaternion" class="tsd-kind-icon">Rotation<wbr>Quaternion</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#trs" class="tsd-kind-icon">TRS</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#___elementequals" class="tsd-kind-icon">___element<wbr>Equals</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#add" class="tsd-kind-icon">add</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#determinant" class="tsd-kind-icon">determinant</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#elementequal" class="tsd-kind-icon">element<wbr>Equal</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#equal" class="tsd-kind-icon">equal</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#equals" class="tsd-kind-icon">equals</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#fromelements" class="tsd-kind-icon">from<wbr>Elements</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#fromfunc" class="tsd-kind-icon">from<wbr>Func</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#frustum" class="tsd-kind-icon">frustum</a></li>
@@ -137,6 +135,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#rotatex" class="tsd-kind-icon">rotateX</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#rotatey" class="tsd-kind-icon">rotateY</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#rotatez" class="tsd-kind-icon">rotateZ</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#rotationquaternion" class="tsd-kind-icon">rotation<wbr>Quaternion</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#scalarmultiply" class="tsd-kind-icon">scalar<wbr>Multiply</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#scale" class="tsd-kind-icon">scale</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#subtract" class="tsd-kind-icon">subtract</a></li>
@@ -145,6 +144,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#transformpoint" class="tsd-kind-icon">transform<wbr>Point</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#translate" class="tsd-kind-icon">translate</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#transpose" class="tsd-kind-icon">transpose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#trs" class="tsd-kind-icon">trs</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_matrix_.matrix.html#zero" class="tsd-kind-icon">zero</a></li>
 							</ul>
 						</section>
@@ -442,55 +442,30 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="rotationquaternion" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Rotation<wbr>Quaternion</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">Rotation<wbr>Quaternion<span class="tsd-signature-symbol">(</span>quat_<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported">
+					<a name="___elementequals" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagProtected">Protected</span> ___element<wbr>Equals</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">___element<wbr>Equals<span class="tsd-signature-symbol">(</span>m1<span class="tsd-signature-symbol">: </span><a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a>, m2<span class="tsd-signature-symbol">: </span><a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="_math_matrixbase_.matrixbase.html">MatrixBase</a>.<a href="_math_matrixbase_.matrixbase.html#___elementequals">___elementEquals</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/Matrix.ts#L151">Math/Matrix.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/MatrixBase.ts#L6">Math/MatrixBase.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>quat_: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+									<h5>m1: <a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a></h5>
+								</li>
+								<li>
+									<h5>m2: <a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="trs" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> TRS</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">TRS<span class="tsd-signature-symbol">(</span>t<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a>, rot<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, s<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/Matrix.ts#L62">Math/Matrix.ts:62</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>t: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
-								</li>
-								<li>
-									<h5>rot: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
-								</li>
-								<li>
-									<h5>s: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -548,38 +523,11 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported">
-					<a name="elementequal" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagProtected">Protected</span> element<wbr>Equal</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">element<wbr>Equal<span class="tsd-signature-symbol">(</span>m1<span class="tsd-signature-symbol">: </span><a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a>, m2<span class="tsd-signature-symbol">: </span><a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_math_matrixbase_.matrixbase.html">MatrixBase</a>.<a href="_math_matrixbase_.matrixbase.html#elementequal">elementEqual</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/MatrixBase.ts#L6">Math/MatrixBase.ts:6</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>m1: <a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a></h5>
-								</li>
-								<li>
-									<h5>m2: <a href="_math_matrixbase_.matrixbase.html" class="tsd-signature-type">MatrixBase</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-					<a name="equal" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> equal</h3>
+					<a name="equals" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> equals</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">equal<span class="tsd-signature-symbol">(</span>m1<span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a>, m2<span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>m1<span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a>, m2<span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -993,6 +941,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="rotationquaternion" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> rotation<wbr>Quaternion</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">rotation<wbr>Quaternion<span class="tsd-signature-symbol">(</span>quat_<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/Matrix.ts#L151">Math/Matrix.ts:151</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>quat_: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 					<a name="scalarmultiply" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> scalar<wbr>Multiply</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
@@ -1202,6 +1173,35 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="trs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> trs</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">trs<span class="tsd-signature-symbol">(</span>t<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a>, rot<span class="tsd-signature-symbol">: </span><a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a>, s<span class="tsd-signature-symbol">: </span><a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/Matrix.ts#L62">Math/Matrix.ts:62</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>t: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+								<li>
+									<h5>rot: <a href="_math_quaternion_.quaternion.html" class="tsd-signature-type">Quaternion</a></h5>
+								</li>
+								<li>
+									<h5>s: <a href="_math_vector3_.vector3.html" class="tsd-signature-type">Vector3</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 					<a name="zero" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> zero</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
@@ -1277,11 +1277,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_math_matrix_.matrix.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_math_matrix_.matrix.html#rotationquaternion" class="tsd-kind-icon">Rotation<wbr>Quaternion</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_math_matrix_.matrix.html#trs" class="tsd-kind-icon">TRS</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported">
+								<a href="_math_matrix_.matrix.html#___elementequals" class="tsd-kind-icon">___element<wbr>Equals</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_math_matrix_.matrix.html#add" class="tsd-kind-icon">add</a>
@@ -1289,11 +1286,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_math_matrix_.matrix.html#determinant" class="tsd-kind-icon">determinant</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static tsd-is-not-exported">
-								<a href="_math_matrix_.matrix.html#elementequal" class="tsd-kind-icon">element<wbr>Equal</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
-								<a href="_math_matrix_.matrix.html#equal" class="tsd-kind-icon">equal</a>
+								<a href="_math_matrix_.matrix.html#equals" class="tsd-kind-icon">equals</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_math_matrix_.matrix.html#fromelements" class="tsd-kind-icon">from<wbr>Elements</a>
@@ -1335,6 +1329,9 @@
 								<a href="_math_matrix_.matrix.html#rotatez" class="tsd-kind-icon">rotateZ</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_math_matrix_.matrix.html#rotationquaternion" class="tsd-kind-icon">rotation<wbr>Quaternion</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_math_matrix_.matrix.html#scalarmultiply" class="tsd-kind-icon">scalar<wbr>Multiply</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
@@ -1357,6 +1354,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_math_matrix_.matrix.html#transpose" class="tsd-kind-icon">transpose</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_math_matrix_.matrix.html#trs" class="tsd-kind-icon">trs</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
 								<a href="_math_matrix_.matrix.html#zero" class="tsd-kind-icon">zero</a>
