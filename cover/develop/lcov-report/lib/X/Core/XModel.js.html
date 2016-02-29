@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">9.62% </span>
+        <span class="strong">10% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/52</span>
+        <span class='fraction'>6/60</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/27</span>
+        <span class='fraction'>0/31</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/11</span>
+        <span class='fraction'>0/12</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">17.86% </span>
+        <span class="strong">17.14% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/28</span>
+        <span class='fraction'>6/35</span>
       </div>
     </div>
   </div>
@@ -91,7 +91,59 @@
 46
 47
 48
-49</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,13 +155,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -138,10 +183,39 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
 <span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _HitAreaMaterial = require("../../Core/Materials/Buffering/HitAreaMaterial");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _HitAreaMaterial2 = _interopRequireDefault(_HitAreaMaterial);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XPrimaryBufferMaterial = require("./XPrimaryBufferMaterial");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XPrimaryBufferMaterial2 = _interopRequireDefault(_XPrimaryBufferMaterial);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XMaterial = require("./XMaterial");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XMaterial2 = _interopRequireDefault(_XMaterial);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XGeometry = require("./XGeometry");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XGeometry2 = _interopRequireDefault(_XGeometry);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XFileData = require("../XFileData");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _XFileData2 = _interopRequireDefault(_XFileData);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _SceneObject2 = require("../../Core/SceneObjects/SceneObject");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _SceneObject3 = _interopRequireDefault(_SceneObject2);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
 &nbsp;
@@ -149,15 +223,8 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var HitAreaMaterial_1 = require("../../Core/Materials/Buffering/HitAreaMaterial");</span>
-<span class="cstat-no" title="statement not covered" >var XPrimaryBufferMaterial_1 = require("./XPrimaryBufferMaterial");</span>
-<span class="cstat-no" title="statement not covered" >var XMaterial_1 = require("./XMaterial");</span>
-<span class="cstat-no" title="statement not covered" >var XGeometry_1 = require("./XGeometry");</span>
-<span class="cstat-no" title="statement not covered" >var XFileData_1 = require("../XFileData");</span>
-<span class="cstat-no" title="statement not covered" >var SceneObject_1 = require("../../Core/SceneObjects/SceneObject");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var XModel = <span class="fstat-no" title="function not covered" >function (_SceneObject_1$defaul) {</span></span>
-<span class="cstat-no" title="statement not covered" >    _inherits(XModel, _SceneObject_1$defaul);</span>
+<span class="cstat-no" title="statement not covered" >var XModel = <span class="fstat-no" title="function not covered" >function (_SceneObject) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(XModel, _SceneObject);</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function XModel(modelData) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, XModel);</span>
@@ -165,11 +232,11 @@
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(XModel).call(this));</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        _this._modelData = modelData;</span>
-<span class="cstat-no" title="statement not covered" >        _this.Geometry = new XGeometry_1.default(modelData);</span>
+<span class="cstat-no" title="statement not covered" >        _this.Geometry = new _XGeometry2.default(modelData);</span>
 <span class="cstat-no" title="statement not covered" >        _this._modelData.materials.forEach(<span class="fstat-no" title="function not covered" >function (material) {</span></span>
-<span class="cstat-no" title="statement not covered" >            _this.addMaterial(new XMaterial_1.default(material));</span>
-<span class="cstat-no" title="statement not covered" >            _this.addMaterial(new HitAreaMaterial_1.default());</span>
-<span class="cstat-no" title="statement not covered" >            _this.addMaterial(new XPrimaryBufferMaterial_1.default(material));</span>
+<span class="cstat-no" title="statement not covered" >            _this.addMaterial(new _XMaterial2.default(material));</span>
+<span class="cstat-no" title="statement not covered" >            _this.addMaterial(new _HitAreaMaterial2.default());</span>
+<span class="cstat-no" title="statement not covered" >            _this.addMaterial(new _XPrimaryBufferMaterial2.default(material));</span>
         });
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
@@ -177,23 +244,22 @@
 <span class="cstat-no" title="statement not covered" >    _createClass(XModel, null, [{</span>
         key: "fromUrl",
         value: <span class="fstat-no" title="function not covered" >function fromUrl(src) {</span>
-<span class="cstat-no" title="statement not covered" >            return XFileData_1.default.loadFile(src).then(<span class="fstat-no" title="function not covered" >function (data) {</span></span>
+<span class="cstat-no" title="statement not covered" >            return _XFileData2.default.loadFile(src).then(<span class="fstat-no" title="function not covered" >function (data) {</span></span>
 <span class="cstat-no" title="statement not covered" >                return new XModel(data);</span>
             });
         }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return XModel;</span>
-}(SceneObject_1.default);
+}(_SceneObject3.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", { value: true });</span>
 <span class="cstat-no" title="statement not covered" >exports.default = XModel;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 28 2016 08:25:00 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
