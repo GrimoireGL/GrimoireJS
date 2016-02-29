@@ -24,7 +24,7 @@ class Rectangle extends jThreeObject {
   }
 
   public get Left(): number {
-    return this.Left;
+    return this._left;
   }
 
   public get Right(): number {
@@ -32,7 +32,7 @@ class Rectangle extends jThreeObject {
   }
 
   public get Top(): number {
-    return this.Top;
+    return this._top;
   }
 
   public get Bottom(): number {

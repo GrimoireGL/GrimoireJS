@@ -14,7 +14,7 @@ class XNode extends SceneObjectNodeBase<XModel> {
     });
   }
 
-  public onMount(): void {
+  protected __onMount(): void {
     super.__onMount();
     XModel.fromUrl(this.attributes.getValue("src"))
       .then((m) => {
