@@ -8,8 +8,8 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       {
         name: "depth",
         generater: "rendererfit",
-        elementLayout: "DEPTH",
-        elementFormat: "UINT"
+        elementLayout: "RGB",
+        elementFormat: "UBYTE"
       },
       {
         name: "gbuffer.primary",
@@ -55,13 +55,13 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       {
         buffers:
         {
-          DEPTH: "depth",
           OUT: "hitarea"
         },
         stage: "jthree.hitarea"
       },
       {
         buffers: {
+          DEPTH: "depth",
           PRIMARY: "gbuffer.primary"
         },
         stage: "jthree.basic.gbuffer"
