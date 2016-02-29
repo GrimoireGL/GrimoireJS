@@ -112,7 +112,7 @@ class BasicRenderer extends CanvasRegion {
   }
 
   public get GL(): WebGLRenderingContext {
-    return this._canvas.gL;
+    return this._canvas.gl;
   }
 
   /**

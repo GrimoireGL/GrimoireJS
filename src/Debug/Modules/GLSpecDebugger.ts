@@ -1,6 +1,6 @@
 import DebuggerModuleBase from "./DebuggerModuleBase";
 import Debugger from "../Debugger";
-import GLSpecResolver from "../../Core/Canvas/GLSpecResolver";
+import GLSpecResolver from "../../Core/Canvas/GL/GLSpecResolver";
 import CanvasManager from "../../Core/Canvas/CanvasManager";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";

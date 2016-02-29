@@ -1,5 +1,5 @@
 import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
-import GLEnumParser from "../../../Core/Canvas/GLEnumParser";
+import GLEnumParser from "../../../Core/Canvas/GL/GLEnumParser";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import ResourceManager from "../../../Core/ResourceManager";
 import JThreeContext from "../../../JThreeContext";

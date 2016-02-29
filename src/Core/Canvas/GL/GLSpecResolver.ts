@@ -1,6 +1,6 @@
-import JThreeContext from "../../JThreeContext";
-import CanvasManager from "./CanvasManager";
-import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+import CanvasManager from "../CanvasManager";
+import ContextComponents from "../../../ContextComponents";
 class GLSpecResolver {
 
   private static _maxCombinedTextureUnits: number;
@@ -18,7 +18,7 @@ class GLSpecResolver {
   private static get GL() {
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     if (canvasManager.canvases.length > 0) {
-      return canvasManager.canvases[0].gL;
+      return canvasManager.canvases[0].gl;
     } else {
       console.error("can't obtain the gl context to check gl spec");
     }

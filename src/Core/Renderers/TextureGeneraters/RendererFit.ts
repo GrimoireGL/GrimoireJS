@@ -1,4 +1,4 @@
-import GLEnumParser from "../../Canvas/GLEnumParser";
+import GLEnumParser from "../../Canvas/GL/GLEnumParser";
 import GeneraterInfoChunk from "./GeneraterInfoChunk";
 import BasicRenderer from "../BasicRenderer";
 import GeneraterBase from "./GeneraterBase";
