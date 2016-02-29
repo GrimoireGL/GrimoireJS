@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/PMX/Core/PMXGeometry.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">lib/PMX/Core/</a> PMXGeometry.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.82% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/88</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.24% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/49</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _BasicGeometry2 = require("../../Core/Geometries/Base/BasicGeometry");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _BasicGeometry3 = _interopRequireDefault(_BasicGeometry2);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents = require("../../ContextComponents");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents2 = _interopRequireDefault(_ContextComponents);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeContext = require("../../JThreeContext");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeContext2 = _interopRequireDefault(_JThreeContext);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _possibleConstructorReturn(self, call) {</span> <span class="cstat-no" title="statement not covered" >if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} <span class="cstat-no" title="statement not covered" ></span>return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var PMXGeometry = <span class="fstat-no" title="function not covered" >function (_BasicGeometry) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(PMXGeometry, _BasicGeometry);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function PMXGeometry(pmx) {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, PMXGeometry);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PMXGeometry).call(this));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var name = pmx.Header.modelName + "(" + pmx.Header.modelNameEn + ")";</span>
+<span class="cstat-no" title="statement not covered" >        var rm = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceManager);</span>
+<span class="cstat-no" title="statement not covered" >        _this.indexBuffer = rm.createBuffer(name + "-index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_INT);</span>
+<span class="cstat-no" title="statement not covered" >        _this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        _this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        _this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        _this.edgeSizeBuffer = rm.createBuffer(name + "-edgeSize", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        _this.boneIndexBuffer = rm.createBuffer(name + "-boneIndex", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 4, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        _this.boneWeightBuffer = rm.createBuffer(name + "-boneWeight", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 4, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        _this.__updateBuffers(pmx);</span>
+<span class="cstat-no" title="statement not covered" >        return _this;</span>
+    }
+    /**
+     * apply pmx geometries to buffer.
+     */
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(PMXGeometry, [{</span>
+        key: "__updateBuffers",
+        value: <span class="fstat-no" title="function not covered" >function __updateBuffers(pmx) {</span>
+<span class="cstat-no" title="statement not covered" >            var surfaceBuffer = new Uint32Array(pmx.Surfaces);</span>
+<span class="cstat-no" title="statement not covered" >            var verticies = pmx.Verticies;</span>
+<span class="cstat-no" title="statement not covered" >            this.positionBuferSource = new Float32Array(verticies.positions);</span>
+<span class="cstat-no" title="statement not covered" >            this.uvBufferSource = new Float32Array(verticies.uvs);</span>
+<span class="cstat-no" title="statement not covered" >            this.indexBuffer.update(surfaceBuffer, surfaceBuffer.length);</span>
+<span class="cstat-no" title="statement not covered" >            this.normalBuffer.update(verticies.normals, verticies.normals.length);</span>
+<span class="cstat-no" title="statement not covered" >            this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);</span>
+<span class="cstat-no" title="statement not covered" >            this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);</span>
+<span class="cstat-no" title="statement not covered" >            this.edgeSizeBuffer.update(verticies.edgeScaling, verticies.edgeScaling.length);</span>
+<span class="cstat-no" title="statement not covered" >            this.boneIndexBuffer.update(verticies.boneIndicies, verticies.boneIndicies.length);</span>
+<span class="cstat-no" title="statement not covered" >            this.boneWeightBuffer.update(verticies.boneWeights, verticies.boneWeights.length);</span>
+        }
+    }, {
+        key: "updatePositionBuffer",
+        value: <span class="fstat-no" title="function not covered" >function updatePositionBuffer() {</span>
+<span class="cstat-no" title="statement not covered" >            this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);</span>
+        }
+    }, {
+        key: "updateUVBuffer",
+        value: <span class="fstat-no" title="function not covered" >function updateUVBuffer() {</span>
+<span class="cstat-no" title="statement not covered" >            this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);</span>
+        }
+    }, {
+        key: "applyAttributeVariables",
+        value: <span class="fstat-no" title="function not covered" >function applyAttributeVariables(pWrapper, attributes) {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(PMXGeometry.prototype), "applyAttributeVariables", this).call(this, pWrapper, attributes);</span>
+<span class="cstat-no" title="statement not covered" >            this.__assignAttributeIfExists(pWrapper, attributes, "edgeScaling", this.edgeSizeBuffer);</span>
+<span class="cstat-no" title="statement not covered" >            this.__assignAttributeIfExists(pWrapper, attributes, "boneIndicies", this.boneIndexBuffer);</span>
+<span class="cstat-no" title="statement not covered" >            this.__assignAttributeIfExists(pWrapper, attributes, "boneWeights", this.boneWeightBuffer);</span>
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return PMXGeometry;</span>
+}(_BasicGeometry3.default);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = PMXGeometry;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 14:56:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
