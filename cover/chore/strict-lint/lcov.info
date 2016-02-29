@@ -16008,7 +16008,7 @@ FN:33,_inherits
 FN:35,(anonymous_9)
 FN:38,PMXNode
 FN:49,onchanged
-FN:59,onMount
+FN:59,__onMount
 FN:63,(anonymous_13)
 FN:71,get
 FN:76,get
@@ -16025,7 +16025,7 @@ FNDA:0,_inherits
 FNDA:0,(anonymous_9)
 FNDA:0,PMXNode
 FNDA:0,onchanged
-FNDA:0,onMount
+FNDA:0,__onMount
 FNDA:0,(anonymous_13)
 FNDA:0,get
 FNDA:0,get
@@ -17128,7 +17128,7 @@ FN:23,_possibleConstructorReturn
 FN:25,_inherits
 FN:27,(anonymous_9)
 FN:30,XNode
-FN:47,onMount
+FN:47,__onMount
 FN:51,(anonymous_12)
 FNF:12
 FNH:0
@@ -17142,7 +17142,7 @@ FNDA:0,_possibleConstructorReturn
 FNDA:0,_inherits
 FNDA:0,(anonymous_9)
 FNDA:0,XNode
-FNDA:0,onMount
+FNDA:0,__onMount
 FNDA:0,(anonymous_12)
 DA:3,0
 DA:7,1

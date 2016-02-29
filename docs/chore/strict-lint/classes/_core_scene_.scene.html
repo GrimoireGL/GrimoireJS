@@ -109,9 +109,9 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_core_scene_.scene.html#_cameras" class="tsd-kind-icon">_cameras</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_core_scene_.scene.html#_renderers" class="tsd-kind-icon">_renderers</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_scene_.scene.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_core_scene_.scene.html#cameras" class="tsd-kind-icon">cameras</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_scene_.scene.html#children" class="tsd-kind-icon">children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_scene_.scene.html#emit" class="tsd-kind-icon">emit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_scene_.scene.html#enabled" class="tsd-kind-icon">enabled</a></li>
@@ -164,7 +164,7 @@
 							<aside class="tsd-sources">
 								<p>Overwrites <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L32">Core/Scene.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L32">Core/Scene.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -181,12 +181,30 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
+					<a name="_cameras" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _cameras</h3>
+					<div class="tsd-signature tsd-kind-icon">_cameras<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L32">Core/Scene.ts:32</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>id: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_core_sceneobjects_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 					<a name="_renderers" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _renderers</h3>
 					<div class="tsd-signature tsd-kind-icon">_renderers<span class="tsd-signature-symbol">:</span> <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L30">Core/Scene.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L30">Core/Scene.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -197,7 +215,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#addlistener">addListener</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L8">Base/JThreeObjectEEWithID.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L8">Base/JThreeObjectEEWithID.ts:8</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -225,31 +243,13 @@
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-					<a name="cameras" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cameras</h3>
-					<div class="tsd-signature tsd-kind-icon">cameras<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L32">Core/Scene.ts:32</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>id: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_core_sceneobjects_camera_camera_.camera.html" class="tsd-signature-type">Camera</a></h5>
-							</li>
-						</ul>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 					<a name="children" class="tsd-anchor"></a>
 					<h3>children</h3>
 					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <a href="_core_sceneobjects_sceneobject_.sceneobject.html" class="tsd-signature-type">SceneObject</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L23">Core/Scene.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L23">Core/Scene.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -260,7 +260,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#emit">emit</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L15">Base/JThreeObjectEEWithID.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L15">Base/JThreeObjectEEWithID.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -294,7 +294,7 @@
 					<div class="tsd-signature tsd-kind-icon">enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L21">Core/Scene.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L21">Core/Scene.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -315,7 +315,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#listeners">listeners</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L14">Base/JThreeObjectEEWithID.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L14">Base/JThreeObjectEEWithID.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -347,7 +347,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#on">on</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L9">Base/JThreeObjectEEWithID.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L9">Base/JThreeObjectEEWithID.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -382,7 +382,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#once">once</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L10">Base/JThreeObjectEEWithID.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L10">Base/JThreeObjectEEWithID.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -417,7 +417,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#removealllisteners">removeAllListeners</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L12">Base/JThreeObjectEEWithID.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L12">Base/JThreeObjectEEWithID.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -449,7 +449,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#removelistener">removeListener</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L11">Base/JThreeObjectEEWithID.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L11">Base/JThreeObjectEEWithID.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -483,7 +483,7 @@
 					<div class="tsd-signature tsd-kind-icon">scene<wbr>Ambient<span class="tsd-signature-symbol">:</span> <a href="_math_color3_.color3.html" class="tsd-signature-type">Color3</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L28">Core/Scene.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L28">Core/Scene.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -498,7 +498,7 @@
 					<div class="tsd-signature tsd-kind-icon">scene<wbr>Object<wbr>Structure<wbr>Changed<span class="tsd-signature-symbol">:</span> <a href="_base_jthreeevent_.jthreeevent.html" class="tsd-signature-type">JThreeEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ISceneObjectChangedEventArgs</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L15">Core/Scene.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L15">Core/Scene.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -509,7 +509,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html">JThreeObjectEEWithID</a>.<a href="_base_jthreeobjecteewithid_.jthreeobjecteewithid.html#setmaxlisteners">setMaxListeners</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectEEWithID.ts#L13">Base/JThreeObjectEEWithID.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectEEWithID.ts#L13">Base/JThreeObjectEEWithID.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -549,7 +549,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#id">ID</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectWithID.ts#L22">Base/JThreeObjectWithID.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectWithID.ts#L22">Base/JThreeObjectWithID.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -563,7 +563,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html">JThreeObjectWithID</a>.<a href="_base_jthreeobjectwithid_.jthreeobjectwithid.html#id">ID</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObjectWithID.ts#L26">Base/JThreeObjectWithID.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObjectWithID.ts#L26">Base/JThreeObjectWithID.ts:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -591,7 +591,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L86">Core/Scene.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L86">Core/Scene.ts:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_core_renderers_basicrenderer_.basicrenderer.html" class="tsd-signature-type">BasicRenderer</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -611,7 +611,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L120">Core/Scene.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L120">Core/Scene.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -639,7 +639,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L90">Core/Scene.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L90">Core/Scene.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -662,7 +662,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L64">Core/Scene.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L64">Core/Scene.ts:64</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -685,7 +685,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L127">Core/Scene.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L127">Core/Scene.ts:127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -714,7 +714,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#gettypename">getTypeName</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L20">Base/JThreeObject.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObject.ts#L20">Base/JThreeObject.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -737,7 +737,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L131">Core/Scene.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L131">Core/Scene.ts:131</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -760,7 +760,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L102">Core/Scene.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L102">Core/Scene.ts:102</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -783,7 +783,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L73">Core/Scene.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L73">Core/Scene.ts:73</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -806,7 +806,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L56">Core/Scene.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L56">Core/Scene.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -831,7 +831,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_base_jthreeobject_.jthreeobject.html">JThreeObject</a>.<a href="_base_jthreeobject_.jthreeobject.html#tostring">toString</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Base/JThreeObject.ts#L12">Base/JThreeObject.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Base/JThreeObject.ts#L12">Base/JThreeObject.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -855,7 +855,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Core/Scene.ts#L44">Core/Scene.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Scene.ts#L44">Core/Scene.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -893,13 +893,13 @@
 								<a href="_core_scene_.scene.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
+								<a href="_core_scene_.scene.html#_cameras" class="tsd-kind-icon">_cameras</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 								<a href="_core_scene_.scene.html#_renderers" class="tsd-kind-icon">_renderers</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
 								<a href="_core_scene_.scene.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-								<a href="_core_scene_.scene.html#cameras" class="tsd-kind-icon">cameras</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_core_scene_.scene.html#children" class="tsd-kind-icon">children</a>
