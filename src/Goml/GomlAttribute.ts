@@ -24,7 +24,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
 
   constructor(name: string, value: any, converter: AttributeConverterBase, reserved: boolean, constant: boolean) {
     super(name);
-    this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+    this._nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     this.constant = constant !== undefined ? constant : false;
     this.reserved = reserved !== undefined ? reserved : false;
     this.Converter = converter;
@@ -41,24 +41,24 @@ class GomlAttribute extends JThreeObjectEEWithID {
   /**
    * The cache value for attribute.
    */
-  protected value: any;
+  protected __value: any;
 
   /**
    * Reference to converter class that will manage to parse,cast to string and animation.
    */
-  protected converter: AttributeConverterBase;
+  protected __converter: AttributeConverterBase;
 
   /**
    * deferred for handling async initializing of attribute.
    * @type {boolean}
    */
-  private deferred: Q.Deferred<GomlAttribute> = null;
+  private _deferred: Q.Deferred<GomlAttribute> = null;
 
-  private defer_type: string = "";
+  private _defer_type: string = "";
 
-  private initializeSequence: boolean = false;
+  private _initializeSequence: boolean = false;
 
-  private nodeManager: NodeManager;
+  private _nodeManager: NodeManager;
 
   /**
    * Attributeが初期化されていることを示すinitializedのフラグを建て、attributeが更新された際のeventが有効になるようにします。
@@ -66,7 +66,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
    * このメソッドはGomlNodeのインスタンスが生成された後に呼ばれ、GomlNodeのコンストラクタ内でset:Valueが呼ばれてもeventは発生しません。
    */
   public initialize(): void {
-    if (this.value === undefined) {
+    if (this.__value === undefined) {
       console.warn(`Attribute ${this.Name} is undefined.`);
     }
     // console.log("initialized", this.ID, this.value);
@@ -75,21 +75,21 @@ class GomlAttribute extends JThreeObjectEEWithID {
       // notifyValueChangedでdeferredが解決される
       // temp時にinitializeSequenceが開始される
       // 一箇所でpromiseを集めるための処置
-      this.initializeSequence = true;
-      this.defer_type = "reserved";
+      this._initializeSequence = true;
+      this._defer_type = "reserved";
     } else if (!this.constant && this.listeners("changed").length !== 0) {
       // 通常時のAttributeの初期化
       // onchangeのイベントのコールバック内でdoneでdeferredが解決される
-      this.initializeSequence = true;
-      this.deferred = Q.defer<GomlAttribute>();
-      this.nodeManager.attributePromiseRegistry.register(this.deferred.promise, this);
-      this.defer_type = "not constant, has changed";
+      this._initializeSequence = true;
+      this._deferred = Q.defer<GomlAttribute>();
+      this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
+      this._defer_type = "not constant, has changed";
       this.emit("changed", this);
     } else {
       // onchangeハンドラが無い、又は定数の場合はpromiseを生成しない。
       this.initialized = true;
       // console.log("resolve attribute (inst)", this.Name);
-      this.defer_type = "constant or no changed, not reserved";
+      this._defer_type = "constant or no changed, not reserved";
     }
   }
 
@@ -97,11 +97,11 @@ class GomlAttribute extends JThreeObjectEEWithID {
    * This method must be called inside onchange event callback.
    */
   public done(): void {
-    if (this.initializeSequence) {
+    if (this._initializeSequence) {
       this.initialized = true;
-      this.initializeSequence = false;
+      this._initializeSequence = false;
       // console.log("resolve attribute (done)", this.Name);
-      this.deferred.resolve(this);
+      this._deferred.resolve(this);
     }
   }
 
@@ -110,28 +110,28 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public get Value(): any {
-    return this.value;
+    return this.__value;
   }
 
   public get ValueStr(): string {
-    return this.value == null ? "" : this.Converter.toStringAttr(this.value);
+    return this.__value == null ? "" : this.Converter.toStringAttr(this.__value);
   }
 
   public set Value(val: any) {
     // console.log("setattr", this.Name, val);
-    if (this.constant && this.value !== undefined) {
+    if (this.constant && this.__value !== undefined) {
       console.warn(`attribute "${this.ID}" is immutable`);
       return;
     }
     if (typeof val === "string") {
-      this.value = this.Converter.toObjectAttr(val);
+      this.__value = this.Converter.toObjectAttr(val);
     } else {
       try {
         this.Converter.toStringAttr(val);
       } catch (e) {
         console.warn(`type of attribute: ${this.Name}(${val}) is not adapt to converter: ${this.Converter.getTypeName()}`, val);
       }
-      this.value = val;
+      this.__value = val;
     }
     // console.log("setattr_obj", this.Name, this.value);
     if (this.initialized) {
@@ -146,15 +146,15 @@ class GomlAttribute extends JThreeObjectEEWithID {
    * @return {AttributeConverterBase} converter
    */
   public get Converter(): AttributeConverterBase {
-    return this.converter ? this.converter : <AttributeConverterBase>(new StringAttributeConverter);
+    return this.__converter ? this.__converter : <AttributeConverterBase>(new StringAttributeConverter);
   }
 
   public set Converter(converter: AttributeConverterBase) {
-    if (this.converter === undefined) {
-      this.converter = converter;
+    if (this.__converter === undefined) {
+      this.__converter = converter;
     } else {
       const attr_value = this.Converter.toStringAttr(this.Value);
-      this.converter = converter;
+      this.__converter = converter;
       this.Value = attr_value;
     }
   }
@@ -170,10 +170,10 @@ class GomlAttribute extends JThreeObjectEEWithID {
     if (this.constant) {
       return;
     }
-    if (this.initialized || this.initializeSequence) {
-      if (this.initializeSequence) {
-        this.deferred = Q.defer<GomlAttribute>();
-        this.nodeManager.attributePromiseRegistry.register(this.deferred.promise, this);
+    if (this.initialized || this._initializeSequence) {
+      if (this._initializeSequence) {
+        this._deferred = Q.defer<GomlAttribute>();
+        this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
       }
       this.emit("changed", this);
     }

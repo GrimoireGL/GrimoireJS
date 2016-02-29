@@ -70,10 +70,10 @@ describe("Vector2 test",()=>{
     assert(Vector2.negate(new Vector2(1,2)).equalWith(new Vector2(-1,-2)));
   });
   it("Compare vectors test",()=>{
-    assert(Vector2.equal(new Vector2(1,2),new Vector2(1,2))===true);
+    assert(Vector2.equals(new Vector2(1,2),new Vector2(1,2))===true);
   });
   it("Roughly compare vectors test",()=>{
-    assert(Vector2.nearlyEqual(new Vector2(1,2),new Vector2(1.009,2.001))===true);
+    assert(Vector2.nearlyEquals(new Vector2(1,2),new Vector2(1.009,2.001))===true);
   });
   it("Normalize a vector test for x axis",()=>{
     assert(Vector2.normalize(new Vector2(2,0)).equalWith(new Vector2(1,0)));

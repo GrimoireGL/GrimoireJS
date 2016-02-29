@@ -25,14 +25,14 @@
 // }
 
 interface WebGLRenderingContext {
-  texImage2D(target: number, level: number, elementLayout: number, width: number, height: number, border: number, format: number, type: number, pixels?: ArrayBufferView)
+  texImage2D(target: number, level: number, elementLayout: number, width: number, height: number, border: number, format: number, type: number, pixels?: ArrayBufferView);
 }
 
 declare var jDataView: {
-  new (buffer: ArrayBuffer, offset: number, length: number, littleEndian): jDataView;
-}
+  new (buffer: ArrayBuffer, offset: number, length: number, littleEndian): JDataView;
+};
 
-interface jDataView {
+interface JDataView {
   getString(length: Number, offset?: number, encoding?: string): string;
   getInt8(offset?: number, littleEndian?: boolean): number;
   getUint8(offset?: number, littleEndian?: boolean): number;
@@ -51,7 +51,7 @@ interface jDataView {
 declare var TextDecoder: {
   new (encoding: string): TextDecoder;
   prototype: TextDecoder;
-}
+};
 interface TextDecoder {
   decode(buf: Uint8Array);
 }
@@ -59,7 +59,7 @@ interface TextDecoder {
 declare var WebGLVertexArrayObject: {
   prototype: WebGLVertexArrayObject;
   new (): WebGLVertexArrayObject;
-}
+};
 interface WebGLVertexArrayObjectExtension {
   createVertexArrayOES();
   bindVertexArrayOES(vao: WebGLVertexArrayObject);

@@ -5,15 +5,15 @@ import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 class ConeGeometry extends BasicGeometry {
 
-    private divideCount: number = 10;
+    private _divideCount: number = 10;
 
     public get DivideCount() {
-        return this.divideCount;
+        return this._divideCount;
     }
 
     public set DivideCount(count: number) {
-        this.divideCount = count;
-        this.updateBuffers();
+        this._divideCount = count;
+        this.__updateBuffers();
     }
 
     constructor(name: string) {
@@ -23,11 +23,11 @@ class ConeGeometry extends BasicGeometry {
         this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
         this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
         this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
-        this.updateBuffers();
+        this.__updateBuffers();
     }
 
 
-    protected updateBuffers(): void {
+    protected __updateBuffers(): void {
         const pos: number[] = [];
         const normal: number[] = [];
         const uv: number[] = [];

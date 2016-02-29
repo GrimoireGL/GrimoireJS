@@ -38,7 +38,7 @@ class LoopManager implements IContextComponent {
    * 次のフレームでのループ関数の呼び出しを登録する関数
    * @type {[type]}
    */
-  private _registerNextLoop;
+  private _registerNextLoop: Action0;
 
   /**
    * The list of loop actions already registered.

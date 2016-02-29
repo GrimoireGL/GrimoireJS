@@ -13,7 +13,7 @@ class RenderPath {
     this._renderer = renderer;
   }
 
-  public pushStage(stage: StageChainTemplate) {
+  public pushStage(stage: StageChainTemplate): void {
     this.path.push(this._fromTemplate(stage));
   }
 
@@ -23,7 +23,7 @@ class RenderPath {
     });
   }
 
-  public insertWithIndex(index: number, stage: StageChainTemplate) {
+  public insertWithIndex(index: number, stage: StageChainTemplate): void {
     if (index >= 0 && index <= this.path.length) {
       const newStageChain = new Array(this.path.length + 1);
       for (let i = 0; i < index; i++) {
@@ -39,7 +39,7 @@ class RenderPath {
     }
   }
 
-  public deleteWithIndex(index: number) {
+  public deleteWithIndex(index: number): void {
     if (index >= 0 && index < this.path.length && this.path.length > 0) {
       const newStageChain = new Array(this.path.length - 1);
       for (let i = 0; i < index; i++) {

@@ -5,19 +5,19 @@ import AttributeDeclaration from "../../AttributeDeclaration";
 import BehaviorsNode from "./BehaviorsNode";
 
 class BehaviorNode extends GomlTreeNodeBase {
-  private static ignoreNode: string[] = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "element"];
+  private static _ignoreNode: string[] = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "element"];
 
   /**
    * The node contains this module.
    */
-  private componentTarget: GomlTreeNodeBase;
+  private _componentTarget: GomlTreeNodeBase;
 
-  private componentName: string;
+  private _componentName: string;
 
-  private cachedOrder: number = 1000;
-  private cachedEnabled: boolean = undefined;
-  private awakenCache: boolean = false;
-  private startCalled: boolean = false;
+  private _cachedOrder: number = 1000;
+  private _cachedEnabled: boolean = undefined;
+  private _awakenCache: boolean = false;
+  private _startCalled: boolean = false;
 
   constructor() {
     super();
@@ -36,84 +36,84 @@ class BehaviorNode extends GomlTreeNodeBase {
   }
 
   public get BehaviorName(): string {
-    return this.componentName;
+    return this._componentName;
   }
 
   public get awaken(): boolean {
-    return this.awakenCache;
+    return this._awakenCache;
   }
 
   public get order(): number {
-    return this.cachedOrder;
+    return this._cachedOrder;
   }
 
   public get enabled(): boolean {
-    return this.cachedEnabled;
+    return this._cachedEnabled;
   }
 
   public set enabled(en: boolean) {
-    this.cachedEnabled = en;
+    this._cachedEnabled = en;
   }
 
-  public updateBehavior(target: GomlTreeNodeBase) {
-    if (!this.startCalled) {
+  public updateBehavior(target: GomlTreeNodeBase): void {
+    if (!this._startCalled) {
       this.start(target);
     }
-    this.updateDelegate(target);
+    this._updateDelegate(target);
   }
 
-  public start(target: GomlTreeNodeBase) {
-    this.startDelegate(target);
-    this.startCalled = true;
+  public start(target: GomlTreeNodeBase): void {
+    this._startDelegate(target);
+    this._startCalled = true;
   }
 
-  public awake(target: GomlTreeNodeBase) {
-    this.awakeDelegate(target);
-    this.awakenCache = true;
+  public awake(target: GomlTreeNodeBase): void {
+    this._awakeDelegate(target);
+    this._awakenCache = true;
   }
 
 
-  public onEnabled(target: GomlTreeNodeBase) {
-    this.onEnabledDelegate(target);
+  public onEnabled(target: GomlTreeNodeBase): void {
+    this._onEnabledDelegate(target);
   }
 
-  public onDisabled(target: GomlTreeNodeBase) {
-    this.onDisabledDelegate(target);
+  public onDisabled(target: GomlTreeNodeBase): void {
+    this._onDisabledDelegate(target);
   }
 
-  protected onMount(): void {
-    this.componentTarget = (<BehaviorsNode>this.parent).ComponentTarget;
+  protected __onMount(): void {
+    this._componentTarget = (<BehaviorsNode>this.__parent).ComponentTarget;
     this._initializeBehavior();
   }
 
   private _onNameAttrChanged(attr: GomlAttribute): void {
-    this.componentName = attr.Value;
+    this._componentName = attr.Value;
     this._initializeBehavior();
   }
 
   private _onEnabledAttrChanged(attr: GomlAttribute): void {
     if (attr.Value === this.enabled && typeof attr.Value === "undefined") {
-      this.cachedEnabled = true;
-      this.onEnabled(this.componentTarget);
+      this._cachedEnabled = true;
+      this.onEnabled(this._componentTarget);
     }
     if (attr.Value === this.enabled) {
       return;
     }
     if (attr.Value) {
-      this.onEnabled(this.componentTarget);
+      this.onEnabled(this._componentTarget);
     } else {
-      this.onDisabled(this.componentTarget);
+      this.onDisabled(this._componentTarget);
     }
     this.enabled = attr.Value;
   }
 
   private _initializeBehavior(): void {
-    if (this.componentName && this.componentTarget) {
-      const component = this.nodeManager.behaviorRegistry.getBehavior(this.componentName);
+    if (this._componentName && this._componentTarget) {
+      const component = this.nodeManager.behaviorRegistry.getBehavior(this._componentName);
       if (component) {
         // load d`efault value of component
         if (typeof component.order !== "undefined") {
-          this.cachedOrder = component.order;
+          this._cachedOrder = component.order;
         };
         let componentEnabled;
         if (typeof component.enabled !== "undefined") {
@@ -123,36 +123,36 @@ class BehaviorNode extends GomlTreeNodeBase {
         }
         this.attributes.setValue("enabled", componentEnabled);
         if (typeof component.awake === "function") {
-          this.awakeDelegate = component.awake;
+          this._awakeDelegate = component.awake;
         }
         if (typeof component.update === "function") {
-          this.updateDelegate = component.update;
+          this._updateDelegate = component.update;
         }
         if (typeof component.start === "function") {
-          this.startDelegate = component.start;
+          this._startDelegate = component.start;
         }
         if (typeof component.onEnabled === "function") {
-          this.onEnabledDelegate = component.onEnabled;
+          this._onEnabledDelegate = component.onEnabled;
         }
         if (typeof component.onDisabled === "function") {
-          this.onDisabledDelegate = component.onDisabled;
+          this._onDisabledDelegate = component.onDisabled;
         }
         // initialize component attributes
         for (let attrKey in component.attributes) {
           const attr = component.attributes[attrKey];
-          if (BehaviorNode.ignoreNode.indexOf(attrKey) !== -1 || this.attributes.isDefined(attrKey)) {// duplicated or protected attribute
+          if (BehaviorNode._ignoreNode.indexOf(attrKey) !== -1 || this.attributes.isDefined(attrKey)) {// duplicated or protected attribute
             console.error(`attribute name '${attrKey}' is protected attribute name. please change name`);
             continue;
           }
           // create handler
-          this.defineAccessor(attrKey);
+          this._defineAccessor(attrKey);
           const attributeContainer: AttributeDeclaration = {};
           attributeContainer[attrKey] = attr;
           this.attributes.defineAttribute(attributeContainer);
         }
-        this.componentTarget.addBehavior(this);
+        this._componentTarget.addBehavior(this);
       } else {
-        console.warn(`component"${this.componentName}" is not found.`);
+        console.warn(`component"${this._componentName}" is not found.`);
       }
     } else {
       console.warn("component name was not specified");
@@ -171,7 +171,7 @@ class BehaviorNode extends GomlTreeNodeBase {
   //   });
   // }
 
-  private defineAccessor(attrKey: string) {
+  private _defineAccessor(attrKey: string): any {
     Object.defineProperty(this, attrKey, {
       get:
       () => {
@@ -183,11 +183,11 @@ class BehaviorNode extends GomlTreeNodeBase {
     });
   }
 
-  private updateDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private startDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private awakeDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private onEnabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
-  private onDisabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private _updateDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private _startDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private _awakeDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private _onEnabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
+  private _onDisabledDelegate: Action1<GomlTreeNodeBase> = () => { return; };
 }
 
 export default BehaviorNode;

@@ -53,7 +53,7 @@ class SpotLightNode extends LightNodeBase<SpotLight> {
     });
   }
 
-  protected constructLight(): SpotLight {
+  protected __constructLight(): SpotLight {
     return new SpotLight();
   }
 

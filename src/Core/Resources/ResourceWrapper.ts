@@ -5,62 +5,62 @@ import JThreeEvent from "../../Base/JThreeEvent";
 import {Action2} from "../../Base/Delegates";
 class ResourceWrapper extends JThreeObject implements IDisposable {
 
-  protected onInitializeChangedEvent: JThreeEvent<boolean> = new JThreeEvent<boolean>();
+  protected __onInitializeChangedEvent: JThreeEvent<boolean> = new JThreeEvent<boolean>();
   /**
    * Whether this resource was initialized for this context or not.
    */
-  private initialized: boolean;
-  private ownerCanvas: ContextManager;
+  private _initialized: boolean;
+  private _ownerCanvas: ContextManager;
 
   constructor(ownerCanvas: ContextManager) {
     super();
-    this.ownerCanvas = ownerCanvas;
+    this._ownerCanvas = ownerCanvas;
   }
 
-  public dispose() {
+  public dispose(): void {
     return;
   }
   /**
   * The canvas hold this resource.
   */
   public get OwnerCanvas(): ContextManager {
-    return this.ownerCanvas;
+    return this._ownerCanvas;
   }
 
   /**
   * The ID string for identify which canvas manager holds this resource.
   */
   public get OwnerID(): string {
-    return this.ownerCanvas.ID;
+    return this._ownerCanvas.ID;
   }
 
   public get GL() {
-    return this.ownerCanvas.GL;
+    return this._ownerCanvas.gL;
   }
 
   /**
    * add event handler for changing initialized state changed.
    */
-  public onInitializeChanged(handler: Action2<ResourceWrapper, boolean>) {
-    this.onInitializeChangedEvent.addListener(handler);
+  public onInitializeChanged(handler: Action2<ResourceWrapper, boolean>): void {
+    this.__onInitializeChangedEvent.addListener(handler);
   }
 
   /**
   * Getter for whether this resource was initialized for this context or not.
   */
   public get Initialized(): boolean {
-    return this.initialized;
+    return this._initialized;
   }
 
-  public init() {
+  public init(): void {
     return;
   }
 
-  protected setInitialized(initialized?: boolean): void {
+  protected __setInitialized(initialized?: boolean): void {
     if (typeof initialized === "undefined") { initialized = true; }
-    if (initialized === this.initialized) { return; }
-    this.initialized = initialized;
-    this.onInitializeChangedEvent.fire(this, initialized);
+    if (initialized === this._initialized) { return; }
+    this._initialized = initialized;
+    this.__onInitializeChangedEvent.fire(this, initialized);
   }
 
 }

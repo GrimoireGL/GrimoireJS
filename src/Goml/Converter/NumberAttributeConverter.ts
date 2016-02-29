@@ -14,7 +14,7 @@ class NumberAttributeConverter extends AttributeConverterBase {
     return Number(attr);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
+  public getAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new NumberAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }

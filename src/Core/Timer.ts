@@ -23,7 +23,7 @@ class Timer extends JThreeObject implements IContextComponent {
     loopManager.addAction(1000, () => this.updateTimer());
   }
 
-  public getContextComponentIndex() {
+  public getContextComponentIndex(): number {
     return ContextComponents.Timer;
   }
 

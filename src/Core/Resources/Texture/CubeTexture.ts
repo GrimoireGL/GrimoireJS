@@ -8,19 +8,19 @@ class CubeTexture extends TextureBase {
     this.ImageSource = source;
   }
 
-  private imageSource: ImageSource[] = null;
+  private _imageSource: ImageSource[] = null;
 
   public get ImageSource(): ImageSource[] {
-    return this.imageSource;
+    return this._imageSource;
   }
 
   public set ImageSource(img: ImageSource[]) {
-    this.imageSource = img;
+    this._imageSource = img;
     this.each((v) => (<CubeTextureWrapper>v).init(true));
     this.generateMipmapIfNeed();
   }
 
-  protected createWrapperForCanvas(canvas: Canvas): CubeTextureWrapper {
+  protected __createWrapperForCanvas(canvas: Canvas): CubeTextureWrapper {
     const textureWrapper = new CubeTextureWrapper(canvas, this);
     return textureWrapper;
   }

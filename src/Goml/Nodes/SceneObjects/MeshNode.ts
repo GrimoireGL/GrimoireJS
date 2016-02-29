@@ -26,22 +26,22 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
     });
   }
 
-  private geo: string = null;
-  private mat: string = null;
+  private _geo: string = null;
+  private _mat: string = null;
 
   /**
    * Geomatry instance
    * @type {Geometry}
    */
-  private geo_instance: Geometry = null;
+  private _geo_instance: Geometry = null;
 
   /**
    * Material instance
    */
-  private mat_instance: Material = null;
+  private _mat_instance: Material = null;
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
   /**
@@ -49,23 +49,23 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
    * @param {GomlAttribute} attr [description]
    */
   private _onGeoAttrChanged(attr: GomlAttribute): void {
-    this.geo = attr.Value;
-    this.geo_instance = null;
+    this._geo = attr.Value;
+    this._geo_instance = null;
     // console.warn("onGeoAttrChanged", attr.Value);
-    this.geo_instance = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive(this.geo);
-    if (this.geo_instance) {
+    this._geo_instance = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive(this._geo);
+    if (this._geo_instance) {
       // console.log("primitive exist", this.geo);
       this._updateTarget();
       attr.done();
     } else {
       // console.log("primitive not exist", this.geo);
-      this.geo_instance = null;
-      this.nodeImport("jthree.resource.geometry", this.geo, (geo: GeometryNodeBase<Geometry>) => {
+      this._geo_instance = null;
+      this.nodeImport("jthree.resource.geometry", this._geo, (geo: GeometryNodeBase<Geometry>) => {
         if (geo) {
           // console.log("geometry reseived", this.geo);
-          this.geo_instance = geo.target;
+          this._geo_instance = geo.target;
         } else {
-          this.geo_instance = null;
+          this._geo_instance = null;
         }
         this._updateTarget();
         attr.done();
@@ -78,14 +78,14 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
    * @param {GomlAttribute} attr [description]
    */
   private _onMatAttrChanged(attr: GomlAttribute): void {
-    this.mat = attr.Value;
-    this.mat_instance = null;
+    this._mat = attr.Value;
+    this._mat_instance = null;
     // console.warn("onMatAttrChanged", attr.Value);
-    this.nodeImport("jthree.resource.material", this.mat, (mat: MaterialNode<Material>) => {
+    this.nodeImport("jthree.resource.material", this._mat, (mat: MaterialNode<Material>) => {
       if (mat) {
-        this.mat_instance = mat.target;
+        this._mat_instance = mat.target;
       } else {
-        this.mat_instance = null;
+        this._mat_instance = null;
       }
       this._updateTarget();
       attr.done();
@@ -93,8 +93,8 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
   }
 
   private _updateTarget(): void {
-    if (this.geo_instance && this.mat_instance) {
-      this.TargetSceneObject = new BasicMeshObject(this.geo_instance, this.mat_instance);
+    if (this._geo_instance && this._mat_instance) {
+      this.TargetSceneObject = new BasicMeshObject(this._geo_instance, this._mat_instance);
     }
   }
 }
