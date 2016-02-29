@@ -1,4 +1,4 @@
-import GLExtensionResolver from "./GLExtensionResolver";
+import GLExtensionRegistory from "./GL/GLExtensionRegistory";
 import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "../Renderers/BasicRenderer";
 import JThreeEvent from "../../Base/JThreeEvent";
@@ -39,7 +39,7 @@ class Canvas extends CanvasRegion {
 
   public gL: WebGLRenderingContext;
 
-  public glExtensionResolver: GLExtensionResolver = new GLExtensionResolver();
+  public glExtensionResolver: GLExtensionRegistory = new GLExtensionRegistory();
 
   /**
    * canvas height of last time
