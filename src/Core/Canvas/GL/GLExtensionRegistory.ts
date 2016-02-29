@@ -17,7 +17,7 @@ class GLExtensionRegistory extends JThreeObject {
 
   public extensions: { [key: string]: any } = {};
 
-  public checkExtensions(gl: WebGLRenderingContext) {
+  public checkExtensions(gl: WebGLRenderingContext): void {
     for (let extName in GLExtensionRegistory.requiredExtensions) {
       this.extensions[extName] = GLExtensionRegistory.requiredExtensions[extName].request(gl);
     }
