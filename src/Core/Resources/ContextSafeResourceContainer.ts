@@ -15,25 +15,25 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
 
   public name: string;
 
-  private childWrapper: { [key: string]: T } = {};
+  private _childWrapper: { [key: string]: T } = {};
 
-  private wrapperLength: number = 0;
+  private _wrapperLength: number = 0;
 
   constructor() {
     super();
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     // Initialize resources for the renderers already subscribed.
-    canvasManager.canvasListChanged.addListener(this.rendererChanged.bind(this));
+    canvasManager.canvasListChanged.addListener(this._rendererChanged.bind(this));
   }
 
-  public dispose() {
+  public dispose(): void {
     this.each((e) => {
       e.dispose();
     });
   }
 
   public get wrappers(): T[] {
-    const array = new Array(this.wrapperLength);
+    const array = new Array(this._wrapperLength);
     let index = 0;
     this.each((elem) => {
       array[index] = elem;
@@ -47,39 +47,39 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
   }
 
   public getForContextID(id: string): T {
-    if (!this.childWrapper[id]) {
+    if (!this._childWrapper[id]) {
       console.log("There is no matching object with the ID:" + id);
     }
-    return this.childWrapper[id];
+    return this._childWrapper[id];
   }
 
   public each(act: Action1<T>): void {
-    for (let key in this.childWrapper) {
-      act(this.childWrapper[key]);
+    for (let key in this._childWrapper) {
+      act(this._childWrapper[key]);
     }
   }
 
-  protected createWrapperForCanvas(canvas: Canvas): T {
+  protected __createWrapperForCanvas(canvas: Canvas): T {
     throw new AbstractClassMethodCalledException();
   }
 
-  protected initializeForFirst() {
+  protected __initializeForFirst(): void {
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     canvasManager.canvases.forEach((v) => {
-      this.childWrapper[v.ID] = this.createWrapperForCanvas(v);
-      this.wrapperLength++;
+      this._childWrapper[v.ID] = this.__createWrapperForCanvas(v);
+      this._wrapperLength++;
     });
   }
 
-  private rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
+  private _rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
     if (arg.isAdditionalChange) {
-      this.childWrapper[arg.canvas.ID] = this.createWrapperForCanvas(arg.canvas);
-      this.wrapperLength++;
+      this._childWrapper[arg.canvas.ID] = this.__createWrapperForCanvas(arg.canvas);
+      this._wrapperLength++;
     } else { // TODO should be tested
-      const delTarget: T = this.childWrapper[arg.canvas.ID];
-      delete this.childWrapper[arg.canvas.ID];
+      const delTarget: T = this._childWrapper[arg.canvas.ID];
+      delete this._childWrapper[arg.canvas.ID];
       delTarget.dispose();
-      this.wrapperLength--;
+      this._wrapperLength--;
     }
   }
 

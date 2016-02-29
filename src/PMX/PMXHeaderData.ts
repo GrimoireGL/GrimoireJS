@@ -1,4 +1,4 @@
-interface PMXHeader {
+interface PMXHeaderData {
   version: number;
   headerByteSize: number;
   encoding: number;
@@ -14,4 +14,4 @@ interface PMXHeader {
   comment: string;
   commentEn: string;
 }
-export default PMXHeader;
+export default PMXHeaderData;

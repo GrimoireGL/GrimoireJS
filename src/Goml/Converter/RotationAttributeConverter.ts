@@ -13,10 +13,10 @@ class RotationAttributeConverter extends JThreeObject {
   }
 
   public toObjectAttr(attr: string): Quaternion {
-    return AttributeParser.ParseRotation3D(attr);
+    return AttributeParser.parseRotation3D(attr);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
+  public getAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new RotationAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }

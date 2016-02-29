@@ -1,7 +1,7 @@
 import BasicGeometry from "../../Core/Geometries/Base/BasicGeometry";
 import IVariableDescription from "../../Core/Materials/Base/IVariableDescription";
 import ProgramWrapper from "../../Core/Resources/Program/ProgramWrapper";
-import PMX from "../PMXLoader";
+import PMX from "../PMXData";
 import Buffer from "../../Core/Resources/Buffer/Buffer";
 import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
@@ -30,13 +30,13 @@ class PMXGeometry extends BasicGeometry {
     this.edgeSizeBuffer = rm.createBuffer(name + "-edgeSize", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.FLOAT);
     this.boneIndexBuffer = rm.createBuffer(name + "-boneIndex", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 4, WebGLRenderingContext.FLOAT);
     this.boneWeightBuffer = rm.createBuffer(name + "-boneWeight", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 4, WebGLRenderingContext.FLOAT);
-    this.updateBuffers(pmx);
+    this.__updateBuffers(pmx);
   }
 
   /**
    * apply pmx geometries to buffer.
    */
-  protected updateBuffers(pmx: PMX): void {
+  protected __updateBuffers(pmx: PMX): void {
     const surfaceBuffer = new Uint32Array(pmx.Surfaces);
     const verticies = pmx.Verticies;
     this.positionBuferSource = new Float32Array(verticies.positions);
@@ -50,11 +50,11 @@ class PMXGeometry extends BasicGeometry {
     this.boneWeightBuffer.update(verticies.boneWeights, verticies.boneWeights.length);
   }
 
-  public updatePositionBuffer() {
+  public updatePositionBuffer(): void {
     this.positionBuffer.update(this.positionBuferSource, this.positionBuferSource.length);
   }
 
-  public updateUVBuffer() {
+  public updateUVBuffer(): void {
     this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
   }
 

@@ -11,14 +11,14 @@ interface IVectorParseDescription {
 class VectorBase {
 
   public rawElements: GLM.IArray;
-  private magnitudeSquaredCache: number = -1;
-  private magnitudeCache: number = -1;
+  private _magnitudeSquaredCache: number = -1;
+  private _magnitudeCache: number = -1;
 
   public get magnitude() {
-    if (this.magnitudeCache < 0) {
-      this.magnitudeCache = Math.sqrt(this.sqrMagnitude);
+    if (this._magnitudeCache < 0) {
+      this._magnitudeCache = Math.sqrt(this.sqrMagnitude);
     }
-    return this.magnitudeCache;
+    return this._magnitudeCache;
   }
 
   public get ElementCount(): number {
@@ -26,18 +26,18 @@ class VectorBase {
   }
 
   public get sqrMagnitude(): number {
-    if (this.magnitudeSquaredCache < 0) {
+    if (this._magnitudeSquaredCache < 0) {
       let sum = 0;
       let r = this.rawElements;
       for (let i = 0; i < this.ElementCount; i++) {
         sum += r[i] * r[i];
       }
-      this.magnitudeSquaredCache = sum;
+      this._magnitudeSquaredCache = sum;
     }
-    return this.magnitudeSquaredCache;
+    return this._magnitudeSquaredCache;
   }
 
-  protected static elementEqual(v1: VectorBase, v2: VectorBase): boolean {
+  protected static __elementEquals(v1: VectorBase, v2: VectorBase): boolean {
     if (v1.ElementCount !== v2.ElementCount) {
       return false;
     }
@@ -49,7 +49,7 @@ class VectorBase {
     return true;
   }
 
-  protected static nearlyElementEqual(v1: VectorBase, v2: VectorBase): boolean {
+  protected static __nearlyElementEquals(v1: VectorBase, v2: VectorBase): boolean {
     if (v1.ElementCount !== v2.ElementCount) {
       return false;
     }
@@ -62,7 +62,7 @@ class VectorBase {
     return true;
   }
 
-  protected static fromGenerationFunction<T extends VectorBase>(v1: T, v2: T, gen: Func3<number, T, T, number>): GLM.IArray {
+  protected static __fromGenerationFunction<T extends VectorBase>(v1: T, v2: T, gen: Func3<number, T, T, number>): GLM.IArray {
     let f = new Float32Array(v1.ElementCount);
     for (let i = 0; i < f.length; i++) {
       f[i] = gen(i, v1, v2);
@@ -81,20 +81,20 @@ class VectorBase {
         needNormalize: matches[3] === "n",
         needNegate: matches[1] === "-",
         coefficient: parseFloat(matches[2]),
-        elements: VectorBase.__parseRawVector(matches[4])
+        elements: VectorBase._parseRawVector(matches[4])
       };
     } else {
       // Assume this is simplified format.
       return {
         needNormalize: false,
         needNegate: false,
-        elements: VectorBase.__parseRawVector(str),
+        elements: VectorBase._parseRawVector(str),
         coefficient: undefined
       };
     }
   }
 
-  private static __parseRawVector(str: string): number[] {
+  private static _parseRawVector(str: string): number[] {
     const splitted = str.split(",");
     const result = new Array(splitted.length);
     for (let i = 0; i < splitted.length; i++) {

@@ -6,7 +6,7 @@ import PMXModel from "./PMXModel";
 import JThreeLogger from "../../Base/JThreeLogger";
 import Q from "q";
 class PMXTextureManager {
-  public static _imgConvertedToons: HTMLImageElement[] = [];
+  public static imgConvertedToons: HTMLImageElement[] = [];
 
   private static _toons: string[] = [
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX////Nzc1XNMFjAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC",
@@ -21,20 +21,20 @@ class PMXTextureManager {
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAC0lEQVQI12MY5AAAAKAAAfgHMzoAAAAASUVORK5CYII="
   ];
 
-  private model: PMXModel;
+  private _model: PMXModel;
 
 
   constructor(model: PMXModel) {
-    this.model = model;
+    this._model = model;
   }
 
   public generateSharedToonImg(index: number): HTMLImageElement {
-    if (PMXTextureManager._imgConvertedToons[index]) {
-      return PMXTextureManager._imgConvertedToons[index];
+    if (PMXTextureManager.imgConvertedToons[index]) {
+      return PMXTextureManager.imgConvertedToons[index];
     } else {
       const imgTag = document.createElement("img");
       imgTag.src = PMXTextureManager._toons[index];
-      PMXTextureManager._imgConvertedToons[index] = imgTag;
+      PMXTextureManager.imgConvertedToons[index] = imgTag;
       return imgTag;
     }
   }
@@ -47,24 +47,24 @@ class PMXTextureManager {
       });
       return deferred.promise;
     }
-    this.model.loadingTextureCount++;
+    this._model.loadingTextureCount++;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    return rm.loadTexture(this.model.modelDirectory + this.model.ModelData.Textures[index]).then<TextureBase>((texture) => {
+    return rm.loadTexture(this._model.modelDirectory + this._model.ModelData.Textures[index]).then<TextureBase>((texture) => {
       process.nextTick(() => {
-        this.model.loadedTextureCount++;
-        JThreeLogger.sectionLog("pmx texture", `loaded texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount}`);
-        if (this.model.loadingTextureCount === this.model.loadedTextureCount) {
-          this.model.emit("load", this.model);
+        this._model.loadedTextureCount++;
+        JThreeLogger.sectionLog("pmx texture", `loaded texture ${this._model.loadedTextureCount} / ${this._model.loadingTextureCount}`);
+        if (this._model.loadingTextureCount === this._model.loadedTextureCount) {
+          this._model.emit("load", this._model);
         }
         deferred.resolve(texture);
       });
       return deferred.promise;
     }, (error) => {
         process.nextTick(() => {
-          this.model.loadedTextureCount++;
-          JThreeLogger.sectionError("pmx texture", `load failure texture ${this.model.loadedTextureCount} / ${this.model.loadingTextureCount}  ${error}`);
-          if (this.model.loadingTextureCount === this.model.loadedTextureCount) {
-            this.model.emit("load", this.model);
+          this._model.loadedTextureCount++;
+          JThreeLogger.sectionError("pmx texture", `load failure texture ${this._model.loadedTextureCount} / ${this._model.loadingTextureCount}  ${error}`);
+          if (this._model.loadingTextureCount === this._model.loadedTextureCount) {
+            this._model.emit("load", this._model);
           }
           deferred.reject(error);
         });

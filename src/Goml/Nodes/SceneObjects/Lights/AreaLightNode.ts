@@ -17,7 +17,7 @@ class AreaLightNode extends LightNodeBase<AreaLight> {
     });
   }
 
-  protected constructLight(): AreaLight {
+  protected __constructLight(): AreaLight {
     return new AreaLight();
   }
 

@@ -1,6 +1,6 @@
 import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
 class ScenesNode extends OrderedTopLevelNodeBase {
-  protected groupPrefix: string = "scene";
+  protected __groupPrefix: string = "scene";
 
   constructor() {
     super();

@@ -11,7 +11,7 @@ class TreeTraversal extends J3ObjectBase {
     switch (true) {
       case (isString(argu)):
         let ret_node: GomlTreeNodeBase[] = [];
-        this.getArray().forEach((node) => {
+        this.__getArray().forEach((node) => {
           ret_node = ret_node.concat(J3Object.find(<string>argu, node));
         });
         return new J3Object(ret_node);

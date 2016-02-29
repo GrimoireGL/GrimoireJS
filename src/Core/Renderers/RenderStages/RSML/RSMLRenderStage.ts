@@ -31,11 +31,11 @@ class RSMLRenderStage extends RenderStageBase {
     return super.getDefaultRendererConfigure(0);
   }
 
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
     this.techniques[techniqueIndex].preTechnique(scene, texs);
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo) {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
     this.techniques[techniqueIndex].render(scene, object, techniqueCount, techniqueIndex, texs);
   }
 
@@ -43,7 +43,7 @@ class RSMLRenderStage extends RenderStageBase {
     return typeof object.Geometry !== "undefined" && object.Geometry != null;
   }
 
-  public getTechniqueCount(scene: Scene) {
+  public getTechniqueCount(scene: Scene): number {
     return this._techniqueCount;
   }
 

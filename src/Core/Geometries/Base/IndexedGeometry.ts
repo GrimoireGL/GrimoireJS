@@ -35,7 +35,7 @@ abstract class IndexedGeometry extends Geometry {
    */
   public drawElements(canvas: Canvas, material: Material): void {
     this.__bindIndexBuffer(canvas);
-    canvas.GL.drawElements(this.primitiveTopology, material.getDrawGeometryLength(this), this.indexBuffer.ElementType, material.getDrawGeometryOffset(this));
+    canvas.gL.drawElements(this.primitiveTopology, material.getDrawGeometryLength(this), this.indexBuffer.ElementType, material.getDrawGeometryOffset(this));
   }
 
   /**
@@ -54,7 +54,7 @@ abstract class IndexedGeometry extends Geometry {
           throw new Error("length is invalid!");
         }
         while (offset + length > index) {
-          canvas.GL.drawElements(WebGLRenderingContext.POINTS, 3, this.indexBuffer.ElementType, index);
+          canvas.gL.drawElements(WebGLRenderingContext.POINTS, 3, this.indexBuffer.ElementType, index);
           index += 3;
         }
         break;

@@ -82,10 +82,10 @@ describe("Vector3 test",()=>{
     assert(Vector3.negate(new Vector3(1,1,2)).equalWith(new Vector3(-1,-1,-2)));
   });
   it("Compare vectors test",()=>{
-    assert(Vector3.equal(new Vector3(1,1,2),new Vector3(1,1,2))===true);
+    assert(Vector3.equals(new Vector3(1,1,2),new Vector3(1,1,2))===true);
   });
   it("Roughly compare vectors test",()=>{
-    assert(Vector3.nearlyEqual(new Vector3(1,1,2),new Vector3(1,1.009,2.001))===true);
+    assert(Vector3.nearlyEquals(new Vector3(1,1,2),new Vector3(1,1.009,2.001))===true);
   });
   it("Normalize a vector test for x axis",()=>{
     assert(Vector3.normalize(new Vector3(2,0,0)).equalWith(new Vector3(1,0,0)));

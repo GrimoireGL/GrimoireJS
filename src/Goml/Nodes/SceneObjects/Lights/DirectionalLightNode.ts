@@ -23,7 +23,7 @@ class DirectionalLightNode extends LightNodeBase<DirectionalLight> {
     });
   }
 
-  protected constructLight(): DirectionalLight {
+  protected __constructLight(): DirectionalLight {
     return new DirectionalLight();
   }
 

@@ -40,37 +40,37 @@ class Transformer extends JThreeObject {
   /**
    * backing field of Rotation.
    */
-  private rotation: Quaternion;
+  private _rotation: Quaternion;
 
   /**
    * backing field of Position.
    */
-  private position: Vector3;
+  private _position: Vector3;
 
-  private localOrigin: Vector3;
+  private _localOrigin: Vector3;
 
   /**
    * backing field of Scale.
    */
-  private scale: Vector3;
+  private _scale: Vector3;
 
   /**
    * calculation cache
    */
-  private localTransformMatrix: Matrix = Matrix.identity();
+  private _localTransformMatrix: Matrix = Matrix.identity();
 
-  private localToGlobalMatrix: Matrix = Matrix.identity();
+  private _localToGlobalMatrix: Matrix = Matrix.identity();
 
-  private modelViewProjectionCaluculationCache = mat4.create();
+  private _modelViewProjectionCaluculationCache: any = mat4.create();
 
-  private globalToLocalCache: Matrix = Matrix.identity();
+  private _globalToLocalCache: Matrix = Matrix.identity();
 
-  private g2lupdated: boolean = false;
+  private _g2lupdated: boolean = false;
 
   /**
    * properties for storeing event handlers
    */
-  private onUpdateTransformHandler: JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
+  private _onUpdateTransformHandler: JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
 
 
   /**
@@ -80,10 +80,10 @@ class Transformer extends JThreeObject {
   constructor(sceneObj: SceneObject) {
     super();
     this.linkedObject = sceneObj;
-    this.position = Vector3.Zero;
-    this.rotation = Quaternion.Identity;
-    this.scale = new Vector3(1, 1, 1);
-    this.localOrigin = new Vector3(0, 0, 0);
+    this._position = Vector3.Zero;
+    this._rotation = Quaternion.Identity;
+    this._scale = new Vector3(1, 1, 1);
+    this._localOrigin = new Vector3(0, 0, 0);
     this.updateTransform();
   }
 
@@ -92,11 +92,11 @@ class Transformer extends JThreeObject {
   }
 
   public get globalToLocal() {
-    if (this.g2lupdated) {
-      return this.globalToLocalCache;
+    if (this._g2lupdated) {
+      return this._globalToLocalCache;
     }
-    mat4.invert(this.globalToLocalCache.rawElements, this.localToGlobalMatrix.rawElements);
-    this.g2lupdated = true;
+    mat4.invert(this._localTransformMatrix.rawElements, this._localToGlobalMatrix.rawElements);
+    this._g2lupdated = true;
   }
 
   /**
@@ -104,7 +104,7 @@ class Transformer extends JThreeObject {
    * @param action the event handler for this event.
    */
   public onUpdateTransform(action: Action2<Transformer, SceneObject>): void {
-    this.onUpdateTransformHandler.addListener(action);
+    this._onUpdateTransformHandler.addListener(action);
   }
 
   /**
@@ -113,16 +113,16 @@ class Transformer extends JThreeObject {
    */
   public updateTransform(): void {
     this.hasChanged = true;
-    this.updateTransformMatricies();
+    this.__updateTransformMatricies();
     // notify update to childrens
     if (this.linkedObject.Children && this.NeedUpdateChildren) {
-    this.linkedObject.Children.forEach((v) => {
-      v.Transformer.updateTransform();
-    });
+      this.linkedObject.Children.forEach((v) => {
+        v.Transformer.updateTransform();
+      });
     }
-    this.g2lupdated = false;
+    this._g2lupdated = false;
     // fire updated event
-    this.onUpdateTransformHandler.fire(this, this.linkedObject);
+    this._onUpdateTransformHandler.fire(this, this.linkedObject);
   }
 
   public get hasParent() {
@@ -141,49 +141,49 @@ class Transformer extends JThreeObject {
    * Calculate Projection-View-Model matrix with renderer camera.
    */
   public calculateMVPMatrix(renderer: BasicRenderer): Matrix {
-    mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
-    mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this.modelViewProjectionCaluculationCache);
-    return new Matrix(this.modelViewProjectionCaluculationCache);
+    mat4.mul(this._modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
+    mat4.mul(this._modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this._modelViewProjectionCaluculationCache);
+    return new Matrix(this._modelViewProjectionCaluculationCache);
   }
 
   public get GlobalPosition() {
-    return Matrix.transformPoint(this.localToGlobalMatrix, Vector3.Zero);
+    return Matrix.transformPoint(this._localToGlobalMatrix, Vector3.Zero);
   }
 
   /**
    * Get accessor for the matrix providing the transform Local space into Global space.
    */
   public get LocalToGlobal(): Matrix {
-    return this.localToGlobalMatrix;
+    return this._localToGlobalMatrix;
   }
 
   public get LocalTransform(): Matrix {
-    return this.localTransformMatrix;
+    return this._localTransformMatrix;
   }
   /**
    * Get accessor for model rotation.
    */
   public get Rotation(): Quaternion {
-    return this.rotation;
+    return this._rotation;
   }
   /**
    * Set accessor for model rotation.
    */
   public set Rotation(quat: Quaternion) {
-    this.rotation = quat;
+    this._rotation = quat;
     this.updateTransform();
   }
   /**
    * Get Accessor for model position.
    */
   public get Position(): Vector3 {
-    return this.position;
+    return this._position;
   }
   /**
    * Set Accessor for model position.
    */
   public set Position(vec: Vector3) {
-    this.position = vec;
+    this._position = vec;
     this.updateTransform();
   }
 
@@ -191,47 +191,47 @@ class Transformer extends JThreeObject {
    * Get Accessor for model scale.
    */
   public get Scale(): Vector3 {
-    return this.scale;
+    return this._scale;
   }
 
   /**
    * Set Accessor for model scale.
    */
   public set Scale(vec: Vector3) {
-    this.scale = vec;
+    this._scale = vec;
     this.updateTransform();
   }
 
   public get LocalOrigin(): Vector3 {
-    return this.localOrigin;
+    return this._localOrigin;
   }
 
   public set LocalOrigin(origin: Vector3) {
-    this.localOrigin = origin;
+    this._localOrigin = origin;
     this.updateTransform();
   }
 
-  public transformDirection(direction: Vector3) {
+  public transformDirection(direction: Vector3): Vector3 {
     return Matrix.transformNormal(this.LocalToGlobal, direction);
   }
 
-  public transformPoint(point: Vector3) {
-    return Matrix.transformPoint(this.localToGlobalMatrix, point);
+  public transformPoint(point: Vector3): Vector3 {
+    return Matrix.transformPoint(this._localToGlobalMatrix, point);
   }
 
-  public transformVector(vector: Vector4) {
-    return Matrix.transform(this.localToGlobalMatrix, vector);
+  public transformVector(vector: Vector4): Vector4 {
+    return Matrix.transform(this._localToGlobalMatrix, vector);
   }
 
-  public inverseTransformDirection(direction: Vector3) {
+  public inverseTransformDirection(direction: Vector3): Vector3 {
     return Matrix.transformNormal(this.globalToLocal, direction);
   }
 
-  public inverseTransformPoint(point: Vector3) {
+  public inverseTransformPoint(point: Vector3): Vector3 {
     return Matrix.transformPoint(this.globalToLocal, point);
   }
 
-  public inverseTransformVector(vector: Vector4) {
+  public inverseTransformVector(vector: Vector4): Vector4 {
     return Matrix.transform(this.globalToLocal, vector);
   }
 
@@ -239,36 +239,36 @@ class Transformer extends JThreeObject {
   * Update transform matricies
   * @return {[type]} [description]
   */
-  protected updateTransformMatricies() {
+  protected __updateTransformMatricies(): void {
     // initialize localTransformCache & localToGlobalMatrix.rawElements
-    mat4.identity(this.localTransformMatrix.rawElements);
-    mat4.identity(this.localToGlobalMatrix.rawElements);
+    mat4.identity(this._localTransformMatrix.rawElements);
+    mat4.identity(this._localToGlobalMatrix.rawElements);
     // generate local transofrm matrix
-    mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+    mat4.fromRotationTranslationScaleOrigin(this._localTransformMatrix.rawElements, this._rotation.rawElements, this._position.rawElements, this._scale.rawElements, this._localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
     if (this.linkedObject != null && this.linkedObject.Parent != null) {
       // Use LocalToGlobal matrix of parents to multiply with localTransformCache
-      mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
+      mat4.copy(this._localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
     } else {
       // If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
-      mat4.identity(this.localToGlobalMatrix.rawElements);
+      mat4.identity(this._localToGlobalMatrix.rawElements);
     }
     // Multiply parent transform
-    mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);
-    this.updateDirections();
+    mat4.multiply(this._localToGlobalMatrix.rawElements, this._localToGlobalMatrix.rawElements, this._localTransformMatrix.rawElements);
+    this.__updateDirections();
   }
 
   /**
    * Update directions by this transform
    */
-  protected updateDirections() {
+  protected __updateDirections(): void {
     // Calculate direction vectors
-    this.updateDirection(this.right, [1, 0, 0, 0]); // need to reduce memory allocation
-    this.updateDirection(this.up, [0, 1, 0, 0]);
-    this.updateDirection(this.forward, [0, 0, -1, 0]);
+    this._updateDirection(this.right, [1, 0, 0, 0]); // need to reduce memory allocation
+    this._updateDirection(this.up, [0, 1, 0, 0]);
+    this._updateDirection(this.forward, [0, 0, -1, 0]);
   }
 
-  private updateDirection(rawElements: Vector3, sourceVector4: number[]) {
-    vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobalMatrix.rawElements);
+  private _updateDirection(rawElements: Vector3, sourceVector4: number[]): void {
+    vec4.transformMat4(rawElements.rawElements, sourceVector4, this._localToGlobalMatrix.rawElements);
     vec3.normalize(rawElements.rawElements, rawElements.rawElements);
   }
 }

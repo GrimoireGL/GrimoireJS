@@ -9,7 +9,7 @@ class Mesh extends SceneObject {
       this.addMaterial(mat);
     }
     if (geometry) {
-      this.geometry = geometry;
+      this.__geometry = geometry;
     }
   }
 }
