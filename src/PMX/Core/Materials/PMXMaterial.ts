@@ -7,7 +7,7 @@ import Geometry from "../../../Core/Geometries/Base/Geometry";
 import Vector4 from "../../../Math/Vector4";
 import Color4 from "../../../Math/Color4";
 import Color3 from "../../../Math/Color3";
-import PMX from "../../PMXLoader";
+import PMX from "../../PMXData";
 import Texture from "../../../Core/Resources/Texture/Texture";
 import PMXModel from "./../PMXModel";
 import PmxMaterialMorphParamContainer from "./../PMXMaterialMorphParamContainer";
@@ -26,7 +26,7 @@ class PMXMaterial extends Material {
 
   public cullEnabled: boolean;
 
-  public Name: string;
+  public name: string;
 
   public addMorphParam: PmxMaterialMorphParamContainer;
 
@@ -34,64 +34,64 @@ class PMXMaterial extends Material {
 
   protected __innerMaterial: BasicMaterial;
 
-  private _verticiesCount;
+  private _verticiesCount: number;
 
-  private _verticiesOffset;
+  private _verticiesOffset: number;
 
-  private ambient: Color3;
+  private _ambient: Color3;
 
-  private diffuse: Color4;
+  private _diffuse: Color4;
 
-  private edgeSize: number;
+  private _edgeSize: number;
 
-  private sphere: TextureBase = null;
+  private _sphere: TextureBase = null;
 
-  private texture: TextureBase = null;
+  private _texture: TextureBase = null;
 
-  private toon: TextureBase = null;
+  private _toon: TextureBase = null;
 
-  private pmxData: PMX;
+  private _pmxData: PMX;
 
-  private parentModel: PMXModel;
+  private _parentModel: PMXModel;
 
-  private sphereMode: number;
+  private _sphereMode: number;
 
-  private specular: Vector4;
+  private _specular: Vector4;
 
   constructor(pmx: PMXModel, index: number, offset: number) {
     super();
     this.addMorphParam = new PmxMaterialMorphParamContainer(1);
     this.mulMorphParam = new PmxMaterialMorphParamContainer(0);
-    this.parentModel = pmx;
-    this.pmxData = pmx.ModelData;
+    this._parentModel = pmx;
+    this._pmxData = pmx.ModelData;
     this.materialIndex = index;
-    let materialData = this.pmxData.Materials[index];
+    let materialData = this._pmxData.Materials[index];
     this._verticiesCount = materialData.vertexCount;
     this._verticiesOffset = offset;
-    this.Name = materialData.materialName;
+    this.name = materialData.materialName;
     this.cullEnabled = !((materialData.drawFlag & 0x01) > 0); // each side draw flag
-    this.ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
-    this.diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
+    this._ambient = new Color3(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);
+    this._diffuse = new Color4(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);
     if ((materialData.drawFlag & 0x10) > 0) {
       this.edgeColor = new Color4(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);
     }
-    this.specular = new Vector4(materialData.specular);
-    this.edgeSize = materialData.edgeSize;
-    this.sphereMode = materialData.sphereMode;
+    this._specular = new Vector4(materialData.specular);
+    this._edgeSize = materialData.edgeSize;
+    this._sphereMode = materialData.sphereMode;
     this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
-    const tm = this.parentModel.pmxTextureManager;
+    const tm = this._parentModel.pmxTextureManager;
     tm.loadTexture(materialData.sphereTextureIndex).then((texture) => {
-      this.sphere = texture;
+      this._sphere = texture;
     });
     tm.loadTexture(materialData.textureIndex).then((texture) => {
-      this.texture = texture;
+      this._texture = texture;
     });
     if (materialData.sharedToonFlag === 0) { // not shared texture
       tm.loadTexture(materialData.targetToonIndex).then((texture) => {
-        this.toon = texture;
+        this._toon = texture;
       });
     } else {
-      this.toon = this.loadSharedTexture(materialData.targetToonIndex);
+      this._toon = this._loadSharedTexture(materialData.targetToonIndex);
     }
     this.__innerMaterial.on("configure", (v: IConfigureEventArgs) => {
       if (v.passIndex === 0) {
@@ -99,7 +99,7 @@ class PMXMaterial extends Material {
       }
     });
     this.__innerMaterial.on("ready", () => {
-      this.setLoaded();
+      this.__setLoaded();
     });
   }
 
@@ -118,28 +118,28 @@ class PMXMaterial extends Material {
   }
 
   public get ParentModel() {
-    return this.parentModel;
+    return this._parentModel;
   }
 
   public get Diffuse(): Color4 {
-    return this.diffuse;
+    return this._diffuse;
   }
 
   public get Texture() {
-    return this.texture;
+    return this._texture;
   }
 
   public get Sphere() {
-    return this.sphere;
+    return this._sphere;
   }
 
 
   public get SphereMode() {
-    return this.sphereMode;
+    return this._sphereMode;
   }
 
   public get Specular() {
-    return this.specular;
+    return this._specular;
   }
 
   public getPassCount(techniqueIndex: number): number {
@@ -147,31 +147,31 @@ class PMXMaterial extends Material {
   }
 
   public get SelfShadow(): boolean {
-    return (this.pmxData.Materials[this.materialIndex].drawFlag & 0x04) > 0;
+    return (this._pmxData.Materials[this.materialIndex].drawFlag & 0x04) > 0;
   }
 
   public apply(matArg: IApplyMaterialArgument): void {
-    const skeleton = this.parentModel.skeleton;
+    const skeleton = this._parentModel.skeleton;
     if (matArg.passIndex === 1) {
       this.__innerMaterial.materialVariables = {
         boneCount: skeleton.BoneCount,
         boneMatriciesTexture: skeleton.MatrixTexture,
-        edgeSize: PmxMaterialMorphParamContainer.calcMorphedSingleValue(this.edgeSize, this.addMorphParam, this.mulMorphParam, (t) => t.edgeSize),
+        edgeSize: PmxMaterialMorphParamContainer.calcMorphedSingleValue(this._edgeSize, this.addMorphParam, this.mulMorphParam, (t) => t.edgeSize),
         edgeColor: PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.edgeColor.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.edgeColor, 4)
       };
     } else {
       this.__innerMaterial.materialVariables = {
         boneCount: skeleton.BoneCount,
         boneMatriciesTexture: skeleton.MatrixTexture,
-        texture: this.texture,
-        toon: this.toon,
-        sphere: this.sphere,
-        diffuse: this.diffuse.toVector(),
-        specular: this.specular,
-        ambient: this.ambient.toVector(),
-        textureUsed: !this.texture ? 0 : 1,
-        sphereMode: !this.sphere ? 0 : this.sphereMode,
-        toonFlag: !this.toon ? 0 : 1,
+        texture: this._texture,
+        toon: this._toon,
+        sphere: this._sphere,
+        diffuse: this._diffuse.toVector(),
+        specular: this._specular,
+        ambient: this._ambient.toVector(),
+        textureUsed: !this._texture ? 0 : 1,
+        sphereMode: !this._sphere ? 0 : this._sphereMode,
+        toonFlag: !this._toon ? 0 : 1,
         addTexCoeff: new Vector4(this.addMorphParam.textureCoeff),
         mulTexCoeff: new Vector4(this.mulMorphParam.textureCoeff),
         addSphereCoeff: new Vector4(this.addMorphParam.sphereCoeff),
@@ -189,14 +189,14 @@ class PMXMaterial extends Material {
   }
 
   public getDrawGeometryLength(geo: Geometry): number {
-    return this.diffuse.A > 0 ? this.VerticiesCount : 0;
+    return this._diffuse.A > 0 ? this.VerticiesCount : 0;
   }
 
   public getDrawGeometryOffset(geo: Geometry): number {
     return this.VerticiesOffset * 4;
   }
 
-  private loadSharedTexture(index: number): Texture {
+  private _loadSharedTexture(index: number): Texture {
     if (index < 0) {
       return null;
     }
@@ -205,7 +205,7 @@ class PMXMaterial extends Material {
     if (rm.getTexture(resName)) {
       return <Texture>rm.getTexture(resName);
     } else {
-      const tex = rm.createTextureWithSource(resName, this.parentModel.pmxTextureManager.generateSharedToonImg(index));
+      const tex = rm.createTextureWithSource(resName, this._parentModel.pmxTextureManager.generateSharedToonImg(index));
       return tex;
     }
   }

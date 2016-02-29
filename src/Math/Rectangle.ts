@@ -2,49 +2,49 @@ import Vector2 from "./Vector2";
 import jThreeObject from "../Base/JThreeObject";
 class Rectangle extends jThreeObject {
 
-  private left: number;
-  private top: number;
-  private width: number;
-  private height: number;
+  private _left: number;
+  private _top: number;
+  private _width: number;
+  private _height: number;
 
   constructor(left: number, top: number, width: number, height: number) {
     super();
-    this.left = left;
-    this.top = top;
-    this.width = width;
-    this.height = height;
+    this._left = left;
+    this._top = top;
+    this._width = width;
+    this._height = height;
   }
 
-  public static Equals(r1: Rectangle, r2: Rectangle): boolean {
+  public static equals(r1: Rectangle, r2: Rectangle): boolean {
     return r1.Left === r2.Left && r1.Right === r2.Right && r1.Top === r2.Top && r1.Bottom === r2.Bottom;
   }
 
-  public static EdgeSizeEquals(r1: Rectangle, r2: Rectangle) {
+  public static edgeSizeEquals(r1: Rectangle, r2: Rectangle): boolean {
     return r1.Width === r2.Width && r1.Height === r2.Height;
   }
 
   public get Left(): number {
-    return this.left;
+    return this._left;
   }
 
   public get Right(): number {
-    return this.left + this.width;
+    return this.Left + this.Width;
   }
 
   public get Top(): number {
-    return this.top;
+    return this._top;
   }
 
   public get Bottom(): number {
-    return this.top + this.height;
+    return this._top + this._height;
   }
 
   public get Width(): number {
-    return this.width;
+    return this._width;
   }
 
   public get Height(): number {
-    return this.height;
+    return this._height;
   }
 
   public contains(point: Vector2): boolean;
@@ -77,7 +77,7 @@ class Rectangle extends jThreeObject {
   }
 
   public toString(): string {
-    return `Rectangle(${this.left},${this.top}-${this.Right},${this.Bottom})`;
+    return `Rectangle(${this.Left},${this.Top}-${this.Right},${this.Bottom})`;
   }
 
 }

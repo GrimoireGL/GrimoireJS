@@ -1,5 +1,5 @@
 
-interface MaterialMorph {
+interface MaterialMorphData {
   materialIndex: number;
   operationType: number;
   diffuse: number[];
@@ -12,4 +12,4 @@ interface MaterialMorph {
   toonTextureCoefficient: number[];
 }
 
-export default MaterialMorph;
+export default MaterialMorphData;

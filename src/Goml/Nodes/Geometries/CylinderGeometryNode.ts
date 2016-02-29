@@ -14,11 +14,11 @@ class CylinderGeometryNode extends GeometryNodeBase<CylinderGeometry> {
     });
   }
 
-  protected onMount() {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
-  protected constructGeometry(name: string): CylinderGeometry {
+  protected __constructGeometry(name: string): CylinderGeometry {
     return  new CylinderGeometry(name);
   }
 

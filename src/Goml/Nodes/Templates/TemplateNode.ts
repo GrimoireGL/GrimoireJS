@@ -5,10 +5,10 @@ class TemplateNode extends GomlTreeNodeBase {
 
   // private static templateIgnore: string[] = ["name"];
 
-  private templateGoml: string = "";
+  private _templateGoml: string = "";
 
   public get TemplateGoml(): string {
-    return this.templateGoml;
+    return this._templateGoml;
   }
 
   constructor() {
@@ -23,7 +23,7 @@ class TemplateNode extends GomlTreeNodeBase {
     // }
   }
 
-  public GetGomlToInstanciate(instanciateParent: HTMLElement): string {
+  public getGomlToInstanciate(instanciateParent: HTMLElement): string {
     // var valueMap:{[key:string]:string}={};
     // var templateAttributes=this.element.attributes;
     // for (var i = 0; i < templateAttributes.length; i++) {

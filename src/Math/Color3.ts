@@ -12,7 +12,7 @@ class Color3 extends VectorBase {
     this.rawElements = [r, g, b];
   }
 
-  public static FromColor4(col: Color4): Color3 {
+  public static fromColor4(col: Color4): Color3 {
     return new Color3(col.R, col.G, col.B);
   }
 
@@ -24,7 +24,7 @@ class Color3 extends VectorBase {
   public static internalParse(color: string, isFirst: boolean): Color3 {
     if (isFirst && Color4.colorTable[color]) {
       const col = Color4.internalParse(Color4.colorTable[color], false);
-      return Color3.FromColor4(col);
+      return Color3.fromColor4(col);
     }
     let m;
     if (isFirst) {
@@ -36,7 +36,7 @@ class Color3 extends VectorBase {
           parseInt(s.charAt(0), 16) / 0xf,
           parseInt(s.charAt(1), 16) / 0xf,
           parseInt(s.charAt(2), 16) / 0xf
-        );
+          );
       }
     }
 
@@ -48,7 +48,7 @@ class Color3 extends VectorBase {
         parseInt(s.substr(0, 2), 16) / 0xff,
         parseInt(s.substr(2, 2), 16) / 0xff,
         parseInt(s.substr(4, 2), 16) / 0xff
-      );
+        );
     }
 
     const n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
@@ -59,7 +59,7 @@ class Color3 extends VectorBase {
   }
 
   public static equals(col1: Color3, col2: Color3): boolean {
-    return VectorBase.elementEqual(col1, col2);
+    return VectorBase.__elementEquals(col1, col2);
   }
 
   public toVector(): Vector3 {

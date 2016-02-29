@@ -1,4 +1,4 @@
-interface PMXMaterial {
+interface PMXMaterialData {
   materialName: string;
   materialNameEn: string;
   diffuse: number[];
@@ -15,4 +15,4 @@ interface PMXMaterial {
   memo: string;
   vertexCount: number;
 }
-export default PMXMaterial;
+export default PMXMaterialData;

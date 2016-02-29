@@ -10,7 +10,7 @@ class DebuggerSceneTreeNode extends React.Component
   render:()->
     children = [];
     for v in @state.children
-      children.push(<DebuggerSceneTreeNode children={v.children} nodeLabel={v.name} key={v.ID} target={v} selectionChanged={@props.selectionChanged}/>)
+      children.push(<DebuggerSceneTreeNode children={v._children} nodeLabel={v.name} key={v.ID} target={v} selectionChanged={@props.selectionChanged}/>)
     <span onClick={@selectionChanged}>
       <TreeNode nodeLabel={@state.nodeLabel}>
         {children}

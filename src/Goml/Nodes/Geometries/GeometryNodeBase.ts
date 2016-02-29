@@ -8,11 +8,11 @@ import JThreeContext from "../../../JThreeContext";
 * Base class for managing geometry node.
 */
 abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<T> {
-  protected groupPrefix: string = "geometry";
+  protected __groupPrefix: string = "geometry";
 
-  private name: string;
+  private _name: string;
 
-  private primitiveRegistory: PrimitiveRegistory = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
+  private _primitiveRegistory: PrimitiveRegistory = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
 
   constructor() {
     super();
@@ -25,27 +25,27 @@ abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<
     });
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
-  protected abstract constructGeometry(name: string);
+  protected abstract __constructGeometry(name: string): any;
 
   private _onNameAttrChanged(attr: GomlAttribute): void {
     const name = attr.Value;
     if (typeof name !== "string") {
       throw Error(`${this.getTypeName()}: name attribute must be required.`);
     }
-    if (this.name !== name) {
-      if (typeof this.name !== "undefined" && this.primitiveRegistory.getPrimitive(this.name)) {
-        this.primitiveRegistory.deregisterPrimitive(this.name);
+    if (this._name !== name) {
+      if (typeof this._name !== "undefined" && this._primitiveRegistory.getPrimitive(this._name)) {
+        this._primitiveRegistory.deregisterPrimitive(this._name);
       }
-      this.name = name;
-      this.target = this.constructGeometry(this.name);
+      this._name = name;
+      this.target = this.__constructGeometry(this._name);
       if (this.target) {
-        this.primitiveRegistory.registerPrimitive(this.name, this.target);
-        console.log("registered", this.name);
-        this.nodeExport(this.name);
+        this._primitiveRegistory.registerPrimitive(this._name, this.target);
+        console.log("registered", this._name);
+        this.nodeExport(this._name);
       }
     }
     attr.done();

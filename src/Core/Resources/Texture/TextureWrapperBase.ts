@@ -4,27 +4,27 @@ import Canvas from "../../Canvas/Canvas";
 import {Func3} from "../../../Base/Delegates";
 class TextureWrapperBase extends ResourceWrapper {
 
-  protected static altTextureBuffer: Uint8Array = new Uint8Array([255, 0, 255, 255]);
-  private targetTexture: WebGLTexture = null;
-  private parent: TextureBase;
+  protected static __altTextureBuffer: Uint8Array = new Uint8Array([255, 0, 255, 255]);
+  private _targetTexture: WebGLTexture = null;
+  private _parent: TextureBase;
 
   constructor(owner: Canvas, parent: TextureBase) {
     super(owner);
-    this.parent = parent;
-    this.parent.onFilterParameterChanged(this.applyTextureParameter.bind(this));
+    this._parent = parent;
+    this._parent.onFilterParameterChanged(this._applyTextureParameter.bind(this));
   }
 
   public get Parent(): TextureBase {
-    return this.parent;
+    return this._parent;
   }
 
   public get TargetTexture(): WebGLTexture {
-    return this.targetTexture;
+    return this._targetTexture;
   }
 
-  public bind() {
-    if (this.targetTexture != null) {
-      this.GL.bindTexture(this.Parent.TargetTextureType, this.targetTexture);
+  public bind(): void {
+    if (this._targetTexture != null) {
+      this.GL.bindTexture(this.Parent.TargetTextureType, this._targetTexture);
     } else {
       this.GL.bindTexture(this.Parent.TargetTextureType, null);
     }
@@ -33,20 +33,20 @@ class TextureWrapperBase extends ResourceWrapper {
   public registerTexture(registerIndex: number): boolean {
     if (this.TargetTexture == null) {
       this.GL.activeTexture(WebGLRenderingContext.TEXTURE0 + registerIndex);
-      this.GL.bindTexture(this.parent.TargetTextureType, null);
+      this.GL.bindTexture(this._parent.TargetTextureType, null);
       return false;
     }
     this.GL.activeTexture(WebGLRenderingContext.TEXTURE0 + registerIndex);
-    this.applyTextureParameter();
+    this._applyTextureParameter();
     return true;
   }
 
-  public init() {
+  public init(): void {
     return;
   }
 
-  public preTextureUpload() {
-    if (this.parent.FlipY) {
+  public preTextureUpload(): void {
+    if (this._parent.FlipY) {
       this.GL.pixelStorei(WebGLRenderingContext.UNPACK_FLIP_Y_WEBGL, 1);
     } else {
       this.GL.pixelStorei(WebGLRenderingContext.UNPACK_FLIP_Y_WEBGL, 0);
@@ -58,10 +58,10 @@ class TextureWrapperBase extends ResourceWrapper {
   }
 
   public dispose(): void {
-    if (this.targetTexture) {
-      this.GL.deleteTexture(this.targetTexture);
-      this.setInitialized(false);
-      this.targetTexture = null;
+    if (this._targetTexture) {
+      this.GL.deleteTexture(this._targetTexture);
+      this.__setInitialized(false);
+      this._targetTexture = null;
     }
   }
 
@@ -69,23 +69,23 @@ class TextureWrapperBase extends ResourceWrapper {
     const result = new Uint8Array(4);
     const frameBuffer = this.GL.createFramebuffer();
     this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, frameBuffer);
-    this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this.targetTexture, 0);
+    this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this._targetTexture, 0);
     this.GL.readPixels(x, y, 1, 1, this.GL.RGBA, this.Parent.ElementFormat, result);
     this.GL.deleteFramebuffer(frameBuffer);
     return result;
   }
 
-  protected setTargetTexture(texture: WebGLTexture) {
-    this.targetTexture = texture;
+  protected __setTargetTexture(texture: WebGLTexture): void {
+    this._targetTexture = texture;
   }
 
 
-  protected encodeHtmlImage(width: number, height: number, encode?: Func3<number, number, ArrayBufferView, Uint8Array>) {
+  protected __encodeHtmlImage(width: number, height: number, encode?: Func3<number, number, ArrayBufferView, Uint8Array>): any {
     const lastFBO = this.GL.getParameter(this.GL.FRAMEBUFFER_BINDING);
     // Create framebuffer to transfer texture data
     const framebuffer = this.GL.createFramebuffer();
     this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, framebuffer);
-    this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this.targetTexture, 0);
+    this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, this.GL.COLOR_ATTACHMENT0, this.GL.TEXTURE_2D, this._targetTexture, 0);
     let data: ArrayBufferView;
     let dataArrayConstructor: any;
     let transformFunc;
@@ -181,15 +181,15 @@ class TextureWrapperBase extends ResourceWrapper {
   /**
    * apply texture parameters
    */
-  private applyTextureParameter() {
-    if (this.targetTexture == null) {
+  private _applyTextureParameter(): void {
+    if (this._targetTexture == null) {
       return;
     }
     this.bind();
-    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MIN_FILTER, this.parent.MinFilter);
-    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MAG_FILTER, this.parent.MagFilter);
-    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_S, this.parent.SWrap);
-    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_T, this.parent.TWrap);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MIN_FILTER, this._parent.MinFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_MAG_FILTER, this._parent.MagFilter);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_S, this._parent.SWrap);
+    this.GL.texParameteri(this.Parent.TargetTextureType, WebGLRenderingContext.TEXTURE_WRAP_T, this._parent.TWrap);
   }
 
 }

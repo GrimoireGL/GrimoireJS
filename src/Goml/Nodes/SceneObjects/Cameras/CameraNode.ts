@@ -36,12 +36,12 @@ class CameraNode extends CameraNodeBase<PerspectiveCamera> {
     });
   }
 
-  protected ConstructCamera(): PerspectiveCamera {
+  protected __constructCamera(): PerspectiveCamera {
     return new PerspectiveCamera();
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
   public get Fovy(): number {

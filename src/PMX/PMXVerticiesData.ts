@@ -1,6 +1,6 @@
-import PmxVertex from "./PMXVertex";
+import PmxVertex from "./PMXVertexData";
 
-interface PMXVerticies {
+interface PMXVerticiesData {
   positions: number[];
   normals: Float32Array;
   uvs: number[];
@@ -11,4 +11,4 @@ interface PMXVerticies {
   verticies: PmxVertex[];
 }
 
-export default PMXVerticies;
+export default PMXVerticiesData;

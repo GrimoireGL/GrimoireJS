@@ -8,7 +8,7 @@ class DebuggerSceneTree extends React.Component
   render:->
     children = [];
     for v in @props.structure
-      children.push(<SceneTreeNode children={v.children} nodeLabel={v.name} key={v.ID} selectionChanged={@props.selectionChanged} target={v}/>)
+      children.push(<SceneTreeNode children={v._children} nodeLabel={v.name} key={v.ID} selectionChanged={@props.selectionChanged} target={v}/>)
     <div>
       {children}
     </div>

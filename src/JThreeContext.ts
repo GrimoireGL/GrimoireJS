@@ -12,12 +12,12 @@ class JThreeContext {
   /**
    * Registered context component references
    */
-  private contextComponents: { [index: number]: any } = {};
+  private _contextComponents: { [index: number]: any } = {};
 
   /**
    * Initialize jThreeContext to be used.
    */
-  public static init() {
+  public static init(): void {
     if (window) { // for head-less test
       if (!window.j3.context) {
         window.j3.context = new JThreeContext();
@@ -30,10 +30,10 @@ class JThreeContext {
    * @param  {IContextComponent} contextComponent context component you want to register
    */
   public static registerContextComponent(contextComponent: IContextComponent): void {
-    if (JThreeContext.context.contextComponents[contextComponent.getContextComponentIndex()]) {
+    if (JThreeContext.context._contextComponents[contextComponent.getContextComponentIndex()]) {
       console.warn("Reregisteration of context component");
     }
-    JThreeContext.context.contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
+    JThreeContext.context._contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
   }
 
   /**
@@ -42,7 +42,7 @@ class JThreeContext {
    * @return {IContextComponent}      context component related to the argument
    */
   public static getContextComponent<T>(index: number): T {
-    return JThreeContext.context.contextComponents[index];
+    return JThreeContext.context._contextComponents[index];
   }
 
   private static get context(): JThreeContext {

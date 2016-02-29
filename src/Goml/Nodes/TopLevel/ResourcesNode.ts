@@ -1,6 +1,6 @@
 import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
 class ResourcesNode extends OrderedTopLevelNodeBase {
-  protected groupPrefix: string = "resource";
+  protected __groupPrefix: string = "resource";
 
   constructor() {
     super();

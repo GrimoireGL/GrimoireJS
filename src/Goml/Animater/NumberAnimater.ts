@@ -1,8 +1,8 @@
 import AnimagterBase from "./AnimaterBase";
 class NumberAnimater extends AnimagterBase {
 
-  protected updateAnimation(progress: number): void {
-    this.targetAttribute.Value = this.easingFunction.Ease(this.beginValue, this.endValue, progress);
+  protected __updateAnimation(progress: number): void {
+    this.__targetAttribute.Value = this.__easingFunction.ease(this.__beginValue, this.__endValue, progress);
   }
 }
 
