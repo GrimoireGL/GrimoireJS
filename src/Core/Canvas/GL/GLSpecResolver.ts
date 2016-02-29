@@ -1,6 +1,6 @@
-import JThreeContext from "../../JThreeContext";
-import CanvasManager from "./CanvasManager";
-import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+import CanvasManager from "../CanvasManager";
+import ContextComponents from "../../../ContextComponents";
 class GLSpecResolver {
 
   private static _maxCombinedTextureUnits: number;
