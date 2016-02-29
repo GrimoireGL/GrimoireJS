@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/PMX/Core/PMXBoneTransformer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">lib/PMX/Core/</a> PMXBoneTransformer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.82% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/157</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.08% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/118</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Transformer2 = require("../../Core/Transform/Transformer");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Transformer3 = _interopRequireDefault(_Transformer2);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _glMatrix = require("gl-matrix");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Quaternion = require("../../Math/Quaternion");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Quaternion2 = _interopRequireDefault(_Quaternion);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector = require("../../Math/Vector3");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector2 = _interopRequireDefault(_Vector);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Matrix = require("../../Math/Matrix");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Matrix2 = _interopRequireDefault(_Matrix);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _possibleConstructorReturn(self, call) {</span> <span class="cstat-no" title="statement not covered" >if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} <span class="cstat-no" title="statement not covered" ></span>return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
+&nbsp;
+/**
+ * Bone transformer for pmx
+ */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var PMXBoneTransformer = <span class="fstat-no" title="function not covered" >function (_Transformer) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(PMXBoneTransformer, _Transformer);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function PMXBoneTransformer(sceneObj, pmx, index) {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, PMXBoneTransformer);</span>
+&nbsp;
+        /**
+         * Quaternion produced from manual operation,bone animation.(except bone morphs)
+         * @type {Quaternion}
+         */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PMXBoneTransformer).call(this, sceneObj));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _this.userRotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >        _this.transformUpdated = false;</span>
+        /**
+           * Translation vector produced from manual operation,bone animation.
+           * @type {Vector3}
+           */
+<span class="cstat-no" title="statement not covered" >        _this.userTranslation = _Vector2.default.Zero;</span>
+        /**
+         * Whether this bone transformer is IKLink or not.
+         * This variable will be assigned by PMXSkeleton after loading all bones.
+         * @type {boolean}
+         */
+<span class="cstat-no" title="statement not covered" >        _this.isIKLink = false;</span>
+        /**
+         * Quaternion produced from bone morphs.
+         * @type {Quaternion}
+         */
+<span class="cstat-no" title="statement not covered" >        _this._morphRotation = _Quaternion2.default.Identity;</span>
+        /**
+         * Translation vector produced from bone morphs.
+         * @type {Vector3}
+         */
+<span class="cstat-no" title="statement not covered" >        _this._morphTranslation = _Vector2.default.Zero;</span>
+        /**
+         * Quaternion that will be used for calculating rotation providing for child bones.
+         * @type {Quaternion}
+         */
+<span class="cstat-no" title="statement not covered" >        _this._providingBoneRotation = _Quaternion2.default.Identity;</span>
+        /**
+         * Translation vector that will be used for calculating translation providing for child bones.
+         * @type {Vector3}
+         */
+<span class="cstat-no" title="statement not covered" >        _this._providingBoneTranslation = _Vector2.default.Zero;</span>
+        /**
+         * Quaternion produced from rotation of IK link.
+         * @type {Quaternion}
+         */
+<span class="cstat-no" title="statement not covered" >        _this._ikLinkRotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >        _this._pmx = pmx;</span>
+<span class="cstat-no" title="statement not covered" >        _this._boneIndex = index;</span>
+<span class="cstat-no" title="statement not covered" >        return _this;</span>
+    }
+    /**
+     * Reference to static model data.
+     */
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(PMXBoneTransformer, [{</span>
+        key: "updateTransform",
+        value: <span class="fstat-no" title="function not covered" >function updateTransform() {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(PMXBoneTransformer.prototype), "updateTransform", this).call(this);</span>
+        }
+    }, {
+        key: "updateTransformForPMX",
+        value: <span class="fstat-no" title="function not covered" >function updateTransformForPMX() {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._pmx == null) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this._updateLocalTranslation();</span>
+<span class="cstat-no" title="statement not covered" >            if (this.IsIKBone &amp;&amp; this._pmx.skeleton) {</span>
+<span class="cstat-no" title="statement not covered" >                this._applyCCDIK();</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                this._updateLocalRotation();</span>
+<span class="cstat-no" title="statement not covered" >                _get(Object.getPrototypeOf(PMXBoneTransformer.prototype), "updateTransform", this).call(this);</span>
+            }
+        }
+        /**
+         * Calculate actual rotation quaternion.
+         * This operation not affects any other bones.(Even if the bone was child bone)
+         * @return {[type]} [description]
+         */
+&nbsp;
+    }, {
+        key: "_updateLocalRotation",
+        value: <span class="fstat-no" title="function not covered" >function _updateLocalRotation() {</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.identity(this.Rotation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            if (this.IsRotationProvidingBone) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this.IsLocalProvidingBone) {</span>
+                    // TODO Do something when this bone is local providing bone
+<span class="cstat-no" title="statement not covered" >                    console.error("Local providing is not implemented yet!");</span>
+                }
+<span class="cstat-no" title="statement not covered" >                if (this.ProvidingBoneTransformer.isIKLink) {</span>
+                    // Interpolate ikLink rotation with providing rate
+<span class="cstat-no" title="statement not covered" >                    _glMatrix.quat.slerp(this.Rotation.rawElements, this.Rotation.rawElements, this.ProvidingBoneTransformer._ikLinkRotation.rawElements, this.BoneData.providingRate);</span>
+                }
+            }
+            // Multiply local rotations of this bone
+<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.userRotation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this._morphRotation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            if (this.IsRotationProvidingBone) {</span>
+<span class="cstat-no" title="statement not covered" >                _glMatrix.quat.copy(this._providingBoneRotation.rawElements, this.Rotation.rawElements);</span>
+            }
+            // Calculate IkLink rotation of this bone
+<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this._ikLinkRotation.rawElements);</span>
+        }
+        /**
+         * Calculate actual translation vector.
+         * This operation not affects any other bones.(Even if the bone was child bone)
+         * @return {[type]} [description]
+         */
+&nbsp;
+    }, {
+        key: "_updateLocalTranslation",
+        value: <span class="fstat-no" title="function not covered" >function _updateLocalTranslation() {</span>
+<span class="cstat-no" title="statement not covered" >            this.Position.rawElements[0] = 0;</span>
+<span class="cstat-no" title="statement not covered" >            this.Position.rawElements[1] = 0;</span>
+<span class="cstat-no" title="statement not covered" >            this.Position.rawElements[2] = 0;</span>
+<span class="cstat-no" title="statement not covered" >            if (this.IsTranslationProvidingBone) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this.IsLocalProvidingBone) {</span>
+                    // Do something when this bone is local providing bone
+<span class="cstat-no" title="statement not covered" >                    console.error("Local providing is not implemented yet!");</span>
+                }
+<span class="cstat-no" title="statement not covered" >                _glMatrix.vec3.lerp(this.Position.rawElements, this.Position.rawElements, this.ProvidingBone.Transformer.Position.rawElements, this.BoneData.providingRate);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            _glMatrix.vec3.add(this.Position.rawElements, this.Position.rawElements, this.userTranslation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.vec3.add(this.Position.rawElements, this.Position.rawElements, this._morphTranslation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            if (this.IsTranslationProvidingBone) {</span>
+<span class="cstat-no" title="statement not covered" >                _glMatrix.vec3.copy(this._providingBoneTranslation.rawElements, this.Position.rawElements);</span>
+            }
+        }
+    }, {
+        key: "_applyCCDIK",
+        value: <span class="fstat-no" title="function not covered" >function _applyCCDIK() {</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.BoneData.ikLinkCount; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var link = this._getIkLinkTransformerByIndex(i);</span>
+<span class="cstat-no" title="statement not covered" >                link._ikLinkRotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >                link.updateTransformForPMX();</span>
+            }
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.BoneData.ikLoopCount; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                this._cCDIKOperation(i);</span>
+            }
+        }
+    }, {
+        key: "_cCDIKOperation",
+        value: <span class="fstat-no" title="function not covered" >function _cCDIKOperation(it) {</span>
+<span class="cstat-no" title="statement not covered" >            var effectorTransformer = this._pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;</span>
+<span class="cstat-no" title="statement not covered" >            var TargetGlobalPos = _Matrix2.default.transformPoint(this.LocalToGlobal, this.LocalOrigin);</span>
+            // vec3.transformMat4(this._pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.BoneData.ikLinkCount; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var ikLinkData = this.BoneData.ikLinks[i];</span>
+<span class="cstat-no" title="statement not covered" >                var ikLinkTransform = this._getIkLinkTransformerByIndex(i);</span>
+<span class="cstat-no" title="statement not covered" >                var link2Effector = this._getLink2Effector(ikLinkTransform, effectorTransformer);</span>
+<span class="cstat-no" title="statement not covered" >                var link2Target = this._getLink2Target(ikLinkTransform, TargetGlobalPos);</span>
+<span class="cstat-no" title="statement not covered" >                this._ikLinkCalc(ikLinkTransform, link2Effector, link2Target, this.BoneData.ikLimitedRotation, ikLinkData, it);</span>
+            }
+        }
+    }, {
+        key: "_getLink2Effector",
+        value: <span class="fstat-no" title="function not covered" >function _getLink2Effector(link, effector) {</span>
+<span class="cstat-no" title="statement not covered" >            var ToLinkLocal = _Matrix2.default.inverse(link.LocalToGlobal);</span>
+<span class="cstat-no" title="statement not covered" >            var ep = effector.LocalOrigin;</span>
+<span class="cstat-no" title="statement not covered" >            var local2effectorLocal = _Matrix2.default.multiply(ToLinkLocal, effector.LocalToGlobal);</span>
+<span class="cstat-no" title="statement not covered" >            var effectorPos = _Matrix2.default.transformPoint(local2effectorLocal, ep);</span>
+<span class="cstat-no" title="statement not covered" >            return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();</span>
+        }
+    }, {
+        key: "_getLink2Target",
+        value: <span class="fstat-no" title="function not covered" >function _getLink2Target(link, tp) {</span>
+<span class="cstat-no" title="statement not covered" >            var ToLinkLocal = _Matrix2.default.inverse(link.LocalToGlobal);</span>
+<span class="cstat-no" title="statement not covered" >            var effectorPos = _Matrix2.default.transformPoint(ToLinkLocal, tp);</span>
+<span class="cstat-no" title="statement not covered" >            return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();</span>
+        }
+    }, {
+        key: "_ikLinkCalc",
+        value: <span class="fstat-no" title="function not covered" >function _ikLinkCalc(link, effector, target, rotationLimit, ikLink, it) {</span>
+            // Calculate rotation angle
+<span class="cstat-no" title="statement not covered" >            var dot = _Vector2.default.dot(effector, target);</span>
+<span class="cstat-no" title="statement not covered" >            if (dot &gt; 1.0) {</span>
+<span class="cstat-no" title="statement not covered" >                dot = 1.0; </span>// adjust error (if dot was over 1.0, acos(dot) will be NaN. Then, it cause some of bug)
+            }
+<span class="cstat-no" title="statement not covered" >            var rotationAngle = this._clampFloat(Math.acos(dot), rotationLimit);</span>
+<span class="cstat-no" title="statement not covered" >            if (isNaN(rotationAngle)) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (rotationAngle &lt;= 1.0e-3) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+            // Calculate rotation axis of rotation
+<span class="cstat-no" title="statement not covered" >            var rotationAxis = _Vector2.default.cross(effector, target).normalizeThis();</span>
+            // Generate the rotation matrix rotating along the axis
+<span class="cstat-no" title="statement not covered" >            var rotation = _Quaternion2.default.angleAxis(rotationAngle, rotationAxis);</span>
+            // link.updateTransform();
+            // Rotation = (_providingBoneRotation) * userRotation * _morphRotation * ikLinkRotation
+            // RestrictedRotation = Rotation * ikLinkAdjust
+            // ikLinkAdust = (Rotation) ^ -1 * RestrictedRotation
+<span class="cstat-no" title="statement not covered" >            var restrictedRotation = this._restrictRotation(ikLink, rotation);</span>
+<span class="cstat-no" title="statement not covered" >            link._ikLinkRotation = _Quaternion2.default.multiply(link._ikLinkRotation, restrictedRotation);</span>
+<span class="cstat-no" title="statement not covered" >            link.updateTransformForPMX();</span>
+            // link.updateTransformMatricies();
+        }
+    }, {
+        key: "_getIkLinkTransformerByIndex",
+        value: <span class="fstat-no" title="function not covered" >function _getIkLinkTransformerByIndex(index) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._pmx.skeleton.getBoneByIndex(this.BoneData.ikLinks[index].ikLinkBoneIndex).Transformer;</span>
+        }
+    }, {
+        key: "_restrictRotation",
+        value: <span class="fstat-no" title="function not covered" >function _restrictRotation(link, rot) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!link.isLimitedRotation) {</span>
+<span class="cstat-no" title="statement not covered" >                return rot; </span>// If this link bone is not enabled with rotation limit,just return.
+            }
+<span class="cstat-no" title="statement not covered" >            var decomposed = rot.factoringQuaternionXYZ();</span>
+<span class="cstat-no" title="statement not covered" >            var xRotation = Math.max(link.limitedRotation[0], Math.min(link.limitedRotation[3], -decomposed.x));</span>
+<span class="cstat-no" title="statement not covered" >            var yRotation = Math.max(link.limitedRotation[1], Math.min(link.limitedRotation[4], -decomposed.y));</span>
+<span class="cstat-no" title="statement not covered" >            var zRotation = Math.max(link.limitedRotation[2], Math.min(link.limitedRotation[5], decomposed.z));</span>
+<span class="cstat-no" title="statement not covered" >            return _Quaternion2.default.eulerXYZ(-xRotation, -yRotation, zRotation);</span>
+        }
+    }, {
+        key: "_clampFloat",
+        value: <span class="fstat-no" title="function not covered" >function _clampFloat(f, limit) {</span>
+<span class="cstat-no" title="statement not covered" >            return Math.max(Math.min(f, limit), -limit);</span>
+        }
+    }, {
+        key: "PMXModelData",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this._pmx.ModelData;</span>
+        }
+    }, {
+        key: "BoneData",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.PMXModelData.Bones[this._boneIndex];</span>
+        }
+    }, {
+        key: "ProvidingBone",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this._pmx.skeleton.getBoneByIndex(this.BoneData.providingBoneIndex);</span>
+        }
+    }, {
+        key: "ProvidingBoneTransformer",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.ProvidingBone.Transformer;</span>
+        }
+    }, {
+        key: "IsLocalProvidingBone",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return (this.BoneData.boneFlag &amp; 0x0080) &gt; 0;</span>
+        }
+    }, {
+        key: "IsRotationProvidingBone",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return (this.BoneData.boneFlag &amp; 0x0100) &gt; 0;</span>
+        }
+    }, {
+        key: "IsTranslationProvidingBone",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return (this.BoneData.boneFlag &amp; 0x0200) &gt; 0;</span>
+        }
+    }, {
+        key: "IsIKBone",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return (this.BoneData.boneFlag &amp; 0x0020) &gt; 0;</span>
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return PMXBoneTransformer;</span>
+}(_Transformer3.default);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = PMXBoneTransformer;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 12:19:54 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
