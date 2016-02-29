@@ -3,7 +3,8 @@
     "target": "es6",
     "module": "es6",
     "noImplicitAny": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "module": "es6"
   },
   "filesGlob": [
     "./src/**/*.ts"
@@ -60,9 +61,12 @@
     "./src/Core/ISceneObjectChangedEventArgs.ts",
     "./src/Core/LoopManager.ts",
     "./src/Core/Materials/Base/BasicMaterial.ts",
+    "./src/Core/Materials/Base/ConditionBlock.ts",
     "./src/Core/Materials/Base/DefaultValuePreProcessor.ts",
     "./src/Core/Materials/Base/IApplyMaterialArgument.ts",
     "./src/Core/Materials/Base/IArgumentDescription.ts",
+    "./src/Core/Materials/Base/IConditionChecker.ts",
+    "./src/Core/Materials/Base/IConditionRegister.ts",
     "./src/Core/Materials/Base/IFunctionDescription.ts",
     "./src/Core/Materials/Base/IProgramDescription.ts",
     "./src/Core/Materials/Base/IVariableDescription.ts",
