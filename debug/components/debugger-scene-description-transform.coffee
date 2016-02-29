@@ -5,9 +5,9 @@ class DebuggerSceneDescriptionTransform extends React.Component
     super props
     @lastObject = @props.object;
     @state=
-      position:@lastObject.transformer.position
-      rotation:@obtainEular(@lastObject.transformer.rotation)
-      scale:@lastObject.transformer.scale
+      position:@lastObject.__transformer._position
+      rotation:@obtainEular(@lastObject.__transformer._rotation)
+      scale:@lastObject.__transformer._scale
   render:->
     <div>
       <Vector3 title="position" value={@state.position} onValueChanged={@onPositionChange}/>
@@ -16,26 +16,26 @@ class DebuggerSceneDescriptionTransform extends React.Component
     </div>
 
   onPositionChange:(n,v)=>
-    @props.object.transformer.position[n] = v
-    @props.object.transformer.updateTransform()
+    @props.object.__transformer._position[n] = v
+    @props.object.__transformer.updateTransform()
     @updateObjectState @props.object
 
   onRotationChange:(n,v)=>
-    eul = @obtainEular @props.object.transformer.rotation
+    eul = @obtainEular @props.object.__transformer._rotation
     eul[n] = v
     @state.rotation[n] = v
     @setState @state
     eul.X = @fromDegree eul.X
     eul.Y = @fromDegree eul.Y
     eul.Z = @fromDegree eul.Z
-    @props.object.transformer.rotation.eularAngles = eul
+    @props.object.__transformer._rotation.eularAngles = eul
     @isRotationChange = true
-    @props.object.transformer.updateTransform()
+    @props.object.__transformer.updateTransform()
 
 
   onScaleChange:(n,v)=>
-    @props.object.transformer.scale[n] = v
-    @props.object.transformer.updateTransform()
+    @props.object.__transformer._scale[n] = v
+    @props.object.__transformer.updateTransform()
     @updateObjectState @props.object
 
   onTransformUpdate:()=>
@@ -43,19 +43,19 @@ class DebuggerSceneDescriptionTransform extends React.Component
 
   componentWillReceiveProps:(prop)=>
     if @lastObject && @lastObject!=@props.object
-      @lastObject.transformer.onUpdateTransformHandler.removeListener @onTransformUpdate
+      @lastObject.__transformer.onUpdateTransformHandler.removeListener @onTransformUpdate
       @lastObject = @props.object
-      @lastObject.transformer.onUpdateTransformHandler.addListener @onTransformUpdate
+      @lastObject.__transformer.onUpdateTransformHandler.addListener @onTransformUpdate
     @updateObjectState prop.object
 
   updateObjectState:(obj)=>
     @setState
-      position:obj.transformer.position
-      rotation:@obtainEular obj.transformer.rotation
-      scale:obj.transformer.scale
+      position:obj.__transformer._position
+      rotation:@obtainEular obj.__transformer._rotation
+      scale:obj.__transformer._scale
 
   obtainEular:(quat)=>
-    eul = quat.FactoringQuaternionZXY()
+    eul = quat.factoringQuaternionZXY()
     {X:@toDegree(eul.x),Y:@toDegree(eul.y),Z:@toDegree(eul.z)}
 
   copyXYZ:(s)=>
