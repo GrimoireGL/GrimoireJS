@@ -89,7 +89,8 @@ class MaterialManager implements IContextComponent {
     }
     return matName;
   }
-  public registerCondition(type: string, checker: IConditionChecker) {
+
+  public registerCondition(type: string, checker: IConditionChecker): void {
     // TODO:implement
   }
   public getConditionChecker(type: string): IConditionChecker {

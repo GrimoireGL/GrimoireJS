@@ -2,25 +2,25 @@ import IConditionRegister from "./IConditionRegister";
 import JSON5 from "json5";
 
 class ConditionBlock {
-  private type: string;
-  private condition: JSON;
-  private isPlain: boolean;
-  private isRoot: boolean;
-  private children: ConditionBlock[];
-  private content: string;
+  private _type: string;
+  private _condition: JSON;
+  private _isPlain: boolean;
+  private _isRoot: boolean;
+  private _children: ConditionBlock[];
+  private _content: string;
 
   constructor(condition: JSON, children: ConditionBlock[], isPlain: boolean, content: string) {
-    this.children = children;
-    this.condition = condition;
+    this._children = children;
+    this._condition = condition;
     if (condition != null) {
-      this.type = condition["type"];
+      this._type = condition["type"];
     }
-    this.isPlain = isPlain;
-    this.content = content;
+    this._isPlain = isPlain;
+    this._content = content;
   }
   public static parseCondition(source: string): ConditionBlock {
     let ret = new ConditionBlock(null, ConditionBlock._parseCondition(source), false, null);
-    ret.isRoot = true;
+    ret._isRoot = true;
     return ret;
   }
 
@@ -28,7 +28,7 @@ class ConditionBlock {
     let ret: ConditionBlock[] = [];
     const found = source.indexOf("@Condition(", 0);
     if (found < 0) {
-      ret.push(ConditionBlock.createPlain(source));
+      ret.push(ConditionBlock._createPlain(source));
       return ret; // When there was no more found
     }
 
@@ -56,12 +56,12 @@ class ConditionBlock {
     let jsonCondition: JSON = JSON5.parse(condition);
     let content: string = source.substring(beginContentPoint + 1, endContentPoint);
     let after: string = source.substring(endContentPoint + 1, source.length);
-    ret.push(ConditionBlock.createPlain(before));
+    ret.push(ConditionBlock._createPlain(before));
     ret.push(new ConditionBlock(jsonCondition, ConditionBlock._parseCondition(content), false, null));
     ret = ret.concat(ConditionBlock._parseCondition(after));
     return ret;
   }
-  private static createPlain(content: string) {
+  private static _createPlain(content: string): ConditionBlock {
     return new ConditionBlock(null, [], true, content);
   }
   private static _getEndBracketIndex(source: string, startIndex: number, beginBracket: string, endBracket: string): number {
@@ -102,26 +102,26 @@ class ConditionBlock {
 
   public resolve(conditionRegister: IConditionRegister): string {
 
-    if (!this.isRoot) {
+    if (!this._isRoot) {
 
 
-      if (this.isPlain) {
-        return this.content;
+      if (this._isPlain) {
+        return this._content;
       }
 
-      let cc = conditionRegister.getConditionChecker(this.type);
+      let cc = conditionRegister.getConditionChecker(this._type);
       if (cc == null) {
         return "";
       }
 
-      if (!cc.checkCondition(this.condition)) {
+      if (!cc.checkCondition(this._condition)) {
         return "";
       }
 
     }
     let ret = "";
-    for (let i = 0; i < this.children.length; i++) {
-      ret = ret + this.children[i].resolve(conditionRegister);
+    for (let i = 0; i < this._children.length; i++) {
+      ret = ret + this._children[i].resolve(conditionRegister);
     }
     return ret;
   }
