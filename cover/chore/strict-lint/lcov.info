@@ -27810,7 +27810,7 @@ FN:7,(anonymous_3)
 FN:9,_classCallCheck
 FN:15,(anonymous_5)
 FN:16,ExtensionResolverBase
-FN:22,requestExtensionWithWarning
+FN:22,__requestExtensionWithWarning
 FNF:7
 FNH:0
 FNDA:0,(anonymous_1)
@@ -27819,7 +27819,7 @@ FNDA:0,(anonymous_3)
 FNDA:0,_classCallCheck
 FNDA:0,(anonymous_5)
 FNDA:0,ExtensionResolverBase
-FNDA:0,requestExtensionWithWarning
+FNDA:0,__requestExtensionWithWarning
 DA:3,0
 DA:7,1
 DA:9,1
