@@ -128,6 +128,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_base_idisposable_.idisposable.html" class="tsd-signature-type">IDisposable</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -154,6 +160,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#___assignattributeifexists" class="tsd-kind-icon">___assign<wbr>Attribute<wbr>IfExists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#dispose" class="tsd-kind-icon">dispose</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#drawwireframe" class="tsd-kind-icon">draw<wbr>Wireframe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_core_geometries_base_basicgeometry_.basicgeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a></li>
@@ -235,7 +242,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#primitivetopology">primitiveTopology</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L11">Core/Geometries/Base/Geometry.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L12">Core/Geometries/Base/Geometry.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -273,7 +280,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#geometryoffset">GeometryOffset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L12">Core/Geometries/Base/Geometry.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L13">Core/Geometries/Base/Geometry.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -294,7 +301,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#___assignattributeifexists">___assignAttributeIfExists</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L22">Core/Geometries/Base/Geometry.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L23">Core/Geometries/Base/Geometry.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -382,6 +389,25 @@
 									</ul>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_idisposable_.idisposable.html">IDisposable</a>.<a href="../interfaces/_base_idisposable_.idisposable.html#dispose">dispose</a></p>
+								<p>Overwrites <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#dispose">dispose</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/BasicGeometry.ts#L34">Core/Geometries/Base/BasicGeometry.ts:34</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -582,6 +608,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
 								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
+								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#dispose" class="tsd-kind-icon">dispose</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
 								<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a>
