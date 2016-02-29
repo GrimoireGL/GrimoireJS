@@ -59,8 +59,7 @@ class CoverTask
           .pipe mocha()
           .pipe istanbul.writeReports()
       when 'ci:cover'
-        gulp.src ['coverage/**/*.*'],
-          base:'coverage'
+        gulp.src ['coverage/**/*.*']
           .pipe gulp.dest 'ci/cover/'+config.branch
 
 module.exports = CoverTask
