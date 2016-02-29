@@ -5,10 +5,10 @@ class VAO extends ContextSafeResourceContainer<VAOWrapper> {
 
   constructor() {
     super();
-    this.initializeForFirst();
+    this.__initializeForFirst();
   }
 
-  protected createWrapperForCanvas(canvas: Canvas): VAOWrapper {
+  protected __createWrapperForCanvas(canvas: Canvas): VAOWrapper {
     return new VAOWrapper(canvas, this);
   }
 

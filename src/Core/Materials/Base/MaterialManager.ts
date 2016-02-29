@@ -64,7 +64,7 @@ class MaterialManager implements IContextComponent {
     return this._chunkLoader.fromCache(key);
   }
 
-  public addUniformRegister(registerer: new () => RegistererBase) {
+  public addUniformRegister(registerer: new () => RegistererBase): void {
     this._uniformRegisters[registerer.prototype["getName"]() as string] = registerer;
   }
 

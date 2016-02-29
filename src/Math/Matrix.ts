@@ -28,12 +28,12 @@ class Matrix extends MatrixBase {
     return new Matrix([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]);
   }
 
-  public static fromFunc(f: Func2<number, number, number>) {
+  public static fromFunc(f: Func2<number, number, number>): Matrix {
     return new Matrix([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]);
   }
 
-  public static equal(m1: Matrix, m2: Matrix): boolean {
-    return Matrix.elementEqual(m1, m2);
+  public static equals(m1: Matrix, m2: Matrix): boolean {
+    return Matrix.__elementEquals(m1, m2);
   }
 
   public static add(m1: Matrix, m2: Matrix): Matrix {
@@ -59,7 +59,7 @@ class Matrix extends MatrixBase {
     return new Matrix(mat4.mul(newMat, m1.rawElements, m2.rawElements));
   }
 
-  public static TRS(t: Vector3, rot: Quaternion, s: Vector3): Matrix {
+  public static trs(t: Vector3, rot: Quaternion, s: Vector3): Matrix {
     const newMat = mat4.create(); const cacheMat = mat4.create();
     mat4.mul(newMat, mat4.translate(newMat, mat4.create(), t.rawElements), mat4.fromQuat(cacheMat, rot.rawElements));
     mat4.scale(newMat, newMat, s.rawElements);
@@ -148,7 +148,7 @@ class Matrix extends MatrixBase {
     return new Matrix(newMat);
   }
 
-  public static RotationQuaternion(quat_: Quaternion): Matrix {
+  public static rotationQuaternion(quat_: Quaternion): Matrix {
     const quaternion = quat.create();
     const newMat = mat4.create();
     quat.normalize(quaternion, quat_.rawElements);
@@ -184,7 +184,7 @@ class Matrix extends MatrixBase {
     return this.rawElements[colmun * 4 + row];
   }
 
-  public setAt(row: number, colmun: number, val: number) {
+  public setAt(row: number, colmun: number, val: number): void {
     this.rawElements[colmun * 4 + row] = val;
   }
 

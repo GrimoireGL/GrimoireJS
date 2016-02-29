@@ -13,7 +13,7 @@ class OrthoCamera extends ViewCamera {
         this._updateProjectionMatrix();
     }
 
-    private _updateProjectionMatrix() {
+    private _updateProjectionMatrix(): void {
         mat4.ortho(this.projectionMatrix.rawElements, this.Left, this.Right, this.Bottom, this.Top, this.Near, this.Far);
         mat4.invert(this.invProjectionMatrix.rawElements, this.projectionMatrix.rawElements);
         this.__updateViewProjectionMatrix();

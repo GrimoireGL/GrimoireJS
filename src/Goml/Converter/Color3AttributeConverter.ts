@@ -15,7 +15,7 @@ class Color3AttributeConverter extends AttributeConverterBase {
     return Color3.parse(attr);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
+  public getAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new Color3Animater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }

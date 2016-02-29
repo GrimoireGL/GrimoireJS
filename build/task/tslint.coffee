@@ -10,6 +10,7 @@ class TsLint
     gulp.src [].concat config.tsEntries, ignoreEntries.map((v) -> "!#{v}")
       .pipe tslint
         configuration: './tslint.json'
+        rulesDirectory: './lint/rules/'
       .pipe tslint.report 'verbose'
 
 module.exports = TsLint

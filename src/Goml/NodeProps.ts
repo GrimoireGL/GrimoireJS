@@ -5,7 +5,7 @@ interface IProps {
 }
 
 class NodeProps extends EventEmitter {
-  private props: IProps = {};
+  private _props: IProps = {};
 
   constructor() {
     super();
@@ -18,7 +18,7 @@ class NodeProps extends EventEmitter {
    * @return {IProps}       [description]
    */
   public setProp<T>(key: string, value: T): IProps {
-    this.props[key] = value;
+    this._props[key] = value;
     this.emit(key, value);
     return { [key]: value };
   }
@@ -33,8 +33,8 @@ class NodeProps extends EventEmitter {
    */
   public setEventToProp<T>(key: string, callbackfn: (value: T) => void, instantly_exec?: boolean): (value: T) => void {
     this.on(key, callbackfn);
-    if (instantly_exec && this.props[key] !== undefined) {
-      callbackfn(this.props[key]);
+    if (instantly_exec && this._props[key] !== undefined) {
+      callbackfn(this._props[key]);
     }
     return callbackfn;
   }
@@ -48,7 +48,7 @@ class NodeProps extends EventEmitter {
    * @return {any}        [description]
    */
   public getProp<T>(key: string): T {
-    return this.props[key];
+    return this._props[key];
   }
 }
 

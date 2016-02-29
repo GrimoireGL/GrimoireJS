@@ -3,7 +3,7 @@ import Camera from "../../../../Core/SceneObjects/Camera/Camera";
 import GomlAttribute from "../../../GomlAttribute";
 
 class CameraNodeBase<T extends Camera> extends SceneObjectNodeBase<T> {
-  protected groupPrefix: string = "camera";
+  protected __groupPrefix: string = "camera";
 
   constructor() {
     super();
@@ -14,7 +14,7 @@ class CameraNodeBase<T extends Camera> extends SceneObjectNodeBase<T> {
    * Construct camera. This method should be overridden.
    * @return {Camera} [description]
    */
-  protected ConstructCamera(): T {
+  protected __constructCamera(): T {
     return null;
   }
 
@@ -22,9 +22,9 @@ class CameraNodeBase<T extends Camera> extends SceneObjectNodeBase<T> {
    * Construct camera and set to TargetSceneObject.
    * This Node is exported.
    */
-  protected onMount(): void {
-    super.onMount();
-    this.TargetSceneObject = this.ConstructCamera();
+  protected __onMount(): void {
+    super.__onMount();
+    this.TargetSceneObject = this.__constructCamera();
   }
 
   /**

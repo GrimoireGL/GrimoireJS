@@ -4,9 +4,9 @@ import TextureBase from "../Texture/TextureBase";
 import RBO from "../RBO/RBO";
 class FBOWrapper extends ResourceWrapper {
 
-  private targetFBO: WebGLFramebuffer;
+  private _targetFBO: WebGLFramebuffer;
 
-  private textures: TextureBase[] = [];
+  private _textures: TextureBase[] = [];
 
   constructor(canvas: Canvas) {
     super(canvas);
@@ -14,23 +14,23 @@ class FBOWrapper extends ResourceWrapper {
 
   public get TargetShader(): WebGLShader {
     if (!this.Initialized) { this.init(); }
-    return this.targetFBO;
+    return this._targetFBO;
   }
 
   public init(): void {
     if (!this.Initialized) {
-      this.targetFBO = this.GL.createFramebuffer();
-      this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, this.targetFBO);
-      this.setInitialized();
+      this._targetFBO = this.GL.createFramebuffer();
+      this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, this._targetFBO);
+      this.__setInitialized();
     }
   }
 
-  public bind() {
+  public bind(): void {
     if (!this.Initialized) { this.init(); }
-    this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, this.targetFBO);
+    this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, this._targetFBO);
   }
 
-  public unbind() {
+  public unbind(): void {
     this.GL.bindFramebuffer(this.GL.FRAMEBUFFER, null);
     /*        this.textures.forEach(tex=> {
                 tex.getForContext(this.OwnerCanvas).bind();
@@ -38,7 +38,7 @@ class FBOWrapper extends ResourceWrapper {
             });*/
   }
 
-  public attachTexture(attachmentType: number, tex: TextureBase) {
+  public attachTexture(attachmentType: number, tex: TextureBase): void {
     if (!this.Initialized) {
       this.init();
     }
@@ -52,13 +52,13 @@ class FBOWrapper extends ResourceWrapper {
     this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, attachmentType, this.GL.TEXTURE_2D, wt.TargetTexture, 0);
     tex.getForContext(this.OwnerCanvas).bind();
     tex.generateMipmapIfNeed();
-    if (this.textures.indexOf(tex) !== -1) {
-      this.textures.push(tex);
+    if (this._textures.indexOf(tex) !== -1) {
+      this._textures.push(tex);
     }
     this.GL.bindTexture(tex.TargetTextureType, null);
   }
 
-  public attachRBO(attachmentType: number, rbo: RBO) {
+  public attachRBO(attachmentType: number, rbo: RBO): void {
     if (!this.Initialized) {
       this.init();
     }
@@ -71,11 +71,11 @@ class FBOWrapper extends ResourceWrapper {
     this.GL.framebufferRenderbuffer(this.GL.FRAMEBUFFER, attachmentType, this.GL.RENDERBUFFER, wrapper.Target);
   }
 
-  public dispose() {
+  public dispose(): void {
     if (this.Initialized) {
-      this.GL.deleteFramebuffer(this.targetFBO);
-      this.targetFBO = null;
-      this.setInitialized(false);
+      this.GL.deleteFramebuffer(this._targetFBO);
+      this._targetFBO = null;
+      this.__setInitialized(false);
     }
   }
 }

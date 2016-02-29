@@ -31,7 +31,7 @@ abstract class Camera extends SceneObject {
 
   public invProjectionMatrix: Matrix = new Matrix();
 
-  protected __updateViewProjectionMatrix() {
+  protected __updateViewProjectionMatrix(): void {
     mat4.mul(this.viewProjectionMatrix.rawElements, this.projectionMatrix.rawElements, this.viewMatrix.rawElements);
     mat4.invert(this.viewProjectionInvMatrix.rawElements, this.viewProjectionMatrix.rawElements);
     PointList.initializeWithCube(this.frustumPoints);
@@ -42,7 +42,7 @@ abstract class Camera extends SceneObject {
     super.update();
   }
 
-  public onParentSceneChanged() {
+  public onParentSceneChanged(): void {
     this.ParentScene.addCamera(this);
   }
 }

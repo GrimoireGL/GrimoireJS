@@ -9,7 +9,7 @@ import Q from "q";
  * Basic 2d texture resource node.
  */
 class TextureNode extends TextureNodeBase<Texture> {
-  protected groupPrefix: string = "Texture2D";
+  protected __groupPrefix: string = "Texture2D";
 
   constructor() {
     super();
@@ -25,7 +25,7 @@ class TextureNode extends TextureNodeBase<Texture> {
     });
   }
 
-  protected constructTexture(name: string, rm: ResourceManager): Q.IPromise<Texture> {
+  protected __constructTexture(name: string, rm: ResourceManager): Q.IPromise<Texture> {
     const deferred = Q.defer<TextureBase>();
     if (this.attributes.getValue("src")) {
       rm.loadTexture(this.attributes.getValue("src")).then((texture) => {

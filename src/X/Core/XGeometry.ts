@@ -11,13 +11,13 @@ class XGeometry extends BasicGeometry {
     this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
     this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
     this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
-    this.updateBuffers(x);
+    this.__updateBuffers(x);
   }
 
   /**
    * apply pmx geometries to buffer.
    */
-  protected updateBuffers(x: XFileData): void {
+  protected __updateBuffers(x: XFileData): void {
     this.indexBuffer.update(x.indicies, x.indicies.length);
     this.normalBuffer.update(x.normals, x.normals.length);
     this.uvBuffer.update(x.texCoords, x.texCoords.length);

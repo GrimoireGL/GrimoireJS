@@ -10,7 +10,7 @@ class JThreeCollection<T extends JThreeObjectWithID> {
      */
     private _collection: { [key: string]: T } = {};
 
-    private _length = 0;
+    private _length: number = 0;
 
     /**
      * Obtain object by object ID

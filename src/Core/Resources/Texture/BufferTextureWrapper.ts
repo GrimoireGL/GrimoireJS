@@ -7,21 +7,21 @@ class BufferTextureWrapper extends TextureWrapperBase {
     super(ownerCanvas, parent);
   }
 
-  public init() {
+  public init(): void {
     if (this.Initialized) { return; }
     const parent = <BufferTexture>this.Parent;
-    this.setTargetTexture(this.GL.createTexture());
+    this.__setTargetTexture(this.GL.createTexture());
     this.bind();
     this.GL.texImage2D(WebGLRenderingContext.TEXTURE_2D, 0, parent.TextureFormat, parent.Width, parent.Height, 0, parent.TextureFormat, parent.ElementFormat, null);
-    this.setInitialized();
+    this.__setInitialized();
   }
 
-  public unbind() {
+  public unbind(): void {
     // TODO consider is it really need to implement unbind
     this.GL.bindTexture(WebGLRenderingContext.TEXTURE_2D, null);
   }
 
-  public resize(width: number, height: number) {
+  public resize(width: number, height: number): void {
     this.bind();
     if (this.Initialized) {
       const parent = <BufferTexture>this.Parent;
@@ -30,7 +30,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
     }
   }
 
-  public updateTexture(buffer: ArrayBufferView) {
+  public updateTexture(buffer: ArrayBufferView): void {
     this.bind();
     if (this.Initialized) {
       const parent = <BufferTexture>this.Parent;
@@ -42,7 +42,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
 
   public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
     const parent = <BufferTexture>this.Parent;
-    return this.encodeHtmlImage(parent.Width, parent.Height, encoder);
+    return this.__encodeHtmlImage(parent.Width, parent.Height, encoder);
   }
 }
 

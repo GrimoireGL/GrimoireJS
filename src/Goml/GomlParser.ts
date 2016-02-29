@@ -18,7 +18,7 @@ class GomlParser {
   public static parseChild(child: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     // obtain factory class for the node
     const elem: HTMLElement = <HTMLElement>child;
-    const newNode = GomlParser.createNode(elem, configurator);
+    const newNode = GomlParser._createNode(elem, configurator);
     // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
     if (newNode) {
       // call this function recursive
@@ -53,7 +53,7 @@ class GomlParser {
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
    */
-  private static createNode(elem: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
+  private static _createNode(elem: HTMLElement, configurator: GomlConfigurator): GomlTreeNodeBase {
     // console.log("START");
     const tagName = elem.tagName;
     // console.log(`createNode: ${tagName}`);

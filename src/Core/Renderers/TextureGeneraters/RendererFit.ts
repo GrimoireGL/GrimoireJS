@@ -13,14 +13,14 @@ class RendererFit extends GeneraterBase {
   }
 
   private get ParentRenderRectangle(): Rectangle {
-    if (this.parentRenderer["ViewPortArea"]) {
-      return this.parentRenderer["ViewPortArea"];
+    if (this.__parentRenderer["ViewPortArea"]) {
+      return this.__parentRenderer["ViewPortArea"];
     } else {
       return new Rectangle(0, 0, 512, 512);
     }
   }
 
-  public generate(texInfo: GeneraterInfoChunk) {
+  public generate(texInfo: GeneraterInfoChunk): BufferTexture {
     const rect = this.ParentRenderRectangle;
     const width = rect.Width, height = rect.Height;
     let elementLayout: number;
@@ -30,8 +30,8 @@ class RendererFit extends GeneraterBase {
     texInfo["elementFormat"] = texInfo["elementFormat"] || "UBYTE";
     elementFormat = GLEnumParser.parseTextureElementFormat(texInfo["elementFormat"]);
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    const resource = rm.createTexture(this.parentRenderer.ID + "." + texInfo.name, width, height, elementLayout, elementFormat);
-    this.parentRenderer.on("resize", (s: Rectangle) => {
+    const resource = rm.createTexture(this.__parentRenderer.ID + "." + texInfo.name, width, height, elementLayout, elementFormat);
+    this.__parentRenderer.on("resize", (s: Rectangle) => {
       const bufTex = <BufferTexture>resource;
       if (s.Width !== bufTex.Width || s.Height !== bufTex.Height) {
         (<BufferTexture>resource).resize(s.Width, s.Height);
