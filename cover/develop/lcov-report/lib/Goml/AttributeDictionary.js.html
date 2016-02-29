@@ -535,8 +535,8 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeDictionary).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.attributes = {};</span>
-<span class="cstat-no" title="statement not covered" >        _this.node = node;</span>
+<span class="cstat-no" title="statement not covered" >        _this._attributes = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._node = node;</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
@@ -545,16 +545,16 @@
         value: <span class="fstat-no" title="function not covered" >function forEachAttr(callbackfn) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            Object.keys(this.attributes).forEach(<span class="fstat-no" title="function not covered" >function (k) {</span></span>
-<span class="cstat-no" title="statement not covered" >                var v = _this2.attributes[k];</span>
-<span class="cstat-no" title="statement not covered" >                callbackfn(v, k, _this2.attributes);</span>
+<span class="cstat-no" title="statement not covered" >            Object.keys(this._attributes).forEach(<span class="fstat-no" title="function not covered" >function (k) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var v = _this2._attributes[k];</span>
+<span class="cstat-no" title="statement not covered" >                callbackfn(v, k, _this2._attributes);</span>
             }, this);
 <span class="cstat-no" title="statement not covered" >            return this;</span>
         }
     }, {
         key: "getValue",
         value: <span class="fstat-no" title="function not covered" >function getValue(attrName) {</span>
-<span class="cstat-no" title="statement not covered" >            var attr = this.attributes[attrName];</span>
+<span class="cstat-no" title="statement not covered" >            var attr = this._attributes[attrName];</span>
 <span class="cstat-no" title="statement not covered" >            if (attr === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >                console.warn("attribute \"" + attrName + "\" is not found.");</span>
             } else {
@@ -564,7 +564,7 @@
     }, {
         key: "getValueStr",
         value: <span class="fstat-no" title="function not covered" >function getValueStr(attrName) {</span>
-<span class="cstat-no" title="statement not covered" >            var attr = this.attributes[attrName];</span>
+<span class="cstat-no" title="statement not covered" >            var attr = this._attributes[attrName];</span>
 <span class="cstat-no" title="statement not covered" >            if (attr === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >                console.warn("attribute \"" + attrName + "\" is not found.");</span>
             } else {
@@ -574,7 +574,7 @@
     }, {
         key: "setValue",
         value: <span class="fstat-no" title="function not covered" >function setValue(attrName, value) {</span>
-<span class="cstat-no" title="statement not covered" >            var attr = this.attributes[attrName];</span>
+<span class="cstat-no" title="statement not covered" >            var attr = this._attributes[attrName];</span>
 <span class="cstat-no" title="statement not covered" >            if (attr === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >                console.warn("attribute \"" + attrName + "\" is not found.");</span>
             } else {
@@ -593,21 +593,21 @@
     }, {
         key: "getAttribute",
         value: <span class="fstat-no" title="function not covered" >function getAttribute(attrName) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.attributes[attrName];</span>
+<span class="cstat-no" title="statement not covered" >            return this._attributes[attrName];</span>
         }
     }, {
         key: "getAllAttributes",
         value: <span class="fstat-no" title="function not covered" >function getAllAttributes() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.attributes;</span>
+<span class="cstat-no" title="statement not covered" >            return this._attributes;</span>
         }
     }, {
         key: "getAnimater",
         value: <span class="fstat-no" title="function not covered" >function getAnimater(attrName, beginTime, duration, beginVal, endVal, easing, onComplete) {</span>
-<span class="cstat-no" title="statement not covered" >            var attr = this.attributes[attrName];</span>
+<span class="cstat-no" title="statement not covered" >            var attr = this._attributes[attrName];</span>
 <span class="cstat-no" title="statement not covered" >            if (attr === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >                console.warn("attribute \"" + attrName + "\" is not found.");</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                return attr.Converter.GetAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete);</span>
+<span class="cstat-no" title="statement not covered" >                return attr.Converter.getAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete);</span>
             }
         }
         /**
@@ -617,7 +617,7 @@
     }, {
         key: "isDefined",
         value: <span class="fstat-no" title="function not covered" >function isDefined(attrName) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.attributes[attrName] !== undefined;</span>
+<span class="cstat-no" title="statement not covered" >            return this._attributes[attrName] !== undefined;</span>
         }
         /**
          * Define attributes to the node.
@@ -632,7 +632,7 @@
             // console.log("attributes_declaration", attributes);
 <span class="cstat-no" title="statement not covered" >            for (var key in attributes) {</span>
 <span class="cstat-no" title="statement not covered" >                var attribute = attributes[key];</span>
-<span class="cstat-no" title="statement not covered" >                var converter = this.node.nodeManager.configurator.getConverter(attribute.converter);</span>
+<span class="cstat-no" title="statement not covered" >                var converter = this._node.nodeManager.configurator.getConverter(attribute.converter);</span>
 <span class="cstat-no" title="statement not covered" >                if (!converter &amp;&amp; (!attribute.reserved || !(0, _lodash2.default)(attribute.converter))) {</span>
 <span class="cstat-no" title="statement not covered" >                    throw new Error("Converter \"" + attribute.converter + "\" is not found");</span>
                 }
@@ -645,20 +645,20 @@
 <span class="cstat-no" title="statement not covered" >                    gomlAttribute.constant = attribute.constant;</span>
 <span class="cstat-no" title="statement not covered" >                    gomlAttribute.Value = gomlAttribute.ValueStr;</span>
 <span class="cstat-no" title="statement not covered" >                    gomlAttribute.reserved = false;</span>
-<span class="cstat-no" title="statement not covered" >                    gomlAttribute.on("changed", attribute.onchanged.bind(this.node));</span>
+<span class="cstat-no" title="statement not covered" >                    gomlAttribute.on("changed", attribute.onchanged.bind(this._node));</span>
                 } else {
 <span class="cstat-no" title="statement not covered" >                    gomlAttribute = new _GomlAttribute2.default(key, attribute.value, converter, attribute.reserved, attribute.constant);</span>
 <span class="cstat-no" title="statement not covered" >                    if (attribute.reserved) {} else {</span>
                         // console.log("define_attribute", key, attribute, this.node.getTypeName());
 <span class="cstat-no" title="statement not covered" >                        if (attribute.onchanged) {</span>
-<span class="cstat-no" title="statement not covered" >                            gomlAttribute.on("changed", attribute.onchanged.bind(this.node));</span>
+<span class="cstat-no" title="statement not covered" >                            gomlAttribute.on("changed", attribute.onchanged.bind(this._node));</span>
                         } else {
 <span class="cstat-no" title="statement not covered" >                            console.warn("attribute \"" + key + "\" does not have onchange event handler. this causes lack of attribute's consistency.");</span>
                         }
                     }
-<span class="cstat-no" title="statement not covered" >                    this.attributes[key] = gomlAttribute;</span>
+<span class="cstat-no" title="statement not covered" >                    this._attributes[key] = gomlAttribute;</span>
                 }
-<span class="cstat-no" title="statement not covered" >                if (this.node.Mounted &amp;&amp; !gomlAttribute.reserved) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this._node.Mounted &amp;&amp; !gomlAttribute.reserved) {</span>
 <span class="cstat-no" title="statement not covered" >                    gomlAttribute.notifyValueChanged();</span>
                 }
             }
@@ -685,8 +685,8 @@
         value: <span class="fstat-no" title="function not covered" >function emitChangeAll() {</span>
 <span class="cstat-no" title="statement not covered" >            var _this3 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            Object.keys(this.attributes).forEach(<span class="fstat-no" title="function not covered" >function (k) {</span></span>
-<span class="cstat-no" title="statement not covered" >                var v = _this3.attributes[k];</span>
+<span class="cstat-no" title="statement not covered" >            Object.keys(this._attributes).forEach(<span class="fstat-no" title="function not covered" >function (k) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var v = _this3._attributes[k];</span>
 <span class="cstat-no" title="statement not covered" >                if (typeof v.Value !== "undefined") {</span>
 <span class="cstat-no" title="statement not covered" >                    v.notifyValueChanged();</span>
                 }
@@ -698,12 +698,12 @@
 <span class="cstat-no" title="statement not covered" >            var _this4 = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            if (typeof attrName === "undefined") {</span>
-<span class="cstat-no" title="statement not covered" >                Object.keys(this.attributes).forEach(<span class="fstat-no" title="function not covered" >function (k) {</span></span>
-<span class="cstat-no" title="statement not covered" >                    var v = _this4.attributes[k];</span>
+<span class="cstat-no" title="statement not covered" >                Object.keys(this._attributes).forEach(<span class="fstat-no" title="function not covered" >function (k) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    var v = _this4._attributes[k];</span>
 <span class="cstat-no" title="statement not covered" >                    v.notifyValueChanged();</span>
                 });
             } else {
-<span class="cstat-no" title="statement not covered" >                var target = this.attributes[attrName];</span>
+<span class="cstat-no" title="statement not covered" >                var target = this._attributes[attrName];</span>
 <span class="cstat-no" title="statement not covered" >                target.notifyValueChanged();</span>
             }
         }
@@ -718,7 +718,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

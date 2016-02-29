@@ -294,7 +294,7 @@
 <span class="cstat-no" title="statement not covered" >        this.completedResourceCount = 0;</span>
 <span class="cstat-no" title="statement not covered" >        this.erroredResourceCount = 0;</span>
 <span class="cstat-no" title="statement not covered" >        this.currentLoadingMessage = "";</span>
-<span class="cstat-no" title="statement not covered" >        this.resourceLoadingDeferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >        this._resourceLoadingDeferred = _q2.default.defer();</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(ResourceLoader, [{</span>
@@ -302,7 +302,7 @@
         value: <span class="fstat-no" title="function not covered" >function getResourceLoadingDeffered() {</span>
 <span class="cstat-no" title="statement not covered" >            this.resourceCount++;</span>
 <span class="cstat-no" title="statement not covered" >            var d = _q2.default.defer();</span>
-<span class="cstat-no" title="statement not covered" >            this.registerForResourceLoaded(d.promise);</span>
+<span class="cstat-no" title="statement not covered" >            this._registerForResourceLoaded(d.promise);</span>
 <span class="cstat-no" title="statement not covered" >            return d;</span>
         }
     }, {
@@ -317,18 +317,18 @@
          */
 &nbsp;
     }, {
-        key: "registerForResourceLoaded",
-        value: <span class="fstat-no" title="function not covered" >function registerForResourceLoaded(promise) {</span>
+        key: "_registerForResourceLoaded",
+        value: <span class="fstat-no" title="function not covered" >function _registerForResourceLoaded(promise) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            promise.then(<span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                _this.loadedResourceCount++;</span>
 <span class="cstat-no" title="statement not covered" >                _this.completedResourceCount++;</span>
-<span class="cstat-no" title="statement not covered" >                _this.checkResourceLoaded();</span>
+<span class="cstat-no" title="statement not covered" >                _this._checkResourceLoaded();</span>
             }, <span class="fstat-no" title="function not covered" >function () {</span>
 <span class="cstat-no" title="statement not covered" >                _this.completedResourceCount++;</span>
 <span class="cstat-no" title="statement not covered" >                _this.erroredResourceCount++;</span>
-<span class="cstat-no" title="statement not covered" >                _this.checkResourceLoaded();</span>
+<span class="cstat-no" title="statement not covered" >                _this._checkResourceLoaded();</span>
             }, <span class="fstat-no" title="function not covered" >function (s) {</span>
 <span class="cstat-no" title="statement not covered" >                _this.currentLoadingMessage = s;</span>
             });
@@ -338,10 +338,10 @@
          */
 &nbsp;
     }, {
-        key: "checkResourceLoaded",
-        value: <span class="fstat-no" title="function not covered" >function checkResourceLoaded() {</span>
+        key: "_checkResourceLoaded",
+        value: <span class="fstat-no" title="function not covered" >function _checkResourceLoaded() {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.completedResourceCount === this.resourceCount) {</span>
-<span class="cstat-no" title="statement not covered" >                this.resourceLoadingDeferred.resolve({</span>
+<span class="cstat-no" title="statement not covered" >                this._resourceLoadingDeferred.resolve({</span>
                     hasNoError: this.erroredResourceCount &gt; 0,
                     erroredResource: this.erroredResourceCount,
                     loadedResource: this.loadedResourceCount,
@@ -349,9 +349,9 @@
                     lastLoadMessage: this.currentLoadingMessage,
                     resourceCount: this.resourceCount
                 });
-<span class="cstat-no" title="statement not covered" >                this.resourceLoadingDeferred = null;</span>
+<span class="cstat-no" title="statement not covered" >                this._resourceLoadingDeferred = null;</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                this.resourceLoadingDeferred.notify({</span>
+<span class="cstat-no" title="statement not covered" >                this._resourceLoadingDeferred.notify({</span>
                     hasNoError: this.erroredResourceCount &gt; 0,
                     erroredResource: this.erroredResourceCount,
                     loadedResource: this.loadedResourceCount,
@@ -364,12 +364,12 @@
     }, {
         key: "isLoading",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return !!this.resourceLoadingDeferred;</span>
+<span class="cstat-no" title="statement not covered" >            return !!this._resourceLoadingDeferred;</span>
         }
     }, {
         key: "promise",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.resourceLoadingDeferred.promise;</span>
+<span class="cstat-no" title="statement not covered" >            return this._resourceLoadingDeferred.promise;</span>
         }
     }]);
 &nbsp;
@@ -382,7 +382,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -315,7 +315,7 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ImportNode).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.type = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._type = null;</span>
 <span class="cstat-no" title="statement not covered" >        _this.attributes.defineAttribute({</span>
             "type": {
                 value: undefined,
@@ -328,20 +328,20 @@
                 onchanged: _this._onSrcAttrChanged.bind(_this)
             }
         });
-<span class="cstat-no" title="statement not covered" >        _this.materialManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.MaterialManager);</span>
+<span class="cstat-no" title="statement not covered" >        _this._materialManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.MaterialManager);</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(ImportNode, [{</span>
-        key: "onMount",
-        value: <span class="fstat-no" title="function not covered" >function onMount() {</span>
-<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(ImportNode.prototype), "onMount", this).call(this);</span>
+        key: "__onMount",
+        value: <span class="fstat-no" title="function not covered" >function __onMount() {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(ImportNode.prototype), "__onMount", this).call(this);</span>
         }
     }, {
         key: "_onTypeAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onTypeAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            if (["material"].indexOf(attr.Value) !== -1) {</span>
-<span class="cstat-no" title="statement not covered" >                this.type = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                this._type = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                throw new Error("Unknown type: " + attr.Value);</span>
@@ -351,14 +351,14 @@
         key: "_onSrcAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onSrcAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            var path = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >            if (!this.type) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this._type) {</span>
 <span class="cstat-no" title="statement not covered" >                switch (path.match(/\.(\w+?)$/)[1]) {</span>
                     case "xmml":
-<span class="cstat-no" title="statement not covered" >                        this.type = "material";</span>
+<span class="cstat-no" title="statement not covered" >                        this._type = "material";</span>
 <span class="cstat-no" title="statement not covered" >                        break;</span>
                 }
             }
-<span class="cstat-no" title="statement not covered" >            if (this.type) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._type) {</span>
 <span class="cstat-no" title="statement not covered" >                this._getImport(path, attr.done.bind(attr));</span>
             }
         }
@@ -373,9 +373,9 @@
 <span class="cstat-no" title="statement not covered" >            xhr.onload = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                if (xhr.status === 200) {</span>
 <span class="cstat-no" title="statement not covered" >                    var exportName = null;</span>
-<span class="cstat-no" title="statement not covered" >                    switch (_this2.type) {</span>
+<span class="cstat-no" title="statement not covered" >                    switch (_this2._type) {</span>
                         case "material":
-<span class="cstat-no" title="statement not covered" >                            var matName = _this2.materialManager.registerMaterial(xhr.responseText);</span>
+<span class="cstat-no" title="statement not covered" >                            var matName = _this2._materialManager.registerMaterial(xhr.responseText);</span>
 <span class="cstat-no" title="statement not covered" >                            exportName = "material-" + matName;</span>
 <span class="cstat-no" title="statement not covered" >                            break;</span>
                     }
@@ -400,7 +400,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

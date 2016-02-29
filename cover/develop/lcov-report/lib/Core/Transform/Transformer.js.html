@@ -750,20 +750,20 @@
         /**
          * calculation cache
          */
-<span class="cstat-no" title="statement not covered" >        _this.localTransformMatrix = _Matrix2.default.identity();</span>
-<span class="cstat-no" title="statement not covered" >        _this.localToGlobalMatrix = _Matrix2.default.identity();</span>
-<span class="cstat-no" title="statement not covered" >        _this.modelViewProjectionCaluculationCache = _glMatrix.mat4.create();</span>
-<span class="cstat-no" title="statement not covered" >        _this.globalToLocalCache = _Matrix2.default.identity();</span>
-<span class="cstat-no" title="statement not covered" >        _this.g2lupdated = false;</span>
+<span class="cstat-no" title="statement not covered" >        _this._localTransformMatrix = _Matrix2.default.identity();</span>
+<span class="cstat-no" title="statement not covered" >        _this._localToGlobalMatrix = _Matrix2.default.identity();</span>
+<span class="cstat-no" title="statement not covered" >        _this._modelViewProjectionCaluculationCache = _glMatrix.mat4.create();</span>
+<span class="cstat-no" title="statement not covered" >        _this._globalToLocalCache = _Matrix2.default.identity();</span>
+<span class="cstat-no" title="statement not covered" >        _this._g2lupdated = false;</span>
         /**
          * properties for storeing event handlers
          */
-<span class="cstat-no" title="statement not covered" >        _this.onUpdateTransformHandler = new _JThreeEvent2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._onUpdateTransformHandler = new _JThreeEvent2.default();</span>
 <span class="cstat-no" title="statement not covered" >        _this.linkedObject = sceneObj;</span>
-<span class="cstat-no" title="statement not covered" >        _this.position = _Vector2.default.Zero;</span>
-<span class="cstat-no" title="statement not covered" >        _this.rotation = _Quaternion2.default.Identity;</span>
-<span class="cstat-no" title="statement not covered" >        _this.scale = new _Vector2.default(1, 1, 1);</span>
-<span class="cstat-no" title="statement not covered" >        _this.localOrigin = new _Vector2.default(0, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" >        _this._position = _Vector2.default.Zero;</span>
+<span class="cstat-no" title="statement not covered" >        _this._rotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >        _this._scale = new _Vector2.default(1, 1, 1);</span>
+<span class="cstat-no" title="statement not covered" >        _this._localOrigin = new _Vector2.default(0, 0, 0);</span>
 <span class="cstat-no" title="statement not covered" >        _this.updateTransform();</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
@@ -776,7 +776,7 @@
          * @param action the event handler for this event.
          */
         value: <span class="fstat-no" title="function not covered" >function onUpdateTransform(action) {</span>
-<span class="cstat-no" title="statement not covered" >            this.onUpdateTransformHandler.addListener(action);</span>
+<span class="cstat-no" title="statement not covered" >            this._onUpdateTransformHandler.addListener(action);</span>
         }
         /**
          * update all transform
@@ -787,16 +787,16 @@
         key: "updateTransform",
         value: <span class="fstat-no" title="function not covered" >function updateTransform() {</span>
 <span class="cstat-no" title="statement not covered" >            this.hasChanged = true;</span>
-<span class="cstat-no" title="statement not covered" >            this.updateTransformMatricies();</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateTransformMatricies();</span>
             // notify update to childrens
 <span class="cstat-no" title="statement not covered" >            if (this.linkedObject.Children &amp;&amp; this.NeedUpdateChildren) {</span>
 <span class="cstat-no" title="statement not covered" >                this.linkedObject.Children.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    v.Transformer.updateTransform();</span>
                 });
             }
-<span class="cstat-no" title="statement not covered" >            this.g2lupdated = false;</span>
+<span class="cstat-no" title="statement not covered" >            this._g2lupdated = false;</span>
             // fire updated event
-<span class="cstat-no" title="statement not covered" >            this.onUpdateTransformHandler.fire(this, this.linkedObject);</span>
+<span class="cstat-no" title="statement not covered" >            this._onUpdateTransformHandler.fire(this, this.linkedObject);</span>
         }
     }, {
         key: "calculateMVPMatrix",
@@ -805,9 +805,9 @@
          * Calculate Projection-View-Model matrix with renderer camera.
          */
         value: <span class="fstat-no" title="function not covered" >function calculateMVPMatrix(renderer) {</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.mul(this.modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this.modelViewProjectionCaluculationCache);</span>
-<span class="cstat-no" title="statement not covered" >            return new _Matrix2.default(this.modelViewProjectionCaluculationCache);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.mul(this._modelViewProjectionCaluculationCache, renderer.Camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.mul(this._modelViewProjectionCaluculationCache, renderer.Camera.projectionMatrix.rawElements, this._modelViewProjectionCaluculationCache);</span>
+<span class="cstat-no" title="statement not covered" >            return new _Matrix2.default(this._modelViewProjectionCaluculationCache);</span>
         }
     }, {
         key: "transformDirection",
@@ -817,12 +817,12 @@
     }, {
         key: "transformPoint",
         value: <span class="fstat-no" title="function not covered" >function transformPoint(point) {</span>
-<span class="cstat-no" title="statement not covered" >            return _Matrix2.default.transformPoint(this.localToGlobalMatrix, point);</span>
+<span class="cstat-no" title="statement not covered" >            return _Matrix2.default.transformPoint(this._localToGlobalMatrix, point);</span>
         }
     }, {
         key: "transformVector",
         value: <span class="fstat-no" title="function not covered" >function transformVector(vector) {</span>
-<span class="cstat-no" title="statement not covered" >            return _Matrix2.default.transform(this.localToGlobalMatrix, vector);</span>
+<span class="cstat-no" title="statement not covered" >            return _Matrix2.default.transform(this._localToGlobalMatrix, vector);</span>
         }
     }, {
         key: "inverseTransformDirection",
@@ -845,40 +845,40 @@
         */
 &nbsp;
     }, {
-        key: "updateTransformMatricies",
-        value: <span class="fstat-no" title="function not covered" >function updateTransformMatricies() {</span>
+        key: "__updateTransformMatricies",
+        value: <span class="fstat-no" title="function not covered" >function __updateTransformMatricies() {</span>
             // initialize localTransformCache &amp; localToGlobalMatrix.rawElements
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.identity(this.localTransformMatrix.rawElements);</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.identity(this.localToGlobalMatrix.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.identity(this._localTransformMatrix.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.identity(this._localToGlobalMatrix.rawElements);</span>
             // generate local transofrm matrix
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.fromRotationTranslationScaleOrigin(this.localTransformMatrix.rawElements, this.rotation.rawElements, this.position.rawElements, this.scale.rawElements, this.localOrigin.rawElements); </span>// substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.fromRotationTranslationScaleOrigin(this._localTransformMatrix.rawElements, this._rotation.rawElements, this._position.rawElements, this._scale.rawElements, this._localOrigin.rawElements); </span>// substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
 <span class="cstat-no" title="statement not covered" >            if (this.linkedObject != null &amp;&amp; this.linkedObject.Parent != null) {</span>
                 // Use LocalToGlobal matrix of parents to multiply with localTransformCache
-<span class="cstat-no" title="statement not covered" >                _glMatrix.mat4.copy(this.localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >                _glMatrix.mat4.copy(this._localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);</span>
             } else {
                 // If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
-<span class="cstat-no" title="statement not covered" >                _glMatrix.mat4.identity(this.localToGlobalMatrix.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >                _glMatrix.mat4.identity(this._localToGlobalMatrix.rawElements);</span>
             }
             // Multiply parent transform
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.multiply(this.localToGlobalMatrix.rawElements, this.localToGlobalMatrix.rawElements, this.localTransformMatrix.rawElements);</span>
-<span class="cstat-no" title="statement not covered" >            this.updateDirections();</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.multiply(this._localToGlobalMatrix.rawElements, this._localToGlobalMatrix.rawElements, this._localTransformMatrix.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateDirections();</span>
         }
         /**
          * Update directions by this transform
          */
 &nbsp;
     }, {
-        key: "updateDirections",
-        value: <span class="fstat-no" title="function not covered" >function updateDirections() {</span>
+        key: "__updateDirections",
+        value: <span class="fstat-no" title="function not covered" >function __updateDirections() {</span>
             // Calculate direction vectors
-<span class="cstat-no" title="statement not covered" >            this.updateDirection(this.right, [1, 0, 0, 0]); </span>// need to reduce memory allocation
-<span class="cstat-no" title="statement not covered" >            this.updateDirection(this.up, [0, 1, 0, 0]);</span>
-<span class="cstat-no" title="statement not covered" >            this.updateDirection(this.forward, [0, 0, -1, 0]);</span>
+<span class="cstat-no" title="statement not covered" >            this._updateDirection(this.right, [1, 0, 0, 0]); </span>// need to reduce memory allocation
+<span class="cstat-no" title="statement not covered" >            this._updateDirection(this.up, [0, 1, 0, 0]);</span>
+<span class="cstat-no" title="statement not covered" >            this._updateDirection(this.forward, [0, 0, -1, 0]);</span>
         }
     }, {
-        key: "updateDirection",
-        value: <span class="fstat-no" title="function not covered" >function updateDirection(rawElements, sourceVector4) {</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobalMatrix.rawElements);</span>
+        key: "_updateDirection",
+        value: <span class="fstat-no" title="function not covered" >function _updateDirection(rawElements, sourceVector4) {</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.vec4.transformMat4(rawElements.rawElements, sourceVector4, this._localToGlobalMatrix.rawElements);</span>
 <span class="cstat-no" title="statement not covered" >            _glMatrix.vec3.normalize(rawElements.rawElements, rawElements.rawElements);</span>
         }
     }, {
@@ -889,11 +889,11 @@
     }, {
         key: "globalToLocal",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.g2lupdated) {</span>
-<span class="cstat-no" title="statement not covered" >                return this.globalToLocalCache;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._g2lupdated) {</span>
+<span class="cstat-no" title="statement not covered" >                return this._globalToLocalCache;</span>
             }
-<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.invert(this.globalToLocalCache.rawElements, this.localToGlobalMatrix.rawElements);</span>
-<span class="cstat-no" title="statement not covered" >            this.g2lupdated = true;</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.mat4.invert(this._localTransformMatrix.rawElements, this._localToGlobalMatrix.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            this._g2lupdated = true;</span>
         }
     }, {
         key: "hasParent",
@@ -913,7 +913,7 @@
     }, {
         key: "GlobalPosition",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return _Matrix2.default.transformPoint(this.localToGlobalMatrix, _Vector2.default.Zero);</span>
+<span class="cstat-no" title="statement not covered" >            return _Matrix2.default.transformPoint(this._localToGlobalMatrix, _Vector2.default.Zero);</span>
         }
         /**
          * Get accessor for the matrix providing the transform Local space into Global space.
@@ -922,12 +922,12 @@
     }, {
         key: "LocalToGlobal",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.localToGlobalMatrix;</span>
+<span class="cstat-no" title="statement not covered" >            return this._localToGlobalMatrix;</span>
         }
     }, {
         key: "LocalTransform",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.localTransformMatrix;</span>
+<span class="cstat-no" title="statement not covered" >            return this._localTransformMatrix;</span>
         }
         /**
          * Get accessor for model rotation.
@@ -936,14 +936,14 @@
     }, {
         key: "Rotation",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.rotation;</span>
+<span class="cstat-no" title="statement not covered" >            return this._rotation;</span>
         }
         /**
          * Set accessor for model rotation.
          */
         ,
         set: <span class="fstat-no" title="function not covered" >function set(quat) {</span>
-<span class="cstat-no" title="statement not covered" >            this.rotation = quat;</span>
+<span class="cstat-no" title="statement not covered" >            this._rotation = quat;</span>
 <span class="cstat-no" title="statement not covered" >            this.updateTransform();</span>
         }
         /**
@@ -953,14 +953,14 @@
     }, {
         key: "Position",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.position;</span>
+<span class="cstat-no" title="statement not covered" >            return this._position;</span>
         }
         /**
          * Set Accessor for model position.
          */
         ,
         set: <span class="fstat-no" title="function not covered" >function set(vec) {</span>
-<span class="cstat-no" title="statement not covered" >            this.position = vec;</span>
+<span class="cstat-no" title="statement not covered" >            this._position = vec;</span>
 <span class="cstat-no" title="statement not covered" >            this.updateTransform();</span>
         }
         /**
@@ -970,23 +970,23 @@
     }, {
         key: "Scale",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.scale;</span>
+<span class="cstat-no" title="statement not covered" >            return this._scale;</span>
         }
         /**
          * Set Accessor for model scale.
          */
         ,
         set: <span class="fstat-no" title="function not covered" >function set(vec) {</span>
-<span class="cstat-no" title="statement not covered" >            this.scale = vec;</span>
+<span class="cstat-no" title="statement not covered" >            this._scale = vec;</span>
 <span class="cstat-no" title="statement not covered" >            this.updateTransform();</span>
         }
     }, {
         key: "LocalOrigin",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.localOrigin;</span>
+<span class="cstat-no" title="statement not covered" >            return this._localOrigin;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(origin) {</span>
-<span class="cstat-no" title="statement not covered" >            this.localOrigin = origin;</span>
+<span class="cstat-no" title="statement not covered" >            this._localOrigin = origin;</span>
 <span class="cstat-no" title="statement not covered" >            this.updateTransform();</span>
         }
     }]);
@@ -1000,7 +1000,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

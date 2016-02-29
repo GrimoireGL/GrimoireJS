@@ -503,30 +503,30 @@
 <span class="fstat-no" title="function not covered" >    function PMXMorph(pmxModel, index, morphManager) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, PMXMorph);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        this.progress = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.progressCurrentCache = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.model = pmxModel;</span>
-<span class="cstat-no" title="statement not covered" >        this.morphIndex = index;</span>
-<span class="cstat-no" title="statement not covered" >        this.morphManager = morphManager;</span>
+<span class="cstat-no" title="statement not covered" >        this._progress = 0;</span>
+<span class="cstat-no" title="statement not covered" >        this._progressCurrentCache = 0;</span>
+<span class="cstat-no" title="statement not covered" >        this.__model = pmxModel;</span>
+<span class="cstat-no" title="statement not covered" >        this.__morphIndex = index;</span>
+<span class="cstat-no" title="statement not covered" >        this.__morphManager = morphManager;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(PMXMorph, [{</span>
         key: "update",
         value: <span class="fstat-no" title="function not covered" >function update() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.progress !== this.progressCurrentCache) {</span>
-<span class="cstat-no" title="statement not covered" >                this.updateProgress(this.progressCurrentCache, this.progress);</span>
-<span class="cstat-no" title="statement not covered" >                this.progress = this.progressCurrentCache;</span>
-<span class="cstat-no" title="statement not covered" >                this.morphManager.postProcessFlag[this.TargetMorphData.morphKind] = true;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._progress !== this._progressCurrentCache) {</span>
+<span class="cstat-no" title="statement not covered" >                this.__updateProgress(this._progressCurrentCache, this._progress);</span>
+<span class="cstat-no" title="statement not covered" >                this._progress = this._progressCurrentCache;</span>
+<span class="cstat-no" title="statement not covered" >                this.__morphManager.postProcessFlag[this.TargetMorphData.morphKind] = true;</span>
             }
         }
     }, {
         key: "Progress",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.progress;</span>
+<span class="cstat-no" title="statement not covered" >            return this._progress;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(val) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.progressCurrentCache !== val) {</span>
-<span class="cstat-no" title="statement not covered" >                this.progressCurrentCache = val;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._progressCurrentCache !== val) {</span>
+<span class="cstat-no" title="statement not covered" >                this._progressCurrentCache = val;</span>
             }
         }
     }, {
@@ -537,11 +537,11 @@
     }, {
         key: "TargetMorphData",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.model.ModelData.Morphs[this.morphIndex];</span>
+<span class="cstat-no" title="statement not covered" >            return this.__model.ModelData.Morphs[this.__morphIndex];</span>
         }
     }], [{
-        key: "CreateMorph",
-        value: <span class="fstat-no" title="function not covered" >function CreateMorph(model, index, morphManager) {</span>
+        key: "createMorph",
+        value: <span class="fstat-no" title="function not covered" >function createMorph(model, index, morphManager) {</span>
 <span class="cstat-no" title="statement not covered" >            var morphData = model.ModelData.Morphs[index];</span>
 <span class="cstat-no" title="statement not covered" >            switch (morphData.morphKind) {</span>
                 case 0:
@@ -557,14 +557,14 @@
             }
         }
     }, {
-        key: "PostProcess",
-        value: <span class="fstat-no" title="function not covered" >function PostProcess(model, morphType) {</span>
+        key: "postProcess",
+        value: <span class="fstat-no" title="function not covered" >function postProcess(model, morphType) {</span>
 <span class="cstat-no" title="statement not covered" >            switch (morphType) {</span>
                 case 1:
-<span class="cstat-no" title="statement not covered" >                    PMXVertexMorph.PostProcess(model);</span>
+<span class="cstat-no" title="statement not covered" >                    PMXVertexMorph.postProcess(model);</span>
 <span class="cstat-no" title="statement not covered" >                    return;</span>
                 case 2:
-<span class="cstat-no" title="statement not covered" >                    PMXUVMorph.PostProcess(model);</span>
+<span class="cstat-no" title="statement not covered" >                    PMXUVMorph.postProcess(model);</span>
 <span class="cstat-no" title="statement not covered" >                    return;</span>
             }
         }
@@ -583,19 +583,19 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(PMXVertexMorph, [{</span>
-        key: "updateProgress",
-        value: <span class="fstat-no" title="function not covered" >function updateProgress(current, last) {</span>
+        key: "__updateProgress",
+        value: <span class="fstat-no" title="function not covered" >function __updateProgress(current, last) {</span>
 <span class="cstat-no" title="statement not covered" >            var ratio = current - last;</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.TargetMorphData.morphOffsetCount; ++i) {</span>
 <span class="cstat-no" title="statement not covered" >                var vm = this.TargetMorphData.vertexMorph[i];</span>
-<span class="cstat-no" title="statement not covered" >                this.model.Geometry.positionBuferSource[3 * vm.vertexIndex + 0] += vm.vertexOffset[0] * ratio;</span>
-<span class="cstat-no" title="statement not covered" >                this.model.Geometry.positionBuferSource[3 * vm.vertexIndex + 1] += vm.vertexOffset[1] * ratio;</span>
-<span class="cstat-no" title="statement not covered" >                this.model.Geometry.positionBuferSource[3 * vm.vertexIndex + 2] += vm.vertexOffset[2] * ratio;</span>
+<span class="cstat-no" title="statement not covered" >                this.__model.Geometry.positionBuferSource[3 * vm.vertexIndex + 0] += vm.vertexOffset[0] * ratio;</span>
+<span class="cstat-no" title="statement not covered" >                this.__model.Geometry.positionBuferSource[3 * vm.vertexIndex + 1] += vm.vertexOffset[1] * ratio;</span>
+<span class="cstat-no" title="statement not covered" >                this.__model.Geometry.positionBuferSource[3 * vm.vertexIndex + 2] += vm.vertexOffset[2] * ratio;</span>
             }
         }
     }], [{
-        key: "PostProcess",
-        value: <span class="fstat-no" title="function not covered" >function PostProcess(model) {</span>
+        key: "postProcess",
+        value: <span class="fstat-no" title="function not covered" >function postProcess(model) {</span>
 <span class="cstat-no" title="statement not covered" >            model.Geometry.updatePositionBuffer();</span>
         }
     }]);
@@ -613,19 +613,19 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(PMXUVMorph, [{</span>
-        key: "updateProgress",
-        value: <span class="fstat-no" title="function not covered" >function updateProgress(current, last) {</span>
+        key: "__updateProgress",
+        value: <span class="fstat-no" title="function not covered" >function __updateProgress(current, last) {</span>
 <span class="cstat-no" title="statement not covered" >            var ratio = current - last;</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.TargetMorphData.morphOffsetCount; ++i) {</span>
 <span class="cstat-no" title="statement not covered" >                var vm = this.TargetMorphData.uvMorph[i];</span>
-<span class="cstat-no" title="statement not covered" >                this.model.Geometry.uvBufferSource[3 * vm.vertexIndex + 0] += vm.uvOffset[0] * ratio;</span>
-<span class="cstat-no" title="statement not covered" >                this.model.Geometry.uvBufferSource[3 * vm.vertexIndex + 1] += vm.uvOffset[1] * ratio;</span>
-<span class="cstat-no" title="statement not covered" >                this.model.Geometry.uvBufferSource[3 * vm.vertexIndex + 2] += vm.uvOffset[2] * ratio;</span>
+<span class="cstat-no" title="statement not covered" >                this.__model.Geometry.uvBufferSource[3 * vm.vertexIndex + 0] += vm.uvOffset[0] * ratio;</span>
+<span class="cstat-no" title="statement not covered" >                this.__model.Geometry.uvBufferSource[3 * vm.vertexIndex + 1] += vm.uvOffset[1] * ratio;</span>
+<span class="cstat-no" title="statement not covered" >                this.__model.Geometry.uvBufferSource[3 * vm.vertexIndex + 2] += vm.uvOffset[2] * ratio;</span>
             }
         }
     }], [{
-        key: "PostProcess",
-        value: <span class="fstat-no" title="function not covered" >function PostProcess(model) {</span>
+        key: "postProcess",
+        value: <span class="fstat-no" title="function not covered" >function postProcess(model) {</span>
 <span class="cstat-no" title="statement not covered" >            model.Geometry.updateUVBuffer();</span>
         }
     }]);
@@ -643,12 +643,12 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(PMXGroupMorph, [{</span>
-        key: "updateProgress",
-        value: <span class="fstat-no" title="function not covered" >function updateProgress(current, last) {</span>
+        key: "__updateProgress",
+        value: <span class="fstat-no" title="function not covered" >function __updateProgress(current, last) {</span>
 <span class="cstat-no" title="statement not covered" >            var ratio = current - last;</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.TargetMorphData.morphOffsetCount; ++i) {</span>
 <span class="cstat-no" title="statement not covered" >                var vm = this.TargetMorphData.groupMorph[i];</span>
-<span class="cstat-no" title="statement not covered" >                var m = this.morphManager.getMorphByIndex(vm.morphIndex);</span>
+<span class="cstat-no" title="statement not covered" >                var m = this.__morphManager.getMorphByIndex(vm.morphIndex);</span>
 <span class="cstat-no" title="statement not covered" >                if (m) {</span>
 <span class="cstat-no" title="statement not covered" >                    m.Progress += ratio * vm.morphRate;</span>
                 }
@@ -669,34 +669,34 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(PMXMaterialMorph, [{</span>
-        key: "updateProgress",
-        value: <span class="fstat-no" title="function not covered" >function updateProgress(current, last) {</span>
+        key: "__updateProgress",
+        value: <span class="fstat-no" title="function not covered" >function __updateProgress(current, last) {</span>
 <span class="cstat-no" title="statement not covered" >            var ratio = current - last;</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.TargetMorphData.morphOffsetCount; ++i) {</span>
 <span class="cstat-no" title="statement not covered" >                var vm = this.TargetMorphData.materialMorph[i];</span>
 <span class="cstat-no" title="statement not covered" >                var targetMaterials = undefined;</span>
 <span class="cstat-no" title="statement not covered" >                if (vm.materialIndex === -1) {</span>
-<span class="cstat-no" title="statement not covered" >                    targetMaterials = this.model.Materials;</span>
+<span class="cstat-no" title="statement not covered" >                    targetMaterials = this.__model.Materials;</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    targetMaterials = [this.model.getPMXMaterialByIndex(vm.materialIndex)];</span>
+<span class="cstat-no" title="statement not covered" >                    targetMaterials = [this.__model.getPMXMaterialByIndex(vm.materialIndex)];</span>
                 }
 <span class="cstat-no" title="statement not covered" >                for (var j = 0; j &lt; targetMaterials.length; j++) {</span>
 <span class="cstat-no" title="statement not covered" >                    var targetMaterial = targetMaterials[j];</span>
 <span class="cstat-no" title="statement not covered" >                    var target = vm.operationType === 1 ? targetMaterial.addMorphParam : targetMaterial.mulMorphParam;</span>
 <span class="cstat-no" title="statement not covered" >                    target.edgeSize += ratio * (vm.edgeSize + vm.operationType - 1);</span>
-<span class="cstat-no" title="statement not covered" >                    this.assignMorphValues(3, target.ambient, vm.ambient, ratio, vm.operationType);</span>
-<span class="cstat-no" title="statement not covered" >                    this.assignMorphValues(4, target.diffuse, vm.diffuse, ratio, vm.operationType);</span>
-<span class="cstat-no" title="statement not covered" >                    this.assignMorphValues(4, target.specular, vm.specular, ratio, vm.operationType);</span>
-<span class="cstat-no" title="statement not covered" >                    this.assignMorphValues(4, target.edgeColor, vm.edgeColor, ratio, vm.operationType);</span>
-<span class="cstat-no" title="statement not covered" >                    this.assignMorphValues(4, target.textureCoeff, vm.textureCoefficient, ratio, vm.operationType);</span>
-<span class="cstat-no" title="statement not covered" >                    this.assignMorphValues(4, target.sphereCoeff, vm.sphereTextureCoefficient, ratio, vm.operationType);</span>
-<span class="cstat-no" title="statement not covered" >                    this.assignMorphValues(4, target.toonCoeff, vm.toonTextureCoefficient, ratio, vm.operationType);</span>
+<span class="cstat-no" title="statement not covered" >                    this._assignMorphValues(3, target.ambient, vm.ambient, ratio, vm.operationType);</span>
+<span class="cstat-no" title="statement not covered" >                    this._assignMorphValues(4, target.diffuse, vm.diffuse, ratio, vm.operationType);</span>
+<span class="cstat-no" title="statement not covered" >                    this._assignMorphValues(4, target.specular, vm.specular, ratio, vm.operationType);</span>
+<span class="cstat-no" title="statement not covered" >                    this._assignMorphValues(4, target.edgeColor, vm.edgeColor, ratio, vm.operationType);</span>
+<span class="cstat-no" title="statement not covered" >                    this._assignMorphValues(4, target.textureCoeff, vm.textureCoefficient, ratio, vm.operationType);</span>
+<span class="cstat-no" title="statement not covered" >                    this._assignMorphValues(4, target.sphereCoeff, vm.sphereTextureCoefficient, ratio, vm.operationType);</span>
+<span class="cstat-no" title="statement not covered" >                    this._assignMorphValues(4, target.toonCoeff, vm.toonTextureCoefficient, ratio, vm.operationType);</span>
                 }
             }
         }
     }, {
-        key: "assignMorphValues",
-        value: <span class="fstat-no" title="function not covered" >function assignMorphValues(vecLength, target, morphValues, ratio, opType) {</span>
+        key: "_assignMorphValues",
+        value: <span class="fstat-no" title="function not covered" >function _assignMorphValues(vecLength, target, morphValues, ratio, opType) {</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; vecLength; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                target[i] += ratio * (morphValues[i] + opType - 1);</span>
             }
@@ -712,7 +712,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

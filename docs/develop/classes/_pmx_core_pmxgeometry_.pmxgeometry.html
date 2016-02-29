@@ -83,6 +83,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_base_idisposable_.idisposable.html" class="tsd-signature-type">IDisposable</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -119,13 +125,14 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#___assignattributeifexists" class="tsd-kind-icon">___assign<wbr>Attribute<wbr>IfExists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#___updatebuffers" class="tsd-kind-icon">___update<wbr>Buffers</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#dispose" class="tsd-kind-icon">dispose</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#drawwireframe" class="tsd-kind-icon">draw<wbr>Wireframe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#getdrawlength" class="tsd-kind-icon">get<wbr>Draw<wbr>Length</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#gettypename" class="tsd-kind-icon">get<wbr>Type<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#updatebuffers" class="tsd-kind-icon">update<wbr>Buffers</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#updatepositionbuffer" class="tsd-kind-icon">update<wbr>Position<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_pmx_core_pmxgeometry_.pmxgeometry.html#updateuvbuffer" class="tsd-kind-icon">updateUVBuffer</a></li>
 							</ul>
@@ -139,7 +146,7 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">new PMXGeometry<span class="tsd-signature-symbol">(</span>pmx<span class="tsd-signature-symbol">: </span><a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxgeometry_.pmxgeometry.html" class="tsd-signature-type">PMXGeometry</a></li>
+						<li class="tsd-signature tsd-kind-icon">new PMXGeometry<span class="tsd-signature-symbol">(</span>pmx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PMX</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_pmx_core_pmxgeometry_.pmxgeometry.html" class="tsd-signature-type">PMXGeometry</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -151,7 +158,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>pmx: <a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></h5>
+									<h5>pmx: <span class="tsd-signature-type">PMX</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_pmx_core_pmxgeometry_.pmxgeometry.html" class="tsd-signature-type">PMXGeometry</a></h4>
@@ -272,7 +279,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#primitivetopology">primitiveTopology</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L11">Core/Geometries/Base/Geometry.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L12">Core/Geometries/Base/Geometry.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -321,7 +328,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#geometryoffset">GeometryOffset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L12">Core/Geometries/Base/Geometry.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L13">Core/Geometries/Base/Geometry.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -342,7 +349,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#___assignattributeifexists">___assignAttributeIfExists</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L22">Core/Geometries/Base/Geometry.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/Geometry.ts#L23">Core/Geometries/Base/Geometry.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -402,6 +409,34 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported">
+					<a name="___updatebuffers" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> ___update<wbr>Buffers</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">___update<wbr>Buffers<span class="tsd-signature-symbol">(</span>pmx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PMX</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/PMX/Core/PMXGeometry.ts#L39">PMX/Core/PMXGeometry.ts:39</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>apply pmx geometries to buffer.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pmx: <span class="tsd-signature-type">PMX</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
 					<a name="applyattributevariables" class="tsd-anchor"></a>
 					<h3>apply<wbr>Attribute<wbr>Variables</h3>
@@ -430,6 +465,26 @@
 									</ul>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_base_idisposable_.idisposable.html">IDisposable</a>.<a href="../interfaces/_base_idisposable_.idisposable.html#dispose">dispose</a></p>
+								<p>Inherited from <a href="_core_geometries_base_basicgeometry_.basicgeometry.html">BasicGeometry</a>.<a href="_core_geometries_base_basicgeometry_.basicgeometry.html#dispose">dispose</a></p>
+								<p>Overwrites <a href="_core_geometries_base_geometry_.geometry.html">Geometry</a>.<a href="_core_geometries_base_geometry_.geometry.html#dispose">dispose</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Geometries/Base/BasicGeometry.ts#L34">Core/Geometries/Base/BasicGeometry.ts:34</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -584,34 +639,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported">
-					<a name="updatebuffers" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> update<wbr>Buffers</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Buffers<span class="tsd-signature-symbol">(</span>pmx<span class="tsd-signature-symbol">: </span><a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/PMX/Core/PMXGeometry.ts#L39">PMX/Core/PMXGeometry.ts:39</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>apply pmx geometries to buffer.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>pmx: <a href="_pmx_pmxloader_.pmx.html" class="tsd-signature-type">PMX</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 					<a name="updatepositionbuffer" class="tsd-anchor"></a>
 					<h3>update<wbr>Position<wbr>Buffer</h3>
@@ -708,8 +735,14 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-not-exported">
 								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#___bindindexbuffer" class="tsd-kind-icon">___bind<wbr>Index<wbr>Buffer</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported">
+								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#___updatebuffers" class="tsd-kind-icon">___update<wbr>Buffers</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
 								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#applyattributevariables" class="tsd-kind-icon">apply<wbr>Attribute<wbr>Variables</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
+								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#dispose" class="tsd-kind-icon">dispose</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-not-exported">
 								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#drawelements" class="tsd-kind-icon">draw<wbr>Elements</a>
@@ -725,9 +758,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
 								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-not-exported">
-								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#updatebuffers" class="tsd-kind-icon">update<wbr>Buffers</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_pmx_core_pmxgeometry_.pmxgeometry.html#updatepositionbuffer" class="tsd-kind-icon">update<wbr>Position<wbr>Buffer</a>

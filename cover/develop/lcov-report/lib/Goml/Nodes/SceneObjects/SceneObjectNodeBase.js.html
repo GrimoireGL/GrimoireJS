@@ -512,15 +512,15 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SceneObjectNodeBase).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.sceneObject = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._sceneObject = null;</span>
         /**
         * SceneObjectNode directly containing this node
         */
-<span class="cstat-no" title="statement not covered" >        _this.parentSceneObjectNode = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._parentSceneObjectNode = null;</span>
         /**
         * SceneNode containing this node
         */
-<span class="cstat-no" title="statement not covered" >        _this.containedSceneNode = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._containedSceneNode = null;</span>
 <span class="cstat-no" title="statement not covered" >        _this.attributes.defineAttribute({</span>
             "position": {
                 value: new _Vector2.default(0, 0, 0),
@@ -553,62 +553,62 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(SceneObjectNodeBase, [{</span>
-        key: "onMount",
-        value: <span class="fstat-no" title="function not covered" >function onMount() {</span>
-<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(SceneObjectNodeBase.prototype), "onMount", this).call(this);</span>
+        key: "__onMount",
+        value: <span class="fstat-no" title="function not covered" >function __onMount() {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(SceneObjectNodeBase.prototype), "__onMount", this).call(this);</span>
 <span class="cstat-no" title="statement not covered" >            var containedSceneNode = null;</span>
 <span class="cstat-no" title="statement not covered" >            var parentSceneObjectNode = null;</span>
             // This parent node is scene node.
-<span class="cstat-no" title="statement not covered" >            if (this.parent.getTypeName() === "SceneNode") {</span>
-<span class="cstat-no" title="statement not covered" >                containedSceneNode = this.parent;</span>
+<span class="cstat-no" title="statement not covered" >            if (this.__parent.getTypeName() === "SceneNode") {</span>
+<span class="cstat-no" title="statement not covered" >                containedSceneNode = this.__parent;</span>
 <span class="cstat-no" title="statement not covered" >                parentSceneObjectNode = null;</span>
             } else {
                 // check parent extends SceneObjectNodeBase or not.
-<span class="cstat-no" title="statement not covered" >                if (typeof this.parent.ContainedSceneNode === "undefined") {</span>
-<span class="cstat-no" title="statement not covered" >                    console.error(this.parent.toString() + " is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?");</span>
+<span class="cstat-no" title="statement not covered" >                if (typeof this.__parent.ContainedSceneNode === "undefined") {</span>
+<span class="cstat-no" title="statement not covered" >                    console.error(this.__parent.toString() + " is not extends SceneObjectNodeBase. Is this really ok to be contained in Scene tag?");</span>
 <span class="cstat-no" title="statement not covered" >                    return;</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    parentSceneObjectNode = this.parent;</span>
+<span class="cstat-no" title="statement not covered" >                    parentSceneObjectNode = this.__parent;</span>
 <span class="cstat-no" title="statement not covered" >                    containedSceneNode = parentSceneObjectNode.ContainedSceneNode;</span>
                 }
             }
-<span class="cstat-no" title="statement not covered" >            this.containedSceneNode = containedSceneNode;</span>
-<span class="cstat-no" title="statement not covered" >            this.parentSceneObjectNode = parentSceneObjectNode;</span>
+<span class="cstat-no" title="statement not covered" >            this._containedSceneNode = containedSceneNode;</span>
+<span class="cstat-no" title="statement not covered" >            this._parentSceneObjectNode = parentSceneObjectNode;</span>
         }
     }, {
-        key: "onUnmount",
-        value: <span class="fstat-no" title="function not covered" >function onUnmount() {</span>
-<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(SceneObjectNodeBase.prototype), "onUnmount", this).call(this);</span>
+        key: "__onUnmount",
+        value: <span class="fstat-no" title="function not covered" >function __onUnmount() {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(SceneObjectNodeBase.prototype), "__onUnmount", this).call(this);</span>
         }
     }, {
         key: "_onPositionAttrChanged__SceneObjectNodeBase",
         value: <span class="fstat-no" title="function not covered" >function _onPositionAttrChanged__SceneObjectNodeBase(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.sceneObject) {</span>
-<span class="cstat-no" title="statement not covered" >                this.sceneObject.Transformer.Position = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._sceneObject) {</span>
+<span class="cstat-no" title="statement not covered" >                this._sceneObject.Transformer.Position = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
     }, {
         key: "_onScaleAttrChanged__SceneObjectNodeBase",
         value: <span class="fstat-no" title="function not covered" >function _onScaleAttrChanged__SceneObjectNodeBase(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.sceneObject) {</span>
-<span class="cstat-no" title="statement not covered" >                this.sceneObject.Transformer.Scale = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._sceneObject) {</span>
+<span class="cstat-no" title="statement not covered" >                this._sceneObject.Transformer.Scale = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
     }, {
         key: "_onRotationAttrChanged__SceneObjectNodeBase",
         value: <span class="fstat-no" title="function not covered" >function _onRotationAttrChanged__SceneObjectNodeBase(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.sceneObject) {</span>
-<span class="cstat-no" title="statement not covered" >                this.sceneObject.Transformer.Rotation = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._sceneObject) {</span>
+<span class="cstat-no" title="statement not covered" >                this._sceneObject.Transformer.Rotation = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
     }, {
         key: "_onNameAttrChanged__SceneObjectNodeBase",
         value: <span class="fstat-no" title="function not covered" >function _onNameAttrChanged__SceneObjectNodeBase(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.sceneObject) {</span>
-<span class="cstat-no" title="statement not covered" >                this.sceneObject.name = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._sceneObject) {</span>
+<span class="cstat-no" title="statement not covered" >                this._sceneObject.name = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
         }
@@ -625,24 +625,24 @@
 <span class="cstat-no" title="statement not covered" >                obj = null;</span>
             }
             // previus object is exist in child, remove child
-<span class="cstat-no" title="statement not covered" >            if (this.sceneObject !== null) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._sceneObject !== null) {</span>
 <span class="cstat-no" title="statement not covered" >                if (this.ParentSceneObjectNode === null) {</span>
-<span class="cstat-no" title="statement not covered" >                    this.containedSceneNode.target.removeObject(this.sceneObject);</span>
+<span class="cstat-no" title="statement not covered" >                    this._containedSceneNode.target.removeObject(this._sceneObject);</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    if (this.parentSceneObjectNode.TargetSceneObject === null) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (this._parentSceneObjectNode.TargetSceneObject === null) {</span>
 <span class="cstat-no" title="statement not covered" >                        return;</span>
                     }
-<span class="cstat-no" title="statement not covered" >                    this.parentSceneObjectNode.TargetSceneObject.removeChild(this.sceneObject);</span>
+<span class="cstat-no" title="statement not covered" >                    this._parentSceneObjectNode.TargetSceneObject.removeChild(this._sceneObject);</span>
                 }
             }
 <span class="cstat-no" title="statement not covered" >            if (obj !== null) {</span>
 <span class="cstat-no" title="statement not covered" >                if (this.ParentSceneObjectNode === null) {</span>
-<span class="cstat-no" title="statement not covered" >                    this.containedSceneNode.target.addObject(obj);</span>
+<span class="cstat-no" title="statement not covered" >                    this._containedSceneNode.target.addObject(obj);</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    if (this.parentSceneObjectNode.TargetSceneObject === null) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (this._parentSceneObjectNode.TargetSceneObject === null) {</span>
 <span class="cstat-no" title="statement not covered" >                        return;</span>
                     }
-<span class="cstat-no" title="statement not covered" >                    this.parentSceneObjectNode.TargetSceneObject.addChild(obj);</span>
+<span class="cstat-no" title="statement not covered" >                    this._parentSceneObjectNode.TargetSceneObject.addChild(obj);</span>
                 }
             }
         }
@@ -654,18 +654,18 @@
     }, {
         key: "ParentSceneObjectNode",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parentSceneObjectNode;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parentSceneObjectNode;</span>
         }
     }, {
         key: "ContainedSceneNode",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.containedSceneNode;</span>
+<span class="cstat-no" title="statement not covered" >            return this._containedSceneNode;</span>
         }
     }, {
         key: "TargetSceneObject",
         set: <span class="fstat-no" title="function not covered" >function set(obj) {</span>
 <span class="cstat-no" title="statement not covered" >            this._updateSceneObjectChild(obj);</span>
-<span class="cstat-no" title="statement not covered" >            this.sceneObject = obj;</span>
+<span class="cstat-no" title="statement not covered" >            this._sceneObject = obj;</span>
 <span class="cstat-no" title="statement not covered" >            this.target = obj;</span>
 <span class="cstat-no" title="statement not covered" >            this.emit("update-scene-object", this.target);</span>
         }
@@ -675,7 +675,7 @@
          */
         ,
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.sceneObject;</span>
+<span class="cstat-no" title="statement not covered" >            return this._sceneObject;</span>
         }
     }]);
 &nbsp;
@@ -688,7 +688,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

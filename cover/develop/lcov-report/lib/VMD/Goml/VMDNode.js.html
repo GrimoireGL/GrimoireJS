@@ -427,9 +427,9 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(VMDNode).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.autoSpeed = 0;</span>
-<span class="cstat-no" title="statement not covered" >        _this.lastTime = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.frame = 0;</span>
+<span class="cstat-no" title="statement not covered" >        _this._autoSpeed = 0;</span>
+<span class="cstat-no" title="statement not covered" >        _this._lastTime = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._frame = 0;</span>
 <span class="cstat-no" title="statement not covered" >        _this.attributes.defineAttribute({</span>
             "src": {
                 value: "",
@@ -445,7 +445,7 @@
                 value: false,
                 converter: "boolean",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >                    _this.enabled = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                    _this._enabled = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
                 }
             },
@@ -453,7 +453,7 @@
                 value: "0",
                 converter: "float",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >                    _this.autoSpeed = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                    _this._autoSpeed = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
                 }
             }
@@ -462,28 +462,28 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(VMDNode, [{</span>
-        key: "onMount",
-        value: <span class="fstat-no" title="function not covered" >function onMount() {</span>
+        key: "__onMount",
+        value: <span class="fstat-no" title="function not covered" >function __onMount() {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(VMDNode.prototype), "onMount", this).call(this);</span>
-<span class="cstat-no" title="statement not covered" >            this.targetPMX = this.parent;</span>
-<span class="cstat-no" title="statement not covered" >            this.targetPMX.on("loaded", <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(VMDNode.prototype), "__onMount", this).call(this);</span>
+<span class="cstat-no" title="statement not covered" >            this._targetPMX = this.__parent;</span>
+<span class="cstat-no" title="statement not covered" >            this._targetPMX.on("loaded", <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                _this2.attributes.updateValue();</span>
             });
         }
     }, {
         key: "update",
         value: <span class="fstat-no" title="function not covered" >function update() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.enabled &amp;&amp; this.autoSpeed !== 0) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._enabled &amp;&amp; this._autoSpeed !== 0) {</span>
 <span class="cstat-no" title="statement not covered" >                var timer = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.Timer);</span>
-<span class="cstat-no" title="statement not covered" >                if (this.lastTime === null) {</span>
-<span class="cstat-no" title="statement not covered" >                    this.lastTime = timer.time;</span>
+<span class="cstat-no" title="statement not covered" >                if (this._lastTime === null) {</span>
+<span class="cstat-no" title="statement not covered" >                    this._lastTime = timer.time;</span>
 <span class="cstat-no" title="statement not covered" >                    return;</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    var dt = timer.time - this.lastTime;</span>
-<span class="cstat-no" title="statement not covered" >                    this.lastTime = timer.time;</span>
-<span class="cstat-no" title="statement not covered" >                    this.attributes.setValue("frame", this.frame + dt / 1000 * 30 * this.autoSpeed);</span>
+<span class="cstat-no" title="statement not covered" >                    var dt = timer.time - this._lastTime;</span>
+<span class="cstat-no" title="statement not covered" >                    this._lastTime = timer.time;</span>
+<span class="cstat-no" title="statement not covered" >                    this.attributes.setValue("frame", this._frame + dt / 1000 * 30 * this._autoSpeed);</span>
                 }
             }
         }
@@ -492,43 +492,43 @@
         value: <span class="fstat-no" title="function not covered" >function _onSrcAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this3 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            if (!attr.Value || attr.Value === this.lastURL) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!attr.Value || attr.Value === this._lastURL) {</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            if (this.vmdLoadingDeferred) {</span>
-<span class="cstat-no" title="statement not covered" >                this.vmdLoadingDeferred.resolve(null);</span>
+<span class="cstat-no" title="statement not covered" >            if (this._vmdLoadingDeferred) {</span>
+<span class="cstat-no" title="statement not covered" >                this._vmdLoadingDeferred.resolve(null);</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.vmdLoadingDeferred = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceLoader).getResourceLoadingDeffered();</span>
-<span class="cstat-no" title="statement not covered" >            _VMDData2.default.LoadFromUrl(attr.Value).then(<span class="fstat-no" title="function not covered" >function (data) {</span></span>
-<span class="cstat-no" title="statement not covered" >                _this3.lastURL = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >                _this3.targetVMD = data;</span>
-<span class="cstat-no" title="statement not covered" >                _this3.vmdLoadingDeferred.resolve(null);</span>
+<span class="cstat-no" title="statement not covered" >            this._vmdLoadingDeferred = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceLoader).getResourceLoadingDeffered();</span>
+<span class="cstat-no" title="statement not covered" >            _VMDData2.default.loadFromUrl(attr.Value).then(<span class="fstat-no" title="function not covered" >function (data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                _this3._lastURL = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                _this3._targetVMD = data;</span>
+<span class="cstat-no" title="statement not covered" >                _this3._vmdLoadingDeferred.resolve(null);</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             });
         }
     }, {
         key: "_onFrameAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onFrameAttrChanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            this.frame = Math.max(0, attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >            this._frame = Math.max(0, attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >            if (!this.attributes.getValue("enabled")) {</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            if (this.targetPMX.PMXModelReady &amp;&amp; this.targetVMD) {</span>
-<span class="cstat-no" title="statement not covered" >                for (var boneName in this.targetVMD.Motions) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._targetPMX.PMXModelReady &amp;&amp; this._targetVMD) {</span>
+<span class="cstat-no" title="statement not covered" >                for (var boneName in this._targetVMD.Motions) {</span>
 <span class="cstat-no" title="statement not covered" >                    var bone = undefined;</span>
-<span class="cstat-no" title="statement not covered" >                    if (bone = this.targetPMX.PMXModel.skeleton.getBoneByName(boneName)) {</span>
-<span class="cstat-no" title="statement not covered" >                        var current = this.targetVMD.getBoneFrame(this.frame, boneName);</span>
+<span class="cstat-no" title="statement not covered" >                    if (bone = this._targetPMX.PMXModel.skeleton.getBoneByName(boneName)) {</span>
+<span class="cstat-no" title="statement not covered" >                        var current = this._targetVMD.getBoneFrame(this._frame, boneName);</span>
 <span class="cstat-no" title="statement not covered" >                        bone.Transformer.Position = new _Vector2.default(current.position);</span>
 <span class="cstat-no" title="statement not covered" >                        bone.Transformer.userRotation = new _Quaternion2.default(current.rotation);</span>
                     }
                 }
-<span class="cstat-no" title="statement not covered" >                for (var morphName in this.targetVMD.Morphs) {</span>
+<span class="cstat-no" title="statement not covered" >                for (var morphName in this._targetVMD.Morphs) {</span>
 <span class="cstat-no" title="statement not covered" >                    var morph = undefined;</span>
-<span class="cstat-no" title="statement not covered" >                    if (morph = this.targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {</span>
-<span class="cstat-no" title="statement not covered" >                        var morphCurrent = this.targetVMD.getMorphFrame(this.frame, morphName);</span>
+<span class="cstat-no" title="statement not covered" >                    if (morph = this._targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {</span>
+<span class="cstat-no" title="statement not covered" >                        var morphCurrent = this._targetVMD.getMorphFrame(this._frame, morphName);</span>
 <span class="cstat-no" title="statement not covered" >                        if (morph) {</span>
 <span class="cstat-no" title="statement not covered" >                            morph.Progress = morphCurrent.value;</span>
                         }
@@ -550,7 +550,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

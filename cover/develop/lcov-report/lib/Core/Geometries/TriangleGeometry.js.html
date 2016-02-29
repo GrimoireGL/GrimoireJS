@@ -289,63 +289,63 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TriangleGeometry).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.first = new _Vector2.default(0, 1, 0);</span>
-<span class="cstat-no" title="statement not covered" >        _this.second = new _Vector2.default(1, 0, 0);</span>
-<span class="cstat-no" title="statement not covered" >        _this.third = new _Vector2.default(-1, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" >        _this._first = new _Vector2.default(0, 1, 0);</span>
+<span class="cstat-no" title="statement not covered" >        _this._second = new _Vector2.default(1, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" >        _this._third = new _Vector2.default(-1, 0, 0);</span>
 <span class="cstat-no" title="statement not covered" >        var rm = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceManager);</span>
 <span class="cstat-no" title="statement not covered" >        _this.indexBuffer = rm.createBuffer(name + "index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_BYTE);</span>
 <span class="cstat-no" title="statement not covered" >        _this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);</span>
 <span class="cstat-no" title="statement not covered" >        _this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);</span>
 <span class="cstat-no" title="statement not covered" >        _this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);</span>
-<span class="cstat-no" title="statement not covered" >        _this.updateBuffers();</span>
+<span class="cstat-no" title="statement not covered" >        _this.__updateBuffers();</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(TriangleGeometry, [{</span>
-        key: "updatePositionBuffer",
-        value: <span class="fstat-no" title="function not covered" >function updatePositionBuffer() {</span>
-<span class="cstat-no" title="statement not covered" >            this.positionBuffer.update(new Float32Array([this.first.X, this.first.Y, this.first.Z, this.second.X, this.second.Y, this.second.Z, this.third.X, this.third.Y, this.third.Z]), 9);</span>
+        key: "__updatePositionBuffer",
+        value: <span class="fstat-no" title="function not covered" >function __updatePositionBuffer() {</span>
+<span class="cstat-no" title="statement not covered" >            this.positionBuffer.update(new Float32Array([this._first.X, this._first.Y, this._first.Z, this._second.X, this._second.Y, this._second.Z, this._third.X, this._third.Y, this._third.Z]), 9);</span>
         }
     }, {
-        key: "updateNormalBuffer",
-        value: <span class="fstat-no" title="function not covered" >function updateNormalBuffer() {</span>
+        key: "__updateNormalBuffer",
+        value: <span class="fstat-no" title="function not covered" >function __updateNormalBuffer() {</span>
 <span class="cstat-no" title="statement not covered" >            this.normalBuffer.update(new Float32Array([0, 0, -1, 0, 0, -1, 0, 0, -1]), 9);</span>
         }
     }, {
-        key: "updateUvBuffer",
-        value: <span class="fstat-no" title="function not covered" >function updateUvBuffer() {</span>
+        key: "__updateUvBuffer",
+        value: <span class="fstat-no" title="function not covered" >function __updateUvBuffer() {</span>
 <span class="cstat-no" title="statement not covered" >            this.uvBuffer.update(new Float32Array([0.5, 0.5, 1, 0, 0, 0]), 6);</span>
         }
     }, {
-        key: "updateIndexBuffer",
-        value: <span class="fstat-no" title="function not covered" >function updateIndexBuffer() {</span>
+        key: "__updateIndexBuffer",
+        value: <span class="fstat-no" title="function not covered" >function __updateIndexBuffer() {</span>
 <span class="cstat-no" title="statement not covered" >            this.indexBuffer.update(new Uint8Array([0, 1, 2]), 3);</span>
         }
     }, {
-        key: "updateBuffers",
-        value: <span class="fstat-no" title="function not covered" >function updateBuffers() {</span>
-<span class="cstat-no" title="statement not covered" >            this.updatePositionBuffer();</span>
-<span class="cstat-no" title="statement not covered" >            this.updateNormalBuffer();</span>
-<span class="cstat-no" title="statement not covered" >            this.updateUvBuffer();</span>
-<span class="cstat-no" title="statement not covered" >            this.updateIndexBuffer();</span>
+        key: "__updateBuffers",
+        value: <span class="fstat-no" title="function not covered" >function __updateBuffers() {</span>
+<span class="cstat-no" title="statement not covered" >            this.__updatePositionBuffer();</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateNormalBuffer();</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateUvBuffer();</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateIndexBuffer();</span>
         }
     }, {
         key: "First",
         set: <span class="fstat-no" title="function not covered" >function set(vec) {</span>
-<span class="cstat-no" title="statement not covered" >            this.first = vec;</span>
-<span class="cstat-no" title="statement not covered" >            this.updateBuffers();</span>
+<span class="cstat-no" title="statement not covered" >            this._first = vec;</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateBuffers();</span>
         }
     }, {
         key: "Second",
         set: <span class="fstat-no" title="function not covered" >function set(vec) {</span>
-<span class="cstat-no" title="statement not covered" >            this.second = vec;</span>
-<span class="cstat-no" title="statement not covered" >            this.updateBuffers();</span>
+<span class="cstat-no" title="statement not covered" >            this._second = vec;</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateBuffers();</span>
         }
     }, {
         key: "Third",
         set: <span class="fstat-no" title="function not covered" >function set(vec) {</span>
-<span class="cstat-no" title="statement not covered" >            this.third = vec;</span>
-<span class="cstat-no" title="statement not covered" >            this.updateBuffers();</span>
+<span class="cstat-no" title="statement not covered" >            this._third = vec;</span>
+<span class="cstat-no" title="statement not covered" >            this.__updateBuffers();</span>
         }
     }]);
 &nbsp;
@@ -358,7 +358,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

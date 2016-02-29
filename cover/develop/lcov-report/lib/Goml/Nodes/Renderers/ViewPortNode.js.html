@@ -517,8 +517,8 @@
                 value: 640,
                 converter: "float",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >                    _this.width = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >                    _this.updateViewportArea();</span>
+<span class="cstat-no" title="statement not covered" >                    _this._width = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                    _this._updateViewportArea();</span>
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
                 }
             },
@@ -526,8 +526,8 @@
                 value: 480,
                 converter: "float",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >                    _this.height = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >                    _this.updateViewportArea();</span>
+<span class="cstat-no" title="statement not covered" >                    _this._height = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                    _this._updateViewportArea();</span>
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
                 }
             },
@@ -535,8 +535,8 @@
                 value: 0,
                 converter: "float",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >                    _this.left = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >                    _this.updateViewportArea();</span>
+<span class="cstat-no" title="statement not covered" >                    _this._left = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                    _this._updateViewportArea();</span>
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
                 }
             },
@@ -544,8 +544,8 @@
                 value: 0,
                 converter: "float",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >                    _this.top = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >                    _this.updateViewportArea();</span>
+<span class="cstat-no" title="statement not covered" >                    _this._top = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >                    _this._updateViewportArea();</span>
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
                 }
             },
@@ -553,9 +553,9 @@
                 value: "color",
                 converter: "string",
                 onchanged: <span class="fstat-no" title="function not covered" >function onchanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >                    if (attr.Value !== "skybox" &amp;&amp; _this.skyBoxStageChain) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (attr.Value !== "skybox" &amp;&amp; _this._skyBoxStageChain) {</span>
                         // this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain); TODO fix this
-<span class="cstat-no" title="statement not covered" >                        _this.skyBoxStageChain = null;</span>
+<span class="cstat-no" title="statement not covered" >                        _this._skyBoxStageChain = null;</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
                 }
@@ -583,25 +583,25 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(ViewPortNode, [{</span>
-        key: "onMount",
-        value: <span class="fstat-no" title="function not covered" >function onMount() {</span>
-<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(ViewPortNode.prototype), "onMount", this).call(this);</span>
+        key: "__onMount",
+        value: <span class="fstat-no" title="function not covered" >function __onMount() {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(ViewPortNode.prototype), "__onMount", this).call(this);</span>
         }
     }, {
         key: "_onConfigAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onConfigAttrChanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.parent.getTypeName() !== "CanvasNode") {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.__parent.getTypeName() !== "CanvasNode") {</span>
 <span class="cstat-no" title="statement not covered" >                throw Error("viewport must be the direct child of canvas");</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.parentCanvas = this.parent;</span>
-<span class="cstat-no" title="statement not covered" >            var defaultRect = this.parentCanvas.target.region;</span>
-<span class="cstat-no" title="statement not covered" >            this.target = _RendererFactory2.default.generateRenderer(this.parentCanvas.target, defaultRect, attr.Value);</span>
+<span class="cstat-no" title="statement not covered" >            this._parentCanvas = this.__parent;</span>
+<span class="cstat-no" title="statement not covered" >            var defaultRect = this._parentCanvas.target.region;</span>
+<span class="cstat-no" title="statement not covered" >            this.target = _RendererFactory2.default.generateRenderer(this._parentCanvas.target, defaultRect, attr.Value);</span>
 <span class="cstat-no" title="statement not covered" >            attr.done();</span>
         }
     }, {
         key: "_onCamAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onCamAttrChanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            this.resolveCamera(attr.Value, attr.done.bind(attr));</span>
+<span class="cstat-no" title="statement not covered" >            this._resolveCamera(attr.Value, attr.done.bind(attr));</span>
         }
     }, {
         key: "_onSkyboxAttrChanged",
@@ -611,17 +611,17 @@
 <span class="cstat-no" title="statement not covered" >            if (this.attributes.getValue("backgroundType") === "skybox") {</span>
 <span class="cstat-no" title="statement not covered" >                this.nodeImport("jthree.resource.TextureCube", attr.Value, <span class="fstat-no" title="function not covered" >function (node) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    if (node) {</span>
-<span class="cstat-no" title="statement not covered" >                        if (!_this2.skyBoxStageChain) {</span>
-<span class="cstat-no" title="statement not covered" >                            _this2.skyBoxStageChain = {</span>
+<span class="cstat-no" title="statement not covered" >                        if (!_this2._skyBoxStageChain) {</span>
+<span class="cstat-no" title="statement not covered" >                            _this2._skyBoxStageChain = {</span>
                                 buffers: {
                                     OUT: "main"
                                 },
                                 stage: "jthree.basic.skybox",
                                 variables: {}
                             };
-<span class="cstat-no" title="statement not covered" >                            _this2.target.renderPath.insertWithIndex(0, _this2.skyBoxStageChain);</span>
+<span class="cstat-no" title="statement not covered" >                            _this2.target.renderPath.insertWithIndex(0, _this2._skyBoxStageChain);</span>
                         }
-<span class="cstat-no" title="statement not covered" >                        _this2.skyBoxStageChain.variables["skybox"] = node.target;</span>
+<span class="cstat-no" title="statement not covered" >                        _this2._skyBoxStageChain.variables["skybox"] = node.target;</span>
 <span class="cstat-no" title="statement not covered" >                        attr.done();</span>
                     } else {
 <span class="cstat-no" title="statement not covered" >                        attr.done();</span>
@@ -632,32 +632,32 @@
             }
         }
     }, {
-        key: "updateViewportArea",
-        value: <span class="fstat-no" title="function not covered" >function updateViewportArea() {</span>
+        key: "_updateViewportArea",
+        value: <span class="fstat-no" title="function not covered" >function _updateViewportArea() {</span>
             // console.log("updateViewportArea");
-<span class="cstat-no" title="statement not covered" >            if (this.parentCanvas) {</span>
-<span class="cstat-no" title="statement not covered" >                if (this.parentCanvas.canvasFrames.container) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._parentCanvas) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this._parentCanvas.canvasFrames.container) {</span>
                     // when canvas HTMLElement is applied
-<span class="cstat-no" title="statement not covered" >                    var frame = this.parentCanvas.canvasFrames.container;</span>
+<span class="cstat-no" title="statement not covered" >                    var frame = this._parentCanvas.canvasFrames.container;</span>
 <span class="cstat-no" title="statement not covered" >                    var W = frame.clientWidth;</span>
 <span class="cstat-no" title="statement not covered" >                    var H = frame.clientHeight;</span>
-<span class="cstat-no" title="statement not covered" >                    var left = this.left &gt; 1 ? this.left : W * this.left;</span>
-<span class="cstat-no" title="statement not covered" >                    var top = this.top &gt; 1 ? this.top : H * this.top;</span>
-<span class="cstat-no" title="statement not covered" >                    var width = this.width &gt; 1 ? this.width : W * this.width;</span>
-<span class="cstat-no" title="statement not covered" >                    var height = this.height &gt; 1 ? this.height : H * this.height;</span>
+<span class="cstat-no" title="statement not covered" >                    var left = this._left &gt; 1 ? this._left : W * this._left;</span>
+<span class="cstat-no" title="statement not covered" >                    var top = this._top &gt; 1 ? this._top : H * this._top;</span>
+<span class="cstat-no" title="statement not covered" >                    var width = this._width &gt; 1 ? this._width : W * this._width;</span>
+<span class="cstat-no" title="statement not covered" >                    var height = this._height &gt; 1 ? this._height : H * this._height;</span>
 <span class="cstat-no" title="statement not covered" >                    this.target.region = new _Rectangle2.default(left, top, width, height);</span>
                 } else {
                     // when canvas HTMLElement is not applied
-<span class="cstat-no" title="statement not covered" >                    this.target.region = new _Rectangle2.default(this.left, this.top, this.width, this.height);</span>
+<span class="cstat-no" title="statement not covered" >                    this.target.region = new _Rectangle2.default(this._left, this._top, this._width, this._height);</span>
                 }
 <span class="cstat-no" title="statement not covered" >                if (this.target.Camera.getTypeName() === "PerspectiveCamera") {</span>
-<span class="cstat-no" title="statement not covered" >                    this.target.Camera.Aspect = this.width / this.height;</span>
+<span class="cstat-no" title="statement not covered" >                    this.target.Camera.Aspect = this._width / this._height;</span>
                 }
             }
         }
     }, {
-        key: "resolveCamera",
-        value: <span class="fstat-no" title="function not covered" >function resolveCamera(cam, done) {</span>
+        key: "_resolveCamera",
+        value: <span class="fstat-no" title="function not covered" >function _resolveCamera(cam, done) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this3 = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            this.nodeImport("jthree.scene.camera", cam, <span class="fstat-no" title="function not covered" >function (cameraNode) {</span></span>
@@ -669,7 +669,7 @@
 <span class="cstat-no" title="statement not covered" >                        _this3.target.Camera = cameraNode.target;</span>
 <span class="cstat-no" title="statement not covered" >                        var scene = cameraNode.ContainedSceneNode.target;</span>
 <span class="cstat-no" title="statement not covered" >                        scene.addRenderer(_this3.target);</span>
-<span class="cstat-no" title="statement not covered" >                        _this3.updateViewportArea();</span>
+<span class="cstat-no" title="statement not covered" >                        _this3._updateViewportArea();</span>
                     } else {
 <span class="cstat-no" title="statement not covered" >                        console.error("cant retrieve scene!");</span>
                     }
@@ -688,7 +688,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

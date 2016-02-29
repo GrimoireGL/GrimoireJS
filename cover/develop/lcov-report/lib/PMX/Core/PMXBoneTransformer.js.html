@@ -733,29 +733,29 @@
          * Quaternion produced from bone morphs.
          * @type {Quaternion}
          */
-<span class="cstat-no" title="statement not covered" >        _this.morphRotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >        _this._morphRotation = _Quaternion2.default.Identity;</span>
         /**
          * Translation vector produced from bone morphs.
          * @type {Vector3}
          */
-<span class="cstat-no" title="statement not covered" >        _this.morphTranslation = _Vector2.default.Zero;</span>
+<span class="cstat-no" title="statement not covered" >        _this._morphTranslation = _Vector2.default.Zero;</span>
         /**
          * Quaternion that will be used for calculating rotation providing for child bones.
          * @type {Quaternion}
          */
-<span class="cstat-no" title="statement not covered" >        _this.providingRotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >        _this._providingBoneRotation = _Quaternion2.default.Identity;</span>
         /**
          * Translation vector that will be used for calculating translation providing for child bones.
          * @type {Vector3}
          */
-<span class="cstat-no" title="statement not covered" >        _this.providingTranslation = _Vector2.default.Zero;</span>
+<span class="cstat-no" title="statement not covered" >        _this._providingBoneTranslation = _Vector2.default.Zero;</span>
         /**
          * Quaternion produced from rotation of IK link.
          * @type {Quaternion}
          */
-<span class="cstat-no" title="statement not covered" >        _this.ikLinkRotation = _Quaternion2.default.Identity;</span>
-<span class="cstat-no" title="statement not covered" >        _this.pmx = pmx;</span>
-<span class="cstat-no" title="statement not covered" >        _this.boneIndex = index;</span>
+<span class="cstat-no" title="statement not covered" >        _this._ikLinkRotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >        _this._pmx = pmx;</span>
+<span class="cstat-no" title="statement not covered" >        _this._boneIndex = index;</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
     /**
@@ -771,14 +771,14 @@
     }, {
         key: "updateTransformForPMX",
         value: <span class="fstat-no" title="function not covered" >function updateTransformForPMX() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.pmx == null) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._pmx == null) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.updateLocalTranslation();</span>
-<span class="cstat-no" title="statement not covered" >            if (this.IsIKBone &amp;&amp; this.pmx.skeleton) {</span>
-<span class="cstat-no" title="statement not covered" >                this.applyCCDIK();</span>
+<span class="cstat-no" title="statement not covered" >            this._updateLocalTranslation();</span>
+<span class="cstat-no" title="statement not covered" >            if (this.IsIKBone &amp;&amp; this._pmx.skeleton) {</span>
+<span class="cstat-no" title="statement not covered" >                this._applyCCDIK();</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                this.updateLocalRotation();</span>
+<span class="cstat-no" title="statement not covered" >                this._updateLocalRotation();</span>
 <span class="cstat-no" title="statement not covered" >                _get(Object.getPrototypeOf(PMXBoneTransformer.prototype), "updateTransform", this).call(this);</span>
             }
         }
@@ -789,8 +789,8 @@
          */
 &nbsp;
     }, {
-        key: "updateLocalRotation",
-        value: <span class="fstat-no" title="function not covered" >function updateLocalRotation() {</span>
+        key: "_updateLocalRotation",
+        value: <span class="fstat-no" title="function not covered" >function _updateLocalRotation() {</span>
 <span class="cstat-no" title="statement not covered" >            _glMatrix.quat.identity(this.Rotation.rawElements);</span>
 <span class="cstat-no" title="statement not covered" >            if (this.IsRotationProvidingBone) {</span>
 <span class="cstat-no" title="statement not covered" >                if (this.IsLocalProvidingBone) {</span>
@@ -799,17 +799,17 @@
                 }
 <span class="cstat-no" title="statement not covered" >                if (this.ProvidingBoneTransformer.isIKLink) {</span>
                     // Interpolate ikLink rotation with providing rate
-<span class="cstat-no" title="statement not covered" >                    _glMatrix.quat.slerp(this.Rotation.rawElements, this.Rotation.rawElements, this.ProvidingBoneTransformer.ikLinkRotation.rawElements, this.BoneData.providingRate);</span>
+<span class="cstat-no" title="statement not covered" >                    _glMatrix.quat.slerp(this.Rotation.rawElements, this.Rotation.rawElements, this.ProvidingBoneTransformer._ikLinkRotation.rawElements, this.BoneData.providingRate);</span>
                 }
             }
             // Multiply local rotations of this bone
 <span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.userRotation.rawElements);</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.morphRotation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this._morphRotation.rawElements);</span>
 <span class="cstat-no" title="statement not covered" >            if (this.IsRotationProvidingBone) {</span>
-<span class="cstat-no" title="statement not covered" >                _glMatrix.quat.copy(this.providingRotation.rawElements, this.Rotation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >                _glMatrix.quat.copy(this._providingBoneRotation.rawElements, this.Rotation.rawElements);</span>
             }
             // Calculate IkLink rotation of this bone
-<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.ikLinkRotation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this._ikLinkRotation.rawElements);</span>
         }
         /**
          * Calculate actual translation vector.
@@ -818,8 +818,8 @@
          */
 &nbsp;
     }, {
-        key: "updateLocalTranslation",
-        value: <span class="fstat-no" title="function not covered" >function updateLocalTranslation() {</span>
+        key: "_updateLocalTranslation",
+        value: <span class="fstat-no" title="function not covered" >function _updateLocalTranslation() {</span>
 <span class="cstat-no" title="statement not covered" >            this.Position.rawElements[0] = 0;</span>
 <span class="cstat-no" title="statement not covered" >            this.Position.rawElements[1] = 0;</span>
 <span class="cstat-no" title="statement not covered" >            this.Position.rawElements[2] = 0;</span>
@@ -831,40 +831,40 @@
 <span class="cstat-no" title="statement not covered" >                _glMatrix.vec3.lerp(this.Position.rawElements, this.Position.rawElements, this.ProvidingBone.Transformer.Position.rawElements, this.BoneData.providingRate);</span>
             }
 <span class="cstat-no" title="statement not covered" >            _glMatrix.vec3.add(this.Position.rawElements, this.Position.rawElements, this.userTranslation.rawElements);</span>
-<span class="cstat-no" title="statement not covered" >            _glMatrix.vec3.add(this.Position.rawElements, this.Position.rawElements, this.morphTranslation.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >            _glMatrix.vec3.add(this.Position.rawElements, this.Position.rawElements, this._morphTranslation.rawElements);</span>
 <span class="cstat-no" title="statement not covered" >            if (this.IsTranslationProvidingBone) {</span>
-<span class="cstat-no" title="statement not covered" >                _glMatrix.vec3.copy(this.providingTranslation.rawElements, this.Position.rawElements);</span>
+<span class="cstat-no" title="statement not covered" >                _glMatrix.vec3.copy(this._providingBoneTranslation.rawElements, this.Position.rawElements);</span>
             }
         }
     }, {
-        key: "applyCCDIK",
-        value: <span class="fstat-no" title="function not covered" >function applyCCDIK() {</span>
+        key: "_applyCCDIK",
+        value: <span class="fstat-no" title="function not covered" >function _applyCCDIK() {</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.BoneData.ikLinkCount; i++) {</span>
-<span class="cstat-no" title="statement not covered" >                var link = this.getIkLinkTransformerByIndex(i);</span>
-<span class="cstat-no" title="statement not covered" >                link.ikLinkRotation = _Quaternion2.default.Identity;</span>
+<span class="cstat-no" title="statement not covered" >                var link = this._getIkLinkTransformerByIndex(i);</span>
+<span class="cstat-no" title="statement not covered" >                link._ikLinkRotation = _Quaternion2.default.Identity;</span>
 <span class="cstat-no" title="statement not covered" >                link.updateTransformForPMX();</span>
             }
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.BoneData.ikLoopCount; i++) {</span>
-<span class="cstat-no" title="statement not covered" >                this.CCDIKOperation(i);</span>
+<span class="cstat-no" title="statement not covered" >                this._cCDIKOperation(i);</span>
             }
         }
     }, {
-        key: "CCDIKOperation",
-        value: <span class="fstat-no" title="function not covered" >function CCDIKOperation(it) {</span>
-<span class="cstat-no" title="statement not covered" >            var effectorTransformer = this.pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;</span>
+        key: "_cCDIKOperation",
+        value: <span class="fstat-no" title="function not covered" >function _cCDIKOperation(it) {</span>
+<span class="cstat-no" title="statement not covered" >            var effectorTransformer = this._pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;</span>
 <span class="cstat-no" title="statement not covered" >            var TargetGlobalPos = _Matrix2.default.transformPoint(this.LocalToGlobal, this.LocalOrigin);</span>
-            // vec3.transformMat4(this.pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
+            // vec3.transformMat4(this._pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.BoneData.ikLinkCount; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                var ikLinkData = this.BoneData.ikLinks[i];</span>
-<span class="cstat-no" title="statement not covered" >                var ikLinkTransform = this.getIkLinkTransformerByIndex(i);</span>
-<span class="cstat-no" title="statement not covered" >                var link2Effector = this.getLink2Effector(ikLinkTransform, effectorTransformer);</span>
-<span class="cstat-no" title="statement not covered" >                var link2Target = this.getLink2Target(ikLinkTransform, TargetGlobalPos);</span>
-<span class="cstat-no" title="statement not covered" >                this.ikLinkCalc(ikLinkTransform, link2Effector, link2Target, this.BoneData.ikLimitedRotation, ikLinkData, it);</span>
+<span class="cstat-no" title="statement not covered" >                var ikLinkTransform = this._getIkLinkTransformerByIndex(i);</span>
+<span class="cstat-no" title="statement not covered" >                var link2Effector = this._getLink2Effector(ikLinkTransform, effectorTransformer);</span>
+<span class="cstat-no" title="statement not covered" >                var link2Target = this._getLink2Target(ikLinkTransform, TargetGlobalPos);</span>
+<span class="cstat-no" title="statement not covered" >                this._ikLinkCalc(ikLinkTransform, link2Effector, link2Target, this.BoneData.ikLimitedRotation, ikLinkData, it);</span>
             }
         }
     }, {
-        key: "getLink2Effector",
-        value: <span class="fstat-no" title="function not covered" >function getLink2Effector(link, effector) {</span>
+        key: "_getLink2Effector",
+        value: <span class="fstat-no" title="function not covered" >function _getLink2Effector(link, effector) {</span>
 <span class="cstat-no" title="statement not covered" >            var ToLinkLocal = _Matrix2.default.inverse(link.LocalToGlobal);</span>
 <span class="cstat-no" title="statement not covered" >            var ep = effector.LocalOrigin;</span>
 <span class="cstat-no" title="statement not covered" >            var local2effectorLocal = _Matrix2.default.multiply(ToLinkLocal, effector.LocalToGlobal);</span>
@@ -872,21 +872,21 @@
 <span class="cstat-no" title="statement not covered" >            return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();</span>
         }
     }, {
-        key: "getLink2Target",
-        value: <span class="fstat-no" title="function not covered" >function getLink2Target(link, tp) {</span>
+        key: "_getLink2Target",
+        value: <span class="fstat-no" title="function not covered" >function _getLink2Target(link, tp) {</span>
 <span class="cstat-no" title="statement not covered" >            var ToLinkLocal = _Matrix2.default.inverse(link.LocalToGlobal);</span>
 <span class="cstat-no" title="statement not covered" >            var effectorPos = _Matrix2.default.transformPoint(ToLinkLocal, tp);</span>
 <span class="cstat-no" title="statement not covered" >            return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();</span>
         }
     }, {
-        key: "ikLinkCalc",
-        value: <span class="fstat-no" title="function not covered" >function ikLinkCalc(link, effector, target, rotationLimit, ikLink, it) {</span>
+        key: "_ikLinkCalc",
+        value: <span class="fstat-no" title="function not covered" >function _ikLinkCalc(link, effector, target, rotationLimit, ikLink, it) {</span>
             // Calculate rotation angle
 <span class="cstat-no" title="statement not covered" >            var dot = _Vector2.default.dot(effector, target);</span>
 <span class="cstat-no" title="statement not covered" >            if (dot &gt; 1.0) {</span>
 <span class="cstat-no" title="statement not covered" >                dot = 1.0; </span>// adjust error (if dot was over 1.0, acos(dot) will be NaN. Then, it cause some of bug)
             }
-<span class="cstat-no" title="statement not covered" >            var rotationAngle = this.clampFloat(Math.acos(dot), rotationLimit);</span>
+<span class="cstat-no" title="statement not covered" >            var rotationAngle = this._clampFloat(Math.acos(dot), rotationLimit);</span>
 <span class="cstat-no" title="statement not covered" >            if (isNaN(rotationAngle)) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
@@ -896,52 +896,52 @@
             // Calculate rotation axis of rotation
 <span class="cstat-no" title="statement not covered" >            var rotationAxis = _Vector2.default.cross(effector, target).normalizeThis();</span>
             // Generate the rotation matrix rotating along the axis
-<span class="cstat-no" title="statement not covered" >            var rotation = _Quaternion2.default.AngleAxis(rotationAngle, rotationAxis);</span>
+<span class="cstat-no" title="statement not covered" >            var rotation = _Quaternion2.default.angleAxis(rotationAngle, rotationAxis);</span>
             // link.updateTransform();
-            // Rotation = (providingRotation) * userRotation * morphRotation * ikLinkRotation
+            // Rotation = (_providingBoneRotation) * userRotation * _morphRotation * ikLinkRotation
             // RestrictedRotation = Rotation * ikLinkAdjust
             // ikLinkAdust = (Rotation) ^ -1 * RestrictedRotation
-<span class="cstat-no" title="statement not covered" >            var restrictedRotation = this.RestrictRotation(ikLink, rotation);</span>
-<span class="cstat-no" title="statement not covered" >            link.ikLinkRotation = _Quaternion2.default.Multiply(link.ikLinkRotation, restrictedRotation);</span>
+<span class="cstat-no" title="statement not covered" >            var restrictedRotation = this._restrictRotation(ikLink, rotation);</span>
+<span class="cstat-no" title="statement not covered" >            link._ikLinkRotation = _Quaternion2.default.multiply(link._ikLinkRotation, restrictedRotation);</span>
 <span class="cstat-no" title="statement not covered" >            link.updateTransformForPMX();</span>
             // link.updateTransformMatricies();
         }
     }, {
-        key: "getIkLinkTransformerByIndex",
-        value: <span class="fstat-no" title="function not covered" >function getIkLinkTransformerByIndex(index) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.pmx.skeleton.getBoneByIndex(this.BoneData.ikLinks[index].ikLinkBoneIndex).Transformer;</span>
+        key: "_getIkLinkTransformerByIndex",
+        value: <span class="fstat-no" title="function not covered" >function _getIkLinkTransformerByIndex(index) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._pmx.skeleton.getBoneByIndex(this.BoneData.ikLinks[index].ikLinkBoneIndex).Transformer;</span>
         }
     }, {
-        key: "RestrictRotation",
-        value: <span class="fstat-no" title="function not covered" >function RestrictRotation(link, rot) {</span>
+        key: "_restrictRotation",
+        value: <span class="fstat-no" title="function not covered" >function _restrictRotation(link, rot) {</span>
 <span class="cstat-no" title="statement not covered" >            if (!link.isLimitedRotation) {</span>
 <span class="cstat-no" title="statement not covered" >                return rot; </span>// If this link bone is not enabled with rotation limit,just return.
             }
-<span class="cstat-no" title="statement not covered" >            var decomposed = rot.FactoringQuaternionXYZ();</span>
+<span class="cstat-no" title="statement not covered" >            var decomposed = rot.factoringQuaternionXYZ();</span>
 <span class="cstat-no" title="statement not covered" >            var xRotation = Math.max(link.limitedRotation[0], Math.min(link.limitedRotation[3], -decomposed.x));</span>
 <span class="cstat-no" title="statement not covered" >            var yRotation = Math.max(link.limitedRotation[1], Math.min(link.limitedRotation[4], -decomposed.y));</span>
 <span class="cstat-no" title="statement not covered" >            var zRotation = Math.max(link.limitedRotation[2], Math.min(link.limitedRotation[5], decomposed.z));</span>
-<span class="cstat-no" title="statement not covered" >            return _Quaternion2.default.EulerXYZ(-xRotation, -yRotation, zRotation);</span>
+<span class="cstat-no" title="statement not covered" >            return _Quaternion2.default.eulerXYZ(-xRotation, -yRotation, zRotation);</span>
         }
     }, {
-        key: "clampFloat",
-        value: <span class="fstat-no" title="function not covered" >function clampFloat(f, limit) {</span>
+        key: "_clampFloat",
+        value: <span class="fstat-no" title="function not covered" >function _clampFloat(f, limit) {</span>
 <span class="cstat-no" title="statement not covered" >            return Math.max(Math.min(f, limit), -limit);</span>
         }
     }, {
         key: "PMXModelData",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.pmx.ModelData;</span>
+<span class="cstat-no" title="statement not covered" >            return this._pmx.ModelData;</span>
         }
     }, {
         key: "BoneData",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.PMXModelData.Bones[this.boneIndex];</span>
+<span class="cstat-no" title="statement not covered" >            return this.PMXModelData.Bones[this._boneIndex];</span>
         }
     }, {
         key: "ProvidingBone",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.pmx.skeleton.getBoneByIndex(this.BoneData.providingBoneIndex);</span>
+<span class="cstat-no" title="statement not covered" >            return this._pmx.skeleton.getBoneByIndex(this.BoneData.providingBoneIndex);</span>
         }
     }, {
         key: "ProvidingBoneTransformer",
@@ -979,7 +979,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

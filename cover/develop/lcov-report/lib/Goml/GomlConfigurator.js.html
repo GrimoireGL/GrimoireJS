@@ -386,32 +386,32 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GomlConfigurator).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.easingFunctions = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._easingFunctions = {};</span>
         /**
          * List of converter function classes.
          */
-<span class="cstat-no" title="statement not covered" >        _this.converters = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._converters = {};</span>
         /**
          * All list of goml tags that will be parsed and instanciated when parse GOML.
          *
          * Keyはタグ名の文字列(大文字)、ValueはGomlNodeのコンストラクタ
          */
-<span class="cstat-no" title="statement not covered" >        _this.gomlNodes = {};</span>
-<span class="cstat-no" title="statement not covered" >        _this.initializeEasingFunctions();</span>
-<span class="cstat-no" title="statement not covered" >        _this.initializeConverters();</span>
-<span class="cstat-no" title="statement not covered" >        _this.initializeGomlNodes();</span>
+<span class="cstat-no" title="statement not covered" >        _this._gomlNodes = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._initializeEasingFunctions();</span>
+<span class="cstat-no" title="statement not covered" >        _this._initializeConverters();</span>
+<span class="cstat-no" title="statement not covered" >        _this._initializeGomlNodes();</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(GomlConfigurator, [{</span>
         key: "getConverter",
         value: <span class="fstat-no" title="function not covered" >function getConverter(name) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.converters[name];</span>
+<span class="cstat-no" title="statement not covered" >            return this._converters[name];</span>
         }
     }, {
         key: "getEasingFunction",
         value: <span class="fstat-no" title="function not covered" >function getEasingFunction(name) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.easingFunctions[name];</span>
+<span class="cstat-no" title="statement not covered" >            return this._easingFunctions[name];</span>
         }
         /**
          * タグ名からGomlNodeを取得します
@@ -423,19 +423,19 @@
     }, {
         key: "getGomlNode",
         value: <span class="fstat-no" title="function not covered" >function getGomlNode(tagName) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.gomlNodes[tagName.toUpperCase()];</span>
+<span class="cstat-no" title="statement not covered" >            return this._gomlNodes[tagName.toUpperCase()];</span>
         }
         /*
         * Initialize associative array for easing functions that will be used for animation in goml.
         */
 &nbsp;
     }, {
-        key: "initializeEasingFunctions",
-        value: <span class="fstat-no" title="function not covered" >function initializeEasingFunctions() {</span>
+        key: "_initializeEasingFunctions",
+        value: <span class="fstat-no" title="function not covered" >function _initializeEasingFunctions() {</span>
 <span class="cstat-no" title="statement not covered" >            var list = _EasingFunctionList2.default;</span>
 <span class="cstat-no" title="statement not covered" >            for (var key in list) {</span>
 <span class="cstat-no" title="statement not covered" >                var type = list[key];</span>
-<span class="cstat-no" title="statement not covered" >                this.easingFunctions[key] = new type();</span>
+<span class="cstat-no" title="statement not covered" >                this._easingFunctions[key] = new type();</span>
             }
         }
         /**
@@ -443,12 +443,12 @@
          */
 &nbsp;
     }, {
-        key: "initializeConverters",
-        value: <span class="fstat-no" title="function not covered" >function initializeConverters() {</span>
+        key: "_initializeConverters",
+        value: <span class="fstat-no" title="function not covered" >function _initializeConverters() {</span>
 <span class="cstat-no" title="statement not covered" >            var list = _GomlConverterList2.default;</span>
 <span class="cstat-no" title="statement not covered" >            for (var key in list) {</span>
 <span class="cstat-no" title="statement not covered" >                var type = list[key];</span>
-<span class="cstat-no" title="statement not covered" >                this.converters[key] = new type();</span>
+<span class="cstat-no" title="statement not covered" >                this._converters[key] = new type();</span>
             }
         }
         /**
@@ -456,8 +456,8 @@
          */
 &nbsp;
     }, {
-        key: "initializeGomlNodes",
-        value: <span class="fstat-no" title="function not covered" >function initializeGomlNodes() {</span>
+        key: "_initializeGomlNodes",
+        value: <span class="fstat-no" title="function not covered" >function _initializeGomlNodes() {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            var newList = _GomlNodeList2.default;</span>
@@ -466,7 +466,7 @@
 <span class="cstat-no" title="statement not covered" >                    var keyInString = key;</span>
 <span class="cstat-no" title="statement not covered" >                    keyInString = keyInString.toUpperCase(); </span>// transform into upper case
 <span class="cstat-no" title="statement not covered" >                    var nodeType = v.NodeTypes[keyInString]; </span>// nodeTypeはGomlNodeのコンストラクタ
-<span class="cstat-no" title="statement not covered" >                    _this2.gomlNodes[keyInString] = nodeType;</span>
+<span class="cstat-no" title="statement not covered" >                    _this2._gomlNodes[keyInString] = nodeType;</span>
                 }
             });
         }
@@ -481,7 +481,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

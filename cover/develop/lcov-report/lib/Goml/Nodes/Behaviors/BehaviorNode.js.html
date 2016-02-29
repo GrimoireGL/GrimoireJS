@@ -531,23 +531,23 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BehaviorNode).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.cachedOrder = 1000;</span>
-<span class="cstat-no" title="statement not covered" >        _this.cachedEnabled = undefined;</span>
-<span class="cstat-no" title="statement not covered" >        _this.awakenCache = false;</span>
-<span class="cstat-no" title="statement not covered" >        _this.startCalled = false;</span>
-<span class="cstat-no" title="statement not covered" >        _this.updateDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        _this._cachedOrder = 1000;</span>
+<span class="cstat-no" title="statement not covered" >        _this._cachedEnabled = undefined;</span>
+<span class="cstat-no" title="statement not covered" >        _this._awakenCache = false;</span>
+<span class="cstat-no" title="statement not covered" >        _this._startCalled = false;</span>
+<span class="cstat-no" title="statement not covered" >        _this._updateDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         };
-<span class="cstat-no" title="statement not covered" >        _this.startDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        _this._startDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         };
-<span class="cstat-no" title="statement not covered" >        _this.awakeDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        _this._awakeDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         };
-<span class="cstat-no" title="statement not covered" >        _this.onEnabledDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        _this._onEnabledDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         };
-<span class="cstat-no" title="statement not covered" >        _this.onDisabledDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        _this._onDisabledDelegate = <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         };
 <span class="cstat-no" title="statement not covered" >        _this.attributes.defineAttribute({</span>
@@ -568,71 +568,71 @@
 <span class="cstat-no" title="statement not covered" >    _createClass(BehaviorNode, [{</span>
         key: "updateBehavior",
         value: <span class="fstat-no" title="function not covered" >function updateBehavior(target) {</span>
-<span class="cstat-no" title="statement not covered" >            if (!this.startCalled) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this._startCalled) {</span>
 <span class="cstat-no" title="statement not covered" >                this.start(target);</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.updateDelegate(target);</span>
+<span class="cstat-no" title="statement not covered" >            this._updateDelegate(target);</span>
         }
     }, {
         key: "start",
         value: <span class="fstat-no" title="function not covered" >function start(target) {</span>
-<span class="cstat-no" title="statement not covered" >            this.startDelegate(target);</span>
-<span class="cstat-no" title="statement not covered" >            this.startCalled = true;</span>
+<span class="cstat-no" title="statement not covered" >            this._startDelegate(target);</span>
+<span class="cstat-no" title="statement not covered" >            this._startCalled = true;</span>
         }
     }, {
         key: "awake",
         value: <span class="fstat-no" title="function not covered" >function awake(target) {</span>
-<span class="cstat-no" title="statement not covered" >            this.awakeDelegate(target);</span>
-<span class="cstat-no" title="statement not covered" >            this.awakenCache = true;</span>
+<span class="cstat-no" title="statement not covered" >            this._awakeDelegate(target);</span>
+<span class="cstat-no" title="statement not covered" >            this._awakenCache = true;</span>
         }
     }, {
         key: "onEnabled",
         value: <span class="fstat-no" title="function not covered" >function onEnabled(target) {</span>
-<span class="cstat-no" title="statement not covered" >            this.onEnabledDelegate(target);</span>
+<span class="cstat-no" title="statement not covered" >            this._onEnabledDelegate(target);</span>
         }
     }, {
         key: "onDisabled",
         value: <span class="fstat-no" title="function not covered" >function onDisabled(target) {</span>
-<span class="cstat-no" title="statement not covered" >            this.onDisabledDelegate(target);</span>
+<span class="cstat-no" title="statement not covered" >            this._onDisabledDelegate(target);</span>
         }
     }, {
-        key: "onMount",
-        value: <span class="fstat-no" title="function not covered" >function onMount() {</span>
-<span class="cstat-no" title="statement not covered" >            this.componentTarget = this.parent.ComponentTarget;</span>
+        key: "__onMount",
+        value: <span class="fstat-no" title="function not covered" >function __onMount() {</span>
+<span class="cstat-no" title="statement not covered" >            this._componentTarget = this.__parent.ComponentTarget;</span>
 <span class="cstat-no" title="statement not covered" >            this._initializeBehavior();</span>
         }
     }, {
         key: "_onNameAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onNameAttrChanged(attr) {</span>
-<span class="cstat-no" title="statement not covered" >            this.componentName = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >            this._componentName = attr.Value;</span>
 <span class="cstat-no" title="statement not covered" >            this._initializeBehavior();</span>
         }
     }, {
         key: "_onEnabledAttrChanged",
         value: <span class="fstat-no" title="function not covered" >function _onEnabledAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            if (attr.Value === this.enabled &amp;&amp; typeof attr.Value === "undefined") {</span>
-<span class="cstat-no" title="statement not covered" >                this.cachedEnabled = true;</span>
-<span class="cstat-no" title="statement not covered" >                this.onEnabled(this.componentTarget);</span>
+<span class="cstat-no" title="statement not covered" >                this._cachedEnabled = true;</span>
+<span class="cstat-no" title="statement not covered" >                this.onEnabled(this._componentTarget);</span>
             }
 <span class="cstat-no" title="statement not covered" >            if (attr.Value === this.enabled) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
 <span class="cstat-no" title="statement not covered" >            if (attr.Value) {</span>
-<span class="cstat-no" title="statement not covered" >                this.onEnabled(this.componentTarget);</span>
+<span class="cstat-no" title="statement not covered" >                this.onEnabled(this._componentTarget);</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                this.onDisabled(this.componentTarget);</span>
+<span class="cstat-no" title="statement not covered" >                this.onDisabled(this._componentTarget);</span>
             }
 <span class="cstat-no" title="statement not covered" >            this.enabled = attr.Value;</span>
         }
     }, {
         key: "_initializeBehavior",
         value: <span class="fstat-no" title="function not covered" >function _initializeBehavior() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.componentName &amp;&amp; this.componentTarget) {</span>
-<span class="cstat-no" title="statement not covered" >                var component = this.nodeManager.behaviorRegistry.getBehavior(this.componentName);</span>
+<span class="cstat-no" title="statement not covered" >            if (this._componentName &amp;&amp; this._componentTarget) {</span>
+<span class="cstat-no" title="statement not covered" >                var component = this.nodeManager.behaviorRegistry.getBehavior(this._componentName);</span>
 <span class="cstat-no" title="statement not covered" >                if (component) {</span>
                     // load d`efault value of component
 <span class="cstat-no" title="statement not covered" >                    if (typeof component.order !== "undefined") {</span>
-<span class="cstat-no" title="statement not covered" >                        this.cachedOrder = component.order;</span>
+<span class="cstat-no" title="statement not covered" >                        this._cachedOrder = component.order;</span>
                     }
                     ;
 <span class="cstat-no" title="statement not covered" >                    var componentEnabled = undefined;</span>
@@ -643,36 +643,36 @@
                     }
 <span class="cstat-no" title="statement not covered" >                    this.attributes.setValue("enabled", componentEnabled);</span>
 <span class="cstat-no" title="statement not covered" >                    if (typeof component.awake === "function") {</span>
-<span class="cstat-no" title="statement not covered" >                        this.awakeDelegate = component.awake;</span>
+<span class="cstat-no" title="statement not covered" >                        this._awakeDelegate = component.awake;</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    if (typeof component.update === "function") {</span>
-<span class="cstat-no" title="statement not covered" >                        this.updateDelegate = component.update;</span>
+<span class="cstat-no" title="statement not covered" >                        this._updateDelegate = component.update;</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    if (typeof component.start === "function") {</span>
-<span class="cstat-no" title="statement not covered" >                        this.startDelegate = component.start;</span>
+<span class="cstat-no" title="statement not covered" >                        this._startDelegate = component.start;</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    if (typeof component.onEnabled === "function") {</span>
-<span class="cstat-no" title="statement not covered" >                        this.onEnabledDelegate = component.onEnabled;</span>
+<span class="cstat-no" title="statement not covered" >                        this._onEnabledDelegate = component.onEnabled;</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    if (typeof component.onDisabled === "function") {</span>
-<span class="cstat-no" title="statement not covered" >                        this.onDisabledDelegate = component.onDisabled;</span>
+<span class="cstat-no" title="statement not covered" >                        this._onDisabledDelegate = component.onDisabled;</span>
                     }
                     // initialize component attributes
 <span class="cstat-no" title="statement not covered" >                    for (var attrKey in component.attributes) {</span>
 <span class="cstat-no" title="statement not covered" >                        var attr = component.attributes[attrKey];</span>
-<span class="cstat-no" title="statement not covered" >                        if (BehaviorNode.ignoreNode.indexOf(attrKey) !== -1 || this.attributes.isDefined(attrKey)) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (BehaviorNode._ignoreNode.indexOf(attrKey) !== -1 || this.attributes.isDefined(attrKey)) {</span>
 <span class="cstat-no" title="statement not covered" >                            console.error("attribute name '" + attrKey + "' is protected attribute name. please change name");</span>
 <span class="cstat-no" title="statement not covered" >                            continue;</span>
                         }
                         // create handler
-<span class="cstat-no" title="statement not covered" >                        this.defineAccessor(attrKey);</span>
+<span class="cstat-no" title="statement not covered" >                        this._defineAccessor(attrKey);</span>
 <span class="cstat-no" title="statement not covered" >                        var attributeContainer = {};</span>
 <span class="cstat-no" title="statement not covered" >                        attributeContainer[attrKey] = attr;</span>
 <span class="cstat-no" title="statement not covered" >                        this.attributes.defineAttribute(attributeContainer);</span>
                     }
-<span class="cstat-no" title="statement not covered" >                    this.componentTarget.addBehavior(this);</span>
+<span class="cstat-no" title="statement not covered" >                    this._componentTarget.addBehavior(this);</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    console.warn("component\"" + this.componentName + "\" is not found.");</span>
+<span class="cstat-no" title="statement not covered" >                    console.warn("component\"" + this._componentName + "\" is not found.");</span>
                 }
             } else {
 <span class="cstat-no" title="statement not covered" >                console.warn("component name was not specified");</span>
@@ -691,8 +691,8 @@
         // }
 &nbsp;
     }, {
-        key: "defineAccessor",
-        value: <span class="fstat-no" title="function not covered" >function defineAccessor(attrKey) {</span>
+        key: "_defineAccessor",
+        value: <span class="fstat-no" title="function not covered" >function _defineAccessor(attrKey) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            Object.defineProperty(this, attrKey, {</span>
@@ -707,39 +707,39 @@
     }, {
         key: "BehaviorName",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.componentName;</span>
+<span class="cstat-no" title="statement not covered" >            return this._componentName;</span>
         }
     }, {
         key: "awaken",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.awakenCache;</span>
+<span class="cstat-no" title="statement not covered" >            return this._awakenCache;</span>
         }
     }, {
         key: "order",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.cachedOrder;</span>
+<span class="cstat-no" title="statement not covered" >            return this._cachedOrder;</span>
         }
     }, {
         key: "enabled",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.cachedEnabled;</span>
+<span class="cstat-no" title="statement not covered" >            return this._cachedEnabled;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(en) {</span>
-<span class="cstat-no" title="statement not covered" >            this.cachedEnabled = en;</span>
+<span class="cstat-no" title="statement not covered" >            this._cachedEnabled = en;</span>
         }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return BehaviorNode;</span>
 }(_GomlTreeNodeBase3.default);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >BehaviorNode.ignoreNode = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "element"];</span>
+<span class="cstat-no" title="statement not covered" >BehaviorNode._ignoreNode = ["name", "cachedOrder", "cachedEnabled", "children", "parent", "element"];</span>
 <span class="cstat-no" title="statement not covered" >exports.default = BehaviorNode;</span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

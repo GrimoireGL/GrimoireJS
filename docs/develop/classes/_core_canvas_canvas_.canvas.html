@@ -113,7 +113,6 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#gl" class="tsd-kind-icon">GL</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#_lastheight" class="tsd-kind-icon">_last<wbr>Height</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#_lastwidth" class="tsd-kind-icon">_last<wbr>Width</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
@@ -121,6 +120,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#canvasresized" class="tsd-kind-icon">canvas<wbr>Resized</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#clearcolor" class="tsd-kind-icon">clear<wbr>Color</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#emit" class="tsd-kind-icon">emit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#gl" class="tsd-kind-icon">gL</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#glextensionresolver" class="tsd-kind-icon">gl<wbr>Extension<wbr>Resolver</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#lastmousedownx" class="tsd-kind-icon">last<wbr>Mouse<wbr>DownX</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported"><a href="_core_canvas_canvas_.canvas.html#lastmousedowny" class="tsd-kind-icon">last<wbr>Mouse<wbr>DownY</a></li>
@@ -205,16 +205,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-					<a name="gl" class="tsd-anchor"></a>
-					<h3>GL</h3>
-					<div class="tsd-signature tsd-kind-icon">GL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WebGLRenderingContext</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/Canvas.ts#L40">Core/Canvas/Canvas.ts:40</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 					<a name="_lastheight" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _last<wbr>Height</h3>
@@ -361,6 +351,16 @@
 							</li>
 						</ul>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="gl" class="tsd-anchor"></a>
+					<h3>gL</h3>
+					<div class="tsd-signature tsd-kind-icon">gL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WebGLRenderingContext</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/Canvas.ts#L40">Core/Canvas/Canvas.ts:40</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 					<a name="glextensionresolver" class="tsd-anchor"></a>
@@ -814,7 +814,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/Canvas.ts#L89">Core/Canvas/Canvas.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/Canvas.ts#L90">Core/Canvas/Canvas.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -831,7 +831,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/Canvas.ts#L101">Core/Canvas/Canvas.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/Canvas.ts#L102">Core/Canvas/Canvas.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -941,7 +941,7 @@
 								<p>Implementation of <a href="../interfaces/_base_idisposable_.idisposable.html">IDisposable</a>.<a href="../interfaces/_base_idisposable_.idisposable.html#dispose">dispose</a></p>
 								<p>Inherited from <a href="_core_canvas_canvasregion_.canvasregion.html">CanvasRegion</a>.<a href="_core_canvas_canvasregion_.canvasregion.html#dispose">dispose</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/CanvasRegion.ts#L179">Core/Canvas/CanvasRegion.ts:179</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Core/Canvas/CanvasRegion.ts#L89">Core/Canvas/CanvasRegion.ts:89</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1026,9 +1026,6 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-not-exported">
 								<a href="_core_canvas_canvas_.canvas.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_core_canvas_canvas_.canvas.html#gl" class="tsd-kind-icon">GL</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
 								<a href="_core_canvas_canvas_.canvas.html#_lastheight" class="tsd-kind-icon">_last<wbr>Height</a>
 							</li>
@@ -1049,6 +1046,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-not-exported">
 								<a href="_core_canvas_canvas_.canvas.html#emit" class="tsd-kind-icon">emit</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_core_canvas_canvas_.canvas.html#gl" class="tsd-kind-icon">gL</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_core_canvas_canvas_.canvas.html#glextensionresolver" class="tsd-kind-icon">gl<wbr>Extension<wbr>Resolver</a>

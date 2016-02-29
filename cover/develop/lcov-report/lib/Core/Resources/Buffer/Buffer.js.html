@@ -400,18 +400,18 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Buffer).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.normalized = false;</span>
-<span class="cstat-no" title="statement not covered" >        _this.stride = 0;</span>
-<span class="cstat-no" title="statement not covered" >        _this.offset = 0;</span>
+<span class="cstat-no" title="statement not covered" >        _this._normalized = false;</span>
+<span class="cstat-no" title="statement not covered" >        _this._stride = 0;</span>
+<span class="cstat-no" title="statement not covered" >        _this._offset = 0;</span>
         /**
         * Length of this buffer.
         */
-<span class="cstat-no" title="statement not covered" >        _this.length = 0;</span>
-<span class="cstat-no" title="statement not covered" >        _this.target = target;</span>
-<span class="cstat-no" title="statement not covered" >        _this.usage = usage;</span>
-<span class="cstat-no" title="statement not covered" >        _this.unitCount = unitCount;</span>
-<span class="cstat-no" title="statement not covered" >        _this.elementType = elementType;</span>
-<span class="cstat-no" title="statement not covered" >        _this.initializeForFirst();</span>
+<span class="cstat-no" title="statement not covered" >        _this._length = 0;</span>
+<span class="cstat-no" title="statement not covered" >        _this._target = target;</span>
+<span class="cstat-no" title="statement not covered" >        _this._usage = usage;</span>
+<span class="cstat-no" title="statement not covered" >        _this._unitCount = unitCount;</span>
+<span class="cstat-no" title="statement not covered" >        _this._elementType = elementType;</span>
+<span class="cstat-no" title="statement not covered" >        _this.__initializeForFirst();</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
     /**
@@ -423,21 +423,21 @@
 <span class="cstat-no" title="statement not covered" >    _createClass(Buffer, [{</span>
         key: "update",
         value: <span class="fstat-no" title="function not covered" >function update(array, length) {</span>
-<span class="cstat-no" title="statement not covered" >            this.elementCache = array;</span>
-<span class="cstat-no" title="statement not covered" >            this.length = length;</span>
+<span class="cstat-no" title="statement not covered" >            this._elementCache = array;</span>
+<span class="cstat-no" title="statement not covered" >            this._length = length;</span>
 <span class="cstat-no" title="statement not covered" >            this.each(<span class="fstat-no" title="function not covered" >function (a) {</span></span>
 <span class="cstat-no" title="statement not covered" >                return a.update(array, length);</span>
             });
         }
     }, {
-        key: "createWrapperForCanvas",
-        value: <span class="fstat-no" title="function not covered" >function createWrapperForCanvas(canvas) {</span>
+        key: "__createWrapperForCanvas",
+        value: <span class="fstat-no" title="function not covered" >function __createWrapperForCanvas(canvas) {</span>
 <span class="cstat-no" title="statement not covered" >            return new _BufferWrapper2.default(this, canvas);</span>
         }
     }, {
         key: "Target",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.target;</span>
+<span class="cstat-no" title="statement not covered" >            return this._target;</span>
         }
         /**
         * Buffer usage.
@@ -447,12 +447,12 @@
     }, {
         key: "Usage",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.usage;</span>
+<span class="cstat-no" title="statement not covered" >            return this._usage;</span>
         }
     }, {
         key: "ElementType",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.elementType;</span>
+<span class="cstat-no" title="statement not covered" >            return this._elementType;</span>
         }
         /**
         * This elements are normalized or not.
@@ -462,7 +462,7 @@
     }, {
         key: "Normalized",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.normalized;</span>
+<span class="cstat-no" title="statement not covered" >            return this._normalized;</span>
         }
         /**
         * This elements are normalized or not.
@@ -470,23 +470,23 @@
         */
         ,
         set: <span class="fstat-no" title="function not covered" >function set(normalized) {</span>
-<span class="cstat-no" title="statement not covered" >            this.normalized = normalized;</span>
+<span class="cstat-no" title="statement not covered" >            this._normalized = normalized;</span>
         }
     }, {
         key: "Stride",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.stride;</span>
+<span class="cstat-no" title="statement not covered" >            return this._stride;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(stride) {</span>
-<span class="cstat-no" title="statement not covered" >            this.stride = stride;</span>
+<span class="cstat-no" title="statement not covered" >            this._stride = stride;</span>
         }
     }, {
         key: "Offset",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.offset;</span>
+<span class="cstat-no" title="statement not covered" >            return this._offset;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(offset) {</span>
-<span class="cstat-no" title="statement not covered" >            this.offset = offset;</span>
+<span class="cstat-no" title="statement not covered" >            this._offset = offset;</span>
         }
         /**
         * Element count per 1 vertex.
@@ -496,12 +496,12 @@
     }, {
         key: "UnitCount",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.unitCount;</span>
+<span class="cstat-no" title="statement not covered" >            return this._unitCount;</span>
         }
     }, {
         key: "ElementCache",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.elementCache;</span>
+<span class="cstat-no" title="statement not covered" >            return this._elementCache;</span>
         }
         /**
          * Length of this buffer.
@@ -510,7 +510,7 @@
     }, {
         key: "Length",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.length;</span>
+<span class="cstat-no" title="statement not covered" >            return this._length;</span>
         }
     }]);
 &nbsp;
@@ -523,7 +523,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

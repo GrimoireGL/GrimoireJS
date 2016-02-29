@@ -401,31 +401,31 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TextureBase).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.textureFormat = WebGLRenderingContext.RGBA;</span>
-<span class="cstat-no" title="statement not covered" >        _this.elementFormat = WebGLRenderingContext.UNSIGNED_BYTE;</span>
-<span class="cstat-no" title="statement not covered" >        _this.targetTextureType = WebGLRenderingContext.TEXTURE_2D;</span>
-<span class="cstat-no" title="statement not covered" >        _this.onFilterParameterChangedHandler = new _JThreeEvent2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this.minFilter = WebGLRenderingContext.NEAREST;</span>
-<span class="cstat-no" title="statement not covered" >        _this.magFilter = WebGLRenderingContext.NEAREST;</span>
-<span class="cstat-no" title="statement not covered" >        _this.tWrap = WebGLRenderingContext.CLAMP_TO_EDGE;</span>
-<span class="cstat-no" title="statement not covered" >        _this.sWrap = WebGLRenderingContext.CLAMP_TO_EDGE;</span>
-<span class="cstat-no" title="statement not covered" >        _this.flipY = false;</span>
+<span class="cstat-no" title="statement not covered" >        _this.__textureFormat = WebGLRenderingContext.RGBA;</span>
+<span class="cstat-no" title="statement not covered" >        _this.__elementFormat = WebGLRenderingContext.UNSIGNED_BYTE;</span>
+<span class="cstat-no" title="statement not covered" >        _this._targetTextureType = WebGLRenderingContext.TEXTURE_2D;</span>
+<span class="cstat-no" title="statement not covered" >        _this._onFilterParameterChangedHandler = new _JThreeEvent2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._minFilter = WebGLRenderingContext.NEAREST;</span>
+<span class="cstat-no" title="statement not covered" >        _this._magFilter = WebGLRenderingContext.NEAREST;</span>
+<span class="cstat-no" title="statement not covered" >        _this._tWrap = WebGLRenderingContext.CLAMP_TO_EDGE;</span>
+<span class="cstat-no" title="statement not covered" >        _this._sWrap = WebGLRenderingContext.CLAMP_TO_EDGE;</span>
+<span class="cstat-no" title="statement not covered" >        _this._flipY = false;</span>
 <span class="cstat-no" title="statement not covered" >        if (typeof flipY === "undefined") {</span>
 <span class="cstat-no" title="statement not covered" >            flipY = false;</span>
         }
 <span class="cstat-no" title="statement not covered" >        if (typeof isCubeTexture === "undefined") {</span>
 <span class="cstat-no" title="statement not covered" >            isCubeTexture = false;</span>
         }
-<span class="cstat-no" title="statement not covered" >        _this.flipY = flipY;</span>
-<span class="cstat-no" title="statement not covered" >        _this.targetTextureType = isCubeTexture ? WebGLRenderingContext.TEXTURE_CUBE_MAP : WebGLRenderingContext.TEXTURE_2D;</span>
-<span class="cstat-no" title="statement not covered" >        _this.initializeForFirst();</span>
+<span class="cstat-no" title="statement not covered" >        _this._flipY = flipY;</span>
+<span class="cstat-no" title="statement not covered" >        _this._targetTextureType = isCubeTexture ? WebGLRenderingContext.TEXTURE_CUBE_MAP : WebGLRenderingContext.TEXTURE_2D;</span>
+<span class="cstat-no" title="statement not covered" >        _this.__initializeForFirst();</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(TextureBase, [{</span>
         key: "onFilterParameterChanged",
         value: <span class="fstat-no" title="function not covered" >function onFilterParameterChanged(handler) {</span>
-<span class="cstat-no" title="statement not covered" >            this.onFilterParameterChangedHandler.addListener(handler);</span>
+<span class="cstat-no" title="statement not covered" >            this._onFilterParameterChangedHandler.addListener(handler);</span>
         }
     }, {
         key: "generateMipmapIfNeed",
@@ -448,78 +448,78 @@
     }, {
         key: "TargetTextureType",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.targetTextureType;</span>
+<span class="cstat-no" title="statement not covered" >            return this._targetTextureType;</span>
         }
     }, {
         key: "TextureFormat",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.textureFormat;</span>
+<span class="cstat-no" title="statement not covered" >            return this.__textureFormat;</span>
         }
     }, {
         key: "ElementFormat",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.elementFormat;</span>
+<span class="cstat-no" title="statement not covered" >            return this.__elementFormat;</span>
         }
     }, {
         key: "FlipY",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.flipY;</span>
+<span class="cstat-no" title="statement not covered" >            return this._flipY;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(val) {</span>
-<span class="cstat-no" title="statement not covered" >            this.flipY = val;</span>
+<span class="cstat-no" title="statement not covered" >            this._flipY = val;</span>
         }
     }, {
         key: "MinFilter",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.minFilter;</span>
+<span class="cstat-no" title="statement not covered" >            return this._minFilter;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(value) {</span>
-<span class="cstat-no" title="statement not covered" >            if (value === this.minFilter) {</span>
+<span class="cstat-no" title="statement not covered" >            if (value === this._minFilter) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.minFilter = value;</span>
-<span class="cstat-no" title="statement not covered" >            this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MIN_FILTER);</span>
+<span class="cstat-no" title="statement not covered" >            this._minFilter = value;</span>
+<span class="cstat-no" title="statement not covered" >            this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MIN_FILTER);</span>
         }
     }, {
         key: "MagFilter",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.magFilter;</span>
+<span class="cstat-no" title="statement not covered" >            return this._magFilter;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(value) {</span>
-<span class="cstat-no" title="statement not covered" >            if (value === this.magFilter) {</span>
+<span class="cstat-no" title="statement not covered" >            if (value === this._magFilter) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.magFilter = value;</span>
-<span class="cstat-no" title="statement not covered" >            this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MAG_FILTER);</span>
+<span class="cstat-no" title="statement not covered" >            this._magFilter = value;</span>
+<span class="cstat-no" title="statement not covered" >            this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MAG_FILTER);</span>
         }
     }, {
         key: "SWrap",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.sWrap;</span>
+<span class="cstat-no" title="statement not covered" >            return this._sWrap;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(value) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.sWrap === value) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._sWrap === value) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.sWrap = value;</span>
-<span class="cstat-no" title="statement not covered" >            this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_S);</span>
+<span class="cstat-no" title="statement not covered" >            this._sWrap = value;</span>
+<span class="cstat-no" title="statement not covered" >            this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_S);</span>
         }
     }, {
         key: "TWrap",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.tWrap;</span>
+<span class="cstat-no" title="statement not covered" >            return this._tWrap;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(value) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.tWrap === value) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._tWrap === value) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.tWrap = value;</span>
-<span class="cstat-no" title="statement not covered" >            this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_T);</span>
+<span class="cstat-no" title="statement not covered" >            this._tWrap = value;</span>
+<span class="cstat-no" title="statement not covered" >            this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_T);</span>
         }
     }, {
         key: "TextureName",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.textureName;</span>
+<span class="cstat-no" title="statement not covered" >            return this._textureName;</span>
         }
     }]);
 &nbsp;
@@ -532,7 +532,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

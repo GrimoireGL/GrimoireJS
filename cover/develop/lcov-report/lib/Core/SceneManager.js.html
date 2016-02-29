@@ -316,7 +316,7 @@
 <span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
 &nbsp;
 /**
-* The class for managing entire scenes.
+* The class for managing entire _scenes.
 */
 &nbsp;
 <span class="cstat-no" title="statement not covered" >var SceneManager = <span class="fstat-no" title="function not covered" >function (_jThreeObjectEE) {</span></span>
@@ -331,7 +331,7 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SceneManager).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.scenes = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._scenes = {};</span>
 <span class="cstat-no" title="statement not covered" >        var loopManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.LoopManager);</span>
 <span class="cstat-no" title="statement not covered" >        loopManager.addAction(5000, <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >            return _this.renderAll();</span>
@@ -351,8 +351,8 @@
     }, {
         key: "addScene",
         value: <span class="fstat-no" title="function not covered" >function addScene(scene) {</span>
-<span class="cstat-no" title="statement not covered" >            if (!this.scenes[scene.ID]) {</span>
-<span class="cstat-no" title="statement not covered" >                this.scenes[scene.ID] = scene;</span>
+<span class="cstat-no" title="statement not covered" >            if (!this._scenes[scene.ID]) {</span>
+<span class="cstat-no" title="statement not covered" >                this._scenes[scene.ID] = scene;</span>
 <span class="cstat-no" title="statement not covered" >                this.emit("change", {</span>
                     owner: this,
                     isAdditionalChange: true,
@@ -371,8 +371,8 @@
         * Remove exisiting scene from managed.
         */
         value: <span class="fstat-no" title="function not covered" >function removeScene(scene) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.scenes[scene.ID]) {</span>
-<span class="cstat-no" title="statement not covered" >                delete this.scenes[scene.ID];</span>
+<span class="cstat-no" title="statement not covered" >            if (this._scenes[scene.ID]) {</span>
+<span class="cstat-no" title="statement not covered" >                delete this._scenes[scene.ID];</span>
 <span class="cstat-no" title="statement not covered" >                this.emit("change", {</span>
                     owner: this,
                     isAdditionalChange: false,
@@ -381,7 +381,7 @@
             }
         }
         /**
-         * Process render for all scenes
+         * Process render for all _scenes
          * This method is intended to be called by jThree system.
          * You don't need to call this method maually in most case.
          */
@@ -389,8 +389,8 @@
     }, {
         key: "renderAll",
         value: <span class="fstat-no" title="function not covered" >function renderAll() {</span>
-<span class="cstat-no" title="statement not covered" >            for (var sceneId in this.scenes) {</span>
-<span class="cstat-no" title="statement not covered" >                var scene = this.scenes[sceneId];</span>
+<span class="cstat-no" title="statement not covered" >            for (var sceneId in this._scenes) {</span>
+<span class="cstat-no" title="statement not covered" >                var scene = this._scenes[sceneId];</span>
 <span class="cstat-no" title="statement not covered" >                scene.update();</span>
 <span class="cstat-no" title="statement not covered" >                scene.render();</span>
             }
@@ -399,8 +399,8 @@
         key: "Scenes",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
 <span class="cstat-no" title="statement not covered" >            var array = [];</span>
-<span class="cstat-no" title="statement not covered" >            for (var scene in this.scenes) {</span>
-<span class="cstat-no" title="statement not covered" >                array.push(this.scenes[scene]);</span>
+<span class="cstat-no" title="statement not covered" >            for (var scene in this._scenes) {</span>
+<span class="cstat-no" title="statement not covered" >                array.push(this._scenes[scene]);</span>
             }
 <span class="cstat-no" title="statement not covered" >            return array;</span>
         }
@@ -415,7 +415,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

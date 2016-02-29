@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.08% </span>
+        <span class="strong">4.11% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/147</span>
+        <span class='fraction'>6/146</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/46</span>
+        <span class='fraction'>0/45</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.92% </span>
+        <span class="strong">4.96% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>6/122</span>
+        <span class='fraction'>6/121</span>
       </div>
     </div>
   </div>
@@ -315,12 +315,7 @@
 270
 271
 272
-273
-274
-275
-276
-277
-278</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+273</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -586,11 +581,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -687,12 +677,12 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ResourceManager)).call.apply(_Object$getPrototypeO, [this].concat(args)));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.buffers = new _ResourceArray2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this.shaders = new _ResourceArray2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this.programs = new _ResourceArray2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this.textures = new _ResourceArray2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this.rbos = new _ResourceArray2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this.fbos = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._buffers = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._shaders = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._programs = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._textures = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._rbos = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._fbos = new _ResourceArray2.default();</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
@@ -751,48 +741,48 @@
     }, {
         key: "createBuffer",
         value: <span class="fstat-no" title="function not covered" >function createBuffer(id, target, usage, unitCount, elementType) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.buffers.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return this._buffers.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                return new _Buffer2.default(target, usage, unitCount, elementType);</span>
             });
         }
     }, {
         key: "getBuffer",
         value: <span class="fstat-no" title="function not covered" >function getBuffer(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.buffers.get(id);</span>
+<span class="cstat-no" title="statement not covered" >            return this._buffers.get(id);</span>
         }
     }, {
         key: "createShader",
         value: <span class="fstat-no" title="function not covered" >function createShader(id, source, shaderType) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.shaders.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                return _Shader2.default.CreateShader(source, shaderType);</span>
+<span class="cstat-no" title="statement not covered" >            return this._shaders.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                return _Shader2.default.createShader(source, shaderType);</span>
             });
         }
     }, {
         key: "getShader",
         value: <span class="fstat-no" title="function not covered" >function getShader(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.shaders.get(id);</span>
+<span class="cstat-no" title="statement not covered" >            return this._shaders.get(id);</span>
         }
     }, {
         key: "hasShader",
         value: <span class="fstat-no" title="function not covered" >function hasShader(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.shaders.has(id);</span>
+<span class="cstat-no" title="statement not covered" >            return this._shaders.has(id);</span>
         }
     }, {
         key: "createProgram",
         value: <span class="fstat-no" title="function not covered" >function createProgram(id, shaders) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.programs.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                return _Program2.default.CreateProgram(shaders);</span>
+<span class="cstat-no" title="statement not covered" >            return this._programs.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                return _Program2.default.createProgram(shaders);</span>
             });
         }
     }, {
         key: "getProgram",
         value: <span class="fstat-no" title="function not covered" >function getProgram(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.programs.get(id);</span>
+<span class="cstat-no" title="statement not covered" >            return this._programs.get(id);</span>
         }
     }, {
         key: "createTextureWithSource",
         value: <span class="fstat-no" title="function not covered" >function createTextureWithSource(id, source) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return this._textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                var tex = new _Texture2.default(source, id);</span>
 <span class="cstat-no" title="statement not covered" >                tex.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    return v.init();</span>
@@ -803,14 +793,14 @@
     }, {
         key: "getTexture",
         value: <span class="fstat-no" title="function not covered" >function getTexture(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.textures.get(id);</span>
+<span class="cstat-no" title="statement not covered" >            return this._textures.get(id);</span>
         }
     }, {
         key: "createCubeTextureWithSource",
         value: <span class="fstat-no" title="function not covered" >function createCubeTextureWithSource(id, sources) {</span>
 <span class="cstat-no" title="statement not covered" >            var flipY = arguments.length &lt;= 2 || arguments[2] === undefined ? false : arguments[2];</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            return this.textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return this._textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                var cubeTexture = new _CubeTexture2.default(sources, id, flipY);</span>
 <span class="cstat-no" title="statement not covered" >                cubeTexture.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    return v.init();</span>
@@ -821,7 +811,7 @@
     }, {
         key: "createRBO",
         value: <span class="fstat-no" title="function not covered" >function createRBO(id, width, height) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.rbos.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return this._rbos.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                var r = new _RBO2.default(width, height);</span>
 <span class="cstat-no" title="statement not covered" >                r.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    return v.init();</span>
@@ -832,12 +822,12 @@
     }, {
         key: "getRBO",
         value: <span class="fstat-no" title="function not covered" >function getRBO(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.rbos.get(id);</span>
+<span class="cstat-no" title="statement not covered" >            return this._rbos.get(id);</span>
         }
     }, {
         key: "createFBO",
         value: <span class="fstat-no" title="function not covered" >function createFBO(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.fbos.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return this._fbos.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                var fbo = new _FBO2.default();</span>
 <span class="cstat-no" title="statement not covered" >                fbo.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    return v.init();</span>
@@ -848,7 +838,7 @@
     }, {
         key: "getFBO",
         value: <span class="fstat-no" title="function not covered" >function getFBO(id) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.fbos.get(id);</span>
+<span class="cstat-no" title="statement not covered" >            return this._fbos.get(id);</span>
         }
     }, {
         key: "createTexture",
@@ -856,18 +846,13 @@
 <span class="cstat-no" title="statement not covered" >            var texType = arguments.length &lt;= 3 || arguments[3] === undefined ? WebGLRenderingContext.RGBA : arguments[3];</span>
 <span class="cstat-no" title="statement not covered" >            var elemType = arguments.length &lt;= 4 || arguments[4] === undefined ? WebGLRenderingContext.UNSIGNED_BYTE : arguments[4];</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            return this.textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return this._textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >                var bt = new _BufferTexture2.default(width, height, texType, elemType, id);</span>
 <span class="cstat-no" title="statement not covered" >                bt.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    return v.init();</span>
                 });
 <span class="cstat-no" title="statement not covered" >                return bt;</span>
             });
-        }
-    }, {
-        key: "toString",
-        value: <span class="fstat-no" title="function not covered" >function toString() {</span>
-<span class="cstat-no" title="statement not covered" >            return "buffer:" + this.buffers.toString() + "\nshader:" + this.shaders.toString() + "\nprograms:" + this.programs.toString() + "\ntexture:" + this.textures.toString();</span>
         }
     }]);
 &nbsp;
@@ -880,7 +865,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

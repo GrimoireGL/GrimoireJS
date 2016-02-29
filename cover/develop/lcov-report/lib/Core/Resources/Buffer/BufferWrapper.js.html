@@ -313,19 +313,19 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BufferWrapper).call(this, canvas));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.targetBuffer = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.length = 0;</span>
-<span class="cstat-no" title="statement not covered" >        _this.parentBuffer = parentBuffer;</span>
+<span class="cstat-no" title="statement not covered" >        _this._targetBuffer = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._length = 0;</span>
+<span class="cstat-no" title="statement not covered" >        _this._parentBuffer = parentBuffer;</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(BufferWrapper, [{</span>
         key: "dispose",
         value: <span class="fstat-no" title="function not covered" >function dispose() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.targetBuffer) {</span>
-<span class="cstat-no" title="statement not covered" >                this.GL.deleteBuffer(this.targetBuffer);</span>
-<span class="cstat-no" title="statement not covered" >                this.setInitialized(false);</span>
-<span class="cstat-no" title="statement not covered" >                this.targetBuffer = null;</span>
+<span class="cstat-no" title="statement not covered" >            if (this._targetBuffer) {</span>
+<span class="cstat-no" title="statement not covered" >                this.GL.deleteBuffer(this._targetBuffer);</span>
+<span class="cstat-no" title="statement not covered" >                this.__setInitialized(false);</span>
+<span class="cstat-no" title="statement not covered" >                this._targetBuffer = null;</span>
             }
         }
     }, {
@@ -335,65 +335,65 @@
 <span class="cstat-no" title="statement not covered" >                this.init();</span>
             }
 <span class="cstat-no" title="statement not covered" >            this.bindBuffer();</span>
-<span class="cstat-no" title="statement not covered" >            this.GL.bufferData(this.parentBuffer.Target, array, this.parentBuffer.Usage);</span>
+<span class="cstat-no" title="statement not covered" >            this.GL.bufferData(this._parentBuffer.Target, array, this._parentBuffer.Usage);</span>
 <span class="cstat-no" title="statement not covered" >            this.unbindBuffer();</span>
-<span class="cstat-no" title="statement not covered" >            this.length = length;</span>
+<span class="cstat-no" title="statement not covered" >            this._length = length;</span>
         }
     }, {
         key: "init",
         value: <span class="fstat-no" title="function not covered" >function init() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.targetBuffer == null) {</span>
-<span class="cstat-no" title="statement not covered" >                this.targetBuffer = this.GL.createBuffer();</span>
-<span class="cstat-no" title="statement not covered" >                this.setInitialized();</span>
+<span class="cstat-no" title="statement not covered" >            if (this._targetBuffer == null) {</span>
+<span class="cstat-no" title="statement not covered" >                this._targetBuffer = this.GL.createBuffer();</span>
+<span class="cstat-no" title="statement not covered" >                this.__setInitialized();</span>
             }
         }
     }, {
         key: "bindBuffer",
         value: <span class="fstat-no" title="function not covered" >function bindBuffer() {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.Initialized) {</span>
-<span class="cstat-no" title="statement not covered" >                this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);</span>
+<span class="cstat-no" title="statement not covered" >                this.GL.bindBuffer(this._parentBuffer.Target, this._targetBuffer);</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                this.init();</span>
-<span class="cstat-no" title="statement not covered" >                this.update(this.parentBuffer.ElementCache, this.parentBuffer.Length);</span>
-<span class="cstat-no" title="statement not covered" >                this.GL.bindBuffer(this.parentBuffer.Target, this.targetBuffer);</span>
+<span class="cstat-no" title="statement not covered" >                this.update(this._parentBuffer.ElementCache, this._parentBuffer.Length);</span>
+<span class="cstat-no" title="statement not covered" >                this.GL.bindBuffer(this._parentBuffer.Target, this._targetBuffer);</span>
             }
         }
     }, {
         key: "unbindBuffer",
         value: <span class="fstat-no" title="function not covered" >function unbindBuffer() {</span>
 <span class="cstat-no" title="statement not covered" >            if (this.Initialized) {</span>
-<span class="cstat-no" title="statement not covered" >                this.GL.bindBuffer(this.parentBuffer.Target, null);</span>
+<span class="cstat-no" title="statement not covered" >                this.GL.bindBuffer(this._parentBuffer.Target, null);</span>
             }
         }
     }, {
         key: "Length",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.length;</span>
+<span class="cstat-no" title="statement not covered" >            return this._length;</span>
         }
     }, {
         key: "UnitCount",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parentBuffer.UnitCount;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parentBuffer.UnitCount;</span>
         }
     }, {
         key: "ElementType",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parentBuffer.ElementType;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parentBuffer.ElementType;</span>
         }
     }, {
         key: "Normalized",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parentBuffer.Normalized;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parentBuffer.Normalized;</span>
         }
     }, {
         key: "Stride",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parentBuffer.Stride;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parentBuffer.Stride;</span>
         }
     }, {
         key: "Offset",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parentBuffer.Offset;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parentBuffer.Offset;</span>
         }
     }]);
 &nbsp;
@@ -406,7 +406,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

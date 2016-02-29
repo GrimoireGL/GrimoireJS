@@ -255,18 +255,18 @@
 <span class="fstat-no" title="function not covered" >    function PMXTextureManager(model) {</span>
 <span class="cstat-no" title="statement not covered" >        _classCallCheck(this, PMXTextureManager);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        this.model = model;</span>
+<span class="cstat-no" title="statement not covered" >        this._model = model;</span>
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(PMXTextureManager, [{</span>
         key: "generateSharedToonImg",
         value: <span class="fstat-no" title="function not covered" >function generateSharedToonImg(index) {</span>
-<span class="cstat-no" title="statement not covered" >            if (PMXTextureManager._imgConvertedToons[index]) {</span>
-<span class="cstat-no" title="statement not covered" >                return PMXTextureManager._imgConvertedToons[index];</span>
+<span class="cstat-no" title="statement not covered" >            if (PMXTextureManager.imgConvertedToons[index]) {</span>
+<span class="cstat-no" title="statement not covered" >                return PMXTextureManager.imgConvertedToons[index];</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                var imgTag = document.createElement("img");</span>
 <span class="cstat-no" title="statement not covered" >                imgTag.src = PMXTextureManager._toons[index];</span>
-<span class="cstat-no" title="statement not covered" >                PMXTextureManager._imgConvertedToons[index] = imgTag;</span>
+<span class="cstat-no" title="statement not covered" >                PMXTextureManager.imgConvertedToons[index] = imgTag;</span>
 <span class="cstat-no" title="statement not covered" >                return imgTag;</span>
             }
         }
@@ -282,24 +282,24 @@
                 });
 <span class="cstat-no" title="statement not covered" >                return deferred.promise;</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.model.loadingTextureCount++;</span>
+<span class="cstat-no" title="statement not covered" >            this._model.loadingTextureCount++;</span>
 <span class="cstat-no" title="statement not covered" >            var rm = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceManager);</span>
-<span class="cstat-no" title="statement not covered" >            return rm.loadTexture(this.model.modelDirectory + this.model.ModelData.Textures[index]).then(<span class="fstat-no" title="function not covered" >function (texture) {</span></span>
+<span class="cstat-no" title="statement not covered" >            return rm.loadTexture(this._model.modelDirectory + this._model.ModelData.Textures[index]).then(<span class="fstat-no" title="function not covered" >function (texture) {</span></span>
 <span class="cstat-no" title="statement not covered" >                process.nextTick(<span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                    _this.model.loadedTextureCount++;</span>
-<span class="cstat-no" title="statement not covered" >                    _JThreeLogger2.default.sectionLog("pmx texture", "loaded texture " + _this.model.loadedTextureCount + " / " + _this.model.loadingTextureCount);</span>
-<span class="cstat-no" title="statement not covered" >                    if (_this.model.loadingTextureCount === _this.model.loadedTextureCount) {</span>
-<span class="cstat-no" title="statement not covered" >                        _this.model.emit("load", _this.model);</span>
+<span class="cstat-no" title="statement not covered" >                    _this._model.loadedTextureCount++;</span>
+<span class="cstat-no" title="statement not covered" >                    _JThreeLogger2.default.sectionLog("pmx texture", "loaded texture " + _this._model.loadedTextureCount + " / " + _this._model.loadingTextureCount);</span>
+<span class="cstat-no" title="statement not covered" >                    if (_this._model.loadingTextureCount === _this._model.loadedTextureCount) {</span>
+<span class="cstat-no" title="statement not covered" >                        _this._model.emit("load", _this._model);</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    deferred.resolve(texture);</span>
                 });
 <span class="cstat-no" title="statement not covered" >                return deferred.promise;</span>
             }, <span class="fstat-no" title="function not covered" >function (error) {</span>
 <span class="cstat-no" title="statement not covered" >                process.nextTick(<span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                    _this.model.loadedTextureCount++;</span>
-<span class="cstat-no" title="statement not covered" >                    _JThreeLogger2.default.sectionError("pmx texture", "load failure texture " + _this.model.loadedTextureCount + " / " + _this.model.loadingTextureCount + "  " + error);</span>
-<span class="cstat-no" title="statement not covered" >                    if (_this.model.loadingTextureCount === _this.model.loadedTextureCount) {</span>
-<span class="cstat-no" title="statement not covered" >                        _this.model.emit("load", _this.model);</span>
+<span class="cstat-no" title="statement not covered" >                    _this._model.loadedTextureCount++;</span>
+<span class="cstat-no" title="statement not covered" >                    _JThreeLogger2.default.sectionError("pmx texture", "load failure texture " + _this._model.loadedTextureCount + " / " + _this._model.loadingTextureCount + "  " + error);</span>
+<span class="cstat-no" title="statement not covered" >                    if (_this._model.loadingTextureCount === _this._model.loadedTextureCount) {</span>
+<span class="cstat-no" title="statement not covered" >                        _this._model.emit("load", _this._model);</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    deferred.reject(error);</span>
                 });
@@ -311,7 +311,7 @@
 <span class="cstat-no" title="statement not covered" >    return PMXTextureManager;</span>
 }();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >PMXTextureManager._imgConvertedToons = [];</span>
+<span class="cstat-no" title="statement not covered" >PMXTextureManager.imgConvertedToons = [];</span>
 <span class="cstat-no" title="statement not covered" >PMXTextureManager._toons = ["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX////Nzc1XNMFjAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX////14eF2pXIGAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX///+ampo+MvaSAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX////47+sAKyXFAAAAD0lEQVQI12OgNvgPBFQkAPcnP8G6A9XkAAAAAElFTkSuQmCC", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEX/////5t3/6N7/7eX/+fb/9PD//Pv/8Op5dFmOAAAAQklEQVQoz2MYBRQDtjQYgAq4gEAIiEiBCIYiAEjYjaEcBIrLoSA0lMEYDTAooQEGRQgtqAgTEEQD5AgoYQggAFgOAHEkIrrgwCawAAAAAElFTkSuQmCC", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAflBMVEX/7WHDrAPErQT/7mT/7mn66Fj86VvizTLJswz/8of/8Hf/73L+7F7NtxLLtQ7/7mb///z//ez//OL/+9vs2ELk0Db//vX/+L7/723o1DzRvBjFrgX/+sz/+Lr/9qzw3Uj/+tL/97b/9Jf/85D/9Z//8X//6DHFrgb/+MD/5AUNrqVlAAAAwklEQVQ4y+XO226DMAwAUG/OutmhgyQQkgYYl162///BmaoV7UPFc9XzYlu2bMNrQrhS16hyRMxVCLlSgWrNmpkPvP8lDogKutb4Qbvajc5b6xpr92071qbvTMNMPfjCdzgVoulJkx2oNW4wtulqYl8YoIkVaq1lOcB8Sy4hjk4SDHTQd+8tcLokR1jxByuO8CKybDP7uLE5y84AyrKMsaqqz4VUMUZp/AjYbcW3+FrM5VbsBJxSen8kpXSCtxVPMfAPmVcPlflaGvEAAAAASUVORK5CYII=", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAC0lEQVQI12MY5AAAAKAAAfgHMzoAAAAASUVORK5CYII=", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAC0lEQVQI12MY5AAAAKAAAfgHMzoAAAAASUVORK5CYII=", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAC0lEQVQI12MY5AAAAKAAAfgHMzoAAAAASUVORK5CYII=", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAC0lEQVQI12MY5AAAAKAAAfgHMzoAAAAASUVORK5CYII="];</span>
 <span class="cstat-no" title="statement not covered" >exports.default = PMXTextureManager;</span></pre></td></tr>
 </table></pre>
@@ -319,7 +319,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

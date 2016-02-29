@@ -742,18 +742,18 @@ var Quaternion = function (_JThreeObject) {
     }
 &nbsp;
     _createClass(Quaternion, [{
-        key: "Normalize",
+        key: "normalize",
 &nbsp;
         /**
         * Get normalized quaternion
         */
-        value: function Normalize() {
+        value: function normalize() {
             var newQuat = _glMatrix.quat.create();
             return new Quaternion(_glMatrix.quat.normalize(newQuat, this.rawElements));
         }
     }, {
-        key: "Inverse",
-        value: function Inverse() {
+        key: "inverse",
+        value: function inverse() {
             var newQuat = _glMatrix.quat.create();
             return new Quaternion(_glMatrix.quat.invert(newQuat, this.rawElements));
         }
@@ -776,10 +776,10 @@ var Quaternion = function (_JThreeObject) {
 <span class="cstat-no" title="statement not covered" >            return this.toAngleAxisString();</span>
         }
     }, {
-        key: "FactoringQuaternionZXY",
-        value: <span class="fstat-no" title="function not covered" >function FactoringQuaternionZXY() {</span>
+        key: "factoringQuaternionZXY",
+        value: <span class="fstat-no" title="function not covered" >function factoringQuaternionZXY() {</span>
 <span class="cstat-no" title="statement not covered" >            var result = { x: 0, y: 0, z: 0 };</span>
-<span class="cstat-no" title="statement not covered" >            var mat = _Matrix2.default.RotationQuaternion(this);</span>
+<span class="cstat-no" title="statement not covered" >            var mat = _Matrix2.default.rotationQuaternion(this);</span>
 <span class="cstat-no" title="statement not covered" >            var sx = mat.rawElements[6];</span>
 <span class="cstat-no" title="statement not covered" >            if (Math.abs(sx) &lt; 1 - 1.0E-4) {</span>
 <span class="cstat-no" title="statement not covered" >                result.x = Math.asin(sx);</span>
@@ -793,10 +793,10 @@ var Quaternion = function (_JThreeObject) {
 <span class="cstat-no" title="statement not covered" >            return result;</span>
         }
     }, {
-        key: "FactoringQuaternionXYZ",
-        value: <span class="fstat-no" title="function not covered" >function FactoringQuaternionXYZ() {</span>
+        key: "factoringQuaternionXYZ",
+        value: <span class="fstat-no" title="function not covered" >function factoringQuaternionXYZ() {</span>
 <span class="cstat-no" title="statement not covered" >            var result = { x: 0, y: 0, z: 0 };</span>
-<span class="cstat-no" title="statement not covered" >            var mat = _Matrix2.default.RotationQuaternion(this);</span>
+<span class="cstat-no" title="statement not covered" >            var mat = _Matrix2.default.rotationQuaternion(this);</span>
 <span class="cstat-no" title="statement not covered" >            var sy = -mat.rawElements[2];</span>
 <span class="cstat-no" title="statement not covered" >            if (Math.abs(sy) &lt; 1 - 1.0E-4) {</span>
 <span class="cstat-no" title="statement not covered" >                result.x = Math.atan2(mat.rawElements[6], mat.rawElements[10]);</span>
@@ -812,11 +812,11 @@ var Quaternion = function (_JThreeObject) {
     }, {
         key: "eularAngles",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            var eular = this.FactoringQuaternionZXY();</span>
+<span class="cstat-no" title="statement not covered" >            var eular = this.factoringQuaternionZXY();</span>
 <span class="cstat-no" title="statement not covered" >            return new _Vector2.default(eular.x, eular.y, eular.z);</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(v) {</span>
-<span class="cstat-no" title="statement not covered" >            this.rawElements = Quaternion.Euler(v.X, v.Y, v.Z).rawElements;</span>
+<span class="cstat-no" title="statement not covered" >            this.rawElements = Quaternion.euler(v.X, v.Y, v.Z).rawElements;</span>
         }
         /**
         * Getter for X.
@@ -898,18 +898,18 @@ var Quaternion = function (_JThreeObject) {
         */
 &nbsp;
     }, {
-        key: "Add",
-        value: function Add(q1, q2) {
+        key: "add",
+        value: function add(q1, q2) {
             var newQuat = _glMatrix.quat.create();
             return new Quaternion(_glMatrix.quat.add(newQuat, q1.rawElements, q2.rawElements));
         }
         /**
-        * Calculate Multiply result of two quaternion
+        * Calculate multiply result of two quaternion
         */
 &nbsp;
     }, {
-        key: "Multiply",
-        value: function Multiply(q1, q2) {
+        key: "multiply",
+        value: function multiply(q1, q2) {
             var newQuat = _glMatrix.quat.create();
             return new Quaternion(_glMatrix.quat.mul(newQuat, q1.rawElements, q2.rawElements));
         }
@@ -918,8 +918,8 @@ var Quaternion = function (_JThreeObject) {
         */
 &nbsp;
     }, {
-        key: "AngleAxis",
-        value: function AngleAxis(angle, axis) {
+        key: "angleAxis",
+        value: function angleAxis(angle, axis) {
             var axisVec = _glMatrix.vec3.create();
             axisVec[0] = axis.X;
             axisVec[1] = axis.Y;
@@ -928,18 +928,18 @@ var Quaternion = function (_JThreeObject) {
             return new Quaternion(_glMatrix.quat.setAxisAngle(newQuat, axisVec, +angle));
         }
     }, {
-        key: "Euler",
-        value: function Euler(x, y, z) {
-            return Quaternion.Multiply(Quaternion.AngleAxis(z, _Vector2.default.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(x, _Vector2.default.XUnit), Quaternion.AngleAxis(y, _Vector2.default.YUnit)));
+        key: "euler",
+        value: function euler(x, y, z) {
+            return Quaternion.multiply(Quaternion.angleAxis(z, _Vector2.default.ZUnit), Quaternion.multiply(Quaternion.angleAxis(x, _Vector2.default.XUnit), Quaternion.angleAxis(y, _Vector2.default.YUnit)));
         }
     }, {
-        key: "EulerXYZ",
-        value: <span class="fstat-no" title="function not covered" >function EulerXYZ(x, y, z) {</span>
-<span class="cstat-no" title="statement not covered" >            return Quaternion.Multiply(Quaternion.AngleAxis(z, _Vector2.default.ZUnit), Quaternion.Multiply(Quaternion.AngleAxis(y, _Vector2.default.YUnit), Quaternion.AngleAxis(x, _Vector2.default.XUnit)));</span>
+        key: "eulerXYZ",
+        value: <span class="fstat-no" title="function not covered" >function eulerXYZ(x, y, z) {</span>
+<span class="cstat-no" title="statement not covered" >            return Quaternion.multiply(Quaternion.angleAxis(z, _Vector2.default.ZUnit), Quaternion.multiply(Quaternion.angleAxis(y, _Vector2.default.YUnit), Quaternion.angleAxis(x, _Vector2.default.XUnit)));</span>
         }
     }, {
-        key: "Slerp",
-        value: <span class="fstat-no" title="function not covered" >function Slerp(q1, q2, t) {</span>
+        key: "slerp",
+        value: <span class="fstat-no" title="function not covered" >function slerp(q1, q2, t) {</span>
 <span class="cstat-no" title="statement not covered" >            var newQuat = _glMatrix.quat.create();</span>
 <span class="cstat-no" title="statement not covered" >            return new Quaternion(_glMatrix.quat.slerp(newQuat, q1.rawElements, q2.rawElements, +t));</span>
         }
@@ -951,22 +951,22 @@ var Quaternion = function (_JThreeObject) {
          */
 &nbsp;
     }, {
-        key: "Angle",
-        value: <span class="fstat-no" title="function not covered" >function Angle(q1, q2) {</span>
-<span class="cstat-no" title="statement not covered" >            var delta = Quaternion.Multiply(q2, q1.Inverse());</span>
-<span class="cstat-no" title="statement not covered" >            delta = delta.Normalize();</span>
+        key: "angle",
+        value: <span class="fstat-no" title="function not covered" >function angle(q1, q2) {</span>
+<span class="cstat-no" title="statement not covered" >            var delta = Quaternion.multiply(q2, q1.inverse());</span>
+<span class="cstat-no" title="statement not covered" >            delta = delta.normalize();</span>
 <span class="cstat-no" title="statement not covered" >            return 2 * Math.acos(delta.W);</span>
         }
     }, {
-        key: "FromToRotation",
-        value: <span class="fstat-no" title="function not covered" >function FromToRotation(from, to) {</span>
+        key: "fromToRotation",
+        value: <span class="fstat-no" title="function not covered" >function fromToRotation(from, to) {</span>
 <span class="cstat-no" title="statement not covered" >            var crossed = _Vector2.default.cross(from.normalized, to.normalized);</span>
 <span class="cstat-no" title="statement not covered" >            var angle = _Vector2.default.dot(from.normalized, to.normalized);</span>
-<span class="cstat-no" title="statement not covered" >            return Quaternion.AngleAxis(angle, crossed);</span>
+<span class="cstat-no" title="statement not covered" >            return Quaternion.angleAxis(angle, crossed);</span>
         }
     }, {
-        key: "LookRotation",
-        value: <span class="fstat-no" title="function not covered" >function LookRotation(forward, upVec) {</span>
+        key: "lookRotation",
+        value: <span class="fstat-no" title="function not covered" >function lookRotation(forward, upVec) {</span>
 <span class="cstat-no" title="statement not covered" >            upVec = upVec || _Vector2.default.YUnit;</span>
 <span class="cstat-no" title="statement not covered" >            var normalizedForward = forward.normalized;</span>
 <span class="cstat-no" title="statement not covered" >            var upForwardCross = _Vector2.default.cross(upVec, normalizedForward).normalized;</span>
@@ -1012,7 +1012,7 @@ exports.default = Quaternion;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

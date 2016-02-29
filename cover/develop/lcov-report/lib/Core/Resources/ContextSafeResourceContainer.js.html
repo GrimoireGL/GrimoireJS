@@ -329,11 +329,11 @@ var ContextSafeResourceContainer = function (_JThreeObjectWithID) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ContextSafeResourceContainer).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.childWrapper = {};</span>
-<span class="cstat-no" title="statement not covered" >        _this.wrapperLength = 0;</span>
+<span class="cstat-no" title="statement not covered" >        _this._childWrapper = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._wrapperLength = 0;</span>
 <span class="cstat-no" title="statement not covered" >        var canvasManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.CanvasManager);</span>
         // Initialize resources for the renderers already subscribed.
-<span class="cstat-no" title="statement not covered" >        canvasManager.canvasListChanged.addListener(_this.rendererChanged.bind(_this));</span>
+<span class="cstat-no" title="statement not covered" >        canvasManager.canvasListChanged.addListener(_this._rendererChanged.bind(_this));</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
 &nbsp;
@@ -352,51 +352,51 @@ var ContextSafeResourceContainer = function (_JThreeObjectWithID) {
     }, {
         key: "getForContextID",
         value: <span class="fstat-no" title="function not covered" >function getForContextID(id) {</span>
-<span class="cstat-no" title="statement not covered" >            if (!this.childWrapper[id]) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this._childWrapper[id]) {</span>
 <span class="cstat-no" title="statement not covered" >                console.log("There is no matching object with the ID:" + id);</span>
             }
-<span class="cstat-no" title="statement not covered" >            return this.childWrapper[id];</span>
+<span class="cstat-no" title="statement not covered" >            return this._childWrapper[id];</span>
         }
     }, {
         key: "each",
         value: <span class="fstat-no" title="function not covered" >function each(act) {</span>
-<span class="cstat-no" title="statement not covered" >            for (var key in this.childWrapper) {</span>
-<span class="cstat-no" title="statement not covered" >                act(this.childWrapper[key]);</span>
+<span class="cstat-no" title="statement not covered" >            for (var key in this._childWrapper) {</span>
+<span class="cstat-no" title="statement not covered" >                act(this._childWrapper[key]);</span>
             }
         }
     }, {
-        key: "createWrapperForCanvas",
-        value: <span class="fstat-no" title="function not covered" >function createWrapperForCanvas(canvas) {</span>
+        key: "__createWrapperForCanvas",
+        value: <span class="fstat-no" title="function not covered" >function __createWrapperForCanvas(canvas) {</span>
 <span class="cstat-no" title="statement not covered" >            throw new _Exceptions.AbstractClassMethodCalledException();</span>
         }
     }, {
-        key: "initializeForFirst",
-        value: <span class="fstat-no" title="function not covered" >function initializeForFirst() {</span>
+        key: "__initializeForFirst",
+        value: <span class="fstat-no" title="function not covered" >function __initializeForFirst() {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            var canvasManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.CanvasManager);</span>
 <span class="cstat-no" title="statement not covered" >            canvasManager.canvases.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
-<span class="cstat-no" title="statement not covered" >                _this2.childWrapper[v.ID] = _this2.createWrapperForCanvas(v);</span>
-<span class="cstat-no" title="statement not covered" >                _this2.wrapperLength++;</span>
+<span class="cstat-no" title="statement not covered" >                _this2._childWrapper[v.ID] = _this2.__createWrapperForCanvas(v);</span>
+<span class="cstat-no" title="statement not covered" >                _this2._wrapperLength++;</span>
             });
         }
     }, {
-        key: "rendererChanged",
-        value: <span class="fstat-no" title="function not covered" >function rendererChanged(object, arg) {</span>
+        key: "_rendererChanged",
+        value: <span class="fstat-no" title="function not covered" >function _rendererChanged(object, arg) {</span>
 <span class="cstat-no" title="statement not covered" >            if (arg.isAdditionalChange) {</span>
-<span class="cstat-no" title="statement not covered" >                this.childWrapper[arg.canvas.ID] = this.createWrapperForCanvas(arg.canvas);</span>
-<span class="cstat-no" title="statement not covered" >                this.wrapperLength++;</span>
+<span class="cstat-no" title="statement not covered" >                this._childWrapper[arg.canvas.ID] = this.__createWrapperForCanvas(arg.canvas);</span>
+<span class="cstat-no" title="statement not covered" >                this._wrapperLength++;</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                var delTarget = this.childWrapper[arg.canvas.ID];</span>
-<span class="cstat-no" title="statement not covered" >                delete this.childWrapper[arg.canvas.ID];</span>
+<span class="cstat-no" title="statement not covered" >                var delTarget = this._childWrapper[arg.canvas.ID];</span>
+<span class="cstat-no" title="statement not covered" >                delete this._childWrapper[arg.canvas.ID];</span>
 <span class="cstat-no" title="statement not covered" >                delTarget.dispose();</span>
-<span class="cstat-no" title="statement not covered" >                this.wrapperLength--;</span>
+<span class="cstat-no" title="statement not covered" >                this._wrapperLength--;</span>
             }
         }
     }, {
         key: "wrappers",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            var array = new Array(this.wrapperLength);</span>
+<span class="cstat-no" title="statement not covered" >            var array = new Array(this._wrapperLength);</span>
 <span class="cstat-no" title="statement not covered" >            var index = 0;</span>
 <span class="cstat-no" title="statement not covered" >            this.each(<span class="fstat-no" title="function not covered" >function (elem) {</span></span>
 <span class="cstat-no" title="statement not covered" >                array[index] = elem;</span>
@@ -415,7 +415,7 @@ exports.default = ContextSafeResourceContainer;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

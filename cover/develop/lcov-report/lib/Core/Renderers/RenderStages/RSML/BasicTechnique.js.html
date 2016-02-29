@@ -581,10 +581,10 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        _this.__fboInitialized = false;</span>
 <span class="cstat-no" title="statement not covered" >        _this._wireFramed = false;</span>
-<span class="cstat-no" title="statement not covered" >        _this._renderStage = renderStage;</span>
+<span class="cstat-no" title="statement not covered" >        _this.__renderStage = renderStage;</span>
 <span class="cstat-no" title="statement not covered" >        _this._techniqueDocument = technique;</span>
 <span class="cstat-no" title="statement not covered" >        _this._techniqueIndex = techniqueIndex;</span>
-<span class="cstat-no" title="statement not covered" >        _this.defaultRenderConfigure = _XMLRenderConfigUtility2.default.parseRenderConfig(technique, _this._renderStage.getSuperRendererConfigure());</span>
+<span class="cstat-no" title="statement not covered" >        _this.defaultRenderConfigure = _XMLRenderConfigUtility2.default.parseRenderConfig(technique, _this.__renderStage.getSuperRendererConfigure());</span>
 <span class="cstat-no" title="statement not covered" >        _this._target = _this._techniqueDocument.getAttribute("target");</span>
 <span class="cstat-no" title="statement not covered" >        _this._wireFramed = _this._techniqueDocument.getAttribute("wireframe") === "true";</span>
 <span class="cstat-no" title="statement not covered" >        if (!_this._target) {</span>
@@ -592,7 +592,7 @@
         }
 <span class="cstat-no" title="statement not covered" >        _this._fboBindingInfo = _RSMLRenderConfigUtility2.default.parseFBOConfiguration(_this._techniqueDocument.getElementsByTagName("fbo").item(0));</span>
 <span class="cstat-no" title="statement not covered" >        if (_this._target !== "scene") {</span>
-<span class="cstat-no" title="statement not covered" >            _this._defaultMaterial = _this._getMaterial();</span>
+<span class="cstat-no" title="statement not covered" >            _this.defaultMaterial = _this._getMaterial();</span>
         }
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
@@ -608,12 +608,12 @@
 <span class="cstat-no" title="statement not covered" >            switch (this.Target) {</span>
                 case "scene":
 <span class="cstat-no" title="statement not covered" >                    var materialGroup = this._techniqueDocument.getAttribute("materialGroup");</span>
-<span class="cstat-no" title="statement not covered" >                    this._renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup, this._wireFramed);</span>
+<span class="cstat-no" title="statement not covered" >                    this.__renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup, this._wireFramed);</span>
 <span class="cstat-no" title="statement not covered" >                    break;</span>
                 default:
-<span class="cstat-no" title="statement not covered" >                    this._defaultMaterial.materialVariables = this._renderStage.stageVariables;</span>
+<span class="cstat-no" title="statement not covered" >                    this.defaultMaterial.materialVariables = this.__renderStage.stageVariables;</span>
 <span class="cstat-no" title="statement not covered" >                    _XMLRenderConfigUtility2.default.applyAll(this._gl, this.defaultRenderConfigure);</span>
-<span class="cstat-no" title="statement not covered" >                    this._renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this._defaultMaterial, this._wireFramed);</span>
+<span class="cstat-no" title="statement not covered" >                    this.__renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this.defaultMaterial, this._wireFramed);</span>
             }
         }
     }, {
@@ -622,7 +622,7 @@
 <span class="cstat-no" title="statement not covered" >            this.__fboInitialized = true;</span>
 <span class="cstat-no" title="statement not covered" >            var rm = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceManager);</span>
 <span class="cstat-no" title="statement not covered" >            this.__fbo = rm.createFBO("jthree.technique." + this.ID);</span>
-<span class="cstat-no" title="statement not covered" >            var fboWrapper = this.__fbo.getForContext(this._renderStage.Renderer.Canvas);</span>
+<span class="cstat-no" title="statement not covered" >            var fboWrapper = this.__fbo.getForContext(this.__renderStage.Renderer.Canvas);</span>
 <span class="cstat-no" title="statement not covered" >            this._attachRBOConfigure(fboWrapper, texs);</span>
 <span class="cstat-no" title="statement not covered" >            this._attachTextureConfigure(fboWrapper, texs);</span>
         }
@@ -632,7 +632,7 @@
 <span class="cstat-no" title="statement not covered" >            var rawMaterials = this._techniqueDocument.getElementsByTagName("material");</span>
 <span class="cstat-no" title="statement not covered" >            if (rawMaterials.length &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >                var materialDocument = rawMaterials.item(0);</span>
-<span class="cstat-no" title="statement not covered" >                return new _BasicMaterial2.default(materialDocument.outerHTML, this._renderStage.stageName + this._techniqueIndex);</span>
+<span class="cstat-no" title="statement not covered" >                return new _BasicMaterial2.default(materialDocument.outerHTML, this.__renderStage.stageName + this._techniqueIndex);</span>
             }
 <span class="cstat-no" title="statement not covered" >            var mm = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.MaterialManager);</span>
 <span class="cstat-no" title="statement not covered" >            var matName = this._techniqueDocument.getAttribute("material");</span>
@@ -658,7 +658,7 @@
 <span class="cstat-no" title="statement not covered" >                    var targetBuffer = undefined;</span>
 <span class="cstat-no" title="statement not covered" >                    var isRBO = true;</span>
 <span class="cstat-no" title="statement not covered" >                    if (rboConfigure.name === "default") {</span>
-<span class="cstat-no" title="statement not covered" >                        targetBuffer = this._renderStage.DefaultRBO;</span>
+<span class="cstat-no" title="statement not covered" >                        targetBuffer = this.__renderStage.DefaultRBO;</span>
                     } else {
 <span class="cstat-no" title="statement not covered" >                        if (!texs[rboConfigure.name]) {</span>
 <span class="cstat-no" title="statement not covered" >                            throw new Error("Specified render buffer was not found");</span>
@@ -714,7 +714,7 @@
 <span class="cstat-no" title="statement not covered" >                if (!this.__fboInitialized) {</span>
 <span class="cstat-no" title="statement not covered" >                    this.__initializeFBO(texs);</span>
                 }
-<span class="cstat-no" title="statement not covered" >                this.__fbo.getForContext(this._renderStage.Renderer.Canvas).bind();</span>
+<span class="cstat-no" title="statement not covered" >                this.__fbo.getForContext(this.__renderStage.Renderer.Canvas).bind();</span>
 <span class="cstat-no" title="statement not covered" >                this._clearBuffers();</span>
             }
         }
@@ -755,15 +755,15 @@
         key: "_applyViewport",
         value: <span class="fstat-no" title="function not covered" >function _applyViewport(isDefault) {</span>
 <span class="cstat-no" title="statement not covered" >            if (isDefault) {</span>
-<span class="cstat-no" title="statement not covered" >                this._renderStage.Renderer.applyDefaultBufferViewport();</span>
+<span class="cstat-no" title="statement not covered" >                this.__renderStage.Renderer.applyDefaultBufferViewport();</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                this._renderStage.Renderer.applyRendererBufferViewport();</span>
+<span class="cstat-no" title="statement not covered" >                this.__renderStage.Renderer.applyRendererBufferViewport();</span>
             }
         }
     }, {
         key: "_gl",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this._renderStage.GL;</span>
+<span class="cstat-no" title="statement not covered" >            return this.__renderStage.GL;</span>
         }
     }, {
         key: "Target",
@@ -781,7 +781,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../../prettify.js"></script>

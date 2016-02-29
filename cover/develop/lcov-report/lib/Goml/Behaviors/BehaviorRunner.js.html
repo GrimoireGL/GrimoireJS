@@ -321,8 +321,8 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BehaviorNodePair).call(this, behavior.ID));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.behavior = behavior;</span>
-<span class="cstat-no" title="statement not covered" >        _this.targetNode = target;</span>
+<span class="cstat-no" title="statement not covered" >        _this._behavior = behavior;</span>
+<span class="cstat-no" title="statement not covered" >        _this._targetNode = target;</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
     /**
@@ -333,7 +333,7 @@
 <span class="cstat-no" title="statement not covered" >    _createClass(BehaviorNodePair, [{</span>
         key: "Behavior",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.behavior;</span>
+<span class="cstat-no" title="statement not covered" >            return this._behavior;</span>
         }
         /**
          * getter for target node
@@ -342,7 +342,7 @@
     }, {
         key: "Target",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.targetNode;</span>
+<span class="cstat-no" title="statement not covered" >            return this._targetNode;</span>
         }
     }]);
 &nbsp;
@@ -363,8 +363,8 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(BehaviorRunner)).call.apply(_Object$getPrototypeO, [this].concat(args)));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this2.dictionary = new _JThreeCollection2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this2.sortedBehavior = [];</span>
+<span class="cstat-no" title="statement not covered" >        _this2._dictionary = new _JThreeCollection2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this2._sortedBehavior = [];</span>
 <span class="cstat-no" title="statement not covered" >        return _this2;</span>
     }
 &nbsp;
@@ -372,9 +372,9 @@
         key: "addBehavior",
         value: <span class="fstat-no" title="function not covered" >function addBehavior(node, target) {</span>
 <span class="cstat-no" title="statement not covered" >            var componentPair = new BehaviorNodePair(node, target);</span>
-<span class="cstat-no" title="statement not covered" >            this.dictionary.insert(componentPair);</span>
-<span class="cstat-no" title="statement not covered" >            this.sortedBehavior.push(componentPair);</span>
-<span class="cstat-no" title="statement not covered" >            this.sortBehaviors();</span>
+<span class="cstat-no" title="statement not covered" >            this._dictionary.insert(componentPair);</span>
+<span class="cstat-no" title="statement not covered" >            this._sortedBehavior.push(componentPair);</span>
+<span class="cstat-no" title="statement not covered" >            this._sortBehaviors();</span>
 <span class="cstat-no" title="statement not covered" >            if (!node.awaken) {</span>
 <span class="cstat-no" title="statement not covered" >                node.awake.call(node, target);</span>
             }
@@ -382,16 +382,16 @@
     }, {
         key: "executeForAllBehaviors",
         value: <span class="fstat-no" title="function not covered" >function executeForAllBehaviors(behaviorName) {</span>
-<span class="cstat-no" title="statement not covered" >            this.sortedBehavior.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >            this._sortedBehavior.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                if (v.Behavior.enabled) {</span>
 <span class="cstat-no" title="statement not covered" >                    v.Behavior[behaviorName](v.Target);</span>
                 }
             });
         }
     }, {
-        key: "sortBehaviors",
-        value: <span class="fstat-no" title="function not covered" >function sortBehaviors() {</span>
-<span class="cstat-no" title="statement not covered" >            this.sortedBehavior.sort(<span class="fstat-no" title="function not covered" >function (v1, v2) {</span></span>
+        key: "_sortBehaviors",
+        value: <span class="fstat-no" title="function not covered" >function _sortBehaviors() {</span>
+<span class="cstat-no" title="statement not covered" >            this._sortedBehavior.sort(<span class="fstat-no" title="function not covered" >function (v1, v2) {</span></span>
 <span class="cstat-no" title="statement not covered" >                return v1.Behavior.order - v2.Behavior.order;</span>
             });
         }
@@ -406,7 +406,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

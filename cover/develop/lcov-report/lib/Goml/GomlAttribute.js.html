@@ -523,10 +523,10 @@
          * deferred for handling async initializing of attribute.
          * @type {boolean}
          */
-<span class="cstat-no" title="statement not covered" >        _this.deferred = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.defer_type = "";</span>
-<span class="cstat-no" title="statement not covered" >        _this.initializeSequence = false;</span>
-<span class="cstat-no" title="statement not covered" >        _this.nodeManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.NodeManager);</span>
+<span class="cstat-no" title="statement not covered" >        _this._deferred = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._defer_type = "";</span>
+<span class="cstat-no" title="statement not covered" >        _this._initializeSequence = false;</span>
+<span class="cstat-no" title="statement not covered" >        _this._nodeManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.NodeManager);</span>
 <span class="cstat-no" title="statement not covered" >        _this.constant = constant !== undefined ? constant : false;</span>
 <span class="cstat-no" title="statement not covered" >        _this.reserved = reserved !== undefined ? reserved : false;</span>
 <span class="cstat-no" title="statement not covered" >        _this.Converter = converter;</span>
@@ -543,7 +543,7 @@
 <span class="cstat-no" title="statement not covered" >    _createClass(GomlAttribute, [{</span>
         key: "initialize",
         value: <span class="fstat-no" title="function not covered" >function initialize() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.value === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.__value === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >                console.warn("Attribute " + this.Name + " is undefined.");</span>
             }
             // console.log("initialized", this.ID, this.value);
@@ -552,21 +552,21 @@
                 // notifyValueChangedでdeferredが解決される
                 // temp時にinitializeSequenceが開始される
                 // 一箇所でpromiseを集めるための処置
-<span class="cstat-no" title="statement not covered" >                this.initializeSequence = true;</span>
-<span class="cstat-no" title="statement not covered" >                this.defer_type = "reserved";</span>
+<span class="cstat-no" title="statement not covered" >                this._initializeSequence = true;</span>
+<span class="cstat-no" title="statement not covered" >                this._defer_type = "reserved";</span>
             } else <span class="cstat-no" title="statement not covered" >if (!this.constant &amp;&amp; this.listeners("changed").length !== 0) {</span>
                 // 通常時のAttributeの初期化
                 // onchangeのイベントのコールバック内でdoneでdeferredが解決される
-<span class="cstat-no" title="statement not covered" >                this.initializeSequence = true;</span>
-<span class="cstat-no" title="statement not covered" >                this.deferred = _q2.default.defer();</span>
-<span class="cstat-no" title="statement not covered" >                this.nodeManager.attributePromiseRegistry.register(this.deferred.promise, this);</span>
-<span class="cstat-no" title="statement not covered" >                this.defer_type = "not constant, has changed";</span>
+<span class="cstat-no" title="statement not covered" >                this._initializeSequence = true;</span>
+<span class="cstat-no" title="statement not covered" >                this._deferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >                this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);</span>
+<span class="cstat-no" title="statement not covered" >                this._defer_type = "not constant, has changed";</span>
 <span class="cstat-no" title="statement not covered" >                this.emit("changed", this);</span>
             } else {
                 // onchangeハンドラが無い、又は定数の場合はpromiseを生成しない。
 <span class="cstat-no" title="statement not covered" >                this.initialized = true;</span>
                 // console.log("resolve attribute (inst)", this.Name);
-<span class="cstat-no" title="statement not covered" >                this.defer_type = "constant or no changed, not reserved";</span>
+<span class="cstat-no" title="statement not covered" >                this._defer_type = "constant or no changed, not reserved";</span>
             }
         }
         /**
@@ -576,11 +576,11 @@
     }, {
         key: "done",
         value: <span class="fstat-no" title="function not covered" >function done() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.initializeSequence) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this._initializeSequence) {</span>
 <span class="cstat-no" title="statement not covered" >                this.initialized = true;</span>
-<span class="cstat-no" title="statement not covered" >                this.initializeSequence = false;</span>
+<span class="cstat-no" title="statement not covered" >                this._initializeSequence = false;</span>
                 // console.log("resolve attribute (done)", this.Name);
-<span class="cstat-no" title="statement not covered" >                this.deferred.resolve(this);</span>
+<span class="cstat-no" title="statement not covered" >                this._deferred.resolve(this);</span>
             }
         }
     }, {
@@ -597,10 +597,10 @@
 <span class="cstat-no" title="statement not covered" >            if (this.constant) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            if (this.initialized || this.initializeSequence) {</span>
-<span class="cstat-no" title="statement not covered" >                if (this.initializeSequence) {</span>
-<span class="cstat-no" title="statement not covered" >                    this.deferred = _q2.default.defer();</span>
-<span class="cstat-no" title="statement not covered" >                    this.nodeManager.attributePromiseRegistry.register(this.deferred.promise, this);</span>
+<span class="cstat-no" title="statement not covered" >            if (this.initialized || this._initializeSequence) {</span>
+<span class="cstat-no" title="statement not covered" >                if (this._initializeSequence) {</span>
+<span class="cstat-no" title="statement not covered" >                    this._deferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >                    this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);</span>
                 }
 <span class="cstat-no" title="statement not covered" >                this.emit("changed", this);</span>
             }
@@ -613,23 +613,23 @@
     }, {
         key: "Value",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.value;</span>
+<span class="cstat-no" title="statement not covered" >            return this.__value;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(val) {</span>
             // console.log("setattr", this.Name, val);
-<span class="cstat-no" title="statement not covered" >            if (this.constant &amp;&amp; this.value !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.constant &amp;&amp; this.__value !== undefined) {</span>
 <span class="cstat-no" title="statement not covered" >                console.warn("attribute \"" + this.ID + "\" is immutable");</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
 <span class="cstat-no" title="statement not covered" >            if (typeof val === "string") {</span>
-<span class="cstat-no" title="statement not covered" >                this.value = this.Converter.toObjectAttr(val);</span>
+<span class="cstat-no" title="statement not covered" >                this.__value = this.Converter.toObjectAttr(val);</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                try {</span>
 <span class="cstat-no" title="statement not covered" >                    this.Converter.toStringAttr(val);</span>
                 } catch (e) {
 <span class="cstat-no" title="statement not covered" >                    console.warn("type of attribute: " + this.Name + "(" + val + ") is not adapt to converter: " + this.Converter.getTypeName(), val);</span>
                 }
-<span class="cstat-no" title="statement not covered" >                this.value = val;</span>
+<span class="cstat-no" title="statement not covered" >                this.__value = val;</span>
             }
             // console.log("setattr_obj", this.Name, this.value);
 <span class="cstat-no" title="statement not covered" >            if (this.initialized) {</span>
@@ -646,19 +646,19 @@
     }, {
         key: "ValueStr",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.value == null ? "" : this.Converter.toStringAttr(this.value);</span>
+<span class="cstat-no" title="statement not covered" >            return this.__value == null ? "" : this.Converter.toStringAttr(this.__value);</span>
         }
     }, {
         key: "Converter",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.converter ? this.converter : new _StringAttributeConverter2.default();</span>
+<span class="cstat-no" title="statement not covered" >            return this.__converter ? this.__converter : new _StringAttributeConverter2.default();</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(converter) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.converter === undefined) {</span>
-<span class="cstat-no" title="statement not covered" >                this.converter = converter;</span>
+<span class="cstat-no" title="statement not covered" >            if (this.__converter === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                this.__converter = converter;</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                var attr_value = this.Converter.toStringAttr(this.Value);</span>
-<span class="cstat-no" title="statement not covered" >                this.converter = converter;</span>
+<span class="cstat-no" title="statement not covered" >                this.__converter = converter;</span>
 <span class="cstat-no" title="statement not covered" >                this.Value = attr_value;</span>
             }
         }
@@ -673,7 +673,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

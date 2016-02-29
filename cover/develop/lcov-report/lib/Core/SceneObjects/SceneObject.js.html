@@ -613,14 +613,14 @@
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SceneObject).call(this));</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        _this.isVisible = true;</span>
-<span class="cstat-no" title="statement not covered" >        _this.onStructureChangedEvent = new _JThreeEvent2.default();</span>
-<span class="cstat-no" title="statement not covered" >        _this.materialChanagedHandler = [];</span>
-<span class="cstat-no" title="statement not covered" >        _this.materials = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this._onStructureChangedEvent = new _JThreeEvent2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._materialChanagedHandler = [];</span>
+<span class="cstat-no" title="statement not covered" >        _this._materials = {};</span>
         /**
          * Contains the children.
          */
-<span class="cstat-no" title="statement not covered" >        _this.children = [];</span>
-<span class="cstat-no" title="statement not covered" >        _this.transformer = transformer || new _Transformer2.default(_this);</span>
+<span class="cstat-no" title="statement not covered" >        _this._children = [];</span>
+<span class="cstat-no" title="statement not covered" >        _this.__transformer = transformer || new _Transformer2.default(_this);</span>
 <span class="cstat-no" title="statement not covered" >        _this.name = _this.ID;</span>
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
@@ -632,8 +632,8 @@
 <span class="cstat-no" title="statement not covered" >    _createClass(SceneObject, [{</span>
         key: "addChild",
         value: <span class="fstat-no" title="function not covered" >function addChild(obj) {</span>
-<span class="cstat-no" title="statement not covered" >            this.children.push(obj);</span>
-<span class="cstat-no" title="statement not covered" >            obj.parent = this;</span>
+<span class="cstat-no" title="statement not covered" >            this._children.push(obj);</span>
+<span class="cstat-no" title="statement not covered" >            obj._parent = this;</span>
 <span class="cstat-no" title="statement not covered" >            obj.Transformer.updateTransform();</span>
 <span class="cstat-no" title="statement not covered" >            var eventArg = {</span>
                 owner: this,
@@ -642,7 +642,7 @@
                 changedSceneObject: obj,
                 changedSceneObjectID: obj.ID
             };
-<span class="cstat-no" title="statement not covered" >            this.onStructureChangedEvent.fire(this, eventArg);</span>
+<span class="cstat-no" title="statement not covered" >            this._onStructureChangedEvent.fire(this, eventArg);</span>
 <span class="cstat-no" title="statement not covered" >            this.onChildrenChanged();</span>
 <span class="cstat-no" title="statement not covered" >            obj.onParentChanged();</span>
 <span class="cstat-no" title="statement not covered" >            if (this.ParentScene) {</span>
@@ -657,9 +657,9 @@
     }, {
         key: "removeChild",
         value: <span class="fstat-no" title="function not covered" >function removeChild(obj) {</span>
-<span class="cstat-no" title="statement not covered" >            var childIndex = this.children.indexOf(obj);</span>
+<span class="cstat-no" title="statement not covered" >            var childIndex = this._children.indexOf(obj);</span>
 <span class="cstat-no" title="statement not covered" >            if (childIndex !== -1) {</span>
-<span class="cstat-no" title="statement not covered" >                this.children.splice(childIndex, 1);</span>
+<span class="cstat-no" title="statement not covered" >                this._children.splice(childIndex, 1);</span>
 <span class="cstat-no" title="statement not covered" >                var eventArg = {</span>
                     owner: this,
                     scene: this.ParentScene,
@@ -667,7 +667,7 @@
                     changedSceneObject: obj,
                     changedSceneObjectID: obj.ID
                 };
-<span class="cstat-no" title="statement not covered" >                this.onStructureChangedEvent.fire(this, eventArg);</span>
+<span class="cstat-no" title="statement not covered" >                this._onStructureChangedEvent.fire(this, eventArg);</span>
 <span class="cstat-no" title="statement not covered" >                obj.onParentChanged();</span>
 <span class="cstat-no" title="statement not covered" >                if (this.ParentScene) {</span>
 <span class="cstat-no" title="statement not covered" >                    this.ParentScene.notifySceneObjectChanged(eventArg);</span>
@@ -681,12 +681,12 @@
     }, {
         key: "remove",
         value: <span class="fstat-no" title="function not covered" >function remove() {</span>
-<span class="cstat-no" title="statement not covered" >            this.parent.removeChild(this);</span>
+<span class="cstat-no" title="statement not covered" >            this._parent.removeChild(this);</span>
         }
     }, {
         key: "onMaterialChanged",
         value: <span class="fstat-no" title="function not covered" >function onMaterialChanged(func) {</span>
-<span class="cstat-no" title="statement not covered" >            this.materialChanagedHandler.push(func);</span>
+<span class="cstat-no" title="statement not covered" >            this._materialChanagedHandler.push(func);</span>
         }
         /**
          * すべてのマテリアルに対して処理を実行します。
@@ -695,8 +695,8 @@
     }, {
         key: "eachMaterial",
         value: <span class="fstat-no" title="function not covered" >function eachMaterial(func) {</span>
-<span class="cstat-no" title="statement not covered" >            for (var material in this.materials) {</span>
-<span class="cstat-no" title="statement not covered" >                this.materials[material].each(<span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >            for (var material in this._materials) {</span>
+<span class="cstat-no" title="statement not covered" >                this._materials[material].each(<span class="fstat-no" title="function not covered" >function (e) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    return func(e);</span>
                 });
             }
@@ -704,16 +704,16 @@
     }, {
         key: "addMaterial",
         value: <span class="fstat-no" title="function not covered" >function addMaterial(mat) {</span>
-<span class="cstat-no" title="statement not covered" >            if (!this.materials[mat.MaterialGroup]) {</span>
-<span class="cstat-no" title="statement not covered" >                this.materials[mat.MaterialGroup] = new _JThreeCollection2.default();</span>
+<span class="cstat-no" title="statement not covered" >            if (!this._materials[mat.MaterialGroup]) {</span>
+<span class="cstat-no" title="statement not covered" >                this._materials[mat.MaterialGroup] = new _JThreeCollection2.default();</span>
             }
-<span class="cstat-no" title="statement not covered" >            this.materials[mat.MaterialGroup].insert(mat);</span>
+<span class="cstat-no" title="statement not covered" >            this._materials[mat.MaterialGroup].insert(mat);</span>
         }
     }, {
         key: "getMaterial",
         value: <span class="fstat-no" title="function not covered" >function getMaterial(matGroup) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.materials[matGroup]) {</span>
-<span class="cstat-no" title="statement not covered" >                var a = this.materials[matGroup];</span>
+<span class="cstat-no" title="statement not covered" >            if (this._materials[matGroup]) {</span>
+<span class="cstat-no" title="statement not covered" >                var a = this._materials[matGroup];</span>
 <span class="cstat-no" title="statement not covered" >                var ret = null;</span>
 <span class="cstat-no" title="statement not covered" >                a.each(<span class="fstat-no" title="function not covered" >function (e) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    ret = e;</span>
@@ -726,16 +726,16 @@
     }, {
         key: "getMaterials",
         value: <span class="fstat-no" title="function not covered" >function getMaterials(matGroup) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.materials[matGroup]) {</span>
-<span class="cstat-no" title="statement not covered" >                return this.materials[matGroup].asArray();</span>
+<span class="cstat-no" title="statement not covered" >            if (this._materials[matGroup]) {</span>
+<span class="cstat-no" title="statement not covered" >                return this._materials[matGroup].asArray();</span>
             }
 <span class="cstat-no" title="statement not covered" >            return [];</span>
         }
     }, {
         key: "callRecursive",
         value: <span class="fstat-no" title="function not covered" >function callRecursive(action) {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.children) {</span>
-<span class="cstat-no" title="statement not covered" >                this.children.forEach(<span class="fstat-no" title="function not covered" >function (t) {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (this._children) {</span>
+<span class="cstat-no" title="statement not covered" >                this._children.forEach(<span class="fstat-no" title="function not covered" >function (t) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    return t.callRecursive(action);</span>
                 });
             }
@@ -764,12 +764,12 @@
     }, {
         key: "Children",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.children;</span>
+<span class="cstat-no" title="statement not covered" >            return this._children;</span>
         }
     }, {
         key: "Parent",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parent;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parent;</span>
         }
         /**
         * The Getter for the parent scene containing this SceneObject.
@@ -778,16 +778,16 @@
     }, {
         key: "ParentScene",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            if (!this.parentScene) {</span>
-<span class="cstat-no" title="statement not covered" >                if (!this.parent) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!this._parentScene) {</span>
+<span class="cstat-no" title="statement not covered" >                if (!this._parent) {</span>
 <span class="cstat-no" title="statement not covered" >                    return null;</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    this.ParentScene = this.parent.ParentScene; </span>// Retrieve and cache parent scene
-<span class="cstat-no" title="statement not covered" >                    return this.parentScene;</span>
+<span class="cstat-no" title="statement not covered" >                    this.ParentScene = this._parent.ParentScene; </span>// Retrieve and cache parent scene
+<span class="cstat-no" title="statement not covered" >                    return this._parentScene;</span>
                 }
             } else {
                 // The parent scene was already cached.
-<span class="cstat-no" title="statement not covered" >                return this.parentScene;</span>
+<span class="cstat-no" title="statement not covered" >                return this._parentScene;</span>
             }
         }
         /**
@@ -795,34 +795,34 @@
         */
         ,
         set: <span class="fstat-no" title="function not covered" >function set(scene) {</span>
-<span class="cstat-no" title="statement not covered" >            if (scene === this.parentScene) {</span>
+<span class="cstat-no" title="statement not covered" >            if (scene === this._parentScene) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-<span class="cstat-no" title="statement not covered" >            var lastScene = this.parentScene;</span>
-<span class="cstat-no" title="statement not covered" >            this.parentScene = scene;</span>
+<span class="cstat-no" title="statement not covered" >            var lastScene = this._parentScene;</span>
+<span class="cstat-no" title="statement not covered" >            this._parentScene = scene;</span>
             // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
             //     console.error("There is something wrong in Scene structure.");
             // insert recursively to the children this SceneObject contains.
-<span class="cstat-no" title="statement not covered" >            this.children.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >            this._children.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                v.ParentScene = scene;</span>
             });
 <span class="cstat-no" title="statement not covered" >            this.onParentSceneChanged({</span>
                 lastParentScene: lastScene,
-                currentParentScene: this.parentScene
+                currentParentScene: this._parentScene
             });
         }
     }, {
         key: "Geometry",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.geometry;</span>
+<span class="cstat-no" title="statement not covered" >            return this.__geometry;</span>
         },
         set: <span class="fstat-no" title="function not covered" >function set(geo) {</span>
-<span class="cstat-no" title="statement not covered" >            this.geometry = geo;</span>
+<span class="cstat-no" title="statement not covered" >            this.__geometry = geo;</span>
         }
     }, {
         key: "Transformer",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.transformer;</span>
+<span class="cstat-no" title="statement not covered" >            return this.__transformer;</span>
         }
     }]);
 &nbsp;
@@ -835,7 +835,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

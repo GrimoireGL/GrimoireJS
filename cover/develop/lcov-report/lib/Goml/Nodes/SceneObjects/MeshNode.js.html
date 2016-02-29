@@ -367,17 +367,17 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MeshNode).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.geo = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.mat = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._geo = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._mat = null;</span>
         /**
          * Geomatry instance
          * @type {Geometry}
          */
-<span class="cstat-no" title="statement not covered" >        _this.geo_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._geo_instance = null;</span>
         /**
          * Material instance
          */
-<span class="cstat-no" title="statement not covered" >        _this.mat_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._mat_instance = null;</span>
 <span class="cstat-no" title="statement not covered" >        _this.attributes.defineAttribute({</span>
             "geo": {
                 value: undefined,
@@ -394,9 +394,9 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(MeshNode, [{</span>
-        key: "onMount",
-        value: <span class="fstat-no" title="function not covered" >function onMount() {</span>
-<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(MeshNode.prototype), "onMount", this).call(this);</span>
+        key: "__onMount",
+        value: <span class="fstat-no" title="function not covered" >function __onMount() {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(MeshNode.prototype), "__onMount", this).call(this);</span>
         }
         /**
          * Called when geo attribute is changed
@@ -408,23 +408,23 @@
         value: <span class="fstat-no" title="function not covered" >function _onGeoAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            this.geo = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >            this.geo_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >            this._geo = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >            this._geo_instance = null;</span>
             // console.warn("onGeoAttrChanged", attr.Value);
-<span class="cstat-no" title="statement not covered" >            this.geo_instance = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.PrimitiveRegistory).getPrimitive(this.geo);</span>
-<span class="cstat-no" title="statement not covered" >            if (this.geo_instance) {</span>
+<span class="cstat-no" title="statement not covered" >            this._geo_instance = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.PrimitiveRegistory).getPrimitive(this._geo);</span>
+<span class="cstat-no" title="statement not covered" >            if (this._geo_instance) {</span>
                 // console.log("primitive exist", this.geo);
 <span class="cstat-no" title="statement not covered" >                this._updateTarget();</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
             } else {
                 // console.log("primitive not exist", this.geo);
-<span class="cstat-no" title="statement not covered" >                this.geo_instance = null;</span>
-<span class="cstat-no" title="statement not covered" >                this.nodeImport("jthree.resource.geometry", this.geo, <span class="fstat-no" title="function not covered" >function (geo) {</span></span>
+<span class="cstat-no" title="statement not covered" >                this._geo_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >                this.nodeImport("jthree.resource.geometry", this._geo, <span class="fstat-no" title="function not covered" >function (geo) {</span></span>
 <span class="cstat-no" title="statement not covered" >                    if (geo) {</span>
                         // console.log("geometry reseived", this.geo);
-<span class="cstat-no" title="statement not covered" >                        _this2.geo_instance = geo.target;</span>
+<span class="cstat-no" title="statement not covered" >                        _this2._geo_instance = geo.target;</span>
                     } else {
-<span class="cstat-no" title="statement not covered" >                        _this2.geo_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >                        _this2._geo_instance = null;</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    _this2._updateTarget();</span>
 <span class="cstat-no" title="statement not covered" >                    attr.done();</span>
@@ -441,14 +441,14 @@
         value: <span class="fstat-no" title="function not covered" >function _onMatAttrChanged(attr) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this3 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            this.mat = attr.Value;</span>
-<span class="cstat-no" title="statement not covered" >            this.mat_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >            this._mat = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >            this._mat_instance = null;</span>
             // console.warn("onMatAttrChanged", attr.Value);
-<span class="cstat-no" title="statement not covered" >            this.nodeImport("jthree.resource.material", this.mat, <span class="fstat-no" title="function not covered" >function (mat) {</span></span>
+<span class="cstat-no" title="statement not covered" >            this.nodeImport("jthree.resource.material", this._mat, <span class="fstat-no" title="function not covered" >function (mat) {</span></span>
 <span class="cstat-no" title="statement not covered" >                if (mat) {</span>
-<span class="cstat-no" title="statement not covered" >                    _this3.mat_instance = mat.target;</span>
+<span class="cstat-no" title="statement not covered" >                    _this3._mat_instance = mat.target;</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    _this3.mat_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >                    _this3._mat_instance = null;</span>
                 }
 <span class="cstat-no" title="statement not covered" >                _this3._updateTarget();</span>
 <span class="cstat-no" title="statement not covered" >                attr.done();</span>
@@ -457,8 +457,8 @@
     }, {
         key: "_updateTarget",
         value: <span class="fstat-no" title="function not covered" >function _updateTarget() {</span>
-<span class="cstat-no" title="statement not covered" >            if (this.geo_instance &amp;&amp; this.mat_instance) {</span>
-<span class="cstat-no" title="statement not covered" >                this.TargetSceneObject = new _BasicMeshObject2.default(this.geo_instance, this.mat_instance);</span>
+<span class="cstat-no" title="statement not covered" >            if (this._geo_instance &amp;&amp; this._mat_instance) {</span>
+<span class="cstat-no" title="statement not covered" >                this.TargetSceneObject = new _BasicMeshObject2.default(this._geo_instance, this._mat_instance);</span>
             }
         }
     }]);
@@ -472,7 +472,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

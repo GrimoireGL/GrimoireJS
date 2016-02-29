@@ -556,32 +556,32 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
 &nbsp;
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TreeNodeBase).call(this));
 &nbsp;
-        _this.children = [];
+        _this.__children = [];
         /**
          * this property is true when this node is mouted to available tree.
          * @type {boolean}
          */
-        _this.mounted = false;
+        _this._mounted = false;
         _this.on("child-added", <span class="fstat-no" title="function not covered" >function (child) {</span>
-<span class="cstat-no" title="statement not covered" >            var cb = _this.onChildAdded;</span>
+<span class="cstat-no" title="statement not covered" >            var cb = _this.__onChildAdded;</span>
 <span class="cstat-no" title="statement not covered" >            if (cb) {</span>
 <span class="cstat-no" title="statement not covered" >                cb.bind(_this)(child);</span>
             }
         });
         _this.on("child-removed", <span class="fstat-no" title="function not covered" >function (child) {</span>
-<span class="cstat-no" title="statement not covered" >            var cb = _this.onChildRemoved;</span>
+<span class="cstat-no" title="statement not covered" >            var cb = _this.__onChildRemoved;</span>
 <span class="cstat-no" title="statement not covered" >            if (cb) {</span>
 <span class="cstat-no" title="statement not covered" >                cb.bind(_this)(child);</span>
             }
         });
         _this.on("on-mount", function () {
-            var cb = _this.onMount;
+            var cb = _this.__onMount;
             <span class="missing-if-branch" title="else path not taken" >E</span>if (cb) {
                 cb.bind(_this)();
             }
         });
         _this.on("on-unmount", <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >            var cb = _this.onUnmount;</span>
+<span class="cstat-no" title="statement not covered" >            var cb = _this.__onUnmount;</span>
 <span class="cstat-no" title="statement not covered" >            if (cb) {</span>
 <span class="cstat-no" title="statement not covered" >                cb.bind(_this)();</span>
             }
@@ -598,7 +598,7 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
         key: "callRecursive",
         value: <span class="fstat-no" title="function not covered" >function callRecursive(act) {</span>
 <span class="cstat-no" title="statement not covered" >            act(this);</span>
-<span class="cstat-no" title="statement not covered" >            this.children.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >            this.__children.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                v.callRecursive(act);</span>
             });
         }
@@ -611,7 +611,7 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
         value: <span class="fstat-no" title="function not covered" >function callRecursiveWithReturn(act) {</span>
 <span class="cstat-no" title="statement not covered" >            var ret = [];</span>
 <span class="cstat-no" title="statement not covered" >            ret.push(act(this));</span>
-<span class="cstat-no" title="statement not covered" >            this.children.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >            this.__children.forEach(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >                ret = ret.concat(v.callRecursiveWithReturn(act));</span>
             });
 <span class="cstat-no" title="statement not covered" >            return ret;</span>
@@ -628,8 +628,8 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
          * Add child to this node
          */
         value: <span class="fstat-no" title="function not covered" >function addChild(child) {</span>
-<span class="cstat-no" title="statement not covered" >            child.parent = this;</span>
-<span class="cstat-no" title="statement not covered" >            this.children.push(child);</span>
+<span class="cstat-no" title="statement not covered" >            child.__parent = this;</span>
+<span class="cstat-no" title="statement not covered" >            this.__children.push(child);</span>
 <span class="cstat-no" title="statement not covered" >            if (this.Mounted) {</span>
 <span class="cstat-no" title="statement not covered" >                child.Mounted = true;</span>
 <span class="cstat-no" title="statement not covered" >                this.emit("child-added", child);</span>
@@ -643,11 +643,11 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
     }, {
         key: "removeChild",
         value: <span class="fstat-no" title="function not covered" >function removeChild(child) {</span>
-<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.children.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >                var v = this.children[i];</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; this.__children.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var v = this.__children[i];</span>
 <span class="cstat-no" title="statement not covered" >                if (v === child) {</span>
-<span class="cstat-no" title="statement not covered" >                    child.parent = null;</span>
-<span class="cstat-no" title="statement not covered" >                    this.children.splice(i, 1);</span>
+<span class="cstat-no" title="statement not covered" >                    child.__parent = null;</span>
+<span class="cstat-no" title="statement not covered" >                    this.__children.splice(i, 1);</span>
 <span class="cstat-no" title="statement not covered" >                    if (this.Mounted) {</span>
 <span class="cstat-no" title="statement not covered" >                        child.Mounted = false;</span>
 <span class="cstat-no" title="statement not covered" >                        this.emit("child-removed", child);</span>
@@ -665,7 +665,7 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
     }, {
         key: "remove",
         value: <span class="fstat-no" title="function not covered" >function remove() {</span>
-<span class="cstat-no" title="statement not covered" >            this.parent.removeChild(this);</span>
+<span class="cstat-no" title="statement not covered" >            this.__parent.removeChild(this);</span>
         }
         /**
          * This method is called when child is added
@@ -673,46 +673,46 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
          */
 &nbsp;
     }, {
-        key: "onChildAdded",
-        value: <span class="fstat-no" title="function not covered" >function onChildAdded(child) {</span>
+        key: "__onChildAdded",
+        value: <span class="fstat-no" title="function not covered" >function __onChildAdded(child) {</span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         }
     }, {
-        key: "onChildRemoved",
+        key: "__onChildRemoved",
 &nbsp;
         /**
          * This method is called when child is removed
          * This method should be overridden.
          */
-        value: <span class="fstat-no" title="function not covered" >function onChildRemoved(child) {</span>
+        value: <span class="fstat-no" title="function not covered" >function __onChildRemoved(child) {</span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         }
     }, {
-        key: "onMount",
+        key: "__onMount",
 &nbsp;
         /**
          * This method is called when this node is mounted to available tree.
          * If you change attribute here, no events are fired.
          * This method should be overridden.
          */
-        value: function onMount() {
+        value: function __onMount() {
             return;
         }
     }, {
-        key: "onUnmount",
+        key: "__onUnmount",
 &nbsp;
         /**
          * This method is called when this node is unmounted from available tree.
          * You can still access parent.
          * This method should be overridden.
          */
-        value: <span class="fstat-no" title="function not covered" >function onUnmount() {</span>
+        value: <span class="fstat-no" title="function not covered" >function __onUnmount() {</span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
         }
     }, {
         key: "Mounted",
         get: function get() {
-            return this.mounted;
+            return this._mounted;
         }
         /**
          * update mounted status and emit events
@@ -720,18 +720,18 @@ var TreeNodeBase = function (_JThreeObjectEEWithID) {
          */
         ,
         set: function set(mounted) {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (mounted &amp;&amp; !this.mounted) {
-                this.mounted = mounted;
-                <span class="missing-if-branch" title="else path not taken" >E</span>if (this.mounted) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (mounted &amp;&amp; !this._mounted) {
+                this._mounted = mounted;
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (this._mounted) {
                     this.emit("on-mount");
-                    this.emit("node-mount-process-finished", this.mounted); // this will be move
-                    this.children.forEach(<span class="fstat-no" title="function not covered" >function (child) {</span>
+                    this.emit("node-mount-process-finished", this._mounted); // this will be move
+                    this.__children.forEach(<span class="fstat-no" title="function not covered" >function (child) {</span>
 <span class="cstat-no" title="statement not covered" >                        child.Mounted = true;</span>
                     });
                 } else {
 <span class="cstat-no" title="statement not covered" >                    this.emit("on-unmount");</span>
-<span class="cstat-no" title="statement not covered" >                    this.emit("node-mount-process-finished", this.mounted); </span>// this will be move
-<span class="cstat-no" title="statement not covered" >                    this.children.forEach(<span class="fstat-no" title="function not covered" >function (child) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    this.emit("node-mount-process-finished", this._mounted); </span>// this will be move
+<span class="cstat-no" title="statement not covered" >                    this.__children.forEach(<span class="fstat-no" title="function not covered" >function (child) {</span></span>
 <span class="cstat-no" title="statement not covered" >                        child.Mounted = false;</span>
                     });
                 }
@@ -748,7 +748,7 @@ exports.default = TreeNodeBase;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

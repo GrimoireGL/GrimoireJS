@@ -584,41 +584,41 @@
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PMXMaterial).call(this));</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        _this.edgeColor = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.sphere = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.texture = null;</span>
-<span class="cstat-no" title="statement not covered" >        _this.toon = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._sphere = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._texture = null;</span>
+<span class="cstat-no" title="statement not covered" >        _this._toon = null;</span>
 <span class="cstat-no" title="statement not covered" >        _this.addMorphParam = new _PMXMaterialMorphParamContainer2.default(1);</span>
 <span class="cstat-no" title="statement not covered" >        _this.mulMorphParam = new _PMXMaterialMorphParamContainer2.default(0);</span>
-<span class="cstat-no" title="statement not covered" >        _this.parentModel = pmx;</span>
-<span class="cstat-no" title="statement not covered" >        _this.pmxData = pmx.ModelData;</span>
+<span class="cstat-no" title="statement not covered" >        _this._parentModel = pmx;</span>
+<span class="cstat-no" title="statement not covered" >        _this._pmxData = pmx.ModelData;</span>
 <span class="cstat-no" title="statement not covered" >        _this.materialIndex = index;</span>
-<span class="cstat-no" title="statement not covered" >        var materialData = _this.pmxData.Materials[index];</span>
+<span class="cstat-no" title="statement not covered" >        var materialData = _this._pmxData.Materials[index];</span>
 <span class="cstat-no" title="statement not covered" >        _this._verticiesCount = materialData.vertexCount;</span>
 <span class="cstat-no" title="statement not covered" >        _this._verticiesOffset = offset;</span>
-<span class="cstat-no" title="statement not covered" >        _this.Name = materialData.materialName;</span>
+<span class="cstat-no" title="statement not covered" >        _this.name = materialData.materialName;</span>
 <span class="cstat-no" title="statement not covered" >        _this.cullEnabled = !((materialData.drawFlag &amp; 0x01) &gt; 0); </span>// each side draw flag
-<span class="cstat-no" title="statement not covered" >        _this.ambient = new _Color4.default(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);</span>
-<span class="cstat-no" title="statement not covered" >        _this.diffuse = new _Color2.default(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);</span>
+<span class="cstat-no" title="statement not covered" >        _this._ambient = new _Color4.default(materialData.ambient[0], materialData.ambient[1], materialData.ambient[2]);</span>
+<span class="cstat-no" title="statement not covered" >        _this._diffuse = new _Color2.default(materialData.diffuse[0], materialData.diffuse[1], materialData.diffuse[2], materialData.diffuse[3]);</span>
 <span class="cstat-no" title="statement not covered" >        if ((materialData.drawFlag &amp; 0x10) &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >            _this.edgeColor = new _Color2.default(materialData.edgeColor[0], materialData.edgeColor[1], materialData.edgeColor[2], materialData.edgeColor[3]);</span>
         }
-<span class="cstat-no" title="statement not covered" >        _this.specular = new _Vector2.default(materialData.specular);</span>
-<span class="cstat-no" title="statement not covered" >        _this.edgeSize = materialData.edgeSize;</span>
-<span class="cstat-no" title="statement not covered" >        _this.sphereMode = materialData.sphereMode;</span>
+<span class="cstat-no" title="statement not covered" >        _this._specular = new _Vector2.default(materialData.specular);</span>
+<span class="cstat-no" title="statement not covered" >        _this._edgeSize = materialData.edgeSize;</span>
+<span class="cstat-no" title="statement not covered" >        _this._sphereMode = materialData.sphereMode;</span>
 <span class="cstat-no" title="statement not covered" >        _this.__innerMaterial = new _BasicMaterial2.default(require("../../Materials/Forward.html"));</span>
-<span class="cstat-no" title="statement not covered" >        var tm = _this.parentModel.pmxTextureManager;</span>
+<span class="cstat-no" title="statement not covered" >        var tm = _this._parentModel.pmxTextureManager;</span>
 <span class="cstat-no" title="statement not covered" >        tm.loadTexture(materialData.sphereTextureIndex).then(<span class="fstat-no" title="function not covered" >function (texture) {</span></span>
-<span class="cstat-no" title="statement not covered" >            _this.sphere = texture;</span>
+<span class="cstat-no" title="statement not covered" >            _this._sphere = texture;</span>
         });
 <span class="cstat-no" title="statement not covered" >        tm.loadTexture(materialData.textureIndex).then(<span class="fstat-no" title="function not covered" >function (texture) {</span></span>
-<span class="cstat-no" title="statement not covered" >            _this.texture = texture;</span>
+<span class="cstat-no" title="statement not covered" >            _this._texture = texture;</span>
         });
 <span class="cstat-no" title="statement not covered" >        if (materialData.sharedToonFlag === 0) {</span>
 <span class="cstat-no" title="statement not covered" >            tm.loadTexture(materialData.targetToonIndex).then(<span class="fstat-no" title="function not covered" >function (texture) {</span></span>
-<span class="cstat-no" title="statement not covered" >                _this.toon = texture;</span>
+<span class="cstat-no" title="statement not covered" >                _this._toon = texture;</span>
             });
         } else {
-<span class="cstat-no" title="statement not covered" >            _this.toon = _this.loadSharedTexture(materialData.targetToonIndex);</span>
+<span class="cstat-no" title="statement not covered" >            _this._toon = _this._loadSharedTexture(materialData.targetToonIndex);</span>
         }
 <span class="cstat-no" title="statement not covered" >        _this.__innerMaterial.on("configure", <span class="fstat-no" title="function not covered" >function (v) {</span></span>
 <span class="cstat-no" title="statement not covered" >            if (v.passIndex === 0) {</span>
@@ -626,7 +626,7 @@
             }
         });
 <span class="cstat-no" title="statement not covered" >        _this.__innerMaterial.on("ready", <span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >            _this.setLoaded();</span>
+<span class="cstat-no" title="statement not covered" >            _this.__setLoaded();</span>
         });
 <span class="cstat-no" title="statement not covered" >        return _this;</span>
     }
@@ -643,12 +643,12 @@
     }, {
         key: "apply",
         value: <span class="fstat-no" title="function not covered" >function apply(matArg) {</span>
-<span class="cstat-no" title="statement not covered" >            var skeleton = this.parentModel.skeleton;</span>
+<span class="cstat-no" title="statement not covered" >            var skeleton = this._parentModel.skeleton;</span>
 <span class="cstat-no" title="statement not covered" >            if (matArg.passIndex === 1) {</span>
 <span class="cstat-no" title="statement not covered" >                this.__innerMaterial.materialVariables = {</span>
                     boneCount: skeleton.BoneCount,
                     boneMatriciesTexture: skeleton.MatrixTexture,
-                    edgeSize: _PMXMaterialMorphParamContainer2.default.calcMorphedSingleValue(this.edgeSize, this.addMorphParam, this.mulMorphParam, <span class="fstat-no" title="function not covered" >function (t) {</span>
+                    edgeSize: _PMXMaterialMorphParamContainer2.default.calcMorphedSingleValue(this._edgeSize, this.addMorphParam, this.mulMorphParam, <span class="fstat-no" title="function not covered" >function (t) {</span>
 <span class="cstat-no" title="statement not covered" >                        return t.edgeSize;</span>
                     }),
                     edgeColor: _PMXMaterialMorphParamContainer2.default.calcMorphedVectorValue(this.edgeColor.toVector(), this.addMorphParam, this.mulMorphParam, <span class="fstat-no" title="function not covered" >function (t) {</span>
@@ -659,15 +659,15 @@
 <span class="cstat-no" title="statement not covered" >                this.__innerMaterial.materialVariables = {</span>
                     boneCount: skeleton.BoneCount,
                     boneMatriciesTexture: skeleton.MatrixTexture,
-                    texture: this.texture,
-                    toon: this.toon,
-                    sphere: this.sphere,
-                    diffuse: this.diffuse.toVector(),
-                    specular: this.specular,
-                    ambient: this.ambient.toVector(),
-                    textureUsed: !this.texture ? 0 : 1,
-                    sphereMode: !this.sphere ? 0 : this.sphereMode,
-                    toonFlag: !this.toon ? 0 : 1,
+                    texture: this._texture,
+                    toon: this._toon,
+                    sphere: this._sphere,
+                    diffuse: this._diffuse.toVector(),
+                    specular: this._specular,
+                    ambient: this._ambient.toVector(),
+                    textureUsed: !this._texture ? 0 : 1,
+                    sphereMode: !this._sphere ? 0 : this._sphereMode,
+                    toonFlag: !this._toon ? 0 : 1,
                     addTexCoeff: new _Vector2.default(this.addMorphParam.textureCoeff),
                     mulTexCoeff: new _Vector2.default(this.mulMorphParam.textureCoeff),
                     addSphereCoeff: new _Vector2.default(this.addMorphParam.sphereCoeff),
@@ -682,7 +682,7 @@
     }, {
         key: "getDrawGeometryLength",
         value: <span class="fstat-no" title="function not covered" >function getDrawGeometryLength(geo) {</span>
-<span class="cstat-no" title="statement not covered" >            return this.diffuse.A &gt; 0 ? this.VerticiesCount : 0;</span>
+<span class="cstat-no" title="statement not covered" >            return this._diffuse.A &gt; 0 ? this.VerticiesCount : 0;</span>
         }
     }, {
         key: "getDrawGeometryOffset",
@@ -690,8 +690,8 @@
 <span class="cstat-no" title="statement not covered" >            return this.VerticiesOffset * 4;</span>
         }
     }, {
-        key: "loadSharedTexture",
-        value: <span class="fstat-no" title="function not covered" >function loadSharedTexture(index) {</span>
+        key: "_loadSharedTexture",
+        value: <span class="fstat-no" title="function not covered" >function _loadSharedTexture(index) {</span>
 <span class="cstat-no" title="statement not covered" >            if (index &lt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >                return null;</span>
             }
@@ -700,7 +700,7 @@
 <span class="cstat-no" title="statement not covered" >            if (rm.getTexture(resName)) {</span>
 <span class="cstat-no" title="statement not covered" >                return rm.getTexture(resName);</span>
             } else {
-<span class="cstat-no" title="statement not covered" >                var tex = rm.createTextureWithSource(resName, this.parentModel.pmxTextureManager.generateSharedToonImg(index));</span>
+<span class="cstat-no" title="statement not covered" >                var tex = rm.createTextureWithSource(resName, this._parentModel.pmxTextureManager.generateSharedToonImg(index));</span>
 <span class="cstat-no" title="statement not covered" >                return tex;</span>
             }
         }
@@ -721,37 +721,37 @@
     }, {
         key: "ParentModel",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.parentModel;</span>
+<span class="cstat-no" title="statement not covered" >            return this._parentModel;</span>
         }
     }, {
         key: "Diffuse",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.diffuse;</span>
+<span class="cstat-no" title="statement not covered" >            return this._diffuse;</span>
         }
     }, {
         key: "Texture",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.texture;</span>
+<span class="cstat-no" title="statement not covered" >            return this._texture;</span>
         }
     }, {
         key: "Sphere",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.sphere;</span>
+<span class="cstat-no" title="statement not covered" >            return this._sphere;</span>
         }
     }, {
         key: "SphereMode",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.sphereMode;</span>
+<span class="cstat-no" title="statement not covered" >            return this._sphereMode;</span>
         }
     }, {
         key: "Specular",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return this.specular;</span>
+<span class="cstat-no" title="statement not covered" >            return this._specular;</span>
         }
     }, {
         key: "SelfShadow",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return (this.pmxData.Materials[this.materialIndex].drawFlag &amp; 0x04) &gt; 0;</span>
+<span class="cstat-no" title="statement not covered" >            return (this._pmxData.Materials[this.materialIndex].drawFlag &amp; 0x04) &gt; 0;</span>
         }
     }, {
         key: "Priorty",
@@ -769,7 +769,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>

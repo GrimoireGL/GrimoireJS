@@ -269,8 +269,8 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(GLSpecResolver, null, [{</span>
-        key: "getParameterOrCached",
-        value: <span class="fstat-no" title="function not covered" >function getParameterOrCached(cached, parameterType) {</span>
+        key: "_getParameterOrCached",
+        value: <span class="fstat-no" title="function not covered" >function _getParameterOrCached(cached, parameterType) {</span>
 <span class="cstat-no" title="statement not covered" >            return cached || GLSpecResolver.GL.getParameter(parameterType);</span>
         }
     }, {
@@ -278,7 +278,7 @@
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
 <span class="cstat-no" title="statement not covered" >            var canvasManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.CanvasManager);</span>
 <span class="cstat-no" title="statement not covered" >            if (canvasManager.canvases.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >                return canvasManager.canvases[0].GL;</span>
+<span class="cstat-no" title="statement not covered" >                return canvasManager.canvases[0].gL;</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                console.error("can't obtain the gl context to check gl spec");</span>
             }
@@ -286,57 +286,57 @@
     }, {
         key: "MaxCombinedTextureUnits",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxCombinedTextureUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxCombinedTextureUnits, WebGLRenderingContext.MAX_COMBINED_TEXTURE_IMAGE_UNITS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxCombinedTextureUnits = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxCombinedTextureUnits, WebGLRenderingContext.MAX_COMBINED_TEXTURE_IMAGE_UNITS);</span>
         }
     }, {
         key: "MaxCubeMapTextureSize",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxCubeMapTextureSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxCubeMapTextureSize, WebGLRenderingContext.MAX_CUBE_MAP_TEXTURE_SIZE);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxCubeMapTextureSize = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxCubeMapTextureSize, WebGLRenderingContext.MAX_CUBE_MAP_TEXTURE_SIZE);</span>
         }
     }, {
         key: "MaxFragmentUniformVectors",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxFragmentUniformVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxFragmentUniformVectors, WebGLRenderingContext.MAX_FRAGMENT_UNIFORM_VECTORS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxFragmentUniformVectors = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxFragmentUniformVectors, WebGLRenderingContext.MAX_FRAGMENT_UNIFORM_VECTORS);</span>
         }
     }, {
         key: "MaxRenderbufferSize",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxRenderbufferSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxRenderbufferSize, WebGLRenderingContext.MAX_RENDERBUFFER_SIZE);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxRenderbufferSize = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxRenderbufferSize, WebGLRenderingContext.MAX_RENDERBUFFER_SIZE);</span>
         }
     }, {
         key: "MaxTextureImageUnits",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxTextureImageUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxTextureImageUnits, WebGLRenderingContext.MAX_TEXTURE_IMAGE_UNITS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxTextureImageUnits = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxTextureImageUnits, WebGLRenderingContext.MAX_TEXTURE_IMAGE_UNITS);</span>
         }
     }, {
         key: "MaxTextureSize",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxTextureSize = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxTextureSize, WebGLRenderingContext.MAX_TEXTURE_SIZE);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxTextureSize = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxTextureSize, WebGLRenderingContext.MAX_TEXTURE_SIZE);</span>
         }
     }, {
         key: "MaxVaryingVectors",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxVaryingVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVaryingVectors, WebGLRenderingContext.MAX_VARYING_VECTORS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxVaryingVectors = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxVaryingVectors, WebGLRenderingContext.MAX_VARYING_VECTORS);</span>
         }
     }, {
         key: "MaxVertexAttribs",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxVertexAttribs = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexAttribs, WebGLRenderingContext.MAX_VERTEX_ATTRIBS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxVertexAttribs = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxVertexAttribs, WebGLRenderingContext.MAX_VERTEX_ATTRIBS);</span>
         }
     }, {
         key: "MaxVertexTextureImageUnits",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxVertexTextureImageUnits = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexTextureImageUnits, WebGLRenderingContext.MAX_VERTEX_TEXTURE_IMAGE_UNITS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxVertexTextureImageUnits = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxVertexTextureImageUnits, WebGLRenderingContext.MAX_VERTEX_TEXTURE_IMAGE_UNITS);</span>
         }
     }, {
         key: "MaxVertexUniformVectors",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxVertexUniformVectors = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxVertexUniformVectors, WebGLRenderingContext.MAX_VERTEX_UNIFORM_VECTORS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxVertexUniformVectors = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxVertexUniformVectors, WebGLRenderingContext.MAX_VERTEX_UNIFORM_VECTORS);</span>
         }
     }, {
         key: "MaxViewportDims",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
-<span class="cstat-no" title="statement not covered" >            return GLSpecResolver.maxViewportDims = GLSpecResolver.getParameterOrCached(GLSpecResolver.maxViewportDims, WebGLRenderingContext.MAX_VIEWPORT_DIMS);</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxViewportDims = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxViewportDims, WebGLRenderingContext.MAX_VIEWPORT_DIMS);</span>
         }
     }]);
 &nbsp;
@@ -349,7 +349,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

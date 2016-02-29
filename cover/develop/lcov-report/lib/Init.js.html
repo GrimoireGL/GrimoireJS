@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.07% </span>
+        <span class="strong">4.1% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/123</span>
+        <span class='fraction'>5/122</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/19</span>
+        <span class='fraction'>0/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.72% </span>
+        <span class="strong">4.76% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/106</span>
+        <span class='fraction'>5/105</span>
       </div>
     </div>
   </div>
@@ -262,12 +262,7 @@
 217
 218
 219
-220
-221
-222
-223
-224
-225</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+220</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -372,11 +367,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -596,11 +586,6 @@
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    _createClass(JThreeStatic, [{</span>
-        key: "defineBehavior",
-        value: <span class="fstat-no" title="function not covered" >function defineBehavior(nameOrDeclarations, declaration) {</span>
-<span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.getContextComponent(_ContextComponents2.default.NodeManager).behaviorRegistry.defineBehavior(nameOrDeclarations, declaration); </span>// This is not string but it is for conviniesnce.
-        }
-    }, {
         key: "Math",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
 <span class="cstat-no" title="statement not covered" >            return {</span>
@@ -645,11 +630,11 @@
         */
 &nbsp;
     }, {
-        key: "Init",
-        value: <span class="fstat-no" title="function not covered" >function Init() {</span>
-<span class="cstat-no" title="statement not covered" >            JThreeInit.copyGLConstants();</span>
+        key: "init",
+        value: <span class="fstat-no" title="function not covered" >function init() {</span>
+<span class="cstat-no" title="statement not covered" >            JThreeInit._copyGLConstants();</span>
 <span class="cstat-no" title="statement not covered" >            var scripts = document.getElementsByTagName("script");</span>
-<span class="cstat-no" title="statement not covered" >            JThreeInit.SelfTag = scripts[scripts.length - 1];</span>
+<span class="cstat-no" title="statement not covered" >            JThreeInit.selfTag = scripts[scripts.length - 1];</span>
             // register interfaces
 <span class="cstat-no" title="statement not covered" >            window["j3"] = JThreeInit.j3; </span>// $(~~~)
 <span class="cstat-no" title="statement not covered" >            var baseCtor = JThreeStatic;</span>
@@ -665,7 +650,7 @@
 <span class="cstat-no" title="statement not covered" >                    Object.defineProperty(Object.getPrototypeOf(window["j3"]), name, org_descriptor || descriptor);</span>
                 }
             });
-<span class="cstat-no" title="statement not covered" >            window["j3"]["lateStart"] = JThreeInit.startInitialize;</span>
+<span class="cstat-no" title="statement not covered" >            window["j3"]["lateStart"] = JThreeInit._startInitialize;</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.init();</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.registerContextComponent(new _LoopManager2.default());</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.registerContextComponent(new _Timer2.default());</span>
@@ -678,15 +663,15 @@
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.registerContextComponent(new _MaterialManager2.default());</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.registerContextComponent(new _PrimitiveRegistory2.default());</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.registerContextComponent(new _RenderStageRegistory2.default());</span>
-<span class="cstat-no" title="statement not covered" >            if (JThreeInit.SelfTag.getAttribute("x-lateLoad") !== "true") {</span>
+<span class="cstat-no" title="statement not covered" >            if (JThreeInit.selfTag.getAttribute("x-lateLoad") !== "true") {</span>
 <span class="cstat-no" title="statement not covered" >                window.addEventListener("DOMContentLoaded", <span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                    JThreeInit.startInitialize();</span>
+<span class="cstat-no" title="statement not covered" >                    JThreeInit._startInitialize();</span>
                 });
             }
         }
     }, {
-        key: "copyGLConstants",
-        value: <span class="fstat-no" title="function not covered" >function copyGLConstants() {</span>
+        key: "_copyGLConstants",
+        value: <span class="fstat-no" title="function not covered" >function _copyGLConstants() {</span>
 <span class="cstat-no" title="statement not covered" >            if (WebGLRenderingContext.ONE) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
@@ -698,10 +683,10 @@
             }
         }
     }, {
-        key: "startInitialize",
-        value: <span class="fstat-no" title="function not covered" >function startInitialize() {</span>
+        key: "_startInitialize",
+        value: <span class="fstat-no" title="function not covered" >function _startInitialize() {</span>
 <span class="cstat-no" title="statement not covered" >            var nodeManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.NodeManager); </span>// This is not string but it is for conviniesnce.
-<span class="cstat-no" title="statement not covered" >            var loader = new _GomlLoader2.default(nodeManager, JThreeInit.SelfTag);</span>
+<span class="cstat-no" title="statement not covered" >            var loader = new _GomlLoader2.default(nodeManager, JThreeInit.selfTag);</span>
 <span class="cstat-no" title="statement not covered" >            loader.initForPage();</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.getContextComponent(_ContextComponents2.default.PrimitiveRegistory).registerDefaultPrimitives();</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeContext2.default.getContextComponent(_ContextComponents2.default.Debugger).attach();</span>
@@ -721,7 +706,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../prettify.js"></script>

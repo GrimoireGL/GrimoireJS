@@ -470,10 +470,10 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GomlLoader).call(this));</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _this.selfTag = selfTag;</span>
-<span class="cstat-no" title="statement not covered" >        _this.nodeManager = nodeManager;</span>
+<span class="cstat-no" title="statement not covered" >        _this._selfTag = selfTag;</span>
+<span class="cstat-no" title="statement not covered" >        _this._nodeManager = nodeManager;</span>
 <span class="cstat-no" title="statement not covered" >        var resourceLoader = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.ResourceLoader);</span>
-<span class="cstat-no" title="statement not covered" >        _this.gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered();</span>
+<span class="cstat-no" title="statement not covered" >        _this._gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered();</span>
 <span class="cstat-no" title="statement not covered" >        resourceLoader.promise.then(<span class="fstat-no" title="function not covered" >function () {</span></span>
 <span class="cstat-no" title="statement not covered" >            console.log("load finished!!");</span>
         }, undefined, <span class="fstat-no" title="function not covered" >function (v) {</span>
@@ -491,11 +491,11 @@
         value: <span class="fstat-no" title="function not covered" >function initForPage() {</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeLogger2.default.sectionLog("Goml loader", "Goml initialization was started.");</span>
             // to load &lt;script src="j3.js" x-goml="HERE"/&gt;
-<span class="cstat-no" title="statement not covered" >            this.attemptToLoadGomlInScriptAttr();</span>
+<span class="cstat-no" title="statement not covered" >            this._attemptToLoadGomlInScriptAttr();</span>
             // to load the script that is type of text/goml
 <span class="cstat-no" title="statement not covered" >            var gomls = document.querySelectorAll("script[type=\'text/goml\']");</span>
 <span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; gomls.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >                this.loadScriptTag(gomls[i]);</span>
+<span class="cstat-no" title="statement not covered" >                this._loadScriptTag(gomls[i]);</span>
             }
         }
         /**
@@ -506,17 +506,17 @@
          */
 &nbsp;
     }, {
-        key: "attemptToLoadGomlInScriptAttr",
-        value: <span class="fstat-no" title="function not covered" >function attemptToLoadGomlInScriptAttr() {</span>
+        key: "_attemptToLoadGomlInScriptAttr",
+        value: <span class="fstat-no" title="function not covered" >function _attemptToLoadGomlInScriptAttr() {</span>
 <span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            var url = this.selfTag.getAttribute("x-goml");</span>
+<span class="cstat-no" title="statement not covered" >            var url = this._selfTag.getAttribute("x-goml");</span>
 <span class="cstat-no" title="statement not covered" >            if (!url) {</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
 <span class="cstat-no" title="statement not covered" >            var xhr = new XMLHttpRequest();</span>
 <span class="cstat-no" title="statement not covered" >            xhr.addEventListener("load", <span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                _this2.scriptLoaded(new DOMParser().parseFromString(xhr.response, "text/xml").documentElement);</span>
+<span class="cstat-no" title="statement not covered" >                _this2._scriptLoaded(new DOMParser().parseFromString(xhr.response, "text/xml").documentElement);</span>
             });
 <span class="cstat-no" title="statement not covered" >            xhr.open("GET", url);</span>
 <span class="cstat-no" title="statement not covered" >            xhr.responseType = "text";</span>
@@ -534,8 +534,8 @@
          */
 &nbsp;
     }, {
-        key: "loadScriptTag",
-        value: <span class="fstat-no" title="function not covered" >function loadScriptTag(scriptTag) {</span>
+        key: "_loadScriptTag",
+        value: <span class="fstat-no" title="function not covered" >function _loadScriptTag(scriptTag) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this3 = this;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            var srcSource = scriptTag.getAttribute("src"),</span>
@@ -543,7 +543,7 @@
 <span class="cstat-no" title="statement not covered" >            if (srcSource) {</span>
                 // use xhr to get script of src
 <span class="cstat-no" title="statement not covered" >                xhr.addEventListener("load", <span class="fstat-no" title="function not covered" >function () {</span></span>
-<span class="cstat-no" title="statement not covered" >                    _this3.scriptLoaded(new DOMParser().parseFromString(xhr.response, "text/xml").documentElement);</span>
+<span class="cstat-no" title="statement not covered" >                    _this3._scriptLoaded(new DOMParser().parseFromString(xhr.response, "text/xml").documentElement);</span>
                 });
 <span class="cstat-no" title="statement not covered" >                xhr.open("GET", srcSource);</span>
 <span class="cstat-no" title="statement not covered" >                xhr.responseType = "text";</span>
@@ -552,7 +552,7 @@
 <span class="cstat-no" title="statement not covered" >                for (var i = 0; i + 1 &lt;= scriptTag.childNodes.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >                    var gomlElement = scriptTag.childNodes[i];</span>
 <span class="cstat-no" title="statement not covered" >                    if (gomlElement.nodeType === 1) {</span>
-<span class="cstat-no" title="statement not covered" >                        this.scriptLoaded(gomlElement);</span>
+<span class="cstat-no" title="statement not covered" >                        this._scriptLoaded(gomlElement);</span>
                     }
                 }
             }
@@ -564,11 +564,11 @@
          */
 &nbsp;
     }, {
-        key: "scriptLoaded",
-        value: <span class="fstat-no" title="function not covered" >function scriptLoaded(source) {</span>
+        key: "_scriptLoaded",
+        value: <span class="fstat-no" title="function not covered" >function _scriptLoaded(source) {</span>
 <span class="cstat-no" title="statement not covered" >            var _this4 = this;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            this.nodeManager.htmlRoot = source;</span>
+<span class="cstat-no" title="statement not covered" >            this._nodeManager.htmlRoot = source;</span>
             // if ((&lt;Element&gt;catched.childNodes[0]).tagName.toUpperCase() === "PARSERERROR") {
             //   JThreeLogger.sectionError("Goml loader", `Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
             //   JThreeLogger.sectionLongLog("Goml loader", catched.innerHTML);
@@ -576,15 +576,15 @@
 <span class="cstat-no" title="statement not covered" >            if (source === undefined || source.tagName.toUpperCase() !== "GOML") {</span>
 <span class="cstat-no" title="statement not covered" >                throw new _Exceptions.InvalidArgumentException("Root should be goml");</span>
             }
-<span class="cstat-no" title="statement not covered" >            var parsedNode = _GomlParser2.default.parse(source, this.nodeManager.configurator);</span>
+<span class="cstat-no" title="statement not covered" >            var parsedNode = _GomlParser2.default.parse(source, this._nodeManager.configurator);</span>
 <span class="cstat-no" title="statement not covered" >            parsedNode.Mounted = true;</span>
-<span class="cstat-no" title="statement not covered" >            this.nodeManager.gomlRoot = parsedNode;</span>
+<span class="cstat-no" title="statement not covered" >            this._nodeManager.gomlRoot = parsedNode;</span>
 <span class="cstat-no" title="statement not covered" >            _JThreeLogger2.default.sectionLog("Goml loader", "Goml loading was completed");</span>
-<span class="cstat-no" title="statement not covered" >            this.nodeManager.ready = true;</span>
-<span class="cstat-no" title="statement not covered" >            this.nodeManager.attributePromiseRegistry.async(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            this._nodeManager.ready = true;</span>
+<span class="cstat-no" title="statement not covered" >            this._nodeManager.attributePromiseRegistry.async(<span class="fstat-no" title="function not covered" >function () {</span></span>
                 // onfullfilled
 <span class="cstat-no" title="statement not covered" >                console.log("all attribute initialized");</span>
-<span class="cstat-no" title="statement not covered" >                _this4.gomlLoadingDeferred.resolve(null);</span>
+<span class="cstat-no" title="statement not covered" >                _this4._gomlLoadingDeferred.resolve(null);</span>
             });
         }
     }]);
@@ -598,7 +598,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>

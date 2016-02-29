@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40.54% </span>
+        <span class="strong">38.96% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>30/74</span>
+        <span class='fraction'>30/77</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">23.68% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>5/17</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">26.32% </span>
+        <span class="strong">25% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/57</span>
+        <span class='fraction'>15/60</span>
       </div>
     </div>
   </div>
@@ -185,7 +185,10 @@
 140
 141
 142
-143</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+143
+144
+145
+146</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,6 +247,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,20 +255,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,6 +265,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -285,6 +290,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,6 +392,7 @@ var VectorArray = function () {
 <span class="cstat-no" title="statement not covered" >            for (var elemIndex = 0; elemIndex &lt; vector.ElementCount; elemIndex++) {</span>
 <span class="cstat-no" title="statement not covered" >                this.rawElements[index * this._dimension + elemIndex] = vector.rawElements[elemIndex];</span>
             }
+<span class="cstat-no" title="statement not covered" >            return;</span>
         }
     }, {
         key: "setRawArray",
@@ -393,6 +400,7 @@ var VectorArray = function () {
 <span class="cstat-no" title="statement not covered" >            for (var elemIndex = 0; elemIndex &lt; this._dimension; elemIndex++) {</span>
 <span class="cstat-no" title="statement not covered" >                this.rawElements[index * this._dimension + elemIndex] = rawArray[elemIndex] ? rawArray[elemIndex] : 0;</span>
             }
+<span class="cstat-no" title="statement not covered" >            return;</span>
         }
     }, {
         key: "getVector",
@@ -427,6 +435,7 @@ var VectorArray = function () {
 <span class="cstat-no" title="statement not covered" >                    _this.rawElements[offset + _this._dimension * i + elemIndex] = e.rawElements[elemIndex];</span>
                 }
             });
+<span class="cstat-no" title="statement not covered" >            return;</span>
         }
     }, {
         key: "getVectorArray",
@@ -475,7 +484,7 @@ exports.default = VectorArray;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 09:42:46 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 11:23:11 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../prettify.js"></script>
