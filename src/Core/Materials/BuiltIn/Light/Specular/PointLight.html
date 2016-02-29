@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <material name="jthree.basic.light.specular.point" group="jthree.light.specular" order="300">
-    <uniform-register>
-      <register name="builtin.basic" />
-      <register name="builtin.buffer" />
-    </uniform-register>
-    <passes>
-      <pass>
-        <glsl>
-          <![CDATA[
+<material name="jthree.basic.light.specular.point" group="jthree.light.specular" order="300">
+  <uniform-register>
+    <register name="builtin.basic" />
+    <register name="builtin.buffer" />
+  </uniform-register>
+  <passes>
+    <pass>
+      <glsl>
+        <![CDATA[
+      precision highp float;
       attribute vec3 position;
       varying highp vec4 vLightProjectedPosition;
       @vert{
@@ -22,7 +23,7 @@
       @frag{
         uniform vec3 lightColor;
         uniform float decay;
-        uniform highp float dist;
+        uniform lowp float dist;
         uniform highp mat4 _matIP;
         uniform vec3 lightPosition;
 
@@ -36,22 +37,23 @@
 
         void main(void)
         {
+          vec2 bufferPos = calcBufferPosition(vLightProjectedPosition);
           vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
-          vec3 normal = getNormal(rawBuffer);
-          highp float depth = 2. * texture2D(_depthBuffer,calcBufferPosition(vLightProjectedPosition)).g - 1.;
-          highp vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
+          lowp vec3 normal = getNormal(rawBuffer);
+          float depth = unpackRanged24(texture2D(_depthBuffer,bufferPos).rgb,-1.,1.);
+          vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
           if(dot(normal,normalize(lightPosition - pos)) < 0.){
             discard;
           }
-          highp float d=distance(pos,lightPosition)/dist;
+          float d=distance(pos,lightPosition)/dist;
           if(d>1.)discard;
-          highp float power = pow(1. - d,decay);
+          float power = pow(1. - d,decay);
           vec3 hv = normalize(normalize(lightPosition-pos)+normalize(-pos));
           gl_FragColor = vec4(pow(dot(hv,normal),5.0) * power * lightColor,1.0);
         }
       }
       ]]>
-        </glsl>
-      </pass>
-    </passes>
-  </material>
+      </glsl>
+    </pass>
+  </passes>
+</material>
