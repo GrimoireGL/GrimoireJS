@@ -36,6 +36,7 @@
     "./src/Core/Canvas/GL/GLEnumParser.ts",
     "./src/Core/Canvas/GL/GLExtensionRegistory.ts",
     "./src/Core/Canvas/GL/GLSpecResolver.ts",
+    "./src/Core/Canvas/GL/IGLPrecisions.ts",
     "./src/Core/Canvas/ICanvasElementStructure.ts",
     "./src/Core/Canvas/ICanvasListChangedEventArgs.ts",
     "./src/Core/Geometries/Base/BasicGeometry.ts",
