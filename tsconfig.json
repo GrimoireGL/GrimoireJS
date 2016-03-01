@@ -91,6 +91,7 @@
     "./src/Core/Renderers/IRenderStageCompletedEventArgs.ts",
     "./src/Core/Renderers/RendererConfigurator/BasicRendererConfigurator.ts",
     "./src/Core/Renderers/RendererConfigurator/RendererConfiguratorBase.ts",
+    "./src/Core/Renderers/RendererConfigurator/RendererInitializer.ts",
     "./src/Core/Renderers/RendererConfigurator/SpriteRendererConfigurator.ts",
     "./src/Core/Renderers/RendererFactory.ts",
     "./src/Core/Renderers/RenderPath.ts",

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<render-path>
+  <textures>
+    <renderer-fit name="depth" layout="RGB" format="UBYTE"/>
+    <renderer-fit name="g-normal" layout="RGBA" format="UBYTE"/>
+    <renderer-fit name="l-diffuse" layout="RGB" format="UBYTE"/>
+    <renderer-fit name="l-specular" layout="RGB" format="UBYTE"/>
+    <renderer-fit name="color" layout="RGBA" format="UBYTE"/>
+    <renderer-fit name="hitarea" layout="RGB" format="UBYTE"/>
+  </textures>
+  <path>
+    <stage name="jthree.hitarea">
+      <buffer target="OUT" source="hitarea"/>
+    </stage>
+    <stage name="jthree.basic.gbuffer">
+      <buffer target="PRIMARY" source="g-normal"/>
+      <buffer target="DEPTH" source="depth"/>
+    </stage>
+    <stage name="jthree.basic.light">
+      <buffer target="PRIMARY" source="g-normal"/>
+      <buffer target="DEPTH" source="depth"/>
+      <buffer target="DLIGHT" source="l-diffuse"/>
+      <buffer target="SLIGHT" soruce="l-specular"/>
+    </stage>
+    <stage name="jthree.basic.forward">
+      <buffer target="DLIGHT" source="l-diffuse"/>
+      <buffer target="SLIGHT" source="l-specular"/>
+      <buffer target="OUT" source="color"/>
+    </stage>
+    <stage name="jthree.basic.fxaa">
+      <buffer target="INPUT" source="color"/>
+      <buffer target="OUT" source="default"/>
+    </stage>
+  </path>
+</render-path>
