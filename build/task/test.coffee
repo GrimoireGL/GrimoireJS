@@ -29,12 +29,12 @@ class TestTask
   task:(name,config)=>
     switch name
       when 'test'
-        @requireAsString ['.glsl','.html']
-        @requireAsJSON ['.json']
         gulp.start ['mocha']
       when 'watch-mocha'
         gulp.watch config.testTarget, ['mocha']
       when 'mocha'
+        @requireAsString ['.glsl','.html']
+        @requireAsJSON ['.json']
         require 'espower-babel/guess'
         gulp
           .src config.testTarget
