@@ -42,8 +42,10 @@ describe("VectorArray Test",()=>{
     vec.appendVector(new VectorArray(5,6,7,8));
     assert(VectorArray.equal(vec,new VectorArray(1,2,3,4,5,6,7,8)));
   });
+  /*
   it("set vector test",()=>{
     let vec = new VectorArray(1,2,3,4,5,6,7,8,9,10);
     vec.setVector()
-  })
+  });
+  */
 });
