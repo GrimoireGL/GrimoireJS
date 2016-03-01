@@ -15,24 +15,24 @@ class ResourceLoader implements IContextComponent {
 
   public currentLoadingMessage: string = "";
 
-  private resourceLoadingDeferred: Q.Deferred<IResourceLoaderEventArgs> = Q.defer<IResourceLoaderEventArgs>();
+  private _resourceLoadingDeferred: Q.Deferred<IResourceLoaderEventArgs> = Q.defer<IResourceLoaderEventArgs>();
 
   public get isLoading(): boolean {
-    return !!this.resourceLoadingDeferred;
+    return !!this._resourceLoadingDeferred;
   }
 
   public get promise(): Q.Promise<IResourceLoaderEventArgs> {
-    return this.resourceLoadingDeferred.promise;
+    return this._resourceLoadingDeferred.promise;
   }
 
   public getResourceLoadingDeffered<T>(): Q.Deferred<T> {
     this.resourceCount++;
     const d = Q.defer<T>();
-    this.registerForResourceLoaded<T>(d.promise);
+    this._registerForResourceLoaded<T>(d.promise);
     return d;
   }
 
-  public getContextComponentIndex() {
+  public getContextComponentIndex(): number {
     return ContextComponents.ResourceLoader;
   }
 
@@ -41,17 +41,17 @@ class ResourceLoader implements IContextComponent {
    * Register promise to be able to check status when the promise notify state.
    * @param {Q.Promise<void>} promise [description]
    */
-  private registerForResourceLoaded<T>(promise: Q.Promise<T>): void {
+  private _registerForResourceLoaded<T>(promise: Q.Promise<T>): void {
     promise.then(
       () => { // On fullfilled
         this.loadedResourceCount++;
         this.completedResourceCount++;
-        this.checkResourceLoaded();
+        this._checkResourceLoaded();
       },
       () => { // On rejected
         this.completedResourceCount++;
         this.erroredResourceCount++;
-        this.checkResourceLoaded();
+        this._checkResourceLoaded();
       },
       (s) => { // On progress
         this.currentLoadingMessage = s;
@@ -62,9 +62,9 @@ class ResourceLoader implements IContextComponent {
   /**
    * Check whether all resources was loaded after fulfilled or errored subscribed deffereds.
    */
-  private checkResourceLoaded(): void {
+  private _checkResourceLoaded(): void {
     if (this.completedResourceCount === this.resourceCount) {
-      this.resourceLoadingDeferred.resolve({
+      this._resourceLoadingDeferred.resolve({
         hasNoError: this.erroredResourceCount > 0,
         erroredResource: this.erroredResourceCount,
         loadedResource: this.loadedResourceCount,
@@ -72,16 +72,18 @@ class ResourceLoader implements IContextComponent {
         lastLoadMessage: this.currentLoadingMessage,
         resourceCount: this.resourceCount
       });
-      this.resourceLoadingDeferred = null;
+      this._resourceLoadingDeferred = null;
     } else {
-      this.resourceLoadingDeferred.notify({
-        hasNoError: this.erroredResourceCount > 0,
-        erroredResource: this.erroredResourceCount,
-        loadedResource: this.loadedResourceCount,
-        completedResource: this.completedResourceCount,
-        lastLoadMessage: this.currentLoadingMessage,
-        resourceCount: this.resourceCount
-      });
+      this._resourceLoadingDeferred.notify(
+        {
+          hasNoError: this.erroredResourceCount > 0,
+          erroredResource: this.erroredResourceCount,
+          loadedResource: this.loadedResourceCount,
+          completedResource: this.completedResourceCount,
+          lastLoadMessage: this.currentLoadingMessage,
+          resourceCount: this.resourceCount
+        }
+        );
     }
   }
 }

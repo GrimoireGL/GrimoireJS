@@ -8,6 +8,7 @@ import ContextComponents from "../../../ContextComponents";
 import BufferRegisterer from "./Registerer/BufferRegisterer";
 import TimeRegisterer from "./Registerer/TimeRegisterer";
 import AsyncLoader from "../../Resources/AsyncLoader";
+import IConditionChecker from "./IConditionChecker";
 import Q from "q";
 /**
  * A ContextComponent provides the feature to manage materials.
@@ -22,8 +23,8 @@ class MaterialManager implements IContextComponent {
   private _chunkLoader: AsyncLoader<string> = new AsyncLoader<string>();
 
   constructor() {
-   this.addShaderChunk("builtin.packing", require("../BuiltIn/Chunk/_Packing.glsl"));
-   this.addShaderChunk("builtin.gbuffer-packing", require("../BuiltIn/GBuffer/_GBufferPacking.glsl"));
+    this.addShaderChunk("builtin.packing", require("../BuiltIn/Chunk/_Packing.glsl"));
+    this.addShaderChunk("builtin.gbuffer-packing", require("../BuiltIn/GBuffer/_GBufferPacking.glsl"));
     this.addShaderChunk("jthree.builtin.vertex", require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
     this.addShaderChunk("jthree.builtin.shadowfragment", require("../BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));
     this.addShaderChunk("builtin.gbuffer-reader", require("../BuiltIn/Light/Chunk/_LightAccumulation.glsl"));
@@ -64,7 +65,7 @@ class MaterialManager implements IContextComponent {
     return this._chunkLoader.fromCache(key);
   }
 
-  public addUniformRegister(registerer: new () => RegistererBase) {
+  public addUniformRegister(registerer: new () => RegistererBase): void {
     this._uniformRegisters[registerer.prototype["getName"]() as string] = registerer;
   }
 
@@ -87,6 +88,14 @@ class MaterialManager implements IContextComponent {
       this._materialDocuments[matName] = matDocument;
     }
     return matName;
+  }
+
+  public registerCondition(type: string, checker: IConditionChecker): void {
+    // TODO:implement
+  }
+  public getConditionChecker(type: string): IConditionChecker {
+    return null;
+    // todo:implement
   }
   /**
    * Construct BasicMaterial instance with registered xmml

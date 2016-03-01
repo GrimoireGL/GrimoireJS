@@ -14,7 +14,7 @@ abstract class ViewCameraBase extends Camera {
     constructor() {
         super();
         this._generateViewMatrix();
-        this.transformer.onUpdateTransform((t, o) => this._updateViewProjectionMatrix());
+        this.__transformer.onUpdateTransform((t, o) => this._updateViewProjectionMatrix());
     }
 
     /**

@@ -1,5 +1,5 @@
 import IRenderStageRenderConfigure from "../../Renderers/RenderStages/IRenderStageRendererConfigure";
-import GLEnumParser from "../../Canvas/GLEnumParser";
+import GLEnumParser from "../../Canvas/GL/GLEnumParser";
 class XMLRenderConfigureUtility {
 
   /**

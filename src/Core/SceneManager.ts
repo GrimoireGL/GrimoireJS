@@ -7,7 +7,7 @@ import JThreeContext from "../JThreeContext";
 
 
 /**
-* The class for managing entire scenes.
+* The class for managing entire _scenes.
 */
 class SceneManager extends jThreeObjectEE implements IContextComponent {
 
@@ -19,7 +19,7 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
   /**
    * All scene map. Hold by Scene.ID.
    */
-  private scenes: { [sceneID: string]: Scene } = {};
+  private _scenes: { [sceneID: string]: Scene } = {};
 
   public getContextComponentIndex(): number {
     return ContextComponents.SceneManager;
@@ -29,8 +29,8 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
   * Add new scene to be managed.
   */
   public addScene(scene: Scene): void {
-    if (!this.scenes[scene.ID]) {
-      this.scenes[scene.ID] = scene;
+    if (!this._scenes[scene.ID]) {
+      this._scenes[scene.ID] = scene;
       this.emit("change", {
         owner: this,
         isAdditionalChange: true,
@@ -45,8 +45,8 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
    */
   public get Scenes(): Scene[] {
     const array = [];
-    for (let scene in this.scenes) {
-      array.push(this.scenes[scene]);
+    for (let scene in this._scenes) {
+      array.push(this._scenes[scene]);
     }
     return array;
   }
@@ -55,8 +55,8 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
   * Remove exisiting scene from managed.
   */
   public removeScene(scene: Scene): void {
-    if (this.scenes[scene.ID]) {
-      delete this.scenes[scene.ID];
+    if (this._scenes[scene.ID]) {
+      delete this._scenes[scene.ID];
       this.emit("change", {
         owner: this,
         isAdditionalChange: false,
@@ -66,13 +66,13 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
   }
 
   /**
-   * Process render for all scenes
+   * Process render for all _scenes
    * This method is intended to be called by jThree system.
    * You don't need to call this method maually in most case.
    */
   public renderAll(): void {
-    for (let sceneId in this.scenes) {
-      const scene = this.scenes[sceneId];
+    for (let sceneId in this._scenes) {
+      const scene = this._scenes[sceneId];
       scene.update();
       scene.render();
     }

@@ -6,30 +6,30 @@ import PMXMaterial from "./PMXMaterial";
  * the materials for PMX.
  */
 class PMXShadowMapMaterial extends BasicMaterial {
-  protected associatedMaterial: PMXMaterial;
+  protected __associatedMaterial: PMXMaterial;
 
   constructor(material: PMXMaterial) {
     super(require("../../Materials/ShadowMap.html"));
-    this.associatedMaterial = material;
-    this.setLoaded();
+    this.__associatedMaterial = material;
+    this.__setLoaded();
   }
 
   /**
    * Count of verticies
    */
   public get VerticiesCount() {
-    return this.associatedMaterial.VerticiesCount;
+    return this.__associatedMaterial.VerticiesCount;
   }
 
   /**
    * Offset of verticies in index buffer
    */
   public get VerticiesOffset() {
-    return this.associatedMaterial.VerticiesOffset;
+    return this.__associatedMaterial.VerticiesOffset;
   }
 
   public apply(matArg: IApplyMaterialArgument): void {
-    if (this.associatedMaterial.Diffuse.A < 1.0E-3) {
+    if (this.__associatedMaterial.Diffuse.A < 1.0E-3) {
       return;
     }
     // var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
@@ -48,7 +48,7 @@ class PMXShadowMapMaterial extends BasicMaterial {
   }
 
   public getDrawGeometryLength(geo: Geometry): number {
-    return this.associatedMaterial.Diffuse.A > 0 ? this.VerticiesCount : 0;
+    return this.__associatedMaterial.Diffuse.A > 0 ? this.VerticiesCount : 0;
   }
 
   public getDrawGeometryOffset(geo: Geometry): number {

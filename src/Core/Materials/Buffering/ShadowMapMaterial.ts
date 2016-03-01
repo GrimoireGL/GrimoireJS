@@ -8,7 +8,7 @@ import BasicMaterial from "../Base/BasicMaterial";
 class ShadowMapMaterial extends BasicMaterial {
   constructor() {
     super(require("../BuiltIn/ShadowMap/ShadowMap.html"));
-    this.setLoaded();
+    this.__setLoaded();
   }
 
   public apply(matArg: IApplyMaterialArgument): void {

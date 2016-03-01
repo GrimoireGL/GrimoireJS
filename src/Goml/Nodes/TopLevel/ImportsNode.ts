@@ -1,7 +1,7 @@
 import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
 
 class CanvasesNode extends OrderedTopLevelNodeBase {
-  protected groupPrefix: string = "import";
+  protected __groupPrefix: string = "import";
 
   constructor() {
     super();

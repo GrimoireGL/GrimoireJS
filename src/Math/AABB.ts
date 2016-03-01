@@ -41,7 +41,7 @@ class AABB {
    * Calculate new bounding box with considering the new point is included.
    * @param  {Vector3} newPoint the point that will be considered that it should be in this bounding box.
    */
-  public expandAABB(newPoint: Vector3) {
+  public expandAABB(newPoint: Vector3): void {
     if (this.pointLBF == null) {
       // assume this is first time to be used this AABB instance
       this.pointLBF = Vector3.copy(newPoint);
@@ -55,12 +55,12 @@ class AABB {
   /**
    * Clean up this AABB with initial value.
    */
-  public clear() {
+  public clear(): void {
     this.pointLBF = null;
     this.pointRTN = null;
   }
 
-  public toMathematicaCuboid() {
+  public toMathematicaCuboid(): string {
     return `Cuboid[${this.pointLBF.toMathematicaString() },${this.pointRTN.toMathematicaString() }]`;
   }
 }

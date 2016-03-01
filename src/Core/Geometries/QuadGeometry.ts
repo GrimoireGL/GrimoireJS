@@ -11,27 +11,27 @@ class QuadGeometry extends BasicGeometry {
     this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
     this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
     this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
-    this.updateBuffers();
+    this.__updateBuffers();
   }
 
-  private divX: number = 2;
-  private divY: number = 2;
+  private _divX: number = 2;
+  private _divY: number = 2;
 
   public set DivX(num: number) {
-    this.divX = num;
-    this.updateBuffers();
+    this._divX = num;
+    this.__updateBuffers();
   }
   public set DivY(num: number) {
-    this.divX = num;
-    this.updateBuffers();
+    this._divX = num;
+    this.__updateBuffers();
   }
 
-  protected updateBuffers(): void {
+  protected __updateBuffers(): void {
     const pos: number[] = [];
     const nor: number[] = [];
     const uv: number[] = [];
     const index: number[] = [];
-    GeometryBuilder.addDividedQuad(pos, nor, uv, index, this.divX, this.divY);
+    GeometryBuilder.addDividedQuad(pos, nor, uv, index, this._divX, this._divY);
     this.positionBuffer.update(new Float32Array(pos), pos.length);
     this.normalBuffer.update(new Float32Array(nor), nor.length);
     this.uvBuffer.update(new Float32Array(uv), uv.length);

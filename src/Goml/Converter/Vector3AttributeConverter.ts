@@ -15,7 +15,7 @@ class Vector3AttributeConverter extends AttributeConverterBase {
     return Vector3.parse(attr);
   }
 
-  public GetAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
+  public getAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
     return new Vector3Animater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
   }
 }

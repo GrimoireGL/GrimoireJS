@@ -19,10 +19,10 @@ class PMXMaterialMorphParamContainer {
 
   public toonCoeff: number[];
 
-  private calcFlag: number;
+  private _calcFlag: number;
 
   constructor(calcFlag: number) {
-    this.calcFlag = calcFlag;
+    this._calcFlag = calcFlag;
     const def = 1 - calcFlag;
     this.diffuse = [def, def, def, def];
     this.specular = [def, def, def, def];
@@ -34,7 +34,7 @@ class PMXMaterialMorphParamContainer {
     this.toonCoeff = [def, def, def, def];
   }
 
-  public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Func1<PMXMaterialMorphParamContainer, number>) {
+  public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Func1<PMXMaterialMorphParamContainer, number>): number {
     return base * target(mul) + target(add);
   }
 

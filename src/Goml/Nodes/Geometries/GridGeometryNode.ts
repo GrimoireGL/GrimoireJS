@@ -19,11 +19,11 @@ class GridGeometryNode extends GeometryNodeBase<GridGeometry> {
     });
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
-  protected constructGeometry(name: string): GridGeometry {
+  protected __constructGeometry(name: string): GridGeometry {
     return new GridGeometry(name);
   }
 

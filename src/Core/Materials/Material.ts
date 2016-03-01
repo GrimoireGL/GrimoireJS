@@ -35,7 +35,7 @@ class Material extends JThreeObjectEEWithID {
   * If first argument of boolean was passed,the status of loaded will be changed in that value.
   * If first argument of boolean was not passed, the status of loaded will be changed in true.
   */
-  protected setLoaded(flag?: boolean) {
+  protected __setLoaded(flag?: boolean): void {
     flag = typeof flag === "undefined" ? true : flag;
     this._initialized = flag;
     if (flag) {
@@ -70,7 +70,7 @@ class Material extends JThreeObjectEEWithID {
   * If you render some of model with edge,it can be 2 or greater.
   * Because it needs rendering edge first,then rendering forward shading.
   */
-  public getPassCount(techniqueIndex: number) {
+  public getPassCount(techniqueIndex: number): number {
     return 1;
   }
 

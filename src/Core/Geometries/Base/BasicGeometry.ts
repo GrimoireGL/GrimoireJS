@@ -9,27 +9,31 @@ import Buffer from "../../Resources/Buffer/Buffer";
  * @type {[type]}
  */
 class BasicGeometry extends IndexedGeometry {
-    /**
-     * positions of the verticies.
-     * @type {Buffer}
-     */
-    public positionBuffer: Buffer;
-    /**
-     * normals of the verticies.
-     * @type {Buffer}
-     */
-    public normalBuffer: Buffer;
-    /**
-     * uvs of the verticies.
-     * @type {Buffer}
-     */
-    public uvBuffer: Buffer;
+  /**
+   * positions of the verticies.
+   * @type {Buffer}
+   */
+  public positionBuffer: Buffer;
+  /**
+   * normals of the verticies.
+   * @type {Buffer}
+   */
+  public normalBuffer: Buffer;
+  /**
+   * uvs of the verticies.
+   * @type {Buffer}
+   */
+  public uvBuffer: Buffer;
 
-    public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
-        this.__assignAttributeIfExists(pWrapper, attributes, "position", this.positionBuffer);
-        this.__assignAttributeIfExists(pWrapper, attributes, "normal", this.normalBuffer);
-        this.__assignAttributeIfExists(pWrapper, attributes, "uv", this.uvBuffer);
-    }
+  public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
+    this.__assignAttributeIfExists(pWrapper, attributes, "position", this.positionBuffer);
+    this.__assignAttributeIfExists(pWrapper, attributes, "normal", this.normalBuffer);
+    this.__assignAttributeIfExists(pWrapper, attributes, "uv", this.uvBuffer);
+  }
+
+  public dispose(): void {
+   // TODO implement this
+  }
 }
 
 export default BasicGeometry;

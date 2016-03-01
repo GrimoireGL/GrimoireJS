@@ -48,7 +48,7 @@ class OrthoCameraNode extends CameraNodeBase<OrthoCamera> {
     });
   }
 
-  protected ConstructCamera(): OrthoCamera {
+  protected __constructCamera(): OrthoCamera {
     return new OrthoCamera();
   }
 

@@ -54,17 +54,19 @@ class VectorArray {
     this.rawElements.push(<any>vector.rawElements);
   }
 
-  public setVector(index: number, vector: VectorBase) {
+  public setVector(index: number, vector: VectorBase): void {
     this._verifyDimension(vector);
     for (let elemIndex = 0; elemIndex < vector.ElementCount; elemIndex++) {
       this.rawElements[index * this._dimension + elemIndex] = vector.rawElements[elemIndex];
     }
+    return;
   }
 
-  public setRawArray(index: number, rawArray: number[]) {
+  public setRawArray(index: number, rawArray: number[]): void {
     for (let elemIndex = 0; elemIndex < this._dimension; elemIndex++) {
-     this.rawElements[index * this._dimension + elemIndex] = rawArray[elemIndex] ? rawArray[elemIndex] : 0;
+      this.rawElements[index * this._dimension + elemIndex] = rawArray[elemIndex] ? rawArray[elemIndex] : 0;
     }
+    return;
   }
 
   public getVector<T extends VectorBase>(index: number): T {
@@ -80,7 +82,7 @@ class VectorArray {
     }
   }
 
-  public setVectorArray(vectors: VectorBase[], offset = 0) {
+  public setVectorArray(vectors: VectorBase[], offset = 0): void {
     if (vectors.length === 0) {
       return;
     }
@@ -93,6 +95,7 @@ class VectorArray {
         this.rawElements[offset + this._dimension * i + elemIndex] = e.rawElements[elemIndex];
       }
     });
+    return;
   }
 
   public getVectorArray<T extends VectorBase>(): T[] {

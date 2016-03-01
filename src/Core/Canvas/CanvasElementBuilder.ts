@@ -1,6 +1,15 @@
 import ICanvasElementStructure from "./ICanvasElementStructure";
-
+/**
+ * All canvas element managed by jThree should be constructed with this class.
+ */
 class CanvasElementBuilder {
+ /**
+  * Generate canvas element structure
+  * @param  {HTMLElement}             container the container element holds the canvas
+  * @param  {number}                  width     [the width in pixel]
+  * @param  {number}                  height    [the height in pixel]
+  * @return {ICanvasElementStructure}           [constructed structure infomation]
+  */
   public static generate(container: HTMLElement, width: number, height: number): ICanvasElementStructure {
     const innerContainer = CanvasElementBuilder._generateInnerContainer(container, width, height);
     const resizeDetecter = CanvasElementBuilder._generateResizeDetecter(innerContainer);

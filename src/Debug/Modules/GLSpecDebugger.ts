@@ -1,11 +1,11 @@
 import DebuggerModuleBase from "./DebuggerModuleBase";
 import Debugger from "../Debugger";
-import GLSpecResolver from "../../Core/Canvas/GLSpecResolver";
+import GLSpecResolver from "../../Core/Canvas/GL/GLSpecResolver";
 import CanvasManager from "../../Core/Canvas/CanvasManager";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 class GLSpecDebugger extends DebuggerModuleBase {
-  public attach(debug: Debugger) {
+  public attach(debug: Debugger): void {
     JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).canvasListChanged.addListener(() => {
       debug.setInfo("GLSPEC : Maximum combined texture unit", GLSpecResolver.MaxCombinedTextureUnits);
       debug.setInfo("GLSPEC : Maximum cubemap texture size", GLSpecResolver.MaxCubeMapTextureSize);

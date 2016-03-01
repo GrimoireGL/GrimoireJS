@@ -9,21 +9,21 @@ import Matrix from "../../lib/Math/Matrix";
 
 describe('Quaternion', ()=>{
   it('Quaternion equals',()=>{
-    assert(Quaternion.equals(Quaternion.Euler(10,20,30),Quaternion.Euler(10,20,30)));
+    assert(Quaternion.equals(Quaternion.euler(10,20,30),Quaternion.euler(10,20,30)));
   });
   it('Quaternion add',()=>{
-    assert(Quaternion.equals(Quaternion.Add(new Quaternion([10,10,10,10]),
+    assert(Quaternion.equals(Quaternion.add(new Quaternion([10,10,10,10]),
     new Quaternion([10,10,10,10])),new Quaternion([20,20,20,20])));
   });
   it('Quaternion multiply',()=>{
-    assert(Quaternion.equals(Quaternion.Multiply(new Quaternion([10,10,10,10]),
+    assert(Quaternion.equals(Quaternion.multiply(new Quaternion([10,10,10,10]),
     new Quaternion([10,10,10,10])),new Quaternion([200,200,200,-200])));
   });
   it('To Do Quaternion angleAxis',()=>{
 
   });
   it('Quaternion euler',()=>{
-    assert(Quaternion.equals(Quaternion.Euler(0,0,0),new Quaternion([0,0,0,1])));
+    assert(Quaternion.equals(Quaternion.euler(0,0,0),new Quaternion([0,0,0,1])));
   });
   it('To Do Quaternion eulerXYZ',()=>{
 
@@ -41,7 +41,7 @@ describe('Quaternion', ()=>{
 
   });
   it('Quaternion identity',()=>{
-    assert(Matrix.equal(Matrix.RotationQuaternion(Quaternion.Identity),Matrix.identity()));
+    assert(Matrix.equals(Matrix.rotationQuaternion(Quaternion.Identity),Matrix.identity()));
   });
   it('Quaternion get X',()=>{
     assert(new Quaternion([10,20,20,10]).X === 10 );
@@ -56,7 +56,7 @@ describe('Quaternion', ()=>{
     assert(new Quaternion([10,20,20,10]).W === 10 );
   });
   it('Quaternion get ImaginaryPart',()=>{
-   assert(Vector3.equal(new Quaternion([10,20,20,10]).ImaginaryPart,
+   assert(Vector3.equals(new Quaternion([10,20,20,10]).ImaginaryPart,
    new Vector3([10,20,20])));
   });
   it('Quaternion get Conjugate',()=>{
@@ -67,9 +67,9 @@ describe('Quaternion', ()=>{
   assert(new Quaternion([1,1,1,1]).Length===2);
   });
   it('Quaternion get Normalize',()=>{
-    assert(Quaternion.equals(new Quaternion([1,1,1,1]).Normalize(),new Quaternion([0.5,0.5,0.5,0.5])));
+    assert(Quaternion.equals(new Quaternion([1,1,1,1]).normalize(),new Quaternion([0.5,0.5,0.5,0.5])));
   });
   it('Quaternion get Normalize',()=>{
-    assert(Quaternion.equals(new Quaternion([1,1,1,1]).Inverse(),new Quaternion([-0.25,-0.25,-0.25,0.25])));
+    assert(Quaternion.equals(new Quaternion([1,1,1,1]).inverse(),new Quaternion([-0.25,-0.25,-0.25,0.25])));
   });
 });

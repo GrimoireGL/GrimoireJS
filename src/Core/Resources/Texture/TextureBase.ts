@@ -7,16 +7,16 @@ import {Action2} from "../../../Base/Delegates";
  */
 class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
 
-  protected textureFormat: number = WebGLRenderingContext.RGBA;
-  protected elementFormat: number = WebGLRenderingContext.UNSIGNED_BYTE;
-  private targetTextureType: number = WebGLRenderingContext.TEXTURE_2D;
-  private onFilterParameterChangedHandler: JThreeEvent<number> = new JThreeEvent<number>();
-  private minFilter: number = WebGLRenderingContext.NEAREST;
-  private magFilter: number = WebGLRenderingContext.NEAREST;
-  private tWrap: number = WebGLRenderingContext.CLAMP_TO_EDGE;
-  private sWrap: number = WebGLRenderingContext.CLAMP_TO_EDGE;
-  private flipY: boolean = false;
-  private textureName: string;
+  protected __textureFormat: number = WebGLRenderingContext.RGBA;
+  protected __elementFormat: number = WebGLRenderingContext.UNSIGNED_BYTE;
+  private _targetTextureType: number = WebGLRenderingContext.TEXTURE_2D;
+  private _onFilterParameterChangedHandler: JThreeEvent<number> = new JThreeEvent<number>();
+  private _minFilter: number = WebGLRenderingContext.NEAREST;
+  private _magFilter: number = WebGLRenderingContext.NEAREST;
+  private _tWrap: number = WebGLRenderingContext.CLAMP_TO_EDGE;
+  private _sWrap: number = WebGLRenderingContext.CLAMP_TO_EDGE;
+  private _flipY: boolean = false;
+  private _textureName: string;
 
   constructor(textureName: string);
   constructor(textureName: string, flipY: boolean, isCubeTexture: boolean);
@@ -28,82 +28,82 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
     if (typeof isCubeTexture === "undefined") {
       isCubeTexture = false;
     }
-    this.flipY = flipY;
-    this.targetTextureType = isCubeTexture ? WebGLRenderingContext.TEXTURE_CUBE_MAP : WebGLRenderingContext.TEXTURE_2D;
-    this.initializeForFirst();
+    this._flipY = flipY;
+    this._targetTextureType = isCubeTexture ? WebGLRenderingContext.TEXTURE_CUBE_MAP : WebGLRenderingContext.TEXTURE_2D;
+    this.__initializeForFirst();
   }
 
-  public get TargetTextureType() {
-    return this.targetTextureType;
+  public get TargetTextureType(): number {
+    return this._targetTextureType;
   }
 
   public get TextureFormat(): number {
-    return this.textureFormat;
+    return this.__textureFormat;
   }
 
   public get ElementFormat(): number {
-    return this.elementFormat;
+    return this.__elementFormat;
   }
 
   public get FlipY(): boolean {
-    return this.flipY;
+    return this._flipY;
   }
 
   public set FlipY(val: boolean) {
-    this.flipY = val;
+    this._flipY = val;
   }
 
   public get MinFilter(): number {
-    return this.minFilter;
+    return this._minFilter;
   }
   public set MinFilter(value: number) {
-    if (value === this.minFilter) {
+    if (value === this._minFilter) {
       return;
     }
-    this.minFilter = value;
-    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MIN_FILTER);
+    this._minFilter = value;
+    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MIN_FILTER);
   }
 
   public get MagFilter(): number {
-    return this.magFilter;
+    return this._magFilter;
   }
   public set MagFilter(value: number) {
-    if (value === this.magFilter) {
+    if (value === this._magFilter) {
       return;
     }
-    this.magFilter = value;
-    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MAG_FILTER);
+    this._magFilter = value;
+    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MAG_FILTER);
   }
 
   public get SWrap(): number {
-    return this.sWrap;
+    return this._sWrap;
   }
 
   public set SWrap(value: number) {
-    if (this.sWrap === value) {
+    if (this._sWrap === value) {
       return;
     }
-    this.sWrap = value;
-    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_S);
+    this._sWrap = value;
+    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_S);
   }
 
   public get TWrap(): number {
-    return this.tWrap;
+    return this._tWrap;
   }
 
   public set TWrap(value: number) {
-    if (this.tWrap === value) {
+    if (this._tWrap === value) {
       return;
     }
-    this.tWrap = value;
-    this.onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_T);
+    this._tWrap = value;
+    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_T);
   }
 
   public onFilterParameterChanged(handler: Action2<TextureBase, number>): void {
-    this.onFilterParameterChangedHandler.addListener(handler);
+    this._onFilterParameterChangedHandler.addListener(handler);
   }
 
-  public generateMipmapIfNeed() {
+  public generateMipmapIfNeed(): void {
     switch (this.MinFilter) {
       case WebGLRenderingContext.LINEAR_MIPMAP_LINEAR:
       case WebGLRenderingContext.LINEAR_MIPMAP_NEAREST:
@@ -119,7 +119,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
   }
 
   public get TextureName(): string {
-    return this.textureName;
+    return this._textureName;
   }
 }
 

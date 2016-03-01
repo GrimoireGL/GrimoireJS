@@ -17,7 +17,7 @@ class PointList {
     }
   }
 
-  public static initializeWithCube(list: PointList) {
+  public static initializeWithCube(list: PointList): PointList {
     list.clear();
     list.addPoint(new Vector3(-1.0, +1.0, -1.0));
     list.addPoint(new Vector3(-1.0, -1.0, -1.0));
@@ -30,30 +30,33 @@ class PointList {
     return list;
   }
 
-  public addPoint(point: Vector3) {
+  public addPoint(point: Vector3): void {
     this.points.push(point);
   }
 
-  public transform(transformMatrix: Matrix) {
+  public transform(transformMatrix: Matrix): void {
     for (let i = 0; i < this.points.length; i++) {
       vec3.transformMat4(this.points[i].rawElements, this.points[i].rawElements, transformMatrix.rawElements);
     }
+    return;
   }
 
-  public clear() {
+  public clear(): void {
     this.points.length = 0;
+    return;
   }
 
-  public debugShow() {
+  public debugShow(): void {
     let log = "";
     for (let i = 0; i < this.points.length; i++) {
       log += `${this.points[i]}
 `;
     }
     JThreeLogger.sectionLongLog("Pointlist", log);
+    return;
   }
 
-  public getBoundingBox() {
+  public getBoundingBox(): AABB {
     let aabb = new AABB();
     for (let i = 0; i < this.points.length; i++) {
       aabb.expandAABB(this.points[i]);
@@ -61,7 +64,7 @@ class PointList {
     return aabb;
   }
 
-  public toMathematicaPoints() {
+  public toMathematicaPoints(): string {
     let points = "";
     for (let i = 0; i < this.points.length; i++) {
       if (i !== 0) {
