@@ -98,6 +98,12 @@
       "js": [
         "TASK/TASK.js"
       ]
+    },
+    "Sample1": {
+      "goml": "Sample1/Sample1.goml",
+      "js": [
+        "Sample1/Sample1.js"
+      ]
     }
   }
 }
