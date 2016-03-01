@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">8.51% </span>
+        <span class="strong">6.56% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>4/47</span>
+        <span class='fraction'>4/61</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/18</span>
+        <span class='fraction'>0/20</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/20</span>
+        <span class='fraction'>0/22</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">13.33% </span>
+        <span class="strong">9.09% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>4/30</span>
+        <span class='fraction'>4/44</span>
       </div>
     </div>
   </div>
@@ -143,7 +143,34 @@
 98
 99
 100
-101</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,12 +203,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,6 +328,28 @@
 <span class="cstat-no" title="statement not covered" >            return cached || GLSpecResolver.GL.getParameter(parameterType);</span>
         }
     }, {
+        key: "_getShaderPrecisions",
+        value: <span class="fstat-no" title="function not covered" >function _getShaderPrecisions() {</span>
+            /* For Vertex Shaders */
+<span class="cstat-no" title="statement not covered" >            var vLOW_FLOAT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.LOW_FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >            var vMEDIUM_FLOAT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.MEDIUM_FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >            var vHIGH_FLOAT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.HIGH_FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >            var vLOW_INT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.LOW_INT);</span>
+<span class="cstat-no" title="statement not covered" >            var vMEDIUM_INT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.MEDIUM_INT);</span>
+<span class="cstat-no" title="statement not covered" >            var vHIGH_INT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.HIGH_INT);</span>
+<span class="cstat-no" title="statement not covered" >            var fLOW_FLOAT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.LOW_FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >            var fMEDIUM_FLOAT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.MEDIUM_FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >            var fHIGH_FLOAT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.HIGH_FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >            var fLOW_INT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.LOW_INT);</span>
+<span class="cstat-no" title="statement not covered" >            var fMEDIUM_INT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.MEDIUM_INT);</span>
+<span class="cstat-no" title="statement not covered" >            var fHIGH_INT = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.FRAGMENT_SHADER, WebGLRenderingContext.HIGH_INT);</span>
+<span class="cstat-no" title="statement not covered" >            return { vLOW_FLOAT: vLOW_FLOAT, vMEDIUM_FLOAT: vMEDIUM_FLOAT, vHIGH_FLOAT: vHIGH_FLOAT,</span>
+                vLOW_INT: vLOW_INT, vMEDIUM_INT: vMEDIUM_INT, vHIGH_INT: vHIGH_INT,
+                fLOW_FLOAT: fLOW_FLOAT, fMEDIUM_FLOAT: fMEDIUM_FLOAT, fHIGH_FLOAT: fHIGH_FLOAT,
+                fLOW_INT: fLOW_INT, fMEDIUM_INT: fMEDIUM_INT, fHIGH_INT: fHIGH_INT
+            };
+        }
+    }, {
         key: "GL",
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
 <span class="cstat-no" title="statement not covered" >            var canvasManager = _JThreeContext2.default.getContextComponent(_ContextComponents2.default.CanvasManager);</span>
@@ -338,6 +414,11 @@
         get: <span class="fstat-no" title="function not covered" >function get() {</span>
 <span class="cstat-no" title="statement not covered" >            return GLSpecResolver._maxViewportDims = GLSpecResolver._getParameterOrCached(GLSpecResolver._maxViewportDims, WebGLRenderingContext.MAX_VIEWPORT_DIMS);</span>
         }
+    }, {
+        key: "ShaderPrecisions",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return GLSpecResolver._allShaderPrecisionFormats = GLSpecResolver._allShaderPrecisionFormats || GLSpecResolver._getShaderPrecisions();</span>
+        }
     }]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return GLSpecResolver;</span>
@@ -349,7 +430,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 29 2016 15:23:11 GMT+0000 (UTC)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 01 2016 14:13:55 GMT+0000 (UTC)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>
