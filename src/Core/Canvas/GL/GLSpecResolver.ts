@@ -86,10 +86,10 @@ class GLSpecResolver {
   }
 
   public static get ShaderPrecisions() {
-    return GLSpecResolver._allShaderPrecisionFormats = GLSpecResolver._allShaderPrecisionFormats || GLSpecResolver.getShaderPrecisions();
+    return GLSpecResolver._allShaderPrecisionFormats = GLSpecResolver._allShaderPrecisionFormats || GLSpecResolver._getShaderPrecisions();
   }
 
-  private static getShaderPrecisions(): IGLPrecisions {
+  private static _getShaderPrecisions(): IGLPrecisions {
     /* For Vertex Shaders */
     const vLOW_FLOAT: WebGLShaderPrecisionFormat  = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.LOW_FLOAT);
     const vMEDIUM_FLOAT: WebGLShaderPrecisionFormat = GLSpecResolver.GL.getShaderPrecisionFormat(WebGLRenderingContext.VERTEX_SHADER, WebGLRenderingContext.MEDIUM_FLOAT);
