@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/Renderers/RenderStages/HitAreaRenderStage.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">lib/Core/Renderers/RenderStages/</a> HitAreaRenderStage.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.9% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/87</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/45</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.5% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/48</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _get = <span class="fstat-no" title="function not covered" >function get(object, property, receiver) {</span> <span class="cstat-no" title="statement not covered" >if (object === null) <span class="cstat-no" title="statement not covered" >object = Function.prototype; <span class="cstat-no" title="statement not covered" ></span></span>var desc = Object.getOwnPropertyDescriptor(object, property); <span class="cstat-no" title="statement not covered" ></span>if (desc === undefined) { <span class="cstat-no" title="statement not covered" >var parent = Object.getPrototypeOf(object); <span class="cstat-no" title="statement not covered" ></span>if (parent === null) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} else { <span class="cstat-no" title="statement not covered" >return get(parent, property, receiver); </span>} </span>} else <span class="cstat-no" title="statement not covered" >if ("value" in desc) { <span class="cstat-no" title="statement not covered" >return desc.value; </span>} else { <span class="cstat-no" title="statement not covered" >var getter = desc.get; <span class="cstat-no" title="statement not covered" ></span>if (getter === undefined) { <span class="cstat-no" title="statement not covered" >return undefined; </span>} <span class="cstat-no" title="statement not covered" ></span>return getter.call(receiver); </span>} </span></span>};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _TextureBase = require("../../Resources/Texture/TextureBase");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _TextureBase2 = _interopRequireDefault(_TextureBase);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RSMLRenderStage = require("./RSML/RSMLRenderStage");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RSMLRenderStage2 = _interopRequireDefault(_RSMLRenderStage);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q = require("q");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q2 = _interopRequireDefault(_q);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _possibleConstructorReturn(self, call) {</span> <span class="cstat-no" title="statement not covered" >if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} <span class="cstat-no" title="statement not covered" ></span>return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var HitAreaRenderStage = <span class="fstat-no" title="function not covered" >function (_RSMLRenderStageBase) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(HitAreaRenderStage, _RSMLRenderStageBase);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function HitAreaRenderStage(renderer) {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, HitAreaRenderStage);</span>
+&nbsp;
+        /**
+         * Object index for rendering hit area.
+         * (This is internal use)
+         * @type {number}
+         */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(HitAreaRenderStage).call(this, renderer, require("./BuiltIn/HitAreaRenderingStage.html")));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _this.objectIndex = 1;</span>
+<span class="cstat-no" title="statement not covered" >        _this.indexObjectPair = {};</span>
+<span class="cstat-no" title="statement not covered" >        _this.hitTestQueries = [];</span>
+<span class="cstat-no" title="statement not covered" >        _this.Renderer.on("mouse-move", <span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >            _this.queryHitTest(e.mouseX, e.mouseY).then(<span class="fstat-no" title="function not covered" >function (object) {</span></span>
+<span class="cstat-no" title="statement not covered" >                console.log(object);</span>
+            });
+        });
+<span class="cstat-no" title="statement not covered" >        return _this;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(HitAreaRenderStage, [{</span>
+        key: "preTechnique",
+        value: <span class="fstat-no" title="function not covered" >function preTechnique(scene, techniqueIndex, texs) {</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(HitAreaRenderStage.prototype), "preTechnique", this).call(this, scene, techniqueIndex, texs);</span>
+<span class="cstat-no" title="statement not covered" >            this.objectIndex = 1;</span>
+        }
+    }, {
+        key: "render",
+        value: <span class="fstat-no" title="function not covered" >function render(scene, object, techniqueCount, techniqueIndex, texs) {</span>
+<span class="cstat-no" title="statement not covered" >            this.indexObjectPair[this.objectIndex] = object;</span>
+<span class="cstat-no" title="statement not covered" >            _get(Object.getPrototypeOf(HitAreaRenderStage.prototype), "render", this).call(this, scene, object, techniqueCount, techniqueIndex, texs);</span>
+<span class="cstat-no" title="statement not covered" >            this.objectIndex++;</span>
+        }
+    }, {
+        key: "postTechnique",
+        value: <span class="fstat-no" title="function not covered" >function postTechnique(scene, techniqueIndex, texs) {</span>
+<span class="cstat-no" title="statement not covered" >            if (texs["OUT"]) {</span>
+<span class="cstat-no" title="statement not covered" >                if (!(texs["OUT"] instanceof _TextureBase2.default)) {</span>
+<span class="cstat-no" title="statement not covered" >                    throw new Error("OUT argument cannnot acceptable except TextureBase");</span>
+                }
+<span class="cstat-no" title="statement not covered" >                var canvas = this.Renderer.Canvas;</span>
+<span class="cstat-no" title="statement not covered" >                for (var i = 0; i &lt; this.hitTestQueries.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    var query = this.hitTestQueries[i];</span>
+<span class="cstat-no" title="statement not covered" >                    var fetchedPixel = texs["OUT"].getForContext(canvas).getPixel(query.x, this.Renderer.region.Height - query.y);</span>
+<span class="cstat-no" title="statement not covered" >                    var object = this._fetchRelatedObject(fetchedPixel);</span>
+<span class="cstat-no" title="statement not covered" >                    query.deferred.resolve(object);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                this.hitTestQueries.splice(0);</span>
+            }
+        }
+    }, {
+        key: "queryHitTest",
+        value: <span class="fstat-no" title="function not covered" >function queryHitTest(x, y) {</span>
+<span class="cstat-no" title="statement not covered" >            var deferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >            this.hitTestQueries.push({</span>
+                x: x,
+                y: y,
+                deferred: deferred
+            });
+<span class="cstat-no" title="statement not covered" >            return deferred.promise;</span>
+        }
+    }, {
+        key: "_fetchRelatedObject",
+        value: <span class="fstat-no" title="function not covered" >function _fetchRelatedObject(pixel) {</span>
+<span class="cstat-no" title="statement not covered" >            var id = pixel[0] &lt;&lt; 16 | pixel[1];</span>
+<span class="cstat-no" title="statement not covered" >            return this.indexObjectPair[id];</span>
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return HitAreaRenderStage;</span>
+}(_RSMLRenderStage2.default);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = HitAreaRenderStage;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 02 2016 08:02:05 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>
