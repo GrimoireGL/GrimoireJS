@@ -110,7 +110,7 @@ class VMDNode extends GomlTreeNodeBase {
         let bone: PMXBone;
         if (bone = this._targetPMX.PMXModel.skeleton.getBoneByName(boneName)) {
           const current = this._targetVMD.getBoneFrame(this._frame, boneName);
-          bone.Transformer.Position = new Vector3(current.position);
+          (<PMXBoneTransformer>bone.Transformer).userTranslation = new Vector3(current.position);
           (<PMXBoneTransformer>bone.Transformer).userRotation = new Quaternion(current.rotation);
         }
       }
