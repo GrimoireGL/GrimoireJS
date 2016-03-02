@@ -34,6 +34,21 @@ class VectorArray {
     }
   }
 
+  public static equal(v1: VectorBase, v2: VectorBase): boolean {
+    if (v1.ElementCount === v2.ElementCount) {
+    return VectorArray.elementEqual(v1, v2);
+    }
+  }
+
+  public static elementEqual(v1: VectorBase, v2: VectorBase): boolean {
+    for (let i = 0; i < v1.ElementCount; i++) {
+      if (v1.rawElements[i] !== v2.rawElements[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public appendVector(vector: VectorBase): void {
     this._verifyDimension(vector);
     this.rawElements.push(<any>vector.rawElements);
