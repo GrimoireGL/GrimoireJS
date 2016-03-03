@@ -25,6 +25,7 @@
     "debug": "./node_modules/.bin/gulp --require coffee-script/register build:debug",
     "watch": "./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "./node_modules/.bin/ava -v --require babel-register ./test/**/*Test.js",
+    "precover": "./node_modules/.bin/gulp --require coffee-script/register build:main --nosourcemap",
     "cover": "./node_modules/.bin/nyc --all --reporter=lcov --reporter=text npm test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
