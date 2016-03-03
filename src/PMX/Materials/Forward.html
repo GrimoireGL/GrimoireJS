@@ -80,7 +80,6 @@
 
 
         void main(void){
-          gl_FragColor = vec4(0,0,0,0);
           vec2 lightUV=calcLightUV(vPosition);
           vec3 dlc = texture2D(_dlBuffer,lightUV).rgb;
           vec3 slc = texture2D(_slBuffer,lightUV).rgb;
@@ -137,6 +136,7 @@
           float coeff = length(_resolution/2.0 * abs(p0.xy - p1.xy));
           coeff = 1.0 / coeff;
           coeff *= edgeSize * edgeScaling;
+          if(coeff > 5.0)coeff = 5.;
           gl_Position = matPVM * vec4(position + coeff * normal,1);
         }
       }

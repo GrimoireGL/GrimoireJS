@@ -2,13 +2,13 @@ import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
 import DebuggerModuleBase from "./Modules/DebuggerModuleBase";
 import SceneStructureDebugger from "./Modules/SceneStructureDebugger";
-import GLSpecDebugger from "./Modules/GLSpecDebugger";
+// import GLSpecDebugger from "./Modules/GLSpecDebugger";
 import RendererDebugger from "./Modules/RendererDebugger";
 import DebuggerAPI from "./DebuggerAPI";
 class Debugger implements IContextComponent {
   public debuggerAPI: DebuggerAPI;
 
-  private _debuggerModules: DebuggerModuleBase[] = [new SceneStructureDebugger(), new GLSpecDebugger(), new RendererDebugger()];
+  private _debuggerModules: DebuggerModuleBase[] = [new SceneStructureDebugger(), /*new GLSpecDebugger(), */ new RendererDebugger()];
 
 
   constructor() {
