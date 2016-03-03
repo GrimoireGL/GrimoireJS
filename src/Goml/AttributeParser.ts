@@ -12,26 +12,31 @@ class AttributeParser extends jThreeObject {
    * @param input the string to parse.
    * @returns {number} parsed angle in radians.
    */
-  public static ParseAngle(input: string): number {
-    if (input.match(/^p$/)) {
-      return Math.PI;
+  public static parseAngle(input: string): number {
+    const regex = /^([0-9\.]+)?(\/)?([0-9\.]+)?(pdeg|deg|d|p|r|rad|prad)?$/gm;
+    const result = regex.exec(input);
+    let numerator = 1.0;
+    let fract = 1.0;
+    let isDegree = true;
+    if (result[1]) {
+      numerator = parseFloat(result[1]);
     }
-    const isDegree = input.match(/[0-9E/\(\)\.-]+d$/);
-    const needPiMultiply = input.match(/[0-9E/\(\)\.-]+p/);
-    // http://regexper.com/#%2F%5E%5B0-9E%2F%5C(%5C)%5C.-%5D%2Bp%3Fd%3F%24%2F
-    const replaced = input.replace(/^([0-9E/\(\)\.-]+)p?d?$/, "$1");
-
-    /* tslint:disable */
-    let evalued = eval(replaced);
-    /* tslint:enable */
-
-    if (isDegree !== null) {
-      evalued *= 2 * Math.PI / 360;
+    if (result[2] && result[3]) {
+      fract = parseFloat(result[3]);
     }
-    if (needPiMultiply !== null) {
-      evalued *= Math.PI;
+    if (result[4]) {
+      if (result[4].match(/^r|rad|prad|p$/gm)) {
+        isDegree = false;
+      }
+      if (result[4].match(/^p|pdeg|prad$/gm)) {
+        numerator *= Math.PI;
+      }
     }
-    return evalued;
+    if (!isDegree) {
+      return numerator / fract;
+    } else {
+      return numerator / fract / 360 * 2 * Math.PI;
+    }
   }
 
   /**
@@ -47,28 +52,27 @@ class AttributeParser extends jThreeObject {
    * @returns {Quaternion} parsed rotation in Quaternion.
    */
   public static parseRotation3D(input: string): Quaternion {
-    input = input.replace(/\s/g, "");
-    if (input.match(/^[xyz]\(.+\)$/)) {
-      const signature = input.replace(/^([xyz])\(.+\)$/, "$1");
-      const value = input.replace(/^[xyz]\((.+)\)$/, "$1");
-      const angle = AttributeParser.ParseAngle(value);
-      if (signature === "x") {
-        return Quaternion.angleAxis(angle, Vector3.XUnit);
-      } else if (signature === "y") {
-        return Quaternion.angleAxis(angle, Vector3.YUnit);
-      } else {
-        return Quaternion.angleAxis(angle, Vector3.ZUnit);
+    const regex = /^(?:(x|y|z|axis)\()(.+)?\)$/gm;
+    const result = regex.exec(input);
+    if (result) {
+      if (result[1] === "x") {
+        return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.XUnit);
       }
-    } else if (input.match(/^euler\([0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?\)$/)) {
-      const angles = input.replace(/^euler\(([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?)\)$/, "$1,$2,$3");
-      const splitted = angles.split(/,/);
-      return Quaternion.euler(AttributeParser.ParseAngle(splitted[0]), AttributeParser.ParseAngle(splitted[1]), AttributeParser.ParseAngle(splitted[2]));
-    } else if (input.match(/^axis\([0-9E/\(\)\.-]+p?d?,[\d\.]+,[\d\.]+,[\d\.]\)$/)) {
-      const angles = input.replace(/^axis\(([0-9E/\(\)\.-]+p?d?),([\d\.]+),([\d\.]+),([\d\.]+)\)$/, "$1,$2,$3,$4");
-      const splitted = angles.split(/,/);
-      return Quaternion.angleAxis(AttributeParser.ParseAngle(splitted[0]), new Vector3(parseFloat(splitted[1]), parseFloat(splitted[2]), parseFloat(splitted[3])));
+      if (result[1] === "y") {
+        return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.YUnit);
+      }
+      if (result[1] === "z") {
+        return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.ZUnit);
+      }
+      if (result[1] === "axis") {
+        const splitted = result[1].split(",");
+        return Quaternion.angleAxis(AttributeParser.parseAngle(splitted[0]), new Vector3(parseFloat(splitted[1]), parseFloat(splitted[2]), parseFloat(splitted[3])));
+      }
+    } else {
+      // Assume the input was euler angles
+      const splitted = input.split(",");
+      return Quaternion.euler.apply(Quaternion.euler, splitted.map((s) => AttributeParser.parseAngle(s)));
     }
-    return null;
   }
 }
 

@@ -7,6 +7,7 @@ import Color4 from "../../lib/Math/Color4";
 import Vector3 from "../../lib/Math/Vector3";
 import Vector4 from "../../lib/Math/Vector4";
 import VectorColorCombinedParser from "../../lib/Goml/VectorColorCombinedParser";
+import AttributeParser from "../../lib/Goml/AttributeParser"
 
 describe('Color parsers',()=>
 {
@@ -96,5 +97,32 @@ describe('Color parsers',()=>
   });
   it('Color3 parseTuple3 #XYZAF must be undefined',()=>{
     assert(typeof VectorColorCombinedParser.parseTuple3("#0F00F") === "undefined");
+  });
+});
+
+describe("AngleParser",()=>{
+  it('180 should convert into radians',()=>{
+    assert(AttributeParser.parseAngle("180") === Math.PI);
+  });
+  it('180 should convert into radians',()=>{
+    assert(AttributeParser.parseAngle("180d") === Math.PI);
+  });
+  it('180 should convert into radians',()=>{
+    assert(AttributeParser.parseAngle("180deg") === Math.PI);
+  });
+  it('1/2p should mean 90degree',()=>{
+    assert(AttributeParser.parseAngle("1/2p") === Math.PI/2);
+  });
+  it('0.5p should mean 90degree',()=>{
+    assert(AttributeParser.parseAngle("0.5p") === Math.PI/2);
+  });
+  it('1/2p should mean 90degree',()=>{
+    assert(AttributeParser.parseAngle("1.0/2.0p") === Math.PI/2);
+  });
+  it('1/2p should mean 90degree',()=>{
+    assert(AttributeParser.parseAngle("1/2prad") === Math.PI/2);
+  });
+  it('1/2rad should mean 1/2',()=>{
+    assert(AttributeParser.parseAngle("1/2rad") === 1/2);
   });
 });
