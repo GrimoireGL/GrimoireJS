@@ -7,8 +7,8 @@
     <grid hdiv="20" name="grid" vdiv="20"/>
   </resources>
   <canvases>
-    <canvas clearColor="purple" frame=".canvasContainer" width="1920" height="1920" >
-      <viewport cam="CAM1" id="main" width="1920" height="1920" name="MAIN"/>
+    <canvas clearColor="purple" frame=".canvasContainer" width="640" height="640" >
+      <viewport cam="CAM1" id="main" width="640" height="640" name="MAIN"/>
     </canvas>
   </canvases>
   <scenes>
@@ -21,10 +21,10 @@
       <scenelight color="white" intensity="1"/>
       <!-- <pmx scale="0.2" src="/resource/model/stage/stage.pmx" position="0,3,0"/> -->
       <pmx scale="0.5" src="/resource/model/milbox/mil.pmx" position="-3,0,0">
-        <vmd id="melt" frame="20" src="/resource/motion/melt2.vmd" enabled="true" autoSpeed="1"/>
+        <vmd id="melt" frame="20" src="/resource/motion/melt2.vmd" enabled="true" autoSpeed="0"/>
       </pmx>
       <pmx scale="0.5" src="/resource/model/Tune/Tune.pmx" position="3,0,0">
-        <vmd id="melt" frame="20" src="/resource/motion/melt2.vmd" enabled="true" autoSpeed="1"/>
+        <vmd id="melt" frame="20" src="/resource/motion/melt2.vmd" enabled="true" autoSpeed="0"/>
       </pmx>
       <mesh geo="grid" mat="blue" scale="5"/>
     </scene>
