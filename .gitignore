@@ -134,3 +134,5 @@ wwwroot/debug/j3-debug.js
 wwwroot/debug/j3-debug.js.map
 
 lint.txt
+
+.nyc_output/
