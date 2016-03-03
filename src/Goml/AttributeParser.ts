@@ -46,27 +46,27 @@ class AttributeParser extends jThreeObject {
    * @param input the string to be parsed as angle in 3D.
    * @returns {Quaternion} parsed rotation in Quaternion.
    */
-  public static ParseRotation3D(input: string): Quaternion {
+  public static parseRotation3D(input: string): Quaternion {
     input = input.replace(/\s/g, "");
     if (input.match(/^[xyz]\(.+\)$/)) {
       const signature = input.replace(/^([xyz])\(.+\)$/, "$1");
       const value = input.replace(/^[xyz]\((.+)\)$/, "$1");
       const angle = AttributeParser.ParseAngle(value);
       if (signature === "x") {
-        return Quaternion.AngleAxis(angle, Vector3.XUnit);
+        return Quaternion.angleAxis(angle, Vector3.XUnit);
       } else if (signature === "y") {
-        return Quaternion.AngleAxis(angle, Vector3.YUnit);
+        return Quaternion.angleAxis(angle, Vector3.YUnit);
       } else {
-        return Quaternion.AngleAxis(angle, Vector3.ZUnit);
+        return Quaternion.angleAxis(angle, Vector3.ZUnit);
       }
     } else if (input.match(/^euler\([0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?,[0-9E/\(\)\.-]+p?d?\)$/)) {
       const angles = input.replace(/^euler\(([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?),([0-9E/\(\)\.-]+p?d?)\)$/, "$1,$2,$3");
       const splitted = angles.split(/,/);
-      return Quaternion.Euler(AttributeParser.ParseAngle(splitted[0]), AttributeParser.ParseAngle(splitted[1]), AttributeParser.ParseAngle(splitted[2]));
+      return Quaternion.euler(AttributeParser.ParseAngle(splitted[0]), AttributeParser.ParseAngle(splitted[1]), AttributeParser.ParseAngle(splitted[2]));
     } else if (input.match(/^axis\([0-9E/\(\)\.-]+p?d?,[\d\.]+,[\d\.]+,[\d\.]\)$/)) {
       const angles = input.replace(/^axis\(([0-9E/\(\)\.-]+p?d?),([\d\.]+),([\d\.]+),([\d\.]+)\)$/, "$1,$2,$3,$4");
       const splitted = angles.split(/,/);
-      return Quaternion.AngleAxis(AttributeParser.ParseAngle(splitted[0]), new Vector3(parseFloat(splitted[1]), parseFloat(splitted[2]), parseFloat(splitted[3])));
+      return Quaternion.angleAxis(AttributeParser.ParseAngle(splitted[0]), new Vector3(parseFloat(splitted[1]), parseFloat(splitted[2]), parseFloat(splitted[3])));
     }
     return null;
   }

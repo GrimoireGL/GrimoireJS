@@ -2,6 +2,7 @@ gulp = require 'gulp'
 mocha = require 'gulp-mocha'
 runSequence = require 'run-sequence'
 fs = require('fs')
+istanbul = require 'gulp-istanbul'
 class TestTask
 
   requireAsString:(exts)=>
@@ -28,12 +29,12 @@ class TestTask
   task:(name,config)=>
     switch name
       when 'test'
-        @requireAsString ['.glsl','.html']
-        @requireAsJSON ['.json']
         gulp.start ['mocha']
       when 'watch-mocha'
         gulp.watch config.testTarget, ['mocha']
       when 'mocha'
+        @requireAsString ['.glsl','.html']
+        @requireAsJSON ['.json']
         require 'espower-babel/guess'
         gulp
           .src config.testTarget

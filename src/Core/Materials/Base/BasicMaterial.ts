@@ -40,7 +40,7 @@ class BasicMaterial extends Material {
   * If you render some of model with edge,it can be 2 or greater.
   * Because it needs rendering edge first,then rendering forward shading.
   */
-  public getPassCount(techniqueIndex: number) {
+  public getPassCount(techniqueIndex: number): number {
     return this._passCount;
   }
 
@@ -58,7 +58,7 @@ class BasicMaterial extends Material {
     this._materialName = this._materialName || name;
     this._initializeUniformRegisters(xmml);
     this._parsePasses(xmml).then(() => {
-      this.setLoaded();
+      this.__setLoaded();
     });
   }
 
@@ -72,7 +72,7 @@ class BasicMaterial extends Material {
     return Q.all(this._passes.map<Q.IPromise<void>>(e => e.initialize(this._uniformRegisters)));
   }
 
-  private _initializeUniformRegisters(doc: Document) {
+  private _initializeUniformRegisters(doc: Document): void {
     const registersDOM = doc.querySelectorAll("material > uniform-register > register");
     for (let i = 0; i < registersDOM.length; i++) {
       const registerDOM = registersDOM.item(i);

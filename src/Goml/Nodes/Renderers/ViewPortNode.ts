@@ -12,14 +12,14 @@ import RendererFactory from "../../../Core/Renderers/RendererFactory";
 import GomlAttribute from "../../GomlAttribute";
 
 class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
-  private left: number;
-  private top: number;
-  private width: number;
-  private height: number;
+  private _left: number;
+  private _top: number;
+  private _width: number;
+  private _height: number;
 
-  private skyBoxStageChain: StageChainTemplate;
+  private _skyBoxStageChain: StageChainTemplate;
 
-  private parentCanvas: CanvasNode;
+  private _parentCanvas: CanvasNode;
 
 
   constructor() {
@@ -34,8 +34,8 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         value: 640,
         converter: "float",
         onchanged: (attr) => {
-          this.width = attr.Value;
-          this.updateViewportArea();
+          this._width = attr.Value;
+          this._updateViewportArea();
           attr.done();
         },
       },
@@ -43,8 +43,8 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         value: 480,
         converter: "float",
         onchanged: (attr) => {
-          this.height = attr.Value;
-          this.updateViewportArea();
+          this._height = attr.Value;
+          this._updateViewportArea();
           attr.done();
         },
       },
@@ -52,8 +52,8 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         value: 0,
         converter: "float",
         onchanged: (attr) => {
-          this.left = attr.Value;
-          this.updateViewportArea();
+          this._left = attr.Value;
+          this._updateViewportArea();
           attr.done();
         },
       },
@@ -61,8 +61,8 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         value: 0,
         converter: "float",
         onchanged: (attr) => {
-          this.top = attr.Value;
-          this.updateViewportArea();
+          this._top = attr.Value;
+          this._updateViewportArea();
           attr.done();
         },
       },
@@ -70,9 +70,9 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         value: "color",
         converter: "string",
         onchanged: (attr) => {
-          if (attr.Value !== "skybox" && this.skyBoxStageChain) {
+          if (attr.Value !== "skybox" && this._skyBoxStageChain) {
             // this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain); TODO fix this
-            this.skyBoxStageChain = null;
+            this._skyBoxStageChain = null;
           }
           attr.done();
         },
@@ -98,39 +98,39 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
     });
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
   }
 
   private _onConfigAttrChanged(attr: GomlAttribute): void {
-    if (this.parent.getTypeName() !== "CanvasNode") {
+    if (this.__parent.getTypeName() !== "CanvasNode") {
       throw Error("viewport must be the direct child of canvas");
     }
-    this.parentCanvas = <CanvasNode>this.parent;
-    const defaultRect = this.parentCanvas.target.region;
-    this.target = RendererFactory.generateRenderer(this.parentCanvas.target, defaultRect, attr.Value);
+    this._parentCanvas = <CanvasNode>this.__parent;
+    const defaultRect = this._parentCanvas.target.region;
+    this.target = RendererFactory.generateRenderer(this._parentCanvas.target, defaultRect, attr.Value);
     attr.done();
   }
 
   private _onCamAttrChanged(attr: GomlAttribute): void {
-    this.resolveCamera(attr.Value, attr.done.bind(attr));
+    this._resolveCamera(attr.Value, attr.done.bind(attr));
   }
 
   private _onSkyboxAttrChanged(attr): void {
     if (this.attributes.getValue("backgroundType") === "skybox") {
       this.nodeImport("jthree.resource.TextureCube", attr.Value, (node: CubeTextureNode) => {
         if (node) {
-          if (!this.skyBoxStageChain) {
-            this.skyBoxStageChain = {
+          if (!this._skyBoxStageChain) {
+            this._skyBoxStageChain = {
               buffers: {
                 OUT: "main"
               },
               stage: "jthree.basic.skybox",
               variables: {}
             };
-            this.target.renderPath.insertWithIndex(0, this.skyBoxStageChain);
+            this.target.renderPath.insertWithIndex(0, this._skyBoxStageChain);
           }
-          this.skyBoxStageChain.variables["skybox"] = node.target;
+          this._skyBoxStageChain.variables["skybox"] = node.target;
           attr.done();
         } else {
           attr.done();
@@ -141,30 +141,30 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
     }
   }
 
-  private updateViewportArea() {
+  private _updateViewportArea(): void {
     // console.log("updateViewportArea");
-    if (this.parentCanvas) { // ここ何やってるんだっけ
-      if (this.parentCanvas.canvasFrames.container) {
+    if (this._parentCanvas) { // ここ何やってるんだっけ
+      if (this._parentCanvas.canvasFrames.container) {
         // when canvas HTMLElement is applied
-        const frame = this.parentCanvas.canvasFrames.container;
+        const frame = this._parentCanvas.canvasFrames.container;
         const W = frame.clientWidth;
         const H = frame.clientHeight;
-        const left = this.left > 1 ? this.left : W * this.left;
-        const top = this.top > 1 ? this.top : H * this.top;
-        const width = this.width > 1 ? this.width : W * this.width;
-        const height = this.height > 1 ? this.height : H * this.height;
+        const left = this._left > 1 ? this._left : W * this._left;
+        const top = this._top > 1 ? this._top : H * this._top;
+        const width = this._width > 1 ? this._width : W * this._width;
+        const height = this._height > 1 ? this._height : H * this._height;
         this.target.region = new Rectangle(left, top, width, height);
       } else {
         // when canvas HTMLElement is not applied
-        this.target.region = new Rectangle(this.left, this.top, this.width, this.height);
+        this.target.region = new Rectangle(this._left, this._top, this._width, this._height);
       }
       if (this.target.Camera.getTypeName() === "PerspectiveCamera") {
-        (<PerspectiveCamera>this.target.Camera).Aspect = this.width / this.height;
+        (<PerspectiveCamera>this.target.Camera).Aspect = this._width / this._height;
       }
     }
   }
 
-  private resolveCamera(cam: string, done: () => void) {
+  private _resolveCamera(cam: string, done: () => void): void {
     this.nodeImport("jthree.scene.camera", cam, (cameraNode: CameraNodeBase<Camera>) => {
       //
       // remove camera here
@@ -174,7 +174,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
           this.target.Camera = cameraNode.target;
           const scene: Scene = cameraNode.ContainedSceneNode.target;
           scene.addRenderer(this.target);
-          this.updateViewportArea();
+          this._updateViewportArea();
         } else {
           console.error("cant retrieve scene!");
         }

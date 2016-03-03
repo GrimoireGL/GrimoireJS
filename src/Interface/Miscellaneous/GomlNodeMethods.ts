@@ -13,7 +13,7 @@ class GomlNodeMethods extends J3ObjectBase {
       case (isNumber(argu)):
         return this[argu];
       case (isUndefiend(argu)):
-        return this.getArray();
+        return this.__getArray();
       default:
         throw new Error("Argument type is not correct");
     }
@@ -27,7 +27,7 @@ class GomlNodeMethods extends J3ObjectBase {
         const node = this[argu];
         return node instanceof CoreRelatedNodeBase ? (<CoreRelatedNodeBase<T>>node).target : null;
       case (isUndefiend(argu)):
-        return this.getArray().map((node) => {
+        return this.__getArray().map((node) => {
           return node instanceof CoreRelatedNodeBase ? (<CoreRelatedNodeBase<T>>node).target : null;
         });
       default:

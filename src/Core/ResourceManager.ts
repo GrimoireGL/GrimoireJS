@@ -21,17 +21,17 @@ type ImageSource = HTMLCanvasElement | HTMLImageElement | ImageData | ArrayBuffe
  */
 class ResourceManager extends jThreeObject implements IContextComponent {
 
-  private buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
+  private _buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
 
-  private shaders: ResourceArray<Shader> = new ResourceArray<Shader>();
+  private _shaders: ResourceArray<Shader> = new ResourceArray<Shader>();
 
-  private programs: ResourceArray<Program> = new ResourceArray<Program>();
+  private _programs: ResourceArray<Program> = new ResourceArray<Program>();
 
-  private textures: ResourceArray<TextureBase> = new ResourceArray<TextureBase>();
+  private _textures: ResourceArray<TextureBase> = new ResourceArray<TextureBase>();
 
-  private rbos: ResourceArray<RBO> = new ResourceArray<RBO>();
+  private _rbos: ResourceArray<RBO> = new ResourceArray<RBO>();
 
-  private fbos: ResourceArray<FBO> = new ResourceArray<FBO>();
+  private _fbos: ResourceArray<FBO> = new ResourceArray<FBO>();
 
   public getContextComponentIndex(): number {
     return ContextComponents.ResourceManager;
@@ -79,41 +79,41 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   }
 
   public createBuffer(id: string, target: number, usage: number, unitCount: number, elementType: number): Buffer {
-    return this.buffers.create(id, () => {
+    return this._buffers.create(id, () => {
       return new Buffer(target, usage, unitCount, elementType);
     });
   }
 
   public getBuffer(id: string): Buffer {
-    return this.buffers.get(id);
+    return this._buffers.get(id);
   }
 
   public createShader(id: string, source: string, shaderType: number): Shader {
-    return this.shaders.create(id, () => {
-      return Shader.CreateShader(source, shaderType);
+    return this._shaders.create(id, () => {
+      return Shader.createShader(source, shaderType);
     });
   }
 
   public getShader(id: string): Shader {
-    return this.shaders.get(id);
+    return this._shaders.get(id);
   }
 
   public hasShader(id: string): boolean {
-    return this.shaders.has(id);
+    return this._shaders.has(id);
   }
 
   public createProgram(id: string, shaders: Shader[]): Program {
-    return this.programs.create(id, () => {
-      return Program.CreateProgram(shaders);
+    return this._programs.create(id, () => {
+      return Program.createProgram(shaders);
     });
   }
 
   public getProgram(id: string): Program {
-    return this.programs.get(id);
+    return this._programs.get(id);
   }
 
   public createTextureWithSource(id: string, source: ImageSource): Texture {
-    return <Texture>this.textures.create(id, () => {
+    return <Texture>this._textures.create(id, () => {
       const tex = new Texture(source, id);
       tex.each(v => v.init()); // TODO no need?
       return tex;
@@ -122,11 +122,11 @@ class ResourceManager extends jThreeObject implements IContextComponent {
 
 
   public getTexture(id: string): TextureBase {
-    return <TextureBase>this.textures.get(id);
+    return <TextureBase>this._textures.get(id);
   }
 
   public createCubeTextureWithSource(id: string, sources: ImageSource[], flipY = false): CubeTexture {
-    return <CubeTexture>this.textures.create(id, () => {
+    return <CubeTexture>this._textures.create(id, () => {
       const cubeTexture = new CubeTexture(sources, id, flipY);
       cubeTexture.each(v => v.init());
       return cubeTexture;
@@ -134,7 +134,7 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   }
 
   public createRBO(id: string, width: number, height: number): RBO {
-    return this.rbos.create(id, () => {
+    return this._rbos.create(id, () => {
       const r = new RBO(width, height);
       r.each(v => v.init());
       return r;
@@ -142,11 +142,11 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   }
 
   public getRBO(id: string): RBO {
-    return this.rbos.get(id);
+    return this._rbos.get(id);
   }
 
   public createFBO(id: string): FBO {
-    return this.fbos.create(id, () => {
+    return this._fbos.create(id, () => {
       const fbo = new FBO();
       fbo.each(v => v.init());
       return fbo;
@@ -154,19 +154,15 @@ class ResourceManager extends jThreeObject implements IContextComponent {
   }
 
   public getFBO(id: string): FBO {
-    return this.fbos.get(id);
+    return this._fbos.get(id);
   }
 
-  public createTexture(id: string, width: number, height: number, texType: number = WebGLRenderingContext.RGBA, elemType: number = WebGLRenderingContext.UNSIGNED_BYTE) {
-    return this.textures.create(id, () => {
+  public createTexture(id: string, width: number, height: number, texType: number = WebGLRenderingContext.RGBA, elemType: number = WebGLRenderingContext.UNSIGNED_BYTE): BufferTexture {
+    return this._textures.create(id, () => {
       const bt = new BufferTexture(width, height, texType, elemType, id);
       bt.each(v => v.init());
       return bt;
     });
-  }
-
-  public toString() {
-    return `buffer:${this.buffers.toString() }\nshader:${this.shaders.toString() }\nprograms:${this.programs.toString() }\ntexture:${this.textures.toString() }`;
   }
 }
 export default ResourceManager;

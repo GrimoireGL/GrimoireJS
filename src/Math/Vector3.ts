@@ -34,7 +34,7 @@ class Vector3 extends VectorBase {
     return new Vector3(1, 1, 1);
   }
 
-  public static copy(source: Vector3) {
+  public static copy(source: Vector3): Vector3 {
     return new Vector3(source.X, source.Y, source.Z);
   }
 
@@ -61,12 +61,12 @@ class Vector3 extends VectorBase {
     return Vector3.multiply(-1, v1);
   }
 
-  public static equal(v1: Vector3, v2: Vector3): boolean {
-    return VectorBase.elementEqual(v1, v2);
+  public static equals(v1: Vector3, v2: Vector3): boolean {
+    return VectorBase.__elementEquals(v1, v2);
   }
 
-  public static nearlyEqual(v1: Vector3, v2: Vector3): boolean {
-    return VectorBase.nearlyElementEqual(v1, v2);
+  public static nearlyEquals(v1: Vector3, v2: Vector3): boolean {
+    return VectorBase.__nearlyElementEquals(v1, v2);
   }
 
   public static normalize(v1: Vector3): Vector3 {
@@ -81,10 +81,10 @@ class Vector3 extends VectorBase {
 
 
   public static min(v1: Vector3, v2: Vector3): Vector3 {
-    return new Vector3(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.min(_v1.rawElements[i], _v2.rawElements[i])));
+    return new Vector3(VectorBase.__fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.min(_v1.rawElements[i], _v2.rawElements[i])));
   }
   public static max(v1: Vector3, v2: Vector3): Vector3 {
-    return new Vector3(VectorBase.fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.max(_v1.rawElements[i], _v2.rawElements[i])));
+    return new Vector3(VectorBase.__fromGenerationFunction(v1, v2, (i, _v1, _v2) => Math.max(_v1.rawElements[i], _v2.rawElements[i])));
   }
 
   public static angle(v1: Vector3, v2: Vector3): number {
@@ -173,11 +173,11 @@ class Vector3 extends VectorBase {
   }
 
   public equalWith(v: Vector3): boolean {
-    return Vector3.equal(this, v);
+    return Vector3.equals(this, v);
   }
 
   public nearlyEqualWith(v: Vector3): boolean {
-    return Vector3.nearlyEqual(this, v);
+    return Vector3.nearlyEquals(this, v);
   }
 
   public crossWith(v: Vector3): Vector3 {

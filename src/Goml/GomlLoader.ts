@@ -24,10 +24,10 @@ class GomlLoader extends jThreeObject {
   constructor(nodeManager: NodeManager, selfTag: HTMLScriptElement) {
     super();
     // obtain the script tag that is refering this source code.
-    this.selfTag = selfTag;
-    this.nodeManager = nodeManager;
+    this._selfTag = selfTag;
+    this._nodeManager = nodeManager;
     const resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponent.ResourceLoader);
-    this.gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered<void>();
+    this._gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered<void>();
     resourceLoader.promise.then(() => {
       console.log("load finished!!");
     }, undefined,
@@ -40,14 +40,14 @@ class GomlLoader extends jThreeObject {
    * NodeManager instance
    * @type {NodeManager}
    */
-  private nodeManager: NodeManager;
+  private _nodeManager: NodeManager;
 
   /**
    * The script tag that is refering this source code.
    */
-  private selfTag: HTMLScriptElement;
+  private _selfTag: HTMLScriptElement;
 
-  private gomlLoadingDeferred: Q.Deferred<void>;
+  private _gomlLoadingDeferred: Q.Deferred<void>;
 
   /**
    * Attempt to load GOMLs that placed in HTML file.
@@ -55,11 +55,11 @@ class GomlLoader extends jThreeObject {
   public initForPage(): void {
     JThreeLogger.sectionLog("Goml loader", "Goml initialization was started.");
     // to load <script src="j3.js" x-goml="HERE"/>
-    this.attemptToLoadGomlInScriptAttr();
+    this._attemptToLoadGomlInScriptAttr();
     // to load the script that is type of text/goml
     const gomls: NodeList = document.querySelectorAll("script[type=\'text/goml\']");
     for (let i = 0; i < gomls.length; i++) {
-      this.loadScriptTag(<HTMLElement>gomls[i]);
+      this._loadScriptTag(<HTMLElement>gomls[i]);
     }
   }
 
@@ -69,14 +69,14 @@ class GomlLoader extends jThreeObject {
    * Attempt to load x-goml attribute from script tag refering this source.
    * <script x-goml='path/to/goml'></script>
    */
-  private attemptToLoadGomlInScriptAttr(): void {
-    const url: string = this.selfTag.getAttribute("x-goml");
+  private _attemptToLoadGomlInScriptAttr(): void {
+    const url: string = this._selfTag.getAttribute("x-goml");
     if (!url) {
       return;
     }
     const xhr = new XMLHttpRequest();
     xhr.addEventListener("load", () => {
-      this.scriptLoaded((new DOMParser()).parseFromString(xhr.response, "text/xml").documentElement);
+      this._scriptLoaded((new DOMParser()).parseFromString(xhr.response, "text/xml").documentElement);
     });
     xhr.open("GET", url);
     xhr.responseType = "text";
@@ -93,13 +93,13 @@ class GomlLoader extends jThreeObject {
    *
    * @param {HTMLElement} scriptTag HTMLElement object of script tag
    */
-  private loadScriptTag(scriptTag: HTMLElement): void {
+  private _loadScriptTag(scriptTag: HTMLElement): void {
     const srcSource: string = scriptTag.getAttribute("src"),
       xhr = new XMLHttpRequest();
     if (srcSource) { // when src is specified
       // use xhr to get script of src
       xhr.addEventListener("load", () => {
-        this.scriptLoaded((new DOMParser()).parseFromString(xhr.response, "text/xml").documentElement);
+        this._scriptLoaded((new DOMParser()).parseFromString(xhr.response, "text/xml").documentElement);
       });
       xhr.open("GET", srcSource);
       xhr.responseType = "text";
@@ -108,7 +108,7 @@ class GomlLoader extends jThreeObject {
       for (let i = 0; i + 1 <= scriptTag.childNodes.length; i++) {
         const gomlElement = scriptTag.childNodes[i];
         if (gomlElement.nodeType === 1) {
-          this.scriptLoaded(<HTMLElement>gomlElement);
+          this._scriptLoaded(<HTMLElement>gomlElement);
         }
       }
     }
@@ -119,8 +119,8 @@ class GomlLoader extends jThreeObject {
    *
    * @param {HTMLElement} source goml source
    */
-  private scriptLoaded(source: HTMLElement): void {
-    this.nodeManager.htmlRoot = source;
+  private _scriptLoaded(source: HTMLElement): void {
+    this._nodeManager.htmlRoot = source;
     // if ((<Element>catched.childNodes[0]).tagName.toUpperCase() === "PARSERERROR") {
     //   JThreeLogger.sectionError("Goml loader", `Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
     //   JThreeLogger.sectionLongLog("Goml loader", catched.innerHTML);
@@ -128,15 +128,15 @@ class GomlLoader extends jThreeObject {
     if (source === undefined || source.tagName.toUpperCase() !== "GOML") {
       throw new InvalidArgumentException("Root should be goml");
     }
-    const parsedNode = GomlParser.parse(source, this.nodeManager.configurator);
+    const parsedNode = GomlParser.parse(source, this._nodeManager.configurator);
     parsedNode.Mounted = true;
-    this.nodeManager.gomlRoot = parsedNode;
+    this._nodeManager.gomlRoot = parsedNode;
     JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
-    this.nodeManager.ready = true;
-    this.nodeManager.attributePromiseRegistry.async(() => {
+    this._nodeManager.ready = true;
+    this._nodeManager.attributePromiseRegistry.async(() => {
       // onfullfilled
       console.log("all attribute initialized");
-      this.gomlLoadingDeferred.resolve(null);
+      this._gomlLoadingDeferred.resolve(null);
     });
   }
 }

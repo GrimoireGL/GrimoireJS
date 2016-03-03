@@ -34,22 +34,39 @@ class VectorArray {
     }
   }
 
+  public static equal(v1: VectorBase, v2: VectorBase): boolean {
+    if (v1.ElementCount === v2.ElementCount) {
+    return VectorArray.elementEqual(v1, v2);
+    }
+  }
+
+  public static elementEqual(v1: VectorBase, v2: VectorBase): boolean {
+    for (let i = 0; i < v1.ElementCount; i++) {
+      if (v1.rawElements[i] !== v2.rawElements[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public appendVector(vector: VectorBase): void {
     this._verifyDimension(vector);
     this.rawElements.push(<any>vector.rawElements);
   }
 
-  public setVector(index: number, vector: VectorBase) {
+  public setVector(index: number, vector: VectorBase): void {
     this._verifyDimension(vector);
     for (let elemIndex = 0; elemIndex < vector.ElementCount; elemIndex++) {
       this.rawElements[index * this._dimension + elemIndex] = vector.rawElements[elemIndex];
     }
+    return;
   }
 
-  public setRawArray(index: number, rawArray: number[]) {
+  public setRawArray(index: number, rawArray: number[]): void {
     for (let elemIndex = 0; elemIndex < this._dimension; elemIndex++) {
-     this.rawElements[index * this._dimension + elemIndex] = rawArray[elemIndex] ? rawArray[elemIndex] : 0;
+      this.rawElements[index * this._dimension + elemIndex] = rawArray[elemIndex] ? rawArray[elemIndex] : 0;
     }
+    return;
   }
 
   public getVector<T extends VectorBase>(index: number): T {
@@ -65,7 +82,7 @@ class VectorArray {
     }
   }
 
-  public setVectorArray(vectors: VectorBase[], offset = 0) {
+  public setVectorArray(vectors: VectorBase[], offset = 0): void {
     if (vectors.length === 0) {
       return;
     }
@@ -78,6 +95,7 @@ class VectorArray {
         this.rawElements[offset + this._dimension * i + elemIndex] = e.rawElements[elemIndex];
       }
     });
+    return;
   }
 
   public getVectorArray<T extends VectorBase>(): T[] {

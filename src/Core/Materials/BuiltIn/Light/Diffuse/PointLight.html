@@ -37,7 +37,7 @@
           vec2 bufferPos = calcBufferPosition(vLightProjectedPosition);
           vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
           vec3 normal = getNormal(rawBuffer);
-          highp float depth = 2. * texture2D(_depthBuffer,calcBufferPosition(vLightProjectedPosition)).r -1.;
+          highp float depth = unpackRanged24(texture2D(_depthBuffer,bufferPos).rgb,-1.,1.);
           highp vec3 pos = getPosition( depth, vLightProjectedPosition, _matIP);
           highp float d = distance( pos, lightPosition) / dist;
           if(d > 1.)discard;

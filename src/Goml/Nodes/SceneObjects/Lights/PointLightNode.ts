@@ -31,7 +31,7 @@ class PointLightNode extends LightNodeBase<PointLight> {
     });
   }
 
-  protected constructLight(): PointLight {
+  protected __constructLight(): PointLight {
     return new PointLight();
   }
 

@@ -5,27 +5,27 @@ import {Action2} from "../../../Base/Delegates";
 import JThreeEvent from "../../../Base/JThreeEvent";
 class Shader extends ContextSafeContainer<ShaderWrapper> {
 
-  private shaderSource: string;
+  private _shaderSource: string;
 
-  private onUpdateEvent: JThreeEvent<string> = new JThreeEvent<string>();
+  private _onUpdateEvent: JThreeEvent<string> = new JThreeEvent<string>();
 
-  private shaderType: number;
+  private _shaderType: number;
   /**
    * コンストラクタ
    * (Should not be called by new,You should use CreateShader static method instead.)
    */
   constructor() {
     super();
-    this.initializeForFirst();
+    this.__initializeForFirst();
   }
 
   /**
    * シェーダークラスを作成する。
    */
-  public static CreateShader(source: string, shaderType: number): Shader {
+  public static createShader(source: string, shaderType: number): Shader {
     const shader: Shader = new Shader();
-    shader.shaderSource = source;
-    shader.shaderType = shaderType;
+    shader._shaderSource = source;
+    shader._shaderType = shaderType;
     return shader;
   }
 
@@ -35,7 +35,7 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
    * (VertexShader or FragmentShader)
    */
   public get ShaderType(): number {
-    return this.shaderType;
+    return this._shaderType;
   }
 
 
@@ -43,19 +43,19 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
    * Shader Source in text
    */
   public get ShaderSource(): string {
-    return this.shaderSource;
+    return this._shaderSource;
   }
 
   /**
    * Load all shaderWrappers
    */
-  public loadAll() {
+  public loadAll(): void {
     this.each((v) => {
       v.init();
     });
   }
 
-  protected createWrapperForCanvas(canvas: Canvas): ShaderWrapper {
+  protected __createWrapperForCanvas(canvas: Canvas): ShaderWrapper {
     return new ShaderWrapper(this, canvas);
   }
 
@@ -63,20 +63,20 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
    * Update shader source code.
    * @param shaderSource new shader source code.
    */
-  public update(shaderSource: string) {
-    this.shaderSource = shaderSource;
+  public update(shaderSource: string): void {
+    this._shaderSource = shaderSource;
     this.each((v) => {
       v.update();
     });
-    this.onUpdateEvent.fire(this, shaderSource);
+    this._onUpdateEvent.fire(this, shaderSource);
   }
 
   /**
    * Register the handler to handle when shader source code is changed.
    * @param handler the handler for shader changing
    */
-  public onUpdate(handler: Action2<Shader, string>) {
-    this.onUpdateEvent.addListener(handler);
+  public onUpdate(handler: Action2<Shader, string>): void {
+    this._onUpdateEvent.addListener(handler);
   }
 
 }

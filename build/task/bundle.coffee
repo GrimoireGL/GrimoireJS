@@ -75,7 +75,7 @@ class Bundle
               message: "BUILD SUCCESS (#{bundleType})"
               title: 'jThree'
           config.buildSuccess = true
-          config.undleSuccess = true
+          config.bundleSuccess = true
         .pipe source c.name
         .pipe buffer()
         .pipe sourcemaps.init

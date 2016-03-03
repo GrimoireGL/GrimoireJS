@@ -6,7 +6,7 @@ class PerspectiveCamera extends ViewCamera {
   private _near: number = 0.1;
   private _far: number = 10;
 
-  private _updateProjectionMatrix() {
+  private _updateProjectionMatrix(): void {
     mat4.perspective(this.projectionMatrix.rawElements, this._fovy, this._aspect, this._near, this._far);
     mat4.invert(this.invProjectionMatrix.rawElements, this.projectionMatrix.rawElements);
     this.__updateViewProjectionMatrix();

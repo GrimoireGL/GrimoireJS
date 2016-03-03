@@ -5,9 +5,9 @@ import JThreeObject from "../Base/JThreeObject";
  * GomlNodeをグループとしてまとめて管理します
  */
 class GomlNodeListElement extends JThreeObject {
-  private group: string;
+  private _group: string;
 
-  private nodeTypes: { [key: string]: new () => GomlTreeNodeBase };
+  private _nodeTypes: { [key: string]: new () => GomlTreeNodeBase };
 
   /**
    * constructor
@@ -17,16 +17,16 @@ class GomlNodeListElement extends JThreeObject {
    */
   constructor(group: string, nodeTypes: { [key: string]: new () => GomlTreeNodeBase }) {
     super();
-    this.group = group;
-    this.nodeTypes = nodeTypes;
+    this._group = group;
+    this._nodeTypes = nodeTypes;
   }
 
   public get Group(): string {
-    return this.group;
+    return this._group;
   }
 
   public get NodeTypes(): { [key: string]: new () => GomlTreeNodeBase } {
-    return this.nodeTypes;
+    return this._nodeTypes;
   }
 }
 

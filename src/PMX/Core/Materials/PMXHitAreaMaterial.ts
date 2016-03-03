@@ -7,32 +7,32 @@ import Vector4 from "../../../Math/Vector4";
  * the materials for PMX.
  */
 class PMXHitAreaMaterial extends BasicMaterial {
-  protected associatedMaterial: PMXMaterial;
+  protected __associatedMaterial: PMXMaterial;
 
   /**
    * Count of verticies
    */
   public get VerticiesCount() {
-    return this.associatedMaterial.VerticiesCount;
+    return this.__associatedMaterial.VerticiesCount;
   }
 
   /**
    * Offset of verticies in index buffer
    */
   public get VerticiesOffset() {
-    return this.associatedMaterial.VerticiesOffset;
+    return this.__associatedMaterial.VerticiesOffset;
   }
 
   constructor(material: PMXMaterial) {
     super(require("../../Materials/HitAreaTest.html"));
-    this.associatedMaterial = material;
+    this.__associatedMaterial = material;
   }
 
   public apply(matArg: IApplyMaterialArgument): void {
     const r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
     const g = 0x00FF & (matArg.renderStage as any).___objectIndex;
-    const b = 0xFF & this.associatedMaterial.materialIndex;
-    const skeleton = this.associatedMaterial.ParentModel.skeleton;
+    const b = 0xFF & this.__associatedMaterial.materialIndex;
+    const skeleton = this.__associatedMaterial.ParentModel.skeleton;
     this.materialVariables = {
       boneCount: skeleton.BoneCount,
       boneMatriciesTexture: skeleton.MatrixTexture,
@@ -42,7 +42,7 @@ class PMXHitAreaMaterial extends BasicMaterial {
   }
 
   public getDrawGeometryLength(geo: Geometry): number {
-    return this.associatedMaterial.Diffuse.A > 0 ? this.VerticiesCount : 0;
+    return this.__associatedMaterial.Diffuse.A > 0 ? this.VerticiesCount : 0;
   }
 
   public getDrawGeometryOffset(geo: Geometry): number {

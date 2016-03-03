@@ -26,11 +26,11 @@ class RenderPathExecutor extends JThreeObjectEE {
     this.renderer = parent;
   }
 
-  public processRender(scene: Scene, renderPath: RenderPath) {
+  public processRender(scene: Scene, renderPath: RenderPath): void {
     let stageIndex = 0;
     renderPath.path.forEach(chain => {
       try {
-        const texs = this.genChainTexture(chain);
+        const texs = this._genChainTexture(chain);
         const stage = chain.stage;
         const techniqueCount = stage.getTechniqueCount(scene);
         let targetObjects: SceneObject[];
@@ -52,7 +52,7 @@ class RenderPathExecutor extends JThreeObjectEE {
           }
           stage.stageVariables = chain.variables;
           stage.preTechnique(scene, techniqueIndex, texs);
-          this.renderObjects(targetObjects, stage, scene, techniqueCount, techniqueIndex, texs, chain);
+          this._renderObjects(targetObjects, stage, scene, techniqueCount, techniqueIndex, texs, chain);
           stage.postTechnique(scene, techniqueIndex, texs);
         }
         stage.postStage(scene, texs);
@@ -73,7 +73,7 @@ class RenderPathExecutor extends JThreeObjectEE {
     });
   }
 
-  private renderObjects(targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, chain: RenderStageChain): void {
+  private _renderObjects(targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, chain: RenderStageChain): void {
     targetObjects.forEach(v => {
       v.callRecursive(_v => {
         if (_v.Geometry && stage.needRender(scene, _v, techniqueIndex)) {
@@ -91,7 +91,7 @@ class RenderPathExecutor extends JThreeObjectEE {
     });
   }
 
-  private genChainTexture(chain: RenderStageChain): ResolvedChainInfo {
+  private _genChainTexture(chain: RenderStageChain): ResolvedChainInfo {
     const texInfo: ResolvedChainInfo = {};
     for (let targetName in chain.buffers) {
       const bufferName = chain.buffers[targetName];

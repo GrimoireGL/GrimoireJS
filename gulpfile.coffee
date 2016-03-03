@@ -12,6 +12,7 @@ ReloadTask = require './build/task/reload'
 WatchTask = require './build/task/watch'
 TestTask = require './build/task/test'
 BundleTask = require './build/task/bundle'
+CoverTask = require './build/task/cover'
 
 env_production = false
 
@@ -41,7 +42,7 @@ config =
       transform: [
         'shaderify'
         'txtify'
-        {name: 'babelify', opt: {presets: 'es2015'}}
+        {name: 'babelify', opt: {presets: 'es2015',plugins:["transform-es2015-modules-commonjs","add-module-exports"]}}
         {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
       ]
       detectGlobals: true
@@ -61,6 +62,7 @@ config =
   cleaner_files_silent : ['./lib/**/*']
   tsEntries:['./src/**/*.ts']
   tsDest:'./lib'
+  jsEntries:['./lib/**/*.js']
   tsBase:'./src'
   refsEntries:['./src/refs/**/*.ts']
   branch : args.branch || 'unknown'
@@ -88,5 +90,6 @@ TaskManager.register config,[
   ReloadTask,
   WatchTask,
   TestTask,
-  BundleTask
+  BundleTask,
+  CoverTask
 ]

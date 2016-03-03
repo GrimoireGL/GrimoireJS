@@ -44,9 +44,9 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
         throw new Error("Argument type is not correct");
     }
     if (nodes) {
-      this.setArray(nodes);
+      this.__setArray(nodes);
     } else if (query) {
-      this.setArray(J3Object.find(query));
+      this.__setArray(J3Object.find(query));
     }
   }
 

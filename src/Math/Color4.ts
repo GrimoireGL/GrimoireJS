@@ -84,7 +84,7 @@ class Color4 extends VectorBase {
   }
 
   public static equals(col1: Color4, col2: Color4): boolean {
-    return VectorBase.elementEqual(col1, col2);
+    return VectorBase.__elementEquals(col1, col2);
   }
 
   public get R(): number {

@@ -8,44 +8,44 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       {
         name: "depth",
         generater: "rendererfit",
-        elementLayout: "DEPTH",
-        elementFormat: "UINT"
+        layout: "RGB",
+        format: "UBYTE"
       },
       {
         name: "gbuffer.primary",
         generater: "rendererfit",
-        elementLayout: "RGBA",
-        elementFormat: "UBYTE"
+        layout: "RGBA",
+        format: "UBYTE"
       },
       {
         name: "light.diffuse",
         generater: "rendererfit",
-        elementLayout: "RGB",
-        elementFormat: "UBYTE"
+        layout: "RGB",
+        format: "UBYTE"
       },
       {
         name: "light.specular",
         generater: "rendererfit",
-        elementLayout: "RGB",
-        elementFormat: "UBYTE"
+        layout: "RGB",
+        format: "UBYTE"
       },
       {
         name: "hitarea",
         generater: "rendererfit",
-        elementLayout: "RGBA",
-        elementFormat: "UBYTE"
+        layout: "RGBA",
+        format: "UBYTE"
       },
       {
         name: "main",
         generater: "rendererfit",
-        elementLayout: "RGBA",
-        elementFormat: "UBYTE"
+        layout: "RGBA",
+        format: "UBYTE"
       },
       {
         name: "output",
         generater: "rendererfit",
-        elementLayout: "RGBA",
-        elementFormat: "UBYTE"
+        layout: "RGBA",
+        format: "UBYTE"
       }
     ];
   }
@@ -55,13 +55,13 @@ class BasicRendererConfigurator extends ConfiguratorBase {
       {
         buffers:
         {
-          DEPTH: "depth",
           OUT: "hitarea"
         },
         stage: "jthree.hitarea"
       },
       {
         buffers: {
+          DEPTH: "depth",
           PRIMARY: "gbuffer.primary"
         },
         stage: "jthree.basic.gbuffer"

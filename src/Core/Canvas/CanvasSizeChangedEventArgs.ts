@@ -1,37 +1,37 @@
 import Canvas from "./Canvas";
 
 class CanvasSizeChangedEventArg {
-  private canvas: Canvas;
-  private lastWidth: number;
-  private lastHeight: number;
-  private newWidth: number;
-  private newHeight: number;
+  private _canvas: Canvas;
+  private _lastWidth: number;
+  private _lastHeight: number;
+  private _newWidth: number;
+  private _newHeight: number;
   constructor(target: Canvas, lastWidth: number, lastHeight: number, newWidth: number, newHeight: number) {
-    this.canvas = target;
-    this.lastWidth = lastWidth;
-    this.lastHeight = lastHeight;
-    this.newWidth = newWidth;
-    this.newHeight = newHeight;
+    this._canvas = target;
+    this._lastWidth = lastWidth;
+    this._lastHeight = lastHeight;
+    this._newWidth = newWidth;
+    this._newHeight = newHeight;
   }
 
   public get Canvas(): Canvas {
-    return this.canvas;
+    return this._canvas;
   }
 
   public get LastWidth(): number {
-    return this.lastWidth;
+    return this._lastWidth;
   }
 
   public get LastHeight(): number {
-    return this.lastHeight;
+    return this._lastHeight;
   }
 
   public get NewWidth(): number {
-    return this.newWidth;
+    return this._newWidth;
   }
 
   public get NewHeight(): number {
-    return this.newHeight;
+    return this._newHeight;
   }
 }
 

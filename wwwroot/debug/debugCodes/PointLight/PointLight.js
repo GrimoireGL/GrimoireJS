@@ -21,5 +21,5 @@ var j3m = j3.Math;
 // j3.defineBehavior("rotation", RotationBehavior);
 
 j3(function () {
-
+	j3("dlight").attr("color","orange");
 });

@@ -9,45 +9,45 @@ class RBOWrapper extends ResourceWrapper {
 	/**
 	 *	Reference to the WebGLRenderbuffer this class managing.
 	  */
-  private targetRBO: WebGLRenderbuffer;
+  private _targetRBO: WebGLRenderbuffer;
 
   public get Target(): WebGLRenderbuffer {
-    return this.targetRBO;
+    return this._targetRBO;
   }
 	/**
 	 * The parent RBOWrapper container class.
 	 */
-  private parent: RBO;
+  private _parent: RBO;
 
   constructor(canvas: Canvas, parentRBO: RBO) {
     super(canvas);
-    this.parent = parentRBO;
+    this._parent = parentRBO;
   }
 
-  public init() {
+  public init(): void {
     if (this.Initialized) { return; }
-    this.targetRBO = this.GL.createRenderbuffer();
+    this._targetRBO = this.GL.createRenderbuffer();
     this.bind();
-    this.GL.renderbufferStorage(this.GL.RENDERBUFFER, this.parent.Format, this.parent.Width, this.parent.Height);
-    this.setInitialized();
+    this.GL.renderbufferStorage(this.GL.RENDERBUFFER, this._parent.Format, this._parent.Width, this._parent.Height);
+    this.__setInitialized();
   }
 
-  public bind() {
-    this.GL.bindRenderbuffer(this.GL.RENDERBUFFER, this.targetRBO);
+  public bind(): void {
+    this.GL.bindRenderbuffer(this.GL.RENDERBUFFER, this._targetRBO);
   }
 
-  public resize(width: number, height: number) {
+  public resize(width: number, height: number): void {
     if (this.Initialized) {
       this.bind();
-      this.GL.renderbufferStorage(this.GL.RENDERBUFFER, this.parent.Format, this.parent.Width, this.parent.Height);
+      this.GL.renderbufferStorage(this.GL.RENDERBUFFER, this._parent.Format, this._parent.Width, this._parent.Height);
     }
   }
 
   public dispose(): void {
-    if (this.targetRBO) {
-      this.GL.deleteRenderbuffer(this.targetRBO);
-      this.targetRBO = null;
-      this.setInitialized(false);
+    if (this._targetRBO) {
+      this.GL.deleteRenderbuffer(this._targetRBO);
+      this._targetRBO = null;
+      this.__setInitialized(false);
     }
   }
 }

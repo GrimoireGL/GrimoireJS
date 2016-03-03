@@ -6,9 +6,9 @@ import ContextComponents from "../../ContextComponents";
  * @type {[type]}
  */
 class PMXCoreInitializer {
-  private static _initialized = false;
+  private static _initialized: boolean = false;
 
-  public static init() {
+  public static init(): void {
     if (PMXCoreInitializer._initialized) {
       return;
     }
@@ -17,7 +17,7 @@ class PMXCoreInitializer {
     PMXCoreInitializer._initialized = true;
   }
 
-  private static _registerShaderChunk() {
+  private static _registerShaderChunk(): void {
     const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
     mm.addShaderChunk("jthree.pmx.vertex", require("../ShaderChunk/_PMXVertexShader.glsl"));
   }

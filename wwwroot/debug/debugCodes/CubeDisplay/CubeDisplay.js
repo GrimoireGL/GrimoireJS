@@ -8,8 +8,7 @@ j3(function() {
     if (e.mouseDownTracking) {
       accumX += e.diffX;
       accumY += e.diffY;
-      console.log(accumX,accumY);
-      axis.Transformer.Rotation = j3m.Quaternion.Euler(-accumY/300,-accumX/300,0);
+      axis.Transformer.Rotation = j3m.Quaternion.euler(-accumY/300,-accumX/300,0);
     }
   });
   viewport.canvasElement.addEventListener("mousewheel",function(e){

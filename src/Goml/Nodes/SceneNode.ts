@@ -21,8 +21,8 @@ class SceneNode extends CoreRelatedNodeBase<Scene> {
     });
   }
 
-  protected onMount(): void {
-    super.onMount();
+  protected __onMount(): void {
+    super.__onMount();
     let sceneName = this.attributes.getValue("name");
     if (sceneName === "") {
       sceneName = null;
