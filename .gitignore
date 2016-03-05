@@ -136,3 +136,5 @@ wwwroot/debug/debug/**/*.*
 wwwroot/debug/debug.json
 
 lint.txt
+
+.nyc_output/
