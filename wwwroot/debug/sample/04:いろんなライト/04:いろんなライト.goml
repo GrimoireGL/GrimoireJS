@@ -1,0 +1,23 @@
+<goml>
+  <resources>
+    <material type="builtin.phong" name="phongMaterial" diffuse="white" specular="pink"/>
+  </resources>
+  <canvases>
+    <canvas clearColor="#11022A" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+    </canvas>
+  </canvases>
+  <scenes>
+    <scene name="mainScene">
+      <object>
+        <camera id="maincam" aspect="1" far="20" fovy="1/2p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
+      </object>
+      <mesh geo="quad" mat="phongMaterial" rotation="x(-90d)" scale="10"/>
+      <mesh geo="cube" mat="phongMaterial" scale="3" position="-6,0,0"/>
+      <scenelight color="#333"/>
+      <plight color="red" distance="10" intensity="1" position="0,0.2,0"/>
+      <plight color="green" distance="10" intensity="5" position="6,0.2,0"/>
+      <dlight color="blue" rotation="y(45d)"/>
+    </scene>
+  </scenes>
+</goml>
