@@ -132,5 +132,7 @@ wwwroot/j3.js
 wwwroot/j3.js.map
 wwwroot/debug/j3-debug.js
 wwwroot/debug/j3-debug.js.map
+wwwroot/debug/debug/**/*.*
+wwwroot/debug/debug.json
 
 lint.txt

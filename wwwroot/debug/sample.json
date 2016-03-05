@@ -1,7 +1,6 @@
 {
   "config": {
-    "root": "/debug/sample/",
-    "j3": "/j3.js"
+    "root": "/debug/sample/"
   },
   "codes": {
     "PMXModel": {

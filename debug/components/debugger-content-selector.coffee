@@ -3,21 +3,35 @@ Colors = require './colors/definition'
 Agent = require 'superagent'
 Cookie = require 'js-cookie'
 JThree = require './jthree/jthree-preview-controller'
+Q = require 'q'
 class DebuggerContentSelector extends React.Component
   constructor:(props)->
     super props
     @state={inputs:[],selected:Cookie.get('debugTarget')}
-    Agent.get './sample.json'
-      .end (e,r) =>
-        if e
-          throw new Error e
-        resObj = JSON.parse(r.text)
-        JThree.initJThree resObj,@state.selected
+    Q.all [@resolveConfig('./sample.json'),@resolveConfig('./debug.json')]
+      .then (resObj)=>
+        resObj = resObj.reverse()
+        config =
+          codes:{}
+        for res in resObj
+          for k,code of res.codes
+            code.root = res.config.root
+            config.codes[k] = code
+        JThree.initJThree config,@state.selected
         inputs=[]
-        for k,v of resObj.codes
+        for k,v of config.codes
           inputs.push k
         @setState
           inputs:inputs
+
+  resolveConfig:(path)=>
+    defer = Q.defer()
+    Agent.get path
+      .end (e,r) =>
+        if e
+          defer.reject(e)
+        defer.resolve JSON.parse(r.text)
+    defer.promise
 
   render:()->
     inputs = [];
