@@ -12,7 +12,7 @@ class JThreePreviewController
     j3Tag = document.createElement('script');
     code = config.codes[codeKey]
     if codeKey? && code
-        j3Tag.setAttribute('x-goml',config.code.root+code.goml);
+        j3Tag.setAttribute('x-goml',code.root+code.goml);
     else
       for k,v of config.codes
         codeKey = k
