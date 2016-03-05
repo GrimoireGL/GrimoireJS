@@ -1,6 +1,6 @@
 <goml>
   <imports>
-    <import type="material" src="./debugCodes/OfficialSite/EdgeShader.xmml"/>
+    <import type="material" src="./sample/OfficialSite/EdgeShader.xmml"/>
   </imports>
   <resources>
     <cube name="cube"/>

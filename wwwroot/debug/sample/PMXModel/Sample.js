@@ -10,7 +10,6 @@ j3(function(){
   var body = document.body;
   var input = document.createElement("input");
   var boneInput = document.createElement("input");
-  window.boneInput = boneInput;
   input.setAttribute("type","number");
   input.value = 0;
   input.addEventListener("change",function(){
@@ -46,6 +45,6 @@ j3(function(){
     camera.Transformer.Position = j3m.Vector3.add(camera.Transformer.Position,camera.Transformer.forward.multiplyWith(e.wheelDelta/100));
   },true);
   setInterval(function(){
-    update();
+    update(boneInput);
   },10);
 });

@@ -1,7 +1,7 @@
 <goml>
   <imports>
-    <import type="material" src="/debug/debugCodes/Interface/sampleMaterial.xmml"/>
-    <import type="material" src="/debug/debugCodes/Interface/sampleVertex.xmml"/>
+    <import type="material" src="/debug/sample/Interface/sampleMaterial.xmml"/>
+    <import type="material" src="/debug/sample/Interface/sampleVertex.xmml"/>
   </imports>
   <resources>
     <material type="jthree.basic.solid" name="grid" brightness="10" specular="#CCC" solid="white" />

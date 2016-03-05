@@ -1,6 +1,6 @@
 <goml>
   <imports>
-    <import type="material" src="/debug/debugCodes/MouseOperation/THETA.xmml"/>
+    <import type="material" src="/debug/sample/MouseOperation/THETA.xmml"/>
   </imports>
   <resources>
     <material name="default" type="theta" texture="theta"/>

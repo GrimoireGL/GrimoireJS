@@ -7,7 +7,7 @@ class DebuggerContentSelector extends React.Component
   constructor:(props)->
     super props
     @state={inputs:[],selected:Cookie.get('debugTarget')}
-    Agent.get './debug.json'
+    Agent.get './sample.json'
       .end (e,r) =>
         if e
           throw new Error e
