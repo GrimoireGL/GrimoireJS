@@ -25,3 +25,5 @@ class Filtering extends J3ObjectBase {
     }
   }
 }
+
+export default Filtering;

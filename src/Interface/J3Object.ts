@@ -5,13 +5,14 @@ import isString from "lodash.isstring";
 // for Implements
 import GomlNodeMethods from "./Miscellaneous/GomlNodeMethods";
 import TreeTraversal from "./Traversing/TreeTraversal";
+import Filtering from "./Traversing/Filtering";
 import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 
 /**
  * Provides jQuery like API for jThree.
  */
-class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, GeneralAttributes, CollectionManipulation {
+class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, Filtering, GeneralAttributes, CollectionManipulation {
   /**
    * Construct J3Object from Nodes.
    * @param {GomlTreeNodeBase[]} nodes [description]
@@ -51,7 +52,7 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
   }
 
   /**
-   * Utilities/Utilities
+   * Static/Utilities
    */
 
   public static each: {
@@ -107,6 +108,19 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, G
     (node: GomlTreeNodeBase): J3Object;
     (j3obj: J3Object): J3Object;
     (argu: any): J3Object;
+  };
+
+  /**
+   * Traversing/Filtering
+   */
+
+  public filter: {
+    (selector: string): void;
+    (func: (index: number, node: GomlTreeNodeBase) => boolean): void;
+    (node: GomlTreeNodeBase): void;
+    (nodes: GomlTreeNodeBase[]): void;
+    (nodes: J3Object): void;
+    (argu: any): void;
   };
 
   /**
