@@ -52,7 +52,7 @@ class BasicTechnique extends JThreeObjectWithID {
     this._target = this._techniqueDocument.getAttribute("target");
     this._wireFramed = this._techniqueDocument.getAttribute("wireframe") === "true";
     if (!this._target) { this._target = "scene"; }
-    this._fboBindingInfo = RSMLRenderConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0));
+    this._fboBindingInfo = RSMLRenderConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0), renderStage.Renderer.Canvas);
     if (this._target !== "scene") {
       this.defaultMaterial = this._getMaterial();
     }

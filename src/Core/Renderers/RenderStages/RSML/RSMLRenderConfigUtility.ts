@@ -1,9 +1,10 @@
+import Canvas from "../../../Canvas/Canvas";
 import IRenderBufferBindingConfig from "./IRenderBufferBindingConfig";
 import IColorBufferBindingConfig from "./IColorBufferBindingConfig";
 import Vector4 from "../../../../Math/Vector4";
 import IFBOBindingConfig from "./IFBOBindingConfig";
 class RSMLRenderConfigUtility {
-  public static parseFBOConfiguration(fboElement: Element): IFBOBindingConfig {
+  public static parseFBOConfiguration(fboElement: Element, canvas: Canvas): IFBOBindingConfig {
     if (!fboElement) {
       return undefined;
     }
@@ -13,7 +14,7 @@ class RSMLRenderConfigUtility {
     const rboNode = fboElement.getElementsByTagName("rbo").item(0);
     result.primaryName = primary;
     for (let i = 0; i < colorNodes.length; i++) {
-      const colorBuffer = RSMLRenderConfigUtility._parseColorBuffer(colorNodes.item(i));
+      const colorBuffer = RSMLRenderConfigUtility._parseColorBuffer(colorNodes.item(i), canvas);
       result[colorBuffer.registerIndex] = colorBuffer;
       if (colorBuffer.name === primary) {
         result.primaryIndex = colorBuffer.registerIndex;
@@ -23,7 +24,7 @@ class RSMLRenderConfigUtility {
     return result;
   }
 
-  private static _parseColorBuffer(colorElement: Element): IColorBufferBindingConfig {
+  private static _parseColorBuffer(colorElement: Element, canvas: Canvas): IColorBufferBindingConfig {
     // Retrive buffer name to be bound
     const name = colorElement.getAttribute("name");
     if (!name) {
@@ -47,7 +48,11 @@ class RSMLRenderConfigUtility {
       const colorStr = colorElement.getAttribute("clearColor");
       clearColor = new Vector4(0, 0, 0, 0);
       if (colorStr) {
-        clearColor = Vector4.parse(colorStr);
+        if (colorStr === "default") {
+         clearColor = canvas.clearColor.toVector();
+        } else {
+          clearColor = Vector4.parse(colorStr);
+        }
       }
     }
     return {
