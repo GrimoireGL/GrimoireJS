@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/ResourceManager.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/Core/</a> ResourceManager.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.11% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/146</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/47</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/45</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.96% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/121</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _AsyncLoader = require("./Resources/AsyncLoader");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _AsyncLoader2 = _interopRequireDefault(_AsyncLoader);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ImageLoader = require("./Resources/ImageLoader");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ImageLoader2 = _interopRequireDefault(_ImageLoader);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject = require("../Base/JThreeObject");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _JThreeObject2 = _interopRequireDefault(_JThreeObject);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Buffer = require("./Resources/Buffer/Buffer");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Buffer2 = _interopRequireDefault(_Buffer);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Shader = require("./Resources/Shader/Shader");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Shader2 = _interopRequireDefault(_Shader);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Program = require("./Resources/Program/Program");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Program2 = _interopRequireDefault(_Program);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Texture = require("./Resources/Texture/Texture");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Texture2 = _interopRequireDefault(_Texture);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RBO = require("./Resources/RBO/RBO");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _RBO2 = _interopRequireDefault(_RBO);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ResourceArray = require("./Resources/ResourceArray");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ResourceArray2 = _interopRequireDefault(_ResourceArray);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _FBO = require("./Resources/FBO/FBO");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _FBO2 = _interopRequireDefault(_FBO);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _BufferTexture = require("./Resources/Texture/BufferTexture");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _BufferTexture2 = _interopRequireDefault(_BufferTexture);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _CubeTexture = require("./Resources/Texture/CubeTexture");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _CubeTexture2 = _interopRequireDefault(_CubeTexture);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents = require("../ContextComponents");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _ContextComponents2 = _interopRequireDefault(_ContextComponents);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q = require("q");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _q2 = _interopRequireDefault(_q);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _possibleConstructorReturn(self, call) {</span> <span class="cstat-no" title="statement not covered" >if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} <span class="cstat-no" title="statement not covered" ></span>return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
+&nbsp;
+/**
+ * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
+ */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var ResourceManager = <span class="fstat-no" title="function not covered" >function (_jThreeObject) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(ResourceManager, _jThreeObject);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function ResourceManager() {</span>
+<span class="cstat-no" title="statement not covered" >        var _Object$getPrototypeO;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, ResourceManager);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {</span>
+<span class="cstat-no" title="statement not covered" >            args[_key] = arguments[_key];</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ResourceManager)).call.apply(_Object$getPrototypeO, [this].concat(args)));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _this._buffers = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._shaders = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._programs = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._textures = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._rbos = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        _this._fbos = new _ResourceArray2.default();</span>
+<span class="cstat-no" title="statement not covered" >        return _this;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(ResourceManager, [{</span>
+        key: "getContextComponentIndex",
+        value: <span class="fstat-no" title="function not covered" >function getContextComponentIndex() {</span>
+<span class="cstat-no" title="statement not covered" >            return _ContextComponents2.default.ResourceManager;</span>
+        }
+    }, {
+        key: "loadTexture",
+        value: <span class="fstat-no" title="function not covered" >function loadTexture(src) {</span>
+<span class="cstat-no" title="statement not covered" >            var _this2 = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var deferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >            if (this.getTexture(src)) {</span>
+<span class="cstat-no" title="statement not covered" >                process.nextTick(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    deferred.resolve(_this2.getTexture(src));</span>
+                });
+            }
+<span class="cstat-no" title="statement not covered" >            _ImageLoader2.default.loadImage(src).then(<span class="fstat-no" title="function not covered" >function (tag) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var texture = _this2.createTextureWithSource(src, tag);</span>
+<span class="cstat-no" title="statement not covered" >                deferred.resolve(texture);</span>
+            }, <span class="fstat-no" title="function not covered" >function (error) {</span>
+<span class="cstat-no" title="statement not covered" >                console.error(error);</span>
+<span class="cstat-no" title="statement not covered" >                deferred.reject(error);</span>
+            });
+<span class="cstat-no" title="statement not covered" >            return deferred.promise;</span>
+        }
+    }, {
+        key: "loadCubeTexture",
+        value: <span class="fstat-no" title="function not covered" >function loadCubeTexture(srcs) {</span>
+<span class="cstat-no" title="statement not covered" >            var _this3 = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var deferred = _q2.default.defer();</span>
+<span class="cstat-no" title="statement not covered" >            var id = "";</span>
+<span class="cstat-no" title="statement not covered" >            var absPaths = [,,,,,];</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; 6; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                absPaths[i] = _AsyncLoader2.default.getAbsolutePath(srcs[i]);</span>
+<span class="cstat-no" title="statement not covered" >                id += absPaths[i];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (this.getTexture(id)) {</span>
+<span class="cstat-no" title="statement not covered" >                process.nextTick(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    deferred.resolve(_this3.getTexture(id));</span>
+                });
+            } else {
+<span class="cstat-no" title="statement not covered" >                var promises = [,,,,,];</span>
+<span class="cstat-no" title="statement not covered" >                for (var _i = 0; _i &lt; 6; _i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    promises[_i] = _ImageLoader2.default.loadImage(absPaths[_i]);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                _q2.default.all(promises).then(<span class="fstat-no" title="function not covered" >function (textures) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    deferred.resolve(_this3.createCubeTextureWithSource(id, textures, false));</span>
+                });
+            }
+<span class="cstat-no" title="statement not covered" >            return deferred.promise;</span>
+        }
+    }, {
+        key: "createBuffer",
+        value: <span class="fstat-no" title="function not covered" >function createBuffer(id, target, usage, unitCount, elementType) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._buffers.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                return new _Buffer2.default(target, usage, unitCount, elementType);</span>
+            });
+        }
+    }, {
+        key: "getBuffer",
+        value: <span class="fstat-no" title="function not covered" >function getBuffer(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._buffers.get(id);</span>
+        }
+    }, {
+        key: "createShader",
+        value: <span class="fstat-no" title="function not covered" >function createShader(id, source, shaderType) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._shaders.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                return _Shader2.default.createShader(source, shaderType);</span>
+            });
+        }
+    }, {
+        key: "getShader",
+        value: <span class="fstat-no" title="function not covered" >function getShader(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._shaders.get(id);</span>
+        }
+    }, {
+        key: "hasShader",
+        value: <span class="fstat-no" title="function not covered" >function hasShader(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._shaders.has(id);</span>
+        }
+    }, {
+        key: "createProgram",
+        value: <span class="fstat-no" title="function not covered" >function createProgram(id, shaders) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._programs.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                return _Program2.default.createProgram(shaders);</span>
+            });
+        }
+    }, {
+        key: "getProgram",
+        value: <span class="fstat-no" title="function not covered" >function getProgram(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._programs.get(id);</span>
+        }
+    }, {
+        key: "createTextureWithSource",
+        value: <span class="fstat-no" title="function not covered" >function createTextureWithSource(id, source) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                var tex = new _Texture2.default(source, id);</span>
+<span class="cstat-no" title="statement not covered" >                tex.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    return v.init();</span>
+                }); // TODO no need?
+<span class="cstat-no" title="statement not covered" >                return tex;</span>
+            });
+        }
+    }, {
+        key: "getTexture",
+        value: <span class="fstat-no" title="function not covered" >function getTexture(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._textures.get(id);</span>
+        }
+    }, {
+        key: "createCubeTextureWithSource",
+        value: <span class="fstat-no" title="function not covered" >function createCubeTextureWithSource(id, sources) {</span>
+<span class="cstat-no" title="statement not covered" >            var flipY = arguments.length &lt;= 2 || arguments[2] === undefined ? false : arguments[2];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this._textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                var cubeTexture = new _CubeTexture2.default(sources, id, flipY);</span>
+<span class="cstat-no" title="statement not covered" >                cubeTexture.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    return v.init();</span>
+                });
+<span class="cstat-no" title="statement not covered" >                return cubeTexture;</span>
+            });
+        }
+    }, {
+        key: "createRBO",
+        value: <span class="fstat-no" title="function not covered" >function createRBO(id, width, height) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._rbos.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                var r = new _RBO2.default(width, height);</span>
+<span class="cstat-no" title="statement not covered" >                r.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    return v.init();</span>
+                });
+<span class="cstat-no" title="statement not covered" >                return r;</span>
+            });
+        }
+    }, {
+        key: "getRBO",
+        value: <span class="fstat-no" title="function not covered" >function getRBO(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._rbos.get(id);</span>
+        }
+    }, {
+        key: "createFBO",
+        value: <span class="fstat-no" title="function not covered" >function createFBO(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._fbos.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                var fbo = new _FBO2.default();</span>
+<span class="cstat-no" title="statement not covered" >                fbo.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    return v.init();</span>
+                });
+<span class="cstat-no" title="statement not covered" >                return fbo;</span>
+            });
+        }
+    }, {
+        key: "getFBO",
+        value: <span class="fstat-no" title="function not covered" >function getFBO(id) {</span>
+<span class="cstat-no" title="statement not covered" >            return this._fbos.get(id);</span>
+        }
+    }, {
+        key: "createTexture",
+        value: <span class="fstat-no" title="function not covered" >function createTexture(id, width, height) {</span>
+<span class="cstat-no" title="statement not covered" >            var texType = arguments.length &lt;= 3 || arguments[3] === undefined ? WebGLRenderingContext.RGBA : arguments[3];</span>
+<span class="cstat-no" title="statement not covered" >            var elemType = arguments.length &lt;= 4 || arguments[4] === undefined ? WebGLRenderingContext.UNSIGNED_BYTE : arguments[4];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return this._textures.create(id, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                var bt = new _BufferTexture2.default(width, height, texType, elemType, id);</span>
+<span class="cstat-no" title="statement not covered" >                bt.each(<span class="fstat-no" title="function not covered" >function (v) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    return v.init();</span>
+                });
+<span class="cstat-no" title="statement not covered" >                return bt;</span>
+            });
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return ResourceManager;</span>
+}(_JThreeObject2.default);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = ResourceManager;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Mar 05 2016 16:09:22 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
