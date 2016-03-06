@@ -18,7 +18,6 @@ function J3ObjectMixins() {
   const staticMixins = [
     Utilities,
     Find,
-    Filter,
   ];
 
   function applyMixins(derivedCtor: any, baseCtors: any[]) {

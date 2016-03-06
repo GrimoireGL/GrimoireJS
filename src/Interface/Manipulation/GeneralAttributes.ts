@@ -35,7 +35,7 @@ class GeneralAttribute extends J3ObjectBase {
         case (isFunction(argu1)):
           throw new Error("Not implemented yet");
         default:
-          J3Object.each(<any>this, (i, node) => {
+          J3Object.each(<J3ObjectBase>this, (i, node) => {
             GeneralAttribute._setAttr(node, <string>argu0, argu1);
           });
           return this;
@@ -62,7 +62,7 @@ class GeneralAttribute extends J3ObjectBase {
         case (isUndefined(argu1)):
           return (<GomlTreeNodeBase>this[0]).attributes.getValue(<string>argu0);
         default:
-          J3Object.each(<any>this, (i, node) => {
+          J3Object.each(<J3ObjectBase>this, (i, node) => {
             GeneralAttribute._setAttr(node, <string>argu0, argu1);
           });
           return this;

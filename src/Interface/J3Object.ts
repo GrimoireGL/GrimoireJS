@@ -55,42 +55,71 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, F
    * Static/Utilities
    */
 
+  /**
+   * Iterate array or object.
+   *
+   * Array is given for first argument, callback function specified for second argument is evaluated for each item in array with index.
+   * Object is given for first argument, callback function specified for second argument is evaluated for each value in object with property.
+   * J3Object is given for first argument, callback function specified for second argument is evaluated for each targeted node with index.
+   * Inside callback function, return true to continue to next iteration, return false to break the iteration loop.
+   * If you does not return anything, it behaves same as you returns true.
+   * This method is always returns first argument.
+   */
   public static each: {
-    (argu0: any, callback: (argu1: any, argu2: any) => any): any;
-  };
+    <T>(array: T[], callback: (indexInArray: number, value: T) => boolean): T;
+    <T>(array: T[], callback: (indexInArray: number, value: T) => void): T;
+    (j3obj: J3ObjectBase, callback: (indexInArray: number, value: GomlTreeNodeBase) => void): J3ObjectBase;
+    <T>(object: { [propertyName: string]: T }, callback: (propertyName: string, valueOfProperty: T) => boolean): { [propertyName: string]: T };
+    <T>(object: { [propertyName: string]: T }, callback: (propertyName: string, valueOfProperty: T) => void): { [propertyName: string]: T };
+    <T>(argu0: any, callback: (argu1: any, argu2: any) => any): any;
+  }
 
   /**
    * Static/Find
    */
 
+  /**
+   * Find a Node from targeted context by query.
+   *
+   * Query string format is same as the argument of querySelectorAll.
+   * If you omission the context specified for second argument, search from root of Node tree.
+   */
   public static find: {
     (selector: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[];
-  };
-
-  /**
-   * Static/Filter
-   */
-
-  public static filter: {
-    (filter: GomlTreeNodeBase[], selector: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[];
   };
 
   /**
    * Miscellaneous/GomlNodeMethods
    */
 
+  /**
+   * Get Nodes.
+   *
+   * It returns targeted Nodes.
+   * If you specified index in first argument, it returns the only specified Node.
+   */
   public get: {
     (): GomlTreeNodeBase[];
     (index: number): GomlTreeNodeBase;
     (index?: number): any;
   };
 
+  /**
+   * Get target Core Object which Node handles.
+   *
+   * It returns targeted Core Object in Node.
+   * Not all Nodes are handling Core Object, so if it does not have, undefined will be returned.
+   * If you specified index in first argument, it returns the only specified Node of Core Object.
+   */
   public getObj: {
     <T>(): T[];
     <T>(index: number): T;
     <T>(argu?: number): any;
   };
 
+  /**
+   * WIP
+   */
   public index: {
     (): number;
     (selector: string): number;
@@ -103,6 +132,11 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, F
    * Traversing/TreeTraversal
    */
 
+   /**
+    * Find children recursively under specified condition.
+    *
+    * Selector string is given, find by same behavior as querySelectorAll.
+    */
   public find: {
     (selector: string): J3Object;
     (node: GomlTreeNodeBase): J3Object;
@@ -115,12 +149,12 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, F
    */
 
   public filter: {
-    (selector: string): void;
-    (func: (index: number, node: GomlTreeNodeBase) => boolean): void;
-    (node: GomlTreeNodeBase): void;
-    (nodes: GomlTreeNodeBase[]): void;
-    (nodes: J3Object): void;
-    (argu: any): void;
+    (selector: string): J3Object;
+    (func: (index: number, node: GomlTreeNodeBase) => boolean): J3Object;
+    (node: GomlTreeNodeBase): J3Object;
+    (nodes: GomlTreeNodeBase[]): J3Object;
+    (nodes: J3Object): J3Object;
+    (argu: any): J3Object;
   };
 
   /**
