@@ -1,0 +1,24 @@
+<goml>
+  <resources>
+    <material name="sampleMaterial1" type="builtin.solid" color="yellow"/>
+    <material name="sampleMaterial2" type="builtin.solid" color="green"/>
+    <material name="sampleMaterial3" type="builtin.solid" color="blue"/>
+    <material name="sampleMaterial4" type="builtin.solid" color="red"/>
+    <material name="sampleMaterial5" type="builtin.solid" color="orange"/>
+  </resources>
+  <canvases>
+    <canvas clearColor="#11022A" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main" width="640" height="480"/>
+    </canvas>
+  </canvases>
+  <scenes>
+    <scene name="mainScene">
+      <camera id="maincam" aspect="1" far="20" fovy="1/3p" name="CAM1" near="0.1" position="(0,8,10)" rotation="x(-30d)"></camera>
+      <mesh mat="sampleMaterial1" geo="cube" position="2,0,0"/>
+      <mesh mat="sampleMaterial2" geo="cube" position="4,0,0" rotation="y(30d)"/>
+      <mesh mat="sampleMaterial3" geo="cube" position="0,0,-3" scale="5,1,1"/>
+      <mesh mat="sampleMaterial4" geo="cube" position="-2,0,0" rotation="axis(45d,1,1,1)"/>
+      <mesh mat="sampleMaterial5" geo="cube" position="-4,0,0" scale="0.5,0.5,0.5" rotation="euler(30d,0,0)"/>
+    </scene>
+  </scenes>
+</goml>

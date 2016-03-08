@@ -5,20 +5,21 @@ class JThreePreviewController
    JThreePreviewController.loadj3Script config,codeKey,(codeKey)->
      JThreePreviewController.checkFinalize config,codeKey
      for v in config.codes[codeKey].js
-       JThreePreviewController.loadjsScript config,config.config.root+v,()->
+       JThreePreviewController.loadjsScript config,config.codes[codeKey].root+v,()->
          JThreePreviewController.checkFinalize config,codeKey
 
   @loadj3Script:(config,codeKey,finished)->
     j3Tag = document.createElement('script');
-    if codeKey? && config.codes[codeKey]
-        j3Tag.setAttribute('x-goml',config.config.root+config.codes[codeKey].goml);
+    code = config.codes[codeKey]
+    if codeKey? && code
+        j3Tag.setAttribute('x-goml',code.root+code.goml);
     else
       for k,v of config.codes
         codeKey = k
-        j3Tag.setAttribute('x-goml',config.config.root+v.goml)
+        j3Tag.setAttribute('x-goml',v.root+v.goml)
         break
     j3Tag.setAttribute('type','text/javascript');
-    j3Tag.setAttribute 'src',config.config.j3
+    j3Tag.setAttribute 'src',"/j3.js"
     j3Tag.setAttribute 'x-lateLoad','true'
     j3Tag.onload = ()->
       finished(codeKey);
