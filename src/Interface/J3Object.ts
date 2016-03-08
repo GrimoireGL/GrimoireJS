@@ -81,7 +81,7 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, F
   /**
    * Find a Node from targeted context by query.
    *
-   * Query string format is same as the argument of querySelectorAll.
+   * Query string is same format as the argument of querySelectorAll.
    * If you omission the context specified for second argument, search from root of Node tree.
    */
   public static find: {
