@@ -7,7 +7,6 @@ machine:
 dependencies:
   pre:
     - nvm install v4.3.1
-    - nvm use v4.3.1
     - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
     - mkdir ci
     - git config user.name "autodeploy-circle"
@@ -16,6 +15,7 @@ dependencies:
     - git remote add github https://github.com/jThreeJS/jThree
     - git init
   post:
+    - nvm use v4.3.1
     - npm install
 test:
   override:
@@ -25,5 +25,5 @@ test:
     - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
   post:
     - git fetch github gh-pages
-    - git checkout gh-pages
+    - git checkout -b gh-pages
     - git merge github/gh-pages
