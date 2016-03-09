@@ -26,9 +26,6 @@ test:
     - git fetch github gh-pages
     - git checkout github/gh-pages
     - git checkout -b gh-pages
-deployment:
-  pages:
-    commands:
-      - git add -A
-      - git commit -m "auto deploy from CircleCI"
-      - git push github gh-pages
+    - git add -A
+    - git commit -m "autodeploy-circle [ci skip]"
+    - git push github gh-pages
