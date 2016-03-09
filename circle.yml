@@ -15,8 +15,6 @@ dependencies:
     - git remote remove github
     - git remote add github https://github.com/jThreeJS/jThree
     - git init
-  post:
-    - npm rebuild
 test:
   override:
     - npm run build -- --branch=$CIRCLE_BRANCH
@@ -28,3 +26,10 @@ test:
     - git branch -d gh-pages
     - git checkout github/gh-pages
     - git checkout -b gh-pages
+deployment:
+  pages:
+    branch:"gh-pages"
+    commands:
+      - git add -A
+      - git commit -m "auto deploy from CircleCI"
+      - git push github gh-pages
