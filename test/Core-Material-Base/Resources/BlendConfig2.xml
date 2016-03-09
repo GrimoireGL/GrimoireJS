@@ -1,0 +1,3 @@
+<config>
+  <blend enabled="true" src="SRC_COLOR" dst="DST_COLOR"/>
+</config>
