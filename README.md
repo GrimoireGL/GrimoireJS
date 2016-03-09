@@ -1,9 +1,14 @@
 # jThree
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
-[![Build Status](https://travis-ci.org/jThreeJS/jThree.svg?branch=develop)](https://travis-ci.org/jThreeJS/jThree)
+[![Circle CI](https://circleci.com/gh/jThreeJS/jThree.svg?style=svg)](https://circleci.com/gh/jThreeJS/jThree)
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jThreeJS/jThree/blob/develop/LICENSE)
 [![Dependency Status](https://david-dm.org/jThreeJS/jThree.svg)](https://david-dm.org/jThreeJS/jThree)
 [![devDependency Status](https://david-dm.org/jThreeJS/jThree/dev-status.svg)](https://david-dm.org/jThreeJS/jThree#info=devDependencies)
+
+**CI system has been moved to CircleCI from travisCI.**
+
+**travisCI build log is available here https://travis-ci.org/jThreeJS/jThree for a while**
+
 ## What is jThree?
 
 jThree is an innovative 3D graphics engine. It may seem to be just a javascript library.
