@@ -5,17 +5,19 @@ dependencies:
     - nvm install v4.3.1
     - nvm use v4.3.1
     - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
+    - rm -rf ci
     - mkdir ci
     - cd ci
     - git init
     - git config user.name "autodeploy-circle"
     - git config user.email "circle"
     - git remote add github https://github.com/jThreeJS/jThree
+    - git pull github gh-pages
   override:
     - npm install
 test:
   override:
-    - npm run build -- --branch=$TRAVIS_BRANCH
-    - npm run doc -- --branch=$TRAVIS_BRANCH
-    - npm run lint -- --branch=$TRAVIS_BRANCH
-    - npm run cover -- --report-dir=ci/cover/$TRAVIS_BRANCH
+    - npm run build -- --branch=$CIRCLE_BRANCH
+    - npm run doc -- --branch=$CIRCLE_BRANCH
+    - npm run lint -- --branch=$CIRCLE_BRANCH
+    - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
