@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/PMX/Core/Materials/PMXGBufferMaterial.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">lib/PMX/Core/Materials/</a> PMXGBufferMaterial.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.11% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/74</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.24% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/49</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+<span class="cstat-no" title="statement not covered" >Object.defineProperty(exports, "__esModule", {</span>
+    value: true
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _createClass = <span class="fstat-no" title="function not covered" >function () {</span> <span class="fstat-no" title="function not covered" >function defineProperties(target, props) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 0; i &lt; props.length; i++) { <span class="cstat-no" title="statement not covered" >var descriptor = props[i]; <span class="cstat-no" title="statement not covered" ></span>descriptor.enumerable = descriptor.enumerable || false; <span class="cstat-no" title="statement not covered" ></span>descriptor.configurable = true; <span class="cstat-no" title="statement not covered" ></span>if ("value" in descriptor) <span class="cstat-no" title="statement not covered" >descriptor.writable = true; <span class="cstat-no" title="statement not covered" ></span></span>Object.defineProperty(target, descriptor.key, descriptor); </span>} </span>} <span class="cstat-no" title="statement not covered" >return <span class="fstat-no" title="function not covered" >function (Constructor, protoProps, staticProps) {</span> <span class="cstat-no" title="statement not covered" >if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="cstat-no" title="statement not covered" ></span></span>if (staticProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor, staticProps); <span class="cstat-no" title="statement not covered" ></span></span>return Constructor; </span>}; </span>}();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _BasicMaterial = require("../../../Core/Materials/Base/BasicMaterial");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _BasicMaterial2 = _interopRequireDefault(_BasicMaterial);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Material2 = require("../../../Core/Materials/Material");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Material3 = _interopRequireDefault(_Material2);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector = require("../../../Math/Vector4");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _Vector2 = _interopRequireDefault(_Vector);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _PMXMaterialMorphParamContainer = require("./../PMXMaterialMorphParamContainer");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var _PMXMaterialMorphParamContainer2 = _interopRequireDefault(_PMXMaterialMorphParamContainer);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _interopRequireDefault(obj) {</span> <span class="cstat-no" title="statement not covered" >return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _possibleConstructorReturn(self, call) {</span> <span class="cstat-no" title="statement not covered" >if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} <span class="cstat-no" title="statement not covered" ></span>return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self; </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _inherits(subClass, superClass) {</span> <span class="cstat-no" title="statement not covered" >if (typeof superClass !== "function" &amp;&amp; superClass !== null) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} <span class="cstat-no" title="statement not covered" ></span>subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="cstat-no" title="statement not covered" ></span>if (superClass) <span class="cstat-no" title="statement not covered" >Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; </span></span>}
+&nbsp;
+/**
+ * the materials for PMX.
+ */
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var PMXGBufferMaterial = <span class="fstat-no" title="function not covered" >function (_Material) {</span></span>
+<span class="cstat-no" title="statement not covered" >    _inherits(PMXGBufferMaterial, _Material);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function PMXGBufferMaterial(material) {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, PMXGBufferMaterial);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PMXGBufferMaterial).call(this));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        _this.__associatedMaterial = material;</span>
+<span class="cstat-no" title="statement not covered" >        _this.__primaryMaterial = new _BasicMaterial2.default(require("../../Materials/PrimaryBuffer.html"));</span>
+<span class="cstat-no" title="statement not covered" >        _this.__secoundaryMaterial = new _BasicMaterial2.default(require("../../Materials/SecoundaryBuffer.html"));</span>
+<span class="cstat-no" title="statement not covered" >        _this.__thirdMaterial = new _BasicMaterial2.default(require("../../Materials/ThirdBuffer.html"));</span>
+<span class="cstat-no" title="statement not covered" >        _this.__setLoaded();</span>
+<span class="cstat-no" title="statement not covered" >        return _this;</span>
+    }
+    /**
+     * Count of verticies
+     */
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    _createClass(PMXGBufferMaterial, [{</span>
+        key: "apply",
+        value: <span class="fstat-no" title="function not covered" >function apply(matArg) {</span>
+<span class="cstat-no" title="statement not covered" >            if (this.__associatedMaterial.Diffuse.A &lt; 1.0E-3) {</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var skeleton = this.__associatedMaterial.ParentModel.skeleton;</span>
+<span class="cstat-no" title="statement not covered" >            switch (matArg.techniqueIndex) {</span>
+                case 0:
+<span class="cstat-no" title="statement not covered" >                    this.__primaryMaterial.materialVariables = {</span>
+                        boneMatriciesTexture: skeleton.MatrixTexture,
+                        brightness: this.__associatedMaterial.Specular.W,
+                        boneCount: skeleton.BoneCount
+                    };
+<span class="cstat-no" title="statement not covered" >                    this.__primaryMaterial.apply(matArg);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 1:
+<span class="cstat-no" title="statement not covered" >                    this.__secoundaryMaterial.materialVariables = {</span>
+                        boneMatriciesTexture: skeleton.MatrixTexture,
+                        boneCount: skeleton.BoneCount,
+                        diffuse: _PMXMaterialMorphParamContainer2.default.calcMorphedVectorValue(this.__associatedMaterial.Diffuse.toVector(), this.__associatedMaterial.addMorphParam, this.__associatedMaterial.mulMorphParam, <span class="fstat-no" title="function not covered" >function (t) {</span>
+<span class="cstat-no" title="statement not covered" >                            return t.diffuse;</span>
+                        }, 4),
+                        texture: this.__associatedMaterial.Texture,
+                        sphere: this.__associatedMaterial.Sphere,
+                        textureUsed: this.__associatedMaterial.Texture ? 1 : 0,
+                        sphereMode: this.__associatedMaterial.Sphere ? this.__associatedMaterial.SphereMode : 0,
+                        addTextureCoefficient: new _Vector2.default(this.__associatedMaterial.addMorphParam.textureCoeff),
+                        mulTextureCoefficient: new _Vector2.default(this.__associatedMaterial.mulMorphParam.textureCoeff),
+                        addSphereCoefficient: new _Vector2.default(this.__associatedMaterial.addMorphParam.sphereCoeff),
+                        mulSphereCoefficient: new _Vector2.default(this.__associatedMaterial.mulMorphParam.sphereCoeff)
+                    };
+<span class="cstat-no" title="statement not covered" >                    this.__secoundaryMaterial.apply(matArg);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                case 2:
+<span class="cstat-no" title="statement not covered" >                    this.__thirdMaterial.materialVariables = {</span>
+                        boneMatriciesTexture: skeleton.MatrixTexture,
+                        boneCount: skeleton.BoneCount,
+                        specular: _PMXMaterialMorphParamContainer2.default.calcMorphedVectorValue(this.__associatedMaterial.Specular, this.__associatedMaterial.addMorphParam, this.__associatedMaterial.mulMorphParam, <span class="fstat-no" title="function not covered" >function (t) {</span>
+<span class="cstat-no" title="statement not covered" >                            return t.specular;</span>
+                        }, 3)
+                    };
+<span class="cstat-no" title="statement not covered" >                    this.__thirdMaterial.apply(matArg);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+            }
+        }
+    }, {
+        key: "getDrawGeometryLength",
+        value: <span class="fstat-no" title="function not covered" >function getDrawGeometryLength(geo) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.__associatedMaterial.Diffuse.A &gt; 0 ? this.VerticiesCount : 0;</span>
+        }
+    }, {
+        key: "getDrawGeometryOffset",
+        value: <span class="fstat-no" title="function not covered" >function getDrawGeometryOffset(geo) {</span>
+<span class="cstat-no" title="statement not covered" >            return this.VerticiesOffset * 4;</span>
+        }
+    }, {
+        key: "VerticiesCount",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.__associatedMaterial.VerticiesCount;</span>
+        }
+        /**
+         * Offset of verticies in index buffer
+         */
+&nbsp;
+    }, {
+        key: "VerticiesOffset",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return this.__associatedMaterial.VerticiesOffset;</span>
+        }
+    }, {
+        key: "Priorty",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return 100;</span>
+        }
+    }, {
+        key: "MaterialGroup",
+        get: <span class="fstat-no" title="function not covered" >function get() {</span>
+<span class="cstat-no" title="statement not covered" >            return "jthree.materials.gbuffer";</span>
+        }
+    }]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return PMXGBufferMaterial;</span>
+}(_Material3.default);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.default = PMXGBufferMaterial;</span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 15:30:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

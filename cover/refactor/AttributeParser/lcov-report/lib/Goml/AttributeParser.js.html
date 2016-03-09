@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Goml/AttributeParser.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/Goml/</a> AttributeParser.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.34% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>69/79</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.64% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>35/55</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.73% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.44% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>51/54</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+&nbsp;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="if path not taken" >I</span>if (protoProps) <span class="cstat-no" title="statement not covered" >defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span></span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+&nbsp;
+var _JThreeObject = require("../Base/JThreeObject");
+&nbsp;
+var _JThreeObject2 = _interopRequireDefault(_JThreeObject);
+&nbsp;
+var _Quaternion = require("../Math/Quaternion");
+&nbsp;
+var _Quaternion2 = _interopRequireDefault(_Quaternion);
+&nbsp;
+var _Vector = require("../Math/Vector3");
+&nbsp;
+var _Vector2 = _interopRequireDefault(_Vector);
+&nbsp;
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : <span class="branch-1 cbranch-no" title="branch not covered" >{ default: obj };</span> }
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _classCallCheck(instance, Constructor) {</span> <span class="cstat-no" title="statement not covered" >if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} </span>}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function _possibleConstructorReturn(self, call) {</span> <span class="cstat-no" title="statement not covered" >if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} <span class="cstat-no" title="statement not covered" ></span>return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self; </span>}
+&nbsp;
+function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >subClass.__proto__ = superClass;</span> }
+&nbsp;
+/**
+ * Utility class to parse the arguments of attributes.
+ */
+&nbsp;
+var AttributeParser = function (_jThreeObject) {
+    _inherits(AttributeParser, _jThreeObject);
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function AttributeParser() {</span>
+<span class="cstat-no" title="statement not covered" >        _classCallCheck(this, AttributeParser);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeParser).apply(this, arguments));</span>
+    }
+&nbsp;
+    _createClass(AttributeParser, null, [{
+        key: "parseAngle",
+&nbsp;
+        /**
+         * Parse angle strings.
+         * "p" means Pi. Ex) 3/4 p
+         * "d" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d
+         * @param input the string to parse.
+         * @returns {number} parsed angle in radians.
+         */
+        value: function parseAngle(input) {
+            var regex = /^ *((?:0|[1-9]\d*)(?: *\.\d+)?) *(?:\/ *((?:0|[1-9]\d*)(?: *\.\d+)?))? *(p|prad|deg|d|r|rad)? *$/gm;
+            var result = regex.exec(input);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (result == null) {
+<span class="cstat-no" title="statement not covered" >                throw new Error("faild parse Angle string");</span>
+            }
+            var numerator = parseFloat(result[1]);
+            if (result[2]) {
+                numerator /= parseFloat(result[2]);
+            }
+            var unit = result[3];
+            if (unit == null) {
+                unit = "d";
+            }
+            if (unit === "r" || unit === "rad") {
+                return numerator;
+            }
+            if (unit === "p" || unit === "prad") {
+                return numerator * Math.PI;
+            }
+            return numerator / 180 * Math.PI;
+        }
+        /**
+         * Parse angle string in 3D.
+         * "p" means Pi. Ex) 3/4 p
+         * "d" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d
+         * "eular(x,y,z)" means rotation in eular. This means Z-X-Y rotation like Unity.
+         * "axis(angle,x,y,z)" means rotation around specified axis. This means angle radians will be rotated around the axis (x,y,z).
+         * This angle can be specified with the character "p" or "d".
+         * "x(angle)","y(angle)" or "z(angle)" means rotation around unit axis.
+         * This angle can be specified with the character "p" or "d".
+         * @param input the string to be parsed as angle in 3D.
+         * @returns {Quaternion} parsed rotation in Quaternion.
+         */
+&nbsp;
+    }, {
+        key: "parseRotation3D",
+        value: function parseRotation3D(input) {
+            var reg1 = /^ *(x|y|z) *\(([^\(\)]+)\) *$/gm;
+            var reg2 = /^ *axis *\(([^\(\),]+),([^\(\),]+),([^\(\),]+),([^\(\),]+)\) *$/gm;
+            var result = reg1.exec(input);
+            if (result) {
+                if (result[1] === "x") {
+                    console.log("x:" + result[2]);
+                    return _Quaternion2.default.angleAxis(AttributeParser.parseAngle(result[2]), _Vector2.default.XUnit);
+                }
+                if (result[1] === "y") {
+                    return _Quaternion2.default.angleAxis(AttributeParser.parseAngle(result[2]), _Vector2.default.YUnit);
+                }
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (result[1] === "z") {
+                    return _Quaternion2.default.angleAxis(AttributeParser.parseAngle(result[2]), _Vector2.default.ZUnit);
+                }
+            }
+            var res2 = reg2.exec(input);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (res2) {
+                console.log(res2);
+                var rotation = AttributeParser.parseAngle(res2[1]);
+                var x = parseFloat(res2[2]);
+                var y = parseFloat(res2[3]);
+                var z = parseFloat(res2[4]);
+                return _Quaternion2.default.angleAxis(rotation, new _Vector2.default(x, y, z));
+            }
+        }
+    }]);
+&nbsp;
+    return AttributeParser;
+}(_JThreeObject2.default);
+&nbsp;
+exports.default = AttributeParser;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 15:30:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

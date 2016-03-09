@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/Materials/Base/ConditionBlock.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">lib/Core/Materials/Base/</a> ConditionBlock.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.1% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>91/101</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>30/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.29% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>75/84</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+&nbsp;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; <span class="missing-if-branch" title="else path not taken" >E</span>if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { <span class="missing-if-branch" title="else path not taken" >E</span>if (protoProps) defineProperties(Constructor.prototype, protoProps); <span class="missing-if-branch" title="else path not taken" >E</span>if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+&nbsp;
+var _json = require("json5");
+&nbsp;
+var _json2 = _interopRequireDefault(_json);
+&nbsp;
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? <span class="branch-0 cbranch-no" title="branch not covered" >obj </span>: { default: obj }; }
+&nbsp;
+function _classCallCheck(instance, Constructor) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!(instance instanceof Constructor)) { <span class="cstat-no" title="statement not covered" >throw new TypeError("Cannot call a class as a function"); </span>} }
+&nbsp;
+var ConditionBlock = function () {
+    function ConditionBlock(condition, children, isPlain, content) {
+        _classCallCheck(this, ConditionBlock);
+&nbsp;
+        this._children = children;
+        this._condition = condition;
+        if (condition != null) {
+            this._type = condition["type"];
+        }
+        this._isPlain = isPlain;
+        this._content = content;
+    }
+&nbsp;
+    _createClass(ConditionBlock, [{
+        key: "resolve",
+        value: function resolve(conditionRegister) {
+            if (!this._isRoot) {
+                if (this._isPlain) {
+                    return this._content;
+                }
+                var cc = conditionRegister.getConditionChecker(this._type);
+                if (cc == null) {
+                    return "";
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (!cc.checkCondition(this._condition)) {
+<span class="cstat-no" title="statement not covered" >                    return "";</span>
+                }
+            }
+            var ret = "";
+            for (var i = 0; i &lt; this._children.length; i++) {
+                ret = ret + this._children[i].resolve(conditionRegister);
+            }
+            return ret;
+        }
+    }], [{
+        key: "parseCondition",
+        value: function parseCondition(source) {
+            var ret = new ConditionBlock(null, ConditionBlock._parseCondition(source), false, null);
+            ret._isRoot = true;
+            return ret;
+        }
+    }, {
+        key: "_parseCondition",
+        value: function _parseCondition(source) {
+            var ret = [];
+            var found = source.indexOf("@Condition(", 0);
+            if (found &lt; 0) {
+                ret.push(ConditionBlock._createPlain(source));
+                return ret; // When there was no more found
+            }
+            var beginConditionPoint = found + 10;
+            var endConditionPoint = ConditionBlock._getEndBracketIndex(source, beginConditionPoint, "(", ")");
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (endConditionPoint &lt; 1) {
+                // error no bracket matching
+<span class="cstat-no" title="statement not covered" >                console.error("Invalid bracket matching!");</span>
+<span class="cstat-no" title="statement not covered" >                return null;</span>
+            }
+            var beginContentPoint = source.indexOf("{", endConditionPoint);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (beginContentPoint &lt; 0) {
+                // error no bracket matching
+<span class="cstat-no" title="statement not covered" >                console.error("Invalid bracket matching!");</span>
+<span class="cstat-no" title="statement not covered" >                return null;</span>
+            }
+            var endContentPoint = ConditionBlock._getEndBracketIndex(source, beginContentPoint, "{", "}");
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (endContentPoint &lt; 0) {
+                // error no bracket matching
+<span class="cstat-no" title="statement not covered" >                console.error("Invalid bracket matching!");</span>
+<span class="cstat-no" title="statement not covered" >                return null;</span>
+            }
+            var before = source.substring(0, found);
+            var condition = source.substring(beginConditionPoint + 1, endConditionPoint);
+            var jsonCondition = _json2.default.parse(condition);
+            var content = source.substring(beginContentPoint + 1, endContentPoint);
+            var after = source.substring(endContentPoint + 1, source.length);
+            ret.push(ConditionBlock._createPlain(before));
+            ret.push(new ConditionBlock(jsonCondition, ConditionBlock._parseCondition(content), false, null));
+            ret = ret.concat(ConditionBlock._parseCondition(after));
+            return ret;
+        }
+    }, {
+        key: "_createPlain",
+        value: function _createPlain(content) {
+            return new ConditionBlock(null, [], true, content);
+        }
+    }, {
+        key: "_getEndBracketIndex",
+        value: function _getEndBracketIndex(source, startIndex, beginBracket, endBracket) {
+            // get index of matching endBracket
+            var index = startIndex;
+            var bracketCount = 1;
+            while (true) {
+                if (bracketCount === 0) {
+                    break;
+                }
+                index++;
+                var nextEndBlacket = source.indexOf(endBracket, index);
+                var nextBeginBlacket = source.indexOf(beginBracket, index);
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (nextEndBlacket &lt; 0) {
+                    // error no bracket matching
+<span class="cstat-no" title="statement not covered" >                    console.error("Invalid bracket matching!");</span>
+<span class="cstat-no" title="statement not covered" >                    return -1;</span>
+                }
+                if (nextBeginBlacket &lt; 0) {
+                    index = nextEndBlacket;
+                    bracketCount--;
+                    continue;
+                }
+                if (nextEndBlacket &lt; nextBeginBlacket) {
+                    index = nextEndBlacket;
+                    bracketCount--;
+                    continue;
+                } else {
+                    index = nextBeginBlacket;
+                    bracketCount++;
+                    continue;
+                }
+            }
+            return index;
+        }
+    }]);
+&nbsp;
+    return ConditionBlock;
+}();
+&nbsp;
+exports.default = ConditionBlock;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 15:30:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

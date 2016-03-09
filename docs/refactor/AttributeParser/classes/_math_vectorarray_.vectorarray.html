@@ -70,6 +70,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p> The array object for managing vectors having specific dimension.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -91,25 +98,29 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#_unitsize" class="tsd-kind-icon">_unit<wbr>Size</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#_dimension" class="tsd-kind-icon">_dimension</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#rawelements" class="tsd-kind-icon">raw<wbr>Elements</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#unitsize" class="tsd-kind-icon">unit<wbr>Size</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#dimension" class="tsd-kind-icon">dimension</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#_verifyunitsize" class="tsd-kind-icon">_verify<wbr>Unit<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#_verifydimension" class="tsd-kind-icon">_verify<wbr>Dimension</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#appendvector" class="tsd-kind-icon">append<wbr>Vector</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#getvector" class="tsd-kind-icon">get<wbr>Vector</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#getvectorarray" class="tsd-kind-icon">get<wbr>Vector<wbr>Array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#setrawarray" class="tsd-kind-icon">set<wbr>Raw<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#setvector" class="tsd-kind-icon">set<wbr>Vector</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#setvectorarray" class="tsd-kind-icon">set<wbr>Vector<wbr>Array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#elementequal" class="tsd-kind-icon">element<wbr>Equal</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#equal" class="tsd-kind-icon">equal</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_math_vectorarray_.vectorarray.html#zerovectorarray" class="tsd-kind-icon">zero<wbr>Vector<wbr>Array</a></li>
 							</ul>
 						</section>
 					</div>
@@ -127,7 +138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L9">Math/VectorArray.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L27">Math/VectorArray.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -144,12 +155,12 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-					<a name="_unitsize" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _unit<wbr>Size</h3>
-					<div class="tsd-signature tsd-kind-icon">_unit<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="_dimension" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _dimension</h3>
+					<div class="tsd-signature tsd-kind-icon">_dimension<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L9">Math/VectorArray.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L12">Math/VectorArray.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,7 +170,7 @@
 					<div class="tsd-signature tsd-kind-icon">raw<wbr>Elements<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L7">Math/VectorArray.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L10">Math/VectorArray.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,16 +178,16 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-not-exported">
-					<a name="unitsize" class="tsd-anchor"></a>
-					<h3>unit<wbr>Size</h3>
+					<a name="dimension" class="tsd-anchor"></a>
+					<h3>dimension</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> unitSize<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> dimension<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L70">Math/VectorArray.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L112">Math/VectorArray.ts:112</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -187,16 +198,16 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-					<a name="_verifyunitsize" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _verify<wbr>Unit<wbr>Size</h3>
+					<a name="_verifydimension" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _verify<wbr>Dimension</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">_verify<wbr>Unit<wbr>Size<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">_verify<wbr>Dimension<span class="tsd-signature-symbol">(</span>vector<span class="tsd-signature-symbol">: </span><a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L74">Math/VectorArray.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L116">Math/VectorArray.ts:116</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -219,7 +230,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L19">Math/VectorArray.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L52">Math/VectorArray.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -242,7 +253,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L31">Math/VectorArray.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L72">Math/VectorArray.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -271,7 +282,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L59">Math/VectorArray.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L101">Math/VectorArray.ts:101</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -285,6 +296,32 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="setrawarray" class="tsd-anchor"></a>
+					<h3>set<wbr>Raw<wbr>Array</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Raw<wbr>Array<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, rawArray<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L65">Math/VectorArray.ts:65</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>rawArray: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 					<a name="setvector" class="tsd-anchor"></a>
 					<h3>set<wbr>Vector</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
@@ -294,7 +331,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L24">Math/VectorArray.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L57">Math/VectorArray.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -320,7 +357,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/jThree/src/Math/VectorArray.ts#L44">Math/VectorArray.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L85">Math/VectorArray.ts:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -333,6 +370,90 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="elementequal" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> element<wbr>Equal</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">element<wbr>Equal<span class="tsd-signature-symbol">(</span>v1<span class="tsd-signature-symbol">: </span><a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a>, v2<span class="tsd-signature-symbol">: </span><a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L43">Math/VectorArray.ts:43</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>v1: <a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a></h5>
+								</li>
+								<li>
+									<h5>v2: <a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="equal" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> equal</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">equal<span class="tsd-signature-symbol">(</span>v1<span class="tsd-signature-symbol">: </span><a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a>, v2<span class="tsd-signature-symbol">: </span><a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L37">Math/VectorArray.ts:37</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>v1: <a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a></h5>
+								</li>
+								<li>
+									<h5>v2: <a href="_math_vectorbase_.vectorbase.html" class="tsd-signature-type">VectorBase</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="zerovectorarray" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> zero<wbr>Vector<wbr>Array</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">zero<wbr>Vector<wbr>Array<span class="tsd-signature-symbol">(</span>dimension<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, length<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_math_vectorarray_.vectorarray.html" class="tsd-signature-type">VectorArray</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jThreeJS/jThree/blob/HEAD/src/Math/VectorArray.ts#L20">Math/VectorArray.ts:20</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generate vector array filled with zero vectors.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dimension: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>length: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_math_vectorarray_.vectorarray.html" class="tsd-signature-type">VectorArray</a></h4>
+							<p>[description]</p>
 						</li>
 					</ul>
 				</section>
@@ -360,16 +481,16 @@
 								<a href="_math_vectorarray_.vectorarray.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-								<a href="_math_vectorarray_.vectorarray.html#_unitsize" class="tsd-kind-icon">_unit<wbr>Size</a>
+								<a href="_math_vectorarray_.vectorarray.html#_dimension" class="tsd-kind-icon">_dimension</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_math_vectorarray_.vectorarray.html#rawelements" class="tsd-kind-icon">raw<wbr>Elements</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_math_vectorarray_.vectorarray.html#unitsize" class="tsd-kind-icon">unit<wbr>Size</a>
+								<a href="_math_vectorarray_.vectorarray.html#dimension" class="tsd-kind-icon">dimension</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-not-exported">
-								<a href="_math_vectorarray_.vectorarray.html#_verifyunitsize" class="tsd-kind-icon">_verify<wbr>Unit<wbr>Size</a>
+								<a href="_math_vectorarray_.vectorarray.html#_verifydimension" class="tsd-kind-icon">_verify<wbr>Dimension</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_math_vectorarray_.vectorarray.html#appendvector" class="tsd-kind-icon">append<wbr>Vector</a>
@@ -381,10 +502,22 @@
 								<a href="_math_vectorarray_.vectorarray.html#getvectorarray" class="tsd-kind-icon">get<wbr>Vector<wbr>Array</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_math_vectorarray_.vectorarray.html#setrawarray" class="tsd-kind-icon">set<wbr>Raw<wbr>Array</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_math_vectorarray_.vectorarray.html#setvector" class="tsd-kind-icon">set<wbr>Vector</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_math_vectorarray_.vectorarray.html#setvectorarray" class="tsd-kind-icon">set<wbr>Vector<wbr>Array</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_math_vectorarray_.vectorarray.html#elementequal" class="tsd-kind-icon">element<wbr>Equal</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_math_vectorarray_.vectorarray.html#equal" class="tsd-kind-icon">equal</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_math_vectorarray_.vectorarray.html#zerovectorarray" class="tsd-kind-icon">zero<wbr>Vector<wbr>Array</a>
 							</li>
 						</ul>
 					</li>
