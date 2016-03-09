@@ -31,7 +31,9 @@ after_script:
 - git commit -m "document update by travis"
 - git push --force https://$GHTOKEN@github.com/jThreeJS/jThree gh-pages:gh-pages
 - cd ..
-language: node_js
+language: python
+python:
+  - "2.7"
 node_js:
 - 4.3.1
 notifications:
