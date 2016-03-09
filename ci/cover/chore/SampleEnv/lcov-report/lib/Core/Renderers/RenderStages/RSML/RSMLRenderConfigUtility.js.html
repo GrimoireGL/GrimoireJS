@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/Renderers/RenderStages/RSML/RSMLRenderConfigUtility.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">all files</a> / <a href="index.html">lib/Core/Renderers/RenderStages/RSML/</a> RSMLRenderConfigUtility.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.96% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/1</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.04% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/49</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Vector4 from "../../../../Math/Vector4";
+class RSMLRenderConfigUtility {
+    static parseFBOConfiguration(fboElement, canvas) {
+<span class="cstat-no" title="statement not covered" ></span>        if (!fboElement) {
+<span class="cstat-no" title="statement not covered" >            return undefined;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        const result = {};</span>
+<span class="cstat-no" title="statement not covered" >        const primary = fboElement.getAttribute("primary");</span>
+<span class="cstat-no" title="statement not covered" >        const colorNodes = fboElement.getElementsByTagName("color");</span>
+<span class="cstat-no" title="statement not covered" >        const rboNode = fboElement.getElementsByTagName("rbo").item(0);</span>
+<span class="cstat-no" title="statement not covered" >        result.primaryName = primary;</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; colorNodes.length; i++) {
+<span class="cstat-no" title="statement not covered" >            const colorBuffer = RSMLRenderConfigUtility._parseColorBuffer(colorNodes.item(i), canvas);</span>
+<span class="cstat-no" title="statement not covered" >            result[colorBuffer.registerIndex] = colorBuffer;</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (colorBuffer.name === primary) {
+<span class="cstat-no" title="statement not covered" >                result.primaryIndex = colorBuffer.registerIndex;</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        result.rbo = RSMLRenderConfigUtility._parseRenderBuffer(rboNode);</span>
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    }
+    static _parseColorBuffer(colorElement, canvas) <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>{
+        // Retrive buffer name to be bound
+<span class="cstat-no" title="statement not covered" >        const name = colorElement.getAttribute("name");</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (!name) {
+<span class="cstat-no" title="statement not covered" >            console.error("The name attribute in color node must be specified!");</span>
+<span class="cstat-no" title="statement not covered" >            return null;</span>
+        }
+        // Retrive register index
+        const registerStr = colorElement.getAttribute("register");
+<span class="cstat-no" title="statement not covered" >        let registerIndex = 0;</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (registerStr) {
+<span class="cstat-no" title="statement not covered" >            registerIndex = parseInt(registerStr, 10);</span>
+        }
+        // Retrive clear flag
+        const clearStr = colorElement.getAttribute("clear");
+<span class="cstat-no" title="statement not covered" >        const clearFlag = c</span>learStr !== "false";
+        // Retrive clear color
+        let clearColor;
+<span class="cstat-no" title="statement not covered" ></span>        if (clearFlag) {
+<span class="cstat-no" title="statement not covered" >            const colorStr = colorElement.getAttribute("clearColor");</span>
+<span class="cstat-no" title="statement not covered" >            clearColor = new Vector4(0, 0, 0, 0);</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (colorStr) {
+<span class="cstat-no" title="statement not covered" ></span>                if (colorStr === "default") {
+<span class="cstat-no" title="statement not covered" >                    clearColor = canvas.clearColor.toVector();</span>
+                }
+                else {
+<span class="cstat-no" title="statement not covered" >                    clearColor = Vector4.parse(colorStr);</span>
+                }
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            name: name,
+            registerIndex: registerIndex,
+            clearColor: clearColor,
+            needClear: clearFlag
+        };
+    }
+    static _parseRenderBuffer(rboElement) <span class="cstat-no" title="statement not covered" ></span>{
+<span class="cstat-no" title="statement not covered" ></span>        if (!rboElement) {
+<span class="cstat-no" title="statement not covered" >            return undefined;</span>
+        }
+        // Retrive buffer name to be bound
+        let name = rboElement.getAttribute("name");
+<span class="cstat-no" title="statement not covered" ></span>        if (!name) {
+<span class="cstat-no" title="statement not covered" >            name = "default";</span>
+        }
+<span class="cstat-no" title="statement not covered" >        let type = rboElement.getAttribute("type");</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (!type) {
+<span class="cstat-no" title="statement not covered" >            type = "depth";</span>
+        }
+<span class="cstat-no" title="statement not covered" >        let clearStr = rboElement.getAttribute("clear");</span>
+<span class="cstat-no" title="statement not covered" >        const clearFlag = clearStr !== "false";</span>
+<span class="cstat-no" title="statement not covered" >        let clearDepth;</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (clearFlag) {
+<span class="cstat-no" title="statement not covered" >            const depthStr = rboElement.getAttribute("clearDepth");</span>
+<span class="cstat-no" title="statement not covered" >            clearDepth = 1.0;</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (depthStr) {
+<span class="cstat-no" title="statement not covered" >                clearDepth = parseFloat(depthStr);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            name: name,
+            type: type,
+            needClear: clearFlag,
+            clearDepth: clearDepth
+        };
+    }
+}
+export default RSMLRenderConfigUtility;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Mar 10 2016 01:18:30 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

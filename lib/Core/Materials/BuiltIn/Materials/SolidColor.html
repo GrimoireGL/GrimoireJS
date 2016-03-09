@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="builtin.solid" group="builtin.forward" order="300">
+<uniform-register>
+  <register name="builtin.basic"/>
+</uniform-register>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec3 position;
+      varying vec4 vPosition;
+
+      @vert {
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+          gl_Position = vPosition = _matPVM * vec4(position,1.0);
+        }
+      }
+
+      @frag {
+        uniform vec4 color;
+
+        void main(void)
+        {
+          gl_FragColor = color;
+        }
+      }
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

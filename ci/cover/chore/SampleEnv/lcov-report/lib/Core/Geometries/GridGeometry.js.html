@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/Geometries/GridGeometry.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">lib/Core/Geometries/</a> GridGeometry.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.53% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.53% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/38</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BasicGeometry from "./Base/BasicGeometry";
+import JThreeContext from "../../JThreeContext";
+import ContextComponents from "../../ContextComponents";
+class GridGeometry extends BasicGeometry {
+<span class="fstat-no" title="function not covered" >    constructor(name) {</span>
+        super();
+<span class="cstat-no" title="statement not covered" >        this._holizontalDivide = 10;</span>
+<span class="cstat-no" title="statement not covered" >        this._verticalDivide = 10;</span>
+<span class="cstat-no" title="statement not covered" >        const rm = JThreeContext.getContextComponent(ContextComponents.ResourceManager);</span>
+<span class="cstat-no" title="statement not covered" >        this.primitiveTopology = WebGLRenderingContext.LINES;</span>
+<span class="cstat-no" title="statement not covered" >        this.indexBuffer = rm.createBuffer(name + "index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_SHORT);</span>
+<span class="cstat-no" title="statement not covered" >        this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);</span>
+<span class="cstat-no" title="statement not covered" >        this.__updateBuffers();</span>
+    }
+    get HolizontalDivide() {
+<span class="cstat-no" title="statement not covered" >        return this._holizontalDivide;</span>
+    }
+    get VerticalDivide() {
+<span class="cstat-no" title="statement not covered" >        return this._verticalDivide;</span>
+    }
+    set HolizontalDivide(num) {
+<span class="cstat-no" title="statement not covered" >        this._holizontalDivide = num;</span>
+<span class="cstat-no" title="statement not covered" >        this.__updateBuffers();</span>
+    }
+    set VerticalDivide(num) {
+<span class="cstat-no" title="statement not covered" >        this._verticalDivide = num;</span>
+<span class="cstat-no" title="statement not covered" >        this.__updateBuffers();</span>
+    }
+    get VerticiesCount() {
+<span class="cstat-no" title="statement not covered" >        return (this.HolizontalDivide + 1) * 2 + (this.VerticalDivide + 1) * 2;</span>
+    }
+    __updatePositionBuffer() {
+<span class="cstat-no" title="statement not covered" >        const arr = [];</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; this.HolizontalDivide + 1; i++) {
+<span class="cstat-no" title="statement not covered" >            const num = -1 + 1 / this.HolizontalDivide * i * 2;</span>
+<span class="cstat-no" title="statement not covered" >            arr.push(num, 0, -1, num, 0, 1);</span>
+        }
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; this.VerticalDivide + 1; i++) {
+<span class="cstat-no" title="statement not covered" >            const num = -1 + 1 / this.VerticalDivide * i * 2;</span>
+<span class="cstat-no" title="statement not covered" >            arr.push(-1, 0, num, 1, 0, num);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this.positionBuffer.update(new Float32Array(arr), arr.length);</span>
+    }
+    __updateNormalBuffer() {
+<span class="cstat-no" title="statement not covered" >        this.normalBuffer.update(new Float32Array(new Array(this.VerticiesCount * 3)), this.VerticiesCount * 3);</span>
+    }
+    __updateUvBuffer() {
+<span class="cstat-no" title="statement not covered" >        this.uvBuffer.update(new Float32Array(new Array(this.VerticiesCount * 2)), this.VerticiesCount * 2);</span>
+    }
+    __updateIndexBuffer() {
+<span class="cstat-no" title="statement not covered" >        const arr = [];</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let v = 0; v &lt; this.VerticiesCount; v++) {
+<span class="cstat-no" title="statement not covered" >            arr.push(v);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this.indexBuffer.update(new Uint16Array(arr), this.VerticiesCount);</span>
+    }
+    __updateBuffers() {
+<span class="cstat-no" title="statement not covered" >        this.__updatePositionBuffer();</span>
+<span class="cstat-no" title="statement not covered" >        this.__updateNormalBuffer();</span>
+<span class="cstat-no" title="statement not covered" >        this.__updateUvBuffer();</span>
+<span class="cstat-no" title="statement not covered" >        this.__updateIndexBuffer();</span>
+    }
+}
+export default GridGeometry;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Mar 10 2016 01:18:30 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
