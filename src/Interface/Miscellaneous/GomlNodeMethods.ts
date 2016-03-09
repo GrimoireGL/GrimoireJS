@@ -41,24 +41,24 @@ class GomlNodeMethods extends J3ObjectBase {
   public index(node: GomlTreeNodeBase): number;
   public index(j3obj: J3Object): number;
   public index(argu?: any): number {
-    let index = -1;
+    let index_ = -1;
     switch (true) {
       case (isString(argu)):
         const foundNodes = J3Object.find(<string>argu);
         J3Object.each(<J3ObjectBase>this, (i, node) => {
           if (foundNodes.indexOf(node) !== -1) {
-            index = i;
+            index_ = i;
             return false;
           }
         });
         break;
       case (argu instanceof GomlTreeNodeBase):
-        index = this.__getArray().indexOf(<GomlTreeNodeBase>argu);
+        index_ = this.__getArray().indexOf(<GomlTreeNodeBase>argu);
         break;
       case (argu instanceof J3Object):
         J3Object.each(<J3ObjectBase>this, (i, node) => {
           if ((<J3Object>argu).index(node) !== -1) {
-            index = i;
+            index_ = i;
             return false;
           }
         });
@@ -66,7 +66,7 @@ class GomlNodeMethods extends J3ObjectBase {
       default:
         throw new Error("Argument type is not correct");
     }
-    return index;
+    return index_;
   }
 }
 

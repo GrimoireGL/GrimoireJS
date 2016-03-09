@@ -120,20 +120,10 @@ class GomlLoader extends jThreeObject {
    * @param {HTMLElement} source goml source
    */
   private _scriptLoaded(source: HTMLElement): void {
-    this._nodeManager.htmlRoot = source;
-    // if ((<Element>catched.childNodes[0]).tagName.toUpperCase() === "PARSERERROR") {
-    //   JThreeLogger.sectionError("Goml loader", `Invalid Goml was passed. Parsing goml was aborted. Error code will be appear below`);
-    //   JThreeLogger.sectionLongLog("Goml loader", catched.innerHTML);
-    // }
-    if (source === undefined || source.tagName.toUpperCase() !== "GOML") {
-      throw new InvalidArgumentException("Root should be goml");
-    }
-    const parsedNode = GomlParser.parse(source, this._nodeManager.configurator);
-    parsedNode.Mounted = true;
-    this._nodeManager.gomlRoot = parsedNode;
-    JThreeLogger.sectionLog("Goml loader", `Goml loading was completed`);
-    this._nodeManager.ready = true;
-    this._nodeManager.attributePromiseRegistry.async(() => {
+    this._nodeManager.setNodeToRootByElement(source, (err) => {
+      if (err) {
+        throw err;
+      }
       // onfullfilled
       console.log("all attribute initialized");
       this._gomlLoadingDeferred.resolve(null);

@@ -28,9 +28,9 @@ class NodeInsertion extends J3ObjectBase {
   public append(...contents: string[][]): J3Object;
   public append(...contents: GomlTreeNodeBase[][]): J3Object;
   public append(...contents: J3Object[][]): J3Object;
-  public append(func: (index: number,  goml: string) => string): J3Object;
-  public append(func: (index: number,  goml: string) => GomlTreeNodeBase): J3Object;
-  public append(func: (index: number,  goml: string) => J3Object): J3Object;
+  public append(func: (index: number, goml: string) => string): J3Object;
+  public append(func: (index: number, goml: string) => GomlTreeNodeBase): J3Object;
+  public append(func: (index: number, goml: string) => J3Object): J3Object;
   public append(...argu: any[]): J3Object {
     const thisNodes = this.__getArray()
     let nodes = [];
@@ -47,5 +47,6 @@ class NodeInsertion extends J3ObjectBase {
         }
       }
     });
+    return;
   }
 }

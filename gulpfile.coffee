@@ -43,7 +43,7 @@ config =
       transform: [
         'shaderify'
         'txtify'
-        {name: 'babelify', opt: {presets: 'es2015',plugins:["transform-es2015-modules-commonjs","add-module-exports"]}}
+        {name: 'babelify', opt: {presets: ['es2015', 'stage-3'], plugins:['babel-plugin-rewire']}}
         {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
       ]
       detectGlobals: true

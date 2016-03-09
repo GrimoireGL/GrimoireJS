@@ -1,4 +1,5 @@
 import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import isNumber from 'lodash.isnumber';
 
 /**
  * The most base class for GOML Tree
@@ -108,9 +109,10 @@ class TreeNodeBase extends JThreeObjectEEWithID {
 	/**
 	 * Add child to this node
 	 */
-  public addChild(child: TreeNodeBase): void {
+  public addChild(child: TreeNodeBase, index?: number): void {
     child.__parent = this;
-    this.__children.push(child);
+    const insertIndex = isNumber(index) ? index : -1;
+    this.__children.splice(insertIndex, 0, child);
     if (this.Mounted) {
       child.Mounted = true;
       this.emit("child-added", child);
@@ -142,7 +144,11 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * remove myself
    */
   public remove(): void {
-    this.__parent.removeChild(this);
+    if (this.__parent) {
+      this.__parent.removeChild(this);
+    } else {
+      throw new Error('root Node cannot be removed.');
+    }
   }
 
   /**

@@ -40,7 +40,7 @@ class AttributePromiseRegistry extends jThreeObject {
     this._asyncObjects.push(callbackObject);
     if (this._asyncing) {
       promise.then((ga) => {
-        this._thenCallbacckfn(ga);
+        this._thenCallbackfn(ga);
       });
     }
   }
@@ -54,7 +54,7 @@ class AttributePromiseRegistry extends jThreeObject {
     this._allOfCallbackfn = callbackfn;
     this._promises.forEach((p) => {
       p.then((ga) => {
-        this._thenCallbacckfn(ga);
+        this._thenCallbackfn(ga);
       });
     });
   }
@@ -70,17 +70,17 @@ class AttributePromiseRegistry extends jThreeObject {
   }
 
   /**
-   * [_thenCallbacckfn description]
+   * [_thenCallbackfn description]
    * @param {GomlAttribute} ga [description]
    */
-  private _thenCallbacckfn(ga: GomlAttribute): void {
+  private _thenCallbackfn(ga: GomlAttribute): void {
     const index = this._asyncObjects.indexOf(ga);
     if (index !== -1) {
       this._asyncObjects.splice(index, 1);
     } else {
       throw Error("registered object does not equal to callback object");
     }
-     console.log(this._asyncObjects);
+    console.log(this._asyncObjects);
     if (this._asyncObjects.length === 0) {
       this._allOfCallbackfn();
       this.clear();

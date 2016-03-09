@@ -1,9 +1,11 @@
 import test from 'ava';
+import fs from 'fs';
 
 import ConditionBlock from '../../../../lib/Core/Materials/Base/ConditionBlock';
 import TestConditionChecker from './TestConditionChecker';
 import TestConditionRegister from './TestConditionRegister';
-import ConditionInput from './ConditionInput.glsl';
+
+const ConditionInput = fs.readFileSync('./ConditionInput.glsl').toString();
 
 test('Test for parseCondition', (t) => {
   let tcc = new TestConditionChecker('t123');
