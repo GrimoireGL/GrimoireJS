@@ -8,12 +8,9 @@ dependencies:
     - mkdir ci
     - cd ci
     - git init
-    - git config user.name "autodeploy-travis"
-    - git config user.email "travis"
+    - git config user.name "autodeploy-circle"
+    - git config user.email "circle"
     - git remote add github https://github.com/jThreeJS/jThree
-    - git pull github gh-pages
-    - git checkout gh-pages
-    - cd ..
   override:
     - npm install
 test:
