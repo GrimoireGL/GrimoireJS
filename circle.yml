@@ -17,11 +17,10 @@ dependencies:
     - git init
 test:
   override:
-    - echo 'test success'
-    # - npm run build -- --branch=$CIRCLE_BRANCH
-    # - npm run doc -- --branch=$CIRCLE_BRANCH
-    # - npm run lint -- --branch=$CIRCLE_BRANCH
-    # - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
+    - npm run build -- --branch=$CIRCLE_BRANCH
+    - npm run doc -- --branch=$CIRCLE_BRANCH
+    - npm run lint -- --branch=$CIRCLE_BRANCH
+    - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
   post:
     - git fetch github gh-pages
     - git checkout github/gh-pages
