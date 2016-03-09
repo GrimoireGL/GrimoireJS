@@ -5,9 +5,8 @@ dependencies:
     - nvm install v4.3.1
     - nvm use v4.3.1
     - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
-    - rm -rf ci
-    - mkdir ci
-    - cd ci
+    - mkdir ../ci
+    - cd ../ci
     - git init
     - git config user.name "autodeploy-circle"
     - git config user.email "circle"
