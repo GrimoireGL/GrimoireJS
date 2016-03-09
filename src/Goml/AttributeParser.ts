@@ -13,30 +13,27 @@ class AttributeParser extends jThreeObject {
    * @returns {number} parsed angle in radians.
    */
   public static parseAngle(input: string): number {
-    const regex = /^([0-9\.]+)?(\/)?([0-9\.]+)?(pdeg|deg|d|p|r|rad|prad)?$/gm;
+    const regex = /^ *((?:0|[1-9]\d*)(?: *\.\d+)?) *(?:\/ *((?:0|[1-9]\d*)(?: *\.\d+)?))? *(p|prad|deg|d|r|rad)? *$/gm;
     const result = regex.exec(input);
-    let numerator = 1.0;
-    let fract = 1.0;
-    let isDegree = true;
-    if (result[1]) {
-      numerator = parseFloat(result[1]);
+
+    if (result == null) {
+      throw new Error("faild parse Angle string");
     }
-    if (result[2] && result[3]) {
-      fract = parseFloat(result[3]);
+    let numerator = parseFloat(result[1]);
+    if (result[2]) {
+      numerator /= parseFloat(result[2]);
     }
-    if (result[4]) {
-      if (result[4].match(/^r|rad|prad|p$/gm)) {
-        isDegree = false;
-      }
-      if (result[4].match(/^p|pdeg|prad$/gm)) {
-        numerator *= Math.PI;
-      }
+    let unit: string = result[3];
+    if (unit == null) {
+      unit = "d"
     }
-    if (!isDegree) {
-      return numerator / fract;
-    } else {
-      return numerator / fract / 360 * 2 * Math.PI;
+    if (unit === "r" || unit === "rad") {
+      return numerator;
     }
+    if (unit === "p" || unit === "prad") {
+      return numerator * Math.PI;
+    }
+    return numerator / 180 * Math.PI;
   }
 
   /**
@@ -52,10 +49,12 @@ class AttributeParser extends jThreeObject {
    * @returns {Quaternion} parsed rotation in Quaternion.
    */
   public static parseRotation3D(input: string): Quaternion {
-    const regex = /^(?:(x|y|z|axis)\()(.+)?\)$/gm;
-    const result = regex.exec(input);
+    const reg1 = /^ *(x|y|z) *\(([^\(\)]+)\) *$/gm;
+    const reg2 = /^ *axis *\(([^\(\),]+),([^\(\),]+),([^\(\),]+),([^\(\),]+)\) *$/gm;
+    const result = reg1.exec(input);
     if (result) {
       if (result[1] === "x") {
+        console.log("x:"+result[2]);
         return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.XUnit);
       }
       if (result[1] === "y") {
@@ -64,14 +63,15 @@ class AttributeParser extends jThreeObject {
       if (result[1] === "z") {
         return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.ZUnit);
       }
-      if (result[1] === "axis") {
-        const splitted = result[1].split(",");
-        return Quaternion.angleAxis(AttributeParser.parseAngle(splitted[0]), new Vector3(parseFloat(splitted[1]), parseFloat(splitted[2]), parseFloat(splitted[3])));
-      }
-    } else {
-      // Assume the input was euler angles
-      const splitted = input.split(",");
-      return Quaternion.euler.apply(Quaternion.euler, splitted.map((s) => AttributeParser.parseAngle(s)));
+    }
+    const res2 = reg2.exec(input);
+    if (res2) {
+      console.log(res2);
+      let rotation = AttributeParser.parseAngle(res2[1]);
+      let x = parseFloat(res2[2]);
+      let y = parseFloat(res2[3]);
+      let z = parseFloat(res2[4]);
+      return Quaternion.angleAxis(rotation, new Vector3(x, y, z));
     }
   }
 }
