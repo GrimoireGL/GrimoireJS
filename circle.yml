@@ -4,8 +4,6 @@ general:
       - gh-pages
 machine:
     timezone: Asia/Tokyo
-    node:
-      version: 4.3.1
 dependencies:
   pre:
     - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
@@ -15,8 +13,6 @@ dependencies:
     - git remote remove github
     - git remote add github https://github.com/jThreeJS/jThree
     - git init
-  post:
-    - npm install
 test:
   override:
     - npm run build -- --branch=$CIRCLE_BRANCH
