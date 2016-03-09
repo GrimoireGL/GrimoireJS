@@ -22,7 +22,7 @@ script:
 - npm run build -- --branch=$TRAVIS_BRANCH
 - npm run doc -- --branch=$TRAVIS_BRANCH
 - npm run lint -- --branch=$TRAVIS_BRANCH
-- npm run cover -- --branch=$TRAVIS_BRANCH
+- npm run cover -- --report-dir=ci/cover/$TRAVIS_BRANCH
 after_script:
 - cd ci
 - git checkout gh-pages

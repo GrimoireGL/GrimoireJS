@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<material name="jthree.basic.solid" group="builtin.forward" order="300">
+<material name="builtin.solid" group="builtin.forward" order="300">
 <uniform-register>
   <register name="builtin.basic"/>
 </uniform-register>
@@ -20,11 +20,11 @@
       }
 
       @frag {
-        uniform vec4 solid;
+        uniform vec4 color;
 
         void main(void)
         {
-          gl_FragColor = solid;
+          gl_FragColor = color;
         }
       }
 

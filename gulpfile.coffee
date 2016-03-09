@@ -39,6 +39,7 @@ config =
       dest: ['./wwwroot', './bin/product']
       target: 'web'
       minify: false
+      sourcemap: !args.nosourcemap
       transform: [
         'shaderify'
         'txtify'
@@ -53,6 +54,7 @@ config =
       dest:['./wwwroot/debug']
       target: 'web'
       minify: false
+      sourcemap: !args.nosourcemap
       transform: [
         'coffee-reactify'
         {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
