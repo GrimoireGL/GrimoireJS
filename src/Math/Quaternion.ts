@@ -190,6 +190,11 @@ class Quaternion extends JThreeObject {
   public get Length(): number {
     return quat.len(this.rawElements);
   }
+
+  public equalWith(q: Quaternion): boolean {
+    return Quaternion.equals(this, q);
+  }
+
   /**
   * Get normalized quaternion
   */

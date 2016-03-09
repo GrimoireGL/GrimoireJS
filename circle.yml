@@ -10,11 +10,6 @@ dependencies:
   pre:
     - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
     - mkdir ci
-    - git config user.name "autodeploy-circle"
-    - git config user.email "circle"
-    - git remote remove github
-    - git remote add github https://github.com/jThreeJS/jThree
-    - git init
 test:
   override:
     - npm run build -- --branch=$CIRCLE_BRANCH
@@ -22,9 +17,11 @@ test:
     - npm run lint -- --branch=$CIRCLE_BRANCH
     - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
   post:
-    - git fetch github gh-pages
-    - git checkout github/gh-pages
+    - git config --global user.email "admin@jthree.io"
+    - git config --global user.name "CircleCI"
+    - git fetch origin gh-pages
+    - git checkout origin/gh-pages
     - git checkout -b gh-pages
     - git add -A
     - git commit -m "autodeploy-circle [ci skip]"
-    - git push github gh-pages
+    - git push origin gh-pages
