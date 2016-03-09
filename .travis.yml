@@ -7,6 +7,7 @@ env:
   global:
     secure: C3UQt4RiLQWzugbiTzw00lg8+/lCUPK3FjSxck4BnU7+uB3wdh7qaZp88mG/hUrrB5tASW316UowzRCYTItPtsNuEOLK3x+KxKZBW5fpyvaSOZrSlPV7qv1kJjGQirskgZxH1aH/g/fHknBXsifawPT6it63INk/SVE/szfEHfg=
 before_install:
+- sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
 - mkdir ci
 - cd ci
 - git init
