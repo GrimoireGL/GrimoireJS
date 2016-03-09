@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Goml/Nodes/SceneObjects/MeshNode.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">lib/Goml/Nodes/SceneObjects/</a> MeshNode.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">14.71% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.63% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import SceneObjectNodeBase from "./SceneObjectNodeBase";
+import BasicMeshObject from "../../../Core/SceneObjects/BasicMeshObject";
+import ContextComponents from "../../../ContextComponents";
+import JThreeContext from "../../../JThreeContext";
+class MeshNode extends SceneObjectNodeBase {
+<span class="fstat-no" title="function not covered" >    constructor() <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span>{</span></span>
+        super();
+<span class="cstat-no" title="statement not covered" >        this._geo = null;</span>
+<span class="cstat-no" title="statement not covered" >        this._mat = null;</span>
+        /**
+         * Geomatry instance
+         * @type {Geometry}
+         */
+        this._geo_instance = null;
+        /**
+         * Material instance
+         */
+        this._mat_instance = null;
+<span class="cstat-no" title="statement not covered" >        this.attributes.defineAttribute({</span>
+            "geo": {
+                value: undefined,
+                converter: "string",
+                onchanged: this._onGeoAttrChanged.bind(this),
+            },
+            "mat": {
+                value: undefined,
+                converter: "string",
+                onchanged: this._onMatAttrChanged.bind(this),
+            }
+        });
+    }
+    __onMount() {
+<span class="cstat-no" title="statement not covered" >        super.__onMount();</span>
+    }
+    /**
+     * Called when geo attribute is changed
+     * @param {GomlAttribute} attr [description]
+     */
+    _onGeoAttrChanged(attr) <span class="cstat-no" title="statement not covered" ></span>{
+<span class="cstat-no" title="statement not covered" >        this._geo = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >        this._geo_instance = null;</span>
+        // console.warn("onGeoAttrChanged", attr.Value);
+        this._geo_instance = JThreeContext.getContextComponent(ContextComponents.PrimitiveRegistory).getPrimitive(this._geo);
+<span class="cstat-no" title="statement not covered" ></span>        if (this._geo_instance) {
+            // console.log("primitive exist", this.geo);
+<span class="cstat-no" title="statement not covered" >            this._updateTarget();</span>
+<span class="cstat-no" title="statement not covered" >            attr.done();</span>
+        }
+        else {
+            // console.log("primitive not exist", this.geo);
+<span class="cstat-no" title="statement not covered" >            this._geo_instance = null;</span>
+<span class="cstat-no" title="statement not covered" >            this.nodeImport("jthree.resource.geometry", this._geo, <span class="fstat-no" title="function not covered" >(geo) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" ></span>                if (geo) {
+                    // console.log("geometry reseived", this.geo);
+<span class="cstat-no" title="statement not covered" >                    this._geo_instance = geo.target;</span>
+                }
+                else {
+<span class="cstat-no" title="statement not covered" >                    this._geo_instance = null;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                this._updateTarget();</span>
+<span class="cstat-no" title="statement not covered" >                attr.done();</span>
+            });
+        }
+    }
+    /**
+     * Called when mat attribute is changed
+     * @param {GomlAttribute} attr [description]
+     */
+    _onMatAttrChanged(attr) <span class="cstat-no" title="statement not covered" ></span>{
+<span class="cstat-no" title="statement not covered" >        this._mat = attr.Value;</span>
+<span class="cstat-no" title="statement not covered" >        this._mat_instance = null;</span>
+        // console.warn("onMatAttrChanged", attr.Value);
+        this.nodeImport("jthree.resource.material", this._mat, <span class="fstat-no" title="function not covered" >(mat) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (mat) {
+<span class="cstat-no" title="statement not covered" >                this._mat_instance = mat.target;</span>
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                this._mat_instance = null;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this._updateTarget();</span>
+<span class="cstat-no" title="statement not covered" >            attr.done();</span>
+        });
+    }
+    _updateTarget() {
+<span class="cstat-no" title="statement not covered" ></span>        if (this._geo_instance &amp;&amp; this._mat_instance) {
+<span class="cstat-no" title="statement not covered" >            this.TargetSceneObject = new BasicMeshObject(this._geo_instance, this._mat_instance);</span>
+        }
+    }
+}
+export default MeshNode;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Mar 10 2016 02:16:17 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

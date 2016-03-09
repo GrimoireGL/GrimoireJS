@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Math/VectorBase.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/Math/</a> VectorBase.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.13% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>41/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>12/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.13% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>41/46</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</td><td class="line-coverage quiet"><span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">396×</span>
+<span class="cline-any cline-yes">396×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">103×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">103×</span>
+<span class="cline-any cline-yes">323×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">51×</span>
+<span class="cline-any cline-yes">51×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { InvalidStringException } from "../Exceptions";
+class VectorBase {
+    constructor() {
+        this._magnitudeSquaredCache = -1;
+        this._magnitudeCache = -1;
+    }
+    get magnitude() {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (this._magnitudeCache &lt; 0) {
+            this._magnitudeCache = Math.sqrt(this.sqrMagnitude);
+        }
+        return this._magnitudeCache;
+    }
+    get ElementCount() {
+<span class="cstat-no" title="statement not covered" >        return 0;</span>
+    }
+    get sqrMagnitude() {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (this._magnitudeSquaredCache &lt; 0) {
+            let sum = 0;
+            let r = this.rawElements;
+            for (let i = 0; i &lt; this.ElementCount; i++) {
+                sum += r[i] * r[i];
+            }
+            this._magnitudeSquaredCache = sum;
+        }
+        return this._magnitudeSquaredCache;
+    }
+    static __elementEquals(v1, v2) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (v1.ElementCount !== v2.ElementCount) {
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        }
+        for (let i = 0; i &lt; v1.ElementCount; i++) {
+            if (v1.rawElements[i] !== v2.rawElements[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    static __nearlyElementEquals(v1, v2) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (v1.ElementCount !== v2.ElementCount) {
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        }
+        let error = 0.01;
+        for (let i = 0; i &lt; v1.ElementCount; i++) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (Math.abs(v1.rawElements[i] - v2.rawElements[i]) &gt; error) {
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            }
+        }
+        return true;
+    }
+    static __fromGenerationFunction(v1, v2, gen) {
+        let f = new Float32Array(v1.ElementCount);
+        for (let i = 0; i &lt; f.length; i++) {
+            f[i] = gen(i, v1, v2);
+        }
+        return f;
+    }
+    static __parse(str) {
+        const checkRegex = /(-?)([\d,E\+\-\.]+)?(n)?\(([-\d,E\+\.\s]+)\)/g;
+        const matches = checkRegex.exec(str);
+        if (matches) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!matches[4]) {
+<span class="cstat-no" title="statement not covered" >                throw new InvalidStringException(`The specified string '${str}' is not containing braced vector.`);</span>
+            }
+            return {
+                needNormalize: matches[3] === "n",
+                needNegate: matches[1] === "-",
+                coefficient: parseFloat(matches[2]),
+                elements: VectorBase._parseRawVector(matches[4])
+            };
+        }
+        else {
+            // Assume this is simplified format.
+            return {
+                needNormalize: false,
+                needNegate: false,
+                elements: VectorBase._parseRawVector(str),
+                coefficient: undefined
+            };
+        }
+    }
+    static _parseRawVector(str) {
+        const splitted = str.split(",");
+        const result = new Array(splitted.length);
+        for (let i = 0; i &lt; splitted.length; i++) {
+            result[i] = parseFloat(splitted[i]);
+            if (isNaN(result[i])) {
+                return undefined;
+            }
+        }
+        return result;
+    }
+}
+export default VectorBase;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Mar 10 2016 02:16:17 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
