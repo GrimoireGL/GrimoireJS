@@ -25,5 +25,6 @@ test:
     - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
   post:
     - git fetch github gh-pages
+    - git branch -d gh-pages
+    - git checkout github/gh-pages
     - git checkout -b gh-pages
-    - git merge github/gh-pages
