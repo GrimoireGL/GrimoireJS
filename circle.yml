@@ -1,0 +1,23 @@
+machine:
+    timezone: Asia/Tokyo
+dependencies:
+  pre:
+    - nvm use v4.3.1
+    - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
+    - mkdir ci
+    - cd ci
+    - git init
+    - git config user.name "autodeploy-travis"
+    - git config user.email "travis"
+    - git remote add github https://github.com/jThreeJS/jThree
+    - git pull github gh-pages
+    - git checkout gh-pages
+    - cd ..
+  override:
+    - npm install
+test:
+  override:
+    - npm run build -- --branch=$TRAVIS_BRANCH
+    - npm run doc -- --branch=$TRAVIS_BRANCH
+    - npm run lint -- --branch=$TRAVIS_BRANCH
+    - npm run cover -- --report-dir=ci/cover/$TRAVIS_BRANCH
