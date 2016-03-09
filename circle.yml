@@ -28,7 +28,6 @@ test:
     - git checkout -b gh-pages
 deployment:
   pages:
-    branch: 'gh-pages'
     commands:
       - git add -A
       - git commit -m "auto deploy from CircleCI"
