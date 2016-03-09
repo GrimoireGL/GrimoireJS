@@ -20,7 +20,8 @@ dependencies:
     - git fetch github gh-pages
     - git merge github/gh-pages
     - cd ..
-  override:
+    - git init
+  post:
     - npm install
 test:
   override:
