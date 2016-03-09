@@ -2,6 +2,7 @@ machine:
     timezone: Asia/Tokyo
 dependencies:
   pre:
+    - nvm install v4.3.1
     - nvm use v4.3.1
     - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
     - mkdir ci
