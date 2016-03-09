@@ -21,10 +21,10 @@ class RendererFit extends GeneraterBase {
     const width = rect.Width, height = rect.Height;
     let elementLayout: number;
     texInfo["layout"] = texInfo["layout"] || "RGBA";
-    elementLayout = GLEnumParser.parseTextureElementLayout(texInfo["layout"]);
+    elementLayout = GLEnumParser.parseTextureLayout(texInfo["layout"]);
     let elementFormat: number;
     texInfo["format"] = texInfo["format"] || "UBYTE";
-    elementFormat = GLEnumParser.parseTextureElementFormat(texInfo["format"]);
+    elementFormat = GLEnumParser.parseTextureFormat(texInfo["format"]);
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const resource = rm.createTexture(this.__parentRenderer.ID + "." + texInfo.name, width, height, elementLayout, elementFormat);
     this.__parentRenderer.on("resize", (s: Rectangle) => {
