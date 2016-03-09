@@ -25,7 +25,7 @@ class AttributeParser extends jThreeObject {
     }
     let unit: string = result[3];
     if (unit == null) {
-      unit = "d"
+      unit = "d";
     }
     if (unit === "r" || unit === "rad") {
       return numerator;
@@ -54,7 +54,7 @@ class AttributeParser extends jThreeObject {
     const result = reg1.exec(input);
     if (result) {
       if (result[1] === "x") {
-        console.log("x:"+result[2]);
+        console.log("x:" + result[2]);
         return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.XUnit);
       }
       if (result[1] === "y") {
