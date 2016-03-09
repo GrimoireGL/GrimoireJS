@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/VMD/Parser/VMDData.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">lib/VMD/Parser/</a> VMDData.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.88% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/123</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">14.29% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.88% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/123</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import AsyncLoader from "../../Core/Resources/AsyncLoader";
+import { quat } from "gl-matrix";
+import BezierCurve from "./BezierCurve";
+import Q from "q";
+class VMDData {
+<span class="fstat-no" title="function not covered" >    constructor(data) {</span>
+<span class="cstat-no" title="statement not covered" >        this._offset = 0;</span>
+<span class="cstat-no" title="statement not covered" >        this._reader = new DataView(data, 0, data.byteLength);</span>
+<span class="cstat-no" title="statement not covered" >        this._loadHeader();</span>
+<span class="cstat-no" title="statement not covered" >        this._loadMotion();</span>
+<span class="cstat-no" title="statement not covered" >        this._loadMorph();</span>
+    }
+    static loadFromUrl(url) {
+<span class="cstat-no" title="statement not covered" >        return VMDData._asyncLoader.fetch(url, <span class="fstat-no" title="function not covered" >(path) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            const d = Q.defer();</span>
+<span class="cstat-no" title="statement not covered" >            const oReq = new XMLHttpRequest();</span>
+<span class="cstat-no" title="statement not covered" >            oReq.open("GET", path, true);</span>
+<span class="cstat-no" title="statement not covered" >            oReq.setRequestHeader("Accept", "*/*");</span>
+<span class="cstat-no" title="statement not covered" >            oReq.responseType = "arraybuffer";</span>
+<span class="cstat-no" title="statement not covered" >            oReq.onload = <span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >                const data = new VMDData(oReq.response);</span>
+<span class="cstat-no" title="statement not covered" >                d.resolve(data);</span>
+            };
+<span class="cstat-no" title="statement not covered" >            oReq.onerror = <span class="fstat-no" title="function not covered" >(err) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >                d.reject(err);</span>
+            };
+<span class="cstat-no" title="statement not covered" >            oReq.send(null);</span>
+<span class="cstat-no" title="statement not covered" >            return d.promise;</span>
+        });
+    }
+    get Motions() {
+<span class="cstat-no" title="statement not covered" >        return this._motions;</span>
+    }
+    get Morphs() {
+<span class="cstat-no" title="statement not covered" >        return this._morphs;</span>
+    }
+    getBoneFrame(frame, boneName) {
+<span class="cstat-no" title="statement not covered" >        const frames = this._motions[boneName];</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (typeof frames === "undefined") {
+<span class="cstat-no" title="statement not covered" >            return null;</span>
+        }
+        else {
+<span class="cstat-no" title="statement not covered" >            const index = this._binaryframeSearch(frames, frame);</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (index + 1 &lt; frames.length) {
+<span class="cstat-no" title="statement not covered" >                const nextFrame = frames[index + 1];</span>
+<span class="cstat-no" title="statement not covered" >                const currentFrame = frames[index];</span>
+<span class="cstat-no" title="statement not covered" >                const progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);</span>
+<span class="cstat-no" title="statement not covered" >                return {</span>
+                    frameNumber: frame,
+                    position: this._complementBoneTranslation(currentFrame.position, nextFrame.position, progress, currentFrame.interpolation),
+                    rotation: quat.slerp([0, 0, 0, 0], currentFrame.rotation, nextFrame.rotation, currentFrame.interpolation[3].evaluate(progress))
+                };
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                return {</span>
+                    frameNumber: frame,
+                    position: frames[index].position,
+                    rotation: frames[index].rotation
+                };
+            }
+        }
+    }
+    getMorphFrame(frame, morphName) {
+<span class="cstat-no" title="statement not covered" >        const frames = this._morphs[morphName];</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (typeof frames === "undefined") {
+<span class="cstat-no" title="statement not covered" >            return null;</span>
+        }
+        else {
+<span class="cstat-no" title="statement not covered" >            const index = this._binaryframeSearch(frames, frame);</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (index + 1 &lt; frames.length) {
+<span class="cstat-no" title="statement not covered" >                const nextFrame = frames[index + 1];</span>
+<span class="cstat-no" title="statement not covered" >                const currentFrame = frames[index];</span>
+<span class="cstat-no" title="statement not covered" >                const progress = (frame - currentFrame.frameNumber) / (nextFrame.frameNumber - currentFrame.frameNumber);</span>
+<span class="cstat-no" title="statement not covered" >                return {</span>
+                    frameNumber: frame,
+                    value: currentFrame.morphValue + (nextFrame.morphValue - currentFrame.morphValue) * progress,
+                };
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                return {</span>
+                    frameNumber: frame,
+                    value: frames[index].morphValue,
+                };
+            }
+        }
+    }
+    _loadHeader() {
+<span class="cstat-no" title="statement not covered" >        this._header</span>
+            = {
+                header: this._loadString(30),
+                modelName: this._loadString(20)
+            };
+    }
+    _loadMotion() {
+<span class="cstat-no" title="statement not covered" >        this._motions = {};</span>
+<span class="cstat-no" title="statement not covered" >        const frameCount = this._readUint32();</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; frameCount; i++) {
+<span class="cstat-no" title="statement not covered" >            const frameName = this._loadString(15);</span>
+<span class="cstat-no" title="statement not covered" >            const data = {</span>
+                frameNumber: this._readUint32(),
+                position: [this._readFloat32(), this._readFloat32(), -this._readFloat32()],
+                rotation: [-this._readFloat32(), -this._readFloat32(), this._readFloat32(), this._readFloat32()],
+                interpolation: this._loadInterpolation()
+            };
+<span class="cstat-no" title="statement not covered" ></span>            if (typeof this._motions[frameName] === "undefined") {
+<span class="cstat-no" title="statement not covered" >                this._motions[frameName] = [];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this._motions[frameName].push(data);</span>
+        }
+<span class="cstat-no" title="statement not covered" ></span>        for (let motion in this._motions) {
+<span class="cstat-no" title="statement not covered" >            this._motions[motion].sort(<span class="fstat-no" title="function not covered" >(i1, i2) =&gt; i1.frameNumber - i2.frameNumber);</span></span>
+        }
+    }
+    _loadMorph() {
+<span class="cstat-no" title="statement not covered" >        this._morphs = {};</span>
+<span class="cstat-no" title="statement not covered" >        const frameCount = this._readUint32();</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; frameCount; i++) {
+<span class="cstat-no" title="statement not covered" >            const frameName = this._loadString(15);</span>
+<span class="cstat-no" title="statement not covered" >            const data = {</span>
+                frameNumber: this._readUint32(),
+                morphValue: this._readFloat32()
+            };
+<span class="cstat-no" title="statement not covered" ></span>            if (typeof this._morphs[frameName] === "undefined") {
+<span class="cstat-no" title="statement not covered" >                this._morphs[frameName] = [];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this._morphs[frameName].push(data);</span>
+        }
+<span class="cstat-no" title="statement not covered" ></span>        for (let morph in this._morphs) {
+<span class="cstat-no" title="statement not covered" >            this._morphs[morph].sort(<span class="fstat-no" title="function not covered" >(i1, i2) =&gt; i1.frameNumber - i2.frameNumber);</span></span>
+        }
+    }
+    _loadBytes(byteLength) {
+<span class="cstat-no" title="statement not covered" >        let isPadding = false;</span>
+<span class="cstat-no" title="statement not covered" >        const arr = [];</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; byteLength; i++) {
+<span class="cstat-no" title="statement not covered" >            const current = this._readUint8();</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (current === 0x00) {
+<span class="cstat-no" title="statement not covered" >                isPadding = true;</span>
+            }
+<span class="cstat-no" title="statement not covered" ></span>            if (!isPadding) {
+<span class="cstat-no" title="statement not covered" >                arr.push(current);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return new Uint8Array(arr);</span>
+    }
+    _loadString(length) {
+<span class="cstat-no" title="statement not covered" >        const decoder = new TextDecoder("shift-jis");</span>
+<span class="cstat-no" title="statement not covered" >        return decoder.decode(this._loadBytes(length));</span>
+    }
+    _loadInterpolation() {
+<span class="cstat-no" title="statement not covered" >        const interpolation = new Array(4);</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; 4; i++) {
+<span class="cstat-no" title="statement not covered" >            interpolation[i] = new Array(4);</span>
+<span class="cstat-no" title="statement not covered" ></span>            for (let j = 0; j &lt; 4; j++) {
+<span class="cstat-no" title="statement not covered" >                interpolation[i][j] = new Array(4);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; 4; i++) {
+<span class="cstat-no" title="statement not covered" ></span>            for (let j = 0; j &lt; 4; j++) {
+<span class="cstat-no" title="statement not covered" ></span>                for (let k = 0; k &lt; 4; k++) {
+<span class="cstat-no" title="statement not covered" >                    interpolation[i][j][k] = this._readUint8();</span>
+                }
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        const result = new Array(4);</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; 4; i++) {
+<span class="cstat-no" title="statement not covered" >            result[i] = new BezierCurve(interpolation[0][0][i] / 128.0, interpolation[0][1][i] / 128.0, interpolation[0][2][i] / 128.0, interpolation[0][3][i] / 128);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    }
+    _binaryframeSearch(source, frame) {
+<span class="cstat-no" title="statement not covered" >        let minIndex = 0;</span>
+<span class="cstat-no" title="statement not covered" >        let maxIndex = source.length - 1;</span>
+<span class="cstat-no" title="statement not covered" >        let currentIndex = -1;</span>
+<span class="cstat-no" title="statement not covered" >        let currentElement;</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (source.length === 1) {
+<span class="cstat-no" title="statement not covered" >            return 0;</span>
+        }
+<span class="cstat-no" title="statement not covered" ></span>        while (minIndex &lt;= maxIndex) {
+<span class="cstat-no" title="statement not covered" >            currentIndex = (minIndex + maxIndex) / 2 | 0;</span>
+<span class="cstat-no" title="statement not covered" >            currentElement = source[currentIndex];</span>
+<span class="cstat-no" title="statement not covered" >            if (currentElement.frameNumber &lt; frame) {</span>
+<span class="cstat-no" title="statement not covered" ></span>                if (currentIndex + 1 &lt; source.length &amp;&amp; source[currentIndex + 1].frameNumber &gt; frame) {
+<span class="cstat-no" title="statement not covered" >                    return currentIndex;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                minIndex = currentIndex + 1;</span>
+            }
+            else <span class="cstat-no" title="statement not covered" ></span>if (currentElement.frameNumber &gt; frame) {
+<span class="cstat-no" title="statement not covered" >                maxIndex = currentIndex - 1;</span>
+<span class="cstat-no" title="statement not covered" ></span>                if (currentIndex - 1 &gt;= 0 &amp;&amp; source[currentIndex - 1].frameNumber &lt; frame) {
+<span class="cstat-no" title="statement not covered" >                    return currentIndex - 1;</span>
+                }
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                return currentIndex;</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return currentIndex;</span>
+    }
+    _complementBoneTranslation(begin, end, progress, bezierCurves) <span class="cstat-no" title="statement not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >        const r</span>esult = [0, 0, 0]; // TODO optimize this
+        for (let i = 0; i &lt; 3; i++) {
+<span class="cstat-no" title="statement not covered" >            result[i] = begin[i] + (end[i] - begin[i]) * bezierCurves[i].evaluate(progress);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    }
+    _readUint8() {
+<span class="cstat-no" title="statement not covered" >        const result = this._reader.getUint8(this._offset);</span>
+<span class="cstat-no" title="statement not covered" >        this._offset += 1;</span>
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    }
+    _readUint32() {
+<span class="cstat-no" title="statement not covered" >        const result = this._reader.getUint32(this._offset, true);</span>
+<span class="cstat-no" title="statement not covered" >        this._offset += 4;</span>
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    }
+    _readFloat32() {
+<span class="cstat-no" title="statement not covered" >        const result = this._reader.getFloat32(this._offset, true);</span>
+<span class="cstat-no" title="statement not covered" >        this._offset += 4;</span>
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    }
+}
+VMDData._asyncLoader = new AsyncLoader();
+export default VMDData;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Mar 10 2016 02:09:13 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
