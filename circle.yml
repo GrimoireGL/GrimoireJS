@@ -21,5 +21,4 @@ test:
   post:
     - git config --global user.email "admin@jthree.io"
     - git config --global user.name "CircleCI"
-    - cd ci
-    - sh ../build/shell/deploy-gp.sh
+    - sh ./build/shell/deploy-gp.sh
