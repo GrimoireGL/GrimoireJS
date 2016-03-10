@@ -1,3 +1,4 @@
+mkdir ci
 cd ci
 git init
 git config --global user.email "admin@jthree.io"
