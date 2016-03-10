@@ -5,7 +5,11 @@ import Q from "q";
 import {Func1} from "../../Base/Delegates";
 class AsyncLoader<T> {
 
-  private _loadedResource: { [url: string]: T|Q.IPromise<T> } = {};
+  private _isLoading: { [url: string]: boolean } = {};
+
+  private _loadedResource: { [url: string]: T } = {};
+
+  private _loadingPromise: { [url: string]: Q.IPromise<T> } = {};
 
   public static getAbsolutePath(relative: string): string {
     const aElem = document.createElement("a");
@@ -14,32 +18,42 @@ class AsyncLoader<T> {
   }
 
   public pushLoaded(url: string, content: T): void {
-    this._loadedResource[AsyncLoader.getAbsolutePath(url)] = content;
+    const path = AsyncLoader.getAbsolutePath(url);
+    this._loadedResource[path] = content;
+    this._isLoading[path] = false;
   }
 
   public fromCache(url: string): T {
-    return <T>this._loadedResource[AsyncLoader.getAbsolutePath(url)];
+    const path = AsyncLoader.getAbsolutePath(url);
+    if (this._isLoading[path] === false) {
+      return this._loadedResource[AsyncLoader.getAbsolutePath(url)];
+    } else {
+      throw new Error(`The resource ${url} is not loaded yet.`);
+    }
   }
 
   public fetch(src: string, request: Func1<string, Q.IPromise<T>>): Q.IPromise<T> {
     const absPath = AsyncLoader.getAbsolutePath(src);
-    if (this._loadedResource[absPath] && this._loadedResource[absPath] instanceof Q.Promise) { // Assume this is Promise object
-      return <Q.IPromise<T>>this._loadedResource[absPath];
+    if (this._isLoading[absPath] === true) {
+      return this._loadingPromise[absPath];
     } else {
       const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
       const deferred = loader.getResourceLoadingDeffered<T>();
-      if (this._loadedResource[absPath]) { // Assume this is loaded texture
+      if (this._isLoading[absPath] === false) {
         process.nextTick(() => {
-          deferred.resolve(<T>this._loadedResource[absPath]);
+          deferred.resolve(this._loadedResource[absPath]);
         });
       } else {
         request(absPath).then((result) => {
           this._loadedResource[absPath] = result;
+          this._isLoading[absPath] = false;
           deferred.resolve(result);
         }, (err) => {
+            this._isLoading[absPath] = false;
             deferred.reject(err);
           });
-        this._loadedResource[absPath] = deferred.promise;
+        this._loadingPromise[absPath] = deferred.promise;
+        this._isLoading[absPath] = true;
       }
       return deferred.promise;
     }
