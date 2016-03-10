@@ -1,0 +1,1 @@
+{"version":3,"file":"CanvasesNode.js","sourceRoot":"","sources":["CanvasesNode.ts"],"names":["CanvasesNode","CanvasesNode.constructor","CanvasesNode.loadPriorty"],"mappings":"OAAO,uBAAuB,MAAM,2BAA2B;AAE/D,2BAA2B,uBAAuB;IAChDA;QACEC,OAAOA,CAACA;IACVA,CAACA;IAEDD,IAAWA,WAAWA;QACpBE,MAAMA,CAACA,IAAIA,CAACA;IACdA,CAACA;AAEHF,CAACA;AAED,eAAe,YAAY,CAAC"}

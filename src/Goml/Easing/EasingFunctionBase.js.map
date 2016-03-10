@@ -1,0 +1,1 @@
+{"version":3,"file":"EasingFunctionBase.js","sourceRoot":"","sources":["EasingFunctionBase.ts"],"names":["EasingFunctionBase","EasingFunctionBase.Ease"],"mappings":"OAAO,YAAY,MAAM,yBAAyB;AAElD,iCAAiC,YAAY;IACpCA,IAAIA,CAACA,KAAaA,EAAEA,GAAWA,EAAEA,QAAgBA;QACtDC,MAAMA,CAACA,IAAIA,CAACA;IACdA,CAACA;AACHD,CAACA;AAED,eAAe,kBAAkB,CAAC"}

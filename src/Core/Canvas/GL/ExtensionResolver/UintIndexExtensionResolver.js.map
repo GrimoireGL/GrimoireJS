@@ -1,0 +1,1 @@
+{"version":3,"file":"UintIndexExtensionResolver.js","sourceRoot":"","sources":["UintIndexExtensionResolver.ts"],"names":[],"mappings":"OAAO,qBAAqB,MAAM,yBAAyB;AAC3D,yCAAyC,qBAAqB;IACrD,OAAO,CAAC,EAAyB;QACtC,MAAM,CAAC,IAAI,CAAC,6BAA6B,CAAC,EAAE,EAAE,wBAAwB,CAAC,CAAC;IAC1E,CAAC;AACH,CAAC;AACD,eAAe,0BAA0B,CAAC"}
