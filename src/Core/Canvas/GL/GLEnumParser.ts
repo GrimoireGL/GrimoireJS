@@ -27,8 +27,7 @@ class GLEnumParser {
       case "SRC_ALPHA_SATURATE":
         return WebGLRenderingContext.SRC_ALPHA_SATURATE;
       default:
-        console.error("Unknown blend func constant!");
-        return WebGLRenderingContext.ONE;
+        throw new Error("Unknown blend func constant:" + val);
     }
   }
 
@@ -50,8 +49,7 @@ class GLEnumParser {
       case "ALWAYS":
         return WebGLRenderingContext.ALWAYS;
       default:
-        console.error("Unknown depth func constant!");
-        return WebGLRenderingContext.LESS;
+        throw new Error("Unknown depth func:" + val);
     }
   }
 
@@ -65,8 +63,7 @@ class GLEnumParser {
       case "FRONT_AND_BACK":
         return WebGLRenderingContext.FRONT_AND_BACK;
       default:
-        console.error("Unknown cull mode constant!");
-        return WebGLRenderingContext.BACK;
+        throw new Error("Unknown cull mode:" + val);
     }
   }
 
@@ -80,8 +77,7 @@ class GLEnumParser {
       case "MIRRORED_REPEAT":
         return WebGLRenderingContext.MIRRORED_REPEAT;
       default:
-        console.error("Unknown texture wrapping mode!");
-        return WebGLRenderingContext.REPEAT;
+        throw new Error("Unknown texture wrapping mode:" + val);
     }
   }
 
@@ -93,8 +89,7 @@ class GLEnumParser {
       case "LINEAR":
         return WebGLRenderingContext.LINEAR;
       default:
-        console.error("Unknown mag filter mode!");
-        return WebGLRenderingContext.LINEAR;
+        throw new Error("Unknown mag filter mode:" + val);
     }
   }
 
@@ -114,17 +109,18 @@ class GLEnumParser {
       case "LINEAR":
         return WebGLRenderingContext.LINEAR;
       default:
-        return WebGLRenderingContext.LINEAR;
+        throw new Error("Unknown min filter mode:" + val);
     }
   }
 
-  public static parseTextureElementLayout(val: string): number {
+  public static parseTextureLayout(val: string): number {
     switch (val.toUpperCase()) {
       case "ALPHA":
         return WebGLRenderingContext.ALPHA;
       case "RGB":
         return WebGLRenderingContext.RGB;
       case "DEPTH":
+      case "DEPTH_COMPONENT":
         return WebGLRenderingContext.DEPTH_COMPONENT;
       case "LUMINANCE":
         return WebGLRenderingContext.LUMINANCE;
@@ -135,30 +131,36 @@ class GLEnumParser {
       case "RGBA":
         return WebGLRenderingContext.RGBA;
       default:
-        console.error("the given parameter was invalid : texture format " + val);
+        throw new Error("Unknown texture layout was specified" + val);
     }
   }
 
-  public static parseTextureElementFormat(val: string): number {
+  public static parseTextureFormat(val: string): number {
     switch (val.toUpperCase()) {
       case "UBYTE":
+      case "UNSIGNED_BYTE":
         return WebGLRenderingContext.UNSIGNED_BYTE;
       case "FLOAT":
         return WebGLRenderingContext.FLOAT;
       case "USHORT565":
+      case "UNSIGNED_SHORT_5_6_5":
         return WebGLRenderingContext.UNSIGNED_SHORT_5_6_5;
       case "USHORT4444":
+      case "UNSIGNED_SHORT_4_4_4_4":
         return WebGLRenderingContext.UNSIGNED_SHORT_4_4_4_4;
       case "USHORT5551":
+      case "UNSIGNED_SHORT_5_5_5_1":
         return WebGLRenderingContext.UNSIGNED_SHORT_5_5_5_1;
       case "UINT":
+      case "UNSIGNED_INT":
         return WebGLRenderingContext.UNSIGNED_INT;
       case "USHORT":
+      case "UNSIGNED_SHORT":
         return WebGLRenderingContext.UNSIGNED_SHORT;
       // case "UINT24_8":
       //   return WebGLRenderingContext.UINT;
       default:
-        console.error("the given parameter was invalid : element format " + val);
+        throw new Error("Unknown texture format was specified" + val);
     }
   }
 }

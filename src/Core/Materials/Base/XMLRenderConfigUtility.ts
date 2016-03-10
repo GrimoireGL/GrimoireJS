@@ -78,7 +78,7 @@ class XMLRenderConfigureUtility {
       const enabledStr = blendNode.getAttribute("enabled");
       const srcFactorStr = blendNode.getAttribute("src");
       const dstFactorStr = blendNode.getAttribute("dst");
-      target.blendEnabled = this._parseBoolean(enabledStr, defConfig.blendEnabled);
+      target.blendEnabled = XMLRenderConfigureUtility._parseBoolean(enabledStr, defConfig.blendEnabled);
       target.blendSrcFactor = srcFactorStr || defConfig.blendSrcFactor;
       target.blendDstFactor = dstFactorStr || defConfig.blendDstFactor;
     }
@@ -92,7 +92,7 @@ class XMLRenderConfigureUtility {
     } else {
       const enabledStr = depthNode.getAttribute("enabled");
       const modeStr = depthNode.getAttribute("mode");
-      target.depthEnabled = this._parseBoolean(enabledStr, defConfig.depthEnabled);
+      target.depthEnabled = XMLRenderConfigureUtility._parseBoolean(enabledStr, defConfig.depthEnabled);
       target.depthMode = modeStr || defConfig.depthMode;
     }
   }
