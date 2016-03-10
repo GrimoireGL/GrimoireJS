@@ -1,4 +1,5 @@
 cd ci
+rm -rf jThree
 git config --global user.email "admin@jthree.io"
 git config --global user.name "CircleCI"
 git add -A
