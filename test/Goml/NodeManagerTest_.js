@@ -8,19 +8,19 @@ global.DOMParser = xmldom.DOMParser;
 
 const ContextComponentsMock = {
   LoopManager: void 0,
-}
-
-const JThreeContextMock = {
-  getContextComponent: () => {
-    return LoopManagerMock;
-  }
-}
+};
 
 const LoopManagerMock = {
   addAction: () => {
     return void 0;
-  }
-}
+  },
+};
+
+const JThreeContextMock = {
+  getContextComponent: () => {
+    return LoopManagerMock;
+  },
+};
 
 NodeManager.__Rewire__('ContextComponents', ContextComponentsMock);
 NodeManager.__Rewire__('JThreeContext', JThreeContextMock);
