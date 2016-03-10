@@ -13,7 +13,6 @@ dependencies:
     - sh ./build/shell/deploy-gp-init.sh
 test:
   override:
-    - echo "SOMETHING TEST"
     - npm run build -- --branch=$CIRCLE_BRANCH
     - npm run doc -- --branch=$CIRCLE_BRANCH
     - npm run lint -- --branch=$CIRCLE_BRANCH
