@@ -1,1 +1,0 @@
-{"version":3,"file":"DepthTextureExtensionResolver.js","sourceRoot":"","sources":["DepthTextureExtensionResolver.ts"],"names":[],"mappings":"OAAO,qBAAqB,MAAM,yBAAyB;AAE3D,4CAA4C,qBAAqB;IACxD,OAAO,CAAC,EAAyB;QACtC,MAAM,CAAC,IAAI,CAAC,6BAA6B,CAAC,EAAE,EAAE,qBAAqB,CAAC,CAAC;IACvE,CAAC;AACH,CAAC;AAED,eAAe,6BAA6B,CAAC"}

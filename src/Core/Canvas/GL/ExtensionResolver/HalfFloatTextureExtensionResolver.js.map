@@ -1,1 +1,0 @@
-{"version":3,"file":"HalfFloatTextureExtensionResolver.js","sourceRoot":"","sources":["HalfFloatTextureExtensionResolver.ts"],"names":[],"mappings":"OAAO,qBAAqB,MAAM,yBAAyB;AAC3D,gDAAgD,qBAAqB;IAC3D,OAAO,CAAC,EAAyB;QACtC,MAAM,SAAS,GAAG,IAAI,CAAC,6BAA6B,CAAC,EAAE,EAAE,wBAAwB,CAAC,CAAC;QACnF,MAAM,CAAC,SAAS,CAAC;IACnB,CAAC;AACJ,CAAC;AAED,eAAe,iCAAiC,CAAC"}

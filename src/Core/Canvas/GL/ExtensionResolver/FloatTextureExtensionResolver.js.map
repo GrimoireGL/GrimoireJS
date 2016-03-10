@@ -1,1 +1,0 @@
-{"version":3,"file":"FloatTextureExtensionResolver.js","sourceRoot":"","sources":["FloatTextureExtensionResolver.ts"],"names":[],"mappings":"OAAO,qBAAqB,MAAM,yBAAyB;AAC3D,4CAA4C,qBAAqB;IAExD,OAAO,CAAC,EAAyB;QACtC,MAAM,CAAC,IAAI,CAAC,6BAA6B,CAAC,EAAE,EAAE,mBAAmB,CAAC,CAAC;IACrE,CAAC;AACH,CAAC;AAED,eAAe,6BAA6B,CAAC"}

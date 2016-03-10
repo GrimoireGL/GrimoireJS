@@ -1,1 +1,0 @@
-{"version":3,"file":"ImportsNode.js","sourceRoot":"","sources":["ImportsNode.ts"],"names":["CanvasesNode","CanvasesNode.constructor","CanvasesNode.loadPriorty"],"mappings":"OAAO,uBAAuB,MAAM,2BAA2B;AAE/D,2BAA2B,uBAAuB;IAGhDA;QACEC,OAAOA,CAACA;QAHAA,gBAAWA,GAAWA,QAAQA,CAACA;IAIzCA,CAACA;IAEDD,IAAWA,WAAWA;QACpBE,MAAMA,CAACA,CAACA,CAACA;IACXA,CAACA;AAEHF,CAACA;AAED,eAAe,YAAY,CAAC"}

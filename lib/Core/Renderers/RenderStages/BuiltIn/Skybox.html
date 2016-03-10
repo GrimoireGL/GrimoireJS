@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <rsml>
+    <stage name="jthree.basic.skybox">
+      <technique target="cube">
+        <cull enabled="true" mode="FRONT" />
+        <fbo primary="OUT">
+          <color register="0" name="OUT" clearColor="0,0,0,1"/>
+        </fbo>
+        <material>
+          <uniform-register>
+            <register name="builtin.basic" />
+          </uniform-register>
+          <passes>
+            <pass>
+              <depth enabled="false" />
+              <glsl>
+                <![CDATA[
+            attribute vec3 position;
+            varying vec3 vPosition;
+
+            @vert{
+              uniform mat4 _matV;
+
+              void main(void)
+              {
+              	vPosition = (vec4(position,1.0) * _matV).xyz;
+                gl_Position = vec4(position,1.0);
+              }
+            }
+
+            @frag{
+              @{register:0}
+              uniform samplerCube skybox;
+
+              void main()
+              {
+              		gl_FragColor=textureCube(skybox,vPosition);
+              }
+            }
+
+            ]]>
+              </glsl>
+            </pass>
+          </passes>
+        </material>
+      </technique>
+    </stage>
+  </rsml>

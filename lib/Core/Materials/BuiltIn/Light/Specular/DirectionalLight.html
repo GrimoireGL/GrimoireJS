@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <material name="jthree.basic.light.specular.directional" group="jthree.light.specular" order="300">
+    <uniform-register>
+      <register name="builtin.basic" />
+      <register name="builtin.buffer" />
+    </uniform-register>
+    <passes>
+      <pass>
+        <glsl>
+          <![CDATA[
+      attribute vec3 position;
+      varying vec4 vLightProjectedPosition;
+      @vert{
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+          gl_Position = vLightProjectedPosition =  vec4(position,1.0);
+        }
+      }
+
+      @frag{
+        uniform vec3 lightColor;
+        uniform vec3 lightDirection;
+        @{type:"buffer",register:0,name:"PRIMARY"}
+        uniform sampler2D _gBuffer;
+        uniform mat4 _matIP;
+
+        @import "builtin.gbuffer-reader"
+
+        void main(void)
+        {
+          vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
+          if(rawBuffer.w == 0.)discard;
+          vec3 normal = getNormal(rawBuffer);
+          float depth = getDepth(rawBuffer);
+          vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
+          float power = dot(-lightDirection,normal);
+          vec3 hv = normalize(normalize(-lightDirection) + normalize(-pos));
+          float brightness = rawBuffer.w;
+          float phong = pow(max(0.,dot(hv,normal)),brightness);
+          gl_FragColor = vec4(lightColor * phong,1.0);
+        }
+      }
+      ]]>
+        </glsl>
+      </pass>
+    </passes>
+  </material>
