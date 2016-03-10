@@ -1,4 +1,5 @@
 mkdir ci
+ls
 cd ci
 git config --global user.email "admin@jthree.io"
 git config --global user.name "CircleCI"
