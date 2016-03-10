@@ -105,11 +105,6 @@ class ShaderParser {
       let returnType = regexResult[1];
       let functionName = regexResult[2];
       let args = regexResult[3];
-      // console.log("returnType:" + returnType);
-      // console.log("funcName:" + functionName);
-      // console.log("args:" + args);
-
-
       let argumentDescriptions: IArgumentDescription[] = [];
 
       // parse arguments
