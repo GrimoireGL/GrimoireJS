@@ -10,9 +10,7 @@ dependencies:
   pre:
     - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
     - mkdir ci
-    - cd ci
     - sh ../build/shell/deploy-gp-init.sh
-    - cd ..
 test:
   override:
     - echo "SOMETHING TEST"
