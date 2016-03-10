@@ -130,14 +130,26 @@ test('Color3 parseTuple3 #XYZAF must be undefined', (t) => {
 test('180 should convert into radians', (t) => {
   t.ok(AttributeParser.parseAngle("180") === Math.PI);
 });
+test('-180 should convert into radians', (t) => {
+  t.ok(AttributeParser.parseAngle("-180") === -Math.PI);
+});
 test('180 should convert into radians', (t) => {
   t.ok(AttributeParser.parseAngle("180d") === Math.PI);
+});
+test('-180 should convert into radians', (t) => {
+  t.ok(AttributeParser.parseAngle("-180d") === -Math.PI);
 });
 test('180 should convert into radians', (t) => {
   t.ok(AttributeParser.parseAngle("180deg") === Math.PI);
 });
+test('-180 should convert into radians', (t) => {
+  t.ok(AttributeParser.parseAngle("-180deg") === -Math.PI);
+});
 test('1/2p should mean 90degree', (t) => {
   t.ok(AttributeParser.parseAngle("1/2p") === Math.PI / 2);
+});
+test('-1/2p should mean 90degree', (t) => {
+  t.ok(AttributeParser.parseAngle("-1/2p") === -Math.PI / 2);
 });
 test('0.5p should mean 90degree', (t) => {
   t.ok(AttributeParser.parseAngle("0.5p") === Math.PI / 2);
@@ -158,9 +170,34 @@ test('rotation 180 x', (t) => {
 test('rotation 123.4 y', (t) => {
   t.ok(AttributeParser.parseRotation3D("y(123.4)").equalWith(Quaternion.angleAxis(AttributeParser.parseAngle("123.4"), Vector3.YUnit)));
 });
+test('rotation 123.4 y with space', (t) => {
+  t.ok(AttributeParser.parseRotation3D(" y ( 123.4 ) ").equalWith(Quaternion.angleAxis(AttributeParser.parseAngle("123.4"), Vector3.YUnit)));
+});
 test('rotation 1/6p z', (t) => {
   t.ok(AttributeParser.parseRotation3D("z(1/6p)").equalWith(Quaternion.angleAxis(AttributeParser.parseAngle("1/6p"), Vector3.ZUnit)));
 });
+
+test('rotation 1/6p z with space', (t) => {
+  t.ok(AttributeParser.parseRotation3D(" z ( 1 / 6 p ) ").equalWith(Quaternion.angleAxis(AttributeParser.parseAngle("1/6p"), Vector3.ZUnit)));
+});
+
+test('rotation 180 x with space', (t) => {
+  let q = Quaternion.angleAxis(AttributeParser.parseAngle("180"), Vector3.XUnit);
+  t.ok(AttributeParser.parseRotation3D(" x( 180 ) ").equalWith(q));
+});
+
 test('axis rotation', (t) => {
   t.ok(AttributeParser.parseRotation3D("axis(1/2p,1,2,3)").equalWith(Quaternion.angleAxis(AttributeParser.parseAngle("1/2p"), new Vector3(1, 2, 3))));
+});
+
+test('axis rotation with space', (t) => {
+  t.ok(AttributeParser.parseRotation3D(" axis ( 1 / 2 p , 1 , 2 , 3 ) ").equalWith(Quaternion.angleAxis(AttributeParser.parseAngle("1/2p"), new Vector3(1, 2, 3))));
+});
+
+test('euler rotation', (t) => {
+  t.ok(AttributeParser.parseRotation3D("30,20,50").equalWith(Quaternion.euler(AttributeParser.parseAngle("30"),AttributeParser.parseAngle("20"),AttributeParser.parseAngle("50"))));
+});
+
+test('euler rotation with space', (t) => {
+  t.ok(AttributeParser.parseRotation3D(" 30 , 20 , 50 ").equalWith(Quaternion.euler(AttributeParser.parseAngle("30"),AttributeParser.parseAngle("20"),AttributeParser.parseAngle("50"))));
 });

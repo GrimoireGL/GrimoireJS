@@ -18,7 +18,7 @@
       <mesh mat="sampleMaterial2" geo="cube" position="4,0,0" rotation="y(30d)"/>
       <mesh mat="sampleMaterial3" geo="cube" position="0,0,-3" scale="5,1,1"/>
       <mesh mat="sampleMaterial4" geo="cube" position="-2,0,0" rotation="axis(45d,1,1,1)"/>
-      <mesh mat="sampleMaterial5" geo="cube" position="-4,0,0" scale="0.5,0.5,0.5" rotation="euler(30d,0,0)"/>
+      <mesh mat="sampleMaterial5" geo="cube" position="-4,0,0" scale="0.5,0.5,0.5" rotation="30d,0,0"/>
     </scene>
   </scenes>
 </goml>
