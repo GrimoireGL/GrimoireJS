@@ -3,7 +3,7 @@ import test from 'ava';
 import Canvas from '../../lib/Core/Canvas/Canvas';
 import sinon from 'sinon';
 
-import gl from '../glTestInitializer';
+import gl from '../GLTestInitializer';
 
 
 test('Canvas should initialized with valid context', (t) => {
