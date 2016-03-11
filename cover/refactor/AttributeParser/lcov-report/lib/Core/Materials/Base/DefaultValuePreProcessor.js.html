@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">88.7% </span>
+        <span class="strong">83.2% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>102/115</span>
+        <span class='fraction'>104/125</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80.77% </span>
+        <span class="strong">76.36% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>42/52</span>
+        <span class='fraction'>42/55</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">91.67% </span>
+        <span class="strong">78.57% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>11/12</span>
+        <span class='fraction'>11/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">88.57% </span>
+        <span class="strong">82.61% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>93/105</span>
+        <span class='fraction'>95/115</span>
       </div>
     </div>
   </div>
@@ -238,7 +238,29 @@
 193
 194
 195
-196</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2×</span>
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-yes">2×</span>
@@ -268,6 +290,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -432,8 +456,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import MatrixArray from "../../../Math/MatrixArray";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import JThreeContext from "../../../JThreeContext";
+import ContextComponents from "../../../ContextComponents";
+import MatrixArray from "../../../Math/MatrixArray";
 import VectorArray from "../../../Math/VectorArray";
 import Matrix from "../../../Math/Matrix";
 import Vector2 from "../../../Math/Vector2";
@@ -447,7 +489,7 @@ class DefaultValuePreProcessor {
         for (let variableName in uniforms) {
             const uniform = uniforms[variableName];
             if (!uniform.isArray) {
-                switch (uniform.variableType) {
+<span class="branch-5 cbranch-no" title="branch not covered" >                switch (uniform.variableType) {</span>
                     case "float":
                         tasks.push(DefaultValuePreProcessor._syncPromise(() =&gt; { DefaultValuePreProcessor._forFloat(uniform); }));
                         break;
@@ -463,6 +505,8 @@ class DefaultValuePreProcessor {
                     case "mat4":
                         tasks.push(DefaultValuePreProcessor._syncPromise(() =&gt; { DefaultValuePreProcessor._forMat4(uniform); }));
                         break;
+                    case "sampler2D":
+<span class="cstat-no" title="statement not covered" >                        tasks.push(DefaultValuePreProcessor._forSampler2D(uniform));</span>
                 }
             }
             else {
@@ -626,6 +670,22 @@ class DefaultValuePreProcessor {
             }
         }
     }
+    static _forSampler2D(uniform) {
+<span class="cstat-no" title="statement not covered" >        const defaultValue = uniform.variableAnnotation.default;</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (defaultValue) {
+<span class="cstat-no" title="statement not covered" >            return DefaultValuePreProcessor._resourceManager.loadTexture(defaultValue).then(<span class="fstat-no" title="function not covered" >(texture) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >                uniform.variableAnnotation.default = texture;</span>
+            });
+        }
+        else {
+<span class="cstat-no" title="statement not covered" >            return DefaultValuePreProcessor._syncPromise(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >                uniform.variableAnnotation.default = null;</span>
+            });
+        }
+    }
+    static get _resourceManager() {
+<span class="cstat-no" title="statement not covered" >        return JThreeContext.getContextComponent(ContextComponents.ResourceManager);</span>
+    }
 }
 export default DefaultValuePreProcessor;
 &nbsp;</pre></td></tr>
@@ -634,7 +694,7 @@ export default DefaultValuePreProcessor;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Mar 11 2016 20:22:38 GMT+0900 (JST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Mar 12 2016 01:27:21 GMT+0900 (JST)
 </div>
 </div>
 <script src="../../../../prettify.js"></script>
