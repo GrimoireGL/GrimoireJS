@@ -36,6 +36,7 @@ class ShaderParser {
         fragment = this._addPrecision(fragment, "float", "mediump");
         fragPrecision["float"] = "mediump";
       }
+      console.log(fragment);
       return {
         attributes: attributes,
         fragment: fragment,
@@ -171,11 +172,10 @@ class ShaderParser {
     }
     return result;
   }
-
+  // `
   private static _removeVariableAnnotations(source: string): string {
-    const regex = new RegExp("@\\{.+\\}", "g");
     let regexResult;
-    while ((regexResult = regex.exec(source))) {
+    while (regexResult = /@\{.+\}/g.exec(source)) {
       source = source.substr(0, regexResult.index) + source.substring(regexResult.index + regexResult[0].length, source.length);
     }
     return source;

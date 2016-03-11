@@ -1,3 +1,6 @@
+import ResourceManager from "../../ResourceManager";
+import JThreeContext from "../../../JThreeContext";
+import ContextComponents from "../../../ContextComponents";
 import MatrixArray from "../../../Math/MatrixArray";
 import VectorArray from "../../../Math/VectorArray";
 import Matrix from "../../../Math/Matrix";
@@ -29,6 +32,8 @@ class DefaultValuePreProcessor {
           case "mat4":
             tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forMat4(uniform); }));
             break;
+          case "sampler2D":
+            tasks.push(DefaultValuePreProcessor._forSampler2D(uniform));
         }
       } else {
         // When this uniform is array.
@@ -184,6 +189,23 @@ class DefaultValuePreProcessor {
         }
       }
     }
+  }
+
+  private static _forSampler2D(uniform: IVariableDescription): Q.IPromise<void> {
+    const defaultValue = uniform.variableAnnotation.default;
+    if (defaultValue) {
+      return DefaultValuePreProcessor._resourceManager.loadTexture(defaultValue).then((texture) => {
+        uniform.variableAnnotation.default = texture;
+      });
+    } else {
+      return DefaultValuePreProcessor._syncPromise(() => {
+        uniform.variableAnnotation.default = null;
+      });
+    }
+  }
+
+  private static get _resourceManager(): ResourceManager {
+    return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
   }
 }
 
